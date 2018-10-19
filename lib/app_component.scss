@@ -1,0 +1,215 @@
+@import 'src/colors';
+@import 'package:angular_components/material_toggle/mixins';
+@import 'package:angular_components/material_list/mixins';
+@import 'package:angular_components/material_expansionpanel/mixins';
+@import 'package:angular_components/app_layout/mixins';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  flex: 1;
+  width: 100vw;
+  height: 100vh;
+}
+
+header.material-header {
+  background-color: $primary_back;
+}
+
+#app-content {
+  background-color: $secondary_back;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+material-content {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+material-button img {
+  width: 1.5em;
+}
+
+.info .controls {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+
+.menuControls {
+  flex-direction: row;
+
+  material-button {
+    display: flex;
+    flex: 1;
+
+    material-icon, img {
+      margin-right: 1em;
+    }
+  }
+}
+
+material-drawer {
+}
+
+.drawer-root {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: $primary_back;
+  justify-content: space-between;
+  color: $primary_fore;
+}
+
+.formlist {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.send,
+.clear {
+  position: absolute;
+  right: 2em;
+  bottom: 2em;
+
+  material-icon {
+  }
+}
+
+.send {
+  background: $primary_back;
+  color: $primary_fore;
+}
+
+.clear {
+  background: $mat_red_500;
+  color: $mat_white;
+}
+
+#message {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: $mat-black;
+  color: white;
+  width: 100%;
+  padding: 0.5em;
+  z-index: 10001;
+  max-height: 50%;
+  overflow-y: auto;
+  flex-wrap: wrap;
+}
+
+#message .action {
+  color: $debug_action;
+}
+
+#postForm {
+  display: none;
+}
+
+.menuFabs {
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  div {
+    justify-content: space-evenly;
+  }
+
+  material-button {
+    background: $mat-green-400;
+    color: $mat-green-900;
+    margin: 0 1em;
+  }
+}
+
+.toggle-debug {
+  display: flex;
+  flex-direction: row;
+  color: $debug_color !important;
+  text-shadow: -1px 0 $debug_shadow, 0 1px $debug_shadow, 1px 0 $debug_shadow, 0 -1px $debug_shadow;
+  background: $debug_back !important;
+  padding: 0.3em;
+  align-items: center;
+  @include material-toggle-theme($primary-color: $debug_color);
+}
+
+.langPanel {
+  padding-left: 0.5em;
+  @include material-item-background($primary-back);
+  @include flat-material-list();
+  @include material-list-padding(0);
+}
+
+.legal {
+  font-size: 8pt;
+}
+
+.subtitle
+{
+  padding-top: 0.5em;
+  font-size: 50%;
+  opacity: 0.8;
+}
+
+material-fab.debug-trigger {
+  position: absolute;
+  bottom: 2em;
+  right: 5em;
+  background: $mat-orange-500;
+  color: $mat-white;
+}
+
+material-expansionpanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.betaTitle {
+  font-size: 50%;
+}
+
+.betaText {
+  animation: glowing 1s linear infinite alternate;
+}
+
+@keyframes glowing {
+  0% {
+    text-shadow: 0 0 0px;
+  }
+  100% {
+    text-shadow: 0 0 30px;
+  }
+}
+
+.betaBox {
+  box-shadow: 0 0 10px 3px #00ffff;
+}
+.headerinfo{
+  position: absolute;
+  right: 2em;
+  top: 0em;
+  display:flex;
+  flex-wrap: wrap;
+}
+
+.currLang
+{
+  background: $secondary-back;
+}
+nav a:visited,
+nav a:active,
+nav a
+{
+  text-decoration: none;
+  font-size: 75%;
+  opacity: 0.5;
+  color: $mat-white;
+}

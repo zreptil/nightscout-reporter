@@ -1,0 +1,145 @@
+<div id="app-content" [ngClass]="appTheme">
+  <header class="material-header shadow">
+    <div class="material-header-row">
+      <material-button *ngIf="hasMenuIcon && g.isConfigured"
+        icon id="btnMenu"
+                       class="material-drawer-button" (trigger)="drawer.toggle()">
+        <material-icon icon="menu"></material-icon>
+      </material-button>
+      <material-button  *ngIf="!hasMenuIcon && g.isConfigured"
+                        icon
+                       class="material-drawer-button" (trigger)="currPage='normal'">
+        <material-icon icon="chevron_left"></material-icon>
+      </material-button>
+      <div class="material-header-title">
+        {{g.title}}
+        <span class="betaText betaTitle" *ngIf="g.isBeta">BETA</span>
+        <div class="subtitle" *ngIf="currPage=='impressum'">{{msgImpressum}}</div>
+        <div class="subtitle" *ngIf="currPage=='dsgvo'">{{msgDSGVO}}</div>
+      </div>
+      <div class="material-spacer"></div>
+      <nav class="material-navigation">
+        <a href="http://www.nightscout.info/" target="_blank">#WeAreNotWaiting</a>
+      </nav>
+    </div>
+  </header>
+  <material-content>
+    <welcome *ngIf="currPage=='welcome'" (fabClicked)="currPage='settings'"></welcome>
+    <settings [isVisible]="currPage=='settings'" (settingsresult)="settingsResult"></settings>
+    <impressum *ngIf="currPage=='impressum'"></impressum>
+    <dsgvo *ngIf="currPage=='dsgvo'"></dsgvo>
+    <div class="progress" *ngIf="progressText != null">
+      <material-progress [activeProgress]="progressValue" [max]="progressMax"
+                         [indeterminate]="progressValue>progressMax"></material-progress>
+      <div>{{progressText}}</div>
+    </div>
+    <div *ngIf="progressText == null && currPage=='normal'">
+      <material-date-range-picker [configuration]="drConfig" [(range)]="g.dateRange" [presets]="dateRanges"
+                                  [showNextPrevButtons]="false" [maxDate]="today" [supportsComparison]="false"
+                                  [supportsDaysInputs]="false"
+                                  [applyButtonLabel]="msgApply"
+                                  [cancelButtonLabel]="msgCancel"
+                                  [outputFormat]="g.dateFormat"
+                                  [relativeDaysToToday]="false"></material-date-range-picker>
+      <div class="formlist">
+        <template ngFor let-form [ngForOf]="listForms">
+          <div *ngIf="!form.isDebugOnly || isDebug">
+            <material-checkbox [class]="form.isDebugOnly && isDebug?'toggle-debug':''" [(checked)]="form.checked"
+                               (change)="checkPrint()">
+              {{form.name}}
+            </material-checkbox>
+            <material-expansionpanel class="betaBox betaText" *ngIf="g.isBeta && form.params.length > 0" flat
+                                     name="Parameter" secondaryText=""
+                                     [showSaveCancel]="false"
+                                     [hideExpandedHeader]="true">
+              <template ngFor let-param [ngForOf]="form.params">
+                <material-checkbox *ngIf="param.type == 'bool'">
+                  {{param.key}}
+                </material-checkbox>
+              </template>
+            </material-expansionpanel>
+          </div>
+        </template>
+      </div>
+    </div>
+    <material-fab mini class="debug-trigger" *ngIf="g.canDebug" (trigger)="isDebug = !isDebug">
+      <material-icon icon="bug_report"></material-icon>
+    </material-fab>
+    <material-fab *ngIf="currPage=='normal'" [raised]="true" [class]="sendIcon" [disabled]="sendDisabled"
+                  (trigger)="sendClick()">
+      <material-icon [icon]="createIcon"></material-icon>
+    </material-fab>
+  </material-content>
+  <material-drawer scrollable persistent #drawer="drawer" [visible]="drawerVisible" [attr.overlay]="">
+    <div class="drawer-root">
+      <div class="menuControls">
+        <material-button class="material-drawer-button" (trigger)="currPage='welcome';drawer.toggle();">
+          <material-icon icon="home"></material-icon>
+          <ng-container @i18n="title of welcome screen">Willkommen</ng-container>
+        </material-button>
+        <material-button class="material-drawer-button"
+                         (trigger)="currPage='settings';drawer.toggle();">
+          <material-icon icon="settings"></material-icon>
+          <ng-container @i18n="title of settings">Einstellungen</ng-container>
+        </material-button>
+        <material-button *ngIf="g.apiUrl != null" class="material-drawer-button"
+                         (trigger)="drawer.toggle();callNightscout();">
+          <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
+          <ng-container @i18n="title of nightscout page">Nightscout Seite</ng-container>
+        </material-button>
+        <material-button *ngIf="g.reportUrl != null" class="material-drawer-button"
+                         (trigger)="drawer.toggle();callNightscoutReports();">
+          <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">{{msgNightscoutReport}}
+        </material-button>
+      </div>
+      <div>
+        <material-button icon class="material-drawer-button" (trigger)="toggleHelp()" [style.display]="'none'">
+          <material-icon icon="help"></material-icon>
+        </material-button>
+        <div>
+          <material-button *ngFor="let item of g.languageList"
+                                (trigger)="g.changeLanguage(item, saveImmediate: true)"
+                                [class]="item.code==currLang.code?'currLang':''">
+            <img src="{{item.imgPath}}">
+          </material-button>
+        </div>
+        <material-button class="legal"
+                         (trigger)="togglePage('impressum');drawer.toggle();">
+          {{msgImpressum}}
+        </material-button>
+        <material-button class="legal"
+                         (trigger)="togglePage('dsgvo');drawer.toggle();">
+          {{msgDSGVO}}
+        </material-button>
+        <div class="menuFabs" [style.display]="g.canDebug?'flex':'none'">
+          <div *ngIf="isDebug" class="toggle-debug">
+            <material-button icon mini class="material-drawer-button"
+                             (trigger)="drawer.toggle();navigate('https://jsonformatter.org/json-parser');">
+              <material-icon icon="code"></material-icon>
+            </material-button>
+            <material-button icon mini class="material-drawer-button"
+                             (trigger)="drawer.toggle();navigate('https://translate.google.com/toolkit/');">
+              <material-icon icon="g_translate"></material-icon>
+            </material-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </material-drawer>
+</div>
+<div id="message" *ngIf="!message.isEmpty" [class]="message.type" (click)="message.ok == null ? display('') : null">
+  <material-button *ngFor="let entry of message.links" (trigger)="navigate(entry['url'])"
+                   [class]="entry['class']">{{entry['title']}}
+  </material-button>
+  <p [innerHTML]="message.text"></p>
+  <material-button [style.display]="message.ok==null?'none':''" (trigger)="message.dismiss(message.ok)">
+    {{message.okText}}
+  </material-button>
+  <material-button [style.display]="message.cancel==null?'none':''" (trigger)="message.dismiss(message.cancel)">
+    {{message.cancelText}}
+  </material-button>
+</div>
+
+<form id="postForm" target="_blank" method="post" action="{{pdfUrl}}">
+  <input name="data" value="{{pdfData}}"/>
+</form>

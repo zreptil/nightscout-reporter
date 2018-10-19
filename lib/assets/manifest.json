@@ -1,0 +1,17 @@
+{
+  "icons": [
+    {
+      "sizes": "176x176",
+      "src": "favicon.png",
+      "type": "image/png"
+    }
+  ],
+  "display": "fullscreen",
+  "name": "Nightscout Reporter",
+  "permissions": [],
+  "prefer_related_applications": true,
+  "related_applications": [],
+  "short_name": "NS Reporter",
+  "start_url": "/index.html",
+  "url": "https://nightscout-reporter.zreptil.de/"
+}

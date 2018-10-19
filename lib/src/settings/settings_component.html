@@ -1,0 +1,44 @@
+<modal [visible]="isVisible">
+  <material-dialog headered class="headered-dialog">
+    <div header>
+      <div>
+        <h1 @i18n="title for settings dialog">Einstellungen</h1>
+        <p></p>
+      </div>
+    </div>
+    <div class="subtitle" @i18n="label for area with important data">Wichtige Daten</div>
+    <div>
+      <material-input [label]="msgUrlNightscout"
+                      autoFocus
+                      floatingLabel
+                      [(ngModel)]="g.storageApiUrl"
+                      (keyup.enter)="g.save();isVisible=false;">
+      </material-input>
+    </div>
+    <div class="subtitle" @i18n="label for area with optional data">Optionale Daten für den Ausdruck</div>
+    <div class="personalinfo">
+      <material-input [(ngModel)]="g.userName" floatingLabel [label]="msgName"></material-input>
+      <material-input [(ngModel)]="g.insulin" floatingLabel [label]="msgInsulin"></material-input>
+      <div class="datepicker-row">
+        <label @i18n="label of editfield for birthday">Geburtstag</label>
+        <material-datepicker [(date)]="g.birthDate" [minDate]="g.minBirthDate"></material-datepicker>
+      </div>
+      <div class="datepicker-row">
+        <label @i18n="label of editfield for diabetes since">Diabetes seit</label>
+        <material-datepicker [(date)]="g.diaStartDate" [minDate]="g.minBirthDate"></material-datepicker>
+      </div>
+    </div>
+    <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
+    <div>
+      <material-checkbox [(checked)]="g.isBeta" @i18n="label for checkbox to enable beta functions">Betafunktionen anzeigen</material-checkbox>
+    </div>
+    <div footer>
+      <material-button clear-size (trigger)="fire('cancel')" @i18n="buttonlabel for discarding data">
+        Verwerfen
+      </material-button>
+      <material-button autoFocus clear-size (trigger)="fire('ok');" @i18n="buttonlabel for saving data">
+        Speichern
+      </material-button>
+    </div>
+  </material-dialog>
+</modal>

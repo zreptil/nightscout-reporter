@@ -1,0 +1,31 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=Material+Icons);
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #57bb8a;
+}
+
+* {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.loading
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3em;
+  margin-left: -1.5em;
+  animation: loading 2s ease-in-out alternate infinite;
+}
+@keyframes loading {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

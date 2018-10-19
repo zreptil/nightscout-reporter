@@ -1,0 +1,57 @@
+@import '../colors';
+@import 'package:angular_components/material_dialog/mixins';
+
+:host {
+}
+material-dialog
+{
+
+  min-width: 80%;
+}
+
+material-input
+{
+  width: 100%;
+}
+
+.datepicker-row
+{
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+
+.datepicker-row label
+{
+  position: absolute;
+  top: -15px;
+  color: rgba(0, 0, 0, 0.541176);
+  font-size: 12px;
+}
+.personalinfo
+{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+material-dialog
+{
+  @include material-dialog-header-color($primary_back);
+}
+.languagePanel
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.currLang
+{
+  background: $mat-green-300;
+}
+.subtitle
+{
+  color: $primary_back;
+  font-size: 1.5em;
+  padding-bottom: 0.5em;
+}

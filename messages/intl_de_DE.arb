@@ -1,0 +1,476 @@
+{
+  "@@locale": "de_DE",
+  "@@last_modified": "2018-10-19T11:41:37.099494",
+  "Deutsch": "Deutsch",
+  "@Deutsch": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "English": "English",
+  "@English": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zeitraum": "Zeitraum",
+  "@Zeitraum": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die URL wurde noch nicht festgelegt.": "Die URL wurde noch nicht festgelegt.",
+  "@Die URL wurde noch nicht festgelegt.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die angegebene URL ist nicht korrekt.": "Die angegebene URL ist nicht korrekt.",
+  "@Die angegebene URL ist nicht korrekt.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die angegebene URL konnte nicht erreicht werden.": "Die angegebene URL konnte nicht erreicht werden.",
+  "@Die angegebene URL konnte nicht erreicht werden.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "IE": "IE",
+  "@IE": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Median": "Median",
+  "@Median": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zielbereich": "Zielbereich",
+  "@Zielbereich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zielwert": "Zielwert",
+  "@Zielwert": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukosekurve": "Glukosekurve",
+  "@Glukosekurve": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basalrate": "Basalrate",
+  "@Basalrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auswertung": "Auswertung",
+  "@Auswertung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgReadingsPerDay": "{howMany,plural, =0{Keine Messwerte vorhanden}=1{1 Messung am Tag}other{{fmt} Messungen am Tag}}",
+  "@msgReadingsPerDay": {
+    "type": "text",
+    "placeholders": {
+      "howMany": {},
+      "fmt": {}
+    }
+  },
+  "msgReadingsPerHour": "{howMany,plural, =0{Keine Messwerte vorhanden}=1{1 Messung pro Stunde}other{{fmt} Messungen pro Stunde}}",
+  "@msgReadingsPerHour": {
+    "type": "text",
+    "placeholders": {
+      "howMany": {},
+      "fmt": {}
+    }
+  },
+  "msgReadingsInMinutes": "{howMany,plural, =0{Keine Messwerte vorhanden}=1{1 Messung pro Minute}other{Messung alle {fmt} Minuten}}",
+  "@msgReadingsInMinutes": {
+    "type": "text",
+    "placeholders": {
+      "howMany": {},
+      "fmt": {}
+    }
+  },
+  "msgValuesIn": "Werte zwischen {low} und {high}:",
+  "@msgValuesIn": {
+    "type": "text",
+    "placeholders": {
+      "low": {},
+      "high": {}
+    }
+  },
+  "msgValuesBelow": "Werte unter {low}:",
+  "@msgValuesBelow": {
+    "type": "text",
+    "placeholders": {
+      "low": {}
+    }
+  },
+  "msgValuesAbove": "Werte über {high}:",
+  "@msgValuesAbove": {
+    "type": "text",
+    "placeholders": {
+      "high": {}
+    }
+  },
+  "msgKHBE": "g KH ({value} BE)",
+  "@msgKHBE": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgReservoirDays": "{count,plural, =0{(keine Ampulle)}=1{(Ø {count} Tag pro Ampulle)}other{(Ø {count} Tage pro Ampulle)}}",
+  "@msgReservoirDays": {
+    "type": "text",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "msgCatheterDays": "{count,plural, =0{(keine Katheter)}=1{(Ø {count} Tag pro Katheter)}other{(Ø {count} Tage pro Katheter)}}",
+  "@msgCatheterDays": {
+    "type": "text",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "Geburtstag :": "Geburtstag :",
+  "@Geburtstag :": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Diabetes seit:": "Diabetes seit:",
+  "@Diabetes seit:": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin:": "Insulin:",
+  "@Insulin:": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ausgewertete Tage:": "Ausgewertete Tage:",
+  "@Ausgewertete Tage:": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzahl Messungen:": "Anzahl Messungen:",
+  "@Anzahl Messungen:": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzahl Ampullen:": "Anzahl Ampullen:",
+  "@Anzahl Ampullen:": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzahl Katheter:": "Anzahl Katheter:",
+  "@Anzahl Katheter:": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "geschätzter HbA1c": "geschätzter HbA1c",
+  "@geschätzter HbA1c": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Niedrigster Wert im Zeitraum:": "Niedrigster Wert im Zeitraum:",
+  "@Niedrigster Wert im Zeitraum:": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Höchster Wert im Zeitraum:": "Höchster Wert im Zeitraum:",
+  "@Höchster Wert im Zeitraum:": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zuckerwert": "Zuckerwert",
+  "@Zuckerwert": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "KH pro Tag": "KH pro Tag",
+  "@KH pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Insulin pro Tag": "Ø Insulin pro Tag",
+  "@Ø Insulin pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Bolus pro Tag": "Ø Bolus pro Tag",
+  "@Ø Bolus pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Basal pro Tag": "Ø Basal pro Tag",
+  "@Ø Basal pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Insulinverhältnis": "Ø Insulinverhältnis",
+  "@Ø Insulinverhältnis": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bolus": "Bolus",
+  "@Bolus": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basal": "Basal",
+  "@Basal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Keine": "Keine",
+  "@Keine": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bis": "bis",
+  "@bis": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgValidRange": "gültig von {begDate} bis {endDate}",
+  "@msgValidRange": {
+    "type": "text",
+    "placeholders": {
+      "begDate": {},
+      "endDate": {}
+    }
+  },
+  "msgValidFrom": "gültig ab {begDate}",
+  "@msgValidFrom": {
+    "type": "text",
+    "placeholders": {
+      "begDate": {}
+    }
+  },
+  "Ges.": "Ges.",
+  "@Ges.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Uhr-\nzeit": "Uhr-\nzeit",
+  "@Uhr-\nzeit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Uhrzeit": "Uhrzeit",
+  "@Uhrzeit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anpas-\nsung": "Anpas-\nsung",
+  "@Anpas-\nsung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesgrafik": "Tagesgrafik",
+  "@Tagesgrafik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesstatistik": "Tagesstatistik",
+  "@Tagesstatistik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgLow": "Tief{value}",
+  "@msgLow": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgHigh": "Hoch{value}",
+  "@msgHigh": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "Datum": "Datum",
+  "@Datum": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verteilung": "Verteilung",
+  "@Verteilung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Normal": "Normal",
+  "@Normal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Messwerte": "Messwerte",
+  "@Messwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Min": "Min",
+  "@Min": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Max": "Max",
+  "@Max": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Mittelwert": "Mittelwert",
+  "@Mittelwert": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Std.\nAbw.": "Std.\nAbw.",
+  "@Std.\nAbw.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "25%": "25%",
+  "@25%": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "75%": "75%",
+  "@75%": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Perzentil Diagramm": "Perzentil Diagramm",
+  "@Perzentil Diagramm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose Perzentil Diagramm": "Glukose Perzentil Diagramm",
+  "@Glukose Perzentil Diagramm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "10% - 90% der Werte": "10% - 90% der Werte",
+  "@10% - 90% der Werte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "25% - 75% der Werte": "25% - 75% der Werte",
+  "@25% - 75% der Werte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com/api/v1": "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com/api/v1",
+  "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com/api/v1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Name": "Name",
+  "@Name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin": "Insulin",
+  "@Insulin": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Willkommen": "Willkommen",
+  "@Willkommen": {
+    "description": "title of welcome screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einstellungen": "Einstellungen",
+  "@Einstellungen": {
+    "description": "title for settings dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nightscout Seite": "Nightscout Seite",
+  "@Nightscout Seite": {
+    "description": "title of nightscout page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wichtige Daten": "Wichtige Daten",
+  "@Wichtige Daten": {
+    "description": "label for area with important data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Optionale Daten für den Ausdruck": "Optionale Daten für den Ausdruck",
+  "@Optionale Daten für den Ausdruck": {
+    "description": "label for area with optional data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Geburtstag": "Geburtstag",
+  "@Geburtstag": {
+    "description": "label of editfield for birthday",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Diabetes seit": "Diabetes seit",
+  "@Diabetes seit": {
+    "description": "label of editfield for diabetes since",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zusatzfunktionen": "Zusatzfunktionen",
+  "@Zusatzfunktionen": {
+    "description": "label of area for additional functions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Betafunktionen anzeigen": "Betafunktionen anzeigen",
+  "@Betafunktionen anzeigen": {
+    "description": "label for checkbox to enable beta functions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verwerfen": "Verwerfen",
+  "@Verwerfen": {
+    "description": "buttonlabel for discarding data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Speichern": "Speichern",
+  "@Speichern": {
+    "description": "buttonlabel for saving data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "This page is also available in english": "This page is also available in english",
+  "@This page is also available in english": {
+    "description": "label for button to switch to other language",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.",
+  "@Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": {
+    "description": "welcome section 1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Daten, die Du hier eingibst, werden im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. Es werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "Die Daten, die Du hier eingibst, werden im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. Es werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.",
+  "@Die Daten, die Du hier eingibst, werden im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. Es werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": {
+    "description": "welcome section 2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.",
+  "@Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": {
+    "description": "welcome section 3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einstellungen für die Verwendung der Seite vornehmen": "Einstellungen für die Verwendung der Seite vornehmen",
+  "@Einstellungen für die Verwendung der Seite vornehmen": {
+    "description": "label for button to open settings on welcome screen",
+    "type": "text",
+    "placeholders": {}
+  }
+}

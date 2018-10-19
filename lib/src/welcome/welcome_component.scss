@@ -1,0 +1,38 @@
+@import '../colors';
+
+:host {
+  display: flex;
+  flex: 1;
+  width: 100vw;
+}
+.root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  background-color: $secondary_back;
+  padding: 1em;
+}
+h1
+{
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+}
+.root>div
+{
+  text-align: justify;
+  padding-top: 1.0em;
+}
+a,a:visited,a:active
+{
+  text-decoration: none;
+  cursor: pointer;
+  color: $primary-back;
+}
+material-button{
+  material-icon, img
+  {
+    margin-right: 1em;
+  }
+}
+
