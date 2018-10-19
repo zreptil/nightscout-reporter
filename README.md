@@ -1,3 +1,3 @@
 # Nightscout Reporter
 
-A web app using AngularDart to create PDF documents from nightscout data.
+A web app based on AngularDart to create PDF documents from nightscout data.
