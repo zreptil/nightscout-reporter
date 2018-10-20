@@ -140,6 +140,6 @@
   </material-button>
 </div>
 
-<form id="postForm" target="_blank" method="post" action="{{pdfUrl}}">
+<form id="postForm" [target]="g.pdfTarget" method="post" action="{{pdfUrl}}">
   <input name="data" value="{{pdfData}}"/>
 </form>

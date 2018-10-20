@@ -28,7 +28,9 @@ import 'src/welcome/welcome_component.dart';
 // Components info: https://webdev.dartlang.org/components
 
 @Component(selector: 'my-app',
-  styleUrls: ['app_component.css', 'package:angular_components/app_layout/layout.scss.css'],
+  styleUrls: [
+    'app_component.css', 'package:angular_components/app_layout/layout.scss.css'
+  ],
   templateUrl: 'app_component.html',
   directives: [
     MaterialDateRangePickerComponent,
@@ -63,7 +65,7 @@ class AppComponent
   => _currPage;
   set currPage(String value)
   {
-    _lastPage = currPage;
+    if (currPage != "welcome")_lastPage = currPage;
     _currPage = value;
   }
 
@@ -88,16 +90,23 @@ class AppComponent
   => currPage != "impressum" && currPage != "dsgvo" && currPage != "welcome";
 
   msgLoadingData(error, stacktrace)
-  => Intl.message("Fehler beim Laden der Daten:\n$error\n$stacktrace", args: [error, stacktrace], name: "msgLoadingData");
+  =>
+    Intl.message("Fehler beim Laden der Daten:\n$error\n$stacktrace",
+      args: [error, stacktrace], name: "msgLoadingData");
   msgLoadingDataFor(date)
-  => Intl.message("Lade Daten für $date...", args: [date], name: "msgLoadingDataFor", desc: "displayed when data of a day is loading");
+  =>
+    Intl.message("Lade Daten für $date...", args: [date],
+      name: "msgLoadingDataFor",
+      desc: "displayed when data of a day is loading");
   dynamic currLang = {};
   String get msgClose
   => Intl.message("Schliessen");
   String get msgEmptyRange
   => Intl.message("Bitte einen Zeitraum wählen.");
   String get msgPreparingData
-  => Intl.message("Bereite Daten vor...", desc: "text when data was received and is being prepared to be used in the report");
+  =>
+    Intl.message("Bereite Daten vor...",
+      desc: "text when data was received and is being prepared to be used in the report");
   String get msgCreatingPDF
   => Intl.message("Erzeuge PDF...", desc: "text when pdf is being created");
   String get msgImpressum
@@ -111,7 +120,9 @@ class AppComponent
   String get msgCancel
   => Intl.message("verwerfen");
   String get msgPDFCreated
-  => Intl.message("Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.");
+  =>
+    Intl.message(
+      "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.");
 
   @override
   Future<Null> ngOnInit()
@@ -128,36 +139,45 @@ class AppComponent
 //    await findSystemLocale();
 //    await initializeDateFormatting();
     String title = Intl.message("Zeitraum");
-    if (g != null && g.dateRange != null && g.dateRange.comparison != null)title = g.dateRange.comparison.title;
+    if (g != null && g.dateRange != null && g.dateRange.comparison != null)
+      title = g.dateRange.comparison.title;
     dateRanges.clear();
-    dateRanges.add(DatepickerPreset(Intl.message("Heute"), DatepickerDateRange(title, Date.today(), Date.today())));
-    dateRanges.add(DatepickerPreset(Intl.message("Letzte 2 Tage"), DatepickerDateRange(title, Date.today().add(days: -1), Date.today())));
-    dateRanges.add(DatepickerPreset(Intl.message("Letzte 3 Tage"), DatepickerDateRange(title, Date.today().add(days: -2), Date.today())));
-    dateRanges.add(DatepickerPreset(Intl.message("Letzte Woche"), DatepickerDateRange(title, Date.today().add(days: -7), Date.today())));
-    dateRanges.add(DatepickerPreset(Intl.message("Letzte 2 Wochen"), DatepickerDateRange(title, Date.today().add(days: -14), Date.today())));
-    dateRanges.add(DatepickerPreset(Intl.message("Letzte 3 Wochen"), DatepickerDateRange(title, Date.today().add(days: -21), Date.today())));
-    dateRanges.add(DatepickerPreset(Intl.message("Letzter Monat"), DatepickerDateRange(title, Date.today().add(months: -1), Date.today())));
-    dateRanges.add(DatepickerPreset(Intl.message("Letzte 3 Monate"), DatepickerDateRange(title, Date.today().add(months: -3), Date.today())));
+    dateRanges.add(DatepickerPreset(Intl.message("Heute"),
+      DatepickerDateRange(title, Date.today(), Date.today())));
+    dateRanges.add(DatepickerPreset(Intl.message("Letzte 2 Tage"),
+      DatepickerDateRange(title, Date.today().add(days: -1), Date.today())));
+    dateRanges.add(DatepickerPreset(Intl.message("Letzte 3 Tage"),
+      DatepickerDateRange(title, Date.today().add(days: -2), Date.today())));
+    dateRanges.add(DatepickerPreset(Intl.message("Letzte Woche"),
+      DatepickerDateRange(title, Date.today().add(days: -7), Date.today())));
+    dateRanges.add(DatepickerPreset(Intl.message("Letzte 2 Wochen"),
+      DatepickerDateRange(title, Date.today().add(days: -14), Date.today())));
+    dateRanges.add(DatepickerPreset(Intl.message("Letzte 3 Wochen"),
+      DatepickerDateRange(title, Date.today().add(days: -21), Date.today())));
+    dateRanges.add(DatepickerPreset(Intl.message("Letzter Monat"),
+      DatepickerDateRange(title, Date.today().add(months: -1), Date.today())));
+    dateRanges.add(DatepickerPreset(Intl.message("Letzte 3 Monate"),
+      DatepickerDateRange(title, Date.today().add(months: -3), Date.today())));
     currLang = g.language;
 
     display(null);
     g.checkSetup().then((String error)
     {
-      g.isConfigured = error == null;
-      _currPage = g.isConfigured ? "normal" : _lastPage;
+      g.isConfigured = error == null || error.isEmpty;
+      _currPage = g.isConfigured ? "normal" : "welcome";
     });
   }
 
   void toggleHelp()
-  {
-  }
+  {}
 
   void togglePage(String id)
   {
     currPage = currPage == id ? "normal" : id;
   }
 
-  void displayLink(String title, String url, {bool clear: false, String type: null, String btnClass: ""})
+  void displayLink(String title, String url,
+                   {bool clear: false, String type: null, String btnClass: ""})
   {
     if (!isDebug)return;
 
@@ -196,7 +216,9 @@ class AppComponent
   {
     if (url == "showPlayground" || url == "showPdf")
     {
-      pdfUrl = url == "showPlayground" ? "http://pdf.zreptil.de/playground.php" : "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
+      pdfUrl = url == "showPlayground"
+        ? "http://pdf.zreptil.de/playground.php"
+        : "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
       Future.delayed(Duration(milliseconds: 1), ()
       {
         var form = html.querySelector("#postForm") as html.FormElement;
@@ -220,7 +242,7 @@ class AppComponent
         break;
       default:
         g.load();
-        _currPage = _lastPage;
+        _currPage = g.isConfigured ? _lastPage : "welcome";
         break;
     }
   }
@@ -230,10 +252,10 @@ class AppComponent
     display(null);
     g.checkSetup().then((String error)
     {
-      g.isConfigured = error == null;
-      _currPage = g.isConfigured ? "normal" : _lastPage;
+      g.isConfigured = error == null || error.isEmpty;
+      _currPage = g.isConfigured ? _lastPage : "welcome";
 
-      if (error != null)display(error);
+      if (!g.isConfigured)display(error);
     });
   }
 
@@ -247,12 +269,16 @@ class AppComponent
   globals.ReportData reportData = null;
   Future<globals.ReportData> loadData()
   async {
-    if (reportData != null && reportData.begDate == g.dateRange.range.start && reportData.endDate == g.dateRange.range.end)return reportData;
+    if (reportData != null && reportData.begDate == g.dateRange.range.start &&
+      reportData.endDate == g.dateRange.range.end)return reportData;
 
-    globals.ReportData data = globals.ReportData(g, g.dateRange.range.start, g.dateRange.range.end);
+    globals.ReportData data = globals.ReportData(
+      g, g.dateRange.range.start, g.dateRange.range.end);
     reportData = data;
-    DateTime bd = DateTime(data.begDate.year, data.begDate.month, data.begDate.day);
-    DateTime ed = DateTime(data.endDate.year, data.endDate.month, data.endDate.day);
+    DateTime bd = DateTime(
+      data.begDate.year, data.begDate.month, data.begDate.day);
+    DateTime ed = DateTime(
+      data.endDate.year, data.endDate.month, data.endDate.day);
 
     progressMax = ed
       .difference(bd)
@@ -267,11 +293,15 @@ class AppComponent
 
     while (begDate <= endDate)
     {
-      DateTime beg = DateTime(begDate.year, begDate.month, begDate.day, 0, 0, 0).toUtc();
-      DateTime end = DateTime(begDate.year, begDate.month, begDate.day, 23, 59, 59).toUtc();
+      DateTime beg = DateTime(begDate.year, begDate.month, begDate.day, 0, 0, 0)
+        .toUtc();
+      DateTime end = DateTime(
+        begDate.year, begDate.month, begDate.day, 23, 59, 59).toUtc();
 
       progressText = msgLoadingDataFor(begDate.format(g.fmtDateForDisplay));
-      String url = "${g.apiUrl}entries.json?find[dateString][\$gte]=${beg.toIso8601String()}&find[dateString][\$lte]=${end.toIso8601String()}&count=100000";
+      String url = "${g.apiUrl}entries.json?find[dateString][\$gte]=${beg
+        .toIso8601String()}&find[dateString][\$lte]=${end
+        .toIso8601String()}&count=100000";
       displayLink("e${begDate.format(g.fmtDateForDisplay)}", url);
       List<dynamic> src = json.decode(await html.HttpRequest.getString(url));
       for (dynamic entry in src)
@@ -282,7 +312,9 @@ class AppComponent
           data.ns.entries.add(e);
         }
       }
-      url = "${g.apiUrl}treatments.json?find[created_at][\$gte]=${beg.toIso8601String()}&find[created_at][\$lte]=${end.toIso8601String()}&count=100000";
+      url = "${g.apiUrl}treatments.json?find[created_at][\$gte]=${beg
+        .toIso8601String()}&find[created_at][\$lte]=${end
+        .toIso8601String()}&count=100000";
       displayLink("t${begDate.format(g.fmtDateForDisplay)}", url);
       src = json.decode(await html.HttpRequest.getString(url));
       for (dynamic treatment in src)
@@ -308,14 +340,18 @@ class AppComponent
 //*
       // Create an array with values every [diffTime] minutes
       List<globals.EntryData> entryList = List<globals.EntryData>();
-      DateTime target = DateTime(data.ns.entries.first.time.year, data.ns.entries.first.time.month, data.ns.entries.first.time.day);
+      DateTime target = DateTime(
+        data.ns.entries.first.time.year, data.ns.entries.first.time.month,
+        data.ns.entries.first.time.day);
       globals.EntryData prev = data.ns.entries.first;
       globals.EntryData next = globals.EntryData();
       next.time = target;
       // distribute entries
       for (globals.EntryData entry in data.ns.entries)
       {
-        DateTime current = DateTime(entry.time.year, entry.time.month, entry.time.day, entry.time.hour, entry.time.minute);
+        DateTime current = DateTime(
+          entry.time.year, entry.time.month, entry.time.day, entry.time.hour,
+          entry.time.minute);
         if (current.isAtSameMomentAs(target))
         {
           prev = entry;
@@ -450,8 +486,7 @@ class AppComponent
 //      done(data);
     }
     else
-    {
-    }
+    {}
     return data;
   }
 
@@ -476,7 +511,8 @@ class AppComponent
     async {
       if (vars.error != null)
       {
-        display(msgLoadingData(vars.error.toString(), vars.error.stackTrace.toString()));
+        display(msgLoadingData(
+          vars.error.toString(), vars.error.stackTrace.toString()));
         return;
       }
       progressText = msgCreatingPDF;
@@ -492,7 +528,8 @@ class AppComponent
             doc = {
               "pageSize": "a4",
               "pageOrientation": form.isPortrait ? "portrait" : "landscape",
-              "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
+              "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)
+              ],
               "content": data,
               "images": form.images,
               "styles": {
@@ -500,8 +537,16 @@ class AppComponent
                 "perstitle": {"fontSize": 10, "alignment": "right"},
                 "persdata": {"fontSize": 10, "color": "#0000ff"},
                 "infotitle": {"fontSize": 10, "alignment": "left"},
-                "infodata": {"fontSize": 10, "alignment": "right", "color": "#0000ff"},
-                "infounit": {"margin": [0, form.cm(0.07), 0, 0], "fontSize": 8, "color": "#0000ff"},
+                "infodata": {
+                  "fontSize": 10,
+                  "alignment": "right",
+                  "color": "#0000ff"
+                },
+                "infounit": {
+                  "margin": [0, form.cm(0.07), 0, 0],
+                  "fontSize": 8,
+                  "color": "#0000ff"
+                },
                 "hba1c": {"color": "#5050ff"},
                 "total": {"bold": true, "fillColor": "#d0d0d0"}
               }
@@ -509,7 +554,12 @@ class AppComponent
           }
           else
           {
-            var pagebreak = {"text": "", "pageBreak": "after", "pageSize": "a4", "pageOrientation": form.isPortrait ? "portrait" : "landscape",};
+            var pagebreak = {
+              "text": "",
+              "pageBreak": "after",
+              "pageSize": "a4",
+              "pageOrientation": form.isPortrait ? "portrait" : "landscape",
+            };
             doc["content"].add(pagebreak);
             for (var entry in data)
               doc["content"].add(entry);

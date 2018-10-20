@@ -783,7 +783,7 @@ class ListData
     int count = 0;
     for (var entry in entries)
     {
-      if(entry.gluc > 0)
+      if (entry.gluc > 0)
       {
         ret += entry.gluc;
         count++;
@@ -963,7 +963,7 @@ class Globals
 
   String get reportUrl
   {
-    if(storageApiUrl == null || !storageApiUrl.contains("herokuapp"))
+    if (storageApiUrl == null || !storageApiUrl.contains("herokuapp"))
       return null;
 
     return storageApiUrl.substring(0, storageApiUrl.indexOf("/api"));
@@ -977,7 +977,14 @@ class Globals
   DateFormat fmtDateForDisplay;
   bool canDebug = false;
   bool isBeta = false;
+  bool pdfSameWindow = true;
   bool isConfigured = false;
+
+  String get pdfTarget
+  {
+    if (!pdfSameWindow)return "_target";
+    return "";
+  }
 
   Future<String> checkSetup()
   async {
@@ -1036,6 +1043,7 @@ class Globals
       html.window.localStorage["diaStartDate"] ?? "2000-01-01", fmtDateForData);
     canDebug = html.window.localStorage["debug"] == "yes";
     isBeta = html.window.localStorage["beta"] == "yes";
+    pdfSameWindow = html.window.localStorage["pdfSameWindow"] != "no";
 
     Date start = Date.today();
     Date end = Date.today();
@@ -1067,6 +1075,7 @@ class Globals
       diaStartDate.format(fmtDateForData);
     html.window.localStorage["language"] = language.code ?? "de_DE";
     html.window.localStorage["beta"] = isBeta ? "yes" : "no";
+    html.window.localStorage["pdfSameWindow"] = pdfSameWindow ? "yes" : "no";
     if (dateRange.range != null)
     {
       if (dateRange.range.start != null) html.window.localStorage["startDate"] =

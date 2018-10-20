@@ -11,8 +11,7 @@
       <material-input [label]="msgUrlNightscout"
                       autoFocus
                       floatingLabel
-                      [(ngModel)]="g.storageApiUrl"
-                      (keyup.enter)="g.save();isVisible=false;">
+                      [(ngModel)]="g.storageApiUrl">
       </material-input>
     </div>
     <div class="subtitle" @i18n="label for area with optional data">Optionale Daten für den Ausdruck</div>
@@ -29,6 +28,9 @@
       </div>
     </div>
     <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
+    <div>
+      <material-checkbox [(checked)]="g.pdfSameWindow" @i18n="label for checkbox to open PDF in same window">PDF im selben Fenster öffnen</material-checkbox>
+    </div>
     <div>
       <material-checkbox [(checked)]="g.isBeta" @i18n="label for checkbox to enable beta functions">Betafunktionen anzeigen</material-checkbox>
     </div>
