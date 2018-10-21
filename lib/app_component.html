@@ -2,12 +2,12 @@
   <header class="material-header shadow">
     <div class="material-header-row">
       <material-button *ngIf="hasMenuIcon && g.isConfigured"
-        icon id="btnMenu"
+                       icon id="btnMenu"
                        class="material-drawer-button" (trigger)="drawer.toggle()">
         <material-icon icon="menu"></material-icon>
       </material-button>
-      <material-button  *ngIf="!hasMenuIcon && g.isConfigured"
-                        icon
+      <material-button *ngIf="!hasMenuIcon && g.isConfigured"
+                       icon
                        class="material-drawer-button" (trigger)="currPage='normal'">
         <material-icon icon="chevron_left"></material-icon>
       </material-button>
@@ -20,6 +20,7 @@
       <div class="material-spacer"></div>
       <nav class="material-navigation">
         <a href="http://www.nightscout.info/" target="_blank">#WeAreNotWaiting</a>
+        <a class="link-button" *ngIf="g.showUrl" (click)="currPage='settings'">{{g.storageApiUrl}}</a>
       </nav>
     </div>
   </header>
@@ -62,7 +63,7 @@
         </template>
       </div>
     </div>
-    <material-fab mini class="debug-trigger" *ngIf="g.canDebug" (trigger)="isDebug = !isDebug">
+    <material-fab mini class="debug-trigger" *ngIf="g.canDebug && currPage=='normal'" (trigger)="isDebug = !isDebug">
       <material-icon icon="bug_report"></material-icon>
     </material-fab>
     <material-fab *ngIf="currPage=='normal'" [raised]="true" [class]="sendIcon" [disabled]="sendDisabled"
@@ -87,6 +88,11 @@
           <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
           <ng-container @i18n="title of nightscout page">Nightscout Seite</ng-container>
         </material-button>
+        <material-button *ngIf="g.isBeta" class="material-drawer-button"
+                         (trigger)="drawer.toggle();navigate('https://autotuneweb.azurewebsites.net/');">
+          <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
+          <ng-container @i18n="title of autotune page">Autotune </ng-container>
+        </material-button>
         <material-button *ngIf="g.reportUrl != null" class="material-drawer-button"
                          (trigger)="drawer.toggle();callNightscoutReports();">
           <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">{{msgNightscoutReport}}
@@ -98,8 +104,8 @@
         </material-button>
         <div>
           <material-button *ngFor="let item of g.languageList"
-                                (trigger)="g.changeLanguage(item, saveImmediate: true)"
-                                [class]="item.code==currLang.code?'currLang':''">
+                           (trigger)="g.changeLanguage(item, saveImmediate: true)"
+                           [class]="item.code==currLang.code?'currLang':''">
             <img src="{{item.imgPath}}">
           </material-button>
         </div>
@@ -127,19 +133,25 @@
     </div>
   </material-drawer>
 </div>
-<div id="message" *ngIf="!message.isEmpty" [class]="message.type" (click)="message.ok == null ? display('') : null">
-  <material-button *ngFor="let entry of message.links" (trigger)="navigate(entry['url'])"
-                   [class]="entry['class']">{{entry['title']}}
-  </material-button>
-  <p [innerHTML]="message.text"></p>
-  <material-button [style.display]="message.ok==null?'none':''" (trigger)="message.dismiss(message.ok)">
-    {{message.okText}}
-  </material-button>
-  <material-button [style.display]="message.cancel==null?'none':''" (trigger)="message.dismiss(message.cancel)">
-    {{message.cancelText}}
-  </material-button>
+<div id="messagePanel" *ngIf="message.links.length > 0 || !message.isEmpty">
+  <div id="msgLinks" *ngIf="message.links.length > 0" class="msg toggle-debug">
+    <material-button *ngFor="let entry of message.links" (trigger)="navigate(entry['url'])"
+                     [class]="entry['class']">{{entry['title']}}
+    </material-button>
+    <material-button (trigger)="message.links=[]" @i18n="label for button to close links-panel">
+      Schliessen
+    </material-button>
+  </div>
+  <div id="message" *ngIf="!message.isEmpty" [class]="message.type" (click)="message.ok == null ? display('') : null">
+    <p [innerHTML]="message.text"></p>
+    <material-button [style.display]="message.ok==null?'none':''" (trigger)="message.dismiss(message.ok)">
+      {{message.okText}}
+    </material-button>
+    <material-button [style.display]="message.cancel==null?'none':''" (trigger)="message.dismiss(message.cancel)">
+      {{message.cancelText}}
+    </material-button>
+  </div>
 </div>
-
 <form id="postForm" [target]="g.pdfTarget" method="post" action="{{pdfUrl}}">
   <input name="data" value="{{pdfData}}"/>
 </form>

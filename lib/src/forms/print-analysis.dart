@@ -122,11 +122,11 @@ class PrintAnalysis extends BasePrint
     var data = src.ns;
 
     var avgGluc = data.avgGluc;
-    var glucWarnColor = "#ffffff";
+    var glucWarnColor = colNorm;
     var glucWarnText = "";
     var hba1c = (avgGluc + 86) / 33.3;
 //    if (hba1c > 7)glucWarnColor = blendColor("ffffff", "ff0000", (hba1c - 7) / 2);
-    if (avgGluc >= src.status.settings.thresholds.bgTargetTop) glucWarnColor =
+    if (avgGluc >= src.status.settings.thresholds.bgTargetTop && avgGluc < src.status.settings.thresholds.bgTargetTop) glucWarnColor =
       blendColor(glucWarnColor, colHigh,
         (avgGluc - src.status.settings.thresholds.bgTargetTop) /
           (180 - src.status.settings.thresholds.bgTargetTop));
@@ -134,6 +134,8 @@ class PrintAnalysis extends BasePrint
       glucWarnColor = blendColor(glucWarnColor, colHigh,
         (src.status.settings.thresholds.bgTargetBottom - avgGluc) /
           (src.status.settings.thresholds.bgTargetBottom));
+    else if (avgGluc > src.status.settings.thresholds.bgTargetTop)
+      glucWarnColor = colHigh;
 /*
     var pumpList = [];
     for (var entry in config ["pumps"])
@@ -157,7 +159,8 @@ class PrintAnalysis extends BasePrint
       }
     }
 
-    double f = 1.8;
+    double graphTop = 10.3;
+    double f = 1.5;
 
     double tgHigh = data.highCount / data.count * f;
     double tgNorm = data.normCount / data.count * f;
@@ -185,14 +188,14 @@ class PrintAnalysis extends BasePrint
             [
               {"text": msgBirthday, "style": "perstitle"},
               {
-                "text": fmtDate(src.globals.birthDate, "??.??.????"),
+                "text": src.globals.birthDate,
                 "style": "persdata"
               }
             ],
             [
               {"text": msgDiabSince, "style": "perstitle"},
               {
-                "text": fmtDate(src.globals.diaStartDate, "??.??.????"),
+                "text": src.globals.diaStartDate,
                 "style": "persdata"
               }
             ],
@@ -207,7 +210,7 @@ class PrintAnalysis extends BasePrint
 //         ,{ "text": "\nBerechnungswerte:", bold: true}
       ,
       {
-        "absolutePosition": {"x": cm(13.7), "y": cm(10.3)},
+        "absolutePosition": {"x": cm(13.7), "y": cm(graphTop)},
         "canvas": [
           {
             "type": "rect",
@@ -236,7 +239,7 @@ class PrintAnalysis extends BasePrint
         ]
       },
       {
-        "absolutePosition": {"x": cm(13.7), "y": cm(12.6)},
+        "absolutePosition": {"x": cm(13.7), "y": cm(graphTop + 2.3)},
         "canvas": [
           {
             "type": "rect",
@@ -265,7 +268,7 @@ class PrintAnalysis extends BasePrint
         ]
       },
       {
-        "absolutePosition": {"x": cm(13.7), "y": cm(16.2)},
+        "absolutePosition": {"x": cm(13.7), "y": cm(graphTop + 5.9)},
         "canvas": [ {
           "type": "rect",
           "x": 0,

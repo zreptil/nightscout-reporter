@@ -38,7 +38,7 @@ class SettingsComponent
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
 
   String get msgUrlNightscout
-  => Intl.message("Url zur Nightscout-API (z.B. https://xxx.herokuapp.com/api/v1");
+  => Intl.message("Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)");
   String get msgName => Intl.message("Name");
   String get msgInsulin => Intl.message("Insulin");
 

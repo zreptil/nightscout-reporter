@@ -153,22 +153,20 @@ class PrintPercentile extends BasePrint
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
-      vertStack.add({
-        "absolutePosition": {
-          "x": cm(xo - 1.1),
-          "y": cm(yo + (gridLines - i) * lineHeight - 0.15)
-        },
-        "text": "${fmtNumber(i * 50, 0)} $msgInsulinUnit",
-        "fontSize": "8"
-      });
-      vertStack.add({
-        "absolutePosition": {
-          "x": cm(xo + 24 * colWidth + 0.3),
-          "y": cm(yo + (gridLines - i) * lineHeight - 0.15)
-        },
-        "text": "${fmtNumber(i * 50, 0)} $msgInsulinUnit",
-        "fontSize": "8"
-      });
+      if(i>0)
+      {
+        String text = "${glucFromData(fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
+        vertStack.add({
+          "absolutePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
+          "text": text,
+          "fontSize": "8"
+        });
+        vertStack.add({
+          "absolutePosition": {"x": cm(xo + 24 * colWidth + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
+          "text": text,
+          "fontSize": "8"
+        });
+      }
     }
     glucMax = gridLines * 50.0;
     double yHigh = glucY(src

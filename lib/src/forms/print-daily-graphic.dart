@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:math';
 
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
@@ -106,8 +107,20 @@ class PrintDailyGraphic extends BasePrint
     List graphCvs = graph["canvas"];
     for (var i = 0; i < 25; i++)
     {
-      vertCvs.add({"type": "line", "x1": cm(i * colWidth), "y1": 0, "x2": cm(i * colWidth), "y2": cm(lineHeight * gridLines + 0.25), "lineWidth": cm(lw), "lineColor": i > 0 && i < 24 ? lc : lcFrame});
-      if (i < 24)horzStack.add({"absolutePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)}, "text": fmtTime(i), "fontSize": "8"});
+      vertCvs.add({
+        "type": "line",
+        "x1": cm(i * colWidth),
+        "y1": 0,
+        "x2": cm(i * colWidth),
+        "y2": cm(lineHeight * gridLines + 0.25),
+        "lineWidth": cm(lw),
+        "lineColor": i > 0 && i < 24 ? lc : lcFrame
+      });
+      if (i < 24)horzStack.add({
+        "absolutePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)},
+        "text": fmtTime(i),
+        "fontSize": "8"
+      });
     }
 
     glucMax = 0.0;
@@ -122,8 +135,21 @@ class PrintDailyGraphic extends BasePrint
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
-      vertStack.add({"absolutePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": "${fmtNumber(i * 50, 0)} ${msgInsulinUnit}", "fontSize": "8"});
-      vertStack.add({"absolutePosition": {"x": cm(xo + 24 * colWidth + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": "${fmtNumber(i * 50, 0)} ${msgInsulinUnit}", "fontSize": "8"});
+
+      if (i > 0)
+      {
+        String text = "${glucFromData(fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
+        vertStack.add({
+          "absolutePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
+          "text": text,
+          "fontSize": "8"
+        });
+        vertStack.add({
+          "absolutePosition": {"x": cm(xo + 24 * colWidth + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
+          "text": text,
+          "fontSize": "8"
+        });
+      }
     }
     glucMax = gridLines * 50.0;
     var area = {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": []};
@@ -136,43 +162,91 @@ class PrintDailyGraphic extends BasePrint
     }
     graphCvs.add(area);
 
-    var cob = {"type": "polyline", "lineWidth": cm(lw), "closePath": true, "points": [], "lineColor": "#ff0000", "color": "#ffa0a0"};
-    List cobPoints = cob["points"];
-    for (globals.TreatmentData t in day.treatments)
+    if (g.isBeta)
     {
-      double x, y;
-      if (t.eventType.toLowerCase() == "temp basal")continue;
-      if (t.boluscalc != null && t.boluscalc.cob != 0)
+      var cob = {
+        "type": "polyline",
+        "lineWidth": cm(lw),
+        "closePath": true,
+        "points": [],
+        "lineColor": "#ff0000",
+        "color": "#ffa0a0"
+      };
+      List cobPoints = cob["points"];
+      for (globals.TreatmentData t in day.treatments)
       {
-        x = glucX(t.createdAt);
-        y = glucY(t.boluscalc.cob);
-        if (cobPoints.length == 0)cobPoints.add({"x": cm(x), "y": cm(glucY(0.0))});
-        cobPoints.add({"x": cm(x), "y": cm(y)});
-      }
+        double x, y;
+        if (t.eventType.toLowerCase() == "temp basal")continue;
+        if (t.boluscalc != null && t.boluscalc.cob != 0)
+        {
+          x = glucX(t.createdAt);
+          y = glucY(t.boluscalc.cob);
+          if (cobPoints.length == 0)cobPoints.add({"x": cm(x), "y": cm(glucY(0.0))});
+          cobPoints.add({"x": cm(x), "y": cm(y)});
+        }
 
-      if (t.eventType.toLowerCase() == "site change")
-      {
-        double x = xo + glucX(t.createdAt) - 0.3;
-        double y = yo + graphHeight - 0.6;
-        (pictures["stack"] as List).add({"absolutePosition": {"x": cm(x), "y": cm(y)}, "image": "katheter.print", "width": cm(0.8)});
-        (pictures["stack"] as List).add({"absolutePosition": {"x": cm(x + 0.33), "y": cm(y + 0.04)}, "text": "${fmtTime(t.createdAt)}", "fontSize": "5", "color": "white"});
+        if (t.eventType.toLowerCase() == "site change")
+        {
+          double x = xo + glucX(t.createdAt) - 0.3;
+          double y = yo + graphHeight - 0.6;
+          (pictures["stack"] as List).add(
+            {"absolutePosition": {"x": cm(x), "y": cm(y)}, "image": "katheter.print", "width": cm(0.8)});
+          (pictures["stack"] as List).add({
+            "absolutePosition": {"x": cm(x + 0.33), "y": cm(y + 0.04)},
+            "text": "${fmtTime(t.createdAt)}",
+            "fontSize": "5",
+            "color": "white"
+          });
+        }
       }
+      if (cobPoints.length > 0)cobPoints.add({"x": cobPoints.last["x"], "y": cobPoints.first["y"]});
+      graphCvs.add(cob);
     }
-    if (cobPoints.length > 0)cobPoints.add({"x": cobPoints.last["x"], "y": cobPoints.first["y"]});
-    graphCvs.add(cob);
 
     DateTime date = DateTime(day.date.year, day.date.month, day.date.day);
     globals.ProfileGlucData profile = src.profile(src, date);
-    double yHigh = glucY(src.status.settings.thresholds.bgTargetTop.toDouble());
+    double yHigh = glucY(min(glucMax, src.status.settings.thresholds.bgTargetTop.toDouble()));
     double yLow = glucY(src.status.settings.thresholds.bgTargetBottom.toDouble());
     double targetValue = glucY((profile.targetHigh + profile.targetLow) / 2);
     var limitLines = {
       "absolutePosition": {"x": cm(xo), "y": cm(yo)},
       "canvas": [
-        {"type": "rect", "x": cm(0.0), "y": cm(yHigh), "w": cm(24 * colWidth), "h": cm(yLow - yHigh), "color": colTargetArea, "fillOpacity": 0.3},
-        {"type": "line", "x1": cm(0.0), "y1": cm(yHigh), "x2": cm(24 * colWidth), "y2": cm(yHigh), "lineWidth": cm(lw), "lineColor": colTargetArea},
-        {"type": "line", "x1": cm(0.0), "y1": cm(targetValue), "x2": cm(24 * colWidth), "y2": cm(targetValue), "lineWidth": cm(lw), "lineColor": colTargetValue},
-        {"type": "line", "x1": cm(0.0), "y1": cm(yLow), "x2": cm(24 * colWidth), "y2": cm(yLow), "lineWidth": cm(lw), "lineColor": colTargetArea},
+        {
+          "type": "rect",
+          "x": cm(0.0),
+          "y": cm(yHigh),
+          "w": cm(24 * colWidth),
+          "h": cm(yLow - yHigh),
+          "color": colTargetArea,
+          "fillOpacity": 0.3
+        },
+        {
+          "type": "line",
+          "x1": cm(0.0),
+          "y1": cm(yHigh),
+          "x2": cm(24 * colWidth),
+          "y2": cm(yHigh),
+          "lineWidth": cm(lw),
+          "lineColor": colTargetArea
+        },
+        {
+          "type": "line",
+          "x1": cm(0.0),
+          "y1": cm(targetValue),
+          "x2": cm(24 * colWidth),
+          "y2": cm(targetValue),
+          "lineWidth": cm(lw),
+          "lineColor": colTargetValue
+        },
+        {
+          "type": "line",
+          "x1": cm(0.0),
+          "y1": cm(yLow),
+          "x2": cm(24 * colWidth),
+          "y2": cm(yLow),
+          "lineWidth": cm(lw),
+          "lineColor": colTargetArea
+        },
         {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1}
       ]
     };
@@ -203,31 +277,63 @@ class PrintDailyGraphic extends BasePrint
     areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
     basalCvs.add(area);
 */
-    var legend = {"absolutePosition": {"x": cm(xo), "y": cm(yo + lineHeight * gridLines + 2.0 + basalHeight)}, "stack": []};
+    var legend = {
+      "absolutePosition": {"x": cm(xo), "y": cm(yo + lineHeight * gridLines + 2.0 + basalHeight)},
+      "stack": []
+    };
     addLegendEntry(legend, colValue, msgGlucosekurve, false);
     addLegendEntry(legend, colTargetArea, msgTargetArea);
     addLegendEntry(legend, colTargetValue, msgTargetValue, false);
     addLegendEntry(legend, colBasal, msgBasalrate, true);
     //blendColor(colBasal, "ffffff", 0.7)
-    var profileBasal = getBasalGraph(day.basalData.store.listBasal, xo, yo, 0, colBasal, 1.0);
-    var dayBasal = getBasalGraph(day.profile, xo, yo, day.ieBasalSum, blendColor(colBasal, "ffffff", 0.7), 0.5);
+    var profileBasal = getBasalGraph(day.basalData.store.listBasal, xo, yo, 0, null);
+    var dayBasal = getBasalGraph(day.profile, xo, yo, day.ieBasalSum, blendColor(colBasal, "ffffff", 0.7));
 
-    return [header, vertLegend, vertLines, horzLegend, horzLines, limitLines, graph, profileBasal, dayBasal, pictures, legend, footer()];
+    return [
+      header,
+      vertLegend,
+      vertLines,
+      horzLegend,
+      horzLines,
+      limitLines,
+      graph,
+      dayBasal,
+      profileBasal,
+      pictures,
+      legend,
+      footer()
+    ];
   }
 
-  getBasalGraph(List<globals.ProfileEntryData> data, double xo, double yo, double basalSum, String color, double opacity)
+  getBasalGraph(List<globals.ProfileEntryData> data, double xo, double yo, double basalSum, String color)
   {
     var basalCvs = [];
     var ret = {"stack": [{"absolutePosition": {"x": cm(xo), "y": cm(yo + graphHeight + 1.0)}, "canvas": basalCvs},
     ]};
     if (basalSum != 0)ret["stack"].add({
       "absolutePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalHeight + 1.1)},
-      "columns": [{"width": cm(basalWidth), "text": "${fmtNumber(basalSum, 1, false)} ${msgInsulinUnit}", "fontSize": 20, "alignment": "center"}]
+      "columns": [ {
+        "width": cm(basalWidth),
+        "text": "${fmtNumber(basalSum, 1, false)} ${msgInsulinUnit}",
+        "fontSize": 20,
+        "alignment": "center"
+      }
+      ]
     },);
     double lastY = -1.0;
     var areaPoints = [];
-    var area = {"type": "polyline", "lineWidth": cm(lw), "closePath": true, "lineColor": colBasal, "color": color, "points": areaPoints, "fillOpacity": opacity};
-    areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
+    var area = {
+      "type": "polyline",
+      "lineWidth": cm(lw),
+      "closePath": color != null,
+      "color": color,
+      "lineColor": colBasal,
+      "dash": color == null ? {"length": cm(0.1), "space": cm(0.05)} : {},
+      "points": areaPoints,
+//      "fillOpacity": opacity
+    };
+
+    if (color != null)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
     for (globals.ProfileEntryData entry in data)
     {
       double x = basalX(entry.time);
@@ -237,9 +343,9 @@ class PrintDailyGraphic extends BasePrint
       lastY = y;
     }
     areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(lastY)});
-    areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
+    if (color != null)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
     basalCvs.add(area);
-    basalCvs.add({"type": "rect", "x": 0, "y": 0, "w": 1, "h": 1, "fillOpacity": 1});
+//    basalCvs.add({"type": "rect", "x": 0, "y": 0, "w": 1, "h": 1, "fillOpacity": 1});
     return ret;
   }
 }

@@ -3,6 +3,7 @@ library diamant.globals;
 import 'dart:async';
 import 'dart:html' as html;
 import 'dart:math' as math;
+import 'package:http/browser_client.dart' as http;
 
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_datepicker/comparison.dart';
@@ -12,6 +13,8 @@ import 'package:intl/intl.dart';
 
 class JsonData
 {
+  JsonData();
+
   DateTime toTime(String value)
   {
     int hour = 0;
@@ -30,21 +33,16 @@ class JsonData
   }
 
   String toText(value)
-  => value is String ? value : "${value}";
+  => value == null ? "" : value is String ? value : "${value}";
 
   bool toBool(value)
-  => value is bool ? value : value == "true";
+  => value == null ? false : value is bool ? value : value == "true";
 
   double toDouble(value)
-  =>
-    value == null ? 0 : value is double || value is int ? value : double
-      .tryParse(value) ?? 0;
+  => value == null ? 0 : value is double || value is int ? value : double.tryParse(value) ?? 0;
 
   int toInt(value)
-  =>
-    value == null ? 0 : value is int ? value : value is double
-      ? value.toInt()
-      : int.tryParse(value) ?? 0;
+  => value == null ? 0 : value is int ? value : value is double ? value.toInt() : int.tryParse(value) ?? 0;
 }
 
 class ThresholdData extends JsonData
@@ -58,6 +56,7 @@ class ThresholdData extends JsonData
 
   factory ThresholdData.fromJson(Map<String, dynamic> json){
     ThresholdData ret = ThresholdData();
+    if (json == null)return ret;
     ret.bgHigh = ret.toInt(json["bgHigh"]);
     ret.bgTargetTop = ret.toInt(json["bgTargetTop"]);
     ret.bgTargetBottom = ret.toInt(json["bgTargetBottom"]);
@@ -106,13 +105,14 @@ class SettingsData extends JsonData
 
   factory SettingsData.fromJson(Map<String, dynamic> json){
     SettingsData ret = SettingsData();
-    ret.units = json["units"];
+    if (json == null)return ret;
+    ret.units = ret.toText(json["units"]);
     ret.timeFormat = ret.toInt(json["timeFormat"]);
     ret.nightMode = ret.toBool(json["nightMode"]);
     ret.editMode = ret.toBool(json["editMode"]);
-    ret.showRawbg = json["showRawbg"];
-    ret.customTitle = json["customTitle"];
-    ret.theme = json["theme"];
+    ret.showRawbg = ret.toText(json["showRawbg"]);
+    ret.customTitle = ret.toText(json["customTitle"]);
+    ret.theme = ret.toText(json["theme"]);
     ret.alarmUrgentHigh = ret.toBool(json["alarmUrgentHigh"]);
     for (dynamic entry in json["alarmUrgentHighMins"])
       ret.alarmUrgentHighMins.add(ret.toInt(entry));
@@ -145,8 +145,7 @@ class SettingsData extends JsonData
     ret.heartbeat = ret.toInt(json["heartbeat"]);
     ret.baseURL = json["baseURL"];
     ret.authDefaultRoles = json["authDefaultRoles"];
-    if (json["thresholds"] != null)
-      ret.thresholds = ThresholdData.fromJson(json["thresholds"]);
+    if (json["thresholds"] != null)ret.thresholds = ThresholdData.fromJson(json["thresholds"]);
     for (String entry in json["DEFAULT_FEATURES"])
       ret.defaultFeatures.add(entry);
     for (String entry in json["alarmTypes"])
@@ -162,17 +161,18 @@ class AgeData extends JsonData
   String display;
   int warn;
   int urgent;
+  bool info;
   bool enableAlerts;
-  int info;
 
   AgeData();
 
   factory AgeData.fromJson(Map<String, dynamic> json){
     AgeData ret = AgeData();
-    ret.display = json["display"];
+    if (json == null)return ret;
+    ret.display = ret.toText(json["display"]);
     ret.warn = ret.toInt(json["warn"]);
     ret.urgent = ret.toInt(json["urgent"]);
-    ret.info = ret.toInt(json["info"]);
+    ret.info = ret.toBool(json["info"]);
     ret.enableAlerts = ret.toBool(json["enableAlerts"]);
     return ret;
   }
@@ -191,10 +191,17 @@ class ExtendedSettingsData extends JsonData
 
   factory ExtendedSettingsData.fromJson(Map<String, dynamic> json){
     ExtendedSettingsData ret = ExtendedSettingsData();
-    for (dynamic entry in json["pump"]["fields"].toString().split(" "))
-      ret.pumpFields.add(entry);
-    ret.upbatEnableAlerts = ret.toBool(json["upbat"]["enableAlerts"]);
-    ret.upbatWarn = ret.toInt(json["upbat"]["warn"]);
+    if (json == null)return ret;
+    if (json["pump"] != null)
+    {
+      for (dynamic entry in json["pump"]["fields"].toString().split(" "))
+        ret.pumpFields.add(entry);
+    }
+    if (json["upbat"] != null)
+    {
+      ret.upbatEnableAlerts = ret.toBool(json["upbat"]["enableAlerts"]);
+      ret.upbatWarn = ret.toInt(json["upbat"]["warn"]);
+    }
     ret.cage = AgeData.fromJson(json["cage"]);
     ret.cage = AgeData.fromJson(json["sage"]);
     ret.advancedDeviceStatus = ret.toBool(json["advancedDeviceStatus"]);
@@ -220,6 +227,7 @@ class StatusData extends JsonData
 
   factory StatusData.fromJson(Map<String, dynamic> json){
     StatusData ret = StatusData();
+    if (json == null)return ret;
     ret.status = json["status"];
     ret.name = json["name"];
     ret.version = json["version"];
@@ -229,10 +237,8 @@ class StatusData extends JsonData
     ret.careportalEnabled = ret.toBool("careportalEnabled");
     ret.boluscalcEnabled = ret.toBool("boluscalcEnabled");
     ret.head = json["head"];
-    if (json["settings"] != null)
-      ret.settings = SettingsData.fromJson(json["settings"]);
-    if (json["extendedSettings"] != null) ret.extendedSettings =
-      ExtendedSettingsData.fromJson(json["extendedSettings"]);
+    if (json["settings"] != null)ret.settings = SettingsData.fromJson(json["settings"]);
+    if (json["extendedSettings"] != null)ret.extendedSettings = ExtendedSettingsData.fromJson(json["extendedSettings"]);
     return ret;
   }
 }
@@ -241,10 +247,18 @@ class ProfileGlucData
 {
   double targetLow;
   double targetHigh;
-  ProfileEntryData sens = ProfileEntryData();
-  ProfileEntryData carbRatio = ProfileEntryData();
-  ProfileEntryData basal = ProfileEntryData();
-  ProfileStoreData store = ProfileStoreData();
+  ProfileEntryData sens;
+  ProfileEntryData carbRatio;
+  ProfileEntryData basal;
+  ProfileStoreData store;
+
+  ProfileGlucData()
+  {
+    sens = ProfileEntryData();
+    carbRatio = ProfileEntryData();
+    basal = ProfileEntryData();
+    store = ProfileStoreData();
+  }
 
   ProfileEntryData find(DateTime time, List<ProfileEntryData> list)
   {
@@ -272,6 +286,7 @@ class ProfileEntryData extends JsonData
 
   factory ProfileEntryData.fromJson(Map<String, dynamic> json){
     ProfileEntryData ret = ProfileEntryData();
+    if (json == null)return ret;
     ret.time = ret.toTime(json["time"]);
     ret.value = ret.toDouble(json["value"]);
     return ret;
@@ -296,12 +311,13 @@ class ProfileStoreData extends JsonData
 
   factory ProfileStoreData.fromJson(Map<String, dynamic> json){
     ProfileStoreData ret = ProfileStoreData();
+    if (json == null)return ret;
     ret.dia = ret.toInt(json["dia"]);
     ret.carbsHr = ret.toInt(json["carbs_hr"]);
     ret.delay = ret.toInt(json["delay"]);
-    ret.timezone = json["timezone"];
+    ret.timezone = ret.toText(json["timezone"]);
     ret.startDate = ret.toDate(json["startDate"]);
-    ret.units = json["units"];
+    ret.units = ret.toText(json["units"]);
     for (dynamic entry in json["carbratio"])
       ret.listCarbratio.add(ProfileEntryData.fromJson(entry));
     for (dynamic entry in json["sens"])
@@ -335,10 +351,11 @@ class ProfileData extends JsonData
 
   factory ProfileData.fromJson(Map<String, dynamic> json){
     ProfileData ret = ProfileData();
+    if (json == null)return ret;
     ret.id = json["int"];
     ret.defaultProfile = json["defaultProfile"];
     ret.startDate = ret.toDate(json["startDate"]);
-    ret.units = json["units"];
+    ret.units = ret.toText(json["units"]);
     ret.createdAt = ret.toDate(json["created_at"]);
     Map<String, dynamic> src = json["store"];
     for (String entry in src.keys)
@@ -419,6 +436,7 @@ class BoluscalcData extends JsonData
 
   factory BoluscalcData.fromJson(Map<String, dynamic> json){
     BoluscalcData ret = BoluscalcData();
+    if (json == null)return ret;
     ret.profile = json["profile"];
     ret.notes = json["notes"];
     ret.eventTime = ret.toDate(json["eventTime"]);
@@ -461,16 +479,13 @@ class BoluscalcData extends JsonData
     basalIob = Globals.calc(src?.basalIob, dst?.basalIob, f);
     bg = Globals.calc(src?.bg?.toDouble(), dst?.bg?.toDouble(), f).toInt();
     insulinBg = Globals.calc(src?.insulinBg, dst?.insulinBg, f);
-    bgDiff =
-      Globals.calc(src?.bgDiff?.toDouble(), dst?.bgDiff?.toDouble(), f).toInt();
+    bgDiff = Globals.calc(src?.bgDiff?.toDouble(), dst?.bgDiff?.toDouble(), f).toInt();
     insulinCarbs = Globals.calc(src?.insulinCarbs, dst?.insulinCarbs, f);
     carbs = Globals.calc(src?.carbs, dst?.carbs, f);
     cob = Globals.calc(src?.cob, dst?.cob, f);
     insulinCob = Globals.calc(src?.insulinCob, dst?.insulinCob, f);
-    otherCorrection =
-      Globals.calc(src?.otherCorrection, dst?.otherCorrection, f);
-    insulinSuperBolus =
-      Globals.calc(src?.insulinSuperBolus, dst?.insulinSuperBolus, f);
+    otherCorrection = Globals.calc(src?.otherCorrection, dst?.otherCorrection, f);
+    insulinSuperBolus = Globals.calc(src?.insulinSuperBolus, dst?.insulinSuperBolus, f);
     insulinTrend = Globals.calc(src?.insulinTrend, dst?.insulinTrend, f);
     insulin = Globals.calc(src?.insulin, dst?.insulin, f);
   }
@@ -519,6 +534,7 @@ class TreatmentData extends JsonData
 
   factory TreatmentData.fromJson(Map<String, dynamic> json){
     TreatmentData ret = TreatmentData();
+    if (json == null)return ret;
     ret.id = ret.toText(json["_id"]);
     ret.eventType = ret.toText(json["eventType"]);
     ret.duration = ret.toInt(json["duration"]);
@@ -533,8 +549,7 @@ class TreatmentData extends JsonData
     ret.pumpId = ret.toText(json["pumpId"]);
     ret.glucose = ret.toDouble(json["glucose"]);
     ret.glucoseType = ret.toText(json["glucoseType"]);
-    if (json["boluscalc"] != null)
-      ret.boluscalc = BoluscalcData.fromJson(json["boluscalc"]);
+    if (json["boluscalc"] != null)ret.boluscalc = BoluscalcData.fromJson(json["boluscalc"]);
     ret.notes = ret.toText(json["notes"]);
     return ret;
   }
@@ -578,6 +593,7 @@ class EntryData extends JsonData
 
   factory EntryData.fromJson(Map<String, dynamic> json){
     EntryData ret = EntryData();
+    if (json == null)return ret;
     ret.id = json["_id"];
     ret.time = ret.toDate(json["dateString"]);
     ret.rssi = ret.toInt(json["rssi"]);
@@ -648,8 +664,7 @@ class DayData
     for (ProfileEntryData entry in basalData.store.listBasal)
     {
       ProfileEntryData temp = ProfileEntryData();
-      temp.time = DateTime(
-        date.year, date.month, date.day, entry.time.hour, entry.time.minute);
+      temp.time = DateTime(date.year, date.month, date.day, entry.time.hour, entry.time.minute);
       temp.value = entry.value;
       temp.orgValue = entry.value;
       _profile.add(temp);
@@ -676,8 +691,7 @@ class DayData
       if (entry.value == null)
       {
         entry.orgValue = last.orgValue;
-        entry.value =
-          last.orgValue + (last.orgValue * entry.percentAdjust) / 100.0;
+        entry.value = last.orgValue + (last.orgValue * entry.percentAdjust) / 100.0;
         DateTime endTime = entry.time.add(Duration(minutes: entry.duration));
         if (i < _profile.length - 1 && endTime.isBefore(_profile[i + 1].time))
         {
@@ -693,10 +707,9 @@ class DayData
         .inMinutes;
       last = entry;
     }
-    if (last != null) last.duration =
-      DateTime(last.time.year, last.time.month, last.time.day, 23, 59, 59)
-        .difference(last.time)
-        .inMinutes;
+    if (last != null) last.duration = DateTime(last.time.year, last.time.month, last.time.day, 23, 59, 59)
+      .difference(last.time)
+      .inMinutes;
 
     return _profile;
   }
@@ -752,15 +765,9 @@ class ListData
   double ieBolusSum = 0.0;
   double ieBasalSum = 0.0;
   double get ieBolusPrz
-  =>
-    ieBolusSum + ieBasalSum > 0
-      ? ieBolusSum / (ieBolusSum + ieBasalSum) * 100
-      : 0.0;
+  => ieBolusSum + ieBasalSum > 0 ? ieBolusSum / (ieBolusSum + ieBasalSum) * 100 : 0.0;
   double get ieBasalPrz
-  =>
-    ieBolusSum + ieBasalSum > 0
-      ? ieBasalSum / (ieBolusSum + ieBasalSum) * 100
-      : 0.0;
+  => ieBolusSum + ieBasalSum > 0 ? ieBasalSum / (ieBolusSum + ieBasalSum) * 100 : 0.0;
   int get count
   =>
     entries.where((entry)
@@ -929,6 +936,11 @@ class LangData
 class Globals
 {
   static final Globals _globals = Globals._internal();
+  String get msgUrlFailure
+  =>
+    Intl.message(
+      "Die angegebene URL ist nicht erreichbar.<br><br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br><br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.");
+
 
   static double calc(double a, double b, double factor)
   {
@@ -943,57 +955,82 @@ class Globals
 
   String title = "Nightscout Reporter";
   String userName = "?";
-  Date birthDate = Date(2000, 1, 1);
-  Date diaStartDate = Date(2000, 1, 1);
-  Date minBirthDate = Date(1900, 1, 1);
+  String birthDate = "";
+  String diaStartDate = "";
   DateFormat dateFormat = DateFormat("dd.mm.yyyy", "de_DE");
   String insulin = null;
   String storageApiUrl = null;
   List<LangData> languageList = [
-    LangData("de_DE", Intl.message("Deutsch"), "de"),
-    LangData("en_US", Intl.message("English"), "us")
-  ];
+    LangData("de_DE", Intl.message("Deutsch"), "de"), LangData("en_US", Intl.message("English"), "us")];
   LangData language;
+  String get baseUrl
+  {
+    if (storageApiUrl == null || storageApiUrl.length < 8)return "";
+    return storageApiUrl.substring(0, storageApiUrl.substring(8).indexOf("/") + 8);
+  }
+
   String get apiUrl
   {
-    if (storageApiUrl != null && !storageApiUrl.endsWith("/"))
-      return "$storageApiUrl/";
-    return storageApiUrl;
+    String ret = storageApiUrl;
+    if (ret != null)
+    {
+      if(ret.startsWith("@"))return ret.substring(1);
+      if(!ret.endsWith("/"))ret = "$ret/";
+      if(!ret.endsWith("/api/v1/")) ret = "${ret}api/v1/";
+    }
+    return ret;
   }
 
   String get reportUrl
   {
-    if (storageApiUrl == null || !storageApiUrl.contains("herokuapp"))
-      return null;
-
-    return storageApiUrl.substring(0, storageApiUrl.indexOf("/api"));
+    String ret = storageApiUrl;
+    if (ret != null)
+    {
+      if (!ret.endsWith("/"))ret = "$ret/";
+    }
+  return "${ret}report";
   }
 
   bool glucMGDL = true;
   DatepickerComparison dateRange = DatepickerComparison(
-    DatepickerDateRange(Intl.message("Zeitraum"), null, null),
-    ComparisonOption.custom);
+    DatepickerDateRange(Intl.message("Zeitraum"), null, null), ComparisonOption.custom);
   DateFormat fmtDateForData;
   DateFormat fmtDateForDisplay;
   bool canDebug = false;
   bool isBeta = false;
+  bool showUrl = false;
   bool pdfSameWindow = true;
   bool isConfigured = false;
 
   String get pdfTarget
   {
-    if (!pdfSameWindow)return "_target";
+    if (!pdfSameWindow)return "_blank";
     return "";
+  }
+
+  Future<String> request(String url, {String method = "GET"})
+  async {
+    http.BrowserClient client = http.BrowserClient();
+    return client.read(url).catchError((error)
+    {
+      return error.toString();
+    });
   }
 
   Future<String> checkSetup()
   async {
-    if (storageApiUrl == null || apiUrl == null)
-      return Intl.message("Die URL wurde noch nicht festgelegt.");
+    if (storageApiUrl == null || apiUrl == null)return Intl.message("Die URL wurde noch nicht festgelegt.");
     String ret = null;
     String check = "${apiUrl}status";
-
-    await html.HttpRequest.getString(check).then((String status)
+    await request(check).then((String response)
+    {
+      if (response != "<h1>STATUS OK</h1>")ret = msgUrlFailure;
+    }).catchError((err)
+    {
+      ret = msgUrlFailure;
+    });
+/*
+await html.HttpRequest.getString(check,withCredentials: true).then((String status)
     {
       if (status != "<h1>STATUS OK</h1>")
         ret = Intl.message("Die angegebene URL ist nicht korrekt.");
@@ -1003,7 +1040,7 @@ class Globals
 //      if (ret == null || ret == "")
       ret = Intl.message("Die angegebene URL konnte nicht erreicht werden.");
     });
-
+// */
     return ret;
   }
 
@@ -1032,56 +1069,55 @@ class Globals
     fmtDateForData = DateFormat("yyyy-MM-dd");
     fmtDateForDisplay = DateFormat("dd.MM.yyyy");
     storageApiUrl = html.window.localStorage["apiUrl"];
+    if(storageApiUrl.endsWith("/api/v1/"))storageApiUrl.replaceAll("/api/v1/", "");
+    if(storageApiUrl.endsWith("/api/v1"))storageApiUrl.replaceAll("/api/v1", "");
     if (storageApiUrl == "null")storageApiUrl = null;
     glucMGDL = html.window.localStorage["glucMGDL"] != "false";
     userName = html.window.localStorage["userName"];
     if (userName == null || userName.isEmpty)userName = "?";
     insulin = html.window.localStorage["insulin"] ?? "";
-    birthDate = Date.parse(
-      html.window.localStorage["birthDate"] ?? "2000-01-01", fmtDateForData);
-    diaStartDate = Date.parse(
-      html.window.localStorage["diaStartDate"] ?? "2000-01-01", fmtDateForData);
+    birthDate = html.window.localStorage["birthDate"];
+    diaStartDate = html.window.localStorage["diaStartDate"];
     canDebug = html.window.localStorage["debug"] == "yes";
     isBeta = html.window.localStorage["beta"] == "yes";
     pdfSameWindow = html.window.localStorage["pdfSameWindow"] != "no";
+    showUrl = html.window.localStorage["showUrl"] == "yes";
 
     Date start = Date.today();
     Date end = Date.today();
     try
     {
-      start = Date.parse(html.window.localStorage["startDate"] ??
-        Date.today().add(days: -7).format(fmtDateForData), fmtDateForData);
-      end = Date.parse(html.window.localStorage["endDate"] ??
-        Date.today().format(fmtDateForData), fmtDateForData);
+      start = Date.parse(
+        html.window.localStorage["startDate"] ?? Date.today().add(days: -7).format(fmtDateForData), fmtDateForData);
+      end = Date.parse(html.window.localStorage["endDate"] ?? Date.today().format(fmtDateForData), fmtDateForData);
     }
     catch (ex)
     {}
-    DatepickerDateRange dr = DatepickerDateRange(
-      dateRange.range.title, start, end);
+    DatepickerDateRange dr = DatepickerDateRange(dateRange.range.title, start, end);
     dateRange = DatepickerComparison(dr, ComparisonOption.custom);
     changeLanguage(language);
   }
 
   void save()
   {
-    bool doReload = language.code != html.window.localStorage["language"] &&
-      language.code != null && html.window.localStorage["language"] != null;
+    bool doReload = language.code != html.window.localStorage["language"] && language.code != null &&
+      html.window.localStorage["language"] != null;
     html.window.localStorage["apiUrl"] = storageApiUrl ?? "";
     html.window.localStorage["glucMGDL"] = glucMGDL.toString();
-    html.window.localStorage["userName"] = userName ?? "?";
+    if (userName == null || userName.isEmpty)userName = "?";
+    html.window.localStorage["userName"] = userName;
     html.window.localStorage["insulin"] = insulin ?? "";
-    html.window.localStorage["birthDate"] = birthDate.format(fmtDateForData);
-    html.window.localStorage["diaStartDate"] =
-      diaStartDate.format(fmtDateForData);
+    html.window.localStorage["birthDate"] = birthDate;
+    html.window.localStorage["diaStartDate"] = diaStartDate;
     html.window.localStorage["language"] = language.code ?? "de_DE";
     html.window.localStorage["beta"] = isBeta ? "yes" : "no";
+    html.window.localStorage["showUrl"] = showUrl ? "yes" : "no";
     html.window.localStorage["pdfSameWindow"] = pdfSameWindow ? "yes" : "no";
     if (dateRange.range != null)
     {
-      if (dateRange.range.start != null) html.window.localStorage["startDate"] =
-        dateRange.range.start.format(fmtDateForData);
-      if (dateRange.range.end != null) html.window.localStorage["endDate"] =
-        dateRange.range.end.format(fmtDateForData);
+      if (dateRange.range.start != null)
+        html.window.localStorage["startDate"] = dateRange.range.start.format(fmtDateForData);
+      if (dateRange.range.end != null) html.window.localStorage["endDate"] = dateRange.range.end.format(fmtDateForData);
     }
     if (doReload)html.window.location.reload();
   }
@@ -1110,8 +1146,7 @@ class Globals
     {
       int k = n.toInt();
       double d = n - k;
-      if (k > 0 && k < temp.length)return temp[k - 1].gluc +
-        d * (temp[k].gluc - temp[k - 1].gluc);
+      if (k > 0 && k < temp.length)return temp[k - 1].gluc + d * (temp[k].gluc - temp[k - 1].gluc);
       else
         return 0.0;
     }

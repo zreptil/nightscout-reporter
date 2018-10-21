@@ -1,6 +1,11 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-10-19T11:41:37.099494",
+  "@@last_modified": "2018-10-21T14:57:21.631909",
+  "Die angegebene URL ist nicht erreichbar.<br><br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br><br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.": "Die angegebene URL ist nicht erreichbar.<br><br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br><br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.",
+  "@Die angegebene URL ist nicht erreichbar.<br><br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br><br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Deutsch": "Deutsch",
   "@Deutsch": {
     "type": "text",
@@ -18,16 +23,6 @@
   },
   "Die URL wurde noch nicht festgelegt.": "Die URL wurde noch nicht festgelegt.",
   "@Die URL wurde noch nicht festgelegt.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die angegebene URL ist nicht korrekt.": "Die angegebene URL ist nicht korrekt.",
-  "@Die angegebene URL ist nicht korrekt.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die angegebene URL konnte nicht erreicht werden.": "Die angegebene URL konnte nicht erreicht werden.",
-  "@Die angegebene URL konnte nicht erreicht werden.": {
     "type": "text",
     "placeholders": {}
   },
@@ -362,8 +357,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com/api/v1": "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com/api/v1",
-  "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com/api/v1": {
+  "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)",
+  "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
     "type": "text",
     "placeholders": {}
   },
@@ -395,9 +390,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "Schliessen": "Schliessen",
+  "@Schliessen": {
+    "description": "label for button to close links-panel",
+    "type": "text",
+    "placeholders": {}
+  },
   "Wichtige Daten": "Wichtige Daten",
   "@Wichtige Daten": {
     "description": "label for area with important data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "URL im Titel der Seite anzeigen": "URL im Titel der Seite anzeigen",
+  "@URL im Titel der Seite anzeigen": {
+    "description": "label for checkbox to display URL",
     "type": "text",
     "placeholders": {}
   },
@@ -422,6 +429,12 @@
   "Zusatzfunktionen": "Zusatzfunktionen",
   "@Zusatzfunktionen": {
     "description": "label of area for additional functions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "PDF im selben Fenster öffnen": "PDF im selben Fenster öffnen",
+  "@PDF im selben Fenster öffnen": {
+    "description": "label for checkbox to open PDF in same window",
     "type": "text",
     "placeholders": {}
   },

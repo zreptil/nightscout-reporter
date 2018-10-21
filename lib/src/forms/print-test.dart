@@ -72,6 +72,12 @@ class PrintTest extends BasePrint
     var body = [];
 
     var root = createRoot(body);
+    for (int i = 0; i < src.ns.entries.length; i++)
+    {
+      globals.EntryData entry = src.ns.entries[i];
+      var row = [{"text": fmtDateTime(entry.time, '??.??.???? ??:?? Uhr'), "colspan": 4},{},{},{},{}];
+      body.add(row);
+    }
     var data = src.ns.treatments;
     for (int i = 0; i < data.length; i++)
     {

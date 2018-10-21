@@ -83,102 +83,18 @@ abstract class BasePrint
         ret["stack"].add({
           "absolutePosition": {"x": 0, "y": 0},
           "canvas": [
-            {
-              "type": "rect",
-              "x": cm(0.0),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#d69a2e"
-            },
-            {
-              "type": "rect",
-              "x": cm(1.6),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#2e4736"
-            },
-            {
-              "type": "rect",
-              "x": cm(3.2),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#662c40"
-            },
-            {
-              "type": "rect",
-              "x": cm(4.8),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#343a49"
-            },
-            {
-              "type": "rect",
-              "x": cm(6.4),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#528c8e"
-            },
-            {
-              "type": "rect",
-              "x": cm(8.0),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#362946"
-            },
-            {
-              "type": "rect",
-              "x": cm(9.6),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#6b8133"
-            },
-            {
-              "type": "rect",
-              "x": cm(11.2),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#2a3b56"
-            },
-            {
-              "type": "rect",
-              "x": cm(12.8),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#862d2e"
-            },
-            {
-              "type": "rect",
-              "x": cm(14.4),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#607f6e"
-            },
-            {
-              "type": "rect",
-              "x": cm(16.0),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#273d3f"
-            },
-            {
-              "type": "rect",
-              "x": cm(17.6),
-              "y": 0,
-              "w": cm(1.6),
-              "h": cm(0.55),
-              "color": "#a5916d"
-            }
+            {"type": "rect", "x": cm(0.0), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#d69a2e"},
+            {"type": "rect", "x": cm(1.6), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#2e4736"},
+            {"type": "rect", "x": cm(3.2), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#662c40"},
+            {"type": "rect", "x": cm(4.8), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#343a49"},
+            {"type": "rect", "x": cm(6.4), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#528c8e"},
+            {"type": "rect", "x": cm(8.0), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#362946"},
+            {"type": "rect", "x": cm(9.6), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#6b8133"},
+            {"type": "rect", "x": cm(11.2), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#2a3b56"},
+            {"type": "rect", "x": cm(12.8), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#862d2e"},
+            {"type": "rect", "x": cm(14.4), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#607f6e"},
+            {"type": "rect", "x": cm(16.0), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#273d3f"},
+            {"type": "rect", "x": cm(17.6), "y": 0, "w": cm(1.6), "h": cm(0.55), "color": "#a5916d"}
           ]
         });
       }
@@ -190,102 +106,18 @@ abstract class BasePrint
         ret["stack"].add({
           "absolutePosition": {"x": 0, "y": 0},
           "canvas": [
-            {
-              "type": "rect",
-              "x": cm(0.0),
-              "y": 0,
-              "w": cm(2.2),
-              "h": cm(0.55),
-              "color": "#d69a2e"
-            },
-            {
-              "type": "rect",
-              "x": cm(2.2),
-              "y": 0,
-              "w": cm(2.3),
-              "h": cm(0.55),
-              "color": "#2e4736"
-            },
-            {
-              "type": "rect",
-              "x": cm(4.5),
-              "y": 0,
-              "w": cm(2.3),
-              "h": cm(0.55),
-              "color": "#662c40"
-            },
-            {
-              "type": "rect",
-              "x": cm(6.8),
-              "y": 0,
-              "w": cm(2.25),
-              "h": cm(0.55),
-              "color": "#343a49"
-            },
-            {
-              "type": "rect",
-              "x": cm(9.05),
-              "y": 0,
-              "w": cm(2.3),
-              "h": cm(0.55),
-              "color": "#528c8e"
-            },
-            {
-              "type": "rect",
-              "x": cm(11.35),
-              "y": 0,
-              "w": cm(2.25),
-              "h": cm(0.55),
-              "color": "#362946"
-            },
-            {
-              "type": "rect",
-              "x": cm(13.6),
-              "y": 0,
-              "w": cm(2.3),
-              "h": cm(0.55),
-              "color": "#6b8133"
-            },
-            {
-              "type": "rect",
-              "x": cm(15.9),
-              "y": 0,
-              "w": cm(2.25),
-              "h": cm(0.55),
-              "color": "#2a3b56"
-            },
-            {
-              "type": "rect",
-              "x": cm(18.15),
-              "y": 0,
-              "w": cm(2.3),
-              "h": cm(0.55),
-              "color": "#862d2e"
-            },
-            {
-              "type": "rect",
-              "x": cm(20.45),
-              "y": 0,
-              "w": cm(2.3),
-              "h": cm(0.55),
-              "color": "#607f6e"
-            },
-            {
-              "type": "rect",
-              "x": cm(22.75),
-              "y": 0,
-              "w": cm(2.3),
-              "h": cm(0.55),
-              "color": "#273d3f"
-            },
-            {
-              "type": "rect",
-              "x": cm(25.05),
-              "y": 0,
-              "w": cm(2.3),
-              "h": cm(0.55),
-              "color": "#a5916d"
-            },
+            {"type": "rect", "x": cm(0.0), "y": 0, "w": cm(2.2), "h": cm(0.55), "color": "#d69a2e"},
+            {"type": "rect", "x": cm(2.2), "y": 0, "w": cm(2.3), "h": cm(0.55), "color": "#2e4736"},
+            {"type": "rect", "x": cm(4.5), "y": 0, "w": cm(2.3), "h": cm(0.55), "color": "#662c40"},
+            {"type": "rect", "x": cm(6.8), "y": 0, "w": cm(2.25), "h": cm(0.55), "color": "#343a49"},
+            {"type": "rect", "x": cm(9.05), "y": 0, "w": cm(2.3), "h": cm(0.55), "color": "#528c8e"},
+            {"type": "rect", "x": cm(11.35), "y": 0, "w": cm(2.25), "h": cm(0.55), "color": "#362946"},
+            {"type": "rect", "x": cm(13.6), "y": 0, "w": cm(2.3), "h": cm(0.55), "color": "#6b8133"},
+            {"type": "rect", "x": cm(15.9), "y": 0, "w": cm(2.25), "h": cm(0.55), "color": "#2a3b56"},
+            {"type": "rect", "x": cm(18.15), "y": 0, "w": cm(2.3), "h": cm(0.55), "color": "#862d2e"},
+            {"type": "rect", "x": cm(20.45), "y": 0, "w": cm(2.3), "h": cm(0.55), "color": "#607f6e"},
+            {"type": "rect", "x": cm(22.75), "y": 0, "w": cm(2.3), "h": cm(0.55), "color": "#273d3f"},
+            {"type": "rect", "x": cm(25.05), "y": 0, "w": cm(2.3), "h": cm(0.55), "color": "#a5916d"},
           ],
         });
       }
@@ -312,16 +144,8 @@ abstract class BasePrint
     });
     ret["stack"].add({
       "absolutePosition": {"x": cm(2.2), "y": cm(2.95)},
-      "canvas": [ {
-        "type": "line",
-        "x1": 0,
-        "y1": 0,
-        "x2": cm(width - 4.4),
-        "y2": 0,
-        "lineWidth": cm(0.2),
-        "lineColor": colText
-      }
-      ]
+      "canvas": [
+        {"type": "line", "x1": 0, "y1": 0, "x2": cm(width - 4.4), "y2": 0, "lineWidth": cm(0.2), "lineColor": colText}]
     });
 
     return ret;
@@ -353,14 +177,12 @@ abstract class BasePrint
           "color": colInfo,
           "fontSize": "10"
         },
-        isInput
-          ? getImage("input", x: width - 5.6, y: height - 3.3, width: 4.0)
-          : {},
+        isInput ? getImage("input", x: width - 5.6, y: height - 3.3, width: 4.0) : {},
         {
           "absolutePosition": {"x": cm(2.2), "y": cm(height - 1.7)},
           "columns": [ {
             "width": cm(width - 4.4),
-            "text": "${g.userName}, *${fmtDate(g.birthDate)}",
+            "text": "${g.userName}, *${g.birthDate}",
             "color": colInfo,
             "alignment": "right",
             "fontSize": "10"
@@ -400,12 +222,10 @@ abstract class BasePrint
   Future<String> getBase64Image(String id)
   async {
     var response = await HttpRequest.request(
-      "packages/nightscout_reporter/assets/img/$id.png",
-      responseType: "arraybuffer");
+      "packages/nightscout_reporter/assets/img/$id.png", responseType: "arraybuffer");
     if (response.response is ByteBuffer)
     {
-      String ret = base64.encode(
-        (response.response as ByteBuffer).asUint8List());
+      String ret = base64.encode((response.response as ByteBuffer).asUint8List());
       return "data:image/png;base64,${ret}";
     }
 
@@ -427,25 +247,19 @@ abstract class BasePrint
     else
     {
       ret = {
-        "stack": [
-          {
-            "absolutePosition": {"x": cm(x), "y": cm(y)},
-            "canvas": [ {
-              "type": "rect",
-              "x": cm(0),
-              "y": cm(0),
-              "w": cm(max(width, 0.01)),
-              "h": cm(max(height, 0.01)),
-              "lineWidth": cm(0.01),
-              "lineColor": "#f00"
-            }
-            ]
-          },
-          {
-            "absolutePosition": {"x": cm(x), "y": cm(y)},
-            "text": "bild\n$id\nfehlt",
-            "color": "#f00"
+        "stack": [ {
+          "absolutePosition": {"x": cm(x), "y": cm(y)},
+          "canvas": [ {
+            "type": "rect",
+            "x": cm(0),
+            "y": cm(0),
+            "w": cm(max(width, 0.01)),
+            "h": cm(max(height, 0.01)),
+            "lineWidth": cm(0.01),
+            "lineColor": "#f00"
           }
+          ]
+        }, {"absolutePosition": {"x": cm(x), "y": cm(y)}, "text": "bild\n$id\nfehlt", "color": "#f00"}
         ]
       };
     }
@@ -478,12 +292,7 @@ abstract class BasePrint
         "pageOrientation": "portrait",
         "pageMargins": [cm(1), cm(1), cm(1), cm(1)],
         "content": [
-          {
-            "text": "Fehler bei Erstellung von \"${name}\"",
-            "fontSize": 20,
-            "alignment": "center",
-            "color": "red"
-          },
+          {"text": "Fehler bei Erstellung von \"${name}\"", "fontSize": 20, "alignment": "center", "color": "red"},
           { "text": "\n$ex", "fontSize": 10, "alignment": "left"},
           { "text": "\n$s", "fontSize": 10, "alignment": "left"}
         ]
@@ -496,18 +305,8 @@ abstract class BasePrint
           "alignment": "center",
           "color": "red"
         },
-        {
-          "margin": [cm(1.0), cm(0.0), cm(1.0), cm(0)],
-          "text": "\n$ex",
-          "fontSize": 10,
-          "alignment": "left"
-        },
-        {
-          "margin": [cm(1.0), cm(0.5), cm(1.0), cm(0)],
-          "text": "\n$s",
-          "fontSize": 10,
-          "alignment": "left"
-        }
+        {"margin": [cm(1.0), cm(0.0), cm(1.0), cm(0)], "text": "\n$ex", "fontSize": 10, "alignment": "left"},
+        {"margin": [cm(1.0), cm(0.5), cm(1.0), cm(0)], "text": "\n$s", "fontSize": 10, "alignment": "left"}
       ];
     }
     checked = window.localStorage["form$id"] == "true";
@@ -547,9 +346,7 @@ abstract class BasePrint
     if (date == null)return def;
 
     if (date is DateTime)
-      return "${(date.hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10
-        ? "0"
-        : "")}${date.minute}";
+      return "${(date.hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute}";
 
     if (date is int)
     {
@@ -569,10 +366,8 @@ abstract class BasePrint
     if (date == null)return def;
 
     if (date is DateTime)
-      return "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10
-        ? "0"
-        : "")}${date.month}.${date.year} ${(date.hour < 10 ? "0" : "")}${date
-        .hour}:${(date.minute < 10 ? "0" : "")}${date.minute} Uhr";
+      return "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year} ${(date
+        .hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute} Uhr";
 
     return date;
   }
@@ -583,13 +378,10 @@ abstract class BasePrint
     if (date == null)return def;
 
     if (date is Date || date is DateTime)
-      return "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10
-        ? "0"
-        : "")}${date.month}.${date.year}";
+      return "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year}";
 
     if (date is String && date.length >= 8)
-      return "${date.substring(6, 8)}.${date.substring(4, 6)}.${date.substring(
-        0, 4)}";
+      return "${date.substring(6, 8)}.${date.substring(4, 6)}.${date.substring(0, 4)}";
 
     return date;
   }
@@ -643,24 +435,8 @@ abstract class BasePrint
       "columns": [ {
         "width": cm(0.8),
         "canvas": [
-          {
-            "type": "rect",
-            "x": cm(0),
-            "y": cm(0.1),
-            "w": cm(0.5),
-            "h": cm(0.3),
-            "color": color,
-            "fillOpacity": 0.3
-          },
-          {
-            "type": "rect",
-            "x": 0,
-            "y": 0,
-            "w": 0,
-            "h": 0,
-            "color": "#000",
-            "fillOpacity": 1
-          },
+          {"type": "rect", "x": cm(0), "y": cm(0.1), "w": cm(0.5), "h": cm(0.3), "color": color, "fillOpacity": 0.3},
+          {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1},
           {
             "type": "line",
             "x1": cm(0),

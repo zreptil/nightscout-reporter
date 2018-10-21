@@ -13,19 +13,14 @@
                       floatingLabel
                       [(ngModel)]="g.storageApiUrl">
       </material-input>
+      <material-checkbox [(checked)]="g.showUrl" @i18n="label for checkbox to display URL">URL im Titel der Seite anzeigen</material-checkbox>
     </div>
     <div class="subtitle" @i18n="label for area with optional data">Optionale Daten für den Ausdruck</div>
     <div class="personalinfo">
       <material-input [(ngModel)]="g.userName" floatingLabel [label]="msgName"></material-input>
       <material-input [(ngModel)]="g.insulin" floatingLabel [label]="msgInsulin"></material-input>
-      <div class="datepicker-row">
-        <label @i18n="label of editfield for birthday">Geburtstag</label>
-        <material-datepicker [(date)]="g.birthDate" [minDate]="g.minBirthDate"></material-datepicker>
-      </div>
-      <div class="datepicker-row">
-        <label @i18n="label of editfield for diabetes since">Diabetes seit</label>
-        <material-datepicker [(date)]="g.diaStartDate" [minDate]="g.minBirthDate"></material-datepicker>
-      </div>
+      <material-input [(ngModel)]="g.birthDate" floatingLabel label="Geburtstag" @i18n:label="label of editfield for birthday"></material-input>
+      <material-input [(ngModel)]="g.diaStartDate" floatingLabel label="Diabetes seit" @i18n:label="label of editfield for diabetes since"></material-input>
     </div>
     <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
     <div>
