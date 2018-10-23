@@ -28,6 +28,7 @@
     <welcome *ngIf="currPage=='welcome'" (fabClicked)="currPage='settings'"></welcome>
     <settings [isVisible]="currPage=='settings'" (settingsresult)="settingsResult"></settings>
     <impressum *ngIf="currPage=='impressum'"></impressum>
+    <whatsnew *ngIf="currPage=='whatsnew'"></whatsnew>
     <dsgvo *ngIf="currPage=='dsgvo'"></dsgvo>
     <div class="progress" *ngIf="progressText != null">
       <material-progress [activeProgress]="progressValue" [max]="progressMax"
@@ -63,7 +64,8 @@
         </template>
       </div>
     </div>
-    <material-fab mini class="debug-trigger" *ngIf="g.canDebug && currPage=='normal'" (trigger)="isDebug = !isDebug">
+    <material-fab mini class="debug-trigger" *ngIf="g.canDebug && currPage=='normal'"
+                  (trigger)="reportData = null;isDebug = !isDebug;">
       <material-icon icon="bug_report"></material-icon>
     </material-fab>
     <material-fab *ngIf="currPage=='normal'" [raised]="true" [class]="sendIcon" [disabled]="sendDisabled"
@@ -88,14 +90,13 @@
           <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
           <ng-container @i18n="title of nightscout page">Nightscout Seite</ng-container>
         </material-button>
-        <material-button *ngIf="g.isBeta" class="material-drawer-button"
-                         (trigger)="drawer.toggle();navigate('https://autotuneweb.azurewebsites.net/');">
-          <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
-          <ng-container @i18n="title of autotune page">Autotune </ng-container>
-        </material-button>
         <material-button *ngIf="g.reportUrl != null" class="material-drawer-button"
                          (trigger)="drawer.toggle();callNightscoutReports();">
           <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">{{msgNightscoutReport}}
+        </material-button>
+        <material-button class="material-drawer-button" (trigger)="currPage='whatsnew';drawer.toggle();">
+          <material-icon icon="new_releases"></material-icon>
+          <ng-container @i18n="title of whatsnew screen">Was bisher geschah...</ng-container>
         </material-button>
       </div>
       <div>
@@ -127,6 +128,10 @@
                              (trigger)="drawer.toggle();navigate('https://translate.google.com/toolkit/');">
               <material-icon icon="g_translate"></material-icon>
             </material-button>
+            <material-button icon mini class="material-drawer-button"
+                             (trigger)="drawer.toggle();navigate('https://autotuneweb.azurewebsites.net/');">
+              <material-icon icon="tune"></material-icon>
+            </material-button>
           </div>
         </div>
       </div>
@@ -134,21 +139,16 @@
   </material-drawer>
 </div>
 <div id="messagePanel" *ngIf="message.links.length > 0 || !message.isEmpty">
-  <div id="msgLinks" *ngIf="message.links.length > 0" class="msg toggle-debug">
-    <material-button *ngFor="let entry of message.links" (trigger)="navigate(entry['url'])"
-                     [class]="entry['class']">{{entry['title']}}
-    </material-button>
-    <material-button (trigger)="message.links=[]" @i18n="label for button to close links-panel">
-      Schliessen
-    </material-button>
-  </div>
-  <div id="message" *ngIf="!message.isEmpty" [class]="message.type" (click)="message.ok == null ? display('') : null">
+  <div id="message" *ngIf="!message.isEmpty || message.links.length > 0" [class]="message.type">
     <p [innerHTML]="message.text"></p>
-    <material-button [style.display]="message.ok==null?'none':''" (trigger)="message.dismiss(message.ok)">
-      {{message.okText}}
+    <material-button *ngFor="let entry of message.links" (trigger)="navigate(entry['url'])"
+                     [class]="entry['class']">
+      <material-icon *ngIf="entry['icon']!=null" [icon]="entry['icon']"></material-icon>
+      {{entry['title']}}
     </material-button>
-    <material-button [style.display]="message.cancel==null?'none':''" (trigger)="message.dismiss(message.cancel)">
-      {{message.cancelText}}
+    <material-button (trigger)="message.dismiss(message.clear)">
+      <material-icon icon="close"></material-icon>
+      {{message.okText}}
     </material-button>
   </div>
 </div>

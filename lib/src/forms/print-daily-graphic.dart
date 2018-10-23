@@ -19,7 +19,7 @@ class PrintDailyGraphic extends BasePrint
 
   @override
   List<String> get imgList
-  => ["nightscout", "katheter", "katheter.print",];
+  => ["nightscout", "katheter.print", "sensor.print"];
 
   @override
   bool get isPortrait
@@ -162,42 +162,50 @@ class PrintDailyGraphic extends BasePrint
     }
     graphCvs.add(area);
 
-    if (g.isBeta)
+    var cob = {
+      "type": "polyline",
+      "lineWidth": cm(lw),
+      "closePath": true,
+      "points": [],
+      "lineColor": "#ff0000",
+      "color": "#ffa0a0"
+    };
+    List cobPoints = cob["points"];
+    for (globals.TreatmentData t in day.treatments)
     {
-      var cob = {
-        "type": "polyline",
-        "lineWidth": cm(lw),
-        "closePath": true,
-        "points": [],
-        "lineColor": "#ff0000",
-        "color": "#ffa0a0"
-      };
-      List cobPoints = cob["points"];
-      for (globals.TreatmentData t in day.treatments)
+      double x, y;
+      if (t.eventType.toLowerCase() == "temp basal")continue;
+      if (g.isBeta && t.boluscalc != null && t.boluscalc.cob != 0)
       {
-        double x, y;
-        if (t.eventType.toLowerCase() == "temp basal")continue;
-        if (t.boluscalc != null && t.boluscalc.cob != 0)
-        {
-          x = glucX(t.createdAt);
-          y = glucY(t.boluscalc.cob);
-          if (cobPoints.length == 0)cobPoints.add({"x": cm(x), "y": cm(glucY(0.0))});
-          cobPoints.add({"x": cm(x), "y": cm(y)});
-        }
+        x = glucX(t.createdAt);
+        y = glucY(t.boluscalc.cob);
+        if (cobPoints.length == 0)cobPoints.add({"x": cm(x), "y": cm(glucY(0.0))});
+        cobPoints.add({"x": cm(x), "y": cm(y)});
+      }
 
-        if (t.eventType.toLowerCase() == "site change")
-        {
-          double x = xo + glucX(t.createdAt) - 0.3;
-          double y = yo + graphHeight - 0.6;
-          (pictures["stack"] as List).add(
-            {"absolutePosition": {"x": cm(x), "y": cm(y)}, "image": "katheter.print", "width": cm(0.8)});
-          (pictures["stack"] as List).add({
-            "absolutePosition": {"x": cm(x + 0.33), "y": cm(y + 0.04)},
-            "text": "${fmtTime(t.createdAt)}",
-            "fontSize": "5",
-            "color": "white"
-          });
-        }
+      if (t.eventType.toLowerCase() == "site change")
+      {
+        double x = xo + glucX(t.createdAt) - 0.3;
+        double y = yo + graphHeight - 0.6;
+        (pictures["stack"] as List).add(
+          {"absolutePosition": {"x": cm(x), "y": cm(y)}, "image": "katheter.print", "width": cm(0.8)});
+        (pictures["stack"] as List).add({
+          "absolutePosition": {"x": cm(x + 0.33), "y": cm(y + 0.04)},
+          "text": "${fmtTime(t.createdAt)}",
+          "fontSize": "5",
+          "color": "white"
+        });
+      }
+      else if (t.eventType.toLowerCase() == "sensor change")
+      {
+        double x = xo + glucX(t.createdAt) - 0.3;
+        double y = yo + graphHeight - 0.6;
+        (pictures["stack"] as List).add(
+          {"absolutePosition": {"x": cm(x), "y": cm(y)}, "image": "sensor.print", "width": cm(0.6)});
+        (pictures["stack"] as List).add({
+          "absolutePosition": {"x": cm(x + 0.0), "y": cm(y + 0.34)},
+          "columns": [{"width": cm(0.6), "text": "${fmtTime(t.createdAt)}", "fontSize": "5", "color": "white", "alignment": "center"}]
+        });
       }
       if (cobPoints.length > 0)cobPoints.add({"x": cobPoints.last["x"], "y": cobPoints.first["y"]});
       graphCvs.add(cob);

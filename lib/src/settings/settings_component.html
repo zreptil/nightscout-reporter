@@ -13,7 +13,21 @@
                       floatingLabel
                       [(ngModel)]="g.storageApiUrl">
       </material-input>
-      <material-checkbox [(checked)]="g.showUrl" @i18n="label for checkbox to display URL">URL im Titel der Seite anzeigen</material-checkbox>
+      <material-input *ngIf="g.isBeta"
+                      [class]="g.isBeta?'betaText':''"
+                      [label]="msgApiSecret"
+                      floatingLabel
+                      type="password"
+                      [(ngModel)]="g.apiSecret">
+      </material-input>
+      <material-input *ngIf="g.isBeta"
+                      [class]="g.isBeta?'betaText':''"
+                      [label]="msgUserToken"
+                      floatingLabel
+                      type="password"
+                      [(ngModel)]="g.userToken">
+      </material-input>
+      <material-checkbox [(checked)]="g.showUrl" @i18n="label for checkbox to display URL">URL im Titelbereich der Seite anzeigen</material-checkbox>
     </div>
     <div class="subtitle" @i18n="label for area with optional data">Optionale Daten für den Ausdruck</div>
     <div class="personalinfo">

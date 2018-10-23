@@ -41,6 +41,8 @@ class SettingsComponent
   => Intl.message("Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)");
   String get msgName => Intl.message("Name");
   String get msgInsulin => Intl.message("Insulin");
+  String get msgApiSecret => Intl.message("API-Secret (nur nötig, wenn der Zugriff eingeschränkt ist)");
+  String get msgUserToken => Intl.message("User-Token (nur nötig, wenn der Zugriff eingeschränkt ist)");
 
   @Input()
   bool isVisible = false;

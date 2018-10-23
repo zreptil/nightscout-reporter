@@ -3,12 +3,12 @@ library diamant.globals;
 import 'dart:async';
 import 'dart:html' as html;
 import 'dart:math' as math;
-import 'package:http/browser_client.dart' as http;
 
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_datepicker/comparison.dart';
 import 'package:angular_components/material_datepicker/comparison_option.dart';
 import 'package:angular_components/material_datepicker/range.dart';
+import 'package:http/browser_client.dart' as http;
 import 'package:intl/intl.dart';
 
 class JsonData
@@ -29,6 +29,7 @@ class JsonData
 
   DateTime toDate(String value)
   {
+    if (value == null)return DateTime(0, 1, 1);
     return DateTime.tryParse(value).toLocal() ?? DateTime(0, 1, 1);
   }
 
@@ -572,6 +573,7 @@ class EntryData extends JsonData
   double rawbg;
   double sgv;
   String type;
+  bool isCopy = false;
   double get gluc
   {
     return type == "sgv" ? sgv : rawbg;
@@ -839,8 +841,10 @@ class ListData
       String type = t.eventType.toLowerCase();
       if (type == "bolus wizard")
       {
-        if (t.carbs != null)khCount += t.carbs;
-        if (t.insulin != null)ieBolusSum += t.insulin;
+        if(t.boluscalc != null && t.boluscalc.carbs != null)khCount += t.boluscalc.carbs;
+        else if (t.carbs != null)khCount += t.carbs;
+        if (t.boluscalc != null && t.boluscalc.insulin != null)ieBolusSum += t.boluscalc.insulin;
+        else if (t.insulin != null)ieBolusSum += t.insulin;
       }
       if (type == "site change")catheterCount++;
       if (type == "insulin change")ampulleCount++;
@@ -898,12 +902,9 @@ class ReportData
 
 class Msg
 {
-  String okText = "Ja";
-  String cancelText = "Nein";
+  String okText = Intl.message("Schliessen");
   String text;
   String type = "msg";
-  var ok = null;
-  var cancel = null;
   var links = [];
   bool get isEmpty
   => (text == null || text == "") && links.length == 0;
@@ -916,7 +917,7 @@ class Msg
 
   void dismiss(call)
   {
-    call();
+    if (call != null)call();
     text = null;
     links = [];
   }
@@ -936,22 +937,15 @@ class LangData
 class Globals
 {
   static final Globals _globals = Globals._internal();
+  String version = "1.0.0";
+  String lastVersion;
   String get msgUrlFailure
   =>
-    Intl.message(
-      "Die angegebene URL ist nicht erreichbar.<br><br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br><br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.");
-
-
-  static double calc(double a, double b, double factor)
-  {
-    if (a != null && a > 0)
-    {
-      if (b != null && b > 0)return a + ((b - a) * factor).toInt();
-      else
-        return a;
-    }
-    return b;
-  }
+    Intl.message("Die angegebene URL ist nicht erreichbar.<br>"
+      "<br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br>"
+      "<br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, "
+      "wie dieses hier, auf die Daten zugreifen dürfen. Ausserdem müssen API Secret "
+      "und UserToken korrekt definiert sein.");
 
   String title = "Nightscout Reporter";
   String userName = "?";
@@ -960,6 +954,8 @@ class Globals
   DateFormat dateFormat = DateFormat("dd.mm.yyyy", "de_DE");
   String insulin = null;
   String storageApiUrl = null;
+  String apiSecret = null;
+  String userToken = null;
   List<LangData> languageList = [
     LangData("de_DE", Intl.message("Deutsch"), "de"), LangData("en_US", Intl.message("English"), "us")];
   LangData language;
@@ -974,9 +970,9 @@ class Globals
     String ret = storageApiUrl;
     if (ret != null)
     {
-      if(ret.startsWith("@"))return ret.substring(1);
-      if(!ret.endsWith("/"))ret = "$ret/";
-      if(!ret.endsWith("/api/v1/")) ret = "${ret}api/v1/";
+      if (ret.startsWith("@"))return ret.substring(1);
+      if (!ret.endsWith("/"))ret = "$ret/";
+      if (!ret.endsWith("/api/v1/")) ret = "${ret}api/v1/";
     }
     return ret;
   }
@@ -988,7 +984,7 @@ class Globals
     {
       if (!ret.endsWith("/"))ret = "$ret/";
     }
-  return "${ret}report";
+    return "${ret}report";
   }
 
   bool glucMGDL = true;
@@ -1008,10 +1004,33 @@ class Globals
     return "";
   }
 
+  static double calc(double a, double b, double factor)
+  {
+    if (a != null && a > 0)
+    {
+      if (b != null && b > 0)return a + ((b - a) * factor).toInt();
+      else
+        return a;
+    }
+    return b;
+  }
+
   Future<String> request(String url, {String method = "GET"})
   async {
     http.BrowserClient client = http.BrowserClient();
-    return client.read(url).catchError((error)
+    var headers = null;
+    if (apiSecret != null && apiSecret.isNotEmpty)
+    {
+      headers = {"accept": "application/json", "api_secret": apiSecret};
+    }
+    if (userToken != null && userToken.isNotEmpty)url = "${url}?token=${userToken}";
+    return client.get(url, headers: headers).then((response) {
+      return response.body;
+    }).catchError((error)
+    {
+      return error.toString();
+    });
+    return client.read(url, headers: headers).catchError((error)
     {
       return error.toString();
     });
@@ -1059,29 +1078,44 @@ await html.HttpRequest.getString(check,withCredentials: true).then((String statu
     if (saveImmediate)save();
   }
 
+  void saveStorage(String key, String value)
+  {
+    if (value == null || value.isEmpty)html.window.localStorage.remove(key);
+    else
+      html.window.localStorage[key] = value;
+  }
+
+  String loadStorage(String key)
+  {
+    String ret = html.window.localStorage[key];
+    if (ret == "null" || ret == null)ret = "";
+    return ret;
+  }
+
   void load()
   {
     String langId = html.window.localStorage["language"];
     int idx = languageList.indexWhere((v)
     => v.code == langId);
     language = languageList[idx >= 0 ? idx : 0];
-
+    lastVersion = loadStorage("lastVersion");
     fmtDateForData = DateFormat("yyyy-MM-dd");
     fmtDateForDisplay = DateFormat("dd.MM.yyyy");
-    storageApiUrl = html.window.localStorage["apiUrl"];
-    if(storageApiUrl.endsWith("/api/v1/"))storageApiUrl.replaceAll("/api/v1/", "");
-    if(storageApiUrl.endsWith("/api/v1"))storageApiUrl.replaceAll("/api/v1", "");
+    storageApiUrl = loadStorage("apiUrl");
+    apiSecret = loadStorage("apiSecret");
+    userToken = loadStorage("userToken");
+    if (storageApiUrl.endsWith("/api/v1/"))storageApiUrl.replaceAll("/api/v1/", "");
+    if (storageApiUrl.endsWith("/api/v1"))storageApiUrl.replaceAll("/api/v1", "");
     if (storageApiUrl == "null")storageApiUrl = null;
-    glucMGDL = html.window.localStorage["glucMGDL"] != "false";
-    userName = html.window.localStorage["userName"];
-    if (userName == null || userName.isEmpty)userName = "?";
-    insulin = html.window.localStorage["insulin"] ?? "";
-    birthDate = html.window.localStorage["birthDate"];
-    diaStartDate = html.window.localStorage["diaStartDate"];
-    canDebug = html.window.localStorage["debug"] == "yes";
-    isBeta = html.window.localStorage["beta"] == "yes";
-    pdfSameWindow = html.window.localStorage["pdfSameWindow"] != "no";
-    showUrl = html.window.localStorage["showUrl"] == "yes";
+    glucMGDL = loadStorage("glucMGDL") != "false";
+    userName = loadStorage("userName");
+    insulin = loadStorage("insulin");
+    birthDate = loadStorage("birthDate");
+    diaStartDate = loadStorage("diaStartDate");
+    canDebug = loadStorage("debug") == "yes";
+    isBeta = loadStorage("beta") == "yes";
+    pdfSameWindow = loadStorage("pdfSameWindow") != "no";
+    showUrl = loadStorage("showUrl") == "yes";
 
     Date start = Date.today();
     Date end = Date.today();
@@ -1092,7 +1126,8 @@ await html.HttpRequest.getString(check,withCredentials: true).then((String statu
       end = Date.parse(html.window.localStorage["endDate"] ?? Date.today().format(fmtDateForData), fmtDateForData);
     }
     catch (ex)
-    {}
+    {
+    }
     DatepickerDateRange dr = DatepickerDateRange(dateRange.range.title, start, end);
     dateRange = DatepickerComparison(dr, ComparisonOption.custom);
     changeLanguage(language);
@@ -1100,24 +1135,26 @@ await html.HttpRequest.getString(check,withCredentials: true).then((String statu
 
   void save()
   {
-    bool doReload = language.code != html.window.localStorage["language"] && language.code != null &&
-      html.window.localStorage["language"] != null;
-    html.window.localStorage["apiUrl"] = storageApiUrl ?? "";
-    html.window.localStorage["glucMGDL"] = glucMGDL.toString();
-    if (userName == null || userName.isEmpty)userName = "?";
-    html.window.localStorage["userName"] = userName;
-    html.window.localStorage["insulin"] = insulin ?? "";
-    html.window.localStorage["birthDate"] = birthDate;
-    html.window.localStorage["diaStartDate"] = diaStartDate;
-    html.window.localStorage["language"] = language.code ?? "de_DE";
-    html.window.localStorage["beta"] = isBeta ? "yes" : "no";
-    html.window.localStorage["showUrl"] = showUrl ? "yes" : "no";
-    html.window.localStorage["pdfSameWindow"] = pdfSameWindow ? "yes" : "no";
+    bool doReload = language.code != html.window.localStorage["language"] && language.code != null && html.window
+      .localStorage["language"] != null;
+    saveStorage("lastVersion", version);
+    saveStorage("apiUrl", storageApiUrl);
+    saveStorage("apiSecret", apiSecret);
+    saveStorage("userToken", userToken);
+    saveStorage("glucMGDL", glucMGDL.toString());
+    saveStorage("userName", userName);
+    saveStorage("insulin", insulin);
+    saveStorage("birthDate", birthDate);
+    saveStorage("diaStartDate", diaStartDate);
+    saveStorage("language", language.code ?? "de_DE");
+    saveStorage("beta", isBeta ? "yes" : "no");
+    saveStorage("showUrl", showUrl ? "yes" : "no");
+    saveStorage("pdfSameWindow", pdfSameWindow ? "yes" : "no");
+
     if (dateRange.range != null)
     {
-      if (dateRange.range.start != null)
-        html.window.localStorage["startDate"] = dateRange.range.start.format(fmtDateForData);
-      if (dateRange.range.end != null) html.window.localStorage["endDate"] = dateRange.range.end.format(fmtDateForData);
+      if (dateRange.range.start != null)saveStorage("startDate", dateRange.range.start.format(fmtDateForData));
+      if (dateRange.range.end != null) saveStorage("endDate", dateRange.range.end.format(fmtDateForData));
     }
     if (doReload)html.window.location.reload();
   }

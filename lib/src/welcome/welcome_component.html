@@ -1,5 +1,5 @@
 <div class="root">
-  <h1>Willkommen bei Nightscout Reporter!</h1>
+  <h1 @i18n="welcome title">Willkommen bei Nightscout Reporter!</h1>
   <div>
     <material-button [raised]="false" (trigger)="g.changeLanguage(g.languageList[1], saveImmediate: true);">
       <img src="{{g.languageList[1].imgPath}}">

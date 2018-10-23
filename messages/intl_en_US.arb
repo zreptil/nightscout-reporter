@@ -1,6 +1,149 @@
 {
-  "Die angegebene URL ist nicht erreichbar.<br><br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br><br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.": "The specified URL is unreachable.<br><br>If the URL is correct, then it may be due to the Nightscout settings.<br><br>The variable ENABLE must contain the word \"cors\" to allow external tools, like this one here, to access the data.",
-  "@Die angegebene URL ist nicht erreichbar.<br><br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br><br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.": {
+  "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
+  "@Überprüfe Zugriff auf Nightscout ...": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgLoadingData": "Error loading data: {error} {stacktrace}",
+  "@msgLoadingData": {
+    "type": "text",
+    "placeholders": {
+      "error": {},
+      "stacktrace": {}
+    }
+  },
+  "Fehler beim Laden der Daten": "Error loading data",
+  "@Fehler beim Laden der Daten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgLoadingDataFor": "Loading data for {date} ...",
+  "@msgLoadingDataFor": {
+    "description": "displayed when data of a day is loading",
+    "type": "text",
+    "placeholders": {
+      "date": {}
+    }
+  },
+  "Schliessen": "Close",
+  "@Schliessen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bitte einen Zeitraum wählen.": "Please select a period.",
+  "@Bitte einen Zeitraum wählen.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bereite Daten vor...": "Preparing data...",
+  "@Bereite Daten vor...": {
+    "description": "text when data was received and is being prepared to be used in the report",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Erzeuge PDF...": "Creating PDF...",
+  "@Erzeuge PDF...": {
+    "description": "text when pdf is being created",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Impressum": "Imprint",
+  "@Impressum": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Datenschutzerklärung": "Data protection ",
+  "@Datenschutzerklärung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nightscout Berichte": "Nightscout Reports",
+  "@Nightscout Berichte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "ok",
+  "@ok": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "verwerfen": "discard",
+  "@verwerfen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "The PDF was created. If it is not displayed, then probably a popup blocker is active, which prevents the display. Please deactivate this.",
+  "@Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Heute": "Today",
+  "@Heute": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 2 Tage": "Last 2 days",
+  "@Letzte 2 Tage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Tage": "Last 3 days",
+  "@Letzte 3 Tage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte Woche": "Last week",
+  "@Letzte Woche": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 2 Wochen": "Last 2 weeks",
+  "@Letzte 2 Wochen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Wochen": "Last 3 weeks",
+  "@Letzte 3 Wochen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzter Monat": "Last month",
+  "@Letzter Monat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Monate": "Last 3 months",
+  "@Letzte 3 Monate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zeitraum": "Period",
+  "@Zeitraum": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beim Auslesen des Profils ist ein Fehler aufgetreten.": "An error occurred while reading the profile.",
+  "@Beim Auslesen des Profils ist ein Fehler aufgetreten.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "An error occurred while creating the PDF.",
+  "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Problem auf GitHub melden": "Report a problem to GitHub",
+  "@Problem auf GitHub melden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "PDF anzeigen": "Show PDF",
+  "@PDF anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die angegebene URL ist nicht erreichbar.<br><br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br><br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen. Ausserdem müssen API Secret und UserToken korrekt definiert sein.": "The specified URL is unreachable. <br> <br> If the URL is correct, then it may be due to the Nightscout settings. <br> <br> The variable ENABLE must contain the word \"cors\" to allow external tools, like this one here, to access the data. In addition, API Secret and UserToken must be defined correctly.",
+  "@Die angegebene URL ist nicht erreichbar.<br><br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br><br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen. Ausserdem müssen API Secret und UserToken korrekt definiert sein.": {
     "type": "text",
     "placeholders": {}
   },
@@ -11,11 +154,6 @@
   },
   "English": "English",
   "@English": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zeitraum": "Period",
-  "@Zeitraum": {
     "type": "text",
     "placeholders": {}
   },
@@ -241,6 +379,13 @@
       "begDate": {}
     }
   },
+  "msgValidTo": "valid until {endDate}",
+  "@msgValidTo": {
+    "type": "text",
+    "placeholders": {
+      "endDate": {}
+    }
+  },
   "Ges.": "Sum",
   "@Ges.": {
     "type": "text",
@@ -370,6 +515,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "API-Secret (nur nötig, wenn der Zugriff eingeschränkt ist)": "API Secret (only necessary if access is restricted)",
+  "@API-Secret (nur nötig, wenn der Zugriff eingeschränkt ist)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "User-Token (nur nötig, wenn der Zugriff eingeschränkt ist)": "User token (only necessary if access is restricted)",
+  "@User-Token (nur nötig, wenn der Zugriff eingeschränkt ist)": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Willkommen": "Welcome",
   "@Willkommen": {
     "description": "title of welcome screen",
@@ -382,15 +537,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "Nightscout Seite": "Nightscout Site",
-  "@Nightscout Seite": {
-    "description": "title of nightscout page",
+  "Was bisher geschah...": "What happened up to now...",
+  "@Was bisher geschah...": {
+    "description": "title of whatsnew screen",
     "type": "text",
     "placeholders": {}
   },
-  "Schliessen": "Close",
-  "@Schliessen": {
-    "description": "label for button to close links-panel",
+  "Nightscout Seite": "Nightscout Site",
+  "@Nightscout Seite": {
+    "description": "title of nightscout page",
     "type": "text",
     "placeholders": {}
   },
@@ -400,8 +555,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "URL im Titel der Seite anzeigen": "Display URL in the title of the page",
-  "@URL im Titel der Seite anzeigen": {
+  "URL im Titelbereich der Seite anzeigen": "Show URL in the title area of ​​the page",
+  "@URL im Titelbereich der Seite anzeigen": {
     "description": "label for checkbox to display URL",
     "type": "text",
     "placeholders": {}
@@ -454,6 +609,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "Willkommen bei Nightscout Reporter!": "Welcome to Nightscout Reporter!",
+  "@Willkommen bei Nightscout Reporter!": {
+    "description": "welcome title",
+    "type": "text",
+    "placeholders": {}
+  },
   "This page is also available in english": "Diese Seite ist auch auf Deutsch verfügbar",
   "@This page is also available in english": {
     "description": "label for button to switch to other language",
@@ -481,6 +642,78 @@
   "Einstellungen für die Verwendung der Seite vornehmen": "Enter settings for using the page",
   "@Einstellungen für die Verwendung der Seite vornehmen": {
     "description": "label for button to open settings on welcome screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Was bisher geschah:": "What happened up to now:",
+  "@Was bisher geschah:": {
+    "description": "title of whatsnew",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Version": "Version",
+  "@Version": {
+    "description": "version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": "Added this page. It is displayed each time Nightscout Reporter starts, if it has not been displayed in the current version. In addition, it can be called up again in the burgermenu.",
+  "@Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": {
+    "description": "v101-0",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Schliessen Button im Nachrichtenbereich hinzugefügt.": "Close button added in the message area.",
+  "@Schliessen Button im Nachrichtenbereich hinzugefügt.": {
+    "description": "v101-1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": "Errors are better intercepted and replaced with more meaningful text.",
+  "@Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": {
+    "description": "v101-2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.": "Clicking on the message area no longer closes it.",
+  "@Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.": {
+    "description": "v101-3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": "Name, birthday, insulin and the start date of diabetes can now be left blank without any negative impact on the presentation in the PDF.",
+  "@Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": {
+    "description": "v101-4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": "Error message when loading profiles without start date removed.",
+  "@Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": {
+    "description": "v101-5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": "If no data is available, blank pages will be generated with an appropriate hint.",
+  "@Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": {
+    "description": "v101-6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.": "The glucose graph of the daily graphs has been freed from missing data.",
+  "@Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.": {
+    "description": "v101-7",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": "The basal rate PDF was incorrect if there was not a value for each hour.",
+  "@Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": {
+    "description": "v101-8",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Initiale Version, alles ist neu!": "Initial version, everything is new!",
+  "@Initiale Version, alles ist neu!": {
+    "description": "v100-1",
     "type": "text",
     "placeholders": {}
   }

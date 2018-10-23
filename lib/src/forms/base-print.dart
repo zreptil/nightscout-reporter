@@ -154,8 +154,18 @@ abstract class BasePrint
   Object footer({bool addPageBreak = false})
   {
     bool isInput = false;
-    var ret;
-    ret = {
+    String rightText = "";
+    if (g.userName.isEmpty)
+    {
+      if (!g.birthDate.isEmpty)rightText = "*${g.birthDate}";
+    }
+    else
+    {
+      if (!g.birthDate.isEmpty)rightText = "${g.userName}, *${g.birthDate}";
+      else
+        rightText = g.userName;
+    }
+    var ret = {
       "stack": [
         {
           "absolutePosition": {"x": cm(2.2), "y": cm(height - 2.0)},
@@ -180,14 +190,8 @@ abstract class BasePrint
         isInput ? getImage("input", x: width - 5.6, y: height - 3.3, width: 4.0) : {},
         {
           "absolutePosition": {"x": cm(2.2), "y": cm(height - 1.7)},
-          "columns": [ {
-            "width": cm(width - 4.4),
-            "text": "${g.userName}, *${g.birthDate}",
-            "color": colInfo,
-            "alignment": "right",
-            "fontSize": "10"
-          }
-          ]
+          "columns": [
+            {"width": cm(width - 4.4), "text": rightText, "color": colInfo, "alignment": "right", "fontSize": "10"}]
         },
       ],
       "pageBreak": "",
@@ -266,6 +270,18 @@ abstract class BasePrint
     return ret;
   }
 
+  hasData(globals.ReportData src)
+  {
+    return src.dayCount > 0 && src.ns.count > 0;
+  }
+
+  getEmptyForm(globals.ReportData data)
+  {
+    return [header,
+      {"margin": [cm(2), cm(3), cm(2), 0], "text": "Es sind keine Daten für den Ausdruck vorhanden", "fontSize": 10, "alignment": "center"},
+    footer()];
+  }
+
   getFormData(globals.ReportData data)
   async {
     for (String id in imgList)
@@ -279,6 +295,8 @@ abstract class BasePrint
         images[id] = await getBase64Image("nightscout");
       }
     }
+
+    if (!hasData(data))return getEmptyForm(data);
 
     var ret;
     try

@@ -75,7 +75,7 @@ class PrintTest extends BasePrint
     for (int i = 0; i < src.ns.entries.length; i++)
     {
       globals.EntryData entry = src.ns.entries[i];
-      var row = [{"text": fmtDateTime(entry.time, '??.??.???? ??:?? Uhr'), "colspan": 4},{},{},{},{}];
+      var row = [{"text": fmtDateTime(entry.time, '??.??.???? ??:?? Uhr'), "colspan": 4},{"text": entry.type},{"text": fmtNumber(entry.sgv)},{"text": fmtNumber(entry.gluc)},{}];
       body.add(row);
     }
     var data = src.ns.treatments;

@@ -23,6 +23,7 @@ import 'src/forms/print-basalrate.dart';
 import 'src/impressum/impressum_component.dart';
 import 'src/settings/settings_component.dart';
 import 'src/welcome/welcome_component.dart';
+import 'src/whatsnew/whatsnew_component.dart';
 
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
@@ -43,6 +44,7 @@ import 'src/welcome/welcome_component.dart';
     ImpressumComponent,
     DSGVOComponent,
     WelcomeComponent,
+    WhatsnewComponent,
     MaterialProgressComponent,
     MaterialToggleComponent,
     MaterialDropdownSelectComponent,
@@ -85,15 +87,17 @@ class AppComponent
   bool isDebug = false;
   globals.Msg message = globals.Msg();
   bool get hasMenuIcon
-  => currPage != "impressum" && currPage != "dsgvo" && currPage != "welcome";
+  => currPage != "impressum" && currPage != "dsgvo" && currPage != "welcome" && currPage != "whatsnew";
 
   String get msgCheckSetup
   => Intl.message("Überprüfe Zugriff auf Nightscout ...");
-  msgLoadingData(error, stacktrace)
+  String msgLoadingData(error, stacktrace)
   =>
     Intl.message(
       "Fehler beim Laden der Daten:\n$error\n$stacktrace", args: [error, stacktrace], name: "msgLoadingData");
-  msgLoadingDataFor(date)
+  String get msgLoadingDataError
+  => Intl.message("Fehler beim Laden der Daten");
+  String msgLoadingDataFor(date)
   =>
     Intl.message("Lade Daten für $date...", args: [date],
       name: "msgLoadingDataFor",
@@ -123,7 +127,32 @@ class AppComponent
   =>
     Intl.message(
       "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.");
-
+  String get msgToday
+  => Intl.message("Heute");
+  String get msgLast2Days
+  => Intl.message("Letzte 2 Tage");
+  String get msgLast3Days
+  => Intl.message("Letzte 3 Tage");
+  String get msgLastWeek
+  => Intl.message("Letzte Woche");
+  String get msgLast2Weeks
+  => Intl.message("Letzte 2 Wochen");
+  String get msgLast3Weeks
+  => Intl.message("Letzte 3 Wochen");
+  String get msgLastMonth
+  => Intl.message("Letzter Monat");
+  String get msgLast3Months
+  => Intl.message("Letzte 3 Monate");
+  String get msgPeriod
+  => Intl.message("Zeitraum");
+  String get msgProfileError
+  => Intl.message("Beim Auslesen des Profils ist ein Fehler aufgetreten.");
+  String get msgPDFCreationError
+  => Intl.message("Beim Erzeugen des PDF ist ein Fehler aufgetreten.");
+  String get msgGitHubIssue
+  => Intl.message("Problem auf GitHub melden");
+  String get msgShowPDF
+  => Intl.message("PDF anzeigen");
   @override
   Future<Null> ngOnInit()
   async {
@@ -138,24 +167,23 @@ class AppComponent
 
 //    await findSystemLocale();
 //    await initializeDateFormatting();
-    String title = Intl.message("Zeitraum");
+    String title = msgPeriod;
     if (g != null && g.dateRange != null && g.dateRange.comparison != null)title = g.dateRange.comparison.title;
     dateRanges.clear();
-    dateRanges.add(DatepickerPreset(Intl.message("Heute"), DatepickerDateRange(title, Date.today(), Date.today())));
-    dateRanges.add(DatepickerPreset(
-      Intl.message("Letzte 2 Tage"), DatepickerDateRange(title, Date.today().add(days: -1), Date.today())));
-    dateRanges.add(DatepickerPreset(
-      Intl.message("Letzte 3 Tage"), DatepickerDateRange(title, Date.today().add(days: -2), Date.today())));
-    dateRanges.add(DatepickerPreset(
-      Intl.message("Letzte Woche"), DatepickerDateRange(title, Date.today().add(days: -7), Date.today())));
-    dateRanges.add(DatepickerPreset(
-      Intl.message("Letzte 2 Wochen"), DatepickerDateRange(title, Date.today().add(days: -14), Date.today())));
-    dateRanges.add(DatepickerPreset(
-      Intl.message("Letzte 3 Wochen"), DatepickerDateRange(title, Date.today().add(days: -21), Date.today())));
-    dateRanges.add(DatepickerPreset(
-      Intl.message("Letzter Monat"), DatepickerDateRange(title, Date.today().add(months: -1), Date.today())));
-    dateRanges.add(DatepickerPreset(
-      Intl.message("Letzte 3 Monate"), DatepickerDateRange(title, Date.today().add(months: -3), Date.today())));
+    dateRanges.add(DatepickerPreset(msgToday, DatepickerDateRange(title, Date.today(), Date.today())));
+    dateRanges.add(
+      DatepickerPreset(msgLast2Days, DatepickerDateRange(title, Date.today().add(days: -1), Date.today())));
+    dateRanges.add(
+      DatepickerPreset(msgLast3Days, DatepickerDateRange(title, Date.today().add(days: -2), Date.today())));
+    dateRanges.add(DatepickerPreset(msgLastWeek, DatepickerDateRange(title, Date.today().add(days: -7), Date.today())));
+    dateRanges.add(
+      DatepickerPreset(msgLast2Weeks, DatepickerDateRange(title, Date.today().add(days: -14), Date.today())));
+    dateRanges.add(
+      DatepickerPreset(msgLast3Weeks, DatepickerDateRange(title, Date.today().add(days: -21), Date.today())));
+    dateRanges.add(
+      DatepickerPreset(msgLastMonth, DatepickerDateRange(title, Date.today().add(months: -1), Date.today())));
+    dateRanges.add(
+      DatepickerPreset(msgLast3Months, DatepickerDateRange(title, Date.today().add(months: -3), Date.today())));
     currLang = g.language;
 
     display(null);
@@ -163,37 +191,40 @@ class AppComponent
     progressValue = progressMax + 1;
     g.checkSetup().then((String error)
     {
+      String page = g.version == g.lastVersion ? "normal" : "whatsnew";
       progressText = null;
       g.isConfigured = error == null || error.isEmpty;
-      _currPage = g.isConfigured ? "normal" : "welcome";
+      _currPage = g.isConfigured ? page : "welcome";
+      // save version to localStorage
+      if (_currPage == "whatsnew")g.saveStorage("lastVersion", g.version);
     });
   }
 
   void toggleHelp()
-  {}
+  {
+  }
 
   void togglePage(String id)
   {
     currPage = currPage == id ? "normal" : id;
   }
 
-  void displayLink(String title, String url, {bool clear: false, String type: null, String btnClass: ""})
+  void displayLink(String title, String url,
+                   {bool clear: false, String type: null, String btnClass: "", String icon: null})
   {
-    if (!isDebug)return;
+    if (!isDebug && type == "debug")return;
 
     if (clear)message.links = [];
 
-    message.links.add({"url": url, "title": title, "class": btnClass});
+    message.links.add({"url": url, "title": title, "class": btnClass, "icon": isDebug && icon == null ? "code" : icon});
     message.okText = msgClose;
-    message.ok = message.clear;
     if (type != null)message.type = type;
   }
 
-  void display(String msg, {bool append: false, ok() = null, cancel() = null})
+  void display(String msg, {bool append: false, List links = null})
   {
     if (append)msg = "${message.isEmpty ? '' : '${message.text}<br />'}$msg";
-    message.ok = ok;
-    message.cancel = cancel;
+    if (links != null)message.links = links;
     message.text = msg;
     message.type = "msg";
   }
@@ -272,8 +303,8 @@ class AppComponent
   globals.ReportData reportData = null;
   Future<globals.ReportData> loadData()
   async {
-    if (reportData != null && reportData.begDate == g.dateRange.range.start &&
-      reportData.endDate == g.dateRange.range.end)return reportData;
+    if (reportData != null && reportData.begDate == g.dateRange.range.start && reportData.endDate == g.dateRange.range
+      .end)return reportData;
 
     globals.ReportData data = globals.ReportData(g, g.dateRange.range.start, g.dateRange.range.end);
     reportData = data;
@@ -313,7 +344,7 @@ class AppComponent
       progressText = msgLoadingDataFor(begDate.format(g.fmtDateForDisplay));
       String url = "${g.apiUrl}entries.json?find[dateString][\$gte]=${beg
         .toIso8601String()}&find[dateString][\$lte]=${end.toIso8601String()}&count=100000";
-      displayLink("e${begDate.format(g.fmtDateForDisplay)}", url);
+      displayLink("e${begDate.format(g.fmtDateForDisplay)}", url, type: "debug");
       List<dynamic> src = json.decode(await g.request(url));
       for (dynamic entry in src)
       {
@@ -325,13 +356,13 @@ class AppComponent
       }
       url = "${g.apiUrl}treatments.json?find[created_at][\$gte]=${beg.toIso8601String()}&find[created_at][\$lte]=${end
         .toIso8601String()}&count=100000";
-      displayLink("t${begDate.format(g.fmtDateForDisplay)}", url);
+      displayLink("t${begDate.format(g.fmtDateForDisplay)}", url, type: "debug");
       src = json.decode(await g.request(url));
       for (dynamic treatment in src)
         data.ns.treatments.add(globals.TreatmentData.fromJson(treatment));
 
       begDate = begDate.add(days: 1);
-      data.dayCount++;
+      if (data.ns.entries.length > 0 || data.ns.treatments.length > 0)data.dayCount++;
       progressValue++;
       if (sendIcon != "clear")return data;
     }
@@ -366,7 +397,7 @@ class AppComponent
           {
             prev = entry;
             prev.time = current;
-            entry.type = "copied";
+            entry.isCopy = true;
             entryList.add(entry);
             target = target.add(Duration(minutes: diffTime));
           }
@@ -389,7 +420,7 @@ class AppComponent
               next.time = target;
               if (current.isAtSameMomentAs(target))
               {
-                next.type = "copied";
+                next.isCopy = true;
                 next.slice(entry, entry, 1.0);
               }
               else
@@ -408,18 +439,19 @@ class AppComponent
       data.calc.entries = entryList;
 
       String url = "${g.apiUrl}status.json";
-      displayLink("status", url);
+      displayLink("status", url, type: "debug");
       String content = await g.request(url);
       data.status = globals.StatusData.fromJson(json.decode(content));
       g.glucMGDL = data.status.settings.units.toLowerCase() == "mg/dl";
       url = "${g.apiUrl}profile.json";
-      displayLink("profile", url);
+      displayLink("profile", url, type: "debug");
       content = await g.request(url);
       if (g.dateRange.range.start == null || g.dateRange.range.end == null)
       {
         data.error = StateError(msgEmptyRange);
         return data;
       }
+
       try
       {
         List<dynamic> src = json.decode(content);
@@ -429,9 +461,23 @@ class AppComponent
       }
       catch (ex)
       {
-        if (ex is Error)display("${ex.toString()}\n${ex.stackTrace}");
+        if (isDebug)
+        {
+          if (ex is Error)display("${ex.toString()}\n${ex.stackTrace}");
+          else
+            display(ex.toString());
+        }
         else
-          display(ex.toString());
+        {
+/*
+          display(msgProfileError, links: [ {
+            "url": "https://github.com/zreptil/nightscout-reporter/issues/new?title=problem in profile-data&body=${msgProfileError}",
+            "title": msgGitHubIssue
+          }
+          ]);
+// */
+          display(msgProfileError);
+        }
       }
 
       data.profiles.sort((a, b)
@@ -497,7 +543,8 @@ class AppComponent
 //      done(data);
     }
     else
-    {}
+    {
+    }
     return data;
   }
 
@@ -522,7 +569,8 @@ class AppComponent
     async {
       if (vars.error != null)
       {
-        display(msgLoadingData(vars.error.toString(), vars.error.stackTrace.toString()));
+        if (isDebug)display(msgLoadingData(vars.error.toString(), vars.error.stackTrace.toString()));
+        display(msgLoadingDataError);
         return;
       }
       progressText = msgCreatingPDF;
@@ -585,21 +633,30 @@ class AppComponent
 //*
       if (!isDebug)
       {
-        navigate("showPdf");
+        if (message.text.isEmpty)navigate("showPdf");
+        else
+          displayLink(msgShowPDF, "showPdf", btnClass: "action", icon: "description");
       }
       else
       {
-        displayLink("playground", "showPlayground", btnClass: "action");
-        displayLink("pdf", "showPdf", btnClass: "action");
+        displayLink("playground", "showPlayground", btnClass: "action", icon: "description");
+        displayLink("pdf", "showPdf", btnClass: "action", icon: "description");
       }
 // */
       sendIcon = "send";
       progressText = null;
     }).catchError((error)
     {
-      if (error is Error)display("${error.toString()}\n${error.stackTrace}");
+      if (isDebug)
+      {
+        if (error is Error)display("${error.toString()}\n${error.stackTrace}");
+        else
+          display(error.toString());
+      }
       else
-        display(error.toString());
+      {
+        display(msgPDFCreationError);
+      }
       sendIcon = "send";
       progressText = null;
       return -1;

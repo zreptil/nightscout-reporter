@@ -2,7 +2,7 @@
   "icons": [
     {
       "sizes": "176x176",
-      "src": "favicon.png",
+      "src": "../../../favicon.png",
       "type": "image/png"
     }
   ],

@@ -23,10 +23,12 @@ class PrintBasalrate extends BasePrint
   String id = "basal";
 
   @override
-  String get name => msgBasalrate;
+  String get name
+  => msgBasalrate;
 
   @override
-  String get title => msgBasalrate;
+  String get title
+  => msgBasalrate;
 
   @override
   bool get isPortrait
@@ -42,6 +44,8 @@ class PrintBasalrate extends BasePrint
   => Intl.message("gültig von $begDate bis $endDate", args: [begDate, endDate], name: "msgValidRange");
   msgValidFrom(begDate)
   => Intl.message("gültig ab $begDate", args: [begDate], name: "msgValidFrom");
+  msgValidTo(endDate)
+  => Intl.message("gültig bis $endDate", args: [endDate], name: "msgValidTo");
 
   get msgTotal
   => Intl.message("Ges.");
@@ -55,6 +59,12 @@ class PrintBasalrate extends BasePrint
   PrintBasalrate()
   {
     init();
+  }
+
+  @override
+  hasData(globals.ReportData src)
+  {
+    return src.profiles.length > 0;
   }
 
   @override
@@ -152,11 +162,21 @@ class PrintBasalrate extends BasePrint
     return calc;
   }
 // */
+  static double gridHeight = 9.45;
+  static double gridWidth = 24.0;
+  static double graphWidth = gridWidth / 25.0 * 24.0;
+
+  double glucX(DateTime time)
+  {
+    return graphWidth / 1440 * (time.hour * 60 + time.minute);
+  }
+
   getPage(globals.ProfileData profile, calc)
   {
     double xo = xorg;
     double yo = yorg;
     if (calc.endDate == null)titleInfo = msgValidFrom(fmtDate(profile.startDate));
+    else if (profile.startDate.year == 1970)titleInfo = msgValidTo(fmtDate(calc.endDate));
     else
       titleInfo = msgValidRange(fmtDate(profile.startDate), fmtDate(calc.endDate));
     double brMax = 0.0;
@@ -164,8 +184,6 @@ class PrintBasalrate extends BasePrint
     for (var i = 0; i < brtimes.length; i++)
       brMax = max(brtimes[i].value, brMax);
 
-    double gridHeight = 9.45;
-    double gridWidth = 24.0;
     int gridLines = ((brMax * 10) + 1).floor();
     double lineHeight = gridHeight / gridLines;
     double colWidth = gridWidth / 25;
@@ -181,13 +199,36 @@ class PrintBasalrate extends BasePrint
     List horzStack = horzLegend["stack"];
     for (var i = 0; i < 25; i++)
     {
-      vertCvs.add({"type": "line", "x1": cm(i * colWidth), "y1": 0, "x2": cm(i * colWidth), "y2": cm(lineHeight * gridLines + 0.25), "lineWidth": lw, "lineColor": i > 0 && i < 24 ? lc : lcFrame});
+      vertCvs.add({
+        "type": "line",
+        "x1": cm(i * colWidth),
+        "y1": 0,
+        "x2": cm(i * colWidth),
+        "y2": cm(lineHeight * gridLines + 0.25),
+        "lineWidth": lw,
+        "lineColor": i > 0 && i < 24 ? lc : lcFrame
+      });
       if (i < 24)
       {
-        vertCvs.add(
-          {"type": "line", "x1": cm((i + 0.5) * colWidth), "y1": cm(lineHeight * gridLines), "x2": cm((i + 0.5) * colWidth), "y2": cm(lineHeight * gridLines + 0.1), "lineWidth": lw, "lineColor": lc});
-        horzCvs.add({"absolutePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)}, "text": fmtNumber(i, 0), "fontSize": "8"});
-        horzStack.add({"absolutePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)}, "text": fmtTime(i, 0), "fontSize": "8"});
+        vertCvs.add({
+          "type": "line",
+          "x1": cm((i + 0.5) * colWidth),
+          "y1": cm(lineHeight * gridLines),
+          "x2": cm((i + 0.5) * colWidth),
+          "y2": cm(lineHeight * gridLines + 0.1),
+          "lineWidth": lw,
+          "lineColor": lc
+        });
+        horzCvs.add({
+          "absolutePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)},
+          "text": fmtNumber(i, 0),
+          "fontSize": "8"
+        });
+        horzStack.add({
+          "absolutePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)},
+          "text": fmtTime(i, 0),
+          "fontSize": "8"
+        });
       }
     }
     var vertLegend = {"stack": []};
@@ -205,8 +246,16 @@ class PrintBasalrate extends BasePrint
       });
 //      vertCvs.add({"absolutePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": fmtNumber(i / 10, 1), "fontSize": "8"});
       String text = "${fmtNumber(i / 10, 1)} ${msgInsulinUnit}";
-      vertStack.add({"absolutePosition": {"x": cm(xo - 1.0), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": text, "fontSize": "8"});
-      vertStack.add({"absolutePosition": {"x": cm(xo + colWidth * 24 + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": text, "fontSize": "8"});
+      vertStack.add({
+        "absolutePosition": {"x": cm(xo - 1.0), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)},
+        "text": text,
+        "fontSize": "8"
+      });
+      vertStack.add({
+        "absolutePosition": {"x": cm(xo + colWidth * 24 + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)},
+        "text": text,
+        "fontSize": "8"
+      });
     }
 
     var testArea = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
@@ -215,20 +264,65 @@ class PrintBasalrate extends BasePrint
     var brArea = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     List brAreaCvs = brArea["canvas"] as List;
     for (var i = 0; i < brtimes.length; i++)
-      brAreaCvs.add({"type": "rect", "x": cm(i * colWidth), "y": cm(lineHeight * gridLines), "w": cm(colWidth), "h": cm(-brtimes[i].value * 10 * lineHeight), "color": colBasal});
-
+    {
+      double x = glucX(brtimes[i].time);
+      double w = 0;
+      if (i < brtimes.length - 1)w = glucX(brtimes[i + 1].time) - x;
+      else
+        w = graphWidth - x;
+      brAreaCvs.add({
+        "type": "rect",
+        "x": cm(x),
+        "y": cm(lineHeight * gridLines),
+        "w": cm(w),
+        "h": cm(-brtimes[i].value * 10 * lineHeight),
+        "color": colBasal
+      });
+    }
     xo -= 1.0;
     yo += lineHeight * gridLines + 1.5;
 
     lineHeight = 0.7;
     var brTable = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     List brTableCvs = brTable["canvas"] as List;
-    brTableCvs.add({"type": "rect", "x": cm(0), "y": cm(0), "w": cm(24 * colWidth + 2.0), "h": cm(lineHeight), "color": colBasal});
-    brTableCvs.add({"type": "rect", "x": cm(0), "y": cm(lineHeight), "w": cm(24 * colWidth + 2.0), "h": cm(lineHeight), "color": blendColor(colBasal, "#ffffff", 0.5)});
-    brTableCvs.add({"type": "line", "x1": cm(0), "y1": cm(0), "x2": cm(0), "y2": cm(3 * lineHeight), "lineWidth": lw, "lineColor": lc});
-    brTableCvs.add({"type": "line", "x1": cm(24 * colWidth + 2.0), "y1": cm(0), "x2": cm(24 * colWidth + 2.0), "y2": cm(3 * lineHeight), "lineWidth": lw, "lineColor": lc});
+    brTableCvs.add(
+      {"type": "rect", "x": cm(0), "y": cm(0), "w": cm(24 * colWidth + 2.0), "h": cm(lineHeight), "color": colBasal});
+    brTableCvs.add({
+      "type": "rect",
+      "x": cm(0),
+      "y": cm(lineHeight),
+      "w": cm(24 * colWidth + 2.0),
+      "h": cm(lineHeight),
+      "color": blendColor(colBasal, "#ffffff", 0.5)
+    });
+    brTableCvs.add({
+      "type": "line",
+      "x1": cm(0),
+      "y1": cm(0),
+      "x2": cm(0),
+      "y2": cm(3 * lineHeight),
+      "lineWidth": lw,
+      "lineColor": lc
+    });
+    brTableCvs.add({
+      "type": "line",
+      "x1": cm(24 * colWidth + 2.0),
+      "y1": cm(0),
+      "x2": cm(24 * colWidth + 2.0),
+      "y2": cm(3 * lineHeight),
+      "lineWidth": lw,
+      "lineColor": lc
+    });
     for (var i = 0; i < 4; i++)
-      brTableCvs.add({"type": "line", "x1": cm(0), "y1": cm(i * lineHeight), "x2": cm(24 * colWidth + 2.0), "y2": cm(i * lineHeight), "lineWidth": lw, "lineColor": lc});
+      brTableCvs.add({
+        "type": "line",
+        "x1": cm(0),
+        "y1": cm(i * lineHeight),
+        "x2": cm(24 * colWidth + 2.0),
+        "y2": cm(i * lineHeight),
+        "lineWidth": lw,
+        "lineColor": lc
+      });
 
 /*
     var pureLayout = {"hlineWidth": 0, "vlineWidth": 0, "hlineColor": 0, "vlineColor": 0, "paddingLeft": 0, "paddingRight": 0, "paddingTop": 0, "paddingBottom": 0};
@@ -248,10 +342,20 @@ class PrintBasalrate extends BasePrint
     var brLegend = {
       "lineHeight": lineHeight,
       "stack": [
-        {"absolutePosition": {"x": cm(xo), "y": cm(yo + 0.05)}, "columns": [ {"width": cm(1), "text": msgTimeShort, "fontSize": "8", "color": colBasalFont, "alignment": "center"}]},
-        {"absolutePosition": {"x": cm(xo), "y": cm(yo + lineHeight + 0.2)}, "columns": [ {"width": cm(1), "text": msgInsulinUnit, "fontSize": "8", "alignment": "center"},
-        ]},
-        {"absolutePosition": {"x": cm(xo), "y": cm(yo + 2 * lineHeight + 0.05)}, "columns": [ {"width": cm(1), "text": msgAdjustment, "fontSize": "8", "alignment": "center"}],},
+        {
+          "absolutePosition": {"x": cm(xo), "y": cm(yo + 0.05)},
+          "columns": [
+            {"width": cm(1), "text": msgTimeShort, "fontSize": "8", "color": colBasalFont, "alignment": "center"}]
+        },
+        {
+          "absolutePosition": {"x": cm(xo), "y": cm(yo + lineHeight + 0.2)},
+          "columns": [ {"width": cm(1), "text": msgInsulinUnit, "fontSize": "8", "alignment": "center"},
+          ]
+        },
+        {
+          "absolutePosition": {"x": cm(xo), "y": cm(yo + 2 * lineHeight + 0.05)},
+          "columns": [ {"width": cm(1), "text": msgAdjustment, "fontSize": "8", "alignment": "center"}],
+        },
       ],
     };
 
@@ -266,7 +370,15 @@ class PrintBasalrate extends BasePrint
     for (var i = 0; i < 25; i++)
     {
       m[0] = cm(0.5);
-      brTableCvs.add({"type": "line", "x1": cm(1 + i * colWidth), "y1": cm(0), "x2": cm(1 + i * colWidth), "y2": cm(3 * lineHeight), "lineWidth": lw, "lineColor": lc});
+      brTableCvs.add({
+        "type": "line",
+        "x1": cm(1 + i * colWidth),
+        "y1": cm(0),
+        "x2": cm(1 + i * colWidth),
+        "y2": cm(3 * lineHeight),
+        "lineWidth": lw,
+        "lineColor": lc
+      });
       var text = {
         "width": cm(colWidth),
         "margin": [i < 24 ? cm(0.15) : 0, cm(0.15), 0, 0],
@@ -276,26 +388,54 @@ class PrintBasalrate extends BasePrint
         "alignment": i < 24 ? "left" : "center"
       };
       legendTime.add(text);
-      m[0] = cm(0);
-      if (i < brtimes.length)
-      {
-        legendIE.add({"width": cm(colWidth), "margin": m0, "text": fmtNumber(brtimes[i].value, 1), "fontSize": "8", "alignment": "center"});
-        if (brtimes[i].value != calc.nextBRTimes[i].value)
-        {
-          hasAdjustment = true;
-          legendAdjust.add({"width": cm(colWidth), "margin": [0, cm(0.15), 0, 0], "text": fmtNumber(calc.nextBRTimes[i].value, 1), "fontSize": "8", "alignment": "center"});
-        }
-        else
-        {
-          legendAdjust.add({"width": cm(colWidth), "text": "", "fontSize": "8"});
-        }
-        ieSum += brtimes[i].value;
-        ieSumNext += calc.nextBRTimes[i].value;
-      }
     }
 
-    legendIE.add({"width": cm(colWidth), "margin": m0, "text": fmtNumber(ieSum, 1), "fontSize": "8", "alignment": "center"});
-    if (hasAdjustment)legendAdjust.add({"width": cm(colWidth), "margin": [0, cm(0.15), 0, 0], "text": fmtNumber(ieSumNext, 1), "fontSize": "8", "alignment": "center"});
+    double x = 0.0;
+    var m1 = [0, 0, 0, 0];
+    int lastHour = 0;
+    for (var i = 0; i < brtimes.length; i++)
+    {
+      int hour = brtimes[i].time.hour;
+      int w = 0;
+      m1[0] = hour - lastHour;
+      lastHour = hour;
+      if (i < brtimes.length - 1)w = brtimes[i + 1].time.hour - brtimes[i].time.hour;
+      else
+        w = 24 - brtimes[i].time.hour;
+      legendIE.add({
+        "width": cm(w * colWidth),
+        "margin": m1,
+        "text": fmtNumber(brtimes[i].value, 1),
+        "fontSize": "8",
+        "alignment": "left"
+      });
+/*
+      if (brtimes[i].value != calc.nextBRTimes[i].value)
+      {
+        hasAdjustment = true;
+        legendAdjust.add({
+          "width": cm(w),
+          "margin": [0, cm(0.15), 0, 0],
+          "text": fmtNumber(calc.nextBRTimes[i].value, 1),
+          "fontSize": "8",
+          "alignment": "center"
+        });
+// */
+      ieSum += brtimes[i].value * w;
+      ieSumNext += calc.nextBRTimes[i].value;
+    }
+    legendAdjust.add({"width": cm(colWidth), "text": "", "fontSize": "8"});
+
+    legendIE.add(
+      {"width": cm(colWidth), "margin": m0, "text": fmtNumber(ieSum, 1), "fontSize": "8", "alignment": "center"});
+
+    if (hasAdjustment) legendAdjust.add({
+      "width": cm(colWidth),
+      "margin": [0, cm(0.15), 0, 0],
+      "text": fmtNumber(ieSumNext, 1),
+      "fontSize": "8",
+      "alignment": "center"
+    });
     var content = [
       header, /*
       {"absolutePosition": {"x": cm(2.2), "y": cm(1.0)}, "text": "Basalrate", "fontSize": "36", "color": colText, "bold": true},
@@ -321,22 +461,53 @@ class PrintBasalrate extends BasePrint
       brLegend,
       footer(),
     ];
-    return content;
+
+    return
+
+      content
+
+    ;
   }
 
   getIllegalMark(xo, yo, x, y)
   {
-    return [ {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "type": "ellipse", "x": cm(x), "y": cm(y), "r1": 3, "r2": 3}];
+    return [
+      {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "type": "ellipse", "x": cm(x), "y": cm(y), "r1": 3, "r2": 3}];
   }
 
   getBRMark(xo, yo, x, y, gluc, calc)
   {
-    var ret = [ {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "type": "ellipse", "x": cm(x), "y": cm(y), "r1": 3, "r2": 3, "color": "#f15741"}];
+    var ret = [ {
+      "absolutePosition": {"x": cm(xo), "y": cm(yo)},
+      "type": "ellipse",
+      "x": cm(x),
+      "y": cm(y),
+      "r1": 3,
+      "r2": 3,
+      "color": "#f15741"
+    }
+    ];
     if ((gluc - calc.firstGluc).abs() > 30)
     {
       ret[0]["color"] = "#f00";
-      ret.add({"type": "line", "x1": cm(x - 0.1), "y1": cm(y - 0.1), "x2": cm(x + 0.1), "y2": cm(y + 0.1), "lineColor": "#000", "lineWidth": cm(0.01)});
-      ret.add({"type": "line", "x1": cm(x + 0.1), "y1": cm(y - 0.1), "x2": cm(x - 0.1), "y2": cm(y + 0.1), "lineColor": "#000", "lineWidth": cm(0.01)});
+      ret.add({
+        "type": "line",
+        "x1": cm(x - 0.1),
+        "y1": cm(y - 0.1),
+        "x2": cm(x + 0.1),
+        "y2": cm(y + 0.1),
+        "lineColor": "#000",
+        "lineWidth": cm(0.01)
+      });
+      ret.add({
+        "type": "line",
+        "x1": cm(x + 0.1),
+        "y1": cm(y - 0.1),
+        "x2": cm(x - 0.1),
+        "y2": cm(y + 0.1),
+        "lineColor": "#000",
+        "lineWidth": cm(0.01)
+      });
     }
 
     return ret;

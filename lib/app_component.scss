@@ -1,4 +1,5 @@
 @import 'src/colors';
+@import 'src/base';
 @import 'package:angular_components/material_button/mixins';
 @import 'package:angular_components/material_toggle/mixins';
 @import 'package:angular_components/material_list/mixins';
@@ -17,6 +18,10 @@
 
 header.material-header {
   background-color: $primary_back;
+}
+
+header.material-header .material-header-title {
+  left: 2.5em;
 }
 
 #app-content {
@@ -104,15 +109,15 @@ material-drawer {
   overflow-y: auto;
 }
 
-#message, #msgLinks {
+#message {
   padding: 0.5em;
   background: $mat-black;
   color: white;
   flex-wrap: wrap;
-}
 
-#message .action, #msgLinks .action {
-  color: $debug_action;
+  material-button {
+    background-color: $primary_back;
+  }
 }
 
 #postForm {
@@ -166,7 +171,7 @@ material-fab.debug-trigger {
   position: absolute;
   bottom: 2em;
   right: 5em;
-  background: $mat-orange-500;
+  background: $debug_back !important;
   color: $mat-white;
 }
 
@@ -177,23 +182,6 @@ material-expansionpanel {
 
 .betaTitle {
   font-size: 50%;
-}
-
-.betaText {
-  animation: glowing 1s linear infinite alternate;
-}
-
-@keyframes glowing {
-  0% {
-    text-shadow: 0 0 0px;
-  }
-  100% {
-    text-shadow: 0 0 30px;
-  }
-}
-
-.betaBox {
-  box-shadow: 0 0 10px 3px #00ffff;
 }
 
 .headerinfo {
@@ -224,4 +212,5 @@ nav a {
 .material-navigation {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
 }
