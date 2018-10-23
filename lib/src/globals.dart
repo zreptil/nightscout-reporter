@@ -27,9 +27,11 @@ class JsonData
     return DateTime(0, 1, 1, hour, minute, second);
   }
 
-  DateTime toDate(String value)
+  DateTime toDate(value)
   {
     if (value == null)return DateTime(0, 1, 1);
+    if(value is int)
+      return DateTime.fromMillisecondsSinceEpoch(value);
     return DateTime.tryParse(value).toLocal() ?? DateTime(0, 1, 1);
   }
 
@@ -597,7 +599,7 @@ class EntryData extends JsonData
     EntryData ret = EntryData();
     if (json == null)return ret;
     ret.id = json["_id"];
-    ret.time = ret.toDate(json["dateString"]);
+    ret.time = ret.toDate(json["date"]);
     ret.rssi = ret.toInt(json["rssi"]);
     ret.device = json["device"];
     ret.direction = json["direction"];
@@ -937,7 +939,7 @@ class LangData
 class Globals
 {
   static final Globals _globals = Globals._internal();
-  String version = "1.0.0";
+  String version = "1.0.3";
   String lastVersion;
   String get msgUrlFailure
   =>

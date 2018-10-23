@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-10-23T10:24:41.966845",
+  "@@last_modified": "2018-10-23T13:22:27.454618",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -191,6 +191,21 @@
   },
   "Basalrate": "Basalrate",
   "@Basalrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es sind keine Daten für den Ausdruck vorhanden": "Es sind keine Daten für den Ausdruck vorhanden",
+  "@Es sind keine Daten für den Ausdruck vorhanden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Katheterwechsel": "Katheterwechsel",
+  "@Katheterwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sensorwechsel": "Sensorwechsel",
+  "@Sensorwechsel": {
     "type": "text",
     "placeholders": {}
   },
@@ -656,6 +671,30 @@
   "Version": "Version",
   "@Version": {
     "description": "version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": "Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.",
+  "@Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": {
+    "description": "v101-0",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": "Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.",
+  "@Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": {
+    "description": "v101-1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": "Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.",
+  "@Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": {
+    "description": "v101-2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Hohe Basalraten werden jetzt besser dargestellt.": "Hohe Basalraten werden jetzt besser dargestellt.",
+  "@Hohe Basalraten werden jetzt besser dargestellt.": {
+    "description": "v101-3",
     "type": "text",
     "placeholders": {}
   },

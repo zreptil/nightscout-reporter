@@ -54,6 +54,7 @@ material-button img {
   material-button {
     display: flex;
     flex: 1;
+    text-align: left;
 
     material-icon, img {
       margin-right: 1em;
@@ -103,7 +104,7 @@ material-drawer {
   position: absolute;
   bottom: 0;
   left: 0;
-  max-height: 50%;
+  max-height: 30%;
   z-index: 10001;
   width: 100%;
   overflow-y: auto;

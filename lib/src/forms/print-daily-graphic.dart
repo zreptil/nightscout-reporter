@@ -171,6 +171,8 @@ class PrintDailyGraphic extends BasePrint
       "color": "#ffa0a0"
     };
     List cobPoints = cob["points"];
+    bool hasCatheterChange = false;
+    bool hasSensorChange = false;
     for (globals.TreatmentData t in day.treatments)
     {
       double x, y;
@@ -195,6 +197,7 @@ class PrintDailyGraphic extends BasePrint
           "fontSize": "5",
           "color": "white"
         });
+        hasCatheterChange = true;
       }
       else if (t.eventType.toLowerCase() == "sensor change")
       {
@@ -204,8 +207,16 @@ class PrintDailyGraphic extends BasePrint
           {"absolutePosition": {"x": cm(x), "y": cm(y)}, "image": "sensor.print", "width": cm(0.6)});
         (pictures["stack"] as List).add({
           "absolutePosition": {"x": cm(x + 0.0), "y": cm(y + 0.34)},
-          "columns": [{"width": cm(0.6), "text": "${fmtTime(t.createdAt)}", "fontSize": "5", "color": "white", "alignment": "center"}]
+          "columns": [ {
+            "width": cm(0.6),
+            "text": "${fmtTime(t.createdAt)}",
+            "fontSize": "5",
+            "color": "white",
+            "alignment": "center"
+          }
+          ]
         });
+        hasSensorChange = true;
       }
       if (cobPoints.length > 0)cobPoints.add({"x": cobPoints.last["x"], "y": cobPoints.first["y"]});
       graphCvs.add(cob);
@@ -285,14 +296,22 @@ class PrintDailyGraphic extends BasePrint
     areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
     basalCvs.add(area);
 */
-    var legend = {
+    var legendLeft = {
       "absolutePosition": {"x": cm(xo), "y": cm(yo + lineHeight * gridLines + 2.0 + basalHeight)},
       "stack": []
     };
-    addLegendEntry(legend, colValue, msgGlucosekurve, false);
-    addLegendEntry(legend, colTargetArea, msgTargetArea);
-    addLegendEntry(legend, colTargetValue, msgTargetValue, false);
-    addLegendEntry(legend, colBasal, msgBasalrate, true);
+    var legendRight = {
+      "absolutePosition": {"x": cm(xo + 5.0), "y": cm(yo + lineHeight * gridLines + 2.0 + basalHeight)},
+      "stack": []
+    };
+    addLegendEntry(legendLeft, colValue, msgGlucosekurve, isArea: false);
+    addLegendEntry(legendLeft, colTargetArea, msgTargetArea);
+    addLegendEntry(legendLeft, colTargetValue, msgTargetValue, isArea: false);
+    addLegendEntry(legendLeft, colBasal, msgBasalrate, isArea: true);
+    if(hasCatheterChange)
+      addLegendEntry(legendRight, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);
+    if(hasSensorChange)
+      addLegendEntry(legendRight, "", msgSensorChange, image: "sensor.print", imgWidth: 0.5);
     //blendColor(colBasal, "ffffff", 0.7)
     var profileBasal = getBasalGraph(day.basalData.store.listBasal, xo, yo, 0, null);
     var dayBasal = getBasalGraph(day.profile, xo, yo, day.ieBasalSum, blendColor(colBasal, "ffffff", 0.7));
@@ -308,7 +327,8 @@ class PrintDailyGraphic extends BasePrint
       dayBasal,
       profileBasal,
       pictures,
-      legend,
+      legendLeft,
+      legendRight,
       footer()
     ];
   }

@@ -192,6 +192,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "Es sind keine Daten für den Ausdruck vorhanden": "There is no data for the printout",
+  "@Es sind keine Daten für den Ausdruck vorhanden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Katheterwechsel": "Site change",
+  "@Katheterwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sensorwechsel": "Sensor change",
+  "@Sensorwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Auswertung": "Analysis",
   "@Auswertung": {
     "type": "text",
@@ -654,6 +669,30 @@
   "Version": "Version",
   "@Version": {
     "description": "version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": "Added legend for catheter and sensor changes to the daily chart.",
+  "@Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": {
+    "description": "v101-0",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": "Order of PDF pages changed - Percentile Diagram now comes after analysis.",
+  "@Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": {
+    "description": "v101-1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": "Data for the glucose values ​​with incorrect date format are read out correctly.",
+  "@Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": {
+    "description": "v101-2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Hohe Basalraten werden jetzt besser dargestellt.": "High basal rates are now better represented.",
+  "@Hohe Basalraten werden jetzt besser dargestellt.": {
+    "description": "v101-3",
     "type": "text",
     "placeholders": {}
   },

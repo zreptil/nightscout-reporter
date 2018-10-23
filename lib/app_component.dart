@@ -159,10 +159,10 @@ class AppComponent
     /// fill list with forms
     listForms = List<BasePrint>();
     listForms.add(PrintAnalysis());
+    listForms.add(PrintPercentile());
     listForms.add(PrintDailyStatistics());
     listForms.add(PrintDailyGraphic());
     listForms.add(PrintBasalrate());
-    listForms.add(PrintPercentile());
     listForms.add(PrintTest());
 
 //    await findSystemLocale();
@@ -342,8 +342,9 @@ class AppComponent
         999).toUtc();
 
       progressText = msgLoadingDataFor(begDate.format(g.fmtDateForDisplay));
-      String url = "${g.apiUrl}entries.json?find[dateString][\$gte]=${beg
-        .toIso8601String()}&find[dateString][\$lte]=${end.toIso8601String()}&count=100000";
+      String url = "${g.apiUrl}entries.json?find[date][\$gte]=${beg.millisecondsSinceEpoch}&find[date][\$lte]=${end
+        .millisecondsSinceEpoch}&count=100000";
+//      String url = "${g.apiUrl}entries.json?find[dateString][\$gte]=${beg.toIso8601String()}&find[dateString][\$lte]=${end.toIso8601String()}&count=100000";
       displayLink("e${begDate.format(g.fmtDateForDisplay)}", url, type: "debug");
       List<dynamic> src = json.decode(await g.request(url));
       for (dynamic entry in src)

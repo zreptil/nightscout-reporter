@@ -233,7 +233,7 @@ class PrintPercentile extends BasePrint
     addPercentileGraph(percGraph, percList, 25, 75, "#88f");
     addLegendEntry(percLegend, "#88f", msgPercentile2575);
     addPercentileGraph(percGraph, percList, 50, 50, "#000");
-    addLegendEntry(percLegend, "#000", msgMedian, false);
+    addLegendEntry(percLegend, "#000", msgMedian, isArea: false);
     addLegendEntry(percLegend, "#0f0", msgTargetArea);
     return [
       header,

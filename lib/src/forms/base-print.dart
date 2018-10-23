@@ -71,6 +71,12 @@ abstract class BasePrint
   => Intl.message("Glukosekurve");
   String get msgBasalrate
   => Intl.message("Basalrate");
+  String get msgMissingData
+  => Intl.message("Es sind keine Daten für den Ausdruck vorhanden");
+  String get msgCatheterChange
+  => Intl.message("Katheterwechsel");
+  String get msgSensorChange
+  => Intl.message("Sensorwechsel");
 
   Object get header
   {
@@ -277,9 +283,11 @@ abstract class BasePrint
 
   getEmptyForm(globals.ReportData data)
   {
-    return [header,
-      {"margin": [cm(2), cm(3), cm(2), 0], "text": "Es sind keine Daten für den Ausdruck vorhanden", "fontSize": 10, "alignment": "center"},
-    footer()];
+    return [
+      header,
+      {"margin": [cm(2), cm(3), cm(2), 0], "text": msgMissingData, "fontSize": 10, "alignment": "center"},
+      footer()
+    ];
   }
 
   getFormData(globals.ReportData data)
@@ -447,9 +455,17 @@ abstract class BasePrint
     return fmtNumber(gluc, 0);
   }
 
-  addLegendEntry(var dst, String color, String text, [bool isArea = true])
+  addLegendEntry(var dst, String color, String text, {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0})
   {
-    if (isArea)(dst["stack"] as List).add({
+    if (image != null)
+    {
+      (dst["stack"] as List).add({"columns": [
+        {"width": cm(0.8),
+          "stack": [{"margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), 0, 0], "image": image, "width": cm(imgWidth)}],},
+        {"text": text, "color": "black"}
+      ]});
+    }
+    else if (isArea)(dst["stack"] as List).add({
       "columns": [ {
         "width": cm(0.8),
         "canvas": [

@@ -1,5 +1,16 @@
 ## [Unreleased]
 
+## [1.0.2]
+### Added
+- added legend for catheter and sensor change in daily graphics
+
+### Changed
+- order of pdfs changed, percentile diagram now comes after analysis
+
+### Fixed
+- fixed an error that occured, when the dateString in entries didn't match the correct UTC format.
+- fixed display of basalrate for high values
+
 ## [1.0.1]
 ### Added
 - added close button to message area

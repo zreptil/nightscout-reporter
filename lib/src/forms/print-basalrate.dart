@@ -184,7 +184,9 @@ class PrintBasalrate extends BasePrint
     for (var i = 0; i < brtimes.length; i++)
       brMax = max(brtimes[i].value, brMax);
 
-    int gridLines = ((brMax * 10) + 1).floor();
+    double step = brMax > 6 ? 0.5 : brMax > 3 ? 0.2 : 0.1;
+
+    int gridLines = ((brMax / step) + 1).floor();
     double lineHeight = gridHeight / gridLines;
     double colWidth = gridWidth / 25;
 
@@ -245,7 +247,7 @@ class PrintBasalrate extends BasePrint
         "lineColor": i > 0 ? lc : lcFrame
       });
 //      vertCvs.add({"absolutePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": fmtNumber(i / 10, 1), "fontSize": "8"});
-      String text = "${fmtNumber(i / 10, 1)} ${msgInsulinUnit}";
+      String text = "${fmtNumber(i * step, 1)} ${msgInsulinUnit}";
       vertStack.add({
         "absolutePosition": {"x": cm(xo - 1.0), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)},
         "text": text,
@@ -275,7 +277,7 @@ class PrintBasalrate extends BasePrint
         "x": cm(x),
         "y": cm(lineHeight * gridLines),
         "w": cm(w),
-        "h": cm(-brtimes[i].value * 10 * lineHeight),
+        "h": cm(-brtimes[i].value / step * lineHeight),
         "color": colBasal
       });
     }
