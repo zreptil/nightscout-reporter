@@ -49,16 +49,13 @@
   },
   "Impressum": "Imprint",
   "@Impressum": {
+    "description": "title for impressum dialog",
     "type": "text",
     "placeholders": {}
   },
   "Datenschutzerklärung": "Data protection ",
   "@Datenschutzerklärung": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Nightscout Berichte": "Nightscout Reports",
-  "@Nightscout Berichte": {
+    "description": "title for dataprotection dialog",
     "type": "text",
     "placeholders": {}
   },
@@ -142,8 +139,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Die angegebene URL ist nicht erreichbar.<br><br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br><br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen. Ausserdem müssen API Secret und UserToken korrekt definiert sein.": "The specified URL is unreachable. <br> <br> If the URL is correct, then it may be due to the Nightscout settings. <br> <br> The variable ENABLE must contain the word \"cors\" to allow external tools, like this one here, to access the data. In addition, API Secret and UserToken must be defined correctly.",
-  "@Die angegebene URL ist nicht erreichbar.<br><br>Wenn die URL stimmt, dann kann es an den Nightscout-Settings liegen.<br><br>In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen. Ausserdem müssen API Secret und UserToken korrekt definiert sein.": {
+  "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, müssen ausserdem API Secret und UserToken korrekt definiert sein (bisher nicht funktionsfähig).": "The specified URL is not reachable. If the URL is correct, then it may be due to the nightscout settings. In the variable ENABLE must be the word \"cors\", so that external tools, like this one, can access the data. <br> <br> If this URL is protected, API Secret and UserToken must also be defined correctly (not yet working).",
+  "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, müssen ausserdem API Secret und UserToken korrekt definiert sein (bisher nicht funktionsfähig).": {
     "type": "text",
     "placeholders": {}
   },
@@ -169,16 +166,6 @@
   },
   "Median": "Median",
   "@Median": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zielbereich": "Target Area",
-  "@Zielbereich": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zielwert": "Target Value",
-  "@Zielwert": {
     "type": "text",
     "placeholders": {}
   },
@@ -265,52 +252,54 @@
       "value": {}
     }
   },
-  "msgReservoirDays": "{count, plural, =0 {(no reservoir)} =1 {(Ø {count} day per reservoir)} other {(Ø {count} days per reservoir)}}",
+  "msgReservoirDays": "{count, plural, =0 {} =1 {(Ø {count} day per reservoir)} other {(Ø {count} days per reservoir)}}",
   "@msgReservoirDays": {
     "type": "text",
     "placeholders": {
       "count": {}
     }
   },
-  "msgCatheterDays": "{count, plural, =0 {(no catheters)} =1 {(Ø {count} day per catheter)} other {(Ø {count} days per catheter)}}",
+  "msgCatheterDays": "{count, plural, =0 {} =1 {(Ø {count} day per catheter)} other {(Ø {count} days per catheter)}}",
   "@msgCatheterDays": {
     "type": "text",
     "placeholders": {
       "count": {}
     }
   },
-  "Geburtstag :": "Birthday :",
-  "@Geburtstag :": {
+  "Geburtstag": "Birthday",
+  "@Geburtstag": {
+    "description": "label of editfield for birthday",
     "type": "text",
     "placeholders": {}
   },
-  "Diabetes seit:": "Diabetes since:",
-  "@Diabetes seit:": {
+  "Diabetes seit": "Diabetes since",
+  "@Diabetes seit": {
+    "description": "label of editfield for diabetes since",
     "type": "text",
     "placeholders": {}
   },
-  "Insulin:": "Insulin:",
-  "@Insulin:": {
+  "Insulin": "Insulin",
+  "@Insulin": {
     "type": "text",
     "placeholders": {}
   },
-  "Ausgewertete Tage:": "Evaluated days:",
-  "@Ausgewertete Tage:": {
+  "Ausgewertete Tage": "Evaluated days:",
+  "@Ausgewertete Tage": {
     "type": "text",
     "placeholders": {}
   },
-  "Anzahl Messungen:": "Count of values:",
-  "@Anzahl Messungen:": {
+  "Anzahl Messungen": "Count of values:",
+  "@Anzahl Messungen": {
     "type": "text",
     "placeholders": {}
   },
-  "Anzahl Ampullen:": "Count of reservoirs:",
-  "@Anzahl Ampullen:": {
+  "Anzahl Ampullen": "Count of reservoirs:",
+  "@Anzahl Ampullen": {
     "type": "text",
     "placeholders": {}
   },
-  "Anzahl Katheter:": "Count of catheters:",
-  "@Anzahl Katheter:": {
+  "Anzahl Katheter": "Count of catheters:",
+  "@Anzahl Katheter": {
     "type": "text",
     "placeholders": {}
   },
@@ -319,13 +308,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Niedrigster Wert im Zeitraum:": "Lowest value in the period:",
-  "@Niedrigster Wert im Zeitraum:": {
+  "Niedrigster Wert im Zeitraum": "Lowest value in the period:",
+  "@Niedrigster Wert im Zeitraum": {
     "type": "text",
     "placeholders": {}
   },
-  "Höchster Wert im Zeitraum:": "Highest value in the period:",
-  "@Höchster Wert im Zeitraum:": {
+  "Höchster Wert im Zeitraum": "Highest value in the period:",
+  "@Höchster Wert im Zeitraum": {
     "type": "text",
     "placeholders": {}
   },
@@ -438,6 +427,11 @@
       "value": {}
     }
   },
+  "Normal": "Normal",
+  "@Normal": {
+    "type": "text",
+    "placeholders": {}
+  },
   "msgHigh": "High{value}",
   "@msgHigh": {
     "type": "text",
@@ -452,11 +446,6 @@
   },
   "Verteilung": "Distribution",
   "@Verteilung": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Normal": "Normal",
-  "@Normal": {
     "type": "text",
     "placeholders": {}
   },
@@ -525,11 +514,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Insulin": "Insulin",
-  "@Insulin": {
-    "type": "text",
-    "placeholders": {}
-  },
   "API-Secret (nur nötig, wenn der Zugriff eingeschränkt ist)": "API Secret (only necessary if access is restricted)",
   "@API-Secret (nur nötig, wenn der Zugriff eingeschränkt ist)": {
     "type": "text",
@@ -539,6 +523,13 @@
   "@User-Token (nur nötig, wenn der Zugriff eingeschränkt ist)": {
     "type": "text",
     "placeholders": {}
+  },
+  "msgCheckUser": "Checking access to {url} ...",
+  "@msgCheckUser": {
+    "type": "text",
+    "placeholders": {
+      "url": {}
+    }
   },
   "Willkommen": "Welcome",
   "@Willkommen": {
@@ -554,7 +545,7 @@
   },
   "Was bisher geschah...": "What happened up to now...",
   "@Was bisher geschah...": {
-    "description": "title of whatsnew screen",
+    "description": "title of whatsnew",
     "type": "text",
     "placeholders": {}
   },
@@ -564,33 +555,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "Wichtige Daten": "Important data",
-  "@Wichtige Daten": {
-    "description": "label for area with important data",
+  "Nightscout Berichte": "Nightscout Reports",
+  "@Nightscout Berichte": {
+    "description": "title of nightscout reports",
     "type": "text",
     "placeholders": {}
   },
-  "URL im Titelbereich der Seite anzeigen": "Show URL in the title area of ​​the page",
-  "@URL im Titelbereich der Seite anzeigen": {
-    "description": "label for checkbox to display URL",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Optionale Daten für den Ausdruck": "Optional data for the printout",
-  "@Optionale Daten für den Ausdruck": {
-    "description": "label for area with optional data",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Geburtstag": "Birthday",
-  "@Geburtstag": {
-    "description": "label of editfield for birthday",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Diabetes seit": "Diabetes since",
-  "@Diabetes seit": {
-    "description": "label of editfield for diabetes since",
+  "Benutzerdaten": "User data",
+  "@Benutzerdaten": {
+    "description": "label for settings-area with user data",
     "type": "text",
     "placeholders": {}
   },
@@ -612,12 +585,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Verwerfen": "discard",
-  "@Verwerfen": {
-    "description": "buttonlabel for discarding data",
-    "type": "text",
-    "placeholders": {}
-  },
   "Speichern": "save",
   "@Speichern": {
     "description": "buttonlabel for saving data",
@@ -627,12 +594,6 @@
   "Willkommen bei Nightscout Reporter!": "Welcome to Nightscout Reporter!",
   "@Willkommen bei Nightscout Reporter!": {
     "description": "welcome title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "This page is also available in english": "Diese Seite ist auch auf Deutsch verfügbar",
-  "@This page is also available in english": {
-    "description": "label for button to switch to other language",
     "type": "text",
     "placeholders": {}
   },
@@ -654,15 +615,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "Einstellungen für die Verwendung der Seite vornehmen": "Enter settings for using the page",
-  "@Einstellungen für die Verwendung der Seite vornehmen": {
-    "description": "label for button to open settings on welcome screen",
+  "This page is also available in english": "Diese Seite ist auch auf Deutsch verfügbar",
+  "@This page is also available in english": {
+    "description": "label for button to switch to other language",
     "type": "text",
     "placeholders": {}
   },
-  "Was bisher geschah:": "What happened up to now:",
-  "@Was bisher geschah:": {
-    "description": "title of whatsnew",
+  "Einstellungen für die Verwendung der Seite vornehmen": "Enter settings for using the page",
+  "@Einstellungen für die Verwendung der Seite vornehmen": {
+    "description": "label for button to open settings on welcome screen",
     "type": "text",
     "placeholders": {}
   },
@@ -672,87 +633,159 @@
     "type": "text",
     "placeholders": {}
   },
+  "Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)": "You can now create multiple users. This is useful for analyzing multiple nightscout instances (eg, for doctors, caregivers or the developer of this software)",
+  "@Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)": {
+    "description": "v103a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzerdaten werden nun verschlüsselt im Browser gespeichert": "User data is now stored encrypted in the browser",
+  "@Benutzerdaten werden nun verschlüsselt im Browser gespeichert": {
+    "description": "v103c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Analyse-Seite wurde überarbeitet und zeigt nun Überschriften über den Bereichen an": "The analysis page has been redesigned and now displays headings above the areas",
+  "@Die Analyse-Seite wurde überarbeitet und zeigt nun Überschriften über den Bereichen an": {
+    "description": "v103c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet": "If the thresholds in Nightscout (BG_TARGET_BOTTOM and BG_TARGET_TOP) are equal to 70 and 180, then the area for the default targets will be hidden on the analysis page",
+  "@Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet": {
+    "description": "v103c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Tagesstatistik zeigt mmol/l-Werte nun korrekt an": "The daily statistics now display mmol/l values ​​correctly",
+  "@Die Tagesstatistik zeigt mmol/l-Werte nun korrekt an": {
+    "description": "v103f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt": "The values ​​for the default target range on the analysis page are now calculated correctly",
+  "@Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt": {
+    "description": "v103f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert": "Numbers and dates in the PDF are formatted according to the selected language",
+  "@Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert": {
+    "description": "v103f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet": "When loading the data, the corresponding date format is used for display of progress",
+  "@Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet": {
+    "description": "v103f4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden an dem Wert \"NONE\" im Datenfeld \"direction\" erkannt": "Faulty values ​​are no longer considered in the evaluation of the graphics; these are recognized by the value \"NONE\" in the data field \"direction\"",
+  "@Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden an dem Wert \"NONE\" im Datenfeld \"direction\" erkannt": {
+    "description": "v103f5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt": "Additional data is used for the calculation of carbohydrates",
+  "@Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt": {
+    "description": "v103f5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Diverse Abstürze beim Auslesen der Daten bereinigt": "Fixed various crashes when reading data",
+  "@Diverse Abstürze beim Auslesen der Daten bereinigt": {
+    "description": "v103f6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird": "The ability to display the URL in the title bar has been removed since the current user or his URL is now displayed directly",
+  "@Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird": {
+    "description": "v103d1",
+    "type": "text",
+    "placeholders": {}
+  },
   "Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": "Added legend for catheter and sensor changes to the daily chart.",
   "@Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": {
-    "description": "v101-0",
+    "description": "v102a1",
     "type": "text",
     "placeholders": {}
   },
   "Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": "Order of PDF pages changed - Percentile Diagram now comes after analysis.",
   "@Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": {
-    "description": "v101-1",
+    "description": "v102c1",
     "type": "text",
     "placeholders": {}
   },
   "Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": "Data for the glucose values ​​with incorrect date format are read out correctly.",
   "@Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": {
-    "description": "v101-2",
+    "description": "v102f1",
     "type": "text",
     "placeholders": {}
   },
   "Hohe Basalraten werden jetzt besser dargestellt.": "High basal rates are now better represented.",
   "@Hohe Basalraten werden jetzt besser dargestellt.": {
-    "description": "v101-3",
+    "description": "v102f2",
     "type": "text",
     "placeholders": {}
   },
   "Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": "Added this page. It is displayed each time Nightscout Reporter starts, if it has not been displayed in the current version. In addition, it can be called up again in the burgermenu.",
   "@Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": {
-    "description": "v101-0",
+    "description": "v101a1",
     "type": "text",
     "placeholders": {}
   },
   "Schliessen Button im Nachrichtenbereich hinzugefügt.": "Close button added in the message area.",
   "@Schliessen Button im Nachrichtenbereich hinzugefügt.": {
-    "description": "v101-1",
+    "description": "v101a2",
     "type": "text",
     "placeholders": {}
   },
   "Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": "Errors are better intercepted and replaced with more meaningful text.",
   "@Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": {
-    "description": "v101-2",
+    "description": "v101c1",
     "type": "text",
     "placeholders": {}
   },
   "Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.": "Clicking on the message area no longer closes it.",
   "@Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.": {
-    "description": "v101-3",
+    "description": "v101c2",
     "type": "text",
     "placeholders": {}
   },
   "Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": "Name, birthday, insulin and the start date of diabetes can now be left blank without any negative impact on the presentation in the PDF.",
   "@Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": {
-    "description": "v101-4",
+    "description": "v101c3",
     "type": "text",
     "placeholders": {}
   },
   "Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": "Error message when loading profiles without start date removed.",
   "@Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": {
-    "description": "v101-5",
+    "description": "v101f1",
     "type": "text",
     "placeholders": {}
   },
   "Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": "If no data is available, blank pages will be generated with an appropriate hint.",
   "@Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": {
-    "description": "v101-6",
+    "description": "v101f2",
     "type": "text",
     "placeholders": {}
   },
   "Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.": "The glucose graph of the daily graphs has been freed from missing data.",
   "@Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.": {
-    "description": "v101-7",
+    "description": "v101f3",
     "type": "text",
     "placeholders": {}
   },
   "Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": "The basal rate PDF was incorrect if there was not a value for each hour.",
   "@Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": {
-    "description": "v101-8",
+    "description": "v101f4",
     "type": "text",
     "placeholders": {}
   },
   "Initiale Version, alles ist neu!": "Initial version, everything is new!",
   "@Initiale Version, alles ist neu!": {
-    "description": "v100-1",
+    "description": "v100a1",
     "type": "text",
     "placeholders": {}
   }

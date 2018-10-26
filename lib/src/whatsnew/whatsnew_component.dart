@@ -8,18 +8,20 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
 @Component(selector: 'whatsnew',
   styleUrls: ['whatsnew_component.css'],
   templateUrl: 'whatsnew_component.html',
-  directives: [MaterialButtonComponent, MaterialIconComponent,
+  directives: [ ModalComponent, MaterialDialogComponent, MaterialButtonComponent, MaterialIconComponent,
   ],
   providers: const <dynamic>[materialProviders,])
 class WhatsnewComponent
 {
   globals.Globals g = globals.Globals();
 
-  @Output("fabClicked")
+  @Output("closeClicked")
   Stream<UIEvent> get trigger
   => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
 
+  @Input()
+  bool isVisible = false;
   WhatsnewComponent();
 
   fire(String key)

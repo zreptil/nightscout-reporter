@@ -8,18 +8,20 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
 @Component(selector: 'welcome',
   styleUrls: ['welcome_component.css'],
   templateUrl: 'welcome_component.html',
-  directives: [MaterialButtonComponent, MaterialIconComponent,
+  directives: [ModalComponent, MaterialDialogComponent, MaterialButtonComponent, MaterialIconComponent, NgFor, NgIf,
   ],
   providers: const <dynamic>[materialProviders,])
 class WelcomeComponent
 {
   globals.Globals g = globals.Globals();
 
-  @Output("fabClicked")
+  @Output("closeClicked")
   Stream<UIEvent> get trigger
   => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
 
+  @Input()
+  bool isVisible = false;
   WelcomeComponent();
 
   fire(String key)

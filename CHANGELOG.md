@@ -1,5 +1,26 @@
 ## [Unreleased]
 
+## [1.0.3]
+### Added
+- support for multiple users 
+
+### Changed
+- userdata is encrypted before being saved to localStorage
+- The analysis page has been redesigned and now displays headings above the areas
+- If the thresholds in Nightscout (BG_TARGET_BOTTOM and BG_TARGET_TOP) are equal to 70 and 180, then the area for the default targets will be hidden on the analysis page 
+
+### Fixed
+- The daily statistics now display mmol/l values ​​correctly
+- The values ​​for the default target range on the analysis page are now calculated correctly
+- Numbers and dates in the PDF are formatted according to the selected language
+- When loading the data, the corresponding date format is used for display of progress
+- Faulty values ​​are no longer considered in the evaluation of the graphics; these are recognized by the value "NONE" in the data field "direction"
+- Additional data is used for the calculation of carbohydrates
+- Fixed various crashes when reading data
+
+### Removed
+- The ability to display the URL in the title bar has been removed since the current user or his URL is now displayed directly
+
 ## [1.0.2]
 ### Added
 - added legend for catheter and sensor change in daily graphics
@@ -8,7 +29,7 @@
 - order of pdfs changed, percentile diagram now comes after analysis
 
 ### Fixed
-- fixed an error that occured, when the dateString in entries didn't match the correct UTC format.
+- fixed an error that occured, when the dateString in entries didn't match the correct UTC format
 - fixed display of basalrate for high values
 
 ## [1.0.1]

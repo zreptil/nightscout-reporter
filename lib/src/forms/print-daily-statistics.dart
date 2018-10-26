@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:intl/intl.dart';
+import 'package:nightscout_reporter/src/jsonData.dart';
 
-import '../globals.dart' as globals;
+import 'package:nightscout_reporter/src/globals.dart';
 import 'base-print.dart';
 
 class PrintDailyStatistics extends BasePrint
@@ -33,13 +34,16 @@ class PrintDailyStatistics extends BasePrint
 
   msgLow(value)
   {
-    value = "\n<$value";
+    value = "\n<${glucFromData(value)}";
     return Intl.message("Tief${value}", args: [value], name: "msgLow");
   }
 
+  get msgNormal
+    => "${Intl.message("Normal")}\n${getGlucInfo()["unit"]}";
+
   msgHigh(value)
   {
-    value = "\n>=$value";
+    value = "\n>=${glucFromData(value)}";
     return Intl.message("Hoch${value}", args: [value], name: "msgHigh");
   }
 
@@ -47,8 +51,6 @@ class PrintDailyStatistics extends BasePrint
   => Intl.message("Datum");
   get msgDistribution
   => Intl.message("Verteilung");
-  get msgNormal
-  => Intl.message("Normal");
   get msgValues
   => Intl.message("Messwerte");
   get msgMin
@@ -64,14 +66,24 @@ class PrintDailyStatistics extends BasePrint
   get msg75
   => Intl.message("75%");
 
-  headLine(globals.SettingsData settings)
+  headLine(SettingsData settings)
   {
     var ret = [];
     ret.add({"text": msgDate, "style": "total", "alignment": "center"});
     ret.add({"text": msgDistribution, "style": "total", "alignment": "center"});
-    ret.add({"text": msgLow(settings.thresholds.bgTargetBottom), "style": "total", "alignment": "center", "fillColor": colLow});
+    ret.add({
+      "text": msgLow(settings.thresholds.bgTargetBottom),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colLow
+    });
     ret.add({"text": msgNormal, "style": "total", "alignment": "center", "fillColor": colNorm});
-    ret.add({"text": msgHigh(settings.thresholds.bgTargetTop), "style": "total", "alignment": "center", "fillColor": colHigh});
+    ret.add({
+      "text": msgHigh(settings.thresholds.bgTargetTop),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colHigh
+    });
     ret.add({"text": msgValues, "style": "total", "alignment": "center"});
     ret.add({"text": msgMin, "style": "total", "alignment": "center"});
     ret.add({"text": msgMax, "style": "total", "alignment": "center"});
@@ -85,15 +97,16 @@ class PrintDailyStatistics extends BasePrint
   }
 
   @override
-  getFormData_(globals.ReportData src)
+  getFormData_(ReportData src)
   {
     titleInfo = "${fmtDate(src.begDate)} - ${fmtDate(src.endDate)}";
 
     var body = [];
-    var widths = ["auto", "*", cm(1.5), cm(1.5), cm(1.5), "auto", "auto", "auto", "auto", "auto", cm(1.5), cm(1.5), cm(1.5)];
+    var widths = [
+      "auto", "*", cm(1.5), cm(1.5), cm(1.5), "auto", "auto", "auto", "auto", "auto", cm(1.5), cm(1.5), cm(1.5)];
     double f = 3.4 / 100;
 
-    globals.ProfileGlucData prevProfile = null;
+    ProfileGlucData prevProfile = null;
     int lineCount = 0;
     var ret = [header];
     int totalCount = 0;
@@ -102,11 +115,12 @@ class PrintDailyStatistics extends BasePrint
     int totalLow = 0;
     int totalHigh = 0;
     int totalNorm = 0;
-    for (globals.DayData day in src.ns.days)
+    for (DayData day in src.ns.days)
     {
       day.init();
-      globals.ProfileGlucData profile = src.profile(src, DateTime(day.date.year, day.date.month, day.date.day));
-      if (prevProfile == null || profile.targetLow != prevProfile.targetLow || profile.targetHigh != prevProfile.targetHigh)
+      ProfileGlucData profile = src.profile(DateTime(day.date.year, day.date.month, day.date.day));
+      if (prevProfile == null || profile.targetLow != prevProfile.targetLow ||
+        profile.targetHigh != prevProfile.targetHigh)
       {
         body.add(headLine(src.status.settings));
         lineCount += 2;
@@ -118,21 +132,35 @@ class PrintDailyStatistics extends BasePrint
       row.add({
         "canvas": [
           {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * f), "h": cm(0.5)},
-          {"type": "rect", "color": colNorm, "x": cm(day.lowPrz * f), "y": cm(0), "w": cm(day.normPrz * f), "h": cm(0.5)},
-          {"type": "rect", "color": colHigh, "x": cm((day.lowPrz + day.normPrz) * f), "y": cm(0), "w": cm(day.highPrz * f), "h": cm(0.5)}
+          {
+            "type": "rect",
+            "color": colNorm,
+            "x": cm(day.lowPrz * f),
+            "y": cm(0),
+            "w": cm(day.normPrz * f),
+            "h": cm(0.5)
+          },
+          {
+            "type": "rect",
+            "color": colHigh,
+            "x": cm((day.lowPrz + day.normPrz) * f),
+            "y": cm(0),
+            "w": cm(day.highPrz * f),
+            "h": cm(0.5)
+          }
         ]
       });
       row.add({"text": "${fmtNumber(day.lowPrz, 0)} %", "alignment": "right"});
       row.add({"text": "${fmtNumber(day.normPrz, 0)} %", "alignment": "right"});
       row.add({"text": "${fmtNumber(day.highPrz, 0)} %", "alignment": "right"});
       row.add({"text": "${fmtNumber(day.entryCount, 0)}", "alignment": "right"});
-      row.add({"text": "${fmtNumber(day.min, 0)}", "alignment": "right"});
-      row.add({"text": "${fmtNumber(day.max, 0)}", "alignment": "right"});
-      row.add({"text": "${fmtNumber(day.mid, 1)}", "alignment": "right"});
-      row.add({"text": "${fmtNumber(day.stdAbw, 1)}", "alignment": "right"});
-      row.add({"text": "${fmtNumber(globals.Globals.percentile(day.entries, 25), 1)}", "alignment": "right"});
-      row.add({"text": "${fmtNumber(globals.Globals.percentile(day.entries, 50), 1)}", "alignment": "right"});
-      row.add({"text": "${fmtNumber(globals.Globals.percentile(day.entries, 75), 1)}", "alignment": "right"});
+      row.add({"text": "${glucFromData(day.min, 1)}", "alignment": "right"});
+      row.add({"text": "${glucFromData(day.max, 1)}", "alignment": "right"});
+      row.add({"text": "${glucFromData(day.mid, 1)}", "alignment": "right"});
+      row.add({"text": "${glucFromData(day.stdAbw, 1)}", "alignment": "right"});
+      row.add({"text": "${glucFromData(Globals.percentile(day.entries, 25), 1)}", "alignment": "right"});
+      row.add({"text": "${glucFromData(Globals.percentile(day.entries, 50), 1)}", "alignment": "right"});
+      row.add({"text": "${glucFromData(Globals.percentile(day.entries, 75), 1)}", "alignment": "right"});
       body.add(row);
       totalCount += day.entryCount;
       totalMin = min(day.min, totalMin);
@@ -168,7 +196,14 @@ class PrintDailyStatistics extends BasePrint
       "canvas": [
         {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(lowPrz * f), "h": cm(0.5)},
         {"type": "rect", "color": colNorm, "x": cm(lowPrz * f), "y": cm(0), "w": cm(normPrz * f), "h": cm(0.5)},
-        {"type": "rect", "color": colHigh, "x": cm((lowPrz + normPrz) * f), "y": cm(0), "w": cm(highPrz * f), "h": cm(0.5)}
+        {
+          "type": "rect",
+          "color": colHigh,
+          "x": cm((lowPrz + normPrz) * f),
+          "y": cm(0),
+          "w": cm(highPrz * f),
+          "h": cm(0.5)
+        }
       ],
       "style": "total"
     });
@@ -176,8 +211,8 @@ class PrintDailyStatistics extends BasePrint
     row.add({"text": "${fmtNumber(normPrz, 0)} %", "alignment": "right", "style": "total", "fillColor": colNorm});
     row.add({"text": "${fmtNumber(highPrz, 0)} %", "alignment": "right", "style": "total", "fillColor": colHigh});
     row.add({"text": "${fmtNumber(totalCount, 0)}", "alignment": "right", "style": "total"});
-    row.add({"text": "${fmtNumber(totalMin, 0)}", "alignment": "right", "style": "total"});
-    row.add({"text": "${fmtNumber(totalMax, 0)}", "alignment": "right", "style": "total"});
+    row.add({"text": "${glucFromData(totalMin)}", "alignment": "right", "style": "total"});
+    row.add({"text": "${glucFromData(totalMax)}", "alignment": "right", "style": "total"});
     row.add({"text": "", "alignment": "right", "style": "total"});
     row.add({"text": "", "alignment": "right", "style": "total"});
     row.add({"text": "", "alignment": "right", "style": "total"});

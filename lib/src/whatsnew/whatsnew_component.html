@@ -1,62 +1,112 @@
-<div class="root">
-  <h1 @i18n="title of whatsnew">Was bisher geschah:</h1>
-  <div class="version"><span @i18n="version">Version</span><span>1.0.3 - xx.xx.2018</span></div>
-  <ul>
-    <li class="added" @i18n="v103-0">
-    </li>
-  </ul>
-  <div class="version"><span @i18n="version">Version</span><span>1.0.2 - 23.10.2018</span></div>
-  <ul>
-    <li class="added" @i18n="v102-0">
-      Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.
-    </li>
-    <li class="changed" @i18n="v102-1">
-      Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.
-    </li>
-    <li class="fixed" @i18n="v102-2">
-      Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.
-    </li>
-    <li class="fixed" @i18n="v102-3">
-      Hohe Basalraten werden jetzt besser dargestellt.
-    </li>
-  </ul>
-  <div class="version"><span @i18n="version">Version</span><span>1.0.1 - 23.10.2018</span></div>
-  <ul>
-    <li class="added" @i18n="v101-0">
-      Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt,
-      wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü
-      wieder aufgerufen werden.
-    </li>
-    <li class="added" @i18n="v101-1">
-      Schliessen Button im Nachrichtenbereich hinzugefügt.
-    </li>
-    <li class="changed" @i18n="v101-2">
-      Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.
-    </li>
-    <li class="changed" @i18n="v101-3">
-      Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.
-    </li>
-    <li class="changed" @i18n="v101-4">
-      Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das
-      negative Auswirkungen auf die Darstellung im PDF hat.
-    </li>
-    <li class="fixed" @i18n="v101-5">
-      Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.
-    </li>
-    <li class="fixed" @i18n="v101-6">
-      Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.
-    </li>
-    <li class="fixed" @i18n="v101-7">
-      Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.
-    </li>
-    <li class="fixed" @i18n="v101-8">
-      Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.
-    </li>
-  </ul>
-  <div class="version"><span @i18n="version">Version</span><span>1.0.0 - 20.10.2018</span></div>
-  <ul>
-    <li class="added" @i18n="v100-1">
-      Initiale Version, alles ist neu!
-    </li>
-  </ul>
-</div>
+<modal [visible]="isVisible">
+  <material-dialog headered class="headered-dialog" shouldShowScrollStrokes hideFooter>
+    <div header>
+      <div>
+        <h1 @i18n="title of whatsnew">Was bisher geschah...</h1>
+        <p></p>
+      </div>
+      <material-button icon (trigger)="fire('normal')">
+        <material-icon icon="close"></material-icon>
+      </material-button>
+    </div>
+    <div class="root">
+      <h2><span @i18n="version">Version</span><span>1.0.3 - 26.10.2018</span></h2>
+      <ul>
+        <li class="added" @i18n="v103a1">
+          Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere
+          Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)
+        </li>
+        <li class="changed" @i18n="v103c1">
+          Benutzerdaten werden nun verschlüsselt im Browser gespeichert
+        </li>
+        <li class="changed" @i18n="v103c2">
+          Die Analyse-Seite wurde überarbeitet und zeigt nun Überschriften über den Bereichen an
+        </li>
+        <li class="changed" @i18n="v103c3">
+          Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180
+          entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet
+        </li>
+        <li class="fixed" @i18n="v103f1">
+          Die Tagesstatistik zeigt mmol/l-Werte nun korrekt an
+        </li>
+        <li class="fixed" @i18n="v103f2">
+          Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt
+        </li>
+        <li class="fixed" @i18n="v103f3">
+          Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert
+        </li>
+        <li class="fixed" @i18n="v103f4">
+          Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet
+        </li>
+        <li class="fixed" @i18n="v103f5">
+          Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden
+          an dem Wert "NONE" im Datenfeld "direction" erkannt
+        </li>
+        <li class="fixed" @i18n="v103f5">
+          Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt
+        </li>
+        <li class="fixed" @i18n="v103f6">
+          Diverse Abstürze beim Auslesen der Daten bereinigt
+        </li>
+        <li class="removed" @i18n="v103d1">
+          Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der
+          aktuelle Benutzer oder dessen URL direkt angezeigt wird
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span>1.0.2 - 23.10.2018</span></h2>
+      <ul>
+        <li class="added" @i18n="v102a1">
+          Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.
+        </li>
+        <li class="changed" @i18n="v102c1">
+          Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.
+        </li>
+        <li class="fixed" @i18n="v102f1">
+          Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.
+        </li>
+        <li class="fixed" @i18n="v102f2">
+          Hohe Basalraten werden jetzt besser dargestellt.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span>1.0.1 - 23.10.2018</span></h2>
+      <ul>
+        <li class="added" @i18n="v101a1">
+          Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt,
+          wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü
+          wieder aufgerufen werden.
+        </li>
+        <li class="added" @i18n="v101a2">
+          Schliessen Button im Nachrichtenbereich hinzugefügt.
+        </li>
+        <li class="changed" @i18n="v101c1">
+          Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.
+        </li>
+        <li class="changed" @i18n="v101c2">
+          Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.
+        </li>
+        <li class="changed" @i18n="v101c3">
+          Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das
+          negative Auswirkungen auf die Darstellung im PDF hat.
+        </li>
+        <li class="fixed" @i18n="v101f1">
+          Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.
+        </li>
+        <li class="fixed" @i18n="v101f2">
+          Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.
+        </li>
+        <li class="fixed" @i18n="v101f3">
+          Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.
+        </li>
+        <li class="fixed" @i18n="v101f4">
+          Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span>1.0.0 - 20.10.2018</span></h2>
+      <ul>
+        <li class="added" @i18n="v100a1">
+          Initiale Version, alles ist neu!
+        </li>
+      </ul>
+    </div>
+  </material-dialog>
+</modal>

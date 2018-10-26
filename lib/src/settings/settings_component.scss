@@ -4,55 +4,93 @@
 
 :host {
 }
-material-dialog
-{
 
+material-dialog {
   min-width: 80%;
 }
 
-material-input
-{
+material-input {
   width: 100%;
 }
 
-.datepicker-row
-{
+.datepicker-row {
   position: relative;
   display: flex;
   align-items: flex-start;
 }
 
-.datepicker-row label
-{
+.datepicker-row label {
   position: absolute;
   top: -15px;
   color: rgba(0, 0, 0, 0.541176);
   font-size: 12px;
 }
-.personalinfo
-{
+
+.urlPanel {
   display: flex;
   flex-direction: row;
+  align-items: center;
+
+  material-input {
+    flex: 1;
+  }
+
+  material-fab:not([disabled]) {
+    background-color: $primary-back;
+    color: $primary-fore;
+  }
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
   align-items: baseline;
   flex-wrap: wrap;
+
+  div {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+  }
 }
-material-dialog
-{
+
+material-dialog {
   @include material-dialog-header-color($primary_back);
 }
-.languagePanel
-{
+
+.languagePanel {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.currLang
-{
+
+.currLang {
   background: $mat-green-300;
 }
-.subtitle
-{
+
+.subtitle {
+  display: flex;
+  flex-direction: row;
   color: $primary_back;
   font-size: 1.5em;
   padding-bottom: 0.5em;
+  align-items: center;
+  justify-content: space-between;
+}
+
+div[header] {
+  display: flex;
+  flex-direction: row;
+  color: $primary_fore;
+  justify-content: space-between;
+}
+.error
+{
+  color: $mat-red-500;
+  padding-bottom: 1em;
+}
+
+.progress{
+  padding: 2em;
+  font-size: 1.2em;
 }

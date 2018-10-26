@@ -2,7 +2,8 @@ import 'dart:math' as math;
 import 'dart:math';
 
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/globals.dart' as globals;
+import 'package:nightscout_reporter/src/globals.dart';
+import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
 
@@ -54,13 +55,13 @@ class PrintDailyGraphic extends BasePrint
   }
 
   @override
-  prepareData_(globals.ReportData vars)
+  prepareData_(ReportData vars)
   {
     return vars;
   }
 
   @override
-  getFormData_(globals.ReportData src)
+  getFormData_(ReportData src)
   async {
     var data = src.calc;
 
@@ -69,7 +70,7 @@ class PrintDailyGraphic extends BasePrint
 
     for (int i = 0; i < data.days.length; i++)
     {
-      globals.DayData day = data.days[i];
+      DayData day = data.days[i];
       var page = getPage(day, src);
       ret.addAll(page);
       if (i < data.days.length - 1)ret.last["pageBreak"] = "after";
@@ -77,16 +78,16 @@ class PrintDailyGraphic extends BasePrint
     return ret;
   }
 
-  getPage(globals.DayData day, globals.ReportData src)
+  getPage(DayData day, ReportData src)
   {
     double xo = xorg;
     double yo = yorg;
     titleInfo = fmtDate(day.date);
     glucMax = -1000.0;
-    for (globals.EntryData entry in day.entries)
+    for (EntryData entry in day.entries)
       glucMax = math.max(entry.gluc, glucMax);
     profMax = -1000.0;
-    for (globals.ProfileEntryData entry in day.profile)
+    for (ProfileEntryData entry in day.profile)
       profMax = math.max(entry.value, profMax);
 
     int gridLines = (glucMax / 50).ceil();
@@ -154,7 +155,7 @@ class PrintDailyGraphic extends BasePrint
     glucMax = gridLines * 50.0;
     var area = {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": []};
     List areaPoints = area["points"];
-    for (globals.EntryData time in day.entries)
+    for (EntryData time in day.entries)
     {
       double x = glucX(time.time);
       double y = glucY(time.gluc);
@@ -173,7 +174,7 @@ class PrintDailyGraphic extends BasePrint
     List cobPoints = cob["points"];
     bool hasCatheterChange = false;
     bool hasSensorChange = false;
-    for (globals.TreatmentData t in day.treatments)
+    for (TreatmentData t in day.treatments)
     {
       double x, y;
       if (t.eventType.toLowerCase() == "temp basal")continue;
@@ -223,7 +224,7 @@ class PrintDailyGraphic extends BasePrint
     }
 
     DateTime date = DateTime(day.date.year, day.date.month, day.date.day);
-    globals.ProfileGlucData profile = src.profile(src, date);
+    ProfileGlucData profile = src.profile(date);
     double yHigh = glucY(min(glucMax, src.status.settings.thresholds.bgTargetTop.toDouble()));
     double yLow = glucY(src.status.settings.thresholds.bgTargetBottom.toDouble());
     double targetValue = glucY((profile.targetHigh + profile.targetLow) / 2);
@@ -284,7 +285,7 @@ class PrintDailyGraphic extends BasePrint
     areaPoints = [];
     area = {"type": "polyline", "lineWidth": cm(lw), "closePath": true, "lineColor": colBasal, "color": blendColor(colBasal, "ffffff", 0.7), "points": areaPoints};
     areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
-    for (globals.ProfileEntryData entry in day.profile)
+    for (ProfileEntryData entry in day.profile)
     {
       double x = basalX(entry.time);
       double y = basalY(entry.value);
@@ -305,13 +306,12 @@ class PrintDailyGraphic extends BasePrint
       "stack": []
     };
     addLegendEntry(legendLeft, colValue, msgGlucosekurve, isArea: false);
-    addLegendEntry(legendLeft, colTargetArea, msgTargetArea);
-    addLegendEntry(legendLeft, colTargetValue, msgTargetValue, isArea: false);
+    addLegendEntry(legendLeft, colTargetArea, msgTargetArea(src.status.settings.thresholds.bgTargetBottom.toDouble(), src.status.settings.thresholds.bgTargetTop.toDouble()));
+    addLegendEntry(legendLeft, colTargetValue, msgTargetValue((profile.targetHigh + profile.targetLow) / 2), isArea: false);
     addLegendEntry(legendLeft, colBasal, msgBasalrate, isArea: true);
-    if(hasCatheterChange)
-      addLegendEntry(legendRight, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);
-    if(hasSensorChange)
-      addLegendEntry(legendRight, "", msgSensorChange, image: "sensor.print", imgWidth: 0.5);
+    if (hasCatheterChange)addLegendEntry(
+      legendRight, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);
+    if (hasSensorChange)addLegendEntry(legendRight, "", msgSensorChange, image: "sensor.print", imgWidth: 0.5);
     //blendColor(colBasal, "ffffff", 0.7)
     var profileBasal = getBasalGraph(day.basalData.store.listBasal, xo, yo, 0, null);
     var dayBasal = getBasalGraph(day.profile, xo, yo, day.ieBasalSum, blendColor(colBasal, "ffffff", 0.7));
@@ -333,7 +333,7 @@ class PrintDailyGraphic extends BasePrint
     ];
   }
 
-  getBasalGraph(List<globals.ProfileEntryData> data, double xo, double yo, double basalSum, String color)
+  getBasalGraph(List<ProfileEntryData> data, double xo, double yo, double basalSum, String color)
   {
     var basalCvs = [];
     var ret = {"stack": [{"absolutePosition": {"x": cm(xo), "y": cm(yo + graphHeight + 1.0)}, "canvas": basalCvs},
@@ -362,7 +362,7 @@ class PrintDailyGraphic extends BasePrint
     };
 
     if (color != null)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
-    for (globals.ProfileEntryData entry in data)
+    for (ProfileEntryData entry in data)
     {
       double x = basalX(entry.time);
       double y = basalY(entry.value);

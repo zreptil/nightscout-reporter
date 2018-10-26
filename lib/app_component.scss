@@ -4,6 +4,7 @@
 @import 'package:angular_components/material_toggle/mixins';
 @import 'package:angular_components/material_list/mixins';
 @import 'package:angular_components/material_expansionpanel/mixins';
+@import 'package:angular_components/material_select/mixins';
 @import 'package:angular_components/app_layout/mixins';
 
 :host {
@@ -21,7 +22,7 @@ header.material-header {
 }
 
 header.material-header .material-header-title {
-  left: 2.5em;
+  position: initial;
 }
 
 #app-content {
@@ -48,17 +49,25 @@ material-button img {
   align-items: center;
 }
 
-.menuControls {
+.menuControls,
+.menuLinks {
   flex-direction: row;
+}
 
-  material-button {
-    display: flex;
-    flex: 1;
-    text-align: left;
+.menuControls > material-button,
+.menuLinks > material-button {
+  display: flex;
+  flex: 1;
+  text-align: left;
 
-    material-icon, img {
-      margin-right: 1em;
-    }
+  material-icon, img {
+    margin-right: 1em;
+  }
+
+  material-icon[icon='open_in_new']
+  {
+    padding-left: 1em;
+    margin: 0;
   }
 }
 
@@ -116,8 +125,15 @@ material-drawer {
   color: white;
   flex-wrap: wrap;
 
-  material-button {
+  material-button:not(.msgClose) {
     background-color: $primary_back;
+    margin-bottom: 0.2em;
+  }
+
+  .msgClose {
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
   }
 }
 
@@ -215,3 +231,37 @@ nav a {
   flex-direction: column;
   align-items: flex-end;
 }
+
+.normal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+@include material-select-selected-item-color($primary_back);
+@include material-select-selected-color($primary_fore);
+
+material-select-item {
+  display: flex;
+  flex-direction: column;
+  line-height: initial;
+  align-items: flex-start;
+  padding: 0.2em 0.5em;
+
+  div.itemSub {
+    font-size: 75%;
+  }
+}
+
+.userSelect {
+  ::ng-deep material-list {
+    background: $secondary_back;
+    padding: 0;
+
+    material-select-item {
+      .selected-accent {
+        background-color: $primary_back;
+      }
+    }
+  }
+}
+

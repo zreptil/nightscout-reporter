@@ -6,7 +6,8 @@ import 'dart:typed_data';
 
 import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/globals.dart' as globals;
+import 'package:nightscout_reporter/src/globals.dart';
+import 'package:nightscout_reporter/src/jsonData.dart';
 
 class PrintParams
 {
@@ -24,7 +25,7 @@ class PrintParams
 
 abstract class BasePrint
 {
-  globals.Globals g = new globals.Globals();
+  Globals g = new Globals();
 
   String id;
   String name;
@@ -63,10 +64,18 @@ abstract class BasePrint
   => Intl.message("IE");
   get msgMedian
   => Intl.message("Median");
-  get msgTargetArea
-  => Intl.message("Zielbereich");
-  String get msgTargetValue
-  => Intl.message("Zielwert");
+  String msgTargetArea(double low, double high)
+  {
+    String min = glucFromData(low);
+    String max = glucFromData(high);
+    String units = getGlucInfo()["unit"];
+    return Intl.message("Zielbereich ($min - $max $units)", args: [min, max, units], name: "msgTargetArea");
+  }
+  String msgTargetValue(double value)
+  {
+    String t = "${glucFromData(value)} ${getGlucInfo()["unit"]}";
+    return Intl.message("Zielwert ($t)", args: [t], name: "msgTargetValue");
+  }
   String get msgGlucosekurve
   => Intl.message("Glukosekurve");
   String get msgBasalrate
@@ -161,15 +170,15 @@ abstract class BasePrint
   {
     bool isInput = false;
     String rightText = "";
-    if (g.userName.isEmpty)
+    if (g.user.name.isEmpty)
     {
-      if (!g.birthDate.isEmpty)rightText = "*${g.birthDate}";
+      if (!g.user.birthDate.isEmpty)rightText = "*${g.user.birthDate}";
     }
     else
     {
-      if (!g.birthDate.isEmpty)rightText = "${g.userName}, *${g.birthDate}";
+      if (!g.user.birthDate.isEmpty)rightText = "${g.user.name}, *${g.user.birthDate}";
       else
-        rightText = g.userName;
+        rightText = g.user.name;
     }
     var ret = {
       "stack": [
@@ -214,19 +223,16 @@ abstract class BasePrint
   List<String> get imgList
   => ["nightscout-pale", "nightscout",];
 
-  bool _checked = false;
-
   bool get checked
-  => _checked;
+  => g.user.formList[id] ?? false;
   set checked(bool value)
   {
-    _checked = value;
-    window.localStorage["form$id"] = _checked.toString();
+    g.user.formList[id] = value ?? false;
   }
 
   void init()
   {
-    checked = window.localStorage["form$id"] == "true";
+    checked = g.user.formList[id];
   }
 
   Future<String> getBase64Image(String id)
@@ -242,7 +248,7 @@ abstract class BasePrint
     return "";
   }
 
-  prepareData_(globals.ReportData data);
+  prepareData_(ReportData data);
 
   getImage(String id, {double x, double y, double width, double height = 0.0})
   {
@@ -276,12 +282,12 @@ abstract class BasePrint
     return ret;
   }
 
-  hasData(globals.ReportData src)
+  hasData(ReportData src)
   {
     return src.dayCount > 0 && src.ns.count > 0;
   }
 
-  getEmptyForm(globals.ReportData data)
+  getEmptyForm(ReportData data)
   {
     return [
       header,
@@ -290,7 +296,7 @@ abstract class BasePrint
     ];
   }
 
-  getFormData(globals.ReportData data)
+  getFormData(ReportData data)
   async {
     for (String id in imgList)
     {
@@ -335,11 +341,10 @@ abstract class BasePrint
         {"margin": [cm(1.0), cm(0.5), cm(1.0), cm(0)], "text": "\n$s", "fontSize": 10, "alignment": "left"}
       ];
     }
-    checked = window.localStorage["form$id"] == "true";
     return ret;
   }
 
-  getFormData_(globals.ReportData src);
+  getFormData_(ReportData src);
 
   num Num(var text)
   {
@@ -358,11 +363,14 @@ abstract class BasePrint
     return pt / 0.035277;
   }
 
-  String fmtNumber(num value, [num decimals = 0, bool fillfront0 = false])
+  String fmtNumber(num value, [num decimals = 0, bool fillfront0 = false, String nullText="null"])
   {
+    if(value == null)
+      return nullText;
+
     String fmt = "#,##0";
     if (decimals > 0)fmt = "$fmt.".padRight(decimals + 6, "0");
-    NumberFormat nf = NumberFormat(fmt, "de_DE");
+    NumberFormat nf = NumberFormat(fmt, g.language.code);
     return nf.format(value);
   }
 
@@ -403,13 +411,29 @@ abstract class BasePrint
     if (def == null)def = "";
     if (date == null)return def;
 
-    if (date is Date || date is DateTime)
-      return "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year}";
+    DateTime dt = null;
 
-    if (date is String && date.length >= 8)
-      return "${date.substring(6, 8)}.${date.substring(4, 6)}.${date.substring(0, 4)}";
+    try
+    {
+      if (date is Date)dt = DateTime(date.year, date.month, date.day);
+      else if (date is DateTime)dt = date;
+      else if (date is String && date.length >= 8)
+      {
+        int y = int.tryParse(date.substring(6, 8));
+        int m = int.tryParse(date.substring(4, 6));
+        int d = int.tryParse(date.substring(0, 4));
+        dt = DateTime(y, m, d);
+      }
+    }
+    catch (ex)
+    {
+    }
 
-    return date;
+    if(dt == null)
+      return date;
+
+    DateFormat df = DateFormat(g.language.dateformat);
+    return df.format(dt);
   }
 
   String blendColor(String from, String to, num factor)
@@ -445,25 +469,28 @@ abstract class BasePrint
     return ret;
   }
 
-  String glucFromData(var gluc)
+  String glucFromData(var gluc, [precision = null])
   {
     if (gluc is String)gluc = double.tryParse(gluc);
     if (!(gluc is num) || gluc == 0)return "";
 
-    if (!g.glucMGDL)return fmtNumber(gluc / 18.02, 1);
+    if (!g.glucMGDL)return fmtNumber(gluc / 18.02, precision == null ? 1 : precision);
 
-    return fmtNumber(gluc, 0);
+    return fmtNumber(gluc, precision == null ? 0 : precision);
   }
 
-  addLegendEntry(var dst, String color, String text, {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0})
+  addLegendEntry(var dst, String color, String text,
+                 {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0})
   {
     if (image != null)
     {
-      (dst["stack"] as List).add({"columns": [
-        {"width": cm(0.8),
-          "stack": [{"margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), 0, 0], "image": image, "width": cm(imgWidth)}],},
-        {"text": text, "color": "black"}
-      ]});
+      (dst["stack"] as List).add({
+        "columns": [ {
+          "width": cm(0.8),
+          "stack": [{"margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), 0, 0], "image": image, "width": cm(imgWidth)}],
+        }, {"text": text, "color": "black"}
+        ]
+      });
     }
     else if (isArea)(dst["stack"] as List).add({
       "columns": [ {

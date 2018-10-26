@@ -5,50 +5,84 @@
         <h1 @i18n="title for settings dialog">Einstellungen</h1>
         <p></p>
       </div>
-    </div>
-    <div class="subtitle" @i18n="label for area with important data">Wichtige Daten</div>
-    <div>
-      <material-input [label]="msgUrlNightscout"
-                      autoFocus
-                      floatingLabel
-                      [(ngModel)]="g.storageApiUrl">
-      </material-input>
-      <material-input *ngIf="g.isBeta"
-                      [class]="g.isBeta?'betaText':''"
-                      [label]="msgApiSecret"
-                      floatingLabel
-                      type="password"
-                      [(ngModel)]="g.apiSecret">
-      </material-input>
-      <material-input *ngIf="g.isBeta"
-                      [class]="g.isBeta?'betaText':''"
-                      [label]="msgUserToken"
-                      floatingLabel
-                      type="password"
-                      [(ngModel)]="g.userToken">
-      </material-input>
-      <material-checkbox [(checked)]="g.showUrl" @i18n="label for checkbox to display URL">URL im Titelbereich der Seite anzeigen</material-checkbox>
-    </div>
-    <div class="subtitle" @i18n="label for area with optional data">Optionale Daten für den Ausdruck</div>
-    <div class="personalinfo">
-      <material-input [(ngModel)]="g.userName" floatingLabel [label]="msgName"></material-input>
-      <material-input [(ngModel)]="g.insulin" floatingLabel [label]="msgInsulin"></material-input>
-      <material-input [(ngModel)]="g.birthDate" floatingLabel label="Geburtstag" @i18n:label="label of editfield for birthday"></material-input>
-      <material-input [(ngModel)]="g.diaStartDate" floatingLabel label="Diabetes seit" @i18n:label="label of editfield for diabetes since"></material-input>
-    </div>
-    <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
-    <div>
-      <material-checkbox [(checked)]="g.pdfSameWindow" @i18n="label for checkbox to open PDF in same window">PDF im selben Fenster öffnen</material-checkbox>
-    </div>
-    <div>
-      <material-checkbox [(checked)]="g.isBeta" @i18n="label for checkbox to enable beta functions">Betafunktionen anzeigen</material-checkbox>
-    </div>
-    <div footer>
-      <material-button clear-size (trigger)="fire('cancel')" @i18n="buttonlabel for discarding data">
-        Verwerfen
+      <material-button  *ngIf="progressText==null" icon (trigger)="fire('cancel')">
+        <material-icon icon="close"></material-icon>
       </material-button>
-      <material-button autoFocus clear-size (trigger)="fire('ok');" @i18n="buttonlabel for saving data">
-        Speichern
+    </div>
+
+    <div class="progress" *ngIf="progressText!=null">
+      <material-progress [indeterminate]="true"></material-progress>
+      <div>{{progressText}}</div>
+    </div>
+
+    <div *ngIf="progressText==null">
+      <div class="subtitle">
+        <ng-container @i18n="label for settings-area with user data">Benutzerdaten</ng-container>
+        <div>
+          <material-button icon [disabled]="g.userIdx==0" (trigger)="g.userIdx=g.userIdx-1">
+            <material-icon icon="chevron_left"></material-icon>
+          </material-button>
+          <material-button icon [disabled]="g.userIdx>=g.userList.length-1" (trigger)="g.userIdx=g.userIdx+1">
+            <material-icon icon="chevron_right"></material-icon>
+          </material-button>
+        </div>
+      </div>
+      <div class="error" *ngIf="errUserInvalid!=null" [innerHTML]="errUserInvalid"></div>
+      <div class="urlPanel">
+        <material-input [label]="msgUrlNightscout"
+                        autoFocus
+                        floatingLabel
+                        [(ngModel)]="g.user.storageApiUrl">
+        </material-input>
+        <material-fab mini [disabled]="g.userList.last.storageApiUrl.isEmpty" (trigger)="addUser()">
+          <material-icon icon="add"></material-icon>
+        </material-fab>
+      </div>
+      <div class="userinfo">
+        <div>
+          <material-input *ngIf="g.isBeta"
+                          [class]="g.isBeta?'betaText':''"
+                          [label]="msgApiSecret"
+                          floatingLabel
+                          type="password"
+                          [(ngModel)]="g.user.apiSecret">
+          </material-input>
+          <material-input *ngIf="g.isBeta"
+                          [class]="g.isBeta?'betaText':''"
+                          [label]="msgUserToken"
+                          floatingLabel
+                          type="password"
+                          [(ngModel)]="g.user.token">
+          </material-input>
+        </div>
+        <div>
+          <material-input [(ngModel)]="g.user.name" floatingLabel [label]="msgName"></material-input>
+          <material-input [(ngModel)]="g.user.birthDate" floatingLabel label="Geburtstag"
+                          @i18n:label="label of editfield for birthday"></material-input>
+        </div>
+        <div>
+          <material-input [(ngModel)]="g.user.diaStartDate" floatingLabel label="Diabetes seit"
+                          @i18n:label="label of editfield for diabetes since"></material-input>
+          <material-input [(ngModel)]="g.user.insulin" floatingLabel [label]="msgInsulin"></material-input>
+        </div>
+      </div>
+      <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
+      <div>
+        <material-checkbox [(checked)]="g.pdfSameWindow" @i18n="label for checkbox to open PDF in same window">PDF im
+          selben Fenster öffnen
+        </material-checkbox>
+      </div>
+      <div>
+        <material-checkbox [(checked)]="g.isBeta" @i18n="label for checkbox to enable beta functions">Betafunktionen
+          anzeigen
+        </material-checkbox>
+      </div>
+    </div>
+
+    <div footer>
+      <material-button  *ngIf="progressText==null" autoFocus clear-size (trigger)="fire('check');">
+        <material-icon icon="save"></material-icon>
+        <ng-container @i18n="buttonlabel for saving data">Speichern</ng-container>
       </material-button>
     </div>
   </material-dialog>

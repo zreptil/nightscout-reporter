@@ -9,6 +9,8 @@ import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_datepicker/material_date_range_picker.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
+import 'package:angular_components/material_select/material_dropdown_select.dart';
+import 'package:angular_components/material_select/material_select_item.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
@@ -16,6 +18,7 @@ import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
+import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'src/dsgvo/dsgvo_component.dart';
 import 'src/forms/print-analysis.dart';
@@ -40,6 +43,8 @@ import 'src/whatsnew/whatsnew_component.dart';
     MaterialPersistentDrawerDirective,
     MaterialButtonComponent,
     DeferredContentDirective,
+    MaterialDropdownSelectComponent,
+    MaterialSelectItemComponent,
     SettingsComponent,
     ImpressumComponent,
     DSGVOComponent,
@@ -62,10 +67,11 @@ class AppComponent
   String _currPage;
   String _lastPage = "welcome";
   String get currPage
-  => _currPage;
+  => progressText == null || progressText.isNotEmpty ? _currPage : "progress";
   set currPage(String value)
   {
     if (currPage != "welcome")_lastPage = currPage;
+    else if (!g.isConfigured)html.window.localStorage.remove("version");
     _currPage = value;
   }
 
@@ -82,7 +88,7 @@ class AppComponent
   int progressValue = 0;
   String sendIcon = "send";
   String get createIcon
-  => isDebug && sendIcon == "send" ? "bug_report" : sendIcon;
+  => isDebug && sendIcon == "send" ? "vertical_align_bottom" : sendIcon;
   String pdfUrl = "";
   bool isDebug = false;
   globals.Msg message = globals.Msg();
@@ -117,8 +123,6 @@ class AppComponent
   => Intl.message("Impressum");
   String get msgDSGVO
   => Intl.message("Datenschutzerklärung");
-  String get msgNightscoutReport
-  => Intl.message("Nightscout Berichte");
   String get msgApply
   => Intl.message("ok");
   String get msgCancel
@@ -187,17 +191,24 @@ class AppComponent
     currLang = g.language;
 
     display(null);
+    g.isConfigured = g.lastVersion != null && g.lastVersion.isNotEmpty;
+    String page = g.version == g.lastVersion ? "normal" : "whatsnew";
+    _currPage = g.isConfigured ? page : "welcome";
+    // save version to localStorage
+    g.saveStorage("version", g.version);
+/*
     progressText = msgCheckSetup;
     progressValue = progressMax + 1;
     g.checkSetup().then((String error)
     {
       String page = g.version == g.lastVersion ? "normal" : "whatsnew";
       progressText = null;
-      g.isConfigured = error == null || error.isEmpty;
+//      g.isConfigured = error == null || error.isEmpty;
       _currPage = g.isConfigured ? page : "welcome";
       // save version to localStorage
-      if (_currPage == "whatsnew")g.saveStorage("lastVersion", g.version);
+      if (_currPage == "whatsnew")g.saveStorage("version", g.version);
     });
+*/
   }
 
   void toggleHelp()
@@ -231,7 +242,7 @@ class AppComponent
 
   void callNightscout()
   {
-    String url = g.apiUrl;
+    String url = g.user.apiUrl;
     int pos = url.indexOf("/api");
     if (pos >= 0)url = url.substring(0, pos);
     navigate(url);
@@ -239,7 +250,7 @@ class AppComponent
 
   void callNightscoutReports()
   {
-    navigate("${g.reportUrl}");
+    navigate("${g.user.reportUrl}");
   }
 
   void navigate(String url)
@@ -262,6 +273,11 @@ class AppComponent
     }
   }
 
+  void callbackButton(html.UIEvent evt)
+  {
+    currPage = evt.type;
+  }
+
   void settingsResult(html.UIEvent evt)
   {
     switch (evt.type)
@@ -269,7 +285,7 @@ class AppComponent
       case "ok":
         g.save();
         reportData = null;
-        checkSetup();
+        _currPage = g.isConfigured ? "normal" : "welcome";
         break;
       default:
         g.load();
@@ -300,13 +316,13 @@ class AppComponent
       if (form.checked)sendDisabled = false;
   }
 
-  globals.ReportData reportData = null;
-  Future<globals.ReportData> loadData()
+  ReportData reportData = null;
+  Future<ReportData> loadData()
   async {
     if (reportData != null && reportData.begDate == g.dateRange.range.start && reportData.endDate == g.dateRange.range
       .end)return reportData;
 
-    globals.ReportData data = globals.ReportData(g, g.dateRange.range.start, g.dateRange.range.end);
+    ReportData data = ReportData(g, g.dateRange.range.start, g.dateRange.range.end);
     reportData = data;
     DateTime bd = DateTime(data.begDate.year, data.begDate.month, data.begDate.day);
     DateTime ed = DateTime(data.endDate.year, data.endDate.month, data.endDate.day);
@@ -341,26 +357,33 @@ class AppComponent
         59,
         999).toUtc();
 
-      progressText = msgLoadingDataFor(begDate.format(g.fmtDateForDisplay));
-      String url = "${g.apiUrl}entries.json?find[date][\$gte]=${beg.millisecondsSinceEpoch}&find[date][\$lte]=${end
+      progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
+      String url = "${g.user.apiUrl}entries.json?find[date][\$gte]=${beg.millisecondsSinceEpoch}&find[date][\$lte]=${end
         .millisecondsSinceEpoch}&count=100000";
 //      String url = "${g.apiUrl}entries.json?find[dateString][\$gte]=${beg.toIso8601String()}&find[dateString][\$lte]=${end.toIso8601String()}&count=100000";
       displayLink("e${begDate.format(g.fmtDateForDisplay)}", url, type: "debug");
       List<dynamic> src = json.decode(await g.request(url));
       for (dynamic entry in src)
       {
-        globals.EntryData e = globals.EntryData.fromJson(entry);
-        if (e.gluc > 0)
+        try
         {
-          data.ns.entries.add(e);
+          EntryData e = EntryData.fromJson(entry);
+          if (e.gluc > 0)
+            data.ns.entries.add(e);
+        }
+        catch (ex)
+        {
+          if (isDebug)display("Fehler im Entry-Datensatz: ${entry.toString()}");
+          break;
         }
       }
-      url = "${g.apiUrl}treatments.json?find[created_at][\$gte]=${beg.toIso8601String()}&find[created_at][\$lte]=${end
+      url =
+      "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${beg.toIso8601String()}&find[created_at][\$lte]=${end
         .toIso8601String()}&count=100000";
       displayLink("t${begDate.format(g.fmtDateForDisplay)}", url, type: "debug");
       src = json.decode(await g.request(url));
       for (dynamic treatment in src)
-        data.ns.treatments.add(globals.TreatmentData.fromJson(treatment));
+        data.ns.treatments.add(TreatmentData.fromJson(treatment));
 
       begDate = begDate.add(days: 1);
       if (data.ns.entries.length > 0 || data.ns.treatments.length > 0)data.dayCount++;
@@ -381,17 +404,18 @@ class AppComponent
       int diffTime = 5;
 //*
       // Create an array with values every [diffTime] minutes
-      List<globals.EntryData> entryList = List<globals.EntryData>();
+      List<EntryData> entryList = List<EntryData>();
       if (data.ns.entries.length != 0)
       {
         DateTime target = DateTime(
           data.ns.entries.first.time.year, data.ns.entries.first.time.month, data.ns.entries.first.time.day);
-        globals.EntryData prev = data.ns.entries.first;
-        globals.EntryData next = globals.EntryData();
+        EntryData prev = data.ns.entries.first;
+        EntryData next = EntryData();
         next.time = target;
         // distribute entries
-        for (globals.EntryData entry in data.ns.entries)
+        for (EntryData entry in data.ns.entries)
         {
+          if (entry.isInvalid)continue;
           DateTime current = DateTime(
             entry.time.year, entry.time.month, entry.time.day, entry.time.hour, entry.time.minute);
           if (current.isAtSameMomentAs(target))
@@ -439,12 +463,12 @@ class AppComponent
       }
       data.calc.entries = entryList;
 
-      String url = "${g.apiUrl}status.json";
+      String url = "${g.user.apiUrl}status.json";
       displayLink("status", url, type: "debug");
       String content = await g.request(url);
-      data.status = globals.StatusData.fromJson(json.decode(content));
+      data.status = StatusData.fromJson(json.decode(content));
       g.glucMGDL = data.status.settings.units.toLowerCase() == "mg/dl";
-      url = "${g.apiUrl}profile.json";
+      url = "${g.user.apiUrl}profile.json";
       displayLink("profile", url, type: "debug");
       content = await g.request(url);
       if (g.dateRange.range.start == null || g.dateRange.range.end == null)
@@ -457,7 +481,7 @@ class AppComponent
       {
         List<dynamic> src = json.decode(content);
         for (dynamic entry in src)
-          data.profiles.add(globals.ProfileData.fromJson(entry));
+          data.profiles.add(ProfileData.fromJson(entry));
 //        display("${ret.begDate.toString()} - ${ret.endDate.toString()}");
       }
       catch (ex)
@@ -566,7 +590,7 @@ class AppComponent
   {
     g.save();
     display("");
-    loadData().then((globals.ReportData vars)
+    loadData().then((ReportData vars)
     async {
       if (vars.error != null)
       {

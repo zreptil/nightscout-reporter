@@ -1,15 +1,10 @@
 <div id="app-content" [ngClass]="appTheme">
   <header class="material-header shadow">
     <div class="material-header-row">
-      <material-button *ngIf="hasMenuIcon && g.isConfigured"
+      <material-button *ngIf="g.isConfigured"
                        icon id="btnMenu"
                        class="material-drawer-button" (trigger)="drawer.toggle()">
         <material-icon icon="menu"></material-icon>
-      </material-button>
-      <material-button *ngIf="!hasMenuIcon && g.isConfigured"
-                       icon
-                       class="material-drawer-button" (trigger)="currPage='normal'">
-        <material-icon icon="chevron_left"></material-icon>
       </material-button>
       <div class="material-header-title">
         {{g.title}}
@@ -20,22 +15,30 @@
       <div class="material-spacer"></div>
       <nav class="material-navigation">
         <a href="http://www.nightscout.info/" target="_blank">#WeAreNotWaiting</a>
-        <a class="link-button" *ngIf="g.showUrl" (click)="currPage='settings'">{{g.storageApiUrl}}</a>
       </nav>
     </div>
   </header>
   <material-content>
-    <welcome *ngIf="currPage=='welcome'" (fabClicked)="currPage='settings'"></welcome>
+    <welcome [isVisible]="currPage=='welcome'" (closeClicked)="callbackButton"></welcome>
     <settings [isVisible]="currPage=='settings'" (settingsresult)="settingsResult"></settings>
-    <impressum *ngIf="currPage=='impressum'"></impressum>
-    <whatsnew *ngIf="currPage=='whatsnew'"></whatsnew>
-    <dsgvo *ngIf="currPage=='dsgvo'"></dsgvo>
+    <impressum [isVisible]="currPage=='impressum'" (closeClicked)="callbackButton"></impressum>
+    <whatsnew [isVisible]="currPage=='whatsnew'" (closeClicked)="callbackButton"></whatsnew>
+    <dsgvo [isVisible]="currPage=='dsgvo'" (closeClicked)="callbackButton"></dsgvo>
     <div class="progress" *ngIf="progressText != null">
       <material-progress [activeProgress]="progressValue" [max]="progressMax"
                          [indeterminate]="progressValue>progressMax"></material-progress>
       <div>{{progressText}}</div>
     </div>
-    <div *ngIf="progressText == null && currPage=='normal'">
+    <div class="normal-content" *ngIf="progressText == null && currPage=='normal'">
+      <material-dropdown-select floatingLabel label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect">
+        <material-select-item *ngFor="let item of g.userList; let idx = index"
+                              (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx}');"
+                              class="selectItem"
+                              [selected]="idx==g.userIdx">
+          <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>
+          <div class="itemSub">{{item.apiUrl}}</div>
+        </material-select-item>
+      </material-dropdown-select>
       <material-date-range-picker [configuration]="drConfig" [(range)]="g.dateRange" [presets]="dateRanges"
                                   [showNextPrevButtons]="false" [maxDate]="today" [supportsComparison]="false"
                                   [supportsDaysInputs]="false"
@@ -76,7 +79,7 @@
   <material-drawer scrollable persistent #drawer="drawer" [visible]="drawerVisible" [attr.overlay]="">
     <div class="drawer-root">
       <div class="menuControls">
-        <material-button class="material-drawer-button" (trigger)="currPage='welcome';drawer.toggle();">
+        <material-button class="material-drawer-button" (trigger)="currPage='welcome';">
           <material-icon icon="home"></material-icon>
           <ng-container @i18n="title of welcome screen">Willkommen</ng-container>
         </material-button>
@@ -85,23 +88,23 @@
           <material-icon icon="settings"></material-icon>
           <ng-container @i18n="title of settings">Einstellungen</ng-container>
         </material-button>
-        <material-button *ngIf="g.apiUrl != null" class="material-drawer-button"
-                         (trigger)="drawer.toggle();callNightscout();">
-          <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
-          <ng-container @i18n="title of nightscout page">Nightscout Seite</ng-container>
-        </material-button>
-        <material-button *ngIf="g.reportUrl != null" class="material-drawer-button"
-                         (trigger)="drawer.toggle();callNightscoutReports();">
-          <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">{{msgNightscoutReport}}
-        </material-button>
-        <material-button class="material-drawer-button" (trigger)="currPage='whatsnew';drawer.toggle();">
+        <material-button class="material-drawer-button" (trigger)="currPage='whatsnew';">
           <material-icon icon="new_releases"></material-icon>
           <ng-container @i18n="title of whatsnew screen">Was bisher geschah...</ng-container>
         </material-button>
       </div>
-      <div>
-        <material-button icon class="material-drawer-button" (trigger)="toggleHelp()" [style.display]="'none'">
-          <material-icon icon="help"></material-icon>
+      <div class="menuLinks">
+        <material-button *ngIf="g.user.apiUrl != null" class="material-drawer-button"
+                         (trigger)="drawer.toggle();callNightscout();">
+          <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
+          <ng-container @i18n="title of nightscout page">Nightscout Seite</ng-container>
+          <material-icon icon="open_in_new" size="medium"></material-icon>
+        </material-button>
+        <material-button *ngIf="g.user.reportUrl != null" class="material-drawer-button"
+                         (trigger)="drawer.toggle();callNightscoutReports();">
+          <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
+          <ng-container @i18n="title of nightscout reports">Nightscout Berichte</ng-container>
+          <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
         <div>
           <material-button *ngFor="let item of g.languageList"
@@ -110,14 +113,16 @@
             <img src="{{item.imgPath}}">
           </material-button>
         </div>
-        <material-button class="legal"
-                         (trigger)="togglePage('impressum');drawer.toggle();">
-          {{msgImpressum}}
-        </material-button>
-        <material-button class="legal"
-                         (trigger)="togglePage('dsgvo');drawer.toggle();">
-          {{msgDSGVO}}
-        </material-button>
+        <div>
+          <material-button class="legal"
+                           (trigger)="togglePage('impressum');">
+            {{msgImpressum}}
+          </material-button>
+          <material-button class="legal"
+                           (trigger)="togglePage('dsgvo');">
+            {{msgDSGVO}}
+          </material-button>
+        </div>
         <div class="menuFabs" [style.display]="g.canDebug?'flex':'none'">
           <div *ngIf="isDebug" class="toggle-debug">
             <material-button icon mini class="material-drawer-button"
@@ -146,9 +151,8 @@
       <material-icon *ngIf="entry['icon']!=null" [icon]="entry['icon']"></material-icon>
       {{entry['title']}}
     </material-button>
-    <material-button (trigger)="message.dismiss(message.clear)">
+    <material-button icon class="msgClose" (trigger)="message.dismiss(message.clear)">
       <material-icon icon="close"></material-icon>
-      {{message.okText}}
     </material-button>
   </div>
 </div>

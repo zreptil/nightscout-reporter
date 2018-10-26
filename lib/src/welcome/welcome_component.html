@@ -1,31 +1,52 @@
-<div class="root">
-  <h1 @i18n="welcome title">Willkommen bei Nightscout Reporter!</h1>
-  <div>
-    <material-button [raised]="false" (trigger)="g.changeLanguage(g.languageList[1], saveImmediate: true);">
-      <img src="{{g.languageList[1].imgPath}}">
-      <ng-container @i18n="label for button to switch to other language">This page is also available in english</ng-container>
-    </material-button>
-  </div>
-  <div @i18n="welcome section 1">
-    Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es
-    notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen.
-    Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.
-  </div>
-  <div @i18n="welcome section 2">
-    Die Daten, die Du hier eingibst, werden im localStorage des Browsers gespeichert. Dieser beinhaltet
-    webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. Es werden keine Cookies verwendet
-    und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen
-    Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen.
-    Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.
-  </div>
-  <div @i18n="welcome section 3">
-    Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments
-    kommen Javascript und PHP zum Einsatz.
-  </div>
-  <div>
-    <material-button [raised]="true" (trigger)="fire('fabClicked')">
-      <material-icon icon="settings"></material-icon>
-      <ng-container @i18n="label for button to open settings on welcome screen">Einstellungen für die Verwendung der Seite vornehmen</ng-container>
-    </material-button>
-  </div>
-</div>
+<modal [visible]="isVisible">
+  <material-dialog headered class="headered-dialog" shouldShowScrollStrokes hideFooter>
+    <div header>
+      <div>
+        <h1 @i18n="welcome title">Willkommen bei Nightscout Reporter!</h1>
+        <p></p>
+      </div>
+      <material-button *ngIf="g.isConfigured" icon (trigger)="fire('normal')">
+        <material-icon icon="close"></material-icon>
+      </material-button>
+    </div>
+    <div class="root">
+      <div>
+        <template ngFor let-lang [ngForOf]="g.languageList" let-idx="index">
+          <material-button *ngIf="lang!=g.language" [raised]="false"
+                           (trigger)="g.changeLanguage(lang, saveImmediate: true);">
+            <img src="{{lang.imgPath}}">
+            <ng-container @i18n="label for button to switch to other language">
+              This page is also available in english
+            </ng-container>
+          </material-button>
+        </template>
+      </div>
+      <div @i18n="welcome section 1">
+        Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es
+        notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden
+        müssen.
+        Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.
+      </div>
+      <div @i18n="welcome section 2">
+        Die Daten, die Du hier eingibst, werden im localStorage des Browsers gespeichert. Dieser beinhaltet
+        webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. Es werden keine Cookies verwendet
+        und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen
+        Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen.
+        Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.
+      </div>
+      <div @i18n="welcome section 3">
+        Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des
+        PDF-Dokuments
+        kommen Javascript und PHP zum Einsatz.
+      </div>
+      <div>
+        <material-button *ngIf="!g.isConfigured" [raised]="true" (trigger)="fire('settings')">
+          <material-icon icon="settings"></material-icon>
+          <ng-container @i18n="label for button to open settings on welcome screen">
+            Einstellungen für die Verwendung der Seite vornehmen
+          </ng-container>
+        </material-button>
+      </div>
+    </div>
+  </material-dialog>
+</modal>

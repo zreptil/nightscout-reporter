@@ -1,27 +1,33 @@
 @import '../colors';
+@import 'package:angular_components/material_dialog/mixins';
 
 :host {
-  display: flex;
-  flex: 1;
-  width: 100vw;
+}
+material-dialog {
+  @include material-dialog-header-color($mat-blue-900);
+  @include material-dialog-header-shadow();
+  @include material-dialog-body-padding(0);
 }
 
+div[header] {
+  display: flex;
+  flex-direction: row;
+  color: $primary_fore;
+  justify-content: space-between;
+}
 .root {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow-y: auto;
-  background-color: $mat-blue-500;
   padding: 1em;
+  font-size: 1.2em;
+  background-color: $mat-blue-500;
 }
 
-h1 {
-  margin-top: 0em;
-  margin-bottom: 0.5em;
-}
-
-.version span:first-child {
-  padding-right: 0.5em;
+h2
+{
+  font-size: 1.3em;
+  padding: 0 0.5em;
+  span:first-child {
+    padding-right: 0.5em;
+  }
 }
 
 ul {

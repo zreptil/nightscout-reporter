@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/globals.dart' as globals;
+import 'package:nightscout_reporter/src/globals.dart';
+import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
 
@@ -14,7 +15,7 @@ class CalcData
   int glucMax = 0;
   int brBolusTime = null;
   DateTime endDate = null;
-  List<globals.ProfileEntryData> nextBRTimes = List<globals.ProfileEntryData>();
+  List<ProfileEntryData> nextBRTimes = List<ProfileEntryData>();
 }
 
 class PrintBasalrate extends BasePrint
@@ -62,26 +63,26 @@ class PrintBasalrate extends BasePrint
   }
 
   @override
-  hasData(globals.ReportData src)
+  hasData(ReportData src)
   {
     return src.profiles.length > 0;
   }
 
   @override
-  prepareData_(globals.ReportData vars)
+  prepareData_(ReportData vars)
   {
     return vars;
   }
 
   @override
-  getFormData_(globals.ReportData src)
+  getFormData_(ReportData src)
   async {
     lineWidth = cm(0.03);
     var ret = [];
     var calc = CalcData();
     DateTime startDate = DateTime(src.begDate.year, src.begDate.month, src.begDate.day);
     DateTime endDate = DateTime(src.endDate.year, src.endDate.month, src.endDate.day);
-    List<globals.ProfileData> profiles = src.profiles;
+    List<ProfileData> profiles = src.profiles;
     for (int i = 0; i < src.profiles.length; i++)
     {
 //      calc = calcDay(src.profiles[i], calc);
@@ -171,7 +172,7 @@ class PrintBasalrate extends BasePrint
     return graphWidth / 1440 * (time.hour * 60 + time.minute);
   }
 
-  getPage(globals.ProfileData profile, calc)
+  getPage(ProfileData profile, calc)
   {
     double xo = xorg;
     double yo = yorg;
@@ -180,7 +181,7 @@ class PrintBasalrate extends BasePrint
     else
       titleInfo = msgValidRange(fmtDate(profile.startDate), fmtDate(calc.endDate));
     double brMax = 0.0;
-    List<globals.ProfileEntryData> brtimes = profile.store[profile.defaultProfile].listBasal;
+    List<ProfileEntryData> brtimes = profile.store[profile.defaultProfile].listBasal;
     for (var i = 0; i < brtimes.length; i++)
       brMax = max(brtimes[i].value, brMax);
 
