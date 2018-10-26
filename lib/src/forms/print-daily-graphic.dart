@@ -226,7 +226,21 @@ class PrintDailyGraphic extends BasePrint
     globals.ProfileGlucData profile = src.profile(src, date);
     double yHigh = glucY(min(glucMax, src.status.settings.thresholds.bgTargetTop.toDouble()));
     double yLow = glucY(src.status.settings.thresholds.bgTargetBottom.toDouble());
-    double targetValue = glucY((profile.targetHigh + profile.targetLow) / 2);
+
+    List targetValues = [];
+    double lastTarget = -1;
+    for (var i = 0; i < profile.store.listTargetLow.length; i++)
+    {
+      double low = profile.store.listTargetLow[i].value;
+      double high = profile.store.listTargetHigh[i].value;
+      double x = glucX(profile.store.listTargetLow[i].time);
+      double y = glucY((low+high)/2);
+      if (lastTarget >= 0)targetValues.add({"x": cm(x), "y": cm(lastTarget)});
+      targetValues.add({"x": cm(x), "y": cm(y)});
+      lastTarget = y;
+    }
+    targetValues.add({"x": cm(glucX(DateTime(0, 1, 1, 23, 59))), "y": cm(lastTarget)});
+
     var limitLines = {
       "absolutePosition": {"x": cm(xo), "y": cm(yo)},
       "canvas": [
@@ -249,13 +263,11 @@ class PrintDailyGraphic extends BasePrint
           "lineColor": colTargetArea
         },
         {
-          "type": "line",
-          "x1": cm(0.0),
-          "y1": cm(targetValue),
-          "x2": cm(24 * colWidth),
-          "y2": cm(targetValue),
+          "type": "polyline",
           "lineWidth": cm(lw),
-          "lineColor": colTargetValue
+          "closePath": false,
+          "lineColor": colTargetValue,
+          "points": targetValues
         },
         {
           "type": "line",
