@@ -282,6 +282,7 @@ class ProfileEntryData extends JsonData
   int percentAdjust = 0;
   int duration = 60;
   double orgValue;
+  double rate;
   int get timeAsSeconds
   => time.hour * 3600 + time.minute * 60;
 
@@ -680,6 +681,7 @@ class DayData
         ProfileEntryData entry = ProfileEntryData();
         entry.time = treat.createdAt;
         entry.percentAdjust = treat.percent;
+        entry.rate = treat.rate;
         entry.duration = treat.duration;
         entry.value = null;
         _profile.add(entry);
@@ -695,7 +697,12 @@ class DayData
       if (entry.value == null)
       {
         entry.orgValue = last.orgValue;
-        entry.value = last.orgValue + (last.orgValue * entry.percentAdjust) / 100.0;
+        if (entry.rate != null) {
+          entry.value = entry.rate;
+        }
+        else {
+          entry.value = last.orgValue + (last.orgValue * entry.percentAdjust) / 100.0;
+        }
         DateTime endTime = entry.time.add(Duration(minutes: entry.duration));
         if (i < _profile.length - 1 && endTime.isBefore(_profile[i + 1].time))
         {

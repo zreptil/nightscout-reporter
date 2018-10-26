@@ -376,6 +376,7 @@ class PrintDailyGraphic extends BasePrint
     if (color != null)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
     for (globals.ProfileEntryData entry in data)
     {
+      if (entry.duration == 0)continue;
       double x = basalX(entry.time);
       double y = basalY(entry.value);
       if (lastY >= 0)areaPoints.add({"x": cm(x), "y": cm(lastY)});
