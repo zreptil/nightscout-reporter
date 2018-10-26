@@ -37,10 +37,9 @@ a,a:visited,a:active
   cursor: pointer;
   color: $primary-back;
 }
-material-button{
-  material-icon, img
-  {
-    margin-right: 1em;
-  }
+.controls
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-

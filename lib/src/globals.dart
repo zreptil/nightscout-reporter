@@ -3,6 +3,7 @@ library diamant.globals;
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:html' as html;
+import 'dart:html';
 import 'dart:math' as math;
 
 import 'package:angular_components/angular_components.dart';
@@ -112,11 +113,21 @@ class Globals
   async {
     http.BrowserClient client = http.BrowserClient();
     var headers = null;
+    HttpRequest req = HttpRequest();
     if (user.apiSecret != null && user.apiSecret.isNotEmpty)
     {
       headers = {"accept": "application/json", "api_secret": user.apiSecret};
+      req.setRequestHeader("accept", "application/json");
+      req.setRequestHeader("api_secret", user.apiSecret);
     }
     if (user.token != null && user.token.isNotEmpty)url = "${url}?token=${user.token}";
+/*
+    https://www.dartlang.org/tutorials/dart-vm/httpserver
+    req.(url, ).then((request)
+      {
+
+      });
+// */
     return client.get(url, headers: headers).then((response)
     {
       return response.body;
@@ -155,11 +166,13 @@ class Globals
     load();
   }
 
-  changeLanguage(LangData value, {bool saveImmediate: false})
+  changeLanguage(LangData value, {bool doReload = true, bool checkConfigured = false})
   async {
     language = value;
     dateFormat = DateFormat("dd.mm.yyyy", language.code);
-    if (saveImmediate)save();
+    if (checkConfigured && !isConfigured)html.window.localStorage.clear();
+    saveStorage("language", language.code ?? "de_DE");
+    if (doReload)html.window.location.reload();
   }
 
   void saveStorage(String key, String value)
@@ -312,17 +325,17 @@ class Globals
       end = Date.parse(html.window.localStorage["endDate"] ?? Date.today().format(fmtDateForData), fmtDateForData);
     }
     catch (ex)
-    {
-    }
+    {}
     DatepickerDateRange dr = DatepickerDateRange(dateRange.range.title, start, end);
     dateRange = DatepickerComparison(dr, ComparisonOption.custom);
-    changeLanguage(language);
+    changeLanguage(language, doReload: false);
   }
 
   void save()
   {
     String oldLang = html.window.localStorage["language"];
     html.window.localStorage.clear();
+    saveStorage("version", version);
     if (canDebug)saveStorage("debug", "yes");
 
     String save = "";
@@ -331,8 +344,7 @@ class Globals
     saveStorage("mu", Globals.doit("[${save.substring(1)}]"));
 
     saveStorage("userIdx", "$userIdx");
-    bool doReload = language.code != oldLang && language.code != null && oldLang != null;
-    saveStorage("version", version);
+    bool doReload = (language.code != oldLang && language.code != null);
     saveStorage("glucMGDL", glucMGDL.toString());
     saveStorage("language", language.code ?? "de_DE");
     saveStorage("beta", isBeta ? "yes" : "no");

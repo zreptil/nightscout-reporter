@@ -13,7 +13,7 @@
       <div>
         <template ngFor let-lang [ngForOf]="g.languageList" let-idx="index">
           <material-button *ngIf="lang!=g.language" [raised]="false"
-                           (trigger)="g.changeLanguage(lang, saveImmediate: true);">
+                           (trigger)="g.changeLanguage(lang, checkConfigured: true);">
             <img src="{{lang.imgPath}}">
             <ng-container @i18n="label for button to switch to other language">
               This page is also available in english
@@ -39,13 +39,25 @@
         PDF-Dokuments
         kommen Javascript und PHP zum Einsatz.
       </div>
-      <div>
-        <material-button *ngIf="!g.isConfigured" [raised]="true" (trigger)="fire('settings')">
+      <div class="controls" *ngIf="!g.isConfigured" >
+        <material-button [raised]="true" (trigger)="fire('settings')">
           <material-icon icon="settings"></material-icon>
           <ng-container @i18n="label for button to open settings on welcome screen">
             Einstellungen für die Verwendung der Seite vornehmen
           </ng-container>
         </material-button>
+        <div class="right">
+          <material-button class="legal"
+                           (trigger)="fire('impressum');"
+                           @i18n="label for inprint button">
+            Impressum
+          </material-button>
+          <material-button class="legal"
+                           (trigger)="fire('dsgvo');"
+                           @i18n="label for dataprotection button">
+            Datenschutzerklärung
+          </material-button>
+        </div>
       </div>
     </div>
   </material-dialog>

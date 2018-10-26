@@ -922,6 +922,7 @@ class ReportData
     if (profile != null)
     {
       ret.store = profile.store[profile.defaultProfile];
+//      profile.current.
       ret.basal = ret.find(time, ret.store.listBasal);
       ret.carbRatio = ret.find(time, ret.store.listCarbratio);
       ret.sens = ret.find(time, ret.store.listSens);

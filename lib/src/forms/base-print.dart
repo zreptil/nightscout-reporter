@@ -463,8 +463,8 @@ abstract class BasePrint
 
   getGlucInfo()
   {
-    var ret = {"step": 1, "unit": "mg/dl"};
-    if (!g.glucMGDL)ret = {"step": 0.1, "unit": "mmol/l"};
+    var ret = {"step": 1, "unit": "mg/dL"};
+    if (!g.glucMGDL)ret = {"step": 0.1, "unit": "mmol/L"};
 
     return ret;
   }

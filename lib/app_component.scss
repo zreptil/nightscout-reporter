@@ -54,21 +54,20 @@ material-button img {
   flex-direction: row;
 }
 
-.menuControls > material-button,
-.menuLinks > material-button {
+.menuButton {
   display: flex;
   flex: 1;
   text-align: left;
+}
 
-  material-icon, img {
-    margin-right: 1em;
-  }
+.menuButton material-icon,
+.menuButton img {
+  margin-right: 1em;
+}
 
-  material-icon[icon='open_in_new']
-  {
-    padding-left: 1em;
-    margin: 0;
-  }
+.menuButton material-icon[icon='open_in_new'] {
+  padding-left: 1em;
+  margin: 0;
 }
 
 material-drawer {
@@ -240,24 +239,21 @@ nav a {
 @include material-select-selected-item-color($primary_back);
 @include material-select-selected-color($primary_fore);
 
-material-select-item {
-  display: flex;
-  flex-direction: column;
-  line-height: initial;
-  align-items: flex-start;
-  padding: 0.2em 0.5em;
-
-  div.itemSub {
-    font-size: 75%;
-  }
-}
-
 .userSelect {
   ::ng-deep material-list {
     background: $secondary_back;
     padding: 0;
 
     material-select-item {
+      display: flex;
+      flex-direction: column;
+      line-height: initial;
+      align-items: flex-start;
+      padding: 0.2em 0.5em;
+
+      div.itemSub {
+        font-size: 75%;
+      }
       .selected-accent {
         background-color: $primary_back;
       }

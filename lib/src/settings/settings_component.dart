@@ -59,8 +59,7 @@ class SettingsComponent
 
   @override
   Future<Null> ngOnInit()
-  async {
-  }
+  async {}
 
   addUser()
   {
@@ -81,12 +80,16 @@ class SettingsComponent
       progressText = msgCheckUser(g.user.storageApiUrl);
       String ret = await g.user.isValid;
       progressText = null;
-      if (ret == null && event != null)fire(event);
       errUserInvalid = ret;
       // set isConfigured to true, if url is reachable
       // never set isConfigured to false, since this
       // will trigger the welcome dialog
-      if(ret == null)g.isConfigured = true;
+      if (ret == null)
+      {
+        g.isConfigured = true;
+        g.saveStorage("version", g.version);
+      }
+      if (ret == null && event != null)fire(event);
     }
   }
 

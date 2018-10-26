@@ -71,7 +71,7 @@ class AppComponent
   set currPage(String value)
   {
     if (currPage != "welcome")_lastPage = currPage;
-    else if (!g.isConfigured)html.window.localStorage.remove("version");
+//    else if (!g.isConfigured)html.window.localStorage.remove("version");
     _currPage = value;
   }
 
@@ -194,8 +194,6 @@ class AppComponent
     g.isConfigured = g.lastVersion != null && g.lastVersion.isNotEmpty;
     String page = g.version == g.lastVersion ? "normal" : "whatsnew";
     _currPage = g.isConfigured ? page : "welcome";
-    // save version to localStorage
-    g.saveStorage("version", g.version);
 /*
     progressText = msgCheckSetup;
     progressValue = progressMax + 1;
@@ -275,7 +273,13 @@ class AppComponent
 
   void callbackButton(html.UIEvent evt)
   {
-    currPage = evt.type;
+    String page = evt.type;
+    if (page.startsWith("@"))
+    {
+      page = page.substring(1);
+      if (!g.isConfigured)page = "welcome";
+    }
+    currPage = page;
   }
 
   void settingsResult(html.UIEvent evt)
@@ -368,8 +372,7 @@ class AppComponent
         try
         {
           EntryData e = EntryData.fromJson(entry);
-          if (e.gluc > 0)
-            data.ns.entries.add(e);
+          if (e.gluc > 0)data.ns.entries.add(e);
         }
         catch (ex)
         {

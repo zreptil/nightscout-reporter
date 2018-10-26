@@ -30,7 +30,7 @@
       <div>{{progressText}}</div>
     </div>
     <div class="normal-content" *ngIf="progressText == null && currPage=='normal'">
-      <material-dropdown-select floatingLabel label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect">
+      <material-dropdown-select *ngIf="g.userList.length > 1" label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect">
         <material-select-item *ngFor="let item of g.userList; let idx = index"
                               (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx}');"
                               class="selectItem"
@@ -79,28 +79,28 @@
   <material-drawer scrollable persistent #drawer="drawer" [visible]="drawerVisible" [attr.overlay]="">
     <div class="drawer-root">
       <div class="menuControls">
-        <material-button class="material-drawer-button" (trigger)="currPage='welcome';">
+        <material-button class="menuButton material-drawer-button" (trigger)="currPage='welcome';">
           <material-icon icon="home"></material-icon>
           <ng-container @i18n="title of welcome screen">Willkommen</ng-container>
         </material-button>
-        <material-button class="material-drawer-button"
+        <material-button class="menuButton material-drawer-button"
                          (trigger)="currPage='settings';drawer.toggle();">
           <material-icon icon="settings"></material-icon>
           <ng-container @i18n="title of settings">Einstellungen</ng-container>
         </material-button>
-        <material-button class="material-drawer-button" (trigger)="currPage='whatsnew';">
+        <material-button class="menuButton material-drawer-button" (trigger)="currPage='whatsnew';">
           <material-icon icon="new_releases"></material-icon>
           <ng-container @i18n="title of whatsnew screen">Was bisher geschah...</ng-container>
         </material-button>
       </div>
       <div class="menuLinks">
-        <material-button *ngIf="g.user.apiUrl != null" class="material-drawer-button"
+        <material-button *ngIf="g.user.apiUrl != null" class="menuButton material-drawer-button"
                          (trigger)="drawer.toggle();callNightscout();">
           <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
           <ng-container @i18n="title of nightscout page">Nightscout Seite</ng-container>
           <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
-        <material-button *ngIf="g.user.reportUrl != null" class="material-drawer-button"
+        <material-button *ngIf="g.user.reportUrl != null" class="menuButton material-drawer-button"
                          (trigger)="drawer.toggle();callNightscoutReports();">
           <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
           <ng-container @i18n="title of nightscout reports">Nightscout Berichte</ng-container>
@@ -108,7 +108,7 @@
         </material-button>
         <div>
           <material-button *ngFor="let item of g.languageList"
-                           (trigger)="g.changeLanguage(item, saveImmediate: true)"
+                           (trigger)="g.changeLanguage(item)"
                            [class]="item.code==currLang.code?'currLang':''">
             <img src="{{item.imgPath}}">
           </material-button>
