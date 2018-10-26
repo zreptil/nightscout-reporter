@@ -368,7 +368,7 @@ class PrintDailyGraphic extends BasePrint
       "closePath": color != null,
       "color": color,
       "lineColor": colBasal,
-      "dash": color == null ? {"length": cm(0.1), "space": cm(0.05)} : {},
+      "dash": color == null ? {"length": cm(0.05), "space": cm(0.05)} : {},
       "points": areaPoints,
 //      "fillOpacity": opacity
     };
