@@ -378,7 +378,7 @@ class PrintAnalysis extends BasePrint
       {
         "margin": [cm(3.7), cm(0.5), 0, 0],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [0, cm(7.3), cm(1.5), cm(1), cm(6)], "body": tableBody}
+        "table": {"headerRows": 0, "widths": [0, cm(7.3), cm(1.5), cm(1.5), cm(6)], "body": tableBody}
       },
       footer(),
     ];

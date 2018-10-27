@@ -21,11 +21,36 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
+}
+
+.owl
+{
+  position: absolute;
+  top: 0;
+  left: 50%;
   width: 3em;
   margin-left: -1.5em;
-  animation: loading 2s ease-in-out alternate infinite;
+  animation: owl 2s ease-in-out alternate infinite;
 }
-@keyframes loading {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes owl {
+  0% { transform: rotate(180deg); }
+  100% { transform: rotate(-180deg); }
 }
+
+.paper
+{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3em;
+  background-color: red;
+  width: 3em;
+  height: 3em;
+  margin-left: -1.5em;
+  animation: paper 2s normal infinite;
+}
+@keyframes paper {
+  0% { top: 0; }
+  100% { top: 1em; }
+}
+
