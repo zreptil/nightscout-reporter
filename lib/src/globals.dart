@@ -472,7 +472,7 @@ class UserData
 
   Future<String> get isValid
   async {
-    if (storageApiUrl == null || apiUrl == null)return Intl.message("Die URL wurde noch nicht festgelegt.");
+    if (storageApiUrl == null || apiUrl == null)return Intl.message("Die URL wurde noch nicht festgelegt");
     String ret = null;
     String check = "${apiUrl}status";
     await g.request(check).then((String response)
