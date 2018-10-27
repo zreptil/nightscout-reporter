@@ -5,14 +5,6 @@
 :host {
 }
 
-material-dialog {
-  min-width: 80%;
-}
-
-material-input {
-  width: 100%;
-}
-
 .datepicker-row {
   position: relative;
   display: flex;
@@ -28,11 +20,12 @@ material-input {
 
 .urlPanel {
   display: flex;
-  flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
 
   material-input {
-    flex: 1;
+    flex-shrink: 0;
+    flex-grow: 1;
   }
 
   material-fab:not([disabled]) {
@@ -41,20 +34,26 @@ material-input {
   }
 }
 
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  flex-wrap: wrap;
-
-  div {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-  }
+material-fab.removeStart {
+  background-color: $mat-orange-500;
+  color: $primary-fore;
 }
 
-material-dialog {
+material-fab.removeExec {
+  background-color: $mat-red-500;
+  color: $primary-fore;
+}
+
+.userinfo {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+material-dialog[main] {
+  min-width: 80%;
+}
+
+material-dialog.headered-dialog {
   @include material-dialog-header-color($primary_back);
 }
 
@@ -84,13 +83,24 @@ div[header] {
   color: $primary_fore;
   justify-content: space-between;
 }
-.error
-{
+
+.error {
   color: $mat-red-500;
   padding-bottom: 1em;
 }
 
-.progress{
+.progress {
   padding: 2em;
   font-size: 1.2em;
+}
+
+material-dialog[confirm] {
+  .content {
+    font-size: 120%;
+    padding: 2em;
+    .marked{
+      padding: 1em 0;
+      font-weight: bold;
+    }
+  }
 }

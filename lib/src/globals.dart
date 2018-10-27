@@ -51,7 +51,7 @@ class LangData
 class Globals
 {
   static final Globals _globals = Globals._internal();
-  String version = "1.0.3";
+  String version = "1.0.4";
   String lastVersion;
   String get msgUrlFailure
   =>
@@ -59,10 +59,11 @@ class Globals
       "Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. "
       "In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, "
       "wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, "
-      "müssen ausserdem API Secret und UserToken korrekt definiert sein (bisher nicht funktionsfähig).");
+      "muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig).");
+  String get msgNoURLDefined
+  => Intl.message("Die URL wurde noch nicht festgelegt.");
 
   String title = "Nightscout Reporter";
-  DateFormat dateFormat = DateFormat("dd.mm.yyyy", "de_DE");
   List<UserData> userList = List<UserData>();
   int userIdx = 0;
   UserData get user
@@ -113,29 +114,15 @@ class Globals
   async {
     http.BrowserClient client = http.BrowserClient();
     var headers = null;
-    HttpRequest req = HttpRequest();
-    if (user.apiSecret != null && user.apiSecret.isNotEmpty)
+    if (user.token != null && user.token.isNotEmpty)
     {
-      headers = {"accept": "application/json", "api_secret": user.apiSecret};
-      req.setRequestHeader("accept", "application/json");
-      req.setRequestHeader("api_secret", user.apiSecret);
+      String div = url.indexOf("?") > 0 ? "&" : "?";
+      url = "${url}${div}token=${user.token}";
     }
-    if (user.token != null && user.token.isNotEmpty)url = "${url}?token=${user.token}";
-/*
-    https://www.dartlang.org/tutorials/dart-vm/httpserver
-    req.(url, ).then((request)
-      {
-
-      });
-// */
-    return client.get(url, headers: headers).then((response)
+    return client.get(url).then((response)
     {
       return response.body;
     }).catchError((error)
-    {
-      return error.toString();
-    });
-    return client.read(url, headers: headers).catchError((error)
     {
       return error.toString();
     });
@@ -144,8 +131,7 @@ class Globals
   Future<String> checkSetup({checkUser: null})
   async {
     if (checkUser == null)checkUser = user;
-    if (checkUser.storageApiUrl == null || checkUser.apiUrl == null)
-      return Intl.message("Die URL wurde noch nicht festgelegt.");
+    if (checkUser.storageApiUrl == null || checkUser.apiUrl == null)return msgNoURLDefined;
     String ret = null;
     String check = "${checkUser.apiUrl}status";
     await request(check).then((String response)
@@ -169,7 +155,6 @@ class Globals
   changeLanguage(LangData value, {bool doReload = true, bool checkConfigured = false})
   async {
     language = value;
-    dateFormat = DateFormat("dd.mm.yyyy", language.code);
     if (checkConfigured && !isConfigured)html.window.localStorage.clear();
     saveStorage("language", language.code ?? "de_DE");
     if (doReload)html.window.location.reload();
@@ -254,7 +239,7 @@ class Globals
     if (loadStorage("apiUrl") != "")
     {
       UserData user = UserData(this);
-      user.apiSecret = loadStorage("apiSecret");
+//      user.apiSecret = loadStorage("apiSecret");
       user.storageApiUrl = loadStorage("apiUrl");
       user.diaStartDate = loadStorage("diaStartDate");
       user.insulin = loadStorage("insulin");
@@ -274,7 +259,7 @@ class Globals
       saveStorage("userIdx", "$userIdx");
       saveStorage("version", lastVersion);
       html.window.localStorage.remove("lastVersion");
-      html.window.localStorage.remove("apiSecret");
+//      html.window.localStorage.remove("apiSecret");
       html.window.localStorage.remove("apiUrl");
       html.window.localStorage.remove("diaStartDate");
       html.window.localStorage.remove("birthDate");
@@ -290,9 +275,16 @@ class Globals
       var text = tiod(users);
       if (text != null && text.isNotEmpty)
       {
-        var list = convert.json.decode(text);
-        for (var entry in list)
-          userList.add(UserData.fromData(this, entry));
+        try
+        {
+          var list = convert.json.decode(text);
+          for (var entry in list)
+            userList.add(UserData.fromData(this, entry));
+        }
+        catch (e)
+        {
+          html.window.localStorage.remove("mu");
+        }
       }
       else
       {
@@ -429,7 +421,8 @@ class UserData
   String name = "";
   String birthDate = "";
   String storageApiUrl = "";
-  String apiSecret = "";
+
+//  String apiSecret = "";
   String token = "";
   dynamic customData = Map<String, String>();
   String diaStartDate = "";
@@ -455,7 +448,7 @@ class UserData
 
     return '{"n":"$name",'
       '"bd":"${birthDate ?? ''}",'
-      '"sa":"${apiSecret ?? ''}",'
+//      '"sa":"${apiSecret ?? ''}",'
       '"ut":"${token ?? ''}",'
       '"u":"${storageApiUrl ?? ''}",'
       '"dd":"${diaStartDate ?? ''}",'
@@ -488,7 +481,7 @@ class UserData
       ret.diaStartDate = data["dd"];
       ret.insulin = data["i"];
       ret.storageApiUrl = data["u"];
-      ret.apiSecret = data["sa"];
+//      ret.apiSecret = data["sa"];
       ret.token = data["ut"];
       ret.customData = data["c"];
       ret.formList = data["f"] ?? Map<String, bool>();

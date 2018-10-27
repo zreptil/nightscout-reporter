@@ -33,6 +33,8 @@ class SettingsComponent
   globals.Globals g = globals.Globals();
   String errUserInvalid = null;
 
+  bool showConfirmation = false;
+
   @Output("settingsresult")
   Stream<UIEvent> get trigger
   => _trigger.stream;
@@ -50,16 +52,30 @@ class SettingsComponent
   => Intl.message("Name");
   String get msgInsulin
   => Intl.message("Insulin");
-  String get msgApiSecret
-  => Intl.message("API-Secret (nur nötig, wenn der Zugriff eingeschränkt ist)");
   String get msgUserToken
-  => Intl.message("User-Token (nur nötig, wenn der Zugriff eingeschränkt ist)");
+  => Intl.message("User-Token");
+  String get msgUserTokenHint
+  =>
+    Intl.message(
+      "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde");
   String msgCheckUser(String url)
   => Intl.message("Überprüfe Zugriff auf ${url}...", args: [url], name: "msgCheckUser");
 
   @override
   Future<Null> ngOnInit()
   async {}
+
+  removeUser()
+  {
+    try
+    {
+      g.userList.removeAt(g.userIdx);
+    }
+    catch (e)
+    {
+    }
+    showConfirmation=false;
+  }
 
   addUser()
   {

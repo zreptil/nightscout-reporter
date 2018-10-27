@@ -1,11 +1,11 @@
 <modal [visible]="isVisible">
-  <material-dialog headered class="headered-dialog">
+  <material-dialog *ngIf="!showConfirmation" main headered class="headered-dialog">
     <div header>
       <div>
         <h1 @i18n="title for settings dialog">Einstellungen</h1>
         <p></p>
       </div>
-      <material-button  *ngIf="progressText==null" icon (trigger)="fire('cancel')">
+      <material-button *ngIf="progressText==null" icon (trigger)="fire('cancel')">
         <material-icon icon="close"></material-icon>
       </material-button>
     </div>
@@ -34,56 +34,62 @@
                         floatingLabel
                         [(ngModel)]="g.user.storageApiUrl">
         </material-input>
+        <material-input [label]="msgUserToken"
+                        floatingLabel
+                        type="password"
+                        [hintText]="msgUserTokenHint"
+                        [(ngModel)]="g.user.token">
+        </material-input>
         <material-fab mini [disabled]="g.userList.last.storageApiUrl.isEmpty" (trigger)="addUser()">
           <material-icon icon="add"></material-icon>
         </material-fab>
+        <material-fab mini [disabled]="g.userList.length==0" (trigger)="showConfirmation=true">
+          <material-icon icon="delete"></material-icon>
+        </material-fab>
       </div>
       <div class="userinfo">
-        <div>
-          <material-input *ngIf="g.isBeta"
-                          [class]="g.isBeta?'betaText':''"
-                          [label]="msgApiSecret"
-                          floatingLabel
-                          type="password"
-                          [(ngModel)]="g.user.apiSecret">
-          </material-input>
-          <material-input *ngIf="g.isBeta"
-                          [class]="g.isBeta?'betaText':''"
-                          [label]="msgUserToken"
-                          floatingLabel
-                          type="password"
-                          [(ngModel)]="g.user.token">
-          </material-input>
-        </div>
-        <div>
-          <material-input [(ngModel)]="g.user.name" floatingLabel [label]="msgName"></material-input>
-          <material-input [(ngModel)]="g.user.birthDate" floatingLabel label="Geburtstag"
-                          @i18n:label="label of editfield for birthday"></material-input>
-        </div>
-        <div>
-          <material-input [(ngModel)]="g.user.diaStartDate" floatingLabel label="Diabetes seit"
-                          @i18n:label="label of editfield for diabetes since"></material-input>
-          <material-input [(ngModel)]="g.user.insulin" floatingLabel [label]="msgInsulin"></material-input>
-        </div>
+        <material-input [(ngModel)]="g.user.name" floatingLabel [label]="msgName"></material-input>
+        <material-input [(ngModel)]="g.user.birthDate" floatingLabel label="Geburtstag"
+                        @i18n:label="label of editfield for birthday"></material-input>
+        <material-input [(ngModel)]="g.user.diaStartDate" floatingLabel label="Diabetes seit"
+                        @i18n:label="label of editfield for diabetes since"></material-input>
+        <material-input [(ngModel)]="g.user.insulin" floatingLabel [label]="msgInsulin"></material-input>
       </div>
-      <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
-      <div>
-        <material-checkbox [(checked)]="g.pdfSameWindow" @i18n="label for checkbox to open PDF in same window">PDF im
-          selben Fenster öffnen
-        </material-checkbox>
-      </div>
-      <div>
-        <material-checkbox [(checked)]="g.isBeta" @i18n="label for checkbox to enable beta functions">Betafunktionen
-          anzeigen
-        </material-checkbox>
-      </div>
+    </div>
+    <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
+    <div>
+      <material-checkbox [(checked)]="g.pdfSameWindow" @i18n="label for checkbox to open PDF in same window">PDF im
+        selben Fenster öffnen
+      </material-checkbox>
+    </div>
+    <div>
+      <material-checkbox [(checked)]="g.isBeta" @i18n="label for checkbox to enable beta functions">Betafunktionen
+        anzeigen
+      </material-checkbox>
     </div>
 
     <div footer>
-      <material-button  *ngIf="progressText==null" autoFocus clear-size (trigger)="fire('check');">
+      <material-button *ngIf="progressText==null" clear-size (trigger)="fire('check');">
         <material-icon icon="save"></material-icon>
         <ng-container @i18n="buttonlabel for saving data">Speichern</ng-container>
       </material-button>
     </div>
+  </material-dialog>
+  <material-dialog *ngIf="showConfirmation" confirm headered class="headered-dialog">
+    <div header>Bestätigung</div>
+    <div class="content">
+      Soll der Benutzer mit der URL <div class="marked">{{g.user.storageApiUrl}}</div> wirklich gelöscht werden?
+    </div>
+    <div footer>
+      <material-button (trigger)="removeUser">
+        <material-icon icon="done"></material-icon>
+        <ng-container @i18n="buttonlabel for confirmation yes">Ja</ng-container>
+      </material-button>
+      <material-button (trigger)="showConfirmation=false">
+        <material-icon icon="cancel"></material-icon>
+        <ng-container @i18n="buttonlabel for confirmation no">Nein</ng-container>
+      </material-button>
+    </div>
+
   </material-dialog>
 </modal>
