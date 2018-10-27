@@ -9,6 +9,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+body,.cover
+{
   background-color: #57bb8a;
 }
 
@@ -23,35 +26,66 @@ body {
   left: 50%;
 }
 
+.cover
+{
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  width: 76px;
+  margin-left: -38px;
+  height: 64px;
+}
 .owl
 {
   position: absolute;
   top: 0;
   left: 50%;
-  width: 3em;
-  margin-left: -1.5em;
-  animation: owl 2s ease-in-out alternate infinite;
+  height: 64px;
+  margin-left: -24px;
+  animation: owl 2s ease-in-out normal infinite;
 }
 @keyframes owl {
-  0% { transform: rotate(180deg); }
-  100% { transform: rotate(-180deg); }
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(-360deg); }
+  100% { transform: rotate(0deg); }
 }
-
-.paper
+.landscape
 {
-  display: none;
   position: absolute;
-  top: 0;
-  left: 50%;
-  width: 3em;
-  background-color: red;
-  width: 3em;
-  height: 3em;
-  margin-left: -1.5em;
-  animation: paper 2s normal infinite;
+  top: 40px;
+  margin-left: -17px;
 }
-@keyframes paper {
-  0% { top: 0; }
-  100% { top: 1em; }
+.portrait
+{
+  position: absolute;
+  top: 29px;
+  margin-left: -12px;
 }
-
+.p1
+{
+  transform: rotate(180deg);
+  animation: p1 2s linear normal infinite;
+}
+@keyframes p1
+{
+  0% { top: 29px; opacity: 1.0; }
+  20% { top: 29px; }
+  30% { top: 65px; }
+  50% { top: 65px;opacity: 1.0; }
+  70% { top: 65px;opacity: 0; }
+  100% { top: 65px;opacity: 0; }
+}
+.p2
+{
+  transform: rotate(180deg);
+  animation: p2 2s linear normal infinite;
+}
+@keyframes p2
+{
+  0% { top: 65px; opacity: 1.0; }
+  30% { top: 65px; opacity: 0.0; }
+  50% { top: 39px; opacity: 0.0; }
+  70% { top: 39px; opacity: 1.0; }
+  80% { top: 65px; }
+  100% { top: 65px; }
+}
