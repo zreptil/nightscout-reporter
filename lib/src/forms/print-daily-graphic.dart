@@ -178,7 +178,7 @@ class PrintDailyGraphic extends BasePrint
     {
       double x, y;
       if (t.eventType.toLowerCase() == "temp basal")continue;
-      if (g.isBeta && t.boluscalc != null && t.boluscalc.cob != 0)
+      if (g.isBeta && t.boluscalc != null && t.boluscalc.cob != null && t.boluscalc.cob != 0)
       {
         x = glucX(t.createdAt);
         y = glucY(t.boluscalc.cob);
