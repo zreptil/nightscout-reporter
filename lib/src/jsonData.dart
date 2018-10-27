@@ -273,11 +273,11 @@ class ProfileEntryData extends JsonData
   DateTime time;
   double value;
   double _percentAdjust = null;
-  double _absoluteAdjust = null;
+  double _absoluteRate = null;
   set percentAdjust(double value)
   => _percentAdjust = value;
-  set absoluteAdjust(double value)
-  => _absoluteAdjust = value;
+  set absoluteRate(double value)
+  => _absoluteRate = value;
   int duration = 60;
   double orgValue;
   int get timeAsSeconds
@@ -287,9 +287,9 @@ class ProfileEntryData extends JsonData
 
   double adjustedValue(double v)
   {
-    if (_percentAdjust != null)return (v * _percentAdjust) / 100.0;
+    if (_percentAdjust != null)return v + (v * _percentAdjust) / 100.0;
 
-    if (_absoluteAdjust != null)return _absoluteAdjust;
+    if (_absoluteRate != null)return _absoluteRate;
 
     return v;
   }
@@ -512,9 +512,9 @@ class TreatmentData extends JsonData
 
   double adjustedValue(double v)
   {
-    if (_percent != null)return (v * _percent) / 100.0;
+    if (_percent != null)return v + (v * _percent) / 100.0;
 
-    if (_absolute != null)return _absolute;
+    if (_rate != null)return _rate;
 
     return v;
   }
@@ -702,8 +702,7 @@ class DayData
         ProfileEntryData entry = ProfileEntryData();
         entry.time = treat.createdAt;
         if (treat._percent != null)entry.percentAdjust = treat._percent.toDouble();
-        else if (treat._rate != null)entry.percentAdjust = treat._rate - 1.0;
-        else if (treat._absolute != null)entry.absoluteAdjust = treat._absolute;
+        else if (treat._rate != null)entry.absoluteRate = treat._rate;
         entry.duration = treat.duration;
         entry.value = null;
         _profile.add(entry);
@@ -719,7 +718,7 @@ class DayData
       if (entry.value == null)
       {
         entry.orgValue = last.orgValue;
-        entry.value = last.orgValue + entry.adjustedValue(last.orgValue);
+        entry.value = entry.adjustedValue(last.orgValue);
 /*        if (entry.rate != null)
         {
           entry.value = entry.rate;
