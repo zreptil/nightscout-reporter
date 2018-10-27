@@ -737,6 +737,14 @@ class DayData
           temp.orgValue = last.orgValue;
           _profile.insert(i + 1, temp);
         }
+        else if (i == _profile.length - 1)
+        {
+          ProfileEntryData temp = ProfileEntryData();
+          temp.time = endTime;
+          temp.value = last.orgValue;
+          temp.orgValue = last.orgValue;
+          _profile.add(temp);
+        }
       }
       if (last != null)last.duration = entry.time
         .difference(last.time)
