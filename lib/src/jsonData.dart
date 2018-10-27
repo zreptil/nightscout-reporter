@@ -737,7 +737,7 @@ class DayData
           temp.orgValue = last.orgValue;
           _profile.insert(i + 1, temp);
         }
-        else if (i == _profile.length - 1)
+        else if (i == _profile.length - 1 && endTime.isBefore(DateTime(last.time.year, last.time.month, last.time.day, 23, 59, 59)))
         {
           ProfileEntryData temp = ProfileEntryData();
           temp.time = endTime;
