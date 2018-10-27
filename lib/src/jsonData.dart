@@ -720,6 +720,15 @@ class DayData
       {
         entry.orgValue = last.orgValue;
         entry.value = last.orgValue + entry.adjustedValue(last.orgValue);
+/*        if (entry.rate != null)
+        {
+          entry.value = entry.rate;
+        }
+        else
+        {
+          entry.value = last.orgValue + (last.orgValue * entry.percentAdjust) / 100.0;
+        }
+*/
         DateTime endTime = entry.time.add(Duration(minutes: entry.duration));
         if (i < _profile.length - 1 && endTime.isBefore(_profile[i + 1].time))
         {

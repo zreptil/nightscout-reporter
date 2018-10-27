@@ -184,57 +184,6 @@ class Globals
 
   void load()
   {
-/*
-    html.window.localStorage.clear();
-    saveStorage("apiUrl", "***REMOVED***");
-    saveStorage("beta", "no");
-    saveStorage("birthDate", "13.2.1965");
-    saveStorage("diaStartDate", "1.1.1996");
-    saveStorage("endDate", "2018-10-22");
-    saveStorage("formanalysis", "true");
-    saveStorage("formbasal", "false");
-    saveStorage("formdaygraph", "true");
-    saveStorage("formdaystats", "false");
-    saveStorage("formnull", "false");
-    saveStorage("formpercentile", "true");
-    saveStorage("glucMGDL", "true");
-    saveStorage("insulin", "Novorapid");
-    saveStorage("language", "de_DE");
-    saveStorage("lastVersion", "1.0.2");
-    saveStorage("pdfSameWindow", "no");
-    saveStorage("showUrl", "yes");
-    saveStorage("startDate", "2018-10-20");
-    saveStorage("userName", "Andreas Perlitz");
-// */
-/*
-    html.window.localStorage.clear();
-    userList.clear();
-    userList.add(u("Andreas Perlitz", "***REMOVED***"));
-    userList.add(u("***REMOVED***", "***REMOVED***"));
-    userList.add(u("***REMOVED***", "***REMOVED***"));
-    userList.add(u("", "***REMOVED***"));
-    userList.add(u("***REMOVED***", "***REMOVED***"));
-    userList.add(u("***REMOVED***", "***REMOVED***"));
-    userList.add(u("***REMOVED***", "***REMOVED***"));
-    userList.add(u("***REMOVED***", "***REMOVED***"));
-    userList.add(u("***REMOVED***", "***REMOVED***"));
-
-    String save = "";
-    for (int i = 0; i < userList.length; i++)
-    {
-      save = "${save},${userList[i].asJson}";
-      saveStorage("user$i", userList[i].asStorage);
-    }
-    save = "[${save.substring(1)}]";
-    String s = doit(save);
-    String s1 = tiod(s);
-    var list = convert.json.decode(s1);
-    userList.clear();
-    for (var entry in list)
-      userList.add(UserData.fromData(this, entry));
-
-    saveStorage("mu", s);
-*/
     // read old data to save them for later. Will be removed in future updates
     if (loadStorage("apiUrl") != "")
     {
