@@ -42,7 +42,7 @@ body,.cover
   left: 50%;
   height: 64px;
   margin-left: -24px;
-  animation: owl 2s ease-in-out normal infinite;
+  animation: owl 3s ease-in-out normal infinite;
 }
 @keyframes owl {
   0% { transform: rotate(0deg); }
@@ -64,7 +64,7 @@ body,.cover
 .p1
 {
   transform: rotate(180deg);
-  animation: p1 2s linear normal infinite;
+  animation: p1 3s linear normal infinite;
 }
 @keyframes p1
 {
@@ -72,18 +72,18 @@ body,.cover
   20% { top: 29px; }
   30% { top: 65px; }
   50% { top: 65px;opacity: 1.0; }
-  70% { top: 65px;opacity: 0; }
+  60% { top: 65px;opacity: 0; }
   100% { top: 65px;opacity: 0; }
 }
 .p2
 {
   transform: rotate(180deg);
-  animation: p2 2s linear normal infinite;
+  animation: p2 3s linear normal infinite;
 }
 @keyframes p2
 {
   0% { top: 65px; opacity: 1.0; }
-  30% { top: 65px; opacity: 0.0; }
+  10% { top: 65px; opacity: 0.0; }
   50% { top: 39px; opacity: 0.0; }
   70% { top: 39px; opacity: 1.0; }
   80% { top: 65px; }

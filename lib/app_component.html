@@ -30,15 +30,21 @@
       <div>{{progressText}}</div>
     </div>
     <div class="normal-content" *ngIf="progressText == null && currPage=='normal'">
-      <material-dropdown-select *ngIf="g.userList.length > 1" label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect">
-        <material-select-item *ngFor="let item of g.userList; let idx = index"
-                              (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx}');"
-                              class="selectItem"
-                              [selected]="idx==g.userIdx">
-          <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>
-          <div class="itemSub">{{item.apiUrl}}</div>
-        </material-select-item>
-      </material-dropdown-select>
+      <div class="userPanel" *ngIf="g.userList.length > 1">
+        <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect">
+          <material-select-item *ngFor="let item of g.userList; let idx = index"
+                                (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx}');"
+                                class="selectItem"
+                                [selected]="idx==g.userIdx">
+            <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>
+            <div class="itemSub">{{item.storageApiUrl}}</div>
+          </material-select-item>
+        </material-dropdown-select>
+        <material-button icon class="material-drawer-button"
+                         (trigger)="currPage='settings';">
+          <material-icon icon="settings"></material-icon>
+        </material-button>
+      </div>
       <material-date-range-picker [configuration]="drConfig" [(range)]="g.dateRange" [presets]="dateRanges"
                                   [showNextPrevButtons]="false" [maxDate]="today" [supportsComparison]="false"
                                   [supportsDaysInputs]="false"
@@ -78,28 +84,28 @@
   <material-drawer scrollable persistent #drawer="drawer" [visible]="drawerVisible" [attr.overlay]="">
     <div class="drawer-root">
       <div class="menuControls">
-        <material-button class="menuButton material-drawer-button" (trigger)="currPage='welcome';">
+        <material-button class="iconButton material-drawer-button" (trigger)="currPage='welcome';">
           <material-icon icon="home"></material-icon>
           <ng-container @i18n="title of welcome screen">Willkommen</ng-container>
         </material-button>
-        <material-button class="menuButton material-drawer-button"
+        <material-button class="iconButton material-drawer-button"
                          (trigger)="currPage='settings';drawer.toggle();">
           <material-icon icon="settings"></material-icon>
           <ng-container @i18n="title of settings">Einstellungen</ng-container>
         </material-button>
-        <material-button class="menuButton material-drawer-button" (trigger)="currPage='whatsnew';">
+        <material-button class="iconButton material-drawer-button" (trigger)="currPage='whatsnew';">
           <material-icon icon="new_releases"></material-icon>
           <ng-container @i18n="title of whatsnew screen">Was bisher geschah...</ng-container>
         </material-button>
       </div>
       <div class="menuLinks">
-        <material-button *ngIf="g.user.apiUrl != null" class="menuButton material-drawer-button"
+        <material-button *ngIf="g.user.apiUrl != null" class="iconButton material-drawer-button"
                          (trigger)="drawer.toggle();callNightscout();">
           <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
           <ng-container @i18n="title of nightscout page">Nightscout Seite</ng-container>
           <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
-        <material-button *ngIf="g.user.reportUrl != null" class="menuButton material-drawer-button"
+        <material-button *ngIf="g.user.reportUrl != null" class="iconButton material-drawer-button"
                          (trigger)="drawer.toggle();callNightscoutReports();">
           <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
           <ng-container @i18n="title of nightscout reports">Nightscout Berichte</ng-container>

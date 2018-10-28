@@ -69,7 +69,7 @@
     </div>
 
     <div footer>
-      <material-button *ngIf="progressText==null" clear-size (trigger)="fire('check');">
+      <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="fire('check');">
         <material-icon icon="save"></material-icon>
         <ng-container @i18n="buttonlabel for saving data">Speichern</ng-container>
       </material-button>
@@ -81,11 +81,11 @@
       Soll der Benutzer mit der URL <div class="marked">{{g.user.storageApiUrl}}</div> wirklich gelöscht werden?
     </div>
     <div footer>
-      <material-button (trigger)="removeUser">
+      <material-button class="iconButton" (trigger)="removeUser">
         <material-icon icon="done"></material-icon>
         <ng-container @i18n="buttonlabel for confirmation yes">Ja</ng-container>
       </material-button>
-      <material-button (trigger)="showConfirmation=false">
+      <material-button class="iconButton" (trigger)="showConfirmation=false">
         <material-icon icon="cancel"></material-icon>
         <ng-container @i18n="buttonlabel for confirmation no">Nein</ng-container>
       </material-button>

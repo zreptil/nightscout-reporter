@@ -54,18 +54,13 @@ material-button img {
   flex-direction: row;
 }
 
-.menuButton {
+.menuControls .iconButton {
   display: flex;
   flex: 1;
   text-align: left;
 }
 
-.menuButton material-icon,
-.menuButton img {
-  margin-right: 1em;
-}
-
-.menuButton material-icon[icon='open_in_new'] {
+.iconButton material-icon[icon='open_in_new'] {
   padding-left: 1em;
   margin: 0;
 }
@@ -261,3 +256,8 @@ nav a {
   }
 }
 
+.userPanel
+{
+  display: flex;
+  flex-direction: row;
+}

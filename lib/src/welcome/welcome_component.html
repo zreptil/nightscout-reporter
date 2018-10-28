@@ -12,7 +12,7 @@
     <div class="root">
       <div>
         <template ngFor let-lang [ngForOf]="g.languageList" let-idx="index">
-          <material-button *ngIf="lang!=g.language" [raised]="false"
+          <material-button *ngIf="lang!=g.language" [raised]="false" class="iconButton"
                            (trigger)="g.changeLanguage(lang, checkConfigured: true);">
             <img src="{{lang.imgPath}}">
             <ng-container @i18n="label for button to switch to other language">
