@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-10-26T10:15:23.931284",
+  "@@last_modified": "2018-10-28T10:30:06.744732",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -51,13 +51,13 @@
   },
   "Impressum": "Impressum",
   "@Impressum": {
-    "description": "title for impressum dialog",
+    "description": "label for inprint button",
     "type": "text",
     "placeholders": {}
   },
   "Datenschutzerklärung": "Datenschutzerklärung",
   "@Datenschutzerklärung": {
-    "description": "title for dataprotection dialog",
+    "description": "label for dataprotection button",
     "type": "text",
     "placeholders": {}
   },
@@ -141,8 +141,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, müssen ausserdem API Secret und UserToken korrekt definiert sein (bisher nicht funktionsfähig).": "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, müssen ausserdem API Secret und UserToken korrekt definiert sein (bisher nicht funktionsfähig).",
-  "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, müssen ausserdem API Secret und UserToken korrekt definiert sein (bisher nicht funktionsfähig).": {
+  "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig).": "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig).",
+  "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig).": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die URL wurde noch nicht festgelegt.": "Die URL wurde noch nicht festgelegt.",
+  "@Die URL wurde noch nicht festgelegt.": {
     "type": "text",
     "placeholders": {}
   },
@@ -156,8 +161,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Die URL wurde noch nicht festgelegt.": "Die URL wurde noch nicht festgelegt.",
-  "@Die URL wurde noch nicht festgelegt.": {
+  "Die URL wurde noch nicht festgelegt": "Die URL wurde noch nicht festgelegt",
+  "@Die URL wurde noch nicht festgelegt": {
     "type": "text",
     "placeholders": {}
   },
@@ -173,6 +178,16 @@
   },
   "Glukosekurve": "Glukosekurve",
   "@Glukosekurve": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kohlenhydrate": "Kohlenhydrate",
+  "@Kohlenhydrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bolus Insulin": "Bolus Insulin",
+  "@Bolus Insulin": {
     "type": "text",
     "placeholders": {}
   },
@@ -195,6 +210,13 @@
   "@Sensorwechsel": {
     "type": "text",
     "placeholders": {}
+  },
+  "msgKH": "{value}g KH",
+  "@msgKH": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
   },
   "Auswertung": "Auswertung",
   "@Auswertung": {
@@ -516,13 +538,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "API-Secret (nur nötig, wenn der Zugriff eingeschränkt ist)": "API-Secret (nur nötig, wenn der Zugriff eingeschränkt ist)",
-  "@API-Secret (nur nötig, wenn der Zugriff eingeschränkt ist)": {
+  "User-Token": "User-Token",
+  "@User-Token": {
     "type": "text",
     "placeholders": {}
   },
-  "User-Token (nur nötig, wenn der Zugriff eingeschränkt ist)": "User-Token (nur nötig, wenn der Zugriff eingeschränkt ist)",
-  "@User-Token (nur nötig, wenn der Zugriff eingeschränkt ist)": {
+  "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde",
+  "@Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
     "type": "text",
     "placeholders": {}
   },
@@ -563,12 +585,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Benutzerdaten": "Benutzerdaten",
-  "@Benutzerdaten": {
-    "description": "label for settings-area with user data",
-    "type": "text",
-    "placeholders": {}
-  },
   "Zusatzfunktionen": "Zusatzfunktionen",
   "@Zusatzfunktionen": {
     "description": "label of area for additional functions",
@@ -587,9 +603,27 @@
     "type": "text",
     "placeholders": {}
   },
+  "Benutzerdaten": "Benutzerdaten",
+  "@Benutzerdaten": {
+    "description": "label for settings-area with user data",
+    "type": "text",
+    "placeholders": {}
+  },
   "Speichern": "Speichern",
   "@Speichern": {
     "description": "buttonlabel for saving data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ja": "Ja",
+  "@Ja": {
+    "description": "buttonlabel for confirmation yes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nein": "Nein",
+  "@Nein": {
+    "description": "buttonlabel for confirmation no",
     "type": "text",
     "placeholders": {}
   },
@@ -632,6 +666,42 @@
   "Version": "Version",
   "@Version": {
     "description": "version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzer können nun gelöscht werden": "Benutzer können nun gelöscht werden",
+  "@Benutzer können nun gelöscht werden": {
+    "description": "v104a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden",
+  "@Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": {
+    "description": "v104a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt",
+  "@Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": {
+    "description": "v104a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spaltenbreite der Informationen in der Analyse erhöht": "Spaltenbreite der Informationen in der Analyse erhöht",
+  "@Spaltenbreite der Informationen in der Analyse erhöht": {
+    "description": "v104f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Icons auf einigen Buttons waren zu nahe am Text": "Die Icons auf einigen Buttons waren zu nahe am Text",
+  "@Die Icons auf einigen Buttons waren zu nahe am Text": {
+    "description": "v104f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt",
+  "@Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": {
+    "description": "v104f3",
     "type": "text",
     "placeholders": {}
   },

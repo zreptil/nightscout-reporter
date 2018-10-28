@@ -9,6 +9,7 @@
       <div class="material-header-title">
         {{g.title}}
         <span class="betaText betaTitle" *ngIf="g.isBeta">BETA</span>
+        <div class="versionText">{{g.version}}</div>
         <div class="subtitle" *ngIf="currPage=='impressum'">{{msgImpressum}}</div>
         <div class="subtitle" *ngIf="currPage=='dsgvo'">{{msgDSGVO}}</div>
       </div>

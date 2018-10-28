@@ -41,11 +41,13 @@ abstract class BasePrint
   String colValue = "#000000";
   String colBasal = "#0097a7";
   String colBasalFont = "#fff";
+  String colBolus = "#0060c0";
   String colLow = "#ff6666";
   String colNorm = "#00cc00";
   String colHigh = "#cccc00";
   String colTargetArea = "#00a000";
   String colTargetValue = "#3333aa";
+  String colCarbs = "#ffa050";
 
   double xorg = 3.35;
   double yorg = 3.9;
@@ -71,13 +73,19 @@ abstract class BasePrint
     String units = getGlucInfo()["unit"];
     return Intl.message("Zielbereich ($min - $max $units)", args: [min, max, units], name: "msgTargetArea");
   }
+
   String msgTargetValue(double value)
   {
     String t = "${glucFromData(value)} ${getGlucInfo()["unit"]}";
-    return Intl.message("Zielwert ($t)", args: [t], name: "msgTargetValue");
+    return Intl.message("Zielwert", args: [t], name: "msgTargetValue");
   }
+
   String get msgGlucosekurve
   => Intl.message("Glukosekurve");
+  String get msgCarbs
+  => Intl.message("Kohlenhydrate");
+  String get msgBolus
+  => Intl.message("Bolus Insulin");
   String get msgBasalrate
   => Intl.message("Basalrate");
   String get msgMissingData
@@ -86,6 +94,8 @@ abstract class BasePrint
   => Intl.message("Katheterwechsel");
   String get msgSensorChange
   => Intl.message("Sensorwechsel");
+  msgKH(value)
+  => Intl.message("${value}g KH", args: [value], name: "msgKH");
 
   Object get header
   {
@@ -363,10 +373,9 @@ abstract class BasePrint
     return pt / 0.035277;
   }
 
-  String fmtNumber(num value, [num decimals = 0, bool fillfront0 = false, String nullText="null"])
+  String fmtNumber(num value, [num decimals = 0, bool fillfront0 = false, String nullText = "null"])
   {
-    if(value == null)
-      return nullText;
+    if (value == null)return nullText;
 
     String fmt = "#,##0";
     if (decimals > 0)fmt = "$fmt.".padRight(decimals + 6, "0");
@@ -426,11 +435,9 @@ abstract class BasePrint
       }
     }
     catch (ex)
-    {
-    }
+    {}
 
-    if(dt == null)
-      return date;
+    if (dt == null)return date;
 
     DateFormat df = DateFormat(g.language.dateformat);
     return df.format(dt);
@@ -480,8 +487,9 @@ abstract class BasePrint
   }
 
   addLegendEntry(var dst, String color, String text,
-                 {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0})
+                 {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0, double lineWidth = 0.0})
   {
+    if (lineWidth == 0.0)lineWidth = lw;
     if (image != null)
     {
       (dst["stack"] as List).add({
@@ -504,7 +512,7 @@ abstract class BasePrint
             "y1": cm(0.1),
             "x2": cm(0.5),
             "y2": cm(0.1),
-            "lineWidth": cm(lw),
+            "lineWidth": cm(lineWidth),
             "lineColor": color
           },
           {
@@ -513,7 +521,7 @@ abstract class BasePrint
             "y1": cm(0.4),
             "x2": cm(0.5),
             "y2": cm(0.4),
-            "lineWidth": cm(lw),
+            "lineWidth": cm(lineWidth),
             "lineColor": color
           }
         ]
@@ -530,7 +538,7 @@ abstract class BasePrint
             "y1": cm(0.25),
             "x2": cm(0.5),
             "y2": cm(0.25),
-            "lineWidth": cm(lw),
+            "lineWidth": cm(lineWidth),
             "lineColor": color
           }
           ]

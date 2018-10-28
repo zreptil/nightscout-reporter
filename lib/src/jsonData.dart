@@ -509,6 +509,17 @@ class TreatmentData extends JsonData
   int _percent;
   double _absolute;
   double _rate;
+  DateTime createdAt;
+  String enteredBy;
+  String NSClientId;
+  double _carbs;
+  double insulin;
+  bool isSMB;
+  String pumpId;
+  double glucose;
+  String glucoseType;
+  BoluscalcData boluscalc = null;
+  String notes;
 
   double adjustedValue(double v)
   {
@@ -519,17 +530,27 @@ class TreatmentData extends JsonData
     return v;
   }
 
-  DateTime createdAt;
-  String enteredBy;
-  String NSClientId;
-  double carbs;
-  double insulin;
-  bool isSMB;
-  String pumpId;
-  double glucose;
-  String glucoseType;
-  BoluscalcData boluscalc = null;
-  String notes;
+  double get carbs
+  {
+    switch (eventType.toLowerCase())
+    {
+      case "bolus wizard":
+        if (boluscalc != null && boluscalc.carbs != null)return boluscalc.carbs;
+        else if (_carbs != null)return _carbs;
+        break;
+      case "meal bolus":
+        if (_carbs != null)return _carbs;
+        break;
+    }
+    return 0.0;
+  }
+
+  double get bolusInsulin
+  {
+    if (boluscalc != null && boluscalc.insulin != null) return boluscalc.insulin;
+    else if (insulin != null)return insulin;
+    return 0.0;
+  }
 
   TreatmentData();
 
@@ -545,7 +566,7 @@ class TreatmentData extends JsonData
       .. createdAt = createdAt
       .. enteredBy = enteredBy
       .. NSClientId = NSClientId
-      .. carbs = carbs
+      .. _carbs = _carbs
       .. insulin = insulin
       .. isSMB = isSMB
       .. pumpId = pumpId
@@ -566,7 +587,7 @@ class TreatmentData extends JsonData
     ret.createdAt = ret.toDate(json["created_at"]);
     ret.enteredBy = ret.toText(json["enteredBy"]);
     ret.NSClientId = ret.toText(json["NSCLIENT_ID"]);
-    ret.carbs = ret.toDouble(json["carbs"]);
+    ret._carbs = ret.toDouble(json["carbs"]);
     ret.insulin = ret.toDouble(json["insulin"]);
     ret.isSMB = ret.toBool(json["isSMB"]);
     ret.pumpId = ret.toText(json["pumpId"]);
@@ -579,7 +600,7 @@ class TreatmentData extends JsonData
 
   void slice(TreatmentData src, TreatmentData dst, double f)
   {
-    carbs = Globals.calc(src.carbs, dst.carbs, f);
+    _carbs = Globals.calc(src._carbs, dst._carbs, f);
     glucose = Globals.calc(src.glucose, dst.glucose, f);
     if (boluscalc != null)boluscalc.slice(src.boluscalc, dst.boluscalc, f);
   }
@@ -737,7 +758,8 @@ class DayData
           temp.orgValue = last.orgValue;
           _profile.insert(i + 1, temp);
         }
-        else if (i == _profile.length - 1 && endTime.isBefore(DateTime(last.time.year, last.time.month, last.time.day, 23, 59, 59)))
+        else if (i == _profile.length - 1 &&
+          endTime.isBefore(DateTime(last.time.year, last.time.month, last.time.day, 23, 59, 59)))
         {
           ProfileEntryData temp = ProfileEntryData();
           temp.time = endTime;
@@ -884,18 +906,8 @@ class ListData
     for (TreatmentData t in treatments)
     {
       String type = t.eventType.toLowerCase();
-      if (type == "bolus wizard")
-      {
-        if (t.boluscalc != null && t.boluscalc.carbs != null)khCount += t.boluscalc.carbs;
-        else if (t.carbs != null)khCount += t.carbs;
-        if (t.boluscalc != null && t.boluscalc.insulin != null)ieBolusSum += t.boluscalc.insulin;
-        else if (t.insulin != null)ieBolusSum += t.insulin;
-      }
-      if (type == "meal bolus")
-      {
-        if (t.carbs != null)khCount += t.carbs;
-        if (t.insulin != null)ieBolusSum += t.insulin;
-      }
+      khCount += t.carbs;
+      ieBolusSum += t.bolusInsulin;
       if (type == "site change")catheterCount++;
       if (type == "insulin change")ampulleCount++;
 

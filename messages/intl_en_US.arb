@@ -49,13 +49,13 @@
   },
   "Impressum": "Imprint",
   "@Impressum": {
-    "description": "title for impressum dialog",
+    "description": "label for inprint button",
     "type": "text",
     "placeholders": {}
   },
   "Datenschutzerklärung": "Data protection ",
   "@Datenschutzerklärung": {
-    "description": "title for dataprotection dialog",
+    "description": "label for dataprotection button",
     "type": "text",
     "placeholders": {}
   },
@@ -139,8 +139,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, müssen ausserdem API Secret und UserToken korrekt definiert sein (bisher nicht funktionsfähig).": "The specified URL is not reachable. If the URL is correct, then it may be due to the nightscout settings. In the variable ENABLE must be the word \"cors\", so that external tools, like this one, can access the data. <br> <br> If this URL is protected, API Secret and UserToken must also be defined correctly (not yet working).",
-  "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, müssen ausserdem API Secret und UserToken korrekt definiert sein (bisher nicht funktionsfähig).": {
+  "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig).": "The specified URL is not reachable. If the URL is correct, then it may be due to the nightscout settings. In the variable ENABLE must be the word \"cors\", so that external tools, like this one, can access the data. <br> <br> If this URL is protected, API Secret and UserToken must also be defined correctly (not yet working).",
+  "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig).": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die URL wurde noch nicht festgelegt.": "The URL has not been set yet",
+  "@Die URL wurde noch nicht festgelegt.": {
     "type": "text",
     "placeholders": {}
   },
@@ -154,8 +159,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Die URL wurde noch nicht festgelegt.": "The URL has not been set yet",
-  "@Die URL wurde noch nicht festgelegt.": {
+  "Die URL wurde noch nicht festgelegt": "The URL has not been set yet",
+  "@Die URL wurde noch nicht festgelegt": {
     "type": "text",
     "placeholders": {}
   },
@@ -171,6 +176,16 @@
   },
   "Glukosekurve": "Glucose Curve",
   "@Glukosekurve": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kohlenhydrate": "Carbohydrates",
+  "@Kohlenhydrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bolus Insulin": "Bolus Insulin",
+  "@Bolus Insulin": {
     "type": "text",
     "placeholders": {}
   },
@@ -193,6 +208,13 @@
   "@Sensorwechsel": {
     "type": "text",
     "placeholders": {}
+  },
+  "msgKH": "{value} g CHO",
+  "@msgKH": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
   },
   "Auswertung": "Analysis",
   "@Auswertung": {
@@ -223,7 +245,7 @@
       "fmt": {}
     }
   },
-  "msgValuesIn": "values ​​between {low} and {high} :",
+  "msgValuesIn": "values ​​between {low} and {high}",
   "@msgValuesIn": {
     "type": "text",
     "placeholders": {
@@ -231,14 +253,14 @@
       "high": {}
     }
   },
-  "msgValuesBelow": "Values ​​below {low} :",
+  "msgValuesBelow": "Values ​​below {low}",
   "@msgValuesBelow": {
     "type": "text",
     "placeholders": {
       "low": {}
     }
   },
-  "msgValuesAbove": "Values ​​above {high} :",
+  "msgValuesAbove": "Values ​​above {high}",
   "@msgValuesAbove": {
     "type": "text",
     "placeholders": {
@@ -283,22 +305,22 @@
     "type": "text",
     "placeholders": {}
   },
-  "Ausgewertete Tage": "Evaluated days:",
+  "Ausgewertete Tage": "Evaluated days",
   "@Ausgewertete Tage": {
     "type": "text",
     "placeholders": {}
   },
-  "Anzahl Messungen": "Count of values:",
+  "Anzahl Messungen": "Count of values",
   "@Anzahl Messungen": {
     "type": "text",
     "placeholders": {}
   },
-  "Anzahl Ampullen": "Count of reservoirs:",
+  "Anzahl Ampullen": "Count of reservoirs",
   "@Anzahl Ampullen": {
     "type": "text",
     "placeholders": {}
   },
-  "Anzahl Katheter": "Count of catheters:",
+  "Anzahl Katheter": "Count of catheters",
   "@Anzahl Katheter": {
     "type": "text",
     "placeholders": {}
@@ -308,12 +330,12 @@
     "type": "text",
     "placeholders": {}
   },
-  "Niedrigster Wert im Zeitraum": "Lowest value in the period:",
+  "Niedrigster Wert im Zeitraum": "Lowest value in the period",
   "@Niedrigster Wert im Zeitraum": {
     "type": "text",
     "placeholders": {}
   },
-  "Höchster Wert im Zeitraum": "Highest value in the period:",
+  "Höchster Wert im Zeitraum": "Highest value in the period",
   "@Höchster Wert im Zeitraum": {
     "type": "text",
     "placeholders": {}
@@ -504,7 +526,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "Url to Nightscout-API (eg https://xxx.herokuapp.com)",
+  "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "Url to Nightscout-API (e.g. https://xxx.herokuapp.com)",
   "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
     "type": "text",
     "placeholders": {}
@@ -514,13 +536,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "API-Secret (nur nötig, wenn der Zugriff eingeschränkt ist)": "API Secret (only necessary if access is restricted)",
-  "@API-Secret (nur nötig, wenn der Zugriff eingeschränkt ist)": {
+  "User-Token": "User-Token",
+  "@User-Token": {
     "type": "text",
     "placeholders": {}
   },
-  "User-Token (nur nötig, wenn der Zugriff eingeschränkt ist)": "User token (only necessary if access is restricted)",
-  "@User-Token (nur nötig, wenn der Zugriff eingeschränkt ist)": {
+  "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "The user token is only required if access in Nightscout has been restricted via AUTH_DEFAULT_ROLES",
+  "@Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
     "type": "text",
     "placeholders": {}
   },
@@ -561,12 +583,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Benutzerdaten": "User data",
-  "@Benutzerdaten": {
-    "description": "label for settings-area with user data",
-    "type": "text",
-    "placeholders": {}
-  },
   "Zusatzfunktionen": "Additional functions",
   "@Zusatzfunktionen": {
     "description": "label of area for additional functions",
@@ -585,9 +601,27 @@
     "type": "text",
     "placeholders": {}
   },
+  "Benutzerdaten": "User data",
+  "@Benutzerdaten": {
+    "description": "label for settings-area with user data",
+    "type": "text",
+    "placeholders": {}
+  },
   "Speichern": "save",
   "@Speichern": {
     "description": "buttonlabel for saving data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ja": "Yes",
+  "@Ja": {
+    "description": "buttonlabel for confirmation yes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nein": "No",
+  "@Nein": {
+    "description": "buttonlabel for confirmation no",
     "type": "text",
     "placeholders": {}
   },
@@ -633,7 +667,43 @@
     "type": "text",
     "placeholders": {}
   },
-  "Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)": "You can now create multiple users. This is useful for analyzing multiple nightscout instances (eg, for doctors, caregivers or the developer of this software)",
+  "Benutzer können nun gelöscht werden": "Users can now be deleted",
+  "@Benutzer können nun gelöscht werden": {
+    "description": "v104a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": "Users can specify a user token to connect to protected nightscout instances",
+  "@Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": {
+    "description": "v104a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": "Carbohydrates and bolus insulin are now displayed in the daily graphs",
+  "@Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": {
+    "description": "v104a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spaltenbreite der Informationen in der Analyse erhöht": "Column width of the information in the analysis increased",
+  "@Spaltenbreite der Informationen in der Analyse erhöht": {
+    "description": "v104f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Icons auf einigen Buttons waren zu nahe am Text": "The icons on some buttons were too close to the text",
+  "@Die Icons auf einigen Buttons waren zu nahe am Text": {
+    "description": "v104f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": "Temporary basal rates with absolute values ​​are displayed correctly",
+  "@Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": {
+    "description": "v104f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)": "You can now create multiple users. This is useful for analyzing multiple nightscout instances (e.g. for doctors, caregivers or the developer of this software)",
   "@Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)": {
     "description": "v103a1",
     "type": "text",

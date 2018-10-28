@@ -102,7 +102,7 @@ class PrintTest extends BasePrint
       row.add({"text": entry.eventType});
       row.add({"text": "${fmtNumber(entry.adjustedValue(1), 0, false, "")}", "alignment": "right"});
       row.add({"text": entry.duration > 0 ? fmtNumber(entry.duration, 0, false, "") : "", "alignment": "right"});
-      double carbs = entry.boluscalc != null ? entry.boluscalc.carbs : entry.carbs;
+      double carbs = entry.carbs;
       row.add(
         {"text": carbs != null && carbs > 0.0 ? fmtNumber(carbs, 0, false, "") : "", "alignment": "right"});
       switch (entry.eventType.toLowerCase())

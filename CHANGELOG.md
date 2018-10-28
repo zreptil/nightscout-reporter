@@ -1,5 +1,15 @@
 ## [Unreleased]
 
+## [1.0.4]
+### Added
+- Connection to nightscout-instances with user-token is possible
+- Users can be deleted
+- Carbohydrates and Bolus Insulin is shown in daily graphics
+
+### Fixed
+- Icons on some buttons were to close to the text
+- TBR with absolute values are shown correctly
+
 ## [1.0.3]
 ### Added
 - support for multiple users 
