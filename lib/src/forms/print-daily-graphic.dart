@@ -200,7 +200,7 @@ class PrintDailyGraphic extends BasePrint
           "x1": cm(x),
           "y1": cm(y),
           "x2": cm(x),
-          "y2": cm(graphHeight),
+          "y2": cm(graphHeight-lw),
           "lineColor": colCarbs,
           "lineWidth": cm(0.1),
         });
