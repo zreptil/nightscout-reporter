@@ -50,7 +50,7 @@ class LangData
 class Globals
 {
   static final Globals _globals = Globals._internal();
-  String version = "1.0.4";
+  String version = "1.0.5";
   String lastVersion;
   String get msgUrlFailure
   =>
@@ -155,7 +155,11 @@ class Globals
     language = value;
     if (checkConfigured && !isConfigured)html.window.localStorage.clear();
     saveStorage("language", language.code ?? "de_DE");
-    if (doReload)html.window.location.reload();
+    if (doReload)
+    {
+      save();
+      html.window.location.reload();
+    }
   }
 
   void saveStorage(String key, String value)
@@ -264,7 +268,8 @@ class Globals
       end = Date.parse(html.window.localStorage["endDate"] ?? Date.today().format(fmtDateForData), fmtDateForData);
     }
     catch (ex)
-    {}
+    {
+    }
     DatepickerDateRange dr = DatepickerDateRange(dateRange.range.title, start, end);
     dateRange = DatepickerComparison(dr, ComparisonOption.custom);
     changeLanguage(language, doReload: false);

@@ -163,7 +163,7 @@ abstract class BasePrint
       "color": "#a0a0a0",
     });
     ret["stack"].add({
-      "absolutePosition": {"x": cm(2.2), "y": cm(1.85)},
+      "absolutePosition": {"x": cm(2.2), "y": cm(2.4)},
       "columns": [ {
         "width": cm(width - 4.4),
         "text": titleInfo,
