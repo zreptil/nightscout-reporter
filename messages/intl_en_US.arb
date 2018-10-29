@@ -174,6 +174,22 @@
     "type": "text",
     "placeholders": {}
   },
+  "msgTargetArea": "Target Range ( {min} - {max} {units} )",
+  "@msgTargetArea": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {},
+      "units": {}
+    }
+  },
+  "msgTargetValue": "Target Value",
+  "@msgTargetValue": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
   "Glukosekurve": "Glucose Curve",
   "@Glukosekurve": {
     "type": "text",
@@ -209,7 +225,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "msgKH": "{value} g CHO",
+  "msgKH": "{value} g Carbs",
   "@msgKH": {
     "type": "text",
     "placeholders": {
@@ -274,14 +290,14 @@
       "value": {}
     }
   },
-  "msgReservoirDays": "{count, plural, =0 {} =1 {(Ø {count} day per reservoir)} other {(Ø {count} days per reservoir)}}",
+  "msgReservoirDays": "{count, plural, =0 {} =1 {({count} day per reservoir)} other {({count} days per reservoir)}}",
   "@msgReservoirDays": {
     "type": "text",
     "placeholders": {
       "count": {}
     }
   },
-  "msgCatheterDays": "{count, plural, =0 {} =1 {(Ø {count} day per catheter)} other {(Ø {count} days per catheter)}}",
+  "msgCatheterDays": "{count, plural, =0 {} =1 {({count} day per catheter)} other {({count} days per catheter)}}",
   "@msgCatheterDays": {
     "type": "text",
     "placeholders": {
@@ -340,32 +356,32 @@
     "type": "text",
     "placeholders": {}
   },
-  "Zuckerwert": "glucose",
-  "@Zuckerwert": {
+  "Ø Zuckerwert": "Avg. Glucose",
+  "@Ø Zuckerwert": {
     "type": "text",
     "placeholders": {}
   },
-  "KH pro Tag": "CHO per day",
-  "@KH pro Tag": {
+  "Ø KH pro Tag": "Avg. Carbs per day",
+  "@Ø KH pro Tag": {
     "type": "text",
     "placeholders": {}
   },
-  "Ø Insulin pro Tag": "Ø insulin per day",
+  "Ø Insulin pro Tag": "Avg. Insulin per day",
   "@Ø Insulin pro Tag": {
     "type": "text",
     "placeholders": {}
   },
-  "Ø Bolus pro Tag": "Ø Bolus per day",
+  "Ø Bolus pro Tag": "Avg. Bolus per day",
   "@Ø Bolus pro Tag": {
     "type": "text",
     "placeholders": {}
   },
-  "Ø Basal pro Tag": "Ø Basal per day",
+  "Ø Basal pro Tag": "Avg. Basal per day",
   "@Ø Basal pro Tag": {
     "type": "text",
     "placeholders": {}
   },
-  "Ø Insulinverhältnis": "Ø Insulin ratio",
+  "Ø Insulinverhältnis": "Avg. Insulin ratio",
   "@Ø Insulinverhältnis": {
     "type": "text",
     "placeholders": {}
@@ -387,6 +403,21 @@
   },
   "bis": "to",
   "@bis": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Eigene Grenzwerte": "Own Target Area",
+  "@Eigene Grenzwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Standardgrenzwerte": "Standard Target Area",
+  "@Standardgrenzwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Behandlungen": "Treatments",
+  "@Behandlungen": {
     "type": "text",
     "placeholders": {}
   },
@@ -505,6 +536,13 @@
   "@75%": {
     "type": "text",
     "placeholders": {}
+  },
+  "msgDaySum": "{value} Days",
+  "@msgDaySum": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
   },
   "Perzentil Diagramm": "Percentile Diagram",
   "@Perzentil Diagramm": {

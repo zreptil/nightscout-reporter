@@ -18,41 +18,47 @@ typedef MessageIfAbsent(String message_str, List args);
 class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'de_DE';
 
-  static m0(count) => "${Intl.plural(count, zero: '', one: '(Ø ${count} Tag pro Katheter)', other: '(Ø ${count} Tage pro Katheter)')}";
+  static m0(count) => "${Intl.plural(count, zero: '', one: '(${count} Tag pro Katheter)', other: '(${count} Tage pro Katheter)')}";
 
   static m1(url) => "Überprüfe Zugriff auf ${url}...";
 
-  static m2(value) => "Hoch${value}";
+  static m2(value) => "${value} Tage";
 
-  static m3(value) => "${value}g KH";
+  static m3(value) => "Hoch${value}";
 
-  static m4(value) => "g KH (${value} BE)";
+  static m4(value) => "${value}g KH";
 
-  static m5(error, stacktrace) => "Fehler beim Laden der Daten:\n${error}\n${stacktrace}";
+  static m5(value) => "g KH (${value} BE)";
 
-  static m6(date) => "Lade Daten für ${date}...";
+  static m6(error, stacktrace) => "Fehler beim Laden der Daten:\n${error}\n${stacktrace}";
 
-  static m7(value) => "Tief${value}";
+  static m7(date) => "Lade Daten für ${date}...";
 
-  static m8(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung pro Minute', other: 'Messung alle ${fmt} Minuten')}";
+  static m8(value) => "Tief${value}";
 
-  static m9(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung am Tag', other: '${fmt} Messungen am Tag')}";
+  static m9(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung pro Minute', other: 'Messung alle ${fmt} Minuten')}";
 
-  static m10(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung pro Stunde', other: '${fmt} Messungen pro Stunde')}";
+  static m10(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung am Tag', other: '${fmt} Messungen am Tag')}";
 
-  static m11(count) => "${Intl.plural(count, zero: '', one: '(Ø ${count} Tag pro Ampulle)', other: '(Ø ${count} Tage pro Ampulle)')}";
+  static m11(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung pro Stunde', other: '${fmt} Messungen pro Stunde')}";
 
-  static m12(begDate) => "gültig ab ${begDate}";
+  static m12(count) => "${Intl.plural(count, zero: '', one: '(${count} Tag pro Ampulle)', other: '(${count} Tage pro Ampulle)')}";
 
-  static m13(begDate, endDate) => "gültig von ${begDate} bis ${endDate}";
+  static m13(min, max, units) => "Zielbereich (${min} - ${max} ${units})";
 
-  static m14(endDate) => "gültig bis ${endDate}";
+  static m14(value) => "Zielwert";
 
-  static m15(high) => "Werte über ${high}";
+  static m15(begDate) => "gültig ab ${begDate}";
 
-  static m16(low) => "Werte unter ${low}";
+  static m16(begDate, endDate) => "gültig von ${begDate} bis ${endDate}";
 
-  static m17(low, high) => "Werte zwischen ${low} und ${high}";
+  static m17(endDate) => "gültig bis ${endDate}";
+
+  static m18(high) => "Werte über ${high}";
+
+  static m19(low) => "Werte unter ${low}";
+
+  static m20(low, high) => "Werte zwischen ${low} und ${high}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -68,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Auswertung" : MessageLookupByLibrary.simpleMessage("Auswertung"),
     "Basal" : MessageLookupByLibrary.simpleMessage("Basal"),
     "Basalrate" : MessageLookupByLibrary.simpleMessage("Basalrate"),
+    "Behandlungen" : MessageLookupByLibrary.simpleMessage("Behandlungen"),
     "Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt" : MessageLookupByLibrary.simpleMessage("Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt"),
     "Beim Auslesen des Profils ist ein Fehler aufgetreten." : MessageLookupByLibrary.simpleMessage("Beim Auslesen des Profils ist ein Fehler aufgetreten."),
     "Beim Erzeugen des PDF ist ein Fehler aufgetreten." : MessageLookupByLibrary.simpleMessage("Beim Erzeugen des PDF ist ein Fehler aufgetreten."),
@@ -104,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun." : MessageLookupByLibrary.simpleMessage("Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun."),
     "Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden." : MessageLookupByLibrary.simpleMessage("Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden."),
     "Diverse Abstürze beim Auslesen der Daten bereinigt" : MessageLookupByLibrary.simpleMessage("Diverse Abstürze beim Auslesen der Daten bereinigt"),
+    "Eigene Grenzwerte" : MessageLookupByLibrary.simpleMessage("Eigene Grenzwerte"),
     "Einstellungen" : MessageLookupByLibrary.simpleMessage("Einstellungen"),
     "Einstellungen für die Verwendung der Seite vornehmen" : MessageLookupByLibrary.simpleMessage("Einstellungen für die Verwendung der Seite vornehmen"),
     "English" : MessageLookupByLibrary.simpleMessage("English"),
@@ -126,7 +134,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "Initiale Version, alles ist neu!" : MessageLookupByLibrary.simpleMessage("Initiale Version, alles ist neu!"),
     "Insulin" : MessageLookupByLibrary.simpleMessage("Insulin"),
     "Ja" : MessageLookupByLibrary.simpleMessage("Ja"),
-    "KH pro Tag" : MessageLookupByLibrary.simpleMessage("KH pro Tag"),
     "Katheterwechsel" : MessageLookupByLibrary.simpleMessage("Katheterwechsel"),
     "Keine" : MessageLookupByLibrary.simpleMessage("Keine"),
     "Kohlenhydrate" : MessageLookupByLibrary.simpleMessage("Kohlenhydrate"),
@@ -162,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Sensorwechsel" : MessageLookupByLibrary.simpleMessage("Sensorwechsel"),
     "Spaltenbreite der Informationen in der Analyse erhöht" : MessageLookupByLibrary.simpleMessage("Spaltenbreite der Informationen in der Analyse erhöht"),
     "Speichern" : MessageLookupByLibrary.simpleMessage("Speichern"),
+    "Standardgrenzwerte" : MessageLookupByLibrary.simpleMessage("Standardgrenzwerte"),
     "Std.\nAbw." : MessageLookupByLibrary.simpleMessage("Std.\nAbw."),
     "Tagesgrafik" : MessageLookupByLibrary.simpleMessage("Tagesgrafik"),
     "Tagesstatistik" : MessageLookupByLibrary.simpleMessage("Tagesstatistik"),
@@ -179,34 +187,38 @@ class MessageLookup extends MessageLookupByLibrary {
     "Willkommen" : MessageLookupByLibrary.simpleMessage("Willkommen"),
     "Willkommen bei Nightscout Reporter!" : MessageLookupByLibrary.simpleMessage("Willkommen bei Nightscout Reporter!"),
     "Zeitraum" : MessageLookupByLibrary.simpleMessage("Zeitraum"),
-    "Zuckerwert" : MessageLookupByLibrary.simpleMessage("Zuckerwert"),
     "Zusatzfunktionen" : MessageLookupByLibrary.simpleMessage("Zusatzfunktionen"),
     "bis" : MessageLookupByLibrary.simpleMessage("bis"),
     "geschätzter HbA1c" : MessageLookupByLibrary.simpleMessage("geschätzter HbA1c"),
     "msgCatheterDays" : m0,
     "msgCheckUser" : m1,
-    "msgHigh" : m2,
-    "msgKH" : m3,
-    "msgKHBE" : m4,
-    "msgLoadingData" : m5,
-    "msgLoadingDataFor" : m6,
-    "msgLow" : m7,
-    "msgReadingsInMinutes" : m8,
-    "msgReadingsPerDay" : m9,
-    "msgReadingsPerHour" : m10,
-    "msgReservoirDays" : m11,
-    "msgValidFrom" : m12,
-    "msgValidRange" : m13,
-    "msgValidTo" : m14,
-    "msgValuesAbove" : m15,
-    "msgValuesBelow" : m16,
-    "msgValuesIn" : m17,
+    "msgDaySum" : m2,
+    "msgHigh" : m3,
+    "msgKH" : m4,
+    "msgKHBE" : m5,
+    "msgLoadingData" : m6,
+    "msgLoadingDataFor" : m7,
+    "msgLow" : m8,
+    "msgReadingsInMinutes" : m9,
+    "msgReadingsPerDay" : m10,
+    "msgReadingsPerHour" : m11,
+    "msgReservoirDays" : m12,
+    "msgTargetArea" : m13,
+    "msgTargetValue" : m14,
+    "msgValidFrom" : m15,
+    "msgValidRange" : m16,
+    "msgValidTo" : m17,
+    "msgValuesAbove" : m18,
+    "msgValuesBelow" : m19,
+    "msgValuesIn" : m20,
     "ok" : MessageLookupByLibrary.simpleMessage("ok"),
     "verwerfen" : MessageLookupByLibrary.simpleMessage("verwerfen"),
     "Ø Basal pro Tag" : MessageLookupByLibrary.simpleMessage("Ø Basal pro Tag"),
     "Ø Bolus pro Tag" : MessageLookupByLibrary.simpleMessage("Ø Bolus pro Tag"),
     "Ø Insulin pro Tag" : MessageLookupByLibrary.simpleMessage("Ø Insulin pro Tag"),
     "Ø Insulinverhältnis" : MessageLookupByLibrary.simpleMessage("Ø Insulinverhältnis"),
+    "Ø KH pro Tag" : MessageLookupByLibrary.simpleMessage("Ø KH pro Tag"),
+    "Ø Zuckerwert" : MessageLookupByLibrary.simpleMessage("Ø Zuckerwert"),
     "Überprüfe Zugriff auf Nightscout ..." : MessageLookupByLibrary.simpleMessage("Überprüfe Zugriff auf Nightscout ...")
   };
 }

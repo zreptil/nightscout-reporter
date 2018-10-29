@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-10-28T10:30:06.744732",
+  "@@last_modified": "2018-10-29T08:20:10.954659",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -176,6 +176,22 @@
     "type": "text",
     "placeholders": {}
   },
+  "msgTargetArea": "Zielbereich ({min} - {max} {units})",
+  "@msgTargetArea": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {},
+      "units": {}
+    }
+  },
+  "msgTargetValue": "Zielwert",
+  "@msgTargetValue": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
   "Glukosekurve": "Glukosekurve",
   "@Glukosekurve": {
     "type": "text",
@@ -276,14 +292,14 @@
       "value": {}
     }
   },
-  "msgReservoirDays": "{count,plural, =0{}=1{(Ø {count} Tag pro Ampulle)}other{(Ø {count} Tage pro Ampulle)}}",
+  "msgReservoirDays": "{count,plural, =0{}=1{({count} Tag pro Ampulle)}other{({count} Tage pro Ampulle)}}",
   "@msgReservoirDays": {
     "type": "text",
     "placeholders": {
       "count": {}
     }
   },
-  "msgCatheterDays": "{count,plural, =0{}=1{(Ø {count} Tag pro Katheter)}other{(Ø {count} Tage pro Katheter)}}",
+  "msgCatheterDays": "{count,plural, =0{}=1{({count} Tag pro Katheter)}other{({count} Tage pro Katheter)}}",
   "@msgCatheterDays": {
     "type": "text",
     "placeholders": {
@@ -342,13 +358,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Zuckerwert": "Zuckerwert",
-  "@Zuckerwert": {
+  "Ø Zuckerwert": "Ø Zuckerwert",
+  "@Ø Zuckerwert": {
     "type": "text",
     "placeholders": {}
   },
-  "KH pro Tag": "KH pro Tag",
-  "@KH pro Tag": {
+  "Ø KH pro Tag": "Ø KH pro Tag",
+  "@Ø KH pro Tag": {
     "type": "text",
     "placeholders": {}
   },
@@ -389,6 +405,21 @@
   },
   "bis": "bis",
   "@bis": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Eigene Grenzwerte": "Eigene Grenzwerte",
+  "@Eigene Grenzwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Standardgrenzwerte": "Standardgrenzwerte",
+  "@Standardgrenzwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Behandlungen": "Behandlungen",
+  "@Behandlungen": {
     "type": "text",
     "placeholders": {}
   },
@@ -507,6 +538,13 @@
   "@75%": {
     "type": "text",
     "placeholders": {}
+  },
+  "msgDaySum": "{value} Tage",
+  "@msgDaySum": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
   },
   "Perzentil Diagramm": "Perzentil Diagramm",
   "@Perzentil Diagramm": {
