@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:intl/intl.dart';
+import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
-import 'package:nightscout_reporter/src/globals.dart';
 import 'base-print.dart';
 
 class PrintDailyStatistics extends BasePrint
@@ -39,7 +39,7 @@ class PrintDailyStatistics extends BasePrint
   }
 
   get msgNormal
-    => "${Intl.message("Normal")}\n${getGlucInfo()["unit"]}";
+  => "${Intl.message("Normal")}\n${getGlucInfo()["unit"]}";
 
   msgHigh(value)
   {
@@ -65,6 +65,8 @@ class PrintDailyStatistics extends BasePrint
   => Intl.message("25%");
   get msg75
   => Intl.message("75%");
+  String msgDaySum(int value)
+  => Intl.message("$value Tage", args: [value], name: "msgDaySum");
 
   headLine(SettingsData settings)
   {
@@ -119,8 +121,8 @@ class PrintDailyStatistics extends BasePrint
     {
       day.init();
       ProfileGlucData profile = src.profile(DateTime(day.date.year, day.date.month, day.date.day));
-      if (prevProfile == null || profile.targetLow != prevProfile.targetLow ||
-        profile.targetHigh != prevProfile.targetHigh)
+      if (prevProfile == null || profile.targetLow != prevProfile.targetLow || profile.targetHigh != prevProfile
+        .targetHigh)
       {
         body.add(headLine(src.status.settings));
         lineCount += 2;
@@ -154,8 +156,8 @@ class PrintDailyStatistics extends BasePrint
       row.add({"text": "${fmtNumber(day.normPrz, 0)} %", "alignment": "right"});
       row.add({"text": "${fmtNumber(day.highPrz, 0)} %", "alignment": "right"});
       row.add({"text": "${fmtNumber(day.entryCount, 0)}", "alignment": "right"});
-      row.add({"text": "${glucFromData(day.min, 1)}", "alignment": "right"});
-      row.add({"text": "${glucFromData(day.max, 1)}", "alignment": "right"});
+      row.add({"text": "${glucFromData(day.min)}", "alignment": "right"});
+      row.add({"text": "${glucFromData(day.max)}", "alignment": "right"});
       row.add({"text": "${glucFromData(day.mid, 1)}", "alignment": "right"});
       row.add({"text": "${glucFromData(day.stdAbw, 1)}", "alignment": "right"});
       row.add({"text": "${glucFromData(Globals.percentile(day.entries, 25), 1)}", "alignment": "right"});
@@ -191,7 +193,7 @@ class PrintDailyStatistics extends BasePrint
     double normPrz = totalCount == 0 ? 0 : totalNorm / totalCount * 100;
     double highPrz = totalCount == 0 ? 0 : totalHigh / totalCount * 100;
     var row = [];
-    row.add({"text": "${src.ns.days.length} Tage", "style": "total", "alignment": "center"});
+    row.add({"text": msgDaySum(src.ns.days.length), "style": "total", "alignment": "center"});
     row.add({
       "canvas": [
         {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(lowPrz * f), "h": cm(0.5)},

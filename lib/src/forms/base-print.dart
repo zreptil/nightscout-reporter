@@ -36,7 +36,7 @@ abstract class BasePrint
   List<PrintParams> params = List<PrintParams>();
 
   String colText = "#008800";
-  String colInfo = "#808080";
+  String colInfo = "#606060";
   String colLine = "#606060";
   String colValue = "#000000";
   String colBasal = "#0097a7";
@@ -66,18 +66,14 @@ abstract class BasePrint
   => Intl.message("IE");
   get msgMedian
   => Intl.message("Median");
-  String msgTargetArea(double low, double high)
+  String msgTargetArea(String min, String max, String units)
   {
-    String min = glucFromData(low);
-    String max = glucFromData(high);
-    String units = getGlucInfo()["unit"];
     return Intl.message("Zielbereich ($min - $max $units)", args: [min, max, units], name: "msgTargetArea");
   }
 
-  String msgTargetValue(double value)
+  String msgTargetValue(String value)
   {
-    String t = "${glucFromData(value)} ${getGlucInfo()["unit"]}";
-    return Intl.message("Zielwert", args: [t], name: "msgTargetValue");
+    return Intl.message("Zielwert", args: [value], name: "msgTargetValue");
   }
 
   String get msgGlucosekurve
@@ -147,7 +143,6 @@ abstract class BasePrint
         });
       }
     }
-
     ret["stack"].add({
       "absolutePosition": {"x": cm(2.2), "y": cm(1.0)},
       "text": title,
@@ -155,6 +150,8 @@ abstract class BasePrint
       "color": colText,
       "bold": true
     });
+    ret["stack"].add(
+      {"absolutePosition": {"x": cm(2.2), "y": cm(2.5)}, "text": "nightscout reporter ${g.version}", "fontSize": "8", "color": "#a0a0a0",});
     ret["stack"].add({
       "absolutePosition": {"x": cm(2.2), "y": cm(1.85)},
       "columns": [ {

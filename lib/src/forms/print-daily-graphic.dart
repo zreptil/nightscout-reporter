@@ -200,7 +200,7 @@ class PrintDailyGraphic extends BasePrint
           "x1": cm(x),
           "y1": cm(y),
           "x2": cm(x),
-          "y2": cm(graphHeight-lw),
+          "y2": cm(graphHeight - lw),
           "lineColor": colCarbs,
           "lineWidth": cm(0.1),
         });
@@ -387,10 +387,12 @@ class PrintDailyGraphic extends BasePrint
     addLegendEntry(legendLeft, colValue, msgGlucosekurve, isArea: false);
     if (hasCarbs)addLegendEntry(legendLeft, colCarbs, msgCarbs, isArea: false, lineWidth: 0.1);
     if (hasBolus)addLegendEntry(legendLeft, colBolus, msgBolus, isArea: false, lineWidth: 0.1);
-    addLegendEntry(legendLeft, colTargetArea, msgTargetArea(
-      src.status.settings.thresholds.bgTargetBottom.toDouble(), src.status.settings.thresholds.bgTargetTop.toDouble()));
-    addLegendEntry(
-      legendLeft, colTargetValue, msgTargetValue((profile.targetHigh + profile.targetLow) / 2), isArea: false);
+    String v1 = glucFromData(src.status.settings.thresholds.bgTargetBottom.toDouble());
+    String v2 = glucFromData(src.status.settings.thresholds.bgTargetTop.toDouble());
+    addLegendEntry(legendLeft, colTargetArea, msgTargetArea(v1, v2, getGlucInfo()["unit"]));
+    addLegendEntry(legendLeft, colTargetValue,
+      msgTargetValue("${glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${getGlucInfo()["unit"]}"),
+      isArea: false);
     addLegendEntry(legendLeft, colBasal, msgBasalrate, isArea: true);
     if (hasCatheterChange)addLegendEntry(
       legendRight, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);

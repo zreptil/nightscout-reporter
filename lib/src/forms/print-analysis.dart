@@ -60,16 +60,16 @@ class PrintAnalysis extends BasePrint
   => Intl.message("g KH ($value BE)", args: [value], name: "msgKHBE");
   msgReservoirDays(count)
   =>
-    Intl.plural(count, one: "(Ø $count Tag pro Ampulle)",
+    Intl.plural(count, one: "($count Tag pro Ampulle)",
       zero: "",
-      other: "(Ø $count Tage pro Ampulle)",
+      other: "($count Tage pro Ampulle)",
       args: [count],
       name: "msgReservoirDays");
   msgCatheterDays(count)
   =>
-    Intl.plural(count, one: "(Ø $count Tag pro Katheter)",
+    Intl.plural(count, one: "($count Tag pro Katheter)",
       zero: "",
-      other: "(Ø $count Tage pro Katheter)",
+      other: "($count Tage pro Katheter)",
       args: [count],
       name: "msgCatheterDays");
   get msgBirthday
@@ -93,9 +93,9 @@ class PrintAnalysis extends BasePrint
   get msgHighestValue
   => Intl.message("Höchster Wert im Zeitraum");
   get msgGlucoseValue
-  => Intl.message("Zuckerwert");
+  => Intl.message("Ø Zuckerwert");
   get msgKHPerDay
-  => Intl.message("KH pro Tag");
+  => Intl.message("Ø KH pro Tag");
   get msgInsulinPerDay
   => Intl.message("Ø Insulin pro Tag");
   get msgBolusPerDay
@@ -112,6 +112,14 @@ class PrintAnalysis extends BasePrint
   => Intl.message("Keine");
   get msgUntil
   => Intl.message("bis");
+  get msgOwnLimits
+  => Intl.message("Eigene Grenzwerte");
+  get msgStandardLimits
+  => Intl.message("Standardgrenzwerte");
+  get msgTreatments
+  => Intl.message("Behandlungen");
+  get msgPeriod
+  => Intl.message("Zeitraum");
 
   addBodyArea(List body, String title, List lines)
   {
@@ -121,7 +129,11 @@ class PrintAnalysis extends BasePrint
     }
     ]);
 
-    body.add([{"columns": [{"width": cm(13.5), "text": title, "fontSize": 8, "color": "#606060", "alignment": "center"}], "colSpan": 5,}]);
+    body.add([ {
+      "columns": [{"width": cm(13.5), "text": title, "fontSize": 8, "color": "#606060", "alignment": "center"}],
+      "colSpan": 5,
+    }
+    ]);
 
     for (dynamic line in lines)
       body.add(line);
@@ -189,7 +201,7 @@ class PrintAnalysis extends BasePrint
         {"text": ""},
         {"text": msgReadingsCount, "style": "infotitle"},
         {"text": fmtNumber(data.count), "style": "infodata"},
-        {"text": "(Ø $countPeriod)", "style": "infounit", "colSpan": 2},
+        {"text": "($countPeriod)", "style": "infounit", "colSpan": 2},
         {"text": ""},
       ],
       [
@@ -216,7 +228,7 @@ class PrintAnalysis extends BasePrint
       ]
     ];
 
-    addBodyArea(tableBody, "Eigene Grenzwerte", [
+    addBodyArea(tableBody, msgOwnLimits, [
       [
         {"text": ""},
         {
@@ -259,8 +271,8 @@ class PrintAnalysis extends BasePrint
       ]
     ]);
 
-    if (src.status.settings.thresholds.bgTargetBottom != 70 || src.status.settings.thresholds
-      .bgTargetTop != 180) addBodyArea(tableBody, "Standardgrenzwerte", [
+    if (src.status.settings.thresholds.bgTargetBottom != 70 ||
+      src.status.settings.thresholds.bgTargetTop != 180) addBodyArea(tableBody, msgStandardLimits, [
       [
         {"text": ""},
         {"text": msgValuesAbove("${glucFromData(180)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
@@ -295,7 +307,7 @@ class PrintAnalysis extends BasePrint
       ],
     ]);
 
-    addBodyArea(tableBody, "Zeitraum", [
+    addBodyArea(tableBody, msgPeriod, [
       [
         {"text": ""},
         {"text": msgLowestValue, "style": "infotitle"},
@@ -313,7 +325,7 @@ class PrintAnalysis extends BasePrint
       ],
       [
         {"text": ""},
-        {"text": "Ø ${msgGlucoseValue}${glucWarnText}", "style": "infotitle"},
+        {"text": "${msgGlucoseValue}${glucWarnText}", "style": "infotitle"},
         {"text": glucFromData(avgGluc), "style": "infodata"},
         {"text": "${getGlucInfo()["unit"]}", "style": "infounit", "colSpan": 2},
         {"text": ""},
@@ -326,10 +338,11 @@ class PrintAnalysis extends BasePrint
         {"text": ""},
       ]
     ]);
-    addBodyArea(tableBody, "Behandlungen", [
+
+    addBodyArea(tableBody, msgTreatments, [
       [
         {"text": ""},
-        {"text": "Ø ${msgKHPerDay}", "style": "infotitle"},
+        {"text": msgKHPerDay, "style": "infotitle"},
         {"text": fmtNumber(data.khCount / src.dayCount, 1, false), "style": "infodata"},
         {"text": msgKHBE(fmtNumber(data.khCount / src.dayCount / 12, 1, false)), "style": "infounit", "colSpan": 2},
         {"text": ""},
