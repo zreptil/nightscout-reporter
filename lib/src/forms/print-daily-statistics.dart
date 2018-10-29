@@ -47,18 +47,20 @@ class PrintDailyStatistics extends BasePrint
     return Intl.message("Hoch${value}", args: [value], name: "msgHigh");
   }
 
+  String colHbA1c = "#505050";
+
   get msgDate
   => Intl.message("Datum");
   get msgDistribution
   => Intl.message("Verteilung");
   get msgValues
-  => Intl.message("Messwerte");
+  => Intl.message("Mess-\nwerte");
   get msgMin
   => Intl.message("Min");
   get msgMax
   => Intl.message("Max");
   get msgAverage
-  => Intl.message("Mittelwert");
+  => Intl.message("Mittel-\nwert");
   get msgDeviation
   => Intl.message("Std.\nAbw.");
   get msg25
@@ -67,6 +69,8 @@ class PrintDailyStatistics extends BasePrint
   => Intl.message("75%");
   String msgDaySum(int value)
   => Intl.message("$value Tage", args: [value], name: "msgDaySum");
+  String get msgHbA1c
+  => Intl.message("gesch.\nHbA1c");
 
   headLine(SettingsData settings)
   {
@@ -94,6 +98,7 @@ class PrintDailyStatistics extends BasePrint
     ret.add({"text": msg25, "style": "total", "alignment": "center"});
     ret.add({"text": msgMedian, "style": "total", "alignment": "center"});
     ret.add({"text": msg75, "style": "total", "alignment": "center"});
+    ret.add({"text": msgHbA1c, "style": "total", "alignment": "center", "color": colHbA1c});
 
     return ret;
   }
@@ -105,8 +110,9 @@ class PrintDailyStatistics extends BasePrint
 
     var body = [];
     var widths = [
-      "auto", "*", cm(1.5), cm(1.5), cm(1.5), "auto", "auto", "auto", "auto", "auto", cm(1.5), cm(1.5), cm(1.5)];
-    double f = 3.4 / 100;
+      "auto", "*", cm(1.5), cm(1.5), cm(1.5), "auto", "auto", "auto", "auto", "auto", cm(1.5), cm(1.5), cm(1.5), cm(1.5)
+    ];
+    double f = 0.033;
 
     ProfileGlucData prevProfile = null;
     int lineCount = 0;
@@ -117,6 +123,10 @@ class PrintDailyStatistics extends BasePrint
     int totalLow = 0;
     int totalHigh = 0;
     int totalNorm = 0;
+    double totalStdAbw = 0.0;
+    double total25 = 0.0;
+    double total50 = 0.0;
+    double total75 = 0.0;
     for (DayData day in src.ns.days)
     {
       day.init();
@@ -163,7 +173,12 @@ class PrintDailyStatistics extends BasePrint
       row.add({"text": "${glucFromData(Globals.percentile(day.entries, 25), 1)}", "alignment": "right"});
       row.add({"text": "${glucFromData(Globals.percentile(day.entries, 50), 1)}", "alignment": "right"});
       row.add({"text": "${glucFromData(Globals.percentile(day.entries, 75), 1)}", "alignment": "right"});
+      row.add({"text": "${hba1c(day.mid)} %", "alignment": "right", "color": colHbA1c});
       body.add(row);
+      totalStdAbw += day.stdAbw;
+      total25 += Globals.percentile(day.entries, 25);
+      total50 += Globals.percentile(day.entries, 50);
+      total75 += Globals.percentile(day.entries, 75);
       totalCount += day.entryCount;
       totalMin = min(day.min, totalMin);
       totalMax = max(day.max, totalMax);
@@ -215,11 +230,12 @@ class PrintDailyStatistics extends BasePrint
     row.add({"text": "${fmtNumber(totalCount, 0)}", "alignment": "right", "style": "total"});
     row.add({"text": "${glucFromData(totalMin)}", "alignment": "right", "style": "total"});
     row.add({"text": "${glucFromData(totalMax)}", "alignment": "right", "style": "total"});
-    row.add({"text": "", "alignment": "right", "style": "total"});
-    row.add({"text": "", "alignment": "right", "style": "total"});
-    row.add({"text": "", "alignment": "right", "style": "total"});
-    row.add({"text": "", "alignment": "right", "style": "total"});
-    row.add({"text": "", "alignment": "right", "style": "total"});
+    row.add({"text": "${fmtNumber(src.ns.avgGluc / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
+    row.add({"text": "${fmtNumber(totalStdAbw / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
+    row.add({"text": "${fmtNumber(total25 / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
+    row.add({"text": "${fmtNumber(total50 / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
+    row.add({"text": "${fmtNumber(total75 / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
+    row.add({"text": "${hba1c(src.ns.avgGluc)} %", "alignment": "right", "style": "total", "color": colHbA1c});
     body.add(row);
 
     if (prevProfile != null)

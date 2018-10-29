@@ -35,6 +35,8 @@ abstract class BasePrint
   => false;
   List<PrintParams> params = List<PrintParams>();
 
+  String hba1c(double avgGluc) => fmtNumber((avgGluc + 86) / 33.3, 1, false);
+
   String colText = "#008800";
   String colInfo = "#606060";
   String colLine = "#606060";

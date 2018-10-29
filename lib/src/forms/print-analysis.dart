@@ -148,7 +148,6 @@ class PrintAnalysis extends BasePrint
     var avgGluc = data.avgGluc;
     var glucWarnColor = colNorm;
     var glucWarnText = "";
-    var hba1c = (avgGluc + 86) / 33.3;
 //    if (hba1c > 7)glucWarnColor = blendColor("ffffff", "ff0000", (hba1c - 7) / 2);
     if (avgGluc >= src.status.settings.thresholds.bgTargetTop && avgGluc < src.status.settings.thresholds.bgTargetTop)
       glucWarnColor = blendColor(glucWarnColor, colHigh,
@@ -333,7 +332,7 @@ class PrintAnalysis extends BasePrint
       [
         {"text": ""},
         {"text": msgHbA1C, "style": "infotitle"},
-        {"text": fmtNumber(hba1c, 1, false), "style": ["infodata", "hba1c"]},
+        {"text": hba1c(avgGluc), "style": ["infodata", "hba1c"]},
         {"text": "%", "style": ["infounit", "hba1c"], "colSpan": 2},
         {"text": ""},
       ]
