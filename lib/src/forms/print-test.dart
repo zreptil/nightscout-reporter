@@ -44,7 +44,6 @@ class PrintTest extends BasePrint
           {"text": "Art", "fillColor": color},
           {"text": "sgv", "fillColor": color},
           {"text": "gluc", "fillColor": color},
-          {"text": "KH", "fillColor": color},
         ]);
         break;
       case "treatments":
@@ -62,7 +61,7 @@ class PrintTest extends BasePrint
     for (int i = 0; i < body[0].length; i++)
       widths.add("auto");
     var ret = {
-      "margin": [cm(2.0), 0, cm(2.0), 0],
+      "margin": [cm(2.0), cm(2.8), cm(2.0), 0],
       "table": {"dontBreakRows": true, "headerRows": 1, "layout": "noBorders", "widths": widths, "body": body}
     };
     return ret;
@@ -101,10 +100,10 @@ class PrintTest extends BasePrint
       var row = [{"text": fmtDateTime(entry.createdAt, '??.??.???? ??:?? Uhr')}];
       row.add({"text": entry.eventType});
       row.add({"text": "${fmtNumber(entry.adjustedValue(1), 0, false, "")}", "alignment": "right"});
-      row.add({"text": entry.duration > 0 ? fmtNumber(entry.duration, 0, false, "") : "", "alignment": "right"});
+      row.add({"text": entry.duration > 0 ? fmtNumber(entry.duration, 0, false, " ") : " ", "alignment": "right"});
       double carbs = entry.carbs;
       row.add(
-        {"text": carbs != null && carbs > 0.0 ? fmtNumber(carbs, 0, false, "") : "", "alignment": "right"});
+        {"text": carbs > 0.0 ? fmtNumber(carbs, 0, false, " ") : " ", "alignment": "right"});
       switch (entry.eventType.toLowerCase())
       {
         case "temp basal":

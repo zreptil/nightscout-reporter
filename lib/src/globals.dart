@@ -3,7 +3,6 @@ library diamant.globals;
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:html' as html;
-import 'dart:html';
 import 'dart:math' as math;
 
 import 'package:angular_components/angular_components.dart';
@@ -113,7 +112,6 @@ class Globals
   Future<String> request(String url, {String method = "GET"})
   async {
     http.BrowserClient client = http.BrowserClient();
-    var headers = null;
     if (user.token != null && user.token.isNotEmpty)
     {
       String div = url.indexOf("?") > 0 ? "&" : "?";

@@ -535,8 +535,6 @@ class TreatmentData extends JsonData
     switch (eventType.toLowerCase())
     {
       case "bolus wizard":
-        if (_carbs != null)return _carbs;
-        break;
       case "meal bolus":
         if (_carbs != null)return _carbs;
         break;
@@ -546,8 +544,8 @@ class TreatmentData extends JsonData
 
   double get bolusInsulin
   {
-    if (boluscalc != null && boluscalc.insulin != null) return boluscalc.insulin;
-    else if (insulin != null)return insulin;
+
+    if (insulin != null && !isSMB)return insulin;
     return 0.0;
   }
 
