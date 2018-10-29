@@ -205,29 +205,30 @@ class PrintPercentile extends BasePrint
     var percGraph = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     var percLegend = {"absolutePosition": {"x": cm(xo), "y": cm(yo + lineHeight * gridLines + 1.0)}, "stack": []};
 
-    addPercentileGraph(percGraph, percList, 10, 90, "#aaf");
-    addLegendEntry(percLegend, "#aaf", msgPercentile1090);
-    addPercentileGraph(percGraph, percList, 25, 75, "#88f");
-    addLegendEntry(percLegend, "#88f", msgPercentile2575);
+    if (addPercentileGraph(percGraph, percList, 10, 90, "#aaf"))addLegendEntry(percLegend, "#aaf", msgPercentile1090);
+    if (addPercentileGraph(percGraph, percList, 25, 75, "#88f"))addLegendEntry(percLegend, "#88f", msgPercentile2575);
     addPercentileGraph(percGraph, percList, 50, 50, "#000");
+
     addLegendEntry(percLegend, "#000", msgMedian, isArea: false);
-    addLegendEntry(percLegend, "#0f0", msgTargetArea(src
+    addLegendEntry(percLegend, "#0f0", msgTargetArea(glucFromData(src
       .profile(DateTime.now())
-      .targetLow, src
+      .targetLow), glucFromData(src
       .profile(DateTime.now())
-      .targetHigh));
+      .targetHigh), getGlucInfo()["unit"]));
     return [header, vertLegend, vertLines, horzLegend, horzLines, limitLines, percGraph, graph, percLegend, footer(),
     ];
   }
 
-  addPercentileGraph(var percGraph, Map<DateTime, PercentileData> percList, int low, int high, String color)
+  bool addPercentileGraph(var percGraph, Map<DateTime, PercentileData> percList, int low, int high, String color)
   {
+    bool ret = high == low;
     var ptsLow = [];
     var ptsHigh = [];
 
     double x = 0.0;
     for (PercentileData entry in percList.values)
     {
+      if (entry.percentile(high) != entry.percentile(low))ret = true;
       x = glucX(entry.time);
       ptsHigh.add({"x": cm(x), "y": cm(glucY(entry.percentile(high)))});
       if (high != low)ptsLow.insert(0, {"x": cm(x), "y": cm(glucY(entry.percentile(low)))});
@@ -250,5 +251,7 @@ class PrintPercentile extends BasePrint
       {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": color, "points": ptsHigh});
     (percGraph["canvas"] as List).add(
       {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": color, "points": ptsLow});
+
+    return ret;
   }
 }
