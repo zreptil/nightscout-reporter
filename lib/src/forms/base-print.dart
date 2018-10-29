@@ -39,7 +39,9 @@ abstract class BasePrint
   String colInfo = "#606060";
   String colLine = "#606060";
   String colValue = "#000000";
-  String colBasal = "#0097a7";
+  String colBasalProfile = "#0097a7";
+  String get colBasalDay
+  => blendColor(colBasalProfile, "#ffffff", 0.5);
   String colBasalFont = "#fff";
   String colBolus = "#0060c0";
   String colLow = "#ff6666";
@@ -80,10 +82,14 @@ abstract class BasePrint
   => Intl.message("Glukosekurve");
   String get msgCarbs
   => Intl.message("Kohlenhydrate");
-  String get msgBolus
-  => Intl.message("Bolus Insulin");
+  String msgBolusInsulin(String value)
+  => Intl.message("Bolus Insulin ($value)", args: [value], name: "msgBolusInsulin");
   String get msgBasalrate
   => Intl.message("Basalrate");
+  String msgBasalrateDay(String value)
+  => Intl.message("Basalrate für den Tag ($value)", args: [value], name: "msgBasalrateDay");
+  String msgBasalrateProfile(String value)
+  => Intl.message("Basalrate aus dem Profil ($value)", args: [value], name: "msgBasalrateProfile");
   String get msgMissingData
   => Intl.message("Es sind keine Daten für den Ausdruck vorhanden");
   String get msgCatheterChange
@@ -150,8 +156,12 @@ abstract class BasePrint
       "color": colText,
       "bold": true
     });
-    ret["stack"].add(
-      {"absolutePosition": {"x": cm(2.2), "y": cm(2.5)}, "text": "nightscout reporter ${g.version}", "fontSize": "8", "color": "#a0a0a0",});
+    ret["stack"].add({
+      "absolutePosition": {"x": cm(2.2), "y": cm(2.5)},
+      "text": "nightscout reporter ${g.version}",
+      "fontSize": "8",
+      "color": "#a0a0a0",
+    });
     ret["stack"].add({
       "absolutePosition": {"x": cm(2.2), "y": cm(1.85)},
       "columns": [ {
@@ -432,7 +442,8 @@ abstract class BasePrint
       }
     }
     catch (ex)
-    {}
+    {
+    }
 
     if (dt == null)return date;
 

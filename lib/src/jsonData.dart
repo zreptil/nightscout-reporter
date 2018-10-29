@@ -316,6 +316,13 @@ class ProfileStoreData extends JsonData
   List<ProfileEntryData> listTargetHigh = List<ProfileEntryData>();
   DateTime startDate;
   String units;
+  double get ieBasalSum
+  {
+    double ret = 0.0;
+    for (ProfileEntryData entry in listBasal)
+      ret += (entry.value / 60.0) * entry.duration;
+    return ret;
+  }
 
   ProfileStoreData();
 
@@ -544,7 +551,6 @@ class TreatmentData extends JsonData
 
   double get bolusInsulin
   {
-
     if (insulin != null && !isSMB)return insulin;
     return 0.0;
   }
@@ -683,6 +689,14 @@ class DayData
     return date.day == time.day;
   }
 
+  double get ieBolusSum
+  {
+    double ret = 0.0;
+    for (TreatmentData entry in treatments)
+      ret += entry.bolusInsulin;
+    return ret;
+  }
+
   double get ieBasalSum
   {
     double ret = 0.0;
@@ -755,8 +769,8 @@ class DayData
           temp.orgValue = last.orgValue;
           _profile.insert(i + 1, temp);
         }
-        else if (i == _profile.length - 1 &&
-          endTime.isBefore(DateTime(last.time.year, last.time.month, last.time.day, 23, 59, 59)))
+        else if (i == _profile.length - 1 && endTime.isBefore(
+          DateTime(last.time.year, last.time.month, last.time.day, 23, 59, 59)))
         {
           ProfileEntryData temp = ProfileEntryData();
           temp.time = endTime;

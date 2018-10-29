@@ -377,29 +377,33 @@ class PrintDailyGraphic extends BasePrint
     basalCvs.add(area);
 */
     var legendLeft = {
-      "absolutePosition": {"x": cm(xo), "y": cm(yo + lineHeight * gridLines + 2.0 + basalHeight)},
+      "absolutePosition": {"x": cm(xo), "y": cm(yo + lineHeight * gridLines + 2.2 + basalHeight)},
       "stack": []
     };
     var legendRight = {
-      "absolutePosition": {"x": cm(xo + 8.0), "y": cm(yo + lineHeight * gridLines + 2.0 + basalHeight)},
+      "absolutePosition": {"x": cm(xo + 8.0), "y": cm(yo + lineHeight * gridLines + 2.2 + basalHeight)},
       "stack": []
     };
     addLegendEntry(legendLeft, colValue, msgGlucosekurve, isArea: false);
     if (hasCarbs)addLegendEntry(legendLeft, colCarbs, msgCarbs, isArea: false, lineWidth: 0.1);
-    if (hasBolus)addLegendEntry(legendLeft, colBolus, msgBolus, isArea: false, lineWidth: 0.1);
+    if (hasBolus)addLegendEntry(
+      legendLeft, colBolus, msgBolusInsulin("${fmtNumber(day.ieBolusSum, 1, false)} ${msgInsulinUnit}"), isArea: false, lineWidth: 0.1);
+    String text = "${fmtNumber(day.ieBasalSum, 1, false)} ${msgInsulinUnit}";
+    addLegendEntry(legendLeft, colBasalDay, msgBasalrateDay(text), isArea: true);
+    text = "${fmtNumber(day.basalData.store.ieBasalSum, 1, false)} ${msgInsulinUnit}";
+    addLegendEntry(legendLeft, colBasalProfile, msgBasalrateProfile(text), isArea: false);
     String v1 = glucFromData(src.status.settings.thresholds.bgTargetBottom.toDouble());
     String v2 = glucFromData(src.status.settings.thresholds.bgTargetTop.toDouble());
-    addLegendEntry(legendLeft, colTargetArea, msgTargetArea(v1, v2, getGlucInfo()["unit"]));
-    addLegendEntry(legendLeft, colTargetValue,
+    addLegendEntry(legendRight, colTargetArea, msgTargetArea(v1, v2, getGlucInfo()["unit"]));
+    addLegendEntry(legendRight, colTargetValue,
       msgTargetValue("${glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${getGlucInfo()["unit"]}"),
       isArea: false);
-    addLegendEntry(legendLeft, colBasal, msgBasalrate, isArea: true);
     if (hasCatheterChange)addLegendEntry(
       legendRight, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);
     if (hasSensorChange)addLegendEntry(legendRight, "", msgSensorChange, image: "sensor.print", imgWidth: 0.5);
     //blendColor(colBasal, "ffffff", 0.7)
-    var profileBasal = getBasalGraph(day.basalData.store.listBasal, xo, yo, 0, null);
-    var dayBasal = getBasalGraph(day.profile, xo, yo, day.ieBasalSum, blendColor(colBasal, "ffffff", 0.7));
+    var profileBasal = getBasalGraph(day, true, xo, yo);
+    var dayBasal = getBasalGraph(day, false, xo, yo);
 
     return [
       header,
@@ -419,18 +423,34 @@ class PrintDailyGraphic extends BasePrint
     ];
   }
 
-  getBasalGraph(List<ProfileEntryData> data, double xo, double yo, double basalSum, String color)
+  getBasalGraph(DayData day, bool useProfile, double xo, double yo)
   {
+    List<ProfileEntryData> data;
+    double basalSum;
+    String color;
+
+    if (useProfile)
+    {
+      data = day.basalData.store.listBasal;
+      basalSum = day.basalData.store.ieBasalSum;
+      color = colBasalProfile;
+    }
+    else
+    {
+      data = day.profile;
+      basalSum = day.ieBasalSum;
+      color = colBasalDay;
+    }
     var basalCvs = [];
-    var ret = {"stack": [{"absolutePosition": {"x": cm(xo), "y": cm(yo + graphHeight + 1.0)}, "canvas": basalCvs},
-    ]};
+    var ret = {"stack": [{"absolutePosition": {"x": cm(xo), "y": cm(yo + graphHeight + 1.0)}, "canvas": basalCvs}]};
     if (basalSum != 0)ret["stack"].add({
       "absolutePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalHeight + 1.1)},
       "columns": [ {
         "width": cm(basalWidth),
         "text": "${fmtNumber(basalSum, 1, false)} ${msgInsulinUnit}",
         "fontSize": 20,
-        "alignment": "center"
+        "alignment": useProfile ? "right" : "left",
+        "color": color
       }
       ]
     },);
@@ -439,15 +459,15 @@ class PrintDailyGraphic extends BasePrint
     var area = {
       "type": "polyline",
       "lineWidth": cm(lw),
-      "closePath": color != null,
-      "color": color,
-      "lineColor": colBasal,
-      "dash": color == null ? {"length": cm(0.1), "space": cm(0.05)} : {},
+      "closePath": !useProfile,
+      "color": !useProfile ? blendColor(color, "#ffffff", 0.7) : null,
+      "lineColor": color,
+      "dash": useProfile ? {"length": cm(0.1), "space": cm(0.05)} : {},
       "points": areaPoints,
 //      "fillOpacity": opacity
     };
 
-    if (color != null)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
+    if (!useProfile)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
     for (ProfileEntryData entry in data)
     {
       double x = basalX(entry.time);
@@ -457,7 +477,7 @@ class PrintDailyGraphic extends BasePrint
       lastY = y;
     }
     areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(lastY)});
-    if (color != null)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
+    if (!useProfile)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
     basalCvs.add(area);
 //    basalCvs.add({"type": "rect", "x": 0, "y": 0, "w": 1, "h": 1, "fillOpacity": 1});
     return ret;

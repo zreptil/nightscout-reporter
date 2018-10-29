@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-10-29T08:20:10.954659",
+  "@@last_modified": "2018-10-29T10:53:50.754106",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -202,15 +202,31 @@
     "type": "text",
     "placeholders": {}
   },
-  "Bolus Insulin": "Bolus Insulin",
-  "@Bolus Insulin": {
+  "msgBolusInsulin": "Bolus Insulin ({value})",
+  "@msgBolusInsulin": {
     "type": "text",
-    "placeholders": {}
+    "placeholders": {
+      "value": {}
+    }
   },
   "Basalrate": "Basalrate",
   "@Basalrate": {
     "type": "text",
     "placeholders": {}
+  },
+  "msgBasalrateDay": "Basalrate für den Tag ({value})",
+  "@msgBasalrateDay": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgBasalrateProfile": "Basalrate aus dem Profil ({value})",
+  "@msgBasalrateProfile": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
   },
   "Es sind keine Daten für den Ausdruck vorhanden": "Es sind keine Daten für den Ausdruck vorhanden",
   "@Es sind keine Daten für den Ausdruck vorhanden": {

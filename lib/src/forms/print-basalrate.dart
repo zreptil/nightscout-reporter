@@ -279,7 +279,7 @@ class PrintBasalrate extends BasePrint
         "y": cm(lineHeight * gridLines),
         "w": cm(w),
         "h": cm(-brtimes[i].value / step * lineHeight),
-        "color": colBasal
+        "color": colBasalProfile
       });
     }
     xo -= 1.0;
@@ -289,14 +289,14 @@ class PrintBasalrate extends BasePrint
     var brTable = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     List brTableCvs = brTable["canvas"] as List;
     brTableCvs.add(
-      {"type": "rect", "x": cm(0), "y": cm(0), "w": cm(24 * colWidth + 2.0), "h": cm(lineHeight), "color": colBasal});
+      {"type": "rect", "x": cm(0), "y": cm(0), "w": cm(24 * colWidth + 2.0), "h": cm(lineHeight), "color": colBasalProfile});
     brTableCvs.add({
       "type": "rect",
       "x": cm(0),
       "y": cm(lineHeight),
       "w": cm(24 * colWidth + 2.0),
       "h": cm(lineHeight),
-      "color": blendColor(colBasal, "#ffffff", 0.5)
+      "color": blendColor(colBasalProfile, "#ffffff", 0.5)
     });
     brTableCvs.add({
       "type": "line",
@@ -425,7 +425,7 @@ class PrintBasalrate extends BasePrint
         });
 // */
       ieSum += brtimes[i].value * w;
-      ieSumNext += calc.nextBRTimes[i].value;
+      ieSumNext += calc.nextBRTimes.length > i ? calc.nextBRTimes[i].value : 0.0;
     }
     legendAdjust.add({"width": cm(colWidth), "text": "", "fontSize": "8"});
 

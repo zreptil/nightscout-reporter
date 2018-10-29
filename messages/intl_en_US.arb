@@ -200,15 +200,31 @@
     "type": "text",
     "placeholders": {}
   },
-  "Bolus Insulin": "Bolus Insulin",
-  "@Bolus Insulin": {
+  "msgBolusInsulin": "Bolus Insulin ( {value} )",
+  "@msgBolusInsulin": {
     "type": "text",
-    "placeholders": {}
+    "placeholders": {
+      "value": {}
+    }
   },
   "Basalrate": "Basal Rate",
   "@Basalrate": {
     "type": "text",
     "placeholders": {}
+  },
+  "msgBasalrateDay": "Basal rate for the day ( {value} )",
+  "@msgBasalrateDay": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgBasalrateProfile": "Basal rate from the profile ( {value} )",
+  "@msgBasalrateProfile": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
   },
   "Es sind keine Daten für den Ausdruck vorhanden": "There is no data for the printout",
   "@Es sind keine Daten für den Ausdruck vorhanden": {
@@ -341,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "geschätzter HbA1c": "estimated HbA1c",
+  "geschätzter HbA1c": "estimated A1C",
   "@geschätzter HbA1c": {
     "type": "text",
     "placeholders": {}
