@@ -4,6 +4,7 @@
 @import 'package:angular_components/material_toggle/mixins';
 @import 'package:angular_components/material_list/mixins';
 @import 'package:angular_components/material_expansionpanel/mixins';
+@import 'package:angular_components/material_checkbox/mixins';
 @import 'package:angular_components/material_select/mixins';
 @import 'package:angular_components/app_layout/mixins';
 
@@ -15,6 +16,7 @@
   flex: 1;
   width: 100vw;
   height: 100vh;
+  @include material-checkbox-color($primary_back, $modifier: '');
 }
 
 header.material-header {
@@ -37,6 +39,7 @@ material-content {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 material-button img {
@@ -85,12 +88,9 @@ material-drawer {
 
 .send,
 .clear {
-  position: absolute;
+  position: fixed;
   right: 2em;
   bottom: 2em;
-
-  material-icon {
-  }
 }
 
 .send {
@@ -161,6 +161,12 @@ material-drawer {
   @include material-toggle-theme($primary-color: $debug_color);
 }
 
+.noshadow
+{
+  color: $mat-white!important;
+  text-shadow: none!important;
+}
+
 .langPanel {
   padding-left: 0.5em;
   @include material-item-background($primary-back);
@@ -179,7 +185,7 @@ material-drawer {
 }
 
 material-fab.debug-trigger {
-  position: absolute;
+  position: fixed;
   bottom: 2em;
   right: 5em;
   background: $debug_back !important;
@@ -268,4 +274,48 @@ nav a {
   color: white;
   opacity: 0.5;
   margin-top: 0.5em;
+}
+
+.paramPanel
+{
+  @include expansionpanel-dense-theme;
+}
+
+.paramPanel ::ng-deep .content
+{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+}
+
+div[action]
+{
+  padding: $mat-grid 0;
+  margin: 0;
+  border-bottom-right-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+material-checkbox
+{
+  margin: 0;
+}
+material-expansionpanel {
+  width: 20em;
+  @include expansionpanel-colors(transparent, $secondary_fore);
+  @include expansionpanel-focused-background-color($primary_back);
+  @include expansionpanel-focused-text-color($primary_fore);
+  @include expansionpanel-border-radius(0.5em);
+}
+
+material-expansionpanel ::ng-deep {
+  header{
+    flex-direction: row-reverse;
+    padding-left: 0.5em;
+  }
+  .header
+  {
+    border-bottom-left-radius: 0!important;
+    border-top-left-radius: 0!important;
+  }
 }

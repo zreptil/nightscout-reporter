@@ -4,12 +4,23 @@ import 'base-print.dart';
 
 class PrintTest extends BasePrint
 {
+  static bool showEntries = false;
+  static bool showTreatments = true;
+
   @override
-  List<PrintParams> params = [
-    PrintParams("tempbasal", true, "Temp Basal im Ausdruck anzeigen"),
-    PrintParams("announcement", true, "Announcement im Ausdruck anzeigen"),
-    PrintParams("boluswizard", true, "Bolus Wizard im Ausdruck anzeigen")
-  ];
+  List<ParamInfo> params =
+    [
+      ParamInfo("Einträge", boolValue: showEntries),
+      ParamInfo("Behandlungen", boolValue: showTreatments),
+    ];
+
+  @override
+  prepareData_(ReportData data)
+  {
+    showEntries = params[0].boolValue;
+    showTreatments = params[1].boolValue;
+    return data;
+  }
 
   @override
   bool get isDebugOnly
@@ -17,20 +28,14 @@ class PrintTest extends BasePrint
 
   @override
   String get name
-  => "Ausgabe der Treatment-Daten";
+  => "Ausgabe der Datensätze und lauter tolle Sachen, die uns froh und munter stimmen, aber völlig belanglos sind";
   @override
   String get title
-  => "Debuginformationen";
+  => "Datensätze";
 
   PrintTest()
   {
     init();
-  }
-
-  @override
-  prepareData_(vars)
-  {
-    return vars;
   }
 
   createRoot(type, body)
@@ -73,50 +78,56 @@ class PrintTest extends BasePrint
     var ret = [header];
     var body = [];
     var root = createRoot("entries", body);
-    for (int i = 0; i < src.ns.entries.length; i++)
+    if (showEntries)
     {
-      EntryData entry = src.ns.entries[i];
-      var row = [
-        {"text": fmtDateTime(entry.time, '??.??.???? ??:?? Uhr'), "colspan": 4},
-        {"text": entry.type},
-        {"text": fmtNumber(entry.sgv)},
-        {"text": fmtNumber(entry.gluc)},
-      ];
+      for (int i = 0; i < src.ns.entries.length; i++)
+      {
+        EntryData entry = src.ns.entries[i];
+        var row = [
+          {"text": fmtDateTime(entry.time, '??.??.???? ??:?? Uhr'), "colspan": 4},
+          {"text": entry.type},
+          {"text": fmtNumber(entry.sgv)},
+          {"text": fmtNumber(entry.gluc)},
+        ];
 /*      if(entry.direction != null && entry.direction.toLowerCase() == "none")
       {
         for(dynamic c in row)
           c["color"] = "#f00";
       }*/
 
-      body.add(row);
-    }
-    ret.add(root);
-    body = [];
-    root = createRoot("treatments", body);
-    var data = src.ns.treatments;
-    for (int i = 0; i < data.length; i++)
-    {
-      TreatmentData entry = data[i];
-      var row = [{"text": fmtDateTime(entry.createdAt, '??.??.???? ??:?? Uhr')}];
-      row.add({"text": entry.eventType});
-      row.add({"text": "${fmtNumber(entry.adjustedValue(1), 0, false, "")}", "alignment": "right"});
-      row.add({"text": entry.duration > 0 ? fmtNumber(entry.duration, 0, false, " ") : " ", "alignment": "right"});
-      double carbs = entry.carbs;
-      row.add(
-        {"text": carbs > 0.0 ? fmtNumber(carbs, 0, false, " ") : " ", "alignment": "right"});
-      switch (entry.eventType.toLowerCase())
-      {
-        case "temp basal":
-          row[1]["color"] = "#f00";
-          break;
-        case "announcement":
-        case "note":
-          row[1]["text"] = "${row[1]["text"]}\n${entry.notes}";
-          break;
+        body.add(row);
       }
-      body.add(row);
+      ret.add(root);
     }
-    ret.add(root);
+
+    if (showTreatments)
+    {
+      body = [];
+      root = createRoot("treatments", body);
+      var data = src.ns.treatments;
+      for (int i = 0; i < data.length; i++)
+      {
+        TreatmentData entry = data[i];
+        var row = [{"text": fmtDateTime(entry.createdAt, '??.??.???? ??:?? Uhr')}];
+        row.add({"text": entry.eventType});
+        row.add({"text": "${fmtNumber(entry.adjustedValue(1), 0, false, "")}", "alignment": "right"});
+        row.add({"text": entry.duration > 0 ? fmtNumber(entry.duration, 0, false, " ") : " ", "alignment": "right"});
+        double carbs = entry.carbs;
+        row.add({"text": carbs > 0.0 ? fmtNumber(carbs, 0, false, " ") : " ", "alignment": "right"});
+        switch (entry.eventType.toLowerCase())
+        {
+          case "temp basal":
+            row[1]["color"] = "#f00";
+            break;
+          case "announcement":
+          case "note":
+            row[1]["text"] = "${row[1]["text"]}\n${entry.notes}";
+            break;
+        }
+        body.add(row);
+      }
+      ret.add(root);
+    }
     return ret;
   }
 }

@@ -110,8 +110,6 @@ class PrintAnalysis extends BasePrint
   => Intl.message("Basal");
   get msgNone
   => Intl.message("Keine");
-  get msgUntil
-  => Intl.message("bis");
   get msgOwnLimits
   => Intl.message("Eigene Grenzwerte");
   get msgStandardLimits
@@ -142,7 +140,7 @@ class PrintAnalysis extends BasePrint
   @override
   getFormData_(ReportData src)
   {
-    titleInfo = "${fmtDate(src.begDate)} ${msgUntil} ${fmtDate(src.endDate)}";
+    titleInfo = titleInfoBegEnd(src);
     var data = src.ns;
 
     var avgGluc = data.avgGluc;
@@ -270,8 +268,8 @@ class PrintAnalysis extends BasePrint
       ]
     ]);
 
-    if (src.status.settings.thresholds.bgTargetBottom != 70 ||
-      src.status.settings.thresholds.bgTargetTop != 180) addBodyArea(tableBody, msgStandardLimits, [
+    if (src.status.settings.thresholds.bgTargetBottom != 70 || src.status.settings.thresholds
+      .bgTargetTop != 180) addBodyArea(tableBody, msgStandardLimits, [
       [
         {"text": ""},
         {"text": msgValuesAbove("${glucFromData(180)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},

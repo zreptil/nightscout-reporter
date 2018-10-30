@@ -7,7 +7,7 @@ import 'package:nightscout_reporter/messages/messages_all.dart';
 
 void main()
 async {
-  String language = window.localStorage["language"];
+  String language = window.localStorage["${window.location.href.endsWith("/beta/")?"@":""}language"];
   if(language == null || language.length != 5)
     language = "de_DE";
   await initializeMessages(language);

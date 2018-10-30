@@ -233,15 +233,6 @@ class PrintDailyGraphic extends BasePrint
         hasBolus = true;
       }
 
-/*
-      if (g.isBeta && t.boluscalc != null && t.boluscalc.cob != null && t.boluscalc.cob != 0)
-      {
-        x = glucX(t.createdAt);
-        y = glucY(t.boluscalc.cob);
-        if (cobPoints.length == 0)cobPoints.add({"x": cm(x), "y": cm(glucY(0.0))});
-        cobPoints.add({"x": cm(x), "y": cm(y)});
-      }
-*/
       if (type == "site change")
       {
         double x = xo + glucX(t.createdAt) - 0.3;

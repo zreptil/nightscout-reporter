@@ -62,11 +62,6 @@
         selben Fenster öffnen
       </material-checkbox>
     </div>
-    <div>
-      <material-checkbox [(checked)]="g.isBeta" @i18n="label for checkbox to enable beta functions">Betafunktionen
-        anzeigen
-      </material-checkbox>
-    </div>
 
     <div footer>
       <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="fire('check');">

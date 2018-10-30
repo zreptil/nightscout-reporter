@@ -55,18 +55,26 @@
       <div class="formlist">
         <template ngFor let-form [ngForOf]="listForms">
           <div *ngIf="!form.isDebugOnly || isDebug">
-            <material-checkbox [class]="form.isDebugOnly && isDebug?'toggle-debug':''" [(checked)]="form.checked"
-                               (change)="checkPrint()">
-              {{form.name}}
+            <material-checkbox *ngIf="form.params == null && false"
+                               [class]="form.isDebugOnly && isDebug?'toggle-debug':''"
+                               [(checked)]="form.checked"
+                               (change)="checkPrint()" [label]="form.name">
             </material-checkbox>
-            <material-expansionpanel class="betaBox betaText" *ngIf="g.isBeta && form.params.length > 0" flat
-                                     name="Parameter" secondaryText=""
-                                     [showSaveCancel]="false"
-                                     [hideExpandedHeader]="true">
+            <material-expansionpanel
+              [class]="form.isDebugOnly && isDebug?'toggle-debug noshadow paramPanel':'paramPanel'" flat
+              [name]="form.name"
+              [disableHeaderExpansion]="form.params==null"
+              secondaryText="" [showSaveCancel]="false" [hideExpandedHeader]="false"
+              [alwaysHideExpandIcon]="true">
+              <div action>
+                <material-checkbox [(checked)]="form.checked" class="checkform"
+                                   (change)="checkPrint()"></material-checkbox>
+              </div>
               <template ngFor let-param [ngForOf]="form.params">
-                <material-checkbox *ngIf="param.type == 'bool'">
-                  {{param.key}}
+                <material-checkbox *ngIf="param.boolValue!=null" [(ngModel)]="param.boolValue" [label]="param.title">
                 </material-checkbox>
+                <material-input *ngIf="param.stringValue!=null" [(inputText)]="param.stringValue" floatingLabel
+                                [label]="param.title"></material-input>
               </template>
             </material-expansionpanel>
           </div>

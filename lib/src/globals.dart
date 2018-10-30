@@ -85,7 +85,8 @@ class Globals
   DateFormat fmtDateForData;
   DateFormat fmtDateForDisplay;
   bool canDebug = false;
-  bool isBeta = false;
+  bool isBeta = html.window.location.href.endsWith("/beta/");
+  String betaPrefix = "@";
   bool pdfSameWindow = true;
   bool isConfigured = false;
 
@@ -153,17 +154,29 @@ class Globals
   changeLanguage(LangData value, {bool doReload = true, bool checkConfigured = false})
   async {
     language = value;
-    if (checkConfigured && !isConfigured)html.window.localStorage.clear();
+    if (checkConfigured && !isConfigured)clearStorage();
     saveStorage("language", language.code ?? "de_DE");
     if (doReload)
     {
-      save();
+      if (!checkConfigured)save();
       html.window.location.reload();
+    }
+  }
+
+  void clearStorage()
+  {
+    for (var entry in html.window.localStorage.entries)
+    {
+      bool doKill = false;
+      doKill = entry.key.startsWith(betaPrefix);
+      if (!isBeta)doKill = !doKill;
+      if (doKill)html.window.localStorage.remove(entry.key);
     }
   }
 
   void saveStorage(String key, String value)
   {
+    if (isBeta)key = "${betaPrefix}${key}";
     if (value == null || value.isEmpty)html.window.localStorage.remove(key);
     else
       html.window.localStorage[key] = value;
@@ -171,6 +184,7 @@ class Globals
 
   String loadStorage(String key)
   {
+    if (isBeta)key = "${betaPrefix}${key}";
     String ret = html.window.localStorage[key];
     if (ret == "null" || ret == null)ret = "";
     return ret;
@@ -209,8 +223,8 @@ class Globals
       saveStorage("mu", Globals.doit("[${user.asJson}]"));
       saveStorage("userIdx", "$userIdx");
       saveStorage("version", lastVersion);
+      // remove old keys, cod can be removed in future release
       html.window.localStorage.remove("lastVersion");
-//      html.window.localStorage.remove("apiSecret");
       html.window.localStorage.remove("apiUrl");
       html.window.localStorage.remove("diaStartDate");
       html.window.localStorage.remove("birthDate");
@@ -234,12 +248,12 @@ class Globals
         }
         catch (e)
         {
-          html.window.localStorage.remove("mu");
+          saveStorage("mu", null);
         }
       }
       else
       {
-        html.window.localStorage.remove("mu");
+        saveStorage("mu", null);
       }
     }
 
@@ -256,16 +270,14 @@ class Globals
     fmtDateForDisplay = DateFormat("dd.MM.yyyy");
     glucMGDL = loadStorage("glucMGDL") != "false";
     canDebug = loadStorage("debug") == "yes";
-    isBeta = loadStorage("beta") == "yes";
     pdfSameWindow = loadStorage("pdfSameWindow") != "no";
 
     Date start = Date.today();
     Date end = Date.today();
     try
     {
-      start = Date.parse(
-        html.window.localStorage["startDate"] ?? Date.today().add(days: -7).format(fmtDateForData), fmtDateForData);
-      end = Date.parse(html.window.localStorage["endDate"] ?? Date.today().format(fmtDateForData), fmtDateForData);
+      start = Date.parse(loadStorage("startDate") ?? Date.today().add(days: -7).format(fmtDateForData), fmtDateForData);
+      end = Date.parse(loadStorage("endDate") ?? Date.today().format(fmtDateForData), fmtDateForData);
     }
     catch (ex)
     {
@@ -277,8 +289,8 @@ class Globals
 
   void save()
   {
-    String oldLang = html.window.localStorage["language"];
-    html.window.localStorage.clear();
+    String oldLang = loadStorage("language");
+    clearStorage();
     saveStorage("version", version);
     if (canDebug)saveStorage("debug", "yes");
 
@@ -291,7 +303,6 @@ class Globals
     bool doReload = (language.code != oldLang && language.code != null);
     saveStorage("glucMGDL", glucMGDL.toString());
     saveStorage("language", language.code ?? "de_DE");
-    saveStorage("beta", isBeta ? "yes" : "no");
     saveStorage("pdfSameWindow", pdfSameWindow ? "yes" : "no");
 
     if (dateRange.range != null)

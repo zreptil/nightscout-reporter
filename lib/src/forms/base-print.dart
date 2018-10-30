@@ -9,6 +9,15 @@ import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
+class ParamInfo
+{
+  String title;
+  bool boolValue;
+  String stringValue;
+
+  ParamInfo(this.title, {this.boolValue = null, this.stringValue = null});
+}
+
 class PrintParams
 {
   String key;
@@ -33,9 +42,10 @@ abstract class BasePrint
   String titleInfo;
   bool get isDebugOnly
   => false;
-  List<PrintParams> params = List<PrintParams>();
+  List<ParamInfo> params = null;
 
-  String hba1c(double avgGluc) => fmtNumber((avgGluc + 86) / 33.3, 1, false);
+  String hba1c(double avgGluc)
+  => fmtNumber((avgGluc + 86) / 33.3, 1, false);
 
   String colText = "#008800";
   String colInfo = "#606060";
@@ -70,6 +80,8 @@ abstract class BasePrint
   => Intl.message("IE");
   get msgMedian
   => Intl.message("Median");
+  get msgUntil
+  => Intl.message("bis");
   String msgTargetArea(String min, String max, String units)
   {
     return Intl.message("Zielbereich ($min - $max $units)", args: [min, max, units], name: "msgTargetArea");
@@ -265,6 +277,12 @@ abstract class BasePrint
     }
 
     return "";
+  }
+
+  String titleInfoBegEnd(ReportData src)
+  {
+    if (src.begDate == src.endDate)return "${fmtDate(src.begDate)}";
+    return "${fmtDate(src.begDate)} ${msgUntil} ${fmtDate(src.endDate)}";
   }
 
   prepareData_(ReportData data);

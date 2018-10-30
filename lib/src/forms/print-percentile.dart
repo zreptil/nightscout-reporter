@@ -90,7 +90,7 @@ class PrintPercentile extends BasePrint
     var data = src.calc;
     lineWidth = cm(0.03);
 
-    titleInfo = "${fmtDate(src.begDate)} - ${fmtDate(src.endDate)}";
+    titleInfo = titleInfoBegEnd(src);
     List<EntryData> times = data.entries;
     Map<DateTime, PercentileData> percList = Map<DateTime, PercentileData>();
     for (EntryData entry in times)

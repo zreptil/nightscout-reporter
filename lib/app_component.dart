@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:html' as html;
 
 import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_components/material_button/material_button.dart';
@@ -50,6 +51,7 @@ import 'src/whatsnew/whatsnew_component.dart';
     DSGVOComponent,
     WelcomeComponent,
     WhatsnewComponent,
+    MaterialInputComponent,
     MaterialProgressComponent,
     MaterialToggleComponent,
     MaterialDropdownSelectComponent,
@@ -57,11 +59,13 @@ import 'src/whatsnew/whatsnew_component.dart';
     NgClass,
     NgFor,
     NgIf,
+    NgModel,
   ],
   providers: const <dynamic>[overlayBindings, materialProviders,])
 class AppComponent
   implements OnInit
 {
+  bool paramboolValue = false;
   globals.Globals g = globals.Globals();
   bool drawerVisible = false;
   String _currPage;
@@ -71,7 +75,6 @@ class AppComponent
   set currPage(String value)
   {
     if (currPage != "welcome")_lastPage = currPage;
-//    else if (!g.isConfigured)html.window.localStorage.remove("version");
     _currPage = value;
   }
 
