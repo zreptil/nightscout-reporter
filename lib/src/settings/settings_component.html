@@ -43,7 +43,7 @@
         <material-fab mini [disabled]="g.userList.last.storageApiUrl.isEmpty" (trigger)="addUser()">
           <material-icon icon="add"></material-icon>
         </material-fab>
-        <material-fab mini [disabled]="g.userList.length==0" (trigger)="showConfirmation=true">
+        <material-fab mini [disabled]="g.userList.length==0||g.user.storageApiUrl.isEmpty" (trigger)="showConfirmation=true">
           <material-icon icon="delete"></material-icon>
         </material-fab>
       </div>
@@ -57,10 +57,16 @@
       </div>
     </div>
     <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
-    <div>
+    <div class="functions">
       <material-checkbox [(checked)]="g.pdfSameWindow" @i18n="label for checkbox to open PDF in same window">PDF im
         selben Fenster öffnen
       </material-checkbox>
+      <material-button *ngIf="g.isBeta" class="iconButton" raised (trigger)="g.copyFromOtherStorage()">
+        <material-icon icon="file_copy"></material-icon>
+        <ng-container @i18n="buttonlabel for copy of settings to beta version">
+          Einstellungen von Release-Version übernehmen
+        </ng-container>
+      </material-button>
     </div>
 
     <div footer>

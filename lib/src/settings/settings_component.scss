@@ -34,6 +34,12 @@
   }
 }
 
+.functions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 material-fab.removeStart {
   background-color: $mat-orange-500;
   color: $primary-fore;
@@ -98,7 +104,8 @@ material-dialog[confirm] {
   .content {
     font-size: 120%;
     padding: 2em;
-    .marked{
+
+    .marked {
       padding: 1em 0;
       font-weight: bold;
     }

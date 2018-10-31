@@ -174,6 +174,14 @@ class Globals
     }
   }
 
+  copyFromOtherStorage()
+  {
+    isBeta = !isBeta;
+    load();
+    isBeta = !isBeta;
+    save();
+  }
+
   void saveStorage(String key, String value)
   {
     if (isBeta)key = "${betaPrefix}${key}";
