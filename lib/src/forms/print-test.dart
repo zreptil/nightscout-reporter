@@ -4,21 +4,23 @@ import 'base-print.dart';
 
 class PrintTest extends BasePrint
 {
+  @override
+  String id = "test";
+
   static bool showEntries = false;
   static bool showTreatments = true;
 
   @override
-  List<ParamInfo> params =
-    [
+  FormConfig config = FormConfig("test", false, [
       ParamInfo("Einträge", boolValue: showEntries),
       ParamInfo("Behandlungen", boolValue: showTreatments),
-    ];
+    ]);
 
   @override
   prepareData_(ReportData data)
   {
-    showEntries = params[0].boolValue;
-    showTreatments = params[1].boolValue;
+    showEntries = config.params[0].boolValue;
+    showTreatments = config.params[1].boolValue;
     return data;
   }
 
@@ -28,7 +30,7 @@ class PrintTest extends BasePrint
 
   @override
   String get name
-  => "Ausgabe der Datensätze und lauter tolle Sachen, die uns froh und munter stimmen, aber völlig belanglos sind";
+  => "Ausgabe der Datensätze";
   @override
   String get title
   => "Datensätze";

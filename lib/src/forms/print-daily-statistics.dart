@@ -8,28 +8,28 @@ import 'base-print.dart';
 
 class PrintDailyStatistics extends BasePrint
 {
+  @override
+  String id = "daystats";
+
   bool showHbA1c, showStdabw, showCount, showPercentile;
 
   @override
-  List<ParamInfo> params = [
+  FormConfig config = FormConfig("daystats", false, [
     ParamInfo("Spalte Messwerte", boolValue: true),
     ParamInfo("Spalte Standardabweichung", boolValue: true),
     ParamInfo("Spalte Perzentile", boolValue: true),
     ParamInfo("Spalte HbA1c", boolValue: true),
-  ];
+  ]);
 
   @override
-  prepareData_(vars)
+  prepareData_(ReportData data)
   {
-    showCount = params[0].boolValue;
-    showStdabw = params[1].boolValue;
-    showPercentile = params[2].boolValue;
-    showHbA1c = params[3].boolValue;
-    return vars;
+    showCount = config.params[0].boolValue;
+    showStdabw = config.params[1].boolValue;
+    showPercentile = config.params[2].boolValue;
+    showHbA1c = config.params[3].boolValue;
+    return data;
   }
-
-  @override
-  String id = "daystats";
 
   @override
   String name = Intl.message("Tagesstatistik");

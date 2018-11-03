@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'dart:html' as html;
 
 import 'package:angular/angular.dart';
-import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_components/material_button/material_button.dart';
@@ -12,6 +11,7 @@ import 'package:angular_components/material_datepicker/material_date_range_picke
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_select_item.dart';
+import 'package:angular_forms/angular_forms.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
@@ -83,7 +83,6 @@ class AppComponent
   Map<String, bool> appTheme = <String, bool>{};
   List<DatepickerPreset> dateRanges = List<DatepickerPreset>();
   DateRangePickerConfiguration drConfig = DateRangePickerConfiguration.basic;
-  List<BasePrint> listForms = List<BasePrint>();
   bool sendDisabled = true;
   String pdfData = null;
   String progressText = null;
@@ -95,8 +94,6 @@ class AppComponent
   String pdfUrl = "";
   bool isDebug = false;
   globals.Msg message = globals.Msg();
-  bool get hasMenuIcon
-  => currPage != "impressum" && currPage != "dsgvo" && currPage != "welcome" && currPage != "whatsnew";
 
   String get msgCheckSetup
   => Intl.message("Überprüfe Zugriff auf Nightscout ...");
@@ -164,13 +161,14 @@ class AppComponent
   Future<Null> ngOnInit()
   async {
     /// fill list with forms
-    listForms = List<BasePrint>();
-    listForms.add(PrintAnalysis());
-    listForms.add(PrintPercentile());
-    listForms.add(PrintDailyStatistics());
-    listForms.add(PrintDailyGraphic());
-    listForms.add(PrintBasalrate());
-    listForms.add(PrintTest());
+    g.listForms = List<BasePrint>();
+    g.listForms.add(PrintAnalysis());
+    g.listForms.add(PrintPercentile());
+    g.listForms.add(PrintDailyStatistics());
+    g.listForms.add(PrintDailyGraphic());
+    g.listForms.add(PrintBasalrate());
+    g.listForms.add(PrintTest());
+    g.userIdx = g.userIdx;
 
 //    await findSystemLocale();
 //    await initializeDateFormatting();
@@ -197,6 +195,7 @@ class AppComponent
     g.isConfigured = g.lastVersion != null && g.lastVersion.isNotEmpty;
     String page = g.version == g.lastVersion ? "normal" : "whatsnew";
     _currPage = g.isConfigured ? page : "welcome";
+    _lastPage = _currPage;
 /*
     progressText = msgCheckSetup;
     progressValue = progressMax + 1;
@@ -210,6 +209,8 @@ class AppComponent
       if (_currPage == "whatsnew")g.saveStorage("version", g.version);
     });
 */
+    if (html.window.location.href.endsWith("?dsgvo"))currPage = "dsgvo";
+    if (html.window.location.href.endsWith("?impressum"))currPage = "impressum";
   }
 
   void toggleHelp()
@@ -319,7 +320,7 @@ class AppComponent
   void checkPrint()
   {
     sendDisabled = true;
-    for (BasePrint form in listForms)
+    for (BasePrint form in g.listForms)
       if (form.checked)sendDisabled = false;
   }
 
@@ -367,7 +368,6 @@ class AppComponent
       progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
       String url = "${g.user.apiUrl}entries.json?find[date][\$gte]=${beg.millisecondsSinceEpoch}&find[date][\$lte]=${end
         .millisecondsSinceEpoch}&count=100000";
-//      String url = "${g.apiUrl}entries.json?find[dateString][\$gte]=${beg.toIso8601String()}&find[dateString][\$lte]=${end.toIso8601String()}&count=100000";
       displayLink("e${begDate.format(g.fmtDateForDisplay)}", url, type: "debug");
       List<dynamic> src = json.decode(await g.request(url));
       for (dynamic entry in src)
@@ -510,68 +510,11 @@ class AppComponent
           display(msgProfileError);
         }
       }
-
       data.profiles.sort((a, b)
       => a.startDate.compareTo(b.startDate));
-
-      // Create an array with values every 5 minutes
-//      List<globals.TreatmentData> treatList = List<globals.TreatmentData>();
-//      target = DateTime(data.ns.treatments.first.createdAt.year, data.ns.treatments.first.createdAt.month, data.ns.treatments.first.createdAt.day);
-//      globals.TreatmentData prevTreat = data.ns.treatments.first;
-//      globals.TreatmentData nextTreat = globals.TreatmentData();
-//      nextTreat.createdAt = target;
-//      // distribute treatments
-//      for (globals.TreatmentData treat in data.ns.treatments)
-//      {
-//        DateTime current = DateTime(treat.createdAt.year, treat.createdAt.month, treat.createdAt.day, treat.createdAt.hour, treat.createdAt.minute);
-//        if (current.isAtSameMomentAs(target))
-//        {
-//          prevTreat = treat;
-//          prevTreat.createdAt = current;
-//          treat.eventType = "copied";
-//          treatList.add(treat);
-//          target = target.add(Duration(minutes: diffTime));
-//        }
-//        else if (current.isBefore(target))
-//        {
-//          nextTreat.slice(treat, nextTreat, 0.5);
-//        }
-//        else
-//        {
-//          nextTreat = treat.copy;
-//          int max = current
-//            .difference(prevTreat.createdAt)
-//            .inMinutes;
-//          while (current.isAfter(target) || current.isAtSameMomentAs(target))
-//          {
-//            double factor = max == 0 ? 0 : target
-//              .difference(prevTreat.createdAt)
-//              .inMinutes / max;
-//            nextTreat = nextTreat.copy;
-//            nextTreat.createdAt = target;
-//            if (current.isAtSameMomentAs(target))
-//            {
-//              nextTreat.eventType = "copied";
-//              nextTreat.slice(treat, treat, 1.0);
-//            }
-//            else
-//            {
-//              nextTreat.slice(prevTreat, treat, factor);
-//            }
-//            treatList.add(nextTreat);
-//            target = target.add(Duration(minutes: diffTime));
-//          }
-//          prevTreat = treat;
-//          prevTreat.createdAt = current;
-//          nextTreat = treat;
-//        }
-//      }
-//      data.calc.treatments = treatList;
       data.calc.treatments = data.ns.treatments;
       data.calc.extractData(data);
       data.ns.extractData(data);
-// */
-//      done(data);
     }
     else
     {
@@ -607,7 +550,7 @@ class AppComponent
       progressText = msgCreatingPDF;
       progressValue = progressMax + 1;
       var doc = null;
-      for (BasePrint form in listForms)
+      for (BasePrint form in g.listForms)
       {
         if (form.checked && (!form.isDebugOnly || isDebug))
         {
@@ -692,5 +635,33 @@ class AppComponent
       progressText = null;
       return -1;
     });
+  }
+
+  String expansionClass(BasePrint form)
+  {
+    String ret = "paramPanel";
+    if (form.isDebugOnly && isDebug)ret = "${ret} toggle-debug noshadow";
+    if (form.checked)ret = "${ret} checked";
+    return ret;
+  }
+
+  expansionPanelOpen(evt, BasePrint form)
+  {
+    form.opened = true;
+  }
+
+  expansionPanelClose(evt, BasePrint form)
+  {
+    form.checked = !form.checked;
+    form.opened = false;
+  }
+
+  expansionPanelClicked(evt, BasePrint form)
+  {
+    if (!form.opened)
+    {
+      form.checked = !form.checked;
+      checkPrint();
+    }
   }
 }

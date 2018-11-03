@@ -110,14 +110,17 @@ material-drawer {
   max-height: 30%;
   z-index: 10001;
   width: 100%;
-  overflow-y: auto;
+  display: flex;
 }
 
 #message {
+  display: flex;
+  flex: 1;
   padding: 0.5em;
   background: $mat-black;
   color: white;
   flex-wrap: wrap;
+  overflow-y: auto;
 
   material-button:not(.msgClose) {
     background-color: $primary_back;
@@ -126,7 +129,7 @@ material-drawer {
 
   .msgClose {
     position: absolute;
-    right: 0.5em;
+    right: 0.8em;
     top: 0.5em;
   }
 }
@@ -161,10 +164,9 @@ material-drawer {
   @include material-toggle-theme($primary-color: $debug_color);
 }
 
-.noshadow
-{
-  color: $mat-white!important;
-  text-shadow: none!important;
+.noshadow {
+  color: $mat-white !important;
+  text-shadow: none !important;
 }
 
 .langPanel {
@@ -255,6 +257,7 @@ nav a {
       div.itemSub {
         font-size: 75%;
       }
+
       .selected-accent {
         background-color: $primary_back;
       }
@@ -262,60 +265,47 @@ nav a {
   }
 }
 
-.userPanel
-{
+.userPanel {
   display: flex;
   flex-direction: row;
 }
 
-.versionText
-{
+.versionText {
   font-size: 50%;
   color: white;
   opacity: 0.5;
   margin-top: 0.5em;
 }
 
-.paramPanel
-{
+.paramPanel {
   @include expansionpanel-dense-theme;
 }
 
-.paramPanel ::ng-deep .content
-{
+.paramPanel ::ng-deep .content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin: 0;
 }
 
-div[action]
-{
-  padding: $mat-grid 0;
+material-checkbox {
   margin: 0;
-  border-bottom-right-radius: 0.5em;
-  border-top-right-radius: 0.5em;
-}
-material-checkbox
-{
-  margin: 0;
-}
-material-expansionpanel {
-  width: 20em;
-  @include expansionpanel-colors(transparent, $secondary_fore);
-  @include expansionpanel-focused-background-color($primary_back);
-  @include expansionpanel-focused-text-color($primary_fore);
-  @include expansionpanel-border-radius(0.5em);
 }
 
-material-expansionpanel ::ng-deep {
-  header{
-    flex-direction: row-reverse;
-    padding-left: 0.5em;
-  }
-  .header
-  {
-    border-bottom-left-radius: 0!important;
-    border-top-left-radius: 0!important;
+material-expansionpanel {
+  width: 20em;
+  border: 2px solid transparent;
+  @include expansionpanel-colors(transparent, $secondary_fore);
+  @include expansionpanel-focused-colors($secondary_back, $secondary_fore);
+  @include expansionpanel-border-radius(0.5em);
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+material-expansionpanel.checked {
+  border: 2px solid $primary_back;
+  border-radius: 0.5em;
+  ::ng-deep .header {
+    font-weight: bold;
   }
 }

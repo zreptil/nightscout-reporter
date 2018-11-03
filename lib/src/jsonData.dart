@@ -34,8 +34,8 @@ class JsonData
   bool toBool(value)
   => value == null ? false : value is bool ? value : value == "true";
 
-  double toDouble(value, [def])
-  => value == null ? def : value is double || value is int ? value : double.tryParse(value) ?? def;
+  double toDouble(value, [def=0.0])
+  => value == null || value == "NaN" ? def : value is double || value is int ? value : double.tryParse(value) ?? def;
 
   int toInt(value, [int def = 0])
   => value == null ? def : value is int ? value : value is double ? value.toInt() : int.tryParse(value) ?? def;
@@ -961,13 +961,22 @@ class ReportData
     if (profile != null)
     {
       ret.store = profile.store[profile.defaultProfile];
-//      profile.current.
       ret.basal = ret.find(time, ret.store.listBasal);
       ret.carbRatio = ret.find(time, ret.store.listCarbratio);
       ret.sens = ret.find(time, ret.store.listSens);
       ret.targetHigh = status.settings.thresholds.bgTargetTop.toDouble();
       ret.targetLow = status.settings.thresholds.bgTargetBottom.toDouble();
     }
+    else
+      {
+        ret.store = ProfileStoreData();
+        ret.basal = ProfileEntryData();
+        ret.carbRatio = ProfileEntryData();
+        ret.sens = ProfileEntryData();
+        ret.targetHigh = 180.0;
+        ret.targetLow = 70.0;
+      }
+
     return ret;
   }
 

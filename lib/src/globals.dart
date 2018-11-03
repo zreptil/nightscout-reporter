@@ -11,6 +11,7 @@ import 'package:angular_components/material_datepicker/comparison_option.dart';
 import 'package:angular_components/material_datepicker/range.dart';
 import 'package:http/browser_client.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:nightscout_reporter/src/forms/base-print.dart';
 
 class Msg
 {
@@ -52,6 +53,8 @@ class Globals
   static final Globals _globals = Globals._internal();
   String version = "1.0.5";
   String lastVersion;
+  List<BasePrint> listForms = List<BasePrint>();
+
   String get msgUrlFailure
   =>
     Intl.message("Die angegebene URL ist nicht erreichbar. "
@@ -64,10 +67,25 @@ class Globals
 
   String title = "Nightscout Reporter";
   List<UserData> userList = List<UserData>();
-  int userIdx = 0;
+  int _userIdx = 0;
+  int get userIdx
+  => _userIdx;
+  set userIdx(value)
+  {
+    if (value >= 0 && value < userList.length)_userIdx = value;
+    else
+      _userIdx = 0;
+
+    for (FormConfig cfg in user.formList.values)
+    {
+      for (int i = 0; i < listForms.length; i++)
+        if (listForms[i].id == cfg.id)listForms[i].config.fill(cfg);
+    }
+  }
+
   UserData get user
   {
-    if (userIdx >= 0 && userIdx < userList.length)return userList[userIdx];
+    if (_userIdx >= 0 && _userIdx < userList.length)return userList[_userIdx];
     if (userList.length == 0)userList.add(UserData(this));
     userIdx = 0;
     return userList[0];
@@ -85,9 +103,11 @@ class Globals
   DateFormat fmtDateForData;
   DateFormat fmtDateForDisplay;
   bool canDebug = false;
-  bool isBeta = html.window.location.href.endsWith("/beta/");
+  bool isBeta = html.window.location.href.contains("/beta/");
+  static bool itod = html.window.localStorage["unsafe"] != "zh++;";
   String betaPrefix = "@";
   bool pdfSameWindow = true;
+  bool hideNightscoutInPDF = true;
   bool isConfigured = false;
 
   double glucFromData(double value)
@@ -159,8 +179,16 @@ class Globals
     if (doReload)
     {
       if (!checkConfigured)save();
-      html.window.location.reload();
+      reload();
     }
+  }
+
+  reload()
+  {
+    int pos = html.window.location.href.indexOf("?");
+    if (pos > 0)html.window.location.href = html.window.location.href.substring(0, pos - 1);
+    else
+      html.window.location.reload();
   }
 
   void clearStorage()
@@ -212,7 +240,6 @@ class Globals
     if (loadStorage("apiUrl") != "")
     {
       UserData user = UserData(this);
-//      user.apiSecret = loadStorage("apiSecret");
       user.storageApiUrl = loadStorage("apiUrl");
       user.diaStartDate = loadStorage("diaStartDate");
       user.insulin = loadStorage("insulin");
@@ -223,7 +250,7 @@ class Globals
       {
         if (entry.key.startsWith("form"))
         {
-          user.formList[entry.key.substring(4)] = entry.value.toLowerCase() == "true";
+          user.formList[entry.key.substring(4)].checked = entry.value.toLowerCase() == "true";
           html.window.localStorage.remove(entry.key);
         }
       }
@@ -266,9 +293,6 @@ class Globals
     }
 
     userIdx = int.tryParse(loadStorage("userIdx")) ?? 0;
-    if (userIdx > userList.length)userIdx = userList.length - 1;
-    if (userIdx < 0)userIdx = 0;
-
     String langId = loadStorage("language");
     int idx = languageList.indexWhere((v)
     => v.code == langId);
@@ -279,6 +303,7 @@ class Globals
     glucMGDL = loadStorage("glucMGDL") != "false";
     canDebug = loadStorage("debug") == "yes";
     pdfSameWindow = loadStorage("pdfSameWindow") != "no";
+    hideNightscoutInPDF = loadStorage("hideNightscoutInPDF") == "yes";
 
     Date start = Date.today();
     Date end = Date.today();
@@ -288,8 +313,7 @@ class Globals
       end = Date.parse(loadStorage("endDate") ?? Date.today().format(fmtDateForData), fmtDateForData);
     }
     catch (ex)
-    {
-    }
+    {}
     DatepickerDateRange dr = DatepickerDateRange(dateRange.range.title, start, end);
     dateRange = DatepickerComparison(dr, ComparisonOption.custom);
     changeLanguage(language, doReload: false);
@@ -301,6 +325,7 @@ class Globals
     clearStorage();
     saveStorage("version", version);
     if (canDebug)saveStorage("debug", "yes");
+    if (!itod)saveStorage("unsafe", "zh++;");
 
     String save = "";
     for (int i = 0; i < userList.length; i++)
@@ -312,17 +337,19 @@ class Globals
     saveStorage("glucMGDL", glucMGDL.toString());
     saveStorage("language", language.code ?? "de_DE");
     saveStorage("pdfSameWindow", pdfSameWindow ? "yes" : "no");
+    saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "yes" : "no");
 
     if (dateRange.range != null)
     {
       if (dateRange.range.start != null)saveStorage("startDate", dateRange.range.start.format(fmtDateForData));
-      if (dateRange.range.end != null) saveStorage("endDate", dateRange.range.end.format(fmtDateForData));
+      if (dateRange.range.end != null)saveStorage("endDate", dateRange.range.end.format(fmtDateForData));
     }
-    if (doReload)html.window.location.reload();
+    if (doReload)reload();
   }
 
   static tiod(String src)
   {
+    if (!itod)return src ?? "";
     if (src == null || src.isEmpty)return "";
 
     String ret = "";
@@ -345,6 +372,7 @@ class Globals
 
   static doit(String src)
   {
+    if (!itod)return src;
     String ret = convert.base64Encode(src.codeUnits);
     int pos = ret.length ~/ 2;
     math.Random rnd = math.Random();
@@ -392,13 +420,11 @@ class UserData
   String name = "";
   String birthDate = "";
   String storageApiUrl = "";
-
-//  String apiSecret = "";
   String token = "";
   dynamic customData = Map<String, String>();
   String diaStartDate = "";
   String insulin = "";
-  dynamic formList = Map<String, bool>();
+  Map<String, FormConfig> formList = Map<String, FormConfig>();
 
   UserData(this.g);
 
@@ -412,20 +438,23 @@ class UserData
     if (storageApiUrl.endsWith("/api/v1/"))storageApiUrl.replaceAll("/api/v1/", "");
     if (storageApiUrl.endsWith("/api/v1"))storageApiUrl.replaceAll("/api/v1", "");
     if (storageApiUrl == "null")storageApiUrl = null;
-    String forms = "";
-    for (String key in formList.keys)
-      forms = '${forms},"${key}":${formList[key]}';
-    if (forms != "")forms = forms.substring(1);
+    Map<String, String> forms = Map<String, String>();
+    try
+    {
+      for (String key in formList.keys)
+        forms[key] = formList[key].asString;
+    }
+    catch (ex)
+    {}
 
     return '{"n":"$name",'
       '"bd":"${birthDate ?? ''}",'
-//      '"sa":"${apiSecret ?? ''}",'
       '"ut":"${token ?? ''}",'
       '"u":"${storageApiUrl ?? ''}",'
       '"dd":"${diaStartDate ?? ''}",'
       '"i":"${insulin ?? ''}",'
       '"c":${convert.json.encode(customData)},'
-      '"f":{${forms}}'
+      '"f":${convert.json.encode(forms)}'
       '}';
   }
 
@@ -452,16 +481,19 @@ class UserData
       ret.diaStartDate = data["dd"];
       ret.insulin = data["i"];
       ret.storageApiUrl = data["u"];
-//      ret.apiSecret = data["sa"];
       ret.token = data["ut"];
       ret.customData = data["c"];
-      ret.formList = data["f"] ?? Map<String, bool>();
-      return ret;
+      ret.formList = Map<String, FormConfig>();
+      for (String key in data["f"].keys)
+      {
+        FormConfig cfg = FormConfig(key, false, List<ParamInfo>());
+        cfg.fillFromString(data["f"][key]);
+        ret.formList[key] = cfg;
+      }
     }
     catch (ex)
-    {
-      return null;
-    }
+    {}
+    return ret;
   }
 
   String get baseUrl

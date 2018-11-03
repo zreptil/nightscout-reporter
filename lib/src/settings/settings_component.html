@@ -61,6 +61,9 @@
       <material-checkbox [(checked)]="g.pdfSameWindow" @i18n="label for checkbox to open PDF in same window">PDF im
         selben Fenster öffnen
       </material-checkbox>
+      <material-checkbox [(checked)]="g.hideNightscoutInPDF" @i18n="label for checkbox to hide nightscout in footer">
+        Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden
+      </material-checkbox>
       <material-button *ngIf="g.isBeta" class="iconButton" raised (trigger)="g.copyFromOtherStorage()">
         <material-icon icon="file_copy"></material-icon>
         <ng-container @i18n="buttonlabel for copy of settings to beta version">

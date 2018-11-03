@@ -174,6 +174,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "bis": "to",
+  "@bis": {
+    "type": "text",
+    "placeholders": {}
+  },
   "msgTargetArea": "Target Range ( {min} - {max} {units} )",
   "@msgTargetArea": {
     "type": "text",
@@ -200,7 +205,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "msgBolusInsulin": "Bolus Insulin ( {value} )",
+  "msgBolusInsulin": "Bolus Insulin ({value} )",
   "@msgBolusInsulin": {
     "type": "text",
     "placeholders": {
@@ -212,14 +217,14 @@
     "type": "text",
     "placeholders": {}
   },
-  "msgBasalrateDay": "Basal rate for the day ( {value} )",
+  "msgBasalrateDay": "Basalrate for the day ({value})",
   "@msgBasalrateDay": {
     "type": "text",
     "placeholders": {
       "value": {}
     }
   },
-  "msgBasalrateProfile": "Basal rate from the profile ( {value} )",
+  "msgBasalrateProfile": "Basalrate from the profile ({value})",
   "@msgBasalrateProfile": {
     "type": "text",
     "placeholders": {
@@ -417,11 +422,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "bis": "to",
-  "@bis": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Eigene Grenzwerte": "Own Target Area",
   "@Eigene Grenzwerte": {
     "type": "text",
@@ -518,8 +518,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Messwerte": "Values",
-  "@Messwerte": {
+  "Mess-\nwerte": "Values",
+  "@Mess-\nwerte": {
     "type": "text",
     "placeholders": {}
   },
@@ -533,8 +533,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Mittelwert": "Average",
-  "@Mittelwert": {
+  "Mittel-\nwert": "Average",
+  "@Mittel-\nwert": {
     "type": "text",
     "placeholders": {}
   },
@@ -559,6 +559,11 @@
     "placeholders": {
       "value": {}
     }
+  },
+  "gesch.\nHbA1c": "est. A1C",
+  "@gesch.\nHbA1c": {
+    "type": "text",
+    "placeholders": {}
   },
   "Perzentil Diagramm": "Percentile Diagram",
   "@Perzentil Diagramm": {
@@ -649,15 +654,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "Betafunktionen anzeigen": "Show beta features",
-  "@Betafunktionen anzeigen": {
-    "description": "label for checkbox to enable beta functions",
+  "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Hide text about Nightscout in the header and footer of the PDF",
+  "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
+    "description": "label for checkbox to hide nightscout in footer",
     "type": "text",
     "placeholders": {}
   },
   "Benutzerdaten": "User data",
   "@Benutzerdaten": {
     "description": "label for settings-area with user data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einstellungen von Release-Version übernehmen": "Apply settings from release version",
+  "@Einstellungen von Release-Version übernehmen": {
+    "description": "buttonlabel for copy of settings to beta version",
     "type": "text",
     "placeholders": {}
   },
@@ -721,6 +732,42 @@
     "type": "text",
     "placeholders": {}
   },
+  "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": "added additional information about the PDFs and in the UI",
+  "@Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": {
+    "description": "v105a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": "Sums for bolus insulin, basal rate for the day, and basalrate from the profile added to the daily chart",
+  "@Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": {
+    "description": "v105a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Namen des Formulars anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen": "Some forms can now be configured with parameters; click on the name of the form and make the appropriate settings in the opened area",
+  "@Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Namen des Formulars anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen": {
+    "description": "v105a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Übersetzungen korrigiert": "Corrected translations",
+  "@Übersetzungen korrigiert": {
+    "description": "v105f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": "Title information for date ranges on the PDFs are unified",
+  "@Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": {
+    "description": "v105f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": "Fixed a crash that occurred when no matching profile could be found for a given time",
+  "@Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": {
+    "description": "v105f3",
+    "type": "text",
+    "placeholders": {}
+  },
   "Benutzer können nun gelöscht werden": "Users can now be deleted",
   "@Benutzer können nun gelöscht werden": {
     "description": "v104a1",
@@ -736,6 +783,18 @@
   "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": "Carbohydrates and bolus insulin are now displayed in the daily graphs",
   "@Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": {
     "description": "v104a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte HbA1c zu Tagesstatistik hinzugefügt": "Added column A1C to daily statistics",
+  "@Spalte HbA1c zu Tagesstatistik hinzugefügt": {
+    "description": "v104a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt": "Added missing totals in daily statistics",
+  "@Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt": {
+    "description": "v104a5",
     "type": "text",
     "placeholders": {}
   },

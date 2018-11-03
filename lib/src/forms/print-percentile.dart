@@ -203,7 +203,7 @@ class PrintPercentile extends BasePrint
       ]
     };
     var percGraph = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
-    var percLegend = {"absolutePosition": {"x": cm(xo), "y": cm(yo + lineHeight * gridLines + 1.0)}, "stack": []};
+    var percLegend = LegendData(cm(xo), cm(yo + lineHeight * gridLines + 1.0), cm(8.0), 100);
 
     if (addPercentileGraph(percGraph, percList, 10, 90, "#aaf"))addLegendEntry(percLegend, "#aaf", msgPercentile1090);
     if (addPercentileGraph(percGraph, percList, 25, 75, "#88f"))addLegendEntry(percLegend, "#88f", msgPercentile2575);
@@ -215,7 +215,8 @@ class PrintPercentile extends BasePrint
       .targetLow), glucFromData(src
       .profile(DateTime.now())
       .targetHigh), getGlucInfo()["unit"]));
-    return [header, vertLegend, vertLines, horzLegend, horzLines, limitLines, percGraph, graph, percLegend, footer(),
+    return [
+      header, vertLegend, vertLines, horzLegend, horzLines, limitLines, percGraph, graph, percLegend.asOutput, footer(),
     ];
   }
 

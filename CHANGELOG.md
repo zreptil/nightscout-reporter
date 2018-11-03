@@ -1,4 +1,15 @@
 ## [Unreleased]
+### Added
+- added possibility to have parameters for PDF generation
+- added parameters to daily graphics and daily statistics
+
+### Changed
+- changed display and functionality of PDF selection
+- changed saving of user data (not working fully at this time)
+
+### Fixed
+- fixed exception that occured, when there was no profile for a date
+- fixed error when having NaN values in profile
 
 ## [1.0.4]
 ### Added

@@ -9,6 +9,30 @@ import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
+class LegendData
+{
+  List<dynamic> columns = List<dynamic>();
+  double x;
+  double y;
+  double colWidth;
+  int maxLines;
+
+  List get current
+  {
+    if (columns.length == 0 || (columns.last["stack"] as List).length >= maxLines)
+    {
+      x += columns.length > 0 ? colWidth : 0.0;
+      columns.add({"absolutePosition": {"x": x, "y": y}, "stack": []});
+    }
+    return columns.last["stack"];
+  }
+
+  dynamic get asOutput
+  => {"stack": columns};
+
+  LegendData(this.x, this.y, this.colWidth, this.maxLines);
+}
+
 class ParamInfo
 {
   String title;
@@ -16,6 +40,29 @@ class ParamInfo
   String stringValue;
 
   ParamInfo(this.title, {this.boolValue = null, this.stringValue = null});
+
+  dynamic get asJson
+  {
+    return {"b": boolValue, "s": stringValue};
+  }
+
+  fill(ParamInfo src)
+  {
+    boolValue = src.boolValue;
+    stringValue = src.stringValue;
+  }
+
+  fillFromJson(dynamic value)
+  {
+    try
+    {
+      boolValue = value["b"];
+      stringValue = value["s"];
+    }
+    catch (ex)
+    {
+    }
+  }
 }
 
 class PrintParams
@@ -32,20 +79,78 @@ class PrintParams
   }
 }
 
+class FormConfig
+{
+  String id;
+  bool checked = true;
+  List<ParamInfo> params = null;
+  FormConfig(this.id, this.checked, this.params);
+
+  dynamic get asJson
+  {
+    dynamic ret = {"c": checked, "p": []};
+
+    if (params != null)
+    {
+      for (ParamInfo entry in params)
+        ret["p"].add(entry.asJson);
+    }
+    return ret;
+  }
+
+  String get asString
+  {
+    return json.encode(asJson);
+  }
+
+  fill(FormConfig src)
+  {
+    for (int i = 0; i < params.length && i < src.params.length; i++)
+      params[i].fill(src.params[i]);
+  }
+
+  fillFromJson(dynamic value)
+  {
+    try
+    {
+      checked = value["c"];
+      for (int i = 0; i < value["p"].length && i < params.length; i++)
+        params[i].fillFromJson(value["p"][i]);
+    }
+    catch (ex)
+    {
+    }
+  }
+
+  fillFromString(String value)
+  {
+    fillFromJson(json.decode(value));
+  }
+}
+
 abstract class BasePrint
 {
   Globals g = new Globals();
-
   String id;
   String name;
   String title;
   String titleInfo;
   bool get isDebugOnly
   => false;
-  List<ParamInfo> params = null;
+  FormConfig config = FormConfig(null, false, []);
 
   String hba1c(double avgGluc)
   => fmtNumber((avgGluc + 86) / 33.3, 1, false);
+
+  bool opened = false;
+
+  bool get checked
+  => config.checked;
+  set checked(value)
+  {
+    config.checked = value;
+    g.save();
+  }
 
   String colText = "#008800";
   String colInfo = "#606060";
@@ -170,7 +275,7 @@ abstract class BasePrint
       "color": colText,
       "bold": true
     });
-    ret["stack"].add({
+    if (!g.hideNightscoutInPDF)ret["stack"].add({
       "absolutePosition": {"x": cm(2.2), "y": cm(2.5)},
       "text": "nightscout reporter ${g.version}",
       "fontSize": "8",
@@ -226,8 +331,8 @@ abstract class BasePrint
           }
           ]
         },
-        getImage("nightscout", x: 2.2, y: height - 1.7, width: 0.7),
-        {
+        g.hideNightscoutInPDF ? null : getImage("nightscout", x: 2.2, y: height - 1.7, width: 0.7),
+        g.hideNightscoutInPDF ? null : {
           "absolutePosition": {"x": cm(3.1), "y": cm(height - 1.7)},
           "text": "http://www.nightscout.info",
           "color": colInfo,
@@ -252,18 +357,12 @@ abstract class BasePrint
 
   Map<String, String> images = Map<String, String>();
   List<String> get imgList
-  => ["nightscout-pale", "nightscout",];
-
-  bool get checked
-  => g.user.formList[id] ?? false;
-  set checked(bool value)
-  {
-    g.user.formList[id] = value ?? false;
-  }
+  =>
+    ["nightscout-pale", "nightscout",
+    ];
 
   void init()
   {
-    checked = g.user.formList[id];
   }
 
   Future<String> getBase64Image(String id)
@@ -362,8 +461,8 @@ abstract class BasePrint
         "pageMargins": [cm(1), cm(1), cm(1), cm(1)],
         "content": [
           {"text": "Fehler bei Erstellung von \"${name}\"", "fontSize": 20, "alignment": "center", "color": "red"},
-          { "text": "\n$ex", "fontSize": 10, "alignment": "left"},
-          { "text": "\n$s", "fontSize": 10, "alignment": "left"}
+          {"text": "\n$ex", "fontSize": 10, "alignment": "left"},
+          {"text": "\n$s", "fontSize": 10, "alignment": "left"}
         ]
       };
       ret = [
@@ -514,13 +613,15 @@ abstract class BasePrint
     return fmtNumber(gluc, precision == null ? 0 : precision);
   }
 
-  addLegendEntry(var dst, String color, String text,
+  addLegendEntry(LegendData legend, String color, String text,
                  {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0, double lineWidth = 0.0})
   {
+    int idx = 0;
+    List dst = legend.current;
     if (lineWidth == 0.0)lineWidth = lw;
     if (image != null)
     {
-      (dst["stack"] as List).add({
+      dst.add({
         "columns": [ {
           "width": cm(0.8),
           "stack": [{"margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), 0, 0], "image": image, "width": cm(imgWidth)}],
@@ -528,7 +629,7 @@ abstract class BasePrint
         ]
       });
     }
-    else if (isArea)(dst["stack"] as List).add({
+    else if (isArea)dst.add({
       "columns": [ {
         "width": cm(0.8),
         "canvas": [
@@ -557,7 +658,7 @@ abstract class BasePrint
       ]
     });
     else
-      (dst["stack"] as List).add({
+      dst.add({
         "columns": [ {
           "width": cm(0.8),
           "canvas": [ {

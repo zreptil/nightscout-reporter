@@ -30,7 +30,7 @@
                          [indeterminate]="progressValue>progressMax"></material-progress>
       <div>{{progressText}}</div>
     </div>
-    <div class="normal-content" *ngIf="progressText == null && currPage=='normal'">
+    <div class="normal-content" [style.display]="progressText == null && currPage=='normal'?'':'none'">
       <div class="userPanel" *ngIf="g.userList.length > 1">
         <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect">
           <material-select-item *ngFor="let item of g.userList; let idx = index"
@@ -51,26 +51,26 @@
                                   [supportsDaysInputs]="false"
                                   [applyButtonLabel]="msgApply"
                                   [cancelButtonLabel]="msgCancel"
-                                  [relativeDaysToToday]="false"></material-date-range-picker>
+                                  [relativeDaysToToday]="false"
+                                  (click)="message.clear()"></material-date-range-picker>
       <div class="formlist">
-        <template ngFor let-form [ngForOf]="listForms">
+        <template ngFor let-form [ngForOf]="g.listForms">
           <div *ngIf="!form.isDebugOnly || isDebug">
-            <material-checkbox *ngIf="form.params == null && false"
+            <material-checkbox *ngIf="form.config.params == null && false"
                                [class]="form.isDebugOnly && isDebug?'toggle-debug':''"
                                [(checked)]="form.checked"
                                (change)="checkPrint()" [label]="form.name">
             </material-checkbox>
             <material-expansionpanel
-              [class]="form.isDebugOnly && isDebug?'toggle-debug noshadow paramPanel':'paramPanel'" flat
+              (click)="expansionPanelClicked($event,form)"
+              (open)="expansionPanelOpen($event,form)"
+              (close)="expansionPanelClose($event,form)"
+              [class]="expansionClass(form)" flat
               [name]="form.name"
-              [disableHeaderExpansion]="form.params==null"
+              [disableHeaderExpansion]="true"
               secondaryText="" [showSaveCancel]="false" [hideExpandedHeader]="false"
-              [alwaysHideExpandIcon]="true">
-              <div action>
-                <material-checkbox [(checked)]="form.checked" class="checkform"
-                                   (change)="checkPrint()"></material-checkbox>
-              </div>
-              <template ngFor let-param [ngForOf]="form.params">
+              [alwaysHideExpandIcon]="form.config.params.length==0">
+              <template ngFor let-param [ngForOf]="form.config.params">
                 <material-checkbox *ngIf="param.boolValue!=null" [(ngModel)]="param.boolValue" [label]="param.title">
                 </material-checkbox>
                 <material-input *ngIf="param.stringValue!=null" [(inputText)]="param.stringValue" floatingLabel

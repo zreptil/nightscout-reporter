@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-10-29T10:53:50.754106",
+  "@@last_modified": "2018-11-02T22:34:49.474638",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -173,6 +173,11 @@
   },
   "Median": "Median",
   "@Median": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bis": "bis",
+  "@bis": {
     "type": "text",
     "placeholders": {}
   },
@@ -419,11 +424,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "bis": "bis",
-  "@bis": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Eigene Grenzwerte": "Eigene Grenzwerte",
   "@Eigene Grenzwerte": {
     "type": "text",
@@ -520,8 +520,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Messwerte": "Messwerte",
-  "@Messwerte": {
+  "Mess-\nwerte": "Mess-\nwerte",
+  "@Mess-\nwerte": {
     "type": "text",
     "placeholders": {}
   },
@@ -535,8 +535,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Mittelwert": "Mittelwert",
-  "@Mittelwert": {
+  "Mittel-\nwert": "Mittel-\nwert",
+  "@Mittel-\nwert": {
     "type": "text",
     "placeholders": {}
   },
@@ -561,6 +561,11 @@
     "placeholders": {
       "value": {}
     }
+  },
+  "gesch.\nHbA1c": "gesch.\nHbA1c",
+  "@gesch.\nHbA1c": {
+    "type": "text",
+    "placeholders": {}
   },
   "Perzentil Diagramm": "Perzentil Diagramm",
   "@Perzentil Diagramm": {
@@ -651,15 +656,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "Betafunktionen anzeigen": "Betafunktionen anzeigen",
-  "@Betafunktionen anzeigen": {
-    "description": "label for checkbox to enable beta functions",
+  "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden",
+  "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
+    "description": "label for checkbox to hide nightscout in footer",
     "type": "text",
     "placeholders": {}
   },
   "Benutzerdaten": "Benutzerdaten",
   "@Benutzerdaten": {
     "description": "label for settings-area with user data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einstellungen von Release-Version übernehmen": "Einstellungen von Release-Version übernehmen",
+  "@Einstellungen von Release-Version übernehmen": {
+    "description": "buttonlabel for copy of settings to beta version",
     "type": "text",
     "placeholders": {}
   },
@@ -723,6 +734,42 @@
     "type": "text",
     "placeholders": {}
   },
+  "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt",
+  "@Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": {
+    "description": "v105a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt",
+  "@Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": {
+    "description": "v105a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Namen des Formulars anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen": "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Namen des Formulars anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen",
+  "@Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Namen des Formulars anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen": {
+    "description": "v105a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Übersetzungen korrigiert": "Übersetzungen korrigiert",
+  "@Übersetzungen korrigiert": {
+    "description": "v105f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht",
+  "@Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": {
+    "description": "v105f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte",
+  "@Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": {
+    "description": "v105f3",
+    "type": "text",
+    "placeholders": {}
+  },
   "Benutzer können nun gelöscht werden": "Benutzer können nun gelöscht werden",
   "@Benutzer können nun gelöscht werden": {
     "description": "v104a1",
@@ -738,6 +785,18 @@
   "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt",
   "@Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": {
     "description": "v104a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte HbA1c zu Tagesstatistik hinzugefügt": "Spalte HbA1c zu Tagesstatistik hinzugefügt",
+  "@Spalte HbA1c zu Tagesstatistik hinzugefügt": {
+    "description": "v104a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt": "Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt",
+  "@Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt": {
+    "description": "v104a5",
     "type": "text",
     "placeholders": {}
   },

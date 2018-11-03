@@ -1,0 +1,17 @@
+{
+  "display": "fullscreen",
+  "icons": [
+    {
+      "sizes": "176x176",
+      "src": "../../../favicon.png",
+      "type": "image/png"
+    }
+  ],
+  "name": "Nightscout Reporter Beta",
+  "permissions": [],
+  "prefer_related_applications": true,
+  "related_applications": [],
+  "short_name": "NR Beta",
+  "start_url": "/beta/index.html",
+  "url": "https://nightscout-reporter.zreptil.de/"
+}

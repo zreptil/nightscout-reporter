@@ -11,6 +11,28 @@ class PrintDailyGraphic extends BasePrint
   @override
   String id = "daygraph";
 
+  bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile;
+
+  @override
+  FormConfig config = FormConfig("daygraph", false, [
+    ParamInfo("Symbole (Katheter etc.)", boolValue: true),
+    ParamInfo("Insulin", boolValue: true),
+    ParamInfo("Kohlenhydrate", boolValue: true),
+    ParamInfo("Tages-Basalrate", boolValue: true),
+    ParamInfo("Profil-Basalrate", boolValue: true),
+  ]);
+
+  @override
+  prepareData_(ReportData data)
+  {
+    showPictures = config.params[0].boolValue;
+    showInsulin = config.params[1].boolValue;
+    showCarbs = config.params[2].boolValue;
+    showBasalDay = config.params[3].boolValue;
+    showBasalProfile = config.params[4].boolValue;
+    return data;
+  }
+
   @override
   String name = Intl.message("Tagesgrafik");
 
@@ -29,7 +51,7 @@ class PrintDailyGraphic extends BasePrint
   double profMax = 0.0;
   double carbMax = 200.0;
   double bolusMax = 50.0;
-  static double graphHeight = 7.0;
+  static double graphHeight;
   static double graphWidth = 23.25;
   static double basalHeight = 3.0;
   static double basalWidth = graphWidth;
@@ -54,7 +76,7 @@ class PrintDailyGraphic extends BasePrint
   }
 
   double basalY(double value)
-  => basalHeight / profMax * (profMax - value);
+  => profMax != 0 ? basalHeight / profMax * (profMax - value) : 0.0;
 
   PrintDailyGraphic()
   {
@@ -62,15 +84,12 @@ class PrintDailyGraphic extends BasePrint
   }
 
   @override
-  prepareData_(ReportData vars)
-  {
-    return vars;
-  }
-
-  @override
   getFormData_(ReportData src)
   async {
     var data = src.calc;
+
+    graphHeight = 7.0;
+    if (!showBasalDay && !showBasalProfile)graphHeight += basalHeight + 1;
 
     lineWidth = cm(0.03);
     var ret = [];
@@ -105,15 +124,27 @@ class PrintDailyGraphic extends BasePrint
     var horzLines = {"absolutePosition": {"x": cm(xo - 0.2), "y": cm(yo)}, "canvas": []};
     var horzLegend = {"stack": []};
     var vertLegend = {"stack": []};
-    var graph = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
+    var graphGluc = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     var graphLegend = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "stack": []};
+    var graphCarbs = {
+      "stack": [
+        {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []},
+        {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "stack": []}
+      ]
+    };
+    var graphInsulin = {
+      "stack": [
+        {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []},
+        {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "stack": []}
+      ]
+    };
     var pictures = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "stack": []};
 
     List vertCvs = vertLines["canvas"] as List;
     List horzCvs = vertLines["canvas"] as List;
     List horzStack = horzLegend["stack"];
     List vertStack = vertLegend["stack"];
-    List graphCvs = graph["canvas"];
+    List graphGlucCvs = graphGluc["canvas"];
     List graphText = graphLegend["stack"];
     for (var i = 0; i < 25; i++)
     {
@@ -170,18 +201,8 @@ class PrintDailyGraphic extends BasePrint
       double y = glucY(time.gluc);
       areaPoints.add({"x": cm(x), "y": cm(y)});
     }
-    graphCvs.add(area);
-/*
-    var cob = {
-      "type": "polyline",
-      "lineWidth": cm(lw),
-      "closePath": true,
-      "points": [],
-      "lineColor": "#ff0000",
-      "color": "#ffa0a0"
-    };
-    List cobPoints = cob["points"];
-*/
+    graphGlucCvs.add(area);
+
     bool hasCatheterChange = false;
     bool hasSensorChange = false;
     bool hasCarbs = false;
@@ -191,11 +212,11 @@ class PrintDailyGraphic extends BasePrint
       double x, y;
       String type = t.eventType.toLowerCase();
       if (type == "temp basal")continue;
-      if (t.carbs > 0)
+      if (t.carbs > 0 && showCarbs)
       {
         x = glucX(t.createdAt);
         y = carbY(t.carbs);
-        graphCvs.add({
+        (graphCarbs["stack"][0]["canvas"] as List).add({
           "type": "line",
           "x1": cm(x),
           "y1": cm(y),
@@ -204,18 +225,18 @@ class PrintDailyGraphic extends BasePrint
           "lineColor": colCarbs,
           "lineWidth": cm(0.1),
         });
-        graphText.add({
+        (graphCarbs["stack"][1]["stack"] as List).add({
           "relativePosition": {"x": cm(x - 0.5), "y": cm(y - 0.2),},
           "text": "${msgKH(fmtNumber(t.carbs))}",
           "fontSize": 8,
         });
         hasCarbs = true;
       }
-      if (t.bolusInsulin > 0)
+      if (t.bolusInsulin > 0 && showInsulin)
       {
         x = glucX(t.createdAt);
         y = bolusY(t.bolusInsulin);
-        graphCvs.add({
+        (graphInsulin["stack"][0]["canvas"] as List).add({
           "type": "line",
           "x1": cm(x),
           "y1": cm(0),
@@ -224,7 +245,7 @@ class PrintDailyGraphic extends BasePrint
           "lineColor": colBolus,
           "lineWidth": cm(0.1),
         });
-        graphText.add({
+        (graphInsulin["stack"][1]["stack"] as List).add({
           "relativePosition": {"x": cm(x - 0.3), "y": cm(y + 0.05),},
           "text": "${fmtNumber(t.bolusInsulin, 1)} ${msgInsulinUnit}",
           "fontSize": 8,
@@ -233,7 +254,7 @@ class PrintDailyGraphic extends BasePrint
         hasBolus = true;
       }
 
-      if (type == "site change")
+      if (type == "site change" && showPictures)
       {
         double x = xo + glucX(t.createdAt) - 0.3;
         double y = yo + graphHeight - 0.6;
@@ -247,7 +268,7 @@ class PrintDailyGraphic extends BasePrint
         });
         hasCatheterChange = true;
       }
-      else if (type == "sensor change")
+      else if (type == "sensor change" && showPictures)
       {
         double x = xo + glucX(t.createdAt) - 0.3;
         double y = yo + graphHeight - 0.6;
@@ -340,61 +361,39 @@ class PrintDailyGraphic extends BasePrint
         {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1}
       ]
     };
-/*
-    List basalCvs = [];
-    var dayBasal = {
-      "stack": [
-        {"absolutePosition": {"x": cm(xo), "y": cm(yo + graphHeight + 1.0)}, "canvas": basalCvs},
-        {
-          "absolutePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalHeight + 1.1)},
-          "columns": [{"width": cm(basalWidth), "text": "${fmtNumber(day.ieBasalSum, 1, false)} ${msgInsulinUnit}", "fontSize": 20, "alignment": "center"}]
-        },
-      ]
-    };
-    double lastY = -1.0;
-    areaPoints = [];
-    area = {"type": "polyline", "lineWidth": cm(lw), "closePath": true, "lineColor": colBasal, "color": blendColor(colBasal, "ffffff", 0.7), "points": areaPoints};
-    areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
-    for (ProfileEntryData entry in day.profile)
-    {
-      double x = basalX(entry.time);
-      double y = basalY(entry.value);
-      if (lastY >= 0)areaPoints.add({"x": cm(x), "y": cm(lastY)});
-      areaPoints.add({"x": cm(x), "y": cm(y)});
-      lastY = y;
-    }
-    areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(lastY)});
-    areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
-    basalCvs.add(area);
-*/
-    var legendLeft = {
-      "absolutePosition": {"x": cm(xo), "y": cm(yo + lineHeight * gridLines + 2.2 + basalHeight)},
-      "stack": []
-    };
-    var legendRight = {
-      "absolutePosition": {"x": cm(xo + 8.0), "y": cm(yo + lineHeight * gridLines + 2.2 + basalHeight)},
-      "stack": []
-    };
-    addLegendEntry(legendLeft, colValue, msgGlucosekurve, isArea: false);
-    if (hasCarbs)addLegendEntry(legendLeft, colCarbs, msgCarbs, isArea: false, lineWidth: 0.1);
+    var y = yo + lineHeight * gridLines;
+    if (showBasalProfile || showBasalDay)y += 2.2 + basalHeight;
+    else
+      y += 1;
+    LegendData legend = LegendData(cm(xo), cm(y), cm(8.0), 5);
+    addLegendEntry(legend, colValue, msgGlucosekurve, isArea: false);
+    if (hasCarbs)addLegendEntry(legend, colCarbs, msgCarbs, isArea: false, lineWidth: 0.1);
     if (hasBolus)addLegendEntry(
-      legendLeft, colBolus, msgBolusInsulin("${fmtNumber(day.ieBolusSum, 1, false)} ${msgInsulinUnit}"), isArea: false, lineWidth: 0.1);
-    String text = "${fmtNumber(day.ieBasalSum, 1, false)} ${msgInsulinUnit}";
-    addLegendEntry(legendLeft, colBasalDay, msgBasalrateDay(text), isArea: true);
-    text = "${fmtNumber(day.basalData.store.ieBasalSum, 1, false)} ${msgInsulinUnit}";
-    addLegendEntry(legendLeft, colBasalProfile, msgBasalrateProfile(text), isArea: false);
+      legend, colBolus, msgBolusInsulin("${fmtNumber(day.ieBolusSum, 1, false)} ${msgInsulinUnit}"), isArea: false,
+      lineWidth: 0.1);
+    String text;
+    if (showBasalDay)
+    {
+      text = "${fmtNumber(day.ieBasalSum, 1, false)} ${msgInsulinUnit}";
+      addLegendEntry(legend, colBasalDay, msgBasalrateDay(text), isArea: true);
+    }
+    if (showBasalProfile)
+    {
+      text = "${fmtNumber(day.basalData.store.ieBasalSum, 1, false)} ${msgInsulinUnit}";
+      addLegendEntry(legend, colBasalProfile, msgBasalrateProfile(text), isArea: false);
+    }
     String v1 = glucFromData(src.status.settings.thresholds.bgTargetBottom.toDouble());
     String v2 = glucFromData(src.status.settings.thresholds.bgTargetTop.toDouble());
-    addLegendEntry(legendRight, colTargetArea, msgTargetArea(v1, v2, getGlucInfo()["unit"]));
-    addLegendEntry(legendRight, colTargetValue,
+    addLegendEntry(legend, colTargetArea, msgTargetArea(v1, v2, getGlucInfo()["unit"]));
+    addLegendEntry(legend, colTargetValue,
       msgTargetValue("${glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${getGlucInfo()["unit"]}"),
       isArea: false);
     if (hasCatheterChange)addLegendEntry(
-      legendRight, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);
-    if (hasSensorChange)addLegendEntry(legendRight, "", msgSensorChange, image: "sensor.print", imgWidth: 0.5);
+      legend, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);
+    if (hasSensorChange)addLegendEntry(legend, "", msgSensorChange, image: "sensor.print", imgWidth: 0.5);
     //blendColor(colBasal, "ffffff", 0.7)
-    var profileBasal = getBasalGraph(day, true, xo, yo);
-    var dayBasal = getBasalGraph(day, false, xo, yo);
+    var profileBasal = showBasalProfile ? getBasalGraph(day, true, showBasalDay, xo, yo) : null;
+    var dayBasal = showBasalDay ? getBasalGraph(day, false, false, xo, yo) : null;
 
     return [
       header,
@@ -403,18 +402,19 @@ class PrintDailyGraphic extends BasePrint
       horzLegend,
       horzLines,
       limitLines,
-      graph,
+      pictures,
+      graphGluc,
+      graphInsulin,
+      graphCarbs,
       graphLegend,
       dayBasal,
       profileBasal,
-      pictures,
-      legendLeft,
-      legendRight,
+      legend.asOutput,
       footer()
     ];
   }
 
-  getBasalGraph(DayData day, bool useProfile, double xo, double yo)
+  getBasalGraph(DayData day, bool useProfile, bool displayProfile, double xo, double yo)
   {
     List<ProfileEntryData> data;
     double basalSum;
@@ -440,7 +440,7 @@ class PrintDailyGraphic extends BasePrint
         "width": cm(basalWidth),
         "text": "${fmtNumber(basalSum, 1, false)} ${msgInsulinUnit}",
         "fontSize": 20,
-        "alignment": useProfile ? "right" : "left",
+        "alignment": displayProfile ? "right" : "left",
         "color": color
       }
       ]
@@ -450,15 +450,15 @@ class PrintDailyGraphic extends BasePrint
     var area = {
       "type": "polyline",
       "lineWidth": cm(lw),
-      "closePath": !useProfile,
-      "color": !useProfile ? blendColor(color, "#ffffff", 0.7) : null,
+      "closePath": !displayProfile,
+      "color": !displayProfile ? blendColor(color, "#ffffff", 0.7) : null,
       "lineColor": color,
-      "dash": useProfile ? {"length": cm(0.1), "space": cm(0.05)} : {},
+      "dash": displayProfile ? {"length": cm(0.1), "space": cm(0.05)} : {},
       "points": areaPoints,
 //      "fillOpacity": opacity
     };
 
-    if (!useProfile)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
+    if (!displayProfile)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
     for (ProfileEntryData entry in data)
     {
       double x = basalX(entry.time);
@@ -467,8 +467,8 @@ class PrintDailyGraphic extends BasePrint
       areaPoints.add({"x": cm(x), "y": cm(y)});
       lastY = y;
     }
-    areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(lastY)});
-    if (!useProfile)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
+    if (lastY >= 0)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(lastY)});
+    if (!displayProfile)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
     basalCvs.add(area);
 //    basalCvs.add({"type": "rect", "x": 0, "y": 0, "w": 1, "h": 1, "fillOpacity": 1});
     return ret;
