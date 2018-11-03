@@ -54,23 +54,23 @@
                                   [relativeDaysToToday]="false"
                                   (click)="message.clear()"></material-date-range-picker>
       <div class="formlist">
-        <template ngFor let-form [ngForOf]="g.listForms">
-          <div *ngIf="!form.isDebugOnly || isDebug">
-            <material-checkbox *ngIf="form.config.params == null && false"
-                               [class]="form.isDebugOnly && isDebug?'toggle-debug':''"
-                               [(checked)]="form.checked"
-                               (change)="checkPrint()" [label]="form.name">
+        <template ngFor let-cfg [ngForOf]="g.listConfig">
+          <div *ngIf="!cfg.form.isDebugOnly || isDebug">
+            <material-checkbox *ngIf="cfg.form.params == null && false"
+                               [class]="cfg.form.isDebugOnly && isDebug?'toggle-debug':''"
+                               [(checked)]="cfg.checked"
+                               (change)="checkPrint()" [label]="cfg.form.name">
             </material-checkbox>
             <material-expansionpanel
-              (click)="expansionPanelClicked($event,form)"
-              (open)="expansionPanelOpen($event,form)"
-              (close)="expansionPanelClose($event,form)"
-              [class]="expansionClass(form)" flat
-              [name]="form.name"
+              (click)="expansionPanelClicked($event,cfg)"
+              (open)="expansionPanelOpen($event,cfg)"
+              (close)="expansionPanelClose($event,cfg)"
+              [class]="expansionClass(cfg)" flat
+              [name]="cfg.form.name"
               [disableHeaderExpansion]="true"
               secondaryText="" [showSaveCancel]="false" [hideExpandedHeader]="false"
-              [alwaysHideExpandIcon]="form.config.params.length==0">
-              <template ngFor let-param [ngForOf]="form.config.params">
+              [alwaysHideExpandIcon]="cfg.form.params.length==0">
+              <template ngFor let-param [ngForOf]="cfg.form.params">
                 <material-checkbox *ngIf="param.boolValue!=null" [(ngModel)]="param.boolValue" [label]="param.title">
                 </material-checkbox>
                 <material-input *ngIf="param.stringValue!=null" [(inputText)]="param.stringValue" floatingLabel

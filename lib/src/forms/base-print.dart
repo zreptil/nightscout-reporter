@@ -60,8 +60,7 @@ class ParamInfo
       stringValue = value["s"];
     }
     catch (ex)
-    {
-    }
+    {}
   }
 }
 
@@ -83,16 +82,17 @@ class FormConfig
 {
   String id;
   bool checked = true;
-  List<ParamInfo> params = null;
-  FormConfig(this.id, this.checked, this.params);
+  bool opened = false;
+  BasePrint form = null;
+  FormConfig(this.id, this.checked);
 
   dynamic get asJson
   {
     dynamic ret = {"c": checked, "p": []};
 
-    if (params != null)
+    if (form.params != null)
     {
-      for (ParamInfo entry in params)
+      for (ParamInfo entry in form.params)
         ret["p"].add(entry.asJson);
     }
     return ret;
@@ -105,8 +105,8 @@ class FormConfig
 
   fill(FormConfig src)
   {
-    for (int i = 0; i < params.length && i < src.params.length; i++)
-      params[i].fill(src.params[i]);
+    for (int i = 0; i < form.params.length && i < src.form.params.length; i++)
+      form.params[i].fill(src.form.params[i]);
   }
 
   fillFromJson(dynamic value)
@@ -114,17 +114,16 @@ class FormConfig
     try
     {
       checked = value["c"];
-      for (int i = 0; i < value["p"].length && i < params.length; i++)
-        params[i].fillFromJson(value["p"][i]);
+      for (int i = 0; i < value["p"].length && i < form.params.length; i++)
+        form.params[i].fillFromJson(value["p"][i]);
     }
     catch (ex)
-    {
-    }
+    {}
   }
 
   fillFromString(String value)
   {
-    fillFromJson(json.decode(value));
+    if (value != null)fillFromJson(json.decode(value));
   }
 }
 
@@ -135,22 +134,12 @@ abstract class BasePrint
   String name;
   String title;
   String titleInfo;
+  List<ParamInfo> params = List<ParamInfo>();
   bool get isDebugOnly
   => false;
-  FormConfig config = FormConfig(null, false, []);
 
   String hba1c(double avgGluc)
   => fmtNumber((avgGluc + 86) / 33.3, 1, false);
-
-  bool opened = false;
-
-  bool get checked
-  => config.checked;
-  set checked(value)
-  {
-    config.checked = value;
-    g.save();
-  }
 
   String colText = "#008800";
   String colInfo = "#606060";
@@ -362,8 +351,7 @@ abstract class BasePrint
     ];
 
   void init()
-  {
-  }
+  {}
 
   Future<String> getBase64Image(String id)
   async {
@@ -561,8 +549,7 @@ abstract class BasePrint
       }
     }
     catch (ex)
-    {
-    }
+    {}
 
     if (dt == null)return date;
 

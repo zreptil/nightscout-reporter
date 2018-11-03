@@ -14,20 +14,20 @@ class PrintDailyStatistics extends BasePrint
   bool showHbA1c, showStdabw, showCount, showPercentile;
 
   @override
-  FormConfig config = FormConfig("daystats", false, [
+  List<ParamInfo> params = [
     ParamInfo("Spalte Messwerte", boolValue: true),
     ParamInfo("Spalte Standardabweichung", boolValue: true),
     ParamInfo("Spalte Perzentile", boolValue: true),
     ParamInfo("Spalte HbA1c", boolValue: true),
-  ]);
+  ];
 
   @override
   prepareData_(ReportData data)
   {
-    showCount = config.params[0].boolValue;
-    showStdabw = config.params[1].boolValue;
-    showPercentile = config.params[2].boolValue;
-    showHbA1c = config.params[3].boolValue;
+    showCount = params[0].boolValue;
+    showStdabw = params[1].boolValue;
+    showPercentile = params[2].boolValue;
+    showHbA1c = params[3].boolValue;
     return data;
   }
 

@@ -161,13 +161,13 @@ class AppComponent
   Future<Null> ngOnInit()
   async {
     /// fill list with forms
-    g.listForms = List<BasePrint>();
-    g.listForms.add(PrintAnalysis());
-    g.listForms.add(PrintPercentile());
-    g.listForms.add(PrintDailyStatistics());
-    g.listForms.add(PrintDailyGraphic());
-    g.listForms.add(PrintBasalrate());
-    g.listForms.add(PrintTest());
+    g.listConfig = List<FormConfig>();
+    g.addForm(PrintAnalysis());
+    g.addForm(PrintPercentile());
+    g.addForm(PrintDailyStatistics());
+    g.addForm(PrintDailyGraphic());
+    g.addForm(PrintBasalrate());
+    g.addForm(PrintTest());
     g.userIdx = g.userIdx;
 
 //    await findSystemLocale();
@@ -320,8 +320,8 @@ class AppComponent
   void checkPrint()
   {
     sendDisabled = true;
-    for (BasePrint form in g.listForms)
-      if (form.checked)sendDisabled = false;
+    for (FormConfig cfg in g.listConfig)
+      if (cfg.checked)sendDisabled = false;
   }
 
   ReportData reportData = null;
@@ -550,9 +550,10 @@ class AppComponent
       progressText = msgCreatingPDF;
       progressValue = progressMax + 1;
       var doc = null;
-      for (BasePrint form in g.listForms)
+      for (FormConfig cfg in g.listConfig)
       {
-        if (form.checked && (!form.isDebugOnly || isDebug))
+        BasePrint form = cfg.form;
+        if (cfg.checked && (!form.isDebugOnly || isDebug))
         {
           var data = await form.getFormData(vars);
           if (doc == null)
@@ -637,30 +638,30 @@ class AppComponent
     });
   }
 
-  String expansionClass(BasePrint form)
+  String expansionClass(FormConfig cfg)
   {
     String ret = "paramPanel";
-    if (form.isDebugOnly && isDebug)ret = "${ret} toggle-debug noshadow";
-    if (form.checked)ret = "${ret} checked";
+    if (cfg.form.isDebugOnly && isDebug)ret = "${ret} toggle-debug noshadow";
+    if (cfg.checked)ret = "${ret} checked";
     return ret;
   }
 
-  expansionPanelOpen(evt, BasePrint form)
+  expansionPanelOpen(evt, FormConfig cfg)
   {
-    form.opened = true;
+    cfg.opened = true;
   }
 
-  expansionPanelClose(evt, BasePrint form)
+  expansionPanelClose(evt, FormConfig cfg)
   {
-    form.checked = !form.checked;
-    form.opened = false;
+    cfg.checked = !cfg.checked;
+    cfg.opened = false;
   }
 
-  expansionPanelClicked(evt, BasePrint form)
+  expansionPanelClicked(evt, FormConfig cfg)
   {
-    if (!form.opened)
+    if (!cfg.opened)
     {
-      form.checked = !form.checked;
+      cfg.checked = !cfg.checked;
       checkPrint();
     }
   }

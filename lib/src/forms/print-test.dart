@@ -11,16 +11,16 @@ class PrintTest extends BasePrint
   static bool showTreatments = true;
 
   @override
-  FormConfig config = FormConfig("test", false, [
+  List<ParamInfo> params = [
       ParamInfo("Einträge", boolValue: showEntries),
       ParamInfo("Behandlungen", boolValue: showTreatments),
-    ]);
+    ];
 
   @override
   prepareData_(ReportData data)
   {
-    showEntries = config.params[0].boolValue;
-    showTreatments = config.params[1].boolValue;
+    showEntries = params[0].boolValue;
+    showTreatments = params[1].boolValue;
     return data;
   }
 

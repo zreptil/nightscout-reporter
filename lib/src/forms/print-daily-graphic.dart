@@ -14,22 +14,22 @@ class PrintDailyGraphic extends BasePrint
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile;
 
   @override
-  FormConfig config = FormConfig("daygraph", false, [
+  List<ParamInfo> params = [
     ParamInfo("Symbole (Katheter etc.)", boolValue: true),
     ParamInfo("Insulin", boolValue: true),
     ParamInfo("Kohlenhydrate", boolValue: true),
     ParamInfo("Tages-Basalrate", boolValue: true),
     ParamInfo("Profil-Basalrate", boolValue: true),
-  ]);
+  ];
 
   @override
   prepareData_(ReportData data)
   {
-    showPictures = config.params[0].boolValue;
-    showInsulin = config.params[1].boolValue;
-    showCarbs = config.params[2].boolValue;
-    showBasalDay = config.params[3].boolValue;
-    showBasalProfile = config.params[4].boolValue;
+    showPictures = params[0].boolValue;
+    showInsulin = params[1].boolValue;
+    showCarbs = params[2].boolValue;
+    showBasalDay = params[3].boolValue;
+    showBasalProfile = params[4].boolValue;
     return data;
   }
 

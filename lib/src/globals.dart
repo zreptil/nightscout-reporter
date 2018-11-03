@@ -53,7 +53,7 @@ class Globals
   static final Globals _globals = Globals._internal();
   String version = "1.0.5";
   String lastVersion;
-  List<BasePrint> listForms = List<BasePrint>();
+  List<FormConfig> listConfig = List<FormConfig>();
 
   String get msgUrlFailure
   =>
@@ -76,11 +76,8 @@ class Globals
     else
       _userIdx = 0;
 
-    for (FormConfig cfg in user.formList.values)
-    {
-      for (int i = 0; i < listForms.length; i++)
-        if (listForms[i].id == cfg.id)listForms[i].config.fill(cfg);
-    }
+    for (FormConfig entry in listConfig)
+      entry.fillFromString(user.formParams[entry.id]);
   }
 
   UserData get user
@@ -191,6 +188,13 @@ class Globals
       html.window.location.reload();
   }
 
+  addForm(BasePrint form)
+  {
+    FormConfig cfg = FormConfig(form.id, false);
+    cfg.form = form;
+    listConfig.add(cfg);
+  }
+
   void clearStorage()
   {
     for (var entry in html.window.localStorage.entries)
@@ -245,15 +249,6 @@ class Globals
       user.insulin = loadStorage("insulin");
       user.birthDate = loadStorage("birthDate");
       user.name = loadStorage("userName");
-
-      for (var entry in html.window.localStorage.entries)
-      {
-        if (entry.key.startsWith("form"))
-        {
-          user.formList[entry.key.substring(4)].checked = entry.value.toLowerCase() == "true";
-          html.window.localStorage.remove(entry.key);
-        }
-      }
       userIdx = 0;
       saveStorage("mu", Globals.doit("[${user.asJson}]"));
       saveStorage("userIdx", "$userIdx");
@@ -422,9 +417,10 @@ class UserData
   String storageApiUrl = "";
   String token = "";
   dynamic customData = Map<String, String>();
+  dynamic formParams;
   String diaStartDate = "";
   String insulin = "";
-  Map<String, FormConfig> formList = Map<String, FormConfig>();
+//  Map<String, FormConfig> formList = Map<String, FormConfig>();
 
   UserData(this.g);
 
@@ -441,8 +437,8 @@ class UserData
     Map<String, String> forms = Map<String, String>();
     try
     {
-      for (String key in formList.keys)
-        forms[key] = formList[key].asString;
+      for (FormConfig cfg in g.listConfig)
+        forms[cfg.id] = cfg.asString;
     }
     catch (ex)
     {}
@@ -483,13 +479,15 @@ class UserData
       ret.storageApiUrl = data["u"];
       ret.token = data["ut"];
       ret.customData = data["c"];
-      ret.formList = Map<String, FormConfig>();
+      ret.formParams = data["f"];
+//      ret.formList = Map<String, FormConfig>();
+/*
       for (String key in data["f"].keys)
       {
-        FormConfig cfg = FormConfig(key, false, List<ParamInfo>());
+        FormConfig cfg = FormConfig(key, false);
         cfg.fillFromString(data["f"][key]);
         ret.formList[key] = cfg;
-      }
+      }*/
     }
     catch (ex)
     {}

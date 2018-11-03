@@ -5,7 +5,7 @@
 
 ### Changed
 - changed display and functionality of PDF selection
-- changed saving of user data (not working fully at this time)
+- rewrote code for saving and loading user data
 
 ### Fixed
 - fixed exception that occured, when there was no profile for a date
