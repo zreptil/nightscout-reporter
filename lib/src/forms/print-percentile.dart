@@ -88,7 +88,7 @@ class PrintPercentile extends BasePrint
     double xo = xorg;
     double yo = yorg;
     var data = src.calc;
-    lineWidth = cm(0.03);
+    lineWidth = cml(0.03);
 
     titleInfo = titleInfoBegEnd(src);
     List<EntryData> times = data.entries;
@@ -108,11 +108,11 @@ class PrintPercentile extends BasePrint
     double lineHeight = gridHeight / gridLines;
     double colWidth = gridWidth / 24;
 
-    var vertLines = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
-    var horzLines = {"absolutePosition": {"x": cm(xo - 0.2), "y": cm(yo)}, "canvas": []};
+    var vertLines = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
+    var horzLines = {"absolutePosition": {"x": cmx(xo - 0.2), "y": cmy(yo)}, "canvas": []};
     var horzLegend = {"stack": []};
     var vertLegend = {"stack": []};
-    var graph = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
+    var graph = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
 
     List vertCvs = vertLines["canvas"] as List;
     List horzCvs = vertLines["canvas"] as List;
@@ -122,17 +122,17 @@ class PrintPercentile extends BasePrint
     {
       vertCvs.add({
         "type": "line",
-        "x1": cm(i * colWidth),
+        "x1": cmx(i * colWidth),
         "y1": 0,
-        "x2": cm(i * colWidth),
-        "y2": cm(lineHeight * gridLines + 0.25),
-        "lineWidth": cm(lw),
+        "x2": cmx(i * colWidth),
+        "y2": cmy(lineHeight * gridLines + 0.25),
+        "lineWidth": cml(lw),
         "lineColor": i > 0 && i < 24 ? lc : lcFrame
       });
       if (i < 24)horzStack.add({
-        "absolutePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)},
+        "absolutePosition": {"x": cmx(xo + i * colWidth), "y": cmy(yo + gridLines * lineHeight + 0.3)},
         "text": fmtTime(i),
-        "fontSize": "8"
+        "fontSize": fs(8)
       });
     }
 
@@ -140,25 +140,25 @@ class PrintPercentile extends BasePrint
     {
       horzCvs.add({
         "type": "line",
-        "x1": cm(-0.2),
-        "y1": cm((gridLines - i) * lineHeight - lw / 2),
-        "x2": cm(24 * colWidth + 0.2),
-        "y2": cm((gridLines - i) * lineHeight - lw / 2),
-        "lineWidth": cm(lw),
+        "x1": cmx(-0.2),
+        "y1": cmy((gridLines - i) * lineHeight - lw / 2),
+        "x2": cmx(24 * colWidth + 0.2),
+        "y2": cmy((gridLines - i) * lineHeight - lw / 2),
+        "lineWidth": cml(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
       if (i > 0)
       {
         String text = "${glucFromData(fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
         vertStack.add({
-          "absolutePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
+          "absolutePosition": {"x": cmx(xo - 1.1), "y": cmy(yo + (gridLines - i) * lineHeight - 0.25)},
           "text": text,
-          "fontSize": "8"
+          "fontSize": fs(8)
         });
         vertStack.add({
-          "absolutePosition": {"x": cm(xo + 24 * colWidth + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
+          "absolutePosition": {"x": cmx(xo + 24 * colWidth + 0.3), "y": cmy(yo + (gridLines - i) * lineHeight - 0.25)},
           "text": text,
-          "fontSize": "8"
+          "fontSize": fs(8)
         });
       }
     }
@@ -170,40 +170,40 @@ class PrintPercentile extends BasePrint
       .profile(DateTime.now())
       .targetLow);
     var limitLines = {
-      "absolutePosition": {"x": cm(xo), "y": cm(yo)},
+      "absolutePosition": {"x": cmx(xo), "y": cmy(yo)},
       "canvas": [
         {
           "type": "rect",
-          "x": cm(0.0),
-          "y": cm(yHigh),
-          "w": cm(24 * colWidth),
-          "h": cm(yLow - yHigh),
+          "x": cmx(0.0),
+          "y": cmy(yHigh),
+          "w": cml(24 * colWidth),
+          "h": cml(yLow - yHigh),
           "color": "#0f0",
           "fillOpacity": 0.5
         },
         {
           "type": "line",
-          "x1": cm(0.0),
-          "y1": cm(yHigh),
-          "x2": cm(24 * colWidth),
-          "y2": cm(yHigh),
-          "lineWidth": cm(lw),
+          "x1": cmx(0.0),
+          "y1": cmy(yHigh),
+          "x2": cmx(24 * colWidth),
+          "y2": cmy(yHigh),
+          "lineWidth": cml(lw),
           "lineColor": "#0a0"
         },
         {
           "type": "line",
-          "x1": cm(0.0),
-          "y1": cm(yLow),
-          "x2": cm(24 * colWidth),
-          "y2": cm(yLow),
-          "lineWidth": cm(lw),
+          "x1": cmx(0.0),
+          "y1": cmy(yLow),
+          "x2": cmx(24 * colWidth),
+          "y2": cmy(yLow),
+          "lineWidth": cml(lw),
           "lineColor": "#0a0"
         },
         {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1}
       ]
     };
-    var percGraph = {"absolutePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
-    var percLegend = LegendData(cm(xo), cm(yo + lineHeight * gridLines + 1.0), cm(8.0), 100);
+    var percGraph = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
+    var percLegend = LegendData(cmx(xo), cmy(yo + lineHeight * gridLines + 1.0), cmx(8.0), 100);
 
     if (addPercentileGraph(percGraph, percList, 10, 90, "#aaf"))addLegendEntry(percLegend, "#aaf", msgPercentile1090);
     if (addPercentileGraph(percGraph, percList, 25, 75, "#88f"))addLegendEntry(percLegend, "#88f", msgPercentile2575);
@@ -231,14 +231,14 @@ class PrintPercentile extends BasePrint
     {
       if (entry.percentile(high) != entry.percentile(low))ret = true;
       x = glucX(entry.time);
-      ptsHigh.add({"x": cm(x), "y": cm(glucY(entry.percentile(high)))});
-      if (high != low)ptsLow.insert(0, {"x": cm(x), "y": cm(glucY(entry.percentile(low)))});
-//        ptsHigh.add({"x": cm(x), "y": cm(glucY(entry.median))});
+      ptsHigh.add({"x": cmx(x), "y": cmy(glucY(entry.percentile(high)))});
+      if (high != low)ptsLow.insert(0, {"x": cmx(x), "y": cmy(glucY(entry.percentile(low)))});
+//        ptsHigh.add({"x": cmx(x), "y": cmy(glucY(entry.median))});
     }
     x = glucX(DateTime(0, 1, 1, 23, 59, 59));
-    ptsHigh.add({"x": cm(x), "y": cm(glucY(percList.values.first.percentile(high)))});
-    if (high != low)ptsLow.insert(0, {"x": cm(x), "y": cm(glucY(percList.values.first.percentile(low)))});
-    var area = {"type": "polyline", "lineWidth": cm(lw), "closePath": high != low, "fillOpacity": 0.5, "points": []};
+    ptsHigh.add({"x": cmx(x), "y": cmy(glucY(percList.values.first.percentile(high)))});
+    if (high != low)ptsLow.insert(0, {"x": cmx(x), "y": cmy(glucY(percList.values.first.percentile(low)))});
+    var area = {"type": "polyline", "lineWidth": cml(lw), "closePath": high != low, "fillOpacity": 0.5, "points": []};
     (area["points"] as List).addAll(ptsHigh);
     if (high != low)
     {
@@ -249,9 +249,9 @@ class PrintPercentile extends BasePrint
     (percGraph["canvas"] as List).add(
       {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1});
     (percGraph["canvas"] as List).add(
-      {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": color, "points": ptsHigh});
+      {"type": "polyline", "lineWidth": cml(lw), "closePath": false, "lineColor": color, "points": ptsHigh});
     (percGraph["canvas"] as List).add(
-      {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": color, "points": ptsLow});
+      {"type": "polyline", "lineWidth": cml(lw), "closePath": false, "lineColor": color, "points": ptsLow});
 
     return ret;
   }

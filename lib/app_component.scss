@@ -237,6 +237,7 @@ nav a {
 .normal-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 @include material-select-selected-item-color($primary_back);
@@ -292,7 +293,7 @@ material-checkbox {
   margin: 0;
 }
 
-material-expansionpanel {
+material-expansionpanel:not(.is-debug) {
   width: 20em;
   border: 2px solid transparent;
   @include expansionpanel-colors(transparent, $secondary_fore);
@@ -302,10 +303,35 @@ material-expansionpanel {
   margin-bottom: 0.2em;
 }
 
+material-expansionpanel.is-debug {
+  width: 20em;
+  border: 2px solid transparent;
+
+  ::ng-deep .header {
+    color: $debug_color !important;
+    text-shadow: -1px 0 $debug_shadow, 0 1px $debug_shadow, 1px 0 $debug_shadow, 0 -1px $debug_shadow;
+    background: $debug-back !important;
+  }
+
+  @include expansionpanel-colors(transparent, $secondary_fore);
+  @include expansionpanel-border-radius(0.5em);
+}
+
+
 material-expansionpanel.checked {
   border: 2px solid $primary_back;
   border-radius: 0.5em;
+
   ::ng-deep .header {
     font-weight: bold;
   }
+}
+
+material-expansionpanel.is-debug ::ng-deep material-icon.expand-button {
+  color: $debug-color !important;
+}
+
+
+material-expansionpanel.is-debug.checked {
+  border: 2px solid $debug_color;
 }

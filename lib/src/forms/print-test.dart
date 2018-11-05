@@ -68,7 +68,7 @@ class PrintTest extends BasePrint
     for (int i = 0; i < body[0].length; i++)
       widths.add("auto");
     var ret = {
-      "margin": [cm(2.0), cm(2.8), cm(2.0), 0],
+      "margin": [cmx(2.0), cmy(2.8), cmx(2.0), cmy(0.0)],
       "table": {"dontBreakRows": true, "headerRows": 1, "layout": "noBorders", "widths": widths, "body": body}
     };
     return ret;

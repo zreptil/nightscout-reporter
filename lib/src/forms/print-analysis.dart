@@ -122,13 +122,13 @@ class PrintAnalysis extends BasePrint
   addBodyArea(List body, String title, List lines)
   {
     body.add([ {
-      "canvas": [ {"type": "line", "x1": cm(0), "y1": cm(0.2), "x2": cm(13.5), "y2": cm(0.2), "lineWidth": cm(0.01)}],
+      "canvas": [ {"type": "line", "x1": cmx(0), "y1": cmy(0.2), "x2": cmx(13.5), "y2": cmy(0.2), "lineWidth": cml(0.01)}],
       "colSpan": 5
     }
     ]);
 
     body.add([ {
-      "columns": [{"width": cm(13.5), "text": title, "fontSize": 8, "color": "#606060", "alignment": "center"}],
+      "columns": [{"width": cml(13.5), "text": title, "fontSize": fs(8), "color": "#606060", "alignment": "center"}],
       "colSpan": 5,
     }
     ]);
@@ -188,21 +188,21 @@ class PrintAnalysis extends BasePrint
 
     var tableBody = [
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgDays, "style": "infotitle"},
         {"text": src.dayCount, "style": "infodata"},
         {"text": "", "style": "infounit", "colSpan": 2},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgReadingsCount, "style": "infotitle"},
         {"text": fmtNumber(data.count), "style": "infodata"},
         {"text": "($countPeriod)", "style": "infounit", "colSpan": 2},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgReservoirCount, "style": "infotitle"},
         {"text": fmtNumber(data.ampulleCount), "style": "infodata"},
         {
@@ -210,10 +210,10 @@ class PrintAnalysis extends BasePrint
           "style": "infounit",
           "colSpan": 2
         },
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgCatheterCount, "style": "infotitle"},
         {"text": fmtNumber(data.catheterCount), "style": "infodata"},
         {
@@ -221,13 +221,13 @@ class PrintAnalysis extends BasePrint
           "style": "infounit",
           "colSpan": 2
         },
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ]
     ];
 
     addBodyArea(tableBody, msgOwnLimits, [
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {
           "text": msgValuesAbove(
             "${glucFromData(src.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
@@ -237,15 +237,15 @@ class PrintAnalysis extends BasePrint
         {"text": "(${fmtNumber(data.highCount)})", "style": "infounit"},
         {
           "canvas": [
-            {"type": "rect", "x": 0, "y": 0, "w": cm(2.0), "h": cm(tgHigh), "color": colHigh},
-            {"type": "rect", "x": 0, "y": cm(tgHigh), "w": cm(2.0), "h": cm(tgNorm), "color": colNorm},
-            {"type": "rect", "x": 0, "y": cm(tgHigh + tgNorm), "w": cm(2.0), "h": cm(tgLow), "color": colLow},
+            {"type": "rect", "x": cmx(0), "y": cmy(0), "w": cml(2.0), "h": cml(tgHigh), "color": colHigh},
+            {"type": "rect", "x": cmx(0), "y": cmy(tgHigh), "w": cml(2.0), "h": cml(tgNorm), "color": colNorm},
+            {"type": "rect", "x": cmx(0), "y": cmy(tgHigh + tgNorm), "w": cml(2.0), "h": cml(tgLow), "color": colLow},
           ],
           "rowSpan": 3
         },
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {
           "text": msgValuesIn("${glucFromData(src.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}",
             "${glucFromData(src.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
@@ -253,10 +253,10 @@ class PrintAnalysis extends BasePrint
         },
         {"text": "${(data.normCount / data.count * 100).floor()} %", "style": "infodata"},
         {"text": "(${fmtNumber(data.normCount)})", "style": "infounit"},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {
           "text": msgValuesBelow(
             "${glucFromData(src.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}"),
@@ -264,28 +264,28 @@ class PrintAnalysis extends BasePrint
         },
         {"text": "${(data.lowCount / data.count * 100).floor()} %", "style": "infodata"},
         {"text": "(${fmtNumber(data.lowCount)})", "style": "infounit"},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ]
     ]);
 
     if (src.status.settings.thresholds.bgTargetBottom != 70 || src.status.settings.thresholds
       .bgTargetTop != 180) addBodyArea(tableBody, msgStandardLimits, [
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgValuesAbove("${glucFromData(180)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
         {"text": "${(data.entriesIn(181, 9999) / data.count * 100).floor()} %", "style": "infodata"},
         {"text": "(${fmtNumber(data.entriesIn(181, 9999))})", "style": "infounit"},
         {
           "canvas": [
-            {"type": "rect", "x": 0, "y": 0, "w": cm(2.0), "h": cm(above180), "color": colHigh},
-            {"type": "rect", "x": 0, "y": cm(above180), "w": cm(2.0), "h": cm(in70180), "color": colNorm},
-            {"type": "rect", "x": 0, "y": cm(above180 + in70180), "w": cm(2.0), "h": cm(below70), "color": colLow},
+            {"type": "rect", "x": cmx(0), "y": cmy(0), "w": cml(2.0), "h": cml(above180), "color": colHigh},
+            {"type": "rect", "x": cmx(0), "y": cmy(above180), "w": cml(2.0), "h": cml(in70180), "color": colNorm},
+            {"type": "rect", "x": cmx(0), "y": cmy(above180 + in70180), "w": cml(2.0), "h": cml(below70), "color": colLow},
           ],
           "rowSpan": 3
         },
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {
           "text": msgValuesIn(
             "${glucFromData(70)} ${getGlucInfo()["unit"]}", "${glucFromData(180)} ${getGlucInfo()["unit"]}"),
@@ -293,90 +293,89 @@ class PrintAnalysis extends BasePrint
         },
         {"text": "${(data.entriesIn(71, 180) / data.count * 100).floor()} %", "style": "infodata"},
         {"text": "(${fmtNumber(data.entriesIn(71, 180))})", "style": "infounit"},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgValuesBelow("${glucFromData(70)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
         {"text": "${(data.entriesIn(0, 70) / data.count * 100).floor()} %", "style": "infodata"},
         {"text": "(${fmtNumber(data.entriesIn(0, 70))})", "style": "infounit"},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ],
     ]);
 
     addBodyArea(tableBody, msgPeriod, [
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgLowestValue, "style": "infotitle"},
         {"text": "${glucFromData(data.min)}", "style": "infodata"},
         {"text": getGlucInfo()["unit"], "style": "infounit"},
-        {"canvas": [ {"type": "rect", "x": 0, "y": cm(1.25), "w": cm(2.0), "h": cm(0.9), "color": glucWarnColor},
+        {"canvas": [ {"type": "rect", "x": cmx(0), "y": cmy(1.25), "w": cml(2.0), "h": cml(0.9), "color": glucWarnColor},
         ], "rowSpan": 3},
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgHighestValue, "style": "infotitle"},
         {"text": "${glucFromData(data.max)}", "style": "infodata"},
         {"text": getGlucInfo()["unit"], "style": "infounit", "colSpan": 2},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": "${msgGlucoseValue}${glucWarnText}", "style": "infotitle"},
         {"text": glucFromData(avgGluc), "style": "infodata"},
         {"text": "${getGlucInfo()["unit"]}", "style": "infounit", "colSpan": 2},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgHbA1C, "style": "infotitle"},
         {"text": hba1c(avgGluc), "style": ["infodata", "hba1c"]},
         {"text": "%", "style": ["infounit", "hba1c"], "colSpan": 2},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ]
     ]);
 
     addBodyArea(tableBody, msgTreatments, [
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgKHPerDay, "style": "infotitle"},
         {"text": fmtNumber(data.khCount / src.dayCount, 1, false), "style": "infodata"},
         {"text": msgKHBE(fmtNumber(data.khCount / src.dayCount / 12, 1, false)), "style": "infounit", "colSpan": 2},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgInsulinPerDay, "style": "infotitle"},
         {"text": "${fmtNumber((data.ieBolusSum + data.ieBasalSum) / src.dayCount, 1, false)}", "style": "infodata"},
         {"text": "${msgInsulinUnit}", "style": "infounit", "colSpan": 2},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgBolusPerDay, "style": "infotitle"},
         {"text": "${fmtNumber(data.ieBolusSum / src.dayCount, 1, false)}", "style": "infodata"},
         {"text": "bolus (${fmtNumber(data.ieBolusPrz, 1, false)} %)", "style": "infounit", "colSpan": 2},
-        {"text": ""},
-
+        {"text": "", "style": "infounit"},
       ],
       [
-        {"text": ""},
+        {"text": "", "style": "infotitle"},
         {"text": msgBasalPerDay, "style": "infotitle"},
         {"text": "${fmtNumber(data.ieBasalSum / src.dayCount, 1, false)}", "style": "infodata"},
         {"text": "basal (${fmtNumber(data.ieBasalPrz, 1, false)} %)", "style": "infounit", "colSpan": 2},
-        {"text": ""},
+        {"text": "", "style": "infounit"},
       ],
     ]);
 
     var ret = [
       header,
-      {"margin": [0, cm(3), 0, 0], "text": "${src.globals.user.name}", "fontSize": 20, "alignment": "center"},
+      {"columns":[{"width": cml(width), "margin": [cml(0), cml(3), cml(0), cml(0)], "text": "${src.globals.user.name}", "fontSize": fs(20), "alignment": "center"}]},
       {
-        "margin": [cm(5.5), cm(0.5), 0, 0],
+        "margin": [cml(5.5), cml(0.5), cml(0), cml(0)],
         "layout": "noBorders",
         "table": {
           "headerRows": 0,
-          "widths": [cm(5), cm(8)],
+          "widths": [cml(5), cml(8)],
           "body": [
             [{"text": msgBirthday, "style": "perstitle"}, {"text": src.globals.user.birthDate, "style": "persdata"}],
             [{"text": msgDiabSince, "style": "perstitle"}, {"text": src.globals.user.diaStartDate, "style": "persdata"}
@@ -386,9 +385,9 @@ class PrintAnalysis extends BasePrint
         }
       },
       {
-        "margin": [cm(3.7), cm(0.5), 0, 0],
+        "margin": [cml(3.7), cml(0.5), cml(0), cml(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [0, cm(7.3), cm(1.5), cm(1.5), cm(6)], "body": tableBody}
+        "table": {"headerRows": 0, "widths": [cml(0), cml(7.3), cml(1.5), cml(1.5), cml(6)], "body": tableBody}
       },
       footer(),
     ];

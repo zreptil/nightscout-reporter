@@ -417,9 +417,10 @@ class UserData
   String storageApiUrl = "";
   String token = "";
   dynamic customData = Map<String, String>();
-  dynamic formParams;
+  dynamic formParams = {};
   String diaStartDate = "";
   String insulin = "";
+
 //  Map<String, FormConfig> formList = Map<String, FormConfig>();
 
   UserData(this.g);
@@ -480,6 +481,8 @@ class UserData
       ret.token = data["ut"];
       ret.customData = data["c"];
       ret.formParams = data["f"];
+      if(ret.formParams != null && ret.formParams["analysis"] is bool)
+        ret.formParams = {};
 //      ret.formList = Map<String, FormConfig>();
 /*
       for (String key in data["f"].keys)

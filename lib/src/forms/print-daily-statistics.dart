@@ -15,11 +15,16 @@ class PrintDailyStatistics extends BasePrint
 
   @override
   List<ParamInfo> params = [
-    ParamInfo("Spalte Messwerte", boolValue: true),
-    ParamInfo("Spalte Standardabweichung", boolValue: true),
-    ParamInfo("Spalte Perzentile", boolValue: true),
-    ParamInfo("Spalte HbA1c", boolValue: true),
+    ParamInfo(msgParam1, boolValue: true),
+    ParamInfo(msgParam2, boolValue: true),
+    ParamInfo(msgParam3, boolValue: true),
+    ParamInfo(msgParam4, boolValue: true),
   ];
+
+  static String get msgParam1 => Intl.message("Spalte Messwerte");
+  static String get msgParam2 => Intl.message("Spalte Standardabweichung");
+  static String get msgParam3 => Intl.message("Spalten Perzentile");
+  static String get msgParam4 => Intl.message("Spalte HbA1c");
 
   @override
   prepareData_(ReportData data)
@@ -127,7 +132,7 @@ class PrintDailyStatistics extends BasePrint
 
     double f = 3.3;
     var body = [];
-    var widths = ["auto", cm(f), "*", "*", "*"];
+    var widths = ["auto", cmy(f), "*", "*", "*"];
     if (showCount)widths.add("auto");
     widths.add("auto");
     widths.add("auto");
@@ -135,18 +140,28 @@ class PrintDailyStatistics extends BasePrint
     if (showStdabw)widths.add("auto");
     if (showPercentile)
     {
-      widths.add(cm(1.5));
-      widths.add(cm(1.5));
-      widths.add(cm(1.5));
+      widths.add(cmx(1.5));
+      widths.add(cmx(1.5));
+      widths.add(cmx(1.5));
     }
-    if (showHbA1c)widths.add(cm(1.5));
+    if (showHbA1c)widths.add(cmx(1.5));
 
     f /= 100;
 
-    ProfileGlucData prevProfile = null;int lineCount = 0;var ret = [header];int totalCount = 0;double totalMin =
-      100000;double totalMax = 0;int totalLow = 0;int totalHigh = 0;int totalNorm =
-      0;double totalStdAbw = 0.0;double total25 = 0.0;double total50 = 0.0;double total75 =
-      0.0;for (DayData day in src.ns.days)
+    ProfileGlucData prevProfile = null;
+    int lineCount = 0;
+    var ret = [header];
+    int totalCount = 0;
+    double totalMin = 100000;
+    double totalMax = 0;
+    int totalLow = 0;
+    int totalHigh = 0;
+    int totalNorm = 0;
+    double totalStdAbw = 0.0;
+    double total25 = 0.0;
+    double total50 = 0.0;
+    double total75 = 0.0;
+    for (DayData day in src.ns.days)
     {
       day.init();
       ProfileGlucData profile = src.profile(DateTime(day.date.year, day.date.month, day.date.day));
@@ -159,43 +174,46 @@ class PrintDailyStatistics extends BasePrint
       prevProfile = profile;
 
       var row = [];
-      row.add({"text": fmtDate(day.date)});
+      row.add({"text": fmtDate(day.date), "style": "row"});
       row.add({
         "canvas": [
-          {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * f), "h": cm(0.5)},
+          {"type": "rect", "color": colLow, "x": cmx(0), "y": cmy(0), "w": cml(day.lowPrz * f), "h": cml(0.5)},
           {
             "type": "rect",
             "color": colNorm,
-            "x": cm(day.lowPrz * f),
-            "y": cm(0),
-            "w": cm(day.normPrz * f),
-            "h": cm(0.5)
+            "x": cmx(day.lowPrz * f),
+            "y": cmy(0),
+            "w": cml(day.normPrz * f),
+            "h": cml(0.5)
           },
           {
             "type": "rect",
             "color": colHigh,
-            "x": cm((day.lowPrz + day.normPrz) * f),
-            "y": cm(0),
-            "w": cm(day.highPrz * f),
-            "h": cm(0.5)
+            "x": cmx((day.lowPrz + day.normPrz) * f),
+            "y": cmy(0),
+            "w": cml(day.highPrz * f),
+            "h": cml(0.5)
           }
         ]
       });
-      row.add({"text": "${fmtNumber(day.lowPrz, 0)} %", "alignment": "right"});
-      row.add({"text": "${fmtNumber(day.normPrz, 0)} %", "alignment": "right"});
-      row.add({"text": "${fmtNumber(day.highPrz, 0)} %", "alignment": "right"});
-      if (showCount)row.add({"text": "${fmtNumber(day.entryCount, 0)}", "alignment": "right"});
-      row.add({"text": "${glucFromData(day.min)}", "alignment": "right"});
-      row.add({"text": "${glucFromData(day.max)}", "alignment": "right"});
-      row.add({"text": "${glucFromData(day.mid, 1)}", "alignment": "right"});
-      if (showStdabw)row.add({"text": "${glucFromData(day.stdAbw, 1)}", "alignment": "right"});
+      row.add({"text": "${fmtNumber(day.lowPrz, 0)} %", "style": "row", "alignment": "right"});
+      row.add({"text": "${fmtNumber(day.normPrz, 0)} %", "style": "row", "alignment": "right"});
+      row.add({"text": "${fmtNumber(day.highPrz, 0)} %", "style": "row", "alignment": "right"});
+      if (showCount)row.add({"text": "${fmtNumber(day.entryCount, 0)}", "style": "row", "alignment": "right"});
+      row.add({"text": "${glucFromData(day.min)}", "style": "row", "alignment": "right"});
+      row.add({"text": "${glucFromData(day.max)}", "style": "row", "alignment": "right"});
+      row.add({"text": "${glucFromData(day.mid, 1)}", "style": "row", "alignment": "right"});
+      if (showStdabw)row.add({"text": "${glucFromData(day.stdAbw, 1)}", "style": "row", "alignment": "right"});
       if (showPercentile)
       {
-        row.add({"text": "${glucFromData(Globals.percentile(day.entries, 25), 1)}", "alignment": "right"});
-        row.add({"text": "${glucFromData(Globals.percentile(day.entries, 50), 1)}", "alignment": "right"});
-        row.add({"text": "${glucFromData(Globals.percentile(day.entries, 75), 1)}", "alignment": "right"});
+        row.add(
+          {"text": "${glucFromData(Globals.percentile(day.entries, 25), 1)}", "style": "row", "alignment": "right"});
+        row.add(
+          {"text": "${glucFromData(Globals.percentile(day.entries, 50), 1)}", "style": "row", "alignment": "right"});
+        row.add(
+          {"text": "${glucFromData(Globals.percentile(day.entries, 75), 1)}", "style": "row", "alignment": "right"});
       }
-      if (showHbA1c)row.add({"text": "${hba1c(day.mid)} %", "alignment": "right", "color": colHbA1c});
+      if (showHbA1c)row.add({"text": "${hba1c(day.mid)} %", "style": "row", "alignment": "right", "color": colHbA1c});
       body.add(row);
       totalStdAbw += day.stdAbw;
       total25 += Globals.percentile(day.entries, 25);
@@ -210,7 +228,14 @@ class PrintDailyStatistics extends BasePrint
       lineCount ++;
       if (lineCount == 21 && day != src.ns.days.last)
       {
-        ret.add({"margin": [cm(2.2), cm(2.5), cm(2.2), cm(0.0)], "table": {"widths": widths, "body": body}});
+        ret.add({
+          "columns": [ {
+            "width": cml(width),
+            "margin": [cmx(2.2), cmy(2.5), cmx(2.2), cmy(0.0)],
+            "table": {"widths": widths, "body": body}
+          }
+          ]
+        });
         lineCount = 0;
         if (day != src.ns.days.last)
         {
@@ -233,15 +258,15 @@ class PrintDailyStatistics extends BasePrint
     row.add({"text": msgDaySum(src.ns.days.length), "style": "total", "alignment": "center"});
     row.add({
       "canvas": [
-        {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(lowPrz * f), "h": cm(0.5)},
-        {"type": "rect", "color": colNorm, "x": cm(lowPrz * f), "y": cm(0), "w": cm(normPrz * f), "h": cm(0.5)},
+        {"type": "rect", "color": colLow, "x": cmx(0), "y": cmy(0), "w": cml(lowPrz * f), "h": cml(0.5)},
+        {"type": "rect", "color": colNorm, "x": cmx(lowPrz * f), "y": cmy(0), "w": cml(normPrz * f), "h": cml(0.5)},
         {
           "type": "rect",
           "color": colHigh,
-          "x": cm((lowPrz + normPrz) * f),
-          "y": cm(0),
-          "w": cm(highPrz * f),
-          "h": cm(0.5)
+          "x": cmx((lowPrz + normPrz) * f),
+          "y": cmy(0),
+          "w": cml(highPrz * f),
+          "h": cml(0.5)
         }
       ],
       "style": "total"
@@ -267,7 +292,14 @@ class PrintDailyStatistics extends BasePrint
 
     if (prevProfile != null)
     {
-      ret.add({"margin": [cm(2.2), cm(2.5), cm(2.2), cm(0.0)], "table": {"widths": widths, "body": body}});
+      ret.add({
+        "columns": [ {
+          "width": cml(width),
+          "margin": [cmx(2.2), cmy(2.5), cmx(2.2), cmy(0.0)],
+          "table": {"widths": widths, "body": body}
+        }
+        ]
+      });
       ret.add(footer());
     }
 

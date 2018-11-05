@@ -211,6 +211,7 @@ class AppComponent
 */
     if (html.window.location.href.endsWith("?dsgvo"))currPage = "dsgvo";
     if (html.window.location.href.endsWith("?impressum"))currPage = "impressum";
+    checkPrint();
   }
 
   void toggleHelp()
@@ -561,18 +562,19 @@ class AppComponent
             doc = {
               "pageSize": "a4",
               "pageOrientation": form.isPortrait ? "portrait" : "landscape",
-              "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
+              "pageMargins": [form.cmx(0), form.cmy(1.0), form.cmx(0), form.cmy(0.0)],
               "content": data,
               "images": form.images,
               "styles": {
-                "infoline": {"margin": [0, form.cm(0.25), 0, form.cm(0.25)]},
-                "perstitle": {"fontSize": 10, "alignment": "right"},
-                "persdata": {"fontSize": 10, "color": "#0000ff"},
-                "infotitle": {"fontSize": 10, "alignment": "left"},
-                "infodata": {"fontSize": 10, "alignment": "right", "color": "#0000ff"},
-                "infounit": {"margin": [0, form.cm(0.07), 0, 0], "fontSize": 8, "color": "#0000ff"},
-                "hba1c": {"color": "#5050ff"},
-                "total": {"bold": true, "fillColor": "#d0d0d0"}
+                "infoline": {"margin": [form.cmx(0), form.cmy(0.25), form.cmx(0), form.cmy(0.25)]},
+                "perstitle": {"fontSize": form.fs(10), "alignment": "right"},
+                "persdata": {"fontSize": form.fs(10), "color": "#0000ff"},
+                "infotitle": {"fontSize": form.fs(10), "alignment": "left"},
+                "infodata": {"fontSize": form.fs(10), "alignment": "right", "color": "#0000ff"},
+                "infounit": {"margin": [form.cmx(0), form.cmy(0.07), form.cmx(0), form.cmy(0)], "fontSize": form.fs(8), "color": "#0000ff"},
+                "hba1c": {"color": "#5050ff", "fontSize": form.fs(10)},
+                "total": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10)},
+                "row": {"fontSize": form.fs(10)}
               }
             };
           }
@@ -641,7 +643,7 @@ class AppComponent
   String expansionClass(FormConfig cfg)
   {
     String ret = "paramPanel";
-    if (cfg.form.isDebugOnly && isDebug)ret = "${ret} toggle-debug noshadow";
+    if (cfg.form.isDebugOnly && isDebug)ret = "${ret} is-debug";
     if (cfg.checked)ret = "${ret} checked";
     return ret;
   }
