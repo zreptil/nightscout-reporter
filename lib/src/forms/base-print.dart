@@ -38,12 +38,16 @@ class ParamInfo
   String title;
   bool boolValue;
   String stringValue;
+  int intValue;
 
-  ParamInfo(this.title, {this.boolValue = null, this.stringValue = null});
+  int min;
+  int max;
+
+  ParamInfo(this.title, {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null});
 
   dynamic get asJson
   {
-    return {"b": boolValue, "s": stringValue};
+    return {"b": boolValue, "s": stringValue, "i": intValue};
   }
 
   fill(ParamInfo src)
@@ -58,6 +62,7 @@ class ParamInfo
     {
       boolValue = value["b"];
       stringValue = value["s"];
+      intValue = value["i"];
     }
     catch (ex)
     {

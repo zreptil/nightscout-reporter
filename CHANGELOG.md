@@ -2,6 +2,8 @@
 ### Added
 - added possibility to have parameters for PDF generation
 - added parameters to daily graphics and daily statistics
+- added rawdata to output of debug-PDF
+- added int value to print parameters 
 
 ### Changed
 - changed display and functionality of PDF selection

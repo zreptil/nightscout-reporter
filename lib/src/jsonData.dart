@@ -34,7 +34,7 @@ class JsonData
   bool toBool(value)
   => value == null ? false : value is bool ? value : value == "true";
 
-  double toDouble(value, [def=0.0])
+  double toDouble(value, [def = 0.0])
   => value == null || value == "NaN" ? def : value is double || value is int ? value : double.tryParse(value) ?? def;
 
   int toInt(value, [int def = 0])
@@ -207,6 +207,7 @@ class ExtendedSettingsData extends JsonData
 
 class StatusData extends JsonData
 {
+  dynamic raw;
   String status;
   String name;
   String version;
@@ -223,6 +224,7 @@ class StatusData extends JsonData
 
   factory StatusData.fromJson(Map<String, dynamic> json){
     StatusData ret = StatusData();
+    ret.raw = json;
     if (json == null)return ret;
     ret.status = json["status"];
     ret.name = json["name"];
@@ -241,6 +243,7 @@ class StatusData extends JsonData
 
 class ProfileGlucData
 {
+  DateTime day;
   double targetLow;
   double targetHigh;
   ProfileEntryData sens;
@@ -351,6 +354,7 @@ class ProfileStoreData extends JsonData
 
 class ProfileData extends JsonData
 {
+  dynamic raw;
   String id;
   String defaultProfile;
 
@@ -368,6 +372,7 @@ class ProfileData extends JsonData
 
   factory ProfileData.fromJson(Map<String, dynamic> json){
     ProfileData ret = ProfileData();
+    ret.raw = json;
     if (json == null)return ret;
     ret.id = json["int"];
     ret.defaultProfile = json["defaultProfile"];
@@ -510,6 +515,7 @@ class BoluscalcData extends JsonData
 
 class TreatmentData extends JsonData
 {
+  dynamic raw;
   String id;
   String eventType;
   int duration;
@@ -528,6 +534,8 @@ class TreatmentData extends JsonData
   BoluscalcData boluscalc = null;
   String notes;
 
+  bool isECarb = false;
+
   double adjustedValue(double v)
   {
     if (_percent != null)return v + (v * _percent) / 100.0;
@@ -537,13 +545,16 @@ class TreatmentData extends JsonData
     return v;
   }
 
+  double get eCarbs
+  => isECarb ? _carbs : 0.0;
+
   double get carbs
   {
     switch (eventType.toLowerCase())
     {
       case "bolus wizard":
       case "meal bolus":
-        if (_carbs != null)return _carbs;
+        if (_carbs != null && !isECarb)return _carbs;
         break;
     }
     return 0.0;
@@ -576,11 +587,13 @@ class TreatmentData extends JsonData
       .. glucose = glucose
       .. glucoseType = glucoseType
       .. boluscalc = boluscalc == null ? null : boluscalc.copy
-      .. notes = notes;
+      .. notes = notes
+      ..isECarb = isECarb;
 
   factory TreatmentData.fromJson(Map<String, dynamic> json){
     TreatmentData ret = TreatmentData();
     if (json == null)return ret;
+    ret.raw = json;
     ret.id = ret.toText(json["_id"]);
     ret.eventType = ret.toText(json["eventType"]);
     ret.duration = ret.toInt(json["duration"]);
@@ -611,6 +624,7 @@ class TreatmentData extends JsonData
 
 class EntryData extends JsonData
 {
+  dynamic raw;
   String id;
   DateTime time;
   int rssi;
@@ -643,6 +657,7 @@ class EntryData extends JsonData
 
   factory EntryData.fromJson(Map<String, dynamic> json){
     EntryData ret = EntryData();
+    ret.raw = json;
     if (json == null)return ret;
     ret.id = json["_id"];
     ret.time = ret.toDate(json["date"]);
@@ -914,17 +929,55 @@ class ListData
     ieBolusSum = 0.0;
     catheterCount = 0;
     ampulleCount = 0;
-    for (TreatmentData t in treatments)
+    double eCarbs = 0.0;
+    double duration = 0;
+    double delay = 0;
+    treatments.sort((a, b)
+    => a.createdAt.compareTo(b.createdAt));
+    for (int i = 0; i < treatments.length; i++)
     {
+      TreatmentData t = treatments[i];
       String type = t.eventType.toLowerCase();
-      khCount += t.carbs;
-      ieBolusSum += t.bolusInsulin;
       if (type == "site change")catheterCount++;
       if (type == "insulin change")ampulleCount++;
+      if (type == "note" && t.notes.toLowerCase().startsWith("ecarb"))
+      {
+        RegExp rex = RegExp(r"[^0-9\-]*(-*\d*)[^0-9\-]*(-*\d*)[^0-9\-]*(-*\d*).*");
+        Match match = rex.firstMatch(t.notes);
+        if (match != null && match.groupCount == 3)
+        {
+          eCarbs = double.tryParse(match.group(1));
+          duration = double.tryParse(match.group(2));
+          delay = double.tryParse(match.group(3));
+          if (delay < 0)
+          {
+            for (int j = i - 1; j >= 0 && eCarbs > 0.0; j--)
+            {
+              TreatmentData t1 = treatments[j];
+              if (t1.eventType.toLowerCase() == "meal bolus" && t1.carbs < 10.0)
+              {
+                eCarbs -= t1.carbs;
+                t1.isECarb = true;
+              }
+            }
+          }
+        }
+      }
+      if (type == "meal bolus" && eCarbs > 0.0 && t.carbs < 10.0)
+      {
+        eCarbs -= t.carbs;
+        t.isECarb = true;
+      }
 
       int idx = days.indexWhere((d)
       => d.isSameDay(t.createdAt));
       if (idx >= 0)days[idx].treatments.add(t);
+    }
+
+    for(TreatmentData t in treatments)
+    {
+      khCount += t.carbs;
+      ieBolusSum += t.bolusInsulin;
     }
 
     ieBasalSum = 0.0;
@@ -950,16 +1003,20 @@ class ReportData
 
   ProfileGlucData profile(DateTime time)
   {
+    DateTime check = DateTime(time.year, time.month, time.day);
     ProfileGlucData ret = ProfileGlucData();
-    ProfileData profile = null;
+    int idx = -1;
     for (int i = 0; i < profiles.length; i++)
     {
       if (profiles[i].startDate
         .difference(time)
-        .inDays <= 0)profile = profiles[i];
+        .inDays <= 0)idx = i;
     }
-    if (profile != null)
+    // found first profile for the start of the day
+    if (idx >= 0)
     {
+      ProfileData profile = profiles[idx];
+      ProfileStoreData p = profile.store[profile.defaultProfile];
       ret.store = profile.store[profile.defaultProfile];
       ret.basal = ret.find(time, ret.store.listBasal);
       ret.carbRatio = ret.find(time, ret.store.listCarbratio);
@@ -968,14 +1025,14 @@ class ReportData
       ret.targetLow = status.settings.thresholds.bgTargetBottom.toDouble();
     }
     else
-      {
-        ret.store = ProfileStoreData();
-        ret.basal = ProfileEntryData();
-        ret.carbRatio = ProfileEntryData();
-        ret.sens = ProfileEntryData();
-        ret.targetHigh = 180.0;
-        ret.targetLow = 70.0;
-      }
+    {
+      ret.store = ProfileStoreData();
+      ret.basal = ProfileEntryData();
+      ret.carbRatio = ProfileEntryData();
+      ret.sens = ProfileEntryData();
+      ret.targetHigh = 180.0;
+      ret.targetLow = 70.0;
+    }
 
     return ret;
   }

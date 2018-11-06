@@ -322,7 +322,7 @@ class AppComponent
   {
     sendDisabled = true;
     for (FormConfig cfg in g.listConfig)
-      if (cfg.checked)sendDisabled = false;
+      if (cfg.checked)sendDisabled = (cfg.form.isDebugOnly && !isDebug);
   }
 
   ReportData reportData = null;
@@ -410,7 +410,7 @@ class AppComponent
 
       int diffTime = 5;
 //*
-      // Create an array with values every [diffTime] minutes
+      // Create an array with EntryData every [diffTime] minutes
       List<EntryData> entryList = List<EntryData>();
       if (data.ns.entries.length != 0)
       {

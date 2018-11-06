@@ -82,7 +82,7 @@
       </div>
     </div>
     <material-fab mini class="debug-trigger" *ngIf="g.canDebug && currPage=='normal'"
-                  (trigger)="reportData = null;isDebug = !isDebug;">
+                  (trigger)="reportData = null;isDebug = !isDebug;checkPrint();">
       <material-icon icon="bug_report"></material-icon>
     </material-fab>
     <material-fab *ngIf="currPage=='normal'" [raised]="true" [class]="sendIcon" [disabled]="sendDisabled"

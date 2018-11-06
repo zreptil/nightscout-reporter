@@ -39,11 +39,16 @@ class PrintDailyGraphic extends BasePrint
   @override
   String title = Intl.message("Tagesgrafik");
 
-  static String get msgParam1 => Intl.message("Symbole (Katheter etc.)");
-  static String get msgParam2 => Intl.message("Insulin");
-  static String get msgParam3 => Intl.message("Kohlenhydrate");
-  static String get msgParam4 => Intl.message("Tages-Basalrate");
-  static String get msgParam5 => Intl.message("Profil-Basalrate");
+  static String get msgParam1
+  => Intl.message("Symbole (Katheter etc.)");
+  static String get msgParam2
+  => Intl.message("Insulin");
+  static String get msgParam3
+  => Intl.message("Kohlenhydrate");
+  static String get msgParam4
+  => Intl.message("Tages-Basalrate");
+  static String get msgParam5
+  => Intl.message("Profil-Basalrate");
 
   @override
   List<String> get imgList
@@ -218,24 +223,31 @@ class PrintDailyGraphic extends BasePrint
       double x, y;
       String type = t.eventType.toLowerCase();
       if (type == "temp basal")continue;
-      if (t.carbs > 0 && showCarbs)
+      if ((t.carbs > 0 || t.eCarbs > 0) && showCarbs)
       {
         x = glucX(t.createdAt);
-        y = carbY(t.carbs);
-        (graphCarbs["stack"][0]["canvas"] as List).add({
-          "type": "line",
-          "x1": cmx(x),
-          "y1": cmy(y),
-          "x2": cmx(x),
-          "y2": cmy(graphHeight - lw),
-          "lineColor": colCarbs,
-          "lineWidth": cml(0.1),
-        });
-        (graphCarbs["stack"][1]["stack"] as List).add({
-          "relativePosition": {"x": cmx(x - 0.5), "y": cmy(y - 0.2),},
-          "text": "${msgKH(fmtNumber(t.carbs))}",
-          "fontSize": fs(8),
-        });
+        if (t.isECarb)
+        {
+          paintECarbs(t.eCarbs, x, graphHeight - lw, graphCarbs["stack"][0]["canvas"] as List);
+        }
+        else
+        {
+          y = carbY(t.carbs);
+          (graphCarbs["stack"][0]["canvas"] as List).add({
+            "type": "line",
+            "x1": cmx(x),
+            "y1": cmy(y),
+            "x2": cmx(x),
+            "y2": cmy(graphHeight - lw),
+            "lineColor": colCarbs,
+            "lineWidth": cml(0.1),
+          });
+          (graphCarbs["stack"][1]["stack"] as List).add({
+            "relativePosition": {"x": cmx(x - 0.5), "y": cmy(y - 0.2),},
+            "text": "${msgKH(fmtNumber(t.carbs))}",
+            "fontSize": fs(8),
+          });
+        }
         hasCarbs = true;
       }
       if (t.bolusInsulin > 0 && showInsulin)
@@ -478,5 +490,22 @@ class PrintDailyGraphic extends BasePrint
     basalCvs.add(area);
 //    basalCvs.add({"type": "rect", "x": 0, "y": 0, "w": 1, "h": 1, "fillOpacity": 1});
     return ret;
+  }
+
+  paintECarbs(double eCarbs, double x, double y, List cvs)
+  {
+    double h = graphHeight - carbY(eCarbs);
+    cvs.add({
+      "type": "polyline",
+      "closePath": true,
+      "_lineColor": "#000000",
+      "color": colCarbs,
+      "lineWidth": cml(0),
+      "points": [
+        {"x": cmx(x), "y": cmy(y - h - 0.1)},
+        {"x": cmx(x + 0.1), "y": cmy(y)},
+        {"x": cmx(x - 0.1), "y": cmy(y)}
+      ],
+    });
   }
 }
