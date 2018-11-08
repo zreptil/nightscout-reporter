@@ -11,8 +11,9 @@ class PrintDailyGraphic extends BasePrint
   @override
   String id = "daygraph";
 
-  bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, isPrecise;
-  int get _precision => isPrecise ? 2 : 1;
+  bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, isPrecise, isSmall;
+  int get _precision
+  => isPrecise ? 2 : 1;
 
   @override
   List<ParamInfo> params = [
@@ -22,6 +23,7 @@ class PrintDailyGraphic extends BasePrint
     ParamInfo(msgParam4, boolValue: true),
     ParamInfo(msgParam5, boolValue: true),
     ParamInfo(msgParam6, boolValue: false),
+    ParamInfo(msgParam7, boolValue: false),
   ];
 
   @override
@@ -33,6 +35,7 @@ class PrintDailyGraphic extends BasePrint
     showBasalDay = params[3].boolValue;
     showBasalProfile = params[4].boolValue;
     isPrecise = params[5].boolValue;
+    isSmall = params[6].boolValue;
     return data;
   }
 
@@ -54,10 +57,15 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Profil-Basalrate");
   static String get msgParam6
   => Intl.message("Basal mit zwei Nachkommastellen");
+  static String get msgParam7
+  => Intl.message("Vier Grafiken pro Seite");
 
   @override
   List<String> get imgList
   => ["nightscout", "katheter.print", "sensor.print"];
+
+  @override
+  double get scale => isSmall ?? false ? 0.5 : 1.0;
 
   @override
   bool get isPortrait
@@ -109,13 +117,32 @@ class PrintDailyGraphic extends BasePrint
 
     lineWidth = cm(0.03);
     var ret = [];
+    offsetX = 0.0;
+    offsetY = 0.0;
 
     for (int i = 0; i < data.days.length; i++)
     {
       DayData day = data.days[i];
       var page = getPage(day, src);
       ret.addAll(page);
-      if (i < data.days.length - 1)ret.last["pageBreak"] = "after";
+      if (i < data.days.length - 1)
+      {
+        if (!isSmall || (offsetY == height && offsetX == width))
+        {
+          ret.last["pageBreak"] = "after";
+          offsetX = 0;
+          offsetY = 0;
+        }
+        else if (offsetX == width)
+        {
+          offsetX = 0;
+          offsetY += height;
+        }
+        else
+        {
+          offsetX = width;
+        }
+      }
     }
     return ret;
   }
@@ -166,10 +193,10 @@ class PrintDailyGraphic extends BasePrint
     {
       vertCvs.add({
         "type": "line",
-        "x1": cmx(i * colWidth),
-        "y1": 0,
-        "x2": cmx(i * colWidth),
-        "y2": cmy(lineHeight * gridLines + 0.25),
+        "x1": cm(i * colWidth),
+        "y1": cm(0),
+        "x2": cm(i * colWidth),
+        "y2": cm(lineHeight * gridLines + 0.25),
         "lineWidth": cm(lw),
         "lineColor": i > 0 && i < 24 ? lc : lcFrame
       });
@@ -185,10 +212,10 @@ class PrintDailyGraphic extends BasePrint
     {
       horzCvs.add({
         "type": "line",
-        "x1": cmx(-0.2),
-        "y1": cmy((gridLines - i) * lineHeight - lw / 2),
-        "x2": cmx(24 * colWidth + 0.2),
-        "y2": cmy((gridLines - i) * lineHeight - lw / 2),
+        "x1": cm(-0.2),
+        "y1": cm((gridLines - i) * lineHeight - lw / 2),
+        "x2": cm(24 * colWidth + 0.2),
+        "y2": cm((gridLines - i) * lineHeight - lw / 2),
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
@@ -215,7 +242,7 @@ class PrintDailyGraphic extends BasePrint
     {
       double x = glucX(time.time);
       double y = glucY(time.gluc);
-      areaPoints.add({"x": cmx(x), "y": cmy(y)});
+      areaPoints.add({"x": cm(x), "y": cm(y)});
     }
     graphGlucCvs.add(area);
 
@@ -240,15 +267,15 @@ class PrintDailyGraphic extends BasePrint
           y = carbY(t.carbs);
           (graphCarbs["stack"][0]["canvas"] as List).add({
             "type": "line",
-            "x1": cmx(x),
-            "y1": cmy(y),
-            "x2": cmx(x),
-            "y2": cmy(graphHeight - lw),
+            "x1": cm(x),
+            "y1": cm(y),
+            "x2": cm(x),
+            "y2": cm(graphHeight - lw),
             "lineColor": colCarbs,
             "lineWidth": cm(0.1),
           });
           (graphCarbs["stack"][1]["stack"] as List).add({
-            "relativePosition": {"x": cmx(x - 0.5), "y": cmy(y - 0.2),},
+            "relativePosition": {"x": cm(x - 0.5), "y": cm(y - 0.2),},
             "text": "${msgKH(fmtNumber(t.carbs))}",
             "fontSize": fs(8),
           });
@@ -261,15 +288,15 @@ class PrintDailyGraphic extends BasePrint
         y = bolusY(t.bolusInsulin);
         (graphInsulin["stack"][0]["canvas"] as List).add({
           "type": "line",
-          "x1": cmx(x),
-          "y1": cmy(0),
-          "x2": cmx(x),
-          "y2": cmy(y),
+          "x1": cm(x),
+          "y1": cm(0),
+          "x2": cm(x),
+          "y2": cm(y),
           "lineColor": colBolus,
           "lineWidth": cm(0.1),
         });
         (graphInsulin["stack"][1]["stack"] as List).add({
-          "relativePosition": {"x": cmx(x - 0.3), "y": cmy(y + 0.05),},
+          "relativePosition": {"x": cm(x - 0.3), "y": cm(y + 0.05),},
           "text": "${fmtNumber(t.bolusInsulin, _precision)} ${msgInsulinUnit}",
           "fontSize": fs(8),
           "color": colBolus
@@ -328,12 +355,12 @@ class PrintDailyGraphic extends BasePrint
       double high = profile.store.listTargetHigh[i].value;
       double x = glucX(profile.store.listTargetLow[i].time);
       double y = glucY((low + high) / 2);
-      if (lastTarget >= 0)targetValues.add({"x": cmx(x), "y": cmy(lastTarget)});
-      targetValues.add({"x": cmx(x), "y": cmy(y)});
+      if (lastTarget >= 0)targetValues.add({"x": cm(x), "y": cm(lastTarget)});
+      targetValues.add({"x": cm(x), "y": cm(y)});
       lastTarget = y;
     }
     targetValues.add({
-      "x": cmx(glucX(DateTime(
+      "x": cm(glucX(DateTime(
         0,
         1,
         1,
@@ -341,7 +368,7 @@ class PrintDailyGraphic extends BasePrint
         59,
         59,
         999))),
-      "y": cmy(lastTarget)
+      "y": cm(lastTarget)
     });
 
     var limitLines = {
@@ -349,8 +376,8 @@ class PrintDailyGraphic extends BasePrint
       "canvas": [
         {
           "type": "rect",
-          "x": cmx(0.0),
-          "y": cmy(yHigh),
+          "x": cm(0.0),
+          "y": cm(yHigh),
           "w": cm(24 * colWidth),
           "h": cm(yLow - yHigh),
           "color": colTargetArea,
@@ -358,10 +385,10 @@ class PrintDailyGraphic extends BasePrint
         },
         {
           "type": "line",
-          "x1": cmx(0.0),
-          "y1": cmy(yHigh),
-          "x2": cmx(24 * colWidth),
-          "y2": cmy(yHigh),
+          "x1": cm(0.0),
+          "y1": cm(yHigh),
+          "x2": cm(24 * colWidth),
+          "y2": cm(yHigh),
           "lineWidth": cm(lw),
           "lineColor": colTargetArea
         },
@@ -374,10 +401,10 @@ class PrintDailyGraphic extends BasePrint
         },
         {
           "type": "line",
-          "x1": cmx(0.0),
-          "y1": cmy(yLow),
-          "x2": cmx(24 * colWidth),
-          "y2": cmy(yLow),
+          "x1": cm(0.0),
+          "y1": cm(yLow),
+          "x2": cm(24 * colWidth),
+          "y2": cm(yLow),
           "lineWidth": cm(lw),
           "lineColor": colTargetArea
         },
@@ -392,8 +419,8 @@ class PrintDailyGraphic extends BasePrint
     addLegendEntry(legend, colValue, msgGlucosekurve, isArea: false);
     if (hasCarbs)addLegendEntry(legend, colCarbs, msgCarbs, isArea: false, lineWidth: 0.1);
     if (hasBolus)addLegendEntry(
-      legend, colBolus, msgBolusInsulin("${fmtNumber(day.ieBolusSum, _precision, false)} ${msgInsulinUnit}"), isArea: false,
-      lineWidth: 0.1);
+      legend, colBolus, msgBolusInsulin("${fmtNumber(day.ieBolusSum, _precision, false)} ${msgInsulinUnit}"),
+      isArea: false, lineWidth: 0.1);
     String text;
     if (showBasalDay)
     {
@@ -481,17 +508,17 @@ class PrintDailyGraphic extends BasePrint
 //      "fillOpacity": opacity
     };
 
-    if (!displayProfile)areaPoints.add({"x": cmx(basalX(DateTime(0, 1, 1, 0, 0))), "y": cmy(basalY(0.0))});
+    if (!displayProfile)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
     for (ProfileEntryData entry in data)
     {
       double x = basalX(entry.time);
       double y = basalY(entry.value);
-      if (lastY >= 0)areaPoints.add({"x": cmx(x), "y": cmy(lastY)});
-      areaPoints.add({"x": cmx(x), "y": cmy(y)});
+      if (lastY >= 0)areaPoints.add({"x": cm(x), "y": cm(lastY)});
+      areaPoints.add({"x": cm(x), "y": cm(y)});
       lastY = y;
     }
-    if (lastY >= 0)areaPoints.add({"x": cmx(basalX(DateTime(0, 1, 1, 23, 59))), "y": cmy(lastY)});
-    if (!displayProfile)areaPoints.add({"x": cmx(basalX(DateTime(0, 1, 1, 23, 59))), "y": cmy(basalY(0.0))});
+    if (lastY >= 0)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(lastY)});
+    if (!displayProfile)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
     basalCvs.add(area);
 //    basalCvs.add({"type": "rect", "x": 0, "y": 0, "w": 1, "h": 1, "fillOpacity": 1});
     return ret;
@@ -507,10 +534,7 @@ class PrintDailyGraphic extends BasePrint
       "color": colCarbs,
       "lineWidth": cm(0),
       "points": [
-        {"x": cmx(x), "y": cmy(y - h - 0.1)},
-        {"x": cmx(x + 0.1), "y": cmy(y)},
-        {"x": cmx(x - 0.1), "y": cmy(y)}
-      ],
+        {"x": cm(x), "y": cm(y - h - 0.1)}, {"x": cm(x + 0.1), "y": cm(y)}, {"x": cm(x - 0.1), "y": cm(y)}],
     });
   }
 }

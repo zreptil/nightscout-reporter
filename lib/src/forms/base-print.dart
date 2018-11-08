@@ -35,7 +35,7 @@ class LegendData
 
 enum ParamType
 {
-  none,bool,string,int
+  none, bool, string, int
 }
 
 class ParamInfo
@@ -52,9 +52,9 @@ class ParamInfo
   ParamInfo(this.title,
             {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null})
   {
-    if(boolValue != null)type = ParamType.bool;
-    if(stringValue != null)type = ParamType.string;
-    if(intValue != null)type = ParamType.int;
+    if (boolValue != null)type = ParamType.bool;
+    if (stringValue != null)type = ParamType.string;
+    if (intValue != null)type = ParamType.int;
   }
 
   dynamic get asJson
@@ -72,7 +72,7 @@ class ParamInfo
   {
     try
     {
-      switch(type)
+      switch (type)
       {
         case ParamType.bool:
           boolValue = value["b"] ?? false;
@@ -134,8 +134,12 @@ class FormConfig
 
   fill(FormConfig src)
   {
-    for (int i = 0; i < form.params.length && i < src.form.params.length; i++)
+    for (int i = 0; i < src.form.params.length; i++)
+    {
+      if (i >= form.params.length)
+        form.params.add(src.form.params[i]);
       form.params[i].fill(src.form.params[i]);
+    }
   }
 
   fillFromJson(dynamic value)
@@ -523,6 +527,8 @@ abstract class BasePrint
   }
 
   double scale = 1.0;
+  double offsetX = 0.0;
+  double offsetY = 0.0;
 
   double cm(pt)
   {
@@ -531,12 +537,12 @@ abstract class BasePrint
 
   double cmx(pt)
   {
-    return (0 * width + pt) / 0.035277 * scale;
+    return (offsetX + pt) / 0.035277 * scale;
   }
 
   double cmy(pt)
   {
-    return (0 * height + pt) / 0.035277 * scale;
+    return (offsetY + pt) / 0.035277 * scale;
   }
 
   double fs(double size)
