@@ -122,13 +122,13 @@ class PrintAnalysis extends BasePrint
   addBodyArea(List body, String title, List lines)
   {
     body.add([ {
-      "canvas": [ {"type": "line", "x1": cmx(0), "y1": cmy(0.2), "x2": cmx(13.5), "y2": cmy(0.2), "lineWidth": cml(0.01)}],
+      "canvas": [ {"type": "line", "x1": cm(0), "y1": cm(0.2), "x2": cm(13.5), "y2": cm(0.2), "lineWidth": cm(0.01)}],
       "colSpan": 5
     }
     ]);
 
     body.add([ {
-      "columns": [{"width": cml(13.5), "text": title, "fontSize": fs(8), "color": "#606060", "alignment": "center"}],
+      "columns": [{"width": cm(13.5), "text": title, "fontSize": fs(8), "color": "#606060", "alignment": "center"}],
       "colSpan": 5,
     }
     ]);
@@ -237,9 +237,9 @@ class PrintAnalysis extends BasePrint
         {"text": "(${fmtNumber(data.highCount)})", "style": "infounit"},
         {
           "canvas": [
-            {"type": "rect", "x": cmx(0), "y": cmy(0), "w": cml(2.0), "h": cml(tgHigh), "color": colHigh},
-            {"type": "rect", "x": cmx(0), "y": cmy(tgHigh), "w": cml(2.0), "h": cml(tgNorm), "color": colNorm},
-            {"type": "rect", "x": cmx(0), "y": cmy(tgHigh + tgNorm), "w": cml(2.0), "h": cml(tgLow), "color": colLow},
+            {"type": "rect", "x": cm(0), "y": cm(0), "w": cm(2.0), "h": cm(tgHigh), "color": colHigh},
+            {"type": "rect", "x": cm(0), "y": cm(tgHigh), "w": cm(2.0), "h": cm(tgNorm), "color": colNorm},
+            {"type": "rect", "x": cm(0), "y": cm(tgHigh + tgNorm), "w": cm(2.0), "h": cm(tgLow), "color": colLow},
           ],
           "rowSpan": 3
         },
@@ -277,9 +277,9 @@ class PrintAnalysis extends BasePrint
         {"text": "(${fmtNumber(data.entriesIn(181, 9999))})", "style": "infounit"},
         {
           "canvas": [
-            {"type": "rect", "x": cmx(0), "y": cmy(0), "w": cml(2.0), "h": cml(above180), "color": colHigh},
-            {"type": "rect", "x": cmx(0), "y": cmy(above180), "w": cml(2.0), "h": cml(in70180), "color": colNorm},
-            {"type": "rect", "x": cmx(0), "y": cmy(above180 + in70180), "w": cml(2.0), "h": cml(below70), "color": colLow},
+            {"type": "rect", "x": cm(0), "y": cm(0), "w": cm(2.0), "h": cm(above180), "color": colHigh},
+            {"type": "rect", "x": cm(0), "y": cm(above180), "w": cm(2.0), "h": cm(in70180), "color": colNorm},
+            {"type": "rect", "x": cm(0), "y": cm(above180 + in70180), "w": cm(2.0), "h": cm(below70), "color": colLow},
           ],
           "rowSpan": 3
         },
@@ -310,7 +310,7 @@ class PrintAnalysis extends BasePrint
         {"text": msgLowestValue, "style": "infotitle"},
         {"text": "${glucFromData(data.min)}", "style": "infodata"},
         {"text": getGlucInfo()["unit"], "style": "infounit"},
-        {"canvas": [ {"type": "rect", "x": cmx(0), "y": cmy(1.25), "w": cml(2.0), "h": cml(0.9), "color": glucWarnColor},
+        {"canvas": [ {"type": "rect", "x": cm(0), "y": cm(1.25), "w": cm(2.0), "h": cm(0.9), "color": glucWarnColor},
         ], "rowSpan": 3},
       ],
       [
@@ -369,13 +369,13 @@ class PrintAnalysis extends BasePrint
 
     var ret = [
       header,
-      {"columns":[{"width": cml(width), "margin": [cml(0), cml(3), cml(0), cml(0)], "text": "${src.globals.user.name}", "fontSize": fs(20), "alignment": "center"}]},
+      {"margin": [cmx(0), cmy(3), cm(0), cm(0)], "columns":[{"width": cm(width), "text": "${src.globals.user.name}", "fontSize": fs(20), "alignment": "center"}]},
       {
-        "margin": [cml(5.5), cml(0.5), cml(0), cml(0)],
+        "margin": [cmx(5.5), cm(0.5), cm(0), cm(0)],
         "layout": "noBorders",
         "table": {
           "headerRows": 0,
-          "widths": [cml(5), cml(8)],
+          "widths": [cm(5), cm(8)],
           "body": [
             [{"text": msgBirthday, "style": "perstitle"}, {"text": src.globals.user.birthDate, "style": "persdata"}],
             [{"text": msgDiabSince, "style": "perstitle"}, {"text": src.globals.user.diaStartDate, "style": "persdata"}
@@ -385,9 +385,9 @@ class PrintAnalysis extends BasePrint
         }
       },
       {
-        "margin": [cml(3.7), cml(0.5), cml(0), cml(0)],
+        "margin": [cmx(3.7), cm(0.5), cm(0), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cml(0), cml(7.3), cml(1.5), cml(1.5), cml(6)], "body": tableBody}
+        "table": {"headerRows": 0, "widths": [cm(0), cm(7.3), cm(1.5), cm(1.5), cm(6)], "body": tableBody}
       },
       footer(),
     ];

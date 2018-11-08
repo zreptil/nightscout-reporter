@@ -21,10 +21,14 @@ class PrintDailyStatistics extends BasePrint
     ParamInfo(msgParam4, boolValue: true),
   ];
 
-  static String get msgParam1 => Intl.message("Spalte Messwerte");
-  static String get msgParam2 => Intl.message("Spalte Standardabweichung");
-  static String get msgParam3 => Intl.message("Spalten Perzentile");
-  static String get msgParam4 => Intl.message("Spalte HbA1c");
+  static String get msgParam1
+  => Intl.message("Spalte Messwerte");
+  static String get msgParam2
+  => Intl.message("Spalte Standardabweichung");
+  static String get msgParam3
+  => Intl.message("Spalten Perzentile");
+  static String get msgParam4
+  => Intl.message("Spalte HbA1c");
 
   @override
   prepareData_(ReportData data)
@@ -132,7 +136,7 @@ class PrintDailyStatistics extends BasePrint
 
     double f = 3.3;
     var body = [];
-    var widths = ["auto", cmy(f), "*", "*", "*"];
+    var widths = [cm(2.0), cm(f), "*", "*", "*"];
     if (showCount)widths.add("auto");
     widths.add("auto");
     widths.add("auto");
@@ -140,12 +144,30 @@ class PrintDailyStatistics extends BasePrint
     if (showStdabw)widths.add("auto");
     if (showPercentile)
     {
-      widths.add(cmx(1.5));
-      widths.add(cmx(1.5));
-      widths.add(cmx(1.5));
+      widths.add(cm(1.5));
+      widths.add(cm(1.5));
+      widths.add(cm(1.5));
     }
-    if (showHbA1c)widths.add(cmx(1.5));
-
+    if (showHbA1c)widths.add(cm(1.5));
+    // maybe later the margins will work properly, up to now it
+    // doesn't work beacause of hardcoded margins in the tablecells
+/*
+    int colCount = 6;
+    double wid = width - 4.4 - f - 2.0;
+    var widths = [cm(2.0), cm(f), w, w, w];
+    if (showCount)widths.add(w);
+    widths.add(w);
+    widths.add(w);
+    widths.add(w);
+    if (showStdabw)widths.add(w);
+    if (showPercentile)
+    {
+      widths.add(cm(1.5));
+      widths.add(cm(1.5));
+      widths.add(cm(1.5));
+    }
+    if (showHbA1c)widths.add(cm(1.5));
+// */
     f /= 100;
 
     ProfileGlucData prevProfile = null;
@@ -176,23 +198,24 @@ class PrintDailyStatistics extends BasePrint
       var row = [];
       row.add({"text": fmtDate(day.date), "style": "row"});
       row.add({
+        "style": "m0",
         "canvas": [
-          {"type": "rect", "color": colLow, "x": cmx(0), "y": cmy(0), "w": cml(day.lowPrz * f), "h": cml(0.5)},
+          {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * f), "h": cm(0.5)},
           {
             "type": "rect",
             "color": colNorm,
-            "x": cmx(day.lowPrz * f),
-            "y": cmy(0),
-            "w": cml(day.normPrz * f),
-            "h": cml(0.5)
+            "x": cm(day.lowPrz * f),
+            "y": cm(0),
+            "w": cm(day.normPrz * f),
+            "h": cm(0.5)
           },
           {
             "type": "rect",
             "color": colHigh,
-            "x": cmx((day.lowPrz + day.normPrz) * f),
-            "y": cmy(0),
-            "w": cml(day.highPrz * f),
-            "h": cml(0.5)
+            "x": cm((day.lowPrz + day.normPrz) * f),
+            "y": cm(0),
+            "w": cm(day.highPrz * f),
+            "h": cm(0.5)
           }
         ]
       });
@@ -228,14 +251,7 @@ class PrintDailyStatistics extends BasePrint
       lineCount ++;
       if (lineCount == 21 && day != src.ns.days.last)
       {
-        ret.add({
-          "columns": [ {
-            "width": cml(width),
-            "margin": [cmx(2.2), cmy(2.5), cmx(2.2), cmy(0.0)],
-            "table": {"widths": widths, "body": body}
-          }
-          ]
-        });
+        ret.add(getTable(widths, body));
         lineCount = 0;
         if (day != src.ns.days.last)
         {
@@ -258,15 +274,15 @@ class PrintDailyStatistics extends BasePrint
     row.add({"text": msgDaySum(src.ns.days.length), "style": "total", "alignment": "center"});
     row.add({
       "canvas": [
-        {"type": "rect", "color": colLow, "x": cmx(0), "y": cmy(0), "w": cml(lowPrz * f), "h": cml(0.5)},
-        {"type": "rect", "color": colNorm, "x": cmx(lowPrz * f), "y": cmy(0), "w": cml(normPrz * f), "h": cml(0.5)},
+        {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(lowPrz * f), "h": cm(0.5)},
+        {"type": "rect", "color": colNorm, "x": cm(lowPrz * f), "y": cm(0), "w": cm(normPrz * f), "h": cm(0.5)},
         {
           "type": "rect",
           "color": colHigh,
-          "x": cmx((lowPrz + normPrz) * f),
-          "y": cmy(0),
-          "w": cml(highPrz * f),
-          "h": cml(0.5)
+          "x": cm((lowPrz + normPrz) * f),
+          "y": cm(0),
+          "w": cm(highPrz * f),
+          "h": cm(0.5)
         }
       ],
       "style": "total"
@@ -292,17 +308,26 @@ class PrintDailyStatistics extends BasePrint
 
     if (prevProfile != null)
     {
-      ret.add({
-        "columns": [ {
-          "width": cml(width),
-          "margin": [cmx(2.2), cmy(2.5), cmx(2.2), cmy(0.0)],
-          "table": {"widths": widths, "body": body}
-        }
-        ]
-      });
+      ret.add(getTable(widths, body));
       ret.add(footer());
     }
 
     return ret;
+  }
+
+  getTable(widths, body)
+  {
+//    double wt = 0.0;
+//    for (double w in widths)
+//      wt += w;
+//    body.add([{"text": "${wt * 0.035277}", "colSpan": widths.length}]);
+    return {
+      "columns": [ {
+        "margin": [cm(2.2), cmy(2.5), cm(2.2), cmy(0.0)],
+        "width": cm(width),
+        "table": {"widths": widths, "body": body}
+      }
+      ]
+    };
   }
 }

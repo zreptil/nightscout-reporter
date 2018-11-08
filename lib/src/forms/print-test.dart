@@ -49,7 +49,8 @@ class PrintTest extends BasePrint
     init();
   }
 
-  dynamic createRoot(type, {bool isFirst: false, String title: null})
+  bool isFirst = true;
+  dynamic createRoot(type, {String title: null})
   {
     String color = "#eee";
     switch (type)
@@ -86,8 +87,9 @@ class PrintTest extends BasePrint
     var ret = {
       "margin": [cmx(2.0), cmy(isFirst ? 2.8 : 0.5), cmx(2.0), cmy(0.0)],
       "layout": type == "raw" ? "" : "noBorders",
-      "table": {"_dontBreakRows": false, "headerRows": 1, "widths": widths, "body": body}
+      "table": {"headerRows": 1, "widths": widths, "body": body}
     };
+    isFirst = false;
     return ret;
   }
 
@@ -96,9 +98,10 @@ class PrintTest extends BasePrint
   {
     var ret = [header];
     body = [];
-    root = createRoot("entries", isFirst: true);
+    isFirst = true;
     if (showEntries)
     {
+      root = createRoot("entries");
       for (int i = 0; i < src.ns.entries.length; i++)
       {
         EntryData entry = src.ns.entries[i];

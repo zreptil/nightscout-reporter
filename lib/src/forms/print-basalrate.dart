@@ -19,6 +19,21 @@ class CalcData
 
 class PrintBasalrate extends BasePrint
 {
+  bool isPrecise;
+  int get _precision => isPrecise ? 2 : 1;
+
+  @override
+  List<ParamInfo> params = [
+    ParamInfo(msgParam1, boolValue: false),
+  ];
+
+  @override
+  prepareData_(ReportData data)
+  {
+    isPrecise = params[0].boolValue;
+    return data;
+  }
+
   @override
   String id = "basal";
 
@@ -40,6 +55,8 @@ class PrintBasalrate extends BasePrint
 
   num lineWidth;
 
+  static String get msgParam1
+  => Intl.message("Zwei Nachkommastellen");
   msgValidRange(begDate, endDate)
   => Intl.message("gültig von $begDate bis $endDate", args: [begDate, endDate], name: "msgValidRange");
   msgValidFrom(begDate)
@@ -68,15 +85,9 @@ class PrintBasalrate extends BasePrint
   }
 
   @override
-  prepareData_(ReportData vars)
-  {
-    return vars;
-  }
-
-  @override
   getFormData_(ReportData src)
   async {
-    lineWidth = cml(0.03);
+    lineWidth = cm(0.03);
     var ret = [];
     var calc = CalcData();
     DateTime startDate = DateTime(src.begDate.year, src.begDate.month, src.begDate.day);
@@ -190,7 +201,7 @@ class PrintBasalrate extends BasePrint
     double lineHeight = gridHeight / gridLines;
     double colWidth = gridWidth / 25;
 
-    double lw = cml(0.03);
+    double lw = cm(0.03);
     String lc = "#a0a0a0";
     var vertLines = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
     var horzLines = {"absolutePosition": {"x": cmx(xo - 0.2), "y": cmy(yo)}, "canvas": []};
@@ -276,8 +287,8 @@ class PrintBasalrate extends BasePrint
         "type": "rect",
         "x": cmx(x),
         "y": cmy(lineHeight * gridLines),
-        "w": cml(w),
-        "h": cml(-brtimes[i].value / step * lineHeight),
+        "w": cm(w),
+        "h": cm(-brtimes[i].value / step * lineHeight),
         "color": colBasalProfile
       });
     }
@@ -291,16 +302,16 @@ class PrintBasalrate extends BasePrint
       "type": "rect",
       "x": cmx(0),
       "y": cmy(0),
-      "w": cml(24 * colWidth + 2.0),
-      "h": cml(lineHeight),
+      "w": cm(24 * colWidth + 2.0),
+      "h": cm(lineHeight),
       "color": colBasalProfile
     });
     brTableCvs.add({
       "type": "rect",
       "x": cmx(0),
       "y": cmy(lineHeight),
-      "w": cml(24 * colWidth + 2.0),
-      "h": cml(lineHeight),
+      "w": cm(24 * colWidth + 2.0),
+      "h": cm(lineHeight),
       "color": blendColor(colBasalProfile, "#ffffff", 0.5)
     });
     brTableCvs.add({
@@ -353,16 +364,16 @@ class PrintBasalrate extends BasePrint
         {
           "absolutePosition": {"x": cmx(xo), "y": cmy(yo + 0.05)},
           "columns": [
-            {"width": cml(1), "text": msgTimeShort, "fontSize": fs(8), "color": colBasalFont, "alignment": "center"}]
+            {"width": cm(1), "text": msgTimeShort, "fontSize": fs(8), "color": colBasalFont, "alignment": "center"}]
         },
         {
           "absolutePosition": {"x": cmx(xo), "y": cmy(yo + lineHeight + 0.2)},
-          "columns": [ {"width": cml(1), "text": msgInsulinUnit, "fontSize": fs(8), "alignment": "center"},
+          "columns": [ {"width": cm(1), "text": msgInsulinUnit, "fontSize": fs(8), "alignment": "center"},
           ]
         },
         {
           "absolutePosition": {"x": cmx(xo), "y": cmy(yo + 2 * lineHeight + 0.05)},
-          "columns": [ {"width": cml(1), "text": msgAdjustment, "fontSize": fs(8), "alignment": "center"}],
+          "columns": [ {"width": cm(1), "text": msgAdjustment, "fontSize": fs(8), "alignment": "center"}],
         },
       ],
     };
@@ -388,7 +399,7 @@ class PrintBasalrate extends BasePrint
         "lineColor": lc
       });
       var text = {
-        "width": cml(colWidth),
+        "width": cm(colWidth),
         "margin": [i < 24 ? cmx(0.15) : cmx(0), cmy(0.15), cmx(0), cmy(0)],
         "text": (i < 24 ? fmtNumber(i) : msgTotal),
         "fontSize": fs(8),
@@ -399,8 +410,8 @@ class PrintBasalrate extends BasePrint
     }
 
     double x = 0.0;
-    var m1 = [cml(0), cml(0), cml(0), cml(0)];
-    var m2 = [cml(0), cml(0.15), cml(0), cml(0)];
+    var m1 = [cm(0), cm(0), cm(0), cm(0)];
+    var m2 = [cm(0), cm(0.15), cm(0), cm(0)];
 
     int lastHour = 0;
     for (var i = 0; i < brtimes.length; i++)
@@ -414,9 +425,9 @@ class PrintBasalrate extends BasePrint
       else
         w = 24 - brtimes[i].time.hour;
       legendIE.add({
-        "width": cml(w * colWidth),
+        "width": cm(w * colWidth),
         "margin": m1,
-        "text": fmtNumber(brtimes[i].value, 1),
+        "text": fmtNumber(brtimes[i].value, _precision),
         "fontSize": fs(8),
         "alignment": "left"
       });
@@ -424,11 +435,11 @@ class PrintBasalrate extends BasePrint
       String text = "";
       if (brtimes[i].value != calc.nextBRTimes[i].value)
       {
-        text = fmtNumber(calc.nextBRTimes[i].value, 1);
+        text = fmtNumber(calc.nextBRTimes[i].value, _precision);
         hasAdjustment = true;
       }
       legendAdjust.add({
-        "width": cml(w * colWidth),
+        "width": cm(w * colWidth),
         "margin": m2,
         "text": text,
         "fontSize": fs(8),
@@ -441,12 +452,12 @@ class PrintBasalrate extends BasePrint
 //    legendAdjust.add({"width": cml(colWidth), "text": "", "fontSize": fs(8)});
 
     legendIE.add(
-      {"width": cml(colWidth), "margin": m0, "text": fmtNumber(ieSum, 1), "fontSize": fs(8), "alignment": "center"});
+      {"width": cm(colWidth), "margin": m0, "text": fmtNumber(ieSum, _precision), "fontSize": fs(8), "alignment": "center"});
 
     if (hasAdjustment) legendAdjust.add({
-      "width": cml(colWidth),
+      "width": cm(colWidth),
       "margin": m2,
-      "text": fmtNumber(ieSumNext, 1),
+      "text": fmtNumber(ieSumNext, _precision),
       "fontSize": fs(8),
       "alignment": "center"
     });
@@ -512,7 +523,7 @@ class PrintBasalrate extends BasePrint
         "x2": cmx(x + 0.1),
         "y2": cmy(y + 0.1),
         "lineColor": "#000",
-        "lineWidth": cml(0.01)
+        "lineWidth": cm(0.01)
       });
       ret.add({
         "type": "line",
@@ -521,7 +532,7 @@ class PrintBasalrate extends BasePrint
         "x2": cmx(x - 0.1),
         "y2": cmy(y + 0.1),
         "lineColor": "#000",
-        "lineWidth": cml(0.01)
+        "lineWidth": cm(0.01)
       });
     }
 

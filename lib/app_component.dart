@@ -46,6 +46,7 @@ import 'src/whatsnew/whatsnew_component.dart';
     DeferredContentDirective,
     MaterialDropdownSelectComponent,
     MaterialSelectItemComponent,
+    MaterialSliderComponent,
     SettingsComponent,
     ImpressumComponent,
     DSGVOComponent,
@@ -215,8 +216,7 @@ class AppComponent
   }
 
   void toggleHelp()
-  {
-  }
+  {}
 
   void togglePage(String id)
   {
@@ -322,14 +322,24 @@ class AppComponent
   {
     sendDisabled = true;
     for (FormConfig cfg in g.listConfig)
-      if (cfg.checked)sendDisabled = (cfg.form.isDebugOnly && !isDebug);
+      if (cfg.checked)
+      {
+        if (cfg.form.isDebugOnly)
+        {
+          if (isDebug)sendDisabled = false;
+        }
+        else
+        {
+          sendDisabled = false;
+        }
+      }
   }
 
   ReportData reportData = null;
   Future<ReportData> loadData()
   async {
-    if (reportData != null && reportData.begDate == g.dateRange.range.start && reportData.endDate == g.dateRange.range
-      .end)return reportData;
+    if (reportData != null && reportData.begDate == g.dateRange.range.start &&
+      reportData.endDate == g.dateRange.range.end)return reportData;
 
     ReportData data = ReportData(g, g.dateRange.range.start, g.dateRange.range.end);
     reportData = data;
@@ -518,8 +528,7 @@ class AppComponent
       data.ns.extractData(data);
     }
     else
-    {
-    }
+    {}
     return data;
   }
 
@@ -562,18 +571,22 @@ class AppComponent
             doc = {
               "pageSize": "a4",
               "pageOrientation": form.isPortrait ? "portrait" : "landscape",
-              "pageMargins": [form.cmx(0), form.cmy(1.0), form.cmx(0), form.cmy(0.0)],
+              "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
               "content": data,
               "images": form.images,
               "styles": {
-                "infoline": {"margin": [form.cmx(0), form.cmy(0.25), form.cmx(0), form.cmy(0.25)]},
+                "infoline": {"margin": [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]},
                 "perstitle": {"fontSize": form.fs(10), "alignment": "right"},
                 "persdata": {"fontSize": form.fs(10), "color": "#0000ff"},
                 "infotitle": {"fontSize": form.fs(10), "alignment": "left"},
                 "infodata": {"fontSize": form.fs(10), "alignment": "right", "color": "#0000ff"},
-                "infounit": {"margin": [form.cmx(0), form.cmy(0.07), form.cmx(0), form.cmy(0)], "fontSize": form.fs(8), "color": "#0000ff"},
+                "infounit": {
+                  "margin": [form.cm(0), form.cm(0.07), form.cm(0), form.cm(0)],
+                  "fontSize": form.fs(8),
+                  "color": "#0000ff"
+                },
                 "hba1c": {"color": "#5050ff", "fontSize": form.fs(10)},
-                "total": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10)},
+                "total": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10), "margin": form.m0},
                 "row": {"fontSize": form.fs(10)}
               }
             };
@@ -606,6 +619,12 @@ class AppComponent
       }
 
       doc = "${convert.jsonEncode(doc)}";
+      if (isDebug)
+      {
+        doc = doc.replaceAll("],", "],\n");
+        doc = doc.replaceAll(",\"", ",\n\"");
+        doc = doc.replaceAll(":[", ":\n[");
+      }
       pdfData = convert.base64.encode(convert.utf8.encode(doc));
 //*
       if (!isDebug)

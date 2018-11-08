@@ -43,7 +43,8 @@ class ParamInfo
   int min;
   int max;
 
-  ParamInfo(this.title, {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null});
+  ParamInfo(this.title,
+            {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null});
 
   dynamic get asJson
   {
@@ -65,8 +66,7 @@ class ParamInfo
       intValue = value["i"];
     }
     catch (ex)
-    {
-    }
+    {}
   }
 }
 
@@ -124,8 +124,7 @@ class FormConfig
         form.params[i].fillFromJson(value["p"][i]);
     }
     catch (ex)
-    {
-    }
+    {}
   }
 
   fillFromString(String value)
@@ -225,18 +224,18 @@ abstract class BasePrint
         ret["stack"].add({
           "absolutePosition": {"x": cmx(0), "y": cmy(0)},
           "canvas": [
-            {"type": "rect", "x": cmx(0.0), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#d69a2e"},
-            {"type": "rect", "x": cmx(1.6), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#2e4736"},
-            {"type": "rect", "x": cmx(3.2), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#662c40"},
-            {"type": "rect", "x": cmx(4.8), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#343a49"},
-            {"type": "rect", "x": cmx(6.4), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#528c8e"},
-            {"type": "rect", "x": cmx(8.0), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#362946"},
-            {"type": "rect", "x": cmx(9.6), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#6b8133"},
-            {"type": "rect", "x": cmx(11.2), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#2a3b56"},
-            {"type": "rect", "x": cmx(12.8), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#862d2e"},
-            {"type": "rect", "x": cmx(14.4), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#607f6e"},
-            {"type": "rect", "x": cmx(16.0), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#273d3f"},
-            {"type": "rect", "x": cmx(17.6), "y": cmy(0), "w": cml(1.6), "h": cml(0.55), "color": "#a5916d"}
+            {"type": "rect", "x": cmx(0.0), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#d69a2e"},
+            {"type": "rect", "x": cmx(1.6), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#2e4736"},
+            {"type": "rect", "x": cmx(3.2), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#662c40"},
+            {"type": "rect", "x": cmx(4.8), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#343a49"},
+            {"type": "rect", "x": cmx(6.4), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#528c8e"},
+            {"type": "rect", "x": cmx(8.0), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#362946"},
+            {"type": "rect", "x": cmx(9.6), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#6b8133"},
+            {"type": "rect", "x": cmx(11.2), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#2a3b56"},
+            {"type": "rect", "x": cmx(12.8), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#862d2e"},
+            {"type": "rect", "x": cmx(14.4), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#607f6e"},
+            {"type": "rect", "x": cmx(16.0), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#273d3f"},
+            {"type": "rect", "x": cmx(17.6), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#a5916d"}
           ]
         });
       }
@@ -248,18 +247,18 @@ abstract class BasePrint
         ret["stack"].add({
           "absolutePosition": {"x": 0, "y": cmy(0)},
           "canvas": [
-            {"type": "rect", "x": cmx(0.0), "y": cmy(0), "w": cml(2.2), "h": cml(0.55), "color": "#d69a2e"},
-            {"type": "rect", "x": cmx(2.2), "y": cmy(0), "w": cml(2.3), "h": cml(0.55), "color": "#2e4736"},
-            {"type": "rect", "x": cmx(4.5), "y": cmy(0), "w": cml(2.3), "h": cml(0.55), "color": "#662c40"},
-            {"type": "rect", "x": cmx(6.8), "y": cmy(0), "w": cml(2.25), "h": cml(0.55), "color": "#343a49"},
-            {"type": "rect", "x": cmx(9.05), "y": cmy(0), "w": cml(2.3), "h": cml(0.55), "color": "#528c8e"},
-            {"type": "rect", "x": cmx(11.35), "y": cmy(0), "w": cml(2.25), "h": cml(0.55), "color": "#362946"},
-            {"type": "rect", "x": cmx(13.6), "y": cmy(0), "w": cml(2.3), "h": cml(0.55), "color": "#6b8133"},
-            {"type": "rect", "x": cmx(15.9), "y": cmy(0), "w": cml(2.25), "h": cml(0.55), "color": "#2a3b56"},
-            {"type": "rect", "x": cmx(18.15), "y": cmy(0), "w": cml(2.3), "h": cml(0.55), "color": "#862d2e"},
-            {"type": "rect", "x": cmx(20.45), "y": cmy(0), "w": cml(2.3), "h": cml(0.55), "color": "#607f6e"},
-            {"type": "rect", "x": cmx(22.75), "y": cmy(0), "w": cml(2.3), "h": cml(0.55), "color": "#273d3f"},
-            {"type": "rect", "x": cmx(25.05), "y": cmy(0), "w": cml(2.3), "h": cml(0.55), "color": "#a5916d"},
+            {"type": "rect", "x": cmx(0.0), "y": cmy(0), "w": cm(2.2), "h": cm(0.55), "color": "#d69a2e"},
+            {"type": "rect", "x": cmx(2.2), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#2e4736"},
+            {"type": "rect", "x": cmx(4.5), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#662c40"},
+            {"type": "rect", "x": cmx(6.8), "y": cmy(0), "w": cm(2.25), "h": cm(0.55), "color": "#343a49"},
+            {"type": "rect", "x": cmx(9.05), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#528c8e"},
+            {"type": "rect", "x": cmx(11.35), "y": cmy(0), "w": cm(2.25), "h": cm(0.55), "color": "#362946"},
+            {"type": "rect", "x": cmx(13.6), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#6b8133"},
+            {"type": "rect", "x": cmx(15.9), "y": cmy(0), "w": cm(2.25), "h": cm(0.55), "color": "#2a3b56"},
+            {"type": "rect", "x": cmx(18.15), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#862d2e"},
+            {"type": "rect", "x": cmx(20.45), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#607f6e"},
+            {"type": "rect", "x": cmx(22.75), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#273d3f"},
+            {"type": "rect", "x": cmx(25.05), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#a5916d"},
           ],
         });
       }
@@ -280,7 +279,7 @@ abstract class BasePrint
     ret["stack"].add({
       "absolutePosition": {"x": cmx(2.2), "y": cmy(2.4)},
       "columns": [ {
-        "width": cml(width - 4.4),
+        "width": cm(width - 4.4),
         "text": titleInfo,
         "fontSize": fs(10),
         "color": colInfo,
@@ -291,8 +290,15 @@ abstract class BasePrint
     });
     ret["stack"].add({
       "absolutePosition": {"x": cmx(2.2), "y": cmy(2.95)},
-      "canvas": [
-        {"type": "line", "x1": cmx(0), "y1": cmy(0), "x2": cmx(width - 4.4), "y2": cmy(0), "lineWidth": cml(0.2), "lineColor": colText}
+      "canvas": [ {
+        "type": "line",
+        "x1": cm(0),
+        "y1": cm(0),
+        "x2": cm(width - 4.4),
+        "y2": cm(0),
+        "lineWidth": cm(0.2),
+        "lineColor": colText
+      }
       ]
     });
 
@@ -319,11 +325,11 @@ abstract class BasePrint
           "absolutePosition": {"x": cmx(2.2), "y": cmy(height - 2.0)},
           "canvas": [ {
             "type": "line",
-            "x1": 0,
-            "y1": 0,
-            "x2": cmx(width - 4.4),
-            "y2": 0,
-            "lineWidth": cml(0.05),
+            "x1": cm(0),
+            "y1": cm(0),
+            "x2": cm(width - 4.4),
+            "y2": cm(0),
+            "lineWidth": cm(0.05),
             "lineColor": colText
           }
           ]
@@ -339,7 +345,7 @@ abstract class BasePrint
         {
           "absolutePosition": {"x": cmx(2.2), "y": cmy(height - 1.7)},
           "columns": [
-            {"width": cml(width - 4.4), "text": rightText, "color": colInfo, "alignment": "right", "fontSize": fs(10)}]
+            {"width": cm(width - 4.4), "text": rightText, "color": colInfo, "alignment": "right", "fontSize": fs(10)}]
         },
       ],
       "pageBreak": "",
@@ -350,7 +356,7 @@ abstract class BasePrint
     return ret;
   }
 
-  var m0 = [0, 0, 0, 0];
+  dynamic m0 = [];
 
   Map<String, String> images = Map<String, String>();
   List<String> get imgList
@@ -359,8 +365,7 @@ abstract class BasePrint
     ];
 
   void init()
-  {
-  }
+  {}
 
   Future<String> getBase64Image(String id)
   async {
@@ -389,9 +394,9 @@ abstract class BasePrint
 
     if (images[id] != null)
     {
-      if (width != 0 && height != 0)ret["fit"] = [cmx(width), cmy(height)];
-      else if (width != 0)ret["width"] = cmx(width);
-      else if (height != 0)ret["height"] = cmy(height);
+      if (width != 0 && height != 0)ret["fit"] = [cm(width), cm(height)];
+      else if (width != 0)ret["width"] = cm(width);
+      else if (height != 0)ret["height"] = cm(height);
     }
     else
     {
@@ -402,9 +407,9 @@ abstract class BasePrint
             "type": "rect",
             "x": cmx(0),
             "y": cmy(0),
-            "w": cml(max(width, 0.01)),
-            "h": cml(max(height, 0.01)),
-            "lineWidth": cml(0.01),
+            "w": cm(max(width, 0.01)),
+            "h": cm(max(height, 0.01)),
+            "lineWidth": cm(0.01),
             "lineColor": "#f00"
           }
           ]
@@ -431,6 +436,7 @@ abstract class BasePrint
 
   getFormData(ReportData data)
   async {
+    m0 = [cm(0), cm(0), cm(0), cm(0)];
     for (String id in imgList)
     {
       try
@@ -479,33 +485,33 @@ abstract class BasePrint
 
   getFormData_(ReportData src);
 
-  num Num(var text)
+  double Num(var text)
   {
     if (!(text is String))return text;
 
     return num.tryParse(text.toString().replaceAll(",", "."));
   }
 
-  num mm(pt)
+  double mm(pt)
   {
     return pt / 0.35277;
   }
 
   double scale = 1.0;
 
-  double cml(pt)
+  double cm(pt)
   {
     return pt / 0.035277 * scale;
   }
 
   double cmx(pt)
   {
-    return pt / 0.035277 * scale;
+    return (0 * width + pt) / 0.035277 * scale;
   }
 
   double cmy(pt)
   {
-    return pt / 0.035277 * scale;
+    return (0 * height + pt) / 0.035277 * scale;
   }
 
   double fs(double size)
@@ -573,8 +579,7 @@ abstract class BasePrint
       }
     }
     catch (ex)
-    {
-    }
+    {}
 
     if (dt == null)return date;
 
@@ -635,12 +640,9 @@ abstract class BasePrint
     {
       dst.add({
         "columns": [ {
-          "width": cml(0.8),
-          "stack": [ {
-            "margin": [cmx(0.4 - imgWidth / 2), cmy(imgOffsetY), cmx(0), cmy(0)],
-            "image": image,
-            "width": cml(imgWidth)
-          }
+          "width": cm(0.8),
+          "stack": [
+            {"margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), cmx(0), cmy(0)], "image": image, "width": cm(imgWidth)}
           ],
         }, {"text": text, "color": "black"}
         ]
@@ -648,34 +650,26 @@ abstract class BasePrint
     }
     else if (isArea)dst.add({
       "columns": [ {
-        "width": cml(0.8),
+        "width": cm(0.8),
         "canvas": [
-          {
-            "type": "rect",
-            "x": cmx(0),
-            "y": cmy(0.1),
-            "w": cml(0.5),
-            "h": cml(0.3),
-            "color": color,
-            "fillOpacity": 0.3
-          },
-          {"type": "rect", "x": 0, "y": cmy(0), "w": 0, "h": 0, "color": "#000", "fillOpacity": 1},
+          {"type": "rect", "x": cm(0), "y": cm(0.1), "w": cm(0.5), "h": cm(0.3), "color": color, "fillOpacity": 0.3},
+          {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1},
           {
             "type": "line",
-            "x1": cmx(0),
-            "y1": cmy(0.1),
-            "x2": cmx(0.5),
-            "y2": cmy(0.1),
-            "lineWidth": cml(lineWidth),
+            "x1": cm(0),
+            "y1": cm(0.1),
+            "x2": cm(0.5),
+            "y2": cm(0.1),
+            "lineWidth": cm(lineWidth),
             "lineColor": color
           },
           {
             "type": "line",
-            "x1": cmx(0),
-            "y1": cmy(0.4),
-            "x2": cmx(0.5),
-            "y2": cmy(0.4),
-            "lineWidth": cml(lineWidth),
+            "x1": cm(0),
+            "y1": cm(0.4),
+            "x2": cm(0.5),
+            "y2": cm(0.4),
+            "lineWidth": cm(lineWidth),
             "lineColor": color
           }
         ]
@@ -685,14 +679,14 @@ abstract class BasePrint
     else
       dst.add({
         "columns": [ {
-          "width": cml(0.8),
+          "width": cm(0.8),
           "canvas": [ {
             "type": "line",
-            "x1": cmx(0),
-            "y1": cmy(0.25),
-            "x2": cmx(0.5),
-            "y2": cmy(0.25),
-            "lineWidth": cml(lineWidth),
+            "x1": cm(0),
+            "y1": cm(0.25),
+            "x2": cm(0.5),
+            "y2": cm(0.25),
+            "lineWidth": cm(lineWidth),
             "lineColor": color
           }
           ]

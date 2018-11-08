@@ -3,7 +3,8 @@
 - added possibility to have parameters for PDF generation
 - added parameters to daily graphics and daily statistics
 - added rawdata to output of debug-PDF
-- added int value to print parameters 
+- added int value to print parameters
+- added precision to basal values (1 or 2 decimals) 
 
 ### Changed
 - changed display and functionality of PDF selection

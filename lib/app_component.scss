@@ -297,7 +297,7 @@ material-expansionpanel:not(.is-debug) {
   width: 20em;
   border: 2px solid transparent;
   @include expansionpanel-colors(transparent, $secondary_fore);
-  @include expansionpanel-focused-colors($secondary_back, $secondary_fore);
+  @include expansionpanel-focused-colors(transparent, $secondary_fore);
   @include expansionpanel-border-radius(0.5em);
   margin-top: 0.2em;
   margin-bottom: 0.2em;
