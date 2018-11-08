@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-11-02T22:34:49.474638",
+  "@@last_modified": "2018-11-08T08:34:02.451701",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -439,6 +439,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Zwei Nachkommastellen": "Zwei Nachkommastellen",
+  "@Zwei Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "msgValidRange": "gültig von {begDate} bis {endDate}",
   "@msgValidRange": {
     "type": "text",
@@ -483,6 +488,46 @@
   },
   "Tagesgrafik": "Tagesgrafik",
   "@Tagesgrafik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Symbole (Katheter etc.)": "Symbole (Katheter etc.)",
+  "@Symbole (Katheter etc.)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tages-Basalrate": "Tages-Basalrate",
+  "@Tages-Basalrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Profil-Basalrate": "Profil-Basalrate",
+  "@Profil-Basalrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basal mit zwei Nachkommastellen": "Basal mit zwei Nachkommastellen",
+  "@Basal mit zwei Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte Messwerte": "Spalte Messwerte",
+  "@Spalte Messwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte Standardabweichung": "Spalte Standardabweichung",
+  "@Spalte Standardabweichung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalten Perzentile": "Spalten Perzentile",
+  "@Spalten Perzentile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte HbA1c": "Spalte HbA1c",
+  "@Spalte HbA1c": {
     "type": "text",
     "placeholders": {}
   },

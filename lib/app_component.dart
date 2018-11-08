@@ -85,7 +85,9 @@ class AppComponent
   List<DatepickerPreset> dateRanges = List<DatepickerPreset>();
   DateRangePickerConfiguration drConfig = DateRangePickerConfiguration.basic;
   bool sendDisabled = true;
-  String pdfData = null;
+  String pdfData = "";
+  String pdfDoc = null;
+
   String progressText = null;
   int progressMax = 100;
   int progressValue = 0;
@@ -216,7 +218,8 @@ class AppComponent
   }
 
   void toggleHelp()
-  {}
+  {
+  }
 
   void togglePage(String id)
   {
@@ -260,9 +263,19 @@ class AppComponent
   {
     if (url == "showPlayground" || url == "showPdf")
     {
-      pdfUrl = url == "showPlayground"
-        ? "http://pdf.zreptil.de/playground.php"
-        : "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
+      String doc = pdfDoc;
+      if (url == "showPlayground")
+      {
+        pdfUrl = "http://pdf.zreptil.de/playground.php";
+        doc = doc.replaceAll("],", "],\n");
+        doc = doc.replaceAll(",\"", ",\n\"");
+        doc = doc.replaceAll(":[", ":\n[");
+      }
+      else
+      {
+        pdfUrl = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
+      }
+      pdfData = convert.base64.encode(convert.utf8.encode(doc));
       Future.delayed(Duration(milliseconds: 1), ()
       {
         var form = html.querySelector("#postForm") as html.FormElement;
@@ -338,8 +351,8 @@ class AppComponent
   ReportData reportData = null;
   Future<ReportData> loadData()
   async {
-    if (reportData != null && reportData.begDate == g.dateRange.range.start &&
-      reportData.endDate == g.dateRange.range.end)return reportData;
+    if (reportData != null && reportData.begDate == g.dateRange.range.start && reportData.endDate == g.dateRange.range
+      .end)return reportData;
 
     ReportData data = ReportData(g, g.dateRange.range.start, g.dateRange.range.end);
     reportData = data;
@@ -528,7 +541,8 @@ class AppComponent
       data.ns.extractData(data);
     }
     else
-    {}
+    {
+    }
     return data;
   }
 
@@ -618,14 +632,7 @@ class AppComponent
         }
       }
 
-      doc = "${convert.jsonEncode(doc)}";
-      if (isDebug)
-      {
-        doc = doc.replaceAll("],", "],\n");
-        doc = doc.replaceAll(",\"", ",\n\"");
-        doc = doc.replaceAll(":[", ":\n[");
-      }
-      pdfData = convert.base64.encode(convert.utf8.encode(doc));
+      pdfDoc = "${convert.jsonEncode(doc)}";
 //*
       if (!isDebug)
       {

@@ -6,6 +6,7 @@
 @import 'package:angular_components/material_expansionpanel/mixins';
 @import 'package:angular_components/material_checkbox/mixins';
 @import 'package:angular_components/material_select/mixins';
+@import 'package:angular_components/material_slider/mixins';
 @import 'package:angular_components/app_layout/mixins';
 
 :host {
@@ -17,6 +18,8 @@
   width: 100vw;
   height: 100vh;
   @include material-checkbox-color($primary_back, $modifier: '');
+  @include slider-thumb-color('material-slider.slider', $primary_back);
+  @include slider-track-color('material-slider.slider', $primary_back, $mat_gray_400);
 }
 
 header.material-header {
@@ -331,7 +334,17 @@ material-expansionpanel.is-debug ::ng-deep material-icon.expand-button {
   color: $debug-color !important;
 }
 
-
 material-expansionpanel.is-debug.checked {
   border: 2px solid $debug_color;
+}
+
+.paramSlider {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  material-slider {
+    margin-left: 1em;
+    width: 80%;
+  }
 }

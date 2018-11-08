@@ -437,6 +437,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Zwei Nachkommastellen": "Two decimal places",
+  "@Zwei Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "msgValidRange": "valid from {begDate} to {endDate}",
   "@msgValidRange": {
     "type": "text",
@@ -481,6 +486,46 @@
   },
   "Tagesgrafik": "Daily Chart",
   "@Tagesgrafik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Symbole (Katheter etc.)": "Symbols (catheters etc.)",
+  "@Symbole (Katheter etc.)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tages-Basalrate": "Daily basalrate",
+  "@Tages-Basalrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Profil-Basalrate": "Profile basalrate",
+  "@Profil-Basalrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basal mit zwei Nachkommastellen": "Basal with two decimal places",
+  "@Basal mit zwei Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte Messwerte": "Column valuecount",
+  "@Spalte Messwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte Standardabweichung": "Column standard deviation",
+  "@Spalte Standardabweichung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalten Perzentile": "Columns percentiles",
+  "@Spalten Perzentile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte HbA1c": "Column A1C",
+  "@Spalte HbA1c": {
     "type": "text",
     "placeholders": {}
   },

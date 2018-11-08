@@ -293,7 +293,7 @@ class PrintDailyStatistics extends BasePrint
     if (showCount)row.add({"text": "${fmtNumber(totalCount, 0)}", "alignment": "right", "style": "total"});
     row.add({"text": "${glucFromData(totalMin)}", "alignment": "right", "style": "total"});
     row.add({"text": "${glucFromData(totalMax)}", "alignment": "right", "style": "total"});
-    row.add({"text": "${fmtNumber(src.ns.avgGluc / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
+    row.add({"text": "${fmtNumber(src.ns.avgGluc, 1)}", "alignment": "right", "style": "total"});
     if (showStdabw)row.add(
       {"text": "${fmtNumber(totalStdAbw / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
     if (showPercentile)

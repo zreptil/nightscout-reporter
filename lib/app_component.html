@@ -73,9 +73,9 @@
               <template ngFor let-param [ngForOf]="cfg.form.params">
                 <material-checkbox *ngIf="param.boolValue!=null" [(ngModel)]="param.boolValue" [label]="param.title">
                 </material-checkbox>
-                <div *ngIf="param.intValue!=null" >
-                  {{param.title}}
-                  <material-slider [(min)]="param.min" [(max)]="param.max" [(value)]="param.intValue">
+                <div *ngIf="param.intValue!=null" class="paramSlider">
+                  <div>{{param.title}}: {{param.intValue}}</div>
+                  <material-slider class="slider" [(min)]="param.min" [(max)]="param.max" [(value)]="param.intValue">
                   </material-slider>
                 </div>
                 <material-input *ngIf="param.stringValue!=null" [(inputText)]="param.stringValue" floatingLabel

@@ -33,8 +33,14 @@ class LegendData
   LegendData(this.x, this.y, this.colWidth, this.maxLines);
 }
 
+enum ParamType
+{
+  none,bool,string,int
+}
+
 class ParamInfo
 {
+  ParamType type = ParamType.none;
   String title;
   bool boolValue;
   String stringValue;
@@ -44,7 +50,12 @@ class ParamInfo
   int max;
 
   ParamInfo(this.title,
-            {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null});
+            {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null})
+  {
+    if(boolValue != null)type = ParamType.bool;
+    if(stringValue != null)type = ParamType.string;
+    if(intValue != null)type = ParamType.int;
+  }
 
   dynamic get asJson
   {
@@ -61,12 +72,24 @@ class ParamInfo
   {
     try
     {
-      boolValue = value["b"];
-      stringValue = value["s"];
-      intValue = value["i"];
+      switch(type)
+      {
+        case ParamType.bool:
+          boolValue = value["b"] ?? false;
+          break;
+        case ParamType.string:
+          stringValue = value["s"] ?? "";
+          break;
+        case ParamType.int:
+          intValue = value["i"] ?? 0;
+          break;
+        default:
+          break;
+      }
     }
     catch (ex)
-    {}
+    {
+    }
   }
 }
 
@@ -124,7 +147,8 @@ class FormConfig
         form.params[i].fillFromJson(value["p"][i]);
     }
     catch (ex)
-    {}
+    {
+    }
   }
 
   fillFromString(String value)
@@ -365,7 +389,8 @@ abstract class BasePrint
     ];
 
   void init()
-  {}
+  {
+  }
 
   Future<String> getBase64Image(String id)
   async {
@@ -579,7 +604,8 @@ abstract class BasePrint
       }
     }
     catch (ex)
-    {}
+    {
+    }
 
     if (dt == null)return date;
 
@@ -644,7 +670,7 @@ abstract class BasePrint
           "stack": [
             {"margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), cmx(0), cmy(0)], "image": image, "width": cm(imgWidth)}
           ],
-        }, {"text": text, "color": "black"}
+        }, {"text": text, "color": "black", "fontSize": fs(10)}
         ]
       });
     }

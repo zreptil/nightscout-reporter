@@ -455,19 +455,6 @@ class UserData
       '}';
   }
 
-  static UserData fromJson(Globals g, String src)
-  {
-    String dst = "";
-    int pos = src.length ~/ 2;
-    src = "${src.substring(pos + 1)}${src.substring(0, pos - 1)}";
-    convert.base64Decode(src).forEach((value)
-    {
-      dst = "${dst}${String.fromCharCode(value)}";
-    });
-    var data = convert.json.decode(dst);
-    return fromData(g, data);
-  }
-
   static UserData fromData(Globals g, var data)
   {
     UserData ret = UserData(g);

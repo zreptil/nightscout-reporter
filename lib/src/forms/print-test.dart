@@ -9,17 +9,23 @@ class PrintTest extends BasePrint
   @override
   String id = "test";
 
-  static bool showEntries = false;
-  static bool showTreatments = true;
-  static bool showRawData = false;
-  static int rawCols = 3;
+  bool showEntries = false;
+  bool showTreatments = true;
+  bool showRawStatus = false;
+  bool showRawEntries = false;
+  bool showRawTreatments = false;
+  bool showRawProfiles = false;
+  int rawCols = 3;
 
   @override
   List<ParamInfo> params = [
-    ParamInfo("Einträge", boolValue: showEntries),
-    ParamInfo("Behandlungen", boolValue: showTreatments),
-    ParamInfo("Rohdaten", boolValue: showRawData),
-    ParamInfo("Rohdaten Spalten", intValue: rawCols, min: 1, max: 3)
+    ParamInfo("Einträge", boolValue: false),
+    ParamInfo("Behandlungen", boolValue: false),
+    ParamInfo("Rohdaten Status", boolValue: true),
+    ParamInfo("Rohdaten Einträge", boolValue: false),
+    ParamInfo("Rohdaten Behandlungen", boolValue: false),
+    ParamInfo("Rohdaten Profile", boolValue: false),
+    ParamInfo("Rohdaten Spalten", intValue: 2, min: 1, max: 3)
   ];
 
   @override
@@ -27,7 +33,11 @@ class PrintTest extends BasePrint
   {
     showEntries = params[0].boolValue;
     showTreatments = params[1].boolValue;
-    showRawData = params[2].boolValue;
+    showRawStatus = params[2].boolValue;
+    showRawEntries = params[3].boolValue;
+    showRawTreatments = params[4].boolValue;
+    showRawProfiles = params[5].boolValue;
+    rawCols = params[6].intValue;
     return data;
   }
 
@@ -155,23 +165,31 @@ class PrintTest extends BasePrint
       ret.add(root);
     }
 
-    if (showRawData)
+    if (showRawStatus)
     {
       body = [];
       root = createRoot("raw", title: "Status");
       addRawData(src.status.raw, ret);
       finalizeRawData(ret);
+    }
+    if (showRawEntries)
+    {
       body = [];
       root = createRoot("raw", title: "Entries");
       for (EntryData entry in src.ns.entries)
         addRawData(entry.raw, ret);
       finalizeRawData(ret);
-//*
+    }
+    if (showRawTreatments)
+    {
       body = [];
       root = createRoot("raw", title: "Treatments");
       for (TreatmentData entry in src.ns.treatments)
         addRawData(entry.raw, ret);
       finalizeRawData(ret);
+    }
+    if (showRawProfiles)
+    {
       body = [];
       root = createRoot("raw", title: "Profiles");
       for (ProfileData entry in src.profiles)
