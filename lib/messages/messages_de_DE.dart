@@ -18,56 +18,66 @@ typedef MessageIfAbsent(String message_str, List args);
 class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'de_DE';
 
-  static m0(value) => "Basalrate für den Tag (${value})";
+  static m0(startTag0, endTag0) => "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter ${startTag0}https://nightscout-reporter.zreptil.de/beta${endTag0} zu finden";
 
-  static m1(value) => "Basalrate aus dem Profil (${value})";
+  static m1(value) => "Basalrate für den Tag (${value})";
 
-  static m2(value) => "Bolus Insulin (${value})";
+  static m2(value) => "Basalrate aus dem Profil (${value})";
 
-  static m3(count) => "${Intl.plural(count, zero: '', one: '(${count} Tag pro Katheter)', other: '(${count} Tage pro Katheter)')}";
+  static m3(value) => "Bolus Insulin (${value})";
 
-  static m4(url) => "Überprüfe Zugriff auf ${url}...";
+  static m4(count) => "${Intl.plural(count, zero: '', one: '(${count} Tag pro Katheter)', other: '(${count} Tage pro Katheter)')}";
 
-  static m5(value) => "${value} Tage";
+  static m5(url) => "Überprüfe Zugriff auf ${url}...";
 
-  static m6(value) => "Hoch${value}";
+  static m6(value) => "${value} Tage";
 
-  static m7(value) => "${value}g KH";
+  static m7(value) => "Hoch${value}";
 
-  static m8(value) => "g KH (${value} BE)";
+  static m8(value) => "${value}g KH";
 
-  static m9(error, stacktrace) => "Fehler beim Laden der Daten:\n${error}\n${stacktrace}";
+  static m9(value) => "g KH (${value} BE)";
 
-  static m10(date) => "Lade Daten für ${date}...";
+  static m10(error, stacktrace) => "Fehler beim Laden der Daten:\n${error}\n${stacktrace}";
 
-  static m11(value) => "Tief${value}";
+  static m11(date) => "Lade Daten für ${date}...";
 
-  static m12(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung pro Minute', other: 'Messung alle ${fmt} Minuten')}";
+  static m12(value) => "Tief${value}";
 
-  static m13(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung am Tag', other: '${fmt} Messungen am Tag')}";
+  static m13(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung pro Minute', other: 'Messung alle ${fmt} Minuten')}";
 
-  static m14(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung pro Stunde', other: '${fmt} Messungen pro Stunde')}";
+  static m14(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung am Tag', other: '${fmt} Messungen am Tag')}";
 
-  static m15(count) => "${Intl.plural(count, zero: '', one: '(${count} Tag pro Ampulle)', other: '(${count} Tage pro Ampulle)')}";
+  static m15(howMany, fmt) => "${Intl.plural(howMany, zero: 'Keine Messwerte vorhanden', one: '1 Messung pro Stunde', other: '${fmt} Messungen pro Stunde')}";
 
-  static m16(min, max, units) => "Zielbereich (${min} - ${max} ${units})";
+  static m16(count) => "${Intl.plural(count, zero: '', one: '(${count} Tag pro Ampulle)', other: '(${count} Tage pro Ampulle)')}";
 
-  static m17(value) => "Zielwert";
+  static m17(count) => "${Intl.plural(count, zero: '', one: '(${count} Tag pro Sensor)', other: '(${count} Tage pro Sensor)')}";
 
-  static m18(begDate) => "gültig ab ${begDate}";
+  static m18(min, max, units) => "Zielbereich (${min} - ${max} ${units})";
 
-  static m19(begDate, endDate) => "gültig von ${begDate} bis ${endDate}";
+  static m19(value) => "Zielwert";
 
-  static m20(endDate) => "gültig bis ${endDate}";
+  static m20(begDate) => "gültig ab ${begDate}";
 
-  static m21(high) => "Werte über ${high}";
+  static m21(begDate, endDate) => "gültig von ${begDate} bis ${endDate}";
 
-  static m22(low) => "Werte unter ${low}";
+  static m22(endDate) => "gültig bis ${endDate}";
 
-  static m23(low, high) => "Werte zwischen ${low} und ${high}";
+  static m23(high) => "Werte über ${high}";
+
+  static m24(low) => "Werte unter ${low}";
+
+  static m25(low, high) => "Werte zwischen ${low} und ${high}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "1.0.0 - 20.10.2018" : MessageLookupByLibrary.simpleMessage("1.0.0 - 20.10.2018"),
+    "1.0.1 - 23.10.2018" : MessageLookupByLibrary.simpleMessage("1.0.1 - 23.10.2018"),
+    "1.0.2 - 23.10.2018" : MessageLookupByLibrary.simpleMessage("1.0.2 - 23.10.2018"),
+    "1.0.3 - 26.10.2018" : MessageLookupByLibrary.simpleMessage("1.0.3 - 26.10.2018"),
+    "1.0.4 - 28.10.2018" : MessageLookupByLibrary.simpleMessage("1.0.4 - 28.10.2018"),
+    "1.1.0 - 09.11.2018" : MessageLookupByLibrary.simpleMessage("1.1.0 - 09.11.2018"),
     "10% - 90% der Werte" : MessageLookupByLibrary.simpleMessage("10% - 90% der Werte"),
     "25%" : MessageLookupByLibrary.simpleMessage("25%"),
     "25% - 75% der Werte" : MessageLookupByLibrary.simpleMessage("25% - 75% der Werte"),
@@ -77,6 +87,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Anzahl Ampullen" : MessageLookupByLibrary.simpleMessage("Anzahl Ampullen"),
     "Anzahl Katheter" : MessageLookupByLibrary.simpleMessage("Anzahl Katheter"),
     "Anzahl Messungen" : MessageLookupByLibrary.simpleMessage("Anzahl Messungen"),
+    "Anzahl Sensoren" : MessageLookupByLibrary.simpleMessage("Anzahl Sensoren"),
+    "Anzahl der Sensoren zur Analyse hinzugefügt" : MessageLookupByLibrary.simpleMessage("Anzahl der Sensoren zur Analyse hinzugefügt"),
     "Ausgewertete Tage" : MessageLookupByLibrary.simpleMessage("Ausgewertete Tage"),
     "Auswertung" : MessageLookupByLibrary.simpleMessage("Auswertung"),
     "Basal" : MessageLookupByLibrary.simpleMessage("Basal"),
@@ -114,7 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Die URL wurde noch nicht festgelegt." : MessageLookupByLibrary.simpleMessage("Die URL wurde noch nicht festgelegt."),
     "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz." : MessageLookupByLibrary.simpleMessage("Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz."),
     "Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt" : MessageLookupByLibrary.simpleMessage("Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt"),
-    "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig)." : MessageLookupByLibrary.simpleMessage("Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig)."),
+    "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein." : MessageLookupByLibrary.simpleMessage("Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein."),
     "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun." : MessageLookupByLibrary.simpleMessage("Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun."),
     "Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden." : MessageLookupByLibrary.simpleMessage("Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden."),
     "Diverse Abstürze beim Auslesen der Daten bereinigt" : MessageLookupByLibrary.simpleMessage("Diverse Abstürze beim Auslesen der Daten bereinigt"),
@@ -202,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version" : MessageLookupByLibrary.simpleMessage("Version"),
     "Verteilung" : MessageLookupByLibrary.simpleMessage("Verteilung"),
     "Vier Grafiken pro Seite" : MessageLookupByLibrary.simpleMessage("Vier Grafiken pro Seite"),
+    "ViewWhatsnewComponent0__message_7" : m0,
     "Was bisher geschah..." : MessageLookupByLibrary.simpleMessage("Was bisher geschah..."),
     "Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet" : MessageLookupByLibrary.simpleMessage("Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet"),
     "Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt." : MessageLookupByLibrary.simpleMessage("Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt."),
@@ -214,30 +227,31 @@ class MessageLookup extends MessageLookupByLibrary {
     "bis" : MessageLookupByLibrary.simpleMessage("bis"),
     "gesch.\nHbA1c" : MessageLookupByLibrary.simpleMessage("gesch.\nHbA1c"),
     "geschätzter HbA1c" : MessageLookupByLibrary.simpleMessage("geschätzter HbA1c"),
-    "msgBasalrateDay" : m0,
-    "msgBasalrateProfile" : m1,
-    "msgBolusInsulin" : m2,
-    "msgCatheterDays" : m3,
-    "msgCheckUser" : m4,
-    "msgDaySum" : m5,
-    "msgHigh" : m6,
-    "msgKH" : m7,
-    "msgKHBE" : m8,
-    "msgLoadingData" : m9,
-    "msgLoadingDataFor" : m10,
-    "msgLow" : m11,
-    "msgReadingsInMinutes" : m12,
-    "msgReadingsPerDay" : m13,
-    "msgReadingsPerHour" : m14,
-    "msgReservoirDays" : m15,
-    "msgTargetArea" : m16,
-    "msgTargetValue" : m17,
-    "msgValidFrom" : m18,
-    "msgValidRange" : m19,
-    "msgValidTo" : m20,
-    "msgValuesAbove" : m21,
-    "msgValuesBelow" : m22,
-    "msgValuesIn" : m23,
+    "msgBasalrateDay" : m1,
+    "msgBasalrateProfile" : m2,
+    "msgBolusInsulin" : m3,
+    "msgCatheterDays" : m4,
+    "msgCheckUser" : m5,
+    "msgDaySum" : m6,
+    "msgHigh" : m7,
+    "msgKH" : m8,
+    "msgKHBE" : m9,
+    "msgLoadingData" : m10,
+    "msgLoadingDataFor" : m11,
+    "msgLow" : m12,
+    "msgReadingsInMinutes" : m13,
+    "msgReadingsPerDay" : m14,
+    "msgReadingsPerHour" : m15,
+    "msgReservoirDays" : m16,
+    "msgSensorDays" : m17,
+    "msgTargetArea" : m18,
+    "msgTargetValue" : m19,
+    "msgValidFrom" : m20,
+    "msgValidRange" : m21,
+    "msgValidTo" : m22,
+    "msgValuesAbove" : m23,
+    "msgValuesBelow" : m24,
+    "msgValuesIn" : m25,
     "ok" : MessageLookupByLibrary.simpleMessage("ok"),
     "verwerfen" : MessageLookupByLibrary.simpleMessage("verwerfen"),
     "Ø Basal pro Tag" : MessageLookupByLibrary.simpleMessage("Ø Basal pro Tag"),

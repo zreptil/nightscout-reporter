@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-11-08T14:42:55.522662",
+  "@@last_modified": "2018-11-09T08:03:09.291118",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -141,8 +141,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig).": "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig).",
-  "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig).": {
+  "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.",
+  "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
     "type": "text",
     "placeholders": {}
   },
@@ -327,6 +327,13 @@
       "count": {}
     }
   },
+  "msgSensorDays": "{count,plural, =0{}=1{({count} Tag pro Sensor)}other{({count} Tage pro Sensor)}}",
+  "@msgSensorDays": {
+    "type": "text",
+    "placeholders": {
+      "count": {}
+    }
+  },
   "Geburtstag": "Geburtstag",
   "@Geburtstag": {
     "description": "label of editfield for birthday",
@@ -361,6 +368,11 @@
   },
   "Anzahl Katheter": "Anzahl Katheter",
   "@Anzahl Katheter": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzahl Sensoren": "Anzahl Sensoren",
+  "@Anzahl Sensoren": {
     "type": "text",
     "placeholders": {}
   },
@@ -784,6 +796,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "1.1.0 - 09.11.2018": "1.1.0 - 09.11.2018",
+  "@1.1.0 - 09.11.2018": {
+    "description": "v110",
+    "type": "text",
+    "placeholders": {}
+  },
   "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt",
   "@Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": {
     "description": "v105a1",
@@ -802,6 +820,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "Anzahl der Sensoren zur Analyse hinzugefügt": "Anzahl der Sensoren zur Analyse hinzugefügt",
+  "@Anzahl der Sensoren zur Analyse hinzugefügt": {
+    "description": "v105a4",
+    "type": "text",
+    "placeholders": {}
+  },
   "Übersetzungen korrigiert": "Übersetzungen korrigiert",
   "@Übersetzungen korrigiert": {
     "description": "v105f1",
@@ -817,6 +841,12 @@
   "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte",
   "@Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": {
     "description": "v105f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.0.4 - 28.10.2018": "1.0.4 - 28.10.2018",
+  "@1.0.4 - 28.10.2018": {
+    "description": "v104",
     "type": "text",
     "placeholders": {}
   },
@@ -865,6 +895,12 @@
   "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt",
   "@Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": {
     "description": "v104f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.0.3 - 26.10.2018": "1.0.3 - 26.10.2018",
+  "@1.0.3 - 26.10.2018": {
+    "description": "v103",
     "type": "text",
     "placeholders": {}
   },
@@ -940,6 +976,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "1.0.2 - 23.10.2018": "1.0.2 - 23.10.2018",
+  "@1.0.2 - 23.10.2018": {
+    "description": "v102",
+    "type": "text",
+    "placeholders": {}
+  },
   "Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": "Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.",
   "@Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": {
     "description": "v102a1",
@@ -961,6 +1003,12 @@
   "Hohe Basalraten werden jetzt besser dargestellt.": "Hohe Basalraten werden jetzt besser dargestellt.",
   "@Hohe Basalraten werden jetzt besser dargestellt.": {
     "description": "v102f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.0.1 - 23.10.2018": "1.0.1 - 23.10.2018",
+  "@1.0.1 - 23.10.2018": {
+    "description": "v101",
     "type": "text",
     "placeholders": {}
   },
@@ -1018,10 +1066,29 @@
     "type": "text",
     "placeholders": {}
   },
+  "1.0.0 - 20.10.2018": "1.0.0 - 20.10.2018",
+  "@1.0.0 - 20.10.2018": {
+    "description": "v100",
+    "type": "text",
+    "placeholders": {}
+  },
   "Initiale Version, alles ist neu!": "Initiale Version, alles ist neu!",
   "@Initiale Version, alles ist neu!": {
     "description": "v100a1",
     "type": "text",
     "placeholders": {}
+  },
+  "ViewWhatsnewComponent0__message_7": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_7": {
+    "description": "v105c1",
+    "type": "text",
+    "placeholders": {
+      "startTag0": {
+        "example": "<a href=\"https://nightscout-reporter.zreptil.de/beta\" target=\"_blank\">"
+      },
+      "endTag0": {
+        "example": "</a>"
+      }
+    }
   }
 }

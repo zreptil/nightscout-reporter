@@ -51,7 +51,7 @@ class LangData
 class Globals
 {
   static final Globals _globals = Globals._internal();
-  String version = "1.0.5";
+  String version = "1.1.0";
   String lastVersion;
   List<FormConfig> listConfig = List<FormConfig>();
 
@@ -61,7 +61,7 @@ class Globals
       "Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. "
       "In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, "
       "wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, "
-      "muss ausserdem das UserToken korrekt definiert sein (bisher nicht funktionsfähig).");
+      "muss ausserdem das UserToken korrekt definiert sein.");
   String get msgNoURLDefined
   => Intl.message("Die URL wurde noch nicht festgelegt.");
 

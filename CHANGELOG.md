@@ -1,4 +1,6 @@
 ## [Unreleased]
+
+## [1.0.5]
 ### Added
 - added possibility to have parameters for PDF generation
 - added parameters to daily graphics and daily statistics
