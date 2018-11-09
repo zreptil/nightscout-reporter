@@ -202,6 +202,11 @@ material-expansionpanel {
   flex-direction: column;
 }
 
+material-expansionpanel .header.disable-header-expansion
+{
+  cursor: pointer;
+}
+
 .betaTitle {
   font-size: 50%;
 }
@@ -241,6 +246,8 @@ nav a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
 @include material-select-selected-item-color($primary_back);

@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-11-08T08:34:02.451701",
+  "@@last_modified": "2018-11-08T14:42:55.522662",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -511,6 +511,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Vier Grafiken pro Seite": "Vier Grafiken pro Seite",
+  "@Vier Grafiken pro Seite": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Spalte Messwerte": "Spalte Messwerte",
   "@Spalte Messwerte": {
     "type": "text",
@@ -791,8 +796,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Namen des Formulars anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen": "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Namen des Formulars anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen",
-  "@Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Namen des Formulars anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen": {
+  "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde",
+  "@Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": {
     "description": "v105a3",
     "type": "text",
     "placeholders": {}

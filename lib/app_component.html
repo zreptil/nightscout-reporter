@@ -61,27 +61,29 @@
                                [(checked)]="cfg.checked"
                                (change)="checkPrint()" [label]="cfg.form.name">
             </material-checkbox>
-            <material-expansionpanel
-              (click)="expansionPanelClicked($event,cfg)"
-              (open)="expansionPanelOpen($event,cfg)"
-              (close)="expansionPanelClose($event,cfg)"
-              [class]="expansionClass(cfg)" flat
-              [name]="cfg.form.name"
-              [disableHeaderExpansion]="true"
-              secondaryText="" [showSaveCancel]="false" [hideExpandedHeader]="false"
-              [alwaysHideExpandIcon]="cfg.form.params.length==0 || !cfg.checked">
-              <template ngFor let-param [ngForOf]="cfg.form.params">
-                <material-checkbox *ngIf="param.boolValue!=null" [(ngModel)]="param.boolValue" [label]="param.title">
-                </material-checkbox>
-                <div *ngIf="param.intValue!=null" class="paramSlider">
-                  <div>{{param.title}}: {{param.intValue}}</div>
-                  <material-slider class="slider" [(min)]="param.min" [(max)]="param.max" [(value)]="param.intValue">
-                  </material-slider>
-                </div>
-                <material-input *ngIf="param.stringValue!=null" [(inputText)]="param.stringValue" floatingLabel
-                                [label]="param.title"></material-input>
-              </template>
-            </material-expansionpanel>
+            <div class="sortable">
+              <material-expansionpanel
+                (click)="expansionPanelClicked($event,cfg)"
+                (open)="expansionPanelOpen($event,cfg)"
+                (close)="expansionPanelClose($event,cfg)"
+                [class]="expansionClass(cfg)" flat
+                [name]="cfg.form.name"
+                [disableHeaderExpansion]="true"
+                secondaryText="" [showSaveCancel]="false" [hideExpandedHeader]="false"
+                [alwaysHideExpandIcon]="cfg.form.params.length==0 || !cfg.checked">
+                <template ngFor let-param [ngForOf]="cfg.form.params">
+                  <material-checkbox *ngIf="param.boolValue!=null" [(ngModel)]="param.boolValue" [label]="param.title">
+                  </material-checkbox>
+                  <div *ngIf="param.intValue!=null" class="paramSlider">
+                    <div>{{param.title}}: {{param.intValue}}</div>
+                    <material-slider class="slider" [(min)]="param.min" [(max)]="param.max" [(value)]="param.intValue">
+                    </material-slider>
+                  </div>
+                  <material-input *ngIf="param.stringValue!=null" [(inputText)]="param.stringValue" floatingLabel
+                                  [label]="param.title"></material-input>
+                </template>
+              </material-expansionpanel>
+            </div>
           </div>
         </template>
       </div>

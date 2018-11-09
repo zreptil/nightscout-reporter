@@ -72,6 +72,13 @@ class PrintAnalysis extends BasePrint
       other: "($count Tage pro Katheter)",
       args: [count],
       name: "msgCatheterDays");
+  msgSensorDays(count)
+  =>
+    Intl.plural(count, one: "($count Tag pro Sensor)",
+      zero: "",
+      other: "($count Tage pro Sensor)",
+      args: [count],
+      name: "msgSensorDays");
   get msgBirthday
   => Intl.message("Geburtstag");
   get msgDiabSince
@@ -86,6 +93,8 @@ class PrintAnalysis extends BasePrint
   => Intl.message("Anzahl Ampullen");
   get msgCatheterCount
   => Intl.message("Anzahl Katheter");
+  get msgSensorCount
+  => Intl.message("Anzahl Sensoren");
   get msgHbA1C
   => Intl.message("geschätzter HbA1c");
   get msgLowestValue
@@ -218,6 +227,17 @@ class PrintAnalysis extends BasePrint
         {"text": fmtNumber(data.catheterCount), "style": "infodata"},
         {
           "text": data.catheterCount > 0 ? msgCatheterDays((src.dayCount / data.catheterCount).floor()) : "",
+          "style": "infounit",
+          "colSpan": 2
+        },
+        {"text": "", "style": "infounit"},
+      ],
+      [
+        {"text": "", "style": "infotitle"},
+        {"text": msgSensorCount, "style": "infotitle"},
+        {"text": fmtNumber(data.sensorCount), "style": "infodata"},
+        {
+          "text": data.sensorCount > 0 ? msgSensorDays((src.dayCount / data.sensorCount).floor()) : "",
           "style": "infounit",
           "colSpan": 2
         },
@@ -369,7 +389,10 @@ class PrintAnalysis extends BasePrint
 
     var ret = [
       header,
-      {"margin": [cmx(0), cmy(3), cm(0), cm(0)], "columns":[{"width": cm(width), "text": "${src.globals.user.name}", "fontSize": fs(20), "alignment": "center"}]},
+      {
+        "margin": [cmx(0), cmy(3), cm(0), cm(0)],
+        "columns": [{"width": cm(width), "text": "${src.globals.user.name}", "fontSize": fs(20), "alignment": "center"}]
+      },
       {
         "margin": [cmx(5.5), cm(0.5), cm(0), cm(0)],
         "layout": "noBorders",

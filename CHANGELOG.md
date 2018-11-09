@@ -5,6 +5,8 @@
 - added rawdata to output of debug-PDF
 - added int value to print parameters
 - added precision to basal values (1 or 2 decimals) 
+- added number of sensors to analysis
+- added possibility to create four daily graphics on one page
 
 ### Changed
 - changed display and functionality of PDF selection

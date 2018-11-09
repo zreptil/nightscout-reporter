@@ -848,6 +848,7 @@ class ListData
   List<TreatmentData> treatments = List<TreatmentData>();
   int catheterCount = 0;
   int ampulleCount = 0;
+  int sensorCount = 0;
   double khCount = 0.0;
   double khAdjust = 0.0;
   int khAdjustCount = 0;
@@ -929,6 +930,7 @@ class ListData
     ieBolusSum = 0.0;
     catheterCount = 0;
     ampulleCount = 0;
+    sensorCount = 0;
     double eCarbs = 0.0;
     double duration = 0;
     double delay = 0;
@@ -940,6 +942,7 @@ class ListData
       String type = t.eventType.toLowerCase();
       if (type == "site change")catheterCount++;
       if (type == "insulin change")ampulleCount++;
+      if (type == "sensor change")sensorCount++;
       if (type == "note" && t.notes.toLowerCase().startsWith("ecarb"))
       {
         RegExp rex = RegExp(r"[^0-9\-]*(-*\d*)[^0-9\-]*(-*\d*)[^0-9\-]*(-*\d*).*");

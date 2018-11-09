@@ -20,6 +20,7 @@ import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:dnd/dnd.dart';
 
 import 'src/dsgvo/dsgvo_component.dart';
 import 'src/forms/print-analysis.dart';

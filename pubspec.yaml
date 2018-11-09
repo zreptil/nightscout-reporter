@@ -12,6 +12,7 @@ dependencies:
   angular_components: ^0.10.0
   intl: ^0.15.7
   crypto: ^2.0.6
+  dnd: ^1.4.0
 
 dev_dependencies:
   build_runner: ^1.0.0
