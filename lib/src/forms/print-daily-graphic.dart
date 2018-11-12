@@ -356,47 +356,68 @@ class PrintDailyGraphic extends BasePrint
       else if (showNotes && (t.notes ?? "").isNotEmpty && !t.isECarb)
       {
         double x = glucX(t.createdAt);
+// *** line length estimation ***
+// the following code is used to estimate the length of the note-lines for
+// trying to avoid overlapping.
         int idx = noteLines.indexWhere((v)
         => v < x);
+        bool isMultiline = t.notes.indexOf("\n") > 0;
+        int len = t.notes.indexOf("\n") > 0 ? t.notes.indexOf("\n") : t.notes.length;
+        double pos = x + len * 0.15;
         if (idx < 0)
         {
-          noteLines.add(x + t.notes.length * 0.1);
+          noteLines.add(pos);
           idx = noteLines.length - 1;
         }
         else
         {
-          noteLines[idx] = x + t.notes.length * 0.1;
+          noteLines[idx] = pos;
         }
-        double y = graphHeight + notesTop + idx * notesHeight;
-        String col = t.duration > 0 ? colDurationNotes : colNotes;
-        graphGlucCvs.add({
-          "type": "line",
-          "x1": cm(x),
-          "y1": cm(glucY(t.glucose)),
-          "x2": cm(x),
-          "y2": cm(y + notesHeight),
-          "lineWidth": cm(lw),
-          "lineColor": col
-        });
-        (graphLegend["stack"] as List).add({
-          "relativePosition": {"x": cm(x + 0.05), "y": cm(y + notesHeight - 0.25)},
-          "text": t.notes,
-          "fontSize": fs(8),
-          "alignment": "left",
-          "color": col
-        });
-        if(t.duration > 0)
+
+        if (isMultiline)
         {
-          x = glucX(t.createdAt.add(Duration(minutes: t.duration)));
+          List<String> lines = t.notes.split("\n");
+          for (int i = 0; i < lines.length; i++)
+          {
+            pos = x + lines[i].length * 0.15;
+            if (idx + i >= noteLines.length)noteLines.add(0);
+            noteLines[idx + i] = max(noteLines[idx + i], pos);
+          }
+        }
+// *** end of linelength estimation ***
+        if (idx < (isMultiline ? 1 : 3))
+        {
+          double y = graphHeight + notesTop + idx * notesHeight;
+          String col = t.duration > 0 ? colDurationNotes : colNotes;
           graphGlucCvs.add({
             "type": "line",
             "x1": cm(x),
-            "y1": cm(y),
+            "y1": cm(glucY(t.glucose)),
             "x2": cm(x),
-            "y2": cm(y + notesHeight / 2),
+            "y2": cm(y + notesHeight),
             "lineWidth": cm(lw),
-            "lineColor": colDurationNotes
+            "lineColor": col
           });
+          (graphLegend["stack"] as List).add({
+            "relativePosition": {"x": cm(x + 0.05), "y": cm(y + notesHeight - 0.25)},
+            "text": t.notes,
+            "fontSize": fs(8),
+            "alignment": "left",
+            "color": col
+          });
+          if (t.duration > 0)
+          {
+            x = glucX(t.createdAt.add(Duration(minutes: t.duration)));
+            graphGlucCvs.add({
+              "type": "line",
+              "x1": cm(x),
+              "y1": cm(y),
+              "x2": cm(x),
+              "y2": cm(y + notesHeight / 2),
+              "lineWidth": cm(lw),
+              "lineColor": colDurationNotes
+            });
+          }
         }
       }
 /*
@@ -522,9 +543,9 @@ class PrintDailyGraphic extends BasePrint
       graphGluc,
       graphInsulin,
       graphCarbs,
-      graphLegend,
       dayBasal,
       profileBasal,
+      graphLegend,
       legend.asOutput,
       footer()
     ];
