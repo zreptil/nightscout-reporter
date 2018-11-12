@@ -1,4 +1,10 @@
 ## [Unreleased]
+### Added
+- added notes to daily graphics
+
+### Changed
+- made request for valid url more flexible
+- made formparameters sortable in code
 
 ## [1.0.5]
 ### Added

@@ -24,7 +24,7 @@ class PrintBasalrate extends BasePrint
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(msgParam1, boolValue: false),
+    ParamInfo(0, msgParam1, boolValue: false),
   ];
 
   @override
@@ -409,7 +409,6 @@ class PrintBasalrate extends BasePrint
       legendTime.add(text);
     }
 
-    double x = 0.0;
     var m1 = [cm(0), cm(0), cm(0), cm(0)];
     var m2 = [cm(0), cm(0.15), cm(0), cm(0)];
 

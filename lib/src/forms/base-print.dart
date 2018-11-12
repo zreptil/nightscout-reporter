@@ -49,7 +49,9 @@ class ParamInfo
   int min;
   int max;
 
-  ParamInfo(this.title,
+  int sort;
+
+  ParamInfo(this.sort, this.title,
             {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null})
   {
     if (boolValue != null)type = ParamType.bool;
@@ -169,11 +171,21 @@ abstract class BasePrint
   String title;
   String titleInfo;
   List<ParamInfo> params = List<ParamInfo>();
+  List<ParamInfo> get sortedParams
+  {
+    List<ParamInfo> ret = List<ParamInfo>();
+    ret.addAll(params);
+    ret.sort((a,b) => a.sort.compareTo(b.sort));
+    return ret;
+  }
   bool get isDebugOnly
   => false;
 
+  //String _hba1c(double avgGluc)
+  //=> fmtNumber((avgGluc + 86) / 33.3, 1, false);
+
   String hba1c(double avgGluc)
-  => fmtNumber((avgGluc + 86) / 33.3, 1, false);
+  => fmtNumber((avgGluc + 46.7) / 28.7, 1, false);
 
   String colText = "#008800";
   String colInfo = "#606060";
@@ -190,6 +202,8 @@ abstract class BasePrint
   String colTargetArea = "#00a000";
   String colTargetValue = "#3333aa";
   String colCarbs = "#ffa050";
+  String colDurationNotes = "#ff00ff";
+  String colNotes = "#000000";
 
   double xorg = 3.35;
   double yorg = 3.9;
@@ -665,7 +679,6 @@ abstract class BasePrint
   addLegendEntry(LegendData legend, String color, String text,
                  {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0, double lineWidth = 0.0})
   {
-    int idx = 0;
     List dst = legend.current;
     if (lineWidth == 0.0)lineWidth = lw;
     if (image != null)

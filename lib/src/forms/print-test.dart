@@ -19,13 +19,13 @@ class PrintTest extends BasePrint
 
   @override
   List<ParamInfo> params = [
-    ParamInfo("Einträge", boolValue: false),
-    ParamInfo("Behandlungen", boolValue: false),
-    ParamInfo("Rohdaten Status", boolValue: true),
-    ParamInfo("Rohdaten Einträge", boolValue: false),
-    ParamInfo("Rohdaten Behandlungen", boolValue: false),
-    ParamInfo("Rohdaten Profile", boolValue: false),
-    ParamInfo("Rohdaten Spalten", intValue: 2, min: 1, max: 3)
+    ParamInfo(0, "Einträge", boolValue: false),
+    ParamInfo(1, "Behandlungen", boolValue: false),
+    ParamInfo(2, "Rohdaten Status", boolValue: true),
+    ParamInfo(3, "Rohdaten Einträge", boolValue: false),
+    ParamInfo(4, "Rohdaten Behandlungen", boolValue: false),
+    ParamInfo(5, "Rohdaten Profile", boolValue: false),
+    ParamInfo(6, "Rohdaten Spalten", intValue: 2, min: 1, max: 3)
   ];
 
   @override

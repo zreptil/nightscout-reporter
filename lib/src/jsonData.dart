@@ -932,7 +932,7 @@ class ListData
     ampulleCount = 0;
     sensorCount = 0;
     double eCarbs = 0.0;
-    double duration = 0;
+//    double duration = 0;
     double delay = 0;
     treatments.sort((a, b)
     => a.createdAt.compareTo(b.createdAt));
@@ -950,7 +950,7 @@ class ListData
         if (match != null && match.groupCount == 3)
         {
           eCarbs = double.tryParse(match.group(1));
-          duration = double.tryParse(match.group(2));
+//          duration = double.tryParse(match.group(2));
           delay = double.tryParse(match.group(3));
           if (delay < 0)
           {
@@ -1006,7 +1006,7 @@ class ReportData
 
   ProfileGlucData profile(DateTime time)
   {
-    DateTime check = DateTime(time.year, time.month, time.day);
+//    DateTime check = DateTime(time.year, time.month, time.day);
     ProfileGlucData ret = ProfileGlucData();
     int idx = -1;
     for (int i = 0; i < profiles.length; i++)
@@ -1019,7 +1019,7 @@ class ReportData
     if (idx >= 0)
     {
       ProfileData profile = profiles[idx];
-      ProfileStoreData p = profile.store[profile.defaultProfile];
+//      ProfileStoreData p = profile.store[profile.defaultProfile];
       ret.store = profile.store[profile.defaultProfile];
       ret.basal = ret.find(time, ret.store.listBasal);
       ret.carbRatio = ret.find(time, ret.store.listCarbratio);

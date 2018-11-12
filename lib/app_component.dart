@@ -20,7 +20,7 @@ import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/jsonData.dart';
-import 'package:dnd/dnd.dart';
+// import 'package:dnd/dnd.dart';
 
 import 'src/dsgvo/dsgvo_component.dart';
 import 'src/forms/print-analysis.dart';
@@ -216,6 +216,8 @@ class AppComponent
     if (html.window.location.href.endsWith("?dsgvo"))currPage = "dsgvo";
     if (html.window.location.href.endsWith("?impressum"))currPage = "impressum";
     checkPrint();
+
+//    Draggable drag = Draggable(querySelectorAll('.sortable'), acatarHandler: AvatarHandler.clone());
   }
 
   void toggleHelp()

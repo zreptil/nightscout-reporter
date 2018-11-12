@@ -11,20 +11,23 @@ class PrintDailyGraphic extends BasePrint
   @override
   String id = "daygraph";
 
-  bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, isPrecise, isSmall;
+  bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, isSmall, showNotes;
   int get _precision
   => isPrecise ? 2 : 1;
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(msgParam1, boolValue: true),
-    ParamInfo(msgParam2, boolValue: true),
-    ParamInfo(msgParam3, boolValue: true),
-    ParamInfo(msgParam4, boolValue: true),
-    ParamInfo(msgParam5, boolValue: true),
-    ParamInfo(msgParam6, boolValue: false),
-    ParamInfo(msgParam7, boolValue: false),
+    ParamInfo(0, msgParam1, boolValue: true),
+    ParamInfo(1, msgParam2, boolValue: true),
+    ParamInfo(2, msgParam3, boolValue: true),
+    ParamInfo(3, msgParam4, boolValue: true),
+    ParamInfo(4, msgParam5, boolValue: true),
+    ParamInfo(5, msgParam6, boolValue: false),
+    ParamInfo(8, msgParam7, boolValue: false),
+    ParamInfo(7, msgParam8, boolValue: true),
+    ParamInfo(6, msgParam9, boolValue: true),
   ];
+
 
   @override
   prepareData_(ReportData data)
@@ -36,6 +39,8 @@ class PrintDailyGraphic extends BasePrint
     showBasalProfile = params[4].boolValue;
     isPrecise = params[5].boolValue;
     isSmall = params[6].boolValue;
+    showLegend = params[7].boolValue;
+    showNotes = params[8].boolValue;
     return data;
   }
 
@@ -59,13 +64,18 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Basal mit zwei Nachkommastellen");
   static String get msgParam7
   => Intl.message("Vier Grafiken pro Seite");
+  static String get msgParam8
+  => Intl.message("Legende");
+  static String get msgParam9
+  => Intl.message("Notizen");
 
   @override
   List<String> get imgList
   => ["nightscout", "katheter.print", "sensor.print"];
 
   @override
-  double get scale => isSmall ?? false ? 0.5 : 1.0;
+  double get scale
+  => isSmall ?? false ? 0.5 : 1.0;
 
   @override
   bool get isPortrait
@@ -77,6 +87,9 @@ class PrintDailyGraphic extends BasePrint
   double bolusMax = 50.0;
   static double graphHeight;
   static double graphWidth = 23.25;
+  static double notesTop = 0.6;
+  static double notesHeight = 0.4;
+  static double basalTop;
   static double basalHeight = 3.0;
   static double basalWidth = graphWidth;
 
@@ -112,8 +125,11 @@ class PrintDailyGraphic extends BasePrint
   async {
     var data = src.calc;
 
-    graphHeight = 7.0;
+    graphHeight = 6.5;
     if (!showBasalDay && !showBasalProfile)graphHeight += basalHeight + 1;
+    if (!showLegend) graphHeight += 2.5;
+    basalTop = 2.0;
+    if (!showNotes)basalTop -= notesHeight;
 
     lineWidth = cm(0.03);
     var ret = [];
@@ -188,7 +204,6 @@ class PrintDailyGraphic extends BasePrint
     List horzStack = horzLegend["stack"];
     List vertStack = vertLegend["stack"];
     List graphGlucCvs = graphGluc["canvas"];
-    List graphText = graphLegend["stack"];
     for (var i = 0; i < 25; i++)
     {
       vertCvs.add({
@@ -250,6 +265,7 @@ class PrintDailyGraphic extends BasePrint
     bool hasSensorChange = false;
     bool hasCarbs = false;
     bool hasBolus = false;
+    List<double> noteLines = List<double>();
     for (TreatmentData t in day.treatments)
     {
       double x, y;
@@ -337,6 +353,52 @@ class PrintDailyGraphic extends BasePrint
         });
         hasSensorChange = true;
       }
+      else if (showNotes && (t.notes ?? "").isNotEmpty && !t.isECarb)
+      {
+        double x = glucX(t.createdAt);
+        int idx = noteLines.indexWhere((v)
+        => v < x);
+        if (idx < 0)
+        {
+          noteLines.add(x + t.notes.length * 0.1);
+          idx = noteLines.length - 1;
+        }
+        else
+        {
+          noteLines[idx] = x + t.notes.length * 0.1;
+        }
+        double y = graphHeight + notesTop + idx * notesHeight;
+        String col = t.duration > 0 ? colDurationNotes : colNotes;
+        graphGlucCvs.add({
+          "type": "line",
+          "x1": cm(x),
+          "y1": cm(glucY(t.glucose)),
+          "x2": cm(x),
+          "y2": cm(y + notesHeight),
+          "lineWidth": cm(lw),
+          "lineColor": col
+        });
+        (graphLegend["stack"] as List).add({
+          "relativePosition": {"x": cm(x + 0.05), "y": cm(y + notesHeight - 0.25)},
+          "text": t.notes,
+          "fontSize": fs(8),
+          "alignment": "left",
+          "color": col
+        });
+        if(t.duration > 0)
+        {
+          x = glucX(t.createdAt.add(Duration(minutes: t.duration)));
+          graphGlucCvs.add({
+            "type": "line",
+            "x1": cm(x),
+            "y1": cm(y),
+            "x2": cm(x),
+            "y2": cm(y + notesHeight / 2),
+            "lineWidth": cm(lw),
+            "lineColor": colDurationNotes
+          });
+        }
+      }
 /*
       if (cobPoints.length > 0)cobPoints.add({"x": cobPoints.last["x"], "y": cobPoints.first["y"]});
       graphCvs.add(cob);
@@ -412,36 +474,40 @@ class PrintDailyGraphic extends BasePrint
       ]
     };
     var y = yo + lineHeight * gridLines;
-    if (showBasalProfile || showBasalDay)y += 2.2 + basalHeight;
+    if (showBasalProfile || showBasalDay)y += 1.2 + basalHeight + basalTop;
     else
-      y += 1;
+      y += basalTop;
+
     LegendData legend = LegendData(cmx(xo), cmy(y), cmx(8.0), 5);
-    addLegendEntry(legend, colValue, msgGlucosekurve, isArea: false);
-    if (hasCarbs)addLegendEntry(legend, colCarbs, msgCarbs, isArea: false, lineWidth: 0.1);
-    if (hasBolus)addLegendEntry(
-      legend, colBolus, msgBolusInsulin("${fmtNumber(day.ieBolusSum, _precision, false)} ${msgInsulinUnit}"),
-      isArea: false, lineWidth: 0.1);
-    String text;
-    if (showBasalDay)
+    if (showLegend)
     {
-      text = "${fmtNumber(day.ieBasalSum, _precision, false)} ${msgInsulinUnit}";
-      addLegendEntry(legend, colBasalDay, msgBasalrateDay(text), isArea: true);
+      addLegendEntry(legend, colValue, msgGlucosekurve, isArea: false);
+      if (hasCarbs)addLegendEntry(legend, colCarbs, msgCarbs, isArea: false, lineWidth: 0.1);
+      if (hasBolus)addLegendEntry(
+        legend, colBolus, msgBolusInsulin("${fmtNumber(day.ieBolusSum, _precision, false)} ${msgInsulinUnit}"),
+        isArea: false, lineWidth: 0.1);
+      String text;
+      if (showBasalDay)
+      {
+        text = "${fmtNumber(day.ieBasalSum, _precision, false)} ${msgInsulinUnit}";
+        addLegendEntry(legend, colBasalDay, msgBasalrateDay(text), isArea: true);
+      }
+      if (showBasalProfile)
+      {
+        text = "${fmtNumber(day.basalData.store.ieBasalSum, _precision, false)} ${msgInsulinUnit}";
+        addLegendEntry(legend, colBasalProfile, msgBasalrateProfile(text), isArea: false);
+      }
+      String v1 = glucFromData(src.status.settings.thresholds.bgTargetBottom.toDouble());
+      String v2 = glucFromData(src.status.settings.thresholds.bgTargetTop.toDouble());
+      addLegendEntry(legend, colTargetArea, msgTargetArea(v1, v2, getGlucInfo()["unit"]));
+      addLegendEntry(legend, colTargetValue,
+        msgTargetValue("${glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${getGlucInfo()["unit"]}"),
+        isArea: false);
+      if (hasCatheterChange)addLegendEntry(
+        legend, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);
+      if (hasSensorChange)addLegendEntry(legend, "", msgSensorChange, image: "sensor.print", imgWidth: 0.5);
     }
-    if (showBasalProfile)
-    {
-      text = "${fmtNumber(day.basalData.store.ieBasalSum, _precision, false)} ${msgInsulinUnit}";
-      addLegendEntry(legend, colBasalProfile, msgBasalrateProfile(text), isArea: false);
-    }
-    String v1 = glucFromData(src.status.settings.thresholds.bgTargetBottom.toDouble());
-    String v2 = glucFromData(src.status.settings.thresholds.bgTargetTop.toDouble());
-    addLegendEntry(legend, colTargetArea, msgTargetArea(v1, v2, getGlucInfo()["unit"]));
-    addLegendEntry(legend, colTargetValue,
-      msgTargetValue("${glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${getGlucInfo()["unit"]}"),
-      isArea: false);
-    if (hasCatheterChange)addLegendEntry(
-      legend, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);
-    if (hasSensorChange)addLegendEntry(legend, "", msgSensorChange, image: "sensor.print", imgWidth: 0.5);
-    //blendColor(colBasal, "ffffff", 0.7)
+
     var profileBasal = showBasalProfile ? getBasalGraph(day, true, showBasalDay, xo, yo) : null;
     var dayBasal = showBasalDay ? getBasalGraph(day, false, false, xo, yo) : null;
 
@@ -483,9 +549,11 @@ class PrintDailyGraphic extends BasePrint
       color = colBasalDay;
     }
     var basalCvs = [];
-    var ret = {"stack": [{"absolutePosition": {"x": cmx(xo), "y": cmy(yo + graphHeight + 1.0)}, "canvas": basalCvs}]};
+    var ret = {
+      "stack": [{"absolutePosition": {"x": cmx(xo), "y": cmy(yo + graphHeight + basalTop)}, "canvas": basalCvs}]
+    };
     if (basalSum != 0)ret["stack"].add({
-      "absolutePosition": {"x": cmx(xo), "y": cmy(yo + graphHeight + basalHeight + 1.1)},
+      "absolutePosition": {"x": cmx(xo), "y": cmy(yo + graphHeight + basalHeight + basalTop + 0.1)},
       "columns": [ {
         "width": cm(basalWidth),
         "text": "${fmtNumber(basalSum, _precision, false)} ${msgInsulinUnit}",
@@ -533,8 +601,7 @@ class PrintDailyGraphic extends BasePrint
       "_lineColor": "#000000",
       "color": colCarbs,
       "lineWidth": cm(0),
-      "points": [
-        {"x": cm(x), "y": cm(y - h - 0.1)}, {"x": cm(x + 0.1), "y": cm(y)}, {"x": cm(x - 0.1), "y": cm(y)}],
+      "points": [{"x": cm(x), "y": cm(y - h - 0.1)}, {"x": cm(x + 0.1), "y": cm(y)}, {"x": cm(x - 0.1), "y": cm(y)}],
     });
   }
 }

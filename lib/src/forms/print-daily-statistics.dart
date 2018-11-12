@@ -15,10 +15,10 @@ class PrintDailyStatistics extends BasePrint
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(msgParam1, boolValue: true),
-    ParamInfo(msgParam2, boolValue: true),
-    ParamInfo(msgParam3, boolValue: true),
-    ParamInfo(msgParam4, boolValue: true),
+    ParamInfo(0, msgParam1, boolValue: true),
+    ParamInfo(1, msgParam2, boolValue: true),
+    ParamInfo(2, msgParam3, boolValue: true),
+    ParamInfo(3, msgParam4, boolValue: true),
   ];
 
   static String get msgParam1

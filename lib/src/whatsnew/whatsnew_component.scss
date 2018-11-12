@@ -4,6 +4,7 @@
 
 :host {
 }
+
 material-dialog {
   @include material-dialog-header-color($mat-blue-900);
   @include material-dialog-header-shadow();
@@ -16,16 +17,17 @@ div[header] {
   color: $primary_fore;
   justify-content: space-between;
 }
+
 .root {
   padding: 1em;
   font-size: 1.2em;
   background-color: $mat-blue-500;
 }
 
-h2
-{
+h2 {
   font-size: 1.3em;
   padding: 0 0.5em;
+
   span:first-child {
     padding-right: 0.5em;
   }

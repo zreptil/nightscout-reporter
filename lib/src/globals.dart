@@ -51,7 +51,7 @@ class LangData
 class Globals
 {
   static final Globals _globals = Globals._internal();
-  String version = "1.1.0";
+  String version = "1.1.1-0";
   String lastVersion;
   List<FormConfig> listConfig = List<FormConfig>();
 
@@ -152,7 +152,7 @@ class Globals
     String check = "${checkUser.apiUrl}status";
     await request(check).then((String response)
     {
-      if (response != "<h1>STATUS OK</h1>")ret = msgUrlFailure;
+      if (!response.toLowerCase().contains("status ok"))ret = msgUrlFailure;
     }).catchError((err)
     {
       ret = msgUrlFailure;
@@ -308,7 +308,8 @@ class Globals
       end = Date.parse(loadStorage("endDate") ?? Date.today().format(fmtDateForData), fmtDateForData);
     }
     catch (ex)
-    {}
+    {
+    }
     DatepickerDateRange dr = DatepickerDateRange(dateRange.range.title, start, end);
     dateRange = DatepickerComparison(dr, ComparisonOption.custom);
     changeLanguage(language, doReload: false);
@@ -442,7 +443,8 @@ class UserData
         forms[cfg.id] = cfg.asString;
     }
     catch (ex)
-    {}
+    {
+    }
 
     return '{"n":"$name",'
       '"bd":"${birthDate ?? ''}",'
@@ -468,8 +470,7 @@ class UserData
       ret.token = data["ut"];
       ret.customData = data["c"];
       ret.formParams = data["f"];
-      if(ret.formParams != null && ret.formParams["analysis"] is bool)
-        ret.formParams = {};
+      if (ret.formParams != null && ret.formParams["analysis"] is bool)ret.formParams = {};
 //      ret.formList = Map<String, FormConfig>();
 /*
       for (String key in data["f"].keys)
@@ -480,7 +481,8 @@ class UserData
       }*/
     }
     catch (ex)
-    {}
+    {
+    }
     return ret;
   }
 
