@@ -95,20 +95,6 @@ class ParamInfo
   }
 }
 
-class PrintParams
-{
-  String key;
-  var value;
-  String desc;
-  String type;
-
-  PrintParams(this.key, this.value, this.desc)
-  {
-    if (value is bool)type = "bool";
-    else if (value is String)type = "string";
-  }
-}
-
 class FormConfig
 {
   String id;
