@@ -164,6 +164,28 @@
     "type": "text",
     "placeholders": {}
   },
+  "msgValidRange": "valid from {begDate} to {endDate}",
+  "@msgValidRange": {
+    "type": "text",
+    "placeholders": {
+      "begDate": {},
+      "endDate": {}
+    }
+  },
+  "msgValidFrom": "valid from {begDate}",
+  "@msgValidFrom": {
+    "type": "text",
+    "placeholders": {
+      "begDate": {}
+    }
+  },
+  "msgValidTo": "valid until {endDate}",
+  "@msgValidTo": {
+    "type": "text",
+    "placeholders": {
+      "endDate": {}
+    }
+  },
   "IE": "U",
   "@IE": {
     "type": "text",
@@ -454,28 +476,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "msgValidRange": "valid from {begDate} to {endDate}",
-  "@msgValidRange": {
-    "type": "text",
-    "placeholders": {
-      "begDate": {},
-      "endDate": {}
-    }
-  },
-  "msgValidFrom": "valid from {begDate}",
-  "@msgValidFrom": {
-    "type": "text",
-    "placeholders": {
-      "begDate": {}
-    }
-  },
-  "msgValidTo": "valid until {endDate}",
-  "@msgValidTo": {
-    "type": "text",
-    "placeholders": {
-      "endDate": {}
-    }
-  },
   "Ges.": "Sum",
   "@Ges.": {
     "type": "text",
@@ -523,6 +523,16 @@
   },
   "Vier Grafiken pro Seite": "Four graphics per page",
   "@Vier Grafiken pro Seite": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Legende": "Legend",
+  "@Legende": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Notizen": "Notes",
+  "@Notizen": {
     "type": "text",
     "placeholders": {}
   },
@@ -644,6 +654,71 @@
   },
   "25% - 75% der Werte": "25% - 75% of the values",
   "@25% - 75% der Werte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Profil": "Profile",
+  "@Profil": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basalrate mit zwei Nachkommastellen": "Basalrate with two decimal places",
+  "@Basalrate mit zwei Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "Insulin Carb Ratio (ICR) X g Carbs for 1 IU",
+  "@Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": "Insulin Sensitivity Factors (ISF) 1 U lowers BG by X mg / dL",
+  "@Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basalrate\nIE / Stunde": "Basalrate U / hour",
+  "@Basalrate\nIE / Stunde": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgTarget": "Glucose target area {unit}",
+  "@msgTarget": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "msgFactorEntry": "{beg} - {end}",
+  "@msgFactorEntry": {
+    "type": "text",
+    "placeholders": {
+      "beg": {},
+      "end": {}
+    }
+  },
+  "Profileinstellungen": "Profilesettings",
+  "@Profileinstellungen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dauer der Insulinaktivität (DIA)": "Duration of insulin activity (DIA)",
+  "@Dauer der Insulinaktivität (DIA)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Stunden": "hours",
+  "@Stunden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dauer der Kohlenhydrataktivität": "Duration of carb activity",
+  "@Dauer der Kohlenhydrataktivität": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "g / Stunde": "g / hour",
+  "@g / Stunde": {
     "type": "text",
     "placeholders": {}
   },
@@ -794,6 +869,30 @@
     "type": "text",
     "placeholders": {}
   },
+  "1.1.1 - xx.xx.2018": "1.1.1 - xx.xx.2018",
+  "@1.1.1 - xx.xx.2018": {
+    "description": "v111",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesgrafikparameter zur Anzeige der Legende": "Daily graphic parameters for displaying the legend",
+  "@Tagesgrafikparameter zur Anzeige der Legende": {
+    "description": "v111a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesgrafikparameter zur Anzeige von Notizen": "Daily graphic parameters for displaying notes",
+  "@Tagesgrafikparameter zur Anzeige von Notizen": {
+    "description": "v111a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "PDF für Profildaten": "PDF for profile data",
+  "@PDF für Profildaten": {
+    "description": "v111a3",
+    "type": "text",
+    "placeholders": {}
+  },
   "1.1.0 - 09.11.2018": "1.1.0 - 11/09/2018",
   "@1.1.0 - 09.11.2018": {
     "description": "v110",
@@ -802,43 +901,43 @@
   },
   "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": "added additional information about the PDFs and in the UI",
   "@Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": {
-    "description": "v105a1",
+    "description": "v110a1",
     "type": "text",
     "placeholders": {}
   },
   "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": "Sums for bolus insulin, basal rate for the day, and basalrate from the profile added to the daily chart",
   "@Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": {
-    "description": "v105a2",
+    "description": "v110a2",
     "type": "text",
     "placeholders": {}
   },
   "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": "Some forms can now be configured with parameters; click on the arrow on the right side of the formbutton and make the appropriate settings in the opened area; the arrow will not appear until the form has been marked for printout",
   "@Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": {
-    "description": "v105a3",
+    "description": "v110a3",
     "type": "text",
     "placeholders": {}
   },
   "Anzahl der Sensoren zur Analyse hinzugefügt": "Added number of sensors to analysis",
   "@Anzahl der Sensoren zur Analyse hinzugefügt": {
-    "description": "v105a4",
+    "description": "v110a4",
     "type": "text",
     "placeholders": {}
   },
   "Übersetzungen korrigiert": "Corrected translations",
   "@Übersetzungen korrigiert": {
-    "description": "v105f1",
+    "description": "v110f1",
     "type": "text",
     "placeholders": {}
   },
   "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": "Title information for date ranges on the PDFs are unified",
   "@Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": {
-    "description": "v105f2",
+    "description": "v110f2",
     "type": "text",
     "placeholders": {}
   },
   "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": "Fixed a crash that occurred when no matching profile could be found for a given time",
   "@Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": {
-    "description": "v105f3",
+    "description": "v110f3",
     "type": "text",
     "placeholders": {}
   },
@@ -1076,9 +1175,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_7": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
-  "@ViewWhatsnewComponent0__message_7": {
-    "description": "v105c1",
+  "ViewWhatsnewComponent0__message_11": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
+  "@ViewWhatsnewComponent0__message_11": {
+    "description": "v110c1",
     "type": "text",
     "placeholders": {
       "startTag0": {

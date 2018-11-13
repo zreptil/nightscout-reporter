@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-11-09T08:03:09.291118",
+  "@@last_modified": "2018-11-13T15:43:21.290590",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -165,6 +165,28 @@
   "@Die URL wurde noch nicht festgelegt": {
     "type": "text",
     "placeholders": {}
+  },
+  "msgValidRange": "gültig von {begDate} bis {endDate}",
+  "@msgValidRange": {
+    "type": "text",
+    "placeholders": {
+      "begDate": {},
+      "endDate": {}
+    }
+  },
+  "msgValidFrom": "gültig ab {begDate}",
+  "@msgValidFrom": {
+    "type": "text",
+    "placeholders": {
+      "begDate": {}
+    }
+  },
+  "msgValidTo": "gültig bis {endDate}",
+  "@msgValidTo": {
+    "type": "text",
+    "placeholders": {
+      "endDate": {}
+    }
   },
   "IE": "IE",
   "@IE": {
@@ -456,28 +478,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "msgValidRange": "gültig von {begDate} bis {endDate}",
-  "@msgValidRange": {
-    "type": "text",
-    "placeholders": {
-      "begDate": {},
-      "endDate": {}
-    }
-  },
-  "msgValidFrom": "gültig ab {begDate}",
-  "@msgValidFrom": {
-    "type": "text",
-    "placeholders": {
-      "begDate": {}
-    }
-  },
-  "msgValidTo": "gültig bis {endDate}",
-  "@msgValidTo": {
-    "type": "text",
-    "placeholders": {
-      "endDate": {}
-    }
-  },
   "Ges.": "Ges.",
   "@Ges.": {
     "type": "text",
@@ -525,6 +525,16 @@
   },
   "Vier Grafiken pro Seite": "Vier Grafiken pro Seite",
   "@Vier Grafiken pro Seite": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Legende": "Legende",
+  "@Legende": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Notizen": "Notizen",
+  "@Notizen": {
     "type": "text",
     "placeholders": {}
   },
@@ -646,6 +656,71 @@
   },
   "25% - 75% der Werte": "25% - 75% der Werte",
   "@25% - 75% der Werte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Profil": "Profil",
+  "@Profil": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basalrate mit zwei Nachkommastellen": "Basalrate mit zwei Nachkommastellen",
+  "@Basalrate mit zwei Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE",
+  "@Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": "Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl",
+  "@Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basalrate\nIE / Stunde": "Basalrate\nIE / Stunde",
+  "@Basalrate\nIE / Stunde": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgTarget": "Glukose-Zielbereich\n{unit}",
+  "@msgTarget": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "msgFactorEntry": "{beg} - {end}",
+  "@msgFactorEntry": {
+    "type": "text",
+    "placeholders": {
+      "beg": {},
+      "end": {}
+    }
+  },
+  "Profileinstellungen": "Profileinstellungen",
+  "@Profileinstellungen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dauer der Insulinaktivität (DIA)": "Dauer der Insulinaktivität (DIA)",
+  "@Dauer der Insulinaktivität (DIA)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Stunden": "Stunden",
+  "@Stunden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dauer der Kohlenhydrataktivität": "Dauer der Kohlenhydrataktivität",
+  "@Dauer der Kohlenhydrataktivität": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "g / Stunde": "g / Stunde",
+  "@g / Stunde": {
     "type": "text",
     "placeholders": {}
   },
@@ -796,6 +871,30 @@
     "type": "text",
     "placeholders": {}
   },
+  "1.1.1 - xx.xx.2018": "1.1.1 - xx.xx.2018",
+  "@1.1.1 - xx.xx.2018": {
+    "description": "v111",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesgrafikparameter zur Anzeige der Legende": "Tagesgrafikparameter zur Anzeige der Legende",
+  "@Tagesgrafikparameter zur Anzeige der Legende": {
+    "description": "v111a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesgrafikparameter zur Anzeige von Notizen": "Tagesgrafikparameter zur Anzeige von Notizen",
+  "@Tagesgrafikparameter zur Anzeige von Notizen": {
+    "description": "v111a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "PDF für Profildaten": "PDF für Profildaten",
+  "@PDF für Profildaten": {
+    "description": "v111a3",
+    "type": "text",
+    "placeholders": {}
+  },
   "1.1.0 - 09.11.2018": "1.1.0 - 09.11.2018",
   "@1.1.0 - 09.11.2018": {
     "description": "v110",
@@ -804,43 +903,43 @@
   },
   "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt",
   "@Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": {
-    "description": "v105a1",
+    "description": "v110a1",
     "type": "text",
     "placeholders": {}
   },
   "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt",
   "@Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": {
-    "description": "v105a2",
+    "description": "v110a2",
     "type": "text",
     "placeholders": {}
   },
   "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde",
   "@Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": {
-    "description": "v105a3",
+    "description": "v110a3",
     "type": "text",
     "placeholders": {}
   },
   "Anzahl der Sensoren zur Analyse hinzugefügt": "Anzahl der Sensoren zur Analyse hinzugefügt",
   "@Anzahl der Sensoren zur Analyse hinzugefügt": {
-    "description": "v105a4",
+    "description": "v110a4",
     "type": "text",
     "placeholders": {}
   },
   "Übersetzungen korrigiert": "Übersetzungen korrigiert",
   "@Übersetzungen korrigiert": {
-    "description": "v105f1",
+    "description": "v110f1",
     "type": "text",
     "placeholders": {}
   },
   "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht",
   "@Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": {
-    "description": "v105f2",
+    "description": "v110f2",
     "type": "text",
     "placeholders": {}
   },
   "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte",
   "@Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": {
-    "description": "v105f3",
+    "description": "v110f3",
     "type": "text",
     "placeholders": {}
   },
@@ -1078,9 +1177,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_7": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_7": {
-    "description": "v105c1",
+  "ViewWhatsnewComponent0__message_11": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_11": {
+    "description": "v110c1",
     "type": "text",
     "placeholders": {
       "startTag0": {

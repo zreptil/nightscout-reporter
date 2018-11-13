@@ -39,7 +39,7 @@ class PrintProfile extends BasePrint
   }
 
   static String get msgParam1
-  => Intl.message("Zwei Nachkommastellen");
+  => Intl.message("Basalrate mit zwei Nachkommastellen");
   get msgICR
   => Intl.message("Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE");
   get msgISF
