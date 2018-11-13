@@ -128,14 +128,16 @@ class PrintAnalysis extends BasePrint
   get msgPeriod
   => Intl.message("Zeitraum");
 
-  addBodyArea(List body, String title, List lines)
+  addBodyArea(List body, String title, List lines, {showLine: true})
   {
-    body.add([ {
-      "canvas": [ {"type": "line", "x1": cm(0), "y1": cm(0.2), "x2": cm(13.5), "y2": cm(0.2), "lineWidth": cm(0.01)}],
-      "colSpan": 5
+    if (showLine)
+    {
+      body.add([ {
+        "canvas": [ {"type": "line", "x1": cm(0), "y1": cm(0.2), "x2": cm(13.5), "y2": cm(0.2), "lineWidth": cm(0.01)}],
+        "colSpan": 5
+      }
+      ]);
     }
-    ]);
-
     body.add([ {
       "columns": [{"width": cm(13.5), "text": title, "fontSize": fs(8), "color": "#606060", "alignment": "center"}],
       "colSpan": 5,
@@ -146,11 +148,28 @@ class PrintAnalysis extends BasePrint
       body.add(line);
   }
 
+  getFactorBody(List<ProfileEntryData> list, msg(String a, String b))
+  {
+    dynamic ret = [];
+    for (int i = 0; i < list.length; i++)
+    {
+      ProfileEntryData entry = list[i];
+      DateTime end = DateTime(0, 1, 1, 23, 59);
+      if (i < list.length - 1)end = list[i + 1].time;
+      ret.add([
+        {"text": msg(fmtTime(entry.time, withUnit: true), fmtTime(end, withUnit: true)), "style": "infotitle"},
+        {"text": fmtNumber(entry.value, 1, false), "style": "infodata"},
+      ]);
+    }
+    return ret;
+  }
+
   @override
   getFormData_(ReportData src)
   {
     titleInfo = titleInfoBegEnd(src);
     var data = src.ns;
+    ProfileGlucData profile = src.profile(DateTime.now());
 
     var avgGluc = data.avgGluc;
     var glucWarnColor = colNorm;

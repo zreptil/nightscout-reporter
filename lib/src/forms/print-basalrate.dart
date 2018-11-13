@@ -57,12 +57,6 @@ class PrintBasalrate extends BasePrint
 
   static String get msgParam1
   => Intl.message("Zwei Nachkommastellen");
-  msgValidRange(begDate, endDate)
-  => Intl.message("gültig von $begDate bis $endDate", args: [begDate, endDate], name: "msgValidRange");
-  msgValidFrom(begDate)
-  => Intl.message("gültig ab $begDate", args: [begDate], name: "msgValidFrom");
-  msgValidTo(endDate)
-  => Intl.message("gültig bis $endDate", args: [endDate], name: "msgValidTo");
 
   get msgTotal
   => Intl.message("Ges.");
@@ -186,10 +180,7 @@ class PrintBasalrate extends BasePrint
   {
     double xo = xorg;
     double yo = yorg;
-    if (calc.endDate == null)titleInfo = msgValidFrom(fmtDate(profile.startDate));
-    else if (profile.startDate.year == 1970)titleInfo = msgValidTo(fmtDate(calc.endDate));
-    else
-      titleInfo = msgValidRange(fmtDate(profile.startDate), fmtDate(calc.endDate));
+    titleInfo = titleInfoForDates(profile.startDate, calc.endDate);
     double brMax = 0.0;
     List<ProfileEntryData> brtimes = profile.store[profile.defaultProfile].listBasal;
     for (var i = 0; i < brtimes.length; i++)
@@ -239,7 +230,7 @@ class PrintBasalrate extends BasePrint
         });
         horzStack.add({
           "absolutePosition": {"x": cmx(xo + i * colWidth), "y": cmy(yo + gridLines * lineHeight + 0.3)},
-          "text": fmtTime(i, 0),
+          "text": fmtTime(i, def: "0"),
           "fontSize": fs(8)
         });
       }

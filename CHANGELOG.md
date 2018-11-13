@@ -1,7 +1,8 @@
 ## [Unreleased]
 ### Added
 - added notes to daily graphics
-
+- added pdf for profiles
+ 
 ### Changed
 - made request for valid url more flexible
 - made formparameters sortable in code

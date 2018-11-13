@@ -24,6 +24,7 @@ import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'src/dsgvo/dsgvo_component.dart';
 import 'src/forms/print-analysis.dart';
+import 'src/forms/print-profile.dart';
 import 'src/forms/print-basalrate.dart';
 import 'src/impressum/impressum_component.dart';
 import 'src/settings/settings_component.dart';
@@ -167,6 +168,7 @@ class AppComponent
     /// fill list with forms
     g.listConfig = List<FormConfig>();
     g.addForm(PrintAnalysis());
+    g.addForm(PrintProfile());
     g.addForm(PrintPercentile());
     g.addForm(PrintDailyStatistics());
     g.addForm(PrintDailyGraphic());

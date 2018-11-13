@@ -124,8 +124,7 @@ class FormConfig
   {
     for (int i = 0; i < src.form.params.length; i++)
     {
-      if (i >= form.params.length)
-        form.params.add(src.form.params[i]);
+      if (i >= form.params.length)form.params.add(src.form.params[i]);
       form.params[i].fill(src.form.params[i]);
     }
   }
@@ -161,9 +160,11 @@ abstract class BasePrint
   {
     List<ParamInfo> ret = List<ParamInfo>();
     ret.addAll(params);
-    ret.sort((a,b) => a.sort.compareTo(b.sort));
+    ret.sort((a, b)
+    => a.sort.compareTo(b.sort));
     return ret;
   }
+
   bool get isDebugOnly
   => false;
 
@@ -204,6 +205,12 @@ abstract class BasePrint
   double get height
   => isPortrait ? 29.7 : 21.0;
 
+  msgValidRange(begDate, endDate)
+  => Intl.message("gültig von $begDate bis $endDate", args: [begDate, endDate], name: "msgValidRange");
+  msgValidFrom(begDate)
+  => Intl.message("gültig ab $begDate", args: [begDate], name: "msgValidFrom");
+  msgValidTo(endDate)
+  => Intl.message("gültig bis $endDate", args: [endDate], name: "msgValidTo");
   get msgInsulinUnit
   => Intl.message("IE");
   get msgMedian
@@ -240,6 +247,16 @@ abstract class BasePrint
   => Intl.message("Sensorwechsel");
   msgKH(value)
   => Intl.message("${value}g KH", args: [value], name: "msgKH");
+
+  String titleInfoForDates(DateTime startDate, DateTime endDate)
+  {
+    String ret;
+    if (endDate == null)ret = msgValidFrom(fmtDate(startDate));
+    else if (startDate.year == 1970)ret = msgValidTo(fmtDate(endDate));
+    else
+      ret = msgValidRange(fmtDate(startDate), fmtDate(endDate));
+    return ret;
+  }
 
   Object get header
   {
@@ -558,13 +575,30 @@ abstract class BasePrint
     return nf.format(value);
   }
 
-  String fmtTime(var date, [var def = null])
+  String fmtTime(var date, {String def: null, bool withUnit: false})
   {
     if (def == null)def = "";
     if (date == null)return def;
 
     if (date is DateTime)
-      return "${(date.hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute}";
+    {
+      int hour = date.hour;
+      if (g.language.code != "de_DE")hour = hour > 12 ? hour - 12 : hour;
+      String ret = "${(hour < 10 ? "0" : "")}${hour}:${(date.minute < 10 ? "0" : "")}${date.minute}";
+      if (withUnit)
+      {
+        switch (g.language.code)
+        {
+          case "de_DE":
+            ret = "$ret Uhr";
+            break;
+          default:
+            ret = date.hour > 12 ? "$ret pm" : "$ret am";
+            break;
+        }
+      }
+      return ret;
+    }
 
     if (date is int)
     {

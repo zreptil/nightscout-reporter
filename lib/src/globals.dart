@@ -51,7 +51,15 @@ class LangData
 class Globals
 {
   static final Globals _globals = Globals._internal();
-  String version = "1.1.1-0";
+  factory Globals(){
+    return _globals;
+  }
+
+  Globals._internal(){
+    load();
+  }
+
+  String version = "1.1.1-2";
   String lastVersion;
   List<FormConfig> listConfig = List<FormConfig>();
 
@@ -158,14 +166,6 @@ class Globals
       ret = msgUrlFailure;
     });
     return ret;
-  }
-
-  factory Globals(){
-    return _globals;
-  }
-
-  Globals._internal(){
-    load();
   }
 
   changeLanguage(LangData value, {bool doReload = true, bool checkConfigured = false})

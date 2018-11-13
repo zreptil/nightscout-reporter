@@ -274,6 +274,7 @@ class ProfileGlucData
 class ProfileEntryData extends JsonData
 {
   DateTime time;
+  String forceText = null;
   double value;
   double _percentAdjust = null;
   double _absoluteRate = null;
