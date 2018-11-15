@@ -150,7 +150,7 @@ class FormConfig
 
 abstract class BasePrint
 {
-  Globals g = new Globals();
+  Globals g = Globals();
   String id;
   String name;
   String title;

@@ -34,7 +34,7 @@
       <div class="userPanel" *ngIf="g.userList.length > 1">
         <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect">
           <material-select-item *ngFor="let item of g.userList; let idx = index"
-                                (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx}');"
+                                (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');"
                                 class="selectItem"
                                 [selected]="idx==g.userIdx">
             <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>

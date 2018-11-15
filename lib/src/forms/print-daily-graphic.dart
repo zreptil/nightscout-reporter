@@ -11,7 +11,8 @@ class PrintDailyGraphic extends BasePrint
   @override
   String id = "daygraph";
 
-  bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, isSmall, showNotes;
+  bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, isSmall, showNotes,
+    sortReverse;
   int get _precision
   => isPrecise ? 2 : 1;
 
@@ -23,9 +24,10 @@ class PrintDailyGraphic extends BasePrint
     ParamInfo(3, msgParam4, boolValue: true),
     ParamInfo(4, msgParam5, boolValue: true),
     ParamInfo(5, msgParam6, boolValue: false),
-    ParamInfo(8, msgParam7, boolValue: false),
+    ParamInfo(9, msgParam7, boolValue: false),
     ParamInfo(7, msgParam8, boolValue: true),
     ParamInfo(6, msgParam9, boolValue: true),
+    ParamInfo(8, msgParam10, boolValue: false),
   ];
 
 
@@ -41,6 +43,7 @@ class PrintDailyGraphic extends BasePrint
     isSmall = params[6].boolValue;
     showLegend = params[7].boolValue;
     showNotes = params[8].boolValue;
+    sortReverse = params[9].boolValue;
     return data;
   }
 
@@ -68,6 +71,8 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Legende");
   static String get msgParam9
   => Intl.message("Notizen");
+  static String get msgParam10
+  => Intl.message("umgekehrte Sortierung");
 
   @override
   List<String> get imgList
@@ -138,7 +143,7 @@ class PrintDailyGraphic extends BasePrint
 
     for (int i = 0; i < data.days.length; i++)
     {
-      DayData day = data.days[i];
+      DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
       var page = getPage(day, src);
       ret.addAll(page);
       if (i < data.days.length - 1)
@@ -146,12 +151,12 @@ class PrintDailyGraphic extends BasePrint
         if (!isSmall || (offsetY == height && offsetX == width))
         {
           ret.last["pageBreak"] = "after";
-          offsetX = 0;
-          offsetY = 0;
+          offsetX = 0.0;
+          offsetY = 0.0;
         }
         else if (offsetX == width)
         {
-          offsetX = 0;
+          offsetX = 0.0;
           offsetY += height;
         }
         else

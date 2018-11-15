@@ -80,9 +80,11 @@
     </div>
   </material-dialog>
   <material-dialog *ngIf="showConfirmation" confirm headered class="headered-dialog">
-    <div header>Bestätigung</div>
+    <div header  @i18n="title of confirmation dialog">Bestätigung</div>
     <div class="content">
-      Soll der Benutzer mit der URL <div class="marked">{{g.user.storageApiUrl}}</div> wirklich gelöscht werden?
+      <ng-container @i18n="should the user with url">Soll der Benutzer mit der URL</ng-container>
+      <div class="marked">{{g.user.storageApiUrl}}</div>
+      <ng-container @i18n="really be deleted">wirklich gelöscht werden?</ng-container>
     </div>
     <div footer>
       <material-button class="iconButton" (trigger)="removeUser">

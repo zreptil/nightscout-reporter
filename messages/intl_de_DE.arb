@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-11-13T15:43:21.290590",
+  "@@last_modified": "2018-11-14T11:47:52.506320",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -814,6 +814,24 @@
   "Speichern": "Speichern",
   "@Speichern": {
     "description": "buttonlabel for saving data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bestätigung": "Bestätigung",
+  "@Bestätigung": {
+    "description": "title of confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Soll der Benutzer mit der URL": "Soll der Benutzer mit der URL",
+  "@Soll der Benutzer mit der URL": {
+    "description": "should the user with url",
+    "type": "text",
+    "placeholders": {}
+  },
+  "wirklich gelöscht werden?": "wirklich gelöscht werden?",
+  "@wirklich gelöscht werden?": {
+    "description": "really be deleted",
     "type": "text",
     "placeholders": {}
   },

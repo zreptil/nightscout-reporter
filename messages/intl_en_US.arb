@@ -815,6 +815,24 @@
     "type": "text",
     "placeholders": {}
   },
+  "Bestätigung": "Confirmation",
+  "@Bestätigung": {
+    "description": "title of confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Soll der Benutzer mit der URL": "Should the user with the URL",
+  "@Soll der Benutzer mit der URL": {
+    "description": "should the user with url",
+    "type": "text",
+    "placeholders": {}
+  },
+  "wirklich gelöscht werden?": "really be deleted?",
+  "@wirklich gelöscht werden?": {
+    "description": "really be deleted",
+    "type": "text",
+    "placeholders": {}
+  },
   "Ja": "Yes",
   "@Ja": {
     "description": "buttonlabel for confirmation yes",
