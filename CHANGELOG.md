@@ -3,6 +3,7 @@
 - added notes to daily graphics
 - added pdf for profiles
 - added parameter for reverse sortorder in daily graphics
+- added glucosevalues to daily graphics
  
 ### Changed
 - made request for valid url more flexible

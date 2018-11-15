@@ -840,6 +840,33 @@ class DayData
     }
     varianz /= midCount;
   }
+
+  EntryData findNearest(DateTime check, {maxMinuteDiff: 30})
+  {
+    if (entries.length == 0)return null;
+
+    EntryData ret = null;
+    int retDiff = 10000;
+    for (EntryData entry in entries)
+    {
+      DateTime time = DateTime(check.year, check.month, check.day, entry.time.hour, entry.time.minute);
+      if (time == check)return entry;
+      int diff = time
+        .difference(check)
+        .inSeconds
+        .abs();
+
+      if (diff < retDiff && diff <= maxMinuteDiff)
+      {
+        ret = entry;
+        retDiff = time
+          .difference(ret.time)
+          .inSeconds
+          .abs();
+      }
+    }
+    return ret;
+  }
 }
 
 class ListData
@@ -978,7 +1005,7 @@ class ListData
       if (idx >= 0)days[idx].treatments.add(t);
     }
 
-    for(TreatmentData t in treatments)
+    for (TreatmentData t in treatments)
     {
       khCount += t.carbs;
       ieBolusSum += t.bolusInsulin;

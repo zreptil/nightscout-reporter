@@ -12,7 +12,7 @@ class PrintDailyGraphic extends BasePrint
   String id = "daygraph";
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, isSmall, showNotes,
-    sortReverse;
+    sortReverse, showGlucTable;
   int get _precision
   => isPrecise ? 2 : 1;
 
@@ -28,6 +28,7 @@ class PrintDailyGraphic extends BasePrint
     ParamInfo(7, msgParam8, boolValue: true),
     ParamInfo(6, msgParam9, boolValue: true),
     ParamInfo(8, msgParam10, boolValue: false),
+    ParamInfo(10, msgParam11, boolValue: true),
   ];
 
 
@@ -44,6 +45,7 @@ class PrintDailyGraphic extends BasePrint
     showLegend = params[7].boolValue;
     showNotes = params[8].boolValue;
     sortReverse = params[9].boolValue;
+    showGlucTable = params[10].boolValue;
     return data;
   }
 
@@ -73,6 +75,14 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Notizen");
   static String get msgParam10
   => Intl.message("umgekehrte Sortierung");
+  static String get msgParam11
+  => Intl.message("Tabelle mit Glukosewerten");
+  get msgGlucLow
+  => Intl.message("Glukose zu niedrig");
+  get msgGlucNorm
+  => Intl.message("Glukose im Zielbereich");
+  get msgGlucHigh
+  => Intl.message("Glukose zu hoch");
 
   @override
   List<String> get imgList
@@ -90,13 +100,15 @@ class PrintDailyGraphic extends BasePrint
   double profMax = 0.0;
   double carbMax = 200.0;
   double bolusMax = 50.0;
-  static double graphHeight;
+  double graphHeight;
+  double graphBottom;
   static double graphWidth = 23.25;
   static double notesTop = 0.6;
   static double notesHeight = 0.4;
   static double basalTop;
   static double basalHeight = 3.0;
   static double basalWidth = graphWidth;
+  double glucTableHeight = 0.6;
 
   double glucX(DateTime time)
   {
@@ -135,6 +147,11 @@ class PrintDailyGraphic extends BasePrint
     if (!showLegend) graphHeight += 2.5;
     basalTop = 2.0;
     if (!showNotes)basalTop -= notesHeight;
+    graphBottom = graphHeight;
+    if (showGlucTable)
+    {
+      graphHeight -= glucTableHeight;
+    }
 
     lineWidth = cm(0.03);
     var ret = [];
@@ -190,6 +207,8 @@ class PrintDailyGraphic extends BasePrint
     var vertLegend = {"stack": []};
     var graphGluc = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
     var graphLegend = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "stack": []};
+    var glucTable = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo + graphHeight)}, "stack": []};
+    var glucTableCvs = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo + graphHeight)}, "canvas": []};
     var graphCarbs = {
       "stack": [
         {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []},
@@ -209,6 +228,7 @@ class PrintDailyGraphic extends BasePrint
     List horzStack = horzLegend["stack"];
     List vertStack = vertLegend["stack"];
     List graphGlucCvs = graphGluc["canvas"];
+    // draw vertical lines with times below graphic
     for (var i = 0; i < 25; i++)
     {
       vertCvs.add({
@@ -216,12 +236,13 @@ class PrintDailyGraphic extends BasePrint
         "x1": cm(i * colWidth),
         "y1": cm(0),
         "x2": cm(i * colWidth),
-        "y2": cm(lineHeight * gridLines + 0.25),
+        "y2": cm(graphBottom),
+        //cm(lineHeight * gridLines + 0.25),
         "lineWidth": cm(lw),
         "lineColor": i > 0 && i < 24 ? lc : lcFrame
       });
       if (i < 24)horzStack.add({
-        "absolutePosition": {"x": cmx(xo + i * colWidth), "y": cmy(yo + gridLines * lineHeight + 0.3)},
+        "absolutePosition": {"x": cmx(xo + i * colWidth), "y": cmy(yo + graphBottom + 0.05)},
         "text": fmtTime(i),
         "fontSize": fs(8)
       });
@@ -265,6 +286,74 @@ class PrintDailyGraphic extends BasePrint
       areaPoints.add({"x": cm(x), "y": cm(y)});
     }
     graphGlucCvs.add(area);
+
+    bool hasLowGluc = false;
+    bool hasNormGluc = false;
+    bool hasHighGluc = false;
+    if (showGlucTable)
+    {
+      for (int i = 0; i < 48; i++)
+      {
+        int hours = i ~/ 2;
+        int minutes = (i % 2) * 30;
+        DateTime check = DateTime(0, 1, 1, hours, minutes);
+        EntryData entry = day.findNearest(check);
+        if (entry != null)
+        {
+          double x = glucX(check);
+          String col = colNorm;
+          if (entry.gluc > day.basalData.targetHigh)
+          {
+            col = colHigh;
+            hasHighGluc = true;
+          }
+          else if (entry.gluc < day.basalData.targetLow)
+          {
+            col = colLow;
+            hasLowGluc = true;
+          }
+          else
+          {
+            hasNormGluc = true;
+          }
+          (glucTableCvs["canvas"] as List).add({
+            "type": "rect",
+            "x": cm(glucX(check)),
+            "y": cm(0),
+            "w": cm(graphWidth / 1440 * 30),
+            "h": cm(glucTableHeight),
+            "color": col
+          });
+          (glucTable["stack"] as List).add({
+            "relativePosition": {"x": cmx(x), "y": cmy(i % 2 == 0 ? 0 : glucTableHeight / 2)},
+            "text": glucFromData(entry.gluc),
+            "color": colGlucValues,
+            "fontSize": fs(7)
+          });
+        }
+        if (i % 2 == 1)
+        {
+          (glucTableCvs["canvas"] as List).add({
+            "type": "line",
+            "x1": cm(glucX(check)),
+            "y1": cm(glucTableHeight * 0.75),
+            "x2": cm(glucX(check)),
+            "y2": cm(glucTableHeight),
+            "lineWidth": cm(lw),
+            "lineColor": lc
+          });
+        }
+      }
+      (glucTableCvs["canvas"] as List).add({
+        "type": "line",
+        "x1": cm(0),
+        "y1": cm(glucTableHeight),
+        "x2": cm(graphWidth),
+        "y2": cm(glucTableHeight),
+        "lineWidth": cm(lw),
+        "lineColor": lcFrame
+      });
+    }
 
     bool hasCatheterChange = false;
     bool hasSensorChange = false;
@@ -392,8 +481,7 @@ class PrintDailyGraphic extends BasePrint
 // *** end of linelength estimation ***
         if (idx < (isMultiline ? 1 : 3))
         {
-          double y = graphHeight + notesTop + idx * notesHeight;
-          String col = t.duration > 0 ? colDurationNotes : colNotes;
+          double y = graphBottom + notesTop + idx * notesHeight;
           graphGlucCvs.add({
             "type": "line",
             "x1": cm(x),
@@ -401,14 +489,14 @@ class PrintDailyGraphic extends BasePrint
             "x2": cm(x),
             "y2": cm(y + notesHeight),
             "lineWidth": cm(lw),
-            "lineColor": col
+            "lineColor": t.duration > 0 ? colDurationNotesLine : colNotesLine
           });
           (graphLegend["stack"] as List).add({
             "relativePosition": {"x": cm(x + 0.05), "y": cm(y + notesHeight - 0.25)},
             "text": t.notes,
             "fontSize": fs(8),
             "alignment": "left",
-            "color": col
+            "color": t.duration > 0 ? colDurationNotes : colNotes
           });
           if (t.duration > 0)
           {
@@ -420,7 +508,7 @@ class PrintDailyGraphic extends BasePrint
               "x2": cm(x),
               "y2": cm(y + notesHeight / 2),
               "lineWidth": cm(lw),
-              "lineColor": colDurationNotes
+              "lineColor": colDurationNotesLine
             });
           }
         }
@@ -532,6 +620,14 @@ class PrintDailyGraphic extends BasePrint
       if (hasCatheterChange)addLegendEntry(
         legend, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);
       if (hasSensorChange)addLegendEntry(legend, "", msgSensorChange, image: "sensor.print", imgWidth: 0.5);
+      if (showGlucTable)
+      {
+        if (hasLowGluc)addLegendEntry(
+          legend, colLow, msgGlucLow, graphText: glucFromData(day.basalData.targetLow), newColumn: true);
+        if (hasNormGluc)addLegendEntry(legend, colNorm, msgGlucNorm,
+          graphText: glucFromData((day.basalData.targetLow + day.basalData.targetHigh) / 2), newColumn: !hasLowGluc);
+        if (hasHighGluc)addLegendEntry(legend, colHigh, msgGlucHigh, graphText: glucFromData(day.basalData.targetHigh));
+      }
     }
 
     var profileBasal = showBasalProfile ? getBasalGraph(day, true, showBasalDay, xo, yo) : null;
@@ -539,6 +635,7 @@ class PrintDailyGraphic extends BasePrint
 
     return [
       header,
+      glucTableCvs,
       vertLegend,
       vertLines,
       horzLegend,
@@ -548,6 +645,7 @@ class PrintDailyGraphic extends BasePrint
       graphGluc,
       graphInsulin,
       graphCarbs,
+      glucTable,
       dayBasal,
       profileBasal,
       graphLegend,

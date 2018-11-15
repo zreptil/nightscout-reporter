@@ -17,9 +17,9 @@ class LegendData
   double colWidth;
   int maxLines;
 
-  List get current
+  List current(bool forceNew)
   {
-    if (columns.length == 0 || (columns.last["stack"] as List).length >= maxLines)
+    if (columns.length == 0 || (columns.last["stack"] as List).length >= maxLines || forceNew)
     {
       x += columns.length > 0 ? colWidth : 0.0;
       columns.add({"absolutePosition": {"x": x, "y": y}, "stack": []});
@@ -190,7 +190,10 @@ abstract class BasePrint
   String colTargetValue = "#3333aa";
   String colCarbs = "#ffa050";
   String colDurationNotes = "#ff00ff";
+  String colDurationNotesLine = "#ff50ff";
   String colNotes = "#000000";
+  String colNotesLine = "#666666";
+  String colGlucValues = "#000000";
 
   double xorg = 3.35;
   double yorg = 3.9;
@@ -619,7 +622,9 @@ abstract class BasePrint
 
     if (date is DateTime)
       return "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year} ${(date
-        .hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute} Uhr";
+                                                                                                                      .hour < 10
+        ? "0"
+        : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute} Uhr";
 
     return date;
   }
@@ -697,9 +702,9 @@ abstract class BasePrint
   }
 
   addLegendEntry(LegendData legend, String color, String text,
-                 {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0, double lineWidth = 0.0})
+                 {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0, double lineWidth = 0.0, String graphText: null, newColumn: false})
   {
-    List dst = legend.current;
+    List dst = legend.current(newColumn);
     if (lineWidth == 0.0)lineWidth = lw;
     if (image != null)
     {
@@ -713,6 +718,18 @@ abstract class BasePrint
         ]
       });
     }
+    else if (isArea && graphText != null)dst.add({
+      "columns": [ {
+        "width": cm(0.8),
+        "layout": "noBorders",
+        "margin": [cm(0.1), cm(0), cm(0), cm(0.1)],
+        "table": {
+          "widths": [cm(0.5)],
+          "body": [[{"text": graphText, "color": "black", "fontSize": fs(6), "alignment": "center", "fillColor": color}]]
+        }
+      }, {"text": text, "color": "black", "fontSize": fs(10)}
+      ]
+    });
     else if (isArea)dst.add({
       "columns": [ {
         "width": cm(0.8),
