@@ -633,13 +633,19 @@ class EntryData extends JsonData
   String direction;
   double rawbg;
   double sgv;
+  double mbg;
   String type;
   bool isCopy = false;
   bool get isInvalid
-  => direction != null && direction.toLowerCase() == "none";
+  => type != "mbg" && direction != null && direction.toLowerCase() == "none";
   double get gluc
   {
     return (type == "sgv" ? sgv : rawbg) ?? 0;
+  }
+
+  double get fullGluc
+  {
+    return (type == "mbg" ? mbg : gluc) ?? 0;
   }
 
   EntryData();
@@ -649,6 +655,7 @@ class EntryData extends JsonData
     EntryData()
       ..time = time
       ..sgv = sgv
+      ..mbg = mbg
       ..device = device
       ..direction = direction
       ..id = id
@@ -667,6 +674,7 @@ class EntryData extends JsonData
     ret.direction = json["direction"];
     ret.rawbg = ret.toDouble(json["rawbg"]);
     ret.sgv = ret.toDouble(json["sgv"]);
+    ret.mbg = ret.toDouble(json["mbg"]);
     ret.type = json["type"];
     return ret;
   }
@@ -675,6 +683,7 @@ class EntryData extends JsonData
   {
     sgv = Globals.calc(src.sgv, dst.sgv, f);
     rawbg = Globals.calc(src.rawbg, dst.rawbg, f);
+    mbg = Globals.calc(src.mbg, dst.mbg, f);
   }
 }
 
@@ -692,6 +701,8 @@ class DayData
   double varianz = 0.0;
   double get stdAbw
   => math.sqrt(varianz);
+  double get varK
+  => (mid ?? 0) != 0 ? stdAbw / mid * 100 : 0;
   double get lowPrz
   => entryCount == 0 ? 0 : lowCount / entryCount * 100;
   double get normPrz
@@ -723,10 +734,13 @@ class DayData
 
   DayData(date, this.basalData)
   {
-    this.date = Date(date.year, date.month, date.day);
+    if (date == null)this.date = Date(0);
+    else
+      this.date = Date(date.year, date.month, date.day);
   }
 
   List<EntryData> entries = List<EntryData>();
+  List<EntryData> bloody = List<EntryData>();
   List<TreatmentData> treatments = List<TreatmentData>();
   List<ProfileEntryData> _profile = null;
   List<ProfileEntryData> get profile
@@ -767,15 +781,6 @@ class DayData
       {
         entry.orgValue = last.orgValue;
         entry.value = entry.adjustedValue(last.orgValue);
-/*        if (entry.rate != null)
-        {
-          entry.value = entry.rate;
-        }
-        else
-        {
-          entry.value = last.orgValue + (last.orgValue * entry.percentAdjust) / 100.0;
-        }
-*/
         DateTime endTime = entry.time.add(Duration(minutes: entry.duration));
         if (i < _profile.length - 1 && endTime.isBefore(_profile[i + 1].time))
         {
@@ -873,6 +878,7 @@ class ListData
 {
   List<DayData> days = List<DayData>();
   List<EntryData> entries = List<EntryData>();
+  List<EntryData> bloody = List<EntryData>();
   List<TreatmentData> treatments = List<TreatmentData>();
   int catheterCount = 0;
   int ampulleCount = 0;
@@ -930,7 +936,12 @@ class ListData
     min = 999999.0;
     max = -1.0;
     DateTime lastDay = null;
-    for (var entry in entries)
+    List<EntryData> allEntries = List<EntryData>();
+    allEntries.addAll(entries);
+    allEntries.addAll(bloody);
+    allEntries.sort((a, b)
+    => a.time.compareTo(b.time));
+    for (var entry in allEntries)
     {
       if (entry.isInvalid)continue;
 
@@ -940,17 +951,23 @@ class ListData
         days.add(DayData(entry.time, glucData));
         lastDay = entry.time;
       }
-      days.last.entries.add(entry);
-
-      if (glucData != null)
+      if (entry.type == "mbg")
       {
-        double gluc = data.globals.glucFromData(entry.gluc);
-        if (gluc < glucData.targetLow)lowCount++;
-        else if (gluc > glucData.targetHigh)highCount++;
-        else
-          normCount++;
-        if (gluc < min)min = entry.gluc;
-        if (gluc > max)max = entry.gluc;
+        days.last.bloody.add(entry);
+      }
+      else
+      {
+        days.last.entries.add(entry);
+        if (glucData != null)
+        {
+          double gluc = data.globals.glucFromData(entry.gluc);
+          if (gluc < glucData.targetLow)lowCount++;
+          else if (gluc > glucData.targetHigh)highCount++;
+          else
+            normCount++;
+          if (gluc < min)min = entry.gluc;
+          if (gluc > max)max = entry.gluc;
+        }
       }
     }
 
@@ -1040,8 +1057,8 @@ class ReportData
     for (int i = 0; i < profiles.length; i++)
     {
       if (profiles[i].startDate
-        .difference(time)
-        .inDays <= 0)idx = i;
+            .difference(time)
+            .inDays <= 0)idx = i;
     }
     // found first profile for the start of the day
     if (idx >= 0)

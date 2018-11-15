@@ -4,10 +4,12 @@
 - added pdf for profiles
 - added parameter for reverse sortorder in daily graphics
 - added glucosevalues to daily graphics
+- added column for coefficient of variation to daily statistics
  
 ### Changed
 - made request for valid url more flexible
 - made formparameters sortable in code
+- corrected calculation of totals in daily statistic
 
 ## [1.0.5]
 ### Added

@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-11-14T11:47:52.506320",
+  "@@last_modified": "2018-11-15T14:30:50.673966",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -538,6 +538,31 @@
     "type": "text",
     "placeholders": {}
   },
+  "umgekehrte Sortierung": "umgekehrte Sortierung",
+  "@umgekehrte Sortierung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tabelle mit Glukosewerten": "Tabelle mit Glukosewerten",
+  "@Tabelle mit Glukosewerten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose zu niedrig": "Glukose zu niedrig",
+  "@Glukose zu niedrig": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose im Zielbereich": "Glukose im Zielbereich",
+  "@Glukose im Zielbereich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose zu hoch": "Glukose zu hoch",
+  "@Glukose zu hoch": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Spalte Messwerte": "Spalte Messwerte",
   "@Spalte Messwerte": {
     "type": "text",
@@ -555,6 +580,11 @@
   },
   "Spalte HbA1c": "Spalte HbA1c",
   "@Spalte HbA1c": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte Variationskoeffizient": "Spalte Variationskoeffizient",
+  "@Spalte Variationskoeffizient": {
     "type": "text",
     "placeholders": {}
   },
@@ -614,6 +644,11 @@
   },
   "Std.\nAbw.": "Std.\nAbw.",
   "@Std.\nAbw.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "VarK\nin %": "VarK\nin %",
+  "@VarK\nin %": {
     "type": "text",
     "placeholders": {}
   },
@@ -913,6 +948,30 @@
     "type": "text",
     "placeholders": {}
   },
+  "Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.": "Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.",
+  "@Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.": {
+    "description": "v111a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.": "In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.",
+  "@In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.": {
+    "description": "v111a5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": "In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).",
+  "@In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": {
+    "description": "v111a6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert.": "Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert.",
+  "@Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert.": {
+    "description": "v111f1",
+    "type": "text",
+    "placeholders": {}
+  },
   "1.1.0 - 09.11.2018": "1.1.0 - 09.11.2018",
   "@1.1.0 - 09.11.2018": {
     "description": "v110",
@@ -1195,8 +1254,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_11": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_11": {
+  "ViewWhatsnewComponent0__message_15": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_15": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

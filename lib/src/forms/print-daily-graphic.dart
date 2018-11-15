@@ -193,6 +193,8 @@ class PrintDailyGraphic extends BasePrint
     glucMax = -1000.0;
     for (EntryData entry in day.entries)
       glucMax = math.max(entry.gluc, glucMax);
+    for (EntryData entry in day.bloody)
+      glucMax = math.max(entry.mbg, glucMax);
     profMax = -1000.0;
     for (ProfileEntryData entry in day.profile)
       profMax = math.max(entry.value, profMax);
@@ -279,6 +281,12 @@ class PrintDailyGraphic extends BasePrint
     glucMax = gridLines * 50.0;
     var area = {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": []};
     List areaPoints = area["points"];
+    for (EntryData time in day.bloody)
+    {
+      double x = glucX(time.time);
+      double y = glucY(time.mbg);
+      graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": "red"});
+    }
     for (EntryData time in day.entries)
     {
       double x = glucX(time.time);
@@ -297,7 +305,7 @@ class PrintDailyGraphic extends BasePrint
         int hours = i ~/ 2;
         int minutes = (i % 2) * 30;
         DateTime check = DateTime(0, 1, 1, hours, minutes);
-        EntryData entry = day.findNearest(check);
+        EntryData entry = day.findNearest(check, maxMinuteDiff: 15);
         if (entry != null)
         {
           double x = glucX(check);
@@ -325,7 +333,7 @@ class PrintDailyGraphic extends BasePrint
             "color": col
           });
           (glucTable["stack"] as List).add({
-            "relativePosition": {"x": cmx(x), "y": cmy(i % 2 == 0 ? 0 : glucTableHeight / 2)},
+            "relativePosition": {"x": cm(x), "y": cm(i % 2 == 0 ? 0 : glucTableHeight / 2)},
             "text": glucFromData(entry.gluc),
             "color": colGlucValues,
             "fontSize": fs(7)

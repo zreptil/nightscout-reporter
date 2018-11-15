@@ -418,6 +418,7 @@ class AppComponent
         {
           EntryData e = EntryData.fromJson(entry);
           if (e.gluc > 0)data.ns.entries.add(e);
+          if(e.mbg > 0)data.ns.bloody.add(e);
         }
         catch (ex)
         {
@@ -447,6 +448,8 @@ class AppComponent
       progressValue = progressMax + 1;
 
       data.ns.entries.sort((a, b)
+      => a.time.compareTo(b.time));
+      data.ns.bloody.sort((a, b)
       => a.time.compareTo(b.time));
       data.ns.treatments.sort((a, b)
       => a.createdAt.compareTo(b.createdAt));
