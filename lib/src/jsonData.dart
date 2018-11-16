@@ -695,6 +695,8 @@ class DayData
   int normCount = 0;
   int highCount = 0;
   int entryCount = 0;
+  int carbCount = 0;
+  double carbs = 0;
   double min;
   double max;
   double mid;
@@ -709,6 +711,8 @@ class DayData
   => entryCount == 0 ? 0 : normCount / entryCount * 100;
   double get highPrz
   => entryCount == 0 ? 0 : highCount / entryCount * 100;
+  double get avgCarbs
+  => carbCount > 0 ? carbs / carbCount : 0;
   bool isSameDay(DateTime time)
   {
     if (date.year != time.year)return false;
@@ -737,6 +741,11 @@ class DayData
     if (date == null)this.date = Date(0);
     else
       this.date = Date(date.year, date.month, date.day);
+    EntryData entry = EntryData();
+    entry.type = "mbg";
+    entry.mbg = 123.0;
+    entry.time = DateTime.now();
+    bloody.add(entry);
   }
 
   List<EntryData> entries = List<EntryData>();
@@ -842,6 +851,14 @@ class DayData
     for (EntryData entry in entries)
     {
       if (entry.gluc != 0)varianz += ((entry.gluc - mid) * (entry.gluc - mid));
+    }
+    for (TreatmentData t in treatments)
+    {
+      if (t.carbs > 0)
+      {
+        carbCount++;
+        carbs += t.carbs;
+      }
     }
     varianz /= midCount;
   }

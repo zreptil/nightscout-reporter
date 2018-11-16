@@ -59,10 +59,11 @@ class Globals
     load();
   }
 
-  String version = "1.1.1-4";
+  String version = "1.1.1-5";
   String lastVersion;
   List<FormConfig> listConfig = List<FormConfig>();
 
+  String get msgBE => _khFactor == 10 ? Intl.message("msgBE") : Intl.message("msgKE");
   String get msgUrlFailure
   =>
     Intl.message("Die angegebene URL ist nicht erreichbar. "
@@ -114,6 +115,13 @@ class Globals
   bool pdfSameWindow = true;
   bool hideNightscoutInPDF = true;
   bool isConfigured = false;
+  int _khFactor = 12;
+  int get khFactor => _khFactor;
+  set khFactor(int value){
+    if(value == 10 || value == 12)
+      _khFactor = value;
+  }
+  bool get isKHBE => _khFactor == 12;
 
   double glucFromData(double value)
   => glucMGDL ? value : value / 18.02;

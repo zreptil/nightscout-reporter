@@ -66,11 +66,6 @@ class PrintPercentile extends BasePrint
   double glucX(DateTime time)
   => gridWidth / 1440 * (time.hour * 60 + time.minute);
 
-  get msgPercentile1090
-  => Intl.message("10% - 90% der Werte");
-  get msgPercentile2575
-  => Intl.message("25% - 75% der Werte");
-
   PrintPercentile()
   {
     init();

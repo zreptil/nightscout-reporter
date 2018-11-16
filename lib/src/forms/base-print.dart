@@ -194,6 +194,8 @@ abstract class BasePrint
   String colNotes = "#000000";
   String colNotesLine = "#666666";
   String colGlucValues = "#000000";
+  String colHbA1c = "#505050";
+
 
   double xorg = 3.35;
   double yorg = 3.9;
@@ -250,6 +252,178 @@ abstract class BasePrint
   => Intl.message("Sensorwechsel");
   msgKH(value)
   => Intl.message("${value}g KH", args: [value], name: "msgKH");
+  msgReadingsPerDay(howMany, fmt)
+  =>
+    Intl.plural(howMany, zero: "Keine Messwerte vorhanden",
+      one: "1 Messung am Tag",
+      other: "$fmt Messungen am Tag",
+      args: [howMany, fmt],
+      name: "msgReadingsPerDay");
+  msgReadingsPerHour(howMany, fmt)
+  =>
+    Intl.plural(howMany, zero: "Keine Messwerte vorhanden",
+      one: "1 Messung pro Stunde",
+      other: "$fmt Messungen pro Stunde",
+      args: [howMany, fmt],
+      name: "msgReadingsPerHour");
+  msgReadingsInMinutes(howMany, fmt)
+  =>
+    Intl.plural(howMany, zero: "Keine Messwerte vorhanden",
+      one: "1 Messung pro Minute",
+      other: "Messung alle $fmt Minuten",
+      args: [howMany, fmt],
+      name: "msgReadingsInMinutes");
+  msgValuesIn(low, high)
+  => Intl.message("Werte zwischen ${low} und ${high}", args: [low, high], name: "msgValuesIn");
+  msgValuesBelow(low)
+  => Intl.message("Werte unter ${low}", args: [low], name: "msgValuesBelow");
+  msgValuesAbove(high)
+  => Intl.message("Werte über ${high}", args: [high], name: "msgValuesAbove");
+  msgKHBE(value)
+  => Intl.message("g KH ($value BE)", args: [value], name: "msgKHBE");
+  msgReservoirDays(count)
+  =>
+    Intl.plural(count, one: "($count Tag pro Ampulle)",
+      zero: "",
+      other: "($count Tage pro Ampulle)",
+      args: [count],
+      name: "msgReservoirDays");
+  msgCatheterDays(count)
+  =>
+    Intl.plural(count, one: "($count Tag pro Katheter)",
+      zero: "",
+      other: "($count Tage pro Katheter)",
+      args: [count],
+      name: "msgCatheterDays");
+  msgSensorDays(count)
+  =>
+    Intl.plural(count, one: "($count Tag pro Sensor)",
+      zero: "",
+      other: "($count Tage pro Sensor)",
+      args: [count],
+      name: "msgSensorDays");
+  get msgBirthday
+  => Intl.message("Geburtstag");
+  get msgDiabSince
+  => Intl.message("Diabetes seit");
+  get msgInsulin
+  => Intl.message("Insulin");
+  get msgDays
+  => Intl.message("Ausgewertete Tage");
+  get msgReadingsCount
+  => Intl.message("Anzahl Messungen");
+  get msgReservoirCount
+  => Intl.message("Anzahl Ampullen");
+  get msgCatheterCount
+  => Intl.message("Anzahl Katheter");
+  get msgSensorCount
+  => Intl.message("Anzahl Sensoren");
+  get msgHbA1C
+  => Intl.message("geschätzter HbA1c");
+  get msgLowestValue
+  => Intl.message("Niedrigster Wert im Zeitraum");
+  get msgHighestValue
+  => Intl.message("Höchster Wert im Zeitraum");
+  get msgGlucoseValue
+  => Intl.message("Ø Zuckerwert");
+  get msgKHPerDay
+  => Intl.message("Ø KH pro Tag");
+  get msgInsulinPerDay
+  => Intl.message("Ø Insulin pro Tag");
+  get msgBolusPerDay
+  => Intl.message("Ø Bolus pro Tag");
+  get msgBasalPerDay
+  => Intl.message("Ø Basal pro Tag");
+  get msgInsulinRatio
+  => Intl.message("Ø Insulinverhältnis");
+  get msgBolus
+  => Intl.message("Bolus");
+  get msgBasal
+  => Intl.message("Basal");
+  get msgBasalProfile
+  => Intl.message("Basalrate\nIE / Stunde");
+  get msgNone
+  => Intl.message("Keine");
+  get msgOwnLimits
+  => Intl.message("Eigene Grenzwerte");
+  get msgStandardLimits
+  => Intl.message("Standardgrenzwerte");
+  get msgTreatments
+  => Intl.message("Behandlungen");
+  get msgPeriod
+  => Intl.message("Zeitraum");
+  get msgTotal
+  => Intl.message("Ges.");
+  get msgTimeShort
+  => Intl.message("Uhr-\nzeit");
+  get msgTime
+  => Intl.message("Uhrzeit");
+  get msgAdjustment
+  => Intl.message("Anpas-\nsung");
+  get msgGlucLow
+  => Intl.message("Glukose zu niedrig");
+  get msgGlucNorm
+  => Intl.message("Glukose im Zielbereich");
+  get msgGlucHigh
+  => Intl.message("Glukose zu hoch");
+  msgLow(value)
+  {
+    value = "\n<${glucFromData(value)}";
+    return Intl.message("Tief${value}", args: [value], name: "msgLow");
+  }
+  get msgNormal
+  => "${Intl.message("Normal")}\n${getGlucInfo()["unit"]}";
+  msgHigh(value)
+  {
+    value = "\n>=${glucFromData(value)}";
+    return Intl.message("Hoch${value}", args: [value], name: "msgHigh");
+  }
+  get msgPercentile1090
+  => Intl.message("10% - 90% der Werte");
+  get msgPercentile2575
+  => Intl.message("25% - 75% der Werte");
+  get msgICR
+  => Intl.message("Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE");
+  get msgISF
+  => Intl.message("Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl");
+  msgTarget(String unit)
+  => Intl.message("Glukose-Zielbereich\n${unit}", args: [unit], name: "msgTarget");
+  msgFactorEntry(String beg, String end)
+  => Intl.message("${beg} - ${end}", args: [beg, end], name: "msgFactorEntry");
+  get msgProfile
+  => Intl.message("Profileinstellungen");
+  get msgDIA
+  => Intl.message("Dauer der Insulinaktivität (DIA)");
+  get msgDIAUnit
+  => Intl.message("Stunden");
+  get msgKHA
+  => Intl.message("Dauer der Kohlenhydrataktivität");
+  get msgKHAUnit
+  => Intl.message("g / Stunde");
+  get msgDate
+  => Intl.message("Datum");
+  get msgDistribution
+  => Intl.message("Verteilung");
+  get msgValues
+  => Intl.message("Mess-\nwerte");
+  get msgMin
+  => Intl.message("Min");
+  get msgMax
+  => Intl.message("Max");
+  get msgAverage
+  => Intl.message("Mittel-\nwert");
+  get msgDeviation
+  => Intl.message("Std.\nAbw.");
+  get msgVarK
+  => Intl.message("VarK\nin %");
+  get msg25
+  => Intl.message("25%");
+  get msg75
+  => Intl.message("75%");
+  String msgDaySum(int value)
+  => Intl.message("$value Tage", args: [value], name: "msgDaySum");
+  String get msgHbA1c
+  => Intl.message("gesch.\nHbA1c");
 
   String titleInfoForDates(DateTime startDate, DateTime endDate)
   {
@@ -699,6 +873,11 @@ abstract class BasePrint
     if (!g.glucMGDL)return fmtNumber(gluc / 18.02, precision == null ? 1 : precision);
 
     return fmtNumber(gluc, precision == null ? 0 : precision);
+  }
+
+  String carbFromData(var carb, [precision = 0])
+  {
+    return fmtNumber(carb, precision);
   }
 
   addLegendEntry(LegendData legend, String color, String text,

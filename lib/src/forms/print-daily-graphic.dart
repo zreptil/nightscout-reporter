@@ -77,12 +77,6 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("umgekehrte Sortierung");
   static String get msgParam11
   => Intl.message("Tabelle mit Glukosewerten");
-  get msgGlucLow
-  => Intl.message("Glukose zu niedrig");
-  get msgGlucNorm
-  => Intl.message("Glukose im Zielbereich");
-  get msgGlucHigh
-  => Intl.message("Glukose zu hoch");
 
   @override
   List<String> get imgList
@@ -90,7 +84,7 @@ class PrintDailyGraphic extends BasePrint
 
   @override
   double get scale
-  => isSmall ?? false ? 0.5 : 1.0;
+  => isSmall ?? false ? 0.25 : 1.0;
 
   @override
   bool get isPortrait
@@ -279,21 +273,21 @@ class PrintDailyGraphic extends BasePrint
       }
     }
     glucMax = gridLines * 50.0;
-    var area = {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": []};
-    List areaPoints = area["points"];
-    for (EntryData time in day.bloody)
+    var glucLine = {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": []};
+    List glucLinePoints = glucLine["points"];
+    for (EntryData entry in day.bloody)
     {
-      double x = glucX(time.time);
-      double y = glucY(time.mbg);
+      double x = glucX(entry.time);
+      double y = glucY(entry.mbg);
       graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": "red"});
     }
-    for (EntryData time in day.entries)
+    for (EntryData entry in day.entries)
     {
-      double x = glucX(time.time);
-      double y = glucY(time.gluc);
-      areaPoints.add({"x": cm(x), "y": cm(y)});
+      double x = glucX(entry.time);
+      double y = glucY(entry.gluc);
+      glucLinePoints.add({"x": cm(x), "y": cm(y)});
     }
-    graphGlucCvs.add(area);
+    graphGlucCvs.add(glucLine);
 
     bool hasLowGluc = false;
     bool hasNormGluc = false;

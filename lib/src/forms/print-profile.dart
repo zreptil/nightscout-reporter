@@ -40,26 +40,6 @@ class PrintProfile extends BasePrint
 
   static String get msgParam1
   => Intl.message("Basalrate mit zwei Nachkommastellen");
-  get msgICR
-  => Intl.message("Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE");
-  get msgISF
-  => Intl.message("Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl");
-  get msgBasal
-  => Intl.message("Basalrate\nIE / Stunde");
-  msgTarget(String unit)
-  => Intl.message("Glukose-Zielbereich\n${unit}", args: [unit], name: "msgTarget");
-  msgFactorEntry(String beg, String end)
-  => Intl.message("${beg} - ${end}", args: [beg, end], name: "msgFactorEntry");
-  get msgProfile
-  => Intl.message("Profileinstellungen");
-  get msgDIA
-  => Intl.message("Dauer der Insulinaktivität (DIA)");
-  get msgDIAUnit
-  => Intl.message("Stunden");
-  get msgKHA
-  => Intl.message("Dauer der Kohlenhydrataktivität");
-  get msgKHAUnit
-  => Intl.message("g / Stunde");
 
   getFactorBody(List<ProfileEntryData> list, msg(String a, String b), {int precision: 1})
   {
@@ -185,7 +165,7 @@ class PrintProfile extends BasePrint
       }
     dynamic bodyTarget = getFactorBody(listTarget, msgFactorEntry);
     basalTargetBody.add([
-      {"text": msgBasal, "fontSize": fs(8), "color": "#606060", "alignment": "center"},
+      {"text": msgBasalProfile, "fontSize": fs(8), "color": "#606060", "alignment": "center"},
       {"text": msgTarget(getGlucInfo()["unit"]), "fontSize": fs(8), "color": "#606060", "alignment": "center"}
     ]);
 
@@ -207,7 +187,7 @@ class PrintProfile extends BasePrint
       {
         "margin": [cmx(6.3), cm(3.0), cm(0), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(5.2), cm(0.2), cm(1.5)], "body": tableBody}
+        "table": {"headerRows": 0, "widths": [cm(5.2), cm(1.0), cm(1.5)], "body": tableBody}
       },
       {
         "margin": [cmx(3.7), cmy(0.5), cm(0), cm(0)],

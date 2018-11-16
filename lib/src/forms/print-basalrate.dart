@@ -58,15 +58,6 @@ class PrintBasalrate extends BasePrint
   static String get msgParam1
   => Intl.message("Zwei Nachkommastellen");
 
-  get msgTotal
-  => Intl.message("Ges.");
-  get msgTimeShort
-  => Intl.message("Uhr-\nzeit");
-  get msgTime
-  => Intl.message("Uhrzeit");
-  get msgAdjustment
-  => Intl.message("Anpas-\nsung");
-
   PrintBasalrate()
   {
     init();

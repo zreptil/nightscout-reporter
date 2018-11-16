@@ -54,91 +54,32 @@ class PrintDailyStatistics extends BasePrint
   bool get isPortrait
   => false;
 
+  bool _headFilled = false;
+  dynamic _headLine = [];
+  SettingsData _settings;
+  dynamic _widths = [];
+
   PrintDailyStatistics()
   {
     init();
   }
 
-  msgLow(value)
+  addRow(bool check, var width, dynamic dst, dynamic head, dynamic content)
   {
-    value = "\n<${glucFromData(value)}";
-    return Intl.message("Tief${value}", args: [value], name: "msgLow");
-  }
-
-  get msgNormal
-  => "${Intl.message("Normal")}\n${getGlucInfo()["unit"]}";
-
-  msgHigh(value)
-  {
-    value = "\n>=${glucFromData(value)}";
-    return Intl.message("Hoch${value}", args: [value], name: "msgHigh");
-  }
-
-  String colHbA1c = "#505050";
-
-  get msgDate
-  => Intl.message("Datum");
-  get msgDistribution
-  => Intl.message("Verteilung");
-  get msgValues
-  => Intl.message("Mess-\nwerte");
-  get msgMin
-  => Intl.message("Min");
-  get msgMax
-  => Intl.message("Max");
-  get msgAverage
-  => Intl.message("Mittel-\nwert");
-  get msgDeviation
-  => Intl.message("Std.\nAbw.");
-  get msgVarK
-  => Intl.message("VarK\nin %");
-  get msg25
-  => Intl.message("25%");
-  get msg75
-  => Intl.message("75%");
-  String msgDaySum(int value)
-  => Intl.message("$value Tage", args: [value], name: "msgDaySum");
-  String get msgHbA1c
-  => Intl.message("gesch.\nHbA1c");
-
-  headLine(SettingsData settings)
-  {
-    var ret = [];
-    ret.add({"text": msgDate, "style": "total", "alignment": "center"});
-    ret.add({"text": msgDistribution, "style": "total", "alignment": "center"});
-    ret.add({
-      "text": msgLow(settings.thresholds.bgTargetBottom),
-      "style": "total",
-      "alignment": "center",
-      "fillColor": colLow
-    });
-    ret.add({"text": msgNormal, "style": "total", "alignment": "center", "fillColor": colNorm});
-    ret.add({
-      "text": msgHigh(settings.thresholds.bgTargetTop),
-      "style": "total",
-      "alignment": "center",
-      "fillColor": colHigh
-    });
-    if (showCount)ret.add({"text": msgValues, "style": "total", "alignment": "center"});
-    ret.add({"text": msgMin, "style": "total", "alignment": "center"});
-    ret.add({"text": msgMax, "style": "total", "alignment": "center"});
-    ret.add({"text": msgAverage, "style": "total", "alignment": "center"});
-    if (showStdabw)ret.add({"text": msgDeviation, "style": "total", "alignment": "center"});
-    if (showVarK)ret.add({"text": msgVarK, "style": "total", "alignment": "center"});
-    if (showPercentile)
+    if (!check)return;
+    if (!_headFilled)
     {
-      ret.add({"text": msg25, "style": "total", "alignment": "center"});
-      ret.add({"text": msgMedian, "style": "total", "alignment": "center"});
-      ret.add({"text": msg75, "style": "total", "alignment": "center"});
+      _headLine.add(head);
+      _widths.add(width);
     }
-    if (showHbA1c)ret.add({"text": msgHbA1c, "style": "total", "alignment": "center", "color": colHbA1c});
-
-    return ret;
+    dst.add(content);
   }
 
-  fillRow(dynamic row, double f, DayData day, String style)
+  fillRow(dynamic row, double f, String firstCol, DayData day, String style)
   {
-    row.add({
+    addRow(true, cm(2.0), row, {"text": msgDate, "style": "total", "alignment": "center"},
+      {"text": firstCol, "style": "total", "alignment": "center"});
+    addRow(true, cm(f * 100), row, {"text": msgDistribution, "style": "total", "alignment": "center"}, {
       "style": style,
       "canvas": [
         {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * f), "h": cm(0.5)},
@@ -153,65 +94,75 @@ class PrintDailyStatistics extends BasePrint
         }
       ]
     });
-    row.add({
+    addRow(true, "*", row, {
+      "text": msgLow(_settings.thresholds.bgTargetBottom),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colLow
+    }, {
       "text": "${fmtNumber(day.lowPrz, 0)} %",
       "style": style,
       "alignment": "right",
       "fillColor": style == "total" ? colLow : null
     });
-    row.add({
+    addRow(true, "*", row, {"text": msgNormal, "style": "total", "alignment": "center", "fillColor": colNorm}, {
       "text": "${fmtNumber(day.normPrz, 0)} %",
       "style": style,
       "alignment": "right",
       "fillColor": style == "total" ? colNorm : null
     });
-    row.add({
+    addRow(true, "*", row, {
+      "text": msgHigh(_settings.thresholds.bgTargetTop),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colHigh
+    }, {
       "text": "${fmtNumber(day.highPrz, 0)} %",
       "style": style,
       "alignment": "right",
       "fillColor": style == "total" ? colHigh : null
     });
-    if (showCount)row.add({"text": "${fmtNumber(day.entryCount, 0)}", "style": style, "alignment": "right"});
-    row.add({"text": "${glucFromData(day.min)}", "style": style, "alignment": "right"});
-    row.add({"text": "${glucFromData(day.max)}", "style": style, "alignment": "right"});
-    row.add({"text": "${glucFromData(day.mid, 1)}", "style": style, "alignment": "right"});
-    if (showStdabw)row.add({"text": "${fmtNumber(day.stdAbw, 1)}", "style": style, "alignment": "right"});
-    if (showVarK)row.add({"text": "${fmtNumber(day.varK, 1)}", "style": style, "alignment": "right"});
-    if (showPercentile)
-    {
-      row.add(
-        {"text": "${glucFromData(Globals.percentile(day.entries, 25), 1)}", "style": style, "alignment": "right"});
-      row.add(
-        {"text": "${glucFromData(Globals.percentile(day.entries, 50), 1)}", "style": style, "alignment": "right"});
-      row.add(
-        {"text": "${glucFromData(Globals.percentile(day.entries, 75), 1)}", "style": style, "alignment": "right"});
-    }
-    if (showHbA1c)row.add({"text": "${hba1c(day.mid)} %", "style": style, "alignment": "right", "color": colHbA1c});
+    // two columns for carbohydrates. Maybe they are better placed in an extra area below the line
+    // to avoid columns to grow beyond every limit.
+/*
+    addRow(true, "auto", row, {"text": "KH\nin g", "style": "total", "alignment": "center"},
+      {"text": "${carbFromData(day.carbs)}", "style": style, "alignment": "right"});
+    addRow(true, "auto", row, {"text": msgKHPerDay, "style": "total", "alignment": "center"},
+      {"text": "${carbFromData(day.avgCarbs)}", "style": style, "alignment": "right"});
+// */
+    addRow(showCount, "auto", row, {"text": msgValues, "style": "total", "alignment": "center"},
+      {"text": "${fmtNumber(day.entryCount, 0)}", "style": style, "alignment": "right"});
+    addRow(true, "auto", row, {"text": msgMin, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(day.min)}", "style": style, "alignment": "right"});
+    addRow(true, "auto", row, {"text": msgMax, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(day.max)}", "style": style, "alignment": "right"});
+    addRow(true, "auto", row, {"text": msgAverage, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(day.mid, 1)}", "style": style, "alignment": "right"});
+    addRow(showStdabw, "auto", row, {"text": msgDeviation, "style": "total", "alignment": "center"},
+      {"text": "${fmtNumber(day.stdAbw, 1)}", "style": style, "alignment": "right"});
+    addRow(showVarK, "auto", row, {"text": msgVarK, "style": "total", "alignment": "center"},
+      {"text": "${fmtNumber(day.varK, 1)}", "style": style, "alignment": "right"});
+    addRow(showPercentile, cm(1.5), row, {"text": msg25, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(Globals.percentile(day.entries, 25), 1)}", "style": style, "alignment": "right"});
+    addRow(showPercentile, cm(1.5), row, {"text": msgMedian, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(Globals.percentile(day.entries, 50), 1)}", "style": style, "alignment": "right"});
+    addRow(showPercentile, cm(1.5), row, {"text": msg75, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(Globals.percentile(day.entries, 75), 1)}", "style": style, "alignment": "right"});
+    addRow(showHbA1c, cm(1.5), row, {"text": msgHbA1c, "style": "total", "alignment": "center", "color": colHbA1c},
+      {"text": "${hba1c(day.mid)} %", "style": style, "alignment": "right", "color": colHbA1c});
+    _headFilled = true;
   }
 
   @override
   getFormData_(ReportData src)
   {
     titleInfo = titleInfoBegEnd(src);
-
+    _settings = src.status.settings;
     double f = 3.3;
     var body = [];
-    var widths = [cm(2.0), cm(f), "*", "*", "*"];
-    if (showCount)widths.add("auto");
-    widths.add("auto");
-    widths.add("auto");
-    widths.add("auto");
-    if (showStdabw)widths.add("auto");
-    if (showVarK)widths.add("auto");
-    if (showPercentile)
-    {
-      widths.add(cm(1.5));
-      widths.add(cm(1.5));
-      widths.add(cm(1.5));
-    }
-    if (showHbA1c)widths.add(cm(1.5));
     // maybe later the margins will work properly, up to now it
     // doesn't work beacause of hardcoded margins in the tablecells
+    // this code has to be moved to addRow for operating correctly
 /*
     int colCount = 6;
     double wid = width - 4.4 - f - 2.0;
@@ -234,19 +185,6 @@ class PrintDailyStatistics extends BasePrint
     ProfileGlucData prevProfile = null;
     int lineCount = 0;
     var ret = [header];
-/*
-    int totalCount = 0;
-    double totalMin = 100000;
-    double totalMax = 0;
-    int totalLow = 0;
-    int totalHigh = 0;
-    int totalNorm = 0;
-    double totalStdAbw = 0.0;
-    double totalVarK = 0.0;
-    double total25 = 0.0;
-    double total50 = 0.0;
-    double total75 = 0.0;
-*/
     DayData totalDay = DayData(null, ProfileGlucData());
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
@@ -257,38 +195,26 @@ class PrintDailyStatistics extends BasePrint
       if (day.entries.length == 0)continue;
       totalDays++;
       totalDay.entries.addAll(day.entries);
+      totalDay.bloody.addAll(day.bloody);
+      totalDay.treatments.addAll(day.treatments);
+      totalDay.basalData.targetHigh = max(totalDay.basalData.targetHigh, day.basalData.targetHigh);
+      totalDay.basalData.targetLow = min(totalDay.basalData.targetLow, day.basalData.targetLow);
+      var row = [];
+      fillRow(row, f, fmtDate(day.date), day, "row");
       ProfileGlucData profile = src.profile(DateTime(day.date.year, day.date.month, day.date.day));
       if (prevProfile == null || profile.targetLow != prevProfile.targetLow || profile.targetHigh != prevProfile
         .targetHigh)
       {
-        body.add(headLine(src.status.settings));
+        body.add(_headLine);
         lineCount += 2;
       }
       prevProfile = profile;
 
-      totalDay.basalData.targetHigh = max(totalDay.basalData.targetHigh, day.basalData.targetHigh);
-      totalDay.basalData.targetLow = min(totalDay.basalData.targetLow, day.basalData.targetLow);
-      var row = [];
-      row.add({"text": fmtDate(day.date), "style": "row"});
-      fillRow(row, f, day, "row");
       body.add(row);
-/*
-      totalStdAbw += day.stdAbw;
-      totalVarK += day.varK;
-      total25 += Globals.percentile(day.entries, 25);
-      total50 += Globals.percentile(day.entries, 50);
-      total75 += Globals.percentile(day.entries, 75);
-      totalCount += day.entryCount;
-      totalMin = min(day.min, totalMin);
-      totalMax = max(day.max, totalMax);
-      totalLow += day.lowCount;
-      totalHigh += day.highCount;
-      totalNorm += day.normCount;
-*/
       lineCount ++;
       if (lineCount == 21 && day != src.ns.days.last)
       {
-        ret.add(getTable(widths, body));
+        ret.add(getTable(_widths, body));
         lineCount = 0;
         if (day != src.ns.days.last)
         {
@@ -303,57 +229,15 @@ class PrintDailyStatistics extends BasePrint
         prevProfile = null;
       }
     }
-/*
-    double lowPrz = totalCount == 0 ? 0 : totalLow / totalCount * 100;
-    double normPrz = totalCount == 0 ? 0 : totalNorm / totalCount * 100;
-    double highPrz = totalCount == 0 ? 0 : totalHigh / totalCount * 100;
-    var row = [];
-    row.add({"text": msgDaySum(src.ns.days.length), "style": "total", "alignment": "center"});
-    row.add({
-      "canvas": [
-        {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(lowPrz * f), "h": cm(0.5)},
-        {"type": "rect", "color": colNorm, "x": cm(lowPrz * f), "y": cm(0), "w": cm(normPrz * f), "h": cm(0.5)},
-        {
-          "type": "rect",
-          "color": colHigh,
-          "x": cm((lowPrz + normPrz) * f),
-          "y": cm(0),
-          "w": cm(highPrz * f),
-          "h": cm(0.5)
-        }
-      ],
-      "style": "total"
-    });
-    row.add({"text": "${fmtNumber(lowPrz, 0)} %", "alignment": "right", "style": "total", "fillColor": colLow});
-    row.add({"text": "${fmtNumber(normPrz, 0)} %", "alignment": "right", "style": "total", "fillColor": colNorm});
-    row.add({"text": "${fmtNumber(highPrz, 0)} %", "alignment": "right", "style": "total", "fillColor": colHigh});
-    if (showCount)row.add({"text": "${fmtNumber(totalCount, 0)}", "alignment": "right", "style": "total"});
-    row.add({"text": "${glucFromData(totalMin)}", "alignment": "right", "style": "total"});
-    row.add({"text": "${glucFromData(totalMax)}", "alignment": "right", "style": "total"});
-    row.add({"text": "${fmtNumber(src.ns.avgGluc, 1)}", "alignment": "right", "style": "total"});
-    if (showStdabw)row.add(
-      {"text": "${fmtNumber(totalStdAbw / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
-    if (showVarK)row.add(
-      {"text": "${fmtNumber(totalVarK / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
-    if (showPercentile)
-    {
-      row.add({"text": "${fmtNumber(total25 / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
-      row.add({"text": "${fmtNumber(total50 / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
-      row.add({"text": "${fmtNumber(total75 / src.ns.days.length, 1)}", "alignment": "right", "style": "total"});
-    }
-    if (showHbA1c)row.add(
-      {"text": "${hba1c(src.ns.avgGluc)} %", "alignment": "right", "style": "total", "color": colHbA1c});
-    body.add(row);
-*/
+
     var row = [];
     totalDay.init();
-    row.add({"text": msgDaySum(totalDays), "style": "total", "alignment": "center"});
-    fillRow(row, f, totalDay, "total");
+    fillRow(row, f, msgDaySum(totalDays), totalDay, "total");
     body.add(row);
 
     if (prevProfile != null)
     {
-      ret.add(getTable(widths, body));
+      ret.add(getTable(_widths, body));
       ret.add(footer());
     }
 
@@ -362,10 +246,6 @@ class PrintDailyStatistics extends BasePrint
 
   getTable(widths, body)
   {
-//    double wt = 0.0;
-//    for (double w in widths)
-//      wt += w;
-//    body.add([{"text": "${wt * 0.035277}", "colSpan": widths.length}]);
     return {
       "columns": [ {
         "margin": [cm(2.2), cmy(2.5), cm(2.2), cmy(0.0)],

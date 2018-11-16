@@ -418,7 +418,8 @@ class AppComponent
         {
           EntryData e = EntryData.fromJson(entry);
           if (e.gluc > 0)data.ns.entries.add(e);
-          if(e.mbg > 0)data.ns.bloody.add(e);
+          if(e.mbg > 0)
+            data.ns.bloody.add(e);
         }
         catch (ex)
         {
