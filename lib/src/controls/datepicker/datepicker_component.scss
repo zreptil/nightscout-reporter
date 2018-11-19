@@ -1,0 +1,79 @@
+@import "mixins";
+@import 'package:angular_components/material_dialog/mixins';
+@import 'package:angular_components/material_input/mixins';
+
+:host {
+}
+
+$primary_color: $mat_cyan_900;
+$secondary_color: $mat_cyan_500;
+material-input {
+  @include input-label-color($primary_color);
+  @include material-input-focused-underline-color($primary_color);
+}
+
+material-dialog {
+  @include material-dialog-header-color($primary_color);
+  @include material-dialog-header-shadow();
+  @include material-dialog-body-padding(0);
+  background-color: $secondary_color;
+  max-width: 40em;
+}
+
+div[header] {
+  display: flex;
+  flex-direction: row;
+  color: $mat_white;
+  justify-content: space-between;
+}
+
+.root {
+  padding: 1em;
+  font-size: 1.2em;
+  color: $mat_black;
+}
+
+h1 {
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+}
+
+a, a:visited, a:active {
+  text-decoration: none;
+  cursor: pointer;
+  color: $primary_color;
+}
+
+.floating
+{
+  padding-top: 1em;
+  padding-left: 1em;
+  font-size: 75%;
+  opacity: 0.5;
+}
+.editcontrols {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  material-input{
+    width: 8em;
+  }
+}
+
+.shortcuts
+{
+  material-button {
+    font-size: 75%;
+    &[raised] {
+      background-color: $btn_raised_back;
+      color: $btn_raised_fore;
+    }
+  }
+}
+
+div.month {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+

@@ -46,6 +46,7 @@
           <material-icon icon="settings"></material-icon>
         </material-button>
       </div>
+      <datepicker *ngIf="g.isLocal" [(data)]="g.period"></datepicker>
       <material-date-range-picker [configuration]="drConfig" [(range)]="g.dateRange" [presets]="dateRanges"
                                   [showNextPrevButtons]="false" [maxDate]="today" [supportsComparison]="false"
                                   [supportsDaysInputs]="false"

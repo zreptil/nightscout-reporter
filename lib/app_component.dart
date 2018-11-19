@@ -13,6 +13,7 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_select_item.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:intl/intl.dart';
+import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
@@ -40,6 +41,7 @@ import 'src/whatsnew/whatsnew_component.dart';
   ],
   templateUrl: 'app_component.html',
   directives: [
+    DatepickerComponent,
     MaterialDateRangePickerComponent,
     MaterialCheckboxComponent,
     MaterialExpansionPanel,
@@ -181,6 +183,17 @@ class AppComponent
     String title = msgPeriod;
     if (g != null && g.dateRange != null && g.dateRange.comparison != null)
       title = g.dateRange.comparison.title;
+
+    g.period.list.clear();
+    g.period.list.add(DatepickerEntry("today", msgToday, (DatepickerData data){data.start = Date.today();data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("2days", msgLast2Days, (DatepickerData data){data.start = Date.today().add(days: -1);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("3days", msgLast3Days, (DatepickerData data){data.start = Date.today().add(days: -2);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("1week", msgLastWeek, (DatepickerData data){data.start = Date.today().add(days: -6);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("2weeks", msgLast2Weeks, (DatepickerData data){data.start = Date.today().add(days: -13);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("3weeks", msgLast3Weeks, (DatepickerData data){data.start = Date.today().add(days: -20);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("1month", msgLastMonth, (DatepickerData data){data.start = Date.today().add(months: -1);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("3months", msgLast3Months, (DatepickerData data){data.start = Date.today().add(months: -3);data.end = Date.today();}));
+
     dateRanges.clear();
     dateRanges.add(DatepickerPreset(
       msgToday, DatepickerDateRange(title, Date.today(), Date.today())));

@@ -8,6 +8,7 @@
 @import 'package:angular_components/material_select/mixins';
 @import 'package:angular_components/material_slider/mixins';
 @import 'package:angular_components/app_layout/mixins';
+@import 'src/controls/datepicker/mixins';
 
 :host {
   display: flex;
@@ -202,8 +203,7 @@ material-expansionpanel {
   flex-direction: column;
 }
 
-material-expansionpanel .header.disable-header-expansion
-{
+material-expansionpanel .header.disable-header-expansion {
   cursor: pointer;
 }
 
@@ -354,4 +354,8 @@ material-expansionpanel.is-debug.checked {
     margin-left: 1em;
     width: 80%;
   }
+}
+
+datepicker {
+  @include datepicker_primary_color($mat_yellow_500);
 }

@@ -1,0 +1,23 @@
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/css/material/shadow';
+@import 'package:angular_components/material_dialog/mixins';
+@import 'package:angular_components/material_input/mixins';
+
+$primary_color: $mat_cyan_900;
+$secondary_color: $mat_cyan_500;
+$month_title_back: $mat_cyan_900;
+$month_title_fore: $mat_white;
+$month_back: $mat_cyan_500;
+$month_fore: $mat_black;
+$btn_raised_back: $mat_cyan_700;
+$btn_raised_fore: $mat_black;
+
+@mixin datepicker_primary_color($color) {
+  ::ng-deep material-input {
+    @include input-label-color($color);
+    @include material-input-focused-underline-color($color);
+  }
+  ::ng-deep material-dialog {
+    @include material-dialog-header-color($color);
+  }
+}

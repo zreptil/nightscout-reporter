@@ -12,7 +12,7 @@ class PrintDailyGraphic extends BasePrint
   String id = "daygraph";
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, isSmall, showNotes,
-    sortReverse, showGlucTable;
+    sortReverse, showGlucTable, showSMBatGluc;
   int get _precision
   => isPrecise ? 2 : 1;
 
@@ -20,15 +20,16 @@ class PrintDailyGraphic extends BasePrint
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: true),
-    ParamInfo(2, msgParam3, boolValue: true),
-    ParamInfo(3, msgParam4, boolValue: true),
-    ParamInfo(4, msgParam5, boolValue: true),
-    ParamInfo(5, msgParam6, boolValue: false),
-    ParamInfo(9, msgParam7, boolValue: false),
-    ParamInfo(7, msgParam8, boolValue: true),
-    ParamInfo(6, msgParam9, boolValue: true),
-    ParamInfo(8, msgParam10, boolValue: false),
-    ParamInfo(10, msgParam11, boolValue: true),
+    ParamInfo(3, msgParam3, boolValue: true),
+    ParamInfo(4, msgParam4, boolValue: true),
+    ParamInfo(5, msgParam5, boolValue: true),
+    ParamInfo(6, msgParam6, boolValue: false),
+    ParamInfo(10, msgParam7, boolValue: false),
+    ParamInfo(8, msgParam8, boolValue: true),
+    ParamInfo(7, msgParam9, boolValue: true),
+    ParamInfo(9, msgParam10, boolValue: false),
+    ParamInfo(11, msgParam11, boolValue: true),
+    ParamInfo(2, msgParam12, boolValue: true),
   ];
 
 
@@ -46,6 +47,7 @@ class PrintDailyGraphic extends BasePrint
     showNotes = params[8].boolValue;
     sortReverse = params[9].boolValue;
     showGlucTable = params[10].boolValue;
+    showSMBatGluc = params[11].boolValue;
     return data;
   }
 
@@ -77,6 +79,8 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("umgekehrte Sortierung");
   static String get msgParam11
   => Intl.message("Tabelle mit Glukosewerten");
+  static String get msgParam12
+  => Intl.message("SMB an der Kurve platzieren");
 
   @override
   List<String> get imgList
@@ -84,7 +88,7 @@ class PrintDailyGraphic extends BasePrint
 
   @override
   double get scale
-  => isSmall ?? false ? 0.25 : 1.0;
+  => isSmall ?? false ? (g.isLocal ? 0.25 : 0.5) : 1.0;
 
   @override
   bool get isPortrait
@@ -394,28 +398,57 @@ class PrintDailyGraphic extends BasePrint
         }
         hasCarbs = true;
       }
-      if (t.bolusInsulin > 0 && showInsulin)
+      if (showInsulin)
       {
-        x = glucX(t.createdAt);
-        y = bolusY(t.bolusInsulin);
-        (graphInsulin["stack"][0]["canvas"] as List).add({
-          "type": "line",
-          "x1": cm(x),
-          "y1": cm(0),
-          "x2": cm(x),
-          "y2": cm(y),
-          "lineColor": colBolus,
-          "lineWidth": cm(0.1),
-        });
-        (graphInsulin["stack"][1]["stack"] as List).add({
-          "relativePosition": {"x": cm(x - 0.3), "y": cm(y + 0.05),},
-          "text": "${fmtNumber(t.bolusInsulin, _precision)} ${msgInsulinUnit}",
-          "fontSize": fs(8),
-          "color": colBolus
-        });
-        hasBolus = true;
+        if (t.bolusInsulin > 0)
+        {
+          x = glucX(t.createdAt);
+          y = bolusY(t.bolusInsulin);
+          (graphInsulin["stack"][0]["canvas"] as List).add({
+            "type": "line",
+            "x1": cm(x),
+            "y1": cm(0),
+            "x2": cm(x),
+            "y2": cm(y),
+            "lineColor": colBolus,
+            "lineWidth": cm(0.1),
+          });
+          (graphInsulin["stack"][1]["stack"] as List).add({
+            "relativePosition": {"x": cm(x - 0.3), "y": cm(y + 0.05),},
+            "text": "${fmtNumber(t.bolusInsulin, _precision)} ${msgInsulinUnit}",
+            "fontSize": fs(8),
+            "color": colBolus
+          });
+          hasBolus = true;
+        }
+        if (t.isSMB && t.insulin > 0)
+        {
+          EntryData entry = day.findNearest(t.createdAt);
+          x = glucX(t.createdAt);
+          if (entry != null && showSMBatGluc)
+          {
+            y = glucY(entry.gluc);
+          }
+          else
+          {
+            y = glucY(src.targetValue(t.createdAt)) + lw / 2;
+          }
+          paintSMB(t.insulin, x, y, graphInsulin["stack"][0]["canvas"] as List);
+/*
+          double baseY = glucY(src.status.settings.thresholds.bgTargetTop.toDouble());
+          y = bolusY(t.insulin);
+          (graphInsulin["stack"][0]["canvas"] as List).add({
+            "type": "line",
+            "x1": cm(x),
+            "y1": cm(baseY),
+            "x2": cm(x),
+            "y2": cm(baseY + y),
+            "lineColor": colBolus,
+            "lineWidth": cm(0.1),
+          });
+*/
+        }
       }
-
       if (type == "site change" && showPictures)
       {
         double x = xo + glucX(t.createdAt) - 0.3;
@@ -728,6 +761,20 @@ class PrintDailyGraphic extends BasePrint
       "color": colCarbs,
       "lineWidth": cm(0),
       "points": [{"x": cm(x), "y": cm(y - h - 0.1)}, {"x": cm(x + 0.1), "y": cm(y)}, {"x": cm(x - 0.1), "y": cm(y)}],
+    });
+  }
+
+  paintSMB(double insulin, double x, double y, List cvs)
+  {
+    double h = bolusY(insulin) * 2;
+    cvs.add({
+      "type": "polyline",
+      "closePath": true,
+      "_lineColor": "#000000",
+      "color": colBolus,
+      "lineWidth": cm(0),
+      "points": [
+        {"x": cm(x), "y": cm(y)}, {"x": cm(x + 0.1), "y": cm(y - h - 0.1)}, {"x": cm(x - 0.1), "y": cm(y - h - 0.1)}],
     });
   }
 }

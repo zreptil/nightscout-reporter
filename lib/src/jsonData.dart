@@ -741,11 +741,12 @@ class DayData
     if (date == null)this.date = Date(0);
     else
       this.date = Date(date.year, date.month, date.day);
+
     EntryData entry = EntryData();
     entry.type = "mbg";
     entry.mbg = 123.0;
     entry.time = DateTime.now();
-    bloody.add(entry);
+//    bloody.add(entry);
   }
 
   List<EntryData> entries = List<EntryData>();
@@ -875,16 +876,13 @@ class DayData
       if (time == check)return entry;
       int diff = time
         .difference(check)
-        .inSeconds
+        .inMinutes
         .abs();
 
       if (diff < retDiff && diff <= maxMinuteDiff)
       {
         ret = entry;
-        retDiff = time
-          .difference(ret.time)
-          .inSeconds
-          .abs();
+        retDiff = diff;
       }
     }
     return ret;
@@ -1100,6 +1098,16 @@ class ReportData
     }
 
     return ret;
+  }
+
+  double targetValue(DateTime time)
+  {
+    ProfileGlucData profile = this.profile(time);
+    double high = profile.store.listTargetHigh.lastWhere((tgt)
+    => tgt.time.millisecondsSinceEpoch < time.millisecondsSinceEpoch)?.value ?? 180;
+    double low = profile.store.listTargetLow.lastWhere((tgt)
+    => tgt.time.millisecondsSinceEpoch < time.millisecondsSinceEpoch)?.value ?? 70;
+    return (high + low) / 2;
   }
 
   ReportData(this.globals, this.begDate, this.endDate);

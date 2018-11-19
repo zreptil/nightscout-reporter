@@ -4,6 +4,7 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
+import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:intl/intl.dart';

@@ -5,6 +5,7 @@
 - added parameter for reverse sortorder in daily graphics
 - added glucosevalues to daily graphics
 - added column for coefficient of variation to daily statistics
+- added smb to daily graphics
  
 ### Changed
 - made request for valid url more flexible

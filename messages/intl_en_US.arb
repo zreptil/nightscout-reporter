@@ -139,6 +139,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "msgBE": "msgBE",
+  "@msgBE": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgKE": "msgKE",
+  "@msgKE": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "The specified URL is not reachable. If the URL is correct, then it may be due to the nightscout settings. In the variable ENABLE must be the word \"cors\", so that external tools, like this one, can access the data. <br> <br> If this URL is protected, API Secret and UserToken must also be defined correctly.",
   "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
     "type": "text",
@@ -274,11 +284,6 @@
     "placeholders": {
       "value": {}
     }
-  },
-  "Auswertung": "Analysis",
-  "@Auswertung": {
-    "type": "text",
-    "placeholders": {}
   },
   "msgReadingsPerDay": "{howMany, plural, =0 {No values available} =1 {1 value per day} other {{fmt} values a day}}",
   "@msgReadingsPerDay": {
@@ -451,6 +456,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Basalrate\nIE / Stunde": "Basalrate U / hour",
+  "@Basalrate\nIE / Stunde": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Keine": "None",
   "@Keine": {
     "type": "text",
@@ -468,11 +478,6 @@
   },
   "Behandlungen": "Treatments",
   "@Behandlungen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zwei Nachkommastellen": "Two decimal places",
-  "@Zwei Nachkommastellen": {
     "type": "text",
     "placeholders": {}
   },
@@ -496,56 +501,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Tagesgrafik": "Daily Chart",
-  "@Tagesgrafik": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Symbole (Katheter etc.)": "Symbols (catheters etc.)",
-  "@Symbole (Katheter etc.)": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Tages-Basalrate": "Daily basalrate",
-  "@Tages-Basalrate": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Profil-Basalrate": "Profile basalrate",
-  "@Profil-Basalrate": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Basal mit zwei Nachkommastellen": "Basal with two decimal places",
-  "@Basal mit zwei Nachkommastellen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Vier Grafiken pro Seite": "Four graphics per page",
-  "@Vier Grafiken pro Seite": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Legende": "Legend",
-  "@Legende": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Notizen": "Notes",
-  "@Notizen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "umgekehrte Sortierung": "reverse sorting",
-  "@umgekehrte Sortierung": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Tabelle mit Glukosewerten": "Table with glucose values",
-  "@Tabelle mit Glukosewerten": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Glukose zu niedrig": "Glucose too low",
   "@Glukose zu niedrig": {
     "type": "text",
@@ -558,36 +513,6 @@
   },
   "Glukose zu hoch": "Glucose too high",
   "@Glukose zu hoch": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spalte Messwerte": "Column valuecount",
-  "@Spalte Messwerte": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spalte Standardabweichung": "Column standard deviation",
-  "@Spalte Standardabweichung": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spalten Perzentile": "Columns percentiles",
-  "@Spalten Perzentile": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spalte HbA1c": "Column A1C",
-  "@Spalte HbA1c": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spalte Variationskoeffizient": "Column coefficient of variation",
-  "@Spalte Variationskoeffizient": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Tagesstatistik": "Daily Statistics",
-  "@Tagesstatistik": {
     "type": "text",
     "placeholders": {}
   },
@@ -609,6 +534,66 @@
     "placeholders": {
       "value": {}
     }
+  },
+  "10% - 90% der Werte": "10% - 90% of the values",
+  "@10% - 90% der Werte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "25% - 75% der Werte": "25% - 75% of the values",
+  "@25% - 75% der Werte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "Insulin Carb Ratio (ICR) X g Carbs for 1 IU",
+  "@Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": "Insulin Sensitivity Factors (ISF) 1 U lowers BG by X mg / dL",
+  "@Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgTarget": "Glucose target area {unit}",
+  "@msgTarget": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "msgFactorEntry": "{beg} - {end}",
+  "@msgFactorEntry": {
+    "type": "text",
+    "placeholders": {
+      "beg": {},
+      "end": {}
+    }
+  },
+  "Profileinstellungen": "Profilesettings",
+  "@Profileinstellungen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dauer der Insulinaktivität (DIA)": "Duration of insulin activity (DIA)",
+  "@Dauer der Insulinaktivität (DIA)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Stunden": "hours",
+  "@Stunden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dauer der Kohlenhydrataktivität": "Duration of carb activity",
+  "@Dauer der Kohlenhydrataktivität": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "g / Stunde": "g / hour",
+  "@g / Stunde": {
+    "type": "text",
+    "placeholders": {}
   },
   "Datum": "Date",
   "@Datum": {
@@ -672,6 +657,101 @@
     "type": "text",
     "placeholders": {}
   },
+  "Auswertung": "Analysis",
+  "@Auswertung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zwei Nachkommastellen": "Two decimal places",
+  "@Zwei Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesgrafik": "Daily Chart",
+  "@Tagesgrafik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Symbole (Katheter etc.)": "Symbols (catheters etc.)",
+  "@Symbole (Katheter etc.)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tages-Basalrate": "Daily basalrate",
+  "@Tages-Basalrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Profil-Basalrate": "Profile basalrate",
+  "@Profil-Basalrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basal mit zwei Nachkommastellen": "Basal with two decimal places",
+  "@Basal mit zwei Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Vier Grafiken pro Seite": "Four graphics per page",
+  "@Vier Grafiken pro Seite": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Legende": "Legend",
+  "@Legende": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Notizen": "Notes",
+  "@Notizen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "umgekehrte Sortierung": "reverse sorting",
+  "@umgekehrte Sortierung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tabelle mit Glukosewerten": "Table with glucose values",
+  "@Tabelle mit Glukosewerten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "SMB an der Kurve platzieren": "Place SMB on the curve",
+  "@SMB an der Kurve platzieren": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte Messwerte": "Column valuecount",
+  "@Spalte Messwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte Standardabweichung": "Column standard deviation",
+  "@Spalte Standardabweichung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalten Perzentile": "Columns percentiles",
+  "@Spalten Perzentile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte HbA1c": "Column A1C",
+  "@Spalte HbA1c": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte Variationskoeffizient": "Column coefficient of variation",
+  "@Spalte Variationskoeffizient": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesstatistik": "Daily Statistics",
+  "@Tagesstatistik": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Perzentil Diagramm": "Percentile Diagram",
   "@Perzentil Diagramm": {
     "type": "text",
@@ -682,16 +762,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "10% - 90% der Werte": "10% - 90% of the values",
-  "@10% - 90% der Werte": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "25% - 75% der Werte": "25% - 75% of the values",
-  "@25% - 75% der Werte": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Profil": "Profile",
   "@Profil": {
     "type": "text",
@@ -699,61 +769,6 @@
   },
   "Basalrate mit zwei Nachkommastellen": "Basalrate with two decimal places",
   "@Basalrate mit zwei Nachkommastellen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "Insulin Carb Ratio (ICR) X g Carbs for 1 IU",
-  "@Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": "Insulin Sensitivity Factors (ISF) 1 U lowers BG by X mg / dL",
-  "@Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Basalrate\nIE / Stunde": "Basalrate U / hour",
-  "@Basalrate\nIE / Stunde": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgTarget": "Glucose target area {unit}",
-  "@msgTarget": {
-    "type": "text",
-    "placeholders": {
-      "unit": {}
-    }
-  },
-  "msgFactorEntry": "{beg} - {end}",
-  "@msgFactorEntry": {
-    "type": "text",
-    "placeholders": {
-      "beg": {},
-      "end": {}
-    }
-  },
-  "Profileinstellungen": "Profilesettings",
-  "@Profileinstellungen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Dauer der Insulinaktivität (DIA)": "Duration of insulin activity (DIA)",
-  "@Dauer der Insulinaktivität (DIA)": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Stunden": "hours",
-  "@Stunden": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Dauer der Kohlenhydrataktivität": "Duration of carb activity",
-  "@Dauer der Kohlenhydrataktivität": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "g / Stunde": "g / hour",
-  "@g / Stunde": {
     "type": "text",
     "placeholders": {}
   },
@@ -961,6 +976,12 @@
   "In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": "In the daily statistics, the column Coefficient of variation has been added (CV).",
   "@In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": {
     "description": "v111a6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.": "SMBs are now also displayed in the daily graphics if the option for displaying insulin has been activated. You can specify whether the SMBs are displayed on the glucose curve or at the target value.",
+  "@In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.": {
+    "description": "v111a7",
     "type": "text",
     "placeholders": {}
   },
@@ -1252,8 +1273,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_15": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
-  "@ViewWhatsnewComponent0__message_15": {
+  "ViewWhatsnewComponent0__message_16": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
+  "@ViewWhatsnewComponent0__message_16": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

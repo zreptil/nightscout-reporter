@@ -1,0 +1,56 @@
+@import "mixins";
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_dialog/mixins';
+@import 'package:angular_components/material_input/mixins';
+@import 'package:angular_components/material_button/mixins';
+
+:host {
+  margin: 0.5em;
+}
+
+material-button:not([icon]) {
+  > .content {
+    padding: 0;
+  }
+
+  margin: 0;
+}
+
+.title, .weektitle, .week {
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  background-color: $month_title_back;
+  color: $month_title_fore;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  justify-content: center;
+  padding: 0.5em;
+}
+
+.weektitle {
+  background-color: $month_title_back;
+  color: $month_title_fore;
+}
+
+.month {
+  background-color: $month_back;
+  color: $month_fore;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.5em;
+}
+
+.week {
+  material-button {
+    &[raised] {
+      background-color: $btn_raised_back;
+    }
+
+    &[raised]:not([disabled]) {
+      color: $btn_raised_fore;
+    }
+  }
+}

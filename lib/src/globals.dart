@@ -11,6 +11,7 @@ import 'package:angular_components/material_datepicker/comparison_option.dart';
 import 'package:angular_components/material_datepicker/range.dart';
 import 'package:http/browser_client.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 
 class Msg
@@ -51,6 +52,7 @@ class LangData
 class Globals
 {
   static final Globals _globals = Globals._internal();
+
   factory Globals(){
     return _globals;
   }
@@ -59,11 +61,12 @@ class Globals
     load();
   }
 
-  String version = "1.1.1-5";
+  String version = "1.1.1-6";
   String lastVersion;
   List<FormConfig> listConfig = List<FormConfig>();
 
-  String get msgBE => _khFactor == 10 ? Intl.message("msgBE") : Intl.message("msgKE");
+  String get msgBE
+  => _khFactor == 10 ? Intl.message("msgBE") : Intl.message("msgKE");
   String get msgUrlFailure
   =>
     Intl.message("Die angegebene URL ist nicht erreichbar. "
@@ -104,24 +107,29 @@ class Globals
   LangData language;
 
   bool glucMGDL = true;
+  DatepickerData period = DatepickerData("");
   DatepickerComparison dateRange = DatepickerComparison(
     DatepickerDateRange(Intl.message("Zeitraum"), null, null), ComparisonOption.custom);
   DateFormat fmtDateForData;
   DateFormat fmtDateForDisplay;
   bool canDebug = false;
   bool isBeta = html.window.location.href.contains("/beta/");
+  bool isLocal = html.window.location.href.contains("/localhost:");
   static bool itod = html.window.localStorage["unsafe"] != "zh++;";
   String betaPrefix = "@";
   bool pdfSameWindow = true;
   bool hideNightscoutInPDF = true;
   bool isConfigured = false;
   int _khFactor = 12;
-  int get khFactor => _khFactor;
-  set khFactor(int value){
-    if(value == 10 || value == 12)
-      _khFactor = value;
+  int get khFactor
+  => _khFactor;
+  set khFactor(int value)
+  {
+    if (value == 10 || value == 12)_khFactor = value;
   }
-  bool get isKHBE => _khFactor == 12;
+
+  bool get isKHBE
+  => _khFactor == 12;
 
   double glucFromData(double value)
   => glucMGDL ? value : value / 18.02;
@@ -302,11 +310,13 @@ class Globals
     language = languageList[idx >= 0 ? idx : 0];
     lastVersion = loadStorage("version");
     fmtDateForData = DateFormat("yyyy-MM-dd");
-    fmtDateForDisplay = DateFormat("dd.MM.yyyy");
+    fmtDateForDisplay = DateFormat(language.dateformat);
     glucMGDL = loadStorage("glucMGDL") != "false";
     canDebug = loadStorage("debug") == "yes";
     pdfSameWindow = loadStorage("pdfSameWindow") != "no";
     hideNightscoutInPDF = loadStorage("hideNightscoutInPDF") == "yes";
+
+    period = DatepickerData(loadStorage("period"));
 
     Date start = Date.today();
     Date end = Date.today();
@@ -316,8 +326,7 @@ class Globals
       end = Date.parse(loadStorage("endDate") ?? Date.today().format(fmtDateForData), fmtDateForData);
     }
     catch (ex)
-    {
-    }
+    {}
     DatepickerDateRange dr = DatepickerDateRange(dateRange.range.title, start, end);
     dateRange = DatepickerComparison(dr, ComparisonOption.custom);
     changeLanguage(language, doReload: false);
@@ -342,6 +351,7 @@ class Globals
     saveStorage("language", language.code ?? "de_DE");
     saveStorage("pdfSameWindow", pdfSameWindow ? "yes" : "no");
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "yes" : "no");
+    saveStorage("period", period?.toString() ?? null);
 
     if (dateRange.range != null)
     {
@@ -451,8 +461,7 @@ class UserData
         forms[cfg.id] = cfg.asString;
     }
     catch (ex)
-    {
-    }
+    {}
 
     return '{"n":"$name",'
       '"bd":"${birthDate ?? ''}",'
@@ -489,8 +498,7 @@ class UserData
       }*/
     }
     catch (ex)
-    {
-    }
+    {}
     return ret;
   }
 

@@ -1,0 +1,37 @@
+<div class="floating">{{periodFloatingLabel}}</div>
+<material-button (trigger)="isDialogOpen=true">{{periodLabel}}</material-button>
+<modal [visible]="isDialogOpen">
+  <material-dialog headered class="headered-dialog">
+    <div header>
+      <div>
+        <h1 @i18n="title for datepicker dialog">Zeitraum</h1>
+        <p></p>
+      </div>
+      <material-button icon (trigger)="isDialogOpen=false">
+        <material-icon icon="close"></material-icon>
+      </material-button>
+    </div>
+    <div class="root">
+      <div class="editcontrols">
+        <material-input [(ngModel)]="startDate" floatingLabel @i18n:label="datepicker label from" label="Von"
+                        [error]="isStartValid?'':msgStartIncorrect"></material-input>
+        <material-input [(ngModel)]="endDate" floatingLabel @i18n:label="datepicker label to"
+                        label="bis" [error]="isEndValid?'':msgEndIncorrect"></material-input>
+      </div>
+      <div class="month" *ngIf="month!=null">
+        <material-button (trigger)="month=month.add(months: -1)"><material-icon icon="chevron_left"></material-icon></material-button>
+        <month [date]="month" [data]="data"></month>
+        <material-button (trigger)="month=month.add(months: 1)"><material-icon icon="chevron_right"></material-icon></material-button>
+      </div>
+    </div>
+    <div footer>
+      <div class="shortcuts">
+        <material-button *ngFor="let item of data.list" [raised]="data.entryKey==item.key" (trigger)="item.fill(data)">{{item.title}}</material-button>
+      </div>
+      <material-button class="iconButton" (trigger)="isDialogOpen=false;fire('save');">
+        <material-icon icon="done"></material-icon>
+        <ng-container @i18n="buttonlabel for ok in control datepicker">Ok</ng-container>
+      </material-button>
+    </div>
+  </material-dialog>
+</modal>
