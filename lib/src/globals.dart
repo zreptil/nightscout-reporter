@@ -61,7 +61,7 @@ class Globals
     load();
   }
 
-  String version = "1.1.1-6";
+  String version = "1.1.2-1";
   String lastVersion;
   List<FormConfig> listConfig = List<FormConfig>();
 
@@ -107,8 +107,8 @@ class Globals
   LangData language;
 
   bool glucMGDL = true;
-  DatepickerData period = DatepickerData("");
-  DatepickerComparison dateRange = DatepickerComparison(
+  DatepickerPeriod period = DatepickerPeriod();
+  DatepickerComparison _dateRange = DatepickerComparison(
     DatepickerDateRange(Intl.message("Zeitraum"), null, null), ComparisonOption.custom);
   DateFormat fmtDateForData;
   DateFormat fmtDateForDisplay;
@@ -316,7 +316,8 @@ class Globals
     pdfSameWindow = loadStorage("pdfSameWindow") != "no";
     hideNightscoutInPDF = loadStorage("hideNightscoutInPDF") == "yes";
 
-    period = DatepickerData(loadStorage("period"));
+    period = DatepickerPeriod(src: loadStorage("period"));
+    period.fmtDate = language.dateformat;
 
     Date start = Date.today();
     Date end = Date.today();
@@ -327,8 +328,8 @@ class Globals
     }
     catch (ex)
     {}
-    DatepickerDateRange dr = DatepickerDateRange(dateRange.range.title, start, end);
-    dateRange = DatepickerComparison(dr, ComparisonOption.custom);
+    DatepickerDateRange dr = DatepickerDateRange(_dateRange.range.title, start, end);
+    _dateRange = DatepickerComparison(dr, ComparisonOption.custom);
     changeLanguage(language, doReload: false);
   }
 
@@ -353,10 +354,10 @@ class Globals
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "yes" : "no");
     saveStorage("period", period?.toString() ?? null);
 
-    if (dateRange.range != null)
+    if (_dateRange.range != null)
     {
-      if (dateRange.range.start != null)saveStorage("startDate", dateRange.range.start.format(fmtDateForData));
-      if (dateRange.range.end != null)saveStorage("endDate", dateRange.range.end.format(fmtDateForData));
+      if (_dateRange.range.start != null)saveStorage("startDate", _dateRange.range.start.format(fmtDateForData));
+      if (_dateRange.range.end != null)saveStorage("endDate", _dateRange.range.end.format(fmtDateForData));
     }
     if (doReload)reload();
   }

@@ -181,19 +181,19 @@ class AppComponent
     g.userIdx = g.userIdx;
 
     String title = msgPeriod;
-    if (g != null && g.dateRange != null && g.dateRange.comparison != null)
-      title = g.dateRange.comparison.title;
+//    if (g != null && g.dateRange != null && g.dateRange.comparison != null)
+//      title = g.dateRange.comparison.title;
 
     g.period.list.clear();
-    g.period.list.add(DatepickerEntry("today", msgToday, (DatepickerData data){data.start = Date.today();data.end = Date.today();}));
-    g.period.list.add(DatepickerEntry("2days", msgLast2Days, (DatepickerData data){data.start = Date.today().add(days: -1);data.end = Date.today();}));
-    g.period.list.add(DatepickerEntry("3days", msgLast3Days, (DatepickerData data){data.start = Date.today().add(days: -2);data.end = Date.today();}));
-    g.period.list.add(DatepickerEntry("1week", msgLastWeek, (DatepickerData data){data.start = Date.today().add(days: -6);data.end = Date.today();}));
-    g.period.list.add(DatepickerEntry("2weeks", msgLast2Weeks, (DatepickerData data){data.start = Date.today().add(days: -13);data.end = Date.today();}));
-    g.period.list.add(DatepickerEntry("3weeks", msgLast3Weeks, (DatepickerData data){data.start = Date.today().add(days: -20);data.end = Date.today();}));
-    g.period.list.add(DatepickerEntry("1month", msgLastMonth, (DatepickerData data){data.start = Date.today().add(months: -1);data.end = Date.today();}));
-    g.period.list.add(DatepickerEntry("3months", msgLast3Months, (DatepickerData data){data.start = Date.today().add(months: -3);data.end = Date.today();}));
-
+    g.period.list.add(DatepickerEntry("today", msgToday, (DatepickerPeriod data){data.start = Date.today();data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("2days", msgLast2Days, (DatepickerPeriod data){data.start = Date.today().add(days: -1);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("3days", msgLast3Days, (DatepickerPeriod data){data.start = Date.today().add(days: -2);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("1week", msgLastWeek, (DatepickerPeriod data){data.start = Date.today().add(days: -6);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("2weeks", msgLast2Weeks, (DatepickerPeriod data){data.start = Date.today().add(days: -13);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("3weeks", msgLast3Weeks, (DatepickerPeriod data){data.start = Date.today().add(days: -20);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("1month", msgLastMonth, (DatepickerPeriod data){data.start = Date.today().add(months: -1);data.end = Date.today();}));
+    g.period.list.add(DatepickerEntry("3months", msgLast3Months, (DatepickerPeriod data){data.start = Date.today().add(months: -3);data.end = Date.today();}));
+/*
     dateRanges.clear();
     dateRanges.add(DatepickerPreset(
       msgToday, DatepickerDateRange(title, Date.today(), Date.today())));
@@ -211,6 +211,7 @@ class AppComponent
       DatepickerDateRange(title, Date.today().add(months: -1), Date.today())));
     dateRanges.add(DatepickerPreset(msgLast3Months,
       DatepickerDateRange(title, Date.today().add(months: -3), Date.today())));
+*/
     currLang = g.language;
 
     display(null);
@@ -376,11 +377,18 @@ class AppComponent
   ReportData reportData = null;
   Future<ReportData> loadData()
   async {
+    if (reportData != null && reportData.begDate == g.period.start &&
+        reportData.endDate == g.period.end)return reportData;
+
+    ReportData data = ReportData(
+      g, g.period.start, g.period.end);
+/*
     if (reportData != null && reportData.begDate == g.dateRange.range.start &&
       reportData.endDate == g.dateRange.range.end)return reportData;
 
     ReportData data = ReportData(
       g, g.dateRange.range.start, g.dateRange.range.end);
+*/
     reportData = data;
     DateTime bd = DateTime(
       data.begDate.year, data.begDate.month, data.begDate.day);
@@ -540,7 +548,8 @@ class AppComponent
       url = "${g.user.apiUrl}profile.json";
       displayLink("profile", url, type: "debug");
       content = await g.request(url);
-      if (g.dateRange.range.start == null || g.dateRange.range.end == null)
+//      if (g.dateRange.range.start == null || g.dateRange.range.end == null)
+      if (g.period.start == null || g.period.end == null)
       {
         data.error = StateError(msgEmptyRange);
         return data;

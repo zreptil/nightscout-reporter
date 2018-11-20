@@ -45,12 +45,19 @@ material-button:not([icon]) {
 
 .week {
   material-button {
-    &[raised] {
+    &[raised]:not(.key) {
       background-color: $btn_raised_back;
     }
 
-    &[raised]:not([disabled]) {
+    &[raised].key {
+      background-color: $btn_raised_key_back;
+    }
+
+    &[raised]:not(.key):not([disabled]) {
       color: $btn_raised_fore;
+    }
+    &[raised].key:not([disabled]) {
+      color: $btn_raised_key_fore;
     }
   }
 }

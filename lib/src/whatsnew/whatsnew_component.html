@@ -11,7 +11,20 @@
     </div>
     <ng-scrollbar #scrollable thumbClass="scrollbar">
       <div class="root">
-        <h2><span @i18n="version">Version</span><span @i18n="v111">1.1.1 - xx.xx.2018</span></h2>
+        <h2><span @i18n="version">Version</span><span @i18n="v111">1.1.2 - xx.xx.2018</span></h2>
+        <ul>
+          <li class="changed" @i18n="v112c1">
+            Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte
+            Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird
+            festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird.
+            Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie
+            er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch
+            Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die
+            Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch,
+            Monat/Tag/Jahr für englisch).
+          </li>
+        </ul>
+        <h2><span @i18n="version">Version</span><span @i18n="v111">1.1.1 - 19.11.2018</span></h2>
         <ul>
           <li class="added" @i18n="v111a1">
             Tagesgrafikparameter zur Anzeige der Legende

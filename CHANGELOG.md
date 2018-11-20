@@ -1,5 +1,9 @@
 ## [Unreleased]
 ### Added
+- added own control for definition of period 
+
+## [1.1.1]
+### Added
 - added notes to daily graphics
 - added pdf for profiles
 - added parameter for reverse sortorder in daily graphics

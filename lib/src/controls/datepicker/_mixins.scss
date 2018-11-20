@@ -11,6 +11,8 @@ $month_back: $mat_cyan_500;
 $month_fore: $mat_black;
 $btn_raised_back: $mat_cyan_700;
 $btn_raised_fore: $mat_black;
+$btn_raised_key_back: $mat_green_700;
+$btn_raised_key_fore: $mat_white;
 
 @mixin datepicker_primary_color($color) {
   ::ng-deep material-input {

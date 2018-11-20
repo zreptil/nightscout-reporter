@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-11-16T11:38:02.864794",
+  "@@last_modified": "2018-11-20T09:40:39.136209",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -118,6 +118,7 @@
   },
   "Zeitraum": "Zeitraum",
   "@Zeitraum": {
+    "description": "title for datepicker dialog",
     "type": "text",
     "placeholders": {}
   },
@@ -176,6 +177,41 @@
     "type": "text",
     "placeholders": {}
   },
+  "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember": "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember",
+  "@Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez": "Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez",
+  "@Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag": "Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag",
+  "@Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Mo|Di|Mi|Do|Fr|Sa|So": "Mo|Di|Mi|Do|Fr|Sa|So",
+  "@Mo|Di|Mi|Do|Fr|Sa|So": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Startdatum ist nicht korrekt": "Das Startdatum ist nicht korrekt",
+  "@Das Startdatum ist nicht korrekt": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Enddatum ist nicht korrekt": "Das Enddatum ist nicht korrekt",
+  "@Das Enddatum ist nicht korrekt": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zeitraum festlegen": "Zeitraum festlegen",
+  "@Zeitraum festlegen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "msgValidRange": "gültig von {begDate} bis {endDate}",
   "@msgValidRange": {
     "type": "text",
@@ -210,6 +246,7 @@
   },
   "bis": "bis",
   "@bis": {
+    "description": "datepicker label to",
     "type": "text",
     "placeholders": {}
   },
@@ -831,6 +868,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "Von": "Von",
+  "@Von": {
+    "description": "datepicker label from",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ok": "Ok",
+  "@Ok": {
+    "description": "buttonlabel for ok in control datepicker",
+    "type": "text",
+    "placeholders": {}
+  },
   "Zusatzfunktionen": "Zusatzfunktionen",
   "@Zusatzfunktionen": {
     "description": "label of area for additional functions",
@@ -939,8 +988,20 @@
     "type": "text",
     "placeholders": {}
   },
-  "1.1.1 - xx.xx.2018": "1.1.1 - xx.xx.2018",
-  "@1.1.1 - xx.xx.2018": {
+  "1.1.2 - xx.xx.2018": "1.1.2 - xx.xx.2018",
+  "@1.1.2 - xx.xx.2018": {
+    "description": "v111",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).": "Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).",
+  "@Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).": {
+    "description": "v112c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.1.1 - 19.11.2018": "1.1.1 - 19.11.2018",
+  "@1.1.1 - 19.11.2018": {
     "description": "v111",
     "type": "text",
     "placeholders": {}
@@ -1275,8 +1336,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_16": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_16": {
+  "ViewWhatsnewComponent0__message_18": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_18": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

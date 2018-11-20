@@ -54,6 +54,10 @@ class PrintDailyStatistics extends BasePrint
   bool get isPortrait
   => false;
 
+  @override
+  double get scale
+  => 1.0;
+
   bool _headFilled = false;
   dynamic _headLine = [];
   SettingsData _settings;
@@ -250,7 +254,7 @@ class PrintDailyStatistics extends BasePrint
       "columns": [ {
         "margin": [cm(2.2), cmy(2.5), cm(2.2), cmy(0.0)],
         "width": cm(width),
-        "table": {"widths": widths, "body": body}
+        "table": {"widths": widths, "body": body},
       }
       ]
     };

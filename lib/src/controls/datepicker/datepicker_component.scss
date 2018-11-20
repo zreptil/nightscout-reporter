@@ -27,10 +27,15 @@ div[header] {
   justify-content: space-between;
 }
 
+div[footer] {
+  border-top: 1px solid $primary_color;
+}
+
 .root {
   padding: 1em;
   font-size: 1.2em;
   color: $mat_black;
+  overflow: hidden;
 }
 
 h1 {
@@ -44,29 +49,30 @@ a, a:visited, a:active {
   color: $primary_color;
 }
 
-.floating
-{
+.floating {
   padding-top: 1em;
   padding-left: 1em;
   font-size: 75%;
   opacity: 0.5;
 }
+
 .editcontrols {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  material-input{
+
+  material-input {
     width: 8em;
   }
 }
 
-.shortcuts
-{
+.shortcuts {
   material-button {
     font-size: 75%;
+
     &[raised] {
-      background-color: $btn_raised_back;
-      color: $btn_raised_fore;
+      background-color: $btn_raised_key_back;
+      color: $btn_raised_key_fore;
     }
   }
 }
@@ -77,3 +83,11 @@ div.month {
   justify-content: center;
 }
 
+material-button.prev,
+material-button.next,
+material-button.ok {
+  ::ng-deep .content {
+    height: 100%;
+    padding: 0 !important;
+  }
+}

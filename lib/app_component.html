@@ -46,14 +46,7 @@
           <material-icon icon="settings"></material-icon>
         </material-button>
       </div>
-      <datepicker *ngIf="g.isLocal" [(data)]="g.period"></datepicker>
-      <material-date-range-picker [configuration]="drConfig" [(range)]="g.dateRange" [presets]="dateRanges"
-                                  [showNextPrevButtons]="false" [maxDate]="today" [supportsComparison]="false"
-                                  [supportsDaysInputs]="false"
-                                  [applyButtonLabel]="msgApply"
-                                  [cancelButtonLabel]="msgCancel"
-                                  [relativeDaysToToday]="false"
-                                  (click)="message.clear()"></material-date-range-picker>
+      <datepicker [(period)]="g.period"></datepicker>
       <div class="formlist">
         <template ngFor let-cfg [ngForOf]="g.listConfig">
           <div *ngIf="!cfg.form.isDebugOnly || isDebug">

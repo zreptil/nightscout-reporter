@@ -62,7 +62,6 @@ class PrintProfile extends BasePrint
   {
     titleInfo = titleInfoBegEnd(src);
     var ret = [];
-    var data = src.ns;
     DateTime startDate = DateTime(src.begDate.year, src.begDate.month, src.begDate.day);
     DateTime endDate = DateTime(src.endDate.year, src.endDate.month, src.endDate.day);
     List<ProfileData> profiles = src.profiles;

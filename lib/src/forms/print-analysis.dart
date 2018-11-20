@@ -70,7 +70,6 @@ class PrintAnalysis extends BasePrint
   {
     titleInfo = titleInfoBegEnd(src);
     var data = src.ns;
-    ProfileGlucData profile = src.profile(DateTime.now());
 
     var avgGluc = data.avgGluc;
     var glucWarnColor = colNorm;

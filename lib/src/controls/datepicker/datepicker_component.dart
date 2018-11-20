@@ -13,7 +13,7 @@ class DatepickerEntry
   String key;
   String title;
   var _fill = null;
-  fill(DatepickerData data)
+  fill(DatepickerPeriod data)
   {
     data.entryKey = key;
     _fill(data);
@@ -22,13 +22,17 @@ class DatepickerEntry
   DatepickerEntry(this.key, this.title, this._fill);
 }
 
-class DatepickerData
+class DatepickerPeriod
 {
   List<String> monthNames = Intl.message(
-    "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember").split(",");
-  List<String> monthShortNames = Intl.message("Jan,Feb,Mär,Apr,Mai,Jun,Jul,Aug,Sep,Okt,Nov,Dez").split(",");
-  List<String> dowNames = Intl.message("Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag,Sonntag").split(",");
-  List<String> dowShortNames = Intl.message("Mo,Di,Mi,Do,Fr,Sa,So").split(",");
+    "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember").split("|");
+  List<String> monthShortNames = Intl.message("Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez").split("|");
+  List<String> dowNames = Intl.message("Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag").split("|");
+  List<String> dowShortNames = Intl.message("Mo|Di|Mi|Do|Fr|Sa|So").split("|");
+
+  String fmtDate = "dd.MM.yyyy";
+  DateFormat get dateFormat
+  => DateFormat(fmtDate);
 
   int firstDayOfWeek = 1;
   monthName(Date date)
@@ -42,27 +46,49 @@ class DatepickerData
 
   Date start = null;
   Date end = null;
-  String entryKey = "";
-
-  String get entryTitle
-  =>
-    list
-      .firstWhere((entry)
-    => entry.key == entryKey)
-      ?.title ?? "";
+  String entryKey = null;
 
   List<DatepickerEntry> list = List<DatepickerEntry>();
 
-  DatepickerData(String src)
+  String get entryTitle
+  {
+    if (list != null)
+    {
+      for (DatepickerEntry entry in list)
+        if (entry.key == entryKey)return entry.title;
+    }
+    return "";
+  }
+
+  Date parse(String date)
+  {
+    Date ret = null;
+    if (date != null && date.length == 8)
+    {
+      int y = int.tryParse(date.substring(0, 4));
+      int m = int.tryParse(date.substring(4, 6));
+      int d = int.tryParse(date.substring(6, 8));
+      ret = Date(y, m, d);
+    }
+
+    return ret;
+  }
+
+  reset(String src)
   {
     try
     {
       List<String> parts = (src ?? "").split("|");
-      if (parts.length == 3)
+      start = null;
+      end = null;
+      entryKey = null;
+      firstDayOfWeek = 1;
+      if (parts.length == 4)
       {
-        start = Date.parse(parts[0], DateFormat("yyyyMMdd"));
-        end = Date.parse(parts[1], DateFormat("yyyyMMdd"));
-        entryKey = parts[2];
+        start = parse(parts[0]);
+        end = parse(parts[1]);
+        entryKey = parts[2] == "" || parts[2] == "null" ? null : parts[2];
+        firstDayOfWeek = int.tryParse(parts[3]);
       }
     }
     catch (ex)
@@ -70,14 +96,19 @@ class DatepickerData
     }
   }
 
+  DatepickerPeriod({String src = ""})
+  {
+    reset(src);
+  }
+
   String toString()
   {
-    return "${start?.format(DateFormat("yyyyMMdd")) ?? ""}|${end?.format(DateFormat("yyyyMMdd")) ?? ""}|${entryKey}";
+    return "${start?.format(DateFormat("yyyyMMdd")) ?? ""}|${end?.format(DateFormat("yyyyMMdd")) ?? ""}|${entryKey
+                                                                                                          ?? ""}|${firstDayOfWeek}";
   }
 }
 
-@Component(
-  selector: 'datepicker',
+@Component(selector: 'datepicker',
   styleUrls: ['datepicker_component.css'],
   templateUrl: 'datepicker_component.html',
   directives: [
@@ -102,36 +133,40 @@ class DatepickerComponent
   get msgEndIncorrect
   => Intl.message("Das Enddatum ist nicht korrekt");
 
-  @Input()
-  String fmtDate = "dd.MM.yyyy";
-  DateFormat get _fmtDate
-  => DateFormat(fmtDate);
-
-  DatepickerData _data = null;
+  DatepickerPeriod _period = null;
   Date month = null;
-  DatepickerData get data
-  => _data;
+
+  DatepickerPeriod get period
+  => _period;
   @Input()
-  void set data(value)
+  void set period(value)
   {
-    DatepickerData temp = value is DatepickerData ? value : DatepickerData(value);
-    _data = temp ?? _data;
+    DatepickerPeriod temp = value is DatepickerPeriod ? value : DatepickerPeriod(src: value);
+    _period = temp ?? _period;
     month = Date.today();
   }
 
-  final _dataChange = StreamController<Date>();
+  final _periodChange = StreamController<Date>();
   @Output()
-  Stream<Date> get dataChange
-  => _dataChange.stream;
+  Stream<Date> get periodChange
+  => _periodChange.stream;
+
+  String loadedPeriod = null;
+  revertData()
+  {
+    period.reset(loadedPeriod);
+  }
 
   bool isStartValid = true;
   String get startDate
-  => _data.start?.format(_fmtDate);
+  => period.start?.format(period.dateFormat);
+
   set startDate(String value)
   {
     try
     {
-      _data.start = Date.parse(value, _fmtDate);
+      period.start = Date.parse(value, period.dateFormat);
+      period.entryKey = null;
       isStartValid = true;
     }
     catch (ex)
@@ -142,12 +177,13 @@ class DatepickerComponent
 
   bool isEndValid = true;
   String get endDate
-  => _data.end?.format(_fmtDate);
+  => period.end?.format(period.dateFormat);
   set endDate(String value)
   {
     try
     {
-      _data.end = Date.parse(value, _fmtDate);
+      period.end = Date.parse(value, period.dateFormat);
+      period.entryKey = null;
       isEndValid = true;
     }
     catch (ex)
@@ -159,18 +195,22 @@ class DatepickerComponent
   get msgPeriod
   => Intl.message("Zeitraum");
 
+  get msgPeriodEmpty
+  => Intl.message("Zeitraum festlegen");
+
   String get periodFloatingLabel
   {
-    if (_data.start == null || _data.end == null)return "";
+    if (period.start == null || period.end == null)return "";
     return msgPeriod;
   }
 
   String get periodLabel
   {
-    if (_data.start == null || _data.end == null)return msgPeriod;
-    if (_data.start.compareTo(_data.end) == 0)return _data.start.format(_fmtDate);
-    if (_data.entryKey != null)return _data.entryTitle;
-    return "${_data.start.format(_fmtDate)} - ${_data.end.format(_fmtDate)}";
+    if (period == null)return "";
+    if (period.entryKey != null)return period.entryTitle;
+    if (period.start == null || period.end == null)return msgPeriodEmpty;
+    if (period.start.compareTo(period.end) == 0)return period.start.format(period.dateFormat);
+    return "${period.start.format(period.dateFormat)} - ${period.end.format(period.dateFormat)}";
   }
 
   @Output("save")
