@@ -302,20 +302,24 @@ class PrintDailyGraphic extends BasePrint
     }
 
     dynamic points = [];
-    DateTime lastTime = null;
+    EntryData last = null;
     for (EntryData entry in day.entries)
     {
       double x = glucX(entry.time);
       double y = glucY(entry.gluc);
-      if (lastTime != null && entry.time
-                                .difference(lastTime)
-                                .inMinutes >= 15)
+      if (entry.gluc < 0)
       {
-        graphGlucCvs.add(glucLine(points));
-        points = [];
+        if(last != null && last.gluc >= 0)
+        {
+          graphGlucCvs.add(glucLine(points));
+          points = [];
+        }
       }
-      points.add({"x": cm(x), "y": cm(y)});
-      lastTime = entry.time;
+      else
+      {
+        points.add({"x": cm(x), "y": cm(y)});
+      }
+      last = entry;
     }
     graphGlucCvs.add(glucLine(points));
 

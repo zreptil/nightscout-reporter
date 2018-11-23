@@ -687,17 +687,18 @@ class EntryData extends JsonData
   double sgv;
   double mbg;
   String type;
+  bool isGap = false;
   bool isCopy = false;
   bool get isInvalid
   => type != "mbg" && direction != null && direction.toLowerCase() == "none";
   double get gluc
   {
-    return (type == "sgv" ? sgv : rawbg) ?? 0;
+    return isGap ? -1 : (type == "sgv" ? sgv : rawbg) ?? 0;
   }
 
   double get fullGluc
   {
-    return (type == "mbg" ? mbg : gluc) ?? 0;
+    return isGap ? -1 : (type == "mbg" ? mbg : gluc) ?? 0;
   }
 
   EntryData();
@@ -705,15 +706,17 @@ class EntryData extends JsonData
   EntryData get copy
   =>
     EntryData()
+      ..id = id
       ..time = time
-      ..sgv = sgv
-      ..mbg = mbg
+      ..rssi = rssi
       ..device = device
       ..direction = direction
-      ..id = id
       ..rawbg = rawbg
       ..sgv = sgv
-      ..type = type;
+      ..mbg = mbg
+      ..type = type
+      ..isGap = isGap
+      ..isCopy = true;
 
   factory EntryData.fromJson(Map<String, dynamic> json){
     EntryData ret = EntryData();
@@ -930,6 +933,7 @@ class DayData
     int retDiff = 10000;
     for (EntryData entry in eList)
     {
+      if(entry.gluc < 0)continue;
       DateTime time = DateTime(check.year, check.month, check.day, entry.time.hour, entry.time.minute);
       if (time == check)return entry;
       int diff = time

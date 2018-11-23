@@ -61,7 +61,7 @@ class Globals
     load();
   }
 
-  String version = "1.1.2-4";
+  String version = "1.1.2-5";
   String lastVersion;
   List<FormConfig> listConfig = List<FormConfig>();
 

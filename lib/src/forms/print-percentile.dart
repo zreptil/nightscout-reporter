@@ -9,14 +9,21 @@ import 'base-print.dart';
 class PercentileData
 {
   DateTime time;
-  List<EntryData> entries = List<EntryData>();
+  List<EntryData> _entries = List<EntryData>();
 
   PercentileData(this.time);
 
+  void add(EntryData entry)
+  {
+    EntryData clone = entry.copy;
+    clone.time = time;
+    _entries.add(clone);
+  }
+
   double get max
   {
-    double ret = -1000.0;
-    for (EntryData entry in entries)
+    double ret = -1.0;
+    for (EntryData entry in _entries)
     {
       if (entry.gluc > 0)ret = math.max(entry.gluc, ret);
     }
@@ -25,8 +32,8 @@ class PercentileData
 
   double get min
   {
-    double ret = 10000000.0;
-    for (EntryData entry in entries)
+    double ret = 10000.0;
+    for (EntryData entry in _entries)
     {
       if (entry.gluc > 0)ret = math.min(entry.gluc, ret);
     }
@@ -34,7 +41,7 @@ class PercentileData
   }
 
   double percentile(int value)
-  => Globals.percentile(entries, value);
+  => Globals.percentile(_entries, value);
 }
 
 class PrintPercentile extends BasePrint
@@ -86,17 +93,25 @@ class PrintPercentile extends BasePrint
     lineWidth = cm(0.03);
 
     titleInfo = titleInfoBegEnd(src);
-    List<EntryData> times = data.entries;
-    Map<DateTime, PercentileData> percList = Map<DateTime, PercentileData>();
-    for (EntryData entry in times)
+    List<PercentileData> percList = List<PercentileData>();
+    for (EntryData entry in data.entries)
     {
-      DateTime key = DateTime(0, 1, 1, entry.time.hour, entry.time.minute);
-      if (!percList.containsKey(key))percList[key] = PercentileData(key);
-      percList[key].entries.add(entry);
+      if (entry.gluc < 0)continue;
+      DateTime time = DateTime(0, 1, 1, entry.time.hour, entry.time.minute);
+      PercentileData src = percList.firstWhere((e)
+      => e.time == time, orElse: ()
+      {
+        percList.add(PercentileData(time));
+        return percList.last;
+      });
+      src.add(entry);
     }
 
+    percList.sort((a, b)
+    => a.time.compareTo(b.time));
+
     glucMax = 0.0;
-    for (PercentileData data in percList.values)
+    for (PercentileData data in percList)
       glucMax = math.max(data.percentile(90), glucMax);
 
     int gridLines = (glucMax / 50).ceil();
@@ -215,24 +230,23 @@ class PrintPercentile extends BasePrint
     ]);
   }
 
-  bool addPercentileGraph(var percGraph, Map<DateTime, PercentileData> percList, int low, int high, String color)
+  bool addPercentileGraph(var percGraph, List<PercentileData> percList, int low, int high, String color)
   {
     bool ret = high == low;
     var ptsLow = [];
     var ptsHigh = [];
 
     double x = 0.0;
-    for (PercentileData entry in percList.values)
+    for (PercentileData entry in percList)
     {
       if (entry.percentile(high) != entry.percentile(low))ret = true;
       x = glucX(entry.time);
       ptsHigh.add({"x": cm(x), "y": cm(glucY(entry.percentile(high)))});
       if (high != low)ptsLow.insert(0, {"x": cm(x), "y": cm(glucY(entry.percentile(low)))});
-//        ptsHigh.add({"x": cmx(x), "y": cmy(glucY(entry.median))});
     }
     x = glucX(DateTime(0, 1, 1, 23, 59, 59));
-    ptsHigh.add({"x": cm(x), "y": cm(glucY(percList.values.first.percentile(high)))});
-    if (high != low)ptsLow.insert(0, {"x": cm(x), "y": cm(glucY(percList.values.first.percentile(low)))});
+    ptsHigh.add({"x": cm(x), "y": cm(glucY(percList.first.percentile(high)))});
+    if (high != low)ptsLow.insert(0, {"x": cm(x), "y": cm(glucY(percList.first.percentile(low)))});
     var area = {"type": "polyline", "lineWidth": cm(lw), "closePath": high != low, "fillOpacity": 0.5, "points": []};
     (area["points"] as List).addAll(ptsHigh);
     if (high != low)

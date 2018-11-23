@@ -556,6 +556,7 @@ class AppComponent
             int max = current
               .difference(prev.time)
               .inMinutes;
+/*
             if (max >= minGapKeep)
             {
               entry = data.ns.entries[i + 1];
@@ -564,31 +565,31 @@ class AppComponent
               next = EntryData();
               next.time = target;
             }
-            else
+// */
+            while (current.isAfter(target) || current.isAtSameMomentAs(target))
             {
-              while (current.isAfter(target) || current.isAtSameMomentAs(target))
+              double factor = max == 0 ? 0 : target
+                                               .difference(prev.time)
+                                               .inMinutes / max;
+              next = next.copy;
+              if (max >= minGapKeep)
+                next.isGap = true;
+              next.time = target;
+              if (current.isAtSameMomentAs(target))
               {
-                double factor = max == 0 ? 0 : target
-                                                 .difference(prev.time)
-                                                 .inMinutes / max;
-                next = next.copy;
-                next.time = target;
-                if (current.isAtSameMomentAs(target))
-                {
-                  next.isCopy = true;
-                  next.slice(entry, entry, 1.0);
-                }
-                else
-                {
-                  next.slice(prev, entry, factor);
-                }
-                entryList.add(next);
-                target = target.add(Duration(minutes: diffTime));
+                next.isCopy = true;
+                next.slice(entry, entry, 1.0);
               }
-              prev = entry;
-              prev.time = current;
-              next = entry;
+              else
+              {
+                next.slice(prev, entry, factor);
+              }
+              entryList.add(next);
+              target = target.add(Duration(minutes: diffTime));
             }
+            prev = entry;
+            prev.time = current;
+            next = entry;
           }
         }
       }
