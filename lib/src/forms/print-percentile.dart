@@ -58,14 +58,17 @@ class PrintPercentile extends BasePrint
   @override
   bool get isPortrait
   => false;
+
   num lineWidth;
   String colText = "#080";
   String colLine = "#606060";
   String colBasal = "#0097a7";
   String colBasalFont = "#fff";
   double glucMax = 0.0;
-  double gridHeight = 10.0;
-  double gridWidth = 22.9;
+  double get gridHeight
+  => height - 11.0;
+  double get gridWidth
+  => width - 7.0;
 
   double glucY(double value)
   => gridHeight / glucMax * (glucMax - value);
@@ -118,11 +121,11 @@ class PrintPercentile extends BasePrint
     double lineHeight = gridHeight / gridLines;
     double colWidth = gridWidth / 24;
 
-    var vertLines = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
-    var horzLines = {"absolutePosition": {"x": cmx(xo - 0.2), "y": cmy(yo)}, "canvas": []};
+    var vertLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
+    var horzLines = {"relativePosition": {"x": cm(xo - 0.2), "y": cm(yo)}, "canvas": []};
     var horzLegend = {"stack": []};
     var vertLegend = {"stack": []};
-    var graph = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
+    var graph = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
 
     List vertCvs = vertLines["canvas"] as List;
     List horzCvs = vertLines["canvas"] as List;
@@ -140,7 +143,7 @@ class PrintPercentile extends BasePrint
         "lineColor": i > 0 && i < 24 ? lc : lcFrame
       });
       if (i < 24)horzStack.add({
-        "absolutePosition": {"x": cmx(xo + i * colWidth), "y": cmy(yo + gridLines * lineHeight + 0.3)},
+        "relativePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)},
         "text": fmtTime(i),
         "fontSize": fs(8)
       });
@@ -161,12 +164,12 @@ class PrintPercentile extends BasePrint
       {
         String text = "${glucFromData(fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
         vertStack.add({
-          "absolutePosition": {"x": cmx(xo - 1.1), "y": cmy(yo + (gridLines - i) * lineHeight - 0.25)},
+          "relativePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
           "text": text,
           "fontSize": fs(8)
         });
         vertStack.add({
-          "absolutePosition": {"x": cmx(xo + 24 * colWidth + 0.3), "y": cmy(yo + (gridLines - i) * lineHeight - 0.25)},
+          "relativePosition": {"x": cm(xo + 24 * colWidth + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
           "text": text,
           "fontSize": fs(8)
         });
@@ -180,7 +183,7 @@ class PrintPercentile extends BasePrint
       .profile(DateTime.now())
       .targetLow);
     var limitLines = {
-      "absolutePosition": {"x": cmx(xo), "y": cmy(yo)},
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
       "canvas": [
         {
           "type": "rect",
@@ -212,8 +215,8 @@ class PrintPercentile extends BasePrint
         {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1}
       ]
     };
-    var percGraph = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
-    var percLegend = LegendData(cmx(xo), cmy(yo + lineHeight * gridLines + 1.0), cm(8.0), 100);
+    var percGraph = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
+    var percLegend = LegendData(cm(xo), cm(yo + lineHeight * gridLines + 1.0), cm(8.0), 100);
 
     if (addPercentileGraph(percGraph, percList, 10, 90, "#aaf"))addLegendEntry(percLegend, "#aaf", msgPercentile1090);
     if (addPercentileGraph(percGraph, percList, 25, 75, "#88f"))addLegendEntry(percLegend, "#88f", msgPercentile2575);
@@ -225,9 +228,9 @@ class PrintPercentile extends BasePrint
       .targetLow), glucFromData(src
       .profile(DateTime.now())
       .targetHigh), getGlucInfo()["unit"]));
-    pages.add([
-      header, vertLegend, vertLines, horzLegend, horzLines, limitLines, percGraph, graph, percLegend.asOutput, footer(),
-    ]);
+    pages.add(
+      [headerFooter(), vertLegend, vertLines, horzLegend, horzLines, limitLines, percGraph, graph, percLegend.asOutput
+      ]);
   }
 
   bool addPercentileGraph(var percGraph, List<PercentileData> percList, int low, int high, String color)

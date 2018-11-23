@@ -48,6 +48,7 @@ class PrintDailyGraphic extends BasePrint
     sortReverse = params[9].boolValue;
     showGlucTable = params[10].boolValue;
     showSMBatGluc = params[11].boolValue;
+    pagesPerSheet = isSmall ? 4 : 1;
     return data;
   }
 
@@ -86,9 +87,9 @@ class PrintDailyGraphic extends BasePrint
   List<String> get imgList
   => ["nightscout", "katheter.print", "sensor.print"];
 
-  @override
-  double get scale
-  => isSmall ?? false ? (g.isLocal ? 0.25 : 0.5) : 1.0;
+//  @override
+//  double get scale
+//  => isSmall ?? false ? (g.isLocal ? 0.25 : 0.5) : 1.0;
 
   @override
   bool get isPortrait
@@ -137,9 +138,6 @@ class PrintDailyGraphic extends BasePrint
   }
 
   @override
-  int pagesPerPage = 2;
-
-  @override
   void fillPages(ReportData src, List<List<dynamic>> pages)
   async {
 //    scale = height / width;
@@ -169,7 +167,7 @@ class PrintDailyGraphic extends BasePrint
       {
         if (!isSmall || (offsetY == height && offsetX == width))
         {
-          ret.last["pageBreak"] = "after";
+          pages.last.last["pageBreak"] = "after";
           offsetX = 0.0;
           offsetY = 0.0;
         }
@@ -183,7 +181,7 @@ class PrintDailyGraphic extends BasePrint
           offsetX = width;
         }
       }
-*/
+// */
     }
 //    _isPortrait = true;
   }
@@ -209,27 +207,27 @@ class PrintDailyGraphic extends BasePrint
     double lineHeight = graphHeight / gridLines;
     double colWidth = graphWidth / 24;
 
-    var vertLines = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
-    var horzLines = {"absolutePosition": {"x": cmx(xo - 0.2), "y": cmy(yo)}, "canvas": []};
+    var vertLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
+    var horzLines = {"relativePosition": {"x": cm(xo - 0.2), "y": cm(yo)}, "canvas": []};
     var horzLegend = {"stack": []};
     var vertLegend = {"stack": []};
-    var graphGluc = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
-    var graphLegend = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "stack": []};
-    var glucTable = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo + graphHeight)}, "stack": []};
-    var glucTableCvs = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo + graphHeight)}, "canvas": []};
+    var graphGluc = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
+    var graphLegend = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "stack": []};
+    var glucTable = {"relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight)}, "stack": []};
+    var glucTableCvs = {"relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight)}, "canvas": []};
     var graphCarbs = {
       "stack": [
-        {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []},
-        {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "stack": []}
+        {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []},
+        {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "stack": []}
       ]
     };
     var graphInsulin = {
       "stack": [
-        {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []},
-        {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "stack": []}
+        {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []},
+        {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "stack": []}
       ]
     };
-    var pictures = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "stack": []};
+    var pictures = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "stack": []};
 
     List vertCvs = vertLines["canvas"] as List;
     List horzCvs = vertLines["canvas"] as List;
@@ -250,7 +248,7 @@ class PrintDailyGraphic extends BasePrint
         "lineColor": i > 0 && i < 24 ? lc : lcFrame
       });
       if (i < 24)horzStack.add({
-        "absolutePosition": {"x": cmx(xo + i * colWidth), "y": cmy(yo + graphBottom + 0.05)},
+        "relativePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + graphBottom + 0.05)},
         "text": fmtTime(i),
         "fontSize": fs(8)
       });
@@ -273,12 +271,12 @@ class PrintDailyGraphic extends BasePrint
       {
         String text = "${glucFromData(fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
         vertStack.add({
-          "absolutePosition": {"x": cmx(xo - 1.1), "y": cmy(yo + (gridLines - i) * lineHeight - 0.25)},
+          "relativePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
           "text": text,
           "fontSize": fs(8)
         });
         vertStack.add({
-          "absolutePosition": {"x": cmx(xo + 24 * colWidth + 0.3), "y": cmy(yo + (gridLines - i) * lineHeight - 0.25)},
+          "relativePosition": {"x": cm(xo + 24 * colWidth + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
           "text": text,
           "fontSize": fs(8)
         });
@@ -490,12 +488,12 @@ class PrintDailyGraphic extends BasePrint
       }
       if (type == "site change" && showPictures)
       {
-        double x = xo + glucX(t.createdAt) - 0.3;
-        double y = yo + graphHeight - 0.6;
+        double x = glucX(t.createdAt) - 0.3;
+        double y = graphHeight - 0.6;
         (pictures["stack"] as List).add(
-          {"absolutePosition": {"x": cmx(x), "y": cmy(y)}, "image": "katheter.print", "width": cm(0.8)});
+          {"relativePosition": {"x": cm(x), "y": cm(y)}, "image": "katheter.print", "width": cm(0.8)});
         (pictures["stack"] as List).add({
-          "absolutePosition": {"x": cmx(x + 0.33), "y": cmy(y + 0.04)},
+          "relativePosition": {"x": cm(x + 0.33), "y": cm(y + 0.04)},
           "text": "${fmtTime(t.createdAt)}",
           "fontSize": fs(5),
           "color": "white"
@@ -504,12 +502,12 @@ class PrintDailyGraphic extends BasePrint
       }
       else if (type == "sensor change" && showPictures)
       {
-        double x = xo + glucX(t.createdAt) - 0.3;
-        double y = yo + graphHeight - 0.6;
+        double x = glucX(t.createdAt) - 0.3;
+        double y = graphHeight - 0.6;
         (pictures["stack"] as List).add(
-          {"absolutePosition": {"x": cmx(x), "y": cmy(y)}, "image": "sensor.print", "width": cm(0.6)});
+          {"relativePosition": {"x": cm(x), "y": cm(y)}, "image": "sensor.print", "width": cm(0.6)});
         (pictures["stack"] as List).add({
-          "absolutePosition": {"x": cmx(x + 0.0), "y": cmy(y + 0.34)},
+          "relativePosition": {"x": cm(x + 0.0), "y": cm(y + 0.34)},
           "columns": [ {
             "width": cm(0.6),
             "text": "${fmtTime(t.createdAt)}",
@@ -622,7 +620,7 @@ class PrintDailyGraphic extends BasePrint
     });
 
     var limitLines = {
-      "absolutePosition": {"x": cmx(xo), "y": cmy(yo)},
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
       "canvas": [
         {
           "type": "rect",
@@ -666,7 +664,7 @@ class PrintDailyGraphic extends BasePrint
     else
       y += basalTop;
 
-    LegendData legend = LegendData(cmx(xo), cmy(y), cmx(8.0), 5);
+    LegendData legend = LegendData(cm(xo), cm(y), cm(8.0), 5);
     if (showLegend)
     {
       addLegendEntry(legend, colValue, msgGlucosekurve, isArea: false);
@@ -708,7 +706,7 @@ class PrintDailyGraphic extends BasePrint
     var dayBasal = showBasalDay ? getBasalGraph(day, false, false, xo, yo) : null;
 
     return [
-      header,
+      headerFooter(),
       glucTableCvs,
       vertLegend,
       vertLines,
@@ -723,8 +721,7 @@ class PrintDailyGraphic extends BasePrint
       dayBasal,
       profileBasal,
       graphLegend,
-      legend.asOutput,
-      footer()
+      legend.asOutput
     ];
   }
 
@@ -748,10 +745,10 @@ class PrintDailyGraphic extends BasePrint
     }
     var basalCvs = [];
     var ret = {
-      "stack": [{"absolutePosition": {"x": cmx(xo), "y": cmy(yo + graphHeight + basalTop)}, "canvas": basalCvs}]
+      "stack": [{"relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalTop)}, "canvas": basalCvs}]
     };
     if (basalSum != 0)ret["stack"].add({
-      "absolutePosition": {"x": cmx(xo), "y": cmy(yo + graphHeight + basalHeight + basalTop + 0.1)},
+      "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalHeight + basalTop + 0.1)},
       "columns": [ {
         "width": cm(basalWidth),
         "text": "${fmtNumber(basalSum, _precision, false)} ${msgInsulinUnit}",

@@ -529,6 +529,9 @@ class AppComponent
         DateTime target = DateTime(
           data.ns.entries.first.time.year, data.ns.entries.first.time.month, data.ns.entries.first.time.day);
         EntryData prev = data.ns.entries.first;
+        DateTime t = DateTime(prev.time.year,prev.time.month,prev.time.day);
+        prev = EntryData();
+        prev.time = t;
         EntryData next = EntryData();
         next.time = target;
         // distribute entries
@@ -556,16 +559,6 @@ class AppComponent
             int max = current
               .difference(prev.time)
               .inMinutes;
-/*
-            if (max >= minGapKeep)
-            {
-              entry = data.ns.entries[i + 1];
-              target = entry.time;
-              prev = entry;
-              next = EntryData();
-              next.time = target;
-            }
-// */
             while (current.isAfter(target) || current.isAtSameMomentAs(target))
             {
               double factor = max == 0 ? 0 : target
@@ -688,7 +681,7 @@ class AppComponent
           {
             doc = {
               "pageSize": "a4",
-              "pageOrientation": form.isPortrait ? "portrait" : "landscape",
+              "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
               "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
               "content": data,
               "images": form.images,
@@ -715,7 +708,7 @@ class AppComponent
               "text": "",
               "pageBreak": "after",
               "pageSize": "a4",
-              "pageOrientation": form.isPortrait ? "portrait" : "landscape",
+              "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
             };
             doc["content"].add(pagebreak);
             for (var entry in data)

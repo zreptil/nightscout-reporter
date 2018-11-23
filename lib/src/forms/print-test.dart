@@ -106,7 +106,7 @@ class PrintTest extends BasePrint
   @override
   void fillPages(ReportData src, List<List<dynamic>> pages)
   {
-    var ret = [header];
+    var ret = [headerFooter(skipFooter: true)];
     body = [];
     isFirst = true;
     if (showEntries)

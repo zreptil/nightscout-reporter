@@ -168,23 +168,22 @@ class PrintProfile extends BasePrint
     ]);
 
     var ret = [
-      header,
+      headerFooter(),
       {
-        "margin": [cmx(6.3), cm(3.0), cm(0), cm(0)],
+        "margin": [cm(6.3), cm(yorg), cm(0), cm(0)],
         "layout": "noBorders",
         "table": {"headerRows": 0, "widths": [cm(5.2), cm(1.0), cm(1.5)], "body": tableBody}
       },
       {
-        "margin": [cmx(3.7), cmy(0.5), cm(0), cm(0)],
+        "margin": [cm(3.7), cm(0.5), cm(0), cm(0)],
         "layout": "noBorders",
         "table": {"headerRows": 1, "widths": [cm(6.8), cm(6.8)], "body": icrIsfBody}
       },
       {
-        "margin": [cmx(3.7), cmy(0.5), cm(0), cm(0)],
+        "margin": [cm(3.7), cm(0.5), cm(0), cm(0)],
         "layout": "noBorders",
         "table": {"headerRows": 1, "widths": [cm(6.8), cm(6.8)], "body": basalTargetBody}
-      },
-      footer(),
+      }
     ];
     return ret;
   }

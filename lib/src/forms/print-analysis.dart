@@ -324,13 +324,13 @@ class PrintAnalysis extends BasePrint
       ],
     ]);
     var ret = [
-      header,
+      headerFooter(),
       {
-        "margin": [cmx(0), cmy(3), cm(0), cm(0)],
+        "margin": [cm(0), cm(yorg), cm(0), cm(0)],
         "columns": [{"width": cm(width), "text": "${src.globals.user.name}", "fontSize": fs(20), "alignment": "center"}]
       },
       {
-        "margin": [cmx(5.5), cm(0.5), cm(0), cm(0)],
+        "margin": [cm(5.5), cm(0.5), cm(0), cm(0)],
         "layout": "noBorders",
         "table": {
           "headerRows": 0,
@@ -344,11 +344,10 @@ class PrintAnalysis extends BasePrint
         }
       },
       {
-        "margin": [cmx(3.7), cm(0.5), cm(0), cm(0)],
+        "margin": [cm(3.7), cm(0.5), cm(0), cm(0)],
         "layout": "noBorders",
         "table": {"headerRows": 0, "widths": [cm(0), cm(7.3), cm(1.5), cm(1.5), cm(6)], "body": tableBody}
-      },
-      footer(),
+      }
     ];
     pages.add(ret);
   }

@@ -188,7 +188,7 @@ class PrintDailyStatistics extends BasePrint
 
     ProfileGlucData prevProfile = null;
     int lineCount = 0;
-    var ret = [header];
+    var page = [];
     DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData()));
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
@@ -216,21 +216,13 @@ class PrintDailyStatistics extends BasePrint
 
       body.add(row);
       lineCount ++;
-      if (lineCount == 21 && day != src.ns.days.last)
+      if (lineCount == 21)
       {
-        ret.add(getTable(_widths, body));
+        page.add(headerFooter());
+        page.add(getTable(_widths, body, day != src.ns.days.last));
         lineCount = 0;
-        if (day != src.ns.days.last)
-        {
-          ret.add(footer(addPageBreak: true));
-          pages.add(ret);
-          ret = [header];
-        }
-        else
-        {
-          ret.add(footer());
-          pages.add(ret);
-        }
+        pages.add(page);
+        page = [];
         body = [];
         prevProfile = null;
       }
@@ -243,21 +235,22 @@ class PrintDailyStatistics extends BasePrint
 
     if (prevProfile != null)
     {
-      ret.add(getTable(_widths, body));
-      ret.add(footer());
-      pages.add(ret);
+      page.add(headerFooter());
+      page.add(getTable(_widths, body, false));
+      pages.add(page);
     }
   }
 
-  getTable(widths, body)
+  getTable(widths, body, bool addPageBreak)
   {
     return {
       "columns": [ {
-        "margin": [cm(2.2), cmy(2.5), cm(2.2), cmy(0.0)],
+        "margin": [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
         "width": cm(width),
         "table": {"widths": widths, "body": body},
       }
-      ]
+      ],
+      "pageBreak": addPageBreak ? "after" : ""
     };
   }
 }

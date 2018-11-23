@@ -99,12 +99,8 @@ class PrintBasalrate extends BasePrint
         .difference(src.profiles[i].startDate)
         .inDays < 0)continue;
 
-      var page = getPage(profiles[i], calc);
-      if (ret.length > 0)ret.last["pageBreak"] = "after";
-      for (var j = 0; j < page.length; j++)
-        ret.add(page[j]);
+      pages.add(getPage(profiles[i], calc));
     }
-    pages.add(ret);
   }
 
   static double gridHeight = 9.45;
@@ -134,8 +130,8 @@ class PrintBasalrate extends BasePrint
 
     double lw = cm(0.03);
     String lc = "#a0a0a0";
-    var vertLines = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
-    var horzLines = {"absolutePosition": {"x": cmx(xo - 0.2), "y": cmy(yo)}, "canvas": []};
+    var vertLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
+    var horzLines = {"relativePosition": {"x": cm(xo - 0.2), "y": cm(yo)}, "canvas": []};
     var horzLegend = {"stack": []};
 
     List vertCvs = vertLines["canvas"] as List;
@@ -145,10 +141,10 @@ class PrintBasalrate extends BasePrint
     {
       vertCvs.add({
         "type": "line",
-        "x1": cmx(i * colWidth),
-        "y1": cmy(0),
-        "x2": cmx(i * colWidth),
-        "y2": cmy(lineHeight * gridLines + 0.25),
+        "x1": cm(i * colWidth),
+        "y1": cm(0),
+        "x2": cm(i * colWidth),
+        "y2": cm(lineHeight * gridLines + 0.25),
         "lineWidth": lw,
         "lineColor": i > 0 && i < 24 ? lc : lcFrame
       });
@@ -156,20 +152,20 @@ class PrintBasalrate extends BasePrint
       {
         vertCvs.add({
           "type": "line",
-          "x1": cmx((i + 0.5) * colWidth),
-          "y1": cmy(lineHeight * gridLines),
-          "x2": cmx((i + 0.5) * colWidth),
-          "y2": cmy(lineHeight * gridLines + 0.1),
+          "x1": cm((i + 0.5) * colWidth),
+          "y1": cm(lineHeight * gridLines),
+          "x2": cm((i + 0.5) * colWidth),
+          "y2": cm(lineHeight * gridLines + 0.1),
           "lineWidth": lw,
           "lineColor": lc
         });
         horzCvs.add({
-          "absolutePosition": {"x": cmx(xo + i * colWidth), "y": cmy(yo + gridLines * lineHeight + 0.3)},
+          "relativePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)},
           "text": fmtNumber(i, 0),
           "fontSize": fs(8)
         });
         horzStack.add({
-          "absolutePosition": {"x": cmx(xo + i * colWidth), "y": cmy(yo + gridLines * lineHeight + 0.3)},
+          "relativePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)},
           "text": fmtTime(i, def: "0"),
           "fontSize": fs(8)
         });
@@ -181,31 +177,31 @@ class PrintBasalrate extends BasePrint
     {
       horzCvs.add({
         "type": "line",
-        "x1": cmx(-0.2),
-        "y1": cmy((gridLines - i) * lineHeight) - lw / 2,
-        "x2": cmx(24 * colWidth + 0.2),
-        "y2": cmy((gridLines - i) * lineHeight) - lw / 2,
+        "x1": cm(-0.2),
+        "y1": cm((gridLines - i) * lineHeight) - lw / 2,
+        "x2": cm(24 * colWidth + 0.2),
+        "y2": cm((gridLines - i) * lineHeight) - lw / 2,
         "lineWidth": lw,
         "lineColor": i > 0 ? lc : lcFrame
       });
-//      vertCvs.add({"absolutePosition": {"x": cmx(xo - 0.7), "y": cmy(yo + (gridLines - i) * lineHeight - 0.15)}, "text": fmtNumber(i / 10, 1), "fontSize": fs(8)});
+//      vertCvs.add({"relativePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": fmtNumber(i / 10, 1), "fontSize": fs(8)});
       String text = "${fmtNumber(i * step, 1)} ${msgInsulinUnit}";
       vertStack.add({
-        "absolutePosition": {"x": cmx(xo - 1.0), "y": cmy(yo + (gridLines - i) * lineHeight - 0.15)},
+        "relativePosition": {"x": cm(xo - 1.0), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)},
         "text": text,
         "fontSize": fs(8)
       });
       vertStack.add({
-        "absolutePosition": {"x": cmx(xo + colWidth * 24 + 0.3), "y": cmy(yo + (gridLines - i) * lineHeight - 0.15)},
+        "relativePosition": {"x": cm(xo + colWidth * 24 + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)},
         "text": text,
         "fontSize": fs(8)
       });
     }
 
-    var testArea = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
-    var glucArea = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
+    var testArea = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
+    var glucArea = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     var glucValues = {"stack": []};
-    var brArea = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
+    var brArea = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     List brAreaCvs = brArea["canvas"] as List;
     Date date = Date(profile.startDate.year, profile.startDate.month, profile.startDate.day);
     for (var i = 0; i < brtimes.length; i++)
@@ -217,8 +213,8 @@ class PrintBasalrate extends BasePrint
         w = graphWidth - x;
       brAreaCvs.add({
         "type": "rect",
-        "x": cmx(x),
-        "y": cmy(lineHeight * gridLines),
+        "x": cm(x),
+        "y": cm(lineHeight * gridLines),
         "w": cm(w),
         "h": cm(-brtimes[i].value / step * lineHeight),
         "color": colBasalProfile
@@ -228,49 +224,49 @@ class PrintBasalrate extends BasePrint
     yo += lineHeight * gridLines + 1.5;
 
     lineHeight = 0.7;
-    var brTable = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
+    var brTable = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     List brTableCvs = brTable["canvas"] as List;
     brTableCvs.add({
       "type": "rect",
-      "x": cmx(0),
-      "y": cmy(0),
+      "x": cm(0),
+      "y": cm(0),
       "w": cm(24 * colWidth + 2.0),
       "h": cm(lineHeight),
       "color": colBasalProfile
     });
     brTableCvs.add({
       "type": "rect",
-      "x": cmx(0),
-      "y": cmy(lineHeight),
+      "x": cm(0),
+      "y": cm(lineHeight),
       "w": cm(24 * colWidth + 2.0),
       "h": cm(lineHeight),
       "color": blendColor(colBasalProfile, "#ffffff", 0.5)
     });
     brTableCvs.add({
       "type": "line",
-      "x1": cmx(0),
-      "y1": cmy(0),
-      "x2": cmx(0),
-      "y2": cmy(3 * lineHeight),
+      "x1": cm(0),
+      "y1": cm(0),
+      "x2": cm(0),
+      "y2": cm(3 * lineHeight),
       "lineWidth": lw,
       "lineColor": lc
     });
     brTableCvs.add({
       "type": "line",
-      "x1": cmx(24 * colWidth + 2.0),
-      "y1": cmy(0),
-      "x2": cmx(24 * colWidth + 2.0),
-      "y2": cmy(3 * lineHeight),
+      "x1": cm(24 * colWidth + 2.0),
+      "y1": cm(0),
+      "x2": cm(24 * colWidth + 2.0),
+      "y2": cm(3 * lineHeight),
       "lineWidth": lw,
       "lineColor": lc
     });
     for (var i = 0; i < 4; i++)
       brTableCvs.add({
         "type": "line",
-        "x1": cmx(0),
-        "y1": cmy(i * lineHeight),
-        "x2": cmx(24 * colWidth + 2.0),
-        "y2": cmy(i * lineHeight),
+        "x1": cm(0),
+        "y1": cm(i * lineHeight),
+        "x2": cm(24 * colWidth + 2.0),
+        "y2": cm(i * lineHeight),
         "lineWidth": lw,
         "lineColor": lc
       });
@@ -278,7 +274,7 @@ class PrintBasalrate extends BasePrint
 /*
     var pureLayout = {"hlineWidth": 0, "vlineWidth": 0, "hlineColor": 0, "vlineColor": 0, "paddingLeft": 0, "paddingRight": 0, "paddingTop": 0, "paddingBottom": 0};
     var brLegend = {
-      "absolutePosition": {"x": cmx(xo), "y": cmy(yo)},
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
       "table": {
         "body": [
           [{"margin": [0, cm(0.05), 0, 0], "text": "Uhr-\nzeit", "color": colorBasalFont, "alignment": "center"}],
@@ -294,17 +290,17 @@ class PrintBasalrate extends BasePrint
       "lineHeight": lineHeight,
       "stack": [
         {
-          "absolutePosition": {"x": cmx(xo), "y": cmy(yo + 0.05)},
+          "relativePosition": {"x": cm(xo), "y": cm(yo + 0.05)},
           "columns": [
             {"width": cm(1), "text": msgTimeShort, "fontSize": fs(8), "color": colBasalFont, "alignment": "center"}]
         },
         {
-          "absolutePosition": {"x": cmx(xo), "y": cmy(yo + lineHeight + 0.2)},
+          "relativePosition": {"x": cm(xo), "y": cm(yo + lineHeight + 0.2)},
           "columns": [ {"width": cm(1), "text": msgInsulinUnit, "fontSize": fs(8), "alignment": "center"},
           ]
         },
         {
-          "absolutePosition": {"x": cmx(xo), "y": cmy(yo + 2 * lineHeight + 0.05)},
+          "relativePosition": {"x": cm(xo), "y": cm(yo + 2 * lineHeight + 0.05)},
           "columns": [ {"width": cm(1), "text": msgAdjustment, "fontSize": fs(8), "alignment": "center"}],
         },
       ],
@@ -316,23 +312,23 @@ class PrintBasalrate extends BasePrint
 
     double ieSum = 0.0;
     double ieSumNext = 0.0;
-    var m = [cmx(0.1), cmy(0.17), cmx(0), cmy(0)];
+    var m = [cm(0.1), cm(0.17), cm(0), cm(0)];
     bool hasAdjustment = false;
     for (var i = 0; i < 25; i++)
     {
-      m[0] = cmx(0.5);
+      m[0] = cm(0.5);
       brTableCvs.add({
         "type": "line",
-        "x1": cmx(1 + i * colWidth),
-        "y1": cmy(0),
-        "x2": cmx(1 + i * colWidth),
-        "y2": cmy(3 * lineHeight),
+        "x1": cm(1 + i * colWidth),
+        "y1": cm(0),
+        "x2": cm(1 + i * colWidth),
+        "y2": cm(3 * lineHeight),
         "lineWidth": lw,
         "lineColor": lc
       });
       var text = {
         "width": cm(colWidth),
-        "margin": [i < 24 ? cmx(0.15) : cmx(0), cmy(0.15), cmx(0), cmy(0)],
+        "margin": [i < 24 ? cm(0.15) : cm(0), cm(0.15), cm(0), cm(0)],
         "text": (i < 24 ? fmtNumber(i) : msgTotal),
         "fontSize": fs(8),
         "color": colBasalFont,
@@ -393,16 +389,17 @@ class PrintBasalrate extends BasePrint
       "alignment": "center"
     });
     var content = [
-      header, /*
-      {"absolutePosition": {"x": cmx(2.2), "y": cmy(1.0)}, "text": "Basalrate", "fontSize": fs(36), "color": colText, "bold": true},
+      headerFooter(),
+      /*
+      {"relativePosition": {"x": cm(2.2), "y": cm(1.0)}, "text": "Basalrate", "fontSize": fs(36), "color": colText, "bold": true},
       {
-        "absolutePosition": {"x": cmx(20.5), "y": cmy(1.85)},
+        "relativePosition": {"x": cm(20.5), "y": cm(1.85)},
         "text": "gültig ${calc.endDate == null ? 'ab' : 'von'} ${fmtDate(profile.startDate)}${calc.endDate == null ? '' : ' bis${fmtDate(calc.endDate)}'} ",
         "fontSize": fs(10),
         "color": "#c0c0c0",
         "bold": true
       },
-      {"absolutePosition": {"x": cmx(2.2), "y": cmy(2.95)}, "canvas": [ {"type": "line", "x1": 0, "y1": 0, "x2": cmx(25.2), "y2": 0, "lineWidth": cm(0.2), "lineColor": colText}]},
+      {"relativePosition": {"x": cm(2.2), "y": cm(2.95)}, "canvas": [ {"type": "line", "x1": 0, "y1": 0, "x2": cm(25.2), "y2": 0, "lineWidth": cm(0.2), "lineColor": colText}]},
 */
       brArea,
       testArea,
@@ -412,33 +409,28 @@ class PrintBasalrate extends BasePrint
       horzLines,
       glucArea,
       glucValues,
-      {"absolutePosition": {"x": cmx(13.5), "y": cmy(14.1)}, "text": msgTime, "fontSize": fs(12)},
+      {"relativePosition": {"x": cm(13.5), "y": cm(14.1)}, "text": msgTime, "fontSize": fs(12)},
       brTable,
-      brLegend,
-      footer(),
+      brLegend
     ];
 
-    return
-
-      content
-
-    ;
+    return content;
   }
 
   getIllegalMark(xo, yo, x, y)
   {
     return [
-      {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "type": "ellipse", "x": cmx(x), "y": cmy(y), "r1": 3, "r2": 3}
+      {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "type": "ellipse", "x": cm(x), "y": cm(y), "r1": 3, "r2": 3}
     ];
   }
 
   getBRMark(xo, yo, x, y, gluc, calc)
   {
     var ret = [ {
-      "absolutePosition": {"x": cmx(xo), "y": cmy(yo)},
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
       "type": "ellipse",
-      "x": cmx(x),
-      "y": cmy(y),
+      "x": cm(x),
+      "y": cm(y),
       "r1": 3,
       "r2": 3,
       "color": "#f15741"
@@ -449,19 +441,19 @@ class PrintBasalrate extends BasePrint
       ret[0]["color"] = "#f00";
       ret.add({
         "type": "line",
-        "x1": cmx(x - 0.1),
-        "y1": cmy(y - 0.1),
-        "x2": cmx(x + 0.1),
-        "y2": cmy(y + 0.1),
+        "x1": cm(x - 0.1),
+        "y1": cm(y - 0.1),
+        "x2": cm(x + 0.1),
+        "y2": cm(y + 0.1),
         "lineColor": "#000",
         "lineWidth": cm(0.01)
       });
       ret.add({
         "type": "line",
-        "x1": cmx(x + 0.1),
-        "y1": cmy(y - 0.1),
-        "x2": cmx(x - 0.1),
-        "y2": cmy(y + 0.1),
+        "x1": cm(x + 0.1),
+        "y1": cm(y - 0.1),
+        "x2": cm(x - 0.1),
+        "y2": cm(y + 0.1),
         "lineColor": "#000",
         "lineWidth": cm(0.01)
       });

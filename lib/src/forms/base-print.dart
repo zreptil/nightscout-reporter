@@ -22,7 +22,7 @@ class LegendData
     if (columns.length == 0 || (columns.last["stack"] as List).length >= maxLines || forceNew)
     {
       x += columns.length > 0 ? colWidth : 0.0;
-      columns.add({"absolutePosition": {"x": x, "y": y}, "stack": []});
+      columns.add({"relativePosition": {"x": x, "y": y}, "stack": []});
     }
     return columns.last["stack"];
   }
@@ -155,7 +155,7 @@ abstract class BasePrint
   String name;
   String title;
   String titleInfo;
-  int pagesPerPage = 1;
+  int pagesPerSheet = 1;
   List<ParamInfo> params = List<ParamInfo>();
   List<ParamInfo> get sortedParams
   {
@@ -206,6 +206,8 @@ abstract class BasePrint
 
   bool _isPortrait = true;
   bool get isPortrait
+  => true;
+  bool get isSheetPortrait
   => _isPortrait;
   double get width
   => isPortrait ? 21.0 : 29.7;
@@ -443,29 +445,31 @@ abstract class BasePrint
     return ret;
   }
 
-  Object get header
+  Object headerFooter({bool addPageBreak: false, skipFooter: false})
   {
     bool isInput = false;
-    var ret = {"stack": []};
+    var stack = [];
+    var ret = {"stack": stack, "pageBreak": ""};
+    // header
     if (isPortrait)
     {
       if (isInput)
       {
-        ret["stack"].add({
-          "absolutePosition": {"x": cmx(0), "y": cmy(0)},
+        stack.add({
+          "relativePosition": {"x": cm(0), "y": cm(0)},
           "canvas": [
-            {"type": "rect", "x": cmx(0.0), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#d69a2e"},
-            {"type": "rect", "x": cmx(1.6), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#2e4736"},
-            {"type": "rect", "x": cmx(3.2), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#662c40"},
-            {"type": "rect", "x": cmx(4.8), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#343a49"},
-            {"type": "rect", "x": cmx(6.4), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#528c8e"},
-            {"type": "rect", "x": cmx(8.0), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#362946"},
-            {"type": "rect", "x": cmx(9.6), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#6b8133"},
-            {"type": "rect", "x": cmx(11.2), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#2a3b56"},
-            {"type": "rect", "x": cmx(12.8), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#862d2e"},
-            {"type": "rect", "x": cmx(14.4), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#607f6e"},
-            {"type": "rect", "x": cmx(16.0), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#273d3f"},
-            {"type": "rect", "x": cmx(17.6), "y": cmy(0), "w": cm(1.6), "h": cm(0.55), "color": "#a5916d"}
+            {"type": "rect", "x": cm(0.0), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#d69a2e"},
+            {"type": "rect", "x": cm(1.6), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#2e4736"},
+            {"type": "rect", "x": cm(3.2), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#662c40"},
+            {"type": "rect", "x": cm(4.8), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#343a49"},
+            {"type": "rect", "x": cm(6.4), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#528c8e"},
+            {"type": "rect", "x": cm(8.0), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#362946"},
+            {"type": "rect", "x": cm(9.6), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#6b8133"},
+            {"type": "rect", "x": cm(11.2), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#2a3b56"},
+            {"type": "rect", "x": cm(12.8), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#862d2e"},
+            {"type": "rect", "x": cm(14.4), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#607f6e"},
+            {"type": "rect", "x": cm(16.0), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#273d3f"},
+            {"type": "rect", "x": cm(17.6), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#a5916d"}
           ]
         });
       }
@@ -474,40 +478,40 @@ abstract class BasePrint
     {
       if (isInput)
       {
-        ret["stack"].add({
-          "absolutePosition": {"x": 0, "y": cmy(0)},
+        stack.add({
+          "relativePosition": {"x": cm(0), "y": cm(0)},
           "canvas": [
-            {"type": "rect", "x": cmx(0.0), "y": cmy(0), "w": cm(2.2), "h": cm(0.55), "color": "#d69a2e"},
-            {"type": "rect", "x": cmx(2.2), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#2e4736"},
-            {"type": "rect", "x": cmx(4.5), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#662c40"},
-            {"type": "rect", "x": cmx(6.8), "y": cmy(0), "w": cm(2.25), "h": cm(0.55), "color": "#343a49"},
-            {"type": "rect", "x": cmx(9.05), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#528c8e"},
-            {"type": "rect", "x": cmx(11.35), "y": cmy(0), "w": cm(2.25), "h": cm(0.55), "color": "#362946"},
-            {"type": "rect", "x": cmx(13.6), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#6b8133"},
-            {"type": "rect", "x": cmx(15.9), "y": cmy(0), "w": cm(2.25), "h": cm(0.55), "color": "#2a3b56"},
-            {"type": "rect", "x": cmx(18.15), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#862d2e"},
-            {"type": "rect", "x": cmx(20.45), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#607f6e"},
-            {"type": "rect", "x": cmx(22.75), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#273d3f"},
-            {"type": "rect", "x": cmx(25.05), "y": cmy(0), "w": cm(2.3), "h": cm(0.55), "color": "#a5916d"},
+            {"type": "rect", "x": cm(0.0), "y": cm(0), "w": cm(2.2), "h": cm(0.55), "color": "#d69a2e"},
+            {"type": "rect", "x": cm(2.2), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#2e4736"},
+            {"type": "rect", "x": cm(4.5), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#662c40"},
+            {"type": "rect", "x": cm(6.8), "y": cm(0), "w": cm(2.25), "h": cm(0.55), "color": "#343a49"},
+            {"type": "rect", "x": cm(9.05), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#528c8e"},
+            {"type": "rect", "x": cm(11.35), "y": cm(0), "w": cm(2.25), "h": cm(0.55), "color": "#362946"},
+            {"type": "rect", "x": cm(13.6), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#6b8133"},
+            {"type": "rect", "x": cm(15.9), "y": cm(0), "w": cm(2.25), "h": cm(0.55), "color": "#2a3b56"},
+            {"type": "rect", "x": cm(18.15), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#862d2e"},
+            {"type": "rect", "x": cm(20.45), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#607f6e"},
+            {"type": "rect", "x": cm(22.75), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#273d3f"},
+            {"type": "rect", "x": cm(25.05), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#a5916d"},
           ],
         });
       }
     }
-    ret["stack"].add({
-      "absolutePosition": {"x": cmx(2.2), "y": cmy(1.0)},
+    stack.add({
+      "relativePosition": {"x": cm(2.2), "y": cm(1.0)},
       "text": title,
       "fontSize": fs(36),
       "color": colText,
       "bold": true
     });
-    if (!g.hideNightscoutInPDF)ret["stack"].add({
-      "absolutePosition": {"x": cmx(2.2), "y": cmy(2.5)},
+    if (!g.hideNightscoutInPDF)stack.add({
+      "relativePosition": {"x": cm(2.2), "y": cm(2.5)},
       "text": "nightscout reporter ${g.version}",
       "fontSize": fs(8),
       "color": "#a0a0a0",
     });
-    ret["stack"].add({
-      "absolutePosition": {"x": cmx(2.2), "y": cmy(2.4)},
+    stack.add({
+      "relativePosition": {"x": cm(2.2), "y": cm(2.4)},
       "columns": [ {
         "width": cm(width - 4.4),
         "text": titleInfo,
@@ -518,8 +522,8 @@ abstract class BasePrint
       }
       ]
     });
-    ret["stack"].add({
-      "absolutePosition": {"x": cmx(2.2), "y": cmy(2.95)},
+    stack.add({
+      "relativePosition": {"x": cm(2.2), "y": cm(2.95)},
       "canvas": [ {
         "type": "line",
         "x1": cm(0),
@@ -531,13 +535,8 @@ abstract class BasePrint
       }
       ]
     });
-
-    return ret;
-  }
-
-  Object footer({bool addPageBreak = false})
-  {
-    bool isInput = false;
+    // footer
+    if (skipFooter)return ret;
     String rightText = "";
     if (g.user.name.isEmpty)
     {
@@ -549,37 +548,35 @@ abstract class BasePrint
       else
         rightText = g.user.name;
     }
-    var ret = {
-      "stack": [
-        {
-          "absolutePosition": {"x": cmx(2.2), "y": cmy(height - 2.0)},
-          "canvas": [ {
-            "type": "line",
-            "x1": cm(0),
-            "y1": cm(0),
-            "x2": cm(width - 4.4),
-            "y2": cm(0),
-            "lineWidth": cm(0.05),
-            "lineColor": colText
-          }
-          ]
-        },
-        g.hideNightscoutInPDF ? null : getImage("nightscout", x: 2.2, y: height - 1.7, width: 0.7),
-        g.hideNightscoutInPDF ? null : {
-          "absolutePosition": {"x": cmx(3.1), "y": cmy(height - 1.7)},
-          "text": "http://www.nightscout.info",
-          "color": colInfo,
-          "fontSize": fs(10)
-        },
-        isInput ? getImage("input", x: width - 5.6, y: height - 3.3, width: 4.0) : {},
-        {
-          "absolutePosition": {"x": cmx(2.2), "y": cmy(height - 1.7)},
-          "columns": [
-            {"width": cm(width - 4.4), "text": rightText, "color": colInfo, "alignment": "right", "fontSize": fs(10)}]
-        },
-      ],
-      "pageBreak": "",
-    };
+
+    stack.addAll([
+      {
+        "relativePosition": {"x": cm(2.2), "y": cm(height - 2.0)},
+        "canvas": [ {
+          "type": "line",
+          "x1": cm(0),
+          "y1": cm(0),
+          "x2": cm(width - 4.4),
+          "y2": cm(0),
+          "lineWidth": cm(0.05),
+          "lineColor": colText
+        }
+        ]
+      },
+      g.hideNightscoutInPDF ? null : _getFooterImage("nightscout", x: 2.2, y: height - 1.7, width: 0.7),
+      g.hideNightscoutInPDF ? null : {
+        "relativePosition": {"x": cm(3.1), "y": cm(height - 1.7)},
+        "text": "http://www.nightscout.info",
+        "color": colInfo,
+        "fontSize": fs(10)
+      },
+      isInput ? _getFooterImage("input", x: width - 5.6, y: height - 3.3, width: 4.0) : {},
+      {
+        "relativePosition": {"x": cm(2.2), "y": cm(height - 1.7)},
+        "columns": [
+          {"width": cm(width - 4.4), "text": rightText, "color": colInfo, "alignment": "right", "fontSize": fs(10)}]
+      }
+    ]);
 
     if (addPageBreak)ret["pageBreak"] = "after";
 
@@ -617,9 +614,9 @@ abstract class BasePrint
 
   prepareData_(ReportData data);
 
-  getImage(String id, {double x, double y, double width, double height = 0.0})
+  _getFooterImage(String id, {double x, double y, double width, double height = 0.0})
   {
-    var ret = {"absolutePosition": {"x": cmx(x), "y": cmy(y)}, "image": id};
+    var ret = {"relativePosition": {"x": cm(x), "y": cm(y)}, "image": id};
 
     if (images[id] != null)
     {
@@ -631,18 +628,18 @@ abstract class BasePrint
     {
       ret = {
         "stack": [ {
-          "absolutePosition": {"x": cmx(x), "y": cmy(y)},
+          "relativePosition": {"x": cm(x), "y": cm(y)},
           "canvas": [ {
             "type": "rect",
-            "x": cmx(0),
-            "y": cmy(0),
+            "x": cm(0),
+            "y": cm(0),
             "w": cm(max(width, 0.01)),
             "h": cm(max(height, 0.01)),
             "lineWidth": cm(0.01),
             "lineColor": "#f00"
           }
           ]
-        }, {"absolutePosition": {"x": cmx(x), "y": cmy(y)}, "text": "bild\n$id\nfehlt", "color": "#f00"}
+        }, {"relativePosition": {"x": cm(x), "y": cm(y)}, "text": "bild\n$id\nfehlt", "color": "#f00"}
         ]
       };
     }
@@ -657,9 +654,8 @@ abstract class BasePrint
   getEmptyForm(ReportData data)
   {
     return [
-      header,
-      {"margin": [cmx(2), cmy(3), cmx(2), cmy(0)], "text": msgMissingData, "fontSize": fs(10), "alignment": "center"},
-      footer()
+      headerFooter(),
+      {"margin": [cm(2), cm(3), cm(2), cm(0)], "text": msgMissingData, "fontSize": fs(10), "alignment": "center"},
     ];
   }
 
@@ -681,43 +677,72 @@ abstract class BasePrint
     if (!hasData(data))return getEmptyForm(data);
 
     dynamic ret = [];
+    var d = prepareData_(data);
     _pages.clear();
     try
     {
-      int columns = 1;
-      switch(pagesPerPage)
+      scale = 1.0;
+      int colCount = 1;
+      int rowCount = 1;
+      switch (pagesPerSheet)
       {
         case 2:
           scale = 21 / 29.7;
-          columns = 2;
+          colCount = 1;
+          rowCount = 2;
           break;
         case 4:
           scale = 0.5;
-          columns = 2;
+          colCount = 2;
+          rowCount = 2;
           break;
         case 8:
-          scale = 21 / 29.7;
-          columns = 2;
+          scale = 21 / 29.7 / 2;
+          colCount = 2;
+          rowCount = 4;
           break;
         case 16:
           scale = 0.25;
-          columns = 4;
+          colCount = 4;
+          rowCount = 4;
+          break;
+        case 32:
+          scale = 21 / 29.7 / 4;
+          colCount = 4;
+          rowCount = 8;
           break;
       }
       offsetX = 0.0;
       offsetY = 0.0;
-      await fillPages(prepareData_(data), _pages);
-      for(List<dynamic> page in _pages)
+      _isPortrait = isPortrait;
+      await fillPages(d, _pages);
+      int column = 0;
+      int row = 0;
+      for (List<dynamic> page in _pages)
       {
-//        ret.add({"absolutePosition": {"x":cm(0), "y": cm(0)}, "stack": page});
-        ret.addAll(page);
-        if(page != _pages.last)
-          ret.last["pageBreak"] = "after";
+        offsetX = column * width;
+        offsetY = row * height;
+        ret.add({"absolutePosition": {"x": cmx(0), "y": cmy(0)}, "stack": page});
+        column++;
+        if (column >= colCount)
+        {
+          column = 0;
+          row++;
+          if (row >= rowCount && page != _pages.last)
+          {
+            row = 0;
+            ret.last["pageBreak"] = "after";
+          }
+        }
+//        ret.addAll(page);
+//        if(page != _pages.last)
+//          ret.last["pageBreak"] = "after";
       }
-      switch(pagesPerPage)
+      switch (pagesPerSheet)
       {
         case 2:
         case 8:
+        case 32:
           _isPortrait = !_isPortrait;
           break;
       }
@@ -934,8 +959,7 @@ abstract class BasePrint
         "columns": [ {
           "width": cm(0.8),
           "stack": [
-            {"margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), cmx(0), cmy(0)], "image": image, "width": cm(imgWidth)}
-          ],
+            {"margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), cm(0), cm(0)], "image": image, "width": cm(imgWidth)}],
         }, {"text": text, "color": "black", "fontSize": fs(10)}
         ]
       });
