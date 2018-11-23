@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-11-20T09:40:39.136209",
+  "@@last_modified": "2018-11-23T08:15:24.767231",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -477,6 +477,11 @@
   },
   "Ø Basal pro Tag": "Ø Basal pro Tag",
   "@Ø Basal pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Microbolus pro Tag": "Ø Microbolus pro Tag",
+  "@Ø Microbolus pro Tag": {
     "type": "text",
     "placeholders": {}
   },
@@ -994,9 +999,69 @@
     "type": "text",
     "placeholders": {}
   },
+  "In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": "In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.",
+  "@In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": {
+    "description": "v112a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.",
+  "@Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": {
+    "description": "v112a2",
+    "type": "text",
+    "placeholders": {}
+  },
   "Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).": "Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).",
   "@Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).": {
     "description": "v112c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": "Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.",
+  "@Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": {
+    "description": "v112c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": "Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.",
+  "@Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": {
+    "description": "v112c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": "Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.",
+  "@Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": {
+    "description": "v112c4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": "Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.",
+  "@Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": {
+    "description": "v112f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.": "Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.",
+  "@Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.": {
+    "description": "v112f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": "Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.",
+  "@Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": {
+    "description": "v112f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": "Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.",
+  "@Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": {
+    "description": "v112f4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": "Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.",
+  "@Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": {
+    "description": "v112f5",
     "type": "text",
     "placeholders": {}
   },
@@ -1336,8 +1401,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_18": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_18": {
+  "ViewWhatsnewComponent0__message_28": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_28": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

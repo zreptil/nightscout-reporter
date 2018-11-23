@@ -13,6 +13,15 @@
       <div class="root">
         <h2><span @i18n="version">Version</span><span @i18n="v111">1.1.2 - xx.xx.2018</span></h2>
         <ul>
+          <li class="added" @i18n="v112a1">
+            In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate
+            dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter
+            Schrift angezeigt.
+          </li>
+          <li class="added" @i18n="v112a2">
+            Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben,
+            wenn sie vorhanden sind.
+          </li>
           <li class="changed" @i18n="v112c1">
             Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte
             Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird
@@ -22,6 +31,37 @@
             Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die
             Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch,
             Monat/Tag/Jahr für englisch).
+          </li>
+          <li class="changed" @i18n="v112c2">
+            Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.
+          </li>
+          <li class="changed" @i18n="v112c3">
+            Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der
+            Felder Von oder bis den Fokus erhält.
+          </li>
+          <li class="changed" @i18n="v112c4">
+            Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung
+            der Linie in der Tagesgrafik.
+          </li>
+          <li class="fixed" @i18n="v112f1">
+            Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit
+            stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und
+            nicht mehr durch die Wertetabelle.
+          </li>
+          <li class="fixed" @i18n="v112f2">
+            Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.
+          </li>
+          <li class="fixed" @i18n="v112f3">
+            Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im
+            Kalender-Control angezeigt wurden.
+          </li>
+          <li class="fixed" @i18n="v112f4">
+            Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert
+            für DIA nicht korrekt ausgelesen wurde.
+          </li>
+          <li class="fixed" @i18n="v112f5">
+            Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt
+            auf den aktuellen Tag bezogen.
           </li>
         </ul>
         <h2><span @i18n="version">Version</span><span @i18n="v111">1.1.1 - 19.11.2018</span></h2>

@@ -61,9 +61,12 @@ class Globals
     load();
   }
 
-  String version = "1.1.2-1";
+  String version = "1.1.2-4";
   String lastVersion;
   List<FormConfig> listConfig = List<FormConfig>();
+
+  Date date(DateTime src)
+  => Date(src.year, src.month, src.day);
 
   String get msgBE
   => _khFactor == 10 ? Intl.message("msgBE") : Intl.message("msgKE");

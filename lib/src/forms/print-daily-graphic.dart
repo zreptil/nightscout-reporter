@@ -93,6 +93,7 @@ class PrintDailyGraphic extends BasePrint
   @override
   bool get isPortrait
   => false;
+
   num lineWidth;
   double glucMax = 0.0;
   double profMax = 0.0;
@@ -100,9 +101,9 @@ class PrintDailyGraphic extends BasePrint
   double bolusMax = 50.0;
   double graphHeight;
   double graphBottom;
-  static double graphWidth = 23.25;
-  static double notesTop = 0.6;
-  static double notesHeight = 0.4;
+  static double graphWidth;
+  static double notesTop = 0.4;
+  static double notesHeight = 0.3;
   static double basalTop;
   static double basalHeight = 3.0;
   static double basalWidth = graphWidth;
@@ -136,10 +137,14 @@ class PrintDailyGraphic extends BasePrint
   }
 
   @override
-  getFormData_(ReportData src)
-  async {
-    var data = src.calc;
+  int pagesPerPage = 2;
 
+  @override
+  void fillPages(ReportData src, List<List<dynamic>> pages)
+  async {
+//    scale = height / width;
+    var data = src.calc;
+    graphWidth = 23.25;
     graphHeight = 6.5;
     if (!showBasalDay && !showBasalProfile)graphHeight += basalHeight + 1;
     if (!showLegend) graphHeight += 2.5;
@@ -152,15 +157,14 @@ class PrintDailyGraphic extends BasePrint
     }
 
     lineWidth = cm(0.03);
-    var ret = [];
-    offsetX = 0.0;
-    offsetY = 0.0;
+//    offsetX = 0.0;
+//    offsetY = 0.0;
 
     for (int i = 0; i < data.days.length; i++)
     {
       DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
-      var page = getPage(day, src);
-      ret.addAll(page);
+      pages.add(getPage(day, src));
+/*
       if (i < data.days.length - 1)
       {
         if (!isSmall || (offsetY == height && offsetX == width))
@@ -179,9 +183,13 @@ class PrintDailyGraphic extends BasePrint
           offsetX = width;
         }
       }
+*/
     }
-    return ret;
+//    _isPortrait = true;
   }
+
+  dynamic glucLine(dynamic points)
+  => {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": points};
 
   getPage(DayData day, ReportData src)
   {
@@ -277,21 +285,39 @@ class PrintDailyGraphic extends BasePrint
       }
     }
     glucMax = gridLines * 50.0;
-    var glucLine = {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": []};
-    List glucLinePoints = glucLine["points"];
     for (EntryData entry in day.bloody)
     {
       double x = glucX(entry.time);
       double y = glucY(entry.mbg);
-      graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": "red"});
+      graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": colBloodValues});
     }
+    for (TreatmentData t in day.treatments)
+    {
+      if (t.glucoseType.toLowerCase() == "finger")
+      {
+        double x = glucX(t.createdAt);
+        double y = glucY(t.glucose);
+        graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": colBloodValues});
+      }
+    }
+
+    dynamic points = [];
+    DateTime lastTime = null;
     for (EntryData entry in day.entries)
     {
       double x = glucX(entry.time);
       double y = glucY(entry.gluc);
-      glucLinePoints.add({"x": cm(x), "y": cm(y)});
+      if (lastTime != null && entry.time
+                                .difference(lastTime)
+                                .inMinutes >= 15)
+      {
+        graphGlucCvs.add(glucLine(points));
+        points = [];
+      }
+      points.add({"x": cm(x), "y": cm(y)});
+      lastTime = entry.time;
     }
-    graphGlucCvs.add(glucLine);
+    graphGlucCvs.add(glucLine(points));
 
     bool hasLowGluc = false;
     bool hasNormGluc = false;
@@ -303,10 +329,10 @@ class PrintDailyGraphic extends BasePrint
         int hours = i ~/ 2;
         int minutes = (i % 2) * 30;
         DateTime check = DateTime(0, 1, 1, hours, minutes);
-        EntryData entry = day.findNearest(check, maxMinuteDiff: 15);
+        EntryData entry = day.findNearest(day.entries, null, check, maxMinuteDiff: 15);
+        double x = glucX(check) + 0.02;
         if (entry != null)
         {
-          double x = glucX(check);
           String col = colNorm;
           if (entry.gluc > day.basalData.targetHigh)
           {
@@ -348,6 +374,28 @@ class PrintDailyGraphic extends BasePrint
             "lineWidth": cm(lw),
             "lineColor": lc
           });
+        }
+        if(entry != null)
+        {
+          dynamic found = day.findNearest(day.bloody, day.treatments, check, maxMinuteDiff: 15);
+          if (found is EntryData)
+          {
+            (glucTable["stack"] as List).add({
+              "relativePosition": {"x": cm(x), "y": cm(i % 2 != 0 ? 0 : glucTableHeight / 2)},
+              "text": glucFromData(entry.mbg),
+              "color": colBloodValues,
+              "fontSize": fs(7)
+            });
+          }
+          else if (found is TreatmentData)
+          {
+            (glucTable["stack"] as List).add({
+              "relativePosition": {"x": cm(x), "y": cm(i % 2 != 0 ? 0 : glucTableHeight / 2)},
+              "text": glucFromData(entry.gluc),
+              "color": colBloodValues,
+              "fontSize": fs(7)
+            });
+          }
         }
       }
       (glucTableCvs["canvas"] as List).add({
@@ -423,7 +471,7 @@ class PrintDailyGraphic extends BasePrint
         }
         if (t.isSMB && t.insulin > 0)
         {
-          EntryData entry = day.findNearest(t.createdAt);
+          EntryData entry = day.findNearest(day.entries, null, t.createdAt);
           x = glucX(t.createdAt);
           if (entry != null && showSMBatGluc)
           {
@@ -434,19 +482,6 @@ class PrintDailyGraphic extends BasePrint
             y = glucY(src.targetValue(t.createdAt)) + lw / 2;
           }
           paintSMB(t.insulin, x, y, graphInsulin["stack"][0]["canvas"] as List);
-/*
-          double baseY = glucY(src.status.settings.thresholds.bgTargetTop.toDouble());
-          y = bolusY(t.insulin);
-          (graphInsulin["stack"][0]["canvas"] as List).add({
-            "type": "line",
-            "x1": cm(x),
-            "y1": cm(baseY),
-            "x2": cm(x),
-            "y2": cm(baseY + y),
-            "lineColor": colBolus,
-            "lineWidth": cm(0.1),
-          });
-*/
         }
       }
       if (type == "site change" && showPictures)
@@ -520,7 +555,7 @@ class PrintDailyGraphic extends BasePrint
           graphGlucCvs.add({
             "type": "line",
             "x1": cm(x),
-            "y1": cm(glucY(t.glucose)),
+            "y1": cm(graphBottom),
             "x2": cm(x),
             "y2": cm(y + notesHeight),
             "lineWidth": cm(lw),
@@ -539,9 +574,9 @@ class PrintDailyGraphic extends BasePrint
             graphGlucCvs.add({
               "type": "line",
               "x1": cm(x),
-              "y1": cm(y),
+              "y1": cm(graphBottom + 0.35),
               "x2": cm(x),
-              "y2": cm(y + notesHeight / 2),
+              "y2": cm(y + 0.1),
               "lineWidth": cm(lw),
               "lineColor": colDurationNotesLine
             });
@@ -564,7 +599,7 @@ class PrintDailyGraphic extends BasePrint
     {
       double low = profile.store.listTargetLow[i].value;
       double high = profile.store.listTargetHigh[i].value;
-      double x = glucX(profile.store.listTargetLow[i].time);
+      double x = glucX(profile.store.listTargetLow[i].time(day.date));
       double y = glucY((low + high) / 2);
       if (lastTarget >= 0)targetValues.add({"x": cm(x), "y": cm(lastTarget)});
       targetValues.add({"x": cm(x), "y": cm(y)});
@@ -738,7 +773,7 @@ class PrintDailyGraphic extends BasePrint
     if (!displayProfile)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
     for (ProfileEntryData entry in data)
     {
-      double x = basalX(entry.time);
+      double x = basalX(entry.time(day.date));
       double y = basalY(entry.value);
       if (lastY >= 0)areaPoints.add({"x": cm(x), "y": cm(lastY)});
       areaPoints.add({"x": cm(x), "y": cm(y)});

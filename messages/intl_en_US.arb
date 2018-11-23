@@ -478,7 +478,12 @@
     "type": "text",
     "placeholders": {}
   },
-  "Ø Insulinverhältnis": "Avg. Insulin ratio",
+  "Ø Microbolus pro Tag": "Avg. Microbolus per day",
+  "@Ø Microbolus pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Insulinverhältnis": "Avg. insulin ratio",
   "@Ø Insulinverhältnis": {
     "type": "text",
     "placeholders": {}
@@ -992,9 +997,69 @@
     "type": "text",
     "placeholders": {}
   },
-  "Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).": "The selection of the period is now more flexible. The selection is done in a dialog that takes the language into account. Selecting the default ranges (today, last week, etc.) sets the current date as the basis for the range at the next call. If the range is set directly in the calendar, then it will be applied the next time as defined. By default, the first day of the week is now a Monday. However, this can be set to your own preference by clicking on the day of the week in the title bar of the month. The date fields are entered in the form that corresponds to the language (day.month.year for German, month/day/year for English).",
+  "In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": "The daily chart now also displays blood glucose values. They are displayed as red squares and the associated values ​​in the table below the graphic are also displayed in red.",
+  "@In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": {
+    "description": "v112a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": "The microboli of the Minimed 600 Uploader are now also identified and output in the analysis, if they exist.",
+  "@Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": {
+    "description": "v112a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).": "The selection of the period is now more flexible. The selection is done in a dialog that takes the language into account. Selecting the default ranges (today, last week, etc.) sets the current date as the basis for the range at the next call. If the range is set directly in the calendar, then it will be applied the next time as defined. By default, the first day of the week is now a Monday. However, this can be set to your own preference by clicking on the day of the week in the title bar of the month. The date fields are entered in the form that corresponds to the language (day.month.year for German, month/day / year for English).",
   "@Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).": {
     "description": "v112c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": "The calendar control can no longer select a date after the current day.",
+  "@Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": {
+    "description": "v112c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": "The calendar control now displays the month of the corresponding date when one of the fields From or To receives the focus.",
+  "@Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": {
+    "description": "v112c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": "If there are gaps in the entries of 15 minutes or more, there will also be a gap in the daily chart.",
+  "@Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": {
+    "description": "v112c4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": "The positioning of the notes in the daily chart has been corrected so that they are closer to the time. The strokes were shortened so that they go only to the bottom of the graph and not through the table of values.",
+  "@Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": {
+    "description": "v112f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.": "The own limits on the analysis page in mmol/L are now calculated correctly.",
+  "@Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.": {
+    "description": "v112f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": "Fixed a bug that caused the last days of certain months not to be displayed in the calendar control.",
+  "@Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": {
+    "description": "v112f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": "An error has probably been fixed that causes some profiles to miss the value for DIA incorrectly.",
+  "@Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": {
+    "description": "v112f4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": "In the calendar control, a defined period (today, last week, etc.) is now correctly based on the current day.",
+  "@Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": {
+    "description": "v112f5",
     "type": "text",
     "placeholders": {}
   },
@@ -1334,8 +1399,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_18": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
-  "@ViewWhatsnewComponent0__message_18": {
+  "ViewWhatsnewComponent0__message_28": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
+  "@ViewWhatsnewComponent0__message_28": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

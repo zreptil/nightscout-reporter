@@ -9,7 +9,7 @@ class _Day
 {
   Date date;
   DatepickerPeriod _period;
-  int forMonth;
+  int _forMonth;
 
   get name
   => _period.dowName(date);
@@ -22,9 +22,17 @@ class _Day
   bool get isRaised
   => _period.start != null && _period.end != null && date.isOnOrAfter(_period.start) && date.isOnOrBefore(_period.end);
   bool get isEnabled
-  => date.month == forMonth;
+  {
+    if(date.month != _forMonth)
+      return false;
+    if(_period.maxDate != null && date.isAfter(_period.maxDate))
+      return false;
+    if(_period.minDate != null && date.isBefore(_period.minDate))
+      return false;
+    return true;
+  }
 
-  _Day(this._period, d, this.forMonth)
+  _Day(this._period, d, this._forMonth)
   {
     date = Date(d.year, d.month, d.day);
   }
@@ -34,16 +42,14 @@ class _Week
 {
   Date _date;
   DatepickerPeriod _period;
+  int _forMonth;
   List<_Day> days = List<_Day>();
-  _Week(this._period, Date date)
+  _Week(this._period, this._date, this._forMonth)
   {
-    _date = Date(date.year, date.month, date.day);
-    int diff = _period.firstDayOfWeek - _date.weekday;
-    _date = _date.add(days: diff <= 0 ? diff : diff - 7);
     Date d = Date(_date.year, _date.month, _date.day);
     for (int i = 0; i < 7; i++)
     {
-      days.add(_Day(_period, d, date.month));
+      days.add(_Day(_period, d, _forMonth));
       d = d.add(days: 1);
     }
   }
@@ -58,9 +64,11 @@ class _Month
   {
     date = Date(date.year, date.month, 1);
     Date d = Date(date.year, date.month, 1);
+    int diff = _period.firstDayOfWeek - d.weekday;
+    d = d.add(days: diff <= 0 ? diff : diff - 7);
     do
     {
-      weeks.add(_Week(_period, d));
+      weeks.add(_Week(_period, d, date.month));
       d = d.add(days: 7);
     }
     while (d.month == date.month);

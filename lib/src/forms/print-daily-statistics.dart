@@ -158,7 +158,7 @@ class PrintDailyStatistics extends BasePrint
   }
 
   @override
-  getFormData_(ReportData src)
+  void fillPages(ReportData src, List<List<dynamic>> pages)
   {
     titleInfo = titleInfoBegEnd(src);
     _settings = src.status.settings;
@@ -189,7 +189,7 @@ class PrintDailyStatistics extends BasePrint
     ProfileGlucData prevProfile = null;
     int lineCount = 0;
     var ret = [header];
-    DayData totalDay = DayData(null, ProfileGlucData());
+    DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData()));
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
     int totalDays = 0;
@@ -223,11 +223,13 @@ class PrintDailyStatistics extends BasePrint
         if (day != src.ns.days.last)
         {
           ret.add(footer(addPageBreak: true));
-          ret.add(header);
+          pages.add(ret);
+          ret = [header];
         }
         else
         {
           ret.add(footer());
+          pages.add(ret);
         }
         body = [];
         prevProfile = null;
@@ -243,9 +245,8 @@ class PrintDailyStatistics extends BasePrint
     {
       ret.add(getTable(_widths, body));
       ret.add(footer());
+      pages.add(ret);
     }
-
-    return ret;
   }
 
   getTable(widths, body)

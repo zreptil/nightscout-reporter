@@ -1,3 +1,4 @@
+import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -6,11 +7,11 @@ import 'base-print.dart';
 class PrintProfile extends BasePrint
 {
   bool isPrecise;
-  int get _precision => isPrecise ? 2 : 1;
+  int get _precision
+  => isPrecise ? 2 : 1;
 
   @override
-  List<ParamInfo> params = [
-    ParamInfo(0, msgParam1, boolValue: false),
+  List<ParamInfo> params = [ParamInfo(0, msgParam1, boolValue: false),
   ];
 
   @override
@@ -41,16 +42,16 @@ class PrintProfile extends BasePrint
   static String get msgParam1
   => Intl.message("Basalrate mit zwei Nachkommastellen");
 
-  getFactorBody(List<ProfileEntryData> list, msg(String a, String b), {int precision: 1})
+  getFactorBody(Date date, List<ProfileEntryData> list, msg(String a, String b), {int precision: 1})
   {
     dynamic ret = [];
     for (int i = 0; i < list.length; i++)
     {
       ProfileEntryData entry = list[i];
-      DateTime end = DateTime(0, 1, 1, 23, 59);
-      if (i < list.length - 1)end = list[i + 1].time;
+      DateTime end = DateTime(date.year, date.month, date.day, 23, 59);
+      if (i < list.length - 1)end = list[i + 1].time(date);
       ret.add([
-        {"text": msg(fmtTime(entry.time, withUnit: true), fmtTime(end, withUnit: true)), "style": "infotitle"},
+        {"text": msg(fmtTime(entry.time(date), withUnit: true), fmtTime(end, withUnit: true)), "style": "infotitle"},
         {"text": entry.forceText ?? fmtNumber(entry.value, precision, false), "style": "infodata"},
       ]);
     }
@@ -58,47 +59,33 @@ class PrintProfile extends BasePrint
   }
 
   @override
-  getFormData_(ReportData src)
+  void fillPages(ReportData src, List<List<dynamic>> pages)
   {
     titleInfo = titleInfoBegEnd(src);
-    var ret = [];
     DateTime startDate = DateTime(src.begDate.year, src.begDate.month, src.begDate.day);
     DateTime endDate = DateTime(src.endDate.year, src.endDate.month, src.endDate.day);
     List<ProfileData> profiles = src.profiles;
     for (int i = 0; i < src.profiles.length; i++)
     {
-//      calc = calcDay(src.profiles[i], calc);
       DateTime profEndDate;
       DateTime profStartDate = src.profiles[i].startDate;
-//*
       if (i < src.profiles.length - 1)
       {
         profEndDate = src.profiles[i + 1].startDate.add(Duration(days: -1));
         if (startDate
-          .difference(src.profiles[i + 1].startDate)
-          .inDays >= 0)continue;
+              .difference(src.profiles[i + 1].startDate)
+              .inDays >= 0)continue;
       }
       else
       {
         profEndDate = null;
       }
-// */
       if (endDate
-        .difference(profiles[i].startDate)
-        .inDays < 0)continue;
+            .difference(profiles[i].startDate)
+            .inDays < 0)continue;
 
-      var page = getPage(src.profile(profiles[i].startDate), profStartDate, profEndDate);
-      if (ret.length > 0)ret.last["pageBreak"] = "after";
-      for (var j = 0; j < page.length; j++)
-        ret.add(page[j]);
-
-//      ret.add(getFooter(true, i < profiles.length - 1));
-//      calc.firstTime -= 24 * 60;
-//      calc.bolusTime -= 24 * 60;
-//      if(calc.brBolusTime)
-//        calc.brBolusTime -= 24*60;
+      pages.add(getPage(src.profile(profiles[i].startDate), profStartDate, profEndDate));
     }
-    return ret;
   }
 
   getPage(ProfileGlucData profile, DateTime startDate, DateTime endDate)
@@ -124,8 +111,9 @@ class PrintProfile extends BasePrint
     ]);
 // */
     dynamic icrIsfBody = [];
-    dynamic bodyICR = getFactorBody(profile.store.listCarbratio, msgFactorEntry);
-    dynamic bodyISF = getFactorBody(profile.store.listSens, msgFactorEntry);
+    Date date = g.date(startDate);
+    dynamic bodyICR = getFactorBody(date, profile.store.listCarbratio, msgFactorEntry);
+    dynamic bodyISF = getFactorBody(date, profile.store.listSens, msgFactorEntry);
 
     icrIsfBody.add([
       {"text": msgICR, "fontSize": fs(8), "color": "#606060", "alignment": "center"},
@@ -146,23 +134,21 @@ class PrintProfile extends BasePrint
     ]);
 
     dynamic basalTargetBody = [];
-    dynamic bodyBasal = getFactorBody(profile.store.listBasal, msgFactorEntry, precision: _precision);
+    dynamic bodyBasal = getFactorBody(date, profile.store.listBasal, msgFactorEntry, precision: _precision);
     List<ProfileEntryData> listTarget = List<ProfileEntryData>();
-    if(profile.store.listTargetHigh.length == profile.store.listTargetLow.length)
+    if (profile.store.listTargetHigh.length == profile.store.listTargetLow.length)
+    {
+      for (int i = 0; i < profile.store.listTargetHigh.length; i++)
       {
-        for(int i=0; i<profile.store.listTargetHigh.length; i++)
-        {
-          ProfileEntryData high = profile.store.listTargetHigh[i];
-          ProfileEntryData low = profile.store.listTargetLow[i];
-          if(high.time != low.time)
-            continue;
-          ProfileEntryData entry = ProfileEntryData();
-          entry.time = high.time;
-          entry.forceText = "${fmtNumber(low.value,0)} - ${fmtNumber(high.value,0)}";
-          listTarget.add(entry);
-        }
+        ProfileEntryData high = profile.store.listTargetHigh[i];
+        ProfileEntryData low = profile.store.listTargetLow[i];
+        if (high.time(date) != low.time(date))continue;
+        ProfileEntryData entry = ProfileEntryData(profile.store.timezone, high.time(date));
+        entry.forceText = "${fmtNumber(low.value, 0)} - ${fmtNumber(high.value, 0)}";
+        listTarget.add(entry);
       }
-    dynamic bodyTarget = getFactorBody(listTarget, msgFactorEntry);
+    }
+    dynamic bodyTarget = getFactorBody(date, listTarget, msgFactorEntry);
     basalTargetBody.add([
       {"text": msgBasalProfile, "fontSize": fs(8), "color": "#606060", "alignment": "center"},
       {"text": msgTarget(getGlucInfo()["unit"]), "fontSize": fs(8), "color": "#606060", "alignment": "center"}

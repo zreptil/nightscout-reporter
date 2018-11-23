@@ -31,22 +31,24 @@
       <div>{{progressText}}</div>
     </div>
     <div class="normal-content" [style.display]="progressText == null && currPage=='normal'?'':'none'">
-      <div class="userPanel" *ngIf="g.userList.length > 1">
-        <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect">
-          <material-select-item *ngFor="let item of g.userList; let idx = index"
-                                (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');"
-                                class="selectItem"
-                                [selected]="idx==g.userIdx">
-            <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>
-            <div class="itemSub">{{item.storageApiUrl}}</div>
-          </material-select-item>
-        </material-dropdown-select>
-        <material-button icon class="material-drawer-button"
-                         (trigger)="currPage='settings';">
-          <material-icon icon="settings"></material-icon>
-        </material-button>
+      <div class="basePanel">
+        <div class="userPanel" *ngIf="g.userList.length > 1">
+          <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect">
+            <material-select-item *ngFor="let item of g.userList; let idx = index"
+                                  (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');"
+                                  class="selectItem"
+                                  [selected]="idx==g.userIdx">
+              <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>
+              <div class="itemSub">{{item.storageApiUrl}}</div>
+            </material-select-item>
+          </material-dropdown-select>
+          <material-button icon class="material-drawer-button"
+                           (trigger)="currPage='settings';">
+            <material-icon icon="settings"></material-icon>
+          </material-button>
+        </div>
+        <datepicker [(period)]="g.period"></datepicker>
       </div>
-      <datepicker [(period)]="g.period"></datepicker>
       <div class="formlist">
         <template ngFor let-cfg [ngForOf]="g.listConfig">
           <div *ngIf="!cfg.form.isDebugOnly || isDebug">

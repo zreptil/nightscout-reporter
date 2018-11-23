@@ -1,6 +1,17 @@
 ## [Unreleased]
 ### Added
-- added own control for definition of period 
+- added own control for definition of period
+- added bloody values to daily graphics
+
+### Changed
+- buttons to data in debugmode show number of datasets
+- daily graphics will show a gap when the difference in entries is 15 minutes or above
+
+### Fixed 
+- fixed position of notes in daily graphics
+- fixed lines of notes in daily graphics to not cross the value table
+- fixed calculation of own limits on analysis pdf in mmol/L
+- fixed calendar control to set start and end correct if period is defined 
 
 ## [1.1.1]
 ### Added

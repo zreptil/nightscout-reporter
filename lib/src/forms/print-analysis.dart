@@ -1,3 +1,4 @@
+import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -46,17 +47,26 @@ class PrintAnalysis extends BasePrint
     ]);
 
     for (dynamic line in lines)
+    {
+      if (line[0]["@"] != null)
+      {
+        if (line[0]["@"] == false)continue;
+        else
+          line.removeAt(0);
+      }
       body.add(line);
+    }
   }
 
-  getFactorBody(List<ProfileEntryData> list, msg(String a, String b))
+/*
+  getFactorBody(Date date, List<ProfileEntryData> list, msg(String a, String b))
   {
     dynamic ret = [];
     for (int i = 0; i < list.length; i++)
     {
       ProfileEntryData entry = list[i];
       DateTime end = DateTime(0, 1, 1, 23, 59);
-      if (i < list.length - 1)end = list[i + 1].time;
+      if (i < list.length - 1)end = list[i + 1].time(date);
       ret.add([
         {"text": msg(fmtTime(entry.time, withUnit: true), fmtTime(end, withUnit: true)), "style": "infotitle"},
         {"text": fmtNumber(entry.value, 1, false), "style": "infodata"},
@@ -64,9 +74,9 @@ class PrintAnalysis extends BasePrint
     }
     return ret;
   }
-
+*/
   @override
-  getFormData_(ReportData src)
+  void fillPages(ReportData src, List<List<dynamic>> pages)
   {
     titleInfo = titleInfoBegEnd(src);
     var data = src.ns;
@@ -207,8 +217,8 @@ class PrintAnalysis extends BasePrint
       ]
     ]);
 
-    if (src.status.settings.thresholds.bgTargetBottom != 70 || src.status.settings.thresholds
-      .bgTargetTop != 180) addBodyArea(tableBody, msgStandardLimits, [
+    if (src.status.settings.thresholds.bgTargetBottom != 70 ||
+      src.status.settings.thresholds.bgTargetTop != 180) addBodyArea(tableBody, msgStandardLimits, [
       [
         {"text": "", "style": "infotitle"},
         {"text": msgValuesAbove("${glucFromData(180)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
@@ -304,8 +314,15 @@ class PrintAnalysis extends BasePrint
         {"text": "basal (${fmtNumber(data.ieBasalPrz, 1, false)} %)", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infounit"},
       ],
+      [
+        {"@": data.ieMicroBolusSum > 0.0},
+        {"text": "", "style": "infotitle"},
+        {"text": msgMicroBolusPerDay, "style": "infotitle"},
+        {"text": "${fmtNumber(data.ieMicroBolusSum / src.dayCount, 1, false)}", "style": "infodata"},
+        {"text": "bolus (${fmtNumber(data.ieMicroBolusPrz, 1, false)} %)", "style": "infounit", "colSpan": 2},
+        {"text": "", "style": "infounit"},
+      ],
     ]);
-
     var ret = [
       header,
       {
@@ -333,6 +350,6 @@ class PrintAnalysis extends BasePrint
       },
       footer(),
     ];
-    return ret;
+    pages.add(ret);
   }
 }

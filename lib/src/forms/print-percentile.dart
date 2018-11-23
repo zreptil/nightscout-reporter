@@ -78,7 +78,7 @@ class PrintPercentile extends BasePrint
   }
 
   @override
-  getFormData_(ReportData src)
+  void fillPages(ReportData src, List<List<dynamic>> pages)
   async {
     double xo = xorg;
     double yo = yorg;
@@ -210,9 +210,9 @@ class PrintPercentile extends BasePrint
       .targetLow), glucFromData(src
       .profile(DateTime.now())
       .targetHigh), getGlucInfo()["unit"]));
-    return [
+    pages.add([
       header, vertLegend, vertLines, horzLegend, horzLines, limitLines, percGraph, graph, percLegend.asOutput, footer(),
-    ];
+    ]);
   }
 
   bool addPercentileGraph(var percGraph, Map<DateTime, PercentileData> percList, int low, int high, String color)

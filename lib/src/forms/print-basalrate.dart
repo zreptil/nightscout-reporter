@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -70,23 +71,20 @@ class PrintBasalrate extends BasePrint
   }
 
   @override
-  getFormData_(ReportData src)
+  void fillPages(ReportData src, List<List<dynamic>> pages)
   async {
     lineWidth = cm(0.03);
     var ret = [];
-    var calc = CalcData();
+    CalcData calc = CalcData();
     DateTime startDate = DateTime(src.begDate.year, src.begDate.month, src.begDate.day);
     DateTime endDate = DateTime(src.endDate.year, src.endDate.month, src.endDate.day);
     List<ProfileData> profiles = src.profiles;
     for (int i = 0; i < src.profiles.length; i++)
     {
-//      calc = calcDay(src.profiles[i], calc);
-
       if (i < src.profiles.length - 1)
       {
         calc.nextBRTimes = src.profiles[i + 1].current.listBasal;
         calc.endDate = src.profiles[i + 1].startDate.add(Duration(days: -1));
-//        calc.endDate.add(Duration(days: -1));
         if (startDate
           .difference(src.profiles[i + 1].startDate)
           .inDays >= 0)continue;
@@ -105,59 +103,10 @@ class PrintBasalrate extends BasePrint
       if (ret.length > 0)ret.last["pageBreak"] = "after";
       for (var j = 0; j < page.length; j++)
         ret.add(page[j]);
-
-//      ret.add(getFooter(true, i < profiles.length - 1));
-//      calc.firstTime -= 24 * 60;
-//      calc.bolusTime -= 24 * 60;
-//      if(calc.brBolusTime)
-//        calc.brBolusTime -= 24*60;
     }
-    return ret;
+    pages.add(ret);
   }
 
-/*
-  CalcData calcDay(globals.ProfileData profile, CalcData calc)
-  {
-    List<globals.ProfileEntryData> brtimes = profile.store[profile.defaultProfile].listBasal;
-      for(var i=0; i<brtimes.length; i++)
-      {
-        if(day.times[i].typ=="brtest" && day.times[i].gluc)
-        {
-          var gluc = Number(day.times[i].gluc);
-          if(!calc.firstGluc)
-          {
-            var time = day.times[i].time;
-            time = (time/100).floor()*60+(time%100);
-            if(!calc.bolusTime || time > calc.bolusTime + 4*60)
-            {
-              calc.firstGluc = gluc;
-              calc.firstTime = Number(day.times[i].time);
-              calc.firstTime = (calc.firstTime/100).floor()*60+(calc.firstTime%100);
-            }
-          }
-          if(gluc>calc.glucMax)
-            calc.glucMax = gluc;
-
-          if(!calc.brBolusTime)
-          {
-            calc.lastTime = Number(day.times[i].time);
-            calc.lastTime = (calc.lastTime/100).floor()*60+(calc.lastTime%100);
-          }
-          if(day.times[i].bolusbe || day.times[i].bolusadjust)
-          {
-            calc.brBolusTime = day.times[i].time;
-            calc.brBolusTime = (calc.brBolusTime/100).floor()*60+(calc.brBolusTime%100);
-          }
-        }
-        if((day.times[i].bolusbe || day.times[i].bolusadjust) && !calc.firstTime)
-        {
-          calc.bolusTime = Number(day.times[i].time);
-          calc.bolusTime = (calc.bolusTime/100).floor()*60+(calc.bolusTime%100);
-        }
-      }
-    return calc;
-  }
-// */
   static double gridHeight = 9.45;
   static double gridWidth = 24.0;
   static double graphWidth = gridWidth / 25.0 * 24.0;
@@ -167,7 +116,7 @@ class PrintBasalrate extends BasePrint
     return graphWidth / 1440 * (time.hour * 60 + time.minute);
   }
 
-  getPage(ProfileData profile, calc)
+  getPage(ProfileData profile, CalcData calc)
   {
     double xo = xorg;
     double yo = yorg;
@@ -258,11 +207,12 @@ class PrintBasalrate extends BasePrint
     var glucValues = {"stack": []};
     var brArea = {"absolutePosition": {"x": cmx(xo), "y": cmy(yo)}, "canvas": []};
     List brAreaCvs = brArea["canvas"] as List;
+    Date date = Date(profile.startDate.year, profile.startDate.month, profile.startDate.day);
     for (var i = 0; i < brtimes.length; i++)
     {
-      double x = glucX(brtimes[i].time);
+      double x = glucX(brtimes[i].time(date));
       double w = 0;
-      if (i < brtimes.length - 1)w = glucX(brtimes[i + 1].time) - x;
+      if (i < brtimes.length - 1)w = glucX(brtimes[i + 1].time(date)) - x;
       else
         w = graphWidth - x;
       brAreaCvs.add({
@@ -397,14 +347,14 @@ class PrintBasalrate extends BasePrint
     int lastHour = 0;
     for (var i = 0; i < brtimes.length; i++)
     {
-      int hour = brtimes[i].time.hour;
+      int hour = brtimes[i].time(date).hour;
       int w = 0;
       m1[0] = (hour - lastHour).toDouble();
       m2[0] = m1[0];
       lastHour = hour;
-      if (i < brtimes.length - 1)w = brtimes[i + 1].time.hour - brtimes[i].time.hour;
+      if (i < brtimes.length - 1)w = brtimes[i + 1].time(date).hour - brtimes[i].time(date).hour;
       else
-        w = 24 - brtimes[i].time.hour;
+        w = 24 - brtimes[i].time(date).hour;
       legendIE.add({
         "width": cm(w * colWidth),
         "margin": m1,

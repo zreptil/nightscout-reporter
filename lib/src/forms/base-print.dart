@@ -155,6 +155,7 @@ abstract class BasePrint
   String name;
   String title;
   String titleInfo;
+  int pagesPerPage = 1;
   List<ParamInfo> params = List<ParamInfo>();
   List<ParamInfo> get sortedParams
   {
@@ -194,8 +195,8 @@ abstract class BasePrint
   String colNotes = "#000000";
   String colNotesLine = "#666666";
   String colGlucValues = "#000000";
+  String colBloodValues = "#ff0000";
   String colHbA1c = "#505050";
-
 
   double xorg = 3.35;
   double yorg = 3.9;
@@ -203,12 +204,15 @@ abstract class BasePrint
   String lc = "#a0a0a0";
   String lcFrame = "#000000";
 
+  bool _isPortrait = true;
   bool get isPortrait
-  => true;
+  => _isPortrait;
   double get width
   => isPortrait ? 21.0 : 29.7;
   double get height
   => isPortrait ? 29.7 : 21.0;
+
+  List<List<dynamic>> _pages = List<List<dynamic>>();
 
   msgValidRange(begDate, endDate)
   => Intl.message("gültig von $begDate bis $endDate", args: [begDate, endDate], name: "msgValidRange");
@@ -334,6 +338,8 @@ abstract class BasePrint
   => Intl.message("Ø Bolus pro Tag");
   get msgBasalPerDay
   => Intl.message("Ø Basal pro Tag");
+  get msgMicroBolusPerDay
+  => Intl.message("Ø Microbolus pro Tag");
   get msgInsulinRatio
   => Intl.message("Ø Insulinverhältnis");
   get msgBolus
@@ -371,6 +377,7 @@ abstract class BasePrint
     value = "\n<${glucFromData(value)}";
     return Intl.message("Tief${value}", args: [value], name: "msgLow");
   }
+
   get msgNormal
   => "${Intl.message("Normal")}\n${getGlucInfo()["unit"]}";
   msgHigh(value)
@@ -378,6 +385,7 @@ abstract class BasePrint
     value = "\n>=${glucFromData(value)}";
     return Intl.message("Hoch${value}", args: [value], name: "msgHigh");
   }
+
   get msgPercentile1090
   => Intl.message("10% - 90% der Werte");
   get msgPercentile2575
@@ -582,9 +590,7 @@ abstract class BasePrint
 
   Map<String, String> images = Map<String, String>();
   List<String> get imgList
-  =>
-    ["nightscout-pale", "nightscout",
-    ];
+  => ["nightscout-pale", "nightscout",];
 
   void init()
   {
@@ -674,10 +680,47 @@ abstract class BasePrint
 
     if (!hasData(data))return getEmptyForm(data);
 
-    var ret;
+    dynamic ret = [];
+    _pages.clear();
     try
     {
-      ret = await getFormData_(prepareData_(data));
+      int columns = 1;
+      switch(pagesPerPage)
+      {
+        case 2:
+          scale = 21 / 29.7;
+          columns = 2;
+          break;
+        case 4:
+          scale = 0.5;
+          columns = 2;
+          break;
+        case 8:
+          scale = 21 / 29.7;
+          columns = 2;
+          break;
+        case 16:
+          scale = 0.25;
+          columns = 4;
+          break;
+      }
+      offsetX = 0.0;
+      offsetY = 0.0;
+      await fillPages(prepareData_(data), _pages);
+      for(List<dynamic> page in _pages)
+      {
+//        ret.add({"absolutePosition": {"x":cm(0), "y": cm(0)}, "stack": page});
+        ret.addAll(page);
+        if(page != _pages.last)
+          ret.last["pageBreak"] = "after";
+      }
+      switch(pagesPerPage)
+      {
+        case 2:
+        case 8:
+          _isPortrait = !_isPortrait;
+          break;
+      }
     }
     catch (ex, s)
     {
@@ -706,7 +749,7 @@ abstract class BasePrint
     return ret;
   }
 
-  getFormData_(ReportData src);
+  void fillPages(ReportData src, List<List<dynamic>> pages);
 
   double Num(var text)
   {
@@ -904,7 +947,8 @@ abstract class BasePrint
         "margin": [cm(0.1), cm(0), cm(0), cm(0.1)],
         "table": {
           "widths": [cm(0.5)],
-          "body": [[{"text": graphText, "color": "black", "fontSize": fs(6), "alignment": "center", "fillColor": color}]]
+          "body": [[{"text": graphText, "color": "black", "fontSize": fs(6), "alignment": "center", "fillColor": color}]
+          ]
         }
       }, {"text": text, "color": "black", "fontSize": fs(10)}
       ]

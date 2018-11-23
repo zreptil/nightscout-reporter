@@ -1,9 +1,9 @@
 @import "mixins";
 @import 'package:angular_components/css/material/material';
+@import 'package:angular_components/css/material/shadow';
 @import 'package:angular_components/material_dialog/mixins';
 @import 'package:angular_components/material_input/mixins';
 @import 'package:angular_components/material_button/mixins';
-
 :host {
   margin: 0.5em;
 }
@@ -40,7 +40,7 @@ material-button:not([icon]) {
   color: $month_fore;
   display: flex;
   flex-direction: column;
-  padding: 0 0.5em;
+  @include shadow-elevation(4);
 }
 
 .week {

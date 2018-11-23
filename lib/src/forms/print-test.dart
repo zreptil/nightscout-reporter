@@ -104,7 +104,7 @@ class PrintTest extends BasePrint
   }
 
   @override
-  getFormData_(ReportData src)
+  void fillPages(ReportData src, List<List<dynamic>> pages)
   {
     var ret = [header];
     body = [];
@@ -197,7 +197,9 @@ class PrintTest extends BasePrint
       finalizeRawData(ret);
 // */
     }
-    return ret;
+
+    pages.add(ret);
+//    return ret;
   }
 
   addRawData(dynamic raw, dynamic ret)

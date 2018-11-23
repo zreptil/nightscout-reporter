@@ -47,6 +47,8 @@ class DatepickerPeriod
   Date start = null;
   Date end = null;
   String entryKey = null;
+  Date minDate = null;
+  Date maxDate = null;
 
   List<DatepickerEntry> list = List<DatepickerEntry>();
 
@@ -128,6 +130,17 @@ class DatepickerComponent
   @Input()
   int firstDayOfWeek = 1;
 
+  bool get isMaxMonth
+  =>
+    period != null && period.maxDate != null && month != null && (month.year > period.maxDate.year || (month.year == period.maxDate.year
+                                                                                     && month.month >= period.maxDate
+        .month));
+  bool get isMinMonth
+  =>
+    period != null && period.minDate != null && month != null && (month.year < period.minDate.year || (month.year == period.minDate.year
+                                                                                     && month.month <= period.minDate
+        .month));
+
   get msgStartIncorrect
   => Intl.message("Das Startdatum ist nicht korrekt");
   get msgEndIncorrect
@@ -143,6 +156,12 @@ class DatepickerComponent
   {
     DatepickerPeriod temp = value is DatepickerPeriod ? value : DatepickerPeriod(src: value);
     _period = temp ?? _period;
+    if(_period.entryKey != null)
+    {
+      DatepickerEntry entry =_period.list.firstWhere((e)
+      => e.key == _period.entryKey);
+      entry?.fill(_period);
+    }
     month = Date.today();
   }
 
