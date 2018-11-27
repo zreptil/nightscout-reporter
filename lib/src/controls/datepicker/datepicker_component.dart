@@ -156,7 +156,7 @@ class DatepickerComponent
   {
     DatepickerPeriod temp = value is DatepickerPeriod ? value : DatepickerPeriod(src: value);
     _period = temp ?? _period;
-    if(_period.entryKey != null)
+    if(_period.entryKey != null && _period.list.length > 0)
     {
       DatepickerEntry entry =_period.list.firstWhere((e)
       => e.key == _period.entryKey);

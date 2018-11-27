@@ -5,6 +5,8 @@ import 'dart:convert' as convert;
 import 'dart:html' as html;
 import 'dart:math' as math;
 
+import 'package:googleapis/drive/v3.dart' as gd;
+import 'package:googleapis_auth/auth_browser.dart' as auth;
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_datepicker/comparison.dart';
 import 'package:angular_components/material_datepicker/comparison_option.dart';
@@ -49,8 +51,20 @@ class LangData
   LangData(this.code, this.name, this.dateformat, this.img);
 }
 
+class GoogleAuth
+{
+  final identifier = new auth.ClientId("939975570793-i9kj0rp6kgv470t45j1pf1hg3j9fqmbh.apps.googleusercontent.com", null);
+  final scopes = [gd.DriveApi.DriveAppdataScope];
+  var client = null;
+  gd.DriveApi drive = null;
+}
+
 class Globals
 {
+  String version = "1.1.2-8";
+  String lastVersion;
+
+  GoogleAuth ga = GoogleAuth();
   static final Globals _globals = Globals._internal();
 
   factory Globals(){
@@ -61,8 +75,6 @@ class Globals
     load();
   }
 
-  String version = "1.1.2-5";
-  String lastVersion;
   List<FormConfig> listConfig = List<FormConfig>();
 
   Date date(DateTime src)
@@ -108,6 +120,22 @@ class Globals
     LangData("en_US", Intl.message("English"), "M/d/yyyy", "us")
   ];
   LangData language;
+  String get msgToday
+  => Intl.message("Heute");
+  String get msgLast2Days
+  => Intl.message("Letzte 2 Tage");
+  String get msgLast3Days
+  => Intl.message("Letzte 3 Tage");
+  String get msgLastWeek
+  => Intl.message("Letzte Woche");
+  String get msgLast2Weeks
+  => Intl.message("Letzte 2 Wochen");
+  String get msgLast3Weeks
+  => Intl.message("Letzte 3 Wochen");
+  String get msgLastMonth
+  => Intl.message("Letzter Monat");
+  String get msgLast3Months
+  => Intl.message("Letzte 3 Monate");
 
   bool glucMGDL = true;
   DatepickerPeriod period = DatepickerPeriod();
@@ -121,6 +149,7 @@ class Globals
   static bool itod = html.window.localStorage["unsafe"] != "zh++;";
   String betaPrefix = "@";
   bool pdfSameWindow = true;
+  bool pdfDownload = false;
   bool hideNightscoutInPDF = true;
   bool isConfigured = false;
   int _khFactor = 12;
@@ -317,6 +346,7 @@ class Globals
     glucMGDL = loadStorage("glucMGDL") != "false";
     canDebug = loadStorage("debug") == "yes";
     pdfSameWindow = loadStorage("pdfSameWindow") != "no";
+    pdfDownload = loadStorage("pdfDownload") == "yes";
     hideNightscoutInPDF = loadStorage("hideNightscoutInPDF") == "yes";
 
     period = DatepickerPeriod(src: loadStorage("period"));
@@ -334,6 +364,54 @@ class Globals
     DatepickerDateRange dr = DatepickerDateRange(_dateRange.range.title, start, end);
     _dateRange = DatepickerComparison(dr, ComparisonOption.custom);
     changeLanguage(language, doReload: false);
+    period.list.clear();
+    period.list.add(DatepickerEntry("today", msgToday, (DatepickerPeriod data)
+    {
+      data.start = Date.today();
+      data.end = Date.today();
+    }));
+    period.list.add(
+      DatepickerEntry("2days", msgLast2Days, (DatepickerPeriod data)
+      {
+        data.start = Date.today().add(days: -1);
+        data.end = Date.today();
+      }));
+    period.list.add(
+      DatepickerEntry("3days", msgLast3Days, (DatepickerPeriod data)
+      {
+        data.start = Date.today().add(days: -2);
+        data.end = Date.today();
+      }));
+    period.list.add(
+      DatepickerEntry("1week", msgLastWeek, (DatepickerPeriod data)
+      {
+        data.start = Date.today().add(days: -6);
+        data.end = Date.today();
+      }));
+    period.list.add(
+      DatepickerEntry("2weeks", msgLast2Weeks, (DatepickerPeriod data)
+      {
+        data.start = Date.today().add(days: -13);
+        data.end = Date.today();
+      }));
+    period.list.add(
+      DatepickerEntry("3weeks", msgLast3Weeks, (DatepickerPeriod data)
+      {
+        data.start = Date.today().add(days: -20);
+        data.end = Date.today();
+      }));
+    period.list.add(
+      DatepickerEntry("1month", msgLastMonth, (DatepickerPeriod data)
+      {
+        data.start = Date.today().add(months: -1);
+        data.end = Date.today();
+      }));
+    period.list.add(
+      DatepickerEntry("3months", msgLast3Months, (DatepickerPeriod data)
+      {
+        data.start = Date.today().add(months: -3);
+        data.end = Date.today();
+      }));
   }
 
   void save()
@@ -354,6 +432,7 @@ class Globals
     saveStorage("glucMGDL", glucMGDL.toString());
     saveStorage("language", language.code ?? "de_DE");
     saveStorage("pdfSameWindow", pdfSameWindow ? "yes" : "no");
+    saveStorage("pdfDownload", pdfDownload ? "yes" : "no");
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "yes" : "no");
     saveStorage("period", period?.toString() ?? null);
 

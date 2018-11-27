@@ -11,6 +11,12 @@
     </div>
     <ng-scrollbar #scrollable thumbClass="scrollbar">
       <div class="root">
+        <h2><span @i18n="version">Version</span><span @i18n="v111">1.1.2-8 Beta - 27.11.2018</span></h2>
+        <ul>
+          <li class="added" @i18n="v1128a1">
+            In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.
+          </li>
+        </ul>
         <h2><span @i18n="version">Version</span><span @i18n="v111">1.1.2 - xx.xx.2018</span></h2>
         <ul>
           <li class="added" @i18n="v112a1">
@@ -21,6 +27,13 @@
           <li class="added" @i18n="v112a2">
             Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben,
             wenn sie vorhanden sind.
+          </li>
+          <li class="added" @i18n="v112a3">
+            Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt
+            anzeigen zu lassen. Das wird für Browser wie Edge benötigt.
+          </li>
+          <li class="added" @i18n="v112a4">
+            In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.
           </li>
           <li class="changed" @i18n="v112c1">
             Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte
@@ -62,6 +75,13 @@
           <li class="fixed" @i18n="v112f5">
             Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt
             auf den aktuellen Tag bezogen.
+          </li>
+          <li class="fixed" @i18n="v112f6">
+            Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.
+          </li>
+          <li class="fixed" @i18n="v112f7">
+            Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter
+            brauchbar darstellen zu können.
           </li>
         </ul>
         <h2><span @i18n="version">Version</span><span @i18n="v111">1.1.1 - 19.11.2018</span></h2>

@@ -288,15 +288,16 @@ class ProfileEntryData extends JsonData
   tz.Location _location;
   DateTime time(Date date)
   => //*
-    DateTime(
-      date.year,
-      date.month,
-      date.day,
-      _time.hour,
-      _time.minute,
-      _time.second,
-      _time.millisecond,
-      _time.microsecond);
+  DateTime(
+    date.year,
+    date.month,
+    date.day,
+    _time.hour,
+    _time.minute,
+    _time.second,
+    _time.millisecond,
+    _time.microsecond);
+
 // */
 /*
   tz.TZDateTime(
@@ -596,6 +597,7 @@ class TreatmentData extends JsonData
     {
       case "bolus wizard":
       case "meal bolus":
+      case "carb correction":
         if (_carbs != null && !isECarb)return _carbs;
         break;
     }
@@ -923,7 +925,8 @@ class DayData
     varianz /= midCount;
   }
 
-  dynamic findNearest(List<EntryData> eList, List<TreatmentData> tList, DateTime check, {maxMinuteDiff: 30})
+  dynamic findNearest(List<EntryData> eList, List<TreatmentData> tList, DateTime check,
+                      {String glucoseType: null, int maxMinuteDiff: 30})
   {
     eList ??= List<EntryData>();
     tList ??= List<TreatmentData>();
@@ -933,7 +936,7 @@ class DayData
     int retDiff = 10000;
     for (EntryData entry in eList)
     {
-      if(entry.gluc < 0)continue;
+      if (entry.gluc < 0)continue;
       DateTime time = DateTime(check.year, check.month, check.day, entry.time.hour, entry.time.minute);
       if (time == check)return entry;
       int diff = time
@@ -947,8 +950,9 @@ class DayData
         retDiff = diff;
       }
     }
-    for (TreatmentData treat in tList.where((t)
-    => t.glucoseType.toLowerCase() == "finger"))
+    List<TreatmentData> list = tList.where((t)
+    => t.glucoseType.toLowerCase() == "finger").toList();
+    for (TreatmentData treat in list)
     {
       DateTime time = DateTime(check.year, check.month, check.day, treat.createdAt.hour, treat.createdAt.minute);
       if (time == check)return treat;

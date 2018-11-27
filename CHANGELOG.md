@@ -2,6 +2,7 @@
 ### Added
 - added own control for definition of period
 - added bloody values to daily graphics
+- added display of carb corrections to daily graphics
 
 ### Changed
 - buttons to data in debugmode show number of datasets

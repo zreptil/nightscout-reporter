@@ -74,46 +74,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Heute": "Today",
-  "@Heute": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 2 Tage": "Last 2 days",
-  "@Letzte 2 Tage": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 3 Tage": "Last 3 days",
-  "@Letzte 3 Tage": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte Woche": "Last week",
-  "@Letzte Woche": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 2 Wochen": "Last 2 weeks",
-  "@Letzte 2 Wochen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 3 Wochen": "Last 3 weeks",
-  "@Letzte 3 Wochen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzter Monat": "Last month",
-  "@Letzter Monat": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 3 Monate": "Last 3 months",
-  "@Letzte 3 Monate": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Zeitraum": "Period",
   "@Zeitraum": {
     "description": "title for datepicker dialog",
@@ -167,6 +127,46 @@
   },
   "English": "English",
   "@English": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Heute": "Today",
+  "@Heute": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 2 Tage": "Last 2 days",
+  "@Letzte 2 Tage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Tage": "Last 3 days",
+  "@Letzte 3 Tage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte Woche": "Last week",
+  "@Letzte Woche": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 2 Wochen": "Last 2 weeks",
+  "@Letzte 2 Wochen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Wochen": "Last 3 weeks",
+  "@Letzte 3 Wochen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzter Monat": "Last month",
+  "@Letzter Monat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Monate": "Last 3 months",
+  "@Letzte 3 Monate": {
     "type": "text",
     "placeholders": {}
   },
@@ -895,6 +895,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "PDF herunterladen (bei einigen Browsern benötigt)": "Download PDF (needed for some browsers)",
+  "@PDF herunterladen (bei einigen Browsern benötigt)": {
+    "description": "label for checkbox to download PDF",
+    "type": "text",
+    "placeholders": {}
+  },
   "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Hide text about Nightscout in the header and footer of the PDF",
   "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
     "description": "label for checkbox to hide nightscout in footer",
@@ -991,6 +997,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "1.1.2-7 Beta - 26.11.2018": "1.1.2-7 Beta - 26.11.2018",
+  "@1.1.2-7 Beta - 26.11.2018": {
+    "description": "v111",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": "Fixed incorrect output of blood glucose levels in the daily graph.",
+  "@Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": {
+    "description": "v1127f1",
+    "type": "text",
+    "placeholders": {}
+  },
   "1.1.2 - xx.xx.2018": "1.1.1 - xx.xx.2018",
   "@1.1.2 - xx.xx.2018": {
     "description": "v111",
@@ -1006,6 +1024,12 @@
   "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": "The microboli of the Minimed 600 Uploader are now also identified and output in the analysis, if they exist.",
   "@Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": {
     "description": "v112a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": "There is an option in the settings to download the PDF instead of having it displayed directly in the browser. This is needed for browsers like Edge.",
+  "@Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": {
+    "description": "v112a3",
     "type": "text",
     "placeholders": {}
   },
@@ -1399,8 +1423,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_28": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
-  "@ViewWhatsnewComponent0__message_28": {
+  "ViewWhatsnewComponent0__message_31": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
+  "@ViewWhatsnewComponent0__message_31": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

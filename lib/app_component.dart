@@ -37,7 +37,9 @@ import 'src/whatsnew/whatsnew_component.dart';
 // Components info: https://webdev.dartlang.org/components
 
 @Component(selector: 'my-app',
-  styleUrls: ['app_component.css', 'package:angular_components/app_layout/layout.scss.css'],
+  styleUrls: [
+    'app_component.css', 'package:angular_components/app_layout/layout.scss.css'
+  ],
   templateUrl: 'app_component.html',
   directives: [
     DatepickerComponent,
@@ -102,13 +104,15 @@ class AppComponent
   String pdfUrl = "";
   bool isDebug = false;
   globals.Msg message = globals.Msg();
+  String get pdfFilename
+  => reportData == null ? "" : "Nightscout-Reporter.pdf";
 
   String get msgCheckSetup
   => Intl.message("Überprüfe Zugriff auf Nightscout ...");
   String msgLoadingData(error, stacktrace)
   =>
-    Intl.message(
-      "Fehler beim Laden der Daten:\n$error\n$stacktrace", args: [error, stacktrace], name: "msgLoadingData");
+    Intl.message("Fehler beim Laden der Daten:\n$error\n$stacktrace",
+      args: [error, stacktrace], name: "msgLoadingData");
   String get msgLoadingDataError
   => Intl.message("Fehler beim Laden der Daten");
   String msgLoadingDataFor(date)
@@ -123,8 +127,8 @@ class AppComponent
   => Intl.message("Bitte einen Zeitraum wählen.");
   String get msgPreparingData
   =>
-    Intl.message(
-      "Bereite Daten vor...", desc: "text when data was received and is being prepared to be used in the report");
+    Intl.message("Bereite Daten vor...",
+      desc: "text when data was received and is being prepared to be used in the report");
   String get msgCreatingPDF
   => Intl.message("Erzeuge PDF...", desc: "text when pdf is being created");
   String get msgImpressum
@@ -139,22 +143,6 @@ class AppComponent
   =>
     Intl.message(
       "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.");
-  String get msgToday
-  => Intl.message("Heute");
-  String get msgLast2Days
-  => Intl.message("Letzte 2 Tage");
-  String get msgLast3Days
-  => Intl.message("Letzte 3 Tage");
-  String get msgLastWeek
-  => Intl.message("Letzte Woche");
-  String get msgLast2Weeks
-  => Intl.message("Letzte 2 Wochen");
-  String get msgLast3Weeks
-  => Intl.message("Letzte 3 Wochen");
-  String get msgLastMonth
-  => Intl.message("Letzter Monat");
-  String get msgLast3Months
-  => Intl.message("Letzte 3 Monate");
   String get msgPeriod
   => Intl.message("Zeitraum");
   String get msgProfileError
@@ -183,47 +171,6 @@ class AppComponent
 //    if (g != null && g.dateRange != null && g.dateRange.comparison != null)
 //      title = g.dateRange.comparison.title;
 
-    g.period.list.clear();
-    g.period.list.add(DatepickerEntry("today", msgToday, (DatepickerPeriod data)
-    {
-      data.start = Date.today();
-      data.end = Date.today();
-    }));
-    g.period.list.add(DatepickerEntry("2days", msgLast2Days, (DatepickerPeriod data)
-    {
-      data.start = Date.today().add(days: -1);
-      data.end = Date.today();
-    }));
-    g.period.list.add(DatepickerEntry("3days", msgLast3Days, (DatepickerPeriod data)
-    {
-      data.start = Date.today().add(days: -2);
-      data.end = Date.today();
-    }));
-    g.period.list.add(DatepickerEntry("1week", msgLastWeek, (DatepickerPeriod data)
-    {
-      data.start = Date.today().add(days: -6);
-      data.end = Date.today();
-    }));
-    g.period.list.add(DatepickerEntry("2weeks", msgLast2Weeks, (DatepickerPeriod data)
-    {
-      data.start = Date.today().add(days: -13);
-      data.end = Date.today();
-    }));
-    g.period.list.add(DatepickerEntry("3weeks", msgLast3Weeks, (DatepickerPeriod data)
-    {
-      data.start = Date.today().add(days: -20);
-      data.end = Date.today();
-    }));
-    g.period.list.add(DatepickerEntry("1month", msgLastMonth, (DatepickerPeriod data)
-    {
-      data.start = Date.today().add(months: -1);
-      data.end = Date.today();
-    }));
-    g.period.list.add(DatepickerEntry("3months", msgLast3Months, (DatepickerPeriod data)
-    {
-      data.start = Date.today().add(months: -3);
-      data.end = Date.today();
-    }));
 /*
     dateRanges.clear();
     dateRanges.add(DatepickerPreset(
@@ -282,8 +229,7 @@ class AppComponent
   }
 
   void toggleHelp()
-  {
-  }
+  {}
 
   void togglePage(String id)
   {
@@ -297,7 +243,12 @@ class AppComponent
 
     if (clear)message.links = [];
 
-    message.links.add({"url": url, "title": title, "class": btnClass, "icon": isDebug && icon == null ? "code" : icon});
+    message.links.add({
+      "url": url,
+      "title": title,
+      "class": btnClass,
+      "icon": isDebug && icon == null ? "code" : icon
+    });
     message.okText = msgClose;
     if (type != null)message.type = type;
   }
@@ -415,8 +366,8 @@ class AppComponent
   ReportData reportData = null;
   Future<ReportData> loadData()
   async {
-    if (reportData != null && reportData.begDate == g.period.start && reportData.endDate == g.period.end)
-      return reportData;
+    if (reportData != null && reportData.begDate == g.period.start &&
+      reportData.endDate == g.period.end)return reportData;
 
     ReportData data = ReportData(g, g.period.start, g.period.end);
 /*
@@ -427,8 +378,10 @@ class AppComponent
       g, g.dateRange.range.start, g.dateRange.range.end);
 */
     reportData = data;
-    DateTime bd = DateTime(data.begDate.year, data.begDate.month, data.begDate.day);
-    DateTime ed = DateTime(data.endDate.year, data.endDate.month, data.endDate.day);
+    DateTime bd = DateTime(
+      data.begDate.year, data.begDate.month, data.begDate.day);
+    DateTime ed = DateTime(
+      data.endDate.year, data.endDate.month, data.endDate.day);
 
     progressMax = ed
       .difference(bd)
@@ -460,11 +413,15 @@ class AppComponent
         59,
         999).toUtc();
 
-      progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
-      String url = "${g.user.apiUrl}entries.json?find[date][\$gte]=${beg.millisecondsSinceEpoch}&find[date][\$lte]=${end
+      progressText =
+        msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
+      String url = "${g.user.apiUrl}entries.json?find[date][\$gte]=${beg
+        .millisecondsSinceEpoch}&find[date][\$lte]=${end
         .millisecondsSinceEpoch}&count=100000";
       List<dynamic> src = json.decode(await g.request(url));
-      displayLink("e${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
+      displayLink(
+        "e${begDate.format(g.fmtDateForDisplay)} (${src.length})", url,
+        type: "debug");
       bool hasData = false;
       for (dynamic entry in src)
       {
@@ -488,11 +445,13 @@ class AppComponent
           break;
         }
       }
-      url =
-      "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${beg.toIso8601String()}&find[created_at][\$lte]=${end
+      url = "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${beg
+        .toIso8601String()}&find[created_at][\$lte]=${end
         .toIso8601String()}&count=100000";
       src = json.decode(await g.request(url));
-      displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
+      displayLink(
+        "t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url,
+        type: "debug");
       for (dynamic treatment in src)
       {
         hasData = true;
@@ -527,9 +486,10 @@ class AppComponent
       if (data.ns.entries.length != 0)
       {
         DateTime target = DateTime(
-          data.ns.entries.first.time.year, data.ns.entries.first.time.month, data.ns.entries.first.time.day);
+          data.ns.entries.first.time.year, data.ns.entries.first.time.month,
+          data.ns.entries.first.time.day);
         EntryData prev = data.ns.entries.first;
-        DateTime t = DateTime(prev.time.year,prev.time.month,prev.time.day);
+        DateTime t = DateTime(prev.time.year, prev.time.month, prev.time.day);
         prev = EntryData();
         prev.time = t;
         EntryData next = EntryData();
@@ -540,7 +500,8 @@ class AppComponent
           EntryData entry = data.ns.entries[i];
           if (entry.isInvalid)continue;
           DateTime current = DateTime(
-            entry.time.year, entry.time.month, entry.time.day, entry.time.hour, entry.time.minute);
+            entry.time.year, entry.time.month, entry.time.day, entry.time.hour,
+            entry.time.minute);
           if (current.isAtSameMomentAs(target))
           {
             prev = entry;
@@ -562,11 +523,10 @@ class AppComponent
             while (current.isAfter(target) || current.isAtSameMomentAs(target))
             {
               double factor = max == 0 ? 0 : target
-                                               .difference(prev.time)
-                                               .inMinutes / max;
+                .difference(prev.time)
+                .inMinutes / max;
               next = next.copy;
-              if (max >= minGapKeep)
-                next.isGap = true;
+              if (max >= minGapKeep)next.isGap = true;
               next.time = target;
               if (current.isAtSameMomentAs(target))
               {
@@ -638,8 +598,7 @@ class AppComponent
       data.ns.extractData(data);
     }
     else
-    {
-    }
+    {}
     return data;
   }
 
@@ -664,7 +623,8 @@ class AppComponent
     async {
       if (vars.error != null)
       {
-        if (isDebug)display(msgLoadingData(vars.error.toString(), vars.error.stackTrace.toString()));
+        if (isDebug)display(msgLoadingData(
+          vars.error.toString(), vars.error.stackTrace.toString()));
         display(msgLoadingDataError);
         return;
       }
@@ -681,23 +641,38 @@ class AppComponent
           {
             doc = {
               "pageSize": "a4",
-              "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
-              "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
+              "pageOrientation": form.isSheetPortrait
+                ? "portrait"
+                : "landscape",
+              "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)
+              ],
               "content": data,
               "images": form.images,
               "styles": {
-                "infoline": {"margin": [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]},
+                "infoline": {
+                  "margin": [
+                    form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]
+                },
                 "perstitle": {"fontSize": form.fs(10.0), "alignment": "right"},
                 "persdata": {"fontSize": form.fs(10.0), "color": "#0000ff"},
                 "infotitle": {"fontSize": form.fs(10.0), "alignment": "left"},
-                "infodata": {"fontSize": form.fs(10.0), "alignment": "right", "color": "#0000ff"},
+                "infodata": {
+                  "fontSize": form.fs(10.0),
+                  "alignment": "right",
+                  "color": "#0000ff"
+                },
                 "infounit": {
                   "margin": [form.cm(0), form.cm(0.07), form.cm(0), form.cm(0)],
                   "fontSize": form.fs(8),
                   "color": "#0000ff"
                 },
                 "hba1c": {"color": "#5050ff", "fontSize": form.fs(10)},
-                "total": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10), "margin": form.m0},
+                "total": {
+                  "bold": true,
+                  "fillColor": "#d0d0d0",
+                  "fontSize": form.fs(10),
+                  "margin": form.m0
+                },
                 "row": {"fontSize": form.fs(10)}
               }
             };
@@ -708,7 +683,9 @@ class AppComponent
               "text": "",
               "pageBreak": "after",
               "pageSize": "a4",
-              "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
+              "pageOrientation": form.isSheetPortrait
+                ? "portrait"
+                : "landscape",
             };
             doc["content"].add(pagebreak);
             for (var entry in data)
@@ -735,11 +712,13 @@ class AppComponent
       {
         if (message.text.isEmpty)navigate("showPdf");
         else
-          displayLink(msgShowPDF, "showPdf", btnClass: "action", icon: "description");
+          displayLink(
+            msgShowPDF, "showPdf", btnClass: "action", icon: "description");
       }
       else
       {
-        displayLink("playground", "showPlayground", btnClass: "action", icon: "description");
+        displayLink("playground", "showPlayground", btnClass: "action",
+          icon: "description");
         displayLink("pdf", "showPdf", btnClass: "action", icon: "description");
       }
 // */

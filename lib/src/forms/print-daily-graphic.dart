@@ -384,7 +384,7 @@ class PrintDailyGraphic extends BasePrint
           {
             (glucTable["stack"] as List).add({
               "relativePosition": {"x": cm(x), "y": cm(i % 2 != 0 ? 0 : glucTableHeight / 2)},
-              "text": glucFromData(entry.mbg),
+              "text": glucFromData(found.mbg),
               "color": colBloodValues,
               "fontSize": fs(7)
             });
@@ -393,7 +393,7 @@ class PrintDailyGraphic extends BasePrint
           {
             (glucTable["stack"] as List).add({
               "relativePosition": {"x": cm(x), "y": cm(i % 2 != 0 ? 0 : glucTableHeight / 2)},
-              "text": glucFromData(entry.gluc),
+              "text": glucFromData(found.glucose),
               "color": colBloodValues,
               "fontSize": fs(7)
             });

@@ -170,4 +170,5 @@
 </div>
 <form id="postForm" [target]="g.pdfTarget" method="post" action="{{pdfUrl}}">
   <input name="data" value="{{pdfData}}"/>
+  <input name="filename" value="{{g.pdfDownload?pdfFilename:''}}"/>
 </form>

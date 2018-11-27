@@ -93,9 +93,9 @@ class PrintTest extends BasePrint
 
     var widths = [];
     for (int i = 0; i < body[0].length; i++)
-      widths.add(cmx((width - 4.0) / body[0].length));
+      widths.add(cm((width - 4.0) / body[0].length));
     var ret = {
-      "margin": [cmx(2.0), cmy(isFirst ? 2.8 : 0.5), cmx(2.0), cmy(0.0)],
+      "margin": [cm(2.0), cm(isFirst ? yorg : 0.5), cm(2.0), cm(0.5)],
       "layout": type == "raw" ? "" : "noBorders",
       "table": {"headerRows": 1, "widths": widths, "body": body}
     };
@@ -177,7 +177,7 @@ class PrintTest extends BasePrint
       body = [];
       root = createRoot("raw", title: "Entries");
       for (EntryData entry in src.ns.entries)
-        addRawData(entry.raw, ret);
+        addRawData(entry.raw, ret, fmtDateTime(entry.time.toLocal()));
       finalizeRawData(ret);
     }
     if (showRawTreatments)
@@ -185,7 +185,7 @@ class PrintTest extends BasePrint
       body = [];
       root = createRoot("raw", title: "Treatments");
       for (TreatmentData entry in src.ns.treatments)
-        addRawData(entry.raw, ret);
+        addRawData(entry.raw, ret, fmtDateTime(entry.createdAt.toLocal()));
       finalizeRawData(ret);
     }
     if (showRawProfiles)
@@ -193,7 +193,7 @@ class PrintTest extends BasePrint
       body = [];
       root = createRoot("raw", title: "Profiles");
       for (ProfileData entry in src.profiles)
-        addRawData(entry.raw, ret);
+        addRawData(entry.raw, ret, fmtDateTime(entry.createdAt.toLocal()));
       finalizeRawData(ret);
 // */
     }
@@ -202,11 +202,13 @@ class PrintTest extends BasePrint
 //    return ret;
   }
 
-  addRawData(dynamic raw, dynamic ret)
+  addRawData(dynamic raw, dynamic ret, [String title = null])
   {
     String text = json.encode(raw);
     text = text.substring(1, text.length - 1);
     text = text.replaceAll(",\"", ",\n\"");
+    if(title != null)
+      text = "${title}\n${text}";
     if (body.last.length >= rawCols)body.add([]);
     body.last.add({"text": text, "fontSize": fs(8)});
     if (body.length > 10000)

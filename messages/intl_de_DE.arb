@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2018-11-23T08:15:24.767231",
+  "@@last_modified": "2018-11-26T11:07:00.996568",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -76,46 +76,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Heute": "Heute",
-  "@Heute": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 2 Tage": "Letzte 2 Tage",
-  "@Letzte 2 Tage": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 3 Tage": "Letzte 3 Tage",
-  "@Letzte 3 Tage": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte Woche": "Letzte Woche",
-  "@Letzte Woche": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 2 Wochen": "Letzte 2 Wochen",
-  "@Letzte 2 Wochen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 3 Wochen": "Letzte 3 Wochen",
-  "@Letzte 3 Wochen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzter Monat": "Letzter Monat",
-  "@Letzter Monat": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 3 Monate": "Letzte 3 Monate",
-  "@Letzte 3 Monate": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Zeitraum": "Zeitraum",
   "@Zeitraum": {
     "description": "title for datepicker dialog",
@@ -169,6 +129,46 @@
   },
   "English": "English",
   "@English": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Heute": "Heute",
+  "@Heute": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 2 Tage": "Letzte 2 Tage",
+  "@Letzte 2 Tage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Tage": "Letzte 3 Tage",
+  "@Letzte 3 Tage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte Woche": "Letzte Woche",
+  "@Letzte Woche": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 2 Wochen": "Letzte 2 Wochen",
+  "@Letzte 2 Wochen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Wochen": "Letzte 3 Wochen",
+  "@Letzte 3 Wochen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzter Monat": "Letzter Monat",
+  "@Letzter Monat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Monate": "Letzte 3 Monate",
+  "@Letzte 3 Monate": {
     "type": "text",
     "placeholders": {}
   },
@@ -897,6 +897,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "PDF herunterladen (bei einigen Browsern benötigt)": "PDF herunterladen (bei einigen Browsern benötigt)",
+  "@PDF herunterladen (bei einigen Browsern benötigt)": {
+    "description": "label for checkbox to download PDF",
+    "type": "text",
+    "placeholders": {}
+  },
   "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden",
   "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
     "description": "label for checkbox to hide nightscout in footer",
@@ -993,6 +999,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "1.1.2-7 Beta - 26.11.2018": "1.1.2-7 Beta - 26.11.2018",
+  "@1.1.2-7 Beta - 26.11.2018": {
+    "description": "v111",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": "Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.",
+  "@Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": {
+    "description": "v1127f1",
+    "type": "text",
+    "placeholders": {}
+  },
   "1.1.2 - xx.xx.2018": "1.1.2 - xx.xx.2018",
   "@1.1.2 - xx.xx.2018": {
     "description": "v111",
@@ -1008,6 +1026,12 @@
   "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.",
   "@Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": {
     "description": "v112a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": "Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.",
+  "@Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": {
+    "description": "v112a3",
     "type": "text",
     "placeholders": {}
   },
@@ -1401,8 +1425,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_28": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_28": {
+  "ViewWhatsnewComponent0__message_31": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_31": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

@@ -32,7 +32,7 @@ class PrintProfile extends BasePrint
 
   @override
   bool get isPortrait
-  => true;
+  => false;
 
   PrintProfile()
   {
@@ -41,6 +41,8 @@ class PrintProfile extends BasePrint
 
   static String get msgParam1
   => Intl.message("Basalrate mit zwei Nachkommastellen");
+
+  double _fontSize = 10;
 
   getFactorBody(Date date, List<ProfileEntryData> list, msg(String a, String b), {int precision: 1})
   {
@@ -51,8 +53,16 @@ class PrintProfile extends BasePrint
       DateTime end = DateTime(date.year, date.month, date.day, 23, 59);
       if (i < list.length - 1)end = list[i + 1].time(date);
       ret.add([
-        {"text": msg(fmtTime(entry.time(date), withUnit: true), fmtTime(end, withUnit: true)), "style": "infotitle"},
-        {"text": entry.forceText ?? fmtNumber(entry.value, precision, false), "style": "infodata"},
+        {
+          "text": msg(fmtTime(entry.time(date), withUnit: true), fmtTime(end, withUnit: true)),
+          "style": "infotitle",
+          "fontSize": fs(_fontSize)
+        },
+        {
+          "text": entry.forceText ?? fmtNumber(entry.value, precision, false),
+          "style": "infodata",
+          "fontSize": fs(_fontSize)
+        },
       ]);
     }
     return ret;
@@ -115,24 +125,6 @@ class PrintProfile extends BasePrint
     dynamic bodyICR = getFactorBody(date, profile.store.listCarbratio, msgFactorEntry);
     dynamic bodyISF = getFactorBody(date, profile.store.listSens, msgFactorEntry);
 
-    icrIsfBody.add([
-      {"text": msgICR, "fontSize": fs(8), "color": "#606060", "alignment": "center"},
-      {"text": msgISF, "fontSize": fs(8), "color": "#606060", "alignment": "center"}
-    ]);
-
-    icrIsfBody.add([
-      {
-        "margin": [cm(1.0), cm(0)],
-        "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(3.4), cm(1.2)], "body": bodyICR}
-      },
-      {
-        "margin": [cm(1.0), cm(0)],
-        "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(3.9), cm(1.2)], "body": bodyISF}
-      }
-    ]);
-
     dynamic basalTargetBody = [];
     dynamic bodyBasal = getFactorBody(date, profile.store.listBasal, msgFactorEntry, precision: _precision);
     List<ProfileEntryData> listTarget = List<ProfileEntryData>();
@@ -154,6 +146,26 @@ class PrintProfile extends BasePrint
       {"text": msgTarget(getGlucInfo()["unit"]), "fontSize": fs(8), "color": "#606060", "alignment": "center"}
     ]);
 
+    _fontSize = 9;
+
+    icrIsfBody.add([
+      {"text": msgICR, "fontSize": fs(8), "color": "#606060", "alignment": "center"},
+      {"text": msgISF, "fontSize": fs(8), "color": "#606060", "alignment": "center"}
+    ]);
+
+    icrIsfBody.add([
+      {
+        "margin": [cm(1.0), cm(0)],
+        "layout": "noBorders",
+        "table": {"headerRows": 0, "widths": [cm(3.4), cm(1.2)], "body": bodyICR}
+      },
+      {
+        "margin": [cm(1.0), cm(0)],
+        "layout": "noBorders",
+        "table": {"headerRows": 0, "widths": [cm(3.9), cm(1.2)], "body": bodyISF}
+      }
+    ]);
+
     basalTargetBody.add([
       {
         "margin": [cm(1.0), cm(0)],
@@ -167,22 +179,34 @@ class PrintProfile extends BasePrint
       }
     ]);
 
+    double colWidth = (width - 4.4) / 4;
     var ret = [
       headerFooter(),
       {
-        "margin": [cm(6.3), cm(yorg), cm(0), cm(0)],
+        "margin": [cm(11), cm(yorg - 0.5), cm(0), cm(0)],
         "layout": "noBorders",
         "table": {"headerRows": 0, "widths": [cm(5.2), cm(1.0), cm(1.5)], "body": tableBody}
       },
       {
-        "margin": [cm(3.7), cm(0.5), cm(0), cm(0)],
+        "margin": [cm(1.2), cm(0.2), cm(0), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 1, "widths": [cm(6.8), cm(6.8)], "body": icrIsfBody}
-      },
-      {
-        "margin": [cm(3.7), cm(0.5), cm(0), cm(0)],
-        "layout": "noBorders",
-        "table": {"headerRows": 1, "widths": [cm(6.8), cm(6.8)], "body": basalTargetBody}
+        "table": {
+          "headerRows": 0,
+          "widths": [cm(2 * colWidth), cm(2 * colWidth)],
+          "body": [ [
+            {
+              "margin": [cm(0), cm(0), cm(0), cm(0)],
+              "layout": "noBorders",
+              "table": {"headerRows": 1, "widths": [cm(colWidth), cm(colWidth)], "body": icrIsfBody}
+            },
+            {
+              "margin": [cm(0), cm(0), cm(0), cm(0)],
+              "layout": "noBorders",
+              "table": {"headerRows": 1, "widths": [cm(colWidth), cm(colWidth)], "body": basalTargetBody}
+            }
+          ]
+          ]
+        }
       }
     ];
     return ret;
