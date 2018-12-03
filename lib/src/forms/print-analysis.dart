@@ -240,15 +240,15 @@ class PrintAnalysis extends BasePrint
             "${glucFromData(70)} ${getGlucInfo()["unit"]}", "${glucFromData(180)} ${getGlucInfo()["unit"]}"),
           "style": "infotitle"
         },
-        {"text": "${(data.entriesIn(71, 180) / data.count * 100).floor()} %", "style": "infodata"},
-        {"text": "(${fmtNumber(data.entriesIn(71, 180))})", "style": "infounit"},
+        {"text": "${(data.entriesIn(70, 180) / data.count * 100).floor()} %", "style": "infodata"},
+        {"text": "(${fmtNumber(data.entriesIn(70, 180))})", "style": "infounit"},
         {"text": "", "style": "infounit"},
       ],
       [
         {"text": "", "style": "infotitle"},
         {"text": msgValuesBelow("${glucFromData(70)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
-        {"text": "${(data.entriesIn(0, 70) / data.count * 100).floor()} %", "style": "infodata"},
-        {"text": "(${fmtNumber(data.entriesIn(0, 70))})", "style": "infounit"},
+        {"text": "${(data.entriesIn(0, 69) / data.count * 100).floor()} %", "style": "infodata"},
+        {"text": "(${fmtNumber(data.entriesIn(0, 69))})", "style": "infounit"},
         {"text": "", "style": "infounit"},
       ],
     ]);
