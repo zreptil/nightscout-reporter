@@ -28,18 +28,23 @@
         Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.
       </div>
       <div @i18n="welcome section 2">
-        Die Daten, die Du hier eingibst, werden im localStorage des Browsers gespeichert. Dieser beinhaltet
-        webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. Es werden keine Cookies verwendet
-        und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen
-        Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen.
-        Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.
+        Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser
+        beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden
+        keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur
+        angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument
+        zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.
       </div>
       <div @i18n="welcome section 3">
-        Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des
-        PDF-Dokuments
-        kommen Javascript und PHP zum Einsatz.
+        Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google
+        verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf
+        Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur
+        Verfügung, der mit dem angegebenen Google Konto verbunden ist.
       </div>
-      <div class="controls" *ngIf="!g.isConfigured" >
+      <div @i18n="welcome section 4">
+        Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des
+        PDF-Dokuments kommen Javascript und PHP zum Einsatz.
+      </div>
+      <div class="controls" *ngIf="!g.isConfigured">
         <material-button class="iconButton" [raised]="true" (trigger)="fire('settings')">
           <material-icon icon="settings"></material-icon>
           <ng-container @i18n="label for button to open settings on welcome screen">

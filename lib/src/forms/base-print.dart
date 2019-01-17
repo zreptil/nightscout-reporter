@@ -6,6 +6,7 @@ import 'dart:typed_data';
 
 import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
+import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -287,26 +288,26 @@ abstract class BasePrint
   => Intl.message("Werte über ${high}", args: [high], name: "msgValuesAbove");
   msgKHBE(value)
   => Intl.message("g KH ($value BE)", args: [value], name: "msgKHBE");
-  msgReservoirDays(count)
+  msgReservoirDays(count, txt)
   =>
-    Intl.plural(count, one: "($count Tag pro Ampulle)",
+    Intl.plural(count, one: "($txt Tag pro Ampulle)",
       zero: "",
-      other: "($count Tage pro Ampulle)",
-      args: [count],
+      other: "($txt Tage pro Ampulle)",
+      args: [count, txt],
       name: "msgReservoirDays");
-  msgCatheterDays(count)
+  msgCatheterDays(count, txt)
   =>
-    Intl.plural(count, one: "($count Tag pro Katheter)",
+    Intl.plural(count, one: "($txt Tag pro Katheter)",
       zero: "",
-      other: "($count Tage pro Katheter)",
-      args: [count],
+      other: "($txt Tage pro Katheter)",
+      args: [count, txt],
       name: "msgCatheterDays");
-  msgSensorDays(count)
+  msgSensorDays(count, txt)
   =>
-    Intl.plural(count, one: "($count Tag pro Sensor)",
+    Intl.plural(count, one: "($txt Tag pro Sensor)",
       zero: "",
-      other: "($count Tage pro Sensor)",
-      args: [count],
+      other: "($txt Tage pro Sensor)",
+      args: [count, txt],
       name: "msgSensorDays");
   get msgBirthday
   => Intl.message("Geburtstag");
@@ -810,14 +811,18 @@ abstract class BasePrint
   double fs(double size)
   => size * scale;
 
-  String fmtNumber(num value, [num decimals = 0, bool fillfront0 = false, String nullText = "null"])
+  String fmtNumber(num value,
+                   [num decimals = 0, bool fillfront0 = false, String nullText = "null", bool stripTrailingZero = false])
   {
     if (value == null)return nullText;
 
     String fmt = "#,##0";
     if (decimals > 0)fmt = "$fmt.".padRight(decimals + 6, "0");
     NumberFormat nf = NumberFormat(fmt, g.language.code);
-    return nf.format(value);
+    String ret = nf.format(value);
+    if (stripTrailingZero)
+      while (ret.endsWith("0") || ret.endsWith(nf.symbols.DECIMAL_SEP))ret = ret.substring(0, ret.length - 1);
+    return ret;
   }
 
   String fmtTime(var date, {String def: null, bool withUnit: false})
@@ -871,7 +876,7 @@ abstract class BasePrint
     return date;
   }
 
-  String fmtDate(var date, [var def = null])
+  String fmtDate(var date, [var def = null, bool withShortWeekday = false, bool withLongWeekday = false])
   {
     if (def == null)def = "";
     if (date == null)return def;
@@ -897,7 +902,10 @@ abstract class BasePrint
     if (dt == null)return date;
 
     DateFormat df = DateFormat(g.language.dateformat);
-    return df.format(dt);
+    String ret = df.format(dt);
+    if (withShortWeekday)ret = "${DatepickerPeriod.dowShortName(Date(dt.year, dt.month, dt.day))}, $ret";
+    if (withLongWeekday)ret = "${DatepickerPeriod.dowName(Date(dt.year, dt.month, dt.day))}, $ret";
+    return ret;
   }
 
   String blendColor(String from, String to, num factor)

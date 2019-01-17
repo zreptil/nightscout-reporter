@@ -24,24 +24,24 @@ class DatepickerEntry
 
 class DatepickerPeriod
 {
-  List<String> monthNames = Intl.message(
+  static List<String> monthNames = Intl.message(
     "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember").split("|");
-  List<String> monthShortNames = Intl.message("Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez").split("|");
-  List<String> dowNames = Intl.message("Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag").split("|");
-  List<String> dowShortNames = Intl.message("Mo|Di|Mi|Do|Fr|Sa|So").split("|");
+  static List<String> monthShortNames = Intl.message("Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez").split("|");
+  static List<String> dowNames = Intl.message("Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag").split("|");
+  static List<String> dowShortNames = Intl.message("Mo|Di|Mi|Do|Fr|Sa|So").split("|");
 
   String fmtDate = "dd.MM.yyyy";
   DateFormat get dateFormat
   => DateFormat(fmtDate);
 
   int firstDayOfWeek = 1;
-  monthName(Date date)
+  static monthName(Date date)
   => date != null ? monthNames[date.month - 1] : "";
-  dowName(Date date)
+  static dowName(Date date)
   => date != null ? dowNames[date.weekday - 1] : "";
-  monthShortName(Date date)
+  static monthShortName(Date date)
   => date != null ? monthShortNames[date.month - 1] : "";
-  dowShortName(Date date)
+  static dowShortName(Date date)
   => date != null ? dowShortNames[date.weekday - 1] : "";
 
   Date start = null;
@@ -49,6 +49,8 @@ class DatepickerPeriod
   String entryKey = null;
   Date minDate = null;
   Date maxDate = null;
+
+  bool get isEmpty => (entryKey == null || entryKey.isEmpty) && start == null;
 
   List<DatepickerEntry> list = List<DatepickerEntry>();
 
@@ -165,9 +167,9 @@ class DatepickerComponent
     month = Date.today();
   }
 
-  final _periodChange = StreamController<Date>();
+  final _periodChange = StreamController<DatepickerPeriod>();
   @Output()
-  Stream<Date> get periodChange
+  Stream<DatepickerPeriod> get periodChange
   => _periodChange.stream;
 
   String loadedPeriod = null;
@@ -244,6 +246,8 @@ class DatepickerComponent
 
   void fire(String type)
   async {
+    if(type == "save")
+      _periodChange.add(period);
     _trigger.add(UIEvent(type, detail: 0));
   }
 }

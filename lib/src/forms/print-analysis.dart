@@ -15,6 +15,14 @@ class PrintAnalysis extends BasePrint
   @override
   String title = Intl.message("Auswertung");
 
+  bool isPrecise;
+  int get _precision
+  => isPrecise ? 2 : 0;
+
+  @override
+  List<ParamInfo> params = [ParamInfo(0, msgParam1, boolValue: true),
+  ];
+
   @override
   bool get isPortrait
   => true;
@@ -25,10 +33,14 @@ class PrintAnalysis extends BasePrint
   }
 
   @override
-  prepareData_(ReportData vars)
+  prepareData_(ReportData data)
   {
-    return vars;
+    isPrecise = params[0].boolValue;
+    return data;
   }
+
+  static String get msgParam1
+  => Intl.message("Material mit Nachkommastellen");
 
   addBodyArea(List body, String title, List lines, {showLine: true})
   {
@@ -144,7 +156,8 @@ class PrintAnalysis extends BasePrint
         {"text": msgReservoirCount, "style": "infotitle"},
         {"text": fmtNumber(data.ampulleCount), "style": "infodata"},
         {
-          "text": data.ampulleCount > 0 ? msgReservoirDays((src.dayCount / data.ampulleCount).floor()) : "",
+          "text": data.ampulleCount > 0 ? msgReservoirDays((src.dayCount / data.ampulleCount).round(),
+            fmtNumber(src.dayCount / data.ampulleCount, _precision, false, "", true)) : "",
           "style": "infounit",
           "colSpan": 2
         },
@@ -155,7 +168,8 @@ class PrintAnalysis extends BasePrint
         {"text": msgCatheterCount, "style": "infotitle"},
         {"text": fmtNumber(data.catheterCount), "style": "infodata"},
         {
-          "text": data.catheterCount > 0 ? msgCatheterDays((src.dayCount / data.catheterCount).floor()) : "",
+          "text": data.catheterCount > 0 ? msgCatheterDays((src.dayCount / data.catheterCount).round(),
+            fmtNumber(src.dayCount / data.catheterCount, _precision, false, "", true)) : "",
           "style": "infounit",
           "colSpan": 2
         },
@@ -166,7 +180,8 @@ class PrintAnalysis extends BasePrint
         {"text": msgSensorCount, "style": "infotitle"},
         {"text": fmtNumber(data.sensorCount), "style": "infodata"},
         {
-          "text": data.sensorCount > 0 ? msgSensorDays((src.dayCount / data.sensorCount).floor()) : "",
+          "text": data.sensorCount > 0 ? msgSensorDays((src.dayCount / data.sensorCount).round(),
+            fmtNumber(src.dayCount / data.sensorCount, _precision, false, "", true)) : "",
           "style": "infounit",
           "colSpan": 2
         },

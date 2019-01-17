@@ -1,0 +1,23 @@
+@import "mixins";
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_icon/mixins';
+
+:host {
+}
+
+material-button {
+  svg.google {
+    width: 1em;
+  }
+}
+
+material-fab {
+  background: white!important;
+  svg.google {
+    width: 24px;
+  }
+}
+
+#revokeForm {
+  display: none;
+}

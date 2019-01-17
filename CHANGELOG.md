@@ -1,5 +1,14 @@
 ## [Unreleased]
 ### Added
+- signin component for google drive to save the settings there
+- daily statistics and graphics show the day of week
+- count of reservoirs, catheters and sensors can be shown with decimal places
+
+### Fixed
+ 
+
+## [1.1.2]
+### Added
 - added own control for definition of period
 - added bloody values to daily graphics
 - added display of carb corrections to daily graphics
@@ -12,7 +21,9 @@
 - fixed position of notes in daily graphics
 - fixed lines of notes in daily graphics to not cross the value table
 - fixed calculation of own limits on analysis pdf in mmol/L
-- fixed calendar control to set start and end correct if period is defined 
+- fixed calendar control to set start and end correct if period is defined
+- fixed debug-links for urls that need user tokens
+- start button will only be enabled when form and period are selected
 
 ## [1.1.1]
 ### Added

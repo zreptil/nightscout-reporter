@@ -81,7 +81,7 @@ class PrintDailyStatistics extends BasePrint
 
   fillRow(dynamic row, double f, String firstCol, DayData day, String style)
   {
-    addRow(true, cm(2.0), row, {"text": msgDate, "style": "total", "alignment": "center"},
+    addRow(true, cm(2.9), row, {"text": msgDate, "style": "total", "alignment": "center"},
       {"text": firstCol, "style": "total", "alignment": "center"});
     addRow(true, cm(f * 100), row, {"text": msgDistribution, "style": "total", "alignment": "center"}, {
       "style": style,
@@ -204,7 +204,7 @@ class PrintDailyStatistics extends BasePrint
       totalDay.basalData.targetHigh = max(totalDay.basalData.targetHigh, day.basalData.targetHigh);
       totalDay.basalData.targetLow = min(totalDay.basalData.targetLow, day.basalData.targetLow);
       var row = [];
-      fillRow(row, f, fmtDate(day.date), day, "row");
+      fillRow(row, f, fmtDate(day.date, null, true), day, "row");
       ProfileGlucData profile = src.profile(DateTime(day.date.year, day.date.month, day.date.day));
       if (prevProfile == null || profile.targetLow != prevProfile.targetLow || profile.targetHigh != prevProfile
         .targetHigh)

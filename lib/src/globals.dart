@@ -5,16 +5,16 @@ import 'dart:convert' as convert;
 import 'dart:html' as html;
 import 'dart:math' as math;
 
+import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
+import 'package:angular_components/angular_components.dart';
 import 'package:googleapis/drive/v3.dart' as gd;
 import 'package:googleapis_auth/auth_browser.dart' as auth;
-import 'package:angular_components/angular_components.dart';
-import 'package:angular_components/material_datepicker/comparison.dart';
-import 'package:angular_components/material_datepicker/comparison_option.dart';
-import 'package:angular_components/material_datepicker/range.dart';
 import 'package:http/browser_client.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
+import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
+import 'package:nightscout_reporter/src/jsonData.dart';
 
 class Msg
 {
@@ -51,28 +51,35 @@ class LangData
   LangData(this.code, this.name, this.dateformat, this.img);
 }
 
-class GoogleAuth
-{
-  final identifier = new auth.ClientId("939975570793-i9kj0rp6kgv470t45j1pf1hg3j9fqmbh.apps.googleusercontent.com", null);
-  final scopes = [gd.DriveApi.DriveAppdataScope];
-  var client = null;
-  gd.DriveApi drive = null;
-}
-
 class Globals
 {
-  String version = "1.1.2-8";
+  bool _isLoaded = false;
+  String version = "1.2.0-1";
   String lastVersion;
 
-  GoogleAuth ga = GoogleAuth();
   static final Globals _globals = Globals._internal();
+
+//  final driveParent = "appDataFolder";
+  final driveParent = null;
+  auth.AutoRefreshingAuthClient _client = null;
+  auth.AutoRefreshingAuthClient get client
+  => _client;
+  set client(auth.AutoRefreshingAuthClient value)
+  {
+    _client = value;
+    saveToGoogle = value != null;
+    save();
+  }
+
+  gd.DriveApi get drive
+  => client == null ? null : gd.DriveApi(client);
 
   factory Globals(){
     return _globals;
   }
 
   Globals._internal(){
-    load();
+//    load();
   }
 
   List<FormConfig> listConfig = List<FormConfig>();
@@ -119,7 +126,14 @@ class Globals
     LangData("de_DE", Intl.message("Deutsch"), "dd.MM.yyyy", "de"),
     LangData("en_US", Intl.message("English"), "M/d/yyyy", "us")
   ];
-  LangData language;
+  LangData _language = null;
+  LangData get language
+  => _language == null ? languageList[0] : _language;
+  set language(LangData value)
+  {
+    _language = value;
+  }
+
   String get msgToday
   => Intl.message("Heute");
   String get msgLast2Days
@@ -139,13 +153,24 @@ class Globals
 
   bool glucMGDL = true;
   DatepickerPeriod period = DatepickerPeriod();
-  DatepickerComparison _dateRange = DatepickerComparison(
-    DatepickerDateRange(Intl.message("Zeitraum"), null, null), ComparisonOption.custom);
   DateFormat fmtDateForData;
   DateFormat fmtDateForDisplay;
   bool canDebug = false;
   bool isBeta = html.window.location.href.contains("/beta/");
   bool isLocal = html.window.location.href.contains("/localhost:");
+  String get settingsFilename
+  => isLocal ? "settings.local" : isBeta ? "settings.beta" : "settings";
+  gd.File settingsFile = null;
+
+  bool _saveToGoogle = false;
+  bool get saveToGoogle
+  => _saveToGoogle;
+  set saveToGoogle(bool value)
+  {
+    _saveToGoogle = value;
+    saveStorage("saveToGoogle", _saveToGoogle ? "yes" : null);
+  }
+
   static bool itod = html.window.localStorage["unsafe"] != "zh++;";
   String betaPrefix = "@";
   bool pdfSameWindow = true;
@@ -183,15 +208,20 @@ class Globals
     return b;
   }
 
-  Future<String> request(String url, {String method = "GET"})
-  async {
-    http.BrowserClient client = http.BrowserClient();
+  String adjustUrl(String url)
+  {
     if (user.token != null && user.token.isNotEmpty)
     {
       String div = url.indexOf("?") > 0 ? "&" : "?";
       url = "${url}${div}token=${user.token}";
     }
-    return client.get(url).then((response)
+    return url;
+  }
+
+  Future<String> request(String url, {String method = "GET"})
+  async {
+    http.BrowserClient client = http.BrowserClient();
+    return client.get(adjustUrl(url)).then((response)
     {
       return response.body;
     }).catchError((error)
@@ -220,7 +250,7 @@ class Globals
   async {
     language = value;
     if (checkConfigured && !isConfigured)clearStorage();
-    saveStorage("language", language.code ?? "de_DE");
+    saveStorage("language", language?.code ?? "de_DE");
     if (doReload)
     {
       if (!checkConfigured)save();
@@ -257,7 +287,7 @@ class Globals
   copyFromOtherStorage()
   {
     isBeta = !isBeta;
-    load();
+    loadSettings();
     isBeta = !isBeta;
     save();
   }
@@ -286,83 +316,254 @@ class Globals
     return ret;
   }
 
-  void load()
+  String get asJson
   {
-    // read old data to save them for later. Will be removed in future updates
-    if (loadStorage("apiUrl") != "")
+    String save = "";
+    for (int i = 0; i < userList.length; i++)
+      save = "${save},${userList[i].asJson}";
+    String debug = "";
+    return '{'
+      '"version":"$version",'
+      '"mu":"${Globals.doit('[${save.substring(1)}]')}",'
+      '"userIdx":"${userIdx}",'
+      '"glucMGDL":"${glucMGDL}",'
+      '"language":"${language.code ?? 'de_DE'}",'
+      '"pdfSameWindow":"${pdfSameWindow ? 'yes' : 'no'}",'
+      '"pdfDownload":"${pdfDownload ? 'yes' : 'no'}",'
+      '"hideNightscoutInPDF":"${hideNightscoutInPDF ? 'yes' : 'no'}",'
+      '"period":"${period?.toString() ?? null}"'
+      '}';
+  }
+
+  void _loadFromStorage()
+  {
+    String src = '{'
+      '"version":"${loadStorage('version')}"'
+      ',"userIdx":"${loadStorage('userIdx')}"'
+      ',"mu":"${loadStorage('mu')}"'
+      ',"userIdx":"${userIdx}"'
+      ',"glucMGDL":"${loadStorage('glucMGDL')}"'
+      ',"language":"${loadStorage('language')}"'
+      ',"pdfSameWindow":"${loadStorage('pdfSameWindow')}"'
+      ',"pdfDownload":"${loadStorage('pdfDownload')}"'
+      ',"hideNightscoutInPDF":"${loadStorage('hideNightscoutInPDF')}"'
+      ',"period":"${loadStorage('period')}"'
+      '}';
+    fromJson(src);
+    canDebug = loadStorage("debug") == "yes";
+    fmtDateForData = DateFormat("yyyy-MM-dd");
+    fmtDateForDisplay = DateFormat(language.dateformat);
+  }
+
+  void fromJson(String src)
+  {
+    try
     {
-      UserData user = UserData(this);
-      user.storageApiUrl = loadStorage("apiUrl");
-      user.diaStartDate = loadStorage("diaStartDate");
-      user.insulin = loadStorage("insulin");
-      user.birthDate = loadStorage("birthDate");
-      user.name = loadStorage("userName");
-      userIdx = 0;
-      saveStorage("mu", Globals.doit("[${user.asJson}]"));
-      saveStorage("userIdx", "$userIdx");
-      saveStorage("version", lastVersion);
-      // remove old keys, cod can be removed in future release
-      html.window.localStorage.remove("lastVersion");
-      html.window.localStorage.remove("apiUrl");
-      html.window.localStorage.remove("diaStartDate");
-      html.window.localStorage.remove("birthDate");
-      html.window.localStorage.remove("userName");
-      html.window.localStorage.remove("insulin");
+      dynamic json = convert.json.decode(src);
+
+      lastVersion = JsonData.toText(json["version"]);
+      userIdx = JsonData.toInt(json["userIdx"]);
+      glucMGDL = JsonData.toBool(json["glucMGDL"]);
+      String langId = JsonData.toText(json["language"]);
+      int idx = languageList.indexWhere((v)
+      => v.code == langId);
+      language = languageList[idx >= 0 ? idx : 0];
+      pdfSameWindow = JsonData.toBool(json["pdfSameWindow"]);
+      pdfDownload = JsonData.toBool(json["pdfDownload"]);
+      hideNightscoutInPDF = JsonData.toBool(json["hideNightscoutInPDF"]);
+      period = DatepickerPeriod(src: JsonData.toText(json["period"]));
+      period.fmtDate = language.dateformat;
+      String users = json["mu"];
+      userList.clear();
+      // get user list from mu if available
+      if (users != null)
+      {
+        var text = tiod(users);
+        if (text != null && text.isNotEmpty)
+        {
+          try
+          {
+            var list = convert.json.decode(text);
+            for (var entry in list)
+              userList.add(UserData.fromData(this, entry));
+          }
+          catch (e)
+          {
+//            saveStorage("mu", null);
+          }
+        }
+        else
+        {
+//          saveStorage("mu", null);
+        }
+      }
+    }
+    catch (ex)
+    {
+      String msg = ex.toString();
+    }
+  }
+
+  void _uploadToGoogle()
+  {
+    if (drive == null)
+    {
+      saveToGoogle = false;
+      save();
     }
 
-    String users = loadStorage("mu");
-    userList.clear();
-    // get user list from mu if available
-    if (users != null)
+    if (settingsFile == null)
     {
-      var text = tiod(users);
-      if (text != null && text.isNotEmpty)
+      settingsFile = gd.File()
+        ..name = settingsFilename
+        ..id = null;
+      if (driveParent != null)settingsFile.parents = [driveParent];
+    }
+
+    StreamController<String> controller = StreamController<String>();
+    String content = asJson;
+    controller.add(content);
+    commons.Media media = commons.Media(
+      controller.stream.transform(convert.Utf8Encoder()), content.length, contentType: "text/javascript");
+    if (settingsFile.id == null)
+    {
+      drive?.files.create(settingsFile, uploadMedia: media).then((_)
       {
-        try
+//        data.mode = "view";
+//        activate();
+      }).catchError((error)
+      {
+        String msg = error.toString();
+//        display("Es ist ein Fehler aufgetreten ($error)");
+      }, test: (error)
+      => true);
+    }
+    else
+      drive?.files.update(settingsFile, settingsFile.id, uploadMedia: media).then((_)
+      {
+      }).catchError((error)
+      {
+        String msg = error.toString();
+//      display("Es ist ein Fehler aufgetreten ($error)");
+      }, test: (error)
+      => true);
+    controller.close();
+  }
+
+  void _loadFromGoogle()
+  {
+    if (drive == null)
+    {
+      SigninComponent sign = SigninComponent();
+      sign.isAuthorized = saveToGoogle;
+      sign.doLogin().then((_)
+      {
+        _client = sign.client;
+        if (drive == null)
         {
-          var list = convert.json.decode(text);
-          for (var entry in list)
-            userList.add(UserData.fromData(this, entry));
+          saveToGoogle = false;
+          _loadFromStorage();
+          _initAfterLoad();
+          return;
         }
-        catch (e)
+        else
         {
-          saveStorage("mu", null);
+          _loadFromGoogle();
         }
+      });
+      return;
+    }
+    _searchDocuments(1, "name='${settingsFilename}' and not trashed").then((gd.FileList list)
+    {
+      if (list.files.length == 0)
+      {
+        settingsFile = list.files[0];
       }
       else
       {
-        saveStorage("mu", null);
+        settingsFile = gd.File()
+          ..name = settingsFilename
+          ..id = null;
+        if (driveParent != null)settingsFile.parents = [driveParent];
       }
-    }
-
-    userIdx = int.tryParse(loadStorage("userIdx")) ?? 0;
-    String langId = loadStorage("language");
-    int idx = languageList.indexWhere((v)
-    => v.code == langId);
-    language = languageList[idx >= 0 ? idx : 0];
-    lastVersion = loadStorage("version");
-    fmtDateForData = DateFormat("yyyy-MM-dd");
-    fmtDateForDisplay = DateFormat(language.dateformat);
-    glucMGDL = loadStorage("glucMGDL") != "false";
-    canDebug = loadStorage("debug") == "yes";
-    pdfSameWindow = loadStorage("pdfSameWindow") != "no";
-    pdfDownload = loadStorage("pdfDownload") == "yes";
-    hideNightscoutInPDF = loadStorage("hideNightscoutInPDF") == "yes";
-
-    period = DatepickerPeriod(src: loadStorage("period"));
-    period.fmtDate = language.dateformat;
-
-    Date start = Date.today();
-    Date end = Date.today();
-    try
+      drive.files.get(
+        settingsFile.id, $fields: "*", downloadOptions: commons.DownloadOptions.FullMedia, acknowledgeAbuse: false)
+        .then((response)
+      {
+        var media = response as commons.Media;
+        if (media?.contentType?.startsWith("text/") ?? false)
+        {
+          Stream strm = media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
+          strm.join().then((s)
+          {
+            fromJson(s);
+          });
+        }
+        else
+        {
+//          display("Eine Datei der Art \"${media?.contentType}\" kann nicht verarbeitet werden. ");
+        }
+      }).catchError((error)
+      {
+        String msg = error.toString();
+//        display("Es ist ein Fehler aufgetreten ($error)");
+      }, test: (error)
+      => true);
+    }).catchError((error)
     {
-      start = Date.parse(loadStorage("startDate") ?? Date.today().add(days: -7).format(fmtDateForData), fmtDateForData);
-      end = Date.parse(loadStorage("endDate") ?? Date.today().format(fmtDateForData), fmtDateForData);
+      _loadFromStorage();
+      _initAfterLoad();
+    });
+  }
+
+  Future<gd.FileList> _searchDocuments(int max, String query)
+  {
+    gd.FileList docs = gd.FileList();
+    Future<gd.FileList> next(String token)
+    {
+      // The API call returns only a subset of the results. It is possible
+      // to query through the whole result set via "paging".
+      return drive?.files.list(q: query,
+        pageToken: token,
+        pageSize: 100,
+        corpora: "user",
+//        $fields: "*",
+        orderBy: "name",
+        spaces: driveParent).then((results)
+      {
+        docs.files.addAll(results.files);
+        // If we would like to have more documents, we iterate.
+        if (docs.files.length < max && results.nextPageToken != null)
+        {
+          return next(results.nextPageToken);
+        }
+        return (docs as Future<gd.FileList>);
+      }).catchError((error)
+      {
+        String msg = error.toString();
+//        display("Es ist ein Fehler aufgetreten ($error)");
+      }, test: (error)
+      => true);
     }
-    catch (ex)
-    {}
-    DatepickerDateRange dr = DatepickerDateRange(_dateRange.range.title, start, end);
-    _dateRange = DatepickerComparison(dr, ComparisonOption.custom);
+    return next(null);
+  }
+
+  Future<void> loadSettings()
+  async {
+    _saveToGoogle = loadStorage("saveToGoogle") == "yes";
+    if (saveToGoogle)
+    {
+      _loadFromGoogle();
+    }
+    else
+    {
+      _loadFromStorage();
+      _initAfterLoad();
+    }
+  }
+
+  void _initAfterLoad()
+  {
     changeLanguage(language, doReload: false);
     period.list.clear();
     period.list.add(DatepickerEntry("today", msgToday, (DatepickerPeriod data)
@@ -370,55 +571,59 @@ class Globals
       data.start = Date.today();
       data.end = Date.today();
     }));
-    period.list.add(
-      DatepickerEntry("2days", msgLast2Days, (DatepickerPeriod data)
-      {
-        data.start = Date.today().add(days: -1);
-        data.end = Date.today();
-      }));
-    period.list.add(
-      DatepickerEntry("3days", msgLast3Days, (DatepickerPeriod data)
-      {
-        data.start = Date.today().add(days: -2);
-        data.end = Date.today();
-      }));
-    period.list.add(
-      DatepickerEntry("1week", msgLastWeek, (DatepickerPeriod data)
-      {
-        data.start = Date.today().add(days: -6);
-        data.end = Date.today();
-      }));
-    period.list.add(
-      DatepickerEntry("2weeks", msgLast2Weeks, (DatepickerPeriod data)
-      {
-        data.start = Date.today().add(days: -13);
-        data.end = Date.today();
-      }));
-    period.list.add(
-      DatepickerEntry("3weeks", msgLast3Weeks, (DatepickerPeriod data)
-      {
-        data.start = Date.today().add(days: -20);
-        data.end = Date.today();
-      }));
-    period.list.add(
-      DatepickerEntry("1month", msgLastMonth, (DatepickerPeriod data)
-      {
-        data.start = Date.today().add(months: -1);
-        data.end = Date.today();
-      }));
-    period.list.add(
-      DatepickerEntry("3months", msgLast3Months, (DatepickerPeriod data)
-      {
-        data.start = Date.today().add(months: -3);
-        data.end = Date.today();
-      }));
+    period.list.add(DatepickerEntry("2days", msgLast2Days, (DatepickerPeriod data)
+    {
+      data.start = Date.today().add(days: -1);
+      data.end = Date.today();
+    }));
+    period.list.add(DatepickerEntry("3days", msgLast3Days, (DatepickerPeriod data)
+    {
+      data.start = Date.today().add(days: -2);
+      data.end = Date.today();
+    }));
+    period.list.add(DatepickerEntry("1week", msgLastWeek, (DatepickerPeriod data)
+    {
+      data.start = Date.today().add(days: -6);
+      data.end = Date.today();
+    }));
+    period.list.add(DatepickerEntry("2weeks", msgLast2Weeks, (DatepickerPeriod data)
+    {
+      data.start = Date.today().add(days: -13);
+      data.end = Date.today();
+    }));
+    period.list.add(DatepickerEntry("3weeks", msgLast3Weeks, (DatepickerPeriod data)
+    {
+      data.start = Date.today().add(days: -20);
+      data.end = Date.today();
+    }));
+    period.list.add(DatepickerEntry("1month", msgLastMonth, (DatepickerPeriod data)
+    {
+      data.start = Date.today().add(months: -1);
+      data.end = Date.today();
+    }));
+    period.list.add(DatepickerEntry("3months", msgLast3Months, (DatepickerPeriod data)
+    {
+      data.start = Date.today().add(months: -3);
+      data.end = Date.today();
+    }));
+    isConfigured = lastVersion != null && lastVersion.isNotEmpty;
+    _isLoaded = true;
   }
 
   void save()
   {
     String oldLang = loadStorage("language");
+    String oldGoogle = loadStorage("saveToGoogle");
+
+    if (saveToGoogle)
+    {
+      _uploadToGoogle();
+      return;
+    }
     clearStorage();
+
     saveStorage("version", version);
+    saveStorage("saveToGoogle", oldGoogle);
     if (canDebug)saveStorage("debug", "yes");
     if (!itod)saveStorage("unsafe", "zh++;");
 
@@ -435,12 +640,13 @@ class Globals
     saveStorage("pdfDownload", pdfDownload ? "yes" : "no");
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "yes" : "no");
     saveStorage("period", period?.toString() ?? null);
-
+/*
     if (_dateRange.range != null)
     {
       if (_dateRange.range.start != null)saveStorage("startDate", _dateRange.range.start.format(fmtDateForData));
       if (_dateRange.range.end != null)saveStorage("endDate", _dateRange.range.end.format(fmtDateForData));
     }
+*/
     if (doReload)reload();
   }
 
@@ -544,7 +750,8 @@ class UserData
         forms[cfg.id] = cfg.asString;
     }
     catch (ex)
-    {}
+    {
+    }
 
     return '{"n":"$name",'
       '"bd":"${birthDate ?? ''}",'
@@ -581,7 +788,8 @@ class UserData
       }*/
     }
     catch (ex)
-    {}
+    {
+    }
     return ret;
   }
 

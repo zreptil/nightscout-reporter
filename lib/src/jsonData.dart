@@ -10,7 +10,7 @@ class JsonData
 {
   JsonData();
 
-  DateTime toTime(String value)
+  static DateTime toTime(String value)
   {
     int hour = 0;
     int minute = 0;
@@ -22,23 +22,23 @@ class JsonData
     return DateTime(0, 1, 1, hour, minute, second);
   }
 
-  DateTime toDate(value)
+  static DateTime toDate(value)
   {
     if (value == null)return DateTime(0, 1, 1);
     if (value is int)return DateTime.fromMillisecondsSinceEpoch(value);
     return DateTime.tryParse(value).toLocal() ?? DateTime(0, 1, 1);
   }
 
-  String toText(value, [String def = ""])
+  static String toText(value, [String def = ""])
   => value == null ? def : value is String ? value : "${value}";
 
-  bool toBool(value)
+  static bool toBool(value)
   => value == null ? false : value is bool ? value : value is String ? value == "true" : false;
 
-  double toDouble(value, [def = 0.0])
+  static double toDouble(value, [def = 0.0])
   => value == null || value == "NaN" ? def : value is double || value is int ? value : double.tryParse(value) ?? def;
 
-  int toInt(value, [int def = 0])
+  static int toInt(value, [int def = 0])
   => value == null ? def : value is int ? value : value is double ? value.toInt() : int.tryParse(value) ?? def;
 }
 
@@ -54,10 +54,10 @@ class ThresholdData extends JsonData
   factory ThresholdData.fromJson(Map<String, dynamic> json){
     ThresholdData ret = ThresholdData();
     if (json == null)return ret;
-    ret.bgHigh = ret.toInt(json["bgHigh"]);
-    ret.bgTargetTop = ret.toInt(json["bgTargetTop"]);
-    ret.bgTargetBottom = ret.toInt(json["bgTargetBottom"]);
-    ret.bgLow = ret.toInt(json["bgLow"]);
+    ret.bgHigh = JsonData.toInt(json["bgHigh"]);
+    ret.bgTargetTop = JsonData.toInt(json["bgTargetTop"]);
+    ret.bgTargetBottom = JsonData.toInt(json["bgTargetBottom"]);
+    ret.bgLow = JsonData.toInt(json["bgLow"]);
     return ret;
   }
 }
@@ -103,34 +103,34 @@ class SettingsData extends JsonData
   factory SettingsData.fromJson(Map<String, dynamic> json){
     SettingsData ret = SettingsData();
     if (json == null)return ret;
-    ret.units = ret.toText(json["units"]);
-    ret.timeFormat = ret.toInt(json["timeFormat"]);
-    ret.nightMode = ret.toBool(json["nightMode"]);
-    ret.editMode = ret.toBool(json["editMode"]);
-    ret.showRawbg = ret.toText(json["showRawbg"]);
-    ret.customTitle = ret.toText(json["customTitle"]);
-    ret.theme = ret.toText(json["theme"]);
-    ret.alarmUrgentHigh = ret.toBool(json["alarmUrgentHigh"]);
+    ret.units = JsonData.toText(json["units"]);
+    ret.timeFormat = JsonData.toInt(json["timeFormat"]);
+    ret.nightMode = JsonData.toBool(json["nightMode"]);
+    ret.editMode = JsonData.toBool(json["editMode"]);
+    ret.showRawbg = JsonData.toText(json["showRawbg"]);
+    ret.customTitle = JsonData.toText(json["customTitle"]);
+    ret.theme = JsonData.toText(json["theme"]);
+    ret.alarmUrgentHigh = JsonData.toBool(json["alarmUrgentHigh"]);
     for (dynamic entry in json["alarmUrgentHighMins"])
-      ret.alarmUrgentHighMins.add(ret.toInt(entry));
-    ret.alarmHigh = ret.toBool(json["alarmHigh"]);
+      ret.alarmUrgentHighMins.add(JsonData.toInt(entry));
+    ret.alarmHigh = JsonData.toBool(json["alarmHigh"]);
     for (dynamic entry in json["alarmHighMins"])
-      ret.alarmHighMins.add(ret.toInt(entry));
-    ret.alarmLow = ret.toBool(json["alarmLow"]);
+      ret.alarmHighMins.add(JsonData.toInt(entry));
+    ret.alarmLow = JsonData.toBool(json["alarmLow"]);
     for (dynamic entry in json["alarmLowMins"])
-      ret.alarmLowMins.add(ret.toInt(entry));
-    ret.alarmUrgentLow = ret.toBool(json["alarmUrgentLow"]);
+      ret.alarmLowMins.add(JsonData.toInt(entry));
+    ret.alarmUrgentLow = JsonData.toBool(json["alarmUrgentLow"]);
     for (dynamic entry in json["alarmUrgentLowMins"])
-      ret.alarmUrgentLowMins.add(ret.toInt(entry));
+      ret.alarmUrgentLowMins.add(JsonData.toInt(entry));
     for (dynamic entry in json["alarmUrgentMins"])
-      ret.alarmUrgentMins.add(ret.toInt(entry));
+      ret.alarmUrgentMins.add(JsonData.toInt(entry));
     for (dynamic entry in json["alarmWarnMins"])
-      ret.alarmWarnMins.add(ret.toInt(entry));
-    ret.alarmTimeagoWarn = ret.toBool(json["alarmTimeagoWarn"]);
-    ret.alarmTimeagoWarnMins = ret.toInt(json["alarmTimeagoWarnMins"]);
-    ret.alarmTimeagoUrgent = ret.toBool(json["alarmTimeagoUrgent"]);
-    ret.alarmTimeagoUrgent = ret.toBool(json["alarmTimeagoUrgent"]);
-    ret.alarmTimeagoUrgentMins = ret.toInt(json["alarmTimeagoUrgentMins"]);
+      ret.alarmWarnMins.add(JsonData.toInt(entry));
+    ret.alarmTimeagoWarn = JsonData.toBool(json["alarmTimeagoWarn"]);
+    ret.alarmTimeagoWarnMins = JsonData.toInt(json["alarmTimeagoWarnMins"]);
+    ret.alarmTimeagoUrgent = JsonData.toBool(json["alarmTimeagoUrgent"]);
+    ret.alarmTimeagoUrgent = JsonData.toBool(json["alarmTimeagoUrgent"]);
+    ret.alarmTimeagoUrgentMins = JsonData.toInt(json["alarmTimeagoUrgentMins"]);
     ret.language = json["language"];
     ret.scaleY = json["scaleY"];
     for (String entry in json["showPlugins"].toString().split(" "))
@@ -138,8 +138,8 @@ class SettingsData extends JsonData
       if (entry != "")ret.showPlugins.add(entry);
     }
     ret.showForecast = json["showForecast"];
-    ret.focusHours = ret.toInt(json["focusHours"]);
-    ret.heartbeat = ret.toInt(json["heartbeat"]);
+    ret.focusHours = JsonData.toInt(json["focusHours"]);
+    ret.heartbeat = JsonData.toInt(json["heartbeat"]);
     ret.baseURL = json["baseURL"];
     ret.authDefaultRoles = json["authDefaultRoles"];
     if (json["thresholds"] != null)ret.thresholds = ThresholdData.fromJson(json["thresholds"]);
@@ -166,11 +166,11 @@ class AgeData extends JsonData
   factory AgeData.fromJson(Map<String, dynamic> json){
     AgeData ret = AgeData();
     if (json == null)return ret;
-    ret.display = ret.toText(json["display"]);
-    ret.warn = ret.toInt(json["warn"]);
-    ret.urgent = ret.toInt(json["urgent"]);
-    ret.info = ret.toBool(json["info"]);
-    ret.enableAlerts = ret.toBool(json["enableAlerts"]);
+    ret.display = JsonData.toText(json["display"]);
+    ret.warn = JsonData.toInt(json["warn"]);
+    ret.urgent = JsonData.toInt(json["urgent"]);
+    ret.info = JsonData.toBool(json["info"]);
+    ret.enableAlerts = JsonData.toBool(json["enableAlerts"]);
     return ret;
   }
 }
@@ -196,12 +196,12 @@ class ExtendedSettingsData extends JsonData
     }
     if (json["upbat"] != null)
     {
-      ret.upbatEnableAlerts = ret.toBool(json["upbat"]["enableAlerts"]);
-      ret.upbatWarn = ret.toInt(json["upbat"]["warn"]);
+      ret.upbatEnableAlerts = JsonData.toBool(json["upbat"]["enableAlerts"]);
+      ret.upbatWarn = JsonData.toInt(json["upbat"]["warn"]);
     }
     ret.cage = AgeData.fromJson(json["cage"]);
     ret.cage = AgeData.fromJson(json["sage"]);
-    ret.advancedDeviceStatus = ret.toBool(json["advancedDeviceStatus"]);
+    ret.advancedDeviceStatus = JsonData.toBool(json["advancedDeviceStatus"]);
     return ret;
   }
 }
@@ -230,11 +230,11 @@ class StatusData extends JsonData
     ret.status = json["status"];
     ret.name = json["name"];
     ret.version = json["version"];
-    ret.serverTime = ret.toDate(json["serverTime"]);
-    ret.serverTimeEpoch = ret.toInt(json["serverTimeEpoch"]);
-    ret.apiEnabled = ret.toBool("apiEnabled");
-    ret.careportalEnabled = ret.toBool("careportalEnabled");
-    ret.boluscalcEnabled = ret.toBool("boluscalcEnabled");
+    ret.serverTime = JsonData.toDate(json["serverTime"]);
+    ret.serverTimeEpoch = JsonData.toInt(json["serverTimeEpoch"]);
+    ret.apiEnabled = JsonData.toBool("apiEnabled");
+    ret.careportalEnabled = JsonData.toBool("careportalEnabled");
+    ret.boluscalcEnabled = JsonData.toBool("boluscalcEnabled");
     ret.head = json["head"];
     if (json["settings"] != null)ret.settings = SettingsData.fromJson(json["settings"]);
     if (json["extendedSettings"] != null)ret.extendedSettings = ExtendedSettingsData.fromJson(json["extendedSettings"]);
@@ -327,9 +327,9 @@ class ProfileEntryData extends JsonData
   factory ProfileEntryData.fromJson(Map<String, dynamic> json, String timezone){
     ProfileEntryData ret = ProfileEntryData(timezone);
     if (json == null)return ret;
-    ret._time = ret.toTime(json["time"]);
-    ret.value = ret.toDouble(json["value"]);
-    ret.timeAsSeconds = ret.toInt(json["timeAsSeconds"]);
+    ret._time = JsonData.toTime(json["time"]);
+    ret.value = JsonData.toDouble(json["value"]);
+    ret.timeAsSeconds = JsonData.toInt(json["timeAsSeconds"]);
     return ret;
   }
 }
@@ -363,20 +363,20 @@ class ProfileStoreData extends JsonData
   factory ProfileStoreData.fromJson(Map<String, dynamic> json){
     ProfileStoreData ret = ProfileStoreData();
     if (json == null)return ret;
-    ret.dia = ret.toInt(json["dia"]);
-    ret.carbsHr = ret.toInt(json["carbs_hr"]);
-    ret.delay = ret.toInt(json["delay"]);
+    ret.dia = JsonData.toInt(json["dia"]);
+    ret.carbsHr = JsonData.toInt(json["carbs_hr"]);
+    ret.delay = JsonData.toInt(json["delay"]);
     try
     {
-      ret.timezone = ret.toText(json["timezone"]);
+      ret.timezone = JsonData.toText(json["timezone"]);
       tz.getLocation(ret.timezone);
     }
     catch (ex)
     {
       ret.timezone = "Europe/Berlin";
     }
-    ret.startDate = ret.toDate(json["startDate"]);
-    ret.units = ret.toText(json["units"]);
+    ret.startDate = JsonData.toDate(json["startDate"]);
+    ret.units = JsonData.toText(json["units"]);
     for (dynamic entry in json["carbratio"])
       ret.listCarbratio.add(ProfileEntryData.fromJson(entry, ret.timezone));
     for (dynamic entry in json["sens"])
@@ -415,9 +415,9 @@ class ProfileData extends JsonData
     if (json == null)return ret;
     ret.id = json["int"];
     ret.defaultProfile = json["defaultProfile"];
-    ret.startDate = ret.toDate(json["startDate"]);
-    ret.units = ret.toText(json["units"]);
-    ret.createdAt = ret.toDate(json["created_at"]);
+    ret.startDate = JsonData.toDate(json["startDate"]);
+    ret.units = JsonData.toText(json["units"]);
+    ret.createdAt = JsonData.toDate(json["created_at"]);
     Map<String, dynamic> src = json["store"];
     for (String key in src.keys)
     {
@@ -503,33 +503,33 @@ class BoluscalcData extends JsonData
     if (json == null)return ret;
     ret.profile = json["profile"];
     ret.notes = json["notes"];
-    ret.eventTime = ret.toDate(json["eventTime"]);
-    ret.targetBGLow = ret.toInt(json["targetBGLow"]);
-    ret.targetBGHigh = ret.toInt(json["targetBGHigh"]);
-    ret.isf = ret.toInt(json["isf"]);
-    ret.ic = ret.toInt(json["ic"]);
-    ret.iob = ret.toDouble(json["iob"]);
-    ret.bolusIob = ret.toDouble(json["bolusIob"]);
-    ret.basalIob = ret.toDouble(json["basalIob"]);
-    ret.bolusIobUsed = ret.toBool(json["bolusIobUsed"]);
-    ret.basalIobUsed = ret.toBool(json["basalIobUsed"]);
-    ret.bg = ret.toInt(json["bg"]);
-    ret.insulinBg = ret.toDouble(json["insulinBg"]);
-    ret.insulinBgUsed = ret.toBool(json["insulinBgUsed"]);
-    ret.bgDiff = ret.toInt(json["bgdiff"]);
-    ret.insulinCarbs = ret.toDouble(json["insulincarbs"]);
-    ret.carbs = ret.toDouble(json["carbs"]);
-    ret.cob = ret.toDouble(json["cob"]);
-    ret.cobUsed = ret.toBool(json["cobused"]);
-    ret.insulinCob = ret.toDouble(json["insulincob"]);
-    ret.otherCorrection = ret.toDouble(json["othercorrection"]);
-    ret.insulinSuperBolus = ret.toDouble(json["insulinsuperbolus"]);
-    ret.insulinTrend = ret.toDouble(json["insulintrend"]);
-    ret.insulin = ret.toDouble(json["insulin"]);
-    ret.superBolusUsed = ret.toBool(json["superbolusused"]);
-    ret.trendUsed = ret.toBool(json["trendused"]);
+    ret.eventTime = JsonData.toDate(json["eventTime"]);
+    ret.targetBGLow = JsonData.toInt(json["targetBGLow"]);
+    ret.targetBGHigh = JsonData.toInt(json["targetBGHigh"]);
+    ret.isf = JsonData.toInt(json["isf"]);
+    ret.ic = JsonData.toInt(json["ic"]);
+    ret.iob = JsonData.toDouble(json["iob"]);
+    ret.bolusIob = JsonData.toDouble(json["bolusIob"]);
+    ret.basalIob = JsonData.toDouble(json["basalIob"]);
+    ret.bolusIobUsed = JsonData.toBool(json["bolusIobUsed"]);
+    ret.basalIobUsed = JsonData.toBool(json["basalIobUsed"]);
+    ret.bg = JsonData.toInt(json["bg"]);
+    ret.insulinBg = JsonData.toDouble(json["insulinBg"]);
+    ret.insulinBgUsed = JsonData.toBool(json["insulinBgUsed"]);
+    ret.bgDiff = JsonData.toInt(json["bgdiff"]);
+    ret.insulinCarbs = JsonData.toDouble(json["insulincarbs"]);
+    ret.carbs = JsonData.toDouble(json["carbs"]);
+    ret.cob = JsonData.toDouble(json["cob"]);
+    ret.cobUsed = JsonData.toBool(json["cobused"]);
+    ret.insulinCob = JsonData.toDouble(json["insulincob"]);
+    ret.otherCorrection = JsonData.toDouble(json["othercorrection"]);
+    ret.insulinSuperBolus = JsonData.toDouble(json["insulinsuperbolus"]);
+    ret.insulinTrend = JsonData.toDouble(json["insulintrend"]);
+    ret.insulin = JsonData.toDouble(json["insulin"]);
+    ret.superBolusUsed = JsonData.toBool(json["superbolusused"]);
+    ret.trendUsed = JsonData.toBool(json["trendused"]);
     ret.trend = json["trend"];
-    ret.ttUsed = ret.toBool(json["ttused"]);
+    ret.ttUsed = JsonData.toBool(json["ttused"]);
     ret.NSClientId = json["NSCLIENT_ID"];
     return ret;
   }
@@ -600,6 +600,9 @@ class TreatmentData extends JsonData
       case "carb correction":
         if (_carbs != null && !isECarb)return _carbs;
         break;
+      case "<none>":
+        if (enteredBy == "xdrip" && _carbs != null && !isECarb)return _carbs;
+        break;
     }
     return 0.0;
   }
@@ -639,23 +642,23 @@ class TreatmentData extends JsonData
     TreatmentData ret = TreatmentData();
     if (json == null)return ret;
     ret.raw = json;
-    ret.id = ret.toText(json["_id"]);
-    ret.eventType = ret.toText(json["eventType"]);
-    ret.duration = ret.toInt(json["duration"]);
-    ret._percent = ret.toInt(json["percent"], null);
-    ret._absolute = ret.toDouble(json["absolute"], null);
-    ret._rate = ret.toDouble(json["rate"]);
-    ret.createdAt = ret.toDate(json["created_at"]);
-    ret.enteredBy = ret.toText(json["enteredBy"]);
-    ret.NSClientId = ret.toText(json["NSCLIENT_ID"]);
-    ret._carbs = ret.toDouble(json["carbs"]);
-    ret.insulin = ret.toDouble(json["insulin"]);
-    ret.isSMB = ret.toBool(json["isSMB"]);
-    ret.pumpId = ret.toText(json["pumpId"]);
-    ret.glucose = ret.toDouble(json["glucose"]);
-    ret.glucoseType = ret.toText(json["glucoseType"]);
+    ret.id = JsonData.toText(json["_id"]);
+    ret.eventType = JsonData.toText(json["eventType"]);
+    ret.duration = JsonData.toInt(json["duration"]);
+    ret._percent = JsonData.toInt(json["percent"], null);
+    ret._absolute = JsonData.toDouble(json["absolute"], null);
+    ret._rate = JsonData.toDouble(json["rate"]);
+    ret.createdAt = JsonData.toDate(json["created_at"]);
+    ret.enteredBy = JsonData.toText(json["enteredBy"]);
+    ret.NSClientId = JsonData.toText(json["NSCLIENT_ID"]);
+    ret._carbs = JsonData.toDouble(json["carbs"]);
+    ret.insulin = JsonData.toDouble(json["insulin"]);
+    ret.isSMB = JsonData.toBool(json["isSMB"]);
+    ret.pumpId = JsonData.toText(json["pumpId"]);
+    ret.glucose = JsonData.toDouble(json["glucose"]);
+    ret.glucoseType = JsonData.toText(json["glucoseType"]);
     if (json["boluscalc"] != null)ret.boluscalc = BoluscalcData.fromJson(json["boluscalc"]);
-    ret.notes = ret.toText(json["notes"]);
+    ret.notes = JsonData.toText(json["notes"]);
     ret.microbolus = 0.0;
 
     // Specialhandling for Uploader for Minimed 600-series
@@ -725,13 +728,13 @@ class EntryData extends JsonData
     ret.raw = json;
     if (json == null)return ret;
     ret.id = json["_id"];
-    ret.time = ret.toDate(json["date"]);
-    ret.rssi = ret.toInt(json["rssi"]);
+    ret.time = JsonData.toDate(json["date"]);
+    ret.rssi = JsonData.toInt(json["rssi"]);
     ret.device = json["device"];
     ret.direction = json["direction"];
-    ret.rawbg = ret.toDouble(json["rawbg"]);
-    ret.sgv = ret.toDouble(json["sgv"]);
-    ret.mbg = ret.toDouble(json["mbg"]);
+    ret.rawbg = JsonData.toDouble(json["rawbg"]);
+    ret.sgv = JsonData.toDouble(json["sgv"]);
+    ret.mbg = JsonData.toDouble(json["mbg"]);
     ret.type = json["type"];
     return ret;
   }
@@ -789,7 +792,7 @@ class DayData
   {
     double ret = 0.0;
     for (ProfileEntryData entry in profile)
-      ret += (entry.value / 60.0) * entry.duration;
+      ret += ((entry.value ?? 0) / 60.0) * entry.duration;
     return ret;
   }
 
@@ -850,7 +853,7 @@ class DayData
     {
       ProfileEntryData entry = _profile[i];
       entry.orgValue = entry.value;
-      if (entry.value == null)
+      if (entry.value == null && last != null)
       {
         entry.orgValue = last.orgValue;
         entry.value = entry.adjustedValue(last.orgValue);

@@ -198,6 +198,21 @@ material-fab.debug-trigger {
   color: $mat-white;
 }
 
+.userName
+{
+  text-align: center;
+}
+
+signin {
+  position: fixed;
+  bottom: 2em;
+  left: 1em;
+
+  ::ng-deep material-button {
+    background: white;
+  }
+}
+
 material-expansionpanel {
   display: flex;
   flex-direction: column;
@@ -360,7 +375,6 @@ datepicker {
   @include datepicker_primary_color($mat_yellow_500);
 }
 
-.basePanel
-{
+.basePanel {
 
 }

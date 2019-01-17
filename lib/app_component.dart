@@ -14,6 +14,7 @@ import 'package:angular_components/material_select/material_select_item.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
+import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
@@ -37,9 +38,7 @@ import 'src/whatsnew/whatsnew_component.dart';
 // Components info: https://webdev.dartlang.org/components
 
 @Component(selector: 'my-app',
-  styleUrls: [
-    'app_component.css', 'package:angular_components/app_layout/layout.scss.css'
-  ],
+  styleUrls: ['app_component.css', 'package:angular_components/app_layout/layout.scss.css'],
   templateUrl: 'app_component.html',
   directives: [
     DatepickerComponent,
@@ -64,6 +63,7 @@ import 'src/whatsnew/whatsnew_component.dart';
     MaterialToggleComponent,
     MaterialDropdownSelectComponent,
     MaterialSelectItemComponent,
+    SigninComponent,
     NgClass,
     NgFor,
     NgIf,
@@ -104,15 +104,16 @@ class AppComponent
   String pdfUrl = "";
   bool isDebug = false;
   globals.Msg message = globals.Msg();
+  bool get isSigninActive
+  => g.isLocal;
   String get pdfFilename
   => reportData == null ? "" : "Nightscout-Reporter.pdf";
-
   String get msgCheckSetup
   => Intl.message("Überprüfe Zugriff auf Nightscout ...");
   String msgLoadingData(error, stacktrace)
   =>
-    Intl.message("Fehler beim Laden der Daten:\n$error\n$stacktrace",
-      args: [error, stacktrace], name: "msgLoadingData");
+    Intl.message(
+      "Fehler beim Laden der Daten:\n$error\n$stacktrace", args: [error, stacktrace], name: "msgLoadingData");
   String get msgLoadingDataError
   => Intl.message("Fehler beim Laden der Daten");
   String msgLoadingDataFor(date)
@@ -120,15 +121,15 @@ class AppComponent
     Intl.message("Lade Daten für $date...", args: [date],
       name: "msgLoadingDataFor",
       desc: "displayed when data of a day is loading");
-  dynamic currLang = {};
+  dynamic currLang = null;
   String get msgClose
   => Intl.message("Schliessen");
   String get msgEmptyRange
   => Intl.message("Bitte einen Zeitraum wählen.");
   String get msgPreparingData
   =>
-    Intl.message("Bereite Daten vor...",
-      desc: "text when data was received and is being prepared to be used in the report");
+    Intl.message(
+      "Bereite Daten vor...", desc: "text when data was received and is being prepared to be used in the report");
   String get msgCreatingPDF
   => Intl.message("Erzeuge PDF...", desc: "text when pdf is being created");
   String get msgImpressum
@@ -156,18 +157,26 @@ class AppComponent
   @override
   Future<Null> ngOnInit()
   async {
-    /// fill list with forms
-    g.listConfig = List<FormConfig>();
-    g.addForm(PrintAnalysis());
-    g.addForm(PrintProfile());
-    g.addForm(PrintPercentile());
-    g.addForm(PrintDailyStatistics());
-    g.addForm(PrintDailyGraphic());
-    g.addForm(PrintBasalrate());
-    g.addForm(PrintTest());
-    g.userIdx = g.userIdx;
+    display(null);
+    _currPage = "signin";
+    g.loadSettings().then((_)
+    {
+      String page = g.version == g.lastVersion ? "normal" : "whatsnew";
+      _currPage = g.isConfigured ? page : "welcome";
+      _lastPage = _currPage;
 
-    String title = msgPeriod;
+      /// fill list with forms
+      g.listConfig = List<FormConfig>();
+      g.addForm(PrintAnalysis());
+      g.addForm(PrintProfile());
+      g.addForm(PrintPercentile());
+      g.addForm(PrintDailyStatistics());
+      g.addForm(PrintDailyGraphic());
+      g.addForm(PrintBasalrate());
+      g.addForm(PrintTest());
+      g.userIdx = g.userIdx;
+
+      String title = msgPeriod;
 //    if (g != null && g.dateRange != null && g.dateRange.comparison != null)
 //      title = g.dateRange.comparison.title;
 
@@ -190,13 +199,21 @@ class AppComponent
     dateRanges.add(DatepickerPreset(msgLast3Months,
       DatepickerDateRange(title, Date.today().add(months: -3), Date.today())));
 */
-    currLang = g.language;
+      currLang = g.language;
+      if (html.window.location.href.endsWith("?dsgvo"))currPage = "dsgvo";
+      if (html.window.location.href.endsWith("?impressum"))currPage = "impressum";
+      checkPrint();
 
-    display(null);
-    g.isConfigured = g.lastVersion != null && g.lastVersion.isNotEmpty;
-    String page = g.version == g.lastVersion ? "normal" : "whatsnew";
-    _currPage = g.isConfigured ? page : "welcome";
-    _lastPage = _currPage;
+      g.period.maxDate = Date.today();
+      try
+      {
+        g.period.minDate = Date.parseLoose(g.user.birthDate, g.fmtDateForDisplay);
+      }
+      catch (ex)
+      {
+        g.period.minDate = null;
+      }
+    });
 /*
     progressText = msgCheckSetup;
     progressValue = progressMax + 1;
@@ -210,26 +227,12 @@ class AppComponent
       if (_currPage == "whatsnew")g.saveStorage("version", g.version);
     });
 */
-    if (html.window.location.href.endsWith("?dsgvo"))currPage = "dsgvo";
-    if (html.window.location.href.endsWith("?impressum"))currPage = "impressum";
-    checkPrint();
-
-    g.period.maxDate = Date.today();
-    try
-    {
-      g.period.minDate = Date.parseLoose(g.user.birthDate, g.fmtDateForDisplay);
-    }
-    catch (ex)
-    {
-      g.period.minDate = null;
-    }
-
-
 //    Draggable drag = Draggable(querySelectorAll('.sortable'), acatarHandler: AvatarHandler.clone());
   }
 
   void toggleHelp()
-  {}
+  {
+  }
 
   void togglePage(String id)
   {
@@ -243,12 +246,8 @@ class AppComponent
 
     if (clear)message.links = [];
 
-    message.links.add({
-      "url": url,
-      "title": title,
-      "class": btnClass,
-      "icon": isDebug && icon == null ? "code" : icon
-    });
+    message.links.add(
+      {"url": g.adjustUrl(url), "title": title, "class": btnClass, "icon": isDebug && icon == null ? "code" : icon});
     message.okText = msgClose;
     if (type != null)message.type = type;
   }
@@ -290,6 +289,15 @@ class AppComponent
       {
         pdfUrl = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
       }
+
+      // remove special chars from output (e.g. smiley placed in notes)
+      String temp = doc;
+      doc = "";
+      for (int i = 0; i < temp.length; i++)
+      {
+        if (temp.codeUnitAt(i) <= 255)doc = "${doc}${temp[i]}";
+      }
+
       pdfData = convert.base64.encode(convert.utf8.encode(doc));
       Future.delayed(Duration(milliseconds: 1), ()
       {
@@ -325,7 +333,7 @@ class AppComponent
         _currPage = g.isConfigured ? "normal" : "welcome";
         break;
       default:
-        g.load();
+        g.loadSettings();
         _currPage = g.isConfigured ? _lastPage : "welcome";
         break;
     }
@@ -346,9 +354,17 @@ class AppComponent
     progressText = null;
   }
 
+  changePeriod(period)
+  {
+    g.period = period;
+    checkPrint();
+  }
+
   void checkPrint()
   {
     sendDisabled = true;
+    if (g.period.isEmpty)return;
+
     for (FormConfig cfg in g.listConfig)
       if (cfg.checked)
       {
@@ -366,8 +382,8 @@ class AppComponent
   ReportData reportData = null;
   Future<ReportData> loadData()
   async {
-    if (reportData != null && reportData.begDate == g.period.start &&
-      reportData.endDate == g.period.end)return reportData;
+    if (reportData != null && reportData.begDate == g.period.start && reportData.endDate == g.period.end)
+      return reportData;
 
     ReportData data = ReportData(g, g.period.start, g.period.end);
 /*
@@ -378,10 +394,8 @@ class AppComponent
       g, g.dateRange.range.start, g.dateRange.range.end);
 */
     reportData = data;
-    DateTime bd = DateTime(
-      data.begDate.year, data.begDate.month, data.begDate.day);
-    DateTime ed = DateTime(
-      data.endDate.year, data.endDate.month, data.endDate.day);
+    DateTime bd = DateTime(data.begDate.year, data.begDate.month, data.begDate.day);
+    DateTime ed = DateTime(data.endDate.year, data.endDate.month, data.endDate.day);
 
     progressMax = ed
       .difference(bd)
@@ -413,15 +427,11 @@ class AppComponent
         59,
         999).toUtc();
 
-      progressText =
-        msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
-      String url = "${g.user.apiUrl}entries.json?find[date][\$gte]=${beg
-        .millisecondsSinceEpoch}&find[date][\$lte]=${end
+      progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
+      String url = "${g.user.apiUrl}entries.json?find[date][\$gte]=${beg.millisecondsSinceEpoch}&find[date][\$lte]=${end
         .millisecondsSinceEpoch}&count=100000";
       List<dynamic> src = json.decode(await g.request(url));
-      displayLink(
-        "e${begDate.format(g.fmtDateForDisplay)} (${src.length})", url,
-        type: "debug");
+      displayLink("e${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
       bool hasData = false;
       for (dynamic entry in src)
       {
@@ -445,13 +455,11 @@ class AppComponent
           break;
         }
       }
-      url = "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${beg
-        .toIso8601String()}&find[created_at][\$lte]=${end
+      url =
+      "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${beg.toIso8601String()}&find[created_at][\$lte]=${end
         .toIso8601String()}&count=100000";
       src = json.decode(await g.request(url));
-      displayLink(
-        "t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url,
-        type: "debug");
+      displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
       for (dynamic treatment in src)
       {
         hasData = true;
@@ -486,8 +494,7 @@ class AppComponent
       if (data.ns.entries.length != 0)
       {
         DateTime target = DateTime(
-          data.ns.entries.first.time.year, data.ns.entries.first.time.month,
-          data.ns.entries.first.time.day);
+          data.ns.entries.first.time.year, data.ns.entries.first.time.month, data.ns.entries.first.time.day);
         EntryData prev = data.ns.entries.first;
         DateTime t = DateTime(prev.time.year, prev.time.month, prev.time.day);
         prev = EntryData();
@@ -500,8 +507,7 @@ class AppComponent
           EntryData entry = data.ns.entries[i];
           if (entry.isInvalid)continue;
           DateTime current = DateTime(
-            entry.time.year, entry.time.month, entry.time.day, entry.time.hour,
-            entry.time.minute);
+            entry.time.year, entry.time.month, entry.time.day, entry.time.hour, entry.time.minute);
           if (current.isAtSameMomentAs(target))
           {
             prev = entry;
@@ -523,8 +529,8 @@ class AppComponent
             while (current.isAfter(target) || current.isAtSameMomentAs(target))
             {
               double factor = max == 0 ? 0 : target
-                .difference(prev.time)
-                .inMinutes / max;
+                                               .difference(prev.time)
+                                               .inMinutes / max;
               next = next.copy;
               if (max >= minGapKeep)next.isGap = true;
               next.time = target;
@@ -598,7 +604,8 @@ class AppComponent
       data.ns.extractData(data);
     }
     else
-    {}
+    {
+    }
     return data;
   }
 
@@ -623,8 +630,7 @@ class AppComponent
     async {
       if (vars.error != null)
       {
-        if (isDebug)display(msgLoadingData(
-          vars.error.toString(), vars.error.stackTrace.toString()));
+        if (isDebug)display(msgLoadingData(vars.error.toString(), vars.error.stackTrace.toString()));
         display(msgLoadingDataError);
         return;
       }
@@ -641,38 +647,23 @@ class AppComponent
           {
             doc = {
               "pageSize": "a4",
-              "pageOrientation": form.isSheetPortrait
-                ? "portrait"
-                : "landscape",
-              "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)
-              ],
+              "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
+              "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
               "content": data,
               "images": form.images,
               "styles": {
-                "infoline": {
-                  "margin": [
-                    form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]
-                },
+                "infoline": {"margin": [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]},
                 "perstitle": {"fontSize": form.fs(10.0), "alignment": "right"},
                 "persdata": {"fontSize": form.fs(10.0), "color": "#0000ff"},
                 "infotitle": {"fontSize": form.fs(10.0), "alignment": "left"},
-                "infodata": {
-                  "fontSize": form.fs(10.0),
-                  "alignment": "right",
-                  "color": "#0000ff"
-                },
+                "infodata": {"fontSize": form.fs(10.0), "alignment": "right", "color": "#0000ff"},
                 "infounit": {
                   "margin": [form.cm(0), form.cm(0.07), form.cm(0), form.cm(0)],
                   "fontSize": form.fs(8),
                   "color": "#0000ff"
                 },
                 "hba1c": {"color": "#5050ff", "fontSize": form.fs(10)},
-                "total": {
-                  "bold": true,
-                  "fillColor": "#d0d0d0",
-                  "fontSize": form.fs(10),
-                  "margin": form.m0
-                },
+                "total": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10), "margin": form.m0},
                 "row": {"fontSize": form.fs(10)}
               }
             };
@@ -683,9 +674,7 @@ class AppComponent
               "text": "",
               "pageBreak": "after",
               "pageSize": "a4",
-              "pageOrientation": form.isSheetPortrait
-                ? "portrait"
-                : "landscape",
+              "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
             };
             doc["content"].add(pagebreak);
             for (var entry in data)
@@ -712,13 +701,11 @@ class AppComponent
       {
         if (message.text.isEmpty)navigate("showPdf");
         else
-          displayLink(
-            msgShowPDF, "showPdf", btnClass: "action", icon: "description");
+          displayLink(msgShowPDF, "showPdf", btnClass: "action", icon: "description");
       }
       else
       {
-        displayLink("playground", "showPlayground", btnClass: "action",
-          icon: "description");
+        displayLink("playground", "showPlayground", btnClass: "action", icon: "description");
         displayLink("pdf", "showPdf", btnClass: "action", icon: "description");
       }
 // */
@@ -767,6 +754,26 @@ class AppComponent
     {
       cfg.checked = !cfg.checked;
       checkPrint();
+    }
+  }
+
+  signinEvent(SigninEvent e)
+  {
+    switch(e.status)
+    {
+      case SigninStatus.requestAuthorization:
+        _currPage = "signin";
+        break;
+      case SigninStatus.signinOk:
+        _currPage = "normal";
+        break;
+      case SigninStatus.signedOut:
+        _currPage = "normal";
+        break;
+      case SigninStatus.error:
+        display(e.message);
+        _currPage = "normal";
+        break;
     }
   }
 }

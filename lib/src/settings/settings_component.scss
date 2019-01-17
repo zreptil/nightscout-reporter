@@ -1,5 +1,6 @@
 @import '../colors';
 @import '../base';
+@import '../controls/signin/mixins';
 @import 'package:angular_components/material_dialog/mixins';
 
 :host {
@@ -88,6 +89,17 @@ div[header] {
   flex-direction: row;
   color: $primary_fore;
   justify-content: space-between;
+
+  div:nth-child(2) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+div[footer] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between !important;
 }
 
 .error {
@@ -110,4 +122,8 @@ material-dialog[confirm] {
       font-weight: bold;
     }
   }
+}
+
+login {
+  @include signin_button_background($mat-red-900);
 }

@@ -5,9 +5,11 @@
         <h1 @i18n="title for settings dialog">Einstellungen</h1>
         <p></p>
       </div>
-      <material-button *ngIf="progressText==null" icon (trigger)="fire('cancel')">
-        <material-icon icon="close"></material-icon>
-      </material-button>
+      <div>
+        <material-button *ngIf="progressText==null" icon (trigger)="fire('cancel')">
+          <material-icon icon="close"></material-icon>
+        </material-button>
+      </div>
     </div>
 
     <div class="progress" *ngIf="progressText!=null">
@@ -43,7 +45,8 @@
         <material-fab mini [disabled]="g.userList.last.storageApiUrl.isEmpty" (trigger)="addUser()">
           <material-icon icon="add"></material-icon>
         </material-fab>
-        <material-fab mini [disabled]="g.userList.length==0||g.user.storageApiUrl.isEmpty" (trigger)="showConfirmation=true">
+        <material-fab mini [disabled]="g.userList.length==0||g.user.storageApiUrl.isEmpty"
+                      (trigger)="showConfirmation=true">
           <material-icon icon="delete"></material-icon>
         </material-fab>
       </div>
@@ -76,6 +79,7 @@
     </div>
 
     <div footer>
+      <div></div>
       <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="fire('check');">
         <material-icon icon="save"></material-icon>
         <ng-container @i18n="buttonlabel for saving data">Speichern</ng-container>
@@ -83,7 +87,7 @@
     </div>
   </material-dialog>
   <material-dialog *ngIf="showConfirmation" confirm headered class="headered-dialog">
-    <div header  @i18n="title of confirmation dialog">Bestätigung</div>
+    <div header @i18n="title of confirmation dialog">Bestätigung</div>
     <div class="content">
       <ng-container @i18n="should the user with url">Soll der Benutzer mit der URL</ng-container>
       <div class="marked">{{g.user.storageApiUrl}}</div>

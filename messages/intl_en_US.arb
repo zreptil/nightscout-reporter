@@ -210,6 +210,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "Anmeldung erfolgreich": "Login Successful",
+  "@Anmeldung erfolgreich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anmelden": "Sign In",
+  "@Anmelden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verbinde zu Google...": "Connect to Google ...",
+  "@Verbinde zu Google...": {
+    "type": "text",
+    "placeholders": {}
+  },
   "msgValidRange": "valid from {begDate} to {endDate}",
   "@msgValidRange": {
     "type": "text",
@@ -368,32 +383,35 @@
       "high": {}
     }
   },
-  "msgKHBE": "g CHO ( {value} BU)",
+  "msgKHBE": "g CHO ({value} BU)",
   "@msgKHBE": {
     "type": "text",
     "placeholders": {
       "value": {}
     }
   },
-  "msgReservoirDays": "{count, plural, =0 {} =1 {({count} day per reservoir)} other {({count} days per reservoir)}}",
+  "msgReservoirDays": "{count, plural, =0 {} =1 {({txt} day per reservoir)} other {({txt} days per reservoir)}}",
   "@msgReservoirDays": {
     "type": "text",
     "placeholders": {
-      "count": {}
+      "count": {},
+      "txt": {}
     }
   },
-  "msgCatheterDays": "{count, plural, =0 {} =1 {({count} day per catheter)} other {({count} days per catheter)}}",
+  "msgCatheterDays": "{count, plural, =0 {} =1 {({txt} day per catheter)} other {({txt} days per catheter)}}",
   "@msgCatheterDays": {
     "type": "text",
     "placeholders": {
-      "count": {}
+      "count": {},
+      "txt": {}
     }
   },
-  "msgSensorDays": "{count, plural, =0 {} =1 {( {count} day per sensor)} other {( {count} days per sensor)}}",
+  "msgSensorDays": "{count, plural, =0 {} =1 {({txt} day per sensor)} other {({txt} days per sensor)}}",
   "@msgSensorDays": {
     "type": "text",
     "placeholders": {
-      "count": {}
+      "count": {},
+      "txt": {}
     }
   },
   "Geburtstag": "Birthday",
@@ -704,6 +722,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Material mit Nachkommastellen": "Material with decimal places",
+  "@Material mit Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Zwei Nachkommastellen": "Two decimal places",
   "@Zwei Nachkommastellen": {
     "type": "text",
@@ -841,6 +864,12 @@
       "url": {}
     }
   },
+  "Verbinde zu Google Drive...": "Connect to Google Drive ...",
+  "@Verbinde zu Google Drive...": {
+    "description": "message for signin to google",
+    "type": "text",
+    "placeholders": {}
+  },
   "Willkommen": "Welcome",
   "@Willkommen": {
     "description": "title of welcome screen",
@@ -877,7 +906,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "Ok": "ok",
+  "Ok": "Ok",
   "@Ok": {
     "description": "buttonlabel for ok in control datepicker",
     "type": "text",
@@ -967,15 +996,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "Die Daten, die Du hier eingibst, werden im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. Es werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "The data you enter here will be stored in the localStorage of the browser. This contains website-related data that can only be read out from this website. No cookies are used and no data is stored on servers. Only a connection to the specified Nightscout instance is set up and the data available there is read out to create a PDF document. This can then be submitted to the diabetes counselor or other interested party.",
-  "@Die Daten, die Du hier eingibst, werden im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. Es werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": {
+  "Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "The data you enter here will be stored in the localStorage of the browser. This contains website-related data that can only be read out from this website. No cookies are used and no data is stored on servers. Only a connection to the specified Nightscout instance is set up and the data available there is read out to create a PDF document. This can then be submitted to the diabetes counselor or other interested party.",
+  "@Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": {
     "description": "welcome section 2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur Verfügung, der mit dem angegebenen Google Konto verbunden ist.": "When the settings are connected to the Google Account, Google's cookies are used and the data is no longer stored in the localStorage of the browser, but in the AppStorage on Google Drive. In this way you can manage the data centrally and have it available in any browser connected to the specified Google Account.",
+  "@Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur Verfügung, der mit dem angegebenen Google Konto verbunden ist.": {
+    "description": "welcome section 3",
     "type": "text",
     "placeholders": {}
   },
   "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": "The website mainly uses Javascript to do its job. When creating the PDF document Javascript and PHP are used.",
   "@Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": {
-    "description": "welcome section 3",
+    "description": "welcome section 4",
     "type": "text",
     "placeholders": {}
   },
@@ -997,21 +1032,27 @@
     "type": "text",
     "placeholders": {}
   },
-  "1.1.2-7 Beta - 26.11.2018": "1.1.2-7 Beta - 26.11.2018",
-  "@1.1.2-7 Beta - 26.11.2018": {
-    "description": "v111",
+  "1.2.0 - xx.xx.2019": "1.2.0 - xx.xx.2019",
+  "@1.2.0 - xx.xx.2019": {
+    "description": "v120",
     "type": "text",
     "placeholders": {}
   },
-  "Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": "Fixed incorrect output of blood glucose levels in the daily graph.",
-  "@Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": {
-    "description": "v1127f1",
+  "In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": "In the daily statistics and in the daily graphics, the days of the week are now displayed with the day of the week.",
+  "@In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": {
+    "description": "v120a1",
     "type": "text",
     "placeholders": {}
   },
-  "1.1.2 - xx.xx.2018": "1.1.1 - xx.xx.2018",
-  "@1.1.2 - xx.xx.2018": {
-    "description": "v111",
+  "In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": "In the analysis, the information for material (catheter, sensor, ampoule) can be displayed with decimal places.",
+  "@In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": {
+    "description": "v120c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.1.2 - 08.01.2019": "1.1.2 - 08.01.2019",
+  "@1.1.2 - 08.01.2019": {
+    "description": "v112",
     "type": "text",
     "placeholders": {}
   },
@@ -1030,6 +1071,12 @@
   "Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": "There is an option in the settings to download the PDF instead of having it displayed directly in the browser. This is needed for browsers like Edge.",
   "@Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": {
     "description": "v112a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": "Carbohydrate corrections are now displayed in the daily graph.",
+  "@In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": {
+    "description": "v112a4",
     "type": "text",
     "placeholders": {}
   },
@@ -1084,6 +1131,24 @@
   "Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": "In the calendar control, a defined period (today, last week, etc.) is now correctly based on the current day.",
   "@Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": {
     "description": "v112f5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": "Fixed incorrect output of blood glucose levels in the daily graph.",
+  "@Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": {
+    "description": "v112f6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können.": "The profile PDF is now created in landscape format so that profiles with many entries for the parameters can also be displayed.",
+  "@Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können.": {
+    "description": "v112f7",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden.": "If special characters are present in the data (eg smileys in the notes), this caused a crash during the PDF creation. This has been fixed by removing these special characters from the output.",
+  "@Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden.": {
+    "description": "v112f8",
     "type": "text",
     "placeholders": {}
   },
@@ -1423,8 +1488,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_31": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
-  "@ViewWhatsnewComponent0__message_31": {
+  "ViewWhatsnewComponent0__message_37": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
+  "@ViewWhatsnewComponent0__message_37": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

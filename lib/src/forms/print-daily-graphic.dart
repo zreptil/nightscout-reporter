@@ -130,7 +130,7 @@ class PrintDailyGraphic extends BasePrint
   }
 
   double basalY(double value)
-  => profMax != 0 ? basalHeight / profMax * (profMax - value) : 0.0;
+  => profMax != 0 && value != null ? basalHeight / profMax * (profMax - value) : 0.0;
 
   PrintDailyGraphic()
   {
@@ -193,7 +193,7 @@ class PrintDailyGraphic extends BasePrint
   {
     double xo = xorg;
     double yo = yorg;
-    titleInfo = fmtDate(day.date);
+    titleInfo = fmtDate(day.date, null, false, true);
     glucMax = -1000.0;
     for (EntryData entry in day.entries)
       glucMax = math.max(entry.gluc, glucMax);
@@ -201,7 +201,7 @@ class PrintDailyGraphic extends BasePrint
       glucMax = math.max(entry.mbg, glucMax);
     profMax = -1000.0;
     for (ProfileEntryData entry in day.profile)
-      profMax = math.max(entry.value, profMax);
+      profMax = math.max(entry.value ?? 0, profMax);
 
     int gridLines = (glucMax / 50).ceil();
     double lineHeight = graphHeight / gridLines;

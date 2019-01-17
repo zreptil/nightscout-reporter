@@ -9,6 +9,7 @@ import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
+import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 
 @Component(
   selector: 'settings',
@@ -24,6 +25,7 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
     MaterialIconComponent,
     MaterialProgressComponent,
     materialInputDirectives,
+    SigninComponent,
     NgFor,
     NgIf,
   ],

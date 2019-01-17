@@ -1,4 +1,4 @@
-<div class="title">{{period.monthName(date)}} {{date.year}}</div>
+<div class="title">{{monthName(date)}} {{date.year}}</div>
 <div class="weektitle">
   <material-button *ngFor="let dow of month.weeks[0].days" class="btn" (trigger)="firstDayOfWeek=dow.date.weekday">
     {{dow.shortName}}

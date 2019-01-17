@@ -1,0 +1,7 @@
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/css/material/shadow';
+@import 'package:angular_components/material_button/mixins';
+
+@mixin signin_button_background($color) {
+  @include button-background-color("#btnLogin", $color);
+}
