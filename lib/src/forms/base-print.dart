@@ -198,6 +198,8 @@ abstract class BasePrint
   String colGlucValues = "#000000";
   String colBloodValues = "#ff0000";
   String colHbA1c = "#505050";
+  List<String> colWeekDays = ["#d69a2e","#2e4736","#662c40","#343a49","#528c8e","#362946","#6b8133"];
+  List<String> colWeekDaysText = ["#000000","#ffffff","#ffffff","#ffffff","#ffffff","#ffffff","#ffffff"];
 
   double xorg = 3.35;
   double yorg = 3.9;
@@ -609,8 +611,13 @@ abstract class BasePrint
 
   String titleInfoBegEnd(ReportData src)
   {
-    if (src.begDate == src.endDate)return "${fmtDate(src.begDate)}";
-    return "${fmtDate(src.begDate)} ${msgUntil} ${fmtDate(src.endDate)}";
+    return titleInfoDateRange(src.begDate, src.endDate);
+  }
+
+  String titleInfoDateRange(Date begDate, Date endDate)
+  {
+    if (begDate == endDate)return "${fmtDate(begDate)}";
+    return "${fmtDate(begDate)} ${msgUntil} ${fmtDate(endDate)}";
   }
 
   prepareData_(ReportData data);

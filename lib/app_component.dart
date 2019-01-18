@@ -20,6 +20,7 @@ import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
+import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -172,6 +173,7 @@ class AppComponent
       g.addForm(PrintPercentile());
       g.addForm(PrintDailyStatistics());
       g.addForm(PrintDailyGraphic());
+      g.addForm(PrintWeeklyGraphic());
       g.addForm(PrintBasalrate());
       g.addForm(PrintTest());
       g.userIdx = g.userIdx;
@@ -487,7 +489,7 @@ class AppComponent
       int diffTime = 5;
       // gaps between entries that span more than the given minutes
       // are not filled with entries
-      int minGapKeep = 15;
+      int minGapKeep = 16;
 //*
       // Create an array with EntryData every [diffTime] minutes
       List<EntryData> entryList = List<EntryData>();

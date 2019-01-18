@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2019-01-14T09:59:56.889141",
+  "@@last_modified": "2019-01-18T09:11:23.751060",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -224,6 +224,16 @@
   },
   "Verbinde zu Google...": "Verbinde zu Google...",
   "@Verbinde zu Google...": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verbindung zu Google Drive trennen": "Verbindung zu Google Drive trennen",
+  "@Verbindung zu Google Drive trennen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verbindung zu Google Drive herstellen": "Verbindung zu Google Drive herstellen",
+  "@Verbindung zu Google Drive herstellen": {
     "type": "text",
     "placeholders": {}
   },
@@ -839,6 +849,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "Wochengrafik": "Wochengrafik",
+  "@Wochengrafik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesnamen in Grafik anzeigen": "Tagesnamen in Grafik anzeigen",
+  "@Tagesnamen in Grafik anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)",
   "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
     "type": "text",
@@ -1043,6 +1063,12 @@
   "In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": "In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.",
   "@In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": {
     "description": "v120a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": "Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.",
+  "@Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": {
+    "description": "v120a2",
     "type": "text",
     "placeholders": {}
   },
@@ -1490,8 +1516,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_37": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_37": {
+  "ViewWhatsnewComponent0__message_38": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_38": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

@@ -3,6 +3,7 @@
 - signin component for google drive to save the settings there
 - daily statistics and graphics show the day of week
 - count of reservoirs, catheters and sensors can be shown with decimal places
+- new pdf weekgraphics
 
 ### Fixed
  

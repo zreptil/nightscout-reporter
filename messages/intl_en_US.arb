@@ -225,6 +225,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "Verbindung zu Google Drive trennen": "Disconnect from Google Drive",
+  "@Verbindung zu Google Drive trennen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verbindung zu Google Drive herstellen": "Connect to Google Drive",
+  "@Verbindung zu Google Drive herstellen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "msgValidRange": "valid from {begDate} to {endDate}",
   "@msgValidRange": {
     "type": "text",
@@ -837,6 +847,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "Wochengrafik": "Weekly Graphics",
+  "@Wochengrafik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesnamen in Grafik anzeigen": "Show day names in graphic",
+  "@Tagesnamen in Grafik anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "Url to Nightscout-API (e.g. https://xxx.herokuapp.com)",
   "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
     "type": "text",
@@ -1041,6 +1061,12 @@
   "In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": "In the daily statistics and in the daily graphics, the days of the week are now displayed with the day of the week.",
   "@In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": {
     "description": "v120a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": "Added a new PDF for a weekly graphics where the week's glucose curves are shown all at once.",
+  "@Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": {
+    "description": "v120a2",
     "type": "text",
     "placeholders": {}
   },
@@ -1488,8 +1514,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_37": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
-  "@ViewWhatsnewComponent0__message_37": {
+  "ViewWhatsnewComponent0__message_38": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
+  "@ViewWhatsnewComponent0__message_38": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {
