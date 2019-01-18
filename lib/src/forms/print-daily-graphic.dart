@@ -454,7 +454,7 @@ class PrintDailyGraphic extends BasePrint
       }
       if (showInsulin)
       {
-        if (t.bolusInsulin > 0)
+        if (t.bolusInsulin > 0 && !t.isSMB)
         {
           x = glucX(t.createdAt);
           y = bolusY(t.bolusInsulin);
