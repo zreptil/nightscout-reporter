@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2019-01-18T09:11:23.751060",
+  "@@last_modified": "2019-01-18T10:40:54.743053",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -799,6 +799,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Info-Linien bis zur Kurve zeichnen": "Info-Linien bis zur Kurve zeichnen",
+  "@Info-Linien bis zur Kurve zeichnen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Spalte Messwerte": "Spalte Messwerte",
   "@Spalte Messwerte": {
     "type": "text",
@@ -1072,9 +1077,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": "Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.",
+  "@Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": {
+    "description": "v120a3",
+    "type": "text",
+    "placeholders": {}
+  },
   "In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": "In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.",
   "@In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": {
     "description": "v120c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": "Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.",
+  "@Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": {
+    "description": "v120f1",
     "type": "text",
     "placeholders": {}
   },
@@ -1516,8 +1533,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_38": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_38": {
+  "ViewWhatsnewComponent0__message_40": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_40": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

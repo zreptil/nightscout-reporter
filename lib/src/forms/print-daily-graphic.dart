@@ -12,7 +12,7 @@ class PrintDailyGraphic extends BasePrint
   String id = "daygraph";
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, isSmall, showNotes,
-    sortReverse, showGlucTable, showSMBatGluc;
+    sortReverse, showGlucTable, showSMBAtGluc, showInfoLinesAtGluc;
   int get _precision
   => isPrecise ? 2 : 1;
 
@@ -30,6 +30,7 @@ class PrintDailyGraphic extends BasePrint
     ParamInfo(9, msgParam10, boolValue: false),
     ParamInfo(11, msgParam11, boolValue: true),
     ParamInfo(2, msgParam12, boolValue: true),
+    ParamInfo(12, msgParam13, boolValue: false),
   ];
 
 
@@ -47,7 +48,8 @@ class PrintDailyGraphic extends BasePrint
     showNotes = params[8].boolValue;
     sortReverse = params[9].boolValue;
     showGlucTable = params[10].boolValue;
-    showSMBatGluc = params[11].boolValue;
+    showSMBAtGluc = params[11].boolValue;
+    showInfoLinesAtGluc = params[12].boolValue;
     pagesPerSheet = isSmall ? 4 : 1;
     return data;
   }
@@ -82,6 +84,8 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Tabelle mit Glukosewerten");
   static String get msgParam12
   => Intl.message("SMB an der Kurve platzieren");
+  static String get msgParam13
+  => Intl.message("Info-Linien bis zur Kurve zeichnen");
 
   @override
   List<String> get imgList
@@ -475,7 +479,7 @@ class PrintDailyGraphic extends BasePrint
         {
           EntryData entry = day.findNearest(day.entries, null, t.createdAt);
           x = glucX(t.createdAt);
-          if (entry != null && showSMBatGluc)
+          if (entry != null && showSMBAtGluc)
           {
             y = glucY(entry.gluc);
           }
@@ -554,10 +558,16 @@ class PrintDailyGraphic extends BasePrint
         if (idx < (isMultiline ? 1 : 3))
         {
           double y = graphBottom + notesTop + idx * notesHeight;
+          double top = graphBottom;
+          if(showInfoLinesAtGluc)
+          {
+            EntryData e = day.findNearest(day.entries, null, t.createdAt);
+            top = glucY(e.gluc);
+          }
           graphGlucCvs.add({
             "type": "line",
             "x1": cm(x),
-            "y1": cm(graphBottom),
+            "y1": cm(top),
             "x2": cm(x),
             "y2": cm(y + notesHeight),
             "lineWidth": cm(lw),

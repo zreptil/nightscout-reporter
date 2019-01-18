@@ -609,7 +609,7 @@ class TreatmentData extends JsonData
 
   double get bolusInsulin
   {
-    if (insulin != null && !isSMB)return insulin;
+    if (insulin != null)return insulin;
     return 0.0;
   }
 

@@ -797,6 +797,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Info-Linien bis zur Kurve zeichnen": "Draw lines from notes to the curve",
+  "@Info-Linien bis zur Kurve zeichnen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Spalte Messwerte": "Column valuecount",
   "@Spalte Messwerte": {
     "type": "text",
@@ -1070,9 +1075,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": "New daily graph parameter that determines whether or not to draw the lines for the notes under the graph up to the glucose curve.",
+  "@Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": {
+    "description": "v120a3",
+    "type": "text",
+    "placeholders": {}
+  },
   "In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": "In the analysis, the information for material (catheter, sensor, ampoule) can be displayed with decimal places.",
   "@In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": {
     "description": "v120c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": "The calculation of the daily insulin now also takes the SMB into account.",
+  "@Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": {
+    "description": "v120f1",
     "type": "text",
     "placeholders": {}
   },
@@ -1514,8 +1531,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_38": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
-  "@ViewWhatsnewComponent0__message_38": {
+  "ViewWhatsnewComponent0__message_40": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
+  "@ViewWhatsnewComponent0__message_40": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {
