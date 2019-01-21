@@ -189,11 +189,14 @@ class PrintWeeklyGraphic extends BasePrint
     LegendData legend = LegendData(cm(xo), cm(yo + graphHeight + 0.8), cm(8.0), 3);
     for (DayData day in days)
     {
+      String color = colWeekDays[day.date.weekday - 1];
+      double size = 0.2;
+
       for (EntryData entry in day.bloody)
       {
         double x = glucX(entry.time);
         double y = glucY(entry.mbg);
-        graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": colBloodValues});
+        graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(size), "h": cm(size), "color": color});
       }
       for (TreatmentData t in day.treatments)
       {
@@ -202,7 +205,7 @@ class PrintWeeklyGraphic extends BasePrint
           double x = glucX(t.createdAt);
           double y = glucY(t.glucose);
           graphGlucCvs.add(
-            {"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": colBloodValues});
+            {"type": "rect", "x": cm(x), "y": cm(y), "w": cm(size), "h": cm(size), "color": color});
         }
       }
 
@@ -210,7 +213,6 @@ class PrintWeeklyGraphic extends BasePrint
       List<dynamic> names = [];
       List<dynamic> nameBoxes = [];
       EntryData last = null;
-      String color = colWeekDays[day.date.weekday - 1];
       String colorText = colWeekDaysText[day.date.weekday - 1];
       String name = DatepickerPeriod.dowShortName(day.date);
       for (EntryData entry in day.entries)

@@ -165,7 +165,9 @@ class PrintDailyGraphic extends BasePrint
     for (int i = 0; i < data.days.length; i++)
     {
       DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
-      pages.add(getPage(day, src));
+      if (day.entries.length != 0 || day.treatments.length != 0)pages.add(getPage(day, src));
+      else
+        pages.add(getEmptyForm(src));
 /*
       if (i < data.days.length - 1)
       {
@@ -208,7 +210,7 @@ class PrintDailyGraphic extends BasePrint
       profMax = math.max(entry.value ?? 0, profMax);
 
     int gridLines = (glucMax / 50).ceil();
-    double lineHeight = graphHeight / gridLines;
+    double lineHeight = gridLines == 0 ? 0 : graphHeight / gridLines;
     double colWidth = graphWidth / 24;
 
     var vertLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
@@ -234,7 +236,7 @@ class PrintDailyGraphic extends BasePrint
     var pictures = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "stack": []};
 
     List vertCvs = vertLines["canvas"] as List;
-    List horzCvs = vertLines["canvas"] as List;
+    List horzCvs = horzLines["canvas"] as List;
     List horzStack = horzLegend["stack"];
     List vertStack = vertLegend["stack"];
     List graphGlucCvs = graphGluc["canvas"];
@@ -247,7 +249,6 @@ class PrintDailyGraphic extends BasePrint
         "y1": cm(0),
         "x2": cm(i * colWidth),
         "y2": cm(graphBottom),
-        //cm(lineHeight * gridLines + 0.25),
         "lineWidth": cm(lw),
         "lineColor": i > 0 && i < 24 ? lc : lcFrame
       });
@@ -259,6 +260,11 @@ class PrintDailyGraphic extends BasePrint
     }
 
     glucMax = 0.0;
+    if (lineHeight == 0)
+    {
+      return [
+        headerFooter(), {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": msgMissingData}];
+    }
     for (var i = 0; i <= gridLines; i++)
     {
       horzCvs.add({
@@ -311,7 +317,7 @@ class PrintDailyGraphic extends BasePrint
       double y = glucY(entry.gluc);
       if (entry.gluc < 0)
       {
-        if(last != null && last.gluc >= 0)
+        if (last != null && last.gluc >= 0)
         {
           graphGlucCvs.add(glucLine(points));
           points = [];
@@ -381,7 +387,7 @@ class PrintDailyGraphic extends BasePrint
             "lineColor": lc
           });
         }
-        if(entry != null)
+        if (entry != null)
         {
           dynamic found = day.findNearest(day.bloody, day.treatments, check, maxMinuteDiff: 15);
           if (found is EntryData)
@@ -559,10 +565,10 @@ class PrintDailyGraphic extends BasePrint
         {
           double y = graphBottom + notesTop + idx * notesHeight;
           double top = graphBottom;
-          if(showInfoLinesAtGluc)
+          if (showInfoLinesAtGluc)
           {
             EntryData e = day.findNearest(day.entries, null, t.createdAt);
-            top = glucY(e.gluc);
+            if (e != null)top = glucY(e.gluc);
           }
           graphGlucCvs.add({
             "type": "line",
@@ -714,6 +720,20 @@ class PrintDailyGraphic extends BasePrint
 
     var profileBasal = showBasalProfile ? getBasalGraph(day, true, showBasalDay, xo, yo) : null;
     var dayBasal = showBasalDay ? getBasalGraph(day, false, false, xo, yo) : null;
+
+    String error = null;
+/*
+    if (!g.checkJSON(glucTableCvs))error = "glucTableCvs";
+    if (!g.checkJSON(vertLegend))error = "vertLegend";
+    if (!g.checkJSON(vertLines))error = "vertLines";
+    if (!g.checkJSON(horzLegend))error = "horzLegend";
+    if (!g.checkJSON(horzLines))error = "horzLines";
+*/
+    if (error != null)
+    {
+      return [
+        headerFooter(), {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": "Fehler bei $error", "color": "red"}];
+    }
 
     return [
       headerFooter(),

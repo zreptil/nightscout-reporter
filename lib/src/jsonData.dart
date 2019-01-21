@@ -33,7 +33,7 @@ class JsonData
   => value == null ? def : value is String ? value : "${value}";
 
   static bool toBool(value)
-  => value == null ? false : value is bool ? value : value is String ? value == "true" : false;
+  => value == null ? false : value is bool ? value : value is String ? value == "true" || value == "yes" : false;
 
   static double toDouble(value, [def = 0.0])
   => value == null || value == "NaN" ? def : value is double || value is int ? value : double.tryParse(value) ?? def;

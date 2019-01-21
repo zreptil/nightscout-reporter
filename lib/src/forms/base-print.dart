@@ -91,8 +91,7 @@ class ParamInfo
       }
     }
     catch (ex)
-    {
-    }
+    {}
   }
 }
 
@@ -139,8 +138,7 @@ class FormConfig
         form.params[i].fillFromJson(value["p"][i]);
     }
     catch (ex)
-    {
-    }
+    {}
   }
 
   fillFromString(String value)
@@ -198,8 +196,8 @@ abstract class BasePrint
   String colGlucValues = "#000000";
   String colBloodValues = "#ff0000";
   String colHbA1c = "#505050";
-  List<String> colWeekDays = ["#d69a2e","#2e4736","#662c40","#343a49","#528c8e","#362946","#6b8133"];
-  List<String> colWeekDaysText = ["#000000","#ffffff","#ffffff","#ffffff","#ffffff","#ffffff","#ffffff"];
+  List<String> colWeekDays = ["#1b9e77","#d95f02","#7570b3","#e7298a","#66a61e","#e6ab02","#a6761d"];
+  List<String> colWeekDaysText = ["#ffffff", "#ffffff", "#000000", "#ffffff", "#ffffff", "#000000", "#ffffff"];
 
   double xorg = 3.35;
   double yorg = 3.9;
@@ -593,8 +591,7 @@ abstract class BasePrint
   => ["nightscout-pale", "nightscout",];
 
   void init()
-  {
-  }
+  {}
 
   Future<String> getBase64Image(String id)
   async {
@@ -663,7 +660,7 @@ abstract class BasePrint
   {
     return [
       headerFooter(),
-      {"margin": [cm(2), cm(3), cm(2), cm(0)], "text": msgMissingData, "fontSize": fs(10), "alignment": "center"},
+      {"margin": [cm(2), cm(3.5), cm(2), cm(0)], "text": msgMissingData, "fontSize": fs(10), "alignment": "center"},
     ];
   }
 
@@ -876,9 +873,7 @@ abstract class BasePrint
 
     if (date is DateTime)
       return "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year} ${(date
-                                                                                                                      .hour < 10
-        ? "0"
-        : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute} Uhr";
+        .hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute} Uhr";
 
     return date;
   }
@@ -903,8 +898,7 @@ abstract class BasePrint
       }
     }
     catch (ex)
-    {
-    }
+    {}
 
     if (dt == null)return date;
 

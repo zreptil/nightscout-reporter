@@ -54,7 +54,7 @@ class LangData
 class Globals
 {
   bool _isLoaded = false;
-  String version = "1.2.0-3";
+  String version = "1.2.0";
   String lastVersion;
 
   static final Globals _globals = Globals._internal();
@@ -341,7 +341,6 @@ class Globals
       '"version":"${loadStorage('version')}"'
       ',"userIdx":"${loadStorage('userIdx')}"'
       ',"mu":"${loadStorage('mu')}"'
-      ',"userIdx":"${userIdx}"'
       ',"glucMGDL":"${loadStorage('glucMGDL')}"'
       ',"language":"${loadStorage('language')}"'
       ',"pdfSameWindow":"${loadStorage('pdfSameWindow')}"'
@@ -359,21 +358,20 @@ class Globals
   {
     try
     {
-      dynamic json = convert.json.decode(src);
+      dynamic cfg = convert.json.decode(src);
 
-      lastVersion = JsonData.toText(json["version"]);
-      userIdx = JsonData.toInt(json["userIdx"]);
-      glucMGDL = JsonData.toBool(json["glucMGDL"]);
-      String langId = JsonData.toText(json["language"]);
+      lastVersion = JsonData.toText(cfg["version"]);
+      glucMGDL = JsonData.toBool(cfg["glucMGDL"]);
+      String langId = JsonData.toText(cfg["language"]);
       int idx = languageList.indexWhere((v)
       => v.code == langId);
       language = languageList[idx >= 0 ? idx : 0];
-      pdfSameWindow = JsonData.toBool(json["pdfSameWindow"]);
-      pdfDownload = JsonData.toBool(json["pdfDownload"]);
-      hideNightscoutInPDF = JsonData.toBool(json["hideNightscoutInPDF"]);
-      period = DatepickerPeriod(src: JsonData.toText(json["period"]));
+      pdfSameWindow = JsonData.toBool(cfg["pdfSameWindow"]);
+      pdfDownload = JsonData.toBool(cfg["pdfDownload"]);
+      hideNightscoutInPDF = JsonData.toBool(cfg["hideNightscoutInPDF"]);
+      period = DatepickerPeriod(src: JsonData.toText(cfg["period"]));
       period.fmtDate = language.dateformat;
-      String users = json["mu"];
+      String users = cfg["mu"];
       userList.clear();
       // get user list from mu if available
       if (users != null)
@@ -397,6 +395,7 @@ class Globals
 //          saveStorage("mu", null);
         }
       }
+      userIdx = JsonData.toInt(cfg["userIdx"]);
     }
     catch (ex)
     {
@@ -636,9 +635,9 @@ class Globals
     bool doReload = (language.code != oldLang && language.code != null);
     saveStorage("glucMGDL", glucMGDL.toString());
     saveStorage("language", language.code ?? "de_DE");
-    saveStorage("pdfSameWindow", pdfSameWindow ? "yes" : "no");
-    saveStorage("pdfDownload", pdfDownload ? "yes" : "no");
-    saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "yes" : "no");
+    saveStorage("pdfSameWindow", pdfSameWindow ? "true" : "false");
+    saveStorage("pdfDownload", pdfDownload ? "true" : "false");
+    saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "true" : "false");
     saveStorage("period", period?.toString() ?? null);
 /*
     if (_dateRange.range != null)
@@ -714,6 +713,20 @@ class Globals
       else
         return 0.0;
     }
+  }
+
+  bool checkJSON(dynamic doc)
+  {
+    try
+    {
+      convert.jsonEncode(doc);
+      return true;
+    }
+    catch(ex)
+    {
+
+    }
+    return false;
   }
 }
 
