@@ -45,6 +45,8 @@ class PrintProfile extends BasePrint
 
   getFactorBody(int page, Date date, List<ProfileEntryData> list, msg(String a, String b), {int precision: 1})
   {
+    int currPage = 0;
+    int pageEntries = 0;
     int pageSize = 24;
     if (page * pageSize >= list.length) return [ [
       {"text": "", "style": "infotitle", "fontSize": fs(_fontSize)},
@@ -54,7 +56,7 @@ class PrintProfile extends BasePrint
 
     dynamic ret = [];
     DateTime startTime = null;
-    for (int i = page * pageSize; i < list.length && i < pageSize * (page + 1); i++)
+    for (int i = 0; i < list.length; i++)
     {
       ProfileEntryData entry = list[i];
       DateTime end = DateTime(date.year, date.month, date.day, 23, 59);
@@ -75,19 +77,28 @@ class PrintProfile extends BasePrint
           }
         }
       }
-      ret.add([
-        {
-          "text": msg(fmtTime(startTime, withUnit: true), fmtTime(end, withUnit: true)),
-          "style": "infotitle",
-          "fontSize": fs(_fontSize)
-        },
-        {
-          "text": entry.forceText ?? fmtNumber(entry.value, precision, false),
-          "style": "infodata",
-          "fontSize": fs(_fontSize)
-        },
-      ]);
-      _hasFactors = true;
+      if (currPage == page)
+      {
+        ret.add([
+          {
+            "text": msg(fmtTime(startTime, withUnit: true), fmtTime(end, withUnit: true)),
+            "style": "infotitle",
+            "fontSize": fs(_fontSize)
+          },
+          {
+            "text": entry.forceText ?? fmtNumber(entry.value, precision, false),
+            "style": "infodata",
+            "fontSize": fs(_fontSize)
+          },
+        ]);
+        _hasFactors = true;
+      }
+      pageEntries++;
+      if (pageEntries >= pageSize)
+      {
+        currPage++;
+        pageEntries = 0;
+      }
       startTime = null;
     }
 
@@ -120,12 +131,13 @@ class PrintProfile extends BasePrint
             .difference(profiles[i].startDate)
             .inDays < 0)continue;
 
-      dynamic page;
-      int p=0;
-      while((page=getPage(p, src.profile(profiles[i].startDate), profStartDate, profEndDate)) != null)
+
+      bool done = false;
+      for (int p = 0; !done; p++)
       {
-        pages.add(page);
-        p++;
+        dynamic page = getPage(p, src.profile(profiles[i].startDate), profStartDate, profEndDate);
+        done = page == null;
+        if (!done)pages.add(page);
       }
     }
   }

@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2019-01-21T07:10:09.652874",
+  "@@last_modified": "2019-01-21T14:20:19.354156",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -849,8 +849,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Basalrate mit zwei Nachkommastellen": "Basalrate mit zwei Nachkommastellen",
-  "@Basalrate mit zwei Nachkommastellen": {
+  "Zeilen mit gleichen Werten zusammenfassen": "Zeilen mit gleichen Werten zusammenfassen",
+  "@Zeilen mit gleichen Werten zusammenfassen": {
     "type": "text",
     "placeholders": {}
   },
@@ -1059,8 +1059,26 @@
     "type": "text",
     "placeholders": {}
   },
-  "1.2.0 - xx.xx.2019": "1.2.0 - xx.xx.2019",
-  "@1.2.0 - xx.xx.2019": {
+  "1.2.1 - xx.xx.2019": "1.2.1 - xx.xx.2019",
+  "@1.2.1 - xx.xx.2019": {
+    "description": "v120",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.": "Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.",
+  "@Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.": {
+    "description": "v121a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.": "Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.",
+  "@Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.": {
+    "description": "v121f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.0 - 21.01.2019": "1.2.0 - 21.01.2019",
+  "@1.2.0 - 21.01.2019": {
     "description": "v120",
     "type": "text",
     "placeholders": {}
@@ -1533,8 +1551,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_40": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_40": {
+  "ViewWhatsnewComponent0__message_43": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_43": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

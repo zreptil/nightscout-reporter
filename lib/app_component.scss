@@ -218,8 +218,10 @@ material-expansionpanel {
   flex-direction: column;
 }
 
-material-expansionpanel .header.disable-header-expansion {
-  cursor: pointer;
+material-expansionpanel {
+  ::ng-deep div[buttondecorator] {
+    cursor: pointer!important;
+  }
 }
 
 .betaTitle {
@@ -318,7 +320,6 @@ material-checkbox {
   margin: 0;
   align-items: flex-start;
 }
-
 material-expansionpanel:not(.is-debug) {
   width: 20em;
   border: 2px solid transparent;
