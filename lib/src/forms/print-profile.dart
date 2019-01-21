@@ -6,18 +6,16 @@ import 'base-print.dart';
 
 class PrintProfile extends BasePrint
 {
-  bool isPrecise;
-  int get _precision
-  => isPrecise ? 2 : 1;
+  bool compressSameValues;
 
   @override
-  List<ParamInfo> params = [ParamInfo(0, msgParam1, boolValue: false),
+  List<ParamInfo> params = [ParamInfo(0, msgParam1, boolValue: true),
   ];
 
   @override
   prepareData_(ReportData data)
   {
-    isPrecise = params[0].boolValue;
+    compressSameValues = params[0].boolValue;
     return data;
   }
 
@@ -40,21 +38,46 @@ class PrintProfile extends BasePrint
   }
 
   static String get msgParam1
-  => Intl.message("Basalrate mit zwei Nachkommastellen");
+  => Intl.message("Zeilen mit gleichen Werten zusammenfassen");
 
   double _fontSize = 10;
+  bool _hasFactors = false;
 
-  getFactorBody(Date date, List<ProfileEntryData> list, msg(String a, String b), {int precision: 1})
+  getFactorBody(int page, Date date, List<ProfileEntryData> list, msg(String a, String b), {int precision: 1})
   {
+    int pageSize = 24;
+    if (page * pageSize >= list.length) return [ [
+      {"text": "", "style": "infotitle", "fontSize": fs(_fontSize)},
+      {"text": "", "style": "infodata", "fontSize": fs(_fontSize)},
+    ]
+    ];
+
     dynamic ret = [];
-    for (int i = 0; i < list.length; i++)
+    DateTime startTime = null;
+    for (int i = page * pageSize; i < list.length && i < pageSize * (page + 1); i++)
     {
       ProfileEntryData entry = list[i];
       DateTime end = DateTime(date.year, date.month, date.day, 23, 59);
-      if (i < list.length - 1)end = list[i + 1].time(date);
+      startTime ??= entry.time(date);
+      if (i < list.length - 1)
+      {
+        end = list[i + 1].time(date);
+
+        if (compressSameValues)
+        {
+          if (entry.forceText != null)
+          {
+            if (entry.forceText == list[i + 1].forceText)continue;
+          }
+          else if (entry.value == list[i + 1].value)
+          {
+            continue;
+          }
+        }
+      }
       ret.add([
         {
-          "text": msg(fmtTime(entry.time(date), withUnit: true), fmtTime(end, withUnit: true)),
+          "text": msg(fmtTime(startTime, withUnit: true), fmtTime(end, withUnit: true)),
           "style": "infotitle",
           "fontSize": fs(_fontSize)
         },
@@ -64,7 +87,10 @@ class PrintProfile extends BasePrint
           "fontSize": fs(_fontSize)
         },
       ]);
+      _hasFactors = true;
+      startTime = null;
     }
+
     return ret;
   }
 
@@ -94,11 +120,17 @@ class PrintProfile extends BasePrint
             .difference(profiles[i].startDate)
             .inDays < 0)continue;
 
-      pages.add(getPage(src.profile(profiles[i].startDate), profStartDate, profEndDate));
+      dynamic page;
+      int p=0;
+      while((page=getPage(p, src.profile(profiles[i].startDate), profStartDate, profEndDate)) != null)
+      {
+        pages.add(page);
+        p++;
+      }
     }
   }
 
-  getPage(ProfileGlucData profile, DateTime startDate, DateTime endDate)
+  getPage(int page, ProfileGlucData profile, DateTime startDate, DateTime endDate)
   {
     titleInfo = titleInfoForDates(startDate, endDate);
     dynamic tableBody = [
@@ -120,13 +152,14 @@ class PrintProfile extends BasePrint
     }
     ]);
 // */
+    _hasFactors = false;
     dynamic icrIsfBody = [];
     Date date = g.date(startDate);
-    dynamic bodyICR = getFactorBody(date, profile.store.listCarbratio, msgFactorEntry);
-    dynamic bodyISF = getFactorBody(date, profile.store.listSens, msgFactorEntry);
+    dynamic bodyICR = getFactorBody(page, date, profile.store.listCarbratio, msgFactorEntry);
+    dynamic bodyISF = getFactorBody(page, date, profile.store.listSens, msgFactorEntry);
 
     dynamic basalTargetBody = [];
-    dynamic bodyBasal = getFactorBody(date, profile.store.listBasal, msgFactorEntry, precision: _precision);
+    dynamic bodyBasal = getFactorBody(page, date, profile.store.listBasal, msgFactorEntry, precision: 1);
     List<ProfileEntryData> listTarget = List<ProfileEntryData>();
     if (profile.store.listTargetHigh.length == profile.store.listTargetLow.length)
     {
@@ -140,7 +173,9 @@ class PrintProfile extends BasePrint
         listTarget.add(entry);
       }
     }
-    dynamic bodyTarget = getFactorBody(date, listTarget, msgFactorEntry);
+    dynamic bodyTarget = getFactorBody(page, date, listTarget, msgFactorEntry);
+    if (!_hasFactors)return null;
+
     basalTargetBody.add([
       {"text": msgBasalProfile, "fontSize": fs(8), "color": "#606060", "alignment": "center"},
       {"text": msgTarget(getGlucInfo()["unit"]), "fontSize": fs(8), "color": "#606060", "alignment": "center"}

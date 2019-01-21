@@ -1,12 +1,16 @@
 ## [Unreleased]
+### Changed
+- consecutive entries with the same values in the profile are collected and written in one line on the profile pdf
+
+### Fixed
+- profiles with many time entries were overlaying the next page. Now a new page is created when there are too many entries to fit on one page.
+
+## [1.2.0]
 ### Added
 - signin component for google drive to save the settings there
 - daily statistics and graphics show the day of week
 - count of reservoirs, catheters and sensors can be shown with decimal places
 - new pdf weekgraphics
-
-### Fixed
- 
 
 ## [1.1.2]
 ### Added

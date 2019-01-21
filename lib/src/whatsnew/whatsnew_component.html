@@ -11,6 +11,16 @@
     </div>
     <ng-scrollbar #scrollable thumbClass="scrollbar">
       <div class="root">
+        <h2><span @i18n="version">Version</span><span @i18n="v120">1.2.1 - xx.xx.2019</span></h2>
+        <ul>
+          <li class="added" @i18n="v121a1">
+            Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.
+          </li>
+          <li class="fixed" @i18n="v121f1">
+            Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die
+            nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.
+          </li>
+        </ul>
         <h2><span @i18n="version">Version</span><span @i18n="v120">1.2.0 - 21.01.2019</span></h2>
         <ul>
           <li class="added" @i18n="v120a1">
@@ -20,10 +30,12 @@
             Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.
           </li>
           <li class="added" @i18n="v120a3">
-            Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.
+            Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur
+            Glukosekurve gezeichnet werden sollen oder nicht.
           </li>
           <li class="changed" @i18n="v120c1">
-            In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.
+            In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt
+            werden.
           </li>
           <li class="fixed" @i18n="v120f1">
             Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.
