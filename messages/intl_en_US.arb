@@ -620,10 +620,12 @@
     "type": "text",
     "placeholders": {}
   },
-  "Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": "Insulin Sensitivity Factors (ISF) 1 U lowers BG by X mg / dL",
-  "@Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": {
+  "msgISF": "Insulin Sensitivity Factors (ISF) 1 IU reduces BG by X {unit}",
+  "@msgISF": {
     "type": "text",
-    "placeholders": {}
+    "placeholders": {
+      "unit": {}
+    }
   },
   "msgTarget": "Glucose target area {unit}",
   "@msgTarget": {
@@ -1057,9 +1059,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "1.2.1 - xx.xx.2019": "1.2.1 - xx.xx.2019",
-  "@1.2.1 - xx.xx.2019": {
-    "description": "v120",
+  "1.2.2 - 24.01.2019": "1.2.2 - 24.01.2019",
+  "@1.2.2 - 24.01.2019": {
+    "description": "v122",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).": "The profile now uses the correct units (mg/dL or mmol/l).",
+  "@Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).": {
+    "description": "v122f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.1 - 22.01.2019": "1.2.1 - 22.01.2019",
+  "@1.2.1 - 22.01.2019": {
+    "description": "v121",
     "type": "text",
     "placeholders": {}
   },
@@ -1549,8 +1563,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_43": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
-  "@ViewWhatsnewComponent0__message_43": {
+  "ViewWhatsnewComponent0__message_45": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
+  "@ViewWhatsnewComponent0__message_45": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

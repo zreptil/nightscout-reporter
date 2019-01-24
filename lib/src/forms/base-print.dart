@@ -91,7 +91,8 @@ class ParamInfo
       }
     }
     catch (ex)
-    {}
+    {
+    }
   }
 }
 
@@ -138,7 +139,8 @@ class FormConfig
         form.params[i].fillFromJson(value["p"][i]);
     }
     catch (ex)
-    {}
+    {
+    }
   }
 
   fillFromString(String value)
@@ -196,7 +198,7 @@ abstract class BasePrint
   String colGlucValues = "#000000";
   String colBloodValues = "#ff0000";
   String colHbA1c = "#505050";
-  List<String> colWeekDays = ["#1b9e77","#d95f02","#7570b3","#e7298a","#66a61e","#e6ab02","#a6761d"];
+  List<String> colWeekDays = ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d"];
   List<String> colWeekDaysText = ["#ffffff", "#ffffff", "#000000", "#ffffff", "#ffffff", "#000000", "#ffffff"];
 
   double xorg = 3.35;
@@ -395,8 +397,8 @@ abstract class BasePrint
   => Intl.message("25% - 75% der Werte");
   get msgICR
   => Intl.message("Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE");
-  get msgISF
-  => Intl.message("Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl");
+  msgISF(String unit)
+  => Intl.message("Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X ${unit}", args: [unit], name: "msgISF");
   msgTarget(String unit)
   => Intl.message("Glukose-Zielbereich\n${unit}", args: [unit], name: "msgTarget");
   msgFactorEntry(String beg, String end)
@@ -591,7 +593,8 @@ abstract class BasePrint
   => ["nightscout-pale", "nightscout",];
 
   void init()
-  {}
+  {
+  }
 
   Future<String> getBase64Image(String id)
   async {
@@ -873,7 +876,9 @@ abstract class BasePrint
 
     if (date is DateTime)
       return "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year} ${(date
-        .hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute} Uhr";
+                                                                                                                      .hour < 10
+        ? "0"
+        : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute} Uhr";
 
     return date;
   }
@@ -898,7 +903,8 @@ abstract class BasePrint
       }
     }
     catch (ex)
-    {}
+    {
+    }
 
     if (dt == null)return date;
 

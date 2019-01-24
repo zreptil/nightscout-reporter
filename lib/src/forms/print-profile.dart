@@ -168,7 +168,13 @@ class PrintProfile extends BasePrint
     dynamic icrIsfBody = [];
     Date date = g.date(startDate);
     dynamic bodyICR = getFactorBody(page, date, profile.store.listCarbratio, msgFactorEntry);
-    dynamic bodyISF = getFactorBody(page, date, profile.store.listSens, msgFactorEntry);
+    List<ProfileEntryData> listISF = List<ProfileEntryData>();
+    for (ProfileEntryData entry in profile.store.listSens)
+    {
+      listISF.add(entry.copy);
+      listISF.last.forceText = glucFromData(entry.value);
+    }
+    dynamic bodyISF = getFactorBody(page, date, listISF, msgFactorEntry);
 
     dynamic basalTargetBody = [];
     dynamic bodyBasal = getFactorBody(page, date, profile.store.listBasal, msgFactorEntry, precision: 1);
@@ -181,7 +187,7 @@ class PrintProfile extends BasePrint
         ProfileEntryData low = profile.store.listTargetLow[i];
         if (high.time(date) != low.time(date))continue;
         ProfileEntryData entry = ProfileEntryData(profile.store.timezone, high.time(date));
-        entry.forceText = "${fmtNumber(low.value, 0)} - ${fmtNumber(high.value, 0)}";
+        entry.forceText = "${glucFromData(low.value)} - ${glucFromData(high.value)}";
         listTarget.add(entry);
       }
     }
@@ -197,7 +203,7 @@ class PrintProfile extends BasePrint
 
     icrIsfBody.add([
       {"text": msgICR, "fontSize": fs(8), "color": "#606060", "alignment": "center"},
-      {"text": msgISF, "fontSize": fs(8), "color": "#606060", "alignment": "center"}
+      {"text": msgISF(getGlucInfo()["unit"]), "fontSize": fs(8), "color": "#606060", "alignment": "center"}
     ]);
 
     icrIsfBody.add([

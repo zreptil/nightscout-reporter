@@ -298,22 +298,22 @@ class ProfileEntryData extends JsonData
     _time.millisecond,
     _time.microsecond);
 
-// */
-/*
-  tz.TZDateTime(
-    _location,
-    date.year,
-    date.month,
-    date.day,
-    _time.hour,
-    _time.second,
-    _time.millisecond,
-    _time.microsecond);
+  ProfileEntryData get copy
+  =>
+    ProfileEntryData(null)
+      .. value = value
+      .. duration = duration
+      .. timeAsSeconds = timeAsSeconds
+      .. _absoluteRate = _absoluteRate
+      .. _location = _location
+      .. _percentAdjust = _percentAdjust
+      .. _time = _time
+      .. forceText = forceText
+      .. orgValue = orgValue;
 
-// */
   ProfileEntryData(String timezone, [DateTime src = null])
   {
-    _location = tz.getLocation(timezone);
+    if (timezone != null)_location = tz.getLocation(timezone);
     _time = src ?? DateTime(0);
   }
 

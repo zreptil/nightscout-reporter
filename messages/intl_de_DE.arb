@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2019-01-21T14:20:19.354156",
+  "@@last_modified": "2019-01-24T14:29:08.118253",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -622,10 +622,12 @@
     "type": "text",
     "placeholders": {}
   },
-  "Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": "Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl",
-  "@Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X mg/dl": {
+  "msgISF": "Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X {unit}",
+  "@msgISF": {
     "type": "text",
-    "placeholders": {}
+    "placeholders": {
+      "unit": {}
+    }
   },
   "msgTarget": "Glukose-Zielbereich\n{unit}",
   "@msgTarget": {
@@ -1059,9 +1061,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "1.2.1 - xx.xx.2019": "1.2.1 - xx.xx.2019",
-  "@1.2.1 - xx.xx.2019": {
-    "description": "v120",
+  "1.2.2 - 24.01.2019": "1.2.2 - 24.01.2019",
+  "@1.2.2 - 24.01.2019": {
+    "description": "v122",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).": "Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).",
+  "@Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).": {
+    "description": "v122f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.1 - 22.01.2019": "1.2.1 - 22.01.2019",
+  "@1.2.1 - 22.01.2019": {
+    "description": "v121",
     "type": "text",
     "placeholders": {}
   },
@@ -1551,8 +1565,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_43": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_43": {
+  "ViewWhatsnewComponent0__message_45": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_45": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

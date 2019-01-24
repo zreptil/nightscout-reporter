@@ -4,6 +4,8 @@
 
 ### Fixed
 - profiles with many time entries were overlaying the next page. Now a new page is created when there are too many entries to fit on one page.
+- targetarea in profile is displayed using the correct display_unit
+- title of ISF column in profile shows the correct display_unit 
 
 ## [1.2.0]
 ### Added
