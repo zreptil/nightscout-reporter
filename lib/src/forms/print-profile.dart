@@ -172,7 +172,7 @@ class PrintProfile extends BasePrint
     for (ProfileEntryData entry in profile.store.listSens)
     {
       listISF.add(entry.copy);
-      listISF.last.forceText = glucFromData(entry.value);
+      listISF.last.forceText = fmtGluc(entry.value);
     }
     dynamic bodyISF = getFactorBody(page, date, listISF, msgFactorEntry);
 
@@ -187,7 +187,7 @@ class PrintProfile extends BasePrint
         ProfileEntryData low = profile.store.listTargetLow[i];
         if (high.time(date) != low.time(date))continue;
         ProfileEntryData entry = ProfileEntryData(profile.store.timezone, high.time(date));
-        entry.forceText = "${glucFromData(low.value)} - ${glucFromData(high.value)}";
+        entry.forceText = "${fmtGluc(low.value)} - ${fmtGluc(high.value)}";
         listTarget.add(entry);
       }
     }

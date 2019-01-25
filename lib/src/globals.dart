@@ -54,7 +54,7 @@ class LangData
 class Globals
 {
   bool _isLoaded = false;
-  String version = "1.2.2";
+  String version = "1.2.3";
   String lastVersion;
 
   static final Globals _globals = Globals._internal();

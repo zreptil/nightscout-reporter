@@ -948,6 +948,9 @@ abstract class BasePrint
     return ret;
   }
 
+  String fmtGluc(double value)
+  => fmtNumber(value, g.glucMGDL ? 0 : 1);
+
   String glucFromData(var gluc, [precision = null])
   {
     if (gluc is String)gluc = double.tryParse(gluc);
