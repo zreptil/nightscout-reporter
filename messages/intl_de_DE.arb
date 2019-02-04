@@ -1,6 +1,6 @@
 {
   "@@locale": "de_DE",
-  "@@last_modified": "2019-01-24T14:29:08.118253",
+  "@@last_modified": "2019-02-04T10:43:53.543062",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -339,6 +339,11 @@
   },
   "Sensorwechsel": "Sensorwechsel",
   "@Sensorwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aufsummierte Werte": "Aufsummierte Werte",
+  "@Aufsummierte Werte": {
     "type": "text",
     "placeholders": {}
   },
@@ -1061,6 +1066,30 @@
     "type": "text",
     "placeholders": {}
   },
+  "1.2.3 - 04.02.2019": "1.2.3 - 04.02.2019",
+  "@1.2.3 - 04.02.2019": {
+    "description": "v123",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": "In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.",
+  "@In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": {
+    "description": "v123c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden, wurde behoben.": "Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden, wurde behoben.",
+  "@Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden, wurde behoben.": {
+    "description": "v123f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.": "Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.",
+  "@Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.": {
+    "description": "v123f2",
+    "type": "text",
+    "placeholders": {}
+  },
   "1.2.2 - 24.01.2019": "1.2.2 - 24.01.2019",
   "@1.2.2 - 24.01.2019": {
     "description": "v122",
@@ -1565,8 +1594,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_45": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_45": {
+  "ViewWhatsnewComponent0__message_49": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_49": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

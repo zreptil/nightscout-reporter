@@ -11,10 +11,20 @@
     </div>
     <ng-scrollbar #scrollable thumbClass="scrollbar">
       <div class="root">
-        <h2><span @i18n="version">Version</span><span @i18n="v123">1.2.3 - xx.xx.2019</span></h2>
+        <h2><span @i18n="version">Version</span><span @i18n="v123">1.2.3 - 04.02.2019</span></h2>
         <ul>
+          <li class="changed" @i18n="v123c1">
+            In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere
+            innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese
+            Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in
+            eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.
+          </li>
           <li class="fixed" @i18n="v123f1">
-            Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden, wurde behoben.
+            Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden,
+            wurde behoben.
+          </li>
+          <li class="fixed" @i18n="v123f2">
+            Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.
           </li>
         </ul>
         <h2><span @i18n="version">Version</span><span @i18n="v122">1.2.2 - 24.01.2019</span></h2>

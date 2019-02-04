@@ -613,6 +613,8 @@ class TreatmentData extends JsonData
     return 0.0;
   }
 
+  void carbo(double value){_carbs = value;}
+
   TreatmentData();
 
   TreatmentData get copy

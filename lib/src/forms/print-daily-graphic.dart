@@ -6,6 +6,31 @@ import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
 
+
+class CollectInfo
+{
+  DateTime start;
+  DateTime end;
+  double sum;
+  double max = -1.0;
+  int count = 0;
+
+  CollectInfo(this.start, [double this.sum = 0.0])
+  {
+    end = DateTime(start.year, start.month, start.day, start.hour, start.minute, start.second);
+    count = sum > 0.0 ? 1 : 0;
+    max = sum;
+  }
+
+  void fill(DateTime date, double value)
+  {
+    end = DateTime(date.year, date.month, date.day, date.hour, date.minute, date.second);
+    sum += value;
+    max = math.max(value, max);
+    count++;
+  }
+}
+
 class PrintDailyGraphic extends BasePrint
 {
   @override
@@ -136,6 +161,9 @@ class PrintDailyGraphic extends BasePrint
   double basalY(double value)
   => profMax != 0 && value != null ? basalHeight / profMax * (profMax - value) : 0.0;
 
+  List<CollectInfo> collInsulin = List<CollectInfo>();
+  List<CollectInfo> collCarbs = List<CollectInfo>();
+
   PrintDailyGraphic()
   {
     init();
@@ -197,10 +225,31 @@ class PrintDailyGraphic extends BasePrint
 
   getPage(DayData day, ReportData src)
   {
+    double collMinutes = 60;
     double xo = xorg;
     double yo = yorg;
     titleInfo = fmtDate(day.date, null, false, true);
     glucMax = -1000.0;
+    collInsulin.clear();
+    collCarbs.clear();
+    collInsulin.add(CollectInfo(DateTime(day.date.year, day.date.month, day.date.day, 0, 0, 0)));
+    collCarbs.add(CollectInfo(DateTime(day.date.year, day.date.month, day.date.day, 0, 0, 0)));
+/*
+    math.Random rnd = math.Random();
+    for (int i = 0; i < 1440; i += 5)
+    {
+      TreatmentData t = TreatmentData();
+      t.createdAt = DateTime(day.date.year, day.date.month, day.date.day, 0, i);
+      t.eventType = "meal bolus";
+      t.insulin = 1.0 + rnd.nextInt(6);
+      t.carbo(5.0 + rnd.nextInt(12));
+      t.glucoseType = "norm";
+      t.isSMB = false;
+      day.treatments.add(t);
+    }
+    day.treatments.sort((a, b)
+    => a.createdAt.compareTo(b.createdAt));
+*/
     for (EntryData entry in day.entries)
       glucMax = math.max(entry.gluc, glucMax);
     for (EntryData entry in day.bloody)
@@ -262,8 +311,7 @@ class PrintDailyGraphic extends BasePrint
     glucMax = 0.0;
     if (lineHeight == 0)
     {
-      return [
-        headerFooter(), {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": msgMissingData}];
+      return [headerFooter(), {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": msgMissingData}];
     }
     for (var i = 0; i <= gridLines; i++)
     {
@@ -304,7 +352,7 @@ class PrintDailyGraphic extends BasePrint
       if (t.glucoseType.toLowerCase() == "finger")
       {
         double x = glucX(t.createdAt);
-        double y = glucY(t.glucose);
+        double y = glucY((g.glucMGDL ? 1 : 18.02) * t.glucose);
         graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": colBloodValues});
       }
     }
@@ -425,6 +473,7 @@ class PrintDailyGraphic extends BasePrint
     bool hasSensorChange = false;
     bool hasCarbs = false;
     bool hasBolus = false;
+    bool hasCollectedValues = false;
     List<double> noteLines = List<double>();
     for (TreatmentData t in day.treatments)
     {
@@ -450,11 +499,11 @@ class PrintDailyGraphic extends BasePrint
             "lineColor": colCarbs,
             "lineWidth": cm(0.1),
           });
-          (graphCarbs["stack"][1]["stack"] as List).add({
-            "relativePosition": {"x": cm(x - 0.5), "y": cm(y - 0.2),},
-            "text": "${msgKH(fmtNumber(t.carbs))}",
-            "fontSize": fs(8),
-          });
+          if (t.createdAt
+                .difference(collCarbs.last.start)
+                .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs);
+          else
+            collCarbs.add(CollectInfo(t.createdAt, t.carbs));
         }
         hasCarbs = true;
       }
@@ -473,12 +522,12 @@ class PrintDailyGraphic extends BasePrint
             "lineColor": colBolus,
             "lineWidth": cm(0.1),
           });
-          (graphInsulin["stack"][1]["stack"] as List).add({
-            "relativePosition": {"x": cm(x - 0.3), "y": cm(y + 0.05),},
-            "text": "${fmtNumber(t.bolusInsulin, _precision)} ${msgInsulinUnit}",
-            "fontSize": fs(8),
-            "color": colBolus
-          });
+
+          if (t.createdAt
+                .difference(collInsulin.last.start)
+                .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin);
+          else
+            collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
           hasBolus = true;
         }
         if (t.isSMB && t.insulin > 0)
@@ -607,6 +656,53 @@ class PrintDailyGraphic extends BasePrint
 */
     }
 
+    for (CollectInfo info in collInsulin)
+    {
+      if (info.sum == 0.0)continue;
+      DateTime date = info.start.add(Duration(minutes: info.end
+                                                         .difference(info.start)
+                                                         .inMinutes ~/ 2));
+      double x = glucX(date);
+      double y = -0.5; //bolusY(info.max);
+      String text = "${fmtNumber(info.sum, _precision)} ${msgInsulinUnit}";
+      if (info.count > 1)
+      {
+        text = "[$text]";
+        hasCollectedValues = true;
+      }
+/*
+      (graphInsulin["stack"][1]["stack"] as List).add({
+        "relativePosition": {"x": cm(x - 0.3), "y": cm(y + 0.05),},
+        "text": text,
+        "fontSize": fs(8),
+        "color": colBolus
+      });
+// */
+      (graphInsulin["stack"][1]["stack"] as List).add({
+        "relativePosition": {"x": cm(glucX(info.start) - 0.05), "y": cm(y),},
+        "text": text,
+        "fontSize": fs(8),
+        "color": colBolus
+      });
+    }
+    for (CollectInfo info in collCarbs)
+    {
+      if (info.sum == 0.0)continue;
+      DateTime date = info.start.add(Duration(minutes: info.end
+                                                         .difference(info.start)
+                                                         .inMinutes ~/ 2));
+      double x = glucX(date);
+      double y = carbY(info.max);
+      String text = "${msgKH(fmtNumber(info.sum))}";
+      if (info.count > 1)
+      {
+        text = "[$text]";
+        hasCollectedValues = true;
+      }
+      (graphCarbs["stack"][1]["stack"] as List).add(
+        {"relativePosition": {"x": cm(x - 0.5), "y": cm(y - 0.35),}, "text": text, "fontSize": fs(8)});
+    }
+
     DateTime date = DateTime(day.date.year, day.date.month, day.date.day);
     ProfileGlucData profile = src.profile(date);
     double yHigh = glucY(min(glucMax, src.status.settings.thresholds.bgTargetTop.toDouble()));
@@ -705,6 +801,7 @@ class PrintDailyGraphic extends BasePrint
       addLegendEntry(legend, colTargetValue,
         msgTargetValue("${glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${getGlucInfo()["unit"]}"),
         isArea: false);
+      if (hasCollectedValues)addLegendEntry(legend, "", msgCollectedValues, graphText: "[0,0]");
       if (hasCatheterChange)addLegendEntry(
         legend, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);
       if (hasSensorChange)addLegendEntry(legend, "", msgSensorChange, image: "sensor.print", imgWidth: 0.5);

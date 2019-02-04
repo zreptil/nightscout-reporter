@@ -1,6 +1,9 @@
 ## [Unreleased]
+
+## [1.2.3]
 ### Changed
 - consecutive entries with the same values in the profile are collected and written in one line on the profile pdf
+- insulin and carb values within a range of an hour are combined in one sum in the daily graphic
 
 ### Fixed
 - profiles with many time entries were overlaying the next page. Now a new page is created when there are too many entries to fit on one page.

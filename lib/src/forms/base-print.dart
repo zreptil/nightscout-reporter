@@ -204,7 +204,7 @@ abstract class BasePrint
   double xorg = 3.35;
   double yorg = 3.9;
   double lw = 0.03;
-  String lc = "#a0a0a0";
+  String lc = "#c0c0c0";
   String lcFrame = "#000000";
 
   bool _isPortrait = true;
@@ -259,6 +259,8 @@ abstract class BasePrint
   => Intl.message("Katheterwechsel");
   String get msgSensorChange
   => Intl.message("Sensorwechsel");
+  String get msgCollectedValues
+  => Intl.message("Aufsummierte Werte");
   msgKH(value)
   => Intl.message("${value}g KH", args: [value], name: "msgKH");
   msgReadingsPerDay(howMany, fmt)
@@ -986,7 +988,7 @@ abstract class BasePrint
       "columns": [ {
         "width": cm(0.8),
         "layout": "noBorders",
-        "margin": [cm(0.1), cm(0), cm(0), cm(0.1)],
+        "margin": [cm(0.0), cm(0), cm(0), cm(0.1)],
         "table": {
           "widths": [cm(0.5)],
           "body": [[{"text": graphText, "color": "black", "fontSize": fs(6), "alignment": "center", "fillColor": color}]

@@ -32,8 +32,8 @@ import 'src/impressum/impressum_component.dart';
 import 'src/settings/settings_component.dart';
 import 'src/welcome/welcome_component.dart';
 import 'src/whatsnew/whatsnew_component.dart';
+import 'src/pdfMake.dart' as pdfMake;
 // import 'package:dnd/dnd.dart';
-
 
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
@@ -696,9 +696,18 @@ class AppComponent
           }
         }
       }
-
-      pdfDoc = "${convert.jsonEncode(doc)}";
+/*
+      pdfMake.PDFContent pdf = pdfMake.PDFContent(content: doc.content, styles: doc.styles);
+      pdfMake.create(pdf).open();
+// */
+/*
+          .getDataUrl(function(outDoc)
+          {
+          $("#output").text(outDoc);
+          });
+*/
 //*
+      pdfDoc = "${convert.jsonEncode(doc)}";
       if (!isDebug)
       {
         if (message.text.isEmpty)navigate("showPdf");

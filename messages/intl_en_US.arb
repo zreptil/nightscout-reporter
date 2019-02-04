@@ -1,1579 +1,2194 @@
 {
-  "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
-  "@Überprüfe Zugriff auf Nightscout ...": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgLoadingData": "Error loading data: {error} {stacktrace}",
-  "@msgLoadingData": {
-    "type": "text",
-    "placeholders": {
-      "error": {},
-      "stacktrace": {}
+    "@@locale": "en_US",
+    "@@last_modified": "2019-02-04T10:43:53.543062",
+    "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
+    "@Überprüfe Zugriff auf Nightscout ...": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgLoadingData": "Error loading data: {error} {stacktrace}",
+    "@msgLoadingData": {
+        "type": "text",
+        "placeholders": {
+            "error": {
+
+            },
+            "stacktrace": {
+
+            }
+        }
+    },
+    "Fehler beim Laden der Daten": "Error loading data",
+    "@Fehler beim Laden der Daten": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgLoadingDataFor": "Loading data for {date}...",
+    "@msgLoadingDataFor": {
+        "description": "displayed when data of a day is loading",
+        "type": "text",
+        "placeholders": {
+            "date": {
+
+            }
+        }
+    },
+    "Schliessen": "Close",
+    "@Schliessen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Bitte einen Zeitraum wählen.": "Please select a period.",
+    "@Bitte einen Zeitraum wählen.": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Bereite Daten vor...": "Preparing data...",
+    "@Bereite Daten vor...": {
+        "description": "text when data was received and is being prepared to be used in the report",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Erzeuge PDF...": "Creating PDF...",
+    "@Erzeuge PDF...": {
+        "description": "text when pdf is being created",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Impressum": "Imprint",
+    "@Impressum": {
+        "description": "label for inprint button",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Datenschutzerklärung": "Data protection",
+    "@Datenschutzerklärung": {
+        "description": "label for dataprotection button",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "ok": "ok",
+    "@ok": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "verwerfen": "discard",
+    "@verwerfen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "The PDF was created. If it is not displayed, then probably a popup blocker is active, which prevents the display. Please deactivate this.",
+    "@Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Zeitraum": "Period",
+    "@Zeitraum": {
+        "description": "title for datepicker dialog",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Beim Auslesen des Profils ist ein Fehler aufgetreten.": "An error occurred while reading the profile.",
+    "@Beim Auslesen des Profils ist ein Fehler aufgetreten.": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "An error occurred while creating the PDF.",
+    "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Problem auf GitHub melden": "Report a problem to GitHub",
+    "@Problem auf GitHub melden": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "PDF anzeigen": "Show PDF",
+    "@PDF anzeigen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgBE": "msgBE",
+    "@msgBE": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgKE": "msgKE",
+    "@msgKE": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "The specified URL is not reachable. If the URL is correct, then it may be due to the nightscout settings. In the variable ENABLE must be the word \"cors\", so that external tools, like this one, can access the data. <br> <br> If this URL is protected, API Secret and UserToken must also be defined correctly.",
+    "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die URL wurde noch nicht festgelegt.": "The URL has not been set yet.",
+    "@Die URL wurde noch nicht festgelegt.": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Deutsch": "Deutsch",
+    "@Deutsch": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "English": "English",
+    "@English": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Heute": "Today",
+    "@Heute": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Letzte 2 Tage": "Last 2 days",
+    "@Letzte 2 Tage": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Letzte 3 Tage": "Last 3 days",
+    "@Letzte 3 Tage": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Letzte Woche": "Last week",
+    "@Letzte Woche": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Letzte 2 Wochen": "Last 2 weeks",
+    "@Letzte 2 Wochen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Letzte 3 Wochen": "Last 3 weeks",
+    "@Letzte 3 Wochen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Letzter Monat": "Last month",
+    "@Letzter Monat": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Letzte 3 Monate": "Last 3 months",
+    "@Letzte 3 Monate": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die URL wurde noch nicht festgelegt": "The URL has not been set yet",
+    "@Die URL wurde noch nicht festgelegt": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember": "January|February|March|April|May|June|July|August|September|October|November|December",
+    "@Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez": "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec",
+    "@Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag": "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday",
+    "@Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Mo|Di|Mi|Do|Fr|Sa|So": "Mon|Tue|Wed|Thu|Fri|Sat|Sun",
+    "@Mo|Di|Mi|Do|Fr|Sa|So": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Das Startdatum ist nicht korrekt": "The start date is not correct",
+    "@Das Startdatum ist nicht korrekt": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Das Enddatum ist nicht korrekt": "The end date is not correct",
+    "@Das Enddatum ist nicht korrekt": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Zeitraum festlegen": "Set the period",
+    "@Zeitraum festlegen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Anmeldung erfolgreich": "Login successful",
+    "@Anmeldung erfolgreich": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Anmelden": "Sign In",
+    "@Anmelden": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Verbinde zu Google...": "Connect to Google...",
+    "@Verbinde zu Google...": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Verbindung zu Google Drive trennen": "Disconnect from Google Drive",
+    "@Verbindung zu Google Drive trennen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Verbindung zu Google Drive herstellen": "Connect to Google Drive",
+    "@Verbindung zu Google Drive herstellen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgValidRange": "valid from {begDate} to {endDate}",
+    "@msgValidRange": {
+        "type": "text",
+        "placeholders": {
+            "begDate": {
+
+            },
+            "endDate": {
+
+            }
+        }
+    },
+    "msgValidFrom": "valid since {begDate}",
+    "@msgValidFrom": {
+        "type": "text",
+        "placeholders": {
+            "begDate": {
+
+            }
+        }
+    },
+    "msgValidTo": "valid until {endDate}",
+    "@msgValidTo": {
+        "type": "text",
+        "placeholders": {
+            "endDate": {
+
+            }
+        }
+    },
+    "IE": "U",
+    "@IE": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Median": "Median",
+    "@Median": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "bis": "until",
+    "@bis": {
+        "description": "datepicker label to",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgTargetArea": "Target Range ({min} - {max} {units})",
+    "@msgTargetArea": {
+        "type": "text",
+        "placeholders": {
+            "min": {
+
+            },
+            "max": {
+
+            },
+            "units": {
+
+            }
+        }
+    },
+    "msgTargetValue": "Target Value",
+    "@msgTargetValue": {
+        "type": "text",
+        "placeholders": {
+            "value": {
+
+            }
+        }
+    },
+    "Glukosekurve": "Glucose curve",
+    "@Glukosekurve": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Kohlenhydrate": "Carbohydrates",
+    "@Kohlenhydrate": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgBolusInsulin": "Bolus Insulin ({value})",
+    "@msgBolusInsulin": {
+        "type": "text",
+        "placeholders": {
+            "value": {
+
+            }
+        }
+    },
+    "Basalrate": "Basalrate",
+    "@Basalrate": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgBasalrateDay": "Basalrate for the day ({value})",
+    "@msgBasalrateDay": {
+        "type": "text",
+        "placeholders": {
+            "value": {
+
+            }
+        }
+    },
+    "msgBasalrateProfile": "Basalrate from the profile ({value})",
+    "@msgBasalrateProfile": {
+        "type": "text",
+        "placeholders": {
+            "value": {
+
+            }
+        }
+    },
+    "Es sind keine Daten für den Ausdruck vorhanden": "There is no data for the printout",
+    "@Es sind keine Daten für den Ausdruck vorhanden": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Katheterwechsel": "Site change",
+    "@Katheterwechsel": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Sensorwechsel": "Sensor change",
+    "@Sensorwechsel": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Aufsummierte Werte": "Summed up values",
+    "@Aufsummierte Werte": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgKH": "{value} g Carbs",
+    "@msgKH": {
+        "type": "text",
+        "placeholders": {
+            "value": {
+
+            }
+        }
+    },
+    "msgReadingsPerDay": "{howMany,plural, =0{No values available}=1{1 value per day}other{{fmt} values per day}}",
+    "@msgReadingsPerDay": {
+        "type": "text",
+        "placeholders": {
+            "howMany": {
+
+            },
+            "fmt": {
+
+            }
+        }
+    },
+    "msgReadingsPerHour": "{howMany,plural, =0{No values available}=1{1 value per hour}other{{fmt} values per hour}}",
+    "@msgReadingsPerHour": {
+        "type": "text",
+        "placeholders": {
+            "howMany": {
+
+            },
+            "fmt": {
+
+            }
+        }
+    },
+    "msgReadingsInMinutes": "{howMany,plural, =0{No values available}=1{1 value per minute}other{{fmt} values every {fmt} minute}}",
+    "@msgReadingsInMinutes": {
+        "type": "text",
+        "placeholders": {
+            "howMany": {
+
+            },
+            "fmt": {
+
+            }
+        }
+    },
+    "msgValuesIn": "Values ​​between {low} and {high}",
+    "@msgValuesIn": {
+        "type": "text",
+        "placeholders": {
+            "low": {
+
+            },
+            "high": {
+
+            }
+        }
+    },
+    "msgValuesBelow": "Values ​​below {low}",
+    "@msgValuesBelow": {
+        "type": "text",
+        "placeholders": {
+            "low": {
+
+            }
+        }
+    },
+    "msgValuesAbove": "Values ​​above {high}",
+    "@msgValuesAbove": {
+        "type": "text",
+        "placeholders": {
+            "high": {
+
+            }
+        }
+    },
+    "msgKHBE": "g CH ({value} BU)",
+    "@msgKHBE": {
+        "type": "text",
+        "placeholders": {
+            "value": {
+
+            }
+        }
+    },
+    "msgReservoirDays": "{count, plural, =0 {} =1 {({txt} day per reservoir)} other {({txt} days per reservoir)}}",
+    "@msgReservoirDays": {
+        "type": "text",
+        "placeholders": {
+            "count": {
+
+            },
+            "txt": {
+
+            }
+        }
+    },
+    "msgCatheterDays": "{count, plural, =0 {} =1 {({txt} day per catheter)} other {({txt} days per catheter)}}",
+    "@msgCatheterDays": {
+        "type": "text",
+        "placeholders": {
+            "count": {
+
+            },
+            "txt": {
+
+            }
+        }
+    },
+    "msgSensorDays": "{count, plural, =0 {} =1 {({txt} day per sensor)} other {({txt} days per sensor)}}",
+    "@msgSensorDays": {
+        "type": "text",
+        "placeholders": {
+            "count": {
+
+            },
+            "txt": {
+
+            }
+        }
+    },
+    "Geburtstag": "Birthday",
+    "@Geburtstag": {
+        "description": "label of editfield for birthday",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Diabetes seit": "Diabetes since",
+    "@Diabetes seit": {
+        "description": "label of editfield for diabetes since",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Insulin": "Insulin",
+    "@Insulin": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ausgewertete Tage": "Evaluated days",
+    "@Ausgewertete Tage": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Anzahl Messungen": "Count of values",
+    "@Anzahl Messungen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Anzahl Ampullen": "Count of reservoirs",
+    "@Anzahl Ampullen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Anzahl Katheter": "Count of catheters",
+    "@Anzahl Katheter": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Anzahl Sensoren": "Number of sensors",
+    "@Anzahl Sensoren": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "geschätzter HbA1c": "estimated HbA1c",
+    "@geschätzter HbA1c": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Niedrigster Wert im Zeitraum": "Lowest value in the period",
+    "@Niedrigster Wert im Zeitraum": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Höchster Wert im Zeitraum": "Highest value in the period",
+    "@Höchster Wert im Zeitraum": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ø Zuckerwert": "Avg. Glucose",
+    "@Ø Zuckerwert": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ø KH pro Tag": "Avg. Carbs per day",
+    "@Ø KH pro Tag": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ø Insulin pro Tag": "Ø Insulin per day",
+    "@Ø Insulin pro Tag": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ø Bolus pro Tag": "Ø Bolus per day",
+    "@Ø Bolus pro Tag": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ø Basal pro Tag": "Ø Basal per day",
+    "@Ø Basal pro Tag": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ø Microbolus pro Tag": "Avg. Microbolus per day",
+    "@Ø Microbolus pro Tag": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ø Insulinverhältnis": "Ø Insulinratio",
+    "@Ø Insulinverhältnis": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Bolus": "Bolus",
+    "@Bolus": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Basal": "Basal",
+    "@Basal": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Basalrate\nIE \/ Stunde": "Basalrate U \/ hour",
+    "@Basalrate\nIE \/ Stunde": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Keine": "None",
+    "@Keine": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Eigene Grenzwerte": "Own Target Area",
+    "@Eigene Grenzwerte": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Standardgrenzwerte": "Standard Target Area",
+    "@Standardgrenzwerte": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Behandlungen": "Treatments",
+    "@Behandlungen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ges.": "Sum",
+    "@Ges.": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Uhr-\nzeit": "Time",
+    "@Uhr-\nzeit": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Uhrzeit": "Time",
+    "@Uhrzeit": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Anpas-\nsung": "Adjust-\nment",
+    "@Anpas-\nsung": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Glukose zu niedrig": "Glucose too low",
+    "@Glukose zu niedrig": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Glukose im Zielbereich": "Glucose in the target area",
+    "@Glukose im Zielbereich": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Glukose zu hoch": "Glucose too high",
+    "@Glukose zu hoch": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgLow": "Low{value}",
+    "@msgLow": {
+        "type": "text",
+        "placeholders": {
+            "value": {
+
+            }
+        }
+    },
+    "Normal": "Normal",
+    "@Normal": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgHigh": "High{value}",
+    "@msgHigh": {
+        "type": "text",
+        "placeholders": {
+            "value": {
+
+            }
+        }
+    },
+    "10% - 90% der Werte": "10% - 90% of the values",
+    "@10% - 90% der Werte": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "25% - 75% der Werte": "25% - 75% of the values",
+    "@25% - 75% der Werte": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "Insulin Carb Ratio (ICR) X g Carbs for 1 U",
+    "@Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgISF": "Insulin Sensitivity Factors (ISF) 1 IU reduces BG by X {unit}",
+    "@msgISF": {
+        "type": "text",
+        "placeholders": {
+            "unit": {
+
+            }
+        }
+    },
+    "msgTarget": "Glucose target area {unit}",
+    "@msgTarget": {
+        "type": "text",
+        "placeholders": {
+            "unit": {
+
+            }
+        }
+    },
+    "msgFactorEntry": "{beg} - {end}",
+    "@msgFactorEntry": {
+        "type": "text",
+        "placeholders": {
+            "beg": {
+
+            },
+            "end": {
+
+            }
+        }
+    },
+    "Profileinstellungen": "Profilesettings",
+    "@Profileinstellungen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Dauer der Insulinaktivität (DIA)": "Duration of insulin activity (DIA)",
+    "@Dauer der Insulinaktivität (DIA)": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Stunden": "hours",
+    "@Stunden": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Dauer der Kohlenhydrataktivität": "Duration of carb activity",
+    "@Dauer der Kohlenhydrataktivität": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "g \/ Stunde": "g \/ hour",
+    "@g \/ Stunde": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Datum": "Date",
+    "@Datum": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Verteilung": "Distribution",
+    "@Verteilung": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Mess-\nwerte": "Values",
+    "@Mess-\nwerte": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Min": "Min",
+    "@Min": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Max": "Max",
+    "@Max": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Mittel-\nwert": "Average",
+    "@Mittel-\nwert": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Std.\nAbw.": "SDev",
+    "@Std.\nAbw.": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "VarK\nin %": "CV in %",
+    "@VarK\nin %": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "25%": "25%",
+    "@25%": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "75%": "75%",
+    "@75%": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgDaySum": "{value} Days",
+    "@msgDaySum": {
+        "type": "text",
+        "placeholders": {
+            "value": {
+
+            }
+        }
+    },
+    "gesch.\nHbA1c": "est. A1C",
+    "@gesch.\nHbA1c": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Auswertung": "Analysis",
+    "@Auswertung": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Material mit Nachkommastellen": "Material with decimal places",
+    "@Material mit Nachkommastellen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Zwei Nachkommastellen": "Two decimal places",
+    "@Zwei Nachkommastellen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Tagesgrafik": "Daily Graph",
+    "@Tagesgrafik": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Symbole (Katheter etc.)": "Symbols (catheters etc.)",
+    "@Symbole (Katheter etc.)": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Tages-Basalrate": "Daily basalrate",
+    "@Tages-Basalrate": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Profil-Basalrate": "Profile basalrate",
+    "@Profil-Basalrate": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Basal mit zwei Nachkommastellen": "Basal with two decimal places",
+    "@Basal mit zwei Nachkommastellen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Vier Grafiken pro Seite": "Four graphics per page",
+    "@Vier Grafiken pro Seite": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Legende": "Legend",
+    "@Legende": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Notizen": "Notes",
+    "@Notizen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "umgekehrte Sortierung": "reverse sorting",
+    "@umgekehrte Sortierung": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Tabelle mit Glukosewerten": "Table with glucose values",
+    "@Tabelle mit Glukosewerten": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "SMB an der Kurve platzieren": "Place SMB on the curve",
+    "@SMB an der Kurve platzieren": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Info-Linien bis zur Kurve zeichnen": "Draw lines from notes to the curve",
+    "@Info-Linien bis zur Kurve zeichnen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Spalte Messwerte": "Column valuecount",
+    "@Spalte Messwerte": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Spalte Standardabweichung": "Column standard deviation",
+    "@Spalte Standardabweichung": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Spalten Perzentile": "Columns percentiles",
+    "@Spalten Perzentile": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Spalte HbA1c": "Column A1C",
+    "@Spalte HbA1c": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Spalte Variationskoeffizient": "Column coefficient of variation",
+    "@Spalte Variationskoeffizient": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Tagesstatistik": "Daily Statistics",
+    "@Tagesstatistik": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Perzentil Diagramm": "Percentile Diagram",
+    "@Perzentil Diagramm": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Glukose Perzentil Diagramm": "Glucose Percentile Diagram",
+    "@Glukose Perzentil Diagramm": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Profil": "Profile",
+    "@Profil": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Zeilen mit gleichen Werten zusammenfassen": "Combine entries with the same values",
+    "@Zeilen mit gleichen Werten zusammenfassen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Wochengrafik": "Weekly Graphics",
+    "@Wochengrafik": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Tagesnamen in Grafik anzeigen": "Show day names in graphic",
+    "@Tagesnamen in Grafik anzeigen": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Url zur Nightscout-API (z.B. https:\/\/xxx.herokuapp.com)": "Url to Nightscout-API (e.g. https:\/\/xxx.herokuapp.com)",
+    "@Url zur Nightscout-API (z.B. https:\/\/xxx.herokuapp.com)": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Name": "Name",
+    "@Name": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "User-Token": "User-Token",
+    "@User-Token": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "The user token is only required if access in Nightscout has been restricted via AUTH_DEFAULT_ROLES",
+    "@Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "msgCheckUser": "Checking access to {url}...",
+    "@msgCheckUser": {
+        "type": "text",
+        "placeholders": {
+            "url": {
+
+            }
+        }
+    },
+    "Verbinde zu Google Drive...": "Connect to Google Drive...",
+    "@Verbinde zu Google Drive...": {
+        "description": "message for signin to google",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Willkommen": "Welcome",
+    "@Willkommen": {
+        "description": "title of welcome screen",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Einstellungen": "Settings",
+    "@Einstellungen": {
+        "description": "title for settings dialog",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Was bisher geschah...": "What happened up to now...",
+    "@Was bisher geschah...": {
+        "description": "title of whatsnew",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Nightscout Seite": "Nighscout Site",
+    "@Nightscout Seite": {
+        "description": "title of nightscout page",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Nightscout Berichte": "Nightscout Reports",
+    "@Nightscout Berichte": {
+        "description": "title of nightscout reports",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Von": "from",
+    "@Von": {
+        "description": "datepicker label from",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ok": "Ok",
+    "@Ok": {
+        "description": "buttonlabel for ok in control datepicker",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Zusatzfunktionen": "Additional functions",
+    "@Zusatzfunktionen": {
+        "description": "label of area for additional functions",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "PDF im selben Fenster öffnen": "Open PDF in the same window",
+    "@PDF im selben Fenster öffnen": {
+        "description": "label for checkbox to open PDF in same window",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "PDF herunterladen (bei einigen Browsern benötigt)": "Download PDF (needed for some browsers)",
+    "@PDF herunterladen (bei einigen Browsern benötigt)": {
+        "description": "label for checkbox to download PDF",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Hide text about Nightscout in the header and footer of the PDF",
+    "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
+        "description": "label for checkbox to hide nightscout in footer",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Benutzerdaten": "User data",
+    "@Benutzerdaten": {
+        "description": "label for settings-area with user data",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Einstellungen von Release-Version übernehmen": "Apply settings from release version",
+    "@Einstellungen von Release-Version übernehmen": {
+        "description": "buttonlabel for copy of settings to beta version",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Speichern": "Save",
+    "@Speichern": {
+        "description": "buttonlabel for saving data",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Bestätigung": "Confirmation",
+    "@Bestätigung": {
+        "description": "title of confirmation dialog",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Soll der Benutzer mit der URL": "Should the user with the URL",
+    "@Soll der Benutzer mit der URL": {
+        "description": "should the user with url",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "wirklich gelöscht werden?": "really be deleted?",
+    "@wirklich gelöscht werden?": {
+        "description": "really be deleted",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ja": "Yes",
+    "@Ja": {
+        "description": "buttonlabel for confirmation yes",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Nein": "No",
+    "@Nein": {
+        "description": "buttonlabel for confirmation no",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Willkommen bei Nightscout Reporter!": "Welcome to Nightscout Reporter!",
+    "@Willkommen bei Nightscout Reporter!": {
+        "description": "welcome title",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": "This page is used to generate PDF documents with the data stored at Nightscout. Therefore, it is necessary to be able to access this data, which is why a few settings must first be saved. As long as these are not available and valid, the site can do nothing for you.",
+    "@Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": {
+        "description": "welcome section 1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "The data you enter here will be stored in the localStorage of the browser. This contains website-related data that can only be read out from this website. No cookies are used and no data is stored on servers. Only a connection to the specified Nightscout instance is set up and the data available there is read out to create a PDF document. This can then be submitted to the diabetes counselor or other interested party.",
+    "@Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": {
+        "description": "welcome section 2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur Verfügung, der mit dem angegebenen Google Konto verbunden ist.": "When the settings are connected to the Google Account, Google's cookies are used and the data is no longer stored in the localStorage of the browser, but in the AppStorage on Google Drive. In this way you can manage the data centrally and have it available in any browser connected to the specified Google Account.",
+    "@Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur Verfügung, der mit dem angegebenen Google Konto verbunden ist.": {
+        "description": "welcome section 3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": "The website mainly uses Javascript to do its job. When creating the PDF document Javascript and PHP are used.",
+    "@Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": {
+        "description": "welcome section 4",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "This page is also available in english": "Diese Seite ist auch auf Deutsch verfügbar",
+    "@This page is also available in english": {
+        "description": "label for button to switch to other language",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Einstellungen für die Verwendung der Seite vornehmen": "Settings for using the page",
+    "@Einstellungen für die Verwendung der Seite vornehmen": {
+        "description": "label for button to open settings on welcome screen",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Version": "Version",
+    "@Version": {
+        "description": "version",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.2.3 - 04.02.2019": "1.2.3 - 02\/04\/2019",
+    "@1.2.3 - 04.02.2019": {
+        "description": "v123",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": "The daily graphic now sums up insulin values and carbohydrate values when there are several values within an hour. The bars are still drawn individually for each value. In this way there should be no overlapping output of the values anymore. The summarized values are displayed in square brackets to indicate that values have been summed up here.",
+    "@In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": {
+        "description": "v123c1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden, wurde behoben.": "Fixed the bug in the profile that caused the ISF and target range values to be incorrectly converted.",
+    "@Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden, wurde behoben.": {
+        "description": "v123f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die fehlerhafte Platzierug der blutigen Werte bei mmol\/L in der Tagesgrafik wurde korrigiert.": "Fixed the erroneous placement of the bloody values in the daily graph when using mmol\/L.",
+    "@Die fehlerhafte Platzierug der blutigen Werte bei mmol\/L in der Tagesgrafik wurde korrigiert.": {
+        "description": "v123f2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.2.2 - 24.01.2019": "1.2.2 - 01\/24\/2019",
+    "@1.2.2 - 24.01.2019": {
+        "description": "v122",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Im Profil werden jetzt die richtigen Einheiten verwendet (mg\/dL oder mmol\/l).": "The profile now uses the correct units (mg\/dL or mmol\/l).",
+    "@Im Profil werden jetzt die richtigen Einheiten verwendet (mg\/dL oder mmol\/l).": {
+        "description": "v122f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.2.1 - 22.01.2019": "1.2.1 - 01\/22\/2019",
+    "@1.2.1 - 22.01.2019": {
+        "description": "v121",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.": "New option in the profile to combine consecutive times with the same values into a single entry.",
+    "@Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.": {
+        "description": "v121a1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.": "If more times were recorded in a profile than fit on one page, they were overlaying the content of the next page. Now a new page is created as needed.",
+    "@Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.": {
+        "description": "v121f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.2.0 - 21.01.2019": "1.2.0 - 01\/21\/2019",
+    "@1.2.0 - 21.01.2019": {
+        "description": "v120",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": "In the daily statistics and in the daily graphics, the days of the week are now displayed with the day of the week.",
+    "@In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": {
+        "description": "v120a1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": "Added a new PDF for a weekly graphics where the week's glucose curves are shown all at once.",
+    "@Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": {
+        "description": "v120a2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": "New daily graph parameter that determines whether or not to draw the lines for the notes under the graph up to the glucose curve.",
+    "@Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": {
+        "description": "v120a3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": "In the analysis, the information for material (catheter, sensor, ampoule) can be displayed with decimal places.",
+    "@In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": {
+        "description": "v120c1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": "The calculation of the daily insulin now also takes the SMB into account.",
+    "@Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": {
+        "description": "v120f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.1.2 - 08.01.2019": "1.1.2 - 01\/08\/2019",
+    "@1.1.2 - 08.01.2019": {
+        "description": "v112",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": "The daily chart now also displays blood glucose values. They are displayed as red squares and the associated values ​​in the table below the graphic are also displayed in red.",
+    "@In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": {
+        "description": "v112a1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": "The microboli of the Minimed 600 Uploader are now also identified and output in the analysis, if they exist.",
+    "@Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": {
+        "description": "v112a2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": "There is an option in the settings to download the PDF instead of having it displayed directly in the browser. This is needed for browsers like Edge.",
+    "@Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": {
+        "description": "v112a3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": "Carbohydrate corrections are now displayed in the daily graph.",
+    "@In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": {
+        "description": "v112a4",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat\/Tag\/Jahr für englisch).": "The selection of the period is now more flexible. The selection is done in a dialog that takes the language into account. Selecting the default ranges (today, last week, etc.) sets the current date as the basis for the range at the next call. If the range is set directly in the calendar, then it will be applied the next time as defined. By default, the first day of the week is now a Monday. However, this can be set to your own preference by clicking on the day of the week in the title bar of the month. The date fields are entered in the form that corresponds to the language (day.month.year for German, month\/day \/ year for English).",
+    "@Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat\/Tag\/Jahr für englisch).": {
+        "description": "v112c1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": "The calendar control can no longer select a date after the current day.",
+    "@Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": {
+        "description": "v112c2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": "The calendar control now displays the month of the corresponding date when one of the fields From or To receives the focus.",
+    "@Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": {
+        "description": "v112c3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": "If there are gaps in the entries of 15 minutes or more, there will also be a gap in the daily chart.",
+    "@Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": {
+        "description": "v112c4",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": "The positioning of the notes in the daily chart has been corrected so that they are closer to the time. The strokes were shortened so that they go only to the bottom of the graph and not through the table of values.",
+    "@Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": {
+        "description": "v112f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die eigenen Grenzwerte auf der Analyseseite in mmol\/L werden nun korrekt berechnet.": "The own limits on the analysis page in mmol\/L are now calculated correctly.",
+    "@Die eigenen Grenzwerte auf der Analyseseite in mmol\/L werden nun korrekt berechnet.": {
+        "description": "v112f2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": "Fixed a bug that caused the last days of certain months not to be displayed in the calendar control.",
+    "@Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": {
+        "description": "v112f3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": "An error has probably been fixed that causes some profiles to miss the value for DIA incorrectly.",
+    "@Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": {
+        "description": "v112f4",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": "In the calendar control, a defined period (today, last week, etc.) is now correctly based on the current day.",
+    "@Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": {
+        "description": "v112f5",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": "Fixed incorrect output of blood glucose levels in the daily graph.",
+    "@Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": {
+        "description": "v112f6",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können.": "The profile PDF is now created in landscape format so that profiles with many entries for the parameters can also be displayed.",
+    "@Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können.": {
+        "description": "v112f7",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden.": "If special characters are present in the data (eg smileys in the notes), this caused a crash during the PDF creation. This has been fixed by removing these special characters from the output.",
+    "@Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden.": {
+        "description": "v112f8",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.1.1 - 19.11.2018": "1.1.1 - 11\/19\/2018",
+    "@1.1.1 - 19.11.2018": {
+        "description": "v111",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Tagesgrafikparameter zur Anzeige der Legende": "Daily graphic parameters for displaying the legend",
+    "@Tagesgrafikparameter zur Anzeige der Legende": {
+        "description": "v111a1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Tagesgrafikparameter zur Anzeige von Notizen": "Daily graphic parameters for displaying notes",
+    "@Tagesgrafikparameter zur Anzeige von Notizen": {
+        "description": "v111a2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "PDF für Profildaten": "PDF for profile data",
+    "@PDF für Profildaten": {
+        "description": "v111a3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.": "Added daily graphic parameters for reverse sorting. The daily graphics are created starting with the highest date.",
+    "@Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.": {
+        "description": "v111a4",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.": "The daily graphics now displays a chart with half-hourly glucose values. This can be switched off via a parameter.",
+    "@In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.": {
+        "description": "v111a5",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": "In the daily statistics, the column Coefficient of variation has been added (CV).",
+    "@In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": {
+        "description": "v111a6",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.": "SMBs are now also displayed in the daily graphics if the option for displaying insulin has been activated. You can specify whether the SMBs are displayed on the glucose curve or at the target value.",
+    "@In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.": {
+        "description": "v111a7",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert.": "The calculation of the totals row on the Daily Statistics page has been corrected.",
+    "@Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert.": {
+        "description": "v111f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.1.0 - 09.11.2018": "1.1.0 - 11\/09\/2018",
+    "@1.1.0 - 09.11.2018": {
+        "description": "v110",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": "added additional information about the PDFs and in the UI",
+    "@Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": {
+        "description": "v110a1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": "Sums for bolus insulin, basal rate for the day, and basalrate from the profile added to the daily chart",
+    "@Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": {
+        "description": "v110a2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": "Some forms can now be configured with parameters; click on the arrow on the right side of the formbutton and make the appropriate settings in the opened area; the arrow will not appear until the form has been marked for printout",
+    "@Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": {
+        "description": "v110a3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Anzahl der Sensoren zur Analyse hinzugefügt": "Added number of sensors to analysis",
+    "@Anzahl der Sensoren zur Analyse hinzugefügt": {
+        "description": "v110a4",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Übersetzungen korrigiert": "Corrected translations",
+    "@Übersetzungen korrigiert": {
+        "description": "v110f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": "Title information for date ranges on the PDFs are unified",
+    "@Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": {
+        "description": "v110f2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": "Fixed a crash that occurred when no matching profile could be found for a given time",
+    "@Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": {
+        "description": "v110f3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.0.4 - 28.10.2018": "1.0.4 - 10\/28\/2018",
+    "@1.0.4 - 28.10.2018": {
+        "description": "v104",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Benutzer können nun gelöscht werden": "Users can now be deleted",
+    "@Benutzer können nun gelöscht werden": {
+        "description": "v104a1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": "Users can specify a user token to connect to protected nightscout instances",
+    "@Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": {
+        "description": "v104a2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": "Carbohydrates and bolus insulin are now displayed in the daily graphs",
+    "@Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": {
+        "description": "v104a3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Spalte HbA1c zu Tagesstatistik hinzugefügt": "Added column A1C to daily statistics",
+    "@Spalte HbA1c zu Tagesstatistik hinzugefügt": {
+        "description": "v104a4",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt": "Added missing totals in daily statistics",
+    "@Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt": {
+        "description": "v104a5",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Spaltenbreite der Informationen in der Analyse erhöht": "Column width of the information in the analysis increased",
+    "@Spaltenbreite der Informationen in der Analyse erhöht": {
+        "description": "v104f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Icons auf einigen Buttons waren zu nahe am Text": "The icons on some buttons were too close to the text",
+    "@Die Icons auf einigen Buttons waren zu nahe am Text": {
+        "description": "v104f2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": "Temporary basal rates with absolute values ​​are displayed correctly",
+    "@Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": {
+        "description": "v104f3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.0.3 - 26.10.2018": "1.0.3 - 10\/26\/2018",
+    "@1.0.3 - 26.10.2018": {
+        "description": "v103",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)": "You can now create multiple users. This is useful for analyzing multiple nightscout instances (e.g. for doctors, caregivers or the developer of this software)",
+    "@Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)": {
+        "description": "v103a1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Benutzerdaten werden nun verschlüsselt im Browser gespeichert": "User data is now stored encrypted in the browser",
+    "@Benutzerdaten werden nun verschlüsselt im Browser gespeichert": {
+        "description": "v103c1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Analyse-Seite wurde überarbeitet und zeigt nun Überschriften über den Bereichen an": "The analysis page has been redesigned and now displays headings above the areas",
+    "@Die Analyse-Seite wurde überarbeitet und zeigt nun Überschriften über den Bereichen an": {
+        "description": "v103c2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet": "If the thresholds in Nightscout (BG_TARGET_BOTTOM and BG_TARGET_TOP) are equal to 70 and 180, then the area for the default targets will be hidden on the analysis page",
+    "@Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet": {
+        "description": "v103c3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Tagesstatistik zeigt mmol\/l-Werte nun korrekt an": "The daily statistics now display mmol\/l values ​​correctly",
+    "@Die Tagesstatistik zeigt mmol\/l-Werte nun korrekt an": {
+        "description": "v103f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt": "The values ​​for the default target range on the analysis page are now calculated correctly",
+    "@Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt": {
+        "description": "v103f2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert": "Numbers and dates in the PDF are formatted according to the selected language",
+    "@Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert": {
+        "description": "v103f3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet": "When loading the data, the corresponding date format is used for display of progress",
+    "@Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet": {
+        "description": "v103f4",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden an dem Wert \"NONE\" im Datenfeld \"direction\" erkannt": "Faulty values ​​are no longer considered in the evaluation of the graphics; these are recognized by the value \"NONE\" in the data field \"direction\"",
+    "@Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden an dem Wert \"NONE\" im Datenfeld \"direction\" erkannt": {
+        "description": "v103f5",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt": "Additional data is used for the calculation of carbohydrates",
+    "@Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt": {
+        "description": "v103f5",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Diverse Abstürze beim Auslesen der Daten bereinigt": "Fixed various crashes when reading data",
+    "@Diverse Abstürze beim Auslesen der Daten bereinigt": {
+        "description": "v103f6",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird": "The ability to display the URL in the title bar has been removed since the current user or his URL is now displayed directly",
+    "@Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird": {
+        "description": "v103d1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.0.2 - 23.10.2018": "1.0.2 - 10\/23\/2018",
+    "@1.0.2 - 23.10.2018": {
+        "description": "v102",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": "Added legend for catheter and sensor changes to the daily chart.",
+    "@Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": {
+        "description": "v102a1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": "Order of PDF pages changed - Percentile Diagram now comes after analysis.",
+    "@Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": {
+        "description": "v102c1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": "Data for the glucose values ​​with incorrect date format are read out correctly.",
+    "@Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": {
+        "description": "v102f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Hohe Basalraten werden jetzt besser dargestellt.": "High basal rates are now better represented.",
+    "@Hohe Basalraten werden jetzt besser dargestellt.": {
+        "description": "v102f2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.0.1 - 23.10.2018": "1.0.1 - 10\/23\/2018",
+    "@1.0.1 - 23.10.2018": {
+        "description": "v101",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": "Added this page. It is displayed each time Nightscout Reporter starts, if it has not been displayed in the current version. In addition, it can be called up again in the burgermenu.",
+    "@Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": {
+        "description": "v101a1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Schliessen Button im Nachrichtenbereich hinzugefügt.": "Close button added in the message area.",
+    "@Schliessen Button im Nachrichtenbereich hinzugefügt.": {
+        "description": "v101a2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": "Errors are better intercepted and replaced with more meaningful text.",
+    "@Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": {
+        "description": "v101c1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.": "Clicking on the message area no longer closes it.",
+    "@Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.": {
+        "description": "v101c2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": "Name, birthday, insulin and the start date of diabetes can now be left blank without any negative impact on the presentation in the PDF.",
+    "@Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": {
+        "description": "v101c3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": "Error message when loading profiles without start date removed.",
+    "@Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": {
+        "description": "v101f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": "If no data is available, blank pages will be generated with an appropriate hint.",
+    "@Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": {
+        "description": "v101f2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.": "The glucose graph of the daily graphs has been freed from missing data.",
+    "@Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.": {
+        "description": "v101f3",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": "The basal rate PDF was incorrect if there was not a value for each hour.",
+    "@Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": {
+        "description": "v101f4",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "1.0.0 - 20.10.2018": "1.0.0 - 10\/20\/2018",
+    "@1.0.0 - 20.10.2018": {
+        "description": "v100",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Initiale Version, alles ist neu!": "Initial version, everything is new!",
+    "@Initiale Version, alles ist neu!": {
+        "description": "v100a1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "ViewWhatsnewComponent0__message_49": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https:\/\/nightscout-reporter.zreptil.de\/beta {endTag0}",
+    "@ViewWhatsnewComponent0__message_49": {
+        "description": "v110c1",
+        "type": "text",
+        "placeholders": {
+            "startTag0": {
+                "example": "<a href=\"https:\/\/nightscout-reporter.zreptil.de\/beta\" target=\"_blank\">"
+            },
+            "endTag0": {
+                "example": "<\/a>"
+            }
+        }
     }
-  },
-  "Fehler beim Laden der Daten": "Error loading data",
-  "@Fehler beim Laden der Daten": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgLoadingDataFor": "Loading data for {date} ...",
-  "@msgLoadingDataFor": {
-    "description": "displayed when data of a day is loading",
-    "type": "text",
-    "placeholders": {
-      "date": {}
-    }
-  },
-  "Schliessen": "Close",
-  "@Schliessen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Bitte einen Zeitraum wählen.": "Please select a period.",
-  "@Bitte einen Zeitraum wählen.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Bereite Daten vor...": "Preparing data...",
-  "@Bereite Daten vor...": {
-    "description": "text when data was received and is being prepared to be used in the report",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Erzeuge PDF...": "Creating PDF...",
-  "@Erzeuge PDF...": {
-    "description": "text when pdf is being created",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Impressum": "Imprint",
-  "@Impressum": {
-    "description": "label for inprint button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Datenschutzerklärung": "Data protection ",
-  "@Datenschutzerklärung": {
-    "description": "label for dataprotection button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "ok": "ok",
-  "@ok": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "verwerfen": "discard",
-  "@verwerfen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "The PDF was created. If it is not displayed, then probably a popup blocker is active, which prevents the display. Please deactivate this.",
-  "@Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zeitraum": "Period",
-  "@Zeitraum": {
-    "description": "title for datepicker dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Beim Auslesen des Profils ist ein Fehler aufgetreten.": "An error occurred while reading the profile.",
-  "@Beim Auslesen des Profils ist ein Fehler aufgetreten.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "An error occurred while creating the PDF.",
-  "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Problem auf GitHub melden": "Report a problem to GitHub",
-  "@Problem auf GitHub melden": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "PDF anzeigen": "Show PDF",
-  "@PDF anzeigen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgBE": "msgBE",
-  "@msgBE": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgKE": "msgKE",
-  "@msgKE": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "The specified URL is not reachable. If the URL is correct, then it may be due to the nightscout settings. In the variable ENABLE must be the word \"cors\", so that external tools, like this one, can access the data. <br> <br> If this URL is protected, API Secret and UserToken must also be defined correctly.",
-  "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die URL wurde noch nicht festgelegt.": "The URL has not been set yet",
-  "@Die URL wurde noch nicht festgelegt.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Deutsch": "German",
-  "@Deutsch": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "English": "English",
-  "@English": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Heute": "Today",
-  "@Heute": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 2 Tage": "Last 2 days",
-  "@Letzte 2 Tage": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 3 Tage": "Last 3 days",
-  "@Letzte 3 Tage": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte Woche": "Last week",
-  "@Letzte Woche": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 2 Wochen": "Last 2 weeks",
-  "@Letzte 2 Wochen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 3 Wochen": "Last 3 weeks",
-  "@Letzte 3 Wochen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzter Monat": "Last month",
-  "@Letzter Monat": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Letzte 3 Monate": "Last 3 months",
-  "@Letzte 3 Monate": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die URL wurde noch nicht festgelegt": "The URL has not been set yet",
-  "@Die URL wurde noch nicht festgelegt": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember": "January|February|March|April|May|June|July|August|September|October|November|December",
-  "@Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez": "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec",
-  "@Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag": "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday",
-  "@Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Mo|Di|Mi|Do|Fr|Sa|So": "Mon|Tue|Wed|Thu|Fri|Sat|Sun",
-  "@Mo|Di|Mi|Do|Fr|Sa|So": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Das Startdatum ist nicht korrekt": "The start date is not correct",
-  "@Das Startdatum ist nicht korrekt": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Das Enddatum ist nicht korrekt": "The end date is not correct",
-  "@Das Enddatum ist nicht korrekt": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zeitraum festlegen": "Set the period",
-  "@Zeitraum festlegen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Anmeldung erfolgreich": "Login Successful",
-  "@Anmeldung erfolgreich": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Anmelden": "Sign In",
-  "@Anmelden": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Verbinde zu Google...": "Connect to Google ...",
-  "@Verbinde zu Google...": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Verbindung zu Google Drive trennen": "Disconnect from Google Drive",
-  "@Verbindung zu Google Drive trennen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Verbindung zu Google Drive herstellen": "Connect to Google Drive",
-  "@Verbindung zu Google Drive herstellen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgValidRange": "valid from {begDate} to {endDate}",
-  "@msgValidRange": {
-    "type": "text",
-    "placeholders": {
-      "begDate": {},
-      "endDate": {}
-    }
-  },
-  "msgValidFrom": "valid from {begDate}",
-  "@msgValidFrom": {
-    "type": "text",
-    "placeholders": {
-      "begDate": {}
-    }
-  },
-  "msgValidTo": "valid until {endDate}",
-  "@msgValidTo": {
-    "type": "text",
-    "placeholders": {
-      "endDate": {}
-    }
-  },
-  "IE": "U",
-  "@IE": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Median": "Median",
-  "@Median": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "bis": "to",
-  "@bis": {
-    "description": "datepicker label to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgTargetArea": "Target Range ( {min} - {max} {units} )",
-  "@msgTargetArea": {
-    "type": "text",
-    "placeholders": {
-      "min": {},
-      "max": {},
-      "units": {}
-    }
-  },
-  "msgTargetValue": "Target Value",
-  "@msgTargetValue": {
-    "type": "text",
-    "placeholders": {
-      "value": {}
-    }
-  },
-  "Glukosekurve": "Glucose Curve",
-  "@Glukosekurve": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Kohlenhydrate": "Carbohydrates",
-  "@Kohlenhydrate": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgBolusInsulin": "Bolus Insulin ({value} )",
-  "@msgBolusInsulin": {
-    "type": "text",
-    "placeholders": {
-      "value": {}
-    }
-  },
-  "Basalrate": "Basal Rate",
-  "@Basalrate": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgBasalrateDay": "Basalrate for the day ({value})",
-  "@msgBasalrateDay": {
-    "type": "text",
-    "placeholders": {
-      "value": {}
-    }
-  },
-  "msgBasalrateProfile": "Basalrate from the profile ({value})",
-  "@msgBasalrateProfile": {
-    "type": "text",
-    "placeholders": {
-      "value": {}
-    }
-  },
-  "Es sind keine Daten für den Ausdruck vorhanden": "There is no data for the printout",
-  "@Es sind keine Daten für den Ausdruck vorhanden": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Katheterwechsel": "Site change",
-  "@Katheterwechsel": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Sensorwechsel": "Sensor change",
-  "@Sensorwechsel": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgKH": "{value} g Carbs",
-  "@msgKH": {
-    "type": "text",
-    "placeholders": {
-      "value": {}
-    }
-  },
-  "msgReadingsPerDay": "{howMany, plural, =0 {No values available} =1 {1 value per day} other {{fmt} values a day}}",
-  "@msgReadingsPerDay": {
-    "type": "text",
-    "placeholders": {
-      "howMany": {},
-      "fmt": {}
-    }
-  },
-  "msgReadingsPerHour": "{howMany, plural, =0 {No values available} =1 {1 value per hour} other {{fmt} values per hour}}",
-  "@msgReadingsPerHour": {
-    "type": "text",
-    "placeholders": {
-      "howMany": {},
-      "fmt": {}
-    }
-  },
-  "msgReadingsInMinutes": "{howMany, plural, =0 {No values available} =1 {1 value per minute} other {1 value every {fmt} minutes}}",
-  "@msgReadingsInMinutes": {
-    "type": "text",
-    "placeholders": {
-      "howMany": {},
-      "fmt": {}
-    }
-  },
-  "msgValuesIn": "values ​​between {low} and {high}",
-  "@msgValuesIn": {
-    "type": "text",
-    "placeholders": {
-      "low": {},
-      "high": {}
-    }
-  },
-  "msgValuesBelow": "Values ​​below {low}",
-  "@msgValuesBelow": {
-    "type": "text",
-    "placeholders": {
-      "low": {}
-    }
-  },
-  "msgValuesAbove": "Values ​​above {high}",
-  "@msgValuesAbove": {
-    "type": "text",
-    "placeholders": {
-      "high": {}
-    }
-  },
-  "msgKHBE": "g CHO ({value} BU)",
-  "@msgKHBE": {
-    "type": "text",
-    "placeholders": {
-      "value": {}
-    }
-  },
-  "msgReservoirDays": "{count, plural, =0 {} =1 {({txt} day per reservoir)} other {({txt} days per reservoir)}}",
-  "@msgReservoirDays": {
-    "type": "text",
-    "placeholders": {
-      "count": {},
-      "txt": {}
-    }
-  },
-  "msgCatheterDays": "{count, plural, =0 {} =1 {({txt} day per catheter)} other {({txt} days per catheter)}}",
-  "@msgCatheterDays": {
-    "type": "text",
-    "placeholders": {
-      "count": {},
-      "txt": {}
-    }
-  },
-  "msgSensorDays": "{count, plural, =0 {} =1 {({txt} day per sensor)} other {({txt} days per sensor)}}",
-  "@msgSensorDays": {
-    "type": "text",
-    "placeholders": {
-      "count": {},
-      "txt": {}
-    }
-  },
-  "Geburtstag": "Birthday",
-  "@Geburtstag": {
-    "description": "label of editfield for birthday",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Diabetes seit": "Diabetes since",
-  "@Diabetes seit": {
-    "description": "label of editfield for diabetes since",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Insulin": "Insulin",
-  "@Insulin": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ausgewertete Tage": "Evaluated days",
-  "@Ausgewertete Tage": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Anzahl Messungen": "Count of values",
-  "@Anzahl Messungen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Anzahl Ampullen": "Count of reservoirs",
-  "@Anzahl Ampullen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Anzahl Katheter": "Count of catheters",
-  "@Anzahl Katheter": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Anzahl Sensoren": "Number of sensors",
-  "@Anzahl Sensoren": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "geschätzter HbA1c": "estimated A1C",
-  "@geschätzter HbA1c": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Niedrigster Wert im Zeitraum": "Lowest value in the period",
-  "@Niedrigster Wert im Zeitraum": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Höchster Wert im Zeitraum": "Highest value in the period",
-  "@Höchster Wert im Zeitraum": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ø Zuckerwert": "Avg. Glucose",
-  "@Ø Zuckerwert": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ø KH pro Tag": "Avg. Carbs per day",
-  "@Ø KH pro Tag": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ø Insulin pro Tag": "Avg. Insulin per day",
-  "@Ø Insulin pro Tag": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ø Bolus pro Tag": "Avg. Bolus per day",
-  "@Ø Bolus pro Tag": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ø Basal pro Tag": "Avg. Basal per day",
-  "@Ø Basal pro Tag": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ø Microbolus pro Tag": "Avg. Microbolus per day",
-  "@Ø Microbolus pro Tag": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ø Insulinverhältnis": "Avg. insulin ratio",
-  "@Ø Insulinverhältnis": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Bolus": "bolus",
-  "@Bolus": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Basal": "basal",
-  "@Basal": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Basalrate\nIE / Stunde": "Basalrate U / hour",
-  "@Basalrate\nIE / Stunde": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Keine": "None",
-  "@Keine": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Eigene Grenzwerte": "Own Target Area",
-  "@Eigene Grenzwerte": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Standardgrenzwerte": "Standard Target Area",
-  "@Standardgrenzwerte": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Behandlungen": "Treatments",
-  "@Behandlungen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ges.": "Sum",
-  "@Ges.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Uhr-\nzeit": "Time",
-  "@Uhr-\nzeit": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Uhrzeit": "Time",
-  "@Uhrzeit": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Anpas-\nsung": "Adjust-\nment",
-  "@Anpas-\nsung": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Glukose zu niedrig": "Glucose too low",
-  "@Glukose zu niedrig": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Glukose im Zielbereich": "Glucose in the target area",
-  "@Glukose im Zielbereich": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Glukose zu hoch": "Glucose too high",
-  "@Glukose zu hoch": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgLow": "Low{value}",
-  "@msgLow": {
-    "type": "text",
-    "placeholders": {
-      "value": {}
-    }
-  },
-  "Normal": "Normal",
-  "@Normal": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgHigh": "High{value}",
-  "@msgHigh": {
-    "type": "text",
-    "placeholders": {
-      "value": {}
-    }
-  },
-  "10% - 90% der Werte": "10% - 90% of the values",
-  "@10% - 90% der Werte": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "25% - 75% der Werte": "25% - 75% of the values",
-  "@25% - 75% der Werte": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "Insulin Carb Ratio (ICR) X g Carbs for 1 IU",
-  "@Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgISF": "Insulin Sensitivity Factors (ISF) 1 IU reduces BG by X {unit}",
-  "@msgISF": {
-    "type": "text",
-    "placeholders": {
-      "unit": {}
-    }
-  },
-  "msgTarget": "Glucose target area {unit}",
-  "@msgTarget": {
-    "type": "text",
-    "placeholders": {
-      "unit": {}
-    }
-  },
-  "msgFactorEntry": "{beg} - {end}",
-  "@msgFactorEntry": {
-    "type": "text",
-    "placeholders": {
-      "beg": {},
-      "end": {}
-    }
-  },
-  "Profileinstellungen": "Profilesettings",
-  "@Profileinstellungen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Dauer der Insulinaktivität (DIA)": "Duration of insulin activity (DIA)",
-  "@Dauer der Insulinaktivität (DIA)": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Stunden": "hours",
-  "@Stunden": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Dauer der Kohlenhydrataktivität": "Duration of carb activity",
-  "@Dauer der Kohlenhydrataktivität": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "g / Stunde": "g / hour",
-  "@g / Stunde": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Datum": "Date",
-  "@Datum": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Verteilung": "Distribution",
-  "@Verteilung": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Mess-\nwerte": "Values",
-  "@Mess-\nwerte": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Min": "Min",
-  "@Min": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Max": "Max",
-  "@Max": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Mittel-\nwert": "Average",
-  "@Mittel-\nwert": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Std.\nAbw.": "SDev.",
-  "@Std.\nAbw.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "VarK\nin %": "CV in%",
-  "@VarK\nin %": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "25%": "25%",
-  "@25%": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "75%": "75%",
-  "@75%": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgDaySum": "{value} Days",
-  "@msgDaySum": {
-    "type": "text",
-    "placeholders": {
-      "value": {}
-    }
-  },
-  "gesch.\nHbA1c": "est. A1C",
-  "@gesch.\nHbA1c": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Auswertung": "Analysis",
-  "@Auswertung": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Material mit Nachkommastellen": "Material with decimal places",
-  "@Material mit Nachkommastellen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zwei Nachkommastellen": "Two decimal places",
-  "@Zwei Nachkommastellen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Tagesgrafik": "Daily Chart",
-  "@Tagesgrafik": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Symbole (Katheter etc.)": "Symbols (catheters etc.)",
-  "@Symbole (Katheter etc.)": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Tages-Basalrate": "Daily basalrate",
-  "@Tages-Basalrate": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Profil-Basalrate": "Profile basalrate",
-  "@Profil-Basalrate": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Basal mit zwei Nachkommastellen": "Basal with two decimal places",
-  "@Basal mit zwei Nachkommastellen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Vier Grafiken pro Seite": "Four graphics per page",
-  "@Vier Grafiken pro Seite": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Legende": "Legend",
-  "@Legende": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Notizen": "Notes",
-  "@Notizen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "umgekehrte Sortierung": "reverse sorting",
-  "@umgekehrte Sortierung": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Tabelle mit Glukosewerten": "Table with glucose values",
-  "@Tabelle mit Glukosewerten": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "SMB an der Kurve platzieren": "Place SMB on the curve",
-  "@SMB an der Kurve platzieren": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Info-Linien bis zur Kurve zeichnen": "Draw lines from notes to the curve",
-  "@Info-Linien bis zur Kurve zeichnen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spalte Messwerte": "Column valuecount",
-  "@Spalte Messwerte": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spalte Standardabweichung": "Column standard deviation",
-  "@Spalte Standardabweichung": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spalten Perzentile": "Columns percentiles",
-  "@Spalten Perzentile": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spalte HbA1c": "Column A1C",
-  "@Spalte HbA1c": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spalte Variationskoeffizient": "Column coefficient of variation",
-  "@Spalte Variationskoeffizient": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Tagesstatistik": "Daily Statistics",
-  "@Tagesstatistik": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Perzentil Diagramm": "Percentile Diagram",
-  "@Perzentil Diagramm": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Glukose Perzentil Diagramm": "Glucose Percentile Diagram",
-  "@Glukose Perzentil Diagramm": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Profil": "Profile",
-  "@Profil": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zeilen mit gleichen Werten zusammenfassen": "Combine entries with the same values",
-  "@Zeilen mit gleichen Werten zusammenfassen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Wochengrafik": "Weekly Graphics",
-  "@Wochengrafik": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Tagesnamen in Grafik anzeigen": "Show day names in graphic",
-  "@Tagesnamen in Grafik anzeigen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "Url to Nightscout-API (e.g. https://xxx.herokuapp.com)",
-  "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Name": "Name",
-  "@Name": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "User-Token": "User-Token",
-  "@User-Token": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "The user token is only required if access in Nightscout has been restricted via AUTH_DEFAULT_ROLES",
-  "@Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgCheckUser": "Checking access to {url} ...",
-  "@msgCheckUser": {
-    "type": "text",
-    "placeholders": {
-      "url": {}
-    }
-  },
-  "Verbinde zu Google Drive...": "Connect to Google Drive ...",
-  "@Verbinde zu Google Drive...": {
-    "description": "message for signin to google",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Willkommen": "Welcome",
-  "@Willkommen": {
-    "description": "title of welcome screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Einstellungen": "Settings",
-  "@Einstellungen": {
-    "description": "title for settings dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Was bisher geschah...": "What happened up to now...",
-  "@Was bisher geschah...": {
-    "description": "title of whatsnew",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Nightscout Seite": "Nightscout Site",
-  "@Nightscout Seite": {
-    "description": "title of nightscout page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Nightscout Berichte": "Nightscout Reports",
-  "@Nightscout Berichte": {
-    "description": "title of nightscout reports",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Von": "From ",
-  "@Von": {
-    "description": "datepicker label from",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ok": "Ok",
-  "@Ok": {
-    "description": "buttonlabel for ok in control datepicker",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zusatzfunktionen": "Additional functions",
-  "@Zusatzfunktionen": {
-    "description": "label of area for additional functions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "PDF im selben Fenster öffnen": "Open PDF in the same window",
-  "@PDF im selben Fenster öffnen": {
-    "description": "label for checkbox to open PDF in same window",
-    "type": "text",
-    "placeholders": {}
-  },
-  "PDF herunterladen (bei einigen Browsern benötigt)": "Download PDF (needed for some browsers)",
-  "@PDF herunterladen (bei einigen Browsern benötigt)": {
-    "description": "label for checkbox to download PDF",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Hide text about Nightscout in the header and footer of the PDF",
-  "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
-    "description": "label for checkbox to hide nightscout in footer",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Benutzerdaten": "User data",
-  "@Benutzerdaten": {
-    "description": "label for settings-area with user data",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Einstellungen von Release-Version übernehmen": "Apply settings from release version",
-  "@Einstellungen von Release-Version übernehmen": {
-    "description": "buttonlabel for copy of settings to beta version",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Speichern": "save",
-  "@Speichern": {
-    "description": "buttonlabel for saving data",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Bestätigung": "Confirmation",
-  "@Bestätigung": {
-    "description": "title of confirmation dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Soll der Benutzer mit der URL": "Should the user with the URL",
-  "@Soll der Benutzer mit der URL": {
-    "description": "should the user with url",
-    "type": "text",
-    "placeholders": {}
-  },
-  "wirklich gelöscht werden?": "really be deleted?",
-  "@wirklich gelöscht werden?": {
-    "description": "really be deleted",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ja": "Yes",
-  "@Ja": {
-    "description": "buttonlabel for confirmation yes",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Nein": "No",
-  "@Nein": {
-    "description": "buttonlabel for confirmation no",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Willkommen bei Nightscout Reporter!": "Welcome to Nightscout Reporter!",
-  "@Willkommen bei Nightscout Reporter!": {
-    "description": "welcome title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": "This page is used to generate PDF documents with the data stored at Nightscout. Therefore, it is necessary to be able to access this data, which is why a few settings must first be saved. As long as these are not available and valid, the site can do nothing for you.",
-  "@Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": {
-    "description": "welcome section 1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "The data you enter here will be stored in the localStorage of the browser. This contains website-related data that can only be read out from this website. No cookies are used and no data is stored on servers. Only a connection to the specified Nightscout instance is set up and the data available there is read out to create a PDF document. This can then be submitted to the diabetes counselor or other interested party.",
-  "@Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": {
-    "description": "welcome section 2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur Verfügung, der mit dem angegebenen Google Konto verbunden ist.": "When the settings are connected to the Google Account, Google's cookies are used and the data is no longer stored in the localStorage of the browser, but in the AppStorage on Google Drive. In this way you can manage the data centrally and have it available in any browser connected to the specified Google Account.",
-  "@Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur Verfügung, der mit dem angegebenen Google Konto verbunden ist.": {
-    "description": "welcome section 3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": "The website mainly uses Javascript to do its job. When creating the PDF document Javascript and PHP are used.",
-  "@Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": {
-    "description": "welcome section 4",
-    "type": "text",
-    "placeholders": {}
-  },
-  "This page is also available in english": "Diese Seite ist auch auf Deutsch verfügbar",
-  "@This page is also available in english": {
-    "description": "label for button to switch to other language",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Einstellungen für die Verwendung der Seite vornehmen": "Enter settings for using the page",
-  "@Einstellungen für die Verwendung der Seite vornehmen": {
-    "description": "label for button to open settings on welcome screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Version": "Version",
-  "@Version": {
-    "description": "version",
-    "type": "text",
-    "placeholders": {}
-  },
-  "1.2.2 - 24.01.2019": "1.2.2 - 24.01.2019",
-  "@1.2.2 - 24.01.2019": {
-    "description": "v122",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).": "The profile now uses the correct units (mg/dL or mmol/l).",
-  "@Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).": {
-    "description": "v122f1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "1.2.1 - 22.01.2019": "1.2.1 - 22.01.2019",
-  "@1.2.1 - 22.01.2019": {
-    "description": "v121",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.": "New option in the profile to combine consecutive times with the same values into a single entry.",
-  "@Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.": {
-    "description": "v121a1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.": "If more times were recorded in a profile than fit on one page, they were overlaying the content of the next page. Now a new page is created as needed.",
-  "@Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.": {
-    "description": "v121f1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "1.2.0 - 21.01.2019": "1.2.0 - 21.01.2019",
-  "@1.2.0 - 21.01.2019": {
-    "description": "v120",
-    "type": "text",
-    "placeholders": {}
-  },
-  "In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": "In the daily statistics and in the daily graphics, the days of the week are now displayed with the day of the week.",
-  "@In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": {
-    "description": "v120a1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": "Added a new PDF for a weekly graphics where the week's glucose curves are shown all at once.",
-  "@Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": {
-    "description": "v120a2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": "New daily graph parameter that determines whether or not to draw the lines for the notes under the graph up to the glucose curve.",
-  "@Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": {
-    "description": "v120a3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": "In the analysis, the information for material (catheter, sensor, ampoule) can be displayed with decimal places.",
-  "@In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": {
-    "description": "v120c1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": "The calculation of the daily insulin now also takes the SMB into account.",
-  "@Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": {
-    "description": "v120f1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "1.1.2 - 08.01.2019": "1.1.2 - 08.01.2019",
-  "@1.1.2 - 08.01.2019": {
-    "description": "v112",
-    "type": "text",
-    "placeholders": {}
-  },
-  "In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": "The daily chart now also displays blood glucose values. They are displayed as red squares and the associated values ​​in the table below the graphic are also displayed in red.",
-  "@In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": {
-    "description": "v112a1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": "The microboli of the Minimed 600 Uploader are now also identified and output in the analysis, if they exist.",
-  "@Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": {
-    "description": "v112a2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": "There is an option in the settings to download the PDF instead of having it displayed directly in the browser. This is needed for browsers like Edge.",
-  "@Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": {
-    "description": "v112a3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": "Carbohydrate corrections are now displayed in the daily graph.",
-  "@In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": {
-    "description": "v112a4",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).": "The selection of the period is now more flexible. The selection is done in a dialog that takes the language into account. Selecting the default ranges (today, last week, etc.) sets the current date as the basis for the range at the next call. If the range is set directly in the calendar, then it will be applied the next time as defined. By default, the first day of the week is now a Monday. However, this can be set to your own preference by clicking on the day of the week in the title bar of the month. The date fields are entered in the form that corresponds to the language (day.month.year for German, month/day / year for English).",
-  "@Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).": {
-    "description": "v112c1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": "The calendar control can no longer select a date after the current day.",
-  "@Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": {
-    "description": "v112c2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": "The calendar control now displays the month of the corresponding date when one of the fields From or To receives the focus.",
-  "@Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": {
-    "description": "v112c3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": "If there are gaps in the entries of 15 minutes or more, there will also be a gap in the daily chart.",
-  "@Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": {
-    "description": "v112c4",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": "The positioning of the notes in the daily chart has been corrected so that they are closer to the time. The strokes were shortened so that they go only to the bottom of the graph and not through the table of values.",
-  "@Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": {
-    "description": "v112f1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.": "The own limits on the analysis page in mmol/L are now calculated correctly.",
-  "@Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.": {
-    "description": "v112f2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": "Fixed a bug that caused the last days of certain months not to be displayed in the calendar control.",
-  "@Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": {
-    "description": "v112f3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": "An error has probably been fixed that causes some profiles to miss the value for DIA incorrectly.",
-  "@Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": {
-    "description": "v112f4",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": "In the calendar control, a defined period (today, last week, etc.) is now correctly based on the current day.",
-  "@Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": {
-    "description": "v112f5",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": "Fixed incorrect output of blood glucose levels in the daily graph.",
-  "@Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": {
-    "description": "v112f6",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können.": "The profile PDF is now created in landscape format so that profiles with many entries for the parameters can also be displayed.",
-  "@Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können.": {
-    "description": "v112f7",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden.": "If special characters are present in the data (eg smileys in the notes), this caused a crash during the PDF creation. This has been fixed by removing these special characters from the output.",
-  "@Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden.": {
-    "description": "v112f8",
-    "type": "text",
-    "placeholders": {}
-  },
-  "1.1.1 - 19.11.2018": "1.1.1 - 19.11.2018",
-  "@1.1.1 - 19.11.2018": {
-    "description": "v111",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Tagesgrafikparameter zur Anzeige der Legende": "Daily graphic parameters for displaying the legend",
-  "@Tagesgrafikparameter zur Anzeige der Legende": {
-    "description": "v111a1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Tagesgrafikparameter zur Anzeige von Notizen": "Daily graphic parameters for displaying notes",
-  "@Tagesgrafikparameter zur Anzeige von Notizen": {
-    "description": "v111a2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "PDF für Profildaten": "PDF for profile data",
-  "@PDF für Profildaten": {
-    "description": "v111a3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.": "Added daily graphic parameters for reverse sorting. The daily graphics are created starting with the highest date.",
-  "@Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.": {
-    "description": "v111a4",
-    "type": "text",
-    "placeholders": {}
-  },
-  "In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.": "The daily graphics now displays a chart with half-hourly glucose values. This can be switched off via a parameter.",
-  "@In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.": {
-    "description": "v111a5",
-    "type": "text",
-    "placeholders": {}
-  },
-  "In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": "In the daily statistics, the column Coefficient of variation has been added (CV).",
-  "@In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": {
-    "description": "v111a6",
-    "type": "text",
-    "placeholders": {}
-  },
-  "In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.": "SMBs are now also displayed in the daily graphics if the option for displaying insulin has been activated. You can specify whether the SMBs are displayed on the glucose curve or at the target value.",
-  "@In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.": {
-    "description": "v111a7",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert.": "The calculation of the totals row on the Daily Statistics page has been corrected.",
-  "@Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert.": {
-    "description": "v111f1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "1.1.0 - 09.11.2018": "1.1.0 - 11/09/2018",
-  "@1.1.0 - 09.11.2018": {
-    "description": "v110",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": "added additional information about the PDFs and in the UI",
-  "@Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": {
-    "description": "v110a1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": "Sums for bolus insulin, basal rate for the day, and basalrate from the profile added to the daily chart",
-  "@Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": {
-    "description": "v110a2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": "Some forms can now be configured with parameters; click on the arrow on the right side of the formbutton and make the appropriate settings in the opened area; the arrow will not appear until the form has been marked for printout",
-  "@Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": {
-    "description": "v110a3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Anzahl der Sensoren zur Analyse hinzugefügt": "Added number of sensors to analysis",
-  "@Anzahl der Sensoren zur Analyse hinzugefügt": {
-    "description": "v110a4",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Übersetzungen korrigiert": "Corrected translations",
-  "@Übersetzungen korrigiert": {
-    "description": "v110f1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": "Title information for date ranges on the PDFs are unified",
-  "@Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": {
-    "description": "v110f2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": "Fixed a crash that occurred when no matching profile could be found for a given time",
-  "@Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": {
-    "description": "v110f3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "1.0.4 - 28.10.2018": "1.0.4 - 10/28/2018",
-  "@1.0.4 - 28.10.2018": {
-    "description": "v104",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Benutzer können nun gelöscht werden": "Users can now be deleted",
-  "@Benutzer können nun gelöscht werden": {
-    "description": "v104a1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": "Users can specify a user token to connect to protected nightscout instances",
-  "@Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": {
-    "description": "v104a2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": "Carbohydrates and bolus insulin are now displayed in the daily graphs",
-  "@Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": {
-    "description": "v104a3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spalte HbA1c zu Tagesstatistik hinzugefügt": "Added column A1C to daily statistics",
-  "@Spalte HbA1c zu Tagesstatistik hinzugefügt": {
-    "description": "v104a4",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt": "Added missing totals in daily statistics",
-  "@Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt": {
-    "description": "v104a5",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Spaltenbreite der Informationen in der Analyse erhöht": "Column width of the information in the analysis increased",
-  "@Spaltenbreite der Informationen in der Analyse erhöht": {
-    "description": "v104f1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Icons auf einigen Buttons waren zu nahe am Text": "The icons on some buttons were too close to the text",
-  "@Die Icons auf einigen Buttons waren zu nahe am Text": {
-    "description": "v104f2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": "Temporary basal rates with absolute values ​​are displayed correctly",
-  "@Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": {
-    "description": "v104f3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "1.0.3 - 26.10.2018": "1.0.3 - 10/26/2018",
-  "@1.0.3 - 26.10.2018": {
-    "description": "v103",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)": "You can now create multiple users. This is useful for analyzing multiple nightscout instances (e.g. for doctors, caregivers or the developer of this software)",
-  "@Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)": {
-    "description": "v103a1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Benutzerdaten werden nun verschlüsselt im Browser gespeichert": "User data is now stored encrypted in the browser",
-  "@Benutzerdaten werden nun verschlüsselt im Browser gespeichert": {
-    "description": "v103c1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Analyse-Seite wurde überarbeitet und zeigt nun Überschriften über den Bereichen an": "The analysis page has been redesigned and now displays headings above the areas",
-  "@Die Analyse-Seite wurde überarbeitet und zeigt nun Überschriften über den Bereichen an": {
-    "description": "v103c2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet": "If the thresholds in Nightscout (BG_TARGET_BOTTOM and BG_TARGET_TOP) are equal to 70 and 180, then the area for the default targets will be hidden on the analysis page",
-  "@Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet": {
-    "description": "v103c3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Tagesstatistik zeigt mmol/l-Werte nun korrekt an": "The daily statistics now display mmol/l values ​​correctly",
-  "@Die Tagesstatistik zeigt mmol/l-Werte nun korrekt an": {
-    "description": "v103f1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt": "The values ​​for the default target range on the analysis page are now calculated correctly",
-  "@Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt": {
-    "description": "v103f2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert": "Numbers and dates in the PDF are formatted according to the selected language",
-  "@Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert": {
-    "description": "v103f3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet": "When loading the data, the corresponding date format is used for display of progress",
-  "@Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet": {
-    "description": "v103f4",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden an dem Wert \"NONE\" im Datenfeld \"direction\" erkannt": "Faulty values ​​are no longer considered in the evaluation of the graphics; these are recognized by the value \"NONE\" in the data field \"direction\"",
-  "@Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden an dem Wert \"NONE\" im Datenfeld \"direction\" erkannt": {
-    "description": "v103f5",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt": "Additional data is used for the calculation of carbohydrates",
-  "@Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt": {
-    "description": "v103f5",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Diverse Abstürze beim Auslesen der Daten bereinigt": "Fixed various crashes when reading data",
-  "@Diverse Abstürze beim Auslesen der Daten bereinigt": {
-    "description": "v103f6",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird": "The ability to display the URL in the title bar has been removed since the current user or his URL is now displayed directly",
-  "@Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird": {
-    "description": "v103d1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "1.0.2 - 23.10.2018": "1.0.2 - 10/23/2018",
-  "@1.0.2 - 23.10.2018": {
-    "description": "v102",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": "Added legend for catheter and sensor changes to the daily chart.",
-  "@Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": {
-    "description": "v102a1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": "Order of PDF pages changed - Percentile Diagram now comes after analysis.",
-  "@Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": {
-    "description": "v102c1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": "Data for the glucose values ​​with incorrect date format are read out correctly.",
-  "@Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": {
-    "description": "v102f1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Hohe Basalraten werden jetzt besser dargestellt.": "High basal rates are now better represented.",
-  "@Hohe Basalraten werden jetzt besser dargestellt.": {
-    "description": "v102f2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "1.0.1 - 23.10.2018": "1.0.1 - 10/23/2018",
-  "@1.0.1 - 23.10.2018": {
-    "description": "v101",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": "Added this page. It is displayed each time Nightscout Reporter starts, if it has not been displayed in the current version. In addition, it can be called up again in the burgermenu.",
-  "@Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": {
-    "description": "v101a1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Schliessen Button im Nachrichtenbereich hinzugefügt.": "Close button added in the message area.",
-  "@Schliessen Button im Nachrichtenbereich hinzugefügt.": {
-    "description": "v101a2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": "Errors are better intercepted and replaced with more meaningful text.",
-  "@Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": {
-    "description": "v101c1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.": "Clicking on the message area no longer closes it.",
-  "@Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.": {
-    "description": "v101c2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": "Name, birthday, insulin and the start date of diabetes can now be left blank without any negative impact on the presentation in the PDF.",
-  "@Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": {
-    "description": "v101c3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": "Error message when loading profiles without start date removed.",
-  "@Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": {
-    "description": "v101f1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": "If no data is available, blank pages will be generated with an appropriate hint.",
-  "@Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": {
-    "description": "v101f2",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.": "The glucose graph of the daily graphs has been freed from missing data.",
-  "@Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.": {
-    "description": "v101f3",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": "The basal rate PDF was incorrect if there was not a value for each hour.",
-  "@Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": {
-    "description": "v101f4",
-    "type": "text",
-    "placeholders": {}
-  },
-  "1.0.0 - 20.10.2018": "1.0.0 - 10/20/2018",
-  "@1.0.0 - 20.10.2018": {
-    "description": "v100",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Initiale Version, alles ist neu!": "Initial version, everything is new!",
-  "@Initiale Version, alles ist neu!": {
-    "description": "v100a1",
-    "type": "text",
-    "placeholders": {}
-  },
-  "ViewWhatsnewComponent0__message_45": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0} https://nightscout-reporter.zreptil.de/beta {endTag0}",
-  "@ViewWhatsnewComponent0__message_45": {
-    "description": "v110c1",
-    "type": "text",
-    "placeholders": {
-      "startTag0": {
-        "example": "<a href=\"https://nightscout-reporter.zreptil.de/beta\" target=\"_blank\">"
-      },
-      "endTag0": {
-        "example": "</a>"
-      }
-    }
-  }
 }
