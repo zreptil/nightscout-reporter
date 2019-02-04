@@ -148,7 +148,7 @@ class PrintProfile extends BasePrint
     dynamic tableBody = [
       [
         {"text": msgDIA, "style": "infotitle"},
-        {"text": fmtNumber(profile.store.dia, 0, false), "style": "infodata"},
+        {"text": fmtNumber(profile.store.dia, 2, false), "style": "infodata"},
         {"text": msgDIAUnit, "style": "infounit"},
       ],
       [

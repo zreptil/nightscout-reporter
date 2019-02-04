@@ -336,7 +336,7 @@ class ProfileEntryData extends JsonData
 
 class ProfileStoreData extends JsonData
 {
-  int dia;
+  double dia;
   List<ProfileEntryData> listCarbratio = List<ProfileEntryData>();
   int carbsHr;
   int delay;
@@ -363,7 +363,7 @@ class ProfileStoreData extends JsonData
   factory ProfileStoreData.fromJson(Map<String, dynamic> json){
     ProfileStoreData ret = ProfileStoreData();
     if (json == null)return ret;
-    ret.dia = JsonData.toInt(json["dia"]);
+    ret.dia = JsonData.toDouble(json["dia"]);
     ret.carbsHr = JsonData.toInt(json["carbs_hr"]);
     ret.delay = JsonData.toInt(json["delay"]);
     try

@@ -697,7 +697,8 @@ class AppComponent
         }
       }
 /*
-      pdfMake.PDFContent pdf = pdfMake.PDFContent(content: doc.content, styles: doc.styles);
+      pdfMake.Styles styles = pdfMake.Styles();
+      pdfMake.PDFContent pdf = pdfMake.PDFContent(content: [doc], styles: styles);
       pdfMake.create(pdf).open();
 // */
 /*

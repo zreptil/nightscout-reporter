@@ -1,4 +1,6 @@
 ## [Unreleased]
+## Changed
+- the dia value on the profile page is shown with two decimals 
 
 ## [1.2.3]
 ### Changed
