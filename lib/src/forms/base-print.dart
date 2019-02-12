@@ -153,8 +153,14 @@ abstract class BasePrint
 {
   Globals g = Globals();
   String id;
-  String name;
   String title;
+  String get display
+  {
+    String ret = g.canDebug && pageCount > 0 ? "$title [ $pageCount ]" : title;
+    if(isLocalOnly)
+      ret = "$ret (local)";
+    return ret;
+  }
   String titleInfo;
   int pagesPerSheet = 1;
   List<ParamInfo> params = List<ParamInfo>();
@@ -166,6 +172,9 @@ abstract class BasePrint
     => a.sort.compareTo(b.sort));
     return ret;
   }
+
+  bool get isLocalOnly
+  => false;
 
   bool get isDebugOnly
   => false;
@@ -218,6 +227,7 @@ abstract class BasePrint
   => isPortrait ? 29.7 : 21.0;
 
   List<List<dynamic>> _pages = List<List<dynamic>>();
+  int pageCount = 0;
 
   msgValidRange(begDate, endDate)
   => Intl.message("gültig von $begDate bis $endDate", args: [begDate, endDate], name: "msgValidRange");
@@ -243,8 +253,8 @@ abstract class BasePrint
 
   String get msgGlucosekurve
   => Intl.message("Glukosekurve");
-  String get msgCarbs
-  => Intl.message("Kohlenhydrate");
+  String msgCarbs(String value)
+  => Intl.message("Kohlenhydrate (${value}g)", args: [value], name: "msgCarbs");
   String msgBolusInsulin(String value)
   => Intl.message("Bolus Insulin ($value)", args: [value], name: "msgBolusInsulin");
   String get msgBasalrate
@@ -253,16 +263,22 @@ abstract class BasePrint
   => Intl.message("Basalrate für den Tag ($value)", args: [value], name: "msgBasalrateDay");
   String msgBasalrateProfile(String value)
   => Intl.message("Basalrate aus dem Profil ($value)", args: [value], name: "msgBasalrateProfile");
+  String msgLegendTDD(String value)
+  => Intl.message("Gesamtinsulin ($value)", args: [value], name: "msgLegendTDD");
+  String get msgTDD
+  => Intl.message("TDD");
   String get msgMissingData
   => Intl.message("Es sind keine Daten für den Ausdruck vorhanden");
   String get msgCatheterChange
   => Intl.message("Katheterwechsel");
   String get msgSensorChange
   => Intl.message("Sensorwechsel");
+  String get msgAmpulleChange
+  => Intl.message("Reservoirwechsel");
   String get msgCollectedValues
   => Intl.message("Aufsummierte Werte");
   msgKH(value)
-  => Intl.message("${value}g KH", args: [value], name: "msgKH");
+  => Intl.message("${value}g", args: [value], name: "msgKH");
   msgReadingsPerDay(howMany, fmt)
   =>
     Intl.plural(howMany, zero: "Keine Messwerte vorhanden",
@@ -329,7 +345,9 @@ abstract class BasePrint
   => Intl.message("Anzahl Katheter");
   get msgSensorCount
   => Intl.message("Anzahl Sensoren");
-  get msgHbA1C
+  String get msgHbA1C
+  => Intl.message("gesch. HbA1c");
+  get msgHbA1CLong
   => Intl.message("geschätzter HbA1c");
   get msgLowestValue
   => Intl.message("Niedrigster Wert im Zeitraum");
@@ -371,6 +389,8 @@ abstract class BasePrint
   => Intl.message("Uhr-\nzeit");
   get msgTime
   => Intl.message("Uhrzeit");
+  get msgNote
+  => Intl.message("Notiz");
   get msgAdjustment
   => Intl.message("Anpas-\nsung");
   get msgGlucLow
@@ -413,6 +433,8 @@ abstract class BasePrint
   => Intl.message("Stunden");
   get msgKHA
   => Intl.message("Dauer der Kohlenhydrataktivität");
+  get msgTimezone
+  => Intl.message("Zeitzone");
   get msgKHAUnit
   => Intl.message("g / Stunde");
   get msgDate
@@ -437,8 +459,6 @@ abstract class BasePrint
   => Intl.message("75%");
   String msgDaySum(int value)
   => Intl.message("$value Tage", args: [value], name: "msgDaySum");
-  String get msgHbA1c
-  => Intl.message("gesch.\nHbA1c");
 
   String titleInfoForDates(DateTime startDate, DateTime endDate)
   {
@@ -583,9 +603,17 @@ abstract class BasePrint
       }
     ]);
 
-    if (addPageBreak)ret["pageBreak"] = "after";
+    if (addPageBreak)this.addPageBreak(ret);
 
     return ret;
+  }
+
+  void addPageBreak(dynamic ret)
+  {
+    ret["pageBreak"] = "after";
+    pageCount++;
+//    String check = json.encode(_pages);
+//    pageCount = check.length;
   }
 
   dynamic m0 = [];
@@ -689,6 +717,7 @@ abstract class BasePrint
     dynamic ret = [];
     var d = prepareData_(data);
     _pages.clear();
+    pageCount = 1;
     try
     {
       scale = 1.0;
@@ -741,12 +770,12 @@ abstract class BasePrint
           if (row >= rowCount && page != _pages.last)
           {
             row = 0;
-            ret.last["pageBreak"] = "after";
+            addPageBreak(ret.last);
           }
         }
 //        ret.addAll(page);
 //        if(page != _pages.last)
-//          ret.last["pageBreak"] = "after";
+//          addPageBreak(ret.last);
       }
       switch (pagesPerSheet)
       {
@@ -759,12 +788,14 @@ abstract class BasePrint
     }
     catch (ex, s)
     {
+      offsetX = 0.0;
+      offsetY = 0.0;
       ret = {
         "pageSize": "a4",
         "pageOrientation": "portrait",
         "pageMargins": [cmx(1), cmy(1), cmx(1), cmy(1)],
         "content": [
-          {"text": "Fehler bei Erstellung von \"${name}\"", "fontSize": fs(20), "alignment": "center", "color": "red"},
+          {"text": "Fehler bei Erstellung von \"${title}\"", "fontSize": fs(20), "alignment": "center", "color": "red"},
           {"text": "\n$ex", "fontSize": fs(10), "alignment": "left"},
           {"text": "\n$s", "fontSize": fs(10), "alignment": "left"}
         ]
@@ -772,7 +803,7 @@ abstract class BasePrint
       ret = [
         {
           "margin": [cmx(1.0), cmy(0.5), cmx(1.0), cmy(0)],
-          "text": "Fehler bei Erstellung von \"${name}\"",
+          "text": "Fehler bei Erstellung von \"${title}\"",
           "fontSize": fs(20),
           "alignment": "center",
           "color": "red"
@@ -826,7 +857,11 @@ abstract class BasePrint
     if (value == null)return nullText;
 
     String fmt = "#,##0";
-    if (decimals > 0)fmt = "$fmt.".padRight(decimals + 6, "0");
+    if (decimals > 0)
+    {
+      fmt = "$fmt.".padRight(decimals + 6, "0");
+      value = (value * (10 ^ decimals).round() / (10 ^ decimals));
+    }
     NumberFormat nf = NumberFormat(fmt, g.language.code);
     String ret = nf.format(value);
     if (stripTrailingZero)
@@ -834,7 +869,7 @@ abstract class BasePrint
     return ret;
   }
 
-  String fmtTime(var date, {String def: null, bool withUnit: false})
+  String fmtTime(var date, {String def: null, bool withUnit: false, bool withMinutes: true})
   {
     if (def == null)def = "";
     if (date == null)return def;
@@ -843,7 +878,8 @@ abstract class BasePrint
     {
       int hour = date.hour;
       if (g.language.code != "de_DE")hour = hour > 12 ? hour - 12 : hour;
-      String ret = "${(hour < 10 ? "0" : "")}${hour}:${(date.minute < 10 ? "0" : "")}${date.minute}";
+      String m = withMinutes ? ":${(date.minute < 10 ? "0" : "")}${date.minute}" : "";
+      String ret = "${(hour < 10 ? "0" : "")}${hour}$m";
       if (withUnit)
       {
         switch (g.language.code)
@@ -861,11 +897,15 @@ abstract class BasePrint
 
     if (date is int)
     {
-      if (g.language.code == "de_DE")return "${fmtNumber(date, 0)}:00";
+      String m = withMinutes ? ":00" : "";
+      if (g.language.code == "de_DE")return "${fmtNumber(date, 0)}$m";
 
-      if (date <= 12)return "${fmtNumber(date, 0)} am";
+      m = withMinutes ? " " : "";
+
+      if (date < 12)return "${fmtNumber(date, 0)}${m}am";
+      else if (date == 12)return "${fmtNumber(date, 0)}${m}pm";
       else
-        return "${fmtNumber(date - 12, 0)} pm";
+        return "${fmtNumber(date - 12, 0)}${m}pm";
     }
 
     return date;

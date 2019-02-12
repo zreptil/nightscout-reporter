@@ -23,9 +23,6 @@ class PrintProfile extends BasePrint
   String id = "profile";
 
   @override
-  String name = Intl.message("Profil");
-
-  @override
   String title = Intl.message("Profil");
 
   @override
@@ -155,6 +152,10 @@ class PrintProfile extends BasePrint
         {"text": msgKHA, "style": "infotitle"},
         {"text": fmtNumber(profile.store.carbsHr, 0, false), "style": "infodata"},
         {"text": msgKHAUnit, "style": "infounit"},
+      ],
+      [
+        {"text": msgTimezone, "style": "infotitle"},
+        {"text": profile.store.timezone.name, "style": "infodata", "colSpan": 2},
       ],
     ];
 /*

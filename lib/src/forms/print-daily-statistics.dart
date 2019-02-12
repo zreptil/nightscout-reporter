@@ -45,9 +45,6 @@ class PrintDailyStatistics extends BasePrint
   }
 
   @override
-  String name = Intl.message("Tagesstatistik");
-
-  @override
   String title = Intl.message("Tagesstatistik");
 
   @override
@@ -152,7 +149,7 @@ class PrintDailyStatistics extends BasePrint
       {"text": "${glucFromData(Globals.percentile(day.entries, 50), 1)}", "style": style, "alignment": "right"});
     addRow(showPercentile, cm(1.5), row, {"text": msg75, "style": "total", "alignment": "center"},
       {"text": "${glucFromData(Globals.percentile(day.entries, 75), 1)}", "style": style, "alignment": "right"});
-    addRow(showHbA1c, cm(1.5), row, {"text": msgHbA1c, "style": "total", "alignment": "center", "color": colHbA1c},
+    addRow(showHbA1c, cm(1.5), row, {"text": msgHbA1C, "style": "total", "alignment": "center", "color": colHbA1c},
       {"text": "${hba1c(day.mid)} %", "style": style, "alignment": "right", "color": colHbA1c});
     _headFilled = true;
   }
@@ -160,6 +157,9 @@ class PrintDailyStatistics extends BasePrint
   @override
   void fillPages(ReportData src, List<List<dynamic>> pages)
   {
+    _headFilled = false;
+    _headLine = [];
+    _widths = [];
     titleInfo = titleInfoBegEnd(src);
     _settings = src.status.settings;
     double f = 3.3;
@@ -219,7 +219,7 @@ class PrintDailyStatistics extends BasePrint
       if (lineCount == 21)
       {
         page.add(headerFooter());
-        page.add(getTable(_widths, body, day != src.ns.days.last));
+        page.add(getTable(_widths, body));
         lineCount = 0;
         pages.add(page);
         page = [];
@@ -236,21 +236,23 @@ class PrintDailyStatistics extends BasePrint
     if (prevProfile != null)
     {
       page.add(headerFooter());
-      page.add(getTable(_widths, body, false));
+      page.add(getTable(_widths, body));
       pages.add(page);
     }
   }
 
-  getTable(widths, body, bool addPageBreak)
+  getTable(widths, body)
   {
-    return {
+    dynamic ret = {
       "columns": [ {
         "margin": [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
         "width": cm(width),
         "table": {"widths": widths, "body": body},
       }
       ],
-      "pageBreak": addPageBreak ? "after" : ""
+      "pageBreak": ""
     };
+
+    return ret;
   }
 }

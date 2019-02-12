@@ -50,9 +50,6 @@ class PrintPercentile extends BasePrint
   String id = "percentile";
 
   @override
-  String name = Intl.message("Perzentil Diagramm");
-
-  @override
   String title = Intl.message("Glukose Perzentil Diagramm");
 
   @override
@@ -177,10 +174,10 @@ class PrintPercentile extends BasePrint
     }
     glucMax = gridLines * 50.0;
     double yHigh = glucY(src
-      .profile(DateTime.now())
+      .profile(Globals.now)
       .targetHigh);
     double yLow = glucY(src
-      .profile(DateTime.now())
+      .profile(Globals.now)
       .targetLow);
     var limitLines = {
       "relativePosition": {"x": cm(xo), "y": cm(yo)},
@@ -224,9 +221,9 @@ class PrintPercentile extends BasePrint
 
     addLegendEntry(percLegend, "#000", msgMedian, isArea: false);
     addLegendEntry(percLegend, "#0f0", msgTargetArea(glucFromData(src
-      .profile(DateTime.now())
+      .profile(Globals.now)
       .targetLow), glucFromData(src
-      .profile(DateTime.now())
+      .profile(Globals.now)
       .targetHigh), getGlucInfo()["unit"]));
     pages.add(
       [headerFooter(), vertLegend, vertLines, horzLegend, horzLines, limitLines, percGraph, graph, percLegend.asOutput

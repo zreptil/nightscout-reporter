@@ -271,6 +271,32 @@ class ProfileGlucData
   }
 }
 
+class ProfileTimezone
+{
+  String name;
+  tz.Location location;
+  int localDiff = 0;
+
+  ProfileTimezone(String this.name, [bool isInitializing = false])
+  {
+    location = tz.getLocation(name);
+    if (location != null)
+    {
+      tz.TZDateTime d = tz.TZDateTime(
+        location,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0);
+      localDiff = d
+        .difference(DateTime(0))
+        .inHours;
+    }
+  }
+}
+
 class ProfileEntryData extends JsonData
 {
   DateTime _time;
@@ -282,21 +308,31 @@ class ProfileEntryData extends JsonData
   => _percentAdjust = value;
   set absoluteRate(double value)
   => _absoluteRate = value;
+  double get tempAdjusted => orgValue == null || orgValue == 0 ? 0 : (value - orgValue) / orgValue ;
   int duration = 60;
   double orgValue;
   int timeAsSeconds;
-  tz.Location _location;
-  DateTime time(Date date)
-  => //*
-  DateTime(
-    date.year,
-    date.month,
-    date.day,
-    _time.hour,
-    _time.minute,
-    _time.second,
-    _time.millisecond,
-    _time.microsecond);
+  ProfileTimezone _timezone;
+  int get localDiff
+  => _timezone.localDiff;
+  DateTime time(Date date, [bool adjustLocalForTime = false])
+  {
+    int hour = _time.hour;
+    if (adjustLocalForTime)hour += _timezone.localDiff;
+
+    while (hour < 0)hour += 24;
+    while (hour >= 24)hour -= 24;
+
+    return DateTime(
+      date.year,
+      date.month,
+      date.day,
+      hour,
+      _time.minute,
+      _time.second,
+      _time.millisecond,
+      _time.microsecond);
+  }
 
   ProfileEntryData get copy
   =>
@@ -305,15 +341,23 @@ class ProfileEntryData extends JsonData
       .. duration = duration
       .. timeAsSeconds = timeAsSeconds
       .. _absoluteRate = _absoluteRate
-      .. _location = _location
+      .. _timezone = _timezone
       .. _percentAdjust = _percentAdjust
       .. _time = _time
       .. forceText = forceText
-      .. orgValue = orgValue;
+      .. orgValue = orgValue
+      .. _timezone = _timezone;
 
-  ProfileEntryData(String timezone, [DateTime src = null])
+  ProfileEntryData clone(DateTime time)
   {
-    if (timezone != null)_location = tz.getLocation(timezone);
+    ProfileEntryData ret = copy;
+    ret._time = time;
+    return ret;
+  }
+
+  ProfileEntryData(ProfileTimezone timezone, [DateTime src = null])
+  {
+    if (timezone != null)_timezone = timezone;
     _time = src ?? DateTime(0);
   }
 
@@ -324,7 +368,7 @@ class ProfileEntryData extends JsonData
     return v;
   }
 
-  factory ProfileEntryData.fromJson(Map<String, dynamic> json, String timezone){
+  factory ProfileEntryData.fromJson(Map<String, dynamic> json, ProfileTimezone timezone){
     ProfileEntryData ret = ProfileEntryData(timezone);
     if (json == null)return ret;
     ret._time = JsonData.toTime(json["time"]);
@@ -341,7 +385,7 @@ class ProfileStoreData extends JsonData
   int carbsHr;
   int delay;
   List<ProfileEntryData> listSens = List<ProfileEntryData>();
-  String timezone;
+  ProfileTimezone timezone;
   List<ProfileEntryData> listBasal = List<ProfileEntryData>();
   List<ProfileEntryData> listTargetLow = List<ProfileEntryData>();
   List<ProfileEntryData> listTargetHigh = List<ProfileEntryData>();
@@ -357,7 +401,7 @@ class ProfileStoreData extends JsonData
 
   ProfileStoreData()
   {
-    timezone = "Europe/Berlin";
+    timezone = ProfileTimezone(Globals.refTimezone);
   }
 
   factory ProfileStoreData.fromJson(Map<String, dynamic> json){
@@ -368,12 +412,11 @@ class ProfileStoreData extends JsonData
     ret.delay = JsonData.toInt(json["delay"]);
     try
     {
-      ret.timezone = JsonData.toText(json["timezone"]);
-      tz.getLocation(ret.timezone);
+      ret.timezone = ProfileTimezone(JsonData.toText(json["timezone"]));
     }
     catch (ex)
     {
-      ret.timezone = "Europe/Berlin";
+      ret.timezone = ProfileTimezone(Globals.refTimezone);
     }
     ret.startDate = JsonData.toDate(json["startDate"]);
     ret.units = JsonData.toText(json["units"]);
@@ -576,6 +619,7 @@ class TreatmentData extends JsonData
   String glucoseType;
   BoluscalcData boluscalc = null;
   String notes;
+  bool hasKey600 = false;
 
   bool isECarb = false;
 
@@ -613,7 +657,10 @@ class TreatmentData extends JsonData
     return 0.0;
   }
 
-  void carbo(double value){_carbs = value;}
+  void carbo(double value)
+  {
+    _carbs = value;
+  }
 
   TreatmentData();
 
@@ -666,6 +713,7 @@ class TreatmentData extends JsonData
     // Specialhandling for Uploader for Minimed 600-series
     if (json["key600"] != null)
     {
+      ret.hasKey600 = true;
       RegExp reg = RegExp(r"microbolus (.*)U");
       Match m = reg.firstMatch(ret.notes);
       if (m != null && m.groupCount == 1)ret.microbolus = double.tryParse(m.group(1)) ?? 0.0;
@@ -698,6 +746,8 @@ class EntryData extends JsonData
   bool isCopy = false;
   bool get isInvalid
   => type != "mbg" && direction != null && direction.toLowerCase() == "none";
+  bool get isInvalidOrGluc0
+  => (type != "mbg" && direction != null && direction.toLowerCase() == "none") || gluc == null || gluc == 0;
   double get gluc
   {
     return isGap ? -1 : (type == "sgv" ? sgv : rawbg) ?? 0;
@@ -807,7 +857,7 @@ class DayData
     EntryData entry = EntryData();
     entry.type = "mbg";
     entry.mbg = 123.0;
-    entry.time = DateTime.now();
+    entry.time = Globals.now;
 //    bloody.add(entry);
   }
 
@@ -830,10 +880,17 @@ class DayData
     // fill profile with datasets representing the profile for that day
     for (ProfileEntryData entry in basalData.store.listBasal)
     {
-      ProfileEntryData temp = ProfileEntryData(basalData.store.timezone, entry.time(date));
+      ProfileEntryData temp = ProfileEntryData(basalData.store.timezone, entry.time(date, true));
       temp.value = entry.value;
       temp.orgValue = entry.value;
       _profile.add(temp);
+    }
+    if (_profile[0]
+          .time(date, false)
+          .hour > 0)
+    {
+      ProfileEntryData clone = _profile[0].clone(DateTime(date.year, date.month, date.day, 0, 0));
+      _profile.insert(0, clone);
     }
     for (TreatmentData treat in treatments)
     {
@@ -842,6 +899,8 @@ class DayData
         ProfileEntryData entry = ProfileEntryData(basalData.store.timezone, treat.createdAt);
         if (treat._percent != null)entry.percentAdjust = treat._percent.toDouble();
         else if (treat._rate != null)entry.absoluteRate = treat._rate;
+
+        if (treat.hasKey600 && treat._absolute != null)entry.absoluteRate = treat._absolute;
         entry.duration = treat.duration;
         entry.value = null; //treat.microbolus;
         _profile.add(entry);
@@ -1013,19 +1072,19 @@ class ListData
   int get count
   =>
     entries.where((entry)
-    => !entry.isInvalid && entry.gluc != null && entry.gluc != 0).length;
+    => !entry.isInvalidOrGluc0).length;
   int entriesIn(int min, int max)
   =>
     entries.where((entry)
-    => !entry.isInvalid && entry.gluc >= min && entry.gluc <= max).length;
+    => !entry.isInvalidOrGluc0 && entry.gluc >= min && entry.gluc <= max).length;
   int entriesBelow(int min)
   =>
     entries.where((entry)
-    => !entry.isInvalid && entry.gluc < min).length;
+    => !entry.isInvalidOrGluc0 && entry.gluc < min).length;
   int entriesAbove(int min)
   =>
     entries.where((entry)
-    => !entry.isInvalid && entry.gluc > min).length;
+    => !entry.isInvalidOrGluc0 && entry.gluc > min).length;
   double get avgGluc
   {
     double ret = 0.0;

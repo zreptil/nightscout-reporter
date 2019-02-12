@@ -55,14 +55,14 @@
       </div>
       <div class="formlist">
         <template ngFor let-cfg [ngForOf]="g.listConfig">
-          <div *ngIf="!cfg.form.isDebugOnly || isDebug">
+          <div *ngIf="isFormVisible(cfg.form)">
             <div class="sortable">
               <material-expansionpanel
                 (click)="expansionPanelClicked($event,cfg)"
                 (open)="expansionPanelOpen($event,cfg)"
                 (close)="expansionPanelClose($event,cfg)"
                 [class]="expansionClass(cfg)" flat
-                [name]="cfg.form.name"
+                [name]="cfg.form.display"
                 [disableHeaderExpansion]="true"
                 secondaryText="" [showSaveCancel]="false" [hideExpandedHeader]="false"
                 [alwaysHideExpandIcon]="cfg.form.params.length==0 || !cfg.checked">

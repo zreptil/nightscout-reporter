@@ -1,6 +1,19 @@
 ## [Unreleased]
 ## Changed
-- the dia value on the profile page is shown with two decimals 
+
+## [1.2.4]
+### Added
+- the dia value on the profile page is shown with two decimals
+- There is now also the possibility to use Nightscout Reporter in European English. The difference to American English currently exists only in the date format (gb: dd/MM/yyyy, us: MM/dd/yyyy).
+- The legend below the daily graph shows the sum of carbohydrates for the day.
+- Reservoir changes are now also shown in the daily graph.
+- The daily chart now shows the estimated HbA1C and the percentage of bolus insulin and basal insulin for the day. These values are displayed within the legend, which is why it must be enabled for the values to appear.
+### Changed
+- DIA on the profile page is now displayed with two decimal places.
+- There is now an option for the daily graphics to toggle the accumulation of close values.
+- The carbohydrate information on the daily graph is now output without the suffix KH.
+- The bars for the bolus insulin in the daily graph are now scaled according to the maximum bolus insulin at that day.
+- In the analysis the percentages for the target areas can be shown with decimal places. This reduces the difference to 100% if you sum it up. The remainder is because of rounding differences.
 
 ## [1.2.3]
 ### Changed

@@ -329,6 +329,15 @@ material-expansionpanel:not(.is-debug) {
   margin-top: 0.2em;
   margin-bottom: 0.2em;
 }
+material-expansionpanel.is-local {
+  ::ng-deep .header {
+    color: $local_color !important;
+    background: $local_back !important;
+  }
+  @include expansionpanel-colors(transparent, $local_color);
+  @include expansionpanel-focused-colors(transparent, $local_color);
+  @include expansionpanel-focused-colors(transparent, $local_color);
+}
 
 material-expansionpanel.is-debug {
   width: 20em;
@@ -354,8 +363,17 @@ material-expansionpanel.checked {
   }
 }
 
+material-expansionpanel.is-local ::ng-deep material-icon.expand-button {
+  color: $local_color !important;
+}
+
 material-expansionpanel.is-debug ::ng-deep material-icon.expand-button {
-  color: $debug-color !important;
+  color: $debug_color !important;
+}
+
+material-expansionpanel.is-local.checked {
+  border: 2px solid $local_color;
+  background: $local_back;
 }
 
 material-expansionpanel.is-debug.checked {

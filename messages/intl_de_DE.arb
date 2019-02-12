@@ -1,6 +1,5 @@
 {
-  "@@locale": "de_DE",
-  "@@last_modified": "2019-02-04T10:43:53.543062",
+  "@@last_modified": "2019-02-12T14:09:23.938032",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -102,6 +101,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "dd.MM.yyyy": "dd.MM.yyyy",
+  "@dd.MM.yyyy": {
+    "type": "text",
+    "placeholders": {}
+  },
   "msgBE": "msgBE",
   "@msgBE": {
     "type": "text",
@@ -127,8 +131,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "English": "English",
-  "@English": {
+  "English (USA)": "English (USA)",
+  "@English (USA)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "English (GB)": "English (GB)",
+  "@English (GB)": {
     "type": "text",
     "placeholders": {}
   },
@@ -296,10 +305,12 @@
     "type": "text",
     "placeholders": {}
   },
-  "Kohlenhydrate": "Kohlenhydrate",
-  "@Kohlenhydrate": {
+  "msgCarbs": "Kohlenhydrate ({value}g)",
+  "@msgCarbs": {
     "type": "text",
-    "placeholders": {}
+    "placeholders": {
+      "value": {}
+    }
   },
   "msgBolusInsulin": "Bolus Insulin ({value})",
   "@msgBolusInsulin": {
@@ -327,6 +338,18 @@
       "value": {}
     }
   },
+  "msgLegendTDD": "Gesamtinsulin ({value})",
+  "@msgLegendTDD": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "TDD": "TDD",
+  "@TDD": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Es sind keine Daten für den Ausdruck vorhanden": "Es sind keine Daten für den Ausdruck vorhanden",
   "@Es sind keine Daten für den Ausdruck vorhanden": {
     "type": "text",
@@ -342,12 +365,17 @@
     "type": "text",
     "placeholders": {}
   },
+  "Reservoirwechsel": "Reservoirwechsel",
+  "@Reservoirwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Aufsummierte Werte": "Aufsummierte Werte",
   "@Aufsummierte Werte": {
     "type": "text",
     "placeholders": {}
   },
-  "msgKH": "{value}g KH",
+  "msgKH": "{value}g",
   "@msgKH": {
     "type": "text",
     "placeholders": {
@@ -473,6 +501,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "gesch. HbA1c": "gesch. HbA1c",
+  "@gesch. HbA1c": {
+    "type": "text",
+    "placeholders": {}
+  },
   "geschätzter HbA1c": "geschätzter HbA1c",
   "@geschätzter HbA1c": {
     "type": "text",
@@ -573,6 +606,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Notiz": "Notiz",
+  "@Notiz": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Anpas-\nsung": "Anpas-\nsung",
   "@Anpas-\nsung": {
     "type": "text",
@@ -669,6 +707,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Zeitzone": "Zeitzone",
+  "@Zeitzone": {
+    "type": "text",
+    "placeholders": {}
+  },
   "g / Stunde": "g / Stunde",
   "@g / Stunde": {
     "type": "text",
@@ -731,11 +774,6 @@
       "value": {}
     }
   },
-  "gesch.\nHbA1c": "gesch.\nHbA1c",
-  "@gesch.\nHbA1c": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Auswertung": "Auswertung",
   "@Auswertung": {
     "type": "text",
@@ -746,8 +784,23 @@
     "type": "text",
     "placeholders": {}
   },
+  "Zielbereich mit Nachkommastellen": "Zielbereich mit Nachkommastellen",
+  "@Zielbereich mit Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Zwei Nachkommastellen": "Zwei Nachkommastellen",
   "@Zwei Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesanalyse": "Tagesanalyse",
+  "@Tagesanalyse": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesnotizen": "Tagesnotizen",
+  "@Tagesnotizen": {
     "type": "text",
     "placeholders": {}
   },
@@ -758,6 +811,11 @@
   },
   "Symbole (Katheter etc.)": "Symbole (Katheter etc.)",
   "@Symbole (Katheter etc.)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kohlenhydrate": "Kohlenhydrate",
+  "@Kohlenhydrate": {
     "type": "text",
     "placeholders": {}
   },
@@ -791,8 +849,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "umgekehrte Sortierung": "umgekehrte Sortierung",
-  "@umgekehrte Sortierung": {
+  "Neuester Tag zuerst": "Neuester Tag zuerst",
+  "@Neuester Tag zuerst": {
     "type": "text",
     "placeholders": {}
   },
@@ -808,6 +866,16 @@
   },
   "Info-Linien bis zur Kurve zeichnen": "Info-Linien bis zur Kurve zeichnen",
   "@Info-Linien bis zur Kurve zeichnen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nahe zusammen liegende Werte aufsummieren": "Nahe zusammen liegende Werte aufsummieren",
+  "@Nahe zusammen liegende Werte aufsummieren": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Seite für Tagesnotizen": "Seite für Tagesnotizen",
+  "@Seite für Tagesnotizen": {
     "type": "text",
     "placeholders": {}
   },
@@ -841,11 +909,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Perzentil Diagramm": "Perzentil Diagramm",
-  "@Perzentil Diagramm": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Glukose Perzentil Diagramm": "Glukose Perzentil Diagramm",
   "@Glukose Perzentil Diagramm": {
     "type": "text",
@@ -863,6 +926,11 @@
   },
   "Wochengrafik": "Wochengrafik",
   "@Wochengrafik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "umgekehrte Sortierung": "umgekehrte Sortierung",
+  "@umgekehrte Sortierung": {
     "type": "text",
     "placeholders": {}
   },
@@ -1063,6 +1131,66 @@
   "Version": "Version",
   "@Version": {
     "description": "version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.4 - 12.02.2019": "1.2.4 - 12.02.2019",
+  "@1.2.4 - 12.02.2019": {
+    "description": "v124",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es gibt jetzt auch die Möglichkeit, Nightscout Reporter in europäischem Englisch darzustellen. Der Unterschied zum amerikanischen Englisch besteht derzeit lediglich im Datumsformat (gb: dd/MM/yyyy, us: MM/dd/yyyy).": "Es gibt jetzt auch die Möglichkeit, Nightscout Reporter in europäischem Englisch darzustellen. Der Unterschied zum amerikanischen Englisch besteht derzeit lediglich im Datumsformat (gb: dd/MM/yyyy, us: MM/dd/yyyy).",
+  "@Es gibt jetzt auch die Möglichkeit, Nightscout Reporter in europäischem Englisch darzustellen. Der Unterschied zum amerikanischen Englisch besteht derzeit lediglich im Datumsformat (gb: dd/MM/yyyy, us: MM/dd/yyyy).": {
+    "description": "v124a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.": "In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.",
+  "@In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.": {
+    "description": "v124a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden nun auch Reservoirwechsel angezeigt.": "In der Tagesgrafik werden nun auch Reservoirwechsel angezeigt.",
+  "@In der Tagesgrafik werden nun auch Reservoirwechsel angezeigt.": {
+    "description": "v124a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert sein muss, damit die Werte angezeigt werden.": "In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert sein muss, damit die Werte angezeigt werden.",
+  "@In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert sein muss, damit die Werte angezeigt werden.": {
+    "description": "v124a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Angabe DIA auf der Profilseite wird nun mit zwei Nachkommastellen angezeigt.": "Die Angabe DIA auf der Profilseite wird nun mit zwei Nachkommastellen angezeigt.",
+  "@Die Angabe DIA auf der Profilseite wird nun mit zwei Nachkommastellen angezeigt.": {
+    "description": "v124c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Für die Tagesgrafik gibt es jetzt eine Option, um die Aufsummierung nahe beieinander liegender Werte umzuschalten.": "Für die Tagesgrafik gibt es jetzt eine Option, um die Aufsummierung nahe beieinander liegender Werte umzuschalten.",
+  "@Für die Tagesgrafik gibt es jetzt eine Option, um die Aufsummierung nahe beieinander liegender Werte umzuschalten.": {
+    "description": "v124c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.": "Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.",
+  "@Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.": {
+    "description": "v124c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin an dem Tag skaliert.": "Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin an dem Tag skaliert.",
+  "@Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin an dem Tag skaliert.": {
+    "description": "v124c4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Analyse können die Prozentzahlen für die Zielbereiche mit Nachkommazahl angezeigt werden. Das verringert die Differenz zu 100%, wenn man sie zusammenzählt. Der verbleibende Rest sind Rundungsdifferenzen.": "In der Analyse können die Prozentzahlen für die Zielbereiche mit Nachkommazahl angezeigt werden. Das verringert die Differenz zu 100%, wenn man sie zusammenzählt. Der verbleibende Rest sind Rundungsdifferenzen.",
+  "@In der Analyse können die Prozentzahlen für die Zielbereiche mit Nachkommazahl angezeigt werden. Das verringert die Differenz zu 100%, wenn man sie zusammenzählt. Der verbleibende Rest sind Rundungsdifferenzen.": {
+    "description": "v124c5",
     "type": "text",
     "placeholders": {}
   },
@@ -1594,8 +1722,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_49": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_49": {
+  "ViewWhatsnewComponent0__message_59": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_59": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

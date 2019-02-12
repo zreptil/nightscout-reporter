@@ -15,6 +15,7 @@ import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component
 import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:timezone/browser.dart' as tz;
 
 class Msg
 {
@@ -44,17 +45,23 @@ class LangData
   String code;
   String name;
   String img;
-  String dateformat;
+  String get dateformat => Intl.message("dd.MM.yyyy");
   String get imgPath
   => "https://findicons.com/files/icons/2758/flag_icons/32/${img}.png";
 
-  LangData(this.code, this.name, this.dateformat, this.img);
+  LangData(this.code, this.name, this.img);
 }
 
 class Globals
 {
+  // The timezone is set to Europe/Berlin by default, but it is evaluated in
+  // the constructor for the current system.
+  static String refTimezone = "Europe/Berlin";
+  static tz.Location refLocation = tz.getLocation("Europe/Berlin");
+  static DateTime get now
+  => DateTime.now();
   bool _isLoaded = false;
-  String version = "1.2.3";
+  String version = "1.2.4";
   String lastVersion;
 
   static final Globals _globals = Globals._internal();
@@ -80,6 +87,27 @@ class Globals
 
   Globals._internal(){
 //    load();
+    tz.Location found = null;
+
+    DateTime now = DateTime.now();
+    int offset = DateTime
+      .now()
+      .timeZoneOffset
+      .inMilliseconds;
+    for (String key in tz.timeZoneDatabase.locations.keys)
+    {
+      tz.Location l = tz.timeZoneDatabase.locations[key];
+      if (l.currentTimeZone.offset == offset)
+      {
+        found = l;
+        break;
+      }
+    }
+    if (found != null)
+    {
+      Globals.refTimezone = found.name;
+      Globals.refLocation = found;
+    }
   }
 
   List<FormConfig> listConfig = List<FormConfig>();
@@ -123,8 +151,9 @@ class Globals
   }
 
   List<LangData> languageList = [
-    LangData("de_DE", Intl.message("Deutsch"), "dd.MM.yyyy", "de"),
-    LangData("en_US", Intl.message("English"), "M/d/yyyy", "us")
+    LangData("de_DE", Intl.message("Deutsch"), "de"),
+    LangData("en_US", Intl.message("English (USA)"), "us"),
+    LangData("en_GB", Intl.message("English (GB)"), "gb"),
   ];
   LangData _language = null;
   LangData get language
@@ -689,8 +718,8 @@ class Globals
   {
     double v = value / 100;
     List temp = List();
-    // the entries must not be rearranged,
-    // so we need a copy of this list
+// the entries must not be rearranged,
+// so we need a copy of this list
     for (var entry in entries)
       temp.add(entry);
     temp.sort((a, b)
@@ -722,7 +751,7 @@ class Globals
       convert.jsonEncode(doc);
       return true;
     }
-    catch(ex)
+    catch (ex)
     {
 
     }

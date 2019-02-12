@@ -35,9 +35,6 @@ class PrintWeeklyGraphic extends BasePrint
   }
 
   @override
-  String name = Intl.message("Wochengrafik");
-
-  @override
   String title = Intl.message("Wochengrafik");
 
   static String get msgParam1

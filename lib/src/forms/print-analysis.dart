@@ -1,4 +1,3 @@
-import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -10,18 +9,16 @@ class PrintAnalysis extends BasePrint
   String id = "analysis";
 
   @override
-  String name = Intl.message("Auswertung");
-
-  @override
   String title = Intl.message("Auswertung");
 
-  bool isPrecise;
-  int get _precision
-  => isPrecise ? 2 : 0;
+  bool isPreciseMaterial, isPreciseTarget;
+  int get _precisionMaterial
+  => isPreciseMaterial ? 2 : 0;
+  int get _precisionTarget
+  => isPreciseTarget ? 1 : 0;
 
   @override
-  List<ParamInfo> params = [ParamInfo(0, msgParam1, boolValue: true),
-  ];
+  List<ParamInfo> params = [ParamInfo(0, msgParam1, boolValue: true), ParamInfo(1, msgParam2, boolValue: false)];
 
   @override
   bool get isPortrait
@@ -35,12 +32,16 @@ class PrintAnalysis extends BasePrint
   @override
   prepareData_(ReportData data)
   {
-    isPrecise = params[0].boolValue;
+    isPreciseMaterial = params[0].boolValue;
+    isPreciseTarget = params[1].boolValue;
     return data;
   }
 
   static String get msgParam1
   => Intl.message("Material mit Nachkommastellen");
+
+  static String get msgParam2
+  => Intl.message("Zielbereich mit Nachkommastellen");
 
   addBodyArea(List body, String title, List lines, {showLine: true})
   {
@@ -157,7 +158,7 @@ class PrintAnalysis extends BasePrint
         {"text": fmtNumber(data.ampulleCount), "style": "infodata"},
         {
           "text": data.ampulleCount > 0 ? msgReservoirDays((src.dayCount / data.ampulleCount).round(),
-            fmtNumber(src.dayCount / data.ampulleCount, _precision, false, "", true)) : "",
+            fmtNumber(src.dayCount / data.ampulleCount, _precisionMaterial, false, "", true)) : "",
           "style": "infounit",
           "colSpan": 2
         },
@@ -169,7 +170,7 @@ class PrintAnalysis extends BasePrint
         {"text": fmtNumber(data.catheterCount), "style": "infodata"},
         {
           "text": data.catheterCount > 0 ? msgCatheterDays((src.dayCount / data.catheterCount).round(),
-            fmtNumber(src.dayCount / data.catheterCount, _precision, false, "", true)) : "",
+            fmtNumber(src.dayCount / data.catheterCount, _precisionMaterial, false, "", true)) : "",
           "style": "infounit",
           "colSpan": 2
         },
@@ -181,7 +182,7 @@ class PrintAnalysis extends BasePrint
         {"text": fmtNumber(data.sensorCount), "style": "infodata"},
         {
           "text": data.sensorCount > 0 ? msgSensorDays((src.dayCount / data.sensorCount).round(),
-            fmtNumber(src.dayCount / data.sensorCount, _precision, false, "", true)) : "",
+            fmtNumber(src.dayCount / data.sensorCount, _precisionMaterial, false, "", true)) : "",
           "style": "infounit",
           "colSpan": 2
         },
@@ -197,7 +198,7 @@ class PrintAnalysis extends BasePrint
             "${glucFromData(src.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
           "style": "infotitle"
         },
-        {"text": "${(data.highCount / data.count * 100).floor()} %", "style": "infodata"},
+        {"text": "${fmtNumber(data.highCount / data.count * 100, _precisionTarget)} %", "style": "infodata"},
         {"text": "(${fmtNumber(data.highCount)})", "style": "infounit"},
         {
           "canvas": [
@@ -215,7 +216,7 @@ class PrintAnalysis extends BasePrint
             "${glucFromData(src.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
           "style": "infotitle"
         },
-        {"text": "${(data.normCount / data.count * 100).floor()} %", "style": "infodata"},
+        {"text": "${fmtNumber(data.normCount / data.count * 100, _precisionTarget)} %", "style": "infodata"},
         {"text": "(${fmtNumber(data.normCount)})", "style": "infounit"},
         {"text": "", "style": "infounit"},
       ],
@@ -226,18 +227,19 @@ class PrintAnalysis extends BasePrint
             "${glucFromData(src.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}"),
           "style": "infotitle"
         },
-        {"text": "${(data.lowCount / data.count * 100).floor()} %", "style": "infodata"},
+        {"text": "${fmtNumber(data.lowCount / data.count * 100, _precisionTarget)} %", "style": "infodata"},
         {"text": "(${fmtNumber(data.lowCount)})", "style": "infounit"},
         {"text": "", "style": "infounit"},
       ]
     ]);
 
-    if (src.status.settings.thresholds.bgTargetBottom != 70 ||
-      src.status.settings.thresholds.bgTargetTop != 180) addBodyArea(tableBody, msgStandardLimits, [
+    if (src.status.settings.thresholds.bgTargetBottom != 70 || src.status.settings.thresholds
+                                                                 .bgTargetTop != 180) addBodyArea(
+      tableBody, msgStandardLimits, [
       [
         {"text": "", "style": "infotitle"},
         {"text": msgValuesAbove("${glucFromData(180)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
-        {"text": "${(data.entriesIn(181, 9999) / data.count * 100).floor()} %", "style": "infodata"},
+        {"text": "${fmtNumber(data.entriesIn(181, 9999) / data.count * 100, _precisionTarget)} %", "style": "infodata"},
         {"text": "(${fmtNumber(data.entriesIn(181, 9999))})", "style": "infounit"},
         {
           "canvas": [
@@ -255,14 +257,14 @@ class PrintAnalysis extends BasePrint
             "${glucFromData(70)} ${getGlucInfo()["unit"]}", "${glucFromData(180)} ${getGlucInfo()["unit"]}"),
           "style": "infotitle"
         },
-        {"text": "${(data.entriesIn(70, 180) / data.count * 100).floor()} %", "style": "infodata"},
+        {"text": "${fmtNumber(data.entriesIn(70, 180) / data.count * 100, _precisionTarget)} %", "style": "infodata"},
         {"text": "(${fmtNumber(data.entriesIn(70, 180))})", "style": "infounit"},
         {"text": "", "style": "infounit"},
       ],
       [
         {"text": "", "style": "infotitle"},
         {"text": msgValuesBelow("${glucFromData(70)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
-        {"text": "${(data.entriesIn(0, 69) / data.count * 100).floor()} %", "style": "infodata"},
+        {"text": "${fmtNumber(data.entriesIn(0, 69) / data.count * 100, _precisionTarget)} %", "style": "infodata"},
         {"text": "(${fmtNumber(data.entriesIn(0, 69))})", "style": "infounit"},
         {"text": "", "style": "infounit"},
       ],
@@ -293,7 +295,7 @@ class PrintAnalysis extends BasePrint
       ],
       [
         {"text": "", "style": "infotitle"},
-        {"text": msgHbA1C, "style": "infotitle"},
+        {"text": msgHbA1CLong, "style": "infotitle"},
         {"text": hba1c(avgGluc), "style": ["infodata", "hba1c"]},
         {"text": "%", "style": ["infounit", "hba1c"], "colSpan": 2},
         {"text": "", "style": "infounit"},

@@ -16,6 +16,7 @@ import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
 import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
+import 'package:nightscout_reporter/src/forms/print-daily-analysis.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
@@ -32,7 +33,6 @@ import 'src/impressum/impressum_component.dart';
 import 'src/settings/settings_component.dart';
 import 'src/welcome/welcome_component.dart';
 import 'src/whatsnew/whatsnew_component.dart';
-import 'src/pdfMake.dart' as pdfMake;
 // import 'package:dnd/dnd.dart';
 
 // AngularDart info: https://webdev.dartlang.org/angular
@@ -74,6 +74,8 @@ import 'src/pdfMake.dart' as pdfMake;
 class AppComponent
   implements OnInit
 {
+  String get timezone
+  => globals.Globals.refTimezone;
   bool paramboolValue = false;
   globals.Globals g = globals.Globals();
   bool drawerVisible = false;
@@ -155,6 +157,17 @@ class AppComponent
   => Intl.message("Problem auf GitHub melden");
   String get msgShowPDF
   => Intl.message("PDF anzeigen");
+
+  bool isFormVisible(BasePrint form)
+  {
+    bool ret = true;
+
+    if (form.isDebugOnly && !isDebug)return false;
+    if (form.isLocalOnly && !g.isLocal) return false;
+
+    return true;
+  }
+
   @override
   Future<Null> ngOnInit()
   async {
@@ -173,6 +186,7 @@ class AppComponent
       g.addForm(PrintPercentile());
       g.addForm(PrintDailyStatistics());
       g.addForm(PrintDailyGraphic());
+      g.addForm(PrintDailyAnalysis());
       g.addForm(PrintWeeklyGraphic());
       g.addForm(PrintBasalrate());
       g.addForm(PrintTest());
@@ -277,7 +291,7 @@ class AppComponent
 
   void navigate(String url)
   {
-    if (url == "showPlayground" || url == "showPdf")
+    if (url.startsWith("showPlayground") || url.startsWith("showPdf"))
     {
       String doc = pdfDoc;
       if (url == "showPlayground")
@@ -410,6 +424,51 @@ class AppComponent
     message.links = [];
     message.type = "msg toggle-debug";
 
+    String url = "${g.user.apiUrl}status.json";
+    displayLink("status", url, type: "debug");
+    String content = await g.request(url);
+    data.status = StatusData.fromJson(json.decode(content));
+    g.glucMGDL = data.status.settings.units.toLowerCase() == "mg/dl";
+    url = "${g.user.apiUrl}profile.json";
+    displayLink("profile", url, type: "debug");
+    content = await g.request(url);
+//      if (g.dateRange.range.start == null || g.dateRange.range.end == null)
+    if (g.period.start == null || g.period.end == null)
+    {
+      data.error = StateError(msgEmptyRange);
+      return data;
+    }
+
+    try
+    {
+      List<dynamic> src = json.decode(content);
+      for (dynamic entry in src)
+        data.profiles.add(ProfileData.fromJson(entry));
+//        display("${ret.begDate.toString()} - ${ret.endDate.toString()}");
+    }
+    catch (ex)
+    {
+      if (isDebug)
+      {
+        if (ex is Error)display("${ex.toString()}\n${ex.stackTrace}");
+        else
+          display(ex.toString());
+      }
+      else
+      {
+/*
+          display(msgProfileError, links: [ {
+            "url": "https://github.com/zreptil/nightscout-reporter/issues/new?title=problem in profile-data&body=${msgProfileError}",
+            "title": msgGitHubIssue
+          }
+          ]);
+// */
+        display(msgProfileError);
+      }
+    }
+    data.profiles.sort((a, b)
+    => a.startDate.compareTo(b.startDate));
+
     while (begDate <= endDate)
     {
       DateTime beg = DateTime(
@@ -420,6 +479,7 @@ class AppComponent
         0,
         0,
         0).toUtc();
+
       DateTime end = DateTime(
         begDate.year,
         begDate.month,
@@ -428,6 +488,10 @@ class AppComponent
         59,
         59,
         999).toUtc();
+
+      ProfileGlucData profile = data.profile(beg);
+      DateTime profileBeg = beg.add(Duration(hours: -profile.store.timezone.localDiff));
+      DateTime profileEnd = end.add(Duration(hours: -profile.store.timezone.localDiff));
 
       progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
       String url = "${g.user.apiUrl}entries.json?find[date][\$gte]=${beg.millisecondsSinceEpoch}&find[date][\$lte]=${end
@@ -457,9 +521,8 @@ class AppComponent
           break;
         }
       }
-      url =
-      "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${beg.toIso8601String()}&find[created_at][\$lte]=${end
-        .toIso8601String()}&count=100000";
+      url = "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${profileBeg
+        .toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000";
       src = json.decode(await g.request(url));
       displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
       for (dynamic treatment in src)
@@ -557,50 +620,6 @@ class AppComponent
       data.calc.entries = entryList;
       data.calc.bloody = data.ns.bloody;
 
-      String url = "${g.user.apiUrl}status.json";
-      displayLink("status", url, type: "debug");
-      String content = await g.request(url);
-      data.status = StatusData.fromJson(json.decode(content));
-      g.glucMGDL = data.status.settings.units.toLowerCase() == "mg/dl";
-      url = "${g.user.apiUrl}profile.json";
-      displayLink("profile", url, type: "debug");
-      content = await g.request(url);
-//      if (g.dateRange.range.start == null || g.dateRange.range.end == null)
-      if (g.period.start == null || g.period.end == null)
-      {
-        data.error = StateError(msgEmptyRange);
-        return data;
-      }
-
-      try
-      {
-        List<dynamic> src = json.decode(content);
-        for (dynamic entry in src)
-          data.profiles.add(ProfileData.fromJson(entry));
-//        display("${ret.begDate.toString()} - ${ret.endDate.toString()}");
-      }
-      catch (ex)
-      {
-        if (isDebug)
-        {
-          if (ex is Error)display("${ex.toString()}\n${ex.stackTrace}");
-          else
-            display(ex.toString());
-        }
-        else
-        {
-/*
-          display(msgProfileError, links: [ {
-            "url": "https://github.com/zreptil/nightscout-reporter/issues/new?title=problem in profile-data&body=${msgProfileError}",
-            "title": msgGitHubIssue
-          }
-          ]);
-// */
-          display(msgProfileError);
-        }
-      }
-      data.profiles.sort((a, b)
-      => a.startDate.compareTo(b.startDate));
       data.calc.treatments = data.ns.treatments;
       data.calc.extractData(data);
       data.ns.extractData(data);
@@ -639,12 +658,14 @@ class AppComponent
       progressText = msgCreatingPDF;
       progressValue = progressMax + 1;
       var doc = null;
+      var pageCount = 0;
       for (FormConfig cfg in g.listConfig)
       {
         BasePrint form = cfg.form;
         if (cfg.checked && (!form.isDebugOnly || isDebug))
         {
           var data = await form.getFormData(vars);
+          pageCount += form.pageCount;
           if (doc == null)
           {
             doc = {
@@ -746,6 +767,7 @@ class AppComponent
     String ret = "paramPanel";
     if (cfg.form.isDebugOnly && isDebug)ret = "${ret} is-debug";
     if (cfg.checked)ret = "${ret} checked";
+    if (cfg.form.isLocalOnly)ret = "${ret} is-local";
     return ret;
   }
 
@@ -771,7 +793,7 @@ class AppComponent
 
   signinEvent(SigninEvent e)
   {
-    switch(e.status)
+    switch (e.status)
     {
       case SigninStatus.requestAuthorization:
         _currPage = "signin";

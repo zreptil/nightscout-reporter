@@ -11,10 +11,42 @@
     </div>
     <ng-scrollbar #scrollable thumbClass="scrollbar">
       <div class="root">
-        <h2><span @i18n="version">Version</span><span @i18n="v124">1.2.4 - xx.02.2019</span></h2>
+        <h2><span @i18n="version">Version</span><span @i18n="v124">1.2.4 - 12.02.2019</span></h2>
         <ul>
+          <li class="added" @i18n="v124a1">
+            Es gibt jetzt auch die Möglichkeit, Nightscout Reporter in europäischem Englisch darzustellen.
+            Der Unterschied zum amerikanischen Englisch besteht derzeit lediglich im Datumsformat (gb: dd/MM/yyyy, us:
+            MM/dd/yyyy).
+          </li>
+          <li class="added" @i18n="v124a2">
+            In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.
+          </li>
+          <li class="added" @i18n="v124a3">
+            In der Tagesgrafik werden nun auch Reservoirwechsel angezeigt.
+          </li>
+          <li class="added" @i18n="v124a4">
+            In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und
+            Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert
+            sein muss, damit die Werte angezeigt werden.
+          </li>
           <li class="changed" @i18n="v124c1">
             Die Angabe DIA auf der Profilseite wird nun mit zwei Nachkommastellen angezeigt.
+          </li>
+          <li class="changed" @i18n="v124c2">
+            Für die Tagesgrafik gibt es jetzt eine Option, um die Aufsummierung nahe beieinander liegender Werte
+            umzuschalten.
+          </li>
+          <li class="changed" @i18n="v124c3">
+            Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.
+          </li>
+          <li class="changed" @i18n="v124c4">
+            Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin
+            an dem Tag skaliert.
+          </li>
+          <li class="changed" @i18n="v124c5">
+            In der Analyse können die Prozentzahlen für die Zielbereiche mit Nachkommazahl angezeigt werden. Das
+            verringert die Differenz zu 100%, wenn man sie zusammenzählt. Der verbleibende Rest sind
+            Rundungsdifferenzen.
           </li>
         </ul>
         <h2><span @i18n="version">Version</span><span @i18n="v123">1.2.3 - 04.02.2019</span></h2>
