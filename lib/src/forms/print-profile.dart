@@ -6,16 +6,20 @@ import 'base-print.dart';
 
 class PrintProfile extends BasePrint
 {
+  bool isPrecise;
+  int get _precision
+  => isPrecise ? 2 : 1;
   bool compressSameValues;
 
   @override
-  List<ParamInfo> params = [ParamInfo(0, msgParam1, boolValue: true),
+  List<ParamInfo> params = [ParamInfo(0, msgParam1, boolValue: false), ParamInfo(1, msgParam2, boolValue: true),
   ];
 
   @override
   prepareData_(ReportData data)
   {
-    compressSameValues = params[0].boolValue;
+    isPrecise = params[0].boolValue;
+    compressSameValues = params[1].boolValue;
     return data;
   }
 
@@ -35,10 +39,18 @@ class PrintProfile extends BasePrint
   }
 
   static String get msgParam1
+  => Intl.message("Basalrate mit zwei Nachkommastellen");
+  static String get msgParam2
   => Intl.message("Zeilen mit gleichen Werten zusammenfassen");
 
   double _fontSize = 10;
   bool _hasFactors = false;
+
+  @override
+  hasData(ReportData src)
+  {
+    return src.profiles.length > 0;
+  }
 
   getFactorBody(int page, Date date, List<ProfileEntryData> list, msg(String a, String b), {int precision: 1})
   {
@@ -147,24 +159,15 @@ class PrintProfile extends BasePrint
         {"text": msgDIA, "style": "infotitle"},
         {"text": fmtNumber(profile.store.dia, 2, false), "style": "infodata"},
         {"text": msgDIAUnit, "style": "infounit"},
+        {"text": msgTimezone, "style": "infotitle"},
+        {"text": profile.store.timezone.name, "style": "infodata", "alignment": "left"},
       ],
       [
         {"text": msgKHA, "style": "infotitle"},
         {"text": fmtNumber(profile.store.carbsHr, 0, false), "style": "infodata"},
-        {"text": msgKHAUnit, "style": "infounit"},
-      ],
-      [
-        {"text": msgTimezone, "style": "infotitle"},
-        {"text": profile.store.timezone.name, "style": "infodata", "colSpan": 2},
+        {"text": msgKHAUnit, "style": "infounit", "colSpan": 3},
       ],
     ];
-/*
-    tableBody.add([ {
-      "canvas": [ {"type": "line", "x1": cm(0), "y1": cm(0.2), "x2": cm(13.5), "y2": cm(0.2), "lineWidth": cm(0.01)}],
-      "colSpan": 5
-    }
-    ]);
-// */
     _hasFactors = false;
     dynamic icrIsfBody = [];
     Date date = g.date(startDate);
@@ -178,7 +181,7 @@ class PrintProfile extends BasePrint
     dynamic bodyISF = getFactorBody(page, date, listISF, msgFactorEntry);
 
     dynamic basalTargetBody = [];
-    dynamic bodyBasal = getFactorBody(page, date, profile.store.listBasal, msgFactorEntry, precision: 1);
+    dynamic bodyBasal = getFactorBody(page, date, profile.store.listBasal, msgFactorEntry, precision: _precision);
     List<ProfileEntryData> listTarget = List<ProfileEntryData>();
     if (profile.store.listTargetHigh.length == profile.store.listTargetLow.length)
     {
@@ -237,9 +240,9 @@ class PrintProfile extends BasePrint
     var ret = [
       headerFooter(),
       {
-        "margin": [cm(11), cm(yorg - 0.5), cm(0), cm(0)],
+        "margin": [cm(8), cm(yorg - 0.5), cm(0), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(5.2), cm(1.0), cm(1.5)], "body": tableBody}
+        "table": {"headerRows": 0, "widths": [cm(5.2), cm(1.0), cm(1.8), cm(1.7), cm(4.0)], "body": tableBody}
       },
       {
         "margin": [cm(1.2), cm(0.2), cm(0), cm(0)],
