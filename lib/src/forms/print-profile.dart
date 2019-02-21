@@ -147,6 +147,7 @@ class PrintProfile extends BasePrint
 
   getPage(int page, ProfileGlucData profile, DateTime startDate, DateTime endDate)
   {
+    _fontSize = 10;
     titleInfo = titleInfoForDates(startDate, endDate);
     dynamic tableBody = [
       [
