@@ -308,7 +308,8 @@ class ProfileEntryData extends JsonData
   => _percentAdjust = value;
   set absoluteRate(double value)
   => _absoluteRate = value;
-  double get tempAdjusted => orgValue == null || orgValue == 0 ? 0 : (value - orgValue) / orgValue ;
+  double get tempAdjusted
+  => orgValue == null || orgValue == 0 ? 0 : (value - orgValue) / orgValue;
   int duration = 60;
   double orgValue;
   int timeAsSeconds;
@@ -361,11 +362,31 @@ class ProfileEntryData extends JsonData
     _time = src ?? DateTime(0);
   }
 
+  bool get isCalculated
+  => _percentAdjust != null || _absoluteRate != null;
+
+  transferCalcValues(ProfileEntryData src)
+  {
+    _percentAdjust = src._percentAdjust;
+    _absoluteRate = src._absoluteRate;
+  }
+
   double adjustedValue(double v)
   {
     if (_percentAdjust != null)return v + (v * _percentAdjust) / 100.0;
     if (_absoluteRate != null)return _absoluteRate;
     return v;
+  }
+
+  factory ProfileEntryData.fromTreatment(ProfileTimezone timezone, TreatmentData src){
+    ProfileEntryData ret = ProfileEntryData(timezone, src.createdAt);
+    if (src._percent != null)ret.percentAdjust = src._percent.toDouble();
+    else if (src._rate != null)ret.absoluteRate = src._rate;
+
+    if (src.hasKey600 && src._absolute != null)ret.absoluteRate = src._absolute;
+    ret.duration = src.duration;
+
+    return ret;
   }
 
   factory ProfileEntryData.fromJson(Map<String, dynamic> json, ProfileTimezone timezone){
@@ -384,6 +405,7 @@ class ProfileStoreData extends JsonData
   List<ProfileEntryData> listCarbratio = List<ProfileEntryData>();
   int carbsHr;
   int delay;
+  int maxPrecision = 0;
   List<ProfileEntryData> listSens = List<ProfileEntryData>();
   ProfileTimezone timezone;
   List<ProfileEntryData> listBasal = List<ProfileEntryData>();
@@ -424,8 +446,12 @@ class ProfileStoreData extends JsonData
       ret.listCarbratio.add(ProfileEntryData.fromJson(entry, ret.timezone));
     for (dynamic entry in json["sens"])
       ret.listSens.add(ProfileEntryData.fromJson(entry, ret.timezone));
+    ret.maxPrecision = 0;
     for (dynamic entry in json["basal"])
+    {
       ret.listBasal.add(ProfileEntryData.fromJson(entry, ret.timezone));
+      ret.maxPrecision = math.max(ret.maxPrecision, Globals.decimalPlaces(ret.listBasal.last.value));
+    }
     for (dynamic entry in json["target_low"])
       ret.listTargetLow.add(ProfileEntryData.fromJson(entry, ret.timezone));
     for (dynamic entry in json["target_high"])
@@ -449,6 +475,7 @@ class ProfileData extends JsonData
   => startDate.millisecondsSinceEpoch ?? 0;
   String units;
   DateTime createdAt;
+  int maxPrecision = 0;
 
   ProfileData();
 
@@ -462,11 +489,16 @@ class ProfileData extends JsonData
     ret.units = JsonData.toText(json["units"]);
     ret.createdAt = JsonData.toDate(json["created_at"]);
     Map<String, dynamic> src = json["store"];
+    ret.maxPrecision = 0;
     for (String key in src.keys)
     {
       dynamic temp = src.entries.firstWhere((e)
       => e.key == key);
-      if (temp != null)ret.store[key] = ProfileStoreData.fromJson(temp.value);
+      if (temp != null)
+      {
+        ret.store[key] = ProfileStoreData.fromJson(temp.value);
+        ret.maxPrecision = math.max(ret.maxPrecision, ret.store[key].maxPrecision);
+      }
     }
     return ret;
   }
@@ -637,17 +669,21 @@ class TreatmentData extends JsonData
 
   double get carbs
   {
+/*
     switch (eventType.toLowerCase())
     {
       case "bolus wizard":
       case "meal bolus":
       case "carb correction":
+      case "carbs":
         if (_carbs != null && !isECarb)return _carbs;
         break;
       case "<none>":
-        if (enteredBy == "xdrip" && _carbs != null && !isECarb)return _carbs;
+        if (enteredBy.startsWith("xdrip") && _carbs != null && !isECarb)return _carbs;
         break;
     }
+*/
+    if (_carbs != null && !isECarb)return _carbs;
     return 0.0;
   }
 
@@ -892,30 +928,31 @@ class DayData
       ProfileEntryData clone = _profile[0].clone(DateTime(date.year, date.month, date.day, 0, 0));
       _profile.insert(0, clone);
     }
+    // fill profile with treatments of type "temp basal" to get the actual basalrate
     for (TreatmentData treat in treatments)
     {
-      if (treat.eventType.toLowerCase() == "temp basal")
+      if (treat.eventType.toLowerCase() == "temp basal" && treat.duration > 0)
       {
-        ProfileEntryData entry = ProfileEntryData(basalData.store.timezone, treat.createdAt);
-        if (treat._percent != null)entry.percentAdjust = treat._percent.toDouble();
-        else if (treat._rate != null)entry.absoluteRate = treat._rate;
-
-        if (treat.hasKey600 && treat._absolute != null)entry.absoluteRate = treat._absolute;
-        entry.duration = treat.duration;
-        entry.value = null; //treat.microbolus;
+        ProfileEntryData entry = ProfileEntryData.fromTreatment(basalData.store.timezone, treat);
+        // value null means this value has to be calculated in the next loop
+        entry.value = null;
         _profile.add(entry);
       }
     }
+    // sort the profile to have the entries in the correct order
     _profile.sort((a, b)
     => a.time(date).compareTo(b.time(date)));
     ProfileEntryData last = null;
     DateTime lastTime = null;
+    // calculate the values based on the profile data
     for (int i = 0; i < _profile.length; i++)
     {
       ProfileEntryData entry = _profile[i];
       entry.orgValue = entry.value;
+      // only work on entry-values that are null (inserted by the code above)
       if (entry.value == null && last != null)
       {
+        // entry has to be calculated and has a preceding entry
         entry.orgValue = last.orgValue;
         entry.value = entry.adjustedValue(last.orgValue);
 
@@ -923,6 +960,7 @@ class DayData
         if (i < _profile.length - 1 && endTime.isBefore(_profile[i + 1].time(date)))
         {
           ProfileEntryData temp = ProfileEntryData(basalData.store.timezone, endTime);
+          temp.transferCalcValues(last);
           temp.value = last.orgValue;
           temp.orgValue = last.orgValue;
           _profile.insert(i + 1, temp);
@@ -931,19 +969,44 @@ class DayData
           DateTime(lastTime.year, lastTime.month, lastTime.day, 23, 59, 59)))
         {
           ProfileEntryData temp = ProfileEntryData(basalData.store.timezone, endTime);
+          temp.transferCalcValues(last);
           temp.value = last.orgValue;
           temp.orgValue = last.orgValue;
           _profile.add(temp);
         }
       }
-      if (last != null)last.duration = entry
-        .time(date)
-        .difference(lastTime)
-        .inMinutes;
+      else if (entry.value != null && last != null)
+      {
+        // entry is from the base profile
+        if (last.isCalculated)
+        {
+          // if the last value was calculated check if the duration is still running
+          DateTime endTime = lastTime.add(Duration(minutes: last.duration));
+          if (endTime.isAfter(entry.time(date)))
+          {
+            // transfer the calculationdata from the last entry
+            entry.transferCalcValues(last);
+            // recalculate the value based on the value from the profile
+            entry.value = entry.adjustedValue(entry.orgValue);
+            entry.duration = endTime
+              .difference(entry.time(date))
+              .inMinutes;
+          }
+        }
+      }
+      // finalize the last entry by setting its duration to fit the start of the current entry
+      if (last != null)
+      {
+        last.duration = entry
+          .time(date)
+          .difference(lastTime)
+          .inMinutes;
+      }
       last = entry;
       lastTime = last.time(date);
     }
-    if (last != null)last.duration = (23 - lastTime.hour) * 60 + (60 - lastTime.minute);
+
+    if (last != null) last.duration = (23 - lastTime.hour) * 60 + (60 - lastTime.minute);
     return _profile;
   }
 
@@ -1261,16 +1324,24 @@ class ReportData
   {
     ProfileGlucData profile = this.profile(time);
     Date date = Date(time.year, time.month, time.day);
-    double high = profile.store.listTargetHigh.lastWhere((tgt)
-    =>
-    tgt
-      .time(date)
-      .millisecondsSinceEpoch < time.millisecondsSinceEpoch)?.value ?? 180;
-    double low = profile.store.listTargetLow.lastWhere((tgt)
-    =>
-    tgt
-      .time(date)
-      .millisecondsSinceEpoch < time.millisecondsSinceEpoch)?.value ?? 70;
+    double high = 180;
+    if (profile.store.listTargetHigh.length > 0)
+    {
+      high = profile.store.listTargetHigh.lastWhere((tgt)
+      =>
+      tgt
+        .time(date)
+        .millisecondsSinceEpoch < time.millisecondsSinceEpoch, orElse: null)?.value ?? 180;
+    }
+    double low = 70;
+    if (profile.store.listTargetLow.length > 0)
+    {
+      low = profile.store.listTargetLow.lastWhere((tgt)
+      =>
+      tgt
+        .time(date)
+        .millisecondsSinceEpoch < time.millisecondsSinceEpoch, orElse: null)?.value ?? 70;
+    }
     return (high + low) / 2;
   }
 

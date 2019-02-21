@@ -20,18 +20,13 @@ class CalcData
 
 class PrintBasalrate extends BasePrint
 {
-  bool isPrecise;
-  int get _precision => isPrecise ? 2 : 1;
-
   @override
   List<ParamInfo> params = [
-    ParamInfo(0, msgParam1, boolValue: false),
   ];
 
   @override
   prepareData_(ReportData data)
   {
-    isPrecise = params[0].boolValue;
     return data;
   }
 
@@ -354,7 +349,7 @@ class PrintBasalrate extends BasePrint
       legendIE.add({
         "width": cm(w * colWidth),
         "margin": m1,
-        "text": fmtNumber(brtimes[i].value, _precision),
+        "text": fmtBasal(brtimes[i].value),
         "fontSize": fs(8),
         "alignment": "left"
       });
@@ -362,7 +357,7 @@ class PrintBasalrate extends BasePrint
       String text = "";
       if (brtimes[i].value != calc.nextBRTimes[i].value)
       {
-        text = fmtNumber(calc.nextBRTimes[i].value, _precision);
+        text = fmtBasal(calc.nextBRTimes[i].value);
         hasAdjustment = true;
       }
       legendAdjust.add({
@@ -379,12 +374,12 @@ class PrintBasalrate extends BasePrint
 //    legendAdjust.add({"width": cml(colWidth), "text": "", "fontSize": fs(8)});
 
     legendIE.add(
-      {"width": cm(colWidth), "margin": m0, "text": fmtNumber(ieSum, _precision), "fontSize": fs(8), "alignment": "center"});
+      {"width": cm(colWidth), "margin": m0, "text": fmtBasal(ieSum), "fontSize": fs(8), "alignment": "center"});
 
     if (hasAdjustment) legendAdjust.add({
       "width": cm(colWidth),
       "margin": m2,
-      "text": fmtNumber(ieSumNext, _precision),
+      "text": fmtBasal(ieSumNext),
       "fontSize": fs(8),
       "alignment": "center"
     });

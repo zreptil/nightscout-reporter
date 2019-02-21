@@ -4,11 +4,13 @@
 @import 'package:angular_components/material_dialog/mixins';
 @import 'package:angular_components/material_input/mixins';
 @import 'package:angular_components/material_button/mixins';
+
 :host {
   margin: 0.5em;
 }
 
 material-button:not([icon]) {
+  min-width: 42px;
   > .content {
     padding: 0;
   }
@@ -45,6 +47,7 @@ material-button:not([icon]) {
 
 .week {
   material-button {
+    width: 10px;
     &[raised]:not(.key) {
       background-color: $btn_raised_back;
     }

@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-02-12T14:09:23.938032",
+    "@@last_modified": "2019-02-19T23:32:28.406567",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -704,8 +704,8 @@
 
         }
     },
-    "geschätzter HbA1c": "estimated HbA1c",
-    "@geschätzter HbA1c": {
+    "Geschätzter HbA1c": "Estimated A1C",
+    "@Geschätzter HbA1c": {
         "type": "text",
         "placeholders": {
 
@@ -739,21 +739,21 @@
 
         }
     },
-    "Ø Insulin pro Tag": "Ø Insulin per day",
+    "Ø Insulin pro Tag": "Avg. Insulin per day",
     "@Ø Insulin pro Tag": {
         "type": "text",
         "placeholders": {
 
         }
     },
-    "Ø Bolus pro Tag": "Ø Bolus per day",
+    "Ø Bolus pro Tag": "Avg. Bolus per day",
     "@Ø Bolus pro Tag": {
         "type": "text",
         "placeholders": {
 
         }
     },
-    "Ø Basal pro Tag": "Ø Basal per day",
+    "Ø Basal pro Tag": "Avg. Basal per day",
     "@Ø Basal pro Tag": {
         "type": "text",
         "placeholders": {
@@ -767,7 +767,7 @@
 
         }
     },
-    "Ø Insulinverhältnis": "Ø Insulinratio",
+    "Ø Insulinverhältnis": "Avg Insulinratio",
     "@Ø Insulinverhältnis": {
         "type": "text",
         "placeholders": {
@@ -1216,8 +1216,8 @@
 
         }
     },
-    "Seite für Tagesnotizen": "Page for day notes",
-    "@Seite für Tagesnotizen": {
+    "Protokoll": "Log",
+    "@Protokoll": {
         "type": "text",
         "placeholders": {
 
@@ -1568,6 +1568,62 @@
 
         }
     },
+    "1.2.5 - xx.02.2019": "1.2.5 - 02\/xx\/2019",
+    "@1.2.5 - xx.02.2019": {
+        "description": "v125",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.": "If the generated PDF is too large, it is divided on several PDF files now. In this case, it will not directly open, but there will be shown a list of numbered buttons. These buttons open the corresponding PDF and get a checkmark, indicating that it has been opened. This should make it easier to open the PDFs, because usually the current browserwindow is moved to the background when a new window is opened.",
+    "@Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.": {
+        "description": "v124a1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links geschoben werden, um die Dateigrösse zu verringern.": "In the settings there is a slider that defines how large the resulting PDF files may be. When a blank PDF is created, then this slider should be moved further to the left, to reduce the file size.",
+    "@In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links geschoben werden, um die Dateigrösse zu verringern.": {
+        "description": "v124a2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird.": "The control for the definition of the period has been adjusted so that it is displayed correctly on narrow display.",
+    "@Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird.": {
+        "description": "v124c1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.": "The accuracy of the insulin dosage is determined from the profile. The value with the highest precision defines how many decimalplaces are used for display of basalvalues.",
+    "@Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.": {
+        "description": "v124c2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Berechnung der tatsächlichen Basalrate wurde korrigiert.": "The calculation of actual basal rate was corrected.",
+    "@Die Berechnung der tatsächlichen Basalrate wurde korrigiert.": {
+        "description": "v124f1",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
+    "Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.": "The profile page has been adapted so that entries for 24 hours fit on one page.",
+    "@Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.": {
+        "description": "v124f2",
+        "type": "text",
+        "placeholders": {
+
+        }
+    },
     "1.2.4 - 12.02.2019": "1.2.4 - 02\/12\/2019",
     "@1.2.4 - 12.02.2019": {
         "description": "v124",
@@ -1600,7 +1656,7 @@
 
         }
     },
-    "In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert sein muss, damit die Werte angezeigt werden.": "The daily chart now shows the estimated HbA1C and the percentage of bolus insulin and basal insulin for the day. These values are displayed within the legend, which is why it must be enabled for the values to appear.",
+    "In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert sein muss, damit die Werte angezeigt werden.": "The daily chart now shows the estimated A1C and the percentage of bolus insulin and basal insulin for the day. These values are displayed within the legend, which is why it must be enabled for the values to appear.",
     "@In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert sein muss, damit die Werte angezeigt werden.": {
         "description": "v124a4",
         "type": "text",
@@ -2352,8 +2408,8 @@
 
         }
     },
-    "ViewWhatsnewComponent0__message_59": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0}https:\/\/nightscout-reporter.zreptil.de\/beta{endTag0}",
-    "@ViewWhatsnewComponent0__message_59": {
+    "ViewWhatsnewComponent0__message_66": "The possibility for beta functions has been removed; the beta version can now be found at {startTag0}https:\/\/nightscout-reporter.zreptil.de\/beta{endTag0}",
+    "@ViewWhatsnewComponent0__message_66": {
         "description": "v110c1",
         "type": "text",
         "placeholders": {

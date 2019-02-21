@@ -45,7 +45,8 @@ class LangData
   String code;
   String name;
   String img;
-  String get dateformat => Intl.message("dd.MM.yyyy");
+  String get dateformat
+  => Intl.message("dd.MM.yyyy");
   String get imgPath
   => "https://findicons.com/files/icons/2758/flag_icons/32/${img}.png";
 
@@ -61,8 +62,18 @@ class Globals
   static DateTime get now
   => DateTime.now();
   bool _isLoaded = false;
-  String version = "1.2.4";
+  String version = "1.2.5a";
   String lastVersion;
+  int pdfCreationMaxSize = 4000000;
+  int basalPrecision = 1;
+
+  static int decimalPlaces(num value)
+  {
+    String v = value.toString();
+    while (v.endsWith("0"))v = v.substring(0, v.length - 1);
+    int ret = math.max(v.length - v.lastIndexOf('.') - 1, 0);
+    return math.min(ret, 3);
+  }
 
   static final Globals _globals = Globals._internal();
 
@@ -359,6 +370,7 @@ class Globals
       '"language":"${language.code ?? 'de_DE'}",'
       '"pdfSameWindow":"${pdfSameWindow ? 'yes' : 'no'}",'
       '"pdfDownload":"${pdfDownload ? 'yes' : 'no'}",'
+      '"pdfCreationMaxSize":"${pdfCreationMaxSize}",'
       '"hideNightscoutInPDF":"${hideNightscoutInPDF ? 'yes' : 'no'}",'
       '"period":"${period?.toString() ?? null}"'
       '}';
@@ -374,6 +386,7 @@ class Globals
       ',"language":"${loadStorage('language')}"'
       ',"pdfSameWindow":"${loadStorage('pdfSameWindow')}"'
       ',"pdfDownload":"${loadStorage('pdfDownload')}"'
+      ',"pdfCreationMaxSize":"${loadStorage('pdfCreationMaxSize')}"'
       ',"hideNightscoutInPDF":"${loadStorage('hideNightscoutInPDF')}"'
       ',"period":"${loadStorage('period')}"'
       '}';
@@ -397,6 +410,7 @@ class Globals
       language = languageList[idx >= 0 ? idx : 0];
       pdfSameWindow = JsonData.toBool(cfg["pdfSameWindow"]);
       pdfDownload = JsonData.toBool(cfg["pdfDownload"]);
+      pdfCreationMaxSize = JsonData.toInt(cfg["pdfCreationMaxSize"]);
       hideNightscoutInPDF = JsonData.toBool(cfg["hideNightscoutInPDF"]);
       period = DatepickerPeriod(src: JsonData.toText(cfg["period"]));
       period.fmtDate = language.dateformat;
@@ -666,6 +680,7 @@ class Globals
     saveStorage("language", language.code ?? "de_DE");
     saveStorage("pdfSameWindow", pdfSameWindow ? "true" : "false");
     saveStorage("pdfDownload", pdfDownload ? "true" : "false");
+    saveStorage("pdfCreationMaxSize", "${pdfCreationMaxSize}");
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "true" : "false");
     saveStorage("period", period?.toString() ?? null);
 /*
@@ -859,8 +874,11 @@ class UserData
     if (ret != null)
     {
       if (!ret.endsWith("/"))ret = "$ret/";
+      ret = "${ret}report";
+      if(token != null)
+        ret = "${ret}?token=${token}";
     }
-    return "${ret}report";
+    return ret;
   }
 
   Future<String> get isValid

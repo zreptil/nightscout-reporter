@@ -28,6 +28,18 @@
     <div [style.display]="currPage=='signin'?'':'none'" @i18n="message for signin to google">
       Verbinde zu Google Drive...
     </div>
+    <div *ngIf="currPage=='pdfList'" class="pdfList">
+      <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
+            action="https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php">
+        <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
+        <input name="filename" type="hidden" value="{{g.pdfDownload?pdfFilename:''}}"/>
+        <material-button class="pdfButton"
+                         (trigger)="openPDF(idx)">
+          <div class="pdfButtonText">{{idx+1}}</div>
+          <material-icon [icon]="pdfData.isPrinted?'done':'description'"></material-icon>
+        </material-button>
+      </form>
+    </div>
     <div class="progress" *ngIf="progressText != null">
       <material-progress [activeProgress]="progressValue" [max]="progressMax"
                          [indeterminate]="progressValue>progressMax"></material-progress>
@@ -37,7 +49,8 @@
       <div class="basePanel">
         <div *ngIf="g.userList.length == 1" class="userName">{{g.user.display}}</div>
         <div class="userPanel" *ngIf="g.userList.length > 1">
-          <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect" slide="y" listAutoFocus>
+          <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect" slide="y"
+                                    listAutoFocus>
             <material-select-item *ngFor="let item of g.userList; let idx = index"
                                   (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');"
                                   class="selectItem"
@@ -87,11 +100,12 @@
                   (trigger)="reportData = null;isDebug = !isDebug;checkPrint();">
       <material-icon icon="bug_report"></material-icon>
     </material-fab>
-    <material-fab *ngIf="currPage=='normal'" [raised]="true" [class]="sendIcon" [disabled]="sendDisabled"
+    <material-fab *ngIf="currPage=='normal'||currPage=='pdfList'" [raised]="true" [class]="sendIcon" [disabled]="sendDisabled"
                   (trigger)="sendClick()">
       <material-icon [icon]="createIcon"></material-icon>
     </material-fab>
-    <signin [isVisible]="isSigninActive && currPage=='normal'" [autoStart]="g.saveToGoogle" [showFab]="true" [raised]="true" [(isAuthorized)]="g.saveToGoogle"
+    <signin [isVisible]="isSigninActive && currPage=='normal'" [autoStart]="g.saveToGoogle" [showFab]="true"
+            [raised]="true" [(isAuthorized)]="g.saveToGoogle"
             clientId="939975570793-i9kj0rp6kgv470t45j1pf1hg3j9fqmbh"
             (trigger)="signinEvent($event)"
             (signinResult)="g.client=$event"></signin>

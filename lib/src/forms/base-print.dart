@@ -156,11 +156,11 @@ abstract class BasePrint
   String title;
   String get display
   {
-    String ret = g.canDebug && pageCount > 0 ? "$title [ $pageCount ]" : title;
-    if(isLocalOnly)
-      ret = "$ret (local)";
+    String ret = title; //g.canDebug && pageCount > 0 ? "$title [ $pageCount ]" : title;
+    if (isLocalOnly)ret = "$ret (local)";
     return ret;
   }
+
   String titleInfo;
   int pagesPerSheet = 1;
   List<ParamInfo> params = List<ParamInfo>();
@@ -228,6 +228,7 @@ abstract class BasePrint
 
   List<List<dynamic>> _pages = List<List<dynamic>>();
   int pageCount = 0;
+  int _fileSize = 0;
 
   msgValidRange(begDate, endDate)
   => Intl.message("gültig von $begDate bis $endDate", args: [begDate, endDate], name: "msgValidRange");
@@ -348,7 +349,7 @@ abstract class BasePrint
   String get msgHbA1C
   => Intl.message("gesch. HbA1c");
   get msgHbA1CLong
-  => Intl.message("geschätzter HbA1c");
+  => Intl.message("Geschätzter HbA1c");
   get msgLowestValue
   => Intl.message("Niedrigster Wert im Zeitraum");
   get msgHighestValue
@@ -470,7 +471,7 @@ abstract class BasePrint
     return ret;
   }
 
-  Object headerFooter({bool addPageBreak: false, skipFooter: false})
+  Object headerFooter({skipFooter: false})
   {
     bool isInput = false;
     var stack = [];
@@ -603,17 +604,7 @@ abstract class BasePrint
       }
     ]);
 
-    if (addPageBreak)this.addPageBreak(ret);
-
     return ret;
-  }
-
-  void addPageBreak(dynamic ret)
-  {
-    ret["pageBreak"] = "after";
-    pageCount++;
-//    String check = json.encode(_pages);
-//    pageCount = check.length;
   }
 
   dynamic m0 = [];
@@ -697,7 +688,19 @@ abstract class BasePrint
     ];
   }
 
-  getFormData(ReportData data)
+  void _addPageBreak(dynamic ret, dynamic page)
+  {
+    ret["pageBreak"] = "after";
+    pageCount++;
+    _fileSize += json.encode(page).length;
+    if (_fileSize > g.pdfCreationMaxSize)
+    {
+      ret["pageBreak"] = "newFile";
+      _fileSize = 0;
+    }
+  }
+
+  getFormData(ReportData data, int currentSize)
   async {
     m0 = [cm(0), cm(0), cm(0), cm(0)];
     for (String id in imgList)
@@ -718,6 +721,7 @@ abstract class BasePrint
     var d = prepareData_(data);
     _pages.clear();
     pageCount = 1;
+    _fileSize = currentSize;
     try
     {
       scale = 1.0;
@@ -757,8 +761,9 @@ abstract class BasePrint
       await fillPages(d, _pages);
       int column = 0;
       int row = 0;
-      for (List<dynamic> page in _pages)
+      for (int i=0; i<_pages.length; i++)
       {
+        List<dynamic> page = _pages[i];
         offsetX = column * width;
         offsetY = row * height;
         ret.add({"absolutePosition": {"x": cmx(0), "y": cmy(0)}, "stack": page});
@@ -770,7 +775,7 @@ abstract class BasePrint
           if (row >= rowCount && page != _pages.last)
           {
             row = 0;
-            addPageBreak(ret.last);
+            _addPageBreak(ret.last, page);
           }
         }
 //        ret.addAll(page);
@@ -812,6 +817,7 @@ abstract class BasePrint
         {"margin": [cmx(1.0), cmy(0.5), cmx(1.0), cmy(0)], "text": "\n$s", "fontSize": fs(10), "alignment": "left"}
       ];
     }
+
     return ret;
   }
 
@@ -850,6 +856,11 @@ abstract class BasePrint
 
   double fs(double size)
   => size * scale;
+
+  String fmtBasal(num value)
+  {
+    return fmtNumber(value, g.basalPrecision);
+  }
 
   String fmtNumber(num value,
                    [num decimals = 0, bool fillfront0 = false, String nullText = "null", bool stripTrailingZero = false])

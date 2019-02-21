@@ -6,20 +6,16 @@ import 'base-print.dart';
 
 class PrintProfile extends BasePrint
 {
-  bool isPrecise;
-  int get _precision
-  => isPrecise ? 2 : 1;
   bool compressSameValues;
 
   @override
-  List<ParamInfo> params = [ParamInfo(0, msgParam1, boolValue: false), ParamInfo(1, msgParam2, boolValue: true),
+  List<ParamInfo> params = [ParamInfo(0, msgParam1, boolValue: true),
   ];
 
   @override
   prepareData_(ReportData data)
   {
-    isPrecise = params[0].boolValue;
-    compressSameValues = params[1].boolValue;
+    compressSameValues = params[0].boolValue;
     return data;
   }
 
@@ -39,8 +35,6 @@ class PrintProfile extends BasePrint
   }
 
   static String get msgParam1
-  => Intl.message("Basalrate mit zwei Nachkommastellen");
-  static String get msgParam2
   => Intl.message("Zeilen mit gleichen Werten zusammenfassen");
 
   double _fontSize = 10;
@@ -181,7 +175,7 @@ class PrintProfile extends BasePrint
     dynamic bodyISF = getFactorBody(page, date, listISF, msgFactorEntry);
 
     dynamic basalTargetBody = [];
-    dynamic bodyBasal = getFactorBody(page, date, profile.store.listBasal, msgFactorEntry, precision: _precision);
+    dynamic bodyBasal = getFactorBody(page, date, profile.store.listBasal, msgFactorEntry, precision: g.basalPrecision);
     List<ProfileEntryData> listTarget = List<ProfileEntryData>();
     if (profile.store.listTargetHigh.length == profile.store.listTargetLow.length)
     {

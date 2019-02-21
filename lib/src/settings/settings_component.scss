@@ -2,6 +2,7 @@
 @import '../base';
 @import '../controls/signin/mixins';
 @import 'package:angular_components/material_dialog/mixins';
+@import 'package:angular_components/material_slider/mixins';
 
 :host {
 }
@@ -126,4 +127,29 @@ material-dialog[confirm] {
 
 login {
   @include signin_button_background($mat-red-900);
+}
+
+.pdfSliderHead
+{
+  display: flex;
+  width: 90%;
+}
+
+.pdfSlider {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 1em;
+
+  material-slider {
+    width: 100%;
+    margin-left: 2em;
+    margin-right: 2em;
+    @include slider-thumb-color("material-slider.slider", $primary-back);
+    @include slider-track-color("material-slider", $primary-back, $secondary-back);
+  }
+
+  margin-bottom: 2em;
 }

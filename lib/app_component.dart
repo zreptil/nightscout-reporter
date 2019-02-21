@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:convert';
+import 'dart:math' as math;
 import 'dart:html' as html;
 
 import 'package:angular/angular.dart';
@@ -18,6 +19,7 @@ import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-analysis.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
+import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
@@ -37,6 +39,14 @@ import 'src/whatsnew/whatsnew_component.dart';
 
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
+
+class PdfData
+{
+  String pdf;
+  bool isPrinted = false;
+
+  PdfData(this.pdf);
+}
 
 @Component(selector: 'my-app',
   styleUrls: ['app_component.css', 'package:angular_components/app_layout/layout.scss.css'],
@@ -96,6 +106,7 @@ class AppComponent
   DateRangePickerConfiguration drConfig = DateRangePickerConfiguration.basic;
   bool sendDisabled = true;
   String pdfData = "";
+  List<PdfData> pdfList = List<PdfData>();
   String pdfDoc = null;
 
   String progressText = null;
@@ -187,6 +198,7 @@ class AppComponent
       g.addForm(PrintDailyStatistics());
       g.addForm(PrintDailyGraphic());
       g.addForm(PrintDailyAnalysis());
+      g.addForm(PrintDailyLog());
       g.addForm(PrintWeeklyGraphic());
       g.addForm(PrintBasalrate());
       g.addForm(PrintTest());
@@ -281,12 +293,30 @@ class AppComponent
     String url = g.user.apiUrl;
     int pos = url.indexOf("/api");
     if (pos >= 0)url = url.substring(0, pos);
+    if(g.user.token != null)
+      url = "${url}?token=${g.user.token}";
     navigate(url);
   }
 
   void callNightscoutReports()
   {
-    navigate("${g.user.reportUrl}");
+    navigate(g.user.reportUrl);
+  }
+
+  formId(int idx)
+  => "postForm${idx}";
+
+  String pdfString(String doc)
+  {
+    if (doc != null)
+    {
+      // remove special chars from output (e.g. smiley placed in notes)
+      String temp = doc;
+      doc = "";
+      for (int i = 0; i < temp.length; i++)
+        if (temp.codeUnitAt(i) <= 255)doc = "${doc}${temp[i]}";
+    }
+    return convert.base64.encode(convert.utf8.encode(doc));
   }
 
   void navigate(String url)
@@ -297,35 +327,62 @@ class AppComponent
       if (url == "showPlayground")
       {
         pdfUrl = "http://pdf.zreptil.de/playground.php";
-        doc = doc.replaceAll("],", "],\n");
-        doc = doc.replaceAll(",\"", ",\n\"");
-        doc = doc.replaceAll(":[", ":\n[");
+        if (doc != null)
+        {
+          doc = doc.replaceAll("],", "],\n");
+          doc = doc.replaceAll(",\"", ",\n\"");
+          doc = doc.replaceAll(":[", ":\n[");
+        }
       }
       else
       {
         pdfUrl = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
       }
 
-      // remove special chars from output (e.g. smiley placed in notes)
-      String temp = doc;
-      doc = "";
-      for (int i = 0; i < temp.length; i++)
+      if (pdfDoc != null && pdfList.length == 0)
       {
-        if (temp.codeUnitAt(i) <= 255)doc = "${doc}${temp[i]}";
-      }
-
-      pdfData = convert.base64.encode(convert.utf8.encode(doc));
-      Future.delayed(Duration(milliseconds: 1), ()
-      {
-        var form = html.querySelector("#postForm") as html.FormElement;
-        form.submit();
+        pdfData = pdfString(doc);
+        Future.delayed(Duration(milliseconds: 1), ()
+        {
+          var form = html.querySelector("#postForm") as html.FormElement;
+          form.submit();
 //        display(msgPDFCreated);
-      });
+        });
+      }
+      else if (pdfList.length > 0)
+      {
+/*
+        Future.delayed(Duration(milliseconds: 1000), ()
+        {
+          for (int i = 0; i < pdfList.length; i++)
+          {
+            var form = html.querySelector("#${formId(i)}") as html.FormElement;
+            Future.delayed(Duration(milliseconds: 10), ()
+            {
+              form.submit();
+            });
+          }
+        });
+// */
+      }
     }
     else
     {
       html.window.open(url, "_blank");
     }
+  }
+
+  void openPDF(int idx)
+  {
+    if(idx >= pdfList.length)
+      return;
+
+    pdfList[idx].isPrinted = true;
+    Future.delayed(Duration(milliseconds: 10), ()
+    {
+      var form = html.querySelector("#${formId(idx)}") as html.FormElement;
+      form.submit();
+    });
   }
 
   void callbackButton(html.UIEvent evt)
@@ -441,9 +498,13 @@ class AppComponent
 
     try
     {
+      g.basalPrecision = 0;
       List<dynamic> src = json.decode(content);
       for (dynamic entry in src)
+      {
         data.profiles.add(ProfileData.fromJson(entry));
+        g.basalPrecision = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
+      }
 //        display("${ret.begDate.toString()} - ${ret.endDate.toString()}");
     }
     catch (ex)
@@ -534,10 +595,10 @@ class AppComponent
       begDate = begDate.add(days: 1);
       if (hasData)data.dayCount++;
       progressValue++;
-      if (sendIcon != "clear")return data;
+      if (sendIcon != "stop")return data;
     }
 
-    if (sendIcon == "clear")
+    if (sendIcon == "stop")
     {
       progressText = msgPreparingData;
       progressValue = progressMax + 1;
@@ -634,8 +695,13 @@ class AppComponent
   {
     if (sendIcon == "send")
     {
-      sendIcon = "clear";
+      sendIcon = "stop";
       createPDF();
+    }
+    else if (sendIcon == "close")
+    {
+      sendIcon = "send";
+      currPage = "normal";
     }
     else
     {
@@ -647,6 +713,7 @@ class AppComponent
   {
     g.save();
     display("");
+    pdfList.clear();
     loadData().then((ReportData vars)
     async {
       if (vars.error != null)
@@ -655,67 +722,103 @@ class AppComponent
         display(msgLoadingDataError);
         return;
       }
+      if(sendIcon == "send")
+      {
+        progressText = null;
+        reportData = null;
+        return;
+      }
       progressText = msgCreatingPDF;
       progressValue = progressMax + 1;
       var doc = null;
-      var pageCount = 0;
+      List<dynamic> docList = List<dynamic>();
       for (FormConfig cfg in g.listConfig)
       {
         BasePrint form = cfg.form;
         if (cfg.checked && (!form.isDebugOnly || isDebug))
         {
-          var data = await form.getFormData(vars);
-          pageCount += form.pageCount;
-          if (doc == null)
+          dynamic src = await form.getFormData(vars, json
+            .encode(doc)
+            .length);
+          List<List<dynamic>> fileList = List<List<dynamic>>();
+          fileList.add([]);
+          for (dynamic entry in src)
           {
-            doc = {
-              "pageSize": "a4",
-              "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
-              "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
-              "content": data,
-              "images": form.images,
-              "styles": {
-                "infoline": {"margin": [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]},
-                "perstitle": {"fontSize": form.fs(10.0), "alignment": "right"},
-                "persdata": {"fontSize": form.fs(10.0), "color": "#0000ff"},
-                "infotitle": {"fontSize": form.fs(10.0), "alignment": "left"},
-                "infodata": {"fontSize": form.fs(10.0), "alignment": "right", "color": "#0000ff"},
-                "infounit": {
-                  "margin": [form.cm(0), form.cm(0.07), form.cm(0), form.cm(0)],
-                  "fontSize": form.fs(8),
-                  "color": "#0000ff"
-                },
-                "hba1c": {"color": "#5050ff", "fontSize": form.fs(10)},
-                "total": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10), "margin": form.m0},
-                "row": {"fontSize": form.fs(10)}
-              }
-            };
-          }
-          else
-          {
-            var pagebreak = {
-              "text": "",
-              "pageBreak": "after",
-              "pageSize": "a4",
-              "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
-            };
-            doc["content"].add(pagebreak);
-            for (var entry in data)
-              doc["content"].add(entry);
-
-            for (String key in form.images.keys)
+            if (entry["pageBreak"] == "newFile" && !fileList.last.isEmpty)
             {
-              (doc["images"] as Map<String, String>)[key] = form.images[key];
+              fileList.last.last["pageBreak"] = "";
+              entry["pageBreak"] = "after";
+              fileList.add([]);
             }
+            fileList.last.add(entry);
+          }
 
+          for (dynamic data in fileList)
+          {
+            if (doc == null)
+            {
+              doc = {
+                "pageSize": "a4",
+                "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
+                "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
+                "content": data,
+                "images": form.images,
+                "styles": {
+                  "infoline": {"margin": [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]},
+                  "perstitle": {"fontSize": form.fs(10.0), "alignment": "right"},
+                  "persdata": {"fontSize": form.fs(10.0), "color": "#0000ff"},
+                  "infotitle": {"fontSize": form.fs(10.0), "alignment": "left"},
+                  "infodata": {"fontSize": form.fs(10.0), "alignment": "right", "color": "#0000ff"},
+                  "infounit": {
+                    "margin": [form.cm(0), form.cm(0.07), form.cm(0), form.cm(0)],
+                    "fontSize": form.fs(8),
+                    "color": "#0000ff"
+                  },
+                  "hba1c": {"color": "#5050ff", "fontSize": form.fs(10)},
+                  "total": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10), "margin": form.m0},
+                  "timeDay": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10), "margin": form.m0},
+                  "timeNight": {"bold": true, "fillColor": "#303030", "color": "white", "fontSize": form.fs(10), "margin": form.m0},
+                  "timeLate": {"bold": true, "fillColor": "#a0a0a0", "fontSize": form.fs(10), "margin": form.m0},
+                  "row": {"fontSize": form.fs(10)}
+                }
+              };
+            }
+            else
+            {
+              var pagebreak = {
+                "text": "",
+                "pageBreak": "after",
+                "pageSize": "a4",
+                "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
+              };
+              doc["content"].add(pagebreak);
+              for (var entry in data)
+                doc["content"].add(entry);
+
+              for (String key in form.images.keys)
+              {
+                (doc["images"] as Map<String, String>)[key] = form.images[key];
+              }
 /*
             if (data["images"] == null)data["images"] = [];
             Map<String, String> map = data["images"];
             for (var key in map.keys)
               (doc["images"] as Map<String, String>)[key] = map[key];
 // */
+            }
+
+            if(data != fileList.last)
+            {
+              docList.add(doc);
+              Future.delayed(Duration(milliseconds: 1), ()
+              {
+                pdfList.add(PdfData(pdfString(convert.jsonEncode(doc))));
+              });
+              doc = null;
+            }
           }
         }
+//        if (g.isLocal && data != fileList.last)doc = null;
       }
 /*
       pdfMake.Styles styles = pdfMake.Styles();
@@ -729,7 +832,27 @@ class AppComponent
           });
 */
 //*
-      pdfDoc = "${convert.jsonEncode(doc)}";
+      if(doc != null)
+        docList.add(doc);
+
+      if (docList.length > 1)
+      {
+        pdfList.clear();
+        pdfDoc = null;
+
+        for (var doc in docList)
+          pdfList.add(PdfData(pdfString(convert.jsonEncode(doc))));
+
+        currPage = "pdfList";
+        sendIcon = "close";
+        progressText = null;
+        return;
+      }
+      else
+      {
+        pdfDoc = convert.jsonEncode(docList[0]);
+      }
+
       if (!isDebug)
       {
         if (message.text.isEmpty)navigate("showPdf");

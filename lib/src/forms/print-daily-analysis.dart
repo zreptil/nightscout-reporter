@@ -17,7 +17,7 @@ class PrintDailyAnalysis extends BasePrint
   @override
   String id = "dayanalysis";
 
-  bool sortReverse, showNotesTable;
+  bool sortReverse;
 
   @override
   bool get isLocalOnly
@@ -26,7 +26,6 @@ class PrintDailyAnalysis extends BasePrint
   @override
   List<ParamInfo> params = [
     ParamInfo(0, PrintDailyGraphic.msgParam10, boolValue: false),
-    ParamInfo(1, PrintDailyGraphic.msgParam15, boolValue: true),
   ];
 
 
@@ -34,7 +33,6 @@ class PrintDailyAnalysis extends BasePrint
   prepareData_(ReportData data)
   {
     sortReverse = params[0].boolValue;
-    showNotesTable = params[1].boolValue;
 
     return data;
   }
@@ -108,17 +106,9 @@ class PrintDailyAnalysis extends BasePrint
     {
       DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
       if (day.entries.length != 0 || day.treatments.length != 0)
-      {
         pages.add(getPage(day, src));
-        if (showNotesTable)
-        {
-          fillNotesPage(day, src, pages);
-        }
-      }
       else
-      {
         pages.add(getEmptyForm(src));
-      }
     }
     title = _titleGraphic;
   }
@@ -136,95 +126,6 @@ class PrintDailyAnalysis extends BasePrint
       "lineColor": colLine,
       "points": points
     };
-
-  bool _headFilled = false;
-  dynamic _headLine = [];
-  dynamic _widths = [];
-
-  fillNotesPage(DayData day, ReportData src, List<List<dynamic>> pages)
-  {
-    title = _titleNotes;
-    _headFilled = false;
-    _headLine = [];
-    _widths = [];
-    titleInfo = titleInfoBegEnd(src);
-    double f = 3.3;
-    var body = [];
-    var page = [];
-
-    bool firstLine = true;
-    int lineCount = 0;
-
-    for (TreatmentData t in day.treatments)
-    {
-      var row = [];
-
-      if (t.notes == null || t.notes.isEmpty)continue;
-      fillRow(row, t, "row");
-
-      if (firstLine)
-      {
-        body.add(_headLine);
-        lineCount++;
-      }
-
-      firstLine = false;
-      body.add(row);
-      lineCount ++;
-      if (lineCount == 21)
-      {
-        page.add(headerFooter());
-        page.add(getTable(_widths, body));
-        lineCount = 0;
-        pages.add(page);
-        page = [];
-        body = [];
-        firstLine = true;
-      }
-    }
-
-    if (!firstLine)
-    {
-      page.add(headerFooter());
-      page.add(getTable(_widths, body));
-      pages.add(page);
-    }
-  }
-
-  fillRow(dynamic row, TreatmentData t, String style)
-  {
-    addRow(true, cm(2.9), row, {"text": msgTime, "style": "total", "alignment": "center"},
-      {"text": fmtTime(t.createdAt), "style": "total", "alignment": "center"});
-    addRow(true, cm(width - 2.9 - 5.0), row, {"text": msgNote, "style": "total", "alignment": "center"},
-      {"text": t.notes, "style": style, "alignment": "left"});
-    _headFilled = true;
-  }
-
-  addRow(bool check, var width, dynamic dst, dynamic head, dynamic content)
-  {
-    if (!check)return;
-    if (!_headFilled)
-    {
-      _headLine.add(head);
-      _widths.add(width);
-    }
-    dst.add(content);
-  }
-
-  getTable(widths, body)
-  {
-    dynamic ret = {
-      "columns": [ {
-        "margin": [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
-        "width": cm(width),
-        "table": {"widths": widths, "body": body},
-      }
-      ],
-      "pageBreak": ""
-    };
-
-    return ret;
-  }
 
   var _vertLines, _horzLines, _graphLines;
   List _vertCvs, _horzCvs;

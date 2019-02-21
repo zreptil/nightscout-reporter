@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
+import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
@@ -36,9 +37,7 @@ class PrintDailyGraphic extends BasePrint
   String id = "daygraph";
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, isSmall, showNotes,
-    sortReverse, showGlucTable, showSMBAtGluc, showInfoLinesAtGluc, sumNarrowValues, showNotesTable;
-  int get _precision
-  => isPrecise ? 2 : 1;
+    sortReverse, showGlucTable, showSMBAtGluc, showInfoLinesAtGluc, sumNarrowValues;
 
   @override
   List<ParamInfo> params = [
@@ -56,7 +55,6 @@ class PrintDailyGraphic extends BasePrint
     ParamInfo(2, msgParam12, boolValue: true),
     ParamInfo(12, msgParam13, boolValue: false),
     ParamInfo(13, msgParam14, boolValue: true),
-    ParamInfo(13, msgParam15, boolValue: false),
   ];
 
 
@@ -78,7 +76,6 @@ class PrintDailyGraphic extends BasePrint
     showInfoLinesAtGluc = params[12].boolValue;
     pagesPerSheet = isSmall ? 4 : 1;
     sumNarrowValues = params[13].boolValue;
-    showNotesTable = params[14].boolValue;
 
     return data;
   }
@@ -117,8 +114,6 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Info-Linien bis zur Kurve zeichnen");
   static String get msgParam14
   => Intl.message("Nahe zusammen liegende Werte aufsummieren");
-  static String get msgParam15
-  => Intl.message("Seite für Tagesnotizen");
 
   @override
   List<String> get imgList
@@ -204,17 +199,9 @@ class PrintDailyGraphic extends BasePrint
     {
       DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
       if (day.entries.length != 0 || day.treatments.length != 0)
-      {
         pages.add(getPage(day, src));
-        if (showNotesTable)
-        {
-          fillNotesPage(day, src, pages);
-        }
-      }
       else
-      {
         pages.add(getEmptyForm(src));
-      }
 
 /*
       if (i < data.days.length - 1)
@@ -243,95 +230,6 @@ class PrintDailyGraphic extends BasePrint
 
   dynamic glucLine(dynamic points)
   => {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": points};
-
-  bool _headFilled = false;
-  dynamic _headLine = [];
-  dynamic _widths = [];
-
-  fillNotesPage(DayData day, ReportData src, List<List<dynamic>> pages)
-  {
-    title = _titleNotes;
-    _headFilled = false;
-    _headLine = [];
-    _widths = [];
-    titleInfo = titleInfoBegEnd(src);
-    double f = 3.3;
-    var body = [];
-    var page = [];
-
-    bool firstLine = true;
-    int lineCount = 0;
-
-    for (TreatmentData t in day.treatments)
-    {
-      var row = [];
-
-      if (t.notes == null || t.notes.isEmpty)continue;
-      fillRow(row, t, "row");
-
-      if (firstLine)
-      {
-        body.add(_headLine);
-        lineCount++;
-      }
-
-      firstLine = false;
-      body.add(row);
-      lineCount ++;
-      if (lineCount == 21)
-      {
-        page.add(headerFooter());
-        page.add(getTable(_widths, body));
-        lineCount = 0;
-        pages.add(page);
-        page = [];
-        body = [];
-        firstLine = true;
-      }
-    }
-
-    if (!firstLine)
-    {
-      page.add(headerFooter());
-      page.add(getTable(_widths, body));
-      pages.add(page);
-    }
-  }
-
-  fillRow(dynamic row, TreatmentData t, String style)
-  {
-    addRow(true, cm(2.9), row, {"text": msgTime, "style": "total", "alignment": "center"},
-      {"text": fmtTime(t.createdAt), "style": "total", "alignment": "center"});
-    addRow(true, cm(width - 2.9 - 5.0), row, {"text": msgNote, "style": "total", "alignment": "center"},
-      {"text": t.notes, "style": style, "alignment": "left"});
-    _headFilled = true;
-  }
-
-  addRow(bool check, var width, dynamic dst, dynamic head, dynamic content)
-  {
-    if (!check)return;
-    if (!_headFilled)
-    {
-      _headLine.add(head);
-      _widths.add(width);
-    }
-    dst.add(content);
-  }
-
-  getTable(widths, body)
-  {
-    dynamic ret = {
-      "columns": [ {
-        "margin": [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
-        "width": cm(width),
-        "table": {"widths": widths, "body": body},
-      }
-      ],
-      "pageBreak": ""
-    };
-
-    return ret;
-  }
 
   getPage(DayData day, ReportData src)
   {
@@ -805,7 +703,7 @@ class PrintDailyGraphic extends BasePrint
                                                          .difference(info.start)
                                                          .inMinutes ~/ 2));
       double y = sumNarrowValues ? -0.5 : bolusY(info.max);
-      String text = "${fmtNumber(info.sum, _precision)} ${msgInsulinUnit}";
+      String text = "${fmtBasal(info.sum)} ${msgInsulinUnit}";
       if (info.count > 1)
       {
         text = "[$text]";
@@ -930,19 +828,19 @@ class PrintDailyGraphic extends BasePrint
         addLegendEntry(legend, colCarbs, msgCarbs(text), isArea: false, lineWidth: 0.1);
       }
       if (hasBolus)addLegendEntry(
-        legend, colBolus, msgBolusInsulin("${fmtNumber(day.ieBolusSum, _precision, false)} ${msgInsulinUnit}"),
-        isArea: false, lineWidth: 0.1);
+        legend, colBolus, msgBolusInsulin("${fmtBasal(day.ieBolusSum)} ${msgInsulinUnit}"), isArea: false,
+        lineWidth: 0.1);
       if (showBasalDay)
       {
-        text = "${fmtNumber(day.ieBasalSum, _precision, false)} ${msgInsulinUnit}";
+        text = "${fmtBasal(day.ieBasalSum)} ${msgInsulinUnit}";
         addLegendEntry(legend, colBasalDay, msgBasalrateDay(text), isArea: true);
       }
       if (showBasalProfile)
       {
-        text = "${fmtNumber(day.basalData.store.ieBasalSum, _precision, false)} ${msgInsulinUnit}";
+        text = "${fmtBasal(day.basalData.store.ieBasalSum)} ${msgInsulinUnit}";
         addLegendEntry(legend, colBasalProfile, msgBasalrateProfile(text), isArea: false);
       }
-      text = "${fmtNumber(tdd, _precision, false)} ${msgInsulinUnit}";
+      text = "${fmtBasal(tdd)} ${msgInsulinUnit}";
       addLegendEntry(legend, "", msgLegendTDD(text), graphText: msgTDD);
       String v1 = glucFromData(src.status.settings.thresholds.bgTargetBottom.toDouble());
       String v2 = glucFromData(src.status.settings.thresholds.bgTargetTop.toDouble());
@@ -976,12 +874,7 @@ class PrintDailyGraphic extends BasePrint
 
       infoBody.add([
         {"text": msgHbA1C, "fontSize": fs(10)},
-        {
-          "text": "${hba1c(day.mid)} %",
-          "color": colHbA1c,
-          "fontSize": fs(10),
-          "alignment": "right"
-        }
+        {"text": "${hba1c(day.mid)} %", "color": colHbA1c, "fontSize": fs(10), "alignment": "right"}
       ]);
       double prz = day.ieBasalSum / (day.ieBasalSum + day.ieBolusSum) * 100;
       infoBody.add([
@@ -1004,7 +897,7 @@ class PrintDailyGraphic extends BasePrint
         "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalHeight + basalTop + 0.1)},
         "columns": [ {
           "width": cm(basalWidth),
-          "text": "${msgTDD} ${fmtNumber(tdd, _precision, false)} ${msgInsulinUnit}",
+          "text": "${msgTDD} ${fmtBasal(tdd)} ${msgInsulinUnit}",
           "fontSize": fs(20),
           "alignment": "center",
           "color": colBasalDay
@@ -1074,7 +967,7 @@ class PrintDailyGraphic extends BasePrint
       "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalHeight + basalTop + 0.1)},
       "columns": [ {
         "width": cm(basalWidth),
-        "text": "${fmtNumber(basalSum, _precision, false)} ${msgInsulinUnit}",
+        "text": "${fmtBasal(basalSum)} ${msgInsulinUnit}",
         "fontSize": fs(20),
         "alignment": displayProfile ? "right" : "left",
         "color": color
@@ -1102,6 +995,7 @@ class PrintDailyGraphic extends BasePrint
       temp.sort((a, b)
       => a.time(day.date, useProfile).compareTo(b.time(day.date, useProfile)));
 
+      if (temp.length == 0)temp.add(ProfileEntryData(ProfileTimezone(Globals.refTimezone)));
       if (temp[0].timeAsSeconds != -temp[0].localDiff * 60 * 60)
       {
         ProfileEntryData clone = temp[0].clone(DateTime(0, 1, 1, -temp[0].localDiff, 0));

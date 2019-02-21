@@ -11,6 +11,38 @@
     </div>
     <ng-scrollbar #scrollable thumbClass="scrollbar">
       <div class="root">
+        <h2><span @i18n="version">Version</span><span @i18n="v125">1.2.5 - xx.02.2019</span></h2>
+        <ul>
+          <li class="added" @i18n="v124a1">
+            Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird
+            es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt.
+            Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass
+            es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der
+            Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.
+          </li>
+          <li class="added" @i18n="v124a2">
+            In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal
+            sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links
+            geschoben werden, um die Dateigrösse zu verringern.
+          </li>
+          <li class="changed" @i18n="v124c1">
+            Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt
+            dargestellt wird.
+          </li>
+          <li class="changed" @i18n="v124c2">
+            Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit
+            legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.
+          </li>
+          <li class="fixed" @i18n="v124f1">
+            Die Berechnung der tatsächlichen Basalrate wurde korrigiert.
+          </li>
+          <li class="fixed" @i18n="v124f2">
+            Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.
+          </li>
+          <li class="fixed" @i18n="v124f3">
+            Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.
+          </li>
+        </ul>
         <h2><span @i18n="version">Version</span><span @i18n="v124">1.2.4 - 12.02.2019</span></h2>
         <ul>
           <li class="added" @i18n="v124a1">

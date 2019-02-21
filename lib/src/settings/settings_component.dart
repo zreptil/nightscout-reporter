@@ -7,6 +7,7 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_input/material_input.dart';
+import 'package:angular_components/material_slider/material_slider.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
@@ -25,6 +26,7 @@ import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
     MaterialIconComponent,
     MaterialProgressComponent,
     materialInputDirectives,
+    MaterialSliderComponent,
     SigninComponent,
     NgFor,
     NgIf,
@@ -35,6 +37,12 @@ class SettingsComponent
 {
   globals.Globals g = globals.Globals();
   String errUserInvalid = null;
+
+  int get pdfCreationMaxSize => g.pdfCreationMaxSize >= 100000 ? (g.pdfCreationMaxSize / 100000).toInt() : 1;
+  set pdfCreationMaxSize(int value)
+  {
+    g.pdfCreationMaxSize = value * 100000;
+  }
 
   bool showConfirmation = false;
 
