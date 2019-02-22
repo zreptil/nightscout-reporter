@@ -62,7 +62,7 @@ class Globals
   static DateTime get now
   => DateTime.now();
   bool _isLoaded = false;
-  String version = "1.2.5a";
+  String version = "1.2.5b";
   String lastVersion;
   int pdfCreationMaxSize = 4000000;
   int basalPrecision = 1;

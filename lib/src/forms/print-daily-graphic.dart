@@ -37,24 +37,25 @@ class PrintDailyGraphic extends BasePrint
   String id = "daygraph";
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, isSmall, showNotes,
-    sortReverse, showGlucTable, showSMBAtGluc, showInfoLinesAtGluc, sumNarrowValues;
+    sortReverse, showGlucTable, showSMBAtGluc, showInfoLinesAtGluc, sumNarrowValues, showSMB;
 
   @override
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: true),
-    ParamInfo(3, msgParam3, boolValue: true),
-    ParamInfo(4, msgParam4, boolValue: true),
-    ParamInfo(5, msgParam5, boolValue: true),
-    ParamInfo(6, msgParam6, boolValue: false),
-    ParamInfo(10, msgParam7, boolValue: false),
-    ParamInfo(8, msgParam8, boolValue: true),
-    ParamInfo(7, msgParam9, boolValue: true),
-    ParamInfo(9, msgParam10, boolValue: false),
-    ParamInfo(11, msgParam11, boolValue: true),
-    ParamInfo(2, msgParam12, boolValue: true),
-    ParamInfo(12, msgParam13, boolValue: false),
-    ParamInfo(13, msgParam14, boolValue: true),
+    ParamInfo(4, msgParam3, boolValue: true),
+    ParamInfo(5, msgParam4, boolValue: true),
+    ParamInfo(6, msgParam5, boolValue: true),
+    ParamInfo(7, msgParam6, boolValue: false),
+    ParamInfo(11, msgParam7, boolValue: false),
+    ParamInfo(9, msgParam8, boolValue: true),
+    ParamInfo(8, msgParam9, boolValue: true),
+    ParamInfo(10, msgParam10, boolValue: false),
+    ParamInfo(12, msgParam11, boolValue: true),
+    ParamInfo(3, msgParam12, boolValue: true),
+    ParamInfo(13, msgParam13, boolValue: false),
+    ParamInfo(14, msgParam14, boolValue: true),
+    ParamInfo(2, msgParam15, boolValue: true),
   ];
 
 
@@ -76,6 +77,7 @@ class PrintDailyGraphic extends BasePrint
     showInfoLinesAtGluc = params[12].boolValue;
     pagesPerSheet = isSmall ? 4 : 1;
     sumNarrowValues = params[13].boolValue;
+    showSMB = params[14].boolValue;
 
     return data;
   }
@@ -114,6 +116,8 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Info-Linien bis zur Kurve zeichnen");
   static String get msgParam14
   => Intl.message("Nahe zusammen liegende Werte aufsummieren");
+  static String get msgParam15
+  => Intl.message("SMB Werte anzeigen");
 
   @override
   List<String> get imgList
@@ -555,7 +559,7 @@ class PrintDailyGraphic extends BasePrint
             collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
           hasBolus = true;
         }
-        if (t.isSMB && t.insulin > 0)
+        if (showSMB && t.isSMB && t.insulin > 0)
         {
           EntryData entry = day.findNearest(day.entries, null, t.createdAt);
           x = glucX(t.createdAt);
