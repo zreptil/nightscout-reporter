@@ -62,9 +62,32 @@ class Globals
   static DateTime get now
   => DateTime.now();
   bool _isLoaded = false;
-  String version = "1.2.5b";
+  String version = "1.2.5d";
   String lastVersion;
-  int pdfCreationMaxSize = 4000000;
+  int _pdfCreationMaxSize = 4000000;
+
+  int get pdfCreationMaxSize
+  {
+    if (_pdfCreationMaxSize < 100000)_pdfCreationMaxSize = 100000;
+    if (_pdfCreationMaxSize > 4000000)_pdfCreationMaxSize = 4000000;
+    return _pdfCreationMaxSize;
+  }
+
+  set pdfCreationMaxSize(int value)
+  {
+    if (value < 100000)value = 100000;
+    if (value > 100000000)value = 100000000;
+    _pdfCreationMaxSize = value;
+  }
+
+  int get pdfControlMaxSize
+  => (pdfCreationMaxSize / 100000).toInt();
+
+  set pdfControlMaxSize(int value)
+  {
+    pdfCreationMaxSize = value * 100000;
+  }
+
   int basalPrecision = 1;
 
   static int decimalPlaces(num value)
@@ -165,6 +188,7 @@ class Globals
     LangData("de_DE", Intl.message("Deutsch"), "de"),
     LangData("en_US", Intl.message("English (USA)"), "us"),
     LangData("en_GB", Intl.message("English (GB)"), "gb"),
+    LangData("es_ES", Intl.message("Español"), "es"),
   ];
   LangData _language = null;
   LangData get language
@@ -216,6 +240,7 @@ class Globals
   bool pdfSameWindow = true;
   bool pdfDownload = false;
   bool hideNightscoutInPDF = true;
+  bool hidePdfInfo = false;
   bool isConfigured = false;
   int _khFactor = 12;
   int get khFactor
@@ -372,6 +397,7 @@ class Globals
       '"pdfDownload":"${pdfDownload ? 'yes' : 'no'}",'
       '"pdfCreationMaxSize":"${pdfCreationMaxSize}",'
       '"hideNightscoutInPDF":"${hideNightscoutInPDF ? 'yes' : 'no'}",'
+      '"hidePdfInfo":"${hidePdfInfo ? 'yes' : 'no'}",'
       '"period":"${period?.toString() ?? null}"'
       '}';
   }
@@ -388,6 +414,7 @@ class Globals
       ',"pdfDownload":"${loadStorage('pdfDownload')}"'
       ',"pdfCreationMaxSize":"${loadStorage('pdfCreationMaxSize')}"'
       ',"hideNightscoutInPDF":"${loadStorage('hideNightscoutInPDF')}"'
+      ',"hidePdfInfo":"${loadStorage('hidePdfInfo')}"'
       ',"period":"${loadStorage('period')}"'
       '}';
     fromJson(src);
@@ -412,6 +439,7 @@ class Globals
       pdfDownload = JsonData.toBool(cfg["pdfDownload"]);
       pdfCreationMaxSize = JsonData.toInt(cfg["pdfCreationMaxSize"]);
       hideNightscoutInPDF = JsonData.toBool(cfg["hideNightscoutInPDF"]);
+      hidePdfInfo = JsonData.toBool(cfg["hidePdfInfo"]);
       period = DatepickerPeriod(src: JsonData.toText(cfg["period"]));
       period.fmtDate = language.dateformat;
       String users = cfg["mu"];
@@ -682,6 +710,7 @@ class Globals
     saveStorage("pdfDownload", pdfDownload ? "true" : "false");
     saveStorage("pdfCreationMaxSize", "${pdfCreationMaxSize}");
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "true" : "false");
+    saveStorage("hidePdfInfo", hidePdfInfo ? "true" : "false");
     saveStorage("period", period?.toString() ?? null);
 /*
     if (_dateRange.range != null)
@@ -875,8 +904,7 @@ class UserData
     {
       if (!ret.endsWith("/"))ret = "$ret/";
       ret = "${ret}report";
-      if(token != null)
-        ret = "${ret}?token=${token}";
+      if (token != null)ret = "${ret}?token=${token}";
     }
     return ret;
   }

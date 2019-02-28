@@ -148,7 +148,7 @@ login {
     margin-left: 2em;
     margin-right: 2em;
     @include slider-thumb-color("material-slider.slider", $primary-back);
-    @include slider-track-color("material-slider", $primary-back, $secondary-back);
+    @include slider-track-color("material-slider.slider", $primary-back, $secondary-back);
   }
 
   margin-bottom: 2em;

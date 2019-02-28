@@ -692,7 +692,9 @@ abstract class BasePrint
   {
     ret["pageBreak"] = "after";
     pageCount++;
-    _fileSize += json.encode(page).length;
+    _fileSize += json
+      .encode(page)
+      .length;
     if (_fileSize > g.pdfCreationMaxSize)
     {
       ret["pageBreak"] = "newFile";
@@ -761,13 +763,14 @@ abstract class BasePrint
       await fillPages(d, _pages);
       int column = 0;
       int row = 0;
-      for (int i=0; i<_pages.length; i++)
+      for (int i = 0; i < _pages.length; i++)
       {
         List<dynamic> page = _pages[i];
         offsetX = column * width;
         offsetY = row * height;
         ret.add({"absolutePosition": {"x": cmx(0), "y": cmy(0)}, "stack": page});
         column++;
+
         if (column >= colCount)
         {
           column = 0;
@@ -776,6 +779,11 @@ abstract class BasePrint
           {
             row = 0;
             _addPageBreak(ret.last, page);
+            if (_fileSize == 0)
+            {
+              column = 0;
+              row = 0;
+            }
           }
         }
 //        ret.addAll(page);

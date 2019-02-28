@@ -57,10 +57,10 @@ class PrintPercentile extends BasePrint
   => false;
 
   num lineWidth;
-  String colText = "#080";
+  String colText = "#008800";
   String colLine = "#606060";
   String colBasal = "#0097a7";
-  String colBasalFont = "#fff";
+  String colBasalFont = "#ffffff";
   double glucMax = 0.0;
   double get gridHeight
   => height - 11.0;
@@ -188,7 +188,7 @@ class PrintPercentile extends BasePrint
           "y": cm(yHigh),
           "w": cm(24 * colWidth),
           "h": cm(yLow - yHigh),
-          "color": "#0f0",
+          "color": "#00ff00",
           "fillOpacity": 0.5
         },
         {
@@ -198,7 +198,7 @@ class PrintPercentile extends BasePrint
           "x2": cm(24 * colWidth),
           "y2": cm(yHigh),
           "lineWidth": cm(lw),
-          "lineColor": "#0a0"
+          "lineColor": "#00aa00"
         },
         {
           "type": "line",
@@ -207,20 +207,20 @@ class PrintPercentile extends BasePrint
           "x2": cm(24 * colWidth),
           "y2": cm(yLow),
           "lineWidth": cm(lw),
-          "lineColor": "#0a0"
+          "lineColor": "#00aa00"
         },
-        {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1}
+        {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000000", "fillOpacity": 1}
       ]
     };
     var percGraph = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     var percLegend = LegendData(cm(xo), cm(yo + lineHeight * gridLines + 1.0), cm(8.0), 100);
 
-    if (addPercentileGraph(percGraph, percList, 10, 90, "#aaf"))addLegendEntry(percLegend, "#aaf", msgPercentile1090);
-    if (addPercentileGraph(percGraph, percList, 25, 75, "#88f"))addLegendEntry(percLegend, "#88f", msgPercentile2575);
-    addPercentileGraph(percGraph, percList, 50, 50, "#000");
+    if (addPercentileGraph(percGraph, percList, 10, 90, "#aaaaff"))addLegendEntry(percLegend, "#aaaaff", msgPercentile1090);
+    if (addPercentileGraph(percGraph, percList, 25, 75, "#8888ff"))addLegendEntry(percLegend, "#8888ff", msgPercentile2575);
+    addPercentileGraph(percGraph, percList, 50, 50, "#000000");
 
-    addLegendEntry(percLegend, "#000", msgMedian, isArea: false);
-    addLegendEntry(percLegend, "#0f0", msgTargetArea(glucFromData(src
+    addLegendEntry(percLegend, "#000000", msgMedian, isArea: false);
+    addLegendEntry(percLegend, "#00ff00", msgTargetArea(glucFromData(src
       .profile(Globals.now)
       .targetLow), glucFromData(src
       .profile(Globals.now)
@@ -256,7 +256,7 @@ class PrintPercentile extends BasePrint
     }
     (percGraph["canvas"] as List).add(area);
     (percGraph["canvas"] as List).add(
-      {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1});
+      {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000000", "fillOpacity": 1});
     (percGraph["canvas"] as List).add(
       {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": color, "points": ptsHigh});
     (percGraph["canvas"] as List).add(

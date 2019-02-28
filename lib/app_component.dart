@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:convert';
-import 'dart:math' as math;
 import 'dart:html' as html;
+import 'dart:math' as math;
 
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
@@ -89,6 +89,7 @@ class AppComponent
   bool paramboolValue = false;
   globals.Globals g = globals.Globals();
   bool drawerVisible = false;
+  bool pdfInfoVisible = false;
   String _currPage;
   String _lastPage = "welcome";
   String get currPage
@@ -293,8 +294,7 @@ class AppComponent
     String url = g.user.apiUrl;
     int pos = url.indexOf("/api");
     if (pos >= 0)url = url.substring(0, pos);
-    if(g.user.token != null)
-      url = "${url}?token=${g.user.token}";
+    if (g.user.token != null)url = "${url}?token=${g.user.token}";
     navigate(url);
   }
 
@@ -374,8 +374,7 @@ class AppComponent
 
   void openPDF(int idx)
   {
-    if(idx >= pdfList.length)
-      return;
+    if (idx >= pdfList.length)return;
 
     pdfList[idx].isPrinted = true;
     Future.delayed(Duration(milliseconds: 10), ()
@@ -681,7 +680,10 @@ class AppComponent
       data.calc.entries = entryList;
       data.calc.bloody = data.ns.bloody;
 
+      data.ns.treatments.removeWhere((t)
+      => filterTreatment(t));
       data.calc.treatments = data.ns.treatments;
+
       data.calc.extractData(data);
       data.ns.extractData(data);
     }
@@ -689,6 +691,13 @@ class AppComponent
     {
     }
     return data;
+  }
+
+  bool filterTreatment(TreatmentData t)
+  {
+    if (t.enteredBy.toLowerCase() == "sync")return true;
+
+    return false;
   }
 
   void sendClick()
@@ -722,7 +731,7 @@ class AppComponent
         display(msgLoadingDataError);
         return;
       }
-      if(sendIcon == "send")
+      if (sendIcon == "send")
       {
         progressText = null;
         reportData = null;
@@ -746,11 +755,14 @@ class AppComponent
           {
             if (entry["pageBreak"] == "newFile" && !fileList.last.isEmpty)
             {
-              fileList.last.last["pageBreak"] = "";
-              entry["pageBreak"] = "after";
+              entry["pageBreak"] = "";
+              fileList.last.add(entry);
               fileList.add([]);
             }
-            fileList.last.add(entry);
+            else
+            {
+              fileList.last.add(entry);
+            }
           }
 
           for (dynamic data in fileList)
@@ -777,7 +789,13 @@ class AppComponent
                   "hba1c": {"color": "#5050ff", "fontSize": form.fs(10)},
                   "total": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10), "margin": form.m0},
                   "timeDay": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10), "margin": form.m0},
-                  "timeNight": {"bold": true, "fillColor": "#303030", "color": "white", "fontSize": form.fs(10), "margin": form.m0},
+                  "timeNight": {
+                    "bold": true,
+                    "fillColor": "#303030",
+                    "color": "white",
+                    "fontSize": form.fs(10),
+                    "margin": form.m0
+                  },
                   "timeLate": {"bold": true, "fillColor": "#a0a0a0", "fontSize": form.fs(10), "margin": form.m0},
                   "row": {"fontSize": form.fs(10)}
                 }
@@ -807,13 +825,9 @@ class AppComponent
 // */
             }
 
-            if(data != fileList.last)
+            if (data != fileList.last)
             {
               docList.add(doc);
-              Future.delayed(Duration(milliseconds: 1), ()
-              {
-                pdfList.add(PdfData(pdfString(convert.jsonEncode(doc))));
-              });
               doc = null;
             }
           }
@@ -832,8 +846,7 @@ class AppComponent
           });
 */
 //*
-      if(doc != null)
-        docList.add(doc);
+      if (doc != null)docList.add(doc);
 
       if (docList.length > 1)
       {
@@ -841,7 +854,21 @@ class AppComponent
         pdfDoc = null;
 
         for (var doc in docList)
-          pdfList.add(PdfData(pdfString(convert.jsonEncode(doc))));
+        {
+          String dst = convert.jsonEncode(doc);
+          if (isDebug)
+          {
+            pdfUrl = "http://pdf.zreptil.de/playground.php";
+            dst = dst.replaceAll("],", "],\n");
+            dst = dst.replaceAll(",\"", ",\n\"");
+            dst = dst.replaceAll(":[", ":\n[");
+          }
+          else
+          {
+            pdfUrl = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
+          }
+          pdfList.add(PdfData(pdfString(dst)));
+        }
 
         currPage = "pdfList";
         sendIcon = "close";

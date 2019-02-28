@@ -1,5 +1,19 @@
 ## [Unreleased]
+
+## [1.2.5]
+## Added
+- splitting of pdf if exceeding given limit
+- smb in daily graphics can now be hidden
+-  
 ## Changed
+- control for period changed to fit better on small displays
+- decimal places of insulin dosage is caluclated using values in profile
+- data of some uploaders are better interpreted
+- data marked as sync by xdrip are ignored
+## Fixed
+- calculation of basalrate was corrected
+- profilepage adjusted so that 24 hours fit on one page
+- links for nightscout and reports of nightscout in the menu now even work if a usertoken was provided
 
 ## [1.2.4]
 ### Added

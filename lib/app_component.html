@@ -1,5 +1,5 @@
 <div id="app-content" [ngClass]="appTheme">
-  <header class="material-header shadow">
+  <header [class]="isDebug?'material-header debug shadow':'material-header shadow'">
     <div class="material-header-row">
       <material-button *ngIf="g.isConfigured"
                        icon id="btnMenu"
@@ -28,17 +28,41 @@
     <div [style.display]="currPage=='signin'?'':'none'" @i18n="message for signin to google">
       Verbinde zu Google Drive...
     </div>
-    <div *ngIf="currPage=='pdfList'" class="pdfList">
-      <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
-            action="https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php">
-        <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
-        <input name="filename" type="hidden" value="{{g.pdfDownload?pdfFilename:''}}"/>
-        <material-button class="pdfButton"
-                         (trigger)="openPDF(idx)">
-          <div class="pdfButtonText">{{idx+1}}</div>
-          <material-icon [icon]="pdfData.isPrinted?'done':'description'"></material-icon>
+    <div *ngIf="currPage=='pdfList'" class="pdfPage">
+      <div class="pdfList">
+        <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
+              [action]="pdfUrl">
+          <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
+          <input name="filename" type="hidden" value="{{g.pdfDownload?pdfFilename:''}}"/>
+          <material-button class="pdfButton"
+                           (trigger)="openPDF(idx)">
+            <div class="pdfButtonText">{{idx+1}}</div>
+            <material-icon [icon]="pdfData.isPrinted?'done':'description'"></material-icon>
+          </material-button>
+        </form>
+      </div>
+      <material-button *ngIf="!g.hidePdfInfo && !pdfInfoVisible" class="pdfInfo" @i18n="btnPdfInfo" (trigger)="pdfInfoVisible=true">
+        Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?
+      </material-button>
+      <div *ngIf="!g.hidePdfInfo && pdfInfoVisible" class="pdfInfoPanel">
+        <div @i18n="msgPdfInfo">
+          Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das
+          von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die
+          Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien
+          zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt
+          werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt
+          wurde, dann wird es direkt angezeigt.
+        </div>
+        <div class="pdfSlider">
+          <div @i18n="small">Klein</div>
+          <material-slider class="slider" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
+                           [max]="40"></material-slider>
+          <div @i18n="big">Gross</div>
+        </div>
+        <material-button (trigger)="currPage='normal';createPDF()">
+          <div class="pdfButtonText" @i18n="pdfCreateAgain">PDF erneut erzeugen</div>
         </material-button>
-      </form>
+      </div>
     </div>
     <div class="progress" *ngIf="progressText != null">
       <material-progress [activeProgress]="progressValue" [max]="progressMax"
@@ -143,7 +167,7 @@
         <div>
           <material-button *ngFor="let item of g.languageList"
                            (trigger)="g.changeLanguage(item)"
-                           [class]="currLang!=null&&item.code==currLang.code?'currLang':''">
+                           [class]="currLang!=null&&item.code==currLang.code?'language currLang':'language'">
             <img src="{{item.imgPath}}">
           </material-button>
         </div>

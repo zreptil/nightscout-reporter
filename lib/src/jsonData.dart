@@ -6,6 +6,12 @@ import 'package:angular_components/angular_components.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:timezone/browser.dart' as tz;
 
+// The uploaders that can be checked when neccessary
+enum Uploader
+{
+  Unknown, XDrip, Tidepool, Minimed600, OpenAPS, AndroidAPS
+}
+
 class JsonData
 {
   JsonData();
@@ -383,7 +389,8 @@ class ProfileEntryData extends JsonData
     if (src._percent != null)ret.percentAdjust = src._percent.toDouble();
     else if (src._rate != null)ret.absoluteRate = src._rate;
 
-    if (src.hasKey600 && src._absolute != null)ret.absoluteRate = src._absolute;
+    if ((src.from == Uploader.Minimed600 || src.from == Uploader.Tidepool) && src._absolute != null)
+      ret.absoluteRate = src._absolute;
     ret.duration = src.duration;
 
     return ret;
@@ -651,7 +658,19 @@ class TreatmentData extends JsonData
   String glucoseType;
   BoluscalcData boluscalc = null;
   String notes;
-  bool hasKey600 = false;
+  Uploader _from = Uploader.Unknown;
+  Uploader get from
+  {
+    if (_from == Uploader.Unknown)
+    {
+      String check = enteredBy.toLowerCase() ?? "";
+      if (check == "openaps")_from = Uploader.OpenAPS;
+      else if (check == "tidepool")_from = Uploader.Tidepool;
+      else if (check.contains("androidaps"))_from = Uploader.AndroidAPS;
+      else if (check.startsWith("xdrip"))_from = Uploader.XDrip;
+    }
+    return _from;
+  }
 
   bool isECarb = false;
 
@@ -749,7 +768,7 @@ class TreatmentData extends JsonData
     // Specialhandling for Uploader for Minimed 600-series
     if (json["key600"] != null)
     {
-      ret.hasKey600 = true;
+      ret._from = Uploader.Minimed600;
       RegExp reg = RegExp(r"microbolus (.*)U");
       Match m = reg.firstMatch(ret.notes);
       if (m != null && m.groupCount == 1)ret.microbolus = double.tryParse(m.group(1)) ?? 0.0;
@@ -1327,20 +1346,32 @@ class ReportData
     double high = 180;
     if (profile.store.listTargetHigh.length > 0)
     {
-      high = profile.store.listTargetHigh.lastWhere((tgt)
-      =>
-      tgt
-        .time(date)
-        .millisecondsSinceEpoch < time.millisecondsSinceEpoch, orElse: null)?.value ?? 180;
+      for (int i = profile.store.listTargetHigh.length - 1; i >= 0; i--)
+      {
+        var tgt = profile.store.listTargetHigh[i];
+        if (tgt
+              .time(date)
+              .millisecondsSinceEpoch < time.millisecondsSinceEpoch)
+        {
+          high = tgt.value;
+          break;
+        }
+      }
     }
     double low = 70;
     if (profile.store.listTargetLow.length > 0)
     {
-      low = profile.store.listTargetLow.lastWhere((tgt)
-      =>
-      tgt
-        .time(date)
-        .millisecondsSinceEpoch < time.millisecondsSinceEpoch, orElse: null)?.value ?? 70;
+      for (int i = profile.store.listTargetLow.length - 1; i >= 0; i--)
+      {
+        var tgt = profile.store.listTargetLow[i];
+        if (tgt
+              .time(date)
+              .millisecondsSinceEpoch < time.millisecondsSinceEpoch)
+        {
+          low = tgt.value;
+          break;
+        }
+      }
     }
     return (high + low) / 2;
   }

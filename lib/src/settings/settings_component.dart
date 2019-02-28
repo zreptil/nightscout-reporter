@@ -38,12 +38,6 @@ class SettingsComponent
   globals.Globals g = globals.Globals();
   String errUserInvalid = null;
 
-  int get pdfCreationMaxSize => g.pdfCreationMaxSize >= 100000 ? (g.pdfCreationMaxSize / 100000).toInt() : 1;
-  set pdfCreationMaxSize(int value)
-  {
-    g.pdfCreationMaxSize = value * 100000;
-  }
-
   bool showConfirmation = false;
 
   @Output("settingsresult")

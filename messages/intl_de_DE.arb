@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-02-19T23:32:28.406567",
+  "@@last_modified": "2019-02-28T14:08:48.487377",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -138,6 +138,11 @@
   },
   "English (GB)": "English (GB)",
   "@English (GB)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Español": "Español",
+  "@Español": {
     "type": "text",
     "placeholders": {}
   },
@@ -874,6 +879,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "SMB Werte anzeigen": "SMB Werte anzeigen",
+  "@SMB Werte anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Protokoll": "Protokoll",
   "@Protokoll": {
     "type": "text",
@@ -990,6 +1000,36 @@
     "type": "text",
     "placeholders": {}
   },
+  "Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?": "Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?",
+  "@Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?": {
+    "description": "btnPdfInfo",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": "Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.",
+  "@Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": {
+    "description": "msgPdfInfo",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Klein": "Klein",
+  "@Klein": {
+    "description": "small",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Gross": "Gross",
+  "@Gross": {
+    "description": "big",
+    "type": "text",
+    "placeholders": {}
+  },
+  "PDF erneut erzeugen": "PDF erneut erzeugen",
+  "@PDF erneut erzeugen": {
+    "description": "pdfCreateAgain",
+    "type": "text",
+    "placeholders": {}
+  },
   "Nightscout Seite": "Nightscout Seite",
   "@Nightscout Seite": {
     "description": "title of nightscout page",
@@ -1035,6 +1075,12 @@
   "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden",
   "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
     "description": "label for checkbox to hide nightscout in footer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf, bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen Regler weiter nach links zu bewegen.": "Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf, bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen Regler weiter nach links zu bewegen.",
+  "@Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf, bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen Regler weiter nach links zu bewegen.": {
+    "description": "pdfFileSize",
     "type": "text",
     "placeholders": {}
   },
@@ -1152,6 +1198,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.": "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.",
+  "@In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.": {
+    "description": "v124a3",
+    "type": "text",
+    "placeholders": {}
+  },
   "Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird.": "Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird.",
   "@Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird.": {
     "description": "v124c1",
@@ -1164,6 +1216,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "Daten verschiedener Uploader werden nun besser interpretiert.": "Daten verschiedener Uploader werden nun besser interpretiert.",
+  "@Daten verschiedener Uploader werden nun besser interpretiert.": {
+    "description": "v124c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Daten, die von xDrip als sync markiert wurden, werden bei der Auswertung ignoriert.": "Daten, die von xDrip als sync markiert wurden, werden bei der Auswertung ignoriert.",
+  "@Daten, die von xDrip als sync markiert wurden, werden bei der Auswertung ignoriert.": {
+    "description": "v124c4",
+    "type": "text",
+    "placeholders": {}
+  },
   "Die Berechnung der tatsächlichen Basalrate wurde korrigiert.": "Die Berechnung der tatsächlichen Basalrate wurde korrigiert.",
   "@Die Berechnung der tatsächlichen Basalrate wurde korrigiert.": {
     "description": "v124f1",
@@ -1173,6 +1237,12 @@
   "Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.": "Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.",
   "@Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.": {
     "description": "v124f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.": "Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.",
+  "@Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.": {
+    "description": "v124f3",
     "type": "text",
     "placeholders": {}
   },
@@ -1764,8 +1834,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_66": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_66": {
+  "ViewWhatsnewComponent0__message_70": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_70": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

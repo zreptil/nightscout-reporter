@@ -23,11 +23,17 @@
   @include slider-track-color('material-slider.slider', $primary_back, $mat-gray-400);
 }
 
-header.material-header {
+header.material-header{
   background-color: $primary_back;
 }
 
-header.material-header .material-header-title {
+header.material-header.debug{
+  color: $debug_color !important;
+  text-shadow: -1px 0 $debug_shadow, 0 1px $debug_shadow, 1px 0 $debug_shadow, 0 -1px $debug_shadow;
+  background: $debug_back;
+}
+
+header.material-header .material-header-title{
   position: initial;
 }
 
@@ -90,33 +96,64 @@ material-drawer {
   flex-direction: column;
 }
 
-.pdfList {
+.pdfPage {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
 
-  .pdfButton
-  {
-    background: $primary_back;
-    color: rgba(255,255,255,0.8);
-    margin-bottom: 0.1em;
-    width: 4em;
-    .pdfButtonText
-    {
-      color: $primary_fore;
-      font-size: 2em;
-      font-weight: bold;
+  .pdfList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    .pdfButton {
+      background: $pdf_btn_back;
+      color: $pdf_btn_fore;
+      margin-bottom: 0.1em;
+      width: 4em;
+
+      .pdfButtonText {
+        color: $pdf_btn_fore;
+        font-size: 2em;
+        font-weight: bold;
+      }
     }
   }
 
+  .pdfInfo {
+    margin-top: 1em;
+    color: $pdf_info_fore;
+    background-color: transparent;
+    text-transform: none;
+  }
+
+  .pdfInfoPanel {
+    margin: 2em;
+    max-width: 60em;
+
+    .pdfSlider {
+      display: flex;
+      flex-direction: row;
+      width: 90%;
+      justify-content: space-between;
+      align-items: center;
+      margin-left: 1em;
+
+      material-slider {
+        width: 100%;
+        margin-left: 2em;
+        margin-right: 2em;
+      }
+    }
+  }
 }
 
 .send,
 .clear,
 .stop,
-.close{
+.close {
   position: fixed;
   right: 2em;
   bottom: 2em;
@@ -228,8 +265,7 @@ material-fab.debug-trigger {
   color: $mat-white;
 }
 
-.userName
-{
+.userName {
   text-align: center;
 }
 
@@ -250,7 +286,7 @@ material-expansionpanel {
 
 material-expansionpanel {
   ::ng-deep div[buttondecorator] {
-    cursor: pointer!important;
+    cursor: pointer !important;
   }
 }
 
@@ -350,6 +386,7 @@ material-checkbox {
   margin: 0;
   align-items: flex-start;
 }
+
 material-expansionpanel:not(.is-debug) {
   width: 20em;
   border: 2px solid transparent;
@@ -395,11 +432,12 @@ material-expansionpanel.is-debug ::ng-deep material-icon.expand-button {
 material-expansionpanel.is-local.checked {
   border: 2px solid $local_color;
   background: $local_back;
+
   ::ng-deep .header {
     color: $local_color !important;
   }
+
   @include expansionpanel-colors(transparent, $local_color);
-  @include expansionpanel-focused-colors(transparent, $local_color);
   @include expansionpanel-focused-colors(transparent, $local_color);
 }
 
@@ -424,4 +462,8 @@ datepicker {
 
 .basePanel {
 
+}
+.language
+{
+  min-width: 40px!important;
 }
