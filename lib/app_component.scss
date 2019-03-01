@@ -28,7 +28,7 @@ header.material-header{
 }
 
 header.material-header.debug{
-  color: $debug_color !important;
+  color: $debug_fore !important;
   text-shadow: -1px 0 $debug_shadow, 0 1px $debug_shadow, 1px 0 $debug_shadow, 0 -1px $debug_shadow;
   background: $debug_back;
 }
@@ -227,12 +227,12 @@ material-drawer {
 .toggle-debug {
   display: flex;
   flex-direction: row;
-  color: $debug_color !important;
+  color: $debug_fore !important;
   text-shadow: -1px 0 $debug_shadow, 0 1px $debug_shadow, 1px 0 $debug_shadow, 0 -1px $debug_shadow;
   background: $debug_back !important;
   padding: 0.3em;
   align-items: center;
-  @include material-toggle-theme($primary-color: $debug_color);
+  @include material-toggle-theme($primary-color: $debug_fore);
 }
 
 .noshadow {
@@ -396,15 +396,22 @@ material-expansionpanel:not(.is-debug) {
   margin-top: 0.2em;
   margin-bottom: 0.2em;
 }
+material-expansionpanel.is-local {
+  ::ng-deep .header {
+    color: $local_fore !important;
+    background: $local_back !important;
+  }
+  @include material-checkbox-color($local_fore, $modifier: '');
+}
 
 material-expansionpanel.is-debug {
   width: 20em;
   border: 2px solid transparent;
 
   ::ng-deep .header {
-    color: $debug_color !important;
+    color: $debug_fore !important;
     text-shadow: -1px 0 $debug_shadow, 0 1px $debug_shadow, 1px 0 $debug_shadow, 0 -1px $debug_shadow;
-    background: $debug-back !important;
+    background: $debug_back !important;
   }
 
   @include expansionpanel-colors(transparent, $secondary_fore);
@@ -422,27 +429,27 @@ material-expansionpanel.checked {
 }
 
 material-expansionpanel.is-local ::ng-deep material-icon.expand-button {
-  color: $local_color !important;
+  color: $local_fore !important;
 }
 
 material-expansionpanel.is-debug ::ng-deep material-icon.expand-button {
-  color: $debug_color !important;
+  color: $debug_fore !important;
 }
 
 material-expansionpanel.is-local.checked {
-  border: 2px solid $local_color;
+  border: 2px solid $local_fore;
   background: $local_back;
 
   ::ng-deep .header {
-    color: $local_color !important;
+    color: $local_fore !important;
   }
 
-  @include expansionpanel-colors(transparent, $local_color);
-  @include expansionpanel-focused-colors(transparent, $local_color);
+  @include expansionpanel-colors(transparent, $local_fore);
+  @include expansionpanel-focused-colors(transparent, $local_fore);
 }
 
 material-expansionpanel.is-debug.checked {
-  border: 2px solid $debug_color;
+  border: 2px solid $debug_fore;
 }
 
 .paramSlider {
