@@ -45,6 +45,18 @@ class LangData
   String code;
   String name;
   String img;
+  bool get is24HourFormat
+  {
+    switch (code)
+    {
+      case "en-US":
+      case "en-GB":
+        return false;
+      default:
+        return true;
+    }
+  }
+
   String get dateformat
   => Intl.message("dd.MM.yyyy");
   String get imgPath
@@ -216,6 +228,13 @@ class Globals
   => Intl.message("Letzte 3 Monate");
 
   bool glucMGDL = true;
+  String _pdfOrder = "";
+  set pdfOrder(String value)
+  {
+    _pdfOrder = value;
+    sortConfigs();
+  }
+
   DatepickerPeriod period = DatepickerPeriod();
   DateFormat fmtDateForData;
   DateFormat fmtDateForDisplay;
@@ -333,9 +352,8 @@ class Globals
 
   addForm(BasePrint form)
   {
-    FormConfig cfg = FormConfig(form.id, false);
-    cfg.form = form;
-    listConfig.add(cfg);
+    FormConfig cfg = FormConfig(form, false);
+    listConfig.add(FormConfig(form, false));
   }
 
   void clearStorage()
@@ -398,7 +416,8 @@ class Globals
       '"pdfCreationMaxSize":"${pdfCreationMaxSize}",'
       '"hideNightscoutInPDF":"${hideNightscoutInPDF ? 'yes' : 'no'}",'
       '"hidePdfInfo":"${hidePdfInfo ? 'yes' : 'no'}",'
-      '"period":"${period?.toString() ?? null}"'
+      '"period":"${period?.toString() ?? null}",'
+      '"pdfOrder":"${_pdfOrder}"'
       '}';
   }
 
@@ -416,6 +435,7 @@ class Globals
       ',"hideNightscoutInPDF":"${loadStorage('hideNightscoutInPDF')}"'
       ',"hidePdfInfo":"${loadStorage('hidePdfInfo')}"'
       ',"period":"${loadStorage('period')}"'
+      ',"pdfOrder":"${loadStorage('pdfOrder')}"'
       '}';
     fromJson(src);
     canDebug = loadStorage("debug") == "yes";
@@ -440,6 +460,7 @@ class Globals
       pdfCreationMaxSize = JsonData.toInt(cfg["pdfCreationMaxSize"]);
       hideNightscoutInPDF = JsonData.toBool(cfg["hideNightscoutInPDF"]);
       hidePdfInfo = JsonData.toBool(cfg["hidePdfInfo"]);
+      pdfOrder = JsonData.toText(cfg["pdfOrder"]);
       period = DatepickerPeriod(src: JsonData.toText(cfg["period"]));
       period.fmtDate = language.dateformat;
       String users = cfg["mu"];
@@ -712,6 +733,7 @@ class Globals
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "true" : "false");
     saveStorage("hidePdfInfo", hidePdfInfo ? "true" : "false");
     saveStorage("period", period?.toString() ?? null);
+    savePdfOrder();
 /*
     if (_dateRange.range != null)
     {
@@ -720,6 +742,38 @@ class Globals
     }
 */
     if (doReload)reload();
+  }
+
+  savePdfOrder()
+  {
+    if(listConfig.length == 0)return;
+    var idList = [];
+    for (FormConfig cfg in listConfig)
+      idList.add(cfg.id);
+    _pdfOrder = idList.join(",");
+    saveStorage("pdfOrder", _pdfOrder);
+  }
+
+  sortConfigs()
+  {
+    if (_pdfOrder == "")return;
+    var srcList = listConfig.sublist(0);
+    listConfig.clear();
+    var idList = _pdfOrder.split(",");
+    for (int i = 0; i < idList.length; i++)
+    {
+      FormConfig cfg = srcList.firstWhere((cfg)
+      => cfg.id == idList[i], orElse: ()
+      => null);
+      if (cfg != null)
+      {
+        srcList.remove(cfg);
+        listConfig.add(cfg);
+      }
+    }
+    for (FormConfig cfg in srcList)
+      listConfig.add(cfg);
+    savePdfOrder();
   }
 
   static tiod(String src)

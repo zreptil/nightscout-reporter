@@ -21,19 +21,31 @@
   @include material-checkbox-color($primary_back, $modifier: '');
   @include slider-thumb-color('material-slider.slider', $primary_back);
   @include slider-track-color('material-slider.slider', $primary_back, $mat-gray-400);
+
+  ::-webkit-scrollbar {
+    width: auto;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: $secondary_back;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $primary_back;
+  }
 }
 
-header.material-header{
+header.material-header {
   background-color: $primary_back;
 }
 
-header.material-header.debug{
+header.material-header.debug {
   color: $debug_fore !important;
   text-shadow: -1px 0 $debug_shadow, 0 1px $debug_shadow, 1px 0 $debug_shadow, 0 -1px $debug_shadow;
   background: $debug_back;
 }
 
-header.material-header .material-header-title{
+header.material-header .material-header-title {
   position: initial;
 }
 
@@ -49,7 +61,7 @@ material-content {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 material-button img {
@@ -279,17 +291,6 @@ signin {
   }
 }
 
-material-expansionpanel {
-  display: flex;
-  flex-direction: column;
-}
-
-material-expansionpanel {
-  ::ng-deep div[buttondecorator] {
-    cursor: pointer !important;
-  }
-}
-
 .betaTitle {
   font-size: 50%;
 }
@@ -387,69 +388,105 @@ material-checkbox {
   align-items: flex-start;
 }
 
-material-expansionpanel:not(.is-debug) {
-  width: 20em;
+material-expansionpanel {
+  display: flex;
+  flex-direction: column;
+  min-width: 20em;
+  max-width: 20em;
   border: 2px solid transparent;
-  @include expansionpanel-colors(transparent, $secondary_fore);
+  @include expansionpanel-colors($secondary_back, $secondary_fore);
   @include expansionpanel-focused-colors(transparent, $secondary_fore);
   @include expansionpanel-border-radius(0.5em);
   margin-top: 0.2em;
   margin-bottom: 0.2em;
-}
-material-expansionpanel.is-local {
-  ::ng-deep .header {
-    color: $local_fore !important;
-    background: $local_back !important;
-  }
-  @include material-checkbox-color($local_fore, $modifier: '');
-}
 
-material-expansionpanel.is-debug {
-  width: 20em;
-  border: 2px solid transparent;
-
-  ::ng-deep .header {
-    color: $debug_fore !important;
-    text-shadow: -1px 0 $debug_shadow, 0 1px $debug_shadow, 1px 0 $debug_shadow, 0 -1px $debug_shadow;
-    background: $debug_back !important;
+  ::ng-deep div[buttondecorator] {
+    cursor: pointer !important;
   }
 
-  @include expansionpanel-colors(transparent, $secondary_fore);
-  @include expansionpanel-border-radius(0.5em);
-}
+  ::ng-deep .header {
+    border: 2px solid transparent;
+  }
 
+  ::ng-deep div[aria-expanded="true"] {
+    border: 2px solid $primary_back !important;
+
+    ::ng-deep .header {
+      border: 0;
+      background-color: transparent;
+    }
+  }
+}
 
 material-expansionpanel.checked {
-  border: 2px solid $primary_back;
-  border-radius: 0.5em;
-
   ::ng-deep .header {
+    border: 2px solid $primary_back;
+    border-radius: 0.5em;
     font-weight: bold;
   }
 }
 
-material-expansionpanel.is-local ::ng-deep material-icon.expand-button {
-  color: $local_fore !important;
-}
-
-material-expansionpanel.is-debug ::ng-deep material-icon.expand-button {
-  color: $debug_fore !important;
-}
-
 material-expansionpanel.is-local.checked {
-  border: 2px solid $local_fore;
-  background: $local_back;
-
   ::ng-deep .header {
+    border-color: $local_fore !important;
+  }
+}
+
+material-expansionpanel.is-local {
+  ::ng-deep .header {
+    color: $local_fore !important;
+    background: $local_back;
+  }
+
+  @include material-checkbox-color($local_fore, $modifier: '');
+
+  ::ng-deep div[aria-expanded="true"] {
+    border-color: $local_fore !important;
+    background-color: $local_back !important;
+
+    ::ng-deep .header {
+      border: 0;
+      color: $local_fore !important;
+    }
+  }
+
+  ::ng-deep material-icon.expand-button {
     color: $local_fore !important;
   }
 
   @include expansionpanel-colors(transparent, $local_fore);
-  @include expansionpanel-focused-colors(transparent, $local_fore);
+  @include expansionpanel-focused-colors($local_back, $local_fore);
 }
 
 material-expansionpanel.is-debug.checked {
-  border: 2px solid $debug_fore;
+  border-color: $debug_fore !important;
+  border-radius: 0.5em;
+}
+
+material-expansionpanel.is-debug {
+  ::ng-deep .header {
+    color: $debug_fore !important;
+    background: $debug_back;
+  }
+
+  @include material-checkbox-color($local_fore, $modifier: '');
+
+  ::ng-deep div[aria-expanded="true"] {
+    border-color: $debug_fore !important;
+    background: $debug_back !important;
+
+    ::ng-deep .header {
+      border: 0;
+      color: $debug_fore !important;
+    }
+  }
+
+  ::ng-deep material-icon.expand-button {
+    color: $debug_fore !important;
+  }
+
+  @include expansionpanel-colors(transparent, $debug_fore);
+  @include expansionpanel-focused-colors($debug_back, $debug_fore);
 }
 
 .paramSlider {
@@ -470,7 +507,25 @@ datepicker {
 .basePanel {
 
 }
-.language
-{
-  min-width: 40px!important;
+
+.language {
+  min-width: 40px !important;
 }
+
+.sortable {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dragging {
+  opacity: 0.5;
+  _material-expansionpanel {
+    ::ng-deep header {
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    @include expansionpanel-colors(rgba(255, 255, 255, 0.5), $secondary_fore);
+  }
+}
+

@@ -13,6 +13,7 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_select_item.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:dnd/dnd.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
 import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
@@ -35,7 +36,6 @@ import 'src/impressum/impressum_component.dart';
 import 'src/settings/settings_component.dart';
 import 'src/welcome/welcome_component.dart';
 import 'src/whatsnew/whatsnew_component.dart';
-// import 'package:dnd/dnd.dart';
 
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
@@ -192,17 +192,22 @@ class AppComponent
       _lastPage = _currPage;
 
       /// fill list with forms
+      var srcList = [
+        PrintTest(),
+        PrintAnalysis(),
+        PrintProfile(),
+        PrintPercentile(),
+        PrintDailyStatistics(),
+        PrintDailyGraphic(),
+        PrintDailyAnalysis(),
+        PrintDailyLog(),
+        PrintWeeklyGraphic(),
+        PrintBasalrate()
+      ];
       g.listConfig = List<FormConfig>();
-      g.addForm(PrintAnalysis());
-      g.addForm(PrintProfile());
-      g.addForm(PrintPercentile());
-      g.addForm(PrintDailyStatistics());
-      g.addForm(PrintDailyGraphic());
-      g.addForm(PrintDailyAnalysis());
-      g.addForm(PrintDailyLog());
-      g.addForm(PrintWeeklyGraphic());
-      g.addForm(PrintBasalrate());
-      g.addForm(PrintTest());
+      for (BasePrint form in srcList)
+        g.listConfig.add(FormConfig(form, false));
+      g.sortConfigs();
       g.userIdx = g.userIdx;
 
       String title = msgPeriod;
@@ -256,7 +261,6 @@ class AppComponent
       if (_currPage == "whatsnew")g.saveStorage("version", g.version);
     });
 */
-//    Draggable drag = Draggable(querySelectorAll('.sortable'), acatarHandler: AvatarHandler.clone());
   }
 
   void toggleHelp()
@@ -438,6 +442,7 @@ class AppComponent
     if (g.period.isEmpty)return;
 
     for (FormConfig cfg in g.listConfig)
+    {
       if (cfg.checked)
       {
         if (cfg.form.isDebugOnly)
@@ -449,7 +454,47 @@ class AppComponent
           sendDisabled = false;
         }
       }
+    }
+    Future.delayed(Duration(milliseconds: 100), ()
+    {
+      Draggable(html.querySelectorAll('.sortable'), avatarHandler: AvatarHandler.clone(),
+        draggingClass: "dragging",
+        verticalOnly: true);
+      if (_drop != null)_drop.onDrop.listen(null);
+
+      _drop = Dropzone(html.querySelectorAll('.sortable'));
+      _drop.onDrop.listen((DropzoneEvent event)
+      {
+        dropElement(event.draggableElement, event.dropzoneElement);
+      });
+    });
   }
+
+  void dropElement(html.Element drag, html.Element drop)
+  {
+    String dragId = drag.getAttribute("id").substring(5);
+    String dropId = drop.getAttribute("id").substring(5);
+    FormConfig dragCfg = null;
+    int dragIdx = -1;
+    int dropIdx = -1;
+    for (int i = 0; i < g.listConfig.length; i++)
+    {
+      if (g.listConfig[i].id == dragId)
+      {
+        dragCfg = g.listConfig[i];
+        dragIdx = i;
+      }
+      if (g.listConfig[i].id == dropId)dropIdx = i;
+    }
+    if (dragCfg != null && dropIdx >= 0)
+    {
+      g.listConfig.removeAt(dragIdx);
+      g.listConfig.insert(dragIdx < dropIdx ? dropIdx - 1 : dropIdx, dragCfg);
+    }
+    g.savePdfOrder();
+  }
+
+  Dropzone _drop = null;
 
   ReportData reportData = null;
   Future<ReportData> loadData()

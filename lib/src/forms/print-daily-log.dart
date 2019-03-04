@@ -8,7 +8,7 @@ class PrintDailyLog extends BasePrint
   @override
   String id = "daylog";
 
-  bool showNotes, showCarbs, showIE;
+  bool showNotes, showCarbs, showIE, showSMB, showTempBasal;
 
   @override
   bool get isLocalOnly
@@ -19,6 +19,8 @@ class PrintDailyLog extends BasePrint
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: true),
     ParamInfo(2, msgParam3, boolValue: true),
+    ParamInfo(3, msgParam4, boolValue: true),
+    ParamInfo(4, msgParam5, boolValue: true),
   ];
 
 
@@ -28,6 +30,8 @@ class PrintDailyLog extends BasePrint
     showNotes = params[0].boolValue;
     showCarbs = params[1].boolValue;
     showIE = params[2].boolValue;
+    showTempBasal = params[3].boolValue;
+    showSMB = params[4].boolValue;
 
     return data;
   }
@@ -41,7 +45,10 @@ class PrintDailyLog extends BasePrint
   => Intl.message("Kohlenhydrate");
   static String get msgParam3
   => Intl.message("Insulin");
-
+  static String get msgParam4
+  => Intl.message("Temporäre Basalraten");
+  static String get msgParam5
+  => Intl.message("SMB");
 
   @override
   List<String> get imgList
@@ -90,6 +97,11 @@ class PrintDailyLog extends BasePrint
     }
   }
 
+  double _cellSpace = 0.13;
+  double _lineHeight = 0.22;
+
+  double lineHeight(int lineCount) => 2 * _cellSpace + lineCount * (_lineHeight + _cellSpace);
+
   fillTable(DayData day, ReportData src, List<List<dynamic>> pages)
   {
     _headFilled = false;
@@ -97,33 +109,30 @@ class PrintDailyLog extends BasePrint
     _widths = [];
     _isFirstLine = true;
 
-    double ch = 0.2;
-    double lh = 0.22;
-
     for (TreatmentData t in day.treatments)
     {
       var row = [];
 
-      int lc = fillRow(day, row, t, "row");
-      if (lc == 0)continue;
+      int lineCount = fillRow(day, row, t, "row");
+      if (lineCount == 0)continue;
 
       if (_isFirstLine)
       {
         _body.add(_headLine);
-        _y += 2 * ch + lh;
+        _y += lineHeight(1);
         _isFirstLine = false;
       }
 
-      _y += 2 * ch + lc * (lh + ch);
+      _y += lineHeight(lineCount);
       if (_y > height - 1.7)
       {
         _page.add(headerFooter());
         _page.add(getTable(_widths, _body));
         pages.add(_page);
-        _y = yorg - 0.3 + 2 * ch + lh;
         _page = [];
         _body = [_headLine];
-        _isFirstLine = true;
+        _y = yorg - 0.3 + lineHeight(2);
+        _isFirstLine = false;
       }
       _body.add(row);
     }
@@ -158,12 +167,14 @@ class PrintDailyLog extends BasePrint
     List<String> list = List<String>();
     if (showNotes && t.notes != null && t.notes.isNotEmpty)list.add("${t.notes}");
     if (showCarbs && t.carbs != null && t.carbs != 0)list.add("${msgCarbs(t.carbs.toString())}");
-    if (showIE && t.insulin != null && t.insulin != 0)list.add(
-      "${t.isSMB ? 'SMB ' : ''}${t.insulin} ${msgInsulinUnit}");
-    if (t.eventType.toLowerCase() == "temp basal")
+    if (showIE && t.insulin != null && t.insulin != 0 && !t.isSMB)list.add(
+      "${t.insulin} ${msgInsulinUnit}");
+    if (showSMB && t.insulin != null && t.insulin != 0 && t.isSMB)list.add(
+      "SMB ${t.insulin} ${msgInsulinUnit}");
+    if (t.eventType.toLowerCase() == "temp basal" && showTempBasal)
     {
       ProfileEntryData entry = basalFor(day, t.createdAt);
-      if (entry != null)list.add("Temp Basal ${fmtBasal(entry.tempAdjusted)}");
+      if (entry != null)list.add("Temp Basal ${fmtNumber(entry.tempAdjusted*100)}%");
     }
     if (list.length > 0)
     {

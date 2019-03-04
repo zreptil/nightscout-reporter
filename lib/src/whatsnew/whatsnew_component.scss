@@ -6,6 +6,17 @@
 }
 
 material-dialog {
+  ::-webkit-scrollbar{
+    width: 120px;
+  }
+  ::-webkit-scrollbar-track{
+    background-color: $secondary_back;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $primary_back;
+  }
+
   @include material-dialog-header-color($mat-blue-900);
   @include material-dialog-header-shadow();
   @include material-dialog-body-padding(0);
@@ -16,6 +27,18 @@ div[header] {
   flex-direction: row;
   color: $primary_fore;
   justify-content: space-between;
+}
+main{
+  background-color: red;
+  ::-webkit-scrollbar{
+    width: 45px;
+  }
+  ::-webkit-scrollbar-track{
+    background-color: $secondary_back;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: $primary_back;
+  }
 }
 
 .root {
@@ -69,3 +92,4 @@ li:before {
 .fixed:before {
   content: "#";
 }
+

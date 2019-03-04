@@ -93,7 +93,7 @@
       <div class="formlist">
         <template ngFor let-cfg [ngForOf]="g.listConfig">
           <div *ngIf="isFormVisible(cfg.form)">
-            <div class="sortable">
+            <div class="sortable" id="form-{{cfg.id}}">
               <material-expansionpanel
                 (click)="expansionPanelClicked($event,cfg)"
                 (open)="expansionPanelOpen($event,cfg)"

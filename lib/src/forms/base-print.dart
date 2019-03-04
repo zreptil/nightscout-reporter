@@ -102,7 +102,10 @@ class FormConfig
   bool checked = true;
   bool opened = false;
   BasePrint form = null;
-  FormConfig(this.id, this.checked);
+  FormConfig(this.form, this.checked)
+  {
+    id = form.id;
+  }
 
   dynamic get asJson
   {
@@ -896,20 +899,14 @@ abstract class BasePrint
     if (date is DateTime)
     {
       int hour = date.hour;
-      if (g.language.code != "de_DE")hour = hour > 12 ? hour - 12 : hour;
+      if (!g.language.is24HourFormat)hour = hour > 12 ? hour - 12 : hour;
       String m = withMinutes ? ":${(date.minute < 10 ? "0" : "")}${date.minute}" : "";
       String ret = "${(hour < 10 ? "0" : "")}${hour}$m";
       if (withUnit)
       {
-        switch (g.language.code)
-        {
-          case "de_DE":
-            ret = "$ret Uhr";
-            break;
-          default:
-            ret = date.hour > 12 ? "$ret pm" : "$ret am";
-            break;
-        }
+        if (g.language.is24HourFormat)ret = "$ret Uhr";
+        else
+          ret = date.hour > 12 ? "$ret pm" : "$ret am";
       }
       return ret;
     }
@@ -917,7 +914,7 @@ abstract class BasePrint
     if (date is int)
     {
       String m = withMinutes ? ":00" : "";
-      if (g.language.code == "de_DE")return "${fmtNumber(date, 0)}$m";
+      if (g.language.is24HourFormat)return "${fmtNumber(date, 0)}$m";
 
       m = withMinutes ? " " : "";
 

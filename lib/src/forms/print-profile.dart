@@ -151,14 +151,14 @@ class PrintProfile extends BasePrint
     titleInfo = titleInfoForDates(startDate, endDate);
     dynamic tableBody = [
       [
-        {"text": msgDIA, "style": "infotitle"},
+        {"text": msgDIA, "style": "infotitle", "alignment": "right"},
         {"text": fmtNumber(profile.store.dia, 2, false), "style": "infodata"},
         {"text": msgDIAUnit, "style": "infounit"},
-        {"text": msgTimezone, "style": "infotitle"},
+        {"text": msgTimezone, "style": "infotitle", "alignment": "right"},
         {"text": profile.store.timezone.name, "style": "infodata", "alignment": "left"},
       ],
       [
-        {"text": msgKHA, "style": "infotitle"},
+        {"text": msgKHA, "style": "infotitle", "alignment": "right"},
         {"text": fmtNumber(profile.store.carbsHr, 0, false), "style": "infodata"},
         {"text": msgKHAUnit, "style": "infounit", "colSpan": 3},
       ],
@@ -237,7 +237,7 @@ class PrintProfile extends BasePrint
       {
         "margin": [cm(8), cm(yorg - 0.5), cm(0), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(5.2), cm(1.0), cm(1.8), cm(1.7), cm(4.0)], "body": tableBody}
+        "table": {"headerRows": 0, "widths": [cm(6.6), cm(1.0), cm(1.8), cm(2.0), cm(4.0)], "body": tableBody}
       },
       {
         "margin": [cm(1.2), cm(0.2), cm(0), cm(0)],

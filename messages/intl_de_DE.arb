@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-02-28T14:08:48.487377",
+  "@@last_modified": "2019-03-04T11:54:04.706681",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -889,6 +889,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "Temporäre Basalraten": "Temporäre Basalraten",
+  "@Temporäre Basalraten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "SMB": "SMB",
+  "@SMB": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Spalte Messwerte": "Spalte Messwerte",
   "@Spalte Messwerte": {
     "type": "text",
@@ -1201,6 +1211,12 @@
   "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.": "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.",
   "@In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.": {
     "description": "v124a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach den Button für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.": "Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach den Button für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.",
+  "@Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach den Button für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.": {
+    "description": "v124a4",
     "type": "text",
     "placeholders": {}
   },
@@ -1834,8 +1850,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_70": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_70": {
+  "ViewWhatsnewComponent0__message_71": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_71": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

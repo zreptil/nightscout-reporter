@@ -12,7 +12,7 @@ dependencies:
   angular_components: ^0.10.0
   intl: ^0.15.7
   crypto: ^2.0.6
-  dnd: ^1.4.0
+  dnd: ^1.4.2
   timezone: ^0.5.1
   googleapis: ^0.52.0+1
   googleapis_auth: ^0.2.6

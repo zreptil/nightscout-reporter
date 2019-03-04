@@ -9,403 +9,406 @@
         <material-icon icon="close"></material-icon>
       </material-button>
     </div>
-    <ng-scrollbar #scrollable thumbClass="scrollbar">
-      <div class="root">
-        <h2><span @i18n="version">Version</span><span @i18n="v125">1.2.5 - xx.02.2019</span></h2>
-        <ul>
-          <li class="added" @i18n="v124a1">
-            Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird
-            es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt.
-            Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass
-            es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der
-            Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.
-          </li>
-          <li class="added" @i18n="v124a2">
-            In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal
-            sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links
-            geschoben werden, um die Dateigrösse zu verringern.
-          </li>
-          <li class="added" @i18n="v124a3">
-            In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.
-          </li>
-          <li class="changed" @i18n="v124c1">
-            Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt
-            dargestellt wird.
-          </li>
-          <li class="changed" @i18n="v124c2">
-            Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit
-            legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.
-          </li>
-          <li class="changed" @i18n="v124c3">
-            Daten verschiedener Uploader werden nun besser interpretiert.
-          </li>
-          <li class="changed" @i18n="v124c4">
-            Daten, die von xDrip als sync markiert wurden, werden bei der Auswertung ignoriert.
-          </li>
-          <li class="fixed" @i18n="v124f1">
-            Die Berechnung der tatsächlichen Basalrate wurde korrigiert.
-          </li>
-          <li class="fixed" @i18n="v124f2">
-            Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.
-          </li>
-          <li class="fixed" @i18n="v124f3">
-            Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v124">1.2.4 - 12.02.2019</span></h2>
-        <ul>
-          <li class="added" @i18n="v124a1">
-            Es gibt jetzt auch die Möglichkeit, Nightscout Reporter in europäischem Englisch darzustellen.
-            Der Unterschied zum amerikanischen Englisch besteht derzeit lediglich im Datumsformat (gb: dd/MM/yyyy, us:
-            MM/dd/yyyy).
-          </li>
-          <li class="added" @i18n="v124a2">
-            In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.
-          </li>
-          <li class="added" @i18n="v124a3">
-            In der Tagesgrafik werden nun auch Reservoirwechsel angezeigt.
-          </li>
-          <li class="added" @i18n="v124a4">
-            In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und
-            Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert
-            sein muss, damit die Werte angezeigt werden.
-          </li>
-          <li class="changed" @i18n="v124c1">
-            Die Angabe DIA auf der Profilseite wird nun mit zwei Nachkommastellen angezeigt.
-          </li>
-          <li class="changed" @i18n="v124c2">
-            Für die Tagesgrafik gibt es jetzt eine Option, um die Aufsummierung nahe beieinander liegender Werte
-            umzuschalten.
-          </li>
-          <li class="changed" @i18n="v124c3">
-            Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.
-          </li>
-          <li class="changed" @i18n="v124c4">
-            Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin
-            an dem Tag skaliert.
-          </li>
-          <li class="changed" @i18n="v124c5">
-            In der Analyse können die Prozentzahlen für die Zielbereiche mit Nachkommazahl angezeigt werden. Das
-            verringert die Differenz zu 100%, wenn man sie zusammenzählt. Der verbleibende Rest sind
-            Rundungsdifferenzen.
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v123">1.2.3 - 04.02.2019</span></h2>
-        <ul>
-          <li class="changed" @i18n="v123c1">
-            In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere
-            innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese
-            Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in
-            eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.
-          </li>
-          <li class="fixed" @i18n="v123f1">
-            Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden,
-            wurde behoben.
-          </li>
-          <li class="fixed" @i18n="v123f2">
-            Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v122">1.2.2 - 24.01.2019</span></h2>
-        <ul>
-          <li class="fixed" @i18n="v122f1">
-            Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v121">1.2.1 - 22.01.2019</span></h2>
-        <ul>
-          <li class="added" @i18n="v121a1">
-            Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.
-          </li>
-          <li class="fixed" @i18n="v121f1">
-            Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die
-            nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v120">1.2.0 - 21.01.2019</span></h2>
-        <ul>
-          <li class="added" @i18n="v120a1">
-            In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.
-          </li>
-          <li class="added" @i18n="v120a2">
-            Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.
-          </li>
-          <li class="added" @i18n="v120a3">
-            Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur
-            Glukosekurve gezeichnet werden sollen oder nicht.
-          </li>
-          <li class="changed" @i18n="v120c1">
-            In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt
-            werden.
-          </li>
-          <li class="fixed" @i18n="v120f1">
-            Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v112">1.1.2 - 08.01.2019</span></h2>
-        <ul>
-          <li class="added" @i18n="v112a1">
-            In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate
-            dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter
-            Schrift angezeigt.
-          </li>
-          <li class="added" @i18n="v112a2">
-            Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben,
-            wenn sie vorhanden sind.
-          </li>
-          <li class="added" @i18n="v112a3">
-            Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt
-            anzeigen zu lassen. Das wird für Browser wie Edge benötigt.
-          </li>
-          <li class="added" @i18n="v112a4">
-            In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.
-          </li>
-          <li class="changed" @i18n="v112c1">
-            Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte
-            Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird
-            festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird.
-            Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie
-            er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch
-            Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die
-            Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch,
-            Monat/Tag/Jahr für englisch).
-          </li>
-          <li class="changed" @i18n="v112c2">
-            Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.
-          </li>
-          <li class="changed" @i18n="v112c3">
-            Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der
-            Felder Von oder bis den Fokus erhält.
-          </li>
-          <li class="changed" @i18n="v112c4">
-            Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung
-            der Linie in der Tagesgrafik.
-          </li>
-          <li class="fixed" @i18n="v112f1">
-            Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit
-            stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und
-            nicht mehr durch die Wertetabelle.
-          </li>
-          <li class="fixed" @i18n="v112f2">
-            Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.
-          </li>
-          <li class="fixed" @i18n="v112f3">
-            Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im
-            Kalender-Control angezeigt wurden.
-          </li>
-          <li class="fixed" @i18n="v112f4">
-            Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert
-            für DIA nicht korrekt ausgelesen wurde.
-          </li>
-          <li class="fixed" @i18n="v112f5">
-            Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt
-            auf den aktuellen Tag bezogen.
-          </li>
-          <li class="fixed" @i18n="v112f6">
-            Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.
-          </li>
-          <li class="fixed" @i18n="v112f7">
-            Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter
-            brauchbar darstellen zu können.
-          </li>
-          <li class="fixed" @i18n="v112f8">
-            Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem
-            Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe
-            entfernt werden.
-          </li>
-          <li class="fixed" @i18n="v112f9">
-            Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem
-            Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe
-            entfernt werden.
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v111">1.1.1 - 19.11.2018</span></h2>
-        <ul>
-          <li class="added" @i18n="v111a1">
-            Tagesgrafikparameter zur Anzeige der Legende
-          </li>
-          <li class="added" @i18n="v111a2">
-            Tagesgrafikparameter zur Anzeige von Notizen
-          </li>
-          <li class="added" @i18n="v111a3">
-            PDF für Profildaten
-          </li>
-          <li class="added" @i18n="v111a4">
-            Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem
-            höchsten Datum ausgegeben.
-          </li>
-          <li class="added" @i18n="v111a5">
-            In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese
-            kann über einen Parameter ausgeschaltet werden.
-          </li>
-          <li class="added" @i18n="v111a6">
-            In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).
-          </li>
-          <li class="added" @i18n="v111a7">
-            In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin
-            akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.
-          </li>
-          <li class="fixed" @i18n="v111f1">
-            Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert.
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v110">1.1.0 - 09.11.2018</span></h2>
-        <ul>
-          <li class="added" @i18n="v110a1">
-            Zusätzliche Informationen zu den PDFs und im UI hinzugefügt
-          </li>
-          <li class="added" @i18n="v110a2">
-            Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt
-          </li>
-          <li class="added" @i18n="v110a3">
-            Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand
-            des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen;
-            der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde
-          </li>
-          <li class="added" @i18n="v110a4">
-            Anzahl der Sensoren zur Analyse hinzugefügt
-          </li>
-          <li class="changed" @i18n="v110c1">
-            Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter <a
-            href="https://nightscout-reporter.zreptil.de/beta"
-            target="_blank">https://nightscout-reporter.zreptil.de/beta</a>
-            zu finden
-          </li>
-          <li class="fixed" @i18n="v110f1">
-            Übersetzungen korrigiert
-          </li>
-          <li class="fixed" @i18n="v110f2">
-            Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht
-          </li>
-          <li class="fixed" @i18n="v110f3">
-            Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v104">1.0.4 - 28.10.2018</span></h2>
-        <ul>
-          <li class="added" @i18n="v104a1">
-            Benutzer können nun gelöscht werden
-          </li>
-          <li class="added" @i18n="v104a2">
-            Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden
-          </li>
-          <li class="added" @i18n="v104a3">
-            Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt
-          </li>
-          <li class="added" @i18n="v104a4">
-            Spalte HbA1c zu Tagesstatistik hinzugefügt
-          </li>
-          <li class="added" @i18n="v104a5">
-            Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt
-          </li>
-          <li class="fixed" @i18n="v104f1">
-            Spaltenbreite der Informationen in der Analyse erhöht
-          </li>
-          <li class="fixed" @i18n="v104f2">
-            Die Icons auf einigen Buttons waren zu nahe am Text
-          </li>
-          <li class="fixed" @i18n="v104f3">
-            Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v103">1.0.3 - 26.10.2018</span></h2>
-        <ul>
-          <li class="added" @i18n="v103a1">
-            Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere
-            Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)
-          </li>
-          <li class="changed" @i18n="v103c1">
-            Benutzerdaten werden nun verschlüsselt im Browser gespeichert
-          </li>
-          <li class="changed" @i18n="v103c2">
-            Die Analyse-Seite wurde überarbeitet und zeigt nun Überschriften über den Bereichen an
-          </li>
-          <li class="changed" @i18n="v103c3">
-            Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180
-            entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet
-          </li>
-          <li class="fixed" @i18n="v103f1">
-            Die Tagesstatistik zeigt mmol/l-Werte nun korrekt an
-          </li>
-          <li class="fixed" @i18n="v103f2">
-            Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt
-          </li>
-          <li class="fixed" @i18n="v103f3">
-            Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert
-          </li>
-          <li class="fixed" @i18n="v103f4">
-            Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet
-          </li>
-          <li class="fixed" @i18n="v103f5">
-            Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden
-            an dem Wert "NONE" im Datenfeld "direction" erkannt
-          </li>
-          <li class="fixed" @i18n="v103f5">
-            Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt
-          </li>
-          <li class="fixed" @i18n="v103f6">
-            Diverse Abstürze beim Auslesen der Daten bereinigt
-          </li>
-          <li class="removed" @i18n="v103d1">
-            Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der
-            aktuelle Benutzer oder dessen URL direkt angezeigt wird
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v102">1.0.2 - 23.10.2018</span></h2>
-        <ul>
-          <li class="added" @i18n="v102a1">
-            Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.
-          </li>
-          <li class="changed" @i18n="v102c1">
-            Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.
-          </li>
-          <li class="fixed" @i18n="v102f1">
-            Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.
-          </li>
-          <li class="fixed" @i18n="v102f2">
-            Hohe Basalraten werden jetzt besser dargestellt.
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v101">1.0.1 - 23.10.2018</span></h2>
-        <ul>
-          <li class="added" @i18n="v101a1">
-            Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt,
-            wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü
-            wieder aufgerufen werden.
-          </li>
-          <li class="added" @i18n="v101a2">
-            Schliessen Button im Nachrichtenbereich hinzugefügt.
-          </li>
-          <li class="changed" @i18n="v101c1">
-            Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.
-          </li>
-          <li class="changed" @i18n="v101c2">
-            Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.
-          </li>
-          <li class="changed" @i18n="v101c3">
-            Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das
-            negative Auswirkungen auf die Darstellung im PDF hat.
-          </li>
-          <li class="fixed" @i18n="v101f1">
-            Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.
-          </li>
-          <li class="fixed" @i18n="v101f2">
-            Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.
-          </li>
-          <li class="fixed" @i18n="v101f3">
-            Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.
-          </li>
-          <li class="fixed" @i18n="v101f4">
-            Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.
-          </li>
-        </ul>
-        <h2><span @i18n="version">Version</span><span @i18n="v100">1.0.0 - 20.10.2018</span></h2>
-        <ul>
-          <li class="added" @i18n="v100a1">
-            Initiale Version, alles ist neu!
-          </li>
-        </ul>
-      </div>
-    </ng-scrollbar>
+    <div class="root">
+      <h2><span @i18n="version">Version</span><span @i18n="v125">1.2.5 - xx.02.2019</span></h2>
+      <ul>
+        <li class="added" @i18n="v124a1">
+          Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird
+          es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt.
+          Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass
+          es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der
+          Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.
+        </li>
+        <li class="added" @i18n="v124a2">
+          In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal
+          sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links
+          geschoben werden, um die Dateigrösse zu verringern.
+        </li>
+        <li class="added" @i18n="v124a3">
+          In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.
+        </li>
+        <li class="added" @i18n="v124a4">
+          Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach den Button für das Formular anklicken,
+          festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.
+        </li>
+        <li class="changed" @i18n="v124c1">
+          Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt
+          dargestellt wird.
+        </li>
+        <li class="changed" @i18n="v124c2">
+          Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit
+          legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.
+        </li>
+        <li class="changed" @i18n="v124c3">
+          Daten verschiedener Uploader werden nun besser interpretiert.
+        </li>
+        <li class="changed" @i18n="v124c4">
+          Daten, die von xDrip als sync markiert wurden, werden bei der Auswertung ignoriert.
+        </li>
+        <li class="fixed" @i18n="v124f1">
+          Die Berechnung der tatsächlichen Basalrate wurde korrigiert.
+        </li>
+        <li class="fixed" @i18n="v124f2">
+          Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.
+        </li>
+        <li class="fixed" @i18n="v124f3">
+          Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein
+          Usertoken angegeben wurde.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v124">1.2.4 - 12.02.2019</span></h2>
+      <ul>
+        <li class="added" @i18n="v124a1">
+          Es gibt jetzt auch die Möglichkeit, Nightscout Reporter in europäischem Englisch darzustellen.
+          Der Unterschied zum amerikanischen Englisch besteht derzeit lediglich im Datumsformat (gb: dd/MM/yyyy, us:
+          MM/dd/yyyy).
+        </li>
+        <li class="added" @i18n="v124a2">
+          In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.
+        </li>
+        <li class="added" @i18n="v124a3">
+          In der Tagesgrafik werden nun auch Reservoirwechsel angezeigt.
+        </li>
+        <li class="added" @i18n="v124a4">
+          In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und
+          Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert
+          sein muss, damit die Werte angezeigt werden.
+        </li>
+        <li class="changed" @i18n="v124c1">
+          Die Angabe DIA auf der Profilseite wird nun mit zwei Nachkommastellen angezeigt.
+        </li>
+        <li class="changed" @i18n="v124c2">
+          Für die Tagesgrafik gibt es jetzt eine Option, um die Aufsummierung nahe beieinander liegender Werte
+          umzuschalten.
+        </li>
+        <li class="changed" @i18n="v124c3">
+          Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.
+        </li>
+        <li class="changed" @i18n="v124c4">
+          Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin
+          an dem Tag skaliert.
+        </li>
+        <li class="changed" @i18n="v124c5">
+          In der Analyse können die Prozentzahlen für die Zielbereiche mit Nachkommazahl angezeigt werden. Das
+          verringert die Differenz zu 100%, wenn man sie zusammenzählt. Der verbleibende Rest sind
+          Rundungsdifferenzen.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v123">1.2.3 - 04.02.2019</span></h2>
+      <ul>
+        <li class="changed" @i18n="v123c1">
+          In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere
+          innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese
+          Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in
+          eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.
+        </li>
+        <li class="fixed" @i18n="v123f1">
+          Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden,
+          wurde behoben.
+        </li>
+        <li class="fixed" @i18n="v123f2">
+          Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v122">1.2.2 - 24.01.2019</span></h2>
+      <ul>
+        <li class="fixed" @i18n="v122f1">
+          Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v121">1.2.1 - 22.01.2019</span></h2>
+      <ul>
+        <li class="added" @i18n="v121a1">
+          Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.
+        </li>
+        <li class="fixed" @i18n="v121f1">
+          Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die
+          nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v120">1.2.0 - 21.01.2019</span></h2>
+      <ul>
+        <li class="added" @i18n="v120a1">
+          In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.
+        </li>
+        <li class="added" @i18n="v120a2">
+          Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.
+        </li>
+        <li class="added" @i18n="v120a3">
+          Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur
+          Glukosekurve gezeichnet werden sollen oder nicht.
+        </li>
+        <li class="changed" @i18n="v120c1">
+          In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt
+          werden.
+        </li>
+        <li class="fixed" @i18n="v120f1">
+          Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v112">1.1.2 - 08.01.2019</span></h2>
+      <ul>
+        <li class="added" @i18n="v112a1">
+          In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate
+          dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter
+          Schrift angezeigt.
+        </li>
+        <li class="added" @i18n="v112a2">
+          Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben,
+          wenn sie vorhanden sind.
+        </li>
+        <li class="added" @i18n="v112a3">
+          Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt
+          anzeigen zu lassen. Das wird für Browser wie Edge benötigt.
+        </li>
+        <li class="added" @i18n="v112a4">
+          In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.
+        </li>
+        <li class="changed" @i18n="v112c1">
+          Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte
+          Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird
+          festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird.
+          Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie
+          er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch
+          Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die
+          Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch,
+          Monat/Tag/Jahr für englisch).
+        </li>
+        <li class="changed" @i18n="v112c2">
+          Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.
+        </li>
+        <li class="changed" @i18n="v112c3">
+          Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der
+          Felder Von oder bis den Fokus erhält.
+        </li>
+        <li class="changed" @i18n="v112c4">
+          Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung
+          der Linie in der Tagesgrafik.
+        </li>
+        <li class="fixed" @i18n="v112f1">
+          Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit
+          stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und
+          nicht mehr durch die Wertetabelle.
+        </li>
+        <li class="fixed" @i18n="v112f2">
+          Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.
+        </li>
+        <li class="fixed" @i18n="v112f3">
+          Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im
+          Kalender-Control angezeigt wurden.
+        </li>
+        <li class="fixed" @i18n="v112f4">
+          Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert
+          für DIA nicht korrekt ausgelesen wurde.
+        </li>
+        <li class="fixed" @i18n="v112f5">
+          Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt
+          auf den aktuellen Tag bezogen.
+        </li>
+        <li class="fixed" @i18n="v112f6">
+          Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.
+        </li>
+        <li class="fixed" @i18n="v112f7">
+          Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter
+          brauchbar darstellen zu können.
+        </li>
+        <li class="fixed" @i18n="v112f8">
+          Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem
+          Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe
+          entfernt werden.
+        </li>
+        <li class="fixed" @i18n="v112f9">
+          Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem
+          Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe
+          entfernt werden.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v111">1.1.1 - 19.11.2018</span></h2>
+      <ul>
+        <li class="added" @i18n="v111a1">
+          Tagesgrafikparameter zur Anzeige der Legende
+        </li>
+        <li class="added" @i18n="v111a2">
+          Tagesgrafikparameter zur Anzeige von Notizen
+        </li>
+        <li class="added" @i18n="v111a3">
+          PDF für Profildaten
+        </li>
+        <li class="added" @i18n="v111a4">
+          Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem
+          höchsten Datum ausgegeben.
+        </li>
+        <li class="added" @i18n="v111a5">
+          In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese
+          kann über einen Parameter ausgeschaltet werden.
+        </li>
+        <li class="added" @i18n="v111a6">
+          In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).
+        </li>
+        <li class="added" @i18n="v111a7">
+          In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin
+          akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.
+        </li>
+        <li class="fixed" @i18n="v111f1">
+          Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v110">1.1.0 - 09.11.2018</span></h2>
+      <ul>
+        <li class="added" @i18n="v110a1">
+          Zusätzliche Informationen zu den PDFs und im UI hinzugefügt
+        </li>
+        <li class="added" @i18n="v110a2">
+          Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt
+        </li>
+        <li class="added" @i18n="v110a3">
+          Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand
+          des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen;
+          der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde
+        </li>
+        <li class="added" @i18n="v110a4">
+          Anzahl der Sensoren zur Analyse hinzugefügt
+        </li>
+        <li class="changed" @i18n="v110c1">
+          Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter <a
+          href="https://nightscout-reporter.zreptil.de/beta"
+          target="_blank">https://nightscout-reporter.zreptil.de/beta</a>
+          zu finden
+        </li>
+        <li class="fixed" @i18n="v110f1">
+          Übersetzungen korrigiert
+        </li>
+        <li class="fixed" @i18n="v110f2">
+          Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht
+        </li>
+        <li class="fixed" @i18n="v110f3">
+          Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v104">1.0.4 - 28.10.2018</span></h2>
+      <ul>
+        <li class="added" @i18n="v104a1">
+          Benutzer können nun gelöscht werden
+        </li>
+        <li class="added" @i18n="v104a2">
+          Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden
+        </li>
+        <li class="added" @i18n="v104a3">
+          Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt
+        </li>
+        <li class="added" @i18n="v104a4">
+          Spalte HbA1c zu Tagesstatistik hinzugefügt
+        </li>
+        <li class="added" @i18n="v104a5">
+          Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt
+        </li>
+        <li class="fixed" @i18n="v104f1">
+          Spaltenbreite der Informationen in der Analyse erhöht
+        </li>
+        <li class="fixed" @i18n="v104f2">
+          Die Icons auf einigen Buttons waren zu nahe am Text
+        </li>
+        <li class="fixed" @i18n="v104f3">
+          Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v103">1.0.3 - 26.10.2018</span></h2>
+      <ul>
+        <li class="added" @i18n="v103a1">
+          Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere
+          Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)
+        </li>
+        <li class="changed" @i18n="v103c1">
+          Benutzerdaten werden nun verschlüsselt im Browser gespeichert
+        </li>
+        <li class="changed" @i18n="v103c2">
+          Die Analyse-Seite wurde überarbeitet und zeigt nun Überschriften über den Bereichen an
+        </li>
+        <li class="changed" @i18n="v103c3">
+          Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180
+          entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet
+        </li>
+        <li class="fixed" @i18n="v103f1">
+          Die Tagesstatistik zeigt mmol/l-Werte nun korrekt an
+        </li>
+        <li class="fixed" @i18n="v103f2">
+          Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt
+        </li>
+        <li class="fixed" @i18n="v103f3">
+          Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert
+        </li>
+        <li class="fixed" @i18n="v103f4">
+          Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet
+        </li>
+        <li class="fixed" @i18n="v103f5">
+          Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden
+          an dem Wert "NONE" im Datenfeld "direction" erkannt
+        </li>
+        <li class="fixed" @i18n="v103f5">
+          Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt
+        </li>
+        <li class="fixed" @i18n="v103f6">
+          Diverse Abstürze beim Auslesen der Daten bereinigt
+        </li>
+        <li class="removed" @i18n="v103d1">
+          Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der
+          aktuelle Benutzer oder dessen URL direkt angezeigt wird
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v102">1.0.2 - 23.10.2018</span></h2>
+      <ul>
+        <li class="added" @i18n="v102a1">
+          Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.
+        </li>
+        <li class="changed" @i18n="v102c1">
+          Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.
+        </li>
+        <li class="fixed" @i18n="v102f1">
+          Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.
+        </li>
+        <li class="fixed" @i18n="v102f2">
+          Hohe Basalraten werden jetzt besser dargestellt.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v101">1.0.1 - 23.10.2018</span></h2>
+      <ul>
+        <li class="added" @i18n="v101a1">
+          Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt,
+          wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü
+          wieder aufgerufen werden.
+        </li>
+        <li class="added" @i18n="v101a2">
+          Schliessen Button im Nachrichtenbereich hinzugefügt.
+        </li>
+        <li class="changed" @i18n="v101c1">
+          Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.
+        </li>
+        <li class="changed" @i18n="v101c2">
+          Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.
+        </li>
+        <li class="changed" @i18n="v101c3">
+          Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das
+          negative Auswirkungen auf die Darstellung im PDF hat.
+        </li>
+        <li class="fixed" @i18n="v101f1">
+          Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.
+        </li>
+        <li class="fixed" @i18n="v101f2">
+          Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.
+        </li>
+        <li class="fixed" @i18n="v101f3">
+          Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.
+        </li>
+        <li class="fixed" @i18n="v101f4">
+          Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v100">1.0.0 - 20.10.2018</span></h2>
+      <ul>
+        <li class="added" @i18n="v100a1">
+          Initiale Version, alles ist neu!
+        </li>
+      </ul>
+    </div>
   </material-dialog>
 </modal>
