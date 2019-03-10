@@ -74,7 +74,7 @@ class Globals
   static DateTime get now
   => DateTime.now();
   bool _isLoaded = false;
-  String version = "1.2.5f";
+  String version = "1.2.5h";
   String lastVersion;
   int _pdfCreationMaxSize = 4000000;
 
@@ -241,6 +241,7 @@ class Globals
   bool canDebug = false;
   bool isBeta = html.window.location.href.contains("/beta/");
   bool isLocal = html.window.location.href.contains("/localhost:");
+  bool get useProfileSwitch => isLocal;
   String get settingsFilename
   => isLocal ? "settings.local" : isBeta ? "settings.beta" : "settings";
   gd.File settingsFile = null;

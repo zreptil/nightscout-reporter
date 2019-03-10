@@ -62,6 +62,12 @@ material-content {
   align-items: center;
   flex-direction: column;
   overflow-y: scroll;
+  position: absolute !important;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  scrollbar-color: $primary_back $secondary_back;
 }
 
 material-button img {
@@ -469,7 +475,7 @@ material-expansionpanel.is-debug {
     background: $debug_back;
   }
 
-  @include material-checkbox-color($local_fore, $modifier: '');
+  @include material-checkbox-color($debug_fore, $modifier: '');
 
   ::ng-deep div[aria-expanded="true"] {
     border-color: $debug_fore !important;
@@ -520,6 +526,7 @@ datepicker {
 
 .dragging {
   opacity: 0.5;
+
   _material-expansionpanel {
     ::ng-deep header {
       border-color: rgba(255, 255, 255, 0.5);

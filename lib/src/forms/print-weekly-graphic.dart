@@ -200,7 +200,7 @@ class PrintWeeklyGraphic extends BasePrint
         if (t.glucoseType.toLowerCase() == "finger")
         {
           double x = glucX(t.createdAt);
-          double y = glucY(t.glucose);
+          double y = glucY((g.glucMGDL ? 1 : 18.02) * t.glucose);
           graphGlucCvs.add(
             {"type": "rect", "x": cm(x), "y": cm(y), "w": cm(size), "h": cm(size), "color": color});
         }

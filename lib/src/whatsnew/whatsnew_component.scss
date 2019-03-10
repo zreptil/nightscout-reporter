@@ -3,21 +3,27 @@
 @import 'package:angular_components/material_dialog/mixins';
 
 :host {
+
 }
 
 material-dialog {
-  ::-webkit-scrollbar{
-    width: 120px;
-  }
-  ::-webkit-scrollbar-track{
-    background-color: $secondary_back;
+  ::ng-deep main::-webkit-scrollbar {
+    width: 16px;
   }
 
-  ::-webkit-scrollbar-thumb {
-    background-color: $primary_back;
+  ::ng-deep main::-webkit-scrollbar-track {
+    background-color: $whatsnew_body_back;
   }
 
-  @include material-dialog-header-color($mat-blue-900);
+  ::ng-deep main::-webkit-scrollbar-thumb {
+    background-color: $whatsnew_scroll_thumb;
+  }
+
+  ::ng-deep main {
+    scrollbar-color: $whatsnew_scroll_thumb $whatsnew_body_back;
+  }
+
+  @include material-dialog-header-color($whatsnew_header_back);
   @include material-dialog-header-shadow();
   @include material-dialog-body-padding(0);
 }
@@ -25,26 +31,16 @@ material-dialog {
 div[header] {
   display: flex;
   flex-direction: row;
-  color: $primary_fore;
+  color: $whatsnew_header_fore;
   justify-content: space-between;
-}
-main{
-  background-color: red;
-  ::-webkit-scrollbar{
-    width: 45px;
-  }
-  ::-webkit-scrollbar-track{
-    background-color: $secondary_back;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: $primary_back;
-  }
+  align-items: center;
 }
 
 .root {
   padding: 1em;
   font-size: 1.2em;
-  background-color: $mat-blue-500;
+  background-color: $whatsnew_body_back;
+  color: $whatsnew_body_fore;
 }
 
 h2 {

@@ -608,6 +608,8 @@ class BoluscalcData extends JsonData
     ret.insulinSuperBolus = JsonData.toDouble(json["insulinsuperbolus"]);
     ret.insulinTrend = JsonData.toDouble(json["insulintrend"]);
     ret.insulin = JsonData.toDouble(json["insulin"]);
+    if(ret.insulin == 0.0)
+      ret.insulin = JsonData.toDouble(json["enteredinsulin"]);
     ret.superBolusUsed = JsonData.toBool(json["superbolusused"]);
     ret.trendUsed = JsonData.toBool(json["trendused"]);
     ret.trend = json["trend"];

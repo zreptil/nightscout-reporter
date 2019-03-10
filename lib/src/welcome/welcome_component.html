@@ -5,22 +5,21 @@
         <h1 @i18n="welcome title">Willkommen bei Nightscout Reporter!</h1>
         <p></p>
       </div>
-      <material-button *ngIf="g.isConfigured" icon (trigger)="fire('normal')">
-        <material-icon icon="close"></material-icon>
-      </material-button>
+      <div>
+        <div class="langPanel">
+          <template ngFor let-lang [ngForOf]="g.languageList" let-idx="index">
+            <material-button *ngIf="lang!=g.language" [raised]="false"
+                             (trigger)="g.changeLanguage(lang, checkConfigured: true);">
+              <img src="{{lang.imgPath}}">
+            </material-button>
+          </template>
+        </div>
+        <material-button *ngIf="g.isConfigured" icon (trigger)="fire('normal')">
+          <material-icon icon="close"></material-icon>
+        </material-button>
+      </div>
     </div>
     <div class="root">
-      <div>
-        <template ngFor let-lang [ngForOf]="g.languageList" let-idx="index">
-          <material-button *ngIf="lang!=g.language" [raised]="false" class="iconButton"
-                           (trigger)="g.changeLanguage(lang, checkConfigured: true);">
-            <img src="{{lang.imgPath}}">
-            <ng-container @i18n="label for button to switch to other language">
-              This page is also available in english
-            </ng-container>
-          </material-button>
-        </template>
-      </div>
       <div @i18n="welcome section 1">
         Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es
         notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden
@@ -34,7 +33,7 @@
         angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument
         zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.
       </div>
-      <div @i18n="welcome section 3">
+      <div @i18n="welcome section 3" *ngIf="g.isLocal">
         Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google
         verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf
         Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur

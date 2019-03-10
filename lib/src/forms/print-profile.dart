@@ -111,7 +111,6 @@ class PrintProfile extends BasePrint
   @override
   void fillPages(ReportData src, List<List<dynamic>> pages)
   {
-    titleInfo = titleInfoBegEnd(src);
     DateTime startDate = DateTime(src.begDate.year, src.begDate.month, src.begDate.day);
     DateTime endDate = DateTime(src.endDate.year, src.endDate.month, src.endDate.day);
     List<ProfileData> profiles = src.profiles;
@@ -134,7 +133,6 @@ class PrintProfile extends BasePrint
             .difference(profiles[i].startDate)
             .inDays < 0)continue;
 
-
       bool done = false;
       for (int p = 0; !done; p++)
       {
@@ -148,7 +146,11 @@ class PrintProfile extends BasePrint
   getPage(int page, ProfileGlucData profile, DateTime startDate, DateTime endDate)
   {
     _fontSize = 10;
-    titleInfo = titleInfoForDates(startDate, endDate);
+    if(g.useProfileSwitch)
+      titleInfo = titleInfoTimeRange(startDate, endDate);
+    else
+      titleInfo = titleInfoForDates(startDate, endDate);
+
     dynamic tableBody = [
       [
         {"text": msgDIA, "style": "infotitle", "alignment": "right"},

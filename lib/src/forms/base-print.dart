@@ -186,7 +186,7 @@ abstract class BasePrint
   //=> fmtNumber((avgGluc + 86) / 33.3, 1, false);
 
   String hba1c(double avgGluc)
-  => fmtNumber((avgGluc + 46.7) / 28.7, 1, false);
+  => avgGluc == null ? "" : fmtNumber((avgGluc + 46.7) / 28.7, 1, false);
 
   String colText = "#008800";
   String colInfo = "#606060";
@@ -408,6 +408,12 @@ abstract class BasePrint
     value = "\n<${glucFromData(value)}";
     return Intl.message("Tief${value}", args: [value], name: "msgLow");
   }
+  msgTimeOfDay24(time)
+  => Intl.message("${time} Uhr", args: [time], name: "msgTimeOfDay24");
+  msgTimeOfDayAM(time)
+  => Intl.message("${time} am", args: [time], name: "msgTimeOfDayAM");
+  msgTimeOfDayPM(time)
+  => Intl.message("${time} pm", args: [time], name: "msgTimeOfDayPM");
 
   get msgNormal
   => "${Intl.message("Normal")}\n${getGlucInfo()["unit"]}";
@@ -638,10 +644,18 @@ abstract class BasePrint
     return titleInfoDateRange(src.begDate, src.endDate);
   }
 
-  String titleInfoDateRange(Date begDate, Date endDate)
+  String titleInfoDateRange(Date begDate, Date endDate, {withTime: false})
   {
     if (begDate == endDate)return "${fmtDate(begDate)}";
     return "${fmtDate(begDate)} ${msgUntil} ${fmtDate(endDate)}";
+  }
+
+  String titleInfoTimeRange(DateTime begDate, DateTime endDate)
+  {
+    String beg = "${fmtDate(begDate)}, ${fmtTime(begDate, withUnit: true)}";
+    String end = "${fmtDate(endDate)}, ${fmtTime(endDate, withUnit: true)}";
+    if (begDate == endDate)return "${beg}";
+    return "${beg} ${msgUntil} ${end}";
   }
 
   prepareData_(ReportData data);
@@ -904,9 +918,9 @@ abstract class BasePrint
       String ret = "${(hour < 10 ? "0" : "")}${hour}$m";
       if (withUnit)
       {
-        if (g.language.is24HourFormat)ret = "$ret Uhr";
+        if (g.language.is24HourFormat)ret = msgTimeOfDay24(ret);
         else
-          ret = date.hour > 12 ? "$ret pm" : "$ret am";
+          ret = date.hour > 12 ? msgTimeOfDayPM(ret) : msgTimeOfDayAM(ret);
       }
       return ret;
     }
@@ -933,10 +947,13 @@ abstract class BasePrint
     if (date == null)return def;
 
     if (date is DateTime)
-      return "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year} ${(date
+    {
+      String ret = "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year} ${(date
                                                                                                                       .hour < 10
         ? "0"
-        : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute} Uhr";
+        : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute}";
+      return msgTimeOfDay24(ret);
+    }
 
     return date;
   }

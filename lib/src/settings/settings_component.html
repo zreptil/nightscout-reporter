@@ -12,82 +12,84 @@
       </div>
     </div>
 
-    <div class="progress" *ngIf="progressText!=null">
-      <material-progress [indeterminate]="true"></material-progress>
-      <div>{{progressText}}</div>
-    </div>
+    <div class="root">
+      <div class="root progress" *ngIf="progressText!=null">
+        <material-progress [indeterminate]="true"></material-progress>
+        <div>{{progressText}}</div>
+      </div>
 
-    <div *ngIf="progressText==null">
-      <div class="subtitle">
-        <ng-container @i18n="label for settings-area with user data">Benutzerdaten</ng-container>
-        <div>
-          <material-button icon [disabled]="g.userIdx==0" (trigger)="g.userIdx=g.userIdx-1">
-            <material-icon icon="chevron_left"></material-icon>
-          </material-button>
-          <material-button icon [disabled]="g.userIdx>=g.userList.length-1" (trigger)="g.userIdx=g.userIdx+1">
-            <material-icon icon="chevron_right"></material-icon>
-          </material-button>
+      <div *ngIf="progressText==null">
+        <div class="subtitle">
+          <ng-container @i18n="label for settings-area with user data">Benutzerdaten</ng-container>
+          <div>
+            <material-button icon [disabled]="g.userIdx==0" (trigger)="g.userIdx=g.userIdx-1">
+              <material-icon icon="chevron_left"></material-icon>
+            </material-button>
+            <material-button icon [disabled]="g.userIdx>=g.userList.length-1" (trigger)="g.userIdx=g.userIdx+1">
+              <material-icon icon="chevron_right"></material-icon>
+            </material-button>
+          </div>
+        </div>
+        <div class="error" *ngIf="errUserInvalid!=null" [innerHTML]="errUserInvalid"></div>
+        <div class="urlPanel">
+          <material-input [label]="msgUrlNightscout"
+                          autoFocus
+                          floatingLabel
+                          [(ngModel)]="g.user.storageApiUrl">
+          </material-input>
+          <material-input [label]="msgUserToken"
+                          floatingLabel
+                          type="password"
+                          [hintText]="msgUserTokenHint"
+                          [(ngModel)]="g.user.token">
+          </material-input>
+          <material-fab mini [disabled]="g.userList.last.storageApiUrl.isEmpty" (trigger)="addUser()">
+            <material-icon icon="add"></material-icon>
+          </material-fab>
+          <material-fab mini [disabled]="g.userList.length==0||g.user.storageApiUrl.isEmpty"
+                        (trigger)="showConfirmation=true">
+            <material-icon icon="delete"></material-icon>
+          </material-fab>
+        </div>
+        <div class="userinfo">
+          <material-input [(ngModel)]="g.user.name" floatingLabel [label]="msgName"></material-input>
+          <material-input [(ngModel)]="g.user.birthDate" floatingLabel label="Geburtstag"
+                          @i18n:label="label of editfield for birthday"></material-input>
+          <material-input [(ngModel)]="g.user.diaStartDate" floatingLabel label="Diabetes seit"
+                          @i18n:label="label of editfield for diabetes since"></material-input>
+          <material-input [(ngModel)]="g.user.insulin" floatingLabel [label]="msgInsulin"></material-input>
         </div>
       </div>
-      <div class="error" *ngIf="errUserInvalid!=null" [innerHTML]="errUserInvalid"></div>
-      <div class="urlPanel">
-        <material-input [label]="msgUrlNightscout"
-                        autoFocus
-                        floatingLabel
-                        [(ngModel)]="g.user.storageApiUrl">
-        </material-input>
-        <material-input [label]="msgUserToken"
-                        floatingLabel
-                        type="password"
-                        [hintText]="msgUserTokenHint"
-                        [(ngModel)]="g.user.token">
-        </material-input>
-        <material-fab mini [disabled]="g.userList.last.storageApiUrl.isEmpty" (trigger)="addUser()">
-          <material-icon icon="add"></material-icon>
-        </material-fab>
-        <material-fab mini [disabled]="g.userList.length==0||g.user.storageApiUrl.isEmpty"
-                      (trigger)="showConfirmation=true">
-          <material-icon icon="delete"></material-icon>
-        </material-fab>
+      <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
+      <div class="functions">
+        <material-checkbox [(checked)]="g.pdfSameWindow" @i18n="label for checkbox to open PDF in same window">PDF im
+          selben Fenster öffnen
+        </material-checkbox>
+        <material-checkbox [(checked)]="g.pdfDownload" @i18n="label for checkbox to download PDF">
+          PDF herunterladen (bei einigen Browsern benötigt)
+        </material-checkbox>
+        <material-checkbox [(checked)]="g.hideNightscoutInPDF" @i18n="label for checkbox to hide nightscout in footer">
+          Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden
+        </material-checkbox>
+        <div class="pdfSliderHead" @i18n="pdfFileSize">
+          Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf,
+          bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines
+          PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen
+          Regler weiter nach links zu bewegen.
+        </div>
+        <div class="pdfSlider">
+          <div @i18n="small">Klein</div>
+          <material-slider class="maxsize" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
+                           [max]="40"></material-slider>
+          <div @i18n="big">Gross</div>
+        </div>
+        <material-button *ngIf="g.isBeta" class="iconButton" raised (trigger)="g.copyFromOtherStorage()">
+          <material-icon icon="file_copy"></material-icon>
+          <ng-container @i18n="buttonlabel for copy of settings to beta version">
+            Einstellungen von Release-Version übernehmen
+          </ng-container>
+        </material-button>
       </div>
-      <div class="userinfo">
-        <material-input [(ngModel)]="g.user.name" floatingLabel [label]="msgName"></material-input>
-        <material-input [(ngModel)]="g.user.birthDate" floatingLabel label="Geburtstag"
-                        @i18n:label="label of editfield for birthday"></material-input>
-        <material-input [(ngModel)]="g.user.diaStartDate" floatingLabel label="Diabetes seit"
-                        @i18n:label="label of editfield for diabetes since"></material-input>
-        <material-input [(ngModel)]="g.user.insulin" floatingLabel [label]="msgInsulin"></material-input>
-      </div>
-    </div>
-    <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
-    <div class="functions">
-      <material-checkbox [(checked)]="g.pdfSameWindow" @i18n="label for checkbox to open PDF in same window">PDF im
-        selben Fenster öffnen
-      </material-checkbox>
-      <material-checkbox [(checked)]="g.pdfDownload" @i18n="label for checkbox to download PDF">
-        PDF herunterladen (bei einigen Browsern benötigt)
-      </material-checkbox>
-      <material-checkbox [(checked)]="g.hideNightscoutInPDF" @i18n="label for checkbox to hide nightscout in footer">
-        Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden
-      </material-checkbox>
-      <div class="pdfSliderHead" @i18n="pdfFileSize">
-        Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf,
-        bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines
-        PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen
-        Regler weiter nach links zu bewegen.
-      </div>
-      <div class="pdfSlider">
-        <div @i18n="small">Klein</div>
-        <material-slider class="slider" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
-                         [max]="40"></material-slider>
-        <div @i18n="big">Gross</div>
-      </div>
-      <material-button *ngIf="g.isBeta" class="iconButton" raised (trigger)="g.copyFromOtherStorage()">
-        <material-icon icon="file_copy"></material-icon>
-        <ng-container @i18n="buttonlabel for copy of settings to beta version">
-          Einstellungen von Release-Version übernehmen
-        </ng-container>
-      </material-button>
     </div>
 
     <div footer>

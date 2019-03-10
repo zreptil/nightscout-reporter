@@ -7,6 +7,15 @@
 :host {
 }
 
+material-slider {
+  width: 100%;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+@include slider-thumb-color("material-slider.maxsize", $settings_header_back);
+@include slider-track-color("material-slider.maxsize", $settings_header_back !important, $settings_header_fore !important);
+
 .datepicker-row {
   position: relative;
   display: flex;
@@ -31,7 +40,7 @@
   }
 
   material-fab:not([disabled]) {
-    background-color: $primary-back;
+    background-color: $settings_header_back;
     color: $primary-fore;
   }
 }
@@ -42,27 +51,51 @@
   align-items: flex-start;
 }
 
-material-fab.removeStart {
-  background-color: $mat-orange-500;
-  color: $primary-fore;
-}
-
-material-fab.removeExec {
-  background-color: $mat-red-500;
-  color: $primary-fore;
-}
-
 .userinfo {
   display: flex;
   flex-wrap: wrap;
 }
 
+
 material-dialog[main] {
   min-width: 80%;
+
+  ::ng-deep main::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  ::ng-deep main::-webkit-scrollbar-track {
+    background-color: $settings_body_back;
+  }
+
+  ::ng-deep main::-webkit-scrollbar-thumb {
+    background-color: $settings_scroll_thumb;
+  }
+
+  ::ng-deep main {
+    scrollbar-color: $settings_scroll_thumb $settings_body_back;
+  }
+
+  @include material-dialog-header-shadow();
+  @include material-dialog-body-padding(0);
 }
 
 material-dialog.headered-dialog {
-  @include material-dialog-header-color($primary_back);
+  @include material-dialog-header-color($settings_header_back);
+
+  ::ng-deep .wrapper > footer,
+  &[headered] ::ng-deep .wrapper > footer {
+    background-color: $settings_header_back;
+    color: $settings_header_fore;
+    padding: 0;
+  }
+}
+
+.root {
+  padding: 1em;
+  font-size: 1.2em;
+  color: $settings_body_fore;
+  background-color: $settings_body_back;
 }
 
 .languagePanel {
@@ -71,14 +104,10 @@ material-dialog.headered-dialog {
   align-items: center;
 }
 
-.currLang {
-  background: $mat-green-300;
-}
-
 .subtitle {
   display: flex;
   flex-direction: row;
-  color: $primary_back;
+  color: $settings_header_back;
   font-size: 1.5em;
   padding-bottom: 0.5em;
   align-items: center;
@@ -88,8 +117,9 @@ material-dialog.headered-dialog {
 div[header] {
   display: flex;
   flex-direction: row;
-  color: $primary_fore;
+  color: $settings_header_fore;
   justify-content: space-between;
+  align-items: center;
 
   div:nth-child(2) {
     display: flex;
@@ -129,8 +159,7 @@ login {
   @include signin_button_background($mat-red-900);
 }
 
-.pdfSliderHead
-{
+.pdfSliderHead {
   display: flex;
   width: 90%;
 }
@@ -142,14 +171,5 @@ login {
   justify-content: space-between;
   align-items: center;
   margin-left: 1em;
-
-  material-slider {
-    width: 100%;
-    margin-left: 2em;
-    margin-right: 2em;
-    @include slider-thumb-color("material-slider.slider", $primary-back);
-    @include slider-track-color("material-slider.slider", $primary-back, $secondary-back);
-  }
-
   margin-bottom: 2em;
 }

@@ -477,9 +477,10 @@ class PrintDailyGraphic extends BasePrint
           }
           else if (found is TreatmentData)
           {
+            double value = (g.glucMGDL ? 1 : 18.02) * found.glucose;
             (glucTable["stack"] as List).add({
               "relativePosition": {"x": cm(x), "y": cm(i % 2 != 0 ? 0 : glucTableHeight / 2)},
-              "text": glucFromData(found.glucose),
+              "text": glucFromData(value),
               "color": colBloodValues,
               "fontSize": fs(7)
             });

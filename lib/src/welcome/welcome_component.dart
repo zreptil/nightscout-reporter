@@ -13,6 +13,7 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
     ModalComponent,
     MaterialDialogComponent,
     MaterialButtonComponent,
+    MaterialFabComponent,
     MaterialIconComponent,
     SigninComponent,
     NgFor,

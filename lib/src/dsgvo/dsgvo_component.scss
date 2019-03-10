@@ -4,30 +4,50 @@
 
 :host {
 }
+
 material-dialog {
+  ::ng-deep main::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  ::ng-deep main::-webkit-scrollbar-track {
+    background-color: $legal_body_back;
+  }
+
+  ::ng-deep main::-webkit-scrollbar-thumb {
+    background-color: $legal_scroll_thumb;
+  }
+
+  ::ng-deep main {
+    scrollbar-color: $legal_scroll_thumb $legal_body_back;
+  }
+
   @include material-dialog-header-color($legal_header_back);
   @include material-dialog-header-shadow();
   @include material-dialog-body-padding(0);
 }
+
 div[header] {
   display: flex;
   flex-direction: row;
   color: $legal_header_fore;
   justify-content: space-between;
+  align-items: center;
 }
+
 .root {
   padding: 1em;
   font-size: 1.2em;
   color: $legal_body_fore;
   background-color: $legal_body_back;
 }
-h1
-{
+
+h1 {
   margin-top: 0em;
   margin-bottom: 0.5em;
 }
-a,a:visited,a:active
-{
+
+a, a:visited, a:active {
   text-decoration: none;
   cursor: pointer;
   color: $primary-back;

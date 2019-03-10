@@ -236,6 +236,9 @@ class AppComponent
       currLang = g.language;
       if (html.window.location.href.endsWith("?dsgvo"))currPage = "dsgvo";
       if (html.window.location.href.endsWith("?impressum"))currPage = "impressum";
+      if (html.window.location.href.endsWith("?whatsnew"))currPage = "whatsnew";
+      if (html.window.location.href.endsWith("?welcome"))currPage = "welcome";
+      if (html.window.location.href.endsWith("?settings"))currPage = "settings";
       checkPrint();
 
       g.period.maxDate = Date.today();
@@ -247,6 +250,7 @@ class AppComponent
       {
         g.period.minDate = null;
       }
+      if (_currPage == "whatsnew")g.saveStorage("version", g.version);
     });
 /*
     progressText = msgCheckSetup;
@@ -258,7 +262,6 @@ class AppComponent
 //      g.isConfigured = error == null || error.isEmpty;
       _currPage = g.isConfigured ? page : "welcome";
       // save version to localStorage
-      if (_currPage == "whatsnew")g.saveStorage("version", g.version);
     });
 */
   }
@@ -571,6 +574,37 @@ class AppComponent
         display(msgProfileError);
       }
     }
+
+    if (g.useProfileSwitch)
+    {
+      url = "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${begDate
+                                                                         .year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch";
+      displayLink("profileswitch", url, type: "debug");
+      content = await g.request(url);
+      try
+      {
+        List<dynamic> src = json.decode(content);
+        for (dynamic entry in src)
+        {
+          String p = '{"_id":"${entry["_id"]}","defaultProfile":"Default","store":{"Default":${entry["profileJson"]}},"startDate":"${entry["created_at"]}","mills":"0","units":"mg/dl","created_at":"${entry["created_at"]}"}';
+          data.profiles.add(ProfileData.fromJson(json.decode(p)));
+        }
+      }
+      catch (ex)
+      {
+        if (isDebug)
+        {
+          if (ex is Error)display("${ex.toString()}\n${ex.stackTrace}");
+          else
+            display(ex.toString());
+        }
+        else
+        {
+          display(msgProfileError);
+        }
+      }
+    }
+
     data.profiles.sort((a, b)
     => a.startDate.compareTo(b.startDate));
 
