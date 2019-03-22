@@ -355,7 +355,7 @@ class PrintBasalrate extends BasePrint
       });
 //*
       String text = "";
-      if (brtimes[i].value != calc.nextBRTimes[i].value)
+      if (i < calc.nextBRTimes.length && brtimes[i].value != calc.nextBRTimes[i].value)
       {
         text = fmtBasal(calc.nextBRTimes[i].value);
         hasAdjustment = true;

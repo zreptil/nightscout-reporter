@@ -11,6 +11,7 @@ import 'package:angular_components/material_slider/material_slider.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
+import 'package:nightscout_reporter/src/globals.dart';
 
 @Component(
   selector: 'settings',
@@ -66,6 +67,9 @@ class SettingsComponent
   String msgCheckUser(String url)
   => Intl.message("Überprüfe Zugriff auf ${url}...", args: [url], name: "msgCheckUser");
 
+  int get pdfSliderMax
+  => (Globals.PDFUNLIMITED / Globals.PDFDIVIDER).toInt();
+
   @override
   Future<Null> ngOnInit()
   async {}
@@ -77,9 +81,8 @@ class SettingsComponent
       g.userList.removeAt(g.userIdx);
     }
     catch (e)
-    {
-    }
-    showConfirmation=false;
+    {}
+    showConfirmation = false;
   }
 
   addUser()

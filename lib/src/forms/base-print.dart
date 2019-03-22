@@ -157,6 +157,7 @@ abstract class BasePrint
   Globals g = Globals();
   String id;
   String title;
+  String subtitle = null;
   String get display
   {
     String ret = title; //g.canDebug && pageCount > 0 ? "$title [ $pageCount ]" : title;
@@ -190,12 +191,14 @@ abstract class BasePrint
 
   String colText = "#008800";
   String colInfo = "#606060";
+  String colSubTitle = "#a0a0a0";
   String colLine = "#606060";
   String colValue = "#000000";
   String colBasalProfile = "#0097a7";
   String get colBasalDay
   => blendColor(colBasalProfile, "#ffffff", 0.5);
   String colBasalFont = "#fff";
+  String colProfileSwitch = "#8080c0";
   String colBolus = "#0060c0";
   String colLow = "#ff6666";
   String colNorm = "#00cc00";
@@ -359,6 +362,10 @@ abstract class BasePrint
   => Intl.message("Höchster Wert im Zeitraum");
   get msgGlucoseValue
   => Intl.message("Ø Zuckerwert");
+  get msgGVIFull
+  => Intl.message("Glykämischer Variabilitäts Index (GVI)");
+  get msgPGSFull
+  => Intl.message("Patient Glykämischer Status (PGS)");
   get msgKHPerDay
   => Intl.message("Ø KH pro Tag");
   get msgInsulinPerDay
@@ -408,11 +415,24 @@ abstract class BasePrint
     value = "\n<${glucFromData(value)}";
     return Intl.message("Tief${value}", args: [value], name: "msgLow");
   }
-  msgTimeOfDay24(time)
+
+  msgCount(value)
+  {
+    value = fmtNumber(value);
+    return Intl.message("(${value} Werte)", args: [value], name: "msgCount");
+  }
+
+  msgStdAbw(value)
+  {
+    value = fmtNumber(value, 1);
+    return Intl.message("(StdAbw ${value})", args: [value], name: "msgStdAbw");
+  }
+
+  static msgTimeOfDay24(time)
   => Intl.message("${time} Uhr", args: [time], name: "msgTimeOfDay24");
-  msgTimeOfDayAM(time)
+  static msgTimeOfDayAM(time)
   => Intl.message("${time} am", args: [time], name: "msgTimeOfDayAM");
-  msgTimeOfDayPM(time)
+  static msgTimeOfDayPM(time)
   => Intl.message("${time} pm", args: [time], name: "msgTimeOfDayPM");
 
   get msgNormal
@@ -427,6 +447,14 @@ abstract class BasePrint
   => Intl.message("10% - 90% der Werte");
   get msgPercentile2575
   => Intl.message("25% - 75% der Werte");
+  get msgICRTitle
+  => Intl.message("Insulin Kohlenhydrate Verhältnis (ICR)");
+  get msgISFTitle
+  => Intl.message("Insulin Sensitivitäts Faktoren (ISF)");
+  get msgBasalTitle
+  => Intl.message("Basalrate");
+  get msgTargetTitle
+  => Intl.message("Zielbereich");
   get msgICR
   => Intl.message("Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE");
   msgISF(String unit)
@@ -469,6 +497,77 @@ abstract class BasePrint
   => Intl.message("75%");
   String msgDaySum(int value)
   => Intl.message("$value Tage", args: [value], name: "msgDaySum");
+  get msgStandardDeviation
+  => Intl.message("Standardabweichung");
+  msgGVINone(min)
+  {
+    min = fmtNumber(min, 1);
+    return Intl.message("nicht vorhanden (kleiner ${min})", args: [min], name: "msgGVINone");
+  }
+
+  msgGVIVeryGood(min, max)
+  {
+    min = fmtNumber(min, 1);
+    max = fmtNumber(max, 1);
+    return Intl.message("sehr gut (${min} bis ${max})", args: [min, max], name: "msgGVIVeryGood");
+  }
+
+  msgGVIGood(min, max)
+  {
+    min = fmtNumber(min, 1);
+    max = fmtNumber(max, 1);
+    return Intl.message("gut (${min} bis ${max})", args: [min, max], name: "msgGVIGood");
+  }
+
+  msgGVIBad(max)
+  {
+    max = fmtNumber(max, 1);
+    return Intl.message("schlecht (grösser ${max})", args: [max], name: "msgGVIBad");
+  }
+
+  String gviQuality(gvi)
+  {
+    if (gvi < 1.0)return msgGVINone(1.0);
+    else if (gvi <= 1.2)return msgGVIVeryGood(1.0, 1.2);
+    else if (gvi <= 1.5)return msgGVIGood(1.2, 1.5);
+
+    return msgGVIBad(1.5);
+  }
+
+  msgPGSVeryGood(min)
+  {
+    min = fmtNumber(min);
+    return Intl.message("exzellent (kleiner ${min})", args: [min], name: "msgPGSVeryGood");
+  }
+
+  msgPGSGood(min, max)
+  {
+    min = fmtNumber(min);
+    max = fmtNumber(max);
+    return Intl.message("gut (${min} bis ${max})", args: [min, max], name: "msgPGSGood");
+  }
+
+  msgPGSBad(min, max)
+  {
+    min = fmtNumber(min);
+    max = fmtNumber(max);
+    return Intl.message("schlecht (${min} bis ${max})", args: [min, max], name: "msgPGSBad");
+  }
+
+  msgPGSVeryBad(max)
+  {
+    max = fmtNumber(max);
+    return Intl.message("sehr schlecht (grösser ${max})", args: [max], name: "msgPGSVeryBad");
+  }
+
+  String pgsQuality(pgs)
+  {
+    if (pgs < 35.0)return msgPGSVeryGood(35);
+    else if (pgs <= 100.0)return msgPGSGood(35, 100);
+    else if (pgs <= 150.0)return msgPGSBad(100, 150);
+    return msgPGSVeryBad(150);
+  }
+
 
   String titleInfoForDates(DateTime startDate, DateTime endDate)
   {
@@ -534,16 +633,23 @@ abstract class BasePrint
     }
     stack.add({
       "relativePosition": {"x": cm(2.2), "y": cm(1.0)},
-      "text": title,
-      "fontSize": fs(36),
-      "color": colText,
-      "bold": true
+      "columns": [
+        {"width": "auto", "text": title, "fontSize": fs(36), "color": colText, "bold": true},
+        {
+          "width": "auto",
+          "text": subtitle,
+          "fontSize": fs(12),
+          "color": colSubTitle,
+          "bold": true,
+          "margin": [cm(0.5), cm(0.78), 0, 0]
+        }
+      ]
     });
     if (!g.hideNightscoutInPDF)stack.add({
       "relativePosition": {"x": cm(2.2), "y": cm(2.5)},
       "text": "nightscout reporter ${g.version}",
       "fontSize": fs(8),
-      "color": "#a0a0a0",
+      "color": colSubTitle,
     });
     stack.add({
       "relativePosition": {"x": cm(2.2), "y": cm(2.4)},
@@ -654,8 +760,8 @@ abstract class BasePrint
   {
     String beg = "${fmtDate(begDate)}, ${fmtTime(begDate, withUnit: true)}";
     String end = "${fmtDate(endDate)}, ${fmtTime(endDate, withUnit: true)}";
-    if (begDate == endDate)return "${beg}";
-    return "${beg} ${msgUntil} ${end}";
+    if (endDate == null)return msgValidFrom(beg);
+    return msgValidRange(beg, end);
   }
 
   prepareData_(ReportData data);
@@ -712,7 +818,7 @@ abstract class BasePrint
     _fileSize += json
       .encode(page)
       .length;
-    if (_fileSize > g.pdfCreationMaxSize)
+    if (g.pdfCreationMaxSize != Globals.PDFUNLIMITED && _fileSize > g.pdfCreationMaxSize)
     {
       ret["pageBreak"] = "newFile";
       _fileSize = 0;
@@ -848,13 +954,6 @@ abstract class BasePrint
 
   void fillPages(ReportData src, List<List<dynamic>> pages);
 
-  double Num(var text)
-  {
-    if (!(text is String))return text;
-
-    return num.tryParse(text.toString().replaceAll(",", "."));
-  }
-
   double mm(pt)
   {
     return pt / 0.35277;
@@ -948,10 +1047,8 @@ abstract class BasePrint
 
     if (date is DateTime)
     {
-      String ret = "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year} ${(date
-                                                                                                                      .hour < 10
-        ? "0"
-        : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute}";
+      String ret = "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date
+        .year} ${(date.hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute}";
       return msgTimeOfDay24(ret);
     }
 
@@ -971,9 +1068,9 @@ abstract class BasePrint
       else if (date is DateTime)dt = date;
       else if (date is String && date.length >= 8)
       {
-        int y = int.tryParse(date.substring(6, 8));
-        int m = int.tryParse(date.substring(4, 6));
-        int d = int.tryParse(date.substring(0, 4));
+        int y = int.tryParse(date.substring(6, 8)) ?? 0;
+        int m = int.tryParse(date.substring(4, 6)) ?? 1;
+        int d = int.tryParse(date.substring(0, 4)) ?? 1;
         dt = DateTime(y, m, d);
       }
     }
@@ -994,12 +1091,12 @@ abstract class BasePrint
   {
     if (from.length == 7)from = from.substring(1);
     if (to.length == 7)to = to.substring(1);
-    var rf = int.tryParse(from.substring(0, 2), radix: 16);
-    var gf = int.tryParse(from.substring(2, 4), radix: 16);
-    var bf = int.tryParse(from.substring(4, 6), radix: 16);
-    var rt = int.tryParse(to.substring(0, 2), radix: 16);
-    var gt = int.tryParse(to.substring(2, 4), radix: 16);
-    var bt = int.tryParse(to.substring(4, 6), radix: 16);
+    var rf = int.tryParse(from.substring(0, 2) ?? 0, radix: 16);
+    var gf = int.tryParse(from.substring(2, 4) ?? 0, radix: 16);
+    var bf = int.tryParse(from.substring(4, 6) ?? 0, radix: 16);
+    var rt = int.tryParse(to.substring(0, 2) ?? 0, radix: 16);
+    var gt = int.tryParse(to.substring(2, 4) ?? 0, radix: 16);
+    var bt = int.tryParse(to.substring(4, 6) ?? 0, radix: 16);
 
     var r = (rf + (rt - rf) * factor).floor();
     var g = (gf + (gt - gf) * factor).floor();
@@ -1028,7 +1125,7 @@ abstract class BasePrint
 
   String glucFromData(var gluc, [precision = null])
   {
-    if (gluc is String)gluc = double.tryParse(gluc);
+    if (gluc is String)gluc = double.tryParse(gluc) ?? 0;
     if (!(gluc is num) || gluc == 0)return "";
 
     if (!g.glucMGDL)return fmtNumber(gluc / 18.02, precision == null ? 1 : precision);

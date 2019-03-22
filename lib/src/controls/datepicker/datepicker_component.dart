@@ -69,9 +69,9 @@ class DatepickerPeriod
     Date ret = null;
     if (date != null && date.length == 8)
     {
-      int y = int.tryParse(date.substring(0, 4));
-      int m = int.tryParse(date.substring(4, 6));
-      int d = int.tryParse(date.substring(6, 8));
+      int y = int.tryParse(date.substring(0, 4)) ?? 0;
+      int m = int.tryParse(date.substring(4, 6)) ?? 1;
+      int d = int.tryParse(date.substring(6, 8)) ?? 1;
       ret = Date(y, m, d);
     }
 
@@ -92,7 +92,7 @@ class DatepickerPeriod
         start = parse(parts[0]);
         end = parse(parts[1]);
         entryKey = parts[2] == "" || parts[2] == "null" ? null : parts[2];
-        firstDayOfWeek = int.tryParse(parts[3]);
+        firstDayOfWeek = int.tryParse(parts[3]) ?? 0;
       }
     }
     catch (ex)

@@ -18,7 +18,7 @@ typedef MessageIfAbsent(String message_str, List args);
 class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'es_ES';
 
-  static m0(startTag0, endTag0) => "La posibilidad de funciones beta ha sido borrada; la versión beta se encuentra ahora en ${startTag0}https://nightscout-reporter-zreptil.de/beta${endTag0}";
+  static m0(startTag0, endTag0) => "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter ${startTag0}https://nightscout-reporter.zreptil.de/beta${endTag0} zu finden";
 
   static m1(value) => "Perfil basal diario (${value})";
 
@@ -30,55 +30,85 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m5(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt}dias por catéter)', other: '(${txt} dias por catéter)')}";
 
-  static m6(url) => "Compruebe el acceso a ${url}...";
+  static m6(name, from, to) => "${name} cambiado de ${from} a ${to}";
 
-  static m7(value) => "${value} dias";
+  static m7(url) => "Compruebe el acceso a ${url}...";
 
-  static m8(beg, end) => "${beg} - ${end}";
+  static m8(value) => "(${value} valores)";
 
-  static m9(value) => "Alto${value}";
+  static m9(value) => "${value} dias";
 
-  static m10(unit) => "Factores sensibilidad insulina (ISF)\n1 Ui baja la glucosa por X ${unit}";
+  static m10(beg, end) => "${beg} - ${end}";
 
-  static m11(value) => "${value} g";
+  static m11(max) => "malo (mayor a ${max})";
 
-  static m12(value) => "g HC (${value} unidades HC)";
+  static m12(min, max) => "bueno (${min} a ${max})";
 
-  static m13(value) => "Insulina en total (${value})";
+  static m13(min) => "no disponible (menor a ${min})";
 
-  static m14(error, stacktrace) => "Error al cargar los datos: \n${error}\n${stacktrace}";
+  static m14(min, max) => "muy bueno (${min} a ${max})";
 
-  static m15(date) => "Cargando datos para ${date}...";
+  static m15(value) => "Alto${value}";
 
-  static m16(value) => "Bajo${value}";
+  static m16(unit) => "Factores sensibilidad insulina (ISF)\n1 Ui baja la glucosa por X ${unit}";
 
-  static m17(howMany, fmt) => "${Intl.plural(howMany, zero: 'no hay datos', one: '1 medicion por minuto', other: 'medición cada ${fmt}minutos')}";
+  static m17(value) => "${value} g";
 
-  static m18(howMany, fmt) => "${Intl.plural(howMany, zero: 'no hay datos', one: '1 medicion diaria', other: '${fmt} mediciones diarias')}";
+  static m18(value) => "g HC (${value} unidades HC)";
 
-  static m19(howMany, fmt) => "${Intl.plural(howMany, zero: 'no hay datos', one: '1 medicion por hora', other: '${fmt} mediciones por hora')}";
+  static m19(value) => "Insulina en total (${value})";
 
-  static m20(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt}dias por ampolla)', other: '(${txt} dias por ampolla)')}";
+  static m20(error, stacktrace) => "Error al cargar los datos: \n${error}\n${stacktrace}";
 
-  static m21(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt}dias por sensor)', other: '(${txt} dias por sensor)')}";
+  static m21(date) => "Cargando datos para ${date}...";
 
-  static m22(unit) => "Objectvo de glucosa\n${unit}";
+  static m22(value) => "Bajo${value}";
 
-  static m23(min, max, units) => "Rango objetivo (${min} - ${max} ${units})";
+  static m23(min, max) => "malo (${min} a ${max})";
 
-  static m24(value) => "Objectivo";
+  static m24(min, max) => "bueno (${min} a ${max})";
 
-  static m25(begDate) => "valido a partir de ${begDate}";
+  static m25(max) => "muy malo (mayor a ${max})";
 
-  static m26(begDate, endDate) => "valido de ${begDate} a ${endDate}";
+  static m26(min) => "excelente (menos de ${min})";
 
-  static m27(endDate) => "valido hasta ${endDate}";
+  static m27(oldName, newName) => "Cambio de perfil - ${oldName} => ${newName}";
 
-  static m28(high) => "Valores superior a ${high}";
+  static m28(howMany, fmt) => "${Intl.plural(howMany, zero: 'no hay datos', one: '1 medicion por minuto', other: 'medición cada ${fmt}minutos')}";
 
-  static m29(low) => "Valores bajo ${low}";
+  static m29(howMany, fmt) => "${Intl.plural(howMany, zero: 'no hay datos', one: '1 medicion diaria', other: '${fmt} mediciones diarias')}";
 
-  static m30(low, high) => "Valores entre ${low} y ${high}";
+  static m30(howMany, fmt) => "${Intl.plural(howMany, zero: 'no hay datos', one: '1 medicion por hora', other: '${fmt} mediciones por hora')}";
+
+  static m31(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt}dias por ampolla)', other: '(${txt} dias por ampolla)')}";
+
+  static m32(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt}dias por sensor)', other: '(${txt} dias por sensor)')}";
+
+  static m33(value) => "(dev estándar ${value})";
+
+  static m34(unit) => "Objectvo de glucosa\n${unit}";
+
+  static m35(min, max, units) => "Rango objetivo (${min} - ${max} ${units})";
+
+  static m36(value) => "Objectivo";
+
+  static m37(time) => "${time} hora";
+
+  static m38(time) => "${time} am";
+
+  static m39(time) => "${time} pm";
+
+  static m40(begDate) => "valido a partir de ${begDate}";
+
+  static m41(begDate, endDate) => "valido de ${begDate} a ${endDate}";
+
+  static m42(endDate) => "valido hasta ${endDate}";
+
+  static m43(high) => "Valores superior a ${high}";
+
+  static m44(low) => "Valores bajo ${low}";
+
+  static m45(low, high) => "Valores entre ${low} y ${high}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -95,7 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "1.2.2 - 24.01.2019" : MessageLookupByLibrary.simpleMessage("1.2.2 24.01.2019"),
     "1.2.3 - 04.02.2019" : MessageLookupByLibrary.simpleMessage("1.2.3-04.02.2019"),
     "1.2.4 - 12.02.2019" : MessageLookupByLibrary.simpleMessage("1.2.4 - 12.02.2019"),
-    "1.2.5 - xx.02.2019" : MessageLookupByLibrary.simpleMessage("1.2.5 - xx. 02.2019"),
+    "1.2.5 - xx.03.2019" : MessageLookupByLibrary.simpleMessage("1.2.5 - xx.03.2019"),
     "10% - 90% der Werte" : MessageLookupByLibrary.simpleMessage("10% - 90% de los valores"),
     "25%" : MessageLookupByLibrary.simpleMessage("25%"),
     "25% - 75% der Werte" : MessageLookupByLibrary.simpleMessage("25% -75% de los valores"),
@@ -109,6 +139,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Anzahl Messungen" : MessageLookupByLibrary.simpleMessage("Número de mediciones"),
     "Anzahl Sensoren" : MessageLookupByLibrary.simpleMessage("Número de sensores"),
     "Anzahl der Sensoren zur Analyse hinzugefügt" : MessageLookupByLibrary.simpleMessage("Añadido numero de sensores al analisis"),
+    "Auf der Analyseseite kann statt der Anzahl der Werte bei den Zielbereichen jetzt die Standardabweichung der Werte im Zielbereich angezeigt werden." : MessageLookupByLibrary.simpleMessage("En la página del análisis se puede mostrar la desviación estándar de los valores en rango en lugar del número de valores."),
+    "Auf der Analyseseite werden nun auch GVI und PGS ausgegeben." : MessageLookupByLibrary.simpleMessage("En la página de análisis, ahora también se muestran GVI y PGS."),
+    "Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt." : MessageLookupByLibrary.simpleMessage("Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt."),
     "Aufsummierte Werte" : MessageLookupByLibrary.simpleMessage("Datos acumulados"),
     "Ausgewertete Tage" : MessageLookupByLibrary.simpleMessage("Días evaluados"),
     "Auswertung" : MessageLookupByLibrary.simpleMessage("Análisis"),
@@ -129,6 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Bestätigung" : MessageLookupByLibrary.simpleMessage("Confirmación"),
     "Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt" : MessageLookupByLibrary.simpleMessage("Añadido sumas en la estatistica diaria"),
     "Bitte einen Zeitraum wählen." : MessageLookupByLibrary.simpleMessage("Por favor elige periodo."),
+    "Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt." : MessageLookupByLibrary.simpleMessage("Valores sanguíneos se muestran ahora correctamente en mmol/L en los gráficos."),
     "Bolus" : MessageLookupByLibrary.simpleMessage("Bolus"),
     "Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr." : MessageLookupByLibrary.simpleMessage("Pinchando area de mensajes ya no lo cierra."),
     "Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird." : MessageLookupByLibrary.simpleMessage("El control para insertar el periodo se ha ajustado para que se muestre correctamente en pantalla estrecha."),
@@ -166,7 +200,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird" : MessageLookupByLibrary.simpleMessage("Borrada la posibilidad den mostrar la URL en el título; aqui ahora se ve el usario actual o su URL"),
     "Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle." : MessageLookupByLibrary.simpleMessage("La colocación de las notas en el gráfico diario se ha corregido para que estén más cerca de la hora. Las lineas han sido reducidas para que solamente lleguen hasta la parte inferior del gráfico y no la tabla de valor."),
     "Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen." : MessageLookupByLibrary.simpleMessage("La página de perfil se ha adaptado para que se muestren los datos de 24 horas en una sola página."),
-    "Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach den Button für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll." : MessageLookupByLibrary.simpleMessage("Ahora se puede cambiar el orden en que se muestran los informes. Para esto, mantener pulsado el botón del informe, y tire hacia el lugar deseado antes de ser imprimido."),
+    "Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach das Handle auf der linken Seite des Buttons für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll." : MessageLookupByLibrary.simpleMessage("Ahora se puede cambiar el orden en que se muestran los informes. Para esto, mantener pulsado el botón del informe, y tirar hacia el lugar deseado antes de ser imprimido."),
+    "Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt." : MessageLookupByLibrary.simpleMessage("Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt."),
     "Die Tagesstatistik zeigt mmol/l-Werte nun korrekt an" : MessageLookupByLibrary.simpleMessage("La estatistica diaria ahora muestra valores mmol/l correctamente"),
     "Die URL wurde noch nicht festgelegt" : MessageLookupByLibrary.simpleMessage("La URL aún no ha sido determinada"),
     "Die URL wurde noch nicht festgelegt." : MessageLookupByLibrary.simpleMessage("La URL aún no ha sido determinada."),
@@ -208,6 +243,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Glukose zu hoch" : MessageLookupByLibrary.simpleMessage("Golucosa muy alta"),
     "Glukose zu niedrig" : MessageLookupByLibrary.simpleMessage("Glucosa demasiada baja"),
     "Glukosekurve" : MessageLookupByLibrary.simpleMessage("Curva glucosa"),
+    "Glykämischer Variabilitäts Index (GVI)" : MessageLookupByLibrary.simpleMessage("Índice de variabilidad glucémica (GVI)"),
     "Gross" : MessageLookupByLibrary.simpleMessage("Grande"),
     "Heute" : MessageLookupByLibrary.simpleMessage("Hoy"),
     "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden" : MessageLookupByLibrary.simpleMessage("Esconder notas sobre Nightscout en el encabezado y el pie del PDF"),
@@ -238,12 +274,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "Info-Linien bis zur Kurve zeichnen" : MessageLookupByLibrary.simpleMessage("Conectar lineas de información a la curva"),
     "Initiale Version, alles ist neu!" : MessageLookupByLibrary.simpleMessage("Versión inicial, todo es nuevo!"),
     "Insulin" : MessageLookupByLibrary.simpleMessage("Insulina"),
+    "Insulin Kohlenhydrate Verhältnis (ICR)" : MessageLookupByLibrary.simpleMessage("Proporción de hidratos de carbono insulina (ICR)"),
     "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE" : MessageLookupByLibrary.simpleMessage("Relación insulina carbohidratos (ICR)\nX gr carbohidratos para 1 UI"),
+    "Insulin Sensitivitäts Faktoren (ISF)" : MessageLookupByLibrary.simpleMessage("Factores de sensibilidad de insulina (ISF)"),
     "Ja" : MessageLookupByLibrary.simpleMessage("Sí"),
     "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember" : MessageLookupByLibrary.simpleMessage("Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre"),
     "Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez" : MessageLookupByLibrary.simpleMessage("Ene|Feb|Mar|Abr|May|Jun|Jul|Ago|Sep|Oct|Nov|Dic"),
     "Katheterwechsel" : MessageLookupByLibrary.simpleMessage("Cambio de catéter"),
     "Keine" : MessageLookupByLibrary.simpleMessage("Ninguna"),
+    "Keine Änderung" : MessageLookupByLibrary.simpleMessage("Sin cambio"),
     "Klein" : MessageLookupByLibrary.simpleMessage("Pequeño"),
     "Kohlenhydrate" : MessageLookupByLibrary.simpleMessage("Carbohidratos"),
     "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt" : MessageLookupByLibrary.simpleMessage("Carbohidratos y insulina bolo son mostradas en los graficos diarios"),
@@ -285,10 +324,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "PDF für Profildaten" : MessageLookupByLibrary.simpleMessage("PDF para los datos del perfil"),
     "PDF herunterladen (bei einigen Browsern benötigt)" : MessageLookupByLibrary.simpleMessage("Descargar PDF (necesario para algunos navegadores)"),
     "PDF im selben Fenster öffnen" : MessageLookupByLibrary.simpleMessage("Abrir PDF en la misma ventana"),
+    "Patient Glykämischer Status (PGS)" : MessageLookupByLibrary.simpleMessage("Estado glucémico paciente (PGS)"),
     "Problem auf GitHub melden" : MessageLookupByLibrary.simpleMessage("Comunicar el problema en GitHub"),
     "Profil" : MessageLookupByLibrary.simpleMessage("Perfil"),
     "Profil-Basalrate" : MessageLookupByLibrary.simpleMessage("Perfil basal"),
     "Profileinstellungen" : MessageLookupByLibrary.simpleMessage("Configuraciónes de perfil"),
+    "Profilwechsel" : MessageLookupByLibrary.simpleMessage("Cambio de perfil"),
     "Protokoll" : MessageLookupByLibrary.simpleMessage("Protocolo"),
     "Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse." : MessageLookupByLibrary.simpleMessage("Cambio del orden de las páginas PDF - tabla de percentil ahora viene después del análisis."),
     "Reservoirwechsel" : MessageLookupByLibrary.simpleMessage("Cambio deposito"),
@@ -307,6 +348,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Spalten Perzentile" : MessageLookupByLibrary.simpleMessage("Columna percentiles"),
     "Spaltenbreite der Informationen in der Analyse erhöht" : MessageLookupByLibrary.simpleMessage("Ampliado columna de información en la pagina analisis"),
     "Speichern" : MessageLookupByLibrary.simpleMessage("Guardar"),
+    "Standardabweichung" : MessageLookupByLibrary.simpleMessage("Standardabweichung"),
+    "Standardabweichung statt Anzahl" : MessageLookupByLibrary.simpleMessage("Desviación estándar en lugar de número"),
     "Standardgrenzwerte" : MessageLookupByLibrary.simpleMessage("Límites estándar"),
     "Std.\nAbw." : MessageLookupByLibrary.simpleMessage("h\ndesv."),
     "Stunden" : MessageLookupByLibrary.simpleMessage("Horas"),
@@ -328,6 +371,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht" : MessageLookupByLibrary.simpleMessage("Información título estandardizado para intervalos de fechas en los archivos PDF"),
     "Uhr-\nzeit" : MessageLookupByLibrary.simpleMessage("Hora"),
     "Uhrzeit" : MessageLookupByLibrary.simpleMessage("Hora"),
+    "Unbegrenzt" : MessageLookupByLibrary.simpleMessage("Sin límite"),
     "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)" : MessageLookupByLibrary.simpleMessage("URL Nightscout API (https://xxx.herokuapp.com)"),
     "User-Token" : MessageLookupByLibrary.simpleMessage("Token de usuario"),
     "VarK\nin %" : MessageLookupByLibrary.simpleMessage("VarK\nin %"),
@@ -338,7 +382,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version" : MessageLookupByLibrary.simpleMessage("Versión"),
     "Verteilung" : MessageLookupByLibrary.simpleMessage("Distribuición"),
     "Vier Grafiken pro Seite" : MessageLookupByLibrary.simpleMessage("Cuatro graficos por página"),
-    "ViewWhatsnewComponent0__message_73" : m0,
+    "ViewWhatsnewComponent0__message_78" : m0,
     "Von" : MessageLookupByLibrary.simpleMessage("De"),
     "Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?" : MessageLookupByLibrary.simpleMessage("¿Por qué me molestan varios botones en lugar de obtener un PDF único?"),
     "Was bisher geschah..." : MessageLookupByLibrary.simpleMessage("Lo que sucedió hasta ahora..."),
@@ -356,6 +400,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Zeitraum" : MessageLookupByLibrary.simpleMessage("Periodo"),
     "Zeitraum festlegen" : MessageLookupByLibrary.simpleMessage("Determinar periodo"),
     "Zeitzone" : MessageLookupByLibrary.simpleMessage("Zona horaria"),
+    "Zielbereich" : MessageLookupByLibrary.simpleMessage("Rango Objetivo"),
     "Zielbereich mit Nachkommastellen" : MessageLookupByLibrary.simpleMessage("Objectivo con décimas"),
     "Zusatzfunktionen" : MessageLookupByLibrary.simpleMessage("Funciones adicionales"),
     "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt" : MessageLookupByLibrary.simpleMessage("Añadido información adicional sobre los documentos PDF y en Ui"),
@@ -364,38 +409,51 @@ class MessageLookup extends MessageLookupByLibrary {
     "dd.MM.yyyy" : MessageLookupByLibrary.simpleMessage("dd/MM/yyyy"),
     "g / Stunde" : MessageLookupByLibrary.simpleMessage("gr / hora"),
     "gesch. HbA1c" : MessageLookupByLibrary.simpleMessage("hbA1c estim."),
-    "msgBE" : MessageLookupByLibrary.simpleMessage("msgUHC"),
     "msgBasalrateDay" : m1,
     "msgBasalrateProfile" : m2,
     "msgBolusInsulin" : m3,
     "msgCarbs" : m4,
     "msgCatheterDays" : m5,
-    "msgCheckUser" : m6,
-    "msgDaySum" : m7,
-    "msgFactorEntry" : m8,
-    "msgHigh" : m9,
-    "msgISF" : m10,
-    "msgKE" : MessageLookupByLibrary.simpleMessage("msgHC"),
-    "msgKH" : m11,
-    "msgKHBE" : m12,
-    "msgLegendTDD" : m13,
-    "msgLoadingData" : m14,
-    "msgLoadingDataFor" : m15,
-    "msgLow" : m16,
-    "msgReadingsInMinutes" : m17,
-    "msgReadingsPerDay" : m18,
-    "msgReadingsPerHour" : m19,
-    "msgReservoirDays" : m20,
-    "msgSensorDays" : m21,
-    "msgTarget" : m22,
-    "msgTargetArea" : m23,
-    "msgTargetValue" : m24,
-    "msgValidFrom" : m25,
-    "msgValidRange" : m26,
-    "msgValidTo" : m27,
-    "msgValuesAbove" : m28,
-    "msgValuesBelow" : m29,
-    "msgValuesIn" : m30,
+    "msgChangedEntry" : m6,
+    "msgCheckUser" : m7,
+    "msgCount" : m8,
+    "msgDaySum" : m9,
+    "msgFactorEntry" : m10,
+    "msgGVIBad" : m11,
+    "msgGVIGood" : m12,
+    "msgGVINone" : m13,
+    "msgGVIVeryGood" : m14,
+    "msgHigh" : m15,
+    "msgISF" : m16,
+    "msgKH" : m17,
+    "msgKHBE" : m18,
+    "msgLegendTDD" : m19,
+    "msgLoadingData" : m20,
+    "msgLoadingDataFor" : m21,
+    "msgLow" : m22,
+    "msgPGSBad" : m23,
+    "msgPGSGood" : m24,
+    "msgPGSVeryBad" : m25,
+    "msgPGSVeryGood" : m26,
+    "msgProfileSwitch" : m27,
+    "msgReadingsInMinutes" : m28,
+    "msgReadingsPerDay" : m29,
+    "msgReadingsPerHour" : m30,
+    "msgReservoirDays" : m31,
+    "msgSensorDays" : m32,
+    "msgStdAbw" : m33,
+    "msgTarget" : m34,
+    "msgTargetArea" : m35,
+    "msgTargetValue" : m36,
+    "msgTimeOfDay24" : m37,
+    "msgTimeOfDayAM" : m38,
+    "msgTimeOfDayPM" : m39,
+    "msgValidFrom" : m40,
+    "msgValidRange" : m41,
+    "msgValidTo" : m42,
+    "msgValuesAbove" : m43,
+    "msgValuesBelow" : m44,
+    "msgValuesIn" : m45,
     "ok" : MessageLookupByLibrary.simpleMessage("ok"),
     "umgekehrte Sortierung" : MessageLookupByLibrary.simpleMessage("orden inverso"),
     "verwerfen" : MessageLookupByLibrary.simpleMessage("descartar"),

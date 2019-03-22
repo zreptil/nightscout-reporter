@@ -80,8 +80,9 @@
         <div class="pdfSlider">
           <div @i18n="small">Klein</div>
           <material-slider class="maxsize" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
-                           [max]="40"></material-slider>
-          <div @i18n="big">Gross</div>
+                           [max]="pdfSliderMax"></material-slider>
+          <div *ngIf="g.pdfControlMaxSize < pdfSliderMax" @i18n="big">Gross</div>
+          <div *ngIf="g.pdfControlMaxSize >= pdfSliderMax" @i18n="big">Unbegrenzt</div>
         </div>
         <material-button *ngIf="g.isBeta" class="iconButton" raised (trigger)="g.copyFromOtherStorage()">
           <material-icon icon="file_copy"></material-icon>

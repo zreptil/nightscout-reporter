@@ -159,6 +159,10 @@ material-drawer {
       align-items: center;
       margin-left: 1em;
 
+      > div{
+        width: 5%;
+      }
+
       material-slider {
         width: 100%;
         margin-left: 2em;
@@ -412,6 +416,7 @@ material-expansionpanel {
 
   ::ng-deep .header {
     border: 2px solid transparent;
+    padding-left: 0;
   }
 
   ::ng-deep div[aria-expanded="true"] {
@@ -422,6 +427,19 @@ material-expansionpanel {
       background-color: transparent;
     }
   }
+
+  [name] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+
+    > material-icon {
+      padding-left: 0.2em;
+      padding-right: 0.3em;
+      color: rgba(0, 0, 0, 0.2);
+    }
+  }
 }
 
 material-expansionpanel.checked {
@@ -430,11 +448,22 @@ material-expansionpanel.checked {
     border-radius: 0.5em;
     font-weight: bold;
   }
+
+  [name] {
+    > material-icon {
+      color: $primary_color;
+    }
+  }
 }
 
 material-expansionpanel.is-local.checked {
   ::ng-deep .header {
     border-color: $local_fore !important;
+  }
+  [name] {
+    > material-icon {
+      color: $local_fore;
+    }
   }
 }
 
@@ -467,6 +496,11 @@ material-expansionpanel.is-local {
 material-expansionpanel.is-debug.checked {
   border-color: $debug_fore !important;
   border-radius: 0.5em;
+  [name] {
+    > material-icon {
+      color: $debug_fore;
+    }
+  }
 }
 
 material-expansionpanel.is-debug {

@@ -3,6 +3,7 @@ library diamant.jsonData;
 import 'dart:math' as math;
 
 import 'package:angular_components/angular_components.dart';
+import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:timezone/browser.dart' as tz;
 
@@ -18,6 +19,7 @@ class JsonData
 
   static DateTime toTime(String value)
   {
+    if (value == null)return DateTime(0, 1, 1);
     int hour = 0;
     int minute = 0;
     int second = 0;
@@ -251,8 +253,8 @@ class StatusData extends JsonData
 class ProfileGlucData
 {
   DateTime day;
-  double targetLow;
-  double targetHigh;
+  double targetLow = 70;
+  double targetHigh = 180;
   ProfileEntryData sens;
   ProfileEntryData carbRatio;
   ProfileEntryData basal;
@@ -396,11 +398,12 @@ class ProfileEntryData extends JsonData
     return ret;
   }
 
-  factory ProfileEntryData.fromJson(Map<String, dynamic> json, ProfileTimezone timezone){
+  factory ProfileEntryData.fromJson(Map<String, dynamic> json, ProfileTimezone timezone, [double percentage = 1.0]){
     ProfileEntryData ret = ProfileEntryData(timezone);
     if (json == null)return ret;
     ret._time = JsonData.toTime(json["time"]);
     ret.value = JsonData.toDouble(json["value"]);
+    if (ret.value != null)ret.value *= percentage;
     ret.timeAsSeconds = JsonData.toInt(json["timeAsSeconds"]);
     return ret;
   }
@@ -408,6 +411,7 @@ class ProfileEntryData extends JsonData
 
 class ProfileStoreData extends JsonData
 {
+  String name;
   double dia;
   List<ProfileEntryData> listCarbratio = List<ProfileEntryData>();
   int carbsHr;
@@ -428,13 +432,36 @@ class ProfileStoreData extends JsonData
     return ret;
   }
 
-  ProfileStoreData()
+  ProfileStoreData get copy
   {
+    ProfileStoreData ret = ProfileStoreData(name)
+      .. dia = dia
+      .. carbsHr = carbsHr
+      ..delay = delay
+      ..startDate = startDate
+      ..maxPrecision = maxPrecision
+      ..timezone = timezone
+      ..units = units;
+    ret.listBasal = List<ProfileEntryData>();
+    for (ProfileEntryData entry in listBasal)
+      ret.listBasal.add(entry.copy);
+    ret.listCarbratio = List<ProfileEntryData>();
+    for (ProfileEntryData entry in listCarbratio)
+      ret.listCarbratio.add(entry.copy);
+    ret.listSens = List<ProfileEntryData>();
+    for (ProfileEntryData entry in listSens)
+      ret.listSens.add(entry.copy);
+    return ret;
+  }
+
+  ProfileStoreData(String name)
+  {
+    this.name = name;
     timezone = ProfileTimezone(Globals.refTimezone);
   }
 
-  factory ProfileStoreData.fromJson(Map<String, dynamic> json){
-    ProfileStoreData ret = ProfileStoreData();
+  factory ProfileStoreData.fromJson(String name, Map<String, dynamic> json, double percentage){
+    ProfileStoreData ret = ProfileStoreData(name);
     if (json == null)return ret;
     ret.dia = JsonData.toDouble(json["dia"]);
     ret.carbsHr = JsonData.toInt(json["carbs_hr"]);
@@ -456,7 +483,7 @@ class ProfileStoreData extends JsonData
     ret.maxPrecision = 0;
     for (dynamic entry in json["basal"])
     {
-      ret.listBasal.add(ProfileEntryData.fromJson(entry, ret.timezone));
+      ret.listBasal.add(ProfileEntryData.fromJson(entry, ret.timezone, percentage));
       ret.maxPrecision = math.max(ret.maxPrecision, Globals.decimalPlaces(ret.listBasal.last.value));
     }
     for (dynamic entry in json["target_low"])
@@ -472,17 +499,37 @@ class ProfileData extends JsonData
   dynamic raw;
   String id;
   String defaultProfile;
-
-  ProfileStoreData get current
-  => store[defaultProfile];
-
+  int duration;
   Map<String, ProfileStoreData> store = Map<String, ProfileStoreData>();
   DateTime startDate;
-  int get mills
-  => startDate.millisecondsSinceEpoch ?? 0;
   String units;
   DateTime createdAt;
   int maxPrecision = 0;
+
+  ProfileData get copy
+  {
+    ProfileData ret = ProfileData()
+      .. raw = raw
+      .. duration = duration
+      .. id = id
+      .. defaultProfile = defaultProfile
+      .. startDate = startDate
+      .. units = units
+      .. createdAt = createdAt
+      .. maxPrecision = maxPrecision;
+
+    ret.store = Map<String, ProfileStoreData>();
+    for (String key in store.keys)
+      ret.store[key] = store[key].copy;
+
+    return ret;
+  }
+
+  int get mills
+  => startDate.millisecondsSinceEpoch ?? 0;
+
+  ProfileStoreData get current
+  => store[defaultProfile];
 
   ProfileData();
 
@@ -495,6 +542,7 @@ class ProfileData extends JsonData
     ret.startDate = JsonData.toDate(json["startDate"]);
     ret.units = JsonData.toText(json["units"]);
     ret.createdAt = JsonData.toDate(json["created_at"]);
+    ret.duration = JsonData.toInt(json["duration"]);
     Map<String, dynamic> src = json["store"];
     ret.maxPrecision = 0;
     for (String key in src.keys)
@@ -503,7 +551,11 @@ class ProfileData extends JsonData
       => e.key == key);
       if (temp != null)
       {
-        ret.store[key] = ProfileStoreData.fromJson(temp.value);
+        double percentage = JsonData.toDouble(json["percentage"]);
+        if (percentage == null || percentage == 0.0)percentage = 1.0;
+        else
+          percentage /= 100.0;
+        ret.store[key] = ProfileStoreData.fromJson(key, temp.value, percentage);
         ret.maxPrecision = math.max(ret.maxPrecision, ret.store[key].maxPrecision);
       }
     }
@@ -608,8 +660,7 @@ class BoluscalcData extends JsonData
     ret.insulinSuperBolus = JsonData.toDouble(json["insulinsuperbolus"]);
     ret.insulinTrend = JsonData.toDouble(json["insulintrend"]);
     ret.insulin = JsonData.toDouble(json["insulin"]);
-    if(ret.insulin == 0.0)
-      ret.insulin = JsonData.toDouble(json["enteredinsulin"]);
+    if (ret.insulin == 0.0)ret.insulin = JsonData.toDouble(json["enteredinsulin"]);
     ret.superBolusUsed = JsonData.toBool(json["superbolusused"]);
     ret.trendUsed = JsonData.toBool(json["trendused"]);
     ret.trend = json["trend"];
@@ -810,6 +861,11 @@ class EntryData extends JsonData
     return isGap ? -1 : (type == "sgv" ? sgv : rawbg) ?? 0;
   }
 
+  double get bloodGluc
+  {
+    return isGap ? -1 : (type == "mbg" ? mbg : 0) ?? 0;
+  }
+
   double get fullGluc
   {
     return isGap ? -1 : (type == "mbg" ? mbg : gluc) ?? 0;
@@ -870,10 +926,15 @@ class DayData
   double max;
   double mid;
   double varianz = 0.0;
-  double get stdAbw
-  => math.sqrt(varianz);
+  double stdAbw(bool isMGDL)
+  {
+    double ret = math.sqrt(varianz);
+    if(!isMGDL)
+      ret = ret / 18.02;
+    return ret;
+  }
   double get varK
-  => (mid ?? 0) != 0 ? stdAbw / mid * 100 : 0;
+  => (mid ?? 0) != 0 ? stdAbw(true) / mid * 100 : 0;
   double get lowPrz
   => entryCount == 0 ? 0 : lowCount / entryCount * 100;
   double get normPrz
@@ -1040,7 +1101,6 @@ class DayData
     normCount = 0;
     highCount = 0;
     lowCount = 0;
-    int midCount = 0;
     for (EntryData entry in entries)
     {
       if (entry.gluc != 0)
@@ -1050,18 +1110,20 @@ class DayData
         else if (entry.gluc > basalData.targetHigh)highCount++;
         else
           normCount++;
-        midCount++;
         mid += entry.gluc;
         min = math.min(min, entry.gluc);
         max = math.max(max, entry.gluc);
       }
     }
-    mid = midCount == 0 ? 0 : mid / midCount;
+
+    mid = entryCount == 0 ? 0 : mid / entryCount;
     varianz = 0.0;
     for (EntryData entry in entries)
     {
-      if (entry.gluc != 0)varianz += ((entry.gluc - mid) * (entry.gluc - mid));
+      if (entry.gluc != 0)varianz += math.pow(entry.gluc - mid, 2);
     }
+    varianz /= entryCount;
+
     for (TreatmentData t in treatments)
     {
       if (t.carbs > 0)
@@ -1070,7 +1132,6 @@ class DayData
         carbs += t.carbs;
       }
     }
-    varianz /= midCount;
   }
 
   dynamic findNearest(List<EntryData> eList, List<TreatmentData> tList, DateTime check,
@@ -1120,6 +1181,26 @@ class DayData
   }
 }
 
+class StatisticData
+{
+  double min, max;
+  List<double> values = List<double>();
+  double sum = 0.0;
+  double varianz = 0.0;
+  double median;
+  double get mid
+  => values.length == 0 ? 0 : sum / values.length;
+  double get stdAbw
+  => math.sqrt(varianz);
+  StatisticData(this.min, this.max);
+
+  add(double value)
+  {
+    values.add(value);
+    sum += value;
+  }
+}
+
 class ListData
 {
   List<DayData> days = List<DayData>();
@@ -1132,12 +1213,22 @@ class ListData
   double khCount = 0.0;
   double khAdjust = 0.0;
   int khAdjustCount = 0;
-  int normCount = 0;
-  int highCount = 0;
-  int lowCount = 0;
+  Map<String, StatisticData> stat = {
+    "low": StatisticData(0, 0),
+    "norm": StatisticData(0, 0),
+    "high": StatisticData(0, 0),
+    "stdLow": StatisticData(1, 70),
+    "stdNorm": StatisticData(71, 179),
+    "stdHigh": StatisticData(180, 9999)
+  };
   double ieBolusSum = 0.0;
   double ieBasalSum = 0.0;
   double ieMicroBolusSum = 0.0;
+  double gvi = 0.0;
+  double gviIdeal = 0.0;
+  double gviTotal = 0.0;
+  double rms = 0.0;
+  double pgs = 0.0;
   double get ieBolusPrz
   =>
     ieBolusSum + ieBasalSum + ieMicroBolusSum > 0
@@ -1188,9 +1279,9 @@ class ListData
   double max;
   void extractData(ReportData data)
   {
-    normCount = 0;
-    highCount = 0;
-    lowCount = 0;
+    stat["norm"].values.clear();
+    stat["high"].values.clear();
+    stat["low"].values.clear();
     min = 999999.0;
     max = -1.0;
     DateTime lastDay = null;
@@ -1199,11 +1290,30 @@ class ListData
     allEntries.addAll(bloody);
     allEntries.sort((a, b)
     => a.time.compareTo(b.time));
+
+    var last = null;
+    // calculation of gvi and rms based on
+    // https://github.com/nightscout/cgm-remote-monitor/blob/master/lib/report_plugins/glucosedistribution.js#L150
+    double glucTotal = 0.0;
+    double rmsTotal = 0.0;
+    int usedRecords = 0;
+    double deltaTotal = 0.0;
+    double total = 0.0;
+    double t1 = 6;
+    double t2 = 11;
+    int t1Count = 0;
+    int t2Count = 0;
+    int fullCount = 0;
     for (var entry in allEntries)
     {
       if (entry.isInvalid)continue;
 
       ProfileGlucData glucData = data.profile(entry.time);
+      stat["low"].max = glucData.targetLow;
+      stat["norm"].min = glucData.targetLow + 1;
+      stat["norm"].max = glucData.targetHigh - 1;
+      stat["high"].min = glucData.targetHigh;
+      stat["high"].max = 9999;
       if (lastDay == null || entry.time.day != lastDay.day)
       {
         days.add(DayData(entry.time, glucData));
@@ -1219,14 +1329,69 @@ class ListData
         if (glucData != null)
         {
           double gluc = entry.gluc;
-          if (gluc < glucData.targetLow)lowCount++;
-          else if (gluc > glucData.targetHigh)highCount++;
-          else
-            normCount++;
-          if (gluc < min)min = entry.gluc;
-          if (gluc > max)max = entry.gluc;
+          if (gluc > 0)
+          {
+            for (String key in stat.keys)
+            {
+              if (gluc >= stat[key].min && gluc < stat[key].max)stat[key].add(gluc);
+            }
+/*
+            if (gluc < glucData.targetLow)stat["low"].add(gluc);
+            else if (gluc > glucData.targetHigh)stat["high"].add(gluc);
+            else
+              stat["norm"].add(gluc);
+            if (gluc < 70)stat["stdLow"].add(gluc);
+            else if (gluc > 180)stat["stdHigh"].add(gluc);
+            else
+              stat["stdNorm"].add(gluc);
+*/
+            fullCount++;
+            if (gluc < min)min = entry.gluc;
+            if (gluc > max)max = entry.gluc;
+          }
         }
       }
+
+      if (last == null)
+      {
+        glucTotal += entry.gluc;
+      }
+      else
+      {
+        int timeDelta = entry.time
+          .difference(last.time)
+          .inMilliseconds;
+
+        if (timeDelta <= 6 * 60000 && entry.gluc > 0 && last.gluc > 0)
+        {
+          usedRecords++;
+          double delta = entry.gluc - last.gluc;
+          deltaTotal += delta;
+          total += delta;
+          if (delta >= t1)t1Count++;
+          if (delta >= t2)t2Count++;
+          gviTotal += math.sqrt(25 + math.pow(delta, 2));
+          glucTotal += entry.gluc;
+          if (entry.gluc < glucData.targetLow)rmsTotal += math.pow(glucData.targetLow - entry.gluc, 2);
+          if (entry.gluc > glucData.targetHigh)rmsTotal += math.pow(entry.gluc - glucData.targetHigh, 2);
+        }
+      }
+      last = entry;
+    }
+
+    double gviDelta = allEntries.last.gluc - allEntries.first.gluc;
+    gviIdeal = math.sqrt(math.pow(usedRecords * 5, 2) + math.pow(gviDelta, 2));
+    gvi = gviIdeal != 0 ? gviTotal / gviIdeal : 0.0;
+    rms = math.sqrt(rmsTotal / usedRecords);
+    double tirMultiplier = fullCount == 0 ? 0.0 : stat["norm"].values.length / fullCount;
+    pgs = gvi * (glucTotal / usedRecords) * (1.0 - tirMultiplier);
+
+    for (String key in stat.keys)
+    {
+      stat[key].varianz = 0.0;
+      for (double v in stat[key].values)
+        stat[key].varianz += math.pow(v - stat[key].mid, 2);
+      stat[key].varianz /= stat[key].values.length;
     }
 
     khCount = 0.0;
@@ -1235,7 +1400,6 @@ class ListData
     ampulleCount = 0;
     sensorCount = 0;
     double eCarbs = 0.0;
-//    double duration = 0;
     double delay = 0;
     treatments.sort((a, b)
     => a.createdAt.compareTo(b.createdAt));
@@ -1252,9 +1416,8 @@ class ListData
         Match match = rex.firstMatch(t.notes);
         if (match != null && match.groupCount == 3)
         {
-          eCarbs = double.tryParse(match.group(1));
-//          duration = double.tryParse(match.group(2));
-          delay = double.tryParse(match.group(3));
+          eCarbs = double.tryParse(match.group(1)) ?? 0;
+          delay = double.tryParse(match.group(3)) ?? 0;
           if (delay < 0)
           {
             for (int j = i - 1; j >= 0 && eCarbs > 0.0; j--)
@@ -1269,7 +1432,8 @@ class ListData
           }
         }
       }
-      if (type == "meal bolus" && eCarbs > 0.0 && t.carbs < 10.0)
+
+      if (type == "meal bolus" && eCarbs != null && eCarbs > 0.0 && t.carbs < 10.0)
       {
         eCarbs -= t.carbs;
         t.isECarb = true;
@@ -1311,13 +1475,13 @@ class ReportData
   ProfileGlucData profile(DateTime time)
   {
 //    DateTime check = DateTime(time.year, time.month, time.day);
-    ProfileGlucData ret = ProfileGlucData(ProfileStoreData());
+    ProfileGlucData ret = ProfileGlucData(ProfileStoreData("${time.toIso8601String()}"));
     int idx = -1;
     for (int i = 0; i < profiles.length; i++)
     {
       if (profiles[i].startDate
             .difference(time)
-            .inDays <= 0)idx = i;
+            .inMinutes <= 0)idx = i;
     }
     // found first profile for the start of the day
     if (idx >= 0)

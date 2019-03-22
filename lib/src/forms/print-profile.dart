@@ -111,32 +111,42 @@ class PrintProfile extends BasePrint
   @override
   void fillPages(ReportData src, List<List<dynamic>> pages)
   {
+/*
+    List<String> dbg = List<String>();
+    for(ProfileData p in src.profiles)
+      dbg.add("${fmtDateTime(p.startDate)} - ${p.duration}");
+*/
     DateTime startDate = DateTime(src.begDate.year, src.begDate.month, src.begDate.day);
-    DateTime endDate = DateTime(src.endDate.year, src.endDate.month, src.endDate.day);
+    DateTime endDate = DateTime(src.endDate.year, src.endDate.month, src.endDate.day + 1);
     List<ProfileData> profiles = src.profiles;
     for (int i = 0; i < src.profiles.length; i++)
     {
-      DateTime profEndDate;
-      DateTime profStartDate = src.profiles[i].startDate;
+      DateTime profEndTime;
+      DateTime profStartTime = src.profiles[i].startDate;
       if (i < src.profiles.length - 1)
       {
-        profEndDate = src.profiles[i + 1].startDate.add(Duration(days: -1));
-        if (startDate
-              .difference(src.profiles[i + 1].startDate)
-              .inDays >= 0)continue;
+        if (g.useProfileSwitch)
+        {
+          profEndTime = src.profiles[i + 1].startDate.add(Duration(minutes: -1));
+        }
+        else
+        {
+          profEndTime = src.profiles[i + 1].startDate.add(Duration(hours: -1));
+        }
       }
       else
       {
-        profEndDate = null;
+        profEndTime = null;
       }
-      if (endDate
-            .difference(profiles[i].startDate)
-            .inDays < 0)continue;
+      // if profileendtime is before reportstartdate then skip profile
+      if (profEndTime != null && profEndTime.isBefore(startDate))continue;
+      // if profilestarttime is after reportenddate then skip profile
+      if (profStartTime.isAfter(endDate))continue;
 
       bool done = false;
       for (int p = 0; !done; p++)
       {
-        dynamic page = getPage(p, src.profile(profiles[i].startDate), profStartDate, profEndDate);
+        dynamic page = getPage(p, src.profile(profiles[i].startDate), profStartTime, profEndTime);
         done = page == null;
         if (!done)pages.add(page);
       }
@@ -146,8 +156,8 @@ class PrintProfile extends BasePrint
   getPage(int page, ProfileGlucData profile, DateTime startDate, DateTime endDate)
   {
     _fontSize = 10;
-    if(g.useProfileSwitch)
-      titleInfo = titleInfoTimeRange(startDate, endDate);
+    subtitle = profile.store.name;
+    if (g.useProfileSwitch)titleInfo = titleInfoTimeRange(startDate, endDate);
     else
       titleInfo = titleInfoForDates(startDate, endDate);
 

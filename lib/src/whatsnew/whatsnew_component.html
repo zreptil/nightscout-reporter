@@ -10,59 +10,73 @@
       </material-button>
     </div>
     <div class="root">
-      <h2><span @i18n="version">Version</span><span @i18n="v125">1.2.5 - xx.02.2019</span></h2>
+      <h2><span @i18n="version">Version</span><span @i18n="v125">1.2.5 - xx.03.2019</span></h2>
       <ul>
-        <li class="added" @i18n="v124a1">
+        <li class="added" @i18n="v125a1">
           Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird
           es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt.
           Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass
           es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der
           Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.
         </li>
-        <li class="added" @i18n="v124a2">
+        <li class="added" @i18n="v125a2">
           In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal
           sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links
           geschoben werden, um die Dateigrösse zu verringern.
         </li>
-        <li class="added" @i18n="v124a3">
+        <li class="added" @i18n="v125a3">
           In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.
         </li>
-        <li class="added" @i18n="v124a4">
-          Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach den Button für das Formular anklicken,
-          festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.
+        <li class="added" @i18n="v125a4">
+          Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach das Handle auf der linken Seite
+          des Buttons für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt
+          werden soll.
         </li>
-        <li class="changed" @i18n="v124c1">
+        <li class="added" @i18n="v125a5">
+          Auf der Analyseseite werden nun auch GVI und PGS ausgegeben.
+        </li>
+        <li class="added" @i18n="v125a6">
+          Auf der Analyseseite kann statt der Anzahl der Werte bei den Zielbereichen jetzt die Standardabweichung
+          der Werte im Zielbereich angezeigt werden.
+        </li>
+        <li class="added" @i18n="v125a7">
+          Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt.
+        </li>
+        <li class="changed" @i18n="v125c1">
           Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt
           dargestellt wird.
         </li>
-        <li class="changed" @i18n="v124c2">
+        <li class="changed" @i18n="v125c2">
           Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit
           legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.
         </li>
-        <li class="changed" @i18n="v124c3">
+        <li class="changed" @i18n="v125c3">
           Daten verschiedener Uploader werden nun besser interpretiert.
         </li>
-        <li class="changed" @i18n="v124c4">
+        <li class="changed" @i18n="v125c4">
           Daten, die von xDrip als sync markiert wurden, werden bei der Auswertung ignoriert.
         </li>
-        <li class="changed" @i18n="v124c5">
+        <li class="changed" @i18n="v125c5">
           Die Farben für Dialoge und Scrollbars wurden angepasst.
         </li>
-        <li class="fixed" @i18n="v124f1">
+        <li class="fixed" @i18n="v125f1">
           Die Berechnung der tatsächlichen Basalrate wurde korrigiert.
         </li>
-        <li class="fixed" @i18n="v124f2">
+        <li class="fixed" @i18n="v125f2">
           Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.
         </li>
-        <li class="fixed" @i18n="v124f3">
+        <li class="fixed" @i18n="v125f3">
           Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein
           Usertoken angegeben wurde.
         </li>
-        <li class="fixed" @i18n="v124f4">
+        <li class="fixed" @i18n="v125f4">
           In Firefox ist es jetzt auch möglich, die Hauptseite zu scrollen, wenn sie länger ist, als das Browserfenster.
         </li>
-        <li class="fixed" @i18n="v124f5">
+        <li class="fixed" @i18n="v125f5">
           Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt.
+        </li>
+        <li class="fixed" @i18n="v125f6">
+          Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.
         </li>
       </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v124">1.2.4 - 12.02.2019</span></h2>

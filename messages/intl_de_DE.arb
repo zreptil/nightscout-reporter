@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-03-07T22:58:50.434263",
+  "@@last_modified": "2019-03-22T10:57:51.303316",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -103,16 +103,6 @@
   },
   "dd.MM.yyyy": "dd.MM.yyyy",
   "@dd.MM.yyyy": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgBE": "msgBE",
-  "@msgBE": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgKE": "msgKE",
-  "@msgKE": {
     "type": "text",
     "placeholders": {}
   },
@@ -531,6 +521,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "Glykämischer Variabilitäts Index (GVI)": "Glykämischer Variabilitäts Index (GVI)",
+  "@Glykämischer Variabilitäts Index (GVI)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Patient Glykämischer Status (PGS)": "Patient Glykämischer Status (PGS)",
+  "@Patient Glykämischer Status (PGS)": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Ø KH pro Tag": "Ø KH pro Tag",
   "@Ø KH pro Tag": {
     "type": "text",
@@ -643,6 +643,41 @@
       "value": {}
     }
   },
+  "msgCount": "({value} Werte)",
+  "@msgCount": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgStdAbw": "(StdAbw {value})",
+  "@msgStdAbw": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgTimeOfDay24": "{time} Uhr",
+  "@msgTimeOfDay24": {
+    "type": "text",
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "msgTimeOfDayAM": "{time} am",
+  "@msgTimeOfDayAM": {
+    "type": "text",
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "msgTimeOfDayPM": "{time} pm",
+  "@msgTimeOfDayPM": {
+    "type": "text",
+    "placeholders": {
+      "time": {}
+    }
+  },
   "Normal": "Normal",
   "@Normal": {
     "type": "text",
@@ -662,6 +697,21 @@
   },
   "25% - 75% der Werte": "25% - 75% der Werte",
   "@25% - 75% der Werte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin Kohlenhydrate Verhältnis (ICR)": "Insulin Kohlenhydrate Verhältnis (ICR)",
+  "@Insulin Kohlenhydrate Verhältnis (ICR)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin Sensitivitäts Faktoren (ISF)": "Insulin Sensitivitäts Faktoren (ISF)",
+  "@Insulin Sensitivitäts Faktoren (ISF)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zielbereich": "Zielbereich",
+  "@Zielbereich": {
     "type": "text",
     "placeholders": {}
   },
@@ -779,6 +829,71 @@
       "value": {}
     }
   },
+  "Standardabweichung": "Standardabweichung",
+  "@Standardabweichung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgGVINone": "nicht vorhanden (kleiner {min})",
+  "@msgGVINone": {
+    "type": "text",
+    "placeholders": {
+      "min": {}
+    }
+  },
+  "msgGVIVeryGood": "sehr gut ({min} bis {max})",
+  "@msgGVIVeryGood": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "msgGVIGood": "gut ({min} bis {max})",
+  "@msgGVIGood": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "msgGVIBad": "schlecht (grösser {max})",
+  "@msgGVIBad": {
+    "type": "text",
+    "placeholders": {
+      "max": {}
+    }
+  },
+  "msgPGSVeryGood": "exzellent (kleiner {min})",
+  "@msgPGSVeryGood": {
+    "type": "text",
+    "placeholders": {
+      "min": {}
+    }
+  },
+  "msgPGSGood": "gut ({min} bis {max})",
+  "@msgPGSGood": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "msgPGSBad": "schlecht ({min} bis {max})",
+  "@msgPGSBad": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "msgPGSVeryBad": "sehr schlecht (grösser {max})",
+  "@msgPGSVeryBad": {
+    "type": "text",
+    "placeholders": {
+      "max": {}
+    }
+  },
   "Auswertung": "Auswertung",
   "@Auswertung": {
     "type": "text",
@@ -791,6 +906,11 @@
   },
   "Zielbereich mit Nachkommastellen": "Zielbereich mit Nachkommastellen",
   "@Zielbereich mit Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Standardabweichung statt Anzahl": "Standardabweichung statt Anzahl",
+  "@Standardabweichung statt Anzahl": {
     "type": "text",
     "placeholders": {}
   },
@@ -896,6 +1016,33 @@
   },
   "SMB": "SMB",
   "@SMB": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Profilwechsel": "Profilwechsel",
+  "@Profilwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgProfileSwitch": "Profilwechsel - {oldName} => {newName}",
+  "@msgProfileSwitch": {
+    "type": "text",
+    "placeholders": {
+      "oldName": {},
+      "newName": {}
+    }
+  },
+  "msgChangedEntry": "{name} geändert von {from} auf {to}",
+  "@msgChangedEntry": {
+    "type": "text",
+    "placeholders": {
+      "name": {},
+      "from": {},
+      "to": {}
+    }
+  },
+  "Keine Änderung": "Keine Änderung",
+  "@Keine Änderung": {
     "type": "text",
     "placeholders": {}
   },
@@ -1028,15 +1175,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "PDF erneut erzeugen": "PDF erneut erzeugen",
+  "@PDF erneut erzeugen": {
+    "description": "pdfCreateAgain",
+    "type": "text",
+    "placeholders": {}
+  },
   "Gross": "Gross",
   "@Gross": {
     "description": "big",
     "type": "text",
     "placeholders": {}
   },
-  "PDF erneut erzeugen": "PDF erneut erzeugen",
-  "@PDF erneut erzeugen": {
-    "description": "pdfCreateAgain",
+  "Unbegrenzt": "Unbegrenzt",
+  "@Unbegrenzt": {
+    "description": "big",
     "type": "text",
     "placeholders": {}
   },
@@ -1184,87 +1337,117 @@
     "type": "text",
     "placeholders": {}
   },
-  "1.2.5 - xx.02.2019": "1.2.5 - xx.02.2019",
-  "@1.2.5 - xx.02.2019": {
+  "1.2.5 - xx.03.2019": "1.2.5 - xx.03.2019",
+  "@1.2.5 - xx.03.2019": {
     "description": "v125",
     "type": "text",
     "placeholders": {}
   },
   "Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.": "Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.",
   "@Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.": {
-    "description": "v124a1",
+    "description": "v125a1",
     "type": "text",
     "placeholders": {}
   },
   "In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links geschoben werden, um die Dateigrösse zu verringern.": "In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links geschoben werden, um die Dateigrösse zu verringern.",
   "@In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links geschoben werden, um die Dateigrösse zu verringern.": {
-    "description": "v124a2",
+    "description": "v125a2",
     "type": "text",
     "placeholders": {}
   },
   "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.": "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.",
   "@In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.": {
-    "description": "v124a3",
+    "description": "v125a3",
     "type": "text",
     "placeholders": {}
   },
-  "Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach den Button für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.": "Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach den Button für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.",
-  "@Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach den Button für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.": {
-    "description": "v124a4",
+  "Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach das Handle auf der linken Seite des Buttons für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.": "Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach das Handle auf der linken Seite des Buttons für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.",
+  "@Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach das Handle auf der linken Seite des Buttons für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.": {
+    "description": "v125a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf der Analyseseite werden nun auch GVI und PGS ausgegeben.": "Auf der Analyseseite werden nun auch GVI und PGS ausgegeben.",
+  "@Auf der Analyseseite werden nun auch GVI und PGS ausgegeben.": {
+    "description": "v125a5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf der Analyseseite kann statt der Anzahl der Werte bei den Zielbereichen jetzt die Standardabweichung der Werte im Zielbereich angezeigt werden.": "Auf der Analyseseite kann statt der Anzahl der Werte bei den Zielbereichen jetzt die Standardabweichung der Werte im Zielbereich angezeigt werden.",
+  "@Auf der Analyseseite kann statt der Anzahl der Werte bei den Zielbereichen jetzt die Standardabweichung der Werte im Zielbereich angezeigt werden.": {
+    "description": "v125a6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt.": "Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt.",
+  "@Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt.": {
+    "description": "v125a7",
     "type": "text",
     "placeholders": {}
   },
   "Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird.": "Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird.",
   "@Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird.": {
-    "description": "v124c1",
+    "description": "v125c1",
     "type": "text",
     "placeholders": {}
   },
   "Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.": "Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.",
   "@Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.": {
-    "description": "v124c2",
+    "description": "v125c2",
     "type": "text",
     "placeholders": {}
   },
   "Daten verschiedener Uploader werden nun besser interpretiert.": "Daten verschiedener Uploader werden nun besser interpretiert.",
   "@Daten verschiedener Uploader werden nun besser interpretiert.": {
-    "description": "v124c3",
+    "description": "v125c3",
     "type": "text",
     "placeholders": {}
   },
   "Daten, die von xDrip als sync markiert wurden, werden bei der Auswertung ignoriert.": "Daten, die von xDrip als sync markiert wurden, werden bei der Auswertung ignoriert.",
   "@Daten, die von xDrip als sync markiert wurden, werden bei der Auswertung ignoriert.": {
-    "description": "v124c4",
+    "description": "v125c4",
     "type": "text",
     "placeholders": {}
   },
   "Die Farben für Dialoge und Scrollbars wurden angepasst.": "Die Farben für Dialoge und Scrollbars wurden angepasst.",
   "@Die Farben für Dialoge und Scrollbars wurden angepasst.": {
-    "description": "v124c5",
+    "description": "v125c5",
     "type": "text",
     "placeholders": {}
   },
   "Die Berechnung der tatsächlichen Basalrate wurde korrigiert.": "Die Berechnung der tatsächlichen Basalrate wurde korrigiert.",
   "@Die Berechnung der tatsächlichen Basalrate wurde korrigiert.": {
-    "description": "v124f1",
+    "description": "v125f1",
     "type": "text",
     "placeholders": {}
   },
   "Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.": "Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.",
   "@Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.": {
-    "description": "v124f2",
+    "description": "v125f2",
     "type": "text",
     "placeholders": {}
   },
   "Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.": "Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.",
   "@Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.": {
-    "description": "v124f3",
+    "description": "v125f3",
     "type": "text",
     "placeholders": {}
   },
   "In Firefox ist es jetzt auch möglich, die Hauptseite zu scrollen, wenn sie länger ist, als das Browserfenster.": "In Firefox ist es jetzt auch möglich, die Hauptseite zu scrollen, wenn sie länger ist, als das Browserfenster.",
   "@In Firefox ist es jetzt auch möglich, die Hauptseite zu scrollen, wenn sie länger ist, als das Browserfenster.": {
-    "description": "v124f4",
+    "description": "v125f4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt.": "Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt.",
+  "@Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt.": {
+    "description": "v125f5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.": "Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.",
+  "@Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.": {
+    "description": "v125f6",
     "type": "text",
     "placeholders": {}
   },
@@ -1856,8 +2039,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_73": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_73": {
+  "ViewWhatsnewComponent0__message_78": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_78": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

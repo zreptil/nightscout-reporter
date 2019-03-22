@@ -140,7 +140,7 @@ class PrintDailyStatistics extends BasePrint
     addRow(true, "auto", row, {"text": msgAverage, "style": "total", "alignment": "center"},
       {"text": "${glucFromData(day.mid, 1)}", "style": style, "alignment": "right"});
     addRow(showStdabw, "auto", row, {"text": msgDeviation, "style": "total", "alignment": "center"},
-      {"text": "${fmtNumber(day.stdAbw, 1)}", "style": style, "alignment": "right"});
+      {"text": "${fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right"});
     addRow(showVarK, "auto", row, {"text": msgVarK, "style": "total", "alignment": "center"},
       {"text": "${fmtNumber(day.varK, 1)}", "style": style, "alignment": "right"});
     addRow(showPercentile, cm(1.5), row, {"text": msg25, "style": "total", "alignment": "center"},
@@ -189,7 +189,7 @@ class PrintDailyStatistics extends BasePrint
     ProfileGlucData prevProfile = null;
     int lineCount = 0;
     var page = [];
-    DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData()));
+    DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")));
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
     int totalDays = 0;

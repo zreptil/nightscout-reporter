@@ -74,30 +74,32 @@ class Globals
   static DateTime get now
   => DateTime.now();
   bool _isLoaded = false;
-  String version = "1.2.5h";
+  String version = "1.2.5j";
   String lastVersion;
-  int _pdfCreationMaxSize = 4000000;
+  static const int PDFUNLIMITED = 4000000;
+  static const int PDFDIVIDER = 100000;
+  int _pdfCreationMaxSize = 400000;
 
   int get pdfCreationMaxSize
   {
-    if (_pdfCreationMaxSize < 100000)_pdfCreationMaxSize = 100000;
-    if (_pdfCreationMaxSize > 4000000)_pdfCreationMaxSize = 4000000;
+    if (_pdfCreationMaxSize < Globals.PDFDIVIDER)_pdfCreationMaxSize = Globals.PDFDIVIDER;
+    if (_pdfCreationMaxSize > Globals.PDFUNLIMITED)_pdfCreationMaxSize = Globals.PDFUNLIMITED;
     return _pdfCreationMaxSize;
   }
 
   set pdfCreationMaxSize(int value)
   {
-    if (value < 100000)value = 100000;
-    if (value > 100000000)value = 100000000;
+    if (value < Globals.PDFDIVIDER)value = Globals.PDFDIVIDER;
+    if (value > Globals.PDFUNLIMITED)value = Globals.PDFUNLIMITED;
     _pdfCreationMaxSize = value;
   }
 
   int get pdfControlMaxSize
-  => (pdfCreationMaxSize / 100000).toInt();
+  => (pdfCreationMaxSize / Globals.PDFDIVIDER).toInt();
 
   set pdfControlMaxSize(int value)
   {
-    pdfCreationMaxSize = value * 100000;
+    pdfCreationMaxSize = value * Globals.PDFDIVIDER;
   }
 
   int basalPrecision = 1;
@@ -162,7 +164,7 @@ class Globals
   => Date(src.year, src.month, src.day);
 
   String get msgBE
-  => _khFactor == 10 ? Intl.message("msgBE") : Intl.message("msgKE");
+  => _khFactor == 10 ? "msgBE" : "msgKE";
   String get msgUrlFailure
   =>
     Intl.message("Die angegebene URL ist nicht erreichbar. "
@@ -201,6 +203,7 @@ class Globals
     LangData("en_US", Intl.message("English (USA)"), "us"),
     LangData("en_GB", Intl.message("English (GB)"), "gb"),
     LangData("es_ES", Intl.message("Español"), "es"),
+    LangData("pl_PL", Intl.message("Polski"), "pl"),
   ];
   LangData _language = null;
   LangData get language
@@ -241,7 +244,7 @@ class Globals
   bool canDebug = false;
   bool isBeta = html.window.location.href.contains("/beta/");
   bool isLocal = html.window.location.href.contains("/localhost:");
-  bool get useProfileSwitch => isLocal;
+  bool get useProfileSwitch => false;//isLocal;
   String get settingsFilename
   => isLocal ? "settings.local" : isBeta ? "settings.beta" : "settings";
   gd.File settingsFile = null;

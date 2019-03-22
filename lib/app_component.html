@@ -55,9 +55,10 @@
         </div>
         <div class="pdfSlider">
           <div @i18n="small">Klein</div>
-          <material-slider class="slider" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
-                           [max]="40"></material-slider>
-          <div @i18n="big">Gross</div>
+          <material-slider class="maxsize" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
+                           [max]="pdfSliderMax"></material-slider>
+          <div *ngIf="g.pdfControlMaxSize < pdfSliderMax" @i18n="big">Gross</div>
+          <div *ngIf="g.pdfControlMaxSize >= pdfSliderMax" @i18n="big">Unbegrenzt</div>
         </div>
         <material-button (trigger)="currPage='normal';createPDF()">
           <div class="pdfButtonText" @i18n="pdfCreateAgain">PDF erneut erzeugen</div>
@@ -99,10 +100,14 @@
                 (open)="expansionPanelOpen($event,cfg)"
                 (close)="expansionPanelClose($event,cfg)"
                 [class]="expansionClass(cfg)" flat
-                [name]="cfg.form.display"
+                name=""
                 [disableHeaderExpansion]="true"
                 secondaryText="" [showSaveCancel]="false" [hideExpandedHeader]="false"
                 [alwaysHideExpandIcon]="cfg.form.params.length==0 || !cfg.checked">
+                <div name>
+                  <material-icon icon="drag_handle"></material-icon>
+                  <div>{{cfg.form.display}}</div>
+                </div>
                 <template ngFor let-param [ngForOf]="cfg.form.sortedParams">
                   <material-checkbox *ngIf="param.boolValue!=null" [(ngModel)]="param.boolValue" [label]="param.title">
                   </material-checkbox>

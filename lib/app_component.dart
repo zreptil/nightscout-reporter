@@ -26,6 +26,7 @@ import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
+import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'src/dsgvo/dsgvo_component.dart';
@@ -109,6 +110,9 @@ class AppComponent
   String pdfData = "";
   List<PdfData> pdfList = List<PdfData>();
   String pdfDoc = null;
+
+  int get pdfSliderMax
+  => (Globals.PDFUNLIMITED / Globals.PDFDIVIDER).toInt();
 
   String progressText = null;
   int progressMax = 100;
@@ -462,6 +466,7 @@ class AppComponent
     {
       Draggable(html.querySelectorAll('.sortable'), avatarHandler: AvatarHandler.clone(),
         draggingClass: "dragging",
+        handle: "[name]>material-icon",
         verticalOnly: true);
       if (_drop != null)_drop.onDrop.listen(null);
 
@@ -586,8 +591,16 @@ class AppComponent
         List<dynamic> src = json.decode(content);
         for (dynamic entry in src)
         {
-          String p = '{"_id":"${entry["_id"]}","defaultProfile":"Default","store":{"Default":${entry["profileJson"]}},"startDate":"${entry["created_at"]}","mills":"0","units":"mg/dl","created_at":"${entry["created_at"]}"}';
-          data.profiles.add(ProfileData.fromJson(json.decode(p)));
+          List<String> parts = List<String>();
+          parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
+          parts.add('"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
+          parts.add('"mills":"0","units":"mg/dl"');
+          parts.add('"percentage":"${entry["percentage"]}"');
+          parts.add('"duration":"${entry["duration"]}"');
+          parts.add('"timeshift":"${entry["timeshift"]}"');
+          parts.add('"created_at":"${entry["created_at"]}"}');
+
+          data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
         }
       }
       catch (ex)
@@ -607,6 +620,31 @@ class AppComponent
 
     data.profiles.sort((a, b)
     => a.startDate.compareTo(b.startDate));
+
+    if (g.useProfileSwitch)
+    {
+      ProfileData last = null;
+      for (int i = 0; i < data.profiles.length; i++)
+      {
+        ProfileData current = data.profiles[i];
+        if (last != null && current.duration > 0 && i < data.profiles.length - 1)
+        {
+          ProfileData next = data.profiles[i + 1];
+          Duration diff = next.startDate.difference(current.startDate);
+          if (diff.inMinutes > current.duration)
+          {
+            last.startDate = current.startDate.add(diff);
+            last.duration = 0;
+            if (last.startDate != next.startDate)data.profiles.insert(i + 1, last);
+          }
+          else
+          {
+            current.duration = diff.inMinutes;
+          }
+        }
+        last = current.copy;
+      }
+    }
 
     while (begDate <= endDate)
     {
@@ -662,7 +700,8 @@ class AppComponent
       }
       url = "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${profileBeg
         .toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000";
-      src = json.decode(await g.request(url));
+      String tmp = await g.request(url);
+      src = json.decode(tmp);
       displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
       for (dynamic treatment in src)
       {

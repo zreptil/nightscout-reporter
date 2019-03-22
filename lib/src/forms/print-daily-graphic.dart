@@ -202,8 +202,7 @@ class PrintDailyGraphic extends BasePrint
     for (int i = 0; i < data.days.length; i++)
     {
       DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
-      if (day.entries.length != 0 || day.treatments.length != 0)
-        pages.add(getPage(day, src));
+      if (day.entries.length != 0 || day.treatments.length != 0)pages.add(getPage(day, src));
       else
         pages.add(getEmptyForm(src));
 
@@ -909,6 +908,48 @@ class PrintDailyGraphic extends BasePrint
         }
         ]
       },);
+    }
+
+    List stack = null;
+    if (showBasalProfile)stack = profileBasal["stack"];
+    else if (showBasalDay)stack = dayBasal["stack"];
+
+    if (g.useProfileSwitch && stack != null)
+    {
+      DateTime startDate = DateTime(day.date.year, day.date.month, day.date.day);
+      DateTime endDate = startDate.add(Duration(days: 1));
+      startDate = startDate.add(Duration(minutes: -1));
+      for (ProfileData p in src.profiles)
+//      for (TreatmentData t in day.treatments)
+      {
+        if (p.startDate.isAfter(startDate) && p.startDate.year == day.date.year && p.startDate.month == day.date.month
+            && p.startDate.day == day.date.day)
+//        if (t.eventType.toLowerCase() == "profile switch")
+        {
+          double x = glucX(p.startDate);
+          double y = basalTop;
+//*
+          (stack[0]["canvas"] as List).add({
+            "type": "line",
+            "x1": cm(x),
+            "y1": cm(0),
+            "x2": cm(x),
+            "y2": cm(basalHeight + 0.25),
+            "lineWidth": cm(lw),
+            "lineColor": colProfileSwitch
+          });
+          stack.add({
+            "relativePosition": {"x": cm(xo + x + 0.1), "y": cm(yo + graphHeight + basalTop + basalHeight + 0.1)},
+            "text": src
+              .profile(p.startDate)
+              .store
+              .name,
+            "fontSize": fs(8),
+            "color": colProfileSwitch
+          });
+//*/
+        }
+      }
     }
 
     String error = null;
