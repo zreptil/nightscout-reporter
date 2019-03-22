@@ -37,7 +37,7 @@ class PrintDailyGraphic extends BasePrint
   String id = "daygraph";
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, isSmall, showNotes,
-    sortReverse, showGlucTable, showSMBAtGluc, showInfoLinesAtGluc, sumNarrowValues, showSMB;
+    sortReverse, showGlucTable, showSMBAtGluc, showInfoLinesAtGluc, sumNarrowValues, showSMB, splitBolus;
 
   @override
   List<ParamInfo> params = [
@@ -56,6 +56,7 @@ class PrintDailyGraphic extends BasePrint
     ParamInfo(13, msgParam13, boolValue: false),
     ParamInfo(14, msgParam14, boolValue: true),
     ParamInfo(2, msgParam15, boolValue: true),
+    ParamInfo(15, msgParam16, boolValue: false),
   ];
 
 
@@ -78,6 +79,7 @@ class PrintDailyGraphic extends BasePrint
     pagesPerSheet = isSmall ? 4 : 1;
     sumNarrowValues = params[13].boolValue;
     showSMB = params[14].boolValue;
+    splitBolus = params[15].boolValue;
 
     return data;
   }
@@ -118,6 +120,8 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Nahe zusammen liegende Werte aufsummieren");
   static String get msgParam15
   => Intl.message("SMB Werte anzeigen");
+  static String get msgParam16
+  => Intl.message("Mahlzeiten- und Korrektur-Bolus trennen");
 
   @override
   List<String> get imgList
@@ -198,37 +202,27 @@ class PrintDailyGraphic extends BasePrint
     }
 
     lineWidth = cm(0.03);
-
+    bool saveMGDL = g.glucMGDL;
     for (int i = 0; i < data.days.length; i++)
     {
       DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
-      if (day.entries.length != 0 || day.treatments.length != 0)pages.add(getPage(day, src));
-      else
-        pages.add(getEmptyForm(src));
-
-/*
-      if (i < data.days.length - 1)
+      if (day.entries.length != 0 || day.treatments.length != 0)
       {
-        if (!isSmall || (offsetY == height && offsetX == width))
+        pages.add(getPage(day, src));
+        if (g.isLocal && false)
         {
-          addPageBreak(pages.last.last);
-          offsetX = 0.0;
-          offsetY = 0.0;
-        }
-        else if (offsetX == width)
-        {
-          offsetX = 0.0;
-          offsetY += height;
-        }
-        else
-        {
-          offsetX = width;
+          g.glucMGDL = !g.glucMGDL;
+          pages.add(getPage(day, src));
+          g.glucMGDL = !g.glucMGDL;
         }
       }
-// */
+      else
+      {
+        pages.add(getEmptyForm(src));
+      }
     }
-//    _isPortrait = true;
     title = _titleGraphic;
+    g.glucMGDL = saveMGDL;
   }
 
   dynamic glucLine(dynamic points)
@@ -285,7 +279,8 @@ class PrintDailyGraphic extends BasePrint
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
 
-    int gridLines = (glucMax / 50).ceil();
+    double glucScale = g.glucMGDL ? 50 : 18.02 * 2;
+    int gridLines = (glucMax / glucScale).ceil();
     double lineHeight = gridLines == 0 ? 0 : graphHeight / gridLines;
     double colWidth = graphWidth / 24;
 
@@ -340,21 +335,27 @@ class PrintDailyGraphic extends BasePrint
     {
       return [headerFooter(), {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": msgMissingData}];
     }
+
+    double lastY = null;
     for (var i = 0; i <= gridLines; i++)
     {
+      double y = (gridLines - i) * lineHeight - lw / 2;
+      if (lastY != null && lastY - y < 0.5)continue;
+
+      lastY = y;
       horzCvs.add({
         "type": "line",
         "x1": cm(-0.2),
-        "y1": cm((gridLines - i) * lineHeight - lw / 2),
+        "y1": cm(y),
         "x2": cm(24 * colWidth + 0.2),
-        "y2": cm((gridLines - i) * lineHeight - lw / 2),
+        "y2": cm(y),
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
 
       if (i > 0)
       {
-        String text = "${glucFromData(fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
+        String text = "${glucFromData(fmtNumber(i * glucScale, 0))}\n${getGlucInfo()["unit"]}";
         vertStack.add({
           "relativePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
           "text": text,
@@ -367,7 +368,7 @@ class PrintDailyGraphic extends BasePrint
         });
       }
     }
-    glucMax = gridLines * 50.0;
+    glucMax = gridLines * glucScale;
     for (EntryData entry in day.bloody)
     {
       double x = glucX(entry.time);
@@ -502,6 +503,7 @@ class PrintDailyGraphic extends BasePrint
     bool hasAmpulleChange = false;
     bool hasCarbs = false;
     bool hasBolus = false;
+    bool hasCarbBolus = false;
     bool hasCollectedValues = false;
     List<double> noteLines = List<double>();
     for (TreatmentData t in day.treatments)
@@ -548,7 +550,7 @@ class PrintDailyGraphic extends BasePrint
             "y1": cm(0),
             "x2": cm(x),
             "y2": cm(y),
-            "lineColor": colBolus,
+            "lineColor": splitBolus && t.isCarbBolus ? colCarbBolus : colBolus,
             "lineWidth": cm(0.1),
           });
 
@@ -557,7 +559,10 @@ class PrintDailyGraphic extends BasePrint
                 .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin);
           else
             collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
-          hasBolus = true;
+
+          if (splitBolus && t.isCarbBolus)hasCarbBolus = true;
+          else
+            hasBolus = true;
         }
         if (showSMB && t.isSMB && t.insulin > 0)
         {
@@ -831,9 +836,21 @@ class PrintDailyGraphic extends BasePrint
         text = "${fmtNumber(day.carbs, 0)}";
         addLegendEntry(legend, colCarbs, msgCarbs(text), isArea: false, lineWidth: 0.1);
       }
-      if (hasBolus)addLegendEntry(
-        legend, colBolus, msgBolusInsulin("${fmtBasal(day.ieBolusSum)} ${msgInsulinUnit}"), isArea: false,
-        lineWidth: 0.1);
+      if (splitBolus)
+      {
+        if (hasBolus)addLegendEntry(
+          legend, colBolus, msgCorrectBolusInsulin("${fmtBasal(day.getBolusSum(false))} ${msgInsulinUnit}"),
+          isArea: false, lineWidth: 0.1);
+        if (hasCarbBolus)addLegendEntry(
+          legend, colCarbBolus, msgCarbBolusInsulin("${fmtBasal(day.getBolusSum(true))} ${msgInsulinUnit}"),
+          isArea: false, lineWidth: 0.1);
+      }
+      else if (hasBolus)
+      {
+        addLegendEntry(
+          legend, colBolus, msgBolusInsulin("${fmtBasal(day.getBolusSum(false))} ${msgInsulinUnit}"),
+          isArea: false, lineWidth: 0.1);
+      }
       if (showBasalDay)
       {
         text = "${fmtBasal(day.ieBasalSum)} ${msgInsulinUnit}";

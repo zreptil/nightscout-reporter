@@ -200,6 +200,7 @@ abstract class BasePrint
   String colBasalFont = "#fff";
   String colProfileSwitch = "#8080c0";
   String colBolus = "#0060c0";
+  String colCarbBolus = "#c000c0";
   String colLow = "#ff6666";
   String colNorm = "#00cc00";
   String colHigh = "#cccc00";
@@ -264,6 +265,10 @@ abstract class BasePrint
   => Intl.message("Kohlenhydrate (${value}g)", args: [value], name: "msgCarbs");
   String msgBolusInsulin(String value)
   => Intl.message("Bolus Insulin ($value)", args: [value], name: "msgBolusInsulin");
+  String msgCorrectBolusInsulin(String value)
+  => Intl.message("Korrektur Bolus ($value)", args: [value], name: "msgCorrectBolusInsulin");
+  String msgCarbBolusInsulin(String value)
+  => Intl.message("Mahlzeiten Bolus ($value)", args: [value], name: "msgCarbBolusInsulin");
   String get msgBasalrate
   => Intl.message("Basalrate");
   String msgBasalrateDay(String value)

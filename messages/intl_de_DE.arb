@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-03-22T10:57:51.303316",
+  "@@last_modified": "2019-03-22T15:25:59.417109",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -133,6 +133,11 @@
   },
   "Español": "Español",
   "@Español": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Polski": "Polski",
+  "@Polski": {
     "type": "text",
     "placeholders": {}
   },
@@ -309,6 +314,20 @@
   },
   "msgBolusInsulin": "Bolus Insulin ({value})",
   "@msgBolusInsulin": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgCorrectBolusInsulin": "Korrektur Bolus ({value})",
+  "@msgCorrectBolusInsulin": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgCarbBolusInsulin": "Mahlzeiten Bolus ({value})",
+  "@msgCarbBolusInsulin": {
     "type": "text",
     "placeholders": {
       "value": {}
@@ -1004,6 +1023,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Mahlzeiten- und Korrektur-Bolus trennen": "Mahlzeiten- und Korrektur-Bolus trennen",
+  "@Mahlzeiten- und Korrektur-Bolus trennen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Protokoll": "Protokoll",
   "@Protokoll": {
     "type": "text",
@@ -1382,6 +1406,12 @@
   "Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt.": "Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt.",
   "@Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt.": {
     "description": "v125a7",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik gibt es eine Option, mit dem man Mahlzeiten- und Korrektur-Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Blous zur Korrektur und in der Legende werden diese auch einzeln ausgewiesen.": "In der Tagesgrafik gibt es eine Option, mit dem man Mahlzeiten- und Korrektur-Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Blous zur Korrektur und in der Legende werden diese auch einzeln ausgewiesen.",
+  "@In der Tagesgrafik gibt es eine Option, mit dem man Mahlzeiten- und Korrektur-Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Blous zur Korrektur und in der Legende werden diese auch einzeln ausgewiesen.": {
+    "description": "v125a8",
     "type": "text",
     "placeholders": {}
   },
@@ -2039,8 +2069,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_78": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_78": {
+  "ViewWhatsnewComponent0__message_79": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_79": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

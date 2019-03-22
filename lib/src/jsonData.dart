@@ -3,7 +3,6 @@ library diamant.jsonData;
 import 'dart:math' as math;
 
 import 'package:angular_components/angular_components.dart';
-import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:timezone/browser.dart' as tz;
 
@@ -759,6 +758,15 @@ class TreatmentData extends JsonData
     return 0.0;
   }
 
+  bool get isCarbBolus
+  {
+    String type = eventType.toLowerCase();
+    if (type == "meal bolus")return true;
+    if (type == "bolus wizard" && carbs > 0)return true;
+
+    return false;
+  }
+
   double get bolusInsulin
   {
     if (insulin != null)return insulin;
@@ -929,10 +937,10 @@ class DayData
   double stdAbw(bool isMGDL)
   {
     double ret = math.sqrt(varianz);
-    if(!isMGDL)
-      ret = ret / 18.02;
+    if (!isMGDL)ret = ret / 18.02;
     return ret;
   }
+
   double get varK
   => (mid ?? 0) != 0 ? stdAbw(true) / mid * 100 : 0;
   double get lowPrz
@@ -948,6 +956,16 @@ class DayData
     if (date.year != time.year)return false;
     if (date.month != time.month)return false;
     return date.day == time.day;
+  }
+
+  double getBolusSum(bool isCarbBolus)
+  {
+    double ret = 0.0;
+    for (TreatmentData entry in treatments)
+    {
+      if (entry.isCarbBolus == isCarbBolus)ret += entry.bolusInsulin;
+    }
+    return ret;
   }
 
   double get ieBolusSum

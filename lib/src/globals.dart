@@ -74,7 +74,7 @@ class Globals
   static DateTime get now
   => DateTime.now();
   bool _isLoaded = false;
-  String version = "1.2.5j";
+  String version = "1.2.5k";
   String lastVersion;
   static const int PDFUNLIMITED = 4000000;
   static const int PDFDIVIDER = 100000;
