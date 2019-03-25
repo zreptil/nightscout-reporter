@@ -81,6 +81,8 @@ class _Month
 class MonthComponent
 {
   _Month month = null;
+  @Input()
+  bool isLocal = false;
 
   monthName(date)
   => DatepickerPeriod.monthName(date);

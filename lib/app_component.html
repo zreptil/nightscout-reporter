@@ -96,7 +96,7 @@
             <material-icon icon="settings"></material-icon>
           </material-button>
         </div>
-        <datepicker [period]="g.period" (periodChange)="changePeriod($event)"></datepicker>
+        <datepicker [period]="g.period" (periodChange)="changePeriod($event)" [isLocal]="g.isLocal"></datepicker>
       </div>
       <div class="formlist">
         <template ngFor let-cfg [ngForOf]="g.listConfig">

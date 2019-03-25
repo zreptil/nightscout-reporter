@@ -22,7 +22,7 @@
         <material-button class="prev" [disabled]="isMinMonth" (trigger)="month=month.add(months: -1)">
           <material-icon icon="chevron_left"></material-icon>
         </material-button>
-        <month [date]="month" [period]="period"></month>
+        <month [date]="month" [period]="period" [isLocal]="isLocal"></month>
         <material-button class="next" [disabled]="isMaxMonth" (trigger)="month=month.add(months: 1)">
           <material-icon icon="chevron_right"></material-icon>
         </material-button>

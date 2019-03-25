@@ -4,16 +4,27 @@
 ## Added
 - splitting of pdf if exceeding given limit
 - smb in daily graphics can now be hidden
--  
+- different bolus types can now be separated in daily graphic
+- order of forms can be changed
+- analysis page shows GVI and PGS
+- standard deviation can be shown on the analysis page instead of number of values
+- standard deviation of the values in the period is shown on the analysis page
+
 ## Changed
 - control for period changed to fit better on small displays
 - decimal places of insulin dosage is caluclated using values in profile
 - data of some uploaders are better interpreted
 - data marked as sync by xdrip are ignored
+- colors of dialogs and scrollbars have been adjusted
+
 ## Fixed
 - calculation of basalrate was corrected
 - profilepage adjusted so that 24 hours fit on one page
 - links for nightscout and reports of nightscout in the menu now even work if a usertoken was provided
+- main page can be scrolled in firefox
+- daily graphics now show the correct values for mmol/L
+- standard deviation is shown correctly for mmol/L
+- wrong alignment of button on mainpage has been fixed 
 
 ## [1.2.4]
 ### Added

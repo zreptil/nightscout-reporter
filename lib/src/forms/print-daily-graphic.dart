@@ -121,7 +121,7 @@ class PrintDailyGraphic extends BasePrint
   static String get msgParam15
   => Intl.message("SMB Werte anzeigen");
   static String get msgParam16
-  => Intl.message("Mahlzeiten- und Korrektur-Bolus trennen");
+  => Intl.message("Bolusarten anzeigen");
 
   @override
   List<String> get imgList
@@ -838,13 +838,15 @@ class PrintDailyGraphic extends BasePrint
       }
       if (splitBolus)
       {
-        if (hasBolus)addLegendEntry(
-          legend, colBolus, msgCorrectBolusInsulin("${fmtBasal(day.ieCorrectionSum)} ${msgInsulinUnit}"), isArea: false,
+        double sum = day.ieCorrectionSum;
+        if (!showSMB)sum += day.ieSMBSum;
+        if (sum > 0.0)addLegendEntry(
+          legend, colBolus, msgCorrectBolusInsulin("${fmtBasal(sum)} ${msgInsulinUnit}"), isArea: false,
           lineWidth: 0.1);
         if (hasCarbBolus)addLegendEntry(
           legend, colCarbBolus, msgCarbBolusInsulin("${fmtBasal(day.ieCarbSum)} ${msgInsulinUnit}"), isArea: false,
           lineWidth: 0.1);
-        if (day.ieSMBSum > 0.0)addLegendEntry(
+        if (showSMB && day.ieSMBSum > 0.0)addLegendEntry(
           legend, colBolus, msgSMBInsulin("${fmtBasal(day.ieSMBSum)} ${msgInsulinUnit}"),
           points: [{"x": 0.1, "y": 0.1}, {"x": 0.5, "y": 0.1}, {"x": 0.3, "y": 0.4}], isArea: false, lineWidth: 0.1);
       }

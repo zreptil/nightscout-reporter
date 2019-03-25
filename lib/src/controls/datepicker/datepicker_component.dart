@@ -130,6 +130,9 @@ class DatepickerPeriod
 class DatepickerComponent
 {
   @Input()
+  bool isLocal = false;
+
+  @Input()
   int firstDayOfWeek = 1;
 
   bool get isMaxMonth
