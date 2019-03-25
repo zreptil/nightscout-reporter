@@ -325,7 +325,8 @@ class AppComponent
       String temp = doc;
       doc = "";
       for (int i = 0; i < temp.length; i++)
-        if (temp.codeUnitAt(i) <= 255)doc = "${doc}${temp[i]}";
+        if (temp.codeUnitAt(i) <= 4095)
+          doc = "${doc}${temp[i]}";
     }
     return convert.base64.encode(convert.utf8.encode(doc));
   }
@@ -537,7 +538,7 @@ class AppComponent
     displayLink("status", url, type: "debug");
     String content = await g.request(url);
     data.status = StatusData.fromJson(json.decode(content));
-    g.glucMGDL = data.status.settings.units.toLowerCase() == "mg/dl";
+    g.glucMGDL = data.status.settings.units.trim().toLowerCase() == "mg/dl";
     url = "${g.user.apiUrl}profile.json";
     displayLink("profile", url, type: "debug");
     content = await g.request(url);

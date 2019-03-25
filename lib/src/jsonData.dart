@@ -958,6 +958,30 @@ class DayData
     return date.day == time.day;
   }
 
+  double get ieCorrectionSum
+  {
+    double ret = 0.0;
+    for (TreatmentData entry in treatments)
+      if (!entry.isCarbBolus && !entry.isSMB)ret += entry.bolusInsulin;
+    return ret;
+  }
+
+  double get ieCarbSum
+  {
+    double ret = 0.0;
+    for (TreatmentData entry in treatments)
+      if (entry.isCarbBolus && !entry.isSMB)ret += entry.bolusInsulin;
+    return ret;
+  }
+
+  double get ieSMBSum
+  {
+    double ret = 0.0;
+    for (TreatmentData entry in treatments)
+      if (entry.isSMB)ret += entry.bolusInsulin;
+    return ret;
+  }
+
   double getBolusSum(bool isCarbBolus)
   {
     double ret = 0.0;

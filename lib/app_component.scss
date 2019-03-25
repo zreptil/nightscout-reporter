@@ -58,7 +58,6 @@ header.material-header .material-header-title {
 
 material-content {
   display: flex !important;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   overflow-y: scroll;
@@ -68,6 +67,11 @@ material-content {
   right: 0;
   bottom: 0;
   scrollbar-color: $primary_back $secondary_back;
+  >div.centered{
+    display: flex;
+    flex: 1;
+    align-items: center;
+  }
 }
 
 material-button img {

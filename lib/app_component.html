@@ -8,7 +8,10 @@
       </material-button>
       <div class="material-header-title">
         {{g.title}}
-        <span class="betaText betaTitle" *ngIf="g.isBeta">BETA</span>
+        <span class="betaTitle" *ngIf="g.isBeta">BETA</span>
+        <material-button class="betaTitle" *ngIf="g.isLocal" (trigger)="g.isLocal = false">
+          Lokal
+        </material-button>
         <div class="versionText">{{g.version}}</div>
         <div class="subtitle" *ngIf="currPage=='impressum'">{{msgImpressum}}</div>
         <div class="subtitle" *ngIf="currPage=='dsgvo'">{{msgDSGVO}}</div>
@@ -25,50 +28,54 @@
     <impressum [isVisible]="currPage=='impressum'" (closeClicked)="callbackButton"></impressum>
     <whatsnew [isVisible]="currPage=='whatsnew'" (closeClicked)="callbackButton"></whatsnew>
     <dsgvo [isVisible]="currPage=='dsgvo'" (closeClicked)="callbackButton"></dsgvo>
-    <div [style.display]="currPage=='signin'?'':'none'" @i18n="message for signin to google">
-      Verbinde zu Google Drive...
-    </div>
-    <div *ngIf="currPage=='pdfList'" class="pdfPage">
-      <div class="pdfList">
-        <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
-              [action]="pdfUrl">
-          <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
-          <input name="filename" type="hidden" value="{{g.pdfDownload?pdfFilename:''}}"/>
-          <material-button class="pdfButton"
-                           (trigger)="openPDF(idx)">
-            <div class="pdfButtonText">{{idx+1}}</div>
-            <material-icon [icon]="pdfData.isPrinted?'done':'description'"></material-icon>
-          </material-button>
-        </form>
+    <div class="centered">
+      <div [style.display]="currPage=='signin'?'':'none'" @i18n="message for signin to google">
+        Verbinde zu Google Drive...
       </div>
-      <material-button *ngIf="!g.hidePdfInfo && !pdfInfoVisible" class="pdfInfo" @i18n="btnPdfInfo" (trigger)="pdfInfoVisible=true">
-        Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?
-      </material-button>
-      <div *ngIf="!g.hidePdfInfo && pdfInfoVisible" class="pdfInfoPanel">
-        <div @i18n="msgPdfInfo">
-          Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das
-          von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die
-          Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien
-          zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt
-          werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt
-          wurde, dann wird es direkt angezeigt.
+      <div *ngIf="currPage=='pdfList'" class="pdfPage">
+        <div class="pdfList">
+          <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
+                [action]="pdfUrl">
+            <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
+            <input name="filename" type="hidden" value="{{g.pdfDownload?pdfFilename:''}}"/>
+            <material-button class="pdfButton"
+                             (trigger)="openPDF(idx)">
+              <div class="pdfButtonText">{{idx+1}}</div>
+              <material-icon [icon]="pdfData.isPrinted?'done':'description'"></material-icon>
+            </material-button>
+          </form>
         </div>
-        <div class="pdfSlider">
-          <div @i18n="small">Klein</div>
-          <material-slider class="maxsize" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
-                           [max]="pdfSliderMax"></material-slider>
-          <div *ngIf="g.pdfControlMaxSize < pdfSliderMax" @i18n="big">Gross</div>
-          <div *ngIf="g.pdfControlMaxSize >= pdfSliderMax" @i18n="big">Unbegrenzt</div>
-        </div>
-        <material-button (trigger)="currPage='normal';createPDF()">
-          <div class="pdfButtonText" @i18n="pdfCreateAgain">PDF erneut erzeugen</div>
+        <material-button *ngIf="!g.hidePdfInfo && !pdfInfoVisible" class="pdfInfo" @i18n="btnPdfInfo"
+                         (trigger)="pdfInfoVisible=true">
+          Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?
         </material-button>
+        <div *ngIf="!g.hidePdfInfo && pdfInfoVisible" class="pdfInfoPanel">
+          <div @i18n="msgPdfInfo">
+            Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da
+            das
+            von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die
+            Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien
+            zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt
+            werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt
+            wurde, dann wird es direkt angezeigt.
+          </div>
+          <div class="pdfSlider">
+            <div @i18n="small">Klein</div>
+            <material-slider class="maxsize" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
+                             [max]="pdfSliderMax"></material-slider>
+            <div *ngIf="g.pdfControlMaxSize < pdfSliderMax" @i18n="big">Gross</div>
+            <div *ngIf="g.pdfControlMaxSize >= pdfSliderMax" @i18n="big">Unbegrenzt</div>
+          </div>
+          <material-button (trigger)="currPage='normal';createPDF()">
+            <div class="pdfButtonText" @i18n="pdfCreateAgain">PDF erneut erzeugen</div>
+          </material-button>
+        </div>
       </div>
-    </div>
-    <div class="progress" *ngIf="progressText != null">
-      <material-progress [activeProgress]="progressValue" [max]="progressMax"
-                         [indeterminate]="progressValue>progressMax"></material-progress>
-      <div>{{progressText}}</div>
+      <div class="progress" *ngIf="progressText != null">
+        <material-progress [activeProgress]="progressValue" [max]="progressMax"
+                           [indeterminate]="progressValue>progressMax"></material-progress>
+        <div>{{progressText}}</div>
+      </div>
     </div>
     <div class="normal-content" [style.display]="progressText == null && currPage=='normal'?'':'none'">
       <div class="basePanel">
@@ -129,7 +136,8 @@
                   (trigger)="reportData = null;isDebug = !isDebug;checkPrint();">
       <material-icon icon="bug_report"></material-icon>
     </material-fab>
-    <material-fab *ngIf="currPage=='normal'||currPage=='pdfList'" [raised]="true" [class]="sendIcon" [disabled]="sendDisabled"
+    <material-fab *ngIf="currPage=='normal'||currPage=='pdfList'" [raised]="true" [class]="sendIcon"
+                  [disabled]="sendDisabled"
                   (trigger)="sendClick()">
       <material-icon [icon]="createIcon"></material-icon>
     </material-fab>

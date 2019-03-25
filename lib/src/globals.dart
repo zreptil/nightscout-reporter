@@ -243,8 +243,14 @@ class Globals
   DateFormat fmtDateForDisplay;
   bool canDebug = false;
   bool isBeta = html.window.location.href.contains("/beta/");
-  bool isLocal = html.window.location.href.contains("/localhost:");
-  bool get useProfileSwitch => false;//isLocal;
+  bool _isLocal = html.window.location.href.contains("/localhost:");
+  bool get isLocal => _isLocal;
+  set isLocal(value)
+  {
+    _isLocal = value;
+  }
+  bool get useProfileSwitch
+  => false; //isLocal;
   String get settingsFilename
   => isLocal ? "settings.local" : isBeta ? "settings.beta" : "settings";
   gd.File settingsFile = null;
@@ -535,8 +541,7 @@ class Globals
     }
     else
       drive?.files.update(settingsFile, settingsFile.id, uploadMedia: media).then((_)
-      {
-      }).catchError((error)
+      {}).catchError((error)
       {
         String msg = error.toString();
 //      display("Es ist ein Fehler aufgetreten ($error)");
@@ -750,7 +755,7 @@ class Globals
 
   savePdfOrder()
   {
-    if(listConfig.length == 0)return;
+    if (listConfig.length == 0)return;
     var idList = [];
     for (FormConfig cfg in listConfig)
       idList.add(cfg.id);
@@ -794,6 +799,7 @@ class Globals
       {
         ret = "${ret}${String.fromCharCode(value)}";
       });
+      if (html.window.localStorage["mu-enc"] == "utf8")ret = convert.utf8.decode(ret.codeUnits);
     }
     catch (ex)
     {
@@ -806,7 +812,9 @@ class Globals
   static doit(String src)
   {
     if (!itod)return src;
-    String ret = convert.base64Encode(src.codeUnits);
+//    String ret = convert.base64Encode(src.codeUnits);
+    html.window.localStorage["mu-enc"] = "utf8";
+    String ret = convert.base64Encode(convert.utf8.encode(src));
     int pos = ret.length ~/ 2;
     math.Random rnd = math.Random();
     String.fromCharCode(rnd.nextInt(26) + 64);
@@ -894,8 +902,7 @@ class UserData
         forms[cfg.id] = cfg.asString;
     }
     catch (ex)
-    {
-    }
+    {}
 
     return '{"n":"$name",'
       '"bd":"${birthDate ?? ''}",'
@@ -932,8 +939,7 @@ class UserData
       }*/
     }
     catch (ex)
-    {
-    }
+    {}
     return ret;
   }
 

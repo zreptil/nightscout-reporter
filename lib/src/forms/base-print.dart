@@ -269,6 +269,8 @@ abstract class BasePrint
   => Intl.message("Korrektur Bolus ($value)", args: [value], name: "msgCorrectBolusInsulin");
   String msgCarbBolusInsulin(String value)
   => Intl.message("Mahlzeiten Bolus ($value)", args: [value], name: "msgCarbBolusInsulin");
+  String msgSMBInsulin(String value)
+  => Intl.message("SMB ($value)", args: [value], name: "msgSMBInsulin");
   String get msgBasalrate
   => Intl.message("Basalrate");
   String msgBasalrateDay(String value)
@@ -1144,11 +1146,26 @@ abstract class BasePrint
   }
 
   addLegendEntry(LegendData legend, String color, String text,
-                 {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0, double lineWidth = 0.0, String graphText: null, newColumn: false})
+                 {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0, double lineWidth = 0.0, String graphText: null, newColumn: false, points: null})
   {
     List dst = legend.current(newColumn);
     if (lineWidth == 0.0)lineWidth = lw;
-    if (image != null)
+    if (points != null)
+    {
+      for (var pt in points)
+      {
+        pt["x"] = cm(pt["x"] * 0.8);
+        pt["y"] = cm(pt["y"] * 0.8);
+      }
+      dst.add({
+        "columns": [ {
+          "width": cm(0.8),
+          "canvas": [ {"type": "polyline", "closePath": true, "color": color, "lineWidth": cm(0), "points": points,}],
+        }, {"text": text, "color": "black", "fontSize": fs(10)}
+        ]
+      });
+    }
+    else if (image != null)
     {
       dst.add({
         "columns": [ {

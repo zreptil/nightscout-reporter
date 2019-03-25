@@ -839,17 +839,20 @@ class PrintDailyGraphic extends BasePrint
       if (splitBolus)
       {
         if (hasBolus)addLegendEntry(
-          legend, colBolus, msgCorrectBolusInsulin("${fmtBasal(day.getBolusSum(false))} ${msgInsulinUnit}"),
-          isArea: false, lineWidth: 0.1);
+          legend, colBolus, msgCorrectBolusInsulin("${fmtBasal(day.ieCorrectionSum)} ${msgInsulinUnit}"), isArea: false,
+          lineWidth: 0.1);
         if (hasCarbBolus)addLegendEntry(
-          legend, colCarbBolus, msgCarbBolusInsulin("${fmtBasal(day.getBolusSum(true))} ${msgInsulinUnit}"),
-          isArea: false, lineWidth: 0.1);
+          legend, colCarbBolus, msgCarbBolusInsulin("${fmtBasal(day.ieCarbSum)} ${msgInsulinUnit}"), isArea: false,
+          lineWidth: 0.1);
+        if (day.ieSMBSum > 0.0)addLegendEntry(
+          legend, colBolus, msgSMBInsulin("${fmtBasal(day.ieSMBSum)} ${msgInsulinUnit}"),
+          points: [{"x": 0.1, "y": 0.1}, {"x": 0.5, "y": 0.1}, {"x": 0.3, "y": 0.4}], isArea: false, lineWidth: 0.1);
       }
       else if (hasBolus)
       {
         addLegendEntry(
-          legend, colBolus, msgBolusInsulin("${fmtBasal(day.getBolusSum(false))} ${msgInsulinUnit}"),
-          isArea: false, lineWidth: 0.1);
+          legend, colBolus, msgBolusInsulin("${fmtBasal(day.ieBolusSum)} ${msgInsulinUnit}"), isArea: false,
+          lineWidth: 0.1);
       }
       if (showBasalDay)
       {
