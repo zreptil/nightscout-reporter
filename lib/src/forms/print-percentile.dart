@@ -87,6 +87,17 @@ class PrintPercentile extends BasePrint
   @override
   void fillPages(ReportData src, List<List<dynamic>> pages)
   async {
+    pages.add(getPage(src));
+    if (g.isLocal)
+    {
+      g.glucMGDL = !g.glucMGDL;
+      pages.add(getPage(src));
+      g.glucMGDL = !g.glucMGDL;
+    }
+  }
+
+  getPage(ReportData src)
+  {
     double xo = xorg;
     double yo = yorg;
     var data = src.calc;
@@ -114,12 +125,8 @@ class PrintPercentile extends BasePrint
     for (PercentileData data in percList)
       glucMax = math.max(data.percentile(90), glucMax);
 
-    int gridLines = (glucMax / 50).ceil();
-    double lineHeight = gridHeight / gridLines;
-    double colWidth = gridWidth / 24;
-
     var vertLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
-    var horzLines = {"relativePosition": {"x": cm(xo - 0.2), "y": cm(yo)}, "canvas": []};
+    var horzLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     var horzLegend = {"stack": []};
     var vertLegend = {"stack": []};
     var graph = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
@@ -128,51 +135,18 @@ class PrintPercentile extends BasePrint
     List horzCvs = vertLines["canvas"] as List;
     List horzStack = horzLegend["stack"];
     List vertStack = vertLegend["stack"];
-    for (var i = 0; i < 25; i++)
-    {
-      vertCvs.add({
-        "type": "line",
-        "x1": cm(i * colWidth),
-        "y1": cm(0),
-        "x2": cm(i * colWidth),
-        "y2": cm(lineHeight * gridLines + 0.25),
-        "lineWidth": cm(lw),
-        "lineColor": i > 0 && i < 24 ? lc : lcFrame
-      });
-      if (i < 24)horzStack.add({
-        "relativePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)},
-        "text": fmtTime(i),
-        "fontSize": fs(8)
-      });
-    }
 
-    for (var i = 0; i <= gridLines; i++)
-    {
-      horzCvs.add({
-        "type": "line",
-        "x1": cm(-0.2),
-        "y1": cm((gridLines - i) * lineHeight - lw / 2),
-        "x2": cm(24 * colWidth + 0.2),
-        "y2": cm((gridLines - i) * lineHeight - lw / 2),
-        "lineWidth": cm(lw),
-        "lineColor": i > 0 ? lc : lcFrame
-      });
-      if (i > 0)
-      {
-        String text = "${glucFromData(fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
-        vertStack.add({
-          "relativePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
-          "text": text,
-          "fontSize": fs(8)
-        });
-        vertStack.add({
-          "relativePosition": {"x": cm(xo + 24 * colWidth + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
-          "text": text,
-          "fontSize": fs(8)
-        });
-      }
-    }
-    glucMax = gridLines * 50.0;
+    GridData grid = drawGraphicGrid(
+      glucMax,
+      gridHeight,
+      gridWidth,
+      vertCvs,
+      horzCvs,
+      horzStack,
+      vertStack);
+    if (grid.lineHeight == 0)
+      return [headerFooter(), {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "text": msgMissingData}];
+    glucMax = grid.gridLines * grid.glucScale;
     double yHigh = glucY(src
       .profile(Globals.now)
       .targetHigh);
@@ -186,7 +160,7 @@ class PrintPercentile extends BasePrint
           "type": "rect",
           "x": cm(0.0),
           "y": cm(yHigh),
-          "w": cm(24 * colWidth),
+          "w": cm(24 * grid.colWidth),
           "h": cm(yLow - yHigh),
           "color": "#00ff00",
           "fillOpacity": 0.5
@@ -195,7 +169,7 @@ class PrintPercentile extends BasePrint
           "type": "line",
           "x1": cm(0.0),
           "y1": cm(yHigh),
-          "x2": cm(24 * colWidth),
+          "x2": cm(24 * grid.colWidth),
           "y2": cm(yHigh),
           "lineWidth": cm(lw),
           "lineColor": "#00aa00"
@@ -204,7 +178,7 @@ class PrintPercentile extends BasePrint
           "type": "line",
           "x1": cm(0.0),
           "y1": cm(yLow),
-          "x2": cm(24 * colWidth),
+          "x2": cm(24 * grid.colWidth),
           "y2": cm(yLow),
           "lineWidth": cm(lw),
           "lineColor": "#00aa00"
@@ -213,10 +187,12 @@ class PrintPercentile extends BasePrint
       ]
     };
     var percGraph = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
-    var percLegend = LegendData(cm(xo), cm(yo + lineHeight * gridLines + 1.0), cm(8.0), 100);
+    var percLegend = LegendData(cm(xo), cm(yo + grid.lineHeight * grid.gridLines + 1.0), cm(8.0), 100);
 
-    if (addPercentileGraph(percGraph, percList, 10, 90, "#aaaaff"))addLegendEntry(percLegend, "#aaaaff", msgPercentile1090);
-    if (addPercentileGraph(percGraph, percList, 25, 75, "#8888ff"))addLegendEntry(percLegend, "#8888ff", msgPercentile2575);
+    if (addPercentileGraph(percGraph, percList, 10, 90, "#aaaaff"))addLegendEntry(
+      percLegend, "#aaaaff", msgPercentile1090);
+    if (addPercentileGraph(percGraph, percList, 25, 75, "#8888ff"))addLegendEntry(
+      percLegend, "#8888ff", msgPercentile2575);
     addPercentileGraph(percGraph, percList, 50, 50, "#000000");
 
     addLegendEntry(percLegend, "#000000", msgMedian, isArea: false);
@@ -225,9 +201,8 @@ class PrintPercentile extends BasePrint
       .targetLow), glucFromData(src
       .profile(Globals.now)
       .targetHigh), getGlucInfo()["unit"]));
-    pages.add(
-      [headerFooter(), vertLegend, vertLines, horzLegend, horzLines, limitLines, percGraph, graph, percLegend.asOutput
-      ]);
+    return [
+      headerFooter(), vertLegend, vertLines, horzLegend, horzLines, limitLines, percGraph, graph, percLegend.asOutput];
   }
 
   bool addPercentileGraph(var percGraph, List<PercentileData> percList, int low, int high, String color)

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'dart:math';
 
+import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
@@ -57,7 +58,6 @@ class PrintWeeklyGraphic extends BasePrint
   static double basalTop;
   static double basalHeight = 3.0;
   static double basalWidth = graphWidth;
-  static int glucStep = 20;
 
   double glucX(DateTime time)
   {
@@ -83,12 +83,20 @@ class PrintWeeklyGraphic extends BasePrint
   async {
     var data = src.calc;
 
+    if(data.days.length == 0)
+      return;
+
     List<List<DayData>> list = List<List<DayData>>();
     list.add(List<DayData>());
+    int lastDayInWeek = 1000;
     for (int i = 0; i < data.days.length; i++)
     {
       DayData day = data.days[i];
-      if (day.date.weekday == g.period.firstDayOfWeek && list.last.length > 0)list.add(List<DayData>());
+      int dayInWeek = day.date.weekday - g.period.firstDayOfWeek;
+      if(dayInWeek < 0)
+        dayInWeek += 7;
+      if (dayInWeek <= lastDayInWeek && list.last.length > 0)list.add(List<DayData>());
+      lastDayInWeek = dayInWeek;
       list.last.add(day);
     }
     if (sortReverse)list = list.reversed.toList();
@@ -99,6 +107,12 @@ class PrintWeeklyGraphic extends BasePrint
       basalTop = 2.0;
       graphBottom = graphHeight;
       pages.add(_getPage(week, src));
+      if (g.isLocal)
+      {
+        g.glucMGDL = !g.glucMGDL;
+        pages.add(_getPage(week, src));
+        g.glucMGDL = !g.glucMGDL;
+      }
     }
   }
 
@@ -118,12 +132,9 @@ class PrintWeeklyGraphic extends BasePrint
       for (EntryData entry in day.bloody)
         glucMax = math.max(entry.mbg, glucMax);
     }
-    int gridLines = (glucMax / glucStep).ceil();
-    double lineHeight = graphHeight / gridLines;
-    double colWidth = graphWidth / 24;
 
     var vertLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
-    var horzLines = {"relativePosition": {"x": cm(xo - 0.2), "y": cm(yo)}, "canvas": []};
+    var horzLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     var horzLegend = {"stack": []};
     var vertLegend = {"stack": []};
     List graphGlucCvs = [];
@@ -134,55 +145,20 @@ class PrintWeeklyGraphic extends BasePrint
     List horzCvs = vertLines["canvas"] as List;
     List horzStack = horzLegend["stack"];
     List vertStack = vertLegend["stack"];
-    // draw vertical lines with times below graphic
-    for (var i = 0; i < 25; i++)
-    {
-      vertCvs.add({
-        "type": "line",
-        "x1": cm(i * colWidth),
-        "y1": cm(0),
-        "x2": cm(i * colWidth),
-        "y2": cm(graphBottom),
-        //cm(lineHeight * gridLines + 0.25),
-        "lineWidth": cm(lw),
-        "lineColor": i > 0 && i < 24 ? lc : lcFrame
-      });
-      if (i < 24)horzStack.add({
-        "relativePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + graphBottom + 0.05)},
-        "text": fmtTime(i),
-        "fontSize": fs(8)
-      });
-    }
 
-    glucMax = 0.0;
-    for (var i = 0; i <= gridLines; i++)
-    {
-      horzCvs.add({
-        "type": "line",
-        "x1": cm(-0.2),
-        "y1": cm((gridLines - i) * lineHeight - lw / 2),
-        "x2": cm(24 * colWidth + 0.2),
-        "y2": cm((gridLines - i) * lineHeight - lw / 2),
-        "lineWidth": cm(lw),
-        "lineColor": i > 0 ? lc : lcFrame
-      });
+    GridData grid = drawGraphicGrid(
+      glucMax,
+      graphHeight,
+      graphWidth,
+      vertCvs,
+      horzCvs,
+      horzStack,
+      vertStack, glucScale: g.glucMGDL ? 20 : 18.02 * 0.5);
+    if (grid.lineHeight == 0)
+      return [headerFooter(), {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "text": msgMissingData}];
 
-      if (i > 0)
-      {
-        String text = "${glucFromData(fmtNumber(i * glucStep, 0))}\n${getGlucInfo()["unit"]}";
-        vertStack.add({
-          "relativePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
-          "text": text,
-          "fontSize": fs(8)
-        });
-        vertStack.add({
-          "relativePosition": {"x": cm(xo + 24 * colWidth + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
-          "text": text,
-          "fontSize": fs(8)
-        });
-      }
-    }
-    glucMax = (gridLines * glucStep).toDouble();
+
+    glucMax = (grid.gridLines * grid.glucScale).toDouble();
     LegendData legend = LegendData(cm(xo), cm(yo + graphHeight + 0.8), cm(8.0), 3);
     for (DayData day in days)
     {
@@ -263,7 +239,7 @@ class PrintWeeklyGraphic extends BasePrint
           "type": "rect",
           "x": cm(0.0),
           "y": cm(yHigh),
-          "w": cm(24 * colWidth),
+          "w": cm(24 * grid.colWidth),
           "h": cm(yLow - yHigh),
           "color": colTargetArea,
           "fillOpacity": 0.3
@@ -272,7 +248,7 @@ class PrintWeeklyGraphic extends BasePrint
           "type": "line",
           "x1": cm(0.0),
           "y1": cm(yHigh),
-          "x2": cm(24 * colWidth),
+          "x2": cm(24 * grid.colWidth),
           "y2": cm(yHigh),
           "lineWidth": cm(lw),
           "lineColor": colTargetArea
@@ -281,7 +257,7 @@ class PrintWeeklyGraphic extends BasePrint
           "type": "line",
           "x1": cm(0.0),
           "y1": cm(yLow),
-          "x2": cm(24 * colWidth),
+          "x2": cm(24 * grid.colWidth),
           "y2": cm(yLow),
           "lineWidth": cm(lw),
           "lineColor": colTargetArea
@@ -289,7 +265,7 @@ class PrintWeeklyGraphic extends BasePrint
         {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1}
       ]
     };
-    var y = yo + lineHeight * gridLines;
+    var y = yo + grid.lineHeight * grid.gridLines;
     y += basalTop;
 
     return [headerFooter(), vertLegend, vertLines, horzLegend, horzLines, limitLines, graphGluc, legend.asOutput];

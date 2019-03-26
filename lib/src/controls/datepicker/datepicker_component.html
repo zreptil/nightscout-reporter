@@ -1,5 +1,8 @@
 <div class="floating">{{periodFloatingLabel}}</div>
-<material-button (trigger)="loadedPeriod=period.toString();isDialogOpen=true;">{{periodLabel}}</material-button>
+<material-button class="dpBtn" (trigger)="loadedPeriod=period.toString();isDialogOpen=true;">
+  <div main>{{periodLabelMain}}</div>
+  <div sub *ngIf="period.dowActiveText!=''">{{periodLabelSub}}</div>
+</material-button>
 <modal [visible]="isDialogOpen">
   <material-dialog headered class="headered-dialog">
     <div header>
@@ -16,7 +19,7 @@
         <material-input [(ngModel)]="startDate" floatingLabel @i18n:label="datepicker label from" label="Von"
                         [error]="isStartValid?'':msgStartIncorrect" (focus)="month=period.start"></material-input>
         <material-input [(ngModel)]="endDate" floatingLabel @i18n:label="datepicker label to"
-                        label="bis" [error]="isEndValid?'':msgEndIncorrect" (focus)="month=period.end"></material-input>
+                        label="Bis" [error]="isEndValid?'':msgEndIncorrect" (focus)="month=period.end"></material-input>
       </div>
       <div class="month" *ngIf="month!=null">
         <material-button class="prev" [disabled]="isMinMonth" (trigger)="month=month.add(months: -1)">

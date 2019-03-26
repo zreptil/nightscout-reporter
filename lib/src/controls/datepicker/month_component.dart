@@ -26,6 +26,7 @@ class _Day
     if (date.month != _forMonth)return false;
     if (_period.maxDate != null && date.isAfter(_period.maxDate))return false;
     if (_period.minDate != null && date.isBefore(_period.minDate))return false;
+    if (!_period.isDowActive(date.weekday - 1))return false;
     return true;
   }
 
@@ -86,6 +87,12 @@ class MonthComponent
 
   monthName(date)
   => DatepickerPeriod.monthName(date);
+
+  dowmark(idx)
+  => period.isDowActive(idx) ? "done" : "close";
+
+  dayclass(_Day day)
+  => period.entryKey != null ? 'key' : '';
 
   get firstDayOfWeek
   => period.firstDayOfWeek;

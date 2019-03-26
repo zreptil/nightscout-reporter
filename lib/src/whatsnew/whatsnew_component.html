@@ -10,7 +10,21 @@
       </material-button>
     </div>
     <div class="root">
-      <h2><span @i18n="version">Version</span><span @i18n="v125">1.2.5 - xx.03.2019</span></h2>
+      <h2><span @i18n="version">Version</span><span @i18n="v126">1.2.6 - 27.03.2019</span></h2>
+      <ul>
+        <li class="added" @i18n="v126a1">
+          Es ist jetzt möglich, die Wochentage festzulegen, die im Zeitraum berücksichtigt werden sollen. Die
+          entsprechenden Tage werden bei der Auswahl des Zeitraums mit den Buttons unterhalb des Monats festgelegt.
+          Auf den PDFs werden Zeiträume dann zusätzlich mit der Information versehen, welche Wochentage
+          berücksichtigt werden, wenn es nicht alle sind.
+        </li>
+        <li class="changed" @i18n="v126c1">
+          Die Skalen an den Grafiken wurden überarbeitet. Sie zeigen jetzt für mmol/L ganzzahlige Werte an und die
+          Einheiten wurden entfernt. Diese stehen nur noch unten an der Grafik. Das betrifft die täglichen Grafiken,
+          wöchentlichen Grafiken und das Glukose Percentil Diagramm.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v125">1.2.5 - 25.03.2019</span></h2>
       <ul>
         <li class="added" @i18n="v125a1">
           Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird
@@ -47,6 +61,10 @@
           lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde
           mit einer anderen Farbe markiert, als ein Bolus zur Korrektur. In der Legende werden dann Korrektur-,
           Mahlzeiten-Boli und SMB getrennt angezeigt.
+        </li>
+        <li class="added" @i18n="v125a9">
+          Nightscout Reporter ist nun auch grösstenteils in Spanisch und Polnisch verfügbar. Entsprechende Buttons
+          wurden dem Hauptmenü hinzugefügt. Danke an die fleissigen Übersetzer :).
         </li>
         <li class="changed" @i18n="v125c1">
           Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt

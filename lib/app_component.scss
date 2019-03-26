@@ -181,7 +181,7 @@ material-drawer {
 .stop,
 .close {
   position: fixed;
-  right: 2em;
+  right: 1em;
   bottom: 2em;
 }
 
@@ -286,7 +286,7 @@ material-drawer {
 material-fab.debug-trigger {
   position: fixed;
   bottom: 2em;
-  right: 5em;
+  right: 4em;
   background: $debug_back !important;
   color: $mat-white;
 }

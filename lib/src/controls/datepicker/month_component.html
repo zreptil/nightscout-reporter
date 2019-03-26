@@ -1,18 +1,20 @@
 <div class="title">{{monthName(date)}} {{date.year}}</div>
 <div class="weektitle">
-  <material-button *ngFor="let dow of month.weeks[0].days" class="btn" (trigger)="firstDayOfWeek=dow.date.weekday">
+  <material-button *ngFor="let dow of month.weeks[0].days" class="btn" (trigger)="firstDayOfWeek=dow.date.weekday"
+                   @i18n:title="title for button of weekdayname" title="Als ersten Tag der Woche festlegen">
     {{dow.shortName}}
-  </material-button>
-</div>
-<div class="weektitle" *ngIf="isLocal">
-  <material-button *ngFor="let dow of month.weeks[0].days" class="btn" (trigger)="firstDayOfWeek=dow.date.weekday">
-    <material-icon icon="ok"></material-icon>
   </material-button>
 </div>
 <div class="month">
   <div class="week" *ngFor="let week of month.weeks">
-    <material-button *ngFor="let day of week.days" [class]="period.entryKey!=null?'key':''" [disabled]="!day.isEnabled"
+    <material-button *ngFor="let day of week.days" [class]="dayclass(day)" [disabled]="!day.isEnabled"
                      [raised]="day.isRaised" (trigger)="dayClicked(day)">{{day.day}}
+    </material-button>
+  </div>
+  <div class="weekmarks" *ngIf="isLocal">
+    <material-button *ngFor="let dow of month.weeks[0].days" [class]="dowmark(dow.date.weekday-1)"
+                     (trigger)="period.activateDow(dow.date.weekday-1, !period.isDowActive(dow.date.weekday-1))">
+      <material-icon [icon]="period.isDowActive(dow.date.weekday-1)?'done':'close'"></material-icon>
     </material-button>
   </div>
 </div>

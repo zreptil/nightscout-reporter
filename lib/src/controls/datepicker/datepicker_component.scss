@@ -2,14 +2,41 @@
 @import 'package:angular_components/material_dialog/mixins';
 @import 'package:angular_components/material_input/mixins';
 
+$primary_color: $mat_cyan_900;
+$secondary_color: $mat_cyan_500;
+
 :host {
 }
 
-$primary_color: $mat_cyan_900;
-$secondary_color: $mat_cyan_500;
+material-dialog {
+  ::ng-deep main::-webkit-scrollbar {
+    width: auto;
+  }
+
+  ::ng-deep main::-webkit-scrollbar-track {
+    background-color: $secondary_color;
+  }
+
+  ::ng-deep main::-webkit-scrollbar-thumb {
+    background-color: $primary_color;
+  }
+}
+
 material-input {
   @include input-label-color($primary_color);
   @include material-input-focused-underline-color($primary_color);
+}
+
+material-button.dpBtn{
+  ::ng-deep .content{
+    flex-direction: column;
+  }
+  div[main]{
+  }
+  div[sub]{
+    padding-top: 0.7em;
+    font-size: 75%;
+  }
 }
 
 material-dialog {
@@ -90,4 +117,21 @@ material-button.ok {
     height: 100%;
     padding: 0 !important;
   }
+}
+
+
+::ng-deep .infoarea.showinfo>*:not(.infotext),
+::ng-deep .infoarea:not(.showinfo)>*.infotext{
+  display: none;
+}
+
+::ng-deep .infoarea>*.infotext{
+  border: 1px solid $mat-red-900;
+  background: $mat-red-600;
+  color: $mat-white;
+  display: flex;
+  flex: 1;
+  padding: 0.5em;
+  white-space: pre;
+  margin: 0;
 }

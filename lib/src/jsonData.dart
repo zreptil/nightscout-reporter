@@ -1333,6 +1333,8 @@ class ListData
     allEntries.sort((a, b)
     => a.time.compareTo(b.time));
 
+    allEntries.removeWhere((e) => e.isGap);
+
     var last = null;
     // calculation of gvi and rms based on
     // https://github.com/nightscout/cgm-remote-monitor/blob/master/lib/report_plugins/glucosedistribution.js#L150

@@ -1,5 +1,13 @@
 ## [Unreleased]
 
+## [1.2.6]
+## Added
+- definition of weekdays to include in reports
+
+## Changed
+- scales of graphics use now whole numbers for mmol/L
+- units of scales are shown at the bottom of the graphics 
+
 ## [1.2.5]
 ## Added
 - splitting of pdf if exceeding given limit

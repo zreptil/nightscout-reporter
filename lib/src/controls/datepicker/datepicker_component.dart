@@ -49,8 +49,40 @@ class DatepickerPeriod
   String entryKey = null;
   Date minDate = null;
   Date maxDate = null;
+  String _dowActiveText = null;
+  List<bool> _dowActive = [true, true, true, true, true, true, true];
+  bool isDowActive(int idx)
+  => idx >= 0 && idx < _dowActive.length ? _dowActive[idx] : false;
+  activateDow(int idx, bool isActive)
+  {
+    if (idx < 0 || idx >= _dowActive.length)return;
+    _dowActive[idx] = isActive;
+    _dowActiveText = null;
+  }
 
-  bool get isEmpty => (entryKey == null || entryKey.isEmpty) && start == null;
+  String get dowActiveText
+  {
+    if (_dowActiveText == null)
+    {
+      List<String> ret = List<String>();
+      int cnt = 0;
+      for (int i = 0; i < dowShortNames.length; i++)
+      {
+        int idx = i + firstDayOfWeek - 1;
+        if (idx >= dowShortNames.length)idx -= dowShortNames.length;
+        if (isDowActive(idx))
+        {
+          ret.add(dowShortNames[idx]);
+          cnt++;
+        }
+      }
+      _dowActiveText = cnt < dowShortNames.length ? ret.join(", ") : "";
+    }
+    return _dowActiveText;
+  }
+
+  bool get isEmpty
+  => (entryKey == null || entryKey.isEmpty) && start == null;
 
   List<DatepickerEntry> list = List<DatepickerEntry>();
 
@@ -87,12 +119,17 @@ class DatepickerPeriod
       end = null;
       entryKey = null;
       firstDayOfWeek = 1;
-      if (parts.length == 4)
+      if (parts.length >= 4)
       {
         start = parse(parts[0]);
         end = parse(parts[1]);
         entryKey = parts[2] == "" || parts[2] == "null" ? null : parts[2];
         firstDayOfWeek = int.tryParse(parts[3]) ?? 0;
+      }
+      for (int i = 0; i < 7; i++)
+      {
+        activateDow(i, true);
+        if (parts.length >= 5 && i < parts[4].length)activateDow(i, parts[4][i] == "+");
       }
     }
     catch (ex)
@@ -107,8 +144,16 @@ class DatepickerPeriod
 
   String toString()
   {
-    return "${start?.format(DateFormat("yyyyMMdd")) ?? ""}|${end?.format(DateFormat("yyyyMMdd")) ?? ""}|${entryKey
-                                                                                                          ?? ""}|${firstDayOfWeek}";
+    List<String> ret = List<String>();
+    ret.add("${start?.format(DateFormat("yyyyMMdd")) ?? ""}");
+    ret.add("${end?.format(DateFormat("yyyyMMdd")) ?? ""}");
+    ret.add("${entryKey ?? ""}");
+    ret.add("${firstDayOfWeek}");
+    String dow = "";
+    for (bool active in _dowActive)
+      dow = "${dow}${active ? '+' : '-'}";
+    ret.add(dow);
+    return ret.join("|");
   }
 }
 
@@ -137,14 +182,22 @@ class DatepickerComponent
 
   bool get isMaxMonth
   =>
-    period != null && period.maxDate != null && month != null && (month.year > period.maxDate.year || (month.year == period.maxDate.year
-                                                                                     && month.month >= period.maxDate
-        .month));
+    period != null && period.maxDate != null && month != null && (month.year > period.maxDate.year || (month
+                                                                                                         .year == period
+                                                                                                         .maxDate.year
+                                                                                                       && month
+                                                                                                            .month >= period
+                                                                                                            .maxDate
+                                                                                                            .month));
   bool get isMinMonth
   =>
-    period != null && period.minDate != null && month != null && (month.year < period.minDate.year || (month.year == period.minDate.year
-                                                                                     && month.month <= period.minDate
-        .month));
+    period != null && period.minDate != null && month != null && (month.year < period.minDate.year || (month
+                                                                                                         .year == period
+                                                                                                         .minDate.year
+                                                                                                       && month
+                                                                                                            .month <= period
+                                                                                                            .minDate
+                                                                                                            .month));
 
   get msgStartIncorrect
   => Intl.message("Das Startdatum ist nicht korrekt");
@@ -161,9 +214,9 @@ class DatepickerComponent
   {
     DatepickerPeriod temp = value is DatepickerPeriod ? value : DatepickerPeriod(src: value);
     _period = temp ?? _period;
-    if(_period.entryKey != null && _period.list.length > 0)
+    if (_period.entryKey != null && _period.list.length > 0)
     {
-      DatepickerEntry entry =_period.list.firstWhere((e)
+      DatepickerEntry entry = _period.list.firstWhere((e)
       => e.key == _period.entryKey);
       entry?.fill(_period);
     }
@@ -228,13 +281,18 @@ class DatepickerComponent
     return msgPeriod;
   }
 
-  String get periodLabel
+  String get periodLabelMain
   {
     if (period == null)return "";
     if (period.entryKey != null)return period.entryTitle;
     if (period.start == null || period.end == null)return msgPeriodEmpty;
     if (period.start.compareTo(period.end) == 0)return period.start.format(period.dateFormat);
     return "${period.start.format(period.dateFormat)} - ${period.end.format(period.dateFormat)}";
+  }
+
+  String get periodLabelSub
+  {
+    return "(${period.dowActiveText})";
   }
 
   @Output("save")
@@ -249,8 +307,7 @@ class DatepickerComponent
 
   void fire(String type)
   async {
-    if(type == "save")
-      _periodChange.add(period);
+    if (type == "save")_periodChange.add(period);
     _trigger.add(UIEvent(type, detail: 0));
   }
 }

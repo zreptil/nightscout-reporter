@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-03-22T15:25:59.417109",
+  "@@last_modified": "2019-03-26T22:41:45.472776",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -280,7 +280,6 @@
   },
   "bis": "bis",
   "@bis": {
-    "description": "datepicker label to",
     "type": "text",
     "placeholders": {}
   },
@@ -328,6 +327,13 @@
   },
   "msgCarbBolusInsulin": "Mahlzeiten Bolus ({value})",
   "@msgCarbBolusInsulin": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgSMBInsulin": "SMB ({value})",
+  "@msgSMBInsulin": {
     "type": "text",
     "placeholders": {
       "value": {}
@@ -1023,8 +1029,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Mahlzeiten- und Korrektur-Bolus trennen": "Mahlzeiten- und Korrektur-Bolus trennen",
-  "@Mahlzeiten- und Korrektur-Bolus trennen": {
+  "Bolusarten anzeigen": "Bolusarten anzeigen",
+  "@Bolusarten anzeigen": {
     "type": "text",
     "placeholders": {}
   },
@@ -1157,12 +1163,6 @@
       "url": {}
     }
   },
-  "Verbinde zu Google Drive...": "Verbinde zu Google Drive...",
-  "@Verbinde zu Google Drive...": {
-    "description": "message for signin to google",
-    "type": "text",
-    "placeholders": {}
-  },
   "Willkommen": "Willkommen",
   "@Willkommen": {
     "description": "title of welcome screen",
@@ -1178,6 +1178,12 @@
   "Was bisher geschah...": "Was bisher geschah...",
   "@Was bisher geschah...": {
     "description": "title of whatsnew",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verbinde zu Google Drive...": "Verbinde zu Google Drive...",
+  "@Verbinde zu Google Drive...": {
+    "description": "message for signin to google",
     "type": "text",
     "placeholders": {}
   },
@@ -1235,9 +1241,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "Bis": "Bis",
+  "@Bis": {
+    "description": "datepicker label to",
+    "type": "text",
+    "placeholders": {}
+  },
   "Ok": "Ok",
   "@Ok": {
     "description": "buttonlabel for ok in control datepicker",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Als ersten Tag der Woche festlegen": "Als ersten Tag der Woche festlegen",
+  "@Als ersten Tag der Woche festlegen": {
+    "description": "title for button of weekdayname",
     "type": "text",
     "placeholders": {}
   },
@@ -1361,8 +1379,26 @@
     "type": "text",
     "placeholders": {}
   },
-  "1.2.5 - xx.03.2019": "1.2.5 - xx.03.2019",
-  "@1.2.5 - xx.03.2019": {
+  "1.2.6 - 27.03.2019": "1.2.6 - 27.03.2019",
+  "@1.2.6 - 27.03.2019": {
+    "description": "v126",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es ist jetzt möglich, die Wochentage festzulegen, die im Zeitraum berücksichtigt werden sollen. Die entsprechenden Tage werden bei der Auswahl des Zeitraums mit den Buttons unterhalb des Monats festgelegt. Auf den PDFs werden Zeiträume dann zusätzlich mit der Information versehen, welche Wochentage berücksichtigt werden, wenn es nicht alle sind.": "Es ist jetzt möglich, die Wochentage festzulegen, die im Zeitraum berücksichtigt werden sollen. Die entsprechenden Tage werden bei der Auswahl des Zeitraums mit den Buttons unterhalb des Monats festgelegt. Auf den PDFs werden Zeiträume dann zusätzlich mit der Information versehen, welche Wochentage berücksichtigt werden, wenn es nicht alle sind.",
+  "@Es ist jetzt möglich, die Wochentage festzulegen, die im Zeitraum berücksichtigt werden sollen. Die entsprechenden Tage werden bei der Auswahl des Zeitraums mit den Buttons unterhalb des Monats festgelegt. Auf den PDFs werden Zeiträume dann zusätzlich mit der Information versehen, welche Wochentage berücksichtigt werden, wenn es nicht alle sind.": {
+    "description": "v126a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Skalen an den Grafiken wurden überarbeitet. Sie zeigen jetzt für mmol/L ganzzahlige Werte an und die Einheiten wurden entfernt. Diese stehen nur noch unten an der Grafik. Das betrifft die täglichen Grafiken, wöchentlichen Grafiken und das Glukose Percentil Diagramm.": "Die Skalen an den Grafiken wurden überarbeitet. Sie zeigen jetzt für mmol/L ganzzahlige Werte an und die Einheiten wurden entfernt. Diese stehen nur noch unten an der Grafik. Das betrifft die täglichen Grafiken, wöchentlichen Grafiken und das Glukose Percentil Diagramm.",
+  "@Die Skalen an den Grafiken wurden überarbeitet. Sie zeigen jetzt für mmol/L ganzzahlige Werte an und die Einheiten wurden entfernt. Diese stehen nur noch unten an der Grafik. Das betrifft die täglichen Grafiken, wöchentlichen Grafiken und das Glukose Percentil Diagramm.": {
+    "description": "v126c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.5 - 25.03.2019": "1.2.5 - 25.03.2019",
+  "@1.2.5 - 25.03.2019": {
     "description": "v125",
     "type": "text",
     "placeholders": {}
@@ -1409,9 +1445,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "In der Tagesgrafik gibt es eine Option, mit dem man Mahlzeiten- und Korrektur-Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Blous zur Korrektur und in der Legende werden diese auch einzeln ausgewiesen.": "In der Tagesgrafik gibt es eine Option, mit dem man Mahlzeiten- und Korrektur-Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Blous zur Korrektur und in der Legende werden diese auch einzeln ausgewiesen.",
-  "@In der Tagesgrafik gibt es eine Option, mit dem man Mahlzeiten- und Korrektur-Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Blous zur Korrektur und in der Legende werden diese auch einzeln ausgewiesen.": {
+  "In der Tagesgrafik gibt es eine Option, mit dem man die verschiedenen Arten der Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Bolus zur Korrektur. In der Legende werden dann Korrektur-, Mahlzeiten-Boli und SMB getrennt angezeigt.": "In der Tagesgrafik gibt es eine Option, mit dem man die verschiedenen Arten der Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Bolus zur Korrektur. In der Legende werden dann Korrektur-, Mahlzeiten-Boli und SMB getrennt angezeigt.",
+  "@In der Tagesgrafik gibt es eine Option, mit dem man die verschiedenen Arten der Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Bolus zur Korrektur. In der Legende werden dann Korrektur-, Mahlzeiten-Boli und SMB getrennt angezeigt.": {
     "description": "v125a8",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nightscout Reporter ist nun auch grösstenteils in Spanisch und Polnisch verfügbar. Entsprechende Buttons wurden dem Hauptmenü hinzugefügt. Danke an die fleissigen Übersetzer :).": "Nightscout Reporter ist nun auch grösstenteils in Spanisch und Polnisch verfügbar. Entsprechende Buttons wurden dem Hauptmenü hinzugefügt. Danke an die fleissigen Übersetzer :).",
+  "@Nightscout Reporter ist nun auch grösstenteils in Spanisch und Polnisch verfügbar. Entsprechende Buttons wurden dem Hauptmenü hinzugefügt. Danke an die fleissigen Übersetzer :).": {
+    "description": "v125a9",
     "type": "text",
     "placeholders": {}
   },
@@ -1478,6 +1520,12 @@
   "Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.": "Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.",
   "@Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.": {
     "description": "v125f6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die fehlerhafte Zentrierung der Auswahlbuttons wurde korrigiert.": "Die fehlerhafte Zentrierung der Auswahlbuttons wurde korrigiert.",
+  "@Die fehlerhafte Zentrierung der Auswahlbuttons wurde korrigiert.": {
+    "description": "v125f7",
     "type": "text",
     "placeholders": {}
   },
@@ -2069,8 +2117,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_79": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_79": {
+  "ViewWhatsnewComponent0__message_84": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_84": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

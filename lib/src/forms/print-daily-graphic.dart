@@ -142,7 +142,6 @@ class PrintDailyGraphic extends BasePrint
   double bolusMax = 50.0;
   double ieMax = 0.0;
   double graphHeight;
-  double graphBottom;
   static double graphWidth;
   static double notesTop = 0.4;
   static double notesHeight = 0.3;
@@ -195,7 +194,6 @@ class PrintDailyGraphic extends BasePrint
     if (!showLegend) graphHeight += 2.5;
     basalTop = 2.0;
     if (!showNotes)basalTop -= notesHeight;
-    graphBottom = graphHeight;
     if (showGlucTable)
     {
       graphHeight -= glucTableHeight;
@@ -209,7 +207,7 @@ class PrintDailyGraphic extends BasePrint
       if (day.entries.length != 0 || day.treatments.length != 0)
       {
         pages.add(getPage(day, src));
-        if (g.isLocal && false)
+        if (g.isLocal)
         {
           g.glucMGDL = !g.glucMGDL;
           pages.add(getPage(day, src));
@@ -279,13 +277,8 @@ class PrintDailyGraphic extends BasePrint
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
 
-    double glucScale = g.glucMGDL ? 50 : 18.02 * 2;
-    int gridLines = (glucMax / glucScale).ceil();
-    double lineHeight = gridLines == 0 ? 0 : graphHeight / gridLines;
-    double colWidth = graphWidth / 24;
-
     var vertLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
-    var horzLines = {"relativePosition": {"x": cm(xo - 0.2), "y": cm(yo)}, "canvas": []};
+    var horzLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     var horzLegend = {"stack": []};
     var vertLegend = {"stack": []};
     var graphGluc = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
@@ -311,64 +304,19 @@ class PrintDailyGraphic extends BasePrint
     List horzStack = horzLegend["stack"];
     List vertStack = vertLegend["stack"];
     List graphGlucCvs = graphGluc["canvas"];
-    // draw vertical lines with times below graphic
-    for (var i = 0; i < 25; i++)
-    {
-      vertCvs.add({
-        "type": "line",
-        "x1": cm(i * colWidth),
-        "y1": cm(0),
-        "x2": cm(i * colWidth),
-        "y2": cm(graphBottom),
-        "lineWidth": cm(lw),
-        "lineColor": i > 0 && i < 24 ? lc : lcFrame
-      });
-      if (i < 24)horzStack.add({
-        "relativePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + graphBottom + 0.05)},
-        "text": fmtTime(i),
-        "fontSize": fs(8)
-      });
-    }
 
-    glucMax = 0.0;
-    if (lineHeight == 0)
-    {
-      return [headerFooter(), {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": msgMissingData}];
-    }
+    GridData grid = drawGraphicGrid(
+      glucMax,
+      graphHeight,
+      graphWidth,
+      vertCvs,
+      horzCvs,
+      horzStack,
+      vertStack);
+    if (grid.lineHeight == 0)
+      return [headerFooter(), {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "text": msgMissingData}];
 
-    double lastY = null;
-    for (var i = 0; i <= gridLines; i++)
-    {
-      double y = (gridLines - i) * lineHeight - lw / 2;
-      if (lastY != null && lastY - y < 0.5)continue;
-
-      lastY = y;
-      horzCvs.add({
-        "type": "line",
-        "x1": cm(-0.2),
-        "y1": cm(y),
-        "x2": cm(24 * colWidth + 0.2),
-        "y2": cm(y),
-        "lineWidth": cm(lw),
-        "lineColor": i > 0 ? lc : lcFrame
-      });
-
-      if (i > 0)
-      {
-        String text = "${glucFromData(fmtNumber(i * glucScale, 0))}\n${getGlucInfo()["unit"]}";
-        vertStack.add({
-          "relativePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
-          "text": text,
-          "fontSize": fs(8)
-        });
-        vertStack.add({
-          "relativePosition": {"x": cm(xo + 24 * colWidth + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
-          "text": text,
-          "fontSize": fs(8)
-        });
-      }
-    }
-    glucMax = gridLines * glucScale;
+    glucMax = grid.gridLines * grid.glucScale;
     for (EntryData entry in day.bloody)
     {
       double x = glucX(entry.time);
@@ -531,8 +479,8 @@ class PrintDailyGraphic extends BasePrint
             "lineWidth": cm(0.1),
           });
           if (t.createdAt
-                .difference(collCarbs.last.start)
-                .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs);
+            .difference(collCarbs.last.start)
+            .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs);
           else
             collCarbs.add(CollectInfo(t.createdAt, t.carbs));
         }
@@ -555,8 +503,8 @@ class PrintDailyGraphic extends BasePrint
           });
 
           if (t.createdAt
-                .difference(collInsulin.last.start)
-                .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin);
+            .difference(collInsulin.last.start)
+            .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin);
           else
             collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
 
@@ -661,8 +609,8 @@ class PrintDailyGraphic extends BasePrint
 // *** end of linelength estimation ***
         if (idx < (isMultiline ? 1 : 3))
         {
-          double y = graphBottom + notesTop + idx * notesHeight;
-          double top = graphBottom;
+          double y = graphHeight + notesTop + idx * notesHeight;
+          double top = graphHeight;
           if (showInfoLinesAtGluc)
           {
             EntryData e = day.findNearest(day.entries, null, t.createdAt);
@@ -690,7 +638,7 @@ class PrintDailyGraphic extends BasePrint
             graphGlucCvs.add({
               "type": "line",
               "x1": cm(x),
-              "y1": cm(graphBottom + 0.35),
+              "y1": cm(graphHeight + 0.35),
               "x2": cm(x),
               "y2": cm(y + 0.1),
               "lineWidth": cm(lw),
@@ -709,8 +657,8 @@ class PrintDailyGraphic extends BasePrint
     {
       if (info.sum == 0.0)continue;
       DateTime date = info.start.add(Duration(minutes: info.end
-                                                         .difference(info.start)
-                                                         .inMinutes ~/ 2));
+        .difference(info.start)
+        .inMinutes ~/ 2));
       double y = sumNarrowValues ? -0.5 : bolusY(info.max);
       String text = "${fmtBasal(info.sum)} ${msgInsulinUnit}";
       if (info.count > 1)
@@ -737,8 +685,8 @@ class PrintDailyGraphic extends BasePrint
     {
       if (info.sum == 0.0)continue;
       DateTime date = info.start.add(Duration(minutes: info.end
-                                                         .difference(info.start)
-                                                         .inMinutes ~/ 2));
+        .difference(info.start)
+        .inMinutes ~/ 2));
       double y = carbY(info.max);
       String text = "${msgKH(fmtNumber(info.sum))}";
       if (info.count > 1)
@@ -785,7 +733,7 @@ class PrintDailyGraphic extends BasePrint
           "type": "rect",
           "x": cm(0.0),
           "y": cm(yHigh),
-          "w": cm(24 * colWidth),
+          "w": cm(24 * grid.colWidth),
           "h": cm(yLow - yHigh),
           "color": colTargetArea,
           "fillOpacity": 0.3
@@ -794,7 +742,7 @@ class PrintDailyGraphic extends BasePrint
           "type": "line",
           "x1": cm(0.0),
           "y1": cm(yHigh),
-          "x2": cm(24 * colWidth),
+          "x2": cm(24 * grid.colWidth),
           "y2": cm(yHigh),
           "lineWidth": cm(lw),
           "lineColor": colTargetArea
@@ -810,7 +758,7 @@ class PrintDailyGraphic extends BasePrint
           "type": "line",
           "x1": cm(0.0),
           "y1": cm(yLow),
-          "x2": cm(24 * colWidth),
+          "x2": cm(24 * grid.colWidth),
           "y2": cm(yLow),
           "lineWidth": cm(lw),
           "lineColor": colTargetArea
@@ -818,7 +766,7 @@ class PrintDailyGraphic extends BasePrint
         {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1}
       ]
     };
-    var y = yo + lineHeight * gridLines;
+    var y = yo + grid.lineHeight * grid.gridLines;
     if (showBasalProfile || showBasalDay)y += 1.2 + basalHeight + basalTop;
     else
       y += basalTop;
@@ -944,8 +892,8 @@ class PrintDailyGraphic extends BasePrint
       for (ProfileData p in src.profiles)
 //      for (TreatmentData t in day.treatments)
       {
-        if (p.startDate.isAfter(startDate) && p.startDate.year == day.date.year && p.startDate.month == day.date.month
-            && p.startDate.day == day.date.day)
+        if (p.startDate.isAfter(startDate) && p.startDate.year == day.date.year &&
+          p.startDate.month == day.date.month && p.startDate.day == day.date.day)
 //        if (t.eventType.toLowerCase() == "profile switch")
         {
           double x = glucX(p.startDate);

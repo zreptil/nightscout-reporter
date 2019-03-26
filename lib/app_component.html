@@ -28,7 +28,7 @@
     <impressum [isVisible]="currPage=='impressum'" (closeClicked)="callbackButton"></impressum>
     <whatsnew [isVisible]="currPage=='whatsnew'" (closeClicked)="callbackButton"></whatsnew>
     <dsgvo [isVisible]="currPage=='dsgvo'" (closeClicked)="callbackButton"></dsgvo>
-    <div class="centered">
+    <div class="centered" *ngIf="currPage=='pdfList' || progressText != null">
       <div [style.display]="currPage=='signin'?'':'none'" @i18n="message for signin to google">
         Verbinde zu Google Drive...
       </div>
@@ -37,7 +37,7 @@
           <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
                 [action]="pdfUrl">
             <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
-            <input name="filename" type="hidden" value="{{g.pdfDownload?pdfFilename:''}}"/>
+            <input name="filename" type="hidden" value="{{g.pdfDownload?pdfFilename(idx):''}}"/>
             <material-button class="pdfButton"
                              (trigger)="openPDF(idx)">
               <div class="pdfButtonText">{{idx+1}}</div>

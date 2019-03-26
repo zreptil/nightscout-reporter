@@ -125,8 +125,8 @@ class AppComponent
   globals.Msg message = globals.Msg();
   bool get isSigninActive
   => g.isLocal;
-  String get pdfFilename
-  => reportData == null ? "" : "Nightscout-Reporter.pdf";
+  String pdfFilename(idx)
+  => reportData == null ? "" : "Nightscout-Reporter-${idx}.pdf";
   String get msgCheckSetup
   => Intl.message("Überprüfe Zugriff auf Nightscout ...");
   String msgLoadingData(error, stacktrace)
@@ -176,8 +176,6 @@ class AppComponent
 
   bool isFormVisible(BasePrint form)
   {
-    bool ret = true;
-
     if (form.isDebugOnly && !isDebug)return false;
     if (form.isLocalOnly && !g.isLocal) return false;
 
@@ -325,8 +323,7 @@ class AppComponent
       String temp = doc;
       doc = "";
       for (int i = 0; i < temp.length; i++)
-        if (temp.codeUnitAt(i) <= 4095)
-          doc = "${doc}${temp[i]}";
+        if (temp.codeUnitAt(i) <= 4095)doc = "${doc}${temp[i]}";
     }
     return convert.base64.encode(convert.utf8.encode(doc));
   }
@@ -388,6 +385,20 @@ class AppComponent
   {
     if (idx >= pdfList.length)return;
 
+    if (g.pdfSameWindow)
+    {
+      for (int i = 0; i < pdfList.length; i++)
+      {
+        pdfList[i].isPrinted = true;
+        Future.delayed(Duration(milliseconds: 10), ()
+        {
+          var form = html.querySelector("#${formId(i)}") as html.FormElement;
+          form.submit();
+        });
+      }
+      return;
+    }
+
     pdfList[idx].isPrinted = true;
     Future.delayed(Duration(milliseconds: 10), ()
     {
@@ -438,9 +449,10 @@ class AppComponent
     progressText = null;
   }
 
-  changePeriod(period)
+  changePeriod(DatepickerPeriod period)
   {
     g.period = period;
+    reportData = null;
     checkPrint();
   }
 
@@ -649,67 +661,69 @@ class AppComponent
 
     while (begDate <= endDate)
     {
-      DateTime beg = DateTime(
-        begDate.year,
-        begDate.month,
-        begDate.day,
-        0,
-        0,
-        0,
-        0).toUtc();
-
-      DateTime end = DateTime(
-        begDate.year,
-        begDate.month,
-        begDate.day,
-        23,
-        59,
-        59,
-        999).toUtc();
-
-      ProfileGlucData profile = data.profile(beg);
-      DateTime profileBeg = beg.add(Duration(hours: -profile.store.timezone.localDiff));
-      DateTime profileEnd = end.add(Duration(hours: -profile.store.timezone.localDiff));
-
-      progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
-      String url = "${g.user.apiUrl}entries.json?find[date][\$gte]=${beg.millisecondsSinceEpoch}&find[date][\$lte]=${end
-        .millisecondsSinceEpoch}&count=100000";
-      List<dynamic> src = json.decode(await g.request(url));
-      displayLink("e${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
       bool hasData = false;
-      for (dynamic entry in src)
+      if (g.period.isDowActive(begDate.weekday - 1))
       {
-        try
-        {
-          EntryData e = EntryData.fromJson(entry);
-          if (e.gluc > 0)
-          {
-            hasData = true;
-            data.ns.entries.add(e);
-          }
-          if (e.mbg > 0)
-          {
-            hasData = true;
-            data.ns.bloody.add(e);
-          }
-        }
-        catch (ex)
-        {
-          if (isDebug)display("Fehler im Entry-Datensatz: ${entry.toString()}");
-          break;
-        }
-      }
-      url = "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${profileBeg
-        .toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000";
-      String tmp = await g.request(url);
-      src = json.decode(tmp);
-      displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
-      for (dynamic treatment in src)
-      {
-        hasData = true;
-        data.ns.treatments.add(TreatmentData.fromJson(treatment));
-      }
+        DateTime beg = DateTime(
+          begDate.year,
+          begDate.month,
+          begDate.day,
+          0,
+          0,
+          0,
+          0).toUtc();
 
+        DateTime end = DateTime(
+          begDate.year,
+          begDate.month,
+          begDate.day,
+          23,
+          59,
+          59,
+          999).toUtc();
+
+        ProfileGlucData profile = data.profile(beg);
+        DateTime profileBeg = beg.add(Duration(hours: -profile.store.timezone.localDiff));
+        DateTime profileEnd = end.add(Duration(hours: -profile.store.timezone.localDiff));
+
+        progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
+        String url = "${g.user.apiUrl}entries.json?find[date][\$gte]=${beg
+          .millisecondsSinceEpoch}&find[date][\$lte]=${end.millisecondsSinceEpoch}&count=100000";
+        List<dynamic> src = json.decode(await g.request(url));
+        displayLink("e${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
+        for (dynamic entry in src)
+        {
+          try
+          {
+            EntryData e = EntryData.fromJson(entry);
+            if (e.gluc > 0)
+            {
+              hasData = true;
+              data.ns.entries.add(e);
+            }
+            if (e.mbg > 0)
+            {
+              hasData = true;
+              data.ns.bloody.add(e);
+            }
+          }
+          catch (ex)
+          {
+            if (isDebug)display("Fehler im Entry-Datensatz: ${entry.toString()}");
+            break;
+          }
+        }
+        url = "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${profileBeg
+          .toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000";
+        String tmp = await g.request(url);
+        src = json.decode(tmp);
+        displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
+        for (dynamic treatment in src)
+        {
+          hasData = true;
+          data.ns.treatments.add(TreatmentData.fromJson(treatment));
+        }
+      }
       begDate = begDate.add(days: 1);
       if (hasData)data.dayCount++;
       progressValue++;
@@ -746,9 +760,8 @@ class AppComponent
         EntryData next = EntryData();
         next.time = target;
         // distribute entries
-        for (int i = 0; i < data.ns.entries.length; i++)
+        for (EntryData entry in data.ns.entries)
         {
-          EntryData entry = data.ns.entries[i];
           if (entry.isInvalid)continue;
           DateTime current = DateTime(
             entry.time.year, entry.time.month, entry.time.day, entry.time.hour, entry.time.minute);

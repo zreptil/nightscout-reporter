@@ -32,7 +32,7 @@ material-button:not([icon]) {
   padding: 0.5em;
 }
 
-.weektitle {
+.weektitle, .weekmarks {
   background-color: $month_title_back;
   color: $month_title_fore;
 }
@@ -63,4 +63,20 @@ material-button:not([icon]) {
       color: $btn_raised_key_fore;
     }
   }
+}
+.done,.close
+{
+  ::ng-deep .content{
+    padding-top: 0.05em!important;
+    padding-bottom: 0.05em!important;
+  }
+}
+
+.done{
+  color: $mat-light-green-300;
+  background: $month_title_back;
+}
+.close{
+  color: $mat-red-200;
+  background: $mat-red-500;
 }
