@@ -11,7 +11,7 @@
                      [raised]="day.isRaised" (trigger)="dayClicked(day)">{{day.day}}
     </material-button>
   </div>
-  <div class="weekmarks" *ngIf="isLocal">
+  <div class="weekmarks">
     <material-button *ngFor="let dow of month.weeks[0].days" [class]="dowmark(dow.date.weekday-1)"
                      (trigger)="period.activateDow(dow.date.weekday-1, !period.isDowActive(dow.date.weekday-1))">
       <material-icon [icon]="period.isDowActive(dow.date.weekday-1)?'done':'close'"></material-icon>

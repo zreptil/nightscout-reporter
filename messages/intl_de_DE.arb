@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-03-26T22:41:45.472776",
+  "@@last_modified": "2019-03-28T12:38:38.719430",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -203,6 +203,12 @@
   },
   "Mo|Di|Mi|Do|Fr|Sa|So": "Mo|Di|Mi|Do|Fr|Sa|So",
   "@Mo|Di|Mi|Do|Fr|Sa|So": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Der Zeitraum enthält keine auswertbaren Tage": "Der Zeitraum enthält keine auswertbaren Tage",
+  "@Der Zeitraum enthält keine auswertbaren Tage": {
+    "description": "title for datepicker dialog when period empty",
     "type": "text",
     "placeholders": {}
   },
@@ -1253,6 +1259,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "Bitte überprüfe die Aktivierung der Wochentage unter dem Monat": "Bitte überprüfe die Aktivierung der Wochentage unter dem Monat",
+  "@Bitte überprüfe die Aktivierung der Wochentage unter dem Monat": {
+    "description": "subtitle for datepicker dialog when period empty",
+    "type": "text",
+    "placeholders": {}
+  },
   "Als ersten Tag der Woche festlegen": "Als ersten Tag der Woche festlegen",
   "@Als ersten Tag der Woche festlegen": {
     "description": "title for button of weekdayname",
@@ -1376,6 +1388,18 @@
   "Version": "Version",
   "@Version": {
     "description": "version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.7 - 28.03.2019": "1.2.7 - 28.03.2019",
+  "@1.2.7 - 28.03.2019": {
+    "description": "v127",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn der Zeitraum leer ist, wird der Button für die Auswahl deutlich markiert und in dem Dialog zur Auswahl wird in der Titelzeile ein Hinweis darauf angezeigt.": "Wenn der Zeitraum leer ist, wird der Button für die Auswahl deutlich markiert und in dem Dialog zur Auswahl wird in der Titelzeile ein Hinweis darauf angezeigt.",
+  "@Wenn der Zeitraum leer ist, wird der Button für die Auswahl deutlich markiert und in dem Dialog zur Auswahl wird in der Titelzeile ein Hinweis darauf angezeigt.": {
+    "description": "v127a1",
     "type": "text",
     "placeholders": {}
   },
@@ -2117,8 +2141,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_84": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_84": {
+  "ViewWhatsnewComponent0__message_86": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_86": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

@@ -142,6 +142,7 @@ class PrintDailyGraphic extends BasePrint
   double bolusMax = 50.0;
   double ieMax = 0.0;
   double graphHeight;
+  double graphBottom;
   static double graphWidth;
   static double notesTop = 0.4;
   static double notesHeight = 0.3;
@@ -194,10 +195,9 @@ class PrintDailyGraphic extends BasePrint
     if (!showLegend) graphHeight += 2.5;
     basalTop = 2.0;
     if (!showNotes)basalTop -= notesHeight;
+    graphBottom = graphHeight;
     if (showGlucTable)
-    {
       graphHeight -= glucTableHeight;
-    }
 
     lineWidth = cm(0.03);
     bool saveMGDL = g.glucMGDL;
@@ -312,7 +312,8 @@ class PrintDailyGraphic extends BasePrint
       vertCvs,
       horzCvs,
       horzStack,
-      vertStack);
+      vertStack,
+      graphBottom: graphBottom);
     if (grid.lineHeight == 0)
       return [headerFooter(), {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "text": msgMissingData}];
 
@@ -609,8 +610,8 @@ class PrintDailyGraphic extends BasePrint
 // *** end of linelength estimation ***
         if (idx < (isMultiline ? 1 : 3))
         {
-          double y = graphHeight + notesTop + idx * notesHeight;
-          double top = graphHeight;
+          double y = graphBottom + notesTop + idx * notesHeight;
+          double top = graphBottom;
           if (showInfoLinesAtGluc)
           {
             EntryData e = day.findNearest(day.entries, null, t.createdAt);
@@ -638,7 +639,7 @@ class PrintDailyGraphic extends BasePrint
             graphGlucCvs.add({
               "type": "line",
               "x1": cm(x),
-              "y1": cm(graphHeight + 0.35),
+              "y1": cm(graphBottom + 0.35),
               "x2": cm(x),
               "y2": cm(y + 0.1),
               "lineWidth": cm(lw),

@@ -18,7 +18,16 @@
       </div>
       <div class="material-spacer"></div>
       <nav class="material-navigation">
-        <a href="http://www.nightscout.info/" target="_blank">#WeAreNotWaiting</a>
+        <material-button *ngIf="g.showCurrentGluc" raised class="currentGluc" (trigger)="getCurrentGluc()">
+          <div>{{currentGluc}}
+            <div time>{{currentGlucTime}}</div>
+          </div>
+          <div>
+            <material-icon *ngIf="glucDir<360" [style.transform]="currentGlucDir" icon="forward"></material-icon>
+            <div diff>{{currentGlucDiff}}</div>
+          </div>
+        </material-button>
+        <a *ngIf="!g.showCurrentGluc" href="http://www.nightscout.info/" target="_blank">#WeAreNotWaiting</a>
       </nav>
     </div>
   </header>
@@ -84,7 +93,7 @@
           <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect" slide="y"
                                     listAutoFocus>
             <material-select-item *ngFor="let item of g.userList; let idx = index"
-                                  (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');"
+                                  (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');getCurrentGluc();"
                                   class="selectItem"
                                   [selected]="idx==g.userIdx">
               <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>

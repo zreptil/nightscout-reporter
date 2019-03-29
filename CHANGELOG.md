@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [1.2.7]
+## Added
+- errorhandling for empty periods
+
 ## [1.2.6]
 ## Added
 - definition of weekdays to include in reports
@@ -10,7 +14,7 @@
 
 ## [1.2.5]
 ## Added
-- splitting of pdf if exceeding given limit
+- splitting of pdf _if exceeding given limit
 - smb in daily graphics can now be hidden
 - different bolus types can now be separated in daily graphic
 - order of forms can be changed

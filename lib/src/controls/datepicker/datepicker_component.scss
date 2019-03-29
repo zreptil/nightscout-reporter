@@ -27,20 +27,34 @@ material-input {
   @include material-input-focused-underline-color($primary_color);
 }
 
-material-button.dpBtn{
-  ::ng-deep .content{
+material-button.dpBtn.empty {
+  background-color: $mat-red-500;
+  color: $mat-white;
+}
+
+material-button.dpBtn {
+  ::ng-deep .content {
     flex-direction: column;
   }
-  div[main]{
+
+  div[main] {
   }
-  div[sub]{
+
+  div[sub] {
     padding-top: 0.7em;
     font-size: 75%;
   }
 }
 
 material-dialog {
-  @include material-dialog-header-color($primary_color);
+  &[headered] ::ng-deep .wrapper > header {
+    background-color: $primary_color;
+  }
+
+  &[headered].empty ::ng-deep .wrapper > header {
+    background-color: $mat-red-500;
+  }
+
   @include material-dialog-header-shadow();
   @include material-dialog-body-padding(0);
   background-color: $secondary_color;
@@ -120,12 +134,12 @@ material-button.ok {
 }
 
 
-::ng-deep .infoarea.showinfo>*:not(.infotext),
-::ng-deep .infoarea:not(.showinfo)>*.infotext{
+::ng-deep .infoarea.showinfo > *:not(.infotext),
+::ng-deep .infoarea:not(.showinfo) > *.infotext {
   display: none;
 }
 
-::ng-deep .infoarea>*.infotext{
+::ng-deep .infoarea > *.infotext {
   border: 1px solid $mat-red-900;
   background: $mat-red-600;
   color: $mat-white;

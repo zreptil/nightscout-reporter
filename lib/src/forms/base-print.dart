@@ -99,8 +99,7 @@ class ParamInfo
       }
     }
     catch (ex)
-    {
-    }
+    {}
   }
 }
 
@@ -150,8 +149,7 @@ class FormConfig
         form.params[i].fillFromJson(value["p"][i]);
     }
     catch (ex)
-    {
-    }
+    {}
   }
 
   fillFromString(String value)
@@ -761,8 +759,7 @@ abstract class BasePrint
   => ["nightscout-pale", "nightscout",];
 
   void init()
-  {
-  }
+  {}
 
   Future<String> getBase64Image(String id)
   async {
@@ -1022,19 +1019,7 @@ abstract class BasePrint
   String fmtNumber(num value,
                    [num decimals = 0, bool fillfront0 = false, String nullText = "null", bool stripTrailingZero = false])
   {
-    if (value == null)return nullText;
-
-    String fmt = "#,##0";
-    if (decimals > 0)
-    {
-      fmt = "$fmt.".padRight(decimals + 6, "0");
-      value = (value * (10 ^ decimals).round() / (10 ^ decimals));
-    }
-    NumberFormat nf = NumberFormat(fmt, g.language.code);
-    String ret = nf.format(value);
-    if (stripTrailingZero)
-      while (ret.endsWith("0") || ret.endsWith(nf.symbols.DECIMAL_SEP))ret = ret.substring(0, ret.length - 1);
-    return ret;
+    return g.fmtNumber(value, decimals, fillfront0, nullText, stripTrailingZero);
   }
 
   String fmtTime(var date, {String def: null, bool withUnit: false, bool withMinutes: true})
@@ -1108,8 +1093,7 @@ abstract class BasePrint
       }
     }
     catch (ex)
-    {
-    }
+    {}
 
     if (dt == null)return date;
 
@@ -1171,9 +1155,11 @@ abstract class BasePrint
     return fmtNumber(carb, precision);
   }
 
-  GridData drawGraphicGrid(double glucMax, double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack, {double glucScale = 0.0})
+  GridData drawGraphicGrid(double glucMax, double graphHeight, double graphWidth, List vertCvs, List horzCvs,
+                           List horzStack, List vertStack, {double glucScale: 0.0, double graphBottom: 0.0})
   {
     GridData ret = GridData();
+    if (graphBottom == 0.0)graphBottom = graphHeight;
     ret.glucScale = glucScale == 0.0 ? g.glucMGDL ? 50 : 18.02 * 1 : glucScale;
     ret.gridLines = (glucMax / ret.glucScale).ceil();
 
@@ -1188,19 +1174,18 @@ abstract class BasePrint
         "x1": cm(i * ret.colWidth),
         "y1": cm(0),
         "x2": cm(i * ret.colWidth),
-        "y2": cm(graphHeight),
+        "y2": cm(graphBottom - lw / 2),
         "lineWidth": cm(lw),
         "lineColor": i > 0 && i < 24 ? lc : lcFrame
       });
       if (i < 24)horzStack.add({
-        "relativePosition": {"x": cm(xorg + i * ret.colWidth), "y": cm(yorg + graphHeight + 0.05)},
+        "relativePosition": {"x": cm(xorg + i * ret.colWidth), "y": cm(yorg + graphBottom + 0.05)},
         "text": fmtTime(i),
         "fontSize": fs(8)
       });
     }
 
-    if (ret.lineHeight == 0)
-      return ret;
+    if (ret.lineHeight == 0)return ret;
 
     double lastY = null;
     for (int i = 0; i <= ret.gridLines; i++)
@@ -1228,7 +1213,10 @@ abstract class BasePrint
           "columns": [{ "width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}]
         });
         vertStack.add({
-          "relativePosition": {"x": cm(xorg + 24 * ret.colWidth + 0.3), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
+          "relativePosition": {
+            "x": cm(xorg + 24 * ret.colWidth + 0.3),
+            "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
+          },
           "text": text,
           "fontSize": fs(8)
         });
@@ -1241,7 +1229,10 @@ abstract class BasePrint
           "columns": [{ "width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}]
         });
         vertStack.add({
-          "relativePosition": {"x": cm(xorg + 24 * ret.colWidth + 0.3), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
+          "relativePosition": {
+            "x": cm(xorg + 24 * ret.colWidth + 0.3),
+            "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
+          },
           "text": text,
           "fontSize": fs(8)
         });

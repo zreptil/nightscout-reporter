@@ -30,6 +30,7 @@ class DatepickerPeriod
   static List<String> dowNames = Intl.message("Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag").split("|");
   static List<String> dowShortNames = Intl.message("Mo|Di|Mi|Do|Fr|Sa|So").split("|");
 
+  String emptyReason;
   String fmtDate = "dd.MM.yyyy";
   DateFormat get dateFormat
   => DateFormat(fmtDate);
@@ -82,7 +83,21 @@ class DatepickerPeriod
   }
 
   bool get isEmpty
-  => (entryKey == null || entryKey.isEmpty) && start == null;
+  {
+    emptyReason = "";
+    if ((entryKey == null || entryKey.isEmpty) && start == null)return true;
+
+    Date beg = start;
+    while (beg.isOnOrBefore(end))
+    {
+      if (isDowActive(beg.weekday - 1))return false;
+      beg = beg.add(days: 1);
+    }
+
+    emptyReason = Intl.message("Der Zeitraum enthält keine auswertbaren Tage");
+
+    return true;
+  }
 
   List<DatepickerEntry> list = List<DatepickerEntry>();
 

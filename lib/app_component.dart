@@ -182,11 +182,80 @@ class AppComponent
     return true;
   }
 
+  String currentGluc = null;
+  String currentGlucDiff = null;
+  String currentGlucTime = null;
+  int glucDir = 360;
+  String get currentGlucDir
+  => glucDir < 360 ? "rotate(${glucDir}deg)" : null;
+
+  getCurrentGluc()
+  async {
+    if (!g.showCurrentGluc)return "";
+    String url = "${g.user.apiUrl}status.json";
+    String content = await g.request(url);
+    var status = StatusData.fromJson(json.decode(content));
+    g.glucMGDL = status.settings.units.trim().toLowerCase() == "mg/dl";
+
+    url = "${g.user.apiUrl}entries.json?count=2";
+    List<dynamic> src = json.decode(await g.request(url));
+    if (src.length != 2)
+    {
+      currentGluc = "Keine Daten";
+      currentGlucDiff = "";
+      glucDir = 360;
+    }
+    else
+    {
+      try
+      {
+        EntryData eNow = EntryData.fromJson(src[0]);
+        EntryData ePrev = EntryData.fromJson(src[1]);
+        int span = eNow.time
+          .difference(ePrev.time)
+          .inMinutes;
+        glucDir = 360;
+        currentGlucDiff = "";
+        currentGlucTime = "";
+        if (span > 15)return currentGluc;
+        int time = DateTime
+          .now()
+          .difference(eNow.time)
+          .inMinutes;
+        currentGlucTime = "${time} min";
+
+        currentGluc = g.fmtNumber(eNow.gluc / g.glucFactor, g.glucPrecision);
+        currentGlucDiff = "${eNow.gluc > ePrev.gluc ? '+' : ''}${g.fmtNumber(
+          (eNow.gluc - ePrev.gluc) * 5 / span / g.glucFactor, g.glucPrecision)}";
+        double diff = eNow.gluc - ePrev.gluc;
+        int limit = (10 * span / 5).toInt();
+        if (diff > limit)glucDir = -90;
+        else if (diff < -limit)glucDir = 90;
+        else
+          glucDir = 90 - ((diff + limit) / limit * 90).toInt();
+      }
+      catch (ex)
+      {
+        currentGluc = "?";
+        currentGlucDiff = "";
+        glucDir = 360;
+      }
+    }
+    Future.delayed(Duration(minutes: 1), ()
+    {
+      getCurrentGluc();
+    });
+    return currentGluc;
+  }
+
   @override
   Future<Null> ngOnInit()
   async {
     display(null);
     _currPage = "signin";
+
+//    Future.delayed(Duration(milliseconds: 10), ()
+//    {});
     g.loadSettings().then((_)
     {
       String page = g.version == g.lastVersion ? "normal" : "whatsnew";
@@ -212,29 +281,6 @@ class AppComponent
       g.sortConfigs();
       g.userIdx = g.userIdx;
 
-      String title = msgPeriod;
-//    if (g != null && g.dateRange != null && g.dateRange.comparison != null)
-//      title = g.dateRange.comparison.title;
-
-/*
-    dateRanges.clear();
-    dateRanges.add(DatepickerPreset(
-      msgToday, DatepickerDateRange(title, Date.today(), Date.today())));
-    dateRanges.add(DatepickerPreset(msgLast2Days,
-      DatepickerDateRange(title, Date.today().add(days: -1), Date.today())));
-    dateRanges.add(DatepickerPreset(msgLast3Days,
-      DatepickerDateRange(title, Date.today().add(days: -2), Date.today())));
-    dateRanges.add(DatepickerPreset(msgLastWeek,
-      DatepickerDateRange(title, Date.today().add(days: -6), Date.today())));
-    dateRanges.add(DatepickerPreset(msgLast2Weeks,
-      DatepickerDateRange(title, Date.today().add(days: -13), Date.today())));
-    dateRanges.add(DatepickerPreset(msgLast3Weeks,
-      DatepickerDateRange(title, Date.today().add(days: -20), Date.today())));
-    dateRanges.add(DatepickerPreset(msgLastMonth,
-      DatepickerDateRange(title, Date.today().add(months: -1), Date.today())));
-    dateRanges.add(DatepickerPreset(msgLast3Months,
-      DatepickerDateRange(title, Date.today().add(months: -3), Date.today())));
-*/
       currLang = g.language;
       if (html.window.location.href.endsWith("?dsgvo"))currPage = "dsgvo";
       if (html.window.location.href.endsWith("?impressum"))currPage = "impressum";
@@ -252,6 +298,7 @@ class AppComponent
       {
         g.period.minDate = null;
       }
+      getCurrentGluc();
       if (_currPage == "whatsnew")g.saveStorage("version", g.version);
     });
 /*
@@ -303,7 +350,7 @@ class AppComponent
     String url = g.user.apiUrl;
     int pos = url.indexOf("/api");
     if (pos >= 0)url = url.substring(0, pos);
-    if (g.user.token != null)url = "${url}?token=${g.user.token}";
+    if (g.user.token != null && g.user.token != "")url = "${url}?token=${g.user.token}";
     navigate(url);
   }
 
@@ -432,6 +479,7 @@ class AppComponent
         _currPage = g.isConfigured ? _lastPage : "welcome";
         break;
     }
+    getCurrentGluc();
   }
 
   void checkSetup()

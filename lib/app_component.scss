@@ -549,7 +549,9 @@ datepicker {
 }
 
 .basePanel {
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .language {
@@ -571,6 +573,27 @@ datepicker {
     }
 
     @include expansionpanel-colors(rgba(255, 255, 255, 0.5), $secondary_fore);
+  }
+}
+
+.currentGluc {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  font-weight: normal;
+  text-transform: none;
+  color: $primary_back;
+  background: $primary_fore;
+  height: 3em;
+  margin-left: -3em!important;
+  ::ng-deep [time]{
+    font-size: 60%;
+  }
+  ::ng-deep [diff]{
+    font-size: 70%;
+  }
+  material-icon{
+    float: left;
   }
 }
 

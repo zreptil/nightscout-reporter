@@ -71,6 +71,9 @@
         <material-checkbox [(checked)]="g.hideNightscoutInPDF" @i18n="label for checkbox to hide nightscout in footer">
           Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden
         </material-checkbox>
+        <material-checkbox [(checked)]="g.showCurrentGluc" @i18n="label for checkbox to show current glucoselevel">
+          Letzten Messwert in der Titelzeile anzeigen
+        </material-checkbox>
         <div class="pdfSliderHead" @i18n="pdfFileSize">
           Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf,
           bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines

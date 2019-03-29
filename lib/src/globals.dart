@@ -74,7 +74,7 @@ class Globals
   static DateTime get now
   => DateTime.now();
   bool _isLoaded = false;
-  String version = "1.2.6";
+  String version = "1.2.7";
   String lastVersion;
   static const int PDFUNLIMITED = 4000000;
   static const int PDFDIVIDER = 100000;
@@ -134,7 +134,6 @@ class Globals
   }
 
   Globals._internal(){
-//    load();
     tz.Location found = null;
 
     DateTime now = DateTime.now();
@@ -231,6 +230,8 @@ class Globals
   => Intl.message("Letzte 3 Monate");
 
   bool glucMGDL = true;
+  double get glucFactor => glucMGDL ? 1 : 18.02;
+  double get glucPrecision => glucMGDL ? 0 : 2;
   String _pdfOrder = "";
   set pdfOrder(String value)
   {
@@ -244,11 +245,13 @@ class Globals
   bool canDebug = false;
   bool isBeta = html.window.location.href.contains("/beta/");
   bool _isLocal = html.window.location.href.contains("/localhost:");
-  bool get isLocal => _isLocal;
+  bool get isLocal
+  => _isLocal;
   set isLocal(value)
   {
     _isLocal = value;
   }
+
   bool get useProfileSwitch
   => false; //isLocal;
   String get settingsFilename
@@ -270,6 +273,7 @@ class Globals
   bool pdfDownload = false;
   bool hideNightscoutInPDF = true;
   bool hidePdfInfo = false;
+  bool showCurrentGluc = false;
   bool isConfigured = false;
   int _khFactor = 12;
   int get khFactor
@@ -416,18 +420,19 @@ class Globals
       save = "${save},${userList[i].asJson}";
     String debug = "";
     return '{'
-      '"version":"$version",'
-      '"mu":"${Globals.doit('[${save.substring(1)}]')}",'
-      '"userIdx":"${userIdx}",'
-      '"glucMGDL":"${glucMGDL}",'
-      '"language":"${language.code ?? 'de_DE'}",'
-      '"pdfSameWindow":"${pdfSameWindow ? 'yes' : 'no'}",'
-      '"pdfDownload":"${pdfDownload ? 'yes' : 'no'}",'
-      '"pdfCreationMaxSize":"${pdfCreationMaxSize}",'
-      '"hideNightscoutInPDF":"${hideNightscoutInPDF ? 'yes' : 'no'}",'
-      '"hidePdfInfo":"${hidePdfInfo ? 'yes' : 'no'}",'
-      '"period":"${period?.toString() ?? null}",'
-      '"pdfOrder":"${_pdfOrder}"'
+      '"version":"$version"'
+      ',"mu":"${Globals.doit('[${save.substring(1)}]')}"'
+      ',"userIdx":"${userIdx}"'
+      ',"glucMGDL":"${glucMGDL}"'
+      ',"language":"${language.code ?? 'de_DE'}"'
+      ',"pdfSameWindow":"${pdfSameWindow ? 'yes' : 'no'}"'
+      ',"pdfDownload":"${pdfDownload ? 'yes' : 'no'}"'
+      ',"pdfCreationMaxSize":"${pdfCreationMaxSize}"'
+      ',"hideNightscoutInPDF":"${hideNightscoutInPDF ? 'yes' : 'no'}"'
+      ',"hidePdfInfo":"${hidePdfInfo ? 'yes' : 'no'}"'
+      ',"showCurrentGluc":"${showCurrentGluc ? 'yes' : 'no'}"'
+      ',"period":"${period?.toString() ?? null}"'
+      ',"pdfOrder":"${_pdfOrder}"'
       '}';
   }
 
@@ -444,6 +449,7 @@ class Globals
       ',"pdfCreationMaxSize":"${loadStorage('pdfCreationMaxSize')}"'
       ',"hideNightscoutInPDF":"${loadStorage('hideNightscoutInPDF')}"'
       ',"hidePdfInfo":"${loadStorage('hidePdfInfo')}"'
+      ',"showCurrentGluc":"${loadStorage('showCurrentGluc')}"'
       ',"period":"${loadStorage('period')}"'
       ',"pdfOrder":"${loadStorage('pdfOrder')}"'
       '}';
@@ -470,6 +476,7 @@ class Globals
       pdfCreationMaxSize = JsonData.toInt(cfg["pdfCreationMaxSize"]);
       hideNightscoutInPDF = JsonData.toBool(cfg["hideNightscoutInPDF"]);
       hidePdfInfo = JsonData.toBool(cfg["hidePdfInfo"]);
+      showCurrentGluc = JsonData.toBool(cfg["showCurrentGluc"]);
       pdfOrder = JsonData.toText(cfg["pdfOrder"]);
       period = DatepickerPeriod(src: JsonData.toText(cfg["period"]));
       period.fmtDate = language.dateformat;
@@ -710,6 +717,24 @@ class Globals
     _isLoaded = true;
   }
 
+  String fmtNumber(num value,
+                   [num decimals = 0, bool fillfront0 = false, String nullText = "null", bool stripTrailingZero = false])
+  {
+    if (value == null)return nullText;
+
+    String fmt = "#,##0";
+    if (decimals > 0)
+    {
+      fmt = "$fmt.".padRight(decimals + 6, "0");
+      value = (value * (10 ^ decimals).round() / (10 ^ decimals));
+    }
+    NumberFormat nf = NumberFormat(fmt, language.code);
+    String ret = nf.format(value);
+    if (stripTrailingZero)
+      while (ret.endsWith("0") || ret.endsWith(nf.symbols.DECIMAL_SEP))ret = ret.substring(0, ret.length - 1);
+    return ret;
+  }
+
   void save()
   {
     String oldLang = loadStorage("language");
@@ -741,6 +766,7 @@ class Globals
     saveStorage("pdfCreationMaxSize", "${pdfCreationMaxSize}");
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "true" : "false");
     saveStorage("hidePdfInfo", hidePdfInfo ? "true" : "false");
+    saveStorage("showCurrentGluc", showCurrentGluc ? "true" : "false");
     saveStorage("period", period?.toString() ?? null);
     savePdfOrder();
 /*
@@ -895,6 +921,7 @@ class UserData
     if (storageApiUrl.endsWith("/api/v1/"))storageApiUrl.replaceAll("/api/v1/", "");
     if (storageApiUrl.endsWith("/api/v1"))storageApiUrl.replaceAll("/api/v1", "");
     if (storageApiUrl == "null")storageApiUrl = null;
+    if (storageApiUrl != null)storageApiUrl = storageApiUrl.trim();
     Map<String, String> forms = Map<String, String>();
     try
     {
@@ -924,7 +951,7 @@ class UserData
       ret.birthDate = data["bd"];
       ret.diaStartDate = data["dd"];
       ret.insulin = data["i"];
-      ret.storageApiUrl = data["u"];
+      ret.storageApiUrl = data["u"]?.trim();
       ret.token = data["ut"];
       ret.customData = data["c"];
       ret.formParams = data["f"];
@@ -951,6 +978,8 @@ class UserData
 
   String get apiUrl
   {
+    if(storageApiUrl != null)
+      storageApiUrl = storageApiUrl.trim();
     String ret = storageApiUrl;
     if (ret != null)
     {
@@ -968,7 +997,7 @@ class UserData
     {
       if (!ret.endsWith("/"))ret = "$ret/";
       ret = "${ret}report";
-      if (token != null)ret = "${ret}?token=${token}";
+      if (token != null && token != "")ret = "${ret}?token=${token}";
     }
     return ret;
   }
