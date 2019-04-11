@@ -126,7 +126,7 @@ class AppComponent
   bool get isSigninActive
   => g.isLocal;
   String pdfFilename(idx)
-  => reportData == null ? "" : "Nightscout-Reporter-${idx}.pdf";
+  => "Nightscout-Reporter-${idx}.pdf";
   String get msgCheckSetup
   => Intl.message("Überprüfe Zugriff auf Nightscout ...");
   String msgLoadingData(error, stacktrace)
@@ -187,11 +187,29 @@ class AppComponent
   String currentGlucTime = null;
   int glucDir = 360;
   String get currentGlucDir
-  => glucDir < 360 ? "rotate(${glucDir}deg)" : null;
+  => glucDir < 360 ? "translate(0,2px)rotate(${glucDir}deg)" : null;
+  Timer glucTimer = null;
+  bool glucRunning = false;
 
-  getCurrentGluc()
+  getCurrentGluc(Timer timer)
   async {
-    if (!g.showCurrentGluc)return "";
+    if (timer == null)
+    {
+      if (glucTimer != null)
+      {
+        glucTimer.cancel();
+        glucTimer = null;
+      }
+    }
+    else if (glucTimer != timer)
+    {
+      if (glucTimer != null)glucTimer.cancel();
+      glucTimer = timer;
+    }
+
+
+    if (!g.showCurrentGluc || glucRunning)return "";
+    glucRunning = true;
     String url = "${g.user.apiUrl}status.json";
     String content = await g.request(url);
     var status = StatusData.fromJson(json.decode(content));
@@ -241,16 +259,41 @@ class AppComponent
         glucDir = 360;
       }
     }
-    Future.delayed(Duration(minutes: 1), ()
-    {
-      getCurrentGluc();
-    });
+
+    if (timer == null && glucTimer == null)Timer.periodic(Duration(minutes: 1), (Timer t)
+    => getCurrentGluc(t));
+
+    glucRunning = false;
     return currentGluc;
   }
+
+  String appTitle = "";
+  bool currentGlucVisible = true;
 
   @override
   Future<Null> ngOnInit()
   async {
+    appTitle = html.document
+      .querySelector("head>title")
+      .text;
+
+    html.window.onBlur.listen((e)
+    async {
+      if (!g.showCurrentGluc)return;
+      currentGlucVisible = false;
+      if (glucTimer != null)
+      {
+        glucTimer.cancel();
+        glucTimer = null;
+      }
+    });
+    html.window.onFocus.listen((e)
+    async {
+      if (!g.showCurrentGluc)return;
+      currentGlucVisible = true;
+      Future.delayed(Duration(milliseconds: 250), () => getCurrentGluc(null));
+    });
+
     display(null);
     _currPage = "signin";
 
@@ -298,7 +341,7 @@ class AppComponent
       {
         g.period.minDate = null;
       }
-      getCurrentGluc();
+      getCurrentGluc(null);
       if (_currPage == "whatsnew")g.saveStorage("version", g.version);
     });
 /*
@@ -479,7 +522,7 @@ class AppComponent
         _currPage = g.isConfigured ? _lastPage : "welcome";
         break;
     }
-    getCurrentGluc();
+    getCurrentGluc(null);
   }
 
   void checkSetup()
@@ -905,6 +948,7 @@ class AppComponent
     pdfList.clear();
     loadData().then((ReportData vars)
     async {
+      progressText = msgCreatingPDF;
       if (vars.error != null)
       {
         if (isDebug)display(msgLoadingData(vars.error.toString(), vars.error.stackTrace.toString()));
@@ -917,7 +961,6 @@ class AppComponent
         reportData = null;
         return;
       }
-      progressText = msgCreatingPDF;
       progressValue = progressMax + 1;
       var doc = null;
       List<dynamic> docList = List<dynamic>();

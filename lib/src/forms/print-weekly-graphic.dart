@@ -13,13 +13,12 @@ class PrintWeeklyGraphic extends BasePrint
   @override
   String id = "weekgraph";
 
-  bool isSmall,
-    sortReverse,
+  bool sortReverse,
     showDaysInGraphic = true;
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(0, msgParam1, boolValue: false),
+    ParamInfo(0, msgParam1, list: ["Eine", "Zwei", "Vier", "Acht", "Sechzehn"]),
     ParamInfo(1, msgParam2, boolValue: true),
     ParamInfo(2, msgParam3, boolValue: true),
   ];
@@ -28,10 +27,27 @@ class PrintWeeklyGraphic extends BasePrint
   @override
   prepareData_(ReportData data)
   {
-    isSmall = params[0].boolValue;
     sortReverse = params[1].boolValue;
     showDaysInGraphic = params[2].boolValue;
-    pagesPerSheet = isSmall ? 4 : 1;
+
+    switch(params[0].intValue)
+    {
+      case 1:
+        pagesPerSheet = 2;
+        break;
+      case 2:
+        pagesPerSheet = 4;
+        break;
+      case 3:
+        pagesPerSheet = 8;
+        break;
+      case 4:
+        pagesPerSheet = 16;
+        break;
+      default:
+        pagesPerSheet = 1;
+        break;
+    }
     return data;
   }
 
@@ -39,9 +55,9 @@ class PrintWeeklyGraphic extends BasePrint
   String title = Intl.message("Wochengrafik");
 
   static String get msgParam1
-  => Intl.message("Vier Grafiken pro Seite");
+  => Intl.message("Grafiken pro Seite");
   static String get msgParam2
-  => Intl.message("umgekehrte Sortierung");
+  => Intl.message("Neueste Woche zuerst");
   static String get msgParam3
   => Intl.message("Tagesnamen in Grafik anzeigen");
 

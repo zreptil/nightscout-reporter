@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-03-28T12:38:38.719430",
+  "@@last_modified": "2019-04-11T13:48:02.286830",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -990,8 +990,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Vier Grafiken pro Seite": "Vier Grafiken pro Seite",
-  "@Vier Grafiken pro Seite": {
+  "Grafiken pro Seite": "Grafiken pro Seite",
+  "@Grafiken pro Seite": {
     "type": "text",
     "placeholders": {}
   },
@@ -1037,6 +1037,11 @@
   },
   "Bolusarten anzeigen": "Bolusarten anzeigen",
   "@Bolusarten anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Training anzeigen": "Training anzeigen",
+  "@Training anzeigen": {
     "type": "text",
     "placeholders": {}
   },
@@ -1132,8 +1137,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "umgekehrte Sortierung": "umgekehrte Sortierung",
-  "@umgekehrte Sortierung": {
+  "Neueste Woche zuerst": "Neueste Woche zuerst",
+  "@Neueste Woche zuerst": {
     "type": "text",
     "placeholders": {}
   },
@@ -1184,6 +1189,12 @@
   "Was bisher geschah...": "Was bisher geschah...",
   "@Was bisher geschah...": {
     "description": "title of whatsnew",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Pausiert": "Pausiert",
+  "@Pausiert": {
+    "description": "message for current glucose if not active",
     "type": "text",
     "placeholders": {}
   },
@@ -1295,6 +1306,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "Letzten Messwert in der Titelzeile anzeigen": "Letzten Messwert in der Titelzeile anzeigen",
+  "@Letzten Messwert in der Titelzeile anzeigen": {
+    "description": "label for checkbox to show current glucoselevel",
+    "type": "text",
+    "placeholders": {}
+  },
   "Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf, bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen Regler weiter nach links zu bewegen.": "Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf, bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen Regler weiter nach links zu bewegen.",
   "@Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf, bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen Regler weiter nach links zu bewegen.": {
     "description": "pdfFileSize",
@@ -1388,6 +1405,36 @@
   "Version": "Version",
   "@Version": {
     "description": "version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.8 - xx.04.2019": "1.2.8 - xx.04.2019",
+  "@1.2.8 - xx.04.2019": {
+    "description": "v127",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es gibt in den Einstellungen eine neue Option, um den letzten in Nightscout gespeicherten Glukosewert in der Titelzeile anzeigen zu lassen. Wenn diese Option aktiviert ist, wird der aktuelle Wert, das Alter des Wertes, der Trendpfeil und die Differenz zum vorherigen Wert rechts in der Titelzeile angezeigt. Diese Anzeige wird jede Minute aktualisiert, solange das Browserfenster den Eingabefokus besitzt. Wenn es diesen nicht hat, wird die Aktualisierung angehalten und der Wert ausgeblendet, um nicht unnötig Systemresourcen zu belasten.": "Es gibt in den Einstellungen eine neue Option, um den letzten in Nightscout gespeicherten Glukosewert in der Titelzeile anzeigen zu lassen. Wenn diese Option aktiviert ist, wird der aktuelle Wert, das Alter des Wertes, der Trendpfeil und die Differenz zum vorherigen Wert rechts in der Titelzeile angezeigt. Diese Anzeige wird jede Minute aktualisiert, solange das Browserfenster den Eingabefokus besitzt. Wenn es diesen nicht hat, wird die Aktualisierung angehalten und der Wert ausgeblendet, um nicht unnötig Systemresourcen zu belasten.",
+  "@Es gibt in den Einstellungen eine neue Option, um den letzten in Nightscout gespeicherten Glukosewert in der Titelzeile anzeigen zu lassen. Wenn diese Option aktiviert ist, wird der aktuelle Wert, das Alter des Wertes, der Trendpfeil und die Differenz zum vorherigen Wert rechts in der Titelzeile angezeigt. Diese Anzeige wird jede Minute aktualisiert, solange das Browserfenster den Eingabefokus besitzt. Wenn es diesen nicht hat, wird die Aktualisierung angehalten und der Wert ausgeblendet, um nicht unnötig Systemresourcen zu belasten.": {
+    "description": "v128a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Spalten auf der Profilseite wurden korrigiert, damit auch längere Zeitnamen (z.B. in spanisch) Platz finden.": "Die Spalten auf der Profilseite wurden korrigiert, damit auch längere Zeitnamen (z.B. in spanisch) Platz finden.",
+  "@Die Spalten auf der Profilseite wurden korrigiert, damit auch längere Zeitnamen (z.B. in spanisch) Platz finden.": {
+    "description": "v128c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren.": "Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren.",
+  "@Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren.": {
+    "description": "v128c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Aufteilung auf mehrere PDF-Dateien funktioniert jetzt besser.": "Die Aufteilung auf mehrere PDF-Dateien funktioniert jetzt besser.",
+  "@Die Aufteilung auf mehrere PDF-Dateien funktioniert jetzt besser.": {
+    "description": "v128c1",
     "type": "text",
     "placeholders": {}
   },
@@ -2141,8 +2188,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_86": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_86": {
+  "ViewWhatsnewComponent0__message_91": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_91": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

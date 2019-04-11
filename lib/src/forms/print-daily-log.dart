@@ -188,7 +188,7 @@ class PrintDailyLog extends BasePrint
     if (showTempBasal && t.eventType.toLowerCase() == "temp basal")
     {
       ProfileEntryData entry = basalFor(day, t.createdAt);
-      if (entry != null)list.add("Temp Basal ${fmtNumber(entry.tempAdjusted * 100)}%");
+      if (entry != null)list.add("Temp Basal ${g.fmtNumber(entry.tempAdjusted * 100)}%");
     }
     if (showProfileSwitch && t.eventType.toLowerCase() == "profile switch")
     {
@@ -222,9 +222,9 @@ class PrintDailyLog extends BasePrint
     ret.add(msgProfileSwitch(before.store.name, current.store.name));
 
     if (before.store.dia != current.store.dia)ret.add(msgChangedEntry(
-      msgDIA, "${fmtNumber(before.store.dia, 2)} ${msgDIAUnit}", "${fmtNumber(current.store.dia, 2)} ${msgDIAUnit}"));
+      msgDIA, "${g.fmtNumber(before.store.dia, 2)} ${msgDIAUnit}", "${g.fmtNumber(current.store.dia, 2)} ${msgDIAUnit}"));
     if (before.store.carbsHr != current.store.carbsHr)ret.add(msgChangedEntry(
-      msgKHA, "${fmtNumber(before.store.carbsHr)} ${msgKHAUnit}", "${fmtNumber(current.store.carbsHr)} ${msgKHAUnit}"));
+      msgKHA, "${g.fmtNumber(before.store.carbsHr)} ${msgKHAUnit}", "${g.fmtNumber(current.store.carbsHr)} ${msgKHAUnit}"));
 
     List<String> temp = List<String>();
     temp.add(msgTargetTitle);

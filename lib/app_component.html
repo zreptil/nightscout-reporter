@@ -18,13 +18,24 @@
       </div>
       <div class="material-spacer"></div>
       <nav class="material-navigation">
-        <material-button *ngIf="g.showCurrentGluc" raised class="currentGluc" (trigger)="getCurrentGluc()">
-          <div>{{currentGluc}}
+        <material-button *ngIf="g.showCurrentGluc" raised class="currentGluc" (trigger)="getCurrentGluc(null)">
+          <pre *ngIf="!currentGlucVisible" @i18n="message for current glucose if not active">Pausiert</pre>
+          <div *ngIf="currentGlucVisible">{{currentGluc}}
             <div time>{{currentGlucTime}}</div>
           </div>
-          <div>
-            <material-icon *ngIf="glucDir<360" [style.transform]="currentGlucDir" icon="forward"></material-icon>
-            <div diff>{{currentGlucDiff}}</div>
+          <div arrow *ngIf="currentGlucVisible">
+            <div>
+              <svg class="arrow" [style.transform]="currentGlucDir" viewBox="0 0 100 100" version="1.1"
+                   xmlns="http://www.w3.org/2000/svg">
+                <g transform="matrix(0.689535,0,0,0.689535,15.5233,15.5233)">
+                  <circle class="circle" cx="50" cy="50" r="37.391"/>
+                </g>
+                <g transform="matrix(2.13103,0,0,1,-113.103,0.000479201)">
+                  <path d="M100,50.002L87.391,59.934L87.395,40.065L100,50.002Z"/>
+                </g>
+              </svg>
+            </div>
+            <div diff class="centered">{{currentGlucDiff}}</div>
           </div>
         </material-button>
         <a *ngIf="!g.showCurrentGluc" href="http://www.nightscout.info/" target="_blank">#WeAreNotWaiting</a>
@@ -93,7 +104,7 @@
           <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect" slide="y"
                                     listAutoFocus>
             <material-select-item *ngFor="let item of g.userList; let idx = index"
-                                  (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');getCurrentGluc();"
+                                  (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');getCurrentGluc(null);"
                                   class="selectItem"
                                   [selected]="idx==g.userIdx">
               <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>
@@ -127,13 +138,26 @@
                 <template ngFor let-param [ngForOf]="cfg.form.sortedParams">
                   <material-checkbox *ngIf="param.boolValue!=null" [(ngModel)]="param.boolValue" [label]="param.title">
                   </material-checkbox>
-                  <div *ngIf="param.intValue!=null" class="paramSlider">
+                  <div *ngIf="param.intValue!=null && param.list == null" class="paramSlider">
                     <div>{{param.title}}: {{param.intValue}}</div>
                     <material-slider class="slider" [(min)]="param.min" [(max)]="param.max" [(value)]="param.intValue">
                     </material-slider>
                   </div>
                   <material-input *ngIf="param.stringValue!=null" [(inputText)]="param.stringValue" floatingLabel
                                   [label]="param.title"></material-input>
+                  <div *ngIf="param.list!=null" class="paramList">
+                    <div>{{param.title}}</div>
+                    <material-dropdown-select [label]="param.title" [buttonText]="param.listValue"
+                                              popupClass="paramSelect" slide="y"
+                                              listAutoFocus>
+                      <material-select-item *ngFor="let item of param.list; let idx = index"
+                                            (trigger)="param.intValue=idx;"
+                                            class="selectItem"
+                                            [selected]="idx==param.intValue">
+                        <div class="itemTitle">{{item}}</div>
+                      </material-select-item>
+                    </material-dropdown-select>
+                  </div>
                 </template>
               </material-expansionpanel>
             </div>
@@ -237,6 +261,6 @@
   </div>
 </div>
 <form id="postForm" [target]="g.pdfTarget" method="post" action="{{pdfUrl}}">
-  <input name="data" value="{{pdfData}}"/>
-  <input name="filename" value="{{g.pdfDownload?pdfFilename:''}}"/>
+  <input name="data" value="{{pdfData}}"/>Oleole{{pdfFilename(0)}}
+  <input name="filename" [value]="g.pdfDownload?pdfFilename(0):''"/>
 </form>

@@ -101,13 +101,13 @@ class PrintDailyStatistics extends BasePrint
       "alignment": "center",
       "fillColor": colLow
     }, {
-      "text": "${fmtNumber(day.lowPrz, 0)} %",
+      "text": "${g.fmtNumber(day.lowPrz, 0)} %",
       "style": style,
       "alignment": "right",
       "fillColor": style == "total" ? colLow : null
     });
     addRow(true, "*", row, {"text": msgNormal, "style": "total", "alignment": "center", "fillColor": colNorm}, {
-      "text": "${fmtNumber(day.normPrz, 0)} %",
+      "text": "${g.fmtNumber(day.normPrz, 0)} %",
       "style": style,
       "alignment": "right",
       "fillColor": style == "total" ? colNorm : null
@@ -118,7 +118,7 @@ class PrintDailyStatistics extends BasePrint
       "alignment": "center",
       "fillColor": colHigh
     }, {
-      "text": "${fmtNumber(day.highPrz, 0)} %",
+      "text": "${g.fmtNumber(day.highPrz, 0)} %",
       "style": style,
       "alignment": "right",
       "fillColor": style == "total" ? colHigh : null
@@ -132,7 +132,7 @@ class PrintDailyStatistics extends BasePrint
       {"text": "${carbFromData(day.avgCarbs)}", "style": style, "alignment": "right"});
 // */
     addRow(showCount, "auto", row, {"text": msgValues, "style": "total", "alignment": "center"},
-      {"text": "${fmtNumber(day.entryCount, 0)}", "style": style, "alignment": "right"});
+      {"text": "${g.fmtNumber(day.entryCount, 0)}", "style": style, "alignment": "right"});
     addRow(true, "auto", row, {"text": msgMin, "style": "total", "alignment": "center"},
       {"text": "${glucFromData(day.min)}", "style": style, "alignment": "right"});
     addRow(true, "auto", row, {"text": msgMax, "style": "total", "alignment": "center"},
@@ -140,9 +140,9 @@ class PrintDailyStatistics extends BasePrint
     addRow(true, "auto", row, {"text": msgAverage, "style": "total", "alignment": "center"},
       {"text": "${glucFromData(day.mid, 1)}", "style": style, "alignment": "right"});
     addRow(showStdabw, "auto", row, {"text": msgDeviation, "style": "total", "alignment": "center"},
-      {"text": "${fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right"});
+      {"text": "${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right"});
     addRow(showVarK, "auto", row, {"text": msgVarK, "style": "total", "alignment": "center"},
-      {"text": "${fmtNumber(day.varK, 1)}", "style": style, "alignment": "right"});
+      {"text": "${g.fmtNumber(day.varK, 1)}", "style": style, "alignment": "right"});
     addRow(showPercentile, cm(1.5), row, {"text": msg25, "style": "total", "alignment": "center"},
       {"text": "${glucFromData(Globals.percentile(day.entries, 25), 1)}", "style": style, "alignment": "right"});
     addRow(showPercentile, cm(1.5), row, {"text": msgMedian, "style": "total", "alignment": "center"},

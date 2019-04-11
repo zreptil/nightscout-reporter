@@ -89,7 +89,7 @@ class PrintProfile extends BasePrint
             "fontSize": fs(_fontSize)
           },
           {
-            "text": entry.forceText ?? fmtNumber(entry.value, precision, false),
+            "text": entry.forceText ?? g.fmtNumber(entry.value, precision, false),
             "style": "infodata",
             "fontSize": fs(_fontSize)
           },
@@ -148,7 +148,17 @@ class PrintProfile extends BasePrint
       {
         dynamic page = getPage(p, src.profile(profiles[i].startDate), profStartTime, profEndTime);
         done = page == null;
-        if (!done)pages.add(page);
+        if (!done)
+        {
+          pages.add(page);
+          if (g.isLocal)
+          {
+            g.glucMGDL = !g.glucMGDL;
+            page = getPage(p, src.profile(profiles[i].startDate), profStartTime, profEndTime);
+            pages.add(page);
+            g.glucMGDL = !g.glucMGDL;
+          }
+        }
       }
     }
   }
@@ -164,14 +174,14 @@ class PrintProfile extends BasePrint
     dynamic tableBody = [
       [
         {"text": msgDIA, "style": "infotitle", "alignment": "right"},
-        {"text": fmtNumber(profile.store.dia, 2, false), "style": "infodata"},
+        {"text": g.fmtNumber(profile.store.dia, 2, false), "style": "infodata"},
         {"text": msgDIAUnit, "style": "infounit"},
         {"text": msgTimezone, "style": "infotitle", "alignment": "right"},
         {"text": profile.store.timezone.name, "style": "infodata", "alignment": "left"},
       ],
       [
         {"text": msgKHA, "style": "infotitle", "alignment": "right"},
-        {"text": fmtNumber(profile.store.carbsHr, 0, false), "style": "infodata"},
+        {"text": g.fmtNumber(profile.store.carbsHr, 0, false), "style": "infodata"},
         {"text": msgKHAUnit, "style": "infounit", "colSpan": 3},
       ],
     ];
@@ -221,7 +231,7 @@ class PrintProfile extends BasePrint
       {
         "margin": [cm(1.0), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(3.4), cm(1.2)], "body": bodyICR}
+        "table": {"headerRows": 0, "widths": [cm(3.8), cm(0.8)], "body": bodyICR}
       },
       {
         "margin": [cm(1.0), cm(0)],
@@ -234,12 +244,12 @@ class PrintProfile extends BasePrint
       {
         "margin": [cm(1.0), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(3.4), cm(1.2)], "body": bodyBasal}
+        "table": {"headerRows": 0, "widths": [cm(3.8), cm(0.8)], "body": bodyBasal}
       },
       {
-        "margin": [cm(1.0), cm(0)],
+        "margin": [cm(0.5), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(3.4), cm(2.2)], "body": bodyTarget}
+        "table": {"headerRows": 0, "widths": [cm(3.7), cm(2.1)], "body": bodyTarget}
       }
     ]);
 

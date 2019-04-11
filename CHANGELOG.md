@@ -1,4 +1,14 @@
 ## [Unreleased]
+## [1.2.8]
+## Added
+- setting for display of latest glucose value in titlebar
+
+## Changed
+- daily and weekly graphics have the ability to place 1, 2, 4, 8 or 16 graphics on one page
+- profile page has more space for timenames
+
+## Fixed
+- creation of multiple pdf pages has been fixed
 
 ## [1.2.7]
 ## Added

@@ -44,7 +44,7 @@ class LegendData
 
 enum ParamType
 {
-  none, bool, string, int
+  none, bool, string, int, list
 }
 
 class ParamInfo
@@ -54,6 +54,9 @@ class ParamInfo
   bool boolValue;
   String stringValue;
   int intValue;
+  List<String> list;
+  String get listValue
+  => intValue >= 0 && intValue < list.length ? list[intValue] : "";
 
   int min;
   int max;
@@ -61,11 +64,12 @@ class ParamInfo
   int sort;
 
   ParamInfo(this.sort, this.title,
-            {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null})
+            {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null, this.list = null})
   {
     if (boolValue != null)type = ParamType.bool;
     if (stringValue != null)type = ParamType.string;
     if (intValue != null)type = ParamType.int;
+    if (list != null)type = ParamType.list;
   }
 
   dynamic get asJson
@@ -92,6 +96,7 @@ class ParamInfo
           stringValue = value["s"] ?? "";
           break;
         case ParamType.int:
+        case ParamType.list:
           intValue = value["i"] ?? 0;
           break;
         default:
@@ -99,7 +104,8 @@ class ParamInfo
       }
     }
     catch (ex)
-    {}
+    {
+    }
   }
 }
 
@@ -149,7 +155,8 @@ class FormConfig
         form.params[i].fillFromJson(value["p"][i]);
     }
     catch (ex)
-    {}
+    {
+    }
   }
 
   fillFromString(String value)
@@ -191,10 +198,10 @@ abstract class BasePrint
   => false;
 
   //String _hba1c(double avgGluc)
-  //=> fmtNumber((avgGluc + 86) / 33.3, 1, false);
+  //=> g.fmtNumber((avgGluc + 86) / 33.3, 1, false);
 
   String hba1c(double avgGluc)
-  => avgGluc == null ? "" : fmtNumber((avgGluc + 46.7) / 28.7, 1, false);
+  => avgGluc == null ? "" : g.fmtNumber((avgGluc + 46.7) / 28.7, 1, false);
 
   String colText = "#008800";
   String colInfo = "#606060";
@@ -223,6 +230,8 @@ abstract class BasePrint
   String colHbA1c = "#505050";
   List<String> colWeekDays = ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d"];
   List<String> colWeekDaysText = ["#ffffff", "#ffffff", "#000000", "#ffffff", "#ffffff", "#000000", "#ffffff"];
+  String colExercises = "#ffa060";
+  String colExerciseText = "#000000";
 
   double xorg = 3.35;
   double yorg = 3.9;
@@ -432,13 +441,13 @@ abstract class BasePrint
 
   msgCount(value)
   {
-    value = fmtNumber(value);
+    value = g.fmtNumber(value);
     return Intl.message("(${value} Werte)", args: [value], name: "msgCount");
   }
 
   msgStdAbw(value)
   {
-    value = fmtNumber(value, 1);
+    value = g.fmtNumber(value, 1);
     return Intl.message("(StdAbw ${value})", args: [value], name: "msgStdAbw");
   }
 
@@ -515,27 +524,27 @@ abstract class BasePrint
   => Intl.message("Standardabweichung");
   msgGVINone(min)
   {
-    min = fmtNumber(min, 1);
+    min = g.fmtNumber(min, 1);
     return Intl.message("nicht vorhanden (kleiner ${min})", args: [min], name: "msgGVINone");
   }
 
   msgGVIVeryGood(min, max)
   {
-    min = fmtNumber(min, 1);
-    max = fmtNumber(max, 1);
+    min = g.fmtNumber(min, 1);
+    max = g.fmtNumber(max, 1);
     return Intl.message("sehr gut (${min} bis ${max})", args: [min, max], name: "msgGVIVeryGood");
   }
 
   msgGVIGood(min, max)
   {
-    min = fmtNumber(min, 1);
-    max = fmtNumber(max, 1);
+    min = g.fmtNumber(min, 1);
+    max = g.fmtNumber(max, 1);
     return Intl.message("gut (${min} bis ${max})", args: [min, max], name: "msgGVIGood");
   }
 
   msgGVIBad(max)
   {
-    max = fmtNumber(max, 1);
+    max = g.fmtNumber(max, 1);
     return Intl.message("schlecht (grösser ${max})", args: [max], name: "msgGVIBad");
   }
 
@@ -550,27 +559,27 @@ abstract class BasePrint
 
   msgPGSVeryGood(min)
   {
-    min = fmtNumber(min);
+    min = g.fmtNumber(min);
     return Intl.message("exzellent (kleiner ${min})", args: [min], name: "msgPGSVeryGood");
   }
 
   msgPGSGood(min, max)
   {
-    min = fmtNumber(min);
-    max = fmtNumber(max);
+    min = g.fmtNumber(min);
+    max = g.fmtNumber(max);
     return Intl.message("gut (${min} bis ${max})", args: [min, max], name: "msgPGSGood");
   }
 
   msgPGSBad(min, max)
   {
-    min = fmtNumber(min);
-    max = fmtNumber(max);
+    min = g.fmtNumber(min);
+    max = g.fmtNumber(max);
     return Intl.message("schlecht (${min} bis ${max})", args: [min, max], name: "msgPGSBad");
   }
 
   msgPGSVeryBad(max)
   {
-    max = fmtNumber(max);
+    max = g.fmtNumber(max);
     return Intl.message("sehr schlecht (grösser ${max})", args: [max], name: "msgPGSVeryBad");
   }
 
@@ -759,7 +768,8 @@ abstract class BasePrint
   => ["nightscout-pale", "nightscout",];
 
   void init()
-  {}
+  {
+  }
 
   Future<String> getBase64Image(String id)
   async {
@@ -841,13 +851,31 @@ abstract class BasePrint
     ];
   }
 
+  int countObjects(var src)
+  {
+    int ret = 1;
+    if (src is Map)
+    {
+      for (var key in src.keys)
+        ret += countObjects(src[key]);
+    }
+    else if (src is List)
+    {
+      for (var entry in src)
+        ret += countObjects(entry);
+    }
+    return ret;
+  }
+
   void _addPageBreak(dynamic ret, dynamic page)
   {
     ret["pageBreak"] = "after";
     pageCount++;
-    _fileSize += json
+    // int cnt = countObjects(page);
+    int len = json
       .encode(page)
       .length;
+    _fileSize += len;
     if (g.pdfCreationMaxSize != Globals.PDFUNLIMITED && _fileSize > g.pdfCreationMaxSize)
     {
       ret["pageBreak"] = "newFile";
@@ -931,7 +959,7 @@ abstract class BasePrint
           if (row >= rowCount && page != _pages.last)
           {
             row = 0;
-            _addPageBreak(ret.last, page);
+            _addPageBreak(ret.last, ret);
             if (_fileSize == 0)
             {
               column = 0;
@@ -1011,17 +1039,6 @@ abstract class BasePrint
   double fs(double size)
   => size * scale;
 
-  String fmtBasal(num value)
-  {
-    return fmtNumber(value, g.basalPrecision);
-  }
-
-  String fmtNumber(num value,
-                   [num decimals = 0, bool fillfront0 = false, String nullText = "null", bool stripTrailingZero = false])
-  {
-    return g.fmtNumber(value, decimals, fillfront0, nullText, stripTrailingZero);
-  }
-
   String fmtTime(var date, {String def: null, bool withUnit: false, bool withMinutes: true})
   {
     if (def == null)def = "";
@@ -1045,14 +1062,14 @@ abstract class BasePrint
     if (date is int)
     {
       String m = withMinutes ? ":00" : "";
-      if (g.language.is24HourFormat)return "${fmtNumber(date, 0)}$m";
+      if (g.language.is24HourFormat)return "${g.fmtNumber(date, 0)}$m";
 
       m = withMinutes ? " " : "";
 
-      if (date < 12)return "${fmtNumber(date, 0)}${m}am";
-      else if (date == 12)return "${fmtNumber(date, 0)}${m}pm";
+      if (date < 12)return "${g.fmtNumber(date, 0)}${m}am";
+      else if (date == 12)return "${g.fmtNumber(date, 0)}${m}pm";
       else
-        return "${fmtNumber(date - 12, 0)}${m}pm";
+        return "${g.fmtNumber(date - 12, 0)}${m}pm";
     }
 
     return date;
@@ -1093,7 +1110,8 @@ abstract class BasePrint
       }
     }
     catch (ex)
-    {}
+    {
+    }
 
     if (dt == null)return date;
 
@@ -1138,21 +1156,21 @@ abstract class BasePrint
   }
 
   String fmtGluc(double value)
-  => fmtNumber(value, g.glucMGDL ? 0 : 1);
+  => g.fmtNumber(value, g.glucMGDL ? 0 : 1);
 
   String glucFromData(var gluc, [precision = null])
   {
     if (gluc is String)gluc = double.tryParse(gluc) ?? 0;
     if (!(gluc is num) || gluc == 0)return "";
 
-    if (!g.glucMGDL)return fmtNumber(gluc / 18.02, precision == null ? 1 : precision);
+    if (!g.glucMGDL)return g.fmtNumber(gluc / 18.02, precision == null ? 1 : precision);
 
-    return fmtNumber(gluc, precision == null ? 0 : precision);
+    return g.fmtNumber(gluc, precision == null ? 0 : precision);
   }
 
   String carbFromData(var carb, [precision = 0])
   {
-    return fmtNumber(carb, precision);
+    return g.fmtNumber(carb, precision);
   }
 
   GridData drawGraphicGrid(double glucMax, double graphHeight, double graphWidth, List vertCvs, List horzCvs,
@@ -1206,8 +1224,8 @@ abstract class BasePrint
 
       if (i > 0)
       {
-//        String text = "${glucFromData(fmtNumber(i * glucScale, 0))}\n${getGlucInfo()["unit"]}";
-        String text = "${glucFromData(fmtNumber(i * ret.glucScale, 0))}";
+//        String text = "${glucFromData(g.fmtNumber(i * glucScale, 0))}\n${getGlucInfo()["unit"]}";
+        String text = "${glucFromData(g.fmtNumber(i * ret.glucScale, 0))}";
         vertStack.add({
           "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
           "columns": [{ "width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}]

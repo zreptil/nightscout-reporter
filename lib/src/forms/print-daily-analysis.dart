@@ -228,7 +228,7 @@ class PrintDailyAnalysis extends BasePrint
 
       if (i > 0)
       {
-        String text = "${glucFromData(fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
+        String text = "${glucFromData(g.fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
         _vertStack.add({
           "relativePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
           "text": text,
@@ -479,7 +479,7 @@ class PrintDailyAnalysis extends BasePrint
         .difference(info.start)
         .inMinutes ~/ 2));
       double y = sumNarrowValues ? -0.5 : bolusY(info.max);
-      String text = "${fmtNumber(info.sum, _precision)} ${msgInsulinUnit}";
+      String text = "${g.fmtNumber(info.sum, _precision)} ${msgInsulinUnit}";
       if (info.count > 1)
       {
         text = "[$text]";
@@ -499,7 +499,7 @@ class PrintDailyAnalysis extends BasePrint
         .difference(info.start)
         .inMinutes ~/ 2));
       double y = carbY(info.max);
-      String text = "${msgKH(fmtNumber(info.sum))}";
+      String text = "${msgKH(g.fmtNumber(info.sum))}";
       if (info.count > 1)
       {
         text = "[$text]";
@@ -592,23 +592,23 @@ class PrintDailyAnalysis extends BasePrint
       String text;
       if (hasCarbs)
       {
-        text = "${fmtNumber(day.carbs, 0)}";
+        text = "${g.fmtNumber(day.carbs, 0)}";
         addLegendEntry(legend, colCarbs, msgCarbs(text), isArea: false, lineWidth: 0.1);
       }
       if (hasBolus)addLegendEntry(
-        legend, colBolus, msgBolusInsulin("${fmtNumber(day.ieBolusSum, _precision, false)} ${msgInsulinUnit}"),
+        legend, colBolus, msgBolusInsulin("${g.fmtNumber(day.ieBolusSum, _precision, false)} ${msgInsulinUnit}"),
         isArea: false, lineWidth: 0.1);
       if (showBasalDay)
       {
-        text = "${fmtNumber(day.ieBasalSum, _precision, false)} ${msgInsulinUnit}";
+        text = "${g.fmtNumber(day.ieBasalSum, _precision, false)} ${msgInsulinUnit}";
         addLegendEntry(legend, colBasalDay, msgBasalrateDay(text), isArea: true);
       }
       if (showBasalProfile)
       {
-        text = "${fmtNumber(day.basalData.store.ieBasalSum, _precision, false)} ${msgInsulinUnit}";
+        text = "${g.fmtNumber(day.basalData.store.ieBasalSum, _precision, false)} ${msgInsulinUnit}";
         addLegendEntry(legend, colBasalProfile, msgBasalrateProfile(text), isArea: false);
       }
-      text = "${fmtNumber(tdd, _precision, false)} ${msgInsulinUnit}";
+      text = "${g.fmtNumber(tdd, _precision, false)} ${msgInsulinUnit}";
       addLegendEntry(legend, "", msgLegendTDD(text), graphText: msgTDD);
       String v1 = glucFromData(src.status.settings.thresholds.bgTargetBottom.toDouble());
       String v2 = glucFromData(src.status.settings.thresholds.bgTargetTop.toDouble());
@@ -639,7 +639,7 @@ class PrintDailyAnalysis extends BasePrint
       profMax = math.max((entry.value ?? 0) + 0.2, profMax);
 
     drawScaleIE(xo, yo, graphHeight, profMax, [S(3, 0.5), S(1.5, 0.2), S(0, 0.1)], (i, step)
-    => "${fmtNumber(i * step, 1)} ${msgInsulinUnit}");
+    => "${g.fmtNumber(i * step, 1)} ${msgInsulinUnit}");
     var profileBasal = getBasalGraph(graphHeight, day, true, xo, yo);
 
     // graphic for temporary basalratechanges
@@ -668,8 +668,8 @@ class PrintDailyAnalysis extends BasePrint
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
-//      vertCvs.add({"relativePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": fmtNumber(i / 10, 1), "fontSize": fs(8)});
-      String text = "${fmtNumber(-100 + i * step)} %";
+//      vertCvs.add({"relativePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": g.fmtNumber(i / 10, 1), "fontSize": fs(8)});
+      String text = "${g.fmtNumber(-100 + i * step)} %";
       _vertStack.add(
         {"relativePosition": {"x": cm(xo - 1.0), "y": cm(yo + y - 0.15)}, "text": text, "fontSize": fs(8)});
       _vertStack.add({
@@ -697,10 +697,10 @@ class PrintDailyAnalysis extends BasePrint
     }
 
     drawScaleIE(xo, yo, 3 * graphHeight, maxIob, [S(7, 1.0), S(3, 0.5), S(1.5, 0.2), S(0, 0.1)], (i, step)
-    => "${fmtNumber(i * step, 1)} ${msgInsulinUnit}");
+    => "${g.fmtNumber(i * step, 1)} ${msgInsulinUnit}");
 
     drawScaleIE(xo, yo, 4 * graphHeight, maxCob, [S(100, 20), S(50, 10), S(20, 5), S(0, 1)], (i, step)
-    => "${fmtNumber(i * step, 0)} g");
+    => "${g.fmtNumber(i * step, 0)} g");
 
     dynamic ptsIob = [{"x": cm(glucX(DateTime(0,1,1,0,0))), "y": cm(graphHeight)}];
     dynamic ptsCob = [{"x": cm(glucX(DateTime(0,1,1,0,0))), "y": cm(graphHeight)}];
@@ -790,9 +790,9 @@ class PrintDailyAnalysis extends BasePrint
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
-//      vertCvs.add({"relativePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": fmtNumber(i / 10, 1), "fontSize": fs(8)});
+//      vertCvs.add({"relativePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": g.fmtNumber(i / 10, 1), "fontSize": fs(8)});
       String text = display(i, step);
-//      String text = "${fmtNumber(i * step, 1)} ${msgInsulinUnit}";
+//      String text = "${g.fmtNumber(i * step, 1)} ${msgInsulinUnit}";
       _vertStack.add({
         "relativePosition": {"x": cm(xo - 1.0), "y": cm(top + yo + (gridLines - i) * lineHeight - 0.15)},
         "text": text,

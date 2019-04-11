@@ -156,7 +156,7 @@ class PrintBasalrate extends BasePrint
         });
         horzCvs.add({
           "relativePosition": {"x": cm(xo + i * colWidth), "y": cm(yo + gridLines * lineHeight + 0.3)},
-          "text": fmtNumber(i, 0),
+          "text": g.fmtNumber(i, 0),
           "fontSize": fs(8)
         });
         horzStack.add({
@@ -179,8 +179,8 @@ class PrintBasalrate extends BasePrint
         "lineWidth": lw,
         "lineColor": i > 0 ? lc : lcFrame
       });
-//      vertCvs.add({"relativePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": fmtNumber(i / 10, 1), "fontSize": fs(8)});
-      String text = "${fmtNumber(i * step, 1)} ${msgInsulinUnit}";
+//      vertCvs.add({"relativePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": g.fmtNumber(i / 10, 1), "fontSize": fs(8)});
+      String text = "${g.fmtNumber(i * step, 1)} ${msgInsulinUnit}";
       vertStack.add({
         "relativePosition": {"x": cm(xo - 1.0), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)},
         "text": text,
@@ -324,7 +324,7 @@ class PrintBasalrate extends BasePrint
       var text = {
         "width": cm(colWidth),
         "margin": [i < 24 ? cm(0.15) : cm(0), cm(0.15), cm(0), cm(0)],
-        "text": (i < 24 ? fmtNumber(i) : msgTotal),
+        "text": (i < 24 ? g.fmtNumber(i) : msgTotal),
         "fontSize": fs(8),
         "color": colBasalFont,
         "alignment": i < 24 ? "left" : "center"
@@ -349,7 +349,7 @@ class PrintBasalrate extends BasePrint
       legendIE.add({
         "width": cm(w * colWidth),
         "margin": m1,
-        "text": fmtBasal(brtimes[i].value),
+        "text": g.fmtBasal(brtimes[i].value),
         "fontSize": fs(8),
         "alignment": "left"
       });
@@ -357,7 +357,7 @@ class PrintBasalrate extends BasePrint
       String text = "";
       if (i < calc.nextBRTimes.length && brtimes[i].value != calc.nextBRTimes[i].value)
       {
-        text = fmtBasal(calc.nextBRTimes[i].value);
+        text = g.fmtBasal(calc.nextBRTimes[i].value);
         hasAdjustment = true;
       }
       legendAdjust.add({
@@ -374,12 +374,12 @@ class PrintBasalrate extends BasePrint
 //    legendAdjust.add({"width": cml(colWidth), "text": "", "fontSize": fs(8)});
 
     legendIE.add(
-      {"width": cm(colWidth), "margin": m0, "text": fmtBasal(ieSum), "fontSize": fs(8), "alignment": "center"});
+      {"width": cm(colWidth), "margin": m0, "text": g.fmtBasal(ieSum), "fontSize": fs(8), "alignment": "center"});
 
     if (hasAdjustment) legendAdjust.add({
       "width": cm(colWidth),
       "margin": m2,
-      "text": fmtBasal(ieSumNext),
+      "text": g.fmtBasal(ieSumNext),
       "fontSize": fs(8),
       "alignment": "center"
     });

@@ -67,7 +67,8 @@ material-content {
   right: 0;
   bottom: 0;
   scrollbar-color: $primary_back $secondary_back;
-  >div.centered{
+
+  > div.centered {
     display: flex;
     flex: 1;
     align-items: center;
@@ -163,7 +164,7 @@ material-drawer {
       align-items: center;
       margin-left: 1em;
 
-      > div{
+      > div {
         width: 5%;
       }
 
@@ -307,6 +308,10 @@ signin {
 
 .betaTitle {
   font-size: 50%;
+
+  ::ng-deep .content {
+    padding: 0 !important;
+  }
 }
 
 .headerinfo {
@@ -370,6 +375,42 @@ nav a {
       .selected-accent {
         background-color: $primary_back;
       }
+    }
+  }
+}
+
+.paramSelect{
+  ::ng-deep material-list {
+    background: $secondary_back;
+    padding: 0;
+    material-select-item {
+      display: flex;
+      flex-direction: column;
+      line-height: initial;
+      align-items: flex-start;
+      padding: 0.2em 0.5em;
+
+      .selected-accent {
+        background-color: $primary_back;
+      }
+    }
+    material-select-item.selected{
+      background-color: $primary_back;
+      color: $primary_fore;
+    }
+  }
+}
+
+.paramList{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  material-dropdown-select{
+    margin-left: 1em;
+    background: $primary_back;
+    color: $primary_fore;
+    ::ng-deep .button{
+      padding: 0.5em;
     }
   }
 }
@@ -464,6 +505,7 @@ material-expansionpanel.is-local.checked {
   ::ng-deep .header {
     border-color: $local_fore !important;
   }
+
   [name] {
     > material-icon {
       color: $local_fore;
@@ -500,6 +542,7 @@ material-expansionpanel.is-local {
 material-expansionpanel.is-debug.checked {
   border-color: $debug_fore !important;
   border-radius: 0.5em;
+
   [name] {
     > material-icon {
       color: $debug_fore;
@@ -577,23 +620,54 @@ datepicker {
 }
 
 .currentGluc {
-  display: flex;
-  align-items: center;
-  font-size: 1em;
-  font-weight: normal;
-  text-transform: none;
   color: $primary_back;
   background: $primary_fore;
-  height: 3em;
-  margin-left: -3em!important;
-  ::ng-deep [time]{
-    font-size: 60%;
+  text-shadow: none;
+
+  pre {
+    font-size: 75%;
+    color: rgba(0, 0, 0, 0.8);
   }
-  ::ng-deep [diff]{
-    font-size: 70%;
+
+  ::ng-deep .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 1em;
+    text-transform: none;
+    height: 2em;
+
+    ::ng-deep [time] {
+      font-size: 60%;
+    }
+
+    ::ng-deep [diff] {
+      font-size: 70%;
+      font-weight: bold;
+      color: $secondary_fore;
+    }
+
+    ::ng-deep [arrow] {
+      position: relative;
+    }
+
+    .arrow {
+      width: 3.5em;
+      stroke: $primary_back;
+      fill: $primary_back;
+
+      .circle {
+        stroke-width: 0.5em;
+        fill: $secondary_back;
+      }
+    }
   }
-  material-icon{
-    float: left;
-  }
+}
+
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 

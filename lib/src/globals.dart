@@ -74,7 +74,7 @@ class Globals
   static DateTime get now
   => DateTime.now();
   bool _isLoaded = false;
-  String version = "1.2.7";
+  String version = "1.2.8";
   String lastVersion;
   static const int PDFUNLIMITED = 4000000;
   static const int PDFDIVIDER = 100000;
@@ -715,6 +715,11 @@ class Globals
     }));
     isConfigured = lastVersion != null && lastVersion.isNotEmpty;
     _isLoaded = true;
+  }
+
+  String fmtBasal(num value)
+  {
+    return fmtNumber(value, basalPrecision);
   }
 
   String fmtNumber(num value,

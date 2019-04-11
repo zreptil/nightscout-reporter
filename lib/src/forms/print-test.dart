@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math' as math;
 
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -51,22 +52,29 @@ class PrintTest extends BasePrint
   @override
   String get title
   => "Datensätze";
-  dynamic body;
-  dynamic root;
 
   PrintTest()
   {
     init();
   }
 
-  bool isFirst = true;
+  bool _isFirst = true;
+  dynamic _body;
+  dynamic _root;
+  String _lastRootTitle = null;
+  String _lastRootType = null;
   dynamic createRoot(type, {String title: null})
   {
     String color = "#eee";
+    if (type == null)type = _lastRootType;
+    _lastRootType = type;
+    if (title == null)title = _lastRootTitle;
+    _lastRootTitle = title;
+
     switch (type)
     {
       case "entries":
-        body.add([
+        _body.add([
           {"text": "Uhrzeit", "fillColor": color},
           {"text": "Art", "fillColor": color},
           {"text": "sgv", "fillColor": color},
@@ -74,7 +82,7 @@ class PrintTest extends BasePrint
         ]);
         break;
       case "treatments":
-        body.add([
+        _body.add([
           {"text": "Uhrzeit", "fillColor": color},
           {"text": "Art", "fillColor": color},
           {"text": "Anpassung", "fillColor": color},
@@ -84,42 +92,51 @@ class PrintTest extends BasePrint
         ]);
         break;
       case "raw":
-        body.add([{"text": title, "fontSize": fs(12), "colSpan": rawCols}]);
+        _rawLineCount += 6;
+        _body.add([{"text": title, "fontSize": fs(12), "colSpan": rawCols}]);
         for (int i = 0; i < rawCols - 1; i++)
-          body[0].add({"text": ""});
-        body.add([]);
+          _body[0].add({"text": ""});
+        _body.add([]);
         break;
     }
 
     var widths = [];
-    for (int i = 0; i < body[0].length; i++)
-      widths.add(cm((width - 4.0) / body[0].length));
+    for (int i = 0; i < _body[0].length; i++)
+      widths.add(cm((width - 4.0) / _body[0].length));
     var ret = {
-      "margin": [cm(2.0), cm(isFirst ? yorg : 0.5), cm(2.0), cm(0.5)],
+      "margin": [cm(2.0), cm(_isFirst ? yorg : 0.5), cm(2.0), cm(0.5)],
       "layout": type == "raw" ? "" : "noBorders",
-      "table": {"headerRows": 1, "widths": widths, "body": body}
+      "table": {"headerRows": 1, "widths": widths, "body": _body}
     };
-    isFirst = false;
+    _isFirst = false;
     return ret;
   }
+
+  int _rawLineCount = 0;
+  int _rawCurrLines = 0;
+  var _page;
+  List<List<dynamic>> _pages;
 
   @override
   void fillPages(ReportData src, List<List<dynamic>> pages)
   {
-    var ret = [headerFooter(skipFooter: true)];
-    body = [];
-    isFirst = true;
+    _rawLineCount = 0;
+    _rawCurrLines = 0;
+    _pages = pages;
+    _page = [headerFooter(skipFooter: true)];
+    _body = [];
+    _isFirst = true;
     if (showEntries)
     {
-      root = createRoot("entries");
+      _root = createRoot("entries");
       for (int i = 0; i < src.ns.entries.length; i++)
       {
         EntryData entry = src.ns.entries[i];
         var row = [
           {"text": fmtDateTime(entry.time, '??.??.???? ??:?? Uhr'), "colspan": 4},
           {"text": entry.type},
-          {"text": fmtNumber(entry.sgv)},
-          {"text": fmtNumber(entry.gluc)},
+          {"text": g.fmtNumber(entry.sgv)},
+          {"text": g.fmtNumber(entry.gluc)},
         ];
 /*      if(entry.direction != null && entry.direction.toLowerCase() == "none")
       {
@@ -127,28 +144,32 @@ class PrintTest extends BasePrint
           c["color"] = "#f00";
       }*/
 
-        body.add(row);
+        _body.add(row);
+        if (_body.length > 35)addPage();
       }
-      ret.add(root);
+      if (_body.length > 0)addPage();
+//      _page.add(root);
     }
 
     if (showTreatments)
     {
-      body = [];
-      root = createRoot("treatments");
+      _body = [];
+      _root = createRoot("treatments");
       var data = src.ns.treatments;
+      int lines = _body.length;
       for (int i = 0; i < data.length; i++)
       {
         TreatmentData entry = data[i];
+        lines += 2;
         var row = [{"text": fmtDateTime(entry.createdAt, '??.??.???? ??:?? Uhr')}];
         row.add({"text": entry.eventType});
-        row.add({"text": "${fmtNumber(entry.adjustedValue(1), 0, false, "")}", "alignment": "right"});
-        row.add({"text": entry.duration > 0 ? fmtNumber(entry.duration, 0, false, " ") : " ", "alignment": "right"});
+        row.add({"text": "${g.fmtNumber(entry.adjustedValue(1), 0, false, "")}", "alignment": "right"});
+        row.add({"text": entry.duration > 0 ? g.fmtNumber(entry.duration, 0, false, " ") : " ", "alignment": "right"});
         double carbs = entry.isECarb ? entry.eCarbs : entry.carbs;
-        String text = carbs > 0.0 ? fmtNumber(carbs, 0, false, " ") : " ";
+        String text = carbs > 0.0 ? g.fmtNumber(carbs, 0, false, " ") : " ";
         if (entry.isECarb)text = "e${text}";
         row.add({"text": text, "alignment": "right"});
-        text = entry.insulin > 0.0 ? fmtNumber(entry.insulin, 1, false, " ") : " ";
+        text = entry.insulin > 0.0 ? g.fmtNumber(entry.insulin, 1, false, " ") : " ";
         row.add({"text": text, "alignment": "right"});
         switch (entry.eventType.toLowerCase())
         {
@@ -158,71 +179,142 @@ class PrintTest extends BasePrint
           case "announcement":
           case "note":
             row[1]["text"] = "${row[1]["text"]}\n${entry.notes}";
+            lines += entry.notes != null ? (entry.notes
+                                              .split("\n")
+                                              .length - 1) : 0;
             break;
         }
-        body.add(row);
+        _body.add(row);
+        if (lines > 35)
+        {
+          addPage();
+          lines = 0;
+        }
       }
-      ret.add(root);
+      if (_body.length > 0)addPage();
+//      _page.add(root);
     }
 
     if (showRawStatus)
     {
-      body = [];
-      root = createRoot("raw", title: "Status");
-      addRawData(src.status.raw, ret);
-      finalizeRawData(ret);
+      _body = [];
+      _root = createRoot("raw", title: "Status");
+      addRawData(src.status.raw);
+      finalizeRawData();
     }
     if (showRawEntries)
     {
-      body = [];
-      root = createRoot("raw", title: "Entries");
+      _body = [];
+      _root = createRoot("raw", title: "Entries");
       for (EntryData entry in src.ns.entries)
-        addRawData(entry.raw, ret, fmtDateTime(entry.time.toLocal()));
-      finalizeRawData(ret);
+        addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
+      finalizeRawData();
     }
     if (showRawTreatments)
     {
-      body = [];
-      root = createRoot("raw", title: "Treatments");
+      _body = [];
+      _root = createRoot("raw", title: "Treatments");
       for (TreatmentData entry in src.ns.treatments)
-        addRawData(entry.raw, ret, fmtDateTime(entry.createdAt.toLocal()));
-      finalizeRawData(ret);
+        addRawData(entry.raw, fmtDateTime(entry.createdAt.toLocal()));
+      finalizeRawData();
     }
     if (showRawProfiles)
     {
-      body = [];
-      root = createRoot("raw", title: "Profiles");
+      _body = [];
+      _root = createRoot("raw", title: "Profiles");
       for (ProfileData entry in src.profiles)
-        addRawData(entry.raw, ret, fmtDateTime(entry.createdAt.toLocal()));
-      finalizeRawData(ret);
+        addRawData(entry.raw, fmtDateTime(entry.createdAt.toLocal()));
+      finalizeRawData();
 // */
     }
 
-    pages.add(ret);
-//    return ret;
+    _pages.add(_page);
   }
 
-  addRawData(dynamic raw, dynamic ret, [String title = null])
+  addRawData(dynamic raw, [String title = null])
   {
     String text = json.encode(raw);
     text = text.substring(1, text.length - 1);
     text = text.replaceAll(",\"", ",\n\"");
-    if(title != null)
-      text = "${title}\n${text}";
-    if (body.last.length >= rawCols)body.add([]);
-    body.last.add({"text": text, "fontSize": fs(8)});
-    if (body.length > 10000)
+    text = text.replaceAll("},", "},\n");
+    if (title != null)text = "${title}\n${text}";
+    _rawCurrLines = math.max(_rawCurrLines, text
+                                              .split("\n")
+                                              .length + 1);
+
+    _body.last.add({"text": text, "fontSize": fs(8)});
+    if (_body.last.length >= rawCols)
     {
-      finalizeRawData(ret);
+      _rawLineCount += _rawCurrLines;
+      if (_rawLineCount > 66)
+      {
+        while (_rawLineCount > 66)
+        {
+          int maxLines = 66 - (_rawLineCount - _rawCurrLines);
+          var newRow = [];
+          int lineCount = 0;
+          for (var cell in _body.last)
+          {
+            newRow.add({"text": "", "fontSize": fs(8)});
+            List<String> lines = cell["text"].split("\n");
+            List<String> oldText = List<String>();
+            List<String> newText = List<String>();
+            if (lines.length > maxLines)
+            {
+              for (int i = 0; i < maxLines; i++)
+                oldText.add(lines[i]);
+              for (int i = maxLines; i < lines.length; i++)
+                newText.add(lines[i]);
+            }
+            else
+            {
+              oldText = lines;
+            }
+            String text = oldText.join("\n");
+            cell["text"] = text;
+            newRow.last["text"] = newText.join("\n");
+            lineCount = math.max(lineCount, newText.length + 1);
+          }
+          addPage();
+          _body.last = newRow;
+          _rawLineCount += lineCount;
+          _rawCurrLines = lineCount;
+        }
+        _body.add([]);
+      }
+      else
+      {
+        _body.add([]);
+      }
+    }
+/*
+    if (body.length > 7)
+    {
+      finalizeRawData(pages);
+      pages.add(page);
+      ret = [headerFooter(skipFooter: true)];
       body = [];
       root = createRoot("raw");
-    }
+    }*/
   }
 
-  finalizeRawData(dynamic ret)
+  addPage()
   {
-    if (body.last.length < rawCols)body.last.last["colSpan"] = rawCols - body.last.length + 1;
-    while (body.last.length < rawCols)body.last.add({"text": ""});
-    ret.add(root);
+    _rawLineCount = 0;
+    _rawCurrLines = 0;
+    _page.add(_root);
+    _pages.add(_page);
+    _isFirst = true;
+    _page = [headerFooter(skipFooter: true)];
+    _body = [];
+    _root = createRoot(null);
+  }
+
+  finalizeRawData()
+  {
+//    if (body.last.length < rawCols)body.last.last["colSpan"] = rawCols - body.last.length + 1;
+    while (_body.last.length < rawCols)_body.last.add({"text": ""});
+    _page.add(_root);
+//    pages.add(body);
   }
 }
