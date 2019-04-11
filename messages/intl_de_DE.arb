@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-04-11T13:48:02.286830",
+  "@@last_modified": "2019-04-11T14:32:42.027206",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -1420,6 +1420,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "In der Tagesgrafik gibt es eine Option, mit der man sich die erfassten Trainingsdaten anzeigen lassen kann. Diese werden dann am unteren Rand über der Tabelle der Glukosewerte eingefügt.": "In der Tagesgrafik gibt es eine Option, mit der man sich die erfassten Trainingsdaten anzeigen lassen kann. Diese werden dann am unteren Rand über der Tabelle der Glukosewerte eingefügt.",
+  "@In der Tagesgrafik gibt es eine Option, mit der man sich die erfassten Trainingsdaten anzeigen lassen kann. Diese werden dann am unteren Rand über der Tabelle der Glukosewerte eingefügt.": {
+    "description": "v128a2",
+    "type": "text",
+    "placeholders": {}
+  },
   "Die Spalten auf der Profilseite wurden korrigiert, damit auch längere Zeitnamen (z.B. in spanisch) Platz finden.": "Die Spalten auf der Profilseite wurden korrigiert, damit auch längere Zeitnamen (z.B. in spanisch) Platz finden.",
   "@Die Spalten auf der Profilseite wurden korrigiert, damit auch längere Zeitnamen (z.B. in spanisch) Platz finden.": {
     "description": "v128c1",
@@ -1434,7 +1440,7 @@
   },
   "Die Aufteilung auf mehrere PDF-Dateien funktioniert jetzt besser.": "Die Aufteilung auf mehrere PDF-Dateien funktioniert jetzt besser.",
   "@Die Aufteilung auf mehrere PDF-Dateien funktioniert jetzt besser.": {
-    "description": "v128c1",
+    "description": "v128f1",
     "type": "text",
     "placeholders": {}
   },
@@ -2188,8 +2194,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_91": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_91": {
+  "ViewWhatsnewComponent0__message_92": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_92": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {
