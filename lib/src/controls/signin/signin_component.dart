@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:html' as html;
-import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular/core.dart';

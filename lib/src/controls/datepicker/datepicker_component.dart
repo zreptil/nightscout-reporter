@@ -13,13 +13,24 @@ class DatepickerEntry
   String key;
   String title;
   var _fill = null;
+  var _shift = null;
   fill(DatepickerPeriod data)
   {
     data.entryKey = key;
     _fill(data);
   }
 
-  DatepickerEntry(this.key, this.title, this._fill);
+  shift(Date date, int shift)
+  {
+    while (shift > 0)
+    {
+      date = _shift(date).add(days: -1);
+      shift--;
+    }
+    return date;
+  }
+
+  DatepickerEntry(this.key, this.title, this._fill, this._shift);
 }
 
 class DatepickerPeriod
@@ -44,6 +55,26 @@ class DatepickerPeriod
   => date != null ? monthShortNames[date.month - 1] : "";
   static dowShortName(Date date)
   => date != null ? dowShortNames[date.weekday - 1] : "";
+
+  Date _shiftBy(Date ret, int shift)
+  {
+    int span = DateTime(end.year, end.month, end.day)
+      .difference(DateTime(start.year, start.month, start.day))
+      .inDays;
+    return ret.add(days: -shift * (span + 1));
+  }
+
+  Date shiftStartBy(int shift)
+  {
+    if (entryKey != null && entry != null)return entry.shift(start, shift);
+    return _shiftBy(start, shift);
+  }
+
+  Date shiftEndBy(int shift)
+  {
+    if (entryKey != null && entry != null)return entry.shift(end, shift);
+    return _shiftBy(end, shift);
+  }
 
   Date start = null;
   Date end = null;
@@ -111,6 +142,16 @@ class DatepickerPeriod
     return "";
   }
 
+  DatepickerEntry get entry
+  {
+    if (list != null)
+    {
+      for (DatepickerEntry entry in list)
+        if (entry.key == entryKey)return entry;
+    }
+    return null;
+  }
+
   Date parse(String date)
   {
     Date ret = null;
@@ -148,8 +189,7 @@ class DatepickerPeriod
       }
     }
     catch (ex)
-    {
-    }
+    {}
   }
 
   DatepickerPeriod({String src = ""})
@@ -172,7 +212,8 @@ class DatepickerPeriod
   }
 }
 
-@Component(selector: 'datepicker',
+@Component(
+  selector: 'datepicker',
   styleUrls: ['datepicker_component.css'],
   templateUrl: 'datepicker_component.html',
   directives: [
@@ -195,24 +236,19 @@ class DatepickerComponent
   @Input()
   int firstDayOfWeek = 1;
 
+  @Input()
+  bool showInfo = false;
+  String infoClass(String cls)
+  => showInfo ? "$cls infoarea showinfo" : "$cls infoarea";
+
   bool get isMaxMonth
   =>
-    period != null && period.maxDate != null && month != null && (month.year > period.maxDate.year || (month
-                                                                                                         .year == period
-                                                                                                         .maxDate.year
-                                                                                                       && month
-                                                                                                            .month >= period
-                                                                                                            .maxDate
-                                                                                                            .month));
+    period != null && period.maxDate != null && month != null &&
+      (month.year > period.maxDate.year || (month.year == period.maxDate.year && month.month >= period.maxDate.month));
   bool get isMinMonth
   =>
-    period != null && period.minDate != null && month != null && (month.year < period.minDate.year || (month
-                                                                                                         .year == period
-                                                                                                         .minDate.year
-                                                                                                       && month
-                                                                                                            .month <= period
-                                                                                                            .minDate
-                                                                                                            .month));
+    period != null && period.minDate != null && month != null &&
+      (month.year < period.minDate.year || (month.year == period.minDate.year && month.month <= period.minDate.month));
 
   get msgStartIncorrect
   => Intl.message("Das Startdatum ist nicht korrekt");
@@ -284,8 +320,8 @@ class DatepickerComponent
     }
   }
 
-  get msgPeriod
-  => Intl.message("Zeitraum");
+  @Input()
+  String msgPeriod = Intl.message("Zeitraum");
 
   get msgPeriodEmpty
   => Intl.message("Zeitraum festlegen");

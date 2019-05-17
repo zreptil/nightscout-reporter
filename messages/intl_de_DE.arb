@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-04-11T14:32:42.027206",
+  "@@last_modified": "2019-05-17T15:01:29.191468",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -101,8 +101,28 @@
     "type": "text",
     "placeholders": {}
   },
+  "Vergleich": "Vergleich",
+  "@Vergleich": {
+    "type": "text",
+    "placeholders": {}
+  },
   "dd.MM.yyyy": "dd.MM.yyyy",
   "@dd.MM.yyyy": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktuelle Periode": "Aktuelle Periode",
+  "@Aktuelle Periode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Vorherige Periode": "Vorherige Periode",
+  "@Vorherige Periode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Vorletzte Periode": "Vorletzte Periode",
+  "@Vorletzte Periode": {
     "type": "text",
     "placeholders": {}
   },
@@ -674,7 +694,7 @@
       "value": {}
     }
   },
-  "msgCount": "({value} Werte)",
+  "msgCount": "{value,plural, =0{Kein Wert}=1{1 Wert}other{{value} Werte}}",
   "@msgCount": {
     "type": "text",
     "placeholders": {
@@ -923,6 +943,13 @@
     "type": "text",
     "placeholders": {
       "max": {}
+    }
+  },
+  "msgHistorical": "Historisch {value}",
+  "@msgHistorical": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
     }
   },
   "Auswertung": "Auswertung",
@@ -1180,6 +1207,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "Facebook Seite": "Facebook Seite",
+  "@Facebook Seite": {
+    "description": "title of facebook link",
+    "type": "text",
+    "placeholders": {}
+  },
   "Einstellungen": "Einstellungen",
   "@Einstellungen": {
     "description": "title for settings dialog",
@@ -1408,9 +1441,69 @@
     "type": "text",
     "placeholders": {}
   },
-  "1.2.8 - xx.04.2019": "1.2.8 - xx.04.2019",
-  "@1.2.8 - xx.04.2019": {
-    "description": "v127",
+  "1.2.11 - 17.05.2019": "1.2.11 - 17.05.2019",
+  "@1.2.11 - 17.05.2019": {
+    "description": "v1211",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es gibt jetzt die Möglichkeit, PDFs vergangener Zeiträume zu erzeugen, ohne den Zeitraum anpassen zu müssen. Oberhalb des Buttons zur PDF-Erzeugung gibt es zwei Buttons, welche die PDFs für eine frühere Periode erzeugen. Der untere der beiden Buttons erzeugt die Vorperiode, der obere die vorletzte Periode. Auf den Buttons wird das Startdatum und das Enddatum angezeigt. Wenn z.B. als Zeitraum \"Letzte 2 Wochen\" gewählt wurde, dann wird mit dem unteren Button der Zeitraum von zwei Wochen beginnend vor vier Wochen erzeugt und mit dem oberen Button der Zeitraum von zwei Wochen beginnend vor sechs Wochen. Auf diese Art kann man recht einfach Vergleichsberichte erzeugen, um die Entwicklung der Werte zu erkennen. Auf den Seiten wird für diese Ausdrucke in der Kopfzeile das Wort \"Historisch 1\", bzw. \"Historisch 2\" oberhalb des Zeitraums ausgegeben. So kann man beim Vergleich der Werte die Daten voneinander unterscheiden.": "Es gibt jetzt die Möglichkeit, PDFs vergangener Zeiträume zu erzeugen, ohne den Zeitraum anpassen zu müssen. Oberhalb des Buttons zur PDF-Erzeugung gibt es zwei Buttons, welche die PDFs für eine frühere Periode erzeugen. Der untere der beiden Buttons erzeugt die Vorperiode, der obere die vorletzte Periode. Auf den Buttons wird das Startdatum und das Enddatum angezeigt. Wenn z.B. als Zeitraum \"Letzte 2 Wochen\" gewählt wurde, dann wird mit dem unteren Button der Zeitraum von zwei Wochen beginnend vor vier Wochen erzeugt und mit dem oberen Button der Zeitraum von zwei Wochen beginnend vor sechs Wochen. Auf diese Art kann man recht einfach Vergleichsberichte erzeugen, um die Entwicklung der Werte zu erkennen. Auf den Seiten wird für diese Ausdrucke in der Kopfzeile das Wort \"Historisch 1\", bzw. \"Historisch 2\" oberhalb des Zeitraums ausgegeben. So kann man beim Vergleich der Werte die Daten voneinander unterscheiden.",
+  "@Es gibt jetzt die Möglichkeit, PDFs vergangener Zeiträume zu erzeugen, ohne den Zeitraum anpassen zu müssen. Oberhalb des Buttons zur PDF-Erzeugung gibt es zwei Buttons, welche die PDFs für eine frühere Periode erzeugen. Der untere der beiden Buttons erzeugt die Vorperiode, der obere die vorletzte Periode. Auf den Buttons wird das Startdatum und das Enddatum angezeigt. Wenn z.B. als Zeitraum \"Letzte 2 Wochen\" gewählt wurde, dann wird mit dem unteren Button der Zeitraum von zwei Wochen beginnend vor vier Wochen erzeugt und mit dem oberen Button der Zeitraum von zwei Wochen beginnend vor sechs Wochen. Auf diese Art kann man recht einfach Vergleichsberichte erzeugen, um die Entwicklung der Werte zu erkennen. Auf den Seiten wird für diese Ausdrucke in der Kopfzeile das Wort \"Historisch 1\", bzw. \"Historisch 2\" oberhalb des Zeitraums ausgegeben. So kann man beim Vergleich der Werte die Daten voneinander unterscheiden.": {
+    "description": "v1211a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die teilweise falsch zugewiesenen Grenzwerte für die Bereiche (niedrig, normal, hoch) wurden korrigiert.": "Die teilweise falsch zugewiesenen Grenzwerte für die Bereiche (niedrig, normal, hoch) wurden korrigiert.",
+  "@Die teilweise falsch zugewiesenen Grenzwerte für die Bereiche (niedrig, normal, hoch) wurden korrigiert.": {
+    "description": "v1211f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.10 - 18.04.2019": "1.2.10 - 18.04.2019",
+  "@1.2.10 - 18.04.2019": {
+    "description": "v1210",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf der Profilseite wurde die Spalte für die Werte von ICR verbreitert.": "Auf der Profilseite wurde die Spalte für die Werte von ICR verbreitert.",
+  "@Auf der Profilseite wurde die Spalte für die Werte von ICR verbreitert.": {
+    "description": "v1210f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate eine Genauigkeit von mehr als 2 Nachkommastellen hat.": "In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate eine Genauigkeit von mehr als 2 Nachkommastellen hat.",
+  "@In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate eine Genauigkeit von mehr als 2 Nachkommastellen hat.": {
+    "description": "v1210f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die mittlerweile überflüssige Option zur Darstellung der Basalrate mit zwei Nachkommastellen wurde aus der Tagesgrafik entfernt.": "Die mittlerweile überflüssige Option zur Darstellung der Basalrate mit zwei Nachkommastellen wurde aus der Tagesgrafik entfernt.",
+  "@Die mittlerweile überflüssige Option zur Darstellung der Basalrate mit zwei Nachkommastellen wurde aus der Tagesgrafik entfernt.": {
+    "description": "v1210f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.9 - 15.04.2019": "1.2.9 - 15.04.2019",
+  "@1.2.9 - 15.04.2019": {
+    "description": "v129",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ein Link zur Facebookseite von Nightscout Reporter wurde im Menü hinzugefügt.": "Ein Link zur Facebookseite von Nightscout Reporter wurde im Menü hinzugefügt.",
+  "@Ein Link zur Facebookseite von Nightscout Reporter wurde im Menü hinzugefügt.": {
+    "description": "v129a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Mischung von zwei Seiten auf einer PDF-Seite, die manchmal vorkam, wurde behoben.": "Die Mischung von zwei Seiten auf einer PDF-Seite, die manchmal vorkam, wurde behoben.",
+  "@Die Mischung von zwei Seiten auf einer PDF-Seite, die manchmal vorkam, wurde behoben.": {
+    "description": "v129f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.8 - 11.04.2019": "1.2.8 - 11.04.2019",
+  "@1.2.8 - 11.04.2019": {
+    "description": "v128",
     "type": "text",
     "placeholders": {}
   },
@@ -2194,8 +2287,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_92": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_92": {
+  "ViewWhatsnewComponent0__message_102": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
+  "@ViewWhatsnewComponent0__message_102": {
     "description": "v110c1",
     "type": "text",
     "placeholders": {

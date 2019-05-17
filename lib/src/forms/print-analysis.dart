@@ -106,6 +106,17 @@ class PrintAnalysis extends BasePrint
   @override
   void fillPages(ReportData src, List<List<dynamic>> pages)
   {
+    pages.add(getPage(src));
+    if (g.isLocal)
+    {
+      g.glucMGDL = !g.glucMGDL;
+      pages.add(getPage(src));
+      g.glucMGDL = !g.glucMGDL;
+    }
+  }
+
+  getPage(ReportData src)
+  {
     titleInfo = titleInfoBegEnd(src);
     var data = src.ns;
 
@@ -209,6 +220,7 @@ class PrintAnalysis extends BasePrint
       ]
     ];
 
+    double cvsLeft = -0.5;
     double cvsWidth = 0.8;
 
     addBodyArea(tableBody, msgOwnLimits, [
@@ -227,9 +239,9 @@ class PrintAnalysis extends BasePrint
         {"text": "", "style": "infounit"},
         {
           "canvas": [
-            {"type": "rect", "x": cm(0), "y": cm(0), "w": cm(cvsWidth), "h": cm(tgHigh), "color": colHigh},
-            {"type": "rect", "x": cm(0), "y": cm(tgHigh), "w": cm(cvsWidth), "h": cm(tgNorm), "color": colNorm},
-            {"type": "rect", "x": cm(0), "y": cm(tgHigh + tgNorm), "w": cm(cvsWidth), "h": cm(tgLow), "color": colLow},
+            {"type": "rect", "x": cm(cvsLeft), "y": cm(0), "w": cm(cvsWidth), "h": cm(tgHigh), "color": colHigh},
+            {"type": "rect", "x": cm(cvsLeft), "y": cm(tgHigh), "w": cm(cvsWidth), "h": cm(tgNorm), "color": colNorm},
+            {"type": "rect", "x": cm(cvsLeft), "y": cm(tgHigh + tgNorm), "w": cm(cvsWidth), "h": cm(tgLow), "color": colLow},
           ],
           "rowSpan": 3
         },
@@ -280,11 +292,11 @@ class PrintAnalysis extends BasePrint
         {"text": "", "style": "infounit"},
         {
           "canvas": [
-            {"type": "rect", "x": cm(0), "y": cm(0), "w": cm(cvsWidth), "h": cm(above180), "color": colHigh},
-            {"type": "rect", "x": cm(0), "y": cm(above180), "w": cm(cvsWidth), "h": cm(in70180), "color": colNorm},
+            {"type": "rect", "x": cm(cvsLeft), "y": cm(0), "w": cm(cvsWidth), "h": cm(above180), "color": colHigh},
+            {"type": "rect", "x": cm(cvsLeft), "y": cm(above180), "w": cm(cvsWidth), "h": cm(in70180), "color": colNorm},
             {
               "type": "rect",
-              "x": cm(0),
+              "x": cm(cvsLeft),
               "y": cm(above180 + in70180),
               "w": cm(cvsWidth),
               "h": cm(below70),
@@ -369,7 +381,7 @@ class PrintAnalysis extends BasePrint
         {"text": glucFromData(avgGluc), "style": "infodata"},
         {"text": "${getGlucInfo()["unit"]}", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
-        {"canvas": [{"type": "rect", "x": cm(0), "y": cm(0.2), "w": cm(cvsWidth), "h": cm(0.9), "color": glucWarnColor},
+        {"canvas": [{"type": "rect", "x": cm(cvsLeft), "y": cm(0.2), "w": cm(cvsWidth), "h": cm(0.9), "color": glucWarnColor},
         ], "rowSpan": 3},
       ],
       [
@@ -448,9 +460,9 @@ class PrintAnalysis extends BasePrint
       {
         "margin": [cm(3.7), cm(0.5), cm(0), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(0), cm(7.3), cm(1.5), cm(1.5), cm(1.0), cm(5.0)], "body": tableBody}
+        "table": {"headerRows": 0, "widths": [cm(0), cm(7.3), cm(1.5), cm(1.5), cm(1.5), cm(4.5)], "body": tableBody}
       }
     ];
-    pages.add(ret);
+    return ret;
   }
 }

@@ -65,6 +65,14 @@ class LangData
   LangData(this.code, this.name, this.img);
 }
 
+class PeriodShift
+{
+  String name;
+  int shift;
+
+  PeriodShift(this.name, this.shift);
+}
+
 class Globals
 {
   // The timezone is set to Europe/Berlin by default, but it is evaluated in
@@ -74,7 +82,7 @@ class Globals
   static DateTime get now
   => DateTime.now();
   bool _isLoaded = false;
-  String version = "1.2.8";
+  String version = "1.2.11";
   String lastVersion;
   static const int PDFUNLIMITED = 4000000;
   static const int PDFDIVIDER = 100000;
@@ -95,7 +103,7 @@ class Globals
   }
 
   int get pdfControlMaxSize
-  => (pdfCreationMaxSize / Globals.PDFDIVIDER).toInt();
+  => pdfCreationMaxSize ~/ Globals.PDFDIVIDER;
 
   set pdfControlMaxSize(int value)
   {
@@ -158,6 +166,18 @@ class Globals
   }
 
   List<FormConfig> listConfig = List<FormConfig>();
+
+  List<PeriodShift> get listPeriodShift
+  =>
+    [
+      PeriodShift(Intl.message("Aktuelle Periode"), 0),
+      PeriodShift(Intl.message("Vorherige Periode"), 1),
+      PeriodShift(Intl.message("Vorletzte Periode"), 2)
+    ];
+
+  int currShiftIdx = 0;
+  PeriodShift get currPeriodShift
+  => listPeriodShift[currShiftIdx >= 0 && currShiftIdx < listPeriodShift.length ? currShiftIdx : 0];
 
   Date date(DateTime src)
   => Date(src.year, src.month, src.day);
@@ -229,9 +249,12 @@ class Globals
   String get msgLast3Months
   => Intl.message("Letzte 3 Monate");
 
+  bool hasMGDL = false;
   bool glucMGDL = true;
-  double get glucFactor => glucMGDL ? 1 : 18.02;
-  double get glucPrecision => glucMGDL ? 0 : 2;
+  double get glucFactor
+  => glucMGDL ? 1 : 18.02;
+  double get glucPrecision
+  => glucMGDL ? 0 : 2;
   String _pdfOrder = "";
   set pdfOrder(String value)
   {
@@ -253,7 +276,7 @@ class Globals
   }
 
   bool get useProfileSwitch
-  => false; //isLocal;
+  => isLocal;
   String get settingsFilename
   => isLocal ? "settings.local" : isBeta ? "settings.beta" : "settings";
   gd.File settingsFile = null;
@@ -274,6 +297,9 @@ class Globals
   bool hideNightscoutInPDF = true;
   bool hidePdfInfo = false;
   bool showCurrentGluc = false;
+  bool showInfo = false;
+  String infoClass(String cls)
+  => showInfo ? "$cls infoarea showinfo" : "$cls infoarea";
   bool isConfigured = false;
   int _khFactor = 12;
   int get khFactor
@@ -452,6 +478,7 @@ class Globals
       ',"showCurrentGluc":"${loadStorage('showCurrentGluc')}"'
       ',"period":"${loadStorage('period')}"'
       ',"pdfOrder":"${loadStorage('pdfOrder')}"'
+      ',"currCompIdx":"${loadStorage('currCompIdx')}"'
       '}';
     fromJson(src);
     canDebug = loadStorage("debug") == "yes";
@@ -677,41 +704,65 @@ class Globals
     {
       data.start = Date.today();
       data.end = Date.today();
+    }, (Date date)
+    {
+      return date;
     }));
     period.list.add(DatepickerEntry("2days", msgLast2Days, (DatepickerPeriod data)
     {
       data.start = Date.today().add(days: -1);
       data.end = Date.today();
+    }, (Date date)
+    {
+      return date.add(days: -1);
     }));
     period.list.add(DatepickerEntry("3days", msgLast3Days, (DatepickerPeriod data)
     {
       data.start = Date.today().add(days: -2);
       data.end = Date.today();
+    }, (Date date)
+    {
+      return date.add(days: -2);
     }));
     period.list.add(DatepickerEntry("1week", msgLastWeek, (DatepickerPeriod data)
     {
       data.start = Date.today().add(days: -6);
       data.end = Date.today();
+    }, (Date date)
+    {
+      return date.add(days: -6);
     }));
     period.list.add(DatepickerEntry("2weeks", msgLast2Weeks, (DatepickerPeriod data)
     {
       data.start = Date.today().add(days: -13);
       data.end = Date.today();
+    }, (Date date)
+    {
+      return date.add(days: -13);
     }));
     period.list.add(DatepickerEntry("3weeks", msgLast3Weeks, (DatepickerPeriod data)
     {
       data.start = Date.today().add(days: -20);
       data.end = Date.today();
+    }, (Date date)
+    {
+      return date.add(days: -20);
     }));
     period.list.add(DatepickerEntry("1month", msgLastMonth, (DatepickerPeriod data)
     {
       data.start = Date.today().add(months: -1);
       data.end = Date.today();
+    }, (Date date)
+    {
+      return date.add(months: -1);
     }));
     period.list.add(DatepickerEntry("3months", msgLast3Months, (DatepickerPeriod data)
     {
       data.start = Date.today().add(months: -3);
       data.end = Date.today();
+    }, (Date date)
+    {
+      return date.add(months: -3);
     }));
     isConfigured = lastVersion != null && lastVersion.isNotEmpty;
     _isLoaded = true;
@@ -983,8 +1034,7 @@ class UserData
 
   String get apiUrl
   {
-    if(storageApiUrl != null)
-      storageApiUrl = storageApiUrl.trim();
+    if (storageApiUrl != null)storageApiUrl = storageApiUrl.trim();
     String ret = storageApiUrl;
     if (ret != null)
     {

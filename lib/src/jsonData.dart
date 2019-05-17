@@ -323,6 +323,14 @@ class ProfileEntryData extends JsonData
   ProfileTimezone _timezone;
   int get localDiff
   => _timezone.localDiff;
+
+  DateTime endTime(Date date, [bool adjustLocalForTime = false])
+  {
+    DateTime ret = time(date, adjustLocalForTime);
+    ret.add(Duration(minutes: duration - 1));
+    return ret;
+  }
+
   DateTime time(Date date, [bool adjustLocalForTime = false])
   {
     int hour = _time.hour;
@@ -490,6 +498,34 @@ class ProfileStoreData extends JsonData
     for (dynamic entry in json["target_high"])
       ret.listTargetHigh.add(ProfileEntryData.fromJson(entry, ret.timezone));
     return ret;
+  }
+
+  _importFromTime(DateTime time, List<ProfileEntryData> listSrc, List<ProfileEntryData> listDst)
+  {
+    Date date = Date(time.year, time.month, time.day);
+    listSrc = listSrc.where((p)
+    => p.endTime(date).isAfter(time)).toList();
+    if (listSrc.length == 0)return;
+    listDst = listDst.where((p)
+    => p.time(date).isBefore(time)).toList();
+    if (listDst.length == 0)listDst.add(listSrc.last.copy);
+    listDst.last.duration = time
+      .difference(listDst.last.time(date))
+      .inMinutes;
+    listSrc.first.duration = time
+      .difference(listSrc.first._time)
+      .inMinutes;
+    listSrc.first._time = time;
+    listDst.addAll(listSrc);
+  }
+
+  importFromTime(DateTime time, ProfileStoreData src)
+  {
+    _importFromTime(time, src.listCarbratio, listCarbratio);
+    _importFromTime(time, src.listSens, listSens);
+    _importFromTime(time, src.listBasal, listBasal);
+    _importFromTime(time, src.listTargetLow, listTargetLow);
+    _importFromTime(time, src.listTargetHigh, listTargetHigh);
   }
 }
 
@@ -1045,11 +1081,11 @@ class DayData
       temp.orgValue = entry.value;
       _profile.add(temp);
     }
-    if (_profile[0]
+    if (_profile.first
           .time(date, false)
           .hour > 0)
     {
-      ProfileEntryData clone = _profile[0].clone(DateTime(date.year, date.month, date.day, 0, 0));
+      ProfileEntryData clone = _profile.first.clone(DateTime(date.year, date.month, date.day, 0, 0));
       _profile.insert(0, clone);
     }
     // fill profile with treatments of type "temp basal" to get the actual basalrate
@@ -1259,8 +1295,8 @@ class ListData
     "low": StatisticData(0, 0),
     "norm": StatisticData(0, 0),
     "high": StatisticData(0, 0),
-    "stdLow": StatisticData(1, 70),
-    "stdNorm": StatisticData(71, 179),
+    "stdLow": StatisticData(1, 69.9999),
+    "stdNorm": StatisticData(70, 179.9999),
     "stdHigh": StatisticData(180, 9999)
   };
   double ieBolusSum = 0.0;
@@ -1332,9 +1368,10 @@ class ListData
     allEntries.addAll(bloody);
     allEntries.sort((a, b)
     => a.time.compareTo(b.time));
-
-    allEntries.removeWhere((e) => e.isGap);
-
+/*
+    allEntries.removeWhere((e)
+    => e.isGap);
+// */
     var last = null;
     // calculation of gvi and rms based on
     // https://github.com/nightscout/cgm-remote-monitor/blob/master/lib/report_plugins/glucosedistribution.js#L150
@@ -1353,11 +1390,11 @@ class ListData
       if (entry.isInvalid)continue;
 
       ProfileGlucData glucData = data.profile(entry.time);
-      stat["low"].max = glucData.targetLow;
-      stat["norm"].min = glucData.targetLow + 1;
-      stat["norm"].max = glucData.targetHigh - 1;
+      stat["low"].max = glucData.targetLow - 0.0001;
+      stat["norm"].min = glucData.targetLow;
+      stat["norm"].max = glucData.targetHigh + 0.0001;
       stat["high"].min = glucData.targetHigh;
-      stat["high"].max = 9999;
+      stat["high"].max = 9999.9999;
       if (lastDay == null || entry.time.day != lastDay.day)
       {
         days.add(DayData(entry.time, glucData));
@@ -1520,6 +1557,8 @@ class ReportData
   {
 //    DateTime check = DateTime(time.year, time.month, time.day);
     ProfileGlucData ret = ProfileGlucData(ProfileStoreData("${time.toIso8601String()}"));
+    // find first profile for the time
+    ProfileData profile = null;
     int idx = -1;
     for (int i = 0; i < profiles.length; i++)
     {
@@ -1527,11 +1566,20 @@ class ReportData
             .difference(time)
             .inMinutes <= 0)idx = i;
     }
-    // found first profile for the start of the day
+
     if (idx >= 0)
     {
-      ProfileData profile = profiles[idx];
+      profile = profiles[idx];
 //      ProfileStoreData p = profile.store[profile.defaultProfile];
+    }
+    else
+    {
+      ret.targetHigh = 180.0;
+      ret.targetLow = 70.0;
+    }
+
+    if (profile != null)
+    {
       Date date = Date(time.year, time.month, time.day);
       ret = ProfileGlucData(profile.current);
       ret.basal = ret.find(date, time, ret.store.listBasal);
@@ -1539,11 +1587,6 @@ class ReportData
       ret.sens = ret.find(date, time, ret.store.listSens);
       ret.targetHigh = status.settings.thresholds.bgTargetTop.toDouble();
       ret.targetLow = status.settings.thresholds.bgTargetBottom.toDouble();
-    }
-    else
-    {
-      ret.targetHigh = 180.0;
-      ret.targetLow = 70.0;
     }
 
     return ret;

@@ -18,10 +18,11 @@
       </div>
       <div class="material-spacer"></div>
       <nav class="material-navigation">
-        <material-button *ngIf="g.showCurrentGluc" raised class="currentGluc" (trigger)="getCurrentGluc(null)">
+        <material-button *ngIf="g.showCurrentGluc" raised class="currentGluc" (trigger)="getCurrentGluc()">
           <pre *ngIf="!currentGlucVisible" @i18n="message for current glucose if not active">Pausiert</pre>
           <div *ngIf="currentGlucVisible">{{currentGluc}}
             <div time>{{currentGlucTime}}</div>
+            <div *ngIf="g.isLocal" debug>{{currentGlucCounter}}</div>
           </div>
           <div arrow *ngIf="currentGlucVisible">
             <div>
@@ -39,6 +40,9 @@
           </div>
         </material-button>
         <a *ngIf="!g.showCurrentGluc" href="http://www.nightscout.info/" target="_blank">#WeAreNotWaiting</a>
+        <material-button icon class="is-local" *ngIf="g.isLocal" (trigger)="g.showInfo=!g.showInfo">
+          <material-icon icon="help_outline"></material-icon>
+        </material-button>
       </nav>
     </div>
   </header>
@@ -104,7 +108,7 @@
           <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect" slide="y"
                                     listAutoFocus>
             <material-select-item *ngFor="let item of g.userList; let idx = index"
-                                  (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');getCurrentGluc(null);"
+                                  (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');getCurrentGluc();"
                                   class="selectItem"
                                   [selected]="idx==g.userIdx">
               <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>
@@ -116,7 +120,8 @@
             <material-icon icon="settings"></material-icon>
           </material-button>
         </div>
-        <datepicker [period]="g.period" (periodChange)="changePeriod($event)" [isLocal]="g.isLocal"></datepicker>
+        <datepicker [period]="g.period" (periodChange)="changePeriod($event)" [isLocal]="g.isLocal"
+                    [showInfo]="g.showInfo"></datepicker>
       </div>
       <div class="formlist">
         <template ngFor let-cfg [ngForOf]="g.listConfig">
@@ -130,7 +135,7 @@
                 name=""
                 [disableHeaderExpansion]="true"
                 secondaryText="" [showSaveCancel]="false" [hideExpandedHeader]="false"
-                [alwaysHideExpandIcon]="cfg.form.params.length==0 || !cfg.checked">
+                [alwaysHideExpandIcon]="cfg.form.sortedParams.length==0 || !cfg.checked">
                 <div name>
                   <material-icon icon="drag_handle"></material-icon>
                   <div>{{cfg.form.display}}</div>
@@ -165,14 +170,39 @@
         </template>
       </div>
     </div>
+    <div *ngIf="currPage=='normal'||currPage=='pdfList'" class="sendPanel">
+      <material-fab *ngIf="sendIcon=='send'"
+                    [raised]="false"
+                    [class]="sendIcon=='send'?'shift2':g.currShiftIdx==2?sendIcon:'shift2'"
+                    [disabled]="sendDisabled"
+                    (trigger)="shiftClick(g.listPeriodShift[2])">
+        <div class="history">
+          {{g.period.shiftStartBy(2).format(g.fmtDateForDisplay)}}
+          <material-icon icon="history"></material-icon>
+          {{g.period.shiftEndBy(2).format(g.fmtDateForDisplay)}}
+        </div>
+      </material-fab>
+      <material-fab *ngIf="sendIcon=='send'"
+                    [raised]="false"
+                    [class]="sendIcon=='send'?'shift1':g.currShiftIdx==1?sendIcon:'shift1'"
+                    [disabled]="sendDisabled"
+                    (trigger)="shiftClick(g.listPeriodShift[1])">
+        <div class="history">
+          {{g.period.shiftStartBy(1).format(g.fmtDateForDisplay)}}
+          <material-icon icon="history"></material-icon>
+          {{g.period.shiftEndBy(1).format(g.fmtDateForDisplay)}}
+        </div>
+      </material-fab>
+      <material-fab [raised]="true"
+                    [class]="sendIcon"
+                    [disabled]="sendDisabled"
+                    (trigger)="shiftClick(g.listPeriodShift[0])">
+        <material-icon [icon]="createIcon"></material-icon>
+      </material-fab>
+    </div>
     <material-fab mini class="debug-trigger" *ngIf="g.canDebug && currPage=='normal'"
-                  (trigger)="reportData = null;isDebug = !isDebug;checkPrint();">
+                  (trigger)="reportData=null;isDebug=!isDebug;checkPrint();">
       <material-icon icon="bug_report"></material-icon>
-    </material-fab>
-    <material-fab *ngIf="currPage=='normal'||currPage=='pdfList'" [raised]="true" [class]="sendIcon"
-                  [disabled]="sendDisabled"
-                  (trigger)="sendClick()">
-      <material-icon [icon]="createIcon"></material-icon>
     </material-fab>
     <signin [isVisible]="isSigninActive && currPage=='normal'" [autoStart]="g.saveToGoogle" [showFab]="true"
             [raised]="true" [(isAuthorized)]="g.saveToGoogle"
@@ -186,6 +216,20 @@
         <material-button class="iconButton material-drawer-button" (trigger)="currPage='welcome';">
           <material-icon icon="home"></material-icon>
           <ng-container @i18n="title of welcome screen">Willkommen</ng-container>
+        </material-button>
+        <material-button class="iconButton material-drawer-button"
+                         (trigger)="drawer.toggle();navigate('https://www.facebook.com/nightrep');">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+               width="1.5em" height="1.5em" viewBox="0 0 266.893 266.895"
+               enable-background="new 0 0 266.893 266.895"
+               xml:space="preserve">
+            <path id="Blue_1_" fill="#3C5A99"
+                  d="M248.082,262.307c7.854,0,14.223-6.369,14.223-14.225V18.812	c0-7.857-6.368-14.224-14.223-14.224H18.812c-7.857,0-14.224,6.367-14.224,14.224v229.27c0,7.855,6.366,14.225,14.224,14.225 H248.082z"/>
+            <path id="f" fill="#FFFFFF"
+                  d="M182.409,262.307v-99.803h33.499l5.016-38.895h-38.515V98.777c0-11.261,3.127-18.935,19.275-18.935 l20.596-0.009V45.045c-3.562-0.474-15.788-1.533-30.012-1.533c-29.695,0-50.025,18.126-50.025,51.413v28.684h-33.585v38.895h33.585 v99.803H182.409z"/>
+          </svg>
+          <ng-container @i18n="title of facebook link">Facebook Seite</ng-container>
+          <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
         <material-button class="iconButton material-drawer-button"
                          (trigger)="currPage='settings';drawer.toggle();">

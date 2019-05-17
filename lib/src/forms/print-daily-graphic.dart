@@ -46,7 +46,7 @@ class PrintDailyGraphic extends BasePrint
     ParamInfo(4, msgParam3, boolValue: true),
     ParamInfo(5, msgParam4, boolValue: true),
     ParamInfo(6, msgParam5, boolValue: true),
-    ParamInfo(7, msgParam6, boolValue: false),
+    ParamInfo(7, msgParam6, boolValue: false, isDeprecated: true),
     ParamInfo(11, msgParam7, list: ["Eine", "Zwei", "Vier", "Acht", "Sechzehn"]),
     ParamInfo(9, msgParam8, boolValue: true),
     ParamInfo(8, msgParam9, boolValue: true),
@@ -755,7 +755,7 @@ class PrintDailyGraphic extends BasePrint
       (graphInsulin["stack"][1]["stack"] as List).add({
         "relativePosition": {"x": cm(glucX(info.start) - 0.05), "y": cm(y),},
         "text": text,
-        "fontSize": fs(8),
+        "fontSize": fs(g.basalPrecision > 2 ? 7 : 8),
         "color": colBolus
       });
     }

@@ -112,7 +112,7 @@ class AppComponent
   String pdfDoc = null;
 
   int get pdfSliderMax
-  => (Globals.PDFUNLIMITED / Globals.PDFDIVIDER).toInt();
+  => Globals.PDFUNLIMITED ~/ Globals.PDFDIVIDER;
 
   String progressText = null;
   int progressMax = 100;
@@ -173,6 +173,8 @@ class AppComponent
   => Intl.message("Problem auf GitHub melden");
   String get msgShowPDF
   => Intl.message("PDF anzeigen");
+  String get msgPeriodCompare
+  => Intl.message("Vergleich");
 
   bool isFormVisible(BasePrint form)
   {
@@ -191,30 +193,26 @@ class AppComponent
   Timer glucTimer = null;
   bool glucRunning = false;
 
-  getCurrentGluc(Timer timer)
+  int currentGlucCounter = 0;
+  getCurrentGluc()
   async {
-    if (timer == null)
+    if (glucTimer != null)
     {
-      if (glucTimer != null)
-      {
-        glucTimer.cancel();
-        glucTimer = null;
-      }
-    }
-    else if (glucTimer != timer)
-    {
-      if (glucTimer != null)glucTimer.cancel();
-      glucTimer = timer;
+      glucTimer.cancel();
+      glucTimer = null;
     }
 
+    currentGlucCounter++;
 
     if (!g.showCurrentGluc || glucRunning)return "";
     glucRunning = true;
     String url = "${g.user.apiUrl}status.json";
-    String content = await g.request(url);
-    var status = StatusData.fromJson(json.decode(content));
-    g.glucMGDL = status.settings.units.trim().toLowerCase() == "mg/dl";
-
+    if (!g.hasMGDL)
+    {
+      String content = await g.request(url);
+      var status = StatusData.fromJson(json.decode(content));
+      g.glucMGDL = status.settings.units.trim().toLowerCase() == "mg/dl";
+    }
     url = "${g.user.apiUrl}entries.json?count=2";
     List<dynamic> src = json.decode(await g.request(url));
     if (src.length != 2)
@@ -246,7 +244,7 @@ class AppComponent
         currentGlucDiff = "${eNow.gluc > ePrev.gluc ? '+' : ''}${g.fmtNumber(
           (eNow.gluc - ePrev.gluc) * 5 / span / g.glucFactor, g.glucPrecision)}";
         double diff = eNow.gluc - ePrev.gluc;
-        int limit = (10 * span / 5).toInt();
+        int limit = 10 * span ~/ 5;
         if (diff > limit)glucDir = -90;
         else if (diff < -limit)glucDir = 90;
         else
@@ -260,8 +258,8 @@ class AppComponent
       }
     }
 
-    if (timer == null && glucTimer == null)Timer.periodic(Duration(minutes: 1), (Timer t)
-    => getCurrentGluc(t));
+    if (currentGlucVisible)glucTimer = Timer(Duration(minutes: 1), ()
+    => getCurrentGluc());
 
     glucRunning = false;
     return currentGluc;
@@ -279,7 +277,7 @@ class AppComponent
 
     html.window.onBlur.listen((e)
     async {
-      if (!g.showCurrentGluc)return;
+      if (!g.showCurrentGluc || isDebug)return;
       currentGlucVisible = false;
       if (glucTimer != null)
       {
@@ -289,9 +287,10 @@ class AppComponent
     });
     html.window.onFocus.listen((e)
     async {
-      if (!g.showCurrentGluc)return;
+      if (!g.showCurrentGluc || isDebug)return;
       currentGlucVisible = true;
-      Future.delayed(Duration(milliseconds: 250), () => getCurrentGluc(null));
+      Future.delayed(Duration(milliseconds: 250), ()
+      => getCurrentGluc());
     });
 
     display(null);
@@ -341,7 +340,7 @@ class AppComponent
       {
         g.period.minDate = null;
       }
-      getCurrentGluc(null);
+      getCurrentGluc();
       if (_currPage == "whatsnew")g.saveStorage("version", g.version);
     });
 /*
@@ -522,7 +521,7 @@ class AppComponent
         _currPage = g.isConfigured ? _lastPage : "welcome";
         break;
     }
-    getCurrentGluc(null);
+    getCurrentGluc();
   }
 
   void checkSetup()
@@ -611,10 +610,13 @@ class AppComponent
   ReportData reportData = null;
   Future<ReportData> loadData()
   async {
-    if (reportData != null && reportData.begDate == g.period.start && reportData.endDate == g.period.end)
+    Date beg = g.period.shiftStartBy(g.currPeriodShift.shift);
+    Date end = g.period.shiftEndBy(g.currPeriodShift.shift);
+
+    if (reportData != null && reportData.begDate == beg && reportData.endDate == end)
       return reportData;
 
-    ReportData data = ReportData(g, g.period.start, g.period.end);
+    ReportData data = ReportData(g, beg, end);
 /*
     if (reportData != null && reportData.begDate == g.dateRange.range.start &&
       reportData.endDate == g.dateRange.range.end)return reportData;
@@ -695,6 +697,9 @@ class AppComponent
         List<dynamic> src = json.decode(content);
         for (dynamic entry in src)
         {
+          if (data.profiles.firstWhere((p)
+          => p.createdAt != entry["created_at"], orElse: ()
+          => null) != null)continue;
           List<String> parts = List<String>();
           parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
           parts.add('"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
@@ -923,7 +928,13 @@ class AppComponent
     return false;
   }
 
-  void sendClick()
+  void shiftClick(PeriodShift shift)
+  {
+    g.currShiftIdx = shift.shift;
+    _sendClick();
+  }
+
+  void _sendClick()
   {
     if (sendIcon == "send")
     {
@@ -984,6 +995,7 @@ class AppComponent
             }
             else
             {
+              if (entry["pageBreak"] == "newFile")entry["pageBreak"] = "after";
               fileList.last.add(entry);
             }
           }

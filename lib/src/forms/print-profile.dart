@@ -149,16 +149,7 @@ class PrintProfile extends BasePrint
         dynamic page = getPage(p, src.profile(profiles[i].startDate), profStartTime, profEndTime);
         done = page == null;
         if (!done)
-        {
           pages.add(page);
-          if (g.isLocal)
-          {
-            g.glucMGDL = !g.glucMGDL;
-            page = getPage(p, src.profile(profiles[i].startDate), profStartTime, profEndTime);
-            pages.add(page);
-            g.glucMGDL = !g.glucMGDL;
-          }
-        }
       }
     }
   }
@@ -231,7 +222,7 @@ class PrintProfile extends BasePrint
       {
         "margin": [cm(1.0), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(3.8), cm(0.8)], "body": bodyICR}
+        "table": {"headerRows": 0, "widths": [cm(3.8), cm(1.0)], "body": bodyICR}
       },
       {
         "margin": [cm(1.0), cm(0)],
@@ -244,7 +235,7 @@ class PrintProfile extends BasePrint
       {
         "margin": [cm(1.0), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(3.8), cm(0.8)], "body": bodyBasal}
+        "table": {"headerRows": 0, "widths": [cm(3.8), cm(1.0)], "body": bodyBasal}
       },
       {
         "margin": [cm(0.5), cm(0)],

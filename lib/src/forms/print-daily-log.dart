@@ -196,12 +196,13 @@ class PrintDailyLog extends BasePrint
     }
     if (list.length > 0)
     {
-      addRow(true, cm(1.8), row, {"text": msgTime, "style": "total", "alignment": "center"},
-        {"text": fmtTime(t.createdAt), "style": styleForTime(t.createdAt), "alignment": "center"});
+      double size = fs(10);
+      addRow(true, cm(1.8), row, {"text": msgTime, "style": "total", "fontSize": size, "alignment": "center"},
+        {"text": fmtTime(t.createdAt), "style": styleForTime(t.createdAt), "fontSize": size, "alignment": "center"});
       String text = list.join(", ");
       addRow(true, cm(width - 1.8 - 5.1), row,
-        {"text": fmtDate(t.createdAt, null, false, true), "style": "total", "alignment": "left"},
-        {"text": text, "style": style, "alignment": "left"});
+        {"text": fmtDate(t.createdAt, null, false, true), "style": "total", "fontSize": size, "alignment": "left"},
+        {"text": text, "style": style, "fontSize": size, "alignment": "left"});
 
       _headFilled = true;
       List<String> lines = text.split("\n");
@@ -222,9 +223,11 @@ class PrintDailyLog extends BasePrint
     ret.add(msgProfileSwitch(before.store.name, current.store.name));
 
     if (before.store.dia != current.store.dia)ret.add(msgChangedEntry(
-      msgDIA, "${g.fmtNumber(before.store.dia, 2)} ${msgDIAUnit}", "${g.fmtNumber(current.store.dia, 2)} ${msgDIAUnit}"));
+      msgDIA, "${g.fmtNumber(before.store.dia, 2)} ${msgDIAUnit}",
+      "${g.fmtNumber(current.store.dia, 2)} ${msgDIAUnit}"));
     if (before.store.carbsHr != current.store.carbsHr)ret.add(msgChangedEntry(
-      msgKHA, "${g.fmtNumber(before.store.carbsHr)} ${msgKHAUnit}", "${g.fmtNumber(current.store.carbsHr)} ${msgKHAUnit}"));
+      msgKHA, "${g.fmtNumber(before.store.carbsHr)} ${msgKHAUnit}",
+      "${g.fmtNumber(current.store.carbsHr)} ${msgKHAUnit}"));
 
     List<String> temp = List<String>();
     temp.add(msgTargetTitle);
@@ -322,7 +325,7 @@ class PrintDailyLog extends BasePrint
       "columns": [ {
         "margin": [cm(2.2), cmy(yorg - 0.3), cm(2.2), cmy(0.0)],
         "width": cm(width),
-        "table": {"widths": widths, "body": body},
+        "table": {"widths": widths, "body": body}
       }
       ],
       "pageBreak": ""

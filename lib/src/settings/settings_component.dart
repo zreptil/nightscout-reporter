@@ -68,7 +68,7 @@ class SettingsComponent
   => Intl.message("Überprüfe Zugriff auf ${url}...", args: [url], name: "msgCheckUser");
 
   int get pdfSliderMax
-  => (Globals.PDFUNLIMITED / Globals.PDFDIVIDER).toInt();
+  => Globals.PDFUNLIMITED ~/ Globals.PDFDIVIDER;
 
   @override
   Future<Null> ngOnInit()

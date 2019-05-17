@@ -10,7 +10,47 @@
       </material-button>
     </div>
     <div class="root">
-      <h2><span @i18n="version">Version</span><span @i18n="v127">1.2.8 - xx.04.2019</span></h2>
+      <h2><span @i18n="version">Version</span><span @i18n="v1211">1.2.11 - 17.05.2019</span></h2>
+      <ul>
+        <li class="added" @i18n="v1211a1">
+          Es gibt jetzt die Möglichkeit, PDFs vergangener Zeiträume zu erzeugen, ohne den Zeitraum anpassen zu müssen.
+          Oberhalb des Buttons zur PDF-Erzeugung gibt es zwei Buttons, welche die PDFs für eine frühere Periode
+          erzeugen. Der untere der beiden Buttons erzeugt die Vorperiode, der obere die vorletzte Periode. Auf den
+          Buttons wird das Startdatum und das Enddatum angezeigt. Wenn z.B. als Zeitraum "Letzte 2 Wochen" gewählt
+          wurde, dann wird mit dem unteren Button der Zeitraum von zwei Wochen beginnend vor vier Wochen erzeugt und mit
+          dem oberen Button der Zeitraum von zwei Wochen beginnend vor sechs Wochen. Auf diese Art kann man recht
+          einfach Vergleichsberichte erzeugen, um die Entwicklung der Werte zu erkennen. Auf den Seiten wird für diese
+          Ausdrucke in der Kopfzeile das Wort "Historisch 1", bzw. "Historisch 2" oberhalb des Zeitraums ausgegeben. So
+          kann man beim Vergleich der Werte die Daten voneinander unterscheiden.
+        </li>
+        <li class="fixed" @i18n="v1211f1">
+          Die teilweise falsch zugewiesenen Grenzwerte für die Bereiche (niedrig, normal, hoch) wurden korrigiert.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v1210">1.2.10 - 18.04.2019</span></h2>
+      <ul>
+        <li class="fixed" @i18n="v1210f1">
+          Auf der Profilseite wurde die Spalte für die Werte von ICR verbreitert.
+        </li>
+        <li class="fixed" @i18n="v1210f2">
+          In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate
+          eine Genauigkeit von mehr als 2 Nachkommastellen hat.
+        </li>
+        <li class="fixed" @i18n="v1210f3">
+          Die mittlerweile überflüssige Option zur Darstellung der Basalrate mit zwei Nachkommastellen
+          wurde aus der Tagesgrafik entfernt.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v129">1.2.9 - 15.04.2019</span></h2>
+      <ul>
+        <li class="added" @i18n="v129a1">
+          Ein Link zur Facebookseite von Nightscout Reporter wurde im Menü hinzugefügt.
+        </li>
+        <li class="fixed" @i18n="v129f1">
+          Die Mischung von zwei Seiten auf einer PDF-Seite, die manchmal vorkam, wurde behoben.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v128">1.2.8 - 11.04.2019</span></h2>
       <ul>
         <li class="added" @i18n="v128a1">
           Es gibt in den Einstellungen eine neue Option, um den letzten in Nightscout gespeicherten Glukosewert

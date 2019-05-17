@@ -132,20 +132,3 @@ material-button.ok {
     padding: 0 !important;
   }
 }
-
-
-::ng-deep .infoarea.showinfo > *:not(.infotext),
-::ng-deep .infoarea:not(.showinfo) > *.infotext {
-  display: none;
-}
-
-::ng-deep .infoarea > *.infotext {
-  border: 1px solid $mat-red-900;
-  background: $mat-red-600;
-  color: $mat-white;
-  display: flex;
-  flex: 1;
-  padding: 0.5em;
-  white-space: pre;
-  margin: 0;
-}

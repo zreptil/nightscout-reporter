@@ -1,8 +1,13 @@
 <div class="floating">{{periodFloatingLabel}}</div>
-<material-button [class]="period.isEmpty?'dpBtn empty':'dpBtn'" (trigger)="loadedPeriod=period.toString();isDialogOpen=true;">
-  <div main>{{periodLabelMain}}</div>
-  <div sub *ngIf="period.dowActiveText!=''">{{periodLabelSub}}</div>
-</material-button>
+<div [class]="infoClass('')">
+  <pre class="infotext">Auswahl des Zeitraums, für den
+die PDFs erstellt werden sollen</pre>
+  <material-button [class]="period.isEmpty?'dpBtn empty':'dpBtn'"
+                   (trigger)="loadedPeriod=period.toString();isDialogOpen=true;">
+    <div main>{{periodLabelMain}}</div>
+    <div sub *ngIf="period.dowActiveText!=''">{{periodLabelSub}}</div>
+  </material-button>
+</div>
 <modal [visible]="isDialogOpen">
   <material-dialog headered [class]="period.isEmpty?'headered-dialog empty':'headered-dialog'">
     <div header>
@@ -10,7 +15,8 @@
         <h1 *ngIf="!period.isEmpty" @i18n="title for datepicker dialog">Zeitraum</h1>
         <h1 *ngIf="period.isEmpty" @i18n="title for datepicker dialog when period empty">Der Zeitraum enthält keine
           auswertbaren Tage</h1>
-        <p *ngIf="period.isEmpty" @i18n="subtitle for datepicker dialog when period empty">Bitte überprüfe die Aktivierung der Wochentage unter dem Monat</p>
+        <p *ngIf="period.isEmpty" @i18n="subtitle for datepicker dialog when period empty">Bitte überprüfe die
+          Aktivierung der Wochentage unter dem Monat</p>
       </div>
       <material-button icon (trigger)="revertData();isDialogOpen=false;">
         <material-icon icon="close"></material-icon>

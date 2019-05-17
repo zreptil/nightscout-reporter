@@ -52,6 +52,7 @@ class ParamInfo
   ParamType type = ParamType.none;
   String title;
   bool boolValue;
+  bool isDeprecated;
   String stringValue;
   int intValue;
   List<String> list;
@@ -64,7 +65,7 @@ class ParamInfo
   int sort;
 
   ParamInfo(this.sort, this.title,
-            {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null, this.list = null})
+            {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null, this.list = null, this.isDeprecated = false})
   {
     if (boolValue != null)type = ParamType.bool;
     if (stringValue != null)type = ParamType.string;
@@ -185,7 +186,8 @@ abstract class BasePrint
   List<ParamInfo> get sortedParams
   {
     List<ParamInfo> ret = List<ParamInfo>();
-    ret.addAll(params);
+    ret.addAll(params.where((p)
+    => !p.isDeprecated));
     ret.sort((a, b)
     => a.sort.compareTo(b.sort));
     return ret;
@@ -438,11 +440,13 @@ abstract class BasePrint
     value = "\n<${glucFromData(value)}";
     return Intl.message("Tief${value}", args: [value], name: "msgLow");
   }
-
-  msgCount(value)
+  msgCount(int value)
   {
-    value = g.fmtNumber(value);
-    return Intl.message("(${value} Werte)", args: [value], name: "msgCount");
+    return Intl.plural(value, zero: "Kein Wert",
+      one: "1 Wert",
+      other: "$value Werte",
+      args: [value],
+      name: "msgCount");
   }
 
   msgStdAbw(value)
@@ -591,6 +595,8 @@ abstract class BasePrint
     return msgPGSVeryBad(150);
   }
 
+  msgHistorical(value)
+  => Intl.message("Historisch ${value}", args: [value], name: "msgHistorical");
 
   String titleInfoForDates(DateTime startDate, DateTime endDate)
   {
@@ -675,44 +681,64 @@ abstract class BasePrint
       "color": colSubTitle,
     });
     double y = titleInfoSub == "" ? 2.4 : 2.0;
+
+    if (g.currPeriodShift.shift != 0)
+    {
+      stack.add({
+        "relativePosition": {"x": cm(2.2), "y": cm(y - 0.5)},
+        "columns": [
+          {
+            "width": cm(width - 4.4),
+            "text": msgHistorical(g.currPeriodShift.shift),
+            "fontSize": fs(10),
+            "color": colInfo,
+            "bold": true,
+            "alignment": "right"
+          }
+        ]
+      });
+    }
     stack.add({
       "relativePosition": {"x": cm(2.2), "y": cm(y)},
-      "columns": [ {
-        "width": cm(width - 4.4),
-        "text": titleInfo,
-        "fontSize": fs(10),
-        "color": colInfo,
-        "bold": true,
-        "alignment": "right"
-      }
+      "columns": [
+        {
+          "width": cm(width - 4.4),
+          "text": titleInfo,
+          "fontSize": fs(10),
+          "color": colInfo,
+          "bold": true,
+          "alignment": "right"
+        }
       ]
     });
     if (titleInfoSub != "")
     {
       stack.add({
         "relativePosition": {"x": cm(2.2), "y": cm(2.4)},
-        "columns": [ {
-          "width": cm(width - 4.4),
-          "text": titleInfoSub,
-          "fontSize": fs(8),
-          "color": colInfo,
-          "bold": true,
-          "alignment": "right"
-        }
+        "columns": [
+          {
+            "width": cm(width - 4.4),
+            "text": titleInfoSub,
+            "fontSize": fs(8),
+            "color": colInfo,
+            "bold": true,
+            "alignment": "right"
+          }
         ]
       });
     }
     stack.add({
       "relativePosition": {"x": cm(2.2), "y": cm(2.95)},
-      "canvas": [ {
-        "type": "line",
-        "x1": cm(0),
-        "y1": cm(0),
-        "x2": cm(width - 4.4),
-        "y2": cm(0),
-        "lineWidth": cm(0.2),
-        "lineColor": colText
-      }
+      "canvas": [
+        {
+          "type": "line",
+          "x1": cm(0),
+          "y1": cm(0),
+          "x2": cm(width - 4.4),
+          "y2": cm(0),
+          "lineWidth": cm(0.2),
+          "lineColor": colText
+        }
       ]
     });
     // footer
@@ -732,15 +758,16 @@ abstract class BasePrint
     stack.addAll([
       {
         "relativePosition": {"x": cm(2.2), "y": cm(height - 2.0)},
-        "canvas": [ {
-          "type": "line",
-          "x1": cm(0),
-          "y1": cm(0),
-          "x2": cm(width - 4.4),
-          "y2": cm(0),
-          "lineWidth": cm(0.05),
-          "lineColor": colText
-        }
+        "canvas": [
+          {
+            "type": "line",
+            "x1": cm(0),
+            "y1": cm(0),
+            "x2": cm(width - 4.4),
+            "y2": cm(0),
+            "lineWidth": cm(0.05),
+            "lineColor": colText
+          }
         ]
       },
       g.hideNightscoutInPDF ? null : _getFooterImage("nightscout", x: 2.2, y: height - 1.7, width: 0.7),
@@ -754,7 +781,8 @@ abstract class BasePrint
       {
         "relativePosition": {"x": cm(2.2), "y": cm(height - 1.7)},
         "columns": [
-          {"width": cm(width - 4.4), "text": rightText, "color": colInfo, "alignment": "right", "fontSize": fs(10)}]
+          {"width": cm(width - 4.4), "text": rightText, "color": colInfo, "alignment": "right", "fontSize": fs(10)}
+        ]
       }
     ]);
 
@@ -819,19 +847,22 @@ abstract class BasePrint
     else
     {
       ret = {
-        "stack": [ {
-          "relativePosition": {"x": cm(x), "y": cm(y)},
-          "canvas": [ {
-            "type": "rect",
-            "x": cm(0),
-            "y": cm(0),
-            "w": cm(max(width, 0.01)),
-            "h": cm(max(height, 0.01)),
-            "lineWidth": cm(0.01),
-            "lineColor": "#f00"
-          }
-          ]
-        }, {"relativePosition": {"x": cm(x), "y": cm(y)}, "text": "bild\n$id\nfehlt", "color": "#f00"}
+        "stack": [
+          {
+            "relativePosition": {"x": cm(x), "y": cm(y)},
+            "canvas": [
+              {
+                "type": "rect",
+                "x": cm(0),
+                "y": cm(0),
+                "w": cm(max(width, 0.01)),
+                "h": cm(max(height, 0.01)),
+                "lineWidth": cm(0.01),
+                "lineColor": "#f00"
+              }
+            ]
+          },
+          {"relativePosition": {"x": cm(x), "y": cm(y)}, "text": "bild\n$id\nfehlt", "color": "#f00"}
         ]
       };
     }
@@ -1272,80 +1303,93 @@ abstract class BasePrint
         pt["y"] = cm(pt["y"] * 0.8);
       }
       dst.add({
-        "columns": [ {
-          "width": cm(0.8),
-          "canvas": [ {"type": "polyline", "closePath": true, "color": color, "lineWidth": cm(0), "points": points,}],
-        }, {"text": text, "color": "black", "fontSize": fs(10)}
+        "columns": [
+          {
+            "width": cm(0.8),
+            "canvas": [ {"type": "polyline", "closePath": true, "color": color, "lineWidth": cm(0), "points": points,}],
+          },
+          {"text": text, "color": "black", "fontSize": fs(10)}
         ]
       });
     }
     else if (image != null)
     {
       dst.add({
-        "columns": [ {
-          "width": cm(0.8),
-          "stack": [
-            {"margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), cm(0), cm(0)], "image": image, "width": cm(imgWidth)}],
-        }, {"text": text, "color": "black", "fontSize": fs(10)}
+        "columns": [
+          {
+            "width": cm(0.8),
+            "stack": [
+              {"margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), cm(0), cm(0)], "image": image, "width": cm(imgWidth)}
+            ],
+          },
+          {"text": text, "color": "black", "fontSize": fs(10)}
         ]
       });
     }
     else if (isArea && graphText != null)dst.add({
-      "columns": [ {
-        "width": cm(0.8),
-        "layout": "noBorders",
-        "margin": [cm(0.0), cm(0), cm(0), cm(0.1)],
-        "table": {
-          "widths": [cm(0.5)],
-          "body": [[{"text": graphText, "color": "black", "fontSize": fs(6), "alignment": "center", "fillColor": color}]
-          ]
-        }
-      }, {"text": text, "color": "black", "fontSize": fs(10)}
+      "columns": [
+        {
+          "width": cm(0.8),
+          "layout": "noBorders",
+          "margin": [cm(0.0), cm(0), cm(0), cm(0.1)],
+          "table": {
+            "widths": [cm(0.5)],
+            "body": [
+              [{"text": graphText, "color": "black", "fontSize": fs(6), "alignment": "center", "fillColor": color}]
+            ]
+          }
+        },
+        {"text": text, "color": "black", "fontSize": fs(10)}
       ]
     });
     else if (isArea)dst.add({
-      "columns": [ {
-        "width": cm(0.8),
-        "canvas": [
-          {"type": "rect", "x": cm(0), "y": cm(0.1), "w": cm(0.5), "h": cm(0.3), "color": color, "fillOpacity": 0.3},
-          {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1},
-          {
-            "type": "line",
-            "x1": cm(0),
-            "y1": cm(0.1),
-            "x2": cm(0.5),
-            "y2": cm(0.1),
-            "lineWidth": cm(lineWidth),
-            "lineColor": color
-          },
-          {
-            "type": "line",
-            "x1": cm(0),
-            "y1": cm(0.4),
-            "x2": cm(0.5),
-            "y2": cm(0.4),
-            "lineWidth": cm(lineWidth),
-            "lineColor": color
-          }
-        ]
-      }, {"text": text, "color": "black", "fontSize": fs(10)}
+      "columns": [
+        {
+          "width": cm(0.8),
+          "canvas": [
+            {"type": "rect", "x": cm(0), "y": cm(0.1), "w": cm(0.5), "h": cm(0.3), "color": color, "fillOpacity": 0.3},
+            {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1},
+            {
+              "type": "line",
+              "x1": cm(0),
+              "y1": cm(0.1),
+              "x2": cm(0.5),
+              "y2": cm(0.1),
+              "lineWidth": cm(lineWidth),
+              "lineColor": color
+            },
+            {
+              "type": "line",
+              "x1": cm(0),
+              "y1": cm(0.4),
+              "x2": cm(0.5),
+              "y2": cm(0.4),
+              "lineWidth": cm(lineWidth),
+              "lineColor": color
+            }
+          ]
+        },
+        {"text": text, "color": "black", "fontSize": fs(10)}
       ]
     });
     else
       dst.add({
-        "columns": [ {
-          "width": cm(0.8),
-          "canvas": [ {
-            "type": "line",
-            "x1": cm(0),
-            "y1": cm(0.25),
-            "x2": cm(0.5),
-            "y2": cm(0.25),
-            "lineWidth": cm(lineWidth),
-            "lineColor": color
-          }
-          ]
-        }, {"text": text, "color": "black", "fontSize": fs(10)}
+        "columns": [
+          {
+            "width": cm(0.8),
+            "canvas": [
+              {
+                "type": "line",
+                "x1": cm(0),
+                "y1": cm(0.25),
+                "x2": cm(0.5),
+                "y2": cm(0.25),
+                "lineWidth": cm(lineWidth),
+                "lineColor": color
+              }
+            ]
+          },
+          {"text": text, "color": "black", "fontSize": fs(10)}
         ]
       });
   }

@@ -5,8 +5,9 @@
     {{dow.shortName}}
   </material-button>
 </div>
-<div class="month">
-  <div class="week" *ngFor="let week of month.weeks">
+<div class="month infoarea">
+  <div class="infotext">In diesem Bereich werden die einzelnen Tage des Monats angezeigt</div>
+    <div class="week" *ngFor="let week of month.weeks">
     <material-button *ngFor="let day of week.days" [class]="dayclass(day)" [disabled]="!day.isEnabled"
                      [raised]="day.isRaised" (trigger)="dayClicked(day)">{{day.day}}
     </material-button>

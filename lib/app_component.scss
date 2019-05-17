@@ -79,6 +79,10 @@ material-button img {
   width: 1.5em;
 }
 
+material-button svg {
+  width: 1.5em;
+}
+
 .info .controls {
   flex-direction: row;
   display: flex;
@@ -99,6 +103,10 @@ material-button img {
 .iconButton material-icon[icon='open_in_new'] {
   padding-left: 1em;
   margin: 0;
+}
+
+.iconButton img, .iconButton svg {
+  margin-right: 1em;
 }
 
 material-drawer {
@@ -177,18 +185,37 @@ material-drawer {
   }
 }
 
-.send,
-.clear,
-.stop,
-.close {
+.sendPanel {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   right: 1em;
   bottom: 2em;
+
+  material-fab {
+    margin-top: 0.5em;
+  }
+}
+
+.shift1, .shift2 {
+  background: $primary_back;
+  color: $primary_fore;
+  ::ng-deep .content {
+    font-size: 50%;
+  }
+}
+
+.shift1 {
+  opacity: 0.7;
+}
+
+.shift2 {
+  opacity: 0.5;
 }
 
 .send {
-  background: $primary-back;
-  color: $primary-fore;
+  background: $primary_back;
+  color: $primary_fore;
 }
 
 .stop {
@@ -284,16 +311,16 @@ material-drawer {
   opacity: 0.8;
 }
 
-material-fab.debug-trigger {
-  position: fixed;
-  bottom: 2em;
-  right: 4em;
-  background: $debug_back !important;
-  color: $mat-white;
-}
-
 .userName {
   text-align: center;
+}
+
+material-fab.debug-trigger {
+  position: fixed;
+  bottom: 1.5em;
+  left: 2.5em;
+  background: $debug_back !important;
+  color: $mat-white;
 }
 
 signin {
@@ -341,7 +368,7 @@ nav a {
 
 .material-navigation {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
 }
 
@@ -379,10 +406,11 @@ nav a {
   }
 }
 
-.paramSelect{
+.paramSelect {
   ::ng-deep material-list {
     background: $secondary_back;
     padding: 0;
+
     material-select-item {
       display: flex;
       flex-direction: column;
@@ -394,22 +422,25 @@ nav a {
         background-color: $primary_back;
       }
     }
-    material-select-item.selected{
+
+    material-select-item.selected {
       background-color: $primary_back;
       color: $primary_fore;
     }
   }
 }
 
-.paramList{
+.paramList {
   display: flex;
   flex-direction: row;
   align-items: center;
-  material-dropdown-select{
+
+  material-dropdown-select {
     margin-left: 1em;
     background: $primary_back;
     color: $primary_fore;
-    ::ng-deep .button{
+
+    ::ng-deep .button {
       padding: 0.5em;
     }
   }
@@ -499,6 +530,10 @@ material-expansionpanel.checked {
       color: $primary_color;
     }
   }
+}
+
+material-button.is-local, div.is-local {
+  background: $local_back;
 }
 
 material-expansionpanel.is-local.checked {
@@ -641,6 +676,15 @@ datepicker {
       font-size: 60%;
     }
 
+    ::ng-deep [debug] {
+      color: $mat-red-500;
+      font-size: 75%;
+      position: absolute;
+      right: 0.1em;
+      top: 0.1em;
+      padding: 0.2em;
+    }
+
     ::ng-deep [diff] {
       font-size: 70%;
       font-weight: bold;
@@ -671,3 +715,24 @@ datepicker {
   transform: translate(-50%, -50%);
 }
 
+::ng-deep .infoarea.showinfo > *:not(.infotext),
+::ng-deep .infoarea:not(.showinfo) > *.infotext {
+  display: none;
+}
+
+::ng-deep .infoarea > *.infotext {
+  border: 1px solid $mat-red-900;
+  background: $mat-red-600;
+  color: $mat-white;
+  display: flex;
+  flex: 1;
+  padding: 0.5em;
+  white-space: pre;
+  margin: 0;
+}
+
+.history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
