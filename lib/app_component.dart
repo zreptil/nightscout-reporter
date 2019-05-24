@@ -118,6 +118,14 @@ class AppComponent
   int progressMax = 100;
   int progressValue = 0;
   String sendIcon = "send";
+  String sendClass(int shift, String ret)
+  {
+    if (ret != "stop" && reportData != null && g.period.shiftStartBy(shift) == reportData.begDate && g.period
+                                                                                                       .shiftEndBy(
+      shift) == reportData.endDate)ret = "${ret} sendMarked";
+    return ret;
+  }
+
   String get createIcon
   => isDebug && sendIcon == "send" ? "vertical_align_bottom" : sendIcon;
   String pdfUrl = "";

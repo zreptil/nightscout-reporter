@@ -408,12 +408,12 @@ class ProfileEntryData extends JsonData
     return ret;
   }
 
-  factory ProfileEntryData.fromJson(Map<String, dynamic> json, ProfileTimezone timezone, int timeshift, [double percentage = 1.0]){
+  factory ProfileEntryData.fromJson(Map<String, dynamic> json, ProfileTimezone timezone, int timeshift,
+                                    [double percentage = 1.0]){
     ProfileEntryData ret = ProfileEntryData(timezone);
     if (json == null)return ret;
     ret._time = JsonData.toTime(json["time"]);
-    if(ret._time.hour < 24 - timeshift)
-      ret._time = ret._time.add(Duration(hours: timeshift));
+    if (ret._time.hour < 24 - timeshift)ret._time = ret._time.add(Duration(hours: timeshift));
     else
       ret._time = ret._time.add(Duration(hours: timeshift - 24));
     ret.value = JsonData.toDouble(json["value"]);
@@ -480,6 +480,25 @@ class ProfileStoreData extends JsonData
     timezone = ProfileTimezone(Globals.refTimezone);
   }
 
+  static _adjust(List<ProfileEntryData> list)
+  {
+    list.sort((a, b)
+    => a._time.compareTo(b._time));
+    if(list.length > 0 && list.first._time.hour != 0)
+      {
+        ProfileEntryData first = list.last.copy;
+        if(first.value == list.first.value)
+        {
+          list.first._time = list.first._time.add(Duration(hours: -first._time.hour));
+        }
+        else
+        {
+          first._time = first._time.add(Duration(hours: -first._time.hour));
+          list.insert(0, first);
+        }
+      }
+  }
+
   factory ProfileStoreData.fromJson(String name, Map<String, dynamic> json, double percentage, int timeshift){
     ProfileStoreData ret = ProfileStoreData(name);
     if (json == null)return ret;
@@ -498,28 +517,23 @@ class ProfileStoreData extends JsonData
     ret.units = JsonData.toText(json["units"]);
     for (dynamic entry in json["carbratio"])
       ret.listCarbratio.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
-    ret.listCarbratio.sort((a, b)
-    => a._time.compareTo(b._time));
+    _adjust(ret.listCarbratio);
     for (dynamic entry in json["sens"])
       ret.listSens.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
-    ret.listSens.sort((a, b)
-    => a._time.compareTo(b._time));
+    _adjust(ret.listSens);
     ret.maxPrecision = 0;
     for (dynamic entry in json["basal"])
     {
       ret.listBasal.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift, percentage));
       ret.maxPrecision = math.max(ret.maxPrecision, Globals.decimalPlaces(ret.listBasal.last.value));
     }
-    ret.listBasal.sort((a, b)
-    => a._time.compareTo(b._time));
+    _adjust(ret.listBasal);
     for (dynamic entry in json["target_low"])
       ret.listTargetLow.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
-    ret.listTargetLow.sort((a, b)
-    => a._time.compareTo(b._time));
+    _adjust(ret.listTargetLow);
     for (dynamic entry in json["target_high"])
       ret.listTargetHigh.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
-    ret.listTargetHigh.sort((a, b)
-    => a._time.compareTo(b._time));
+    _adjust(ret.listTargetHigh);
 
     return ret;
   }
@@ -1685,7 +1699,6 @@ class ReportData
         if (d.year == time.year && d.month == time.month && d.day == time.day)profile.mixWith(profiles[idx]);
         idx++;
       }
-
     }
     else
     {

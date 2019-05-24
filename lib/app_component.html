@@ -173,7 +173,7 @@
     <div *ngIf="currPage=='normal'||currPage=='pdfList'" class="sendPanel">
       <material-fab *ngIf="sendIcon=='send'"
                     [raised]="false"
-                    class="shift2"
+                    [class]="sendClass(2,'shift2')"
                     [disabled]="sendDisabled"
                     (trigger)="shiftClick(g.listPeriodShift[2])">
         <div class="history">
@@ -184,7 +184,7 @@
       </material-fab>
       <material-fab *ngIf="sendIcon=='send'"
                     [raised]="false"
-                    class="shift1"
+                    [class]="sendClass(1,'shift1')"
                     [disabled]="sendDisabled"
                     (trigger)="shiftClick(g.listPeriodShift[1])">
         <div class="history">
@@ -194,7 +194,7 @@
         </div>
       </material-fab>
       <material-fab [raised]="true"
-                    [class]="sendIcon"
+                    [class]="sendClass(0,sendIcon)"
                     [disabled]="sendDisabled"
                     (trigger)="shiftClick(g.listPeriodShift[0])">
         <material-icon [icon]="createIcon"></material-icon>
