@@ -123,7 +123,7 @@ class PrintWeeklyGraphic extends BasePrint
       basalTop = 2.0;
       graphBottom = graphHeight;
       pages.add(_getPage(week, src));
-      if (g.isLocal)
+      if (g.showBothUnits)
       {
         g.glucMGDL = !g.glucMGDL;
         pages.add(_getPage(week, src));

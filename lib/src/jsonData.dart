@@ -331,6 +331,9 @@ class ProfileEntryData extends JsonData
     return ret;
   }
 
+  int get timeForCalc
+  => _time.hour * 60 + _time.minute;
+
   DateTime time(Date date, [bool adjustLocalForTime = false])
   {
     int hour = _time.hour;
@@ -405,10 +408,14 @@ class ProfileEntryData extends JsonData
     return ret;
   }
 
-  factory ProfileEntryData.fromJson(Map<String, dynamic> json, ProfileTimezone timezone, [double percentage = 1.0]){
+  factory ProfileEntryData.fromJson(Map<String, dynamic> json, ProfileTimezone timezone, int timeshift, [double percentage = 1.0]){
     ProfileEntryData ret = ProfileEntryData(timezone);
     if (json == null)return ret;
     ret._time = JsonData.toTime(json["time"]);
+    if(ret._time.hour < 24 - timeshift)
+      ret._time = ret._time.add(Duration(hours: timeshift));
+    else
+      ret._time = ret._time.add(Duration(hours: timeshift - 24));
     ret.value = JsonData.toDouble(json["value"]);
     if (ret.value != null)ret.value *= percentage;
     ret.timeAsSeconds = JsonData.toInt(json["timeAsSeconds"]);
@@ -458,6 +465,12 @@ class ProfileStoreData extends JsonData
     ret.listSens = List<ProfileEntryData>();
     for (ProfileEntryData entry in listSens)
       ret.listSens.add(entry.copy);
+    ret.listTargetLow = List<ProfileEntryData>();
+    for (ProfileEntryData entry in listTargetLow)
+      ret.listTargetLow.add(entry.copy);
+    ret.listTargetHigh = List<ProfileEntryData>();
+    for (ProfileEntryData entry in listTargetHigh)
+      ret.listTargetHigh.add(entry.copy);
     return ret;
   }
 
@@ -467,7 +480,7 @@ class ProfileStoreData extends JsonData
     timezone = ProfileTimezone(Globals.refTimezone);
   }
 
-  factory ProfileStoreData.fromJson(String name, Map<String, dynamic> json, double percentage){
+  factory ProfileStoreData.fromJson(String name, Map<String, dynamic> json, double percentage, int timeshift){
     ProfileStoreData ret = ProfileStoreData(name);
     if (json == null)return ret;
     ret.dia = JsonData.toDouble(json["dia"]);
@@ -484,19 +497,30 @@ class ProfileStoreData extends JsonData
     ret.startDate = JsonData.toDate(json["startDate"]);
     ret.units = JsonData.toText(json["units"]);
     for (dynamic entry in json["carbratio"])
-      ret.listCarbratio.add(ProfileEntryData.fromJson(entry, ret.timezone));
+      ret.listCarbratio.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
+    ret.listCarbratio.sort((a, b)
+    => a._time.compareTo(b._time));
     for (dynamic entry in json["sens"])
-      ret.listSens.add(ProfileEntryData.fromJson(entry, ret.timezone));
+      ret.listSens.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
+    ret.listSens.sort((a, b)
+    => a._time.compareTo(b._time));
     ret.maxPrecision = 0;
     for (dynamic entry in json["basal"])
     {
-      ret.listBasal.add(ProfileEntryData.fromJson(entry, ret.timezone, percentage));
+      ret.listBasal.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift, percentage));
       ret.maxPrecision = math.max(ret.maxPrecision, Globals.decimalPlaces(ret.listBasal.last.value));
     }
+    ret.listBasal.sort((a, b)
+    => a._time.compareTo(b._time));
     for (dynamic entry in json["target_low"])
-      ret.listTargetLow.add(ProfileEntryData.fromJson(entry, ret.timezone));
+      ret.listTargetLow.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
+    ret.listTargetLow.sort((a, b)
+    => a._time.compareTo(b._time));
     for (dynamic entry in json["target_high"])
-      ret.listTargetHigh.add(ProfileEntryData.fromJson(entry, ret.timezone));
+      ret.listTargetHigh.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
+    ret.listTargetHigh.sort((a, b)
+    => a._time.compareTo(b._time));
+
     return ret;
   }
 
@@ -526,6 +550,61 @@ class ProfileStoreData extends JsonData
     _importFromTime(time, src.listBasal, listBasal);
     _importFromTime(time, src.listTargetLow, listTargetLow);
     _importFromTime(time, src.listTargetHigh, listTargetHigh);
+  }
+
+  // remove all settings from given time up to duration.
+  // if duration is 0 then remove all after given time.
+  void removeFrom(int hour, int minute, int duration)
+  {
+    _removeFrom(listCarbratio, hour * 60 + minute, duration);
+    _removeFrom(listSens, hour * 60 + minute, duration);
+    _removeFrom(listBasal, hour * 60 + minute, duration);
+    _removeFrom(listTargetLow, hour * 60 + minute, duration);
+    _removeFrom(listTargetHigh, hour * 60 + minute, duration);
+  }
+
+  void _removeFrom(List<ProfileEntryData> list, int time, int duration)
+  {
+    for (int i = 0; i < list.length; i++)
+    {
+      int check = list[i].timeForCalc;
+      if (check >= time && (duration == 0 || check < time + duration))
+      {
+        if (i > 0)
+        {
+          list[i - 1].duration =
+          duration == 0 ? 24 * 60 - list[i - 1].timeForCalc : duration + list[i].timeForCalc - list[i - 1].timeForCalc;
+        }
+        list.removeAt(i);
+        i--;
+      }
+    }
+  }
+
+  // remove all settings from given time up to duration.
+  // if duration is 0 then remove all after given time.
+  void addFrom(ProfileData src, ProfileStoreData srcStore)
+  {
+    _addFrom(listCarbratio, src, srcStore.listCarbratio);
+    _addFrom(listSens, src, srcStore.listSens);
+    _addFrom(listBasal, src, srcStore.listBasal);
+    _addFrom(listTargetLow, src, srcStore.listTargetLow);
+    _addFrom(listTargetHigh, src, srcStore.listTargetHigh);
+  }
+
+  void _addFrom(List<ProfileEntryData> list, ProfileData src, List<ProfileEntryData> srcList)
+  {
+    int time = src.startDate.hour * 60 + src.startDate.minute;
+    for (int i = 0; i < srcList.length; i++)
+    {
+      int check = srcList[i].timeForCalc;
+      if (check >= time && (src.duration == 0 || check < time + src.duration))
+      {
+        if (list.length > 0)list.last.duration = srcList[i].timeForCalc - list.last.timeForCalc;
+        srcList[i].duration = 24 * 60 - srcList[i].timeForCalc;
+        list.add(srcList[i]);
+      }
+    }
   }
 }
 
@@ -575,6 +654,7 @@ class ProfileData extends JsonData
     ret.id = json["int"];
     ret.defaultProfile = json["defaultProfile"];
     ret.startDate = JsonData.toDate(json["startDate"]);
+    int timeshift = JsonData.toInt(json["timeshift"]);
     ret.units = JsonData.toText(json["units"]);
     ret.createdAt = JsonData.toDate(json["created_at"]);
     ret.duration = JsonData.toInt(json["duration"]);
@@ -590,11 +670,33 @@ class ProfileData extends JsonData
         if (percentage == null || percentage == 0.0)percentage = 1.0;
         else
           percentage /= 100.0;
-        ret.store[key] = ProfileStoreData.fromJson(key, temp.value, percentage);
+        ret.store[key] = ProfileStoreData.fromJson(key, temp.value, percentage, timeshift);
         ret.maxPrecision = math.max(ret.maxPrecision, ret.store[key].maxPrecision);
       }
     }
     return ret;
+  }
+
+  // include data from src in current profile
+  void mixWith(ProfileData src)
+  {
+    for (String key in store.keys)
+    {
+      // the store will be mixed with the same store from the source,
+      // unless the key of the store is unknown. In this case the store
+      // "default" is used, if available.
+      String srcKey = key;
+      if (!src.store.containsKey(srcKey))srcKey = src.defaultProfile;
+
+      if (src.store.containsKey(srcKey))
+      {
+        // remove all settings from given time up to duration.
+        // if duration is 0 then remove all after given time.
+        store[key].removeFrom(src.startDate.hour, src.startDate.minute, src.duration);
+        // add all settings after the given time from src.
+        store[key].addFrom(src, src.store[srcKey]);
+      }
+    }
   }
 }
 
@@ -731,6 +833,7 @@ class TreatmentData extends JsonData
   String id;
   String eventType;
   int duration;
+  int timeshift;
   int _percent;
   double _absolute;
   double _rate;
@@ -822,6 +925,7 @@ class TreatmentData extends JsonData
       ..id = id
       .. eventType = eventType
       .. duration = duration
+      .. timeshift = timeshift
       .. _percent = _percent
       .. _absolute = _absolute
       .. _rate = _rate
@@ -846,6 +950,7 @@ class TreatmentData extends JsonData
     ret.id = JsonData.toText(json["_id"]);
     ret.eventType = JsonData.toText(json["eventType"]);
     ret.duration = JsonData.toInt(json["duration"]);
+    ret.timeshift = JsonData.toInt(json["timeshift"]);
     ret._percent = JsonData.toInt(json["percent"], null);
     ret._absolute = JsonData.toDouble(json["absolute"], null);
     ret._rate = JsonData.toDouble(json["rate"]);
@@ -1553,13 +1658,14 @@ class ReportData
   StatusData status;
   Globals globals;
 
+  // get profile for a specific time
   ProfileGlucData profile(DateTime time)
   {
 //    DateTime check = DateTime(time.year, time.month, time.day);
     ProfileGlucData ret = ProfileGlucData(ProfileStoreData("${time.toIso8601String()}"));
-    // find first profile for the time
     ProfileData profile = null;
     int idx = -1;
+    // find last profile that starts before the given time
     for (int i = 0; i < profiles.length; i++)
     {
       if (profiles[i].startDate
@@ -1569,8 +1675,17 @@ class ReportData
 
     if (idx >= 0)
     {
-      profile = profiles[idx];
-//      ProfileStoreData p = profile.store[profile.defaultProfile];
+      profile = profiles[idx].copy;
+      idx++;
+      // mix following profiles in
+      while (idx < profiles.length)
+      {
+        DateTime d = profiles[idx].startDate;
+        // only profiles with same day as requested
+        if (d.year == time.year && d.month == time.month && d.day == time.day)profile.mixWith(profiles[idx]);
+        idx++;
+      }
+
     }
     else
     {

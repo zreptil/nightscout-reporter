@@ -3,8 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
+import 'base-profile.dart';
 
-class PrintProfile extends BasePrint
+class PrintProfile extends BaseProfile
 {
   bool compressSameValues;
 
@@ -25,13 +26,8 @@ class PrintProfile extends BasePrint
   @override
   String title = Intl.message("Profil");
 
-  @override
-  bool get isPortrait
-  => false;
-
-  PrintProfile()
+  PrintProfile() : super()
   {
-    init();
   }
 
   static String get msgParam1
@@ -51,10 +47,11 @@ class PrintProfile extends BasePrint
     int currPage = 0;
     int pageEntries = 0;
     int pageSize = 24;
-    if (page * pageSize >= list.length) return [ [
-      {"text": "", "style": "infotitle", "fontSize": fs(_fontSize)},
-      {"text": "", "style": "infodata", "fontSize": fs(_fontSize)},
-    ]
+    if (page * pageSize >= list.length) return [
+      [
+        {"text": "", "style": "infotitle", "fontSize": fs(_fontSize)},
+        {"text": "", "style": "infodata", "fontSize": fs(_fontSize)},
+      ]
     ];
 
     dynamic ret = [];
@@ -62,11 +59,11 @@ class PrintProfile extends BasePrint
     for (int i = 0; i < list.length; i++)
     {
       ProfileEntryData entry = list[i];
-      DateTime end = DateTime(date.year, date.month, date.day, 23, 59);
+      DateTime endTime = DateTime(date.year, date.month, date.day, 23, 59);
       startTime ??= entry.time(date);
       if (i < list.length - 1)
       {
-        end = list[i + 1].time(date);
+        endTime = list[i + 1].time(date);
 
         if (compressSameValues)
         {
@@ -80,11 +77,15 @@ class PrintProfile extends BasePrint
           }
         }
       }
-      if (currPage == page)
+      bool showValue = true;
+      if (isSingleDay)
+        showValue = isSingleDayRange(startTime, endTime);
+
+      if (showValue && currPage == page)
       {
         ret.add([
           {
-            "text": msg(fmtTime(startTime, withUnit: true), fmtTime(end, withUnit: true)),
+            "text": msg(fmtTime(startTime, withUnit: true), fmtTime(endTime, withUnit: true)),
             "style": "infotitle",
             "fontSize": fs(_fontSize)
           },
@@ -109,58 +110,11 @@ class PrintProfile extends BasePrint
   }
 
   @override
-  void fillPages(ReportData src, List<List<dynamic>> pages)
-  {
-/*
-    List<String> dbg = List<String>();
-    for(ProfileData p in src.profiles)
-      dbg.add("${fmtDateTime(p.startDate)} - ${p.duration}");
-*/
-    DateTime startDate = DateTime(src.begDate.year, src.begDate.month, src.begDate.day);
-    DateTime endDate = DateTime(src.endDate.year, src.endDate.month, src.endDate.day + 1);
-    List<ProfileData> profiles = src.profiles;
-    for (int i = 0; i < src.profiles.length; i++)
-    {
-      DateTime profEndTime;
-      DateTime profStartTime = src.profiles[i].startDate;
-      if (i < src.profiles.length - 1)
-      {
-        if (g.useProfileSwitch)
-        {
-          profEndTime = src.profiles[i + 1].startDate.add(Duration(minutes: -1));
-        }
-        else
-        {
-          profEndTime = src.profiles[i + 1].startDate.add(Duration(hours: -1));
-        }
-      }
-      else
-      {
-        profEndTime = null;
-      }
-      // if profileendtime is before reportstartdate then skip profile
-      if (profEndTime != null && profEndTime.isBefore(startDate))continue;
-      // if profilestarttime is after reportenddate then skip profile
-      if (profStartTime.isAfter(endDate))continue;
-
-      bool done = false;
-      for (int p = 0; !done; p++)
-      {
-        dynamic page = getPage(p, src.profile(profiles[i].startDate), profStartTime, profEndTime);
-        done = page == null;
-        if (!done)
-          pages.add(page);
-      }
-    }
-  }
-
-  getPage(int page, ProfileGlucData profile, DateTime startDate, DateTime endDate)
+  dynamic getPage(int page, ProfileGlucData profile, CalcData calc)
   {
     _fontSize = 10;
     subtitle = profile.store.name;
-    if (g.useProfileSwitch)titleInfo = titleInfoTimeRange(startDate, endDate);
-    else
-      titleInfo = titleInfoForDates(startDate, endDate);
+    titleInfo = titleInfoTimeRange(profStartTime, profEndTime);
 
     dynamic tableBody = [
       [
@@ -178,7 +132,7 @@ class PrintProfile extends BasePrint
     ];
     _hasFactors = false;
     dynamic icrIsfBody = [];
-    Date date = g.date(startDate);
+    Date date = g.date(profStartTime);
     dynamic bodyICR = getFactorBody(page, date, profile.store.listCarbratio, msgFactorEntry);
     List<ProfileEntryData> listISF = List<ProfileEntryData>();
     for (ProfileEntryData entry in profile.store.listSens)
@@ -258,18 +212,19 @@ class PrintProfile extends BasePrint
         "table": {
           "headerRows": 0,
           "widths": [cm(2 * colWidth), cm(2 * colWidth)],
-          "body": [ [
-            {
-              "margin": [cm(0), cm(0), cm(0), cm(0)],
-              "layout": "noBorders",
-              "table": {"headerRows": 1, "widths": [cm(colWidth), cm(colWidth)], "body": icrIsfBody}
-            },
-            {
-              "margin": [cm(0), cm(0), cm(0), cm(0)],
-              "layout": "noBorders",
-              "table": {"headerRows": 1, "widths": [cm(colWidth), cm(colWidth)], "body": basalTargetBody}
-            }
-          ]
+          "body": [
+            [
+              {
+                "margin": [cm(0), cm(0), cm(0), cm(0)],
+                "layout": "noBorders",
+                "table": {"headerRows": 1, "widths": [cm(colWidth), cm(colWidth)], "body": icrIsfBody}
+              },
+              {
+                "margin": [cm(0), cm(0), cm(0), cm(0)],
+                "layout": "noBorders",
+                "table": {"headerRows": 1, "widths": [cm(colWidth), cm(colWidth)], "body": basalTargetBody}
+              }
+            ]
           ]
         }
       }

@@ -21,7 +21,7 @@ class PrintAnalysis extends BasePrint
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: false),
-    ParamInfo(2, msgParam3, boolValue: false)
+    ParamInfo(2, msgParam3, boolValue: false),
   ];
 
   @override
@@ -39,6 +39,7 @@ class PrintAnalysis extends BasePrint
     isPreciseMaterial = params[0].boolValue;
     isPreciseTarget = params[1].boolValue;
     showStdAbw = params[2].boolValue;
+
     return data;
   }
 
@@ -55,16 +56,20 @@ class PrintAnalysis extends BasePrint
   {
     if (showLine)
     {
-      body.add([ {
-        "canvas": [ {"type": "line", "x1": cm(0), "y1": cm(0.2), "x2": cm(13.5), "y2": cm(0.2), "lineWidth": cm(0.01)}],
-        "colSpan": 6
-      }
+      body.add([
+        {
+          "canvas": [
+            {"type": "line", "x1": cm(0), "y1": cm(0.2), "x2": cm(13.5), "y2": cm(0.2), "lineWidth": cm(0.01)}
+          ],
+          "colSpan": 6
+        }
       ]);
     }
-    body.add([ {
-      "columns": [{"width": cm(13.5), "text": title, "fontSize": fs(8), "color": "#606060", "alignment": "center"}],
-      "colSpan": 6,
-    }
+    body.add([
+      {
+        "columns": [{"width": cm(13.5), "text": title, "fontSize": fs(8), "color": "#606060", "alignment": "center"}],
+        "colSpan": 6,
+      }
     ]);
 
     for (dynamic line in lines)
@@ -107,12 +112,13 @@ class PrintAnalysis extends BasePrint
   void fillPages(ReportData src, List<List<dynamic>> pages)
   {
     pages.add(getPage(src));
-    if (g.isLocal)
+    if (g.showBothUnits)
     {
       g.glucMGDL = !g.glucMGDL;
       pages.add(getPage(src));
       g.glucMGDL = !g.glucMGDL;
     }
+//    if (showInfoSheet)pages.add(getInfoPage(src));
   }
 
   getPage(ReportData src)
@@ -241,7 +247,14 @@ class PrintAnalysis extends BasePrint
           "canvas": [
             {"type": "rect", "x": cm(cvsLeft), "y": cm(0), "w": cm(cvsWidth), "h": cm(tgHigh), "color": colHigh},
             {"type": "rect", "x": cm(cvsLeft), "y": cm(tgHigh), "w": cm(cvsWidth), "h": cm(tgNorm), "color": colNorm},
-            {"type": "rect", "x": cm(cvsLeft), "y": cm(tgHigh + tgNorm), "w": cm(cvsWidth), "h": cm(tgLow), "color": colLow},
+            {
+              "type": "rect",
+              "x": cm(cvsLeft),
+              "y": cm(tgHigh + tgNorm),
+              "w": cm(cvsWidth),
+              "h": cm(tgLow),
+              "color": colLow
+            },
           ],
           "rowSpan": 3
         },
@@ -293,7 +306,14 @@ class PrintAnalysis extends BasePrint
         {
           "canvas": [
             {"type": "rect", "x": cm(cvsLeft), "y": cm(0), "w": cm(cvsWidth), "h": cm(above180), "color": colHigh},
-            {"type": "rect", "x": cm(cvsLeft), "y": cm(above180), "w": cm(cvsWidth), "h": cm(in70180), "color": colNorm},
+            {
+              "type": "rect",
+              "x": cm(cvsLeft),
+              "y": cm(above180),
+              "w": cm(cvsWidth),
+              "h": cm(in70180),
+              "color": colNorm
+            },
             {
               "type": "rect",
               "x": cm(cvsLeft),
@@ -381,8 +401,12 @@ class PrintAnalysis extends BasePrint
         {"text": glucFromData(avgGluc), "style": "infodata"},
         {"text": "${getGlucInfo()["unit"]}", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
-        {"canvas": [{"type": "rect", "x": cm(cvsLeft), "y": cm(0.2), "w": cm(cvsWidth), "h": cm(0.9), "color": glucWarnColor},
-        ], "rowSpan": 3},
+        {
+          "canvas": [
+            {"type": "rect", "x": cm(cvsLeft), "y": cm(0.2), "w": cm(cvsWidth), "h": cm(0.9), "color": glucWarnColor},
+          ],
+          "rowSpan": 3
+        },
       ],
       [
         {"text": "", "style": "infotitle"},
@@ -451,7 +475,9 @@ class PrintAnalysis extends BasePrint
           "widths": [cm(5), cm(8)],
           "body": [
             [{"text": msgBirthday, "style": "perstitle"}, {"text": src.globals.user.birthDate, "style": "persdata"}],
-            [{"text": msgDiabSince, "style": "perstitle"}, {"text": src.globals.user.diaStartDate, "style": "persdata"}
+            [
+              {"text": msgDiabSince, "style": "perstitle"},
+              {"text": src.globals.user.diaStartDate, "style": "persdata"}
             ],
             [{"text": msgInsulin, "style": "perstitle"}, {"text": src.globals.user.insulin, "style": "persdata"}]
           ]
@@ -462,6 +488,33 @@ class PrintAnalysis extends BasePrint
         "layout": "noBorders",
         "table": {"headerRows": 0, "widths": [cm(0), cm(7.3), cm(1.5), cm(1.5), cm(1.5), cm(4.5)], "body": tableBody}
       }
+    ];
+    return ret;
+  }
+
+  getInfoPage(ReportData src)
+  {
+    titleInfo = null;
+    subtitle = "Erklärungen";
+    var ret = [
+      headerFooter(),
+      {
+        "margin": [cm(0), cm(yorg), cm(0), cm(0)],
+        "columns": [{"width": cm(width), "text": "Hinweise", "fontSize": fs(20), "alignment": "center"}]
+      },
+      {
+        "margin": [cm(2.2), cm(0.5), cm(2.2), cm(0)],
+        "text": "Der DVI ist ein Wert, der einem Wert gleicht, der ein Wert sein soll, der hoffentlich zu einem Zeilenumbruch führt, was aber nicht klar ist. Nun ist es klar und wir sind sowas von froh, dass es funktioniert. Einfach Toll :)",
+        "fontSize": fs(12),
+        "alignment": "justify"
+      },
+      {
+        "margin": [cm(2.2), cm(0.2), cm(2.2), cm(0)],
+        "text": "Der DVI ist ein Wert, der einem Wert gleicht, der ein Wert sein soll, der hoffentlich zu einem Zeilenumbruch führt, was aber nicht klar ist. Nun ist es klar und wir sind sowas von froh, dass es funktioniert. Einfach Toll :)",
+        "fontSize": fs(12),
+        "alignment": "justify",
+        "color": "red"
+      },
     ];
     return ret;
   }

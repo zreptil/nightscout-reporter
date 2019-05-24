@@ -88,7 +88,7 @@ class PrintPercentile extends BasePrint
   void fillPages(ReportData src, List<List<dynamic>> pages)
   async {
     pages.add(getPage(src));
-    if (g.isLocal)
+    if (g.showBothUnits)
     {
       g.glucMGDL = !g.glucMGDL;
       pages.add(getPage(src));

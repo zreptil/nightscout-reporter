@@ -82,7 +82,7 @@ class Globals
   static DateTime get now
   => DateTime.now();
   bool _isLoaded = false;
-  String version = "1.2.11";
+  String version = "1.3";
   String lastVersion;
   static const int PDFUNLIMITED = 4000000;
   static const int PDFDIVIDER = 100000;
@@ -275,8 +275,8 @@ class Globals
     _isLocal = value;
   }
 
-  bool get useProfileSwitch
-  => isLocal;
+  bool get showBothUnits
+  => false;
   String get settingsFilename
   => isLocal ? "settings.local" : isBeta ? "settings.beta" : "settings";
   gd.File settingsFile = null;
@@ -330,6 +330,12 @@ class Globals
         return a;
     }
     return b;
+  }
+
+  void setGlucMGDL(StatusData status)
+  {
+    String check = status.settings.units.trim().toLowerCase();
+    glucMGDL = check.startsWith("mg") && check.endsWith("dl");
   }
 
   String adjustUrl(String url)
@@ -575,7 +581,8 @@ class Globals
     }
     else
       drive?.files.update(settingsFile, settingsFile.id, uploadMedia: media).then((_)
-      {}).catchError((error)
+      {
+      }).catchError((error)
       {
         String msg = error.toString();
 //      display("Es ist ein Fehler aufgetreten ($error)");
@@ -985,7 +992,8 @@ class UserData
         forms[cfg.id] = cfg.asString;
     }
     catch (ex)
-    {}
+    {
+    }
 
     return '{"n":"$name",'
       '"bd":"${birthDate ?? ''}",'
@@ -1022,7 +1030,8 @@ class UserData
       }*/
     }
     catch (ex)
-    {}
+    {
+    }
     return ret;
   }
 

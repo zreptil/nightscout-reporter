@@ -232,7 +232,7 @@ class PrintDailyGraphic extends BasePrint
       if (day.entries.length != 0 || day.treatments.length != 0)
       {
         pages.add(getPage(day, src));
-        if (g.isLocal)
+        if (g.showBothUnits)
         {
           g.glucMGDL = !g.glucMGDL;
           pages.add(getPage(day, src));
@@ -590,13 +590,14 @@ class PrintDailyGraphic extends BasePrint
           {"relativePosition": {"x": cm(x), "y": cm(y)}, "image": "sensor.print", "width": cm(0.6)});
         (pictures["stack"] as List).add({
           "relativePosition": {"x": cm(x + 0.0), "y": cm(y + 0.34)},
-          "columns": [ {
-            "width": cm(0.6),
-            "text": "${fmtTime(t.createdAt)}",
-            "fontSize": fs(5),
-            "color": "white",
-            "alignment": "center"
-          }
+          "columns": [
+            {
+              "width": cm(0.6),
+              "text": "${fmtTime(t.createdAt)}",
+              "fontSize": fs(5),
+              "color": "white",
+              "alignment": "center"
+            }
           ]
         });
         hasSensorChange = true;
@@ -778,19 +779,22 @@ class PrintDailyGraphic extends BasePrint
 
     DateTime date = DateTime(day.date.year, day.date.month, day.date.day);
     ProfileGlucData profile = src.profile(date);
-    double yHigh = glucY(math.min(glucMax, src.status.settings.thresholds.bgTargetTop.toDouble()));
-    double yLow = glucY(src.status.settings.thresholds.bgTargetBottom.toDouble());
     List targetValues = [];
     double lastTarget = -1;
+    double yHigh = glucY(math.min(glucMax, src.status.settings.thresholds.bgTargetTop.toDouble()));
+    double yLow = glucY(src.status.settings.thresholds.bgTargetBottom.toDouble());
     for (var i = 0; i < profile.store.listTargetLow.length; i++)
     {
-      double low = profile.store.listTargetLow[i].value;
-      double high = profile.store.listTargetHigh[i].value;
-      double x = glucX(profile.store.listTargetLow[i].time(day.date));
-      double y = glucY((low + high) / 2);
-      if (lastTarget >= 0)targetValues.add({"x": cm(x), "y": cm(lastTarget)});
-      targetValues.add({"x": cm(x), "y": cm(y)});
-      lastTarget = y;
+      if (i < profile.store.listTargetHigh.length)
+      {
+        double low = profile.store.listTargetLow[i].value;
+        double high = profile.store.listTargetHigh[i].value;
+        double x = glucX(profile.store.listTargetLow[i].time(day.date));
+        double y = glucY((low + high) / 2);
+        if (lastTarget >= 0)targetValues.add({"x": cm(x), "y": cm(lastTarget)});
+        targetValues.add({"x": cm(x), "y": cm(y)});
+        lastTarget = y;
+      }
     }
     targetValues.add({
       "x": cm(glucX(DateTime(
@@ -890,7 +894,7 @@ class PrintDailyGraphic extends BasePrint
       if (showBasalProfile)
       {
         text = "${g.fmtBasal(day.basalData.store.ieBasalSum)} ${msgInsulinUnit}";
-        addLegendEntry(legend, colBasalProfile, msgBasalrateProfile(text), isArea: false);
+        addLegendEntry(legend, colProfileSwitch, msgBasalrateProfile(text), isArea: false);
       }
       text = "${g.fmtBasal(tdd)} ${msgInsulinUnit}";
       addLegendEntry(legend, "", msgLegendTDD(text), graphText: msgTDD);
@@ -946,14 +950,15 @@ class PrintDailyGraphic extends BasePrint
     if (showBasalProfile)
     {
       profileBasal["stack"].add({
-        "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalHeight + basalTop + 0.1)},
-        "columns": [ {
-          "width": cm(basalWidth),
-          "text": "${msgTDD} ${g.fmtBasal(tdd)} ${msgInsulinUnit}",
-          "fontSize": fs(20),
-          "alignment": "center",
-          "color": colBasalDay
-        }
+        "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalHeight + basalTop + 0.2)},
+        "columns": [
+          {
+            "width": cm(basalWidth),
+            "text": "${msgTDD} ${g.fmtBasal(tdd)} ${msgInsulinUnit}",
+            "fontSize": fs(20),
+            "alignment": "center",
+            "color": colBasalDay
+          }
         ]
       },);
     }
@@ -962,45 +967,45 @@ class PrintDailyGraphic extends BasePrint
     if (showBasalProfile)stack = profileBasal["stack"];
     else if (showBasalDay)stack = dayBasal["stack"];
 
-    if (g.useProfileSwitch && stack != null)
+    if (stack != null)
     {
       DateTime startDate = DateTime(day.date.year, day.date.month, day.date.day);
       DateTime endDate = startDate.add(Duration(days: 1));
       startDate = startDate.add(Duration(minutes: -1));
       for (ProfileData p in src.profiles)
-//      for (TreatmentData t in day.treatments)
       {
         if (p.startDate.isAfter(startDate) && p.startDate.year == day.date.year && p.startDate.month == day.date.month
             && p.startDate.day == day.date.day)
-//        if (t.eventType.toLowerCase() == "profile switch")
         {
           double x = glucX(p.startDate);
-          double y = basalTop;
-//*
-          (stack[0]["canvas"] as List).add({
-            "type": "line",
-            "x1": cm(x),
-            "y1": cm(0),
-            "x2": cm(x),
-            "y2": cm(basalHeight + 0.25),
-            "lineWidth": cm(lw),
-            "lineColor": colProfileSwitch
-          });
-          stack.add({
-            "relativePosition": {"x": cm(xo + x + 0.1), "y": cm(yo + graphHeight + basalTop + basalHeight + 0.1)},
-            "text": src
-              .profile(p.startDate)
-              .store
-              .name,
-            "fontSize": fs(8),
-            "color": colProfileSwitch
-          });
-//*/
+          double y = graphHeight + basalTop + basalHeight;
+          if (x < width)
+          {
+            (stack[0]["canvas"] as List).add({
+              "type": "line",
+              "x1": cm(x),
+              "y1": cm(0),
+              "x2": cm(x),
+              "y2": cm(basalHeight + 0.25),
+              "lineWidth": cm(lw),
+              "lineColor": colProfileSwitch
+            });
+            stack.add({
+              "relativePosition": {"x": cm(xo + x + 0.1), "y": cm(yo + y)},
+              "text": src
+                .profile(p.startDate)
+                .store
+                .name,
+              "fontSize": fs(8),
+              "color": colProfileSwitch
+            });
+          }
         }
       }
     }
 
     String error = null;
+
 /*
     if (!g.checkJSON(glucTableCvs))error = "glucTableCvs";
     if (!g.checkJSON(vertLegend))error = "vertLegend";
@@ -1011,7 +1016,9 @@ class PrintDailyGraphic extends BasePrint
     if (error != null)
     {
       return [
-        headerFooter(), {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": "Fehler bei $error", "color": "red"}];
+        headerFooter(),
+        {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": "Fehler bei $error", "color": "red"}
+      ];
     }
 
     return [
@@ -1046,7 +1053,7 @@ class PrintDailyGraphic extends BasePrint
     {
       data = day.basalData.store.listBasal;
       basalSum = day.basalData.store.ieBasalSum;
-      color = colBasalProfile;
+      color = colProfileSwitch;//colBasalProfile;
     }
     else
     {
@@ -1059,14 +1066,15 @@ class PrintDailyGraphic extends BasePrint
       "stack": [{"relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalTop)}, "canvas": basalCvs}]
     };
     if (basalSum != 0)ret["stack"].add({
-      "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalHeight + basalTop + 0.1)},
-      "columns": [ {
-        "width": cm(basalWidth),
-        "text": "${g.fmtBasal(basalSum)} ${msgInsulinUnit}",
-        "fontSize": fs(20),
-        "alignment": displayProfile ? "right" : "left",
-        "color": color
-      }
+      "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalHeight + basalTop + 0.2)},
+      "columns": [
+        {
+          "width": cm(basalWidth),
+          "text": "${g.fmtBasal(basalSum)} ${msgInsulinUnit}",
+          "fontSize": fs(20),
+          "alignment": displayProfile ? "right" : "left",
+          "color": color
+        }
       ]
     },);
     double lastY = -1.0;
@@ -1137,7 +1145,10 @@ class PrintDailyGraphic extends BasePrint
       "color": colBolus,
       "lineWidth": cm(0),
       "points": [
-        {"x": cm(x), "y": cm(y)}, {"x": cm(x + 0.1), "y": cm(y - h - 0.1)}, {"x": cm(x - 0.1), "y": cm(y - h - 0.1)}],
+        {"x": cm(x), "y": cm(y)},
+        {"x": cm(x + 0.1), "y": cm(y - h - 0.1)},
+        {"x": cm(x - 0.1), "y": cm(y - h - 0.1)}
+      ],
     });
   }
 }

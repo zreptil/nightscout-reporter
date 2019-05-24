@@ -210,8 +210,8 @@ class AppComponent
     if (!g.hasMGDL)
     {
       String content = await g.request(url);
-      var status = StatusData.fromJson(json.decode(content));
-      g.glucMGDL = status.settings.units.trim().toLowerCase() == "mg/dl";
+      StatusData status = StatusData.fromJson(json.decode(content));
+      g.setGlucMGDL(status);
     }
     url = "${g.user.apiUrl}entries.json?count=2";
     List<dynamic> src = json.decode(await g.request(url));
@@ -613,8 +613,7 @@ class AppComponent
     Date beg = g.period.shiftStartBy(g.currPeriodShift.shift);
     Date end = g.period.shiftEndBy(g.currPeriodShift.shift);
 
-    if (reportData != null && reportData.begDate == beg && reportData.endDate == end)
-      return reportData;
+    if (reportData != null && reportData.begDate == beg && reportData.endDate == end)return reportData;
 
     ReportData data = ReportData(g, beg, end);
 /*
@@ -643,7 +642,7 @@ class AppComponent
     displayLink("status", url, type: "debug");
     String content = await g.request(url);
     data.status = StatusData.fromJson(json.decode(content));
-    g.glucMGDL = data.status.settings.units.trim().toLowerCase() == "mg/dl";
+    g.setGlucMGDL(data.status);
     url = "${g.user.apiUrl}profile.json";
     displayLink("profile", url, type: "debug");
     content = await g.request(url);
@@ -686,74 +685,78 @@ class AppComponent
       }
     }
 
-    if (g.useProfileSwitch)
+    // find profileswitches in treatments, create profiledata and mix it in the profiles
+    url = "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${begDate
+                                                                       .year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch";
+    displayLink("profileswitch", url, type: "debug");
+    content = await g.request(url);
+    try
     {
-      url = "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${begDate
-                                                                         .year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch";
-      displayLink("profileswitch", url, type: "debug");
-      content = await g.request(url);
-      try
+      List<dynamic> src = json.decode(content);
+/*
+        if (g.isLocal)src.add({
+          "_id": "fake",
+          "eventType": "Profile Switch",
+          "duration": 1440,
+          "profile": "Fake",
+          "profileJson": '{"dia": "5","carbratio": [{"time": "00:00", "value": "0.1", "timeAsSeconds": "0"},{"time": "01:30", "value": "0.2", "timeAsSeconds": "5400"},{"time": "06:00", "value": "0.3", "timeAsSeconds": "21600"},{"time": "11:00", "value": "0.4", "timeAsSeconds": "39600"},{"time": "15:30", "value": "0.5", "timeAsSeconds": "55800"},{"time": "19:00", "value": "0.6", "timeAsSeconds": "68400"},{"time": "21:00", "value": "0.7", "timeAsSeconds": "75600"}],"carbs_hr": "0","delay": "20","sens": [{"time": "00:00", "value": "60", "timeAsSeconds": "0"},{"time": "01:30", "value": "40", "timeAsSeconds": "5400"},{"time": "06:00", "value": "30", "timeAsSeconds": "21600"},{"time": "11:00", "value": "40", "timeAsSeconds": "39600"},{"time": "15:30", "value": "50", "timeAsSeconds": "55800"},{"time": "19:00", "value": "60", "timeAsSeconds": "68400"},{"time": "21:00", "value": "90", "timeAsSeconds": "75600"}],"timezone": "Europe\\/Berlin","basal": [{"time": "00:00", "value": "0.1", "timeAsSeconds": "0"},{"time": "01:00", "value": "0.2", "timeAsSeconds": "3600"},{"time": "02:00", "value": "0.3", "timeAsSeconds": "7200"},{"time": "03:00", "value": "0.4", "timeAsSeconds": "10800"},{"time": "04:00", "value": "0.5", "timeAsSeconds": "14400"},{"time": "05:00", "value": "0.6", "timeAsSeconds": "18000"},{"time": "06:00", "value": "0.7", "timeAsSeconds": "21600"},{"time": "07:00", "value": "0.8", "timeAsSeconds": "25200"},{"time": "08:00", "value": "0.9", "timeAsSeconds": "28800"},{"time": "09:00", "value": "1.0", "timeAsSeconds": "32400"},{"time": "10:00", "value": "1.1", "timeAsSeconds": "36000"},{"time": "11:00", "value": "1.2", "timeAsSeconds": "39600"},{"time": "12:00", "value": "1.3", "timeAsSeconds": "43200"},{"time": "13:00", "value": "1.4", "timeAsSeconds": "46800"},{"time": "14:00", "value": "1.5", "timeAsSeconds": "50400"},{"time": "15:00", "value": "1.6", "timeAsSeconds": "54000"},{"time": "16:00", "value": "1.7", "timeAsSeconds": "57600"},{"time": "17:00", "value": "1.8", "timeAsSeconds": "61200"},{"time": "18:00", "value": "1.9", "timeAsSeconds": "64800"},{"time": "19:00", "value": "2.0", "timeAsSeconds": "68400"},{"time": "20:00", "value": "2.1", "timeAsSeconds": "72000"},{"time": "21:00", "value": "2.2", "timeAsSeconds": "75600"},{"time": "22:00", "value": "2.3", "timeAsSeconds": "79200"},{"time": "23:00", "value": "2.4", "timeAsSeconds": "82800"}],"target_low": [{"time": "00:00", "value": "100", "timeAsSeconds": "0"},{"time": "06:00", "value": "110"},{"time": "20:00", "value": "100"}],"target_high": [{"time": "00:00", "value": "100", "timeAsSeconds": "0"},{"time": "06:00", "value": "110"},{"time": "20:00", "value": "100"}],"startDate": "1970-01-01T00:00:00.000Z","units": "mg/dl"}',
+          "profilePlugin": "info.nightscout.androidaps.plugins.ProfileNS.NSProfilePlugin",
+          "created_at": "2019-03-04T10:00:00Z",
+          "enteredBy": "Nightscout Reporter",
+          "NSCLIENT_ID": 12345,
+          "carbs": null,
+          "insulin": null
+        });
+ // */
+      for (dynamic entry in src)
       {
-        List<dynamic> src = json.decode(content);
-        for (dynamic entry in src)
-        {
-          if (data.profiles.firstWhere((p)
-          => p.createdAt != entry["created_at"], orElse: ()
-          => null) != null)continue;
-          List<String> parts = List<String>();
-          parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
-          parts.add('"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
-          parts.add('"mills":"0","units":"mg/dl"');
-          parts.add('"percentage":"${entry["percentage"]}"');
-          parts.add('"duration":"${entry["duration"]}"');
-          parts.add('"timeshift":"${entry["timeshift"]}"');
-          parts.add('"created_at":"${entry["created_at"]}"}');
+        String check = entry["created_at"];
+        if (data.profiles.firstWhere((p)
+        => p.createdAt == check, orElse: ()
+        => null) != null)continue;
+        List<String> parts = List<String>();
+        parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
+        parts.add('"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
+        parts.add('"mills":"0","units":"mg/dl"');
+        parts.add('"percentage":"${entry["percentage"]}"');
+        parts.add('"duration":"${entry["duration"]}"');
+        parts.add('"timeshift":"${entry["timeshift"]}"');
+        parts.add('"created_at":"${entry["created_at"]}"}');
 
-          data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
-        }
+        data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
       }
-      catch (ex)
+    }
+    catch (ex)
+    {
+      if (isDebug)
       {
-        if (isDebug)
-        {
-          if (ex is Error)display("${ex.toString()}\n${ex.stackTrace}");
-          else
-            display(ex.toString());
-        }
+        if (ex is Error)display("${ex.toString()}\n${ex.stackTrace}");
         else
-        {
-          display(msgProfileError);
-        }
+          display(ex.toString());
+      }
+      else
+      {
+        display(msgProfileError);
       }
     }
 
     data.profiles.sort((a, b)
     => a.startDate.compareTo(b.startDate));
 
-    if (g.useProfileSwitch)
+    // calculate the duration of the profiles
+    ProfileData last = null;
+    for (int i = 1; i < data.profiles.length; i++)
     {
-      ProfileData last = null;
-      for (int i = 0; i < data.profiles.length; i++)
-      {
-        ProfileData current = data.profiles[i];
-        if (last != null && current.duration > 0 && i < data.profiles.length - 1)
-        {
-          ProfileData next = data.profiles[i + 1];
-          Duration diff = next.startDate.difference(current.startDate);
-          if (diff.inMinutes > current.duration)
-          {
-            last.startDate = current.startDate.add(diff);
-            last.duration = 0;
-            if (last.startDate != next.startDate)data.profiles.insert(i + 1, last);
-          }
-          else
-          {
-            current.duration = diff.inMinutes;
-          }
-        }
-        last = current.copy;
-      }
+      ProfileData last = data.profiles[i - 1];
+      ProfileData current = data.profiles[i];
+      last.duration = current.startDate
+        .difference(last.startDate)
+        .inMinutes;
     }
+
+    // remove all profiles with a length of 0
+    data.profiles.removeWhere((p)
+    => p.duration < 2 && p != data.profiles.last);
 
     while (begDate <= endDate)
     {

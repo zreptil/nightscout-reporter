@@ -1,35 +1,12 @@
 import 'dart:math';
 
 import 'package:angular_components/angular_components.dart';
-import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
-import 'base-print.dart';
+import 'base-profile.dart';
 
-class CalcData
+class PrintBasalrate extends BaseProfile
 {
-  double firstGluc = 0.0;
-  int firstTime = 0;
-  int lastTime = 0;
-  int bolusTime = 0;
-  int glucMax = 0;
-  int brBolusTime = null;
-  DateTime endDate = null;
-  List<ProfileEntryData> nextBRTimes = List<ProfileEntryData>();
-}
-
-class PrintBasalrate extends BasePrint
-{
-  @override
-  List<ParamInfo> params = [
-  ];
-
-  @override
-  prepareData_(ReportData data)
-  {
-    return data;
-  }
-
   @override
   String id = "basal";
 
@@ -49,71 +26,36 @@ class PrintBasalrate extends BasePrint
   List<String> get imgList
   => ["nightscout",];
 
-  num lineWidth;
-
-  static String get msgParam1
-  => Intl.message("Zwei Nachkommastellen");
-
-  PrintBasalrate()
-  {
-    init();
-  }
-
-  @override
-  hasData(ReportData src)
-  {
-    return src.profiles.length > 0;
-  }
-
-  @override
-  void fillPages(ReportData src, List<List<dynamic>> pages)
-  async {
-    lineWidth = cm(0.03);
-    var ret = [];
-    CalcData calc = CalcData();
-    DateTime startDate = DateTime(src.begDate.year, src.begDate.month, src.begDate.day);
-    DateTime endDate = DateTime(src.endDate.year, src.endDate.month, src.endDate.day);
-    List<ProfileData> profiles = src.profiles;
-    for (int i = 0; i < src.profiles.length; i++)
-    {
-      if (i < src.profiles.length - 1)
-      {
-        calc.nextBRTimes = src.profiles[i + 1].current.listBasal;
-        calc.endDate = src.profiles[i + 1].startDate.add(Duration(days: -1));
-        if (startDate
-          .difference(src.profiles[i + 1].startDate)
-          .inDays >= 0)continue;
-      }
-      else
-      {
-        calc.nextBRTimes = src.profiles[i].current.listBasal;
-        calc.endDate = null;
-      }
-
-      if (endDate
-        .difference(src.profiles[i].startDate)
-        .inDays < 0)continue;
-
-      pages.add(getPage(profiles[i], calc));
-    }
-  }
-
   static double gridHeight = 9.45;
   static double gridWidth = 24.0;
   static double graphWidth = gridWidth / 25.0 * 24.0;
+
+  num lineWidth;
+
+  PrintBasalrate() : super()
+  {
+  }
 
   double glucX(DateTime time)
   {
     return graphWidth / 1440 * (time.hour * 60 + time.minute);
   }
 
-  getPage(ProfileData profile, CalcData calc)
+  @override
+  dynamic getPage(int page, ProfileGlucData profile, CalcData calc)
   {
+    if (page > 0)return null;
+    subtitle = profile.store.name;
+    titleInfo = titleInfoTimeRange(profStartTime, profEndTime);
+
+//    getPage(ProfileGlucData profile, CalcData calc)
+//  {
     double xo = xorg;
     double yo = yorg;
-    titleInfo = titleInfoForDates(profile.startDate, calc.endDate);
+//    titleInfo = titleInfoForDates(profile.startDate, calc.endDate);
+
     double brMax = 0.0;
-    List<ProfileEntryData> brtimes = profile.store[profile.defaultProfile].listBasal;
+    List<ProfileEntryData> brtimes = profile.store.listBasal;
     for (var i = 0; i < brtimes.length; i++)
       brMax = max(brtimes[i].value, brMax);
 
@@ -198,7 +140,7 @@ class PrintBasalrate extends BasePrint
     var glucValues = {"stack": []};
     var brArea = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     List brAreaCvs = brArea["canvas"] as List;
-    Date date = Date(profile.startDate.year, profile.startDate.month, profile.startDate.day);
+    Date date = Date(profStartTime.year, profStartTime.month, profStartTime.day);
     for (var i = 0; i < brtimes.length; i++)
     {
       double x = glucX(brtimes[i].time(date));
@@ -206,13 +148,22 @@ class PrintBasalrate extends BasePrint
       if (i < brtimes.length - 1)w = glucX(brtimes[i + 1].time(date)) - x;
       else
         w = graphWidth - x;
-      brAreaCvs.add({
+
+      bool showBar = true;
+      if (isSingleDay)
+      {
+        DateTime startTime = brtimes[i].time(date);
+        DateTime endTime = brtimes[i].time(date).add(Duration(minutes: 59));
+        showBar = isSingleDayRange(startTime, endTime);
+      }
+
+      if (showBar)brAreaCvs.add({
         "type": "rect",
         "x": cm(x),
         "y": cm(lineHeight * gridLines),
         "w": cm(w),
         "h": cm(-brtimes[i].value / step * lineHeight),
-        "color": colBasalProfile
+        "color": colBasalProfile,
       });
     }
     xo -= 1.0;
@@ -227,7 +178,7 @@ class PrintBasalrate extends BasePrint
       "y": cm(0),
       "w": cm(24 * colWidth + 2.0),
       "h": cm(lineHeight),
-      "color": colBasalProfile
+      "color": colBasalProfile,
     });
     brTableCvs.add({
       "type": "rect",
@@ -287,7 +238,8 @@ class PrintBasalrate extends BasePrint
         {
           "relativePosition": {"x": cm(xo), "y": cm(yo + 0.05)},
           "columns": [
-            {"width": cm(1), "text": msgTimeShort, "fontSize": fs(8), "color": colBasalFont, "alignment": "center"}]
+            {"width": cm(1), "text": msgTimeShort, "fontSize": fs(8), "color": colBasalFont, "alignment": "center"}
+          ]
         },
         {
           "relativePosition": {"x": cm(xo), "y": cm(yo + lineHeight + 0.2)},
@@ -338,14 +290,22 @@ class PrintBasalrate extends BasePrint
     int lastHour = 0;
     for (var i = 0; i < brtimes.length; i++)
     {
-      int hour = brtimes[i].time(date).hour;
+      int hour = brtimes[i]
+        .time(date)
+        .hour;
       int w = 0;
       m1[0] = (hour - lastHour).toDouble();
       m2[0] = m1[0];
       lastHour = hour;
-      if (i < brtimes.length - 1)w = brtimes[i + 1].time(date).hour - brtimes[i].time(date).hour;
+      if (i < brtimes.length - 1)w = brtimes[i + 1]
+                                       .time(date)
+                                       .hour - brtimes[i]
+                                       .time(date)
+                                       .hour;
       else
-        w = 24 - brtimes[i].time(date).hour;
+        w = 24 - brtimes[i]
+          .time(date)
+          .hour;
       legendIE.add({
         "width": cm(w * colWidth),
         "margin": m1,
@@ -360,13 +320,7 @@ class PrintBasalrate extends BasePrint
         text = g.fmtBasal(calc.nextBRTimes[i].value);
         hasAdjustment = true;
       }
-      legendAdjust.add({
-        "width": cm(w * colWidth),
-        "margin": m2,
-        "text": text,
-        "fontSize": fs(8),
-        "alignment": "left"
-      });
+      legendAdjust.add({"width": cm(w * colWidth), "margin": m2, "text": text, "fontSize": fs(8), "alignment": "left"});
 // */
       ieSum += brtimes[i].value * w;
       ieSumNext += calc.nextBRTimes.length > i ? calc.nextBRTimes[i].value : 0.0;
@@ -376,16 +330,10 @@ class PrintBasalrate extends BasePrint
     legendIE.add(
       {"width": cm(colWidth), "margin": m0, "text": g.fmtBasal(ieSum), "fontSize": fs(8), "alignment": "center"});
 
-    if (hasAdjustment) legendAdjust.add({
-      "width": cm(colWidth),
-      "margin": m2,
-      "text": g.fmtBasal(ieSumNext),
-      "fontSize": fs(8),
-      "alignment": "center"
-    });
+    if (hasAdjustment) legendAdjust.add(
+      {"width": cm(colWidth), "margin": m2, "text": g.fmtBasal(ieSumNext), "fontSize": fs(8), "alignment": "center"});
     var content = [
-      headerFooter(),
-      /*
+      headerFooter(), /*
       {"relativePosition": {"x": cm(2.2), "y": cm(1.0)}, "text": "Basalrate", "fontSize": fs(36), "color": colText, "bold": true},
       {
         "relativePosition": {"x": cm(20.5), "y": cm(1.85)},
@@ -421,15 +369,16 @@ class PrintBasalrate extends BasePrint
 
   getBRMark(xo, yo, x, y, gluc, calc)
   {
-    var ret = [ {
-      "relativePosition": {"x": cm(xo), "y": cm(yo)},
-      "type": "ellipse",
-      "x": cm(x),
-      "y": cm(y),
-      "r1": 3,
-      "r2": 3,
-      "color": "#f15741"
-    }
+    var ret = [
+      {
+        "relativePosition": {"x": cm(xo), "y": cm(yo)},
+        "type": "ellipse",
+        "x": cm(x),
+        "y": cm(y),
+        "r1": 3,
+        "r2": 3,
+        "color": "#f15741"
+      }
     ];
     if ((gluc - calc.firstGluc).abs() > 30)
     {
