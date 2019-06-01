@@ -275,12 +275,15 @@ class PrintCGP extends BasePrint
       // calculate value for hyper
       double h = math.sqrt(hyperDay * hyperDay + hyperDayTime * hyperDayTime) / 1000;
       // calculate mean value of this value and last value
-      hyperAUC = hyperAUC == 0.0 ? h : (hyperAUC + h) / 2;
+      hyperAUC += h;
       // calculate value for hypo
       h = math.sqrt(hypoDay * hypoDay + hypoDayTime * hypoDayTime) / 1000;
       // calculate mean value of this value and last value
-      hypoAUC = (hypoAUC == 0.0) ? h : (hypoAUC + h) / 2;
+      hypoAUC += h;
     }
+
+    hyperAUC /= src.calc.days.length;
+    hypoAUC /= src.calc.days.length;
 
     double areaPatient = cgp.paintValues(
       [tor, totalDay.varK, hypoAUC, hyperAUC, data.avgGluc], lw, colLine: colCGPPatientLine,
