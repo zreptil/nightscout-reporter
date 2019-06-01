@@ -574,8 +574,50 @@ material-expansionpanel.is-local {
     color: $local_fore !important;
   }
 
-  @include expansionpanel-colors(transparent, $local_fore);
+  @include expansionpanel-colors($local_back, $local_fore);
   @include expansionpanel-focused-colors($local_back, $local_fore);
+}
+
+material-button.is-beta, div.is-beta {
+  background: $beta_back;
+}
+
+material-expansionpanel.is-beta.checked {
+  ::ng-deep .header {
+    border-color: $beta_fore !important;
+  }
+
+  [name] {
+    > material-icon {
+      color: $beta_fore;
+    }
+  }
+}
+
+material-expansionpanel.is-beta {
+  ::ng-deep .header {
+    color: $beta_fore !important;
+    background: $beta_back;
+  }
+
+  @include material-checkbox-color($beta_fore, $modifier: '');
+
+  ::ng-deep div[aria-expanded="true"] {
+    border-color: $beta_fore !important;
+    background-color: $beta_back !important;
+
+    ::ng-deep .header {
+      border: 0;
+      color: $beta_fore !important;
+    }
+  }
+
+  ::ng-deep material-icon.expand-button {
+    color: $beta_fore !important;
+  }
+
+  @include expansionpanel-colors($beta_back, $beta_fore);
+  @include expansionpanel-focused-colors($beta_back, $beta_fore);
 }
 
 material-expansionpanel.is-debug.checked {

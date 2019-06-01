@@ -18,6 +18,7 @@ import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
 import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
+import 'package:nightscout_reporter/src/forms/print-cgp.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-analysis.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
@@ -188,6 +189,7 @@ class AppComponent
   {
     if (form.isDebugOnly && !isDebug)return false;
     if (form.isLocalOnly && !g.isLocal) return false;
+    if (form.isBetaOrLocal && !(g.isBeta || g.isLocal)) return false;
 
     return true;
   }
@@ -323,7 +325,8 @@ class AppComponent
         PrintDailyAnalysis(),
         PrintDailyLog(),
         PrintWeeklyGraphic(),
-        PrintBasalrate()
+        PrintBasalrate(),
+        PrintCGP(),
       ];
       g.listConfig = List<FormConfig>();
       for (BasePrint form in srcList)
@@ -718,10 +721,10 @@ class AppComponent
  // */
       for (dynamic entry in src)
       {
-        String check = entry["created_at"];
+        DateTime check = JsonData.toDate(entry["created_at"]);
         if (data.profiles.firstWhere((p)
         => p.createdAt == check, orElse: ()
-        => null) != null)continue;
+        => null) != null || entry["profile"] == null)continue;
         List<String> parts = List<String>();
         parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
         parts.add('"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
@@ -752,7 +755,6 @@ class AppComponent
     => a.startDate.compareTo(b.startDate));
 
     // calculate the duration of the profiles
-    ProfileData last = null;
     for (int i = 1; i < data.profiles.length; i++)
     {
       ProfileData last = data.profiles[i - 1];
@@ -1164,6 +1166,7 @@ class AppComponent
     if (cfg.form.isDebugOnly && isDebug)ret = "${ret} is-debug";
     if (cfg.checked)ret = "${ret} checked";
     if (cfg.form.isLocalOnly)ret = "${ret} is-local";
+    if (cfg.form.isBetaOrLocal)ret = "${ret} is-beta";
     return ret;
   }
 

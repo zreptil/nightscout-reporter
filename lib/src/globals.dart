@@ -81,7 +81,6 @@ class Globals
   static tz.Location refLocation = tz.getLocation("Europe/Berlin");
   static DateTime get now
   => DateTime.now();
-  bool _isLoaded = false;
   String version = "1.3";
   String lastVersion;
   static const int PDFUNLIMITED = 4000000;
@@ -144,7 +143,6 @@ class Globals
   Globals._internal(){
     tz.Location found = null;
 
-    DateTime now = DateTime.now();
     int offset = DateTime
       .now()
       .timeZoneOffset
@@ -398,7 +396,6 @@ class Globals
 
   addForm(BasePrint form)
   {
-    FormConfig cfg = FormConfig(form, false);
     listConfig.add(FormConfig(form, false));
   }
 
@@ -450,7 +447,6 @@ class Globals
     String save = "";
     for (int i = 0; i < userList.length; i++)
       save = "${save},${userList[i].asJson}";
-    String debug = "";
     return '{'
       '"version":"$version"'
       ',"mu":"${Globals.doit('[${save.substring(1)}]')}"'
@@ -541,7 +537,7 @@ class Globals
     }
     catch (ex)
     {
-      String msg = ex.toString();
+//      String msg = ex.toString();
     }
   }
 
@@ -568,23 +564,23 @@ class Globals
       controller.stream.transform(convert.Utf8Encoder()), content.length, contentType: "text/javascript");
     if (settingsFile.id == null)
     {
-      drive?.files.create(settingsFile, uploadMedia: media).then((_)
+      drive?.files?.create(settingsFile, uploadMedia: media)?.then((_)
       {
 //        data.mode = "view";
 //        activate();
-      }).catchError((error)
+      })?.catchError((error)
       {
-        String msg = error.toString();
+//        String msg = error.toString();
 //        display("Es ist ein Fehler aufgetreten ($error)");
       }, test: (error)
       => true);
     }
     else
-      drive?.files.update(settingsFile, settingsFile.id, uploadMedia: media).then((_)
+      drive?.files?.update(settingsFile, settingsFile.id, uploadMedia: media)?.then((_)
       {
-      }).catchError((error)
+      })?.catchError((error)
       {
-        String msg = error.toString();
+//        String msg = error.toString();
 //      display("Es ist ein Fehler aufgetreten ($error)");
       }, test: (error)
       => true);
@@ -646,7 +642,7 @@ class Globals
         }
       }).catchError((error)
       {
-        String msg = error.toString();
+//        String msg = error.toString();
 //        display("Es ist ein Fehler aufgetreten ($error)");
       }, test: (error)
       => true);
@@ -664,13 +660,13 @@ class Globals
     {
       // The API call returns only a subset of the results. It is possible
       // to query through the whole result set via "paging".
-      return drive?.files.list(q: query,
+      return drive?.files?.list(q: query,
         pageToken: token,
         pageSize: 100,
         corpora: "user",
 //        $fields: "*",
         orderBy: "name",
-        spaces: driveParent).then((results)
+        spaces: driveParent)?.then((results)
       {
         docs.files.addAll(results.files);
         // If we would like to have more documents, we iterate.
@@ -679,9 +675,9 @@ class Globals
           return next(results.nextPageToken);
         }
         return (docs as Future<gd.FileList>);
-      }).catchError((error)
+      })?.catchError((error)
       {
-        String msg = error.toString();
+//        String msg = error.toString();
 //        display("Es ist ein Fehler aufgetreten ($error)");
       }, test: (error)
       => true);
@@ -772,7 +768,6 @@ class Globals
       return date.add(months: -3);
     }));
     isConfigured = lastVersion != null && lastVersion.isNotEmpty;
-    _isLoaded = true;
   }
 
   String fmtBasal(num value)

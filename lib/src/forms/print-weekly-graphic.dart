@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 import 'dart:math';
 
-import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
@@ -281,9 +280,6 @@ class PrintWeeklyGraphic extends BasePrint
         {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1}
       ]
     };
-    var y = yo + grid.lineHeight * grid.gridLines;
-    y += basalTop;
-
     return [headerFooter(), vertLegend, vertLines, horzLegend, horzLines, limitLines, graphGluc, legend.asOutput];
   }
 }

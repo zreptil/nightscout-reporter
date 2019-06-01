@@ -11,10 +11,6 @@ class PrintBasalrate extends BaseProfile
   String id = "basal";
 
   @override
-  String get name
-  => msgBasalrate;
-
-  @override
   String get title
   => msgBasalrate;
 

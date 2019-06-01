@@ -47,9 +47,6 @@ class PrintTest extends BasePrint
   => true;
 
   @override
-  String get name
-  => "Ausgabe der Datensätze";
-  @override
   String get title
   => "Datensätze";
 

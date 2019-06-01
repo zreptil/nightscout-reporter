@@ -516,10 +516,10 @@ class ProfileStoreData extends JsonData
     ret.startDate = JsonData.toDate(json["startDate"]);
     ret.units = JsonData.toText(json["units"]);
     for (dynamic entry in json["carbratio"])
-      ret.listCarbratio.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
+      ret.listCarbratio.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift, percentage));
     _adjust(ret.listCarbratio);
     for (dynamic entry in json["sens"])
-      ret.listSens.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
+      ret.listSens.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift, percentage));
     _adjust(ret.listSens);
     ret.maxPrecision = 0;
     for (dynamic entry in json["basal"])
@@ -1497,12 +1497,12 @@ class ListData
     double glucTotal = 0.0;
     double rmsTotal = 0.0;
     int usedRecords = 0;
-    double deltaTotal = 0.0;
-    double total = 0.0;
-    double t1 = 6;
-    double t2 = 11;
-    int t1Count = 0;
-    int t2Count = 0;
+//    double deltaTotal = 0.0;
+//    double total = 0.0;
+//    double t1 = 6;
+//    double t2 = 11;
+//    int t1Count = 0;
+//    int t2Count = 0;
     int fullCount = 0;
     for (var entry in allEntries)
     {
@@ -1566,10 +1566,10 @@ class ListData
         {
           usedRecords++;
           double delta = entry.gluc - last.gluc;
-          deltaTotal += delta;
-          total += delta;
-          if (delta >= t1)t1Count++;
-          if (delta >= t2)t2Count++;
+//          deltaTotal += delta;
+//          total += delta;
+//          if (delta >= t1)t1Count++;
+//          if (delta >= t2)t2Count++;
           gviTotal += math.sqrt(25 + math.pow(delta, 2));
           glucTotal += entry.gluc;
           if (entry.gluc < glucData.targetLow)rmsTotal += math.pow(glucData.targetLow - entry.gluc, 2);

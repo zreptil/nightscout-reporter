@@ -38,7 +38,6 @@ class PrintDailyAnalysis extends BasePrint
   }
 
   static String _titleGraphic = Intl.message("Tagesanalyse");
-  static String _titleNotes = Intl.message("Tagesnotizen");
 
   @override
   String title = Intl.message("Tagesanalyse");
@@ -686,8 +685,6 @@ class PrintDailyAnalysis extends BasePrint
     double maxCob = -1000.0;
     for (TreatmentData t in day.treatments)
     {
-      double x, y;
-      String type = t.eventType.toLowerCase();
       if (t.boluscalc != null)
       {
         listIobCob.add(t.boluscalc);
@@ -812,19 +809,16 @@ class PrintDailyAnalysis extends BasePrint
   getBasalGraph(double top, DayData day, bool useProfile, double xo, double yo)
   {
     List<ProfileEntryData> data;
-    double basalSum;
     String color;
 
     if (useProfile)
     {
       data = day.basalData.store.listBasal;
-      basalSum = day.basalData.store.ieBasalSum;
       color = colBasalProfile;
     }
     else
     {
       data = day.profile;
-      basalSum = day.ieBasalSum;
       color = colBasalProfile;
     }
 

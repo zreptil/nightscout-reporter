@@ -199,11 +199,18 @@ abstract class BasePrint
   bool get isDebugOnly
   => false;
 
+  bool get isBetaOrLocal
+  => false;
+
   //String _hba1c(double avgGluc)
   //=> g.fmtNumber((avgGluc + 86) / 33.3, 1, false);
 
   String hba1c(double avgGluc)
-  => avgGluc == null ? "" : g.fmtNumber((avgGluc + 46.7) / 28.7, 1, false);
+  => avgGluc == null ? "" : g.fmtNumber(hba1cValue(avgGluc), 1, false);
+
+  double hba1cValue(double avgGluc)
+  => avgGluc == null ? null : (avgGluc + 46.7) / 28.7;
+  //(avgGluc / 18.02 + 2.645) / 1.649;
 
   String colText = "#008800";
   String colInfo = "#606060";
@@ -223,6 +230,7 @@ abstract class BasePrint
   String colTargetArea = "#00a000";
   String colTargetValue = "#3333aa";
   String colCarbs = "#ffa050";
+  String colCarbsText = "#ff6f00";
   String colDurationNotes = "#ff00ff";
   String colDurationNotesLine = "#ff50ff";
   String colNotes = "#000000";
@@ -234,9 +242,15 @@ abstract class BasePrint
   List<String> colWeekDaysText = ["#ffffff", "#ffffff", "#000000", "#ffffff", "#ffffff", "#000000", "#ffffff"];
   String colExercises = "#ffa060";
   String colExerciseText = "#000000";
+  String colCGPLine = "#a0a0a0";
+  String colCGPHealthyLine = "#008000";
+  String colCGPHealthyFill = "#00e000";
+  String colCGPPatientLine = "#808000";
+  String colCGPPatientFill = "#e0e000";
 
   double xorg = 3.35;
   double yorg = 3.9;
+  double xframe = 2.2;
   double lw = 0.03;
   String lc = "#c0c0c0";
   String lcFrame = "#000000";
@@ -433,6 +447,8 @@ abstract class BasePrint
   => Intl.message("Glukose zu niedrig");
   get msgGlucNorm
   => Intl.message("Glukose im Zielbereich");
+  get msgSource
+  => Intl.message("Quelle");
   get msgGlucHigh
   => Intl.message("Glukose zu hoch");
   msgLow(value)
@@ -440,6 +456,7 @@ abstract class BasePrint
     value = "\n<${glucFromData(value)}";
     return Intl.message("Tief${value}", args: [value], name: "msgLow");
   }
+
   msgCount(int value)
   {
     return Intl.plural(value, zero: "Kein Wert",
@@ -661,7 +678,7 @@ abstract class BasePrint
       }
     }
     stack.add({
-      "relativePosition": {"x": cm(2.2), "y": cm(1.0)},
+      "relativePosition": {"x": cm(xframe), "y": cm(1.0)},
       "columns": [
         {"width": "auto", "text": title, "fontSize": fs(36), "color": colText, "bold": true},
         {
@@ -675,7 +692,7 @@ abstract class BasePrint
       ]
     });
     if (!g.hideNightscoutInPDF)stack.add({
-      "relativePosition": {"x": cm(2.2), "y": cm(2.5)},
+      "relativePosition": {"x": cm(xframe), "y": cm(2.5)},
       "text": "nightscout reporter ${g.version}",
       "fontSize": fs(8),
       "color": colSubTitle,
@@ -685,7 +702,7 @@ abstract class BasePrint
     if (g.currPeriodShift.shift != 0)
     {
       stack.add({
-        "relativePosition": {"x": cm(2.2), "y": cm(y - 0.5)},
+        "relativePosition": {"x": cm(xframe), "y": cm(y - 0.5)},
         "columns": [
           {
             "width": cm(width - 4.4),
@@ -699,7 +716,7 @@ abstract class BasePrint
       });
     }
     stack.add({
-      "relativePosition": {"x": cm(2.2), "y": cm(y)},
+      "relativePosition": {"x": cm(xframe), "y": cm(y)},
       "columns": [
         {
           "width": cm(width - 4.4),
@@ -714,7 +731,7 @@ abstract class BasePrint
     if (titleInfoSub != "")
     {
       stack.add({
-        "relativePosition": {"x": cm(2.2), "y": cm(2.4)},
+        "relativePosition": {"x": cm(xframe), "y": cm(2.4)},
         "columns": [
           {
             "width": cm(width - 4.4),
@@ -728,7 +745,7 @@ abstract class BasePrint
       });
     }
     stack.add({
-      "relativePosition": {"x": cm(2.2), "y": cm(2.95)},
+      "relativePosition": {"x": cm(xframe), "y": cm(2.95)},
       "canvas": [
         {
           "type": "line",
@@ -757,7 +774,7 @@ abstract class BasePrint
 
     stack.addAll([
       {
-        "relativePosition": {"x": cm(2.2), "y": cm(height - 2.0)},
+        "relativePosition": {"x": cm(xframe), "y": cm(height - 2.0)},
         "canvas": [
           {
             "type": "line",
@@ -770,7 +787,7 @@ abstract class BasePrint
           }
         ]
       },
-      g.hideNightscoutInPDF ? null : _getFooterImage("nightscout", x: 2.2, y: height - 1.7, width: 0.7),
+      g.hideNightscoutInPDF ? null : _getFooterImage("nightscout", x: xframe, y: height - 1.7, width: 0.7),
       g.hideNightscoutInPDF ? null : {
         "relativePosition": {"x": cm(3.1), "y": cm(height - 1.7)},
         "text": "http://www.nightscout.info",
@@ -779,9 +796,9 @@ abstract class BasePrint
       },
       isInput ? _getFooterImage("input", x: width - 5.6, y: height - 3.3, width: 4.0) : {},
       {
-        "relativePosition": {"x": cm(2.2), "y": cm(height - 1.7)},
+        "relativePosition": {"x": cm(xframe), "y": cm(height - 1.7)},
         "columns": [
-          {"width": cm(width - 4.4), "text": rightText, "color": colInfo, "alignment": "right", "fontSize": fs(10)}
+          {"width": cm(width - 2 * xframe), "text": rightText, "color": colInfo, "alignment": "right", "fontSize": fs(10)}
         ]
       }
     ]);

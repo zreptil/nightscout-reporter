@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 

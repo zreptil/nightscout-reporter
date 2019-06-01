@@ -42,7 +42,9 @@ die PDFs erstellt werden sollen</pre>
     <div footer>
       <div class="shortcuts">
         <material-button *ngFor="let item of period.list" [raised]="period.entryKey==item.key"
-                         (trigger)="item.fill(period);month=period.end">{{item.title}}
+                         (trigger)="item.fill(period);month=period.end">
+          <material-icon *ngIf="item.key=='save'" icon="save"></material-icon>
+          {{item.title}}
         </material-button>
       </div>
       <material-button class="iconButton ok" (trigger)="isDialogOpen=false;fire('save');">

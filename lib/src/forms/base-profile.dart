@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -20,6 +17,13 @@ class CalcData
 
 abstract class BaseProfile extends BasePrint
 {
+  msgProfileSwitch(String oldName, String newName)
+  => Intl.message("Profilwechsel - ${oldName} => ${newName}", args: [oldName, newName], name: "msgProfileSwitch");
+  msgChangedEntry(String name, String from, String to)
+  => Intl.message("${name} geändert von ${from} auf ${to}", args: [name, from, to], name: "msgChangedEntry");
+  get msgNoChange
+  => Intl.message("Keine Änderung");
+
   @override
   List<ParamInfo> params = List<ParamInfo>();
 
@@ -111,6 +115,99 @@ abstract class BaseProfile extends BasePrint
     if (startTime.isAfter(profEndTime))return false;
     else if (endTime.isBefore(profStartTime))return false;
     return true;
+  }
+
+  getProfileSwitch(ReportData src, DayData day, TreatmentData t)
+  {
+    List<String> ret = List<String>();
+    ProfileGlucData before = src.profile(t.createdAt.add(Duration(days: -1)));
+    ProfileGlucData current = src.profile(t.createdAt);
+    ret.add(msgProfileSwitch(before.store.name, current.store.name));
+
+    if (before.store.dia != current.store.dia)ret.add(msgChangedEntry(
+      msgDIA, "${g.fmtNumber(before.store.dia, 2)} ${msgDIAUnit}",
+      "${g.fmtNumber(current.store.dia, 2)} ${msgDIAUnit}"));
+    if (before.store.carbsHr != current.store.carbsHr)ret.add(msgChangedEntry(
+      msgKHA, "${g.fmtNumber(before.store.carbsHr)} ${msgKHAUnit}",
+      "${g.fmtNumber(current.store.carbsHr)} ${msgKHAUnit}"));
+
+    List<String> temp = List<String>();
+    temp.add(msgTargetTitle);
+    if (current.store.listTargetHigh.length == current.store.listTargetLow.length)
+    {
+      for (int i = 0; i < current.store.listTargetHigh.length; i++)
+      {
+        ProfileEntryData currHigh = current.store.listTargetHigh[i];
+        ProfileEntryData currLow = current.store.listTargetLow[i];
+        var highTime = currHigh.time(day.date);
+        var lowTime = currLow.time(day.date);
+        if (highTime != lowTime)continue;
+        bool lowChanged = false;
+        bool highChanged = false;
+
+        double oldLow = null;
+        double oldHigh = null;
+        int idx = before.store.listTargetLow.indexWhere((entry)
+        => entry.time(day.date) == lowTime);
+        if (idx < 0)lowChanged = true;
+        else
+          lowChanged = before.store.listTargetLow[idx].value != currLow.value;
+        if (lowChanged && idx >= 0)oldLow = before.store.listTargetLow[idx].value;
+        idx = before.store.listTargetHigh.indexWhere((entry)
+        => entry.time(day.date) == highTime);
+        if (idx < 0)highChanged = true;
+        else
+          highChanged = before.store.listTargetHigh[idx].value != currHigh.value;
+        if (highChanged && idx >= 0)oldHigh = before.store.listTargetHigh[idx].value;
+        if (lowChanged || highChanged)
+        {
+          if (oldLow == null || oldHigh == null)temp.add(
+            "ab ${fmtTime(highTime, withUnit: true)} neuer Bereich ${currLow.value} - ${currHigh.value}");
+          else
+            temp.add(
+              "ab ${fmtTime(highTime, withUnit: true)} ${oldLow} - ${oldHigh} geändert auf ${currLow.value} - ${currHigh
+                .value}");
+        }
+      }
+      if (temp.length > 1)ret.addAll(temp);
+
+      getProfileEntriesChanged(ret, day, msgBasalTitle, current.store.listBasal, before.store.listBasal);
+      getProfileEntriesChanged(ret, day, msgISFTitle, current.store.listSens, before.store.listSens);
+      getProfileEntriesChanged(ret, day, msgICRTitle, current.store.listCarbratio, before.store.listCarbratio);
+    }
+
+    if (ret.length == 1)ret.add(msgNoChange);
+
+    return ret.join("\n");
+  }
+
+  getProfileEntriesChanged(List<String> list, DayData day, String title, List<ProfileEntryData> current,
+                           List<ProfileEntryData> before)
+  {
+    List<String> ret = List<String>();
+    for (int i = 0; i < current.length; i++)
+    {
+      ProfileEntryData entry = current[i];
+      var time = current[i].time(day.date);
+      ProfileEntryData old = before.firstWhere((entry)
+      => entry.time(day.date) == time, orElse: ()
+      => null);
+      bool hasChanged = false;
+      if (old == null)hasChanged = true;
+      else if (old.value != entry.value) hasChanged = true;
+      if (hasChanged)
+      {
+        if (old == null)ret.add("ab ${fmtTime(time, withUnit: true)}: neuer Wert ${entry?.value ?? 'null'}");
+        else if (entry == null)ret.add("ab ${fmtTime(time, withUnit: true)}: ${old.value} gelöscht");
+        else
+          ret.add("ab ${fmtTime(time, withUnit: true)}: ${old.value} geändert auf ${entry.value}");
+      }
+    }
+    if (ret.length > 0)
+    {
+      list.add(title);
+      list.addAll(ret);
+    }
   }
 
   dynamic getPage(int page, ProfileGlucData profile, CalcData calc);

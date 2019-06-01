@@ -11,22 +11,26 @@ class CollectInfo
 {
   DateTime start;
   DateTime end;
-  double sum;
-  double max = -1.0;
+  double sum1, sum2;
+  double max1 = -1.0;
+  double max2 = -1.0;
   int count = 0;
 
-  CollectInfo(this.start, [double this.sum = 0.0])
+  CollectInfo(this.start, [double this.sum1 = 0.0, double this.sum2 = 0.0])
   {
     end = DateTime(start.year, start.month, start.day, start.hour, start.minute, start.second);
-    count = sum > 0.0 ? 1 : 0;
-    max = sum;
+    count = sum1 > 0.0 ? 1 : 0;
+    max1 = sum1;
+    max2 = sum2;
   }
 
-  void fill(DateTime date, double value)
+  void fill(DateTime date, double value1, double value2)
   {
     end = DateTime(date.year, date.month, date.day, date.hour, date.minute, date.second);
-    sum += value;
-    max = math.max(value, max);
+    sum1 += value1;
+    sum2 += value2;
+    max1 = math.max(value1, max1);
+    max2 = math.max(value2, max2);
     count++;
   }
 }
@@ -37,27 +41,29 @@ class PrintDailyGraphic extends BasePrint
   String id = "daygraph";
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, showNotes,
-    sortReverse, showGlucTable, showSMBAtGluc, showInfoLinesAtGluc, sumNarrowValues, showSMB, splitBolus, showExercises;
+    sortReverse, showGlucTable, showSMBAtGluc, showInfoLinesAtGluc, sumNarrowValues, showSMB, splitBolus, showExercises,
+    showCarbIE;
 
   @override
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: true),
     ParamInfo(4, msgParam3, boolValue: true),
-    ParamInfo(5, msgParam4, boolValue: true),
-    ParamInfo(6, msgParam5, boolValue: true),
-    ParamInfo(7, msgParam6, boolValue: false, isDeprecated: true),
-    ParamInfo(11, msgParam7, list: ["Eine", "Zwei", "Vier", "Acht", "Sechzehn"]),
-    ParamInfo(9, msgParam8, boolValue: true),
-    ParamInfo(8, msgParam9, boolValue: true),
-    ParamInfo(10, msgParam10, boolValue: false),
-    ParamInfo(12, msgParam11, boolValue: true),
+    ParamInfo(6, msgParam4, boolValue: true),
+    ParamInfo(7, msgParam5, boolValue: true),
+    ParamInfo(8, msgParam6, boolValue: false, isDeprecated: true),
+    ParamInfo(12, msgParam7, list: ["Eine", "Zwei", "Vier", "Acht", "Sechzehn"]),
+    ParamInfo(10, msgParam8, boolValue: true),
+    ParamInfo(9, msgParam9, boolValue: true),
+    ParamInfo(11, msgParam10, boolValue: false),
+    ParamInfo(13, msgParam11, boolValue: true),
     ParamInfo(3, msgParam12, boolValue: true),
-    ParamInfo(13, msgParam13, boolValue: false),
-    ParamInfo(14, msgParam14, boolValue: true),
+    ParamInfo(14, msgParam13, boolValue: false),
+    ParamInfo(15, msgParam14, boolValue: true),
     ParamInfo(2, msgParam15, boolValue: true),
-    ParamInfo(15, msgParam16, boolValue: false),
-    ParamInfo(16, msgParam17, boolValue: false),
+    ParamInfo(16, msgParam16, boolValue: false),
+    ParamInfo(17, msgParam17, boolValue: false),
+    ParamInfo(5, msgParam18, boolValue: false),
   ];
 
 
@@ -80,6 +86,7 @@ class PrintDailyGraphic extends BasePrint
     showSMB = params[14].boolValue;
     splitBolus = params[15].boolValue;
     showExercises = params[16].boolValue;
+    showCarbIE = params[17].boolValue;
 
     switch (params[6].intValue)
     {
@@ -104,7 +111,6 @@ class PrintDailyGraphic extends BasePrint
   }
 
   static String _titleGraphic = Intl.message("Tagesgrafik");
-  static String _titleNotes = Intl.message("Tagesnotizen");
 
   @override
   String title = _titleGraphic;
@@ -143,6 +149,8 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Bolusarten anzeigen");
   static String get msgParam17
   => Intl.message("Training anzeigen");
+  static String get msgParam18
+  => Intl.message("Insulin für Kohlenhydrate anzeigen");
 
   @override
   List<String> get imgList
@@ -222,6 +230,8 @@ class PrintDailyGraphic extends BasePrint
     if (!showNotes)basalTop -= notesHeight;
     graphBottom = graphHeight;
     if (showGlucTable)graphHeight -= glucTableHeight;
+    else
+      basalTop -= glucTableHeight;
     glucTableTop = graphHeight;
 
     lineWidth = cm(0.03);
@@ -263,6 +273,23 @@ class PrintDailyGraphic extends BasePrint
     glucExerciseTop = graphHeight;
     var ret = _getPage(day, src);
     graphHeight = graphHeightSave;
+    return ret;
+  }
+
+  carbsForIE(ReportData src, TreatmentData t)
+  {
+    if (t.boluscalc != null)return t.boluscalc.insulinCarbs;
+
+    int check = t.createdAt.hour * 60 + t.createdAt.minute;
+    double ret = 0.0;
+    for (ProfileEntryData entry in src
+      .profile(t.createdAt)
+      .store
+      .listCarbratio)
+    {
+      if (entry.timeForCalc < check)ret = entry.value != 0 ? t.carbs / entry.value : 0.0;
+    }
+
     return ret;
   }
 
@@ -519,11 +546,12 @@ class PrintDailyGraphic extends BasePrint
             "lineColor": colCarbs,
             "lineWidth": cm(0.1),
           });
+          double carbsIE = carbsForIE(src, t);
           if (t.createdAt
                 .difference(collCarbs.last.start)
-                .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs);
+                .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
           else
-            collCarbs.add(CollectInfo(t.createdAt, t.carbs));
+            collCarbs.add(CollectInfo(t.createdAt, t.carbs, carbsIE));
         }
         hasCarbs = true;
       }
@@ -545,7 +573,7 @@ class PrintDailyGraphic extends BasePrint
 
           if (t.createdAt
                 .difference(collInsulin.last.start)
-                .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin);
+                .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
           else
             collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
 
@@ -620,7 +648,6 @@ class PrintDailyGraphic extends BasePrint
       if (type == "exercise" && showExercises)
       {
         double x = glucX(t.createdAt);
-        double y = glucExerciseHeight;
         double wid = glucX(DateTime(0, 0, 0, 0, t.duration));
         (exerciseCvs["canvas"] as List).add({
           "type": "rect",
@@ -734,12 +761,9 @@ class PrintDailyGraphic extends BasePrint
 
     for (CollectInfo info in collInsulin)
     {
-      if (info.sum == 0.0)continue;
-      DateTime date = info.start.add(Duration(minutes: info.end
-                                                         .difference(info.start)
-                                                         .inMinutes ~/ 2));
-      double y = sumNarrowValues ? -0.5 : bolusY(info.max);
-      String text = "${g.fmtBasal(info.sum)} ${msgInsulinUnit}";
+      if (info.sum1 == 0.0)continue;
+      double y = sumNarrowValues ? -0.5 : bolusY(info.max1);
+      String text = "${g.fmtBasal(info.sum1)} ${msgInsulinUnit}";
       if (info.count > 1)
       {
         text = "[$text]";
@@ -762,19 +786,31 @@ class PrintDailyGraphic extends BasePrint
     }
     for (CollectInfo info in collCarbs)
     {
-      if (info.sum == 0.0)continue;
-      DateTime date = info.start.add(Duration(minutes: info.end
-                                                         .difference(info.start)
-                                                         .inMinutes ~/ 2));
-      double y = carbY(info.max);
-      String text = "${msgKH(g.fmtNumber(info.sum))}";
+      if (info.sum1 == 0.0)continue;
+      double y = carbY(info.max1);
+      String text = "${msgKH(g.fmtNumber(info.sum1))}";
       if (info.count > 1)
       {
         text = "[$text]";
         hasCollectedValues = true;
       }
+      y -= 0.35;
+
+      if (showCarbIE && info.sum2 > 0.0)
+      {
+        String text1 = "${g.fmtBasal(info.sum2)} ${msgInsulinUnit}";
+        if (info.count > 1)text1 = "[$text1]";
+        (graphCarbs["stack"][1]["stack"] as List).add({
+          "relativePosition": {"x": cm(glucX(info.start) - 0.05), "y": cm(y)},
+          "text": text1,
+          "fontSize": fs(7),
+          "color": colCarbsText
+        });
+        y -= 0.35;
+      }
+
       (graphCarbs["stack"][1]["stack"] as List).add(
-        {"relativePosition": {"x": cm(glucX(info.start) - 0.05), "y": cm(y - 0.35),}, "text": text, "fontSize": fs(8)});
+        {"relativePosition": {"x": cm(glucX(info.start) - 0.05), "y": cm(y)}, "text": text, "fontSize": fs(8)});
     }
 
     DateTime date = DateTime(day.date.year, day.date.month, day.date.day);
@@ -970,7 +1006,6 @@ class PrintDailyGraphic extends BasePrint
     if (stack != null)
     {
       DateTime startDate = DateTime(day.date.year, day.date.month, day.date.day);
-      DateTime endDate = startDate.add(Duration(days: 1));
       startDate = startDate.add(Duration(minutes: -1));
       for (ProfileData p in src.profiles)
       {
@@ -990,15 +1025,10 @@ class PrintDailyGraphic extends BasePrint
               "lineWidth": cm(lw),
               "lineColor": colProfileSwitch
             });
-            stack.add({
-              "relativePosition": {"x": cm(xo + x + 0.1), "y": cm(yo + y)},
-              "text": src
-                .profile(p.startDate)
-                .store
-                .name,
-              "fontSize": fs(8),
-              "color": colProfileSwitch
-            });
+            stack.add({"relativePosition": {"x": cm(xo + x + 0.1), "y": cm(yo + y)}, "text": src
+              .profile(p.startDate)
+              .store
+              .name, "fontSize": fs(8), "color": colProfileSwitch});
           }
         }
       }
@@ -1053,7 +1083,7 @@ class PrintDailyGraphic extends BasePrint
     {
       data = day.basalData.store.listBasal;
       basalSum = day.basalData.store.ieBasalSum;
-      color = colProfileSwitch;//colBasalProfile;
+      color = colProfileSwitch; //colBasalProfile;
     }
     else
     {
