@@ -1,8 +1,10 @@
 library diamant.jsonData;
 
+import 'dart:convert' as convert;
 import 'dart:math' as math;
 
 import 'package:angular_components/angular_components.dart';
+import 'package:crypto/crypto.dart' as crypto;
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:timezone/browser.dart' as tz;
 
@@ -324,6 +326,9 @@ class ProfileEntryData extends JsonData
   int get localDiff
   => _timezone.localDiff;
 
+  String get hash
+  => "${_time.hour}:${_time.minute}=${value}";
+
   DateTime endTime(Date date, [bool adjustLocalForTime = false])
   {
     DateTime ret = time(date, adjustLocalForTime);
@@ -446,6 +451,23 @@ class ProfileStoreData extends JsonData
     return ret;
   }
 
+  String list2String(List<ProfileEntryData> list)
+  {
+    List<String> dst = List<String>();
+    for (ProfileEntryData entry in list)
+      dst.add(entry.hash);
+    return dst.join("|");
+  }
+
+  String get hash
+  {
+    String temp = "${dia}-${carbsHr}-${list2String(listCarbratio)}-${list2String(listBasal)}-${list2String(
+      listSens)}-${list2String(listTargetHigh)}-${list2String(listTargetLow)}";
+    var bytes = convert.utf8.encode(temp);
+    return "${crypto.sha1.convert(bytes)}";
+  }
+
+
   ProfileStoreData get copy
   {
     ProfileStoreData ret = ProfileStoreData(name)
@@ -484,19 +506,19 @@ class ProfileStoreData extends JsonData
   {
     list.sort((a, b)
     => a._time.compareTo(b._time));
-    if(list.length > 0 && list.first._time.hour != 0)
+    if (list.length > 0 && list.first._time.hour != 0)
+    {
+      ProfileEntryData first = list.last.copy;
+      if (first.value == list.first.value)
       {
-        ProfileEntryData first = list.last.copy;
-        if(first.value == list.first.value)
-        {
-          list.first._time = list.first._time.add(Duration(hours: -first._time.hour));
-        }
-        else
-        {
-          first._time = first._time.add(Duration(hours: -first._time.hour));
-          list.insert(0, first);
-        }
+        list.first._time = list.first._time.add(Duration(hours: -first._time.hour));
       }
+      else
+      {
+        first._time = first._time.add(Duration(hours: -first._time.hour));
+        list.insert(0, first);
+      }
+    }
   }
 
   factory ProfileStoreData.fromJson(String name, Map<String, dynamic> json, double percentage, int timeshift){

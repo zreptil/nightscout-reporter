@@ -62,6 +62,7 @@ abstract class BaseProfile extends BasePrint
     DateTime startDate = DateTime(src.begDate.year, src.begDate.month, src.begDate.day);
     DateTime endDate = DateTime(src.endDate.year, src.endDate.month, src.endDate.day + 1);
     List<ProfileData> profiles = src.profiles;
+    List<String> _alreadyDone = List<String>();
     for (int i = 0; i < src.profiles.length; i++)
     {
       profEndTime;
@@ -94,6 +95,10 @@ abstract class BaseProfile extends BasePrint
         calc.nextBRTimes = src.profiles[i].current.listBasal;
         calc.endDate = null;
       }
+
+      String hash = src.profiles[i].current.hash;
+      if(_alreadyDone.contains(hash))continue;
+      _alreadyDone.add(hash);
 
       for (int p = 0; !done; p++)
       {

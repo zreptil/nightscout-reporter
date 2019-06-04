@@ -78,8 +78,8 @@ class PrintProfile extends BaseProfile
         }
       }
       bool showValue = true;
-      if (isSingleDay)
-        showValue = isSingleDayRange(startTime, endTime);
+//      if (isSingleDay)
+//        showValue = isSingleDayRange(startTime, endTime);
 
       if (showValue && currPage == page)
       {
@@ -114,7 +114,7 @@ class PrintProfile extends BaseProfile
   {
     _fontSize = 10;
     subtitle = profile.store.name;
-    titleInfo = titleInfoTimeRange(profStartTime, profEndTime);
+    titleInfo = "";//titleInfoTimeRange(profStartTime, profEndTime);
 
     dynamic tableBody = [
       [

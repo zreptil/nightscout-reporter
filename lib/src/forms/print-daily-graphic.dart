@@ -154,7 +154,7 @@ class PrintDailyGraphic extends BasePrint
   static String get msgParam18
   => Intl.message("Insulin für Kohlenhydrate anzeigen");
   static String get msgParam19
-  => Intl.message("CGP pro Tag anzeigen");
+  => Intl.message("Glukose Pentagon erzeugen");
 
   @override
   List<String> get imgList

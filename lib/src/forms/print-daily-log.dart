@@ -121,7 +121,7 @@ class PrintDailyLog extends BaseProfile
     _headLine = [];
     _isFirstLine = true;
 
-    int groupMinutes = g.isLocal ? 15 : 0;
+    int groupMinutes = g.isLocal ? 5 : 0;
     DateTime nextTime = DateTime(day.date.year, day.date.month, day.date.day, 0, groupMinutes);
 
     List<String> list = List<String>();
@@ -136,38 +136,40 @@ class PrintDailyLog extends BaseProfile
 
       if (groupMinutes == 0 || !t.createdAt.isBefore(nextTime))
       {
-        DateTime time = t.createdAt;
+        int lineCount = fillRow(nextTime.add(Duration(minutes: -groupMinutes)), src, day, row, list, "row");
+        list.clear();
+        if (lineCount > 0)
+        {
+          _hasData = true;
+          if (_isFirstLine)
+          {
+            _body.add(_headLine);
+            _y += lineHeight(1);
+            _isFirstLine = false;
+          }
+
+          _y += lineHeight(lineCount);
+          if (_y > height - 1.7)
+          {
+            _page.add(headerFooter());
+            _page.add(getTable(_widths, _body));
+            pages.add(_page);
+            _page = [];
+            _body = [_headLine];
+            _y = yorg - 0.3 + lineHeight(2);
+            _isFirstLine = false;
+          }
+          _body.add(row);
+        }
+
+        nextTime = nextTime.add(Duration(minutes: groupMinutes));
         if (groupMinutes > 0)
         {
-          time = nextTime.add(Duration(minutes: -groupMinutes));
-          nextTime = nextTime.add(Duration(minutes: groupMinutes));
           if (!t.createdAt.isBefore(nextTime))
+          {
             i--;
+          }
         }
-        int lineCount = fillRow(time, src, day, row, list, "row");
-        list.clear();
-        if (lineCount == 0)continue;
-
-        _hasData = true;
-        if (_isFirstLine)
-        {
-          _body.add(_headLine);
-          _y += lineHeight(1);
-          _isFirstLine = false;
-        }
-
-        _y += lineHeight(lineCount);
-        if (_y > height - 1.7)
-        {
-          _page.add(headerFooter());
-          _page.add(getTable(_widths, _body));
-          pages.add(_page);
-          _page = [];
-          _body = [_headLine];
-          _y = yorg - 0.3 + lineHeight(2);
-          _isFirstLine = false;
-        }
-        _body.add(row);
       }
     }
   }
@@ -216,8 +218,7 @@ class PrintDailyLog extends BaseProfile
       list.add(getProfileSwitch(src, day, t));
     }
 
-    if(list.length != lastIdx)
-      list.insert(lastIdx, fmtTime(t.createdAt));
+    if (list.length != lastIdx)list.insert(lastIdx, fmtTime(t.createdAt));
   }
 
   int fillRow(DateTime time, ReportData src, DayData day, dynamic row, List<String> list, String style)
@@ -271,7 +272,8 @@ class PrintDailyLog extends BaseProfile
   }
 
   @override
-  getPage(int page, ProfileGlucData profile, CalcData calc) {
+  getPage(int page, ProfileGlucData profile, CalcData calc)
+  {
     // TODO: implement getPage
     return null;
   }

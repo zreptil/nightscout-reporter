@@ -81,7 +81,7 @@ class Globals
   static tz.Location refLocation = tz.getLocation("Europe/Berlin");
   static DateTime get now
   => DateTime.now();
-  String version = "1.3";
+  String version = "1.3ßa";
   String lastVersion;
   static const int PDFUNLIMITED = 4000000;
   static const int PDFDIVIDER = 100000;

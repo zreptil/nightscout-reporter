@@ -68,7 +68,7 @@ class PentagonData
   static String msgMEANInfo(hba1c)
   {
     return Intl.message(
-      "Der glykämische Mittelwert im betrachteten Zeitraum (errechneter HbA1c: ${hba1c}%).", args: [hba1c],
+      "Der glykämische Mittelwert im betrachteten Zeitraum.", args: [hba1c],
       name: "msgMEANINfo");
   }
 
