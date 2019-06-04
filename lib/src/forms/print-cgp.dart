@@ -24,7 +24,7 @@ class PentagonScaleData
 class PentagonData
 {
   static String get msgTOR
-  => Intl.message("ZAZ [min/d]");//Intl.message("ToR [min/d]");
+  => Intl.message("ToR [min/d]");
   static String get msgCV
   => Intl.message("VarK [%]");//Intl.message("CV [%]");
   static String msgHYPO(unit)
@@ -334,10 +334,10 @@ class PrintCGP extends BasePrint
         "body": [
           [{"text": PentagonData.msgGreen, "colSpan": 2}, {}],
           [{"text": PentagonData.msgYellow, "colSpan": 2}, {}],
-          [{"text": PentagonData.msgTOR}, {"text": PentagonData.msgTORInfo("70 ${unit}", "160 ${unit}")}],
+          [{"text": PentagonData.msgTOR}, {"text": PentagonData.msgTORInfo("70 ${unit}", "180 ${unit}")}],
           [{"text": PentagonData.msgCV}, {"text": PentagonData.msgCVInfo}],
           [{"text": PentagonData.msgHYPO(unit)}, {"text": PentagonData.msgHYPOInfo("70 ${unit}")}],
-          [{"text": PentagonData.msgHYPER(unit)}, {"text": PentagonData.msgHYPERInfo("160 ${unit}")}],
+          [{"text": PentagonData.msgHYPER(unit)}, {"text": PentagonData.msgHYPERInfo("180 ${unit}")}],
           [{"text": PentagonData.msgMEAN(unit)}, {"text": PentagonData.msgMEANInfo(hba1c(mean))}],
           [
             {"margin": [cm(0), cm(0.5), cm(0), cm(0)], "text": PentagonData.msgPGR},
@@ -376,7 +376,7 @@ class PrintCGP extends BasePrint
     }
     else if (data is List<DayData>)
     {
-      // calculate area under curve for values >= 160 mg/dl and values <= 54 mg/dl
+      // calculate area under curve for values >= 180 mg/dl and values <= 70 mg/dl
       // loop through every day in period
       for (DayData day in data)
       {
@@ -401,15 +401,16 @@ class PrintCGP extends BasePrint
     // loop through every entry in the day
     for (EntryData entry in day.entries)
     {
-      // if gluc is 160 or above
+      if(entry.isGap)continue;
+      // if gluc is 180 or above
       // add area under curve for 5 minutes
-      if (entry.gluc >= 160)
+      if (entry.gluc >= 180)
       {
         hyper += entry.gluc * 5;
         hyperTime += 5;
       }
 
-      // if gluc is 54 or below
+      // if gluc is 70 or below
       // add area under curve for 5 minutes
       if (entry.gluc <= 70)
       {
@@ -452,7 +453,7 @@ class PrintCGP extends BasePrint
     }
 
     int count = data.entries.where((entry)
-    => !entry.isInvalidOrGluc0 && entry.gluc >= 70 && entry.gluc <= 160).length;
+    => !entry.isInvalidOrGluc0 && entry.gluc >= 70 && entry.gluc <= 180).length;
 
     double tor = 1440 - count / data.count * 1440;
 
