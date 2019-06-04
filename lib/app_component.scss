@@ -200,13 +200,14 @@ material-drawer {
 .shift1, .shift2 {
   background: $primary_back;
   color: $primary_fore;
+
   ::ng-deep .content {
     font-size: 50%;
   }
 }
 
-.sendMarked{
-  background: $send_marked!important;
+.sendMarked {
+  background: $send_marked !important;
 }
 
 .shift1 {
@@ -223,7 +224,7 @@ material-drawer {
 }
 
 .stop {
-  background: $mat-red-500!important;
+  background: $mat-red-500 !important;
   color: $mat-white;
 }
 
@@ -497,6 +498,12 @@ material-expansionpanel {
   ::ng-deep .header {
     border: 2px solid transparent;
     padding-left: 0;
+  }
+
+  ::ng-deep main:not(.hidden) {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 0.5em;
+    padding-top: 0.5em;
   }
 
   ::ng-deep div[aria-expanded="true"] {

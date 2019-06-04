@@ -1096,6 +1096,21 @@ class DayData
     return ret;
   }
 
+  double get avgGluc
+  {
+    double ret = 0.0;
+    int count = 0;
+    for (var entry in entries)
+    {
+      if (entry.gluc > 0)
+      {
+        ret += entry.gluc;
+        count++;
+      }
+    }
+    return count > 0 ? ret / count : 0.0;
+  }
+
   double get varK
   => (mid ?? 0) != 0 ? stdAbw(true) / mid * 100 : 0;
   double get lowPrz

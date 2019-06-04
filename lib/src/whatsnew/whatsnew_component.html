@@ -12,6 +12,12 @@
     <div class="root">
       <h2><span @i18n="version">Version</span><span @i18n="v1212">1.3.0 - xx.05.2019</span></h2>
       <ul>
+        <li class="added" @i18n="v130a1">
+          Das "Comprehensive Glucose Pentagon" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite
+          zur Tagesgrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren
+          Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird
+          ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.
+        </li>
         <li class="changed" @i18n="v130c1">
           Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel
           werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte
@@ -24,6 +30,10 @@
         <li class="fixed" @i18n="v130f1">
           Die Ermittlung der Einheit (mg/dl oder mmol/l) wird nun flexibler gehandhabt, so dass auch Leerzeichen
           in der entsprechenden Einstellung nicht mehr zu einer Fehlinterpretation führen.
+        </li>
+        <li class="fixed" @i18n="v130f2">
+          Ein Fehler wurde behoben, der in der Tagesgrafik dazu führte, dass Texte in der Legende andere Texte
+          überschrieben haben.
         </li>
       </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v1211">1.2.11 - 17.05.2019</span></h2>

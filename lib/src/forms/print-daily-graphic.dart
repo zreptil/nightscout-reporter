@@ -5,7 +5,7 @@ import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
-
+import 'print-cgp.dart';
 
 class CollectInfo
 {
@@ -42,7 +42,7 @@ class PrintDailyGraphic extends BasePrint
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, showNotes,
     sortReverse, showGlucTable, showSMBAtGluc, showInfoLinesAtGluc, sumNarrowValues, showSMB, splitBolus, showExercises,
-    showCarbIE;
+    showCarbIE, showCGP;
 
   @override
   List<ParamInfo> params = [
@@ -64,6 +64,7 @@ class PrintDailyGraphic extends BasePrint
     ParamInfo(16, msgParam16, boolValue: false),
     ParamInfo(17, msgParam17, boolValue: false),
     ParamInfo(5, msgParam18, boolValue: false),
+    ParamInfo(18, msgParam19, boolValue: false),
   ];
 
 
@@ -87,6 +88,7 @@ class PrintDailyGraphic extends BasePrint
     splitBolus = params[15].boolValue;
     showExercises = params[16].boolValue;
     showCarbIE = params[17].boolValue;
+    showCGP = params[18].boolValue;
 
     switch (params[6].intValue)
     {
@@ -151,6 +153,8 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Training anzeigen");
   static String get msgParam18
   => Intl.message("Insulin für Kohlenhydrate anzeigen");
+  static String get msgParam19
+  => Intl.message("CGP pro Tag anzeigen");
 
   @override
   List<String> get imgList
@@ -242,10 +246,12 @@ class PrintDailyGraphic extends BasePrint
       if (day.entries.length != 0 || day.treatments.length != 0)
       {
         pages.add(getPage(day, src));
+        if (showCGP)pages.add(getCGPPage(day, src));
         if (g.showBothUnits)
         {
           g.glucMGDL = !g.glucMGDL;
           pages.add(getPage(day, src));
+          if (showCGP)pages.add(getCGPPage(day, src));
           g.glucMGDL = !g.glucMGDL;
         }
       }
@@ -264,6 +270,7 @@ class PrintDailyGraphic extends BasePrint
   bool hasExercises;
   getPage(DayData day, ReportData src)
   {
+    footerTextAboveLine["text"] = "";
     double graphHeightSave = graphHeight;
     hasExercises = day.treatments.firstWhere((t)
     => t.eventType.toLowerCase() == "exercise", orElse: ()
@@ -273,6 +280,35 @@ class PrintDailyGraphic extends BasePrint
     glucExerciseTop = graphHeight;
     var ret = _getPage(day, src);
     graphHeight = graphHeightSave;
+    return ret;
+  }
+
+  getCGPPage(DayData day, ReportData src)
+  {
+    PrintCGP cgpPage = PrintCGP();
+    cgpPage.scale = scale;
+    title = cgpPage.title;
+    subtitle = cgpPage.subtitle;
+    var cgpSrc = cgpPage.calcCGP(src, day, 1.0, 0, 0.3);
+    PentagonData cgp = cgpSrc["cgp"];
+    footerTextAboveLine = cgpPage.footerTextAboveLine;
+    footerTextAboveLine["y"] = 0.9;
+    double x = xorg + 2 * cgp.axisLength / cgp.scale + 1.2;
+    double y = yorg + 2.0;
+    var ret = [
+      headerFooter(),
+      {"relativePosition": {"x": cm(xorg) + cm(cgp.axisLength / cgp.scale), "y": cm(y)}, "canvas": cgp.outputCvs},
+      {"relativePosition": {"x": cm(xorg) + cm(cgp.axisLength / cgp.scale), "y": cm(y)}, "stack": cgp.outputText},
+
+      cgpPage.infoTable(
+        cgpSrc["pgr"],
+        cgp.glucInfo["unit"],
+        cgpSrc["mean"],
+        x,
+        y,
+        2.5,
+        width - x - xorg - 2.5)
+    ];
     return ret;
   }
 
@@ -949,11 +985,13 @@ class PrintDailyGraphic extends BasePrint
         legend, "", msgAmpulleChange, image: "ampulle.print", imgWidth: 0.4, imgOffsetY: 0.1);
       if (showGlucTable)
       {
-        if (hasLowGluc)addLegendEntry(
-          legend, colLow, msgGlucLow, graphText: glucFromData(day.basalData.targetLow), newColumn: true);
+        if (hasLowGluc)addLegendEntry(legend, colLow, msgGlucLow, graphText: glucFromData(day.basalData.targetLow),
+          newColumn: legend.columns.length < 3);
         if (hasNormGluc)addLegendEntry(legend, colNorm, msgGlucNorm,
-          graphText: glucFromData((day.basalData.targetLow + day.basalData.targetHigh) / 2), newColumn: !hasLowGluc);
-        if (hasHighGluc)addLegendEntry(legend, colHigh, msgGlucHigh, graphText: glucFromData(day.basalData.targetHigh));
+          graphText: glucFromData((day.basalData.targetLow + day.basalData.targetHigh) / 2),
+          newColumn: !hasLowGluc && legend.columns.length < 3);
+        if (hasHighGluc)addLegendEntry(legend, colHigh, msgGlucHigh, graphText: glucFromData(day.basalData.targetHigh),
+          newColumn: !hasLowGluc && !hasNormGluc && legend.columns.length < 3);
       }
 
 

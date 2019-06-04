@@ -23,70 +23,136 @@ class PentagonScaleData
 
 class PentagonData
 {
-  /*
-    Quellangabe:
+  static String get msgTOR
+  => Intl.message("ZAZ [min/d]");//Intl.message("ToR [min/d]");
+  static String get msgCV
+  => Intl.message("VarK [%]");//Intl.message("CV [%]");
+  static String msgHYPO(unit)
+  => Intl.message("Intensität HYPO\n[${unit} x min²]", args: [unit], name: "msgHYPO");//Intl.message("Intensity HYPO\n[${unit} x min²]", args: [unit], name: "msgHYPO");
+  static String msgHYPER(unit)
+  => Intl.message("Intensität HYPER\n[${unit} x min²]", args: [unit], name: "msgHYPER");//Intl.message("Intensity HYPER\n[${unit} x min²]", args: [unit], name: "msgHYPER");
+  static String msgMEAN(unit)
+  => Intl.message("Mittlere Glukose\n[${unit}]", args: [unit], name: "msgMEAN");//Intl.message("Mean glucose\n[${unit}]", args: [unit], name: "msgMEAN");
+  static String get msgPGR
+  => Intl.message("PGR");
 
-    Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018).
-    The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing
-    Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology,
-    12(1), 114–123.
+  static String get msgGreen
+  => Intl.message("Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.");
+  static String get msgYellow
+  => Intl.message("Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.");
 
-    https://doi.org/10.1177/1932296817718561
-   */
-  List<PentagonScaleData> axis = [PentagonScaleData([0, 300, 480, 720, 900, 1080, 1200, 1440], scaleMethod: (v)
-  => math.pow(v * 0.00614, 1.581) + 14,
-    name: "ToR [min/d]",
-    nameX: -2.5,
-    nameY: -0.4,
-    valueX: 0.15,
-    valueY: -0.11), PentagonScaleData([16.7, 20, 30, 40, 50, 60, 70, 80], scaleMethod: (v)
-  => (v - 17) * 0.92 + 14,
-    name: "CV [%]",
-    nameX: -2.5,
-    nameY: -0.4,
-    valueX: -0.1,
-    valueY: 0.1), PentagonScaleData([0, 3, 4, 5, 6, 7, 7.2], scaleMethod: (v)
-  => math.exp(v * 0.57) + 13,
-    name: "Intensity HYPO\n[mg/dl x min²]",
-    end: 0.25,
-    nameX: -2.5,
-    nameY: 0.0,
-    valueX: -0.2,
-    valueY: 0.1), PentagonScaleData([0, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130], scaleMethod: (v)
-  => math.pow(v * 0.115, 1.51) + 14,
-    name: "Intensity HYPER\n[mg/dl x min²]",
-    beg: 0.25,
-    nameX: -2.5,
-    nameY: 0.0,
-    valueX: 0.1,
-    valueY: 0.1), PentagonScaleData([130, 190, 220, 250, 280, 310], scaleMethod: (v)
-  => math.pow((v - 90) * 0.0217, 2.63) + 14,
-    name: "Mean glucose\n[mg/dl]",
-    nameX: -2.5,
-    nameY: -0.73,
-    valueX: -0.2,
-    valueY: 0.1),
-  ];
+  static String msgTORInfo(min, max)
+  {
+    return Intl.message(
+      "Die Zeit pro Tag in Minuten, in denen die Werte ausserhalb des Bereichs ${min} bis ${max} liegen.",
+      args: [min, max], name: "msgTORInfo");
+  }
+
+  static String get msgCVInfo
+  =>
+    Intl.message(
+      "Die glykämische Variabilität stellt die Streuung der Werte um den glykämischen Mittelwert herum in Prozent dar.");
+
+  static String msgHYPOInfo(unit)
+  {
+    return Intl.message("Die Intensität von Hypoglykämien pro Tag (Werte kleiner oder gleich ${unit}).", args: [unit],
+      name: "msgHYPOInfo");
+  }
+
+  static String msgHYPERInfo(unit)
+  {
+    return Intl.message("Die Intensität von Hyperglykämien pro Tag (Werte grösser oder gleich ${unit}).", args: [unit],
+      name: "msgHYPERInfo");
+  }
+
+  static String msgMEANInfo(hba1c)
+  {
+    return Intl.message(
+      "Der glykämische Mittelwert im betrachteten Zeitraum (errechneter HbA1c: ${hba1c}%).", args: [hba1c],
+      name: "msgMEANINfo");
+  }
+
+  static String get msgPGRInfo
+  => Intl.message("Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).");
+  static String get msgPGR02
+  => Intl.message("0,0 bis 2,0");
+  static String get msgPGR02Info
+  => Intl.message("sehr geringes Risiko");
+  static String get msgPGR23
+  => Intl.message("2,1 bis 3,0");
+  static String get msgPGR23Info
+  => Intl.message("geringes Risiko");
+  static String get msgPGR34
+  => Intl.message("3,1 bis 4,0");
+  static String get msgPGR34Info
+  => Intl.message("moderates Risiko");
+  static String get msgPGR45
+  => Intl.message("4,1 bis 4,5");
+  static String get msgPGR45Info
+  => Intl.message("hohes Risiko");
+  static String get msgPGR5
+  => Intl.message("ab 4,6");
+  static String get msgPGR5Info
+  => Intl.message("extrem hohes Risiko");
+
+  List<PentagonScaleData> axis;
   double defFontSize = 6;
   double xm, ym, scale, fontsize;
-  double _axisLength;
+  double axisLength;
   double deg;
+  var glucInfo;
   var cm, fs;
   var outputCvs = [];
   var outputText = [];
 
-  PentagonData(this.cm, this.fs, {this.xm, this.ym, this.scale, this.fontsize = -1})
+  PentagonData(this.glucInfo, this.cm, this.fs, {this.xm, this.ym, this.scale, this.fontsize = -1})
   {
+    axis = [PentagonScaleData([0, 300, 480, 720, 900, 1080, 1200, 1440], scaleMethod: (v)
+    => math.pow(v * 0.00614, 1.581) + 14,
+      name: msgTOR,
+      nameX: -2.5,
+      nameY: -0.4,
+      valueX: 0.15,
+      valueY: -0.11), PentagonScaleData([16.7, 20, 30, 40, 50, 60, 70, 80], scaleMethod: (v)
+    => (v >= 17 ? v - 17 : 0) * 0.92 + 14,
+      name: msgCV,
+      nameX: -2.3,
+      nameY: -0.4,
+      valueX: -0.1,
+      valueY: 0.1), PentagonScaleData([0, 3, 4, 5, 6, 7, 7.2], scaleMethod: (v)
+    => math.exp(v * 0.57) + 13,
+      name: msgHYPO(glucInfo["unit"]),
+      end: 0.25,
+      nameX: -2.5,
+      nameY: 0.1,
+      valueX: -0.2,
+      valueY: 0.1), PentagonScaleData([0, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130], scaleMethod: (v)
+    => math.pow(v * 0.115, 1.51) + 14,
+      name: msgHYPER(glucInfo["unit"]),
+      beg: 0.25,
+      nameX: -2.5,
+      nameY: 0.1,
+      valueX: 0.1,
+      valueY: 0.1), PentagonScaleData([130, 190, 220, 250, 280, 310], scaleMethod: (v)
+    => math.pow((v >= 90 ? v - 90 : 0.0) * 0.0217, 2.63) + 14,
+      name: msgMEAN(glucInfo["unit"]),
+      nameX: -2.5,
+      nameY: -0.73,
+      valueX: -0.2,
+      valueY: 0.1),
+    ];
+
     deg = (360.0 / axis.length) * math.pi / 180.0;
     double h = 7.6;
     double a = h / math.sqrt(5 + 2 * math.sqrt(5)) * 2;
-    _axisLength = math.sqrt(50 + 10 * math.sqrt(5)) / 10 * a;
+    axisLength = math.sqrt(50 + 10 * math.sqrt(5)) / 10 * a;
     if (fontsize == -1)fontsize = defFontSize;
     fontsize *= scale;
   }
 
   paintPentagon(double factor, double lw, {String colLine = null, String colFill = null, double opacity: 1.0})
   {
+    lw *= scale;
     var points = [];
     for (int i = 0; i < axis.length; i++)
       points.add(_point(i, factor));
@@ -98,6 +164,7 @@ class PentagonData
 
   paintAxis(double lw, {String colLine = null})
   {
+    lw *= scale;
     for (int i = 0; i < axis.length; i++)
     {
       if (i > 11)continue;
@@ -148,6 +215,7 @@ class PentagonData
   double paintValues(List<double> values, double lw,
                      {String colLine = null, String colFill = null, double opacity: 1.0})
   {
+    lw *= scale;
     var points = [];
     for (int i = 0; i < values.length && i < axis.length; i++)
     {
@@ -163,8 +231,8 @@ class PentagonData
 
   _point(int idx, double factor)
   {
-    double x = xm + math.sin(idx * deg) * _axisLength * scale * factor;
-    double y = ym - math.cos(idx * deg) * _axisLength * scale * factor;
+    double x = xm + math.sin(idx * deg) * axisLength * scale * factor;
+    double y = ym - math.cos(idx * deg) * axisLength * scale * factor;
     return {"x": cm(x), "y": cm(y)};
   }
 
@@ -198,19 +266,22 @@ class PrintCGP extends BasePrint
   List<ParamInfo> params = [];
 
   @override
-  bool get isPortrait
-  => true;
+  bool isPortrait = true;
 
   PrintCGP()
   {
+    footerTextAboveLine = {
+      "x": 0,
+      "y": 1.2,
+      "fs": 8,
+      "text": "${msgSource}: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)"
+    };
     init();
   }
 
   @override
   prepareData_(ReportData data)
   {
-//    isPreciseMaterial = params[0].boolValue;
-
     return data;
   }
 
@@ -218,104 +289,198 @@ class PrintCGP extends BasePrint
   void fillPages(ReportData src, List<List<dynamic>> pages)
   {
     pages.add(getPage(src));
+    if (g.showBothUnits)
+    {
+      g.glucMGDL = !g.glucMGDL;
+      pages.add(getPage(src));
+      g.glucMGDL = !g.glucMGDL;
+    }
   }
 
   getPage(ReportData src)
   {
     titleInfo = titleInfoBegEnd(src);
+    var cgpSrc = calcCGP(src, src.calc.days, scale, width / 2 - xorg, 0);
+    PentagonData cgp = cgpSrc["cgp"];
+// */
+    var ret = [
+      headerFooter(),
+      {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "canvas": cgp.outputCvs},
+      {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "stack": cgp.outputText},
+      infoTable(
+        cgpSrc["pgr"],
+        cgp.glucInfo["unit"],
+        cgpSrc["mean"],
+        xorg,
+        yorg + cgp.ym + cgp.axisLength * cgp.scale + 1.0,
+        2.5,
+        width - 2 * xorg - 2.5)
+//*
+      //     */
+    ];
+    return ret;
+  }
 
-    PentagonData cgp = PentagonData(cm, fs, xm: width / 2 - xorg, ym: 0, scale: 1.0);
-    cgp.ym += cgp._axisLength * 1.1 * cgp.scale;
+  infoTable(double pgr, String unit, double mean, double x, double y, double widthId, double widthText)
+  {
+    return {
+      "relativePosition": {"x": cm(x), "y": cm(y)},
+//        "margin": [cm(xorg), cm(0)],
+      "layout": "noBorders",
+      "fontSize": fs(8),
+      "table": {
+        "headerRows": 0,
+        "widths": [cm(widthId), cm(widthText)],
+        "body": [
+          [{"text": PentagonData.msgGreen, "colSpan": 2}, {}],
+          [{"text": PentagonData.msgYellow, "colSpan": 2}, {}],
+          [{"text": PentagonData.msgTOR}, {"text": PentagonData.msgTORInfo("70 ${unit}", "160 ${unit}")}],
+          [{"text": PentagonData.msgCV}, {"text": PentagonData.msgCVInfo}],
+          [{"text": PentagonData.msgHYPO(unit)}, {"text": PentagonData.msgHYPOInfo("70 ${unit}")}],
+          [{"text": PentagonData.msgHYPER(unit)}, {"text": PentagonData.msgHYPERInfo("160 ${unit}")}],
+          [{"text": PentagonData.msgMEAN(unit)}, {"text": PentagonData.msgMEANInfo(hba1c(mean))}],
+          [
+            {"margin": [cm(0), cm(0.5), cm(0), cm(0)], "text": PentagonData.msgPGR},
+            {"margin": [cm(0), cm(0.5), cm(0), cm(0)], "text": PentagonData.msgPGRInfo}
+          ],
+          [
+            {"text": PentagonData.msgPGR02, "bold": pgr <= 2.0},
+            {"text": PentagonData.msgPGR02Info, "bold": pgr <= 2.0}
+          ],
+          [
+            {"text": PentagonData.msgPGR23, "bold": pgr > 2.0 && pgr <= 3.0},
+            {"text": PentagonData.msgPGR23Info, "bold": pgr > 2.0 && pgr <= 3.0}
+          ],
+          [
+            {"text": PentagonData.msgPGR34, "bold": pgr > 3.0 && pgr <= 4.0},
+            {"text": PentagonData.msgPGR34Info, "bold": pgr > 3.0 && pgr <= 4.0}
+          ],
+          [
+            {"text": PentagonData.msgPGR45, "bold": pgr > 4.0 && pgr <= 4.5},
+            {"text": PentagonData.msgPGR45Info, "bold": pgr > 4.0 && pgr <= 4.5}
+          ],
+          [{"text": PentagonData.msgPGR5, "bold": pgr > 4.5}, {"text": PentagonData.msgPGR5Info, "bold": pgr > 4.5}],
+        ]
+      }
+    };
+  }
 
+  _calcAUC(var data)
+  {
+    double hyperAUC = 0.0;
+    double hypoAUC = 0.0;
+
+    if (data is DayData)
+    {
+      return _calcAUCForDay(data);
+    }
+    else if (data is List<DayData>)
+    {
+      // calculate area under curve for values >= 160 mg/dl and values <= 54 mg/dl
+      // loop through every day in period
+      for (DayData day in data)
+      {
+        var auc = _calcAUCForDay(day);
+        hyperAUC += auc["hyper"];
+        hypoAUC += auc["hypo"];
+      }
+
+      hyperAUC /= data.length;
+      hypoAUC /= data.length;
+    }
+
+    return {"hyper": hyperAUC, "hypo": hypoAUC};
+  }
+
+  _calcAUCForDay(DayData day)
+  {
+    double hyperTime = 0.0;
+    double hyper = 0.0;
+    double hypoTime = 0.0;
+    double hypo = 0.0;
+    // loop through every entry in the day
+    for (EntryData entry in day.entries)
+    {
+      // if gluc is 160 or above
+      // add area under curve for 5 minutes
+      if (entry.gluc >= 160)
+      {
+        hyper += entry.gluc * 5;
+        hyperTime += 5;
+      }
+
+      // if gluc is 54 or below
+      // add area under curve for 5 minutes
+      if (entry.gluc <= 70)
+      {
+        hypo += (70 - entry.gluc) * 5;
+        hypoTime += 5;
+      }
+    }
+    // calculate value for hyper
+    hyper = math.sqrt(hyper * hyper + hyperTime * hyperTime) / 1000;
+    // calculate value for hypo
+    hypo = math.sqrt(hypo * hypo + hypoTime * hypoTime) / 1000;
+
+    return {"hyper": hyper, "hypo": hypo};
+  }
+
+  calcCGP(ReportData src, var dayData, double scale, double xm, double ym)
+  {
+    PentagonData cgp = PentagonData(getGlucInfo(), cm, fs, xm: xm, ym: ym, scale: scale);
+    cgp.ym += cgp.axisLength * 1.1 * cgp.scale;
     cgp.paintPentagon(1.0, lw, colLine: colCGPLine);
     cgp.paintAxis(lw, colLine: colValue);
+
     double areaHealthy = cgp.paintValues(
       [0, 16.7, 0, 0, 90], lw, colLine: colCGPHealthyLine, colFill: colCGPHealthyFill, opacity: 0.4);
-//    cgp.paint(0.54, lw, colLine: colValue);
-//    cgp.paint(0.28, lw, colLine: colValue);
-//    cgp.paint(0.20, lw, colLine: colValue, colFill: "#00ff00", opacity: 0.4);
-//    cgp.paint(0.18, lw, colLine: colValue);
 
     var data = src.ns;
     DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")));
     totalDay.entries.addAll(data.entries);
     totalDay.init();
-    double tor = 1440 - data.stat["norm"].values.length / data.count * 1440;
-
-    double hyperAUC = 0.0;
-    double hypoAUC = 0.0;
-
-    // calculate area under curve for values >= 160 mg/dl and values <= 54 mg/dl
-    // loop through every day in period
-    for (DayData day in src.calc.days)
+    double avgGluc = 0.0;
+    if (dayData is DayData)
     {
-      double hyperDay = 0.0;
-      double hyperDayTime = 0.0;
-      double hypoDay = 0.0;
-      double hypoDayTime = 0.0;
-      // loop through every entry in the day
-      for (EntryData entry in day.entries)
-      {
-        // if gluc is 160 or above
-        // add area under curve for 5 minutes
-        if (entry.gluc >= 160)
-        {
-          hyperDay += entry.gluc * 5;
-          hyperDayTime += 5;
-        }
-
-        // if gluc is 54 or below
-        // add area under curve for 5 minutes
-        if (entry.gluc <= 54)
-        {
-          hypoDay += entry.gluc * 5;
-          hypoDayTime += 5;
-        }
-      }
-      // calculate value for hyper
-      double h = math.sqrt(hyperDay * hyperDay + hyperDayTime * hyperDayTime) / 1000;
-      // calculate mean value of this value and last value
-      hyperAUC += h;
-      // calculate value for hypo
-      h = math.sqrt(hypoDay * hypoDay + hypoDayTime * hypoDayTime) / 1000;
-      // calculate mean value of this value and last value
-      hypoAUC += h;
+      avgGluc = dayData.avgGluc;
+    }
+    else if (dayData is List<DayData>)
+    {
+      for (DayData day in dayData)
+        avgGluc += day.avgGluc;
+      avgGluc /= dayData.length;
     }
 
-    hyperAUC /= src.calc.days.length;
-    hypoAUC /= src.calc.days.length;
+    int count = data.entries.where((entry)
+    => !entry.isInvalidOrGluc0 && entry.gluc >= 70 && entry.gluc <= 160).length;
 
+    double tor = 1440 - count / data.count * 1440;
+
+    var auc = _calcAUC(dayData);
+    double hyperAUC = auc["hyper"];
+    double hypoAUC = auc["hypo"];
+//*
     double areaPatient = cgp.paintValues(
-      [tor, totalDay.varK, hypoAUC, hyperAUC, data.avgGluc], lw, colLine: colCGPPatientLine,
+      [tor, totalDay.varK, hypoAUC, hyperAUC, avgGluc], lw, colLine: colCGPPatientLine,
       colFill: colCGPPatientFill,
       opacity: 0.4);
+// */
+//    double areaPatient = 1.0;
+    double pgr = areaPatient / areaHealthy;
 
     cgp.outputText.add({
-      "relativePosition": {"x": cm(cgp.xm + cgp._axisLength / 2), "y": cm(cgp.ym - cgp._axisLength)},
-      "text": "PGR = ${g.fmtNumber(areaPatient / areaHealthy, 1)}",
-      "color": colCGPPatientLine,
-      "fontSize": fs(12)
-    });
-
-    cgp.outputText.add({
-      "absolutePosition": {"x": cm(xframe), "y": cm(height - 3.3)},
+      "relativePosition": {"x": cm(cgp.xm - 2.5), "y": cm(cgp.ym + cgp.axisLength * cgp.scale * 0.9)},
       "columns": [
         {
-          "width": cm(width - 2 * xframe),
-          "text": "${msgSource}: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon:\nA Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)",
-          "color": colValue,
-          "fontSize": fs(8),
-          "alignment": "justify"
+          "width": cm(5.0),
+          "text": "${PentagonData.msgPGR} = ${g.fmtNumber(pgr, 1)}",
+          "color": colCGPPatientLine,
+          "fontSize": fs(12 * cgp.scale),
+          "alignment": "center"
         }
       ]
     });
 
-// */
-    var ret = [
-      headerFooter(),
-      {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "canvas": cgp.outputCvs},
-      {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "stack": cgp.outputText}
-    ];
-    return ret;
+    return {"cgp": cgp, "pgr": pgr};
   }
 }

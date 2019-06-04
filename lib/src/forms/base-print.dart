@@ -181,6 +181,7 @@ abstract class BasePrint
 
   String titleInfo;
   String titleInfoSub = "";
+  var footerTextAboveLine = {"x": 0, "y": 0, "fs": 12, "text": ""};
   int pagesPerSheet = 1;
   List<ParamInfo> params = List<ParamInfo>();
   List<ParamInfo> get sortedParams
@@ -210,6 +211,7 @@ abstract class BasePrint
 
   double hba1cValue(double avgGluc)
   => avgGluc == null ? null : (avgGluc + 46.7) / 28.7;
+
   //(avgGluc / 18.02 + 2.645) / 1.649;
 
   String colText = "#008800";
@@ -787,6 +789,19 @@ abstract class BasePrint
           }
         ]
       },
+      footerTextAboveLine["text"] == "" ? null : {
+        "relativePosition": {
+          "x": cm(xframe + footerTextAboveLine["x"]),
+          "y": cm(height - 2.0 - footerTextAboveLine["y"])
+        },
+        "columns": [
+          {
+            "width": cm(width - 2 * xframe),
+            "text": footerTextAboveLine["text"],
+            "fontSize": fs(footerTextAboveLine["fs"])
+          }
+        ]
+      },
       g.hideNightscoutInPDF ? null : _getFooterImage("nightscout", x: xframe, y: height - 1.7, width: 0.7),
       g.hideNightscoutInPDF ? null : {
         "relativePosition": {"x": cm(3.1), "y": cm(height - 1.7)},
@@ -798,7 +813,13 @@ abstract class BasePrint
       {
         "relativePosition": {"x": cm(xframe), "y": cm(height - 1.7)},
         "columns": [
-          {"width": cm(width - 2 * xframe), "text": rightText, "color": colInfo, "alignment": "right", "fontSize": fs(10)}
+          {
+            "width": cm(width - 2 * xframe),
+            "text": rightText,
+            "color": colInfo,
+            "alignment": "right",
+            "fontSize": fs(10)
+          }
         ]
       }
     ]);
@@ -1199,7 +1220,7 @@ abstract class BasePrint
   {
     var ret = {"step": 1, "unit": "mg/dL"};
     if (!g.glucMGDL)ret = {"step": 0.1, "unit": "mmol/L"};
-
+    ret["factor"] = g.glucFactor;
     return ret;
   }
 
@@ -1350,7 +1371,7 @@ abstract class BasePrint
           "layout": "noBorders",
           "margin": [cm(0.0), cm(0), cm(0), cm(0.1)],
           "table": {
-            "widths": [cm(0.5)],
+            "widths": [cm(0.6)],
             "body": [
               [{"text": graphText, "color": "black", "fontSize": fs(6), "alignment": "center", "fillColor": color}]
             ]
