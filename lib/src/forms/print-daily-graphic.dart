@@ -52,7 +52,13 @@ class PrintDailyGraphic extends BasePrint
     ParamInfo(6, msgParam4, boolValue: true),
     ParamInfo(7, msgParam5, boolValue: true),
     ParamInfo(8, msgParam6, boolValue: false, isDeprecated: true),
-    ParamInfo(12, msgParam7, list: ["Eine", "Zwei", "Vier", "Acht", "Sechzehn"]),
+    ParamInfo(12, msgParam7, list: [
+      Intl.message("Eine"),
+      Intl.message("Zwei"),
+      Intl.message("Vier"),
+      Intl.message("Acht"),
+      Intl.message("Sechzehn")
+    ]),
     ParamInfo(10, msgParam8, boolValue: true),
     ParamInfo(9, msgParam9, boolValue: true),
     ParamInfo(11, msgParam10, boolValue: false),
@@ -152,7 +158,7 @@ class PrintDailyGraphic extends BasePrint
   static String get msgParam17
   => Intl.message("Training anzeigen");
   static String get msgParam18
-  => Intl.message("Insulin für Kohlenhydrate anzeigen");
+  => Intl.message("Berechnete IE für Kohlenhydrate anzeigen");
   static String get msgParam19
   => Intl.message("Glukose Pentagon erzeugen");
 
@@ -557,6 +563,7 @@ class PrintDailyGraphic extends BasePrint
     bool hasBolus = false;
     bool hasCarbBolus = false;
     bool hasCollectedValues = false;
+    bool hasCarbIE = false;
     List<double> noteLines = List<double>();
     for (TreatmentData t in day.treatments)
     {
@@ -584,8 +591,8 @@ class PrintDailyGraphic extends BasePrint
           });
           double carbsIE = carbsForIE(src, t);
           if (t.createdAt
-                .difference(collCarbs.last.start)
-                .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
+            .difference(collCarbs.last.start)
+            .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
           else
             collCarbs.add(CollectInfo(t.createdAt, t.carbs, carbsIE));
         }
@@ -608,8 +615,8 @@ class PrintDailyGraphic extends BasePrint
           });
 
           if (t.createdAt
-                .difference(collInsulin.last.start)
-                .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
+            .difference(collInsulin.last.start)
+            .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
           else
             collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
 
@@ -820,6 +827,7 @@ class PrintDailyGraphic extends BasePrint
         "color": colBolus
       });
     }
+
     for (CollectInfo info in collCarbs)
     {
       if (info.sum1 == 0.0)continue;
@@ -842,6 +850,7 @@ class PrintDailyGraphic extends BasePrint
           "fontSize": fs(7),
           "color": colCarbsText
         });
+        hasCarbIE = true;
         y -= 0.35;
       }
 
@@ -850,7 +859,7 @@ class PrintDailyGraphic extends BasePrint
     }
 
     DateTime date = DateTime(day.date.year, day.date.month, day.date.day);
-    ProfileGlucData profile = src.profile(date);
+    ProfileGlucData profile = src.profile(date, day.treatments);
     List targetValues = [];
     double lastTarget = -1;
     double yHigh = glucY(math.min(glucMax, src.status.settings.thresholds.bgTargetTop.toDouble()));
@@ -868,6 +877,7 @@ class PrintDailyGraphic extends BasePrint
         lastTarget = y;
       }
     }
+
     targetValues.add({
       "x": cm(glucX(DateTime(
         0,
@@ -938,6 +948,7 @@ class PrintDailyGraphic extends BasePrint
         text = "${g.fmtNumber(day.carbs, 0)}";
         addLegendEntry(legend, colCarbs, msgCarbs(text), isArea: false, lineWidth: 0.1);
       }
+      if (hasCarbIE)addLegendEntry(legend, "", msgCarbIE, graphText: "1,0 IE", colGraphText: colCarbsText);
       if (splitBolus)
       {
         double sum = day.ieCorrectionSum;
@@ -1047,8 +1058,8 @@ class PrintDailyGraphic extends BasePrint
       startDate = startDate.add(Duration(minutes: -1));
       for (ProfileData p in src.profiles)
       {
-        if (p.startDate.isAfter(startDate) && p.startDate.year == day.date.year && p.startDate.month == day.date.month
-            && p.startDate.day == day.date.day)
+        if (p.startDate.isAfter(startDate) && p.startDate.year == day.date.year &&
+          p.startDate.month == day.date.month && p.startDate.day == day.date.day)
         {
           double x = glucX(p.startDate);
           double y = graphHeight + basalTop + basalHeight;

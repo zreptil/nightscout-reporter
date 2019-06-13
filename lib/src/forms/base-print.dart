@@ -57,7 +57,11 @@ class ParamInfo
   int intValue;
   List<String> list;
   String get listValue
-  => intValue >= 0 && intValue < list.length ? list[intValue] : "";
+  {
+    if (list == null || list.length == 0) return "";
+    if (intValue == null || intValue < 0 || intValue >= list.length)return list[0];
+    return list[intValue];
+  }
 
   int min;
   int max;
@@ -82,6 +86,7 @@ class ParamInfo
   {
     boolValue = src.boolValue;
     stringValue = src.stringValue;
+    intValue = src.intValue;
   }
 
   fillFromJson(dynamic value)
@@ -325,6 +330,8 @@ abstract class BasePrint
   => Intl.message("Reservoirwechsel");
   String get msgCollectedValues
   => Intl.message("Aufsummierte Werte");
+  String get msgCarbIE
+  => Intl.message("Berechnete IE für Kohlenhydrate");
   msgKH(value)
   => Intl.message("${value}g", args: [value], name: "msgKH");
   msgReadingsPerDay(howMany, fmt)
@@ -1329,10 +1336,12 @@ abstract class BasePrint
   }
 
   addLegendEntry(LegendData legend, String color, String text,
-                 {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0, double lineWidth = 0.0, String graphText: null, newColumn: false, points: null})
+                 {bool isArea = true, String image = null, double imgWidth = 0.6, double imgOffsetY = 0.0, double lineWidth = 0.0, String graphText: null, newColumn: false, points: null, colGraphText: null, colLegendText: null})
   {
     List dst = legend.current(newColumn);
     if (lineWidth == 0.0)lineWidth = lw;
+    if (colGraphText == null)colGraphText == "black";
+    if (colLegendText == null)colLegendText = "black";
     if (points != null)
     {
       for (var pt in points)
@@ -1346,7 +1355,7 @@ abstract class BasePrint
             "width": cm(0.8),
             "canvas": [ {"type": "polyline", "closePath": true, "color": color, "lineWidth": cm(0), "points": points,}],
           },
-          {"text": text, "color": "black", "fontSize": fs(10)}
+          {"text": text, "color": colLegendText, "fontSize": fs(10)}
         ]
       });
     }
@@ -1360,7 +1369,7 @@ abstract class BasePrint
               {"margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), cm(0), cm(0)], "image": image, "width": cm(imgWidth)}
             ],
           },
-          {"text": text, "color": "black", "fontSize": fs(10)}
+          {"text": text, "color": colLegendText, "fontSize": fs(10)}
         ]
       });
     }
@@ -1373,11 +1382,11 @@ abstract class BasePrint
           "table": {
             "widths": [cm(0.6)],
             "body": [
-              [{"text": graphText, "color": "black", "fontSize": fs(6), "alignment": "center", "fillColor": color}]
+              [{"text": graphText, "color": colGraphText, "fontSize": fs(6), "alignment": "center", "fillColor": color}]
             ]
           }
         },
-        {"text": text, "color": "black", "fontSize": fs(10)}
+        {"text": text, "color": colLegendText, "fontSize": fs(10)}
       ]
     });
     else if (isArea)dst.add({
@@ -1386,7 +1395,7 @@ abstract class BasePrint
           "width": cm(0.8),
           "canvas": [
             {"type": "rect", "x": cm(0), "y": cm(0.1), "w": cm(0.5), "h": cm(0.3), "color": color, "fillOpacity": 0.3},
-            {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1},
+            {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": colGraphText, "fillOpacity": 1},
             {
               "type": "line",
               "x1": cm(0),
@@ -1407,7 +1416,7 @@ abstract class BasePrint
             }
           ]
         },
-        {"text": text, "color": "black", "fontSize": fs(10)}
+        {"text": text, "color": colLegendText, "fontSize": fs(10)}
       ]
     });
     else
@@ -1427,7 +1436,7 @@ abstract class BasePrint
               }
             ]
           },
-          {"text": text, "color": "black", "fontSize": fs(10)}
+          {"text": text, "color": colLegendText, "fontSize": fs(10)}
         ]
       });
   }

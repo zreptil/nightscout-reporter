@@ -20,7 +20,7 @@ abstract class BaseProfile extends BasePrint
   msgProfileSwitch(String oldName, String newName)
   => Intl.message("Profilwechsel - ${oldName} => ${newName}", args: [oldName, newName], name: "msgProfileSwitch");
   msgChangedEntry(String name, String from, String to)
-  => Intl.message("${name} geändert von ${from} auf ${to}", args: [name, from, to], name: "msgChangedEntry");
+  => Intl.message("${name} ${from} => ${to}", args: [name, from, to], name: "msgChangedEntry");
   get msgNoChange
   => Intl.message("Keine Änderung");
 
@@ -97,7 +97,7 @@ abstract class BaseProfile extends BasePrint
       }
 
       String hash = src.profiles[i].current.hash;
-      if(_alreadyDone.contains(hash))continue;
+      if (_alreadyDone.contains(hash))continue;
       _alreadyDone.add(hash);
 
       for (int p = 0; !done; p++)
@@ -167,11 +167,12 @@ abstract class BaseProfile extends BasePrint
         if (lowChanged || highChanged)
         {
           if (oldLow == null || oldHigh == null)temp.add(
-            "ab ${fmtTime(highTime, withUnit: true)} neuer Bereich ${currLow.value} - ${currHigh.value}");
+            "ab ${fmtTime(highTime, withUnit: true)} neuer Bereich ${g.fmtBasal(currLow.value)} - ${g.fmtBasal(
+              currHigh.value)}");
           else
             temp.add(
-              "ab ${fmtTime(highTime, withUnit: true)} ${oldLow} - ${oldHigh} geändert auf ${currLow.value} - ${currHigh
-                .value}");
+              "ab ${fmtTime(highTime, withUnit: true)} ${oldLow} - ${g.fmtBasal(oldHigh)} => ${currLow.value} - ${g
+                .fmtBasal(currHigh.value)}");
         }
       }
       if (temp.length > 1)ret.addAll(temp);
@@ -202,10 +203,10 @@ abstract class BaseProfile extends BasePrint
       else if (old.value != entry.value) hasChanged = true;
       if (hasChanged)
       {
-        if (old == null)ret.add("ab ${fmtTime(time, withUnit: true)}: neuer Wert ${entry?.value ?? 'null'}");
-        else if (entry == null)ret.add("ab ${fmtTime(time, withUnit: true)}: ${old.value} gelöscht");
+        if (old == null)ret.add("ab ${fmtTime(time, withUnit: true)}: neuer Wert ${g.fmtBasal(entry?.value)}");
+        else if (entry == null)ret.add("ab ${fmtTime(time, withUnit: true)}: ${g.fmtBasal(old.value)} gelöscht");
         else
-          ret.add("ab ${fmtTime(time, withUnit: true)}: ${old.value} geändert auf ${entry.value}");
+          ret.add("ab ${fmtTime(time, withUnit: true)}: ${g.fmtBasal(old.value)} => ${g.fmtBasal(entry.value)}");
       }
     }
     if (ret.length > 0)

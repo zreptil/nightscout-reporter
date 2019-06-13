@@ -10,13 +10,19 @@
       </material-button>
     </div>
     <div class="root">
-      <h2><span @i18n="version">Version</span><span @i18n="v1212">1.3.0 - xx.05.2019</span></h2>
+      <h2><span @i18n="version">Version</span><span @i18n="v1212">1.3.0 - xx.06.2019</span></h2>
       <ul>
         <li class="added" @i18n="v130a1">
           Das "Comprehensive Glucose Pentagon" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite
           zur Tagesgrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren
           Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird
           ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.
+        </li>
+        <li class="added" @i18n="v130a2">
+          In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen.
+          Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem
+          Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich
+          abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.
         </li>
         <li class="changed" @i18n="v130c1">
           Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel

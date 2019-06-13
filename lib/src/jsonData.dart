@@ -339,6 +339,13 @@ class ProfileEntryData extends JsonData
   int get timeForCalc
   => _time.hour * 60 + _time.minute;
 
+  set timeForCalc(int value)
+  {
+    int h = value ~/ 60;
+    int m = value % 60;
+    _time = DateTime(_time.year, _time.month, _time.day, h, m);
+  }
+
   DateTime time(Date date, [bool adjustLocalForTime = false])
   {
     int hour = _time.hour;
@@ -506,6 +513,8 @@ class ProfileStoreData extends JsonData
   {
     list.sort((a, b)
     => a._time.compareTo(b._time));
+    // set the duration of the last entry so that the whole day is covered.
+    if (list.last != null)list.last.duration = 1440 - list.last.timeForCalc;
     if (list.length > 0 && list.first._time.hour != 0)
     {
       ProfileEntryData first = list.last.copy;
@@ -628,17 +637,29 @@ class ProfileStoreData extends JsonData
     _addFrom(listTargetHigh, src, srcStore.listTargetHigh);
   }
 
-  void _addFrom(List<ProfileEntryData> list, ProfileData src, List<ProfileEntryData> srcList)
+  void _addFrom(List<ProfileEntryData> list, ProfileData srcProfile, List<ProfileEntryData> srcList)
   {
-    int time = src.startDate.hour * 60 + src.startDate.minute;
+    int timeOfProfile = srcProfile.startDate.hour * 60 + srcProfile.startDate.minute;
     for (int i = 0; i < srcList.length; i++)
     {
-      int check = srcList[i].timeForCalc;
-      if (check >= time && (src.duration == 0 || check < time + src.duration))
+      ProfileEntryData src = srcList[i].copy;
+      int check = src.timeForCalc;
+      if (srcProfile.duration == 0 || check < timeOfProfile + srcProfile.duration)
       {
-        if (list.length > 0)list.last.duration = srcList[i].timeForCalc - list.last.timeForCalc;
-        srcList[i].duration = 24 * 60 - srcList[i].timeForCalc;
-        list.add(srcList[i]);
+        int duration = 1440 - check;
+        if (i < srcList.length - 1)duration = srcList[i + 1].timeForCalc - check;
+        if (check >= timeOfProfile)
+        {
+          if (list.length > 0)list.last.duration = src.timeForCalc - list.last.timeForCalc;
+          src.duration = 24 * 60 - src.timeForCalc;
+          list.add(src);
+        }
+        else if (check + duration > timeOfProfile)
+        {
+          src.duration -= timeOfProfile - src.timeForCalc;
+          src.timeForCalc = timeOfProfile;
+          list.add(src);
+        }
       }
     }
   }
@@ -711,6 +732,83 @@ class ProfileData extends JsonData
       }
     }
     return ret;
+  }
+
+  void includeTreatment(TreatmentData t)
+  {
+    if (t.eventType.toLowerCase() == ("temporary target"))
+    {
+      int time = (t.createdAt.hour + t.timeshift) * 60 + t.createdAt.minute;
+      for (ProfileStoreData data in store.values)
+      {
+        _mixStore(data.listTargetHigh, data.timezone, time, t.duration, t.targetTop);
+        _mixStore(data.listTargetLow, data.timezone, time, t.duration, t.targetBottom);
+      }
+    }
+  }
+
+  _mixStore(List<ProfileEntryData> list, ProfileTimezone timezone, int time, int duration, double value)
+  {
+    ProfileEntryData entry = ProfileEntryData(timezone);
+    entry.timeForCalc = time;
+    entry.duration = duration;
+    entry.value = value;
+
+    if (list.length == 0)
+    {
+      ProfileEntryData e = ProfileEntryData(timezone);
+      e.timeForCalc = 0;
+      e.duration = time;
+      list.add(e);
+      list.add(entry);
+      e = ProfileEntryData(timezone);
+      e.timeForCalc = time + duration;
+      e.duration = 1440 - e.timeForCalc;
+      list.add(e);
+      return;
+    }
+
+    int idx = list.indexWhere((e)
+    => e.timeForCalc >= time);
+    if (idx < 0)
+    {
+      idx = list.indexWhere((e)
+      => e.timeForCalc + e.duration >= time);
+      if (idx < 0)
+      {
+        list.last.duration = time - list.last.timeForCalc;
+        entry.duration = 1440 - entry.timeForCalc;
+        list.add(entry);
+        return;
+      }
+      list.insert(idx, entry);
+      // if the nextentry begins before the inserted entry the next entry
+      // is copied before the current entry.
+      if (list[idx + 1].timeForCalc < entry.timeForCalc)
+      {
+        ProfileEntryData e = list[idx+1].copy;
+        e.duration = entry.timeForCalc - e.timeForCalc;
+        list.insert(idx, e);
+        idx++;
+      }
+      // if the inserted entry ends before the next entry starts
+      // add the same entry before the inserted entry after the entry
+      if (entry.timeForCalc + entry.duration < list[idx + 1].timeForCalc)
+      {
+        ProfileEntryData e = list[idx - 1].copy;
+        e.timeForCalc = entry.timeForCalc + entry.duration;
+        e.duration = list[idx + 1].timeForCalc - e.timeForCalc;
+        list.insert(idx + 1, e);
+        return;
+      }
+      // if the inserted entry ends after the next entry starts
+      // change the start of the next entry
+      else if (entry.timeForCalc + entry.duration > list[idx + 1].timeForCalc)
+      {
+        list[idx + 1].duration -= entry.timeForCalc + entry.duration - list[idx + 1].timeForCalc;
+        list[idx + 1].timeForCalc = entry.timeForCalc + entry.duration;
+      }
+    }
   }
 
   // include data from src in current profile
@@ -885,6 +983,9 @@ class TreatmentData extends JsonData
   String glucoseType;
   BoluscalcData boluscalc = null;
   String notes;
+  String reason;
+  double targetTop;
+  double targetBottom;
   Uploader _from = Uploader.Unknown;
   Uploader get from
   {
@@ -977,6 +1078,9 @@ class TreatmentData extends JsonData
       .. glucoseType = glucoseType
       .. boluscalc = boluscalc == null ? null : boluscalc.copy
       .. notes = notes
+      .. reason = reason
+      .. targetTop = targetTop
+      .. targetBottom = targetBottom
       ..isECarb = isECarb;
 
   factory TreatmentData.fromJson(Map<String, dynamic> json){
@@ -1001,6 +1105,9 @@ class TreatmentData extends JsonData
     ret.glucoseType = JsonData.toText(json["glucoseType"]);
     if (json["boluscalc"] != null)ret.boluscalc = BoluscalcData.fromJson(json["boluscalc"]);
     ret.notes = JsonData.toText(json["notes"]);
+    ret.reason = JsonData.toText(json["reason"]);
+    ret.targetTop = JsonData.toDouble(json["targetTop"]);
+    ret.targetBottom = JsonData.toDouble(json["targetBottom"]);
     ret.microbolus = 0.0;
 
     // Specialhandling for Uploader for Minimed 600-series
@@ -1710,7 +1817,7 @@ class ReportData
   Globals globals;
 
   // get profile for a specific time
-  ProfileGlucData profile(DateTime time)
+  ProfileGlucData profile(DateTime time, [List<TreatmentData> treatments = null])
   {
 //    DateTime check = DateTime(time.year, time.month, time.day);
     ProfileGlucData ret = ProfileGlucData(ProfileStoreData("${time.toIso8601String()}"));
@@ -1735,6 +1842,12 @@ class ReportData
         // only profiles with same day as requested
         if (d.year == time.year && d.month == time.month && d.day == time.day)profile.mixWith(profiles[idx]);
         idx++;
+      }
+      if (treatments != null)
+      {
+        for (TreatmentData t in treatments)
+          if (t.createdAt.year == time.year && t.createdAt.month == time.month && t.createdAt.day == time.day)profile
+            .includeTreatment(t);
       }
     }
     else
