@@ -24,8 +24,7 @@ class PrintDailyAnalysis extends BasePrint
   => true;
 
   @override
-  List<ParamInfo> params = [
-    ParamInfo(0, PrintDailyGraphic.msgParam10, boolValue: false),
+  List<ParamInfo> params = [ParamInfo(0, PrintDailyGraphic.msgParam10, boolValue: false),
   ];
 
 
@@ -104,8 +103,7 @@ class PrintDailyAnalysis extends BasePrint
     for (int i = 0; i < data.days.length; i++)
     {
       DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
-      if (day.entries.length != 0 || day.treatments.length != 0)
-        pages.add(getPage(day, src));
+      if (day.entries.length != 0 || day.treatments.length != 0)pages.add(getPage(day, src));
       else
         pages.add(getEmptyForm(src));
     }
@@ -151,7 +149,10 @@ class PrintDailyAnalysis extends BasePrint
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
 
-    int gridLines = (glucMax / 50).ceil();
+    double glucScale = g.glucMGDL ? 50 : 18.02 * 1;
+    int gridLines = (glucMax / glucScale).ceil();
+
+//    int gridLines = (glucMax / 50).ceil();
     double lineHeight = gridLines == 0 ? 0 : graphHeight / gridLines;
     _colWidth = graphWidth / 24;
     _vertLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
@@ -208,12 +209,12 @@ class PrintDailyAnalysis extends BasePrint
       });
     }
 
-    glucMax = 0.0;
     if (lineHeight == 0)
     {
       return [headerFooter(), {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": msgMissingData}];
     }
-    for (var i = 1; i <= gridLines; i++)
+
+    for (var i = 0; i <= gridLines; i++)
     {
       _horzCvs.add({
         "type": "line",
@@ -227,7 +228,8 @@ class PrintDailyAnalysis extends BasePrint
 
       if (i > 0)
       {
-        String text = "${glucFromData(g.fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
+//        String text = "${glucFromData(g.fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
+        String text = "${glucFromData(g.fmtNumber(i * glucScale, 0))}";
         _vertStack.add({
           "relativePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
           "text": text,
@@ -239,8 +241,22 @@ class PrintDailyAnalysis extends BasePrint
           "fontSize": fs(8)
         });
       }
+      else
+      {
+        String text = "${getGlucInfo()["unit"]}";
+        _vertStack.add({
+          "relativePosition": {"x": cm(xo - 1.5), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
+          "columns": [{ "width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}]
+        });
+        _vertStack.add({
+          "relativePosition": {"x": cm(xo + 24 * _colWidth + 0.3), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
+          "text": text,
+          "fontSize": fs(8)
+        });
+      }
     }
-    glucMax = gridLines * 50.0;
+    glucMax = gridLines * glucScale;
+//    glucMax = gridLines * 50.0;
     for (EntryData entry in day.bloody)
     {
       double x = glucX(entry.time);
@@ -516,8 +532,8 @@ class PrintDailyAnalysis extends BasePrint
     double lastTarget = -1;
     for (var i = 0; i < profile.store.listTargetLow.length; i++)
     {
-      double low = profile.store.listTargetLow[i].value;
-      double high = profile.store.listTargetHigh[i].value;
+      double low = profile.store.listTargetLow[i].value * g.glucFactor;
+      double high = profile.store.listTargetHigh[i].value * g.glucFactor;
       double x = glucX(profile.store.listTargetLow[i].time(day.date));
       double y = glucY((low + high) / 2);
       if (lastTarget >= 0)targetValues.add({"x": cm(x), "y": cm(lastTarget)});
@@ -699,8 +715,8 @@ class PrintDailyAnalysis extends BasePrint
     drawScaleIE(xo, yo, 4 * graphHeight, maxCob, [S(100, 20), S(50, 10), S(20, 5), S(0, 1)], (i, step)
     => "${g.fmtNumber(i * step, 0)} g");
 
-    dynamic ptsIob = [{"x": cm(glucX(DateTime(0,1,1,0,0))), "y": cm(graphHeight)}];
-    dynamic ptsCob = [{"x": cm(glucX(DateTime(0,1,1,0,0))), "y": cm(graphHeight)}];
+    dynamic ptsIob = [{"x": cm(glucX(DateTime(0, 1, 1, 0, 0))), "y": cm(graphHeight)}];
+    dynamic ptsCob = [{"x": cm(glucX(DateTime(0, 1, 1, 0, 0))), "y": cm(graphHeight)}];
     double lastIobX = null;
     double lastCobX = null;
     for (BoluscalcData entry in listIobCob)
@@ -721,8 +737,8 @@ class PrintDailyAnalysis extends BasePrint
       }
     }
 
-    if(lastIobX != null)ptsIob.add({"x": cm(lastIobX), "y": cm(graphHeight)});
-    if(lastCobX != null)ptsCob.add({"x": cm(lastCobX), "y": cm(graphHeight)});
+    if (lastIobX != null)ptsIob.add({"x": cm(lastIobX), "y": cm(graphHeight)});
+    if (lastCobX != null)ptsCob.add({"x": cm(lastCobX), "y": cm(graphHeight)});
 
     graphIobCvs.add(graphArea(ptsIob, "#affe00", colGlucValues));
     graphCobCvs.add(graphArea(ptsCob, "#affe00", colCarbs));
