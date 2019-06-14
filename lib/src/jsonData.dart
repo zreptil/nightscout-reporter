@@ -513,8 +513,6 @@ class ProfileStoreData extends JsonData
   {
     list.sort((a, b)
     => a._time.compareTo(b._time));
-    // set the duration of the last entry so that the whole day is covered.
-    if (list.last != null)list.last.duration = 1440 - list.last.timeForCalc;
     if (list.length > 0 && list.first._time.hour != 0)
     {
       ProfileEntryData first = list.last.copy;
@@ -527,6 +525,27 @@ class ProfileStoreData extends JsonData
         first._time = first._time.add(Duration(hours: -first._time.hour));
         list.insert(0, first);
       }
+    }
+    _adjustDuration(list);
+  }
+
+  adjustDurations()
+  {
+    ProfileStoreData._adjustDuration(listCarbratio);
+    ProfileStoreData._adjustDuration(listBasal);
+    ProfileStoreData._adjustDuration(listTargetHigh);
+    ProfileStoreData._adjustDuration(listTargetLow);
+    ProfileStoreData._adjustDuration(listSens);
+  }
+
+  static _adjustDuration(List<ProfileEntryData> list)
+  {
+    // calculate the duration of the entries
+    for (int i = 0; i < list.length; i++)
+    {
+      int end = 1440;
+      if (i < list.length - 1)end = list[i + 1].timeForCalc;
+      list[i].duration = end - list[i].timeForCalc;
     }
   }
 
@@ -786,7 +805,7 @@ class ProfileData extends JsonData
       // is copied before the current entry.
       if (list[idx + 1].timeForCalc < entry.timeForCalc)
       {
-        ProfileEntryData e = list[idx+1].copy;
+        ProfileEntryData e = list[idx + 1].copy;
         e.duration = entry.timeForCalc - e.timeForCalc;
         list.insert(idx, e);
         idx++;
@@ -1865,6 +1884,8 @@ class ReportData
       ret.sens = ret.find(date, time, ret.store.listSens);
       ret.targetHigh = status.settings.thresholds.bgTargetTop.toDouble();
       ret.targetLow = status.settings.thresholds.bgTargetBottom.toDouble();
+      for(ProfileStoreData data in profile.store.values)
+        data.adjustDurations();
     }
 
     return ret;

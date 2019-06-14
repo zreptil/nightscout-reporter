@@ -868,8 +868,8 @@ class PrintDailyGraphic extends BasePrint
     {
       if (i < profile.store.listTargetHigh.length)
       {
-        double low = profile.store.listTargetLow[i].value;
-        double high = profile.store.listTargetHigh[i].value;
+        double low = profile.store.listTargetLow[i].value * g.glucFactor;
+        double high = profile.store.listTargetHigh[i].value * g.glucFactor;
         double x = glucX(profile.store.listTargetLow[i].time(day.date));
         double y = glucY((low + high) / 2);
         if (lastTarget >= 0)targetValues.add({"x": cm(x), "y": cm(lastTarget)});

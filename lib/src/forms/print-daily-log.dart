@@ -88,7 +88,7 @@ class PrintDailyLog extends BaseProfile
   static String get msgParam7
   => Intl.message("Insulin-Quelle");
   static String get msgParam8
-  => Intl.message("Temporäre Targets");
+  => Intl.message("Temporäre Ziele");
   static String get msgParam9
   => Intl.message("Gruppierung der Zeiten");
 
