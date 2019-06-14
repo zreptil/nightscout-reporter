@@ -171,7 +171,7 @@
       </div>
     </div>
     <div *ngIf="currPage=='normal'||currPage=='pdfList'" class="sendPanel">
-      <material-fab *ngIf="sendIcon=='send'"
+      <material-fab *ngIf="sendIcon=='send'&&!sendDisabled"
                     [raised]="false"
                     [class]="sendClass(2,'shift2')"
                     [disabled]="sendDisabled"
@@ -182,7 +182,7 @@
           {{g.period.shiftEndBy(2).format(g.fmtDateForDisplay)}}
         </div>
       </material-fab>
-      <material-fab *ngIf="sendIcon=='send'"
+      <material-fab *ngIf="sendIcon=='send'&&!sendDisabled"
                     [raised]="false"
                     [class]="sendClass(1,'shift1')"
                     [disabled]="sendDisabled"

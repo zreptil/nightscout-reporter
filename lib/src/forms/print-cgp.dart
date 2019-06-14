@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
+import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
@@ -11,10 +12,11 @@ class PentagonScaleData
   double beg, end, nameX, nameY, valueX, valueY;
   List<double> values;
   var _scaleMethod = null;
+  double legendFactor;
   double scaleMethod(v)
   => _scaleMethod(v) / 76;
 
-  PentagonScaleData(this.values,
+  PentagonScaleData(this.values, this.legendFactor,
                     {this.name, this.beg = 0.0, this.end = 1.0, this.nameX = 0.0, this.nameY = 0.0, this.valueX = 0.0, this.valueY = 0.0, scaleMethod = null})
   {
     _scaleMethod = scaleMethod;
@@ -26,13 +28,19 @@ class PentagonData
   static String get msgTOR
   => Intl.message("ToR [min/d]");
   static String get msgCV
-  => Intl.message("VarK [%]");//Intl.message("CV [%]");
+  => Intl.message("VarK [%]"); //Intl.message("CV [%]");
   static String msgHYPO(unit)
-  => Intl.message("Intensität HYPO\n[${unit} x min²]", args: [unit], name: "msgHYPO");//Intl.message("Intensity HYPO\n[${unit} x min²]", args: [unit], name: "msgHYPO");
+  =>
+    Intl.message("Intensität HYPO\n[${unit} x min²]", args: [unit],
+      name: "msgHYPO"); //Intl.message("Intensity HYPO\n[${unit} x min²]", args: [unit], name: "msgHYPO");
   static String msgHYPER(unit)
-  => Intl.message("Intensität HYPER\n[${unit} x min²]", args: [unit], name: "msgHYPER");//Intl.message("Intensity HYPER\n[${unit} x min²]", args: [unit], name: "msgHYPER");
+  =>
+    Intl.message("Intensität HYPER\n[${unit} x min²]", args: [unit],
+      name: "msgHYPER"); //Intl.message("Intensity HYPER\n[${unit} x min²]", args: [unit], name: "msgHYPER");
   static String msgMEAN(unit)
-  => Intl.message("Mittlere Glukose\n[${unit}]", args: [unit], name: "msgMEAN");//Intl.message("Mean glucose\n[${unit}]", args: [unit], name: "msgMEAN");
+  =>
+    Intl.message("Mittlere Glukose\n[${unit}]", args: [unit],
+      name: "msgMEAN"); //Intl.message("Mean glucose\n[${unit}]", args: [unit], name: "msgMEAN");
   static String get msgPGR
   => Intl.message("PGR");
 
@@ -67,13 +75,13 @@ class PentagonData
 
   static String msgMEANInfo(hba1c)
   {
-    return Intl.message(
-      "Der glykämische Mittelwert im betrachteten Zeitraum.", args: [hba1c],
-      name: "msgMEANINfo");
+    return Intl.message("Der glykämische Mittelwert im betrachteten Zeitraum.", args: [hba1c], name: "msgMEANINfo");
   }
 
   static String get msgPGRInfo
-  => Intl.message("Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).");
+  =>
+    Intl.message(
+      "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).");
   static String get msgPGR02
   => Intl.message("0,0 bis 2,0");
   static String get msgPGR02Info
@@ -104,36 +112,37 @@ class PentagonData
   var cm, fs;
   var outputCvs = [];
   var outputText = [];
+  Globals g;
 
-  PentagonData(this.glucInfo, this.cm, this.fs, {this.xm, this.ym, this.scale, this.fontsize = -1})
+  PentagonData(this.g, this.glucInfo, this.cm, this.fs, {this.xm, this.ym, this.scale, this.fontsize = -1})
   {
-    axis = [PentagonScaleData([0, 300, 480, 720, 900, 1080, 1200, 1440], scaleMethod: (v)
+    axis = [PentagonScaleData([0, 300, 480, 720, 900, 1080, 1200, 1440], 1, scaleMethod: (v)
     => math.pow(v * 0.00614, 1.581) + 14,
       name: msgTOR,
       nameX: -2.5,
       nameY: -0.4,
       valueX: 0.15,
-      valueY: -0.11), PentagonScaleData([16.7, 20, 30, 40, 50, 60, 70, 80], scaleMethod: (v)
+      valueY: -0.11), PentagonScaleData([16.7, 20, 30, 40, 50, 60, 70, 80], 1, scaleMethod: (v)
     => (v >= 17 ? v - 17 : 0) * 0.92 + 14,
       name: msgCV,
       nameX: -2.3,
       nameY: -0.4,
       valueX: -0.1,
-      valueY: 0.1), PentagonScaleData([0, 3, 4, 5, 6, 7, 7.2], scaleMethod: (v)
+      valueY: 0.1), PentagonScaleData([0, 3, 4, 5, 6, 7, 7.2], g.glucFactor, scaleMethod: (v)
     => math.exp(v * 0.57) + 13,
       name: msgHYPO(glucInfo["unit"]),
       end: 0.25,
       nameX: -2.5,
       nameY: 0.1,
       valueX: -0.2,
-      valueY: 0.1), PentagonScaleData([0, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130], scaleMethod: (v)
+      valueY: 0.1), PentagonScaleData([0, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130], g.glucFactor, scaleMethod: (v)
     => math.pow(v * 0.115, 1.51) + 14,
       name: msgHYPER(glucInfo["unit"]),
       beg: 0.25,
       nameX: -2.5,
       nameY: 0.1,
       valueX: 0.1,
-      valueY: 0.1), PentagonScaleData([130, 190, 220, 250, 280, 310], scaleMethod: (v)
+      valueY: 0.1), PentagonScaleData([130, 190, 220, 250, 280, 310], g.glucFactor, scaleMethod: (v)
     => math.pow((v >= 90 ? v - 90 : 0.0) * 0.0217, 2.63) + 14,
       name: msgMEAN(glucInfo["unit"]),
       nameX: -2.5,
@@ -190,7 +199,7 @@ class PentagonData
       double dy = pt["y"] - cm(ym);
       for (double value in axis[i].values)
       {
-        pt = _point(i, axis[i].scaleMethod(value));
+        pt = _point(i, axis[i].scaleMethod(value));// * axis[i].legendFactor
         double x = pt["x"];
         double y = pt["y"];
         double f = 0.05;
@@ -205,7 +214,7 @@ class PentagonData
             "x": x + cm(axis[i].valueX * fontsize / defFontSize),
             "y": y + cm(axis[i].valueY * fontsize / defFontSize)
           },
-          "text": value,
+          "text": g.fmtNumber(value / axis[i].legendFactor, axis[i].legendFactor == 1 ? 0 : 1),
           "fontSize": fs(fontsize * 0.7)
         });
       }
@@ -401,7 +410,7 @@ class PrintCGP extends BasePrint
     // loop through every entry in the day
     for (EntryData entry in day.entries)
     {
-      if(entry.isGap)continue;
+      if (entry.isGap)continue;
       // if gluc is 180 or above
       // add area under curve for 5 minutes
       if (entry.gluc >= 180)
@@ -428,7 +437,7 @@ class PrintCGP extends BasePrint
 
   calcCGP(ReportData src, var dayData, double scale, double xm, double ym)
   {
-    PentagonData cgp = PentagonData(getGlucInfo(), cm, fs, xm: xm, ym: ym, scale: scale);
+    PentagonData cgp = PentagonData(g, getGlucInfo(), cm, fs, xm: xm, ym: ym, scale: scale);
     cgp.ym += cgp.axisLength * 1.1 * cgp.scale;
     cgp.paintPentagon(1.0, lw, colLine: colCGPLine);
     cgp.paintAxis(lw, colLine: colValue);

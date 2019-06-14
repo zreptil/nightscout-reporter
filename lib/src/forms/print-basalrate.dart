@@ -42,7 +42,7 @@ class PrintBasalrate extends BaseProfile
   {
     if (page > 0)return null;
     subtitle = profile.store.name;
-    titleInfo = titleInfoTimeRange(profStartTime, profEndTime);
+    titleInfo = "";//titleInfoTimeRange(profStartTime, profEndTime);
 
 //    getPage(ProfileGlucData profile, CalcData calc)
 //  {
@@ -146,13 +146,14 @@ class PrintBasalrate extends BaseProfile
         w = graphWidth - x;
 
       bool showBar = true;
+/*
       if (isSingleDay)
       {
         DateTime startTime = brtimes[i].time(date);
         DateTime endTime = brtimes[i].time(date).add(Duration(minutes: 59));
         showBar = isSingleDayRange(startTime, endTime);
       }
-
+*/
       if (showBar)brAreaCvs.add({
         "type": "rect",
         "x": cm(x),
