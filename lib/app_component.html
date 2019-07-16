@@ -3,6 +3,7 @@
     <div class="material-header-row">
       <material-button *ngIf="g.isConfigured"
                        icon id="btnMenu"
+                       [disabled]="currPage=='pdfList'"
                        class="material-drawer-button" (trigger)="drawer.toggle()">
         <material-icon icon="menu"></material-icon>
       </material-button>
@@ -68,6 +69,10 @@
               <div class="pdfButtonText">{{idx+1}}</div>
               <material-icon [icon]="pdfData.isPrinted?'done':'description'"></material-icon>
             </material-button>
+            <div *ngIf="g.isLocal" class="is-local pdfSizes">
+              {{pdfData.pdf.length}}<br />
+              {{g.pdfCreationMaxSize}}
+            </div>
           </form>
         </div>
         <material-button *ngIf="!g.hidePdfInfo && !pdfInfoVisible" class="pdfInfo" @i18n="btnPdfInfo"
@@ -91,7 +96,7 @@
             <div *ngIf="g.pdfControlMaxSize < pdfSliderMax" @i18n="big">Gross</div>
             <div *ngIf="g.pdfControlMaxSize >= pdfSliderMax" @i18n="big">Unbegrenzt</div>
           </div>
-          <material-button (trigger)="currPage='normal';createPDF()">
+          <material-button (trigger)="currPage='normal';createPDF()" class="pdfButton">
             <div class="pdfButtonText" @i18n="pdfCreateAgain">PDF erneut erzeugen</div>
           </material-button>
         </div>
@@ -211,7 +216,7 @@
             (trigger)="signinEvent($event)"
             (signinResult)="g.client=$event"></signin>
   </material-content>
-  <material-drawer scrollable persistent #drawer="drawer" [visible]="drawerVisible" [attr.overlay]="">
+  <material-drawer scrollable persistent #drawer="drawer" [(visible)]="drawerVisible" [attr.overlay]="">
     <div class="drawer-root">
       <div class="menuControls">
         <material-button class="iconButton material-drawer-button" (trigger)="currPage='welcome';">

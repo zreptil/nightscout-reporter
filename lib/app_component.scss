@@ -138,19 +138,33 @@ material-drawer {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+  }
 
-    .pdfButton {
-      background: $pdf_btn_back;
-      color: $pdf_btn_fore;
-      margin-bottom: 0.1em;
-      width: 4em;
+  .pdfList .pdfButton {
+    width: 4em;
 
-      .pdfButtonText {
-        color: $pdf_btn_fore;
-        font-size: 2em;
-        font-weight: bold;
-      }
+    .pdfButtonText {
+      font-size: 2em;
     }
+  }
+
+  .pdfList .pdfButton, .pdfInfoPanel .pdfButton {
+    background: $pdf_btn_back;
+    color: $pdf_btn_fore;
+    margin-bottom: 0.1em;
+
+    .pdfButtonText {
+      color: $pdf_btn_fore;
+      font-weight: bold;
+    }
+  }
+
+  .pdfSizes {
+    display: flex;
+    font-size: 0.8em;
+    width: 90%;
+    justify-content: center;
+    margin: 0 0.3em;
   }
 
   .pdfInfo {

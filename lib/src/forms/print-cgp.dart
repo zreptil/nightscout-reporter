@@ -283,7 +283,7 @@ class PrintCGP extends BasePrint
       "x": 0,
       "y": 1.2,
       "fs": 8,
-      "text": "${msgSource}: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)"
+      "text": "${msgSource}"
     };
     init();
   }

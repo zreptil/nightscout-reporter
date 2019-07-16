@@ -283,6 +283,7 @@ abstract class BasePrint
   List<List<dynamic>> _pages = List<List<dynamic>>();
   int pageCount = 0;
   int _fileSize = 0;
+  int _lastSize = 0;
 
   msgValidRange(begDate, endDate)
   => Intl.message("gültig von $begDate bis $endDate", args: [begDate, endDate], name: "msgValidRange");
@@ -475,7 +476,9 @@ abstract class BasePrint
   get msgGlucNorm
   => Intl.message("Glukose im Zielbereich");
   get msgSource
-  => Intl.message("Quelle");
+  =>
+    Intl.message(
+      "Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)");
   get msgGlucHigh
   => Intl.message("Glukose zu hoch");
   msgLow(value)
@@ -961,18 +964,17 @@ abstract class BasePrint
     return ret;
   }
 
-  void _addPageBreak(dynamic ret, dynamic page)
+  void _addPageBreak(dynamic page)
   {
-    ret["pageBreak"] = "after";
+    page.last["pageBreak"] = "after";
     pageCount++;
     // int cnt = countObjects(page);
-    int len = json
-      .encode(page)
-      .length;
-    _fileSize += len;
+    String text = json.encode(page);
+    _fileSize += text.length - _lastSize;
+    _lastSize = text.length;
     if (g.pdfCreationMaxSize != Globals.PDFUNLIMITED && _fileSize > g.pdfCreationMaxSize)
     {
-      ret["pageBreak"] = "newFile";
+      page.last["pageBreak"] = "newFile";
       _fileSize = 0;
     }
   }
@@ -995,6 +997,7 @@ abstract class BasePrint
     if (!hasData(data))return getEmptyForm(data);
 
     dynamic ret = [];
+    _lastSize = 0;
     var d = prepareData_(data);
     _pages.clear();
     pageCount = 1;
@@ -1053,12 +1056,7 @@ abstract class BasePrint
           if (row >= rowCount && page != _pages.last)
           {
             row = 0;
-            _addPageBreak(ret.last, ret);
-            if (_fileSize == 0)
-            {
-              column = 0;
-              row = 0;
-            }
+            _addPageBreak(ret);
           }
         }
 //        ret.addAll(page);

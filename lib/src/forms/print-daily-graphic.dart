@@ -979,7 +979,7 @@ class PrintDailyGraphic extends BasePrint
       var infoBody = [];
       infoTable = {
         "relativePosition": {"x": cm(xo + graphWidth - 3.5), "y": cm(y)},
-        "table": {"margins": [0, 0, 0, 0], "widths": [cm(2.4), cm(1.1)], "body": infoBody},
+        "table": {"margins": [0, 0, 0, 0], "widths": [cm(2.3), cm(1.2)], "body": infoBody},
         "layout": "noBorders"
       };
 

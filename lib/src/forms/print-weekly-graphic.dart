@@ -14,7 +14,8 @@ class PrintWeeklyGraphic extends BasePrint
   String id = "weekgraph";
 
   bool sortReverse,
-    showDaysInGraphic = true, showCGP;
+    showDaysInGraphic = true,
+    showCGP;
 
   @override
   List<ParamInfo> params = [
@@ -32,7 +33,7 @@ class PrintWeeklyGraphic extends BasePrint
     showDaysInGraphic = params[2].boolValue;
     showCGP = params[3].boolValue;
 
-    switch(params[0].intValue)
+    switch (params[0].intValue)
     {
       case 1:
         pagesPerSheet = 2;
@@ -53,8 +54,10 @@ class PrintWeeklyGraphic extends BasePrint
     return data;
   }
 
+  static String _title = Intl.message("Wochengrafik");
+
   @override
-  String title = Intl.message("Wochengrafik");
+  String title = _title;
 
   static String get msgParam1
   => Intl.message("Grafiken pro Seite");
@@ -101,8 +104,7 @@ class PrintWeeklyGraphic extends BasePrint
   async {
     var data = src.calc;
 
-    if(data.days.length == 0)
-      return;
+    if (data.days.length == 0)return;
 
     List<List<DayData>> list = List<List<DayData>>();
     list.add(List<DayData>());
@@ -111,8 +113,7 @@ class PrintWeeklyGraphic extends BasePrint
     {
       DayData day = data.days[i];
       int dayInWeek = day.date.weekday - g.period.firstDayOfWeek;
-      if(dayInWeek < 0)
-        dayInWeek += 7;
+      if (dayInWeek < 0)dayInWeek += 7;
       if (dayInWeek <= lastDayInWeek && list.last.length > 0)list.add(List<DayData>());
       lastDayInWeek = dayInWeek;
       list.last.add(day);
@@ -132,6 +133,7 @@ class PrintWeeklyGraphic extends BasePrint
         pages.add(_getPage(week, src));
         g.glucMGDL = !g.glucMGDL;
       }
+      title = _title;
     }
   }
 
@@ -173,7 +175,8 @@ class PrintWeeklyGraphic extends BasePrint
       vertCvs,
       horzCvs,
       horzStack,
-      vertStack, glucScale: g.glucMGDL ? 20 : 18.02 * 0.5);
+      vertStack,
+      glucScale: g.glucMGDL ? 20 : 18.02 * 0.5);
     if (grid.lineHeight == 0)
       return [headerFooter(), {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "text": msgMissingData}];
 
@@ -197,8 +200,7 @@ class PrintWeeklyGraphic extends BasePrint
         {
           double x = glucX(t.createdAt);
           double y = glucY((g.glucMGDL ? 1 : 18.02) * t.glucose);
-          graphGlucCvs.add(
-            {"type": "rect", "x": cm(x), "y": cm(y), "w": cm(size), "h": cm(size), "color": color});
+          graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(size), "h": cm(size), "color": color});
         }
       }
 
@@ -236,7 +238,8 @@ class PrintWeeklyGraphic extends BasePrint
               names.add({
                 "relativePosition": {"x": cm(xo + x - 0.25), "y": cm(yo + y - 0.15)},
                 "columns": [
-                  {"width": cm(0.5), "text": name, "fontSize": fs(8), "color": colorText, "alignment": "center"}]
+                  {"width": cm(0.5), "text": name, "fontSize": fs(8), "color": colorText, "alignment": "center"}
+                ]
               });
             }
           }

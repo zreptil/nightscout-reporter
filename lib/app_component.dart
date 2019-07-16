@@ -954,6 +954,7 @@ class AppComponent
     if (sendIcon == "send")
     {
       sendIcon = "stop";
+      drawerVisible = false;
       createPDF();
     }
     else if (sendIcon == "close")
@@ -990,17 +991,16 @@ class AppComponent
       progressValue = progressMax + 1;
       var doc = null;
       List<dynamic> docList = List<dynamic>();
+      int docLen = 0;
       for (FormConfig cfg in g.listConfig)
       {
         BasePrint form = cfg.form;
         if (cfg.checked && (!form.isDebugOnly || isDebug))
         {
-          dynamic src = await form.getFormData(vars, json
-            .encode(doc)
-            .length);
-          List<List<dynamic>> fileList = List<List<dynamic>>();
-          fileList.add([]);
-          for (dynamic entry in src)
+          docLen = json.encode(doc).length;
+          dynamic formData = await form.getFormData(vars, docLen);
+          List<List<dynamic>> fileList = [[]];
+          for (dynamic entry in formData)
           {
             if (entry["pageBreak"] == "newFile" && !fileList.last.isEmpty)
             {
@@ -1064,15 +1064,7 @@ class AppComponent
                 doc["content"].add(entry);
 
               for (String key in form.images.keys)
-              {
                 (doc["images"] as Map<String, String>)[key] = form.images[key];
-              }
-/*
-            if (data["images"] == null)data["images"] = [];
-            Map<String, String> map = data["images"];
-            for (var key in map.keys)
-              (doc["images"] as Map<String, String>)[key] = map[key];
-// */
             }
 
             if (data != fileList.last)

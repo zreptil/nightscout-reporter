@@ -81,7 +81,7 @@ class Globals
   static tz.Location refLocation = tz.getLocation("Europe/Berlin");
   static DateTime get now
   => DateTime.now();
-  String version = "1.3ße";
+  String version = "1.3ßf";
   String lastVersion;
   static const int PDFUNLIMITED = 4000000;
   static const int PDFDIVIDER = 100000;
@@ -201,7 +201,10 @@ class Globals
   {
     if (value >= 0 && value < userList.length)_userIdx = value;
     else
+    {
       _userIdx = 0;
+      if (userList.length == 0)userList.add(UserData(this));
+    }
 
     for (FormConfig entry in listConfig)
       entry.fillFromString(user.formParams[entry.id]);
@@ -210,7 +213,6 @@ class Globals
   UserData get user
   {
     if (_userIdx >= 0 && _userIdx < userList.length)return userList[_userIdx];
-    if (userList.length == 0)return UserData(this);
     userIdx = 0;
     return userList[0];
   }
