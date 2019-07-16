@@ -10,6 +10,8 @@ import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
+import 'print-cgp.dart';
+
 class GridData
 {
   double colWidth;
@@ -232,7 +234,9 @@ abstract class BasePrint
   String colBolus = "#0060c0";
   String colCarbBolus = "#c000c0";
   String colLow = "#ff6666";
+  String colNormLow = "#809933";
   String colNorm = "#00cc00";
+  String colNormHigh = "#aacc00";
   String colHigh = "#cccc00";
   String colTargetArea = "#00a000";
   String colTargetValue = "#3333aa";
@@ -254,6 +258,10 @@ abstract class BasePrint
   String colCGPHealthyFill = "#00e000";
   String colCGPPatientLine = "#808000";
   String colCGPPatientFill = "#e0e000";
+  String colIOBFill = "#a0a0ff";
+  String colIOBLine = "#a0a0ff";
+  String colCOBFill = "#ffa050";
+  String colCOBLine = "#ffa050";
 
   double xorg = 3.35;
   double yorg = 3.9;
@@ -361,6 +369,16 @@ abstract class BasePrint
   => Intl.message("Werte unter ${low}", args: [low], name: "msgValuesBelow");
   msgValuesAbove(high)
   => Intl.message("Werte über ${high}", args: [high], name: "msgValuesAbove");
+  msgValuesVeryHigh(value)
+  => Intl.message("Sehr hohe Werte ( > ${value})", args: [value], name: "msgValuesVeryHigh");
+  msgValuesNormHigh(value)
+  => Intl.message("Hohe Werte (${value})", args: [value], name: "msgValuesNormHigh");
+  msgValuesNorm(low, high)
+  => Intl.message("Zielbereich (${low} - ${high})", args: [low, high], name: "msgValuesNorm");
+  msgValuesNormLow(value)
+  => Intl.message("Niedrige Werte (${value})", args: [value], name: "msgValuesNormLow");
+  msgValuesVeryLow(value)
+  => Intl.message("Sehr niedrige Werte (< ${value})", args: [value], name: "msgValuesVeryLow");
   msgKHBE(value)
   => Intl.message("g KH ($value BE)", args: [value], name: "msgKHBE");
   msgReservoirDays(count, txt)
@@ -477,7 +495,7 @@ abstract class BasePrint
 
   msgStdAbw(value)
   {
-    value = g.fmtNumber(value, 1);
+    value = g.fmtNumber(value, 1, false, "0.0");
     return Intl.message("(StdAbw ${value})", args: [value], name: "msgStdAbw");
   }
 
@@ -1332,6 +1350,35 @@ abstract class BasePrint
         });
       }
     }
+    return ret;
+  }
+
+  getCGPPage(var dayList, ReportData src)
+  {
+    PrintCGP cgpPage = PrintCGP();
+    cgpPage.scale = scale;
+    title = cgpPage.title;
+    subtitle = cgpPage.subtitle;
+    var cgpSrc = cgpPage.calcCGP(src, dayList, 1.0, 0, 0.3);
+    PentagonData cgp = cgpSrc["cgp"];
+    footerTextAboveLine = cgpPage.footerTextAboveLine;
+    footerTextAboveLine["y"] = 0.9;
+    double x = xorg + 2 * cgp.axisLength / cgp.scale + 1.2;
+    double y = yorg + 2.0;
+    var ret = [
+      headerFooter(),
+      {"relativePosition": {"x": cm(xorg) + cm(cgp.axisLength / cgp.scale), "y": cm(y)}, "canvas": cgp.outputCvs},
+      {"relativePosition": {"x": cm(xorg) + cm(cgp.axisLength / cgp.scale), "y": cm(y)}, "stack": cgp.outputText},
+
+      cgpPage.infoTable(
+        cgpSrc["pgr"],
+        cgp.glucInfo["unit"],
+        cgpSrc["mean"],
+        x,
+        y,
+        2.5,
+        width - x - xorg - 2.5)
+    ];
     return ret;
   }
 

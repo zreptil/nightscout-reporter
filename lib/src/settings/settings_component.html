@@ -25,7 +25,7 @@
             <material-button icon [disabled]="g.userIdx==0" (trigger)="g.userIdx=g.userIdx-1">
               <material-icon icon="chevron_left"></material-icon>
             </material-button>
-            <material-button icon [disabled]="g.userIdx>=g.userList.length-1" (trigger)="g.userIdx=g.userIdx+1">
+            <material-button icon [disabled]="g.userIdx>=(g.userList?.length ?? 0)-1" (trigger)="g.userIdx=g.userIdx+1">
               <material-icon icon="chevron_right"></material-icon>
             </material-button>
           </div>
@@ -43,10 +43,12 @@
                           [hintText]="msgUserTokenHint"
                           [(ngModel)]="g.user.token">
           </material-input>
-          <material-fab mini [disabled]="g.userList.last.storageApiUrl.isEmpty" (trigger)="addUser()">
+          <material-fab mini
+                        [disabled]="g.userList.last?.storageApiUrl.isEmpty"
+                        (trigger)="addUser()">
             <material-icon icon="add"></material-icon>
           </material-fab>
-          <material-fab mini [disabled]="g.userList.length==0||g.user.storageApiUrl.isEmpty"
+          <material-fab mini [disabled]="g.user.storageApiUrl.isEmpty"
                         (trigger)="showConfirmation=true">
             <material-icon icon="delete"></material-icon>
           </material-fab>

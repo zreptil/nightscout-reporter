@@ -81,7 +81,7 @@ class Globals
   static tz.Location refLocation = tz.getLocation("Europe/Berlin");
   static DateTime get now
   => DateTime.now();
-  String version = "1.3ßc";
+  String version = "1.3ße";
   String lastVersion;
   static const int PDFUNLIMITED = 4000000;
   static const int PDFDIVIDER = 100000;
@@ -210,7 +210,7 @@ class Globals
   UserData get user
   {
     if (_userIdx >= 0 && _userIdx < userList.length)return userList[_userIdx];
-    if (userList.length == 0)userList.add(UserData(this));
+    if (userList.length == 0)return UserData(this);
     userIdx = 0;
     return userList[0];
   }
@@ -221,6 +221,7 @@ class Globals
     LangData("en_GB", Intl.message("English (GB)"), "gb"),
     LangData("es_ES", Intl.message("Español"), "es"),
     LangData("pl_PL", Intl.message("Polski"), "pl"),
+    LangData("ja", Intl.message("Japanisch"), "jp"),
   ];
   LangData _language = null;
   LangData get language
@@ -790,7 +791,7 @@ class Globals
     String ret = nf.format(value);
     if (stripTrailingZero)
       while (ret.endsWith("0") || ret.endsWith(nf.symbols.DECIMAL_SEP))ret = ret.substring(0, ret.length - 1);
-    return ret;
+    return ret == "NaN" ? nullText : ret;
   }
 
   void save()

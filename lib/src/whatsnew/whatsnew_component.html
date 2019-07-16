@@ -10,13 +10,13 @@
       </material-button>
     </div>
     <div class="root">
-      <h2><span @i18n="version">Version</span><span @i18n="v1212">1.3.0 - xx.06.2019</span></h2>
+      <h2><span @i18n="version">Version</span><span @i18n="v1212">1.3.0 - xx.07.2019</span></h2>
       <ul>
         <li class="added" @i18n="v130a1">
           Das "Comprehensive Glucose Pentagon" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite
-          zur Tagesgrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren
-          Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird
-          ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.
+          zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf
+          Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf
+          den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.
         </li>
         <li class="added" @i18n="v130a2">
           In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen.
@@ -26,6 +26,13 @@
         </li>
         <li class="added" @i18n="v130a3">
           In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.
+        </li>
+        <li class="added" @i18n="v130a4">
+          In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann
+          zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt.
+        </li>
+        <li class="added" @i18n="v130a5">
+          Nightscout Reporter kann nun auch in Japanisch verwendet werden.
         </li>
         <li class="changed" @i18n="v130c1">
           Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel
@@ -431,11 +438,10 @@
         <li class="added" @i18n="v110a4">
           Anzahl der Sensoren zur Analyse hinzugefügt
         </li>
-        <li class="changed" @i18n="v110c1">
-          Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter <a
-          href="https://nightscout-reporter.zreptil.de/beta"
-          target="_blank">https://nightscout-reporter.zreptil.de/beta</a>
-          zu finden
+        <li class="changed">
+          <ng-container  @i18n="v110c1a">Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun hier zu finden:</ng-container>
+          <a href="https://nightscout-reporter.zreptil.de/beta"
+          target="_blank" @i18n="v110c1b">https://nightscout-reporter.zreptil.de/beta</a>
         </li>
         <li class="fixed" @i18n="v110f1">
           Übersetzungen korrigiert

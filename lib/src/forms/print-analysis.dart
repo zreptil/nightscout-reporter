@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -19,11 +17,14 @@ class PrintAnalysis extends BasePrint
   int get _precisionTarget
   => isPreciseTarget ? 1 : 0;
 
+  bool useFineLimits;
+
   @override
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: false),
     ParamInfo(2, msgParam3, boolValue: false),
+    ParamInfo(3, msgParam4, boolValue: false),
   ];
 
   @override
@@ -41,6 +42,7 @@ class PrintAnalysis extends BasePrint
     isPreciseMaterial = params[0].boolValue;
     isPreciseTarget = params[1].boolValue;
     showStdAbw = params[2].boolValue;
+    useFineLimits = params[3].boolValue;
 
     return data;
   }
@@ -53,6 +55,9 @@ class PrintAnalysis extends BasePrint
 
   static String get msgParam3
   => Intl.message("Standardabweichung statt Anzahl");
+
+  static String get msgParam4
+  => Intl.message("Standardbereich mit feinerer Abstufung");
 
   addBodyArea(List body, String title, List lines, {showLine: true})
   {
@@ -162,6 +167,7 @@ class PrintAnalysis extends BasePrint
     }
 
     double f = 1.5;
+    double f1 = 2.8;
 
     DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")));
     totalDay.entries.addAll(data.entries);
@@ -172,9 +178,20 @@ class PrintAnalysis extends BasePrint
     double tgLow = data.stat["low"].values.length / data.count * f;
 
     double above180 = data.entriesAbove(180) / data.count * f;
-    double in70180 = data.entriesIn(70, 180) / data.count * f;
+    double in70180 = data.entriesIn(70, 180) / data.count * (useFineLimits ? f1 : f);
     double below70 = data.entriesBelow(70) / data.count * f;
 
+    double above250 = data.entriesAbove(250) / data.count * f1;
+    double in180250 = data.entriesIn(180, 250) / data.count * f1;
+    double in5470 = data.entriesIn(54, 70) / data.count * f1;
+    double below54 = data.entriesBelow(54) / data.count * f1;
+/*
+    above250 = (data.count / 5) / data.count * f1;
+    in180250 = above250;
+    in5470 = above250;
+    below54 = above250;
+    in70180 = above250;
+*/
     var tableBody = [
       [
         {"text": "", "style": "infotitle"},
@@ -230,131 +247,245 @@ class PrintAnalysis extends BasePrint
 
     double cvsLeft = -0.5;
     double cvsWidth = 0.8;
+    if (src.status.settings.thresholds.bgTargetBottom != 70 || src.status.settings.thresholds.bgTargetTop != 180)
+    {
+      addBodyArea(tableBody, msgOwnLimits, [
+        [
+          {"text": "", "style": "infotitle"},
+          {
+            "text": msgValuesAbove(
+              "${glucFromData(src.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
+            "style": "infotitle"
+          },
+          {
+            "text": "${g.fmtNumber(data.stat["high"].values.length / data.count * 100, _precisionTarget)} %",
+            "style": "infodata"
+          },
+          {"text": fillLimitInfo(data.stat["high"]), "style": "infounit", "colSpan": 2},
+          {"text": "", "style": "infounit"},
+          {
+            "canvas": [
+              {"type": "rect", "x": cm(cvsLeft), "y": cm(0), "w": cm(cvsWidth), "h": cm(tgHigh), "color": colHigh},
+              {"type": "rect", "x": cm(cvsLeft), "y": cm(tgHigh), "w": cm(cvsWidth), "h": cm(tgNorm), "color": colNorm},
+              {
+                "type": "rect",
+                "x": cm(cvsLeft),
+                "y": cm(tgHigh + tgNorm),
+                "w": cm(cvsWidth),
+                "h": cm(tgLow),
+                "color": colLow
+              },
+            ],
+            "rowSpan": 3
+          },
+        ],
+        [
+          {"text": "", "style": "infotitle"},
+          {
+            "text": msgValuesIn(
+              "${glucFromData(src.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}",
+              "${glucFromData(src.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
+            "style": "infotitle"
+          },
+          {
+            "text": "${g.fmtNumber(data.stat["norm"].values.length / data.count * 100, _precisionTarget)} %",
+            "style": "infodata"
+          },
+          {"text": fillLimitInfo(data.stat["norm"]), "style": "infounit", "colSpan": 2},
+          {"text": "", "style": "infounit"},
+          {"text": "", "style": "infounit"},
+        ],
+        [
+          {"text": "", "style": "infotitle"},
+          {
+            "text": msgValuesBelow(
+              "${glucFromData(src.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}"),
+            "style": "infotitle"
+          },
+          {
+            "text": "${g.fmtNumber(data.stat["low"].values.length / data.count * 100, _precisionTarget)} %",
+            "style": "infodata"
+          },
+          {"text": fillLimitInfo(data.stat["low"]), "style": "infounit", "colSpan": 2},
+          {"text": "", "style": "infounit"},
+          {"text": "", "style": "infounit"},
+        ]
+      ]);
+    }
 
-    addBodyArea(tableBody, msgOwnLimits, [
-      [
-        {"text": "", "style": "infotitle"},
-        {
-          "text": msgValuesAbove(
-            "${glucFromData(src.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
-          "style": "infotitle"
-        },
-        {
-          "text": "${g.fmtNumber(data.stat["high"].values.length / data.count * 100, _precisionTarget)} %",
-          "style": "infodata"
-        },
-        {"text": fillLimitInfo(data.stat["high"]), "style": "infounit", "colSpan": 2},
-        {"text": "", "style": "infounit"},
-        {
-          "canvas": [
-            {"type": "rect", "x": cm(cvsLeft), "y": cm(0), "w": cm(cvsWidth), "h": cm(tgHigh), "color": colHigh},
-            {"type": "rect", "x": cm(cvsLeft), "y": cm(tgHigh), "w": cm(cvsWidth), "h": cm(tgNorm), "color": colNorm},
-            {
-              "type": "rect",
-              "x": cm(cvsLeft),
-              "y": cm(tgHigh + tgNorm),
-              "w": cm(cvsWidth),
-              "h": cm(tgLow),
-              "color": colLow
-            },
-          ],
-          "rowSpan": 3
-        },
-      ],
-      [
-        {"text": "", "style": "infotitle"},
-        {
-          "text": msgValuesIn("${glucFromData(src.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}",
-            "${glucFromData(src.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
-          "style": "infotitle"
-        },
-        {
-          "text": "${g.fmtNumber(data.stat["norm"].values.length / data.count * 100, _precisionTarget)} %",
-          "style": "infodata"
-        },
-        {"text": fillLimitInfo(data.stat["norm"]), "style": "infounit", "colSpan": 2},
-        {"text": "", "style": "infounit"},
-        {"text": "", "style": "infounit"},
-      ],
-      [
-        {"text": "", "style": "infotitle"},
-        {
-          "text": msgValuesBelow(
-            "${glucFromData(src.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}"),
-          "style": "infotitle"
-        },
-        {
-          "text": "${g.fmtNumber(data.stat["low"].values.length / data.count * 100, _precisionTarget)} %",
-          "style": "infodata"
-        },
-        {"text": fillLimitInfo(data.stat["low"]), "style": "infounit", "colSpan": 2},
-        {"text": "", "style": "infounit"},
-        {"text": "", "style": "infounit"},
-      ]
-    ]);
+    if (useFineLimits)
+    {
+      addBodyArea(tableBody, msgStandardLimits, [
+        [
+          {"text": "", "style": "infotitle"},
+          {"text": msgValuesVeryHigh("${glucFromData(250)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
+          {
+            "text": "${g.fmtNumber(data.stat["stdVeryHigh"].values.length / data.count * 100, _precisionTarget)} %",
+            "style": "infodata"
+          },
+          {"text": fillLimitInfo(data.stat["stdVeryHigh"]), "style": "infounit", "colSpan": 2},
+          {"text": "", "style": "infounit"},
+          {
+            "canvas": [
+              {"type": "rect", "x": cm(cvsLeft), "y": cm(0), "w": cm(cvsWidth), "h": cm(above250), "color": colHigh},
+              {
+                "type": "rect",
+                "x": cm(cvsLeft),
+                "y": cm(above250),
+                "w": cm(cvsWidth),
+                "h": cm(in180250),
+                "color": colNormHigh
+              },
+              {
+                "type": "rect",
+                "x": cm(cvsLeft),
+                "y": cm(above250 + in180250),
+                "w": cm(cvsWidth),
+                "h": cm(in70180),
+                "color": colNorm
+              },
+              {
+                "type": "rect",
+                "x": cm(cvsLeft),
+                "y": cm(above250 + in180250 + in70180),
+                "w": cm(cvsWidth),
+                "h": cm(in5470),
+                "color": colNormLow
+              },
+              {
+                "type": "rect",
+                "x": cm(cvsLeft),
+                "y": cm(above250 + in180250 + in70180 + in5470),
+                "w": cm(cvsWidth),
+                "h": cm(below54),
+                "color": colLow
+              },
+            ],
+            "rowSpan": 3
+          },
+        ],
+        [
+          {"text": "", "style": "infotitle"},
+          {
+            "text": msgValuesNormHigh(
+              "${glucFromData(180)} ${getGlucInfo()["unit"]} - ${glucFromData(250)} ${getGlucInfo()["unit"]}"),
+            "style": "infotitle"
+          },
+          {
+            "text": "${g.fmtNumber(data.stat["stdNormHigh"].values.length / data.count * 100, _precisionTarget)} %",
+            "style": "infodata"
+          },
+          {"text": fillLimitInfo(data.stat["stdNormHigh"]), "style": "infounit", "colSpan": 2},
+          {"text": "", "style": "infounit"},
+          {"text": "", "style": "infounit"},
+        ],
+        [
+          {"text": "", "style": "infotitle"},
+          {
+            "text": msgValuesNorm(
+              "${glucFromData(70)} ${getGlucInfo()["unit"]}", "${glucFromData(180)} ${getGlucInfo()["unit"]}"),
+            "style": "infotitle"
+          },
+          {
+            "text": "${g.fmtNumber(data.stat["stdNorm"].values.length / data.count * 100, _precisionTarget)} %",
+            "style": "infodata"
+          },
+          {"text": fillLimitInfo(data.stat["stdNorm"]), "style": "infounit", "colSpan": 2},
+          {"text": "", "style": "infounit"},
+          {"text": "", "style": "infounit"},
+        ],
+        [
+          {"text": "", "style": "infotitle"},
+          {
+            "text": msgValuesNormLow(
+              "${glucFromData(54)} ${getGlucInfo()["unit"]} - ${glucFromData(70)} ${getGlucInfo()["unit"]}"),
+            "style": "infotitle"
+          },
+          {
+            "text": "${g.fmtNumber(data.stat["stdNormLow"].values.length / data.count * 100, _precisionTarget)} %",
+            "style": "infodata"
+          },
+          {"text": fillLimitInfo(data.stat["stdNormLow"]), "style": "infounit", "colSpan": 2},
+          {"text": "", "style": "infounit"},
+          {"text": "", "style": "infounit"},
+        ],
+        [
+          {"text": "", "style": "infotitle"},
+          {"text": msgValuesVeryLow("${glucFromData(54)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
+          {
+            "text": "${g.fmtNumber(data.stat["stdVeryLow"].values.length / data.count * 100, _precisionTarget)} %",
+            "style": "infodata"
+          },
+          {"text": fillLimitInfo(data.stat["stdVeryLow"]), "style": "infounit", "colSpan": 2},
+          {"text": "", "style": "infounit"},
+          {"text": "", "style": "infounit"},
+        ],
+      ]);
+    }
+    else
+    {
+      addBodyArea(tableBody, msgStandardLimits, [
+        [
+          {"text": "", "style": "infotitle"},
+          {"text": msgValuesAbove("${glucFromData(180)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
+          {
+            "text": "${g.fmtNumber(data.stat["stdHigh"].values.length / data.count * 100, _precisionTarget)} %",
+            "style": "infodata"
+          },
+          {"text": fillLimitInfo(data.stat["stdHigh"]), "style": "infounit", "colSpan": 2},
+          {"text": "", "style": "infounit"},
+          {
+            "canvas": [
+              {"type": "rect", "x": cm(cvsLeft), "y": cm(0), "w": cm(cvsWidth), "h": cm(above180), "color": colHigh},
+              {
+                "type": "rect",
+                "x": cm(cvsLeft),
+                "y": cm(above180),
+                "w": cm(cvsWidth),
+                "h": cm(in70180),
+                "color": colNorm
+              },
+              {
+                "type": "rect",
+                "x": cm(cvsLeft),
+                "y": cm(above180 + in70180),
+                "w": cm(cvsWidth),
+                "h": cm(below70),
+                "color": colLow
+              },
+            ],
+            "rowSpan": 3
+          },
+        ],
+        [
+          {"text": "", "style": "infotitle"},
+          {
+            "text": msgValuesIn(
+              "${glucFromData(70)} ${getGlucInfo()["unit"]}", "${glucFromData(180)} ${getGlucInfo()["unit"]}"),
+            "style": "infotitle"
+          },
+          {
+            "text": "${g.fmtNumber(data.stat["stdNorm"].values.length / data.count * 100, _precisionTarget)} %",
+            "style": "infodata"
+          },
+          {"text": fillLimitInfo(data.stat["stdNorm"]), "style": "infounit", "colSpan": 2},
+          {"text": "", "style": "infounit"},
+          {"text": "", "style": "infounit"},
+        ],
+        [
+          {"text": "", "style": "infotitle"},
+          {"text": msgValuesBelow("${glucFromData(70)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
+          {
+            "text": "${g.fmtNumber(data.stat["stdLow"].values.length / data.count * 100, _precisionTarget)} %",
+            "style": "infodata"
+          },
+          {"text": fillLimitInfo(data.stat["stdLow"]), "style": "infounit", "colSpan": 2},
+          {"text": "", "style": "infounit"},
+          {"text": "", "style": "infounit"},
+        ],
+      ]);
+    }
 
-    if (src.status.settings.thresholds.bgTargetBottom != 70 || src.status.settings.thresholds
-                                                                 .bgTargetTop != 180) addBodyArea(
-      tableBody, msgStandardLimits, [
-      [
-        {"text": "", "style": "infotitle"},
-        {"text": msgValuesAbove("${glucFromData(180)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
-        {
-          "text": "${g.fmtNumber(data.stat["stdHigh"].values.length / data.count * 100, _precisionTarget)} %",
-          "style": "infodata"
-        },
-        {"text": fillLimitInfo(data.stat["stdHigh"]), "style": "infounit", "colSpan": 2},
-        {"text": "", "style": "infounit"},
-        {
-          "canvas": [
-            {"type": "rect", "x": cm(cvsLeft), "y": cm(0), "w": cm(cvsWidth), "h": cm(above180), "color": colHigh},
-            {
-              "type": "rect",
-              "x": cm(cvsLeft),
-              "y": cm(above180),
-              "w": cm(cvsWidth),
-              "h": cm(in70180),
-              "color": colNorm
-            },
-            {
-              "type": "rect",
-              "x": cm(cvsLeft),
-              "y": cm(above180 + in70180),
-              "w": cm(cvsWidth),
-              "h": cm(below70),
-              "color": colLow
-            },
-          ],
-          "rowSpan": 3
-        },
-      ],
-      [
-        {"text": "", "style": "infotitle"},
-        {
-          "text": msgValuesIn(
-            "${glucFromData(70)} ${getGlucInfo()["unit"]}", "${glucFromData(180)} ${getGlucInfo()["unit"]}"),
-          "style": "infotitle"
-        },
-        {
-          "text": "${g.fmtNumber(data.stat["stdNorm"].values.length / data.count * 100, _precisionTarget)} %",
-          "style": "infodata"
-        },
-        {"text": fillLimitInfo(data.stat["stdNorm"]), "style": "infounit", "colSpan": 2},
-        {"text": "", "style": "infounit"},
-        {"text": "", "style": "infounit"},
-      ],
-      [
-        {"text": "", "style": "infotitle"},
-        {"text": msgValuesBelow("${glucFromData(70)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
-        {
-          "text": "${g.fmtNumber(data.stat["stdLow"].values.length / data.count * 100, _precisionTarget)} %",
-          "style": "infodata"
-        },
-        {"text": fillLimitInfo(data.stat["stdLow"]), "style": "infounit", "colSpan": 2},
-        {"text": "", "style": "infounit"},
-        {"text": "", "style": "infounit"},
-      ],
-    ]);
 
     addBodyArea(tableBody, msgPeriod, [
       [

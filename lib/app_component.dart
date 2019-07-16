@@ -308,6 +308,7 @@ class AppComponent
 
 //    Future.delayed(Duration(milliseconds: 10), ()
 //    {});
+//*
     g.loadSettings().then((_)
     {
       String page = g.version == g.lastVersion ? "normal" : "whatsnew";
@@ -354,6 +355,7 @@ class AppComponent
       getCurrentGluc();
       if (_currPage == "whatsnew")g.saveStorage("version", g.version);
     });
+// */
 /*
     progressText = msgCheckSetup;
     progressValue = progressMax + 1;
@@ -423,7 +425,7 @@ class AppComponent
       String temp = doc;
       doc = "";
       for (int i = 0; i < temp.length; i++)
-        if (temp.codeUnitAt(i) <= 4095)doc = "${doc}${temp[i]}";
+        if (g.language.code == 'ja' || temp.codeUnitAt(i) <= 4095)doc = "${doc}${temp[i]}";
     }
     return convert.base64.encode(convert.utf8.encode(doc));
   }

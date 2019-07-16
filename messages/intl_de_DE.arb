@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-05-24T09:34:27.680029",
+  "@@last_modified": "2019-07-16T07:31:23.175861",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -158,6 +158,11 @@
   },
   "Polski": "Polski",
   "@Polski": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Japanisch": "Japanisch",
+  "@Japanisch": {
     "type": "text",
     "placeholders": {}
   },
@@ -421,6 +426,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Berechnete IE für Kohlenhydrate": "Berechnete IE für Kohlenhydrate",
+  "@Berechnete IE für Kohlenhydrate": {
+    "type": "text",
+    "placeholders": {}
+  },
   "msgKH": "{value}g",
   "@msgKH": {
     "type": "text",
@@ -472,6 +482,42 @@
     "type": "text",
     "placeholders": {
       "high": {}
+    }
+  },
+  "msgValuesVeryHigh": "Sehr hohe Werte ( > {value})",
+  "@msgValuesVeryHigh": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgValuesNormHigh": "Hohe Werte ({value})",
+  "@msgValuesNormHigh": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgValuesNorm": "Zielbereich ({low} - {high})",
+  "@msgValuesNorm": {
+    "type": "text",
+    "placeholders": {
+      "low": {},
+      "high": {}
+    }
+  },
+  "msgValuesNormLow": "Niedrige Werte ({value})",
+  "@msgValuesNormLow": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgValuesVeryLow": "Sehr niedrige Werte (< {value})",
+  "@msgValuesVeryLow": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
     }
   },
   "msgKHBE": "g KH ({value} BE)",
@@ -679,6 +725,11 @@
   },
   "Glukose im Zielbereich": "Glukose im Zielbereich",
   "@Glukose im Zielbereich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Quelle": "Quelle",
+  "@Quelle": {
     "type": "text",
     "placeholders": {}
   },
@@ -952,6 +1003,28 @@
       "value": {}
     }
   },
+  "msgProfileSwitch": "Profilwechsel - {oldName} => {newName}",
+  "@msgProfileSwitch": {
+    "type": "text",
+    "placeholders": {
+      "oldName": {},
+      "newName": {}
+    }
+  },
+  "msgChangedEntry": "{name} {from} => {to}",
+  "@msgChangedEntry": {
+    "type": "text",
+    "placeholders": {
+      "name": {},
+      "from": {},
+      "to": {}
+    }
+  },
+  "Keine Änderung": "Keine Änderung",
+  "@Keine Änderung": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Auswertung": "Auswertung",
   "@Auswertung": {
     "type": "text",
@@ -972,13 +1045,183 @@
     "type": "text",
     "placeholders": {}
   },
+  "Standardbereich mit feinerer Abstufung": "Standardbereich mit feinerer Abstufung",
+  "@Standardbereich mit feinerer Abstufung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ToR [min/d]": "ToR [min/d]",
+  "@ToR [min/d]": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "VarK [%]": "VarK [%]",
+  "@VarK [%]": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgHYPO": "Intensität HYPO\n[{unit} x min²]",
+  "@msgHYPO": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "msgHYPER": "Intensität HYPER\n[{unit} x min²]",
+  "@msgHYPER": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "msgMEAN": "Mittlere Glukose\n[{unit}]",
+  "@msgMEAN": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "PGR": "PGR",
+  "@PGR": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.": "Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.",
+  "@Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.": "Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.",
+  "@Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgTORInfo": "Die Zeit pro Tag in Minuten, in denen die Werte ausserhalb des Bereichs {min} bis {max} liegen.",
+  "@msgTORInfo": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "Die glykämische Variabilität stellt die Streuung der Werte um den glykämischen Mittelwert herum in Prozent dar.": "Die glykämische Variabilität stellt die Streuung der Werte um den glykämischen Mittelwert herum in Prozent dar.",
+  "@Die glykämische Variabilität stellt die Streuung der Werte um den glykämischen Mittelwert herum in Prozent dar.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgHYPOInfo": "Die Intensität von Hypoglykämien pro Tag (Werte kleiner oder gleich {unit}).",
+  "@msgHYPOInfo": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "msgHYPERInfo": "Die Intensität von Hyperglykämien pro Tag (Werte grösser oder gleich {unit}).",
+  "@msgHYPERInfo": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "msgMEANInfo": "Der glykämische Mittelwert im betrachteten Zeitraum.",
+  "@msgMEANInfo": {
+    "type": "text",
+    "placeholders": {
+      "hba1c": {}
+    }
+  },
+  "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).",
+  "@Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "0,0 bis 2,0": "0,0 bis 2,0",
+  "@0,0 bis 2,0": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sehr geringes Risiko": "sehr geringes Risiko",
+  "@sehr geringes Risiko": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "2,1 bis 3,0": "2,1 bis 3,0",
+  "@2,1 bis 3,0": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "geringes Risiko": "geringes Risiko",
+  "@geringes Risiko": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "3,1 bis 4,0": "3,1 bis 4,0",
+  "@3,1 bis 4,0": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "moderates Risiko": "moderates Risiko",
+  "@moderates Risiko": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "4,1 bis 4,5": "4,1 bis 4,5",
+  "@4,1 bis 4,5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hohes Risiko": "hohes Risiko",
+  "@hohes Risiko": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ab 4,6": "ab 4,6",
+  "@ab 4,6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "extrem hohes Risiko": "extrem hohes Risiko",
+  "@extrem hohes Risiko": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "CGP": "CGP",
+  "@CGP": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Comprehensive Glucose Pentagon": "Comprehensive Glucose Pentagon",
+  "@Comprehensive Glucose Pentagon": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tagesanalyse": "Tagesanalyse",
   "@Tagesanalyse": {
     "type": "text",
     "placeholders": {}
   },
-  "Tagesnotizen": "Tagesnotizen",
-  "@Tagesnotizen": {
+  "Eine": "Eine",
+  "@Eine": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zwei": "Zwei",
+  "@Zwei": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Vier": "Vier",
+  "@Vier": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Acht": "Acht",
+  "@Acht": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sechzehn": "Sechzehn",
+  "@Sechzehn": {
     "type": "text",
     "placeholders": {}
   },
@@ -1067,6 +1310,36 @@
     "type": "text",
     "placeholders": {}
   },
+  "Berechnete IE für Kohlenhydrate anzeigen": "Berechnete IE für Kohlenhydrate anzeigen",
+  "@Berechnete IE für Kohlenhydrate anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose Pentagon erzeugen": "Glukose Pentagon erzeugen",
+  "@Glukose Pentagon erzeugen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "5 Minuten": "5 Minuten",
+  "@5 Minuten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "15 Minuten": "15 Minuten",
+  "@15 Minuten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "30 Minuten": "30 Minuten",
+  "@30 Minuten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "1 Stunde": "1 Stunde",
+  "@1 Stunde": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Protokoll": "Protokoll",
   "@Protokoll": {
     "type": "text",
@@ -1087,25 +1360,18 @@
     "type": "text",
     "placeholders": {}
   },
-  "msgProfileSwitch": "Profilwechsel - {oldName} => {newName}",
-  "@msgProfileSwitch": {
+  "Insulin-Quelle": "Insulin-Quelle",
+  "@Insulin-Quelle": {
     "type": "text",
-    "placeholders": {
-      "oldName": {},
-      "newName": {}
-    }
+    "placeholders": {}
   },
-  "msgChangedEntry": "{name} geändert von {from} auf {to}",
-  "@msgChangedEntry": {
+  "Temporäre Ziele": "Temporäre Ziele",
+  "@Temporäre Ziele": {
     "type": "text",
-    "placeholders": {
-      "name": {},
-      "from": {},
-      "to": {}
-    }
+    "placeholders": {}
   },
-  "Keine Änderung": "Keine Änderung",
-  "@Keine Änderung": {
+  "Gruppierung der Zeiten": "Gruppierung der Zeiten",
+  "@Gruppierung der Zeiten": {
     "type": "text",
     "placeholders": {}
   },
@@ -1436,9 +1702,39 @@
     "type": "text",
     "placeholders": {}
   },
-  "1.3.0 - xx.05.2019": "1.3.0 - xx.05.2019",
-  "@1.3.0 - xx.05.2019": {
+  "1.3.0 - xx.07.2019": "1.3.0 - xx.07.2019",
+  "@1.3.0 - xx.07.2019": {
     "description": "v1212",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.": "Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.",
+  "@Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.": {
+    "description": "v130a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.": "In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.",
+  "@In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.": {
+    "description": "v130a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.": "In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.",
+  "@In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.": {
+    "description": "v130a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt.": "In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt.",
+  "@In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt.": {
+    "description": "v130a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nightscout Reporter kann nun auch in Japanisch verwendet werden.": "Nightscout Reporter kann nun auch in Japanisch verwendet werden.",
+  "@Nightscout Reporter kann nun auch in Japanisch verwendet werden.": {
+    "description": "v130a5",
     "type": "text",
     "placeholders": {}
   },
@@ -1454,9 +1750,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde.": "Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde.",
+  "@Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde.": {
+    "description": "v130c3",
+    "type": "text",
+    "placeholders": {}
+  },
   "Die Ermittlung der Einheit (mg/dl oder mmol/l) wird nun flexibler gehandhabt, so dass auch Leerzeichen in der entsprechenden Einstellung nicht mehr zu einer Fehlinterpretation führen.": "Die Ermittlung der Einheit (mg/dl oder mmol/l) wird nun flexibler gehandhabt, so dass auch Leerzeichen in der entsprechenden Einstellung nicht mehr zu einer Fehlinterpretation führen.",
   "@Die Ermittlung der Einheit (mg/dl oder mmol/l) wird nun flexibler gehandhabt, so dass auch Leerzeichen in der entsprechenden Einstellung nicht mehr zu einer Fehlinterpretation führen.": {
     "description": "v130f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ein Fehler wurde behoben, der in der Tagesgrafik dazu führte, dass Texte in der Legende andere Texte überschrieben haben.": "Ein Fehler wurde behoben, der in der Tagesgrafik dazu führte, dass Texte in der Legende andere Texte überschrieben haben.",
+  "@Ein Fehler wurde behoben, der in der Tagesgrafik dazu führte, dass Texte in der Legende andere Texte überschrieben haben.": {
+    "description": "v130f2",
     "type": "text",
     "placeholders": {}
   },
@@ -2054,6 +2362,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun hier zu finden:": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun hier zu finden:",
+  "@Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun hier zu finden:": {
+    "description": "v110c1a",
+    "type": "text",
+    "placeholders": {}
+  },
+  "https://nightscout-reporter.zreptil.de/beta": "https://nightscout-reporter.zreptil.de/beta",
+  "@https://nightscout-reporter.zreptil.de/beta": {
+    "description": "v110c1b",
+    "type": "text",
+    "placeholders": {}
+  },
   "Übersetzungen korrigiert": "Übersetzungen korrigiert",
   "@Übersetzungen korrigiert": {
     "description": "v110f1",
@@ -2305,18 +2625,5 @@
     "description": "v100a1",
     "type": "text",
     "placeholders": {}
-  },
-  "ViewWhatsnewComponent0__message_106": "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun unter {startTag0}https://nightscout-reporter.zreptil.de/beta{endTag0} zu finden",
-  "@ViewWhatsnewComponent0__message_106": {
-    "description": "v110c1",
-    "type": "text",
-    "placeholders": {
-      "startTag0": {
-        "example": "<a href=\"https://nightscout-reporter.zreptil.de/beta\" target=\"_blank\">"
-      },
-      "endTag0": {
-        "example": "</a>"
-      }
-    }
   }
 }

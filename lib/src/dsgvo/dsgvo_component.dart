@@ -9,7 +9,7 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
   selector: 'dsgvo',
   styleUrls: ['dsgvo_component.css'],
   templateUrl: 'dsgvo_component.html',
-  directives: [ ModalComponent, MaterialDialogComponent, MaterialButtonComponent, MaterialIconComponent,],
+  directives: [ ModalComponent, MaterialDialogComponent, MaterialButtonComponent, MaterialIconComponent, NgIf],
   providers: [],)
 class DSGVOComponent
 {

@@ -6,6 +6,7 @@ import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component
 import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
+import 'print-daily-graphic.dart';
 
 class PrintWeeklyGraphic extends BasePrint
 {
@@ -13,13 +14,14 @@ class PrintWeeklyGraphic extends BasePrint
   String id = "weekgraph";
 
   bool sortReverse,
-    showDaysInGraphic = true;
+    showDaysInGraphic = true, showCGP;
 
   @override
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, list: ["Eine", "Zwei", "Vier", "Acht", "Sechzehn"]),
     ParamInfo(1, msgParam2, boolValue: true),
     ParamInfo(2, msgParam3, boolValue: true),
+    ParamInfo(3, PrintDailyGraphic.msgParam19, boolValue: false),
   ];
 
 
@@ -28,6 +30,7 @@ class PrintWeeklyGraphic extends BasePrint
   {
     sortReverse = params[1].boolValue;
     showDaysInGraphic = params[2].boolValue;
+    showCGP = params[3].boolValue;
 
     switch(params[0].intValue)
     {
@@ -122,6 +125,7 @@ class PrintWeeklyGraphic extends BasePrint
       basalTop = 2.0;
       graphBottom = graphHeight;
       pages.add(_getPage(week, src));
+      if (showCGP)pages.add(getCGPPage(week, src));
       if (g.showBothUnits)
       {
         g.glucMGDL = !g.glucMGDL;
@@ -136,6 +140,7 @@ class PrintWeeklyGraphic extends BasePrint
 
   _getPage(List<DayData> days, ReportData src)
   {
+    footerTextAboveLine["text"] = "";
     double xo = xorg;
     double yo = yorg;
     titleInfo = titleInfoDateRange(days[0].date, days.last.date);

@@ -5,7 +5,6 @@ import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
-import 'print-cgp.dart';
 
 class CollectInfo
 {
@@ -286,35 +285,6 @@ class PrintDailyGraphic extends BasePrint
     glucExerciseTop = graphHeight;
     var ret = _getPage(day, src);
     graphHeight = graphHeightSave;
-    return ret;
-  }
-
-  getCGPPage(DayData day, ReportData src)
-  {
-    PrintCGP cgpPage = PrintCGP();
-    cgpPage.scale = scale;
-    title = cgpPage.title;
-    subtitle = cgpPage.subtitle;
-    var cgpSrc = cgpPage.calcCGP(src, day, 1.0, 0, 0.3);
-    PentagonData cgp = cgpSrc["cgp"];
-    footerTextAboveLine = cgpPage.footerTextAboveLine;
-    footerTextAboveLine["y"] = 0.9;
-    double x = xorg + 2 * cgp.axisLength / cgp.scale + 1.2;
-    double y = yorg + 2.0;
-    var ret = [
-      headerFooter(),
-      {"relativePosition": {"x": cm(xorg) + cm(cgp.axisLength / cgp.scale), "y": cm(y)}, "canvas": cgp.outputCvs},
-      {"relativePosition": {"x": cm(xorg) + cm(cgp.axisLength / cgp.scale), "y": cm(y)}, "stack": cgp.outputText},
-
-      cgpPage.infoTable(
-        cgpSrc["pgr"],
-        cgp.glucInfo["unit"],
-        cgpSrc["mean"],
-        x,
-        y,
-        2.5,
-        width - x - xorg - 2.5)
-    ];
     return ret;
   }
 

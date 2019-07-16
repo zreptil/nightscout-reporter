@@ -61,6 +61,7 @@
           <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
                 [action]="pdfUrl">
             <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
+            <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja'" />
             <input name="filename" type="hidden" value="{{g.pdfDownload?pdfFilename(idx):''}}"/>
             <material-button class="pdfButton"
                              (trigger)="openPDF(idx)">
@@ -305,6 +306,7 @@
   </div>
 </div>
 <form id="postForm" [target]="g.pdfTarget" method="post" action="{{pdfUrl}}">
-  <input name="data" value="{{pdfData}}"/>Oleole{{pdfFilename(0)}}
+  <input name="data" type="hidden" value="{{pdfData}}"/>{{pdfFilename(0)}}
+  <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja'" />
   <input name="filename" [value]="g.pdfDownload?pdfFilename(0):''"/>
 </form>

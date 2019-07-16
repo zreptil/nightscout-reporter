@@ -953,9 +953,9 @@ class BoluscalcData extends JsonData
     if (ret.insulin == 0.0)ret.insulin = JsonData.toDouble(json["enteredinsulin"]);
     ret.superBolusUsed = JsonData.toBool(json["superbolusused"]);
     ret.trendUsed = JsonData.toBool(json["trendused"]);
-    ret.trend = json["trend"];
+    ret.trend = JsonData.toText(json["trend"]);
     ret.ttUsed = JsonData.toBool(json["ttused"]);
-    ret.NSClientId = json["NSCLIENT_ID"];
+    ret.NSClientId = JsonData.toText(json["NSCLIENT_ID"]);
     return ret;
   }
 
@@ -1006,6 +1006,8 @@ class TreatmentData extends JsonData
   double targetTop;
   double targetBottom;
   Uploader _from = Uploader.Unknown;
+  int get timeForCalc
+  => createdAt.hour * 60 + createdAt.minute;
   Uploader get from
   {
     if (_from == Uploader.Unknown)
@@ -1147,6 +1149,78 @@ class TreatmentData extends JsonData
     glucose = Globals.calc(src.glucose, dst.glucose, f);
     if (boluscalc != null)boluscalc.slice(src.boluscalc, dst.boluscalc, f);
   }
+
+  IOBData calcIOB(ProfileGlucData profile, DateTime time)
+  {
+    double dia = 3.0;
+    double sens = 0.0;
+    int check = time.hour * 60 + time.minute;
+
+    if (profile != null)
+    {
+      dia = profile.store.dia ?? 3;
+      sens = profile.store.listSens.lastWhere((e)
+      => e.timeForCalc <= check)?.value ?? 0.0;
+    }
+
+    double scaleFactor = 3.0 / dia;
+    double peak = 75.0;
+    IOBData ret = IOBData(0.0, 0.0, this);
+
+    if (insulin != null)
+    {
+      var bolusTime = createdAt.millisecondsSinceEpoch;
+      var minAgo = scaleFactor * (time.millisecondsSinceEpoch - bolusTime) / 1000 / 60;
+
+      if (minAgo < peak)
+      {
+        var x1 = minAgo / 5 + 1;
+        ret.iob = insulin * (1 - 0.001852 * x1 * x1 + 0.001852 * x1);
+        // units: BG (mg/dL)  = (BG/U) *    U insulin     * scalar
+        ret.activity = sens * insulin * (2 / dia / 60 / peak) * minAgo;
+      }
+      else if (minAgo < 180)
+      {
+        var x2 = (minAgo - 75) / 5;
+        ret.iob = insulin * (0.001323 * x2 * x2 - 0.054233 * x2 + 0.55556);
+        ret.activity = sens * insulin * (2 / dia / 60 - (minAgo - peak) * 2 / dia / 60 / (60 * 3 - peak));
+      }
+    }
+
+    return ret;
+  }
+
+  calcCOB(ProfileGlucData profile, DateTime time, int lastDecayedBy)
+  {
+    int delay = 20;
+    bool isDecaying = false;
+    var initialCarbs;
+
+    if (carbs != null)
+    {
+      DateTime carbTime = createdAt;
+
+      int carbs_hr = profile.store.carbsHr;
+      if (carbs_hr == 0)carbs_hr = 12;
+      double carbs_min = carbs_hr / 60;
+
+      DateTime decayedBy = carbTime;
+      int minutesleft = (lastDecayedBy - carbTime.millisecondsSinceEpoch) / 1000 ~/ 60;
+      decayedBy = decayedBy.add(Duration(minutes: math.max(delay, minutesleft) + carbs ~/ carbs_min));
+      if (delay > minutesleft)initialCarbs = carbs;
+      else
+        initialCarbs = carbs + minutesleft * carbs_min;
+      DateTime startDecay = carbTime.add(Duration(minutes: delay));
+      if (time.millisecondsSinceEpoch < lastDecayedBy || time.millisecondsSinceEpoch > startDecay
+        .millisecondsSinceEpoch)isDecaying = true;
+      else
+        isDecaying = false;
+
+      return {"initialCarbs": initialCarbs, "decayedBy": decayedBy, "isDecaying": isDecaying, "carbTime": carbTime};
+    }
+    return null;
+  }
+
 }
 
 class EntryData extends JsonData
@@ -1223,6 +1297,26 @@ class EntryData extends JsonData
   }
 }
 
+class IOBData
+{
+  double iob, activity;
+  TreatmentData lastBolus;
+
+  IOBData(this.iob, this.activity, this.lastBolus);
+}
+
+class COBData
+{
+  DateTime decayedBy;
+  bool isDecaying;
+  int carbs_hr;
+  double rawCarbImpact;
+  double cob;
+  TreatmentData lastCarbs;
+
+  COBData(this.decayedBy, this.isDecaying, this.carbs_hr, this.rawCarbImpact, this.cob, this.lastCarbs);
+}
+
 class DayData
 {
   Date date;
@@ -1275,6 +1369,9 @@ class DayData
     if (date.month != time.month)return false;
     return date.day == time.day;
   }
+
+  bool isSameDay_(DateTime d1, DateTime d2)
+  => d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
 
   double get ieCorrectionSum
   {
@@ -1539,6 +1636,115 @@ class DayData
 
     return ret;
   }
+
+  IOBData iob(ReportData data, DateTime time)
+  {
+    double totalIOB = 0.0;
+    double totalActivity = 0.0;
+
+    if (time == null)time = DateTime(0);
+
+    TreatmentData lastBolus = null;
+    int check = time.millisecondsSinceEpoch;
+    ProfileGlucData profile = data.profile(time);
+
+    for (TreatmentData t in treatments)
+    {
+      if (!isSameDay_(t.createdAt, time) || t.createdAt.millisecondsSinceEpoch > check)continue;
+
+      var tIOB = t.calcIOB(profile, time);
+      if (tIOB != null && tIOB.iob != null)
+      {
+        if (tIOB.iob != 0) lastBolus = t;
+        totalIOB += tIOB.iob;
+      }
+
+      // units: BG (mg/dL or mmol/L)
+      if (tIOB != null && tIOB.activity != null)totalActivity += tIOB.activity;
+    }
+
+    return IOBData(totalIOB, totalActivity, lastBolus);
+  }
+
+  IOBData calcIobTotal(ReportData data, DateTime time)
+  {
+    if (time == null)time = DateTime.now();
+
+    return iob(data, time);
+  }
+
+  COBData cob(ReportData data, DateTime time)
+  {
+    // TODO: figure out the liverSensRatio that gives the most accurate purple line predictions
+    double liverSensRatio = 8.0;
+    double totalCOB = 0.0;
+    TreatmentData lastCarbs = null;
+
+    bool isDecaying = false;
+    DateTime lastDecayedBy = null;
+    int check = time.hour * 60 + time.minute;
+    ProfileGlucData profile = data.profile(time);
+
+    for (TreatmentData t in treatments)
+    {
+      if (!isSameDay_(t.createdAt, time) || t.timeForCalc > check)continue;
+
+      int tCheck = t.timeForCalc;
+
+      if (t.carbs != null && t.carbs > 0)
+      {
+        double sens = profile.store.listSens.lastWhere((e)
+        => e.timeForCalc <= tCheck)?.value ?? 0.0;
+        double carbRatio = profile.store.listCarbratio.lastWhere((e)
+        => e.timeForCalc <= tCheck)?.value ?? 0.0;
+        lastCarbs = t;
+        var cCalc = t.calcCOB(profile, time, lastDecayedBy?.millisecondsSinceEpoch ?? 0);
+        if (cCalc != null)
+        {
+          double decaysin_hr = (cCalc["decayedBy"].millisecondsSinceEpoch - time
+            .millisecondsSinceEpoch) / 1000 / 60 / 60;
+          if (decaysin_hr > -10)
+          {
+            // units: BG
+            var actStart = iob(data, lastDecayedBy).activity;
+            var actEnd = iob(data, cCalc["decayedBy"]).activity;
+            var avgActivity = (actStart + actEnd) / 2;
+            // units:  g     =       BG      *      scalar     /          BG / U                           *     g / U
+            if (sens == 0.0)sens = 1.0;
+            if (carbRatio == 0.0)carbRatio = 1.0;
+            var delayedCarbs = (avgActivity * liverSensRatio / sens) * carbRatio;
+            int delayMinutes = delayedCarbs ~/ carbRatio * 60;
+            if (delayMinutes > 0)
+            {
+              cCalc["decayedBy"].add(Duration(minutes: delayMinutes));
+              decaysin_hr = (cCalc["decayedBy"].millisecondsSinceEpoch - time.millisecondsSinceEpoch) / 1000 / 60 / 60;
+            }
+          }
+
+          lastDecayedBy = cCalc["decayedBy"];
+          if (decaysin_hr > 0)
+          {
+            //console.info('Adding ' + delayMinutes + ' minutes to decay of ' + treatment.carbs + 'g bolus at ' + treatment.mills);
+            totalCOB += math.min(t.carbs, decaysin_hr * carbRatio);
+            //console.log('cob:', Math.min(cCalc.initialCarbs, decaysin_hr * profile.getCarbAbsorptionRate(treatment.mills)),cCalc.initialCarbs,decaysin_hr,profile.getCarbAbsorptionRate(treatment.mills));
+            isDecaying = cCalc["isDecaying"];
+          }
+        }
+        else
+        {
+          totalCOB = 0;
+        }
+      }
+    }
+
+    double sens = profile.store.listSens.lastWhere((e)
+    => e.timeForCalc <= check)?.value ?? 0.0;
+    double carbRatio = profile.store.listCarbratio.lastWhere((e)
+    => e.timeForCalc <= check)?.value ?? 0.0;
+    var rawCarbImpact = (isDecaying ? 1 : 0) * sens / carbRatio * profile.store.carbsHr / 60;
+
+    return COBData(lastDecayedBy, isDecaying, profile.store.carbsHr, rawCarbImpact, totalCOB, lastCarbs);
+  }
 }
 
 class StatisticData
@@ -1579,7 +1785,11 @@ class ListData
     "high": StatisticData(0, 0),
     "stdLow": StatisticData(1, 69.9999),
     "stdNorm": StatisticData(70, 179.9999),
-    "stdHigh": StatisticData(180, 9999)
+    "stdHigh": StatisticData(180, 9999),
+    "stdVeryHigh": StatisticData(250, 9999),
+    "stdNormHigh": StatisticData(180, 249.999),
+    "stdNormLow": StatisticData(54, 69.9999),
+    "stdVeryLow": StatisticData(0, 53.9999),
   };
   double ieBolusSum = 0.0;
   double ieBasalSum = 0.0;
@@ -1884,7 +2094,7 @@ class ReportData
       ret.sens = ret.find(date, time, ret.store.listSens);
       ret.targetHigh = status.settings.thresholds.bgTargetTop.toDouble();
       ret.targetLow = status.settings.thresholds.bgTargetBottom.toDouble();
-      for(ProfileStoreData data in profile.store.values)
+      for (ProfileStoreData data in profile.store.values)
         data.adjustDurations();
     }
 
