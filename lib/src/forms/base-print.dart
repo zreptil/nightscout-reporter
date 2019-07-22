@@ -381,7 +381,7 @@ abstract class BasePrint
   msgValuesVeryLow(value)
   => Intl.message("Sehr niedrige Werte (< ${value})", args: [value], name: "msgValuesVeryLow");
   msgKHBE(value)
-  => Intl.message("g KH ($value BE)", args: [value], name: "msgKHBE");
+  => Intl.message("g KH ($value BE)", args: [value], name: "msgKHBE", meaning: "gram Carbohydrates displayed at analysis page");
   msgReservoirDays(count, txt)
   =>
     Intl.plural(count, one: "($txt Tag pro Ampulle)",
@@ -644,6 +644,11 @@ abstract class BasePrint
 
   msgHistorical(value)
   => Intl.message("Historisch ${value}", args: [value], name: "msgHistorical");
+
+  String get msgUnitMGDL
+  => Intl.message("mg/dL");
+  String get msgUnitMMOL
+  => Intl.message("mmol/L");
 
   String titleInfoForDates(DateTime startDate, DateTime endDate)
   {
@@ -1241,8 +1246,8 @@ abstract class BasePrint
 
   getGlucInfo()
   {
-    var ret = {"step": 1, "unit": "mg/dL"};
-    if (!g.glucMGDL)ret = {"step": 0.1, "unit": "mmol/L"};
+    var ret = {"step": 1, "unit": msgUnitMGDL};
+    if (!g.glucMGDL)ret = {"step": 0.1, "unit": msgUnitMMOL};
     ret["factor"] = g.glucFactor;
     return ret;
   }

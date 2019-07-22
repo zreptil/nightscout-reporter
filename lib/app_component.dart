@@ -425,7 +425,7 @@ class AppComponent
       String temp = doc;
       doc = "";
       for (int i = 0; i < temp.length; i++)
-        if (g.language.code == 'ja' || temp.codeUnitAt(i) <= 4095)doc = "${doc}${temp[i]}";
+        if (g.language.code == 'ja_JP' || temp.codeUnitAt(i) <= 4095)doc = "${doc}${temp[i]}";
     }
     return convert.base64.encode(convert.utf8.encode(doc));
   }
@@ -437,7 +437,7 @@ class AppComponent
       String doc = pdfDoc;
       if (url == "showPlayground")
       {
-        pdfUrl = "http://pdf.zreptil.de/playground.php";
+        pdfUrl = g.urlPlayground;
         if (doc != null)
         {
           doc = doc.replaceAll("],", "],\n");
@@ -447,7 +447,7 @@ class AppComponent
       }
       else
       {
-        pdfUrl = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
+        pdfUrl = g.urlPdf;
       }
 
       if (pdfDoc != null && pdfList.length == 0)
@@ -729,6 +729,20 @@ class AppComponent
         => null) != null || entry["profile"] == null)continue;
         List<String> parts = List<String>();
         parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
+        // some uploaders (e.g. Minimed 600-series) don't save profileJson, so we need
+        // to find it here
+        ProfileStoreData store = null;
+        if (entry["profileJson"] == null)
+        {
+          String key = entry["profile"];
+          ProfileData prof = data.profiles.lastWhere((p)
+          => p.startDate.isBefore(check) && p.store.containsKey(key), orElse: ()
+          => null);
+          if (prof != null)
+          {
+            store = prof.store[key];
+          }
+        }
         parts.add('"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
         parts.add('"mills":"0","units":"mg/dl"');
         parts.add('"percentage":"${entry["percentage"]}"');
@@ -737,6 +751,8 @@ class AppComponent
         parts.add('"created_at":"${entry["created_at"]}"}');
 
         data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
+        if(store != null)
+          data.profiles.last.store[entry["profile"]] = store;
       }
     }
     catch (ex)
@@ -997,7 +1013,9 @@ class AppComponent
         BasePrint form = cfg.form;
         if (cfg.checked && (!form.isDebugOnly || isDebug))
         {
-          docLen = json.encode(doc).length;
+          docLen = json
+            .encode(doc)
+            .length;
           dynamic formData = await form.getFormData(vars, docLen);
           List<List<dynamic>> fileList = [[]];
           for (dynamic entry in formData)

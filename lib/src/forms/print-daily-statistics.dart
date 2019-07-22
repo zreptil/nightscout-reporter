@@ -193,7 +193,7 @@ class PrintDailyStatistics extends BasePrint
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
     int totalDays = 0;
-    for (DayData day in src.ns.days)
+    for (DayData day in src.calc.days)
     {
       day.init();
       if (day.entries.length == 0)continue;

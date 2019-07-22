@@ -62,7 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m21(value) => "履歴${value}";
 
-  static m22(unit) => "インスリン効果値(ISF) X ${unit} で1 IUの血糖値が下がる";
+  static m22(unit) => "インスリン効果値(ISF) 1 IUでX ${unit} の血糖値が下がる";
 
   static m23(value) => "${value}g";
 
@@ -124,13 +124,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m52(endDate) => "${endDate} まで有効";
 
-  static m53(high) => "${high} を上回ります";
+  static m53(high) => "${high} を超えた値";
 
-  static m54(low) => "${low} 以下になります";
+  static m54(low) => "${low} 未満の値";
 
   static m55(low, high) => "${low} から${high} の値";
 
-  static m56(low, high) => "Target area (${low} - ${high})";
+  static m56(low, high) => "目標範囲 (${low} - ${high})";
 
   static m57(value) => "高い値 (${value})";
 
@@ -218,7 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Bitte überprüfe die Aktivierung der Wochentage unter dem Monat" : MessageLookupByLibrary.simpleMessage("カレンダーの下にあるチェック印を確認してください"),
     "Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt." : MessageLookupByLibrary.simpleMessage("血糖値がmmol/lでグラフに正しく表示できるようになりました。"),
     "Bolus" : MessageLookupByLibrary.simpleMessage("ボーラス"),
-    "Bolusarten anzeigen" : MessageLookupByLibrary.simpleMessage("ボーラスタイプを表示"),
+    "Bolusarten anzeigen" : MessageLookupByLibrary.simpleMessage("ボーラスタイプを表示する"),
     "CGP" : MessageLookupByLibrary.simpleMessage("CGP"),
     "Comprehensive Glucose Pentagon" : MessageLookupByLibrary.simpleMessage("グルコース総合グラフ"),
     "Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben." : MessageLookupByLibrary.simpleMessage("「グルコース総合グラフ」をデイリーチャートとウィークリーチャートに別ページとして追加しました。このグラフは５つの要素を表しており、各要素を比較して治療の質を決定できます。印刷出力では出力している各レポートの追加ページとして出力されます。"),
@@ -250,7 +250,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch)." : MessageLookupByLibrary.simpleMessage("期間の選択がより自由になりました。選択は、言語を考慮したダイアログで行われます。規定の範囲（本日、先週等）を選択すると現在の日付が次の設定での基準日として設定されます。範囲をカレンダーで直接設定している場合は、設定に従って定義されます。又、デフォルトでは週の始まりは月曜日ですが、タイトルバーの曜日をクリックする事で変更が可能です。日付フィールドは言語に対応するフォーマットで入力されます。(ドイツ語：日/月/年　英語：月/日/年)"),
     "Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin an dem Tag skaliert." : MessageLookupByLibrary.simpleMessage("デイリーグラフのボーラスバーは、その日の最大ボーラスによって縮尺が決定されます。"),
     "Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte Basalratenanpassung anzeigen." : MessageLookupByLibrary.simpleMessage("ベーサルレートも治療データによりプロフィールが変更されます。プロフィールされた場合は、新しいプロファイルを表示します。"),
-    "Die Berechnung der PDF-Grössen wurde korrigiert, so dass nun weniger PDFs erstellt werden, wenn sie aufgrund der Grösse aufgeteilt werden." : MessageLookupByLibrary.simpleMessage("The calculation of the PDF sizes has been corrected, so that fewer PDFs are created when they are divided due to the size."),
+    "Die Berechnung der PDF-Grössen wurde korrigiert, so dass nun weniger PDFs erstellt werden, wenn sie aufgrund der Grösse aufgeteilt werden." : MessageLookupByLibrary.simpleMessage("ＰＤＦサイズの計算を修正しました。サイズにより分割する際のＰＤＦ数が少なくなりました。"),
     "Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert." : MessageLookupByLibrary.simpleMessage("日別統計の合計行の計算を修正しました。"),
     "Die Berechnung der tatsächlichen Basalrate wurde korrigiert." : MessageLookupByLibrary.simpleMessage("実際のベーサルレートの計算式を修正しました。"),
     "Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB." : MessageLookupByLibrary.simpleMessage("SMBが1日のインスリン量にも考慮されるようになりました。"),
@@ -323,14 +323,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "Geschätzter HbA1c" : MessageLookupByLibrary.simpleMessage("推定A1C"),
     "Glukose Pentagon erzeugen" : MessageLookupByLibrary.simpleMessage("グルコース総合グラフを表示する"),
     "Glukose Perzentil Diagramm" : MessageLookupByLibrary.simpleMessage("血糖値変動パターン"),
-    "Glukose im Zielbereich" : MessageLookupByLibrary.simpleMessage("血糖値は目標範囲内です"),
-    "Glukose zu hoch" : MessageLookupByLibrary.simpleMessage("血糖値が高すぎます"),
-    "Glukose zu niedrig" : MessageLookupByLibrary.simpleMessage("血糖値が低すぎます"),
+    "Glukose im Zielbereich" : MessageLookupByLibrary.simpleMessage("目標範囲内"),
+    "Glukose zu hoch" : MessageLookupByLibrary.simpleMessage("高血糖"),
+    "Glukose zu niedrig" : MessageLookupByLibrary.simpleMessage("低血糖"),
     "Glukosekurve" : MessageLookupByLibrary.simpleMessage("血糖値曲線"),
     "Glykämischer Variabilitäts Index (GVI)" : MessageLookupByLibrary.simpleMessage("血糖値変動指数 (GVI)"),
     "Grafiken pro Seite" : MessageLookupByLibrary.simpleMessage("１ページのグラフ数"),
     "Gross" : MessageLookupByLibrary.simpleMessage("大"),
-    "Gruppierung der Zeiten" : MessageLookupByLibrary.simpleMessage("時間をグループ化する"),
+    "Gruppierung der Zeiten" : MessageLookupByLibrary.simpleMessage("時間帯をまとめて表示"),
     "Heute" : MessageLookupByLibrary.simpleMessage("今日"),
     "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden" : MessageLookupByLibrary.simpleMessage("PDFのヘッダとフッターにナイトスカウトの情報を表示しない"),
     "Hohe Basalraten werden jetzt besser dargestellt." : MessageLookupByLibrary.simpleMessage("高いベーサルレートも正しく表示されます。"),
@@ -363,7 +363,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden." : MessageLookupByLibrary.simpleMessage("デイリーグラフでは、インスリンと炭水化物の値が1時間に複数個ある場合は合計が表示されます。各バーは値ごとに表示されます。又、この表示により文字が重なる事が解消されました。角括弧で表示された値は合計された値です。"),
     "In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt." : MessageLookupByLibrary.simpleMessage("日別統計及びデイリーグラフに曜日が表示されるようになりました。"),
     "In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK)." : MessageLookupByLibrary.simpleMessage("日別統計にCoefficient of variation (CV) の項目を追加しました。"),
-    "Info-Linien bis zur Kurve zeichnen" : MessageLookupByLibrary.simpleMessage("ポンプ履歴から血糖値曲線まで線を表示"),
+    "Info-Linien bis zur Kurve zeichnen" : MessageLookupByLibrary.simpleMessage("ポンプ履歴から血糖値曲線まで線を表示する"),
     "Initiale Version, alles ist neu!" : MessageLookupByLibrary.simpleMessage("初期バージョン。すべてがおニューです！"),
     "Insulin" : MessageLookupByLibrary.simpleMessage("インスリン"),
     "Insulin Kohlenhydrate Verhältnis (ICR)" : MessageLookupByLibrary.simpleMessage("インスリンカーボ比(ICR)"),
@@ -399,7 +399,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Mittel-\nwert" : MessageLookupByLibrary.simpleMessage("平均"),
     "Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag" : MessageLookupByLibrary.simpleMessage("月曜日|火曜日|水曜日|木曜日|金曜日|土曜日|日曜日"),
     "Mo|Di|Mi|Do|Fr|Sa|So" : MessageLookupByLibrary.simpleMessage("月|火|水|木|金|土|日"),
-    "Nahe zusammen liegende Werte aufsummieren" : MessageLookupByLibrary.simpleMessage("近い時間帯のトリートメントをまとめる"),
+    "Nahe zusammen liegende Werte aufsummieren" : MessageLookupByLibrary.simpleMessage("近い時間帯のトリートメントをまとめて表示する"),
     "Name" : MessageLookupByLibrary.simpleMessage("氏名"),
     "Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat." : MessageLookupByLibrary.simpleMessage("名前、生年月日、インスリン、糖尿病発症日が空欄でもPDFの表示ができるようになりました。"),
     "Nein" : MessageLookupByLibrary.simpleMessage("いいえ"),
@@ -407,11 +407,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht." : MessageLookupByLibrary.simpleMessage("デイリーグラフパラメーターはデイリーグラフにポンプ履歴から血糖値曲線まで線を描画するかを決定する。"),
     "Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden." : MessageLookupByLibrary.simpleMessage("1週間の血糖値曲線が一度に表示されるウィークリーグラフのPDFページが追加されました。"),
     "Neueste Woche zuerst" : MessageLookupByLibrary.simpleMessage("新しい週を最初に表示する"),
-    "Neuester Tag zuerst" : MessageLookupByLibrary.simpleMessage("最新の日から表示する"),
+    "Neuester Tag zuerst" : MessageLookupByLibrary.simpleMessage("表示日を昇順にする"),
     "Niedrigster Wert im Zeitraum" : MessageLookupByLibrary.simpleMessage("期間中の最低血糖値"),
     "Nightscout Berichte" : MessageLookupByLibrary.simpleMessage("ナイトスカウト レポート"),
     "Nightscout Reporter ist nun auch grösstenteils in Spanisch und Polnisch verfügbar. Entsprechende Buttons wurden dem Hauptmenü hinzugefügt. Danke an die fleissigen Übersetzer :)." : MessageLookupByLibrary.simpleMessage("Nightscout Reporterの大部分がスペイン語とポーランド語に翻訳されました。 メインメニューに選択ボタンが追加されました。 勤勉な翻訳者のおか​​げです :)"),
-    "Nightscout Reporter kann nun auch in Japanisch verwendet werden." : MessageLookupByLibrary.simpleMessage("Nightscout Reporter can now be used in Japanese."),
+    "Nightscout Reporter kann nun auch in Japanisch verwendet werden." : MessageLookupByLibrary.simpleMessage("ナイトスカウトレポーターで日本語表示が可能になりました。"),
     "Nightscout Seite" : MessageLookupByLibrary.simpleMessage("ナイトスカウト サイト"),
     "Normal" : MessageLookupByLibrary.simpleMessage("正常"),
     "Notiz" : MessageLookupByLibrary.simpleMessage("ノート"),
@@ -432,7 +432,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Profileinstellungen" : MessageLookupByLibrary.simpleMessage("プロフィール設定"),
     "Profilwechsel" : MessageLookupByLibrary.simpleMessage("プロフィール切替"),
     "Protokoll" : MessageLookupByLibrary.simpleMessage("ログ"),
-    "Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)" : MessageLookupByLibrary.simpleMessage("Source: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)"),
+    "Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)" : MessageLookupByLibrary.simpleMessage("文献：Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)"),
     "Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse." : MessageLookupByLibrary.simpleMessage("PDFのページの順番を変更しました。グルコース変動パターンは、分析の後に出ます。"),
     "Reservoirwechsel" : MessageLookupByLibrary.simpleMessage("リザーバー交換"),
     "SMB" : MessageLookupByLibrary.simpleMessage("SMB"),
@@ -452,15 +452,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "Spaltenbreite der Informationen in der Analyse erhöht" : MessageLookupByLibrary.simpleMessage("解析ページの情報を表示する列幅が広くなりました。"),
     "Speichern" : MessageLookupByLibrary.simpleMessage("保存"),
     "Standardabweichung" : MessageLookupByLibrary.simpleMessage("標準偏差"),
-    "Standardabweichung statt Anzahl" : MessageLookupByLibrary.simpleMessage("値のカウント数の代わりに標準偏差を表示"),
-    "Standardbereich mit feinerer Abstufung" : MessageLookupByLibrary.simpleMessage("精細グラデーションの標準範囲"),
+    "Standardabweichung statt Anzahl" : MessageLookupByLibrary.simpleMessage("値のカウント数の代わりに標準偏差を表示する"),
+    "Standardbereich mit feinerer Abstufung" : MessageLookupByLibrary.simpleMessage("標準範囲を精細グラデーションで表示する"),
     "Standardgrenzwerte" : MessageLookupByLibrary.simpleMessage("標準目標範囲"),
     "Std.\nAbw." : MessageLookupByLibrary.simpleMessage("標準偏差"),
     "Stunden" : MessageLookupByLibrary.simpleMessage("時間"),
     "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt" : MessageLookupByLibrary.simpleMessage("デイリーグラフに、1日の総インスリン単位、プロフィールで設定したベーサルレートを追加しました。"),
     "Symbole (Katheter etc.)" : MessageLookupByLibrary.simpleMessage("記号(カニューレ等)"),
     "TDD" : MessageLookupByLibrary.simpleMessage("TDD"),
-    "Tabelle mit Glukosewerten" : MessageLookupByLibrary.simpleMessage("表に炭水化物を表示"),
+    "Tabelle mit Glukosewerten" : MessageLookupByLibrary.simpleMessage("表に炭水化物を表示する"),
     "Tages-Basalrate" : MessageLookupByLibrary.simpleMessage("ベーサルレート"),
     "Tagesanalyse" : MessageLookupByLibrary.simpleMessage("日間分析"),
     "Tagesgrafik" : MessageLookupByLibrary.simpleMessage("デイリーグラフ"),
@@ -512,6 +512,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Zeitzone" : MessageLookupByLibrary.simpleMessage("タイムゾーン"),
     "Zielbereich" : MessageLookupByLibrary.simpleMessage("目標範囲"),
     "Zielbereich mit Nachkommastellen" : MessageLookupByLibrary.simpleMessage("目標範囲に小数点以下を表示"),
+    "Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind." : MessageLookupByLibrary.simpleMessage("The same database is used to calculate the analysis, daily statistics and daily graphs so that the values are the same on all PDFs."),
     "Zusatzfunktionen" : MessageLookupByLibrary.simpleMessage("追加機能"),
     "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt" : MessageLookupByLibrary.simpleMessage("PDFとその表示についての情報を追加しました。"),
     "Zwei" : MessageLookupByLibrary.simpleMessage("2"),
@@ -524,6 +525,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "gesch. HbA1c" : MessageLookupByLibrary.simpleMessage("推定A1C"),
     "hohes Risiko" : MessageLookupByLibrary.simpleMessage("リスクが高い"),
     "https://nightscout-reporter.zreptil.de/beta" : MessageLookupByLibrary.simpleMessage("https://nightscout-reporter.zreptil.de/beta"),
+    "mg/dL" : MessageLookupByLibrary.simpleMessage("mg/dL"),
+    "mmol/L" : MessageLookupByLibrary.simpleMessage("mmol/L"),
     "moderates Risiko" : MessageLookupByLibrary.simpleMessage("リスクがある"),
     "msgBasalrateDay" : m0,
     "msgBasalrateProfile" : m1,

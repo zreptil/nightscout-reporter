@@ -75,7 +75,7 @@ class PeriodShift
 
 class Globals
 {
-  // The timezone is set to Europe/Berlin by default, but it is evaluated in
+  // The timezone is set to Europe/Berlin by mdefault, but it is evaluated in
   // the constructor for the current system.
   static String refTimezone = "Europe/Berlin";
   static tz.Location refLocation = tz.getLocation("Europe/Berlin");
@@ -223,7 +223,7 @@ class Globals
     LangData("en_GB", Intl.message("English (GB)"), "gb"),
     LangData("es_ES", Intl.message("Español"), "es"),
     LangData("pl_PL", Intl.message("Polski"), "pl"),
-    LangData("ja", Intl.message("Japanisch"), "jp"),
+    LangData("ja_JP", Intl.message("Japanisch"), "jp"),
   ];
   LangData _language = null;
   LangData get language
@@ -299,6 +299,8 @@ class Globals
   bool hidePdfInfo = false;
   bool showCurrentGluc = false;
   bool showInfo = false;
+  String urlPdf = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
+  String urlPlayground = "http://pdf.zreptil.de/playground.php";
   String infoClass(String cls)
   => showInfo ? "$cls infoarea showinfo" : "$cls infoarea";
   bool isConfigured = false;
@@ -489,6 +491,11 @@ class Globals
     canDebug = loadStorage("debug") == "yes";
     fmtDateForData = DateFormat("yyyy-MM-dd");
     fmtDateForDisplay = DateFormat(language.dateformat);
+    if(canDebug)
+    {
+      String temp = loadStorage("up");
+      if (temp != "") urlPdf = temp;
+    }
   }
 
   void fromJson(String src)
@@ -580,8 +587,7 @@ class Globals
     }
     else
       drive?.files?.update(settingsFile, settingsFile.id, uploadMedia: media)?.then((_)
-      {
-      })?.catchError((error)
+      {})?.catchError((error)
       {
 //        String msg = error.toString();
 //      display("Es ist ein Fehler aufgetreten ($error)");
@@ -810,7 +816,11 @@ class Globals
 
     saveStorage("version", version);
     saveStorage("saveToGoogle", oldGoogle);
-    if (canDebug)saveStorage("debug", "yes");
+    if (canDebug)
+    {
+      saveStorage("debug", "yes");
+      saveStorage("up", urlPdf);
+    }
     if (!itod)saveStorage("unsafe", "zh++;");
 
     String save = "";
@@ -990,8 +1000,7 @@ class UserData
         forms[cfg.id] = cfg.asString;
     }
     catch (ex)
-    {
-    }
+    {}
 
     return '{"n":"$name",'
       '"bd":"${birthDate ?? ''}",'
@@ -1028,8 +1037,7 @@ class UserData
       }*/
     }
     catch (ex)
-    {
-    }
+    {}
     return ret;
   }
 

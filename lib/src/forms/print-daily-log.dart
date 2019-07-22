@@ -318,7 +318,7 @@ class PrintDailyLog extends BaseProfile
     if (showTempBasal && t.eventType.toLowerCase() == "temp basal")
     {
       ProfileEntryData entry = basalFor(day, t.createdAt);
-      if (entry != null)list.add("Temp Basal ${g.fmtNumber(entry.tempAdjusted * 100)}%");
+      if (entry != null)list.add("Temp Basal ${g.fmtNumber(entry.tempAdjusted * 100)}% / ${entry.duration} min");
     }
     if (showProfileSwitch && t.eventType.toLowerCase() == "profile switch")
     {

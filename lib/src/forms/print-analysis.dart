@@ -131,7 +131,7 @@ class PrintAnalysis extends BasePrint
   getPage(ReportData src)
   {
     titleInfo = titleInfoBegEnd(src);
-    var data = src.ns;
+    var data = src.calc;
 
     var avgGluc = data.avgGluc;
     var glucWarnColor = colNorm;

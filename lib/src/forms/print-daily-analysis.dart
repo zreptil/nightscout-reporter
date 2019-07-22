@@ -84,7 +84,7 @@ class PrintDailyAnalysis extends BasePrint
   }
 
   double basalY(double value)
-  => profMax != 0 && value != null ? basalHeight / profMax * (profMax - value) : 0.0;
+  => profMax != 0 && value != null ? graphHeight - (basalHeight / profMax * value) : 0.0;
 
   PrintDailyAnalysis()
   {
@@ -162,8 +162,6 @@ class PrintDailyAnalysis extends BasePrint
     var horzLegend = {"stack": []};
     var vertLegend = {"stack": []};
     var graphGluc = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
-    var graphIob = {"relativePosition": {"x": cm(xo), "y": cm(yo + 3 * graphHeight)}, "canvas": []};
-    var graphCob = {"relativePosition": {"x": cm(xo), "y": cm(yo + 4 * graphHeight)}, "canvas": []};
     var graphLegend = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "stack": []};
     var graphCarbs = {
       "stack": [
@@ -184,8 +182,6 @@ class PrintDailyAnalysis extends BasePrint
     _horzStack = horzLegend["stack"];
     _vertStack = vertLegend["stack"];
     List graphGlucCvs = graphGluc["canvas"];
-    List graphIobCvs = graphIob["canvas"];
-    List graphCobCvs = graphCob["canvas"];
     // draw vertical lines with times below graphic
     for (var i = 0; i < 25; i++)
     {
@@ -369,14 +365,14 @@ class PrintDailyAnalysis extends BasePrint
     for (ProfileEntryData entry in day.basalData.store.listBasal)
       profMax = math.max((entry.value ?? 0) + 0.2, profMax);
 
-    drawScaleIE(
+    basalHeight = drawScaleIE(
       xo,
       yo,
       graphHeight,
       0.0,
       profMax,
-      [S(3, 0.5), S(1.5, 0.2), S(0, 0.1)], (i, step)
-    => "${g.fmtNumber(i * step, 1)} ${msgInsulinUnit}");
+      [S(3, 0.5), S(1.5, 0.2), S(0, 0.1)], (i, step, {value: null})
+    => "${g.fmtNumber(value ?? i * step, 1)} ${msgInsulinUnit}");
     var profileBasal = getBasalGraph(graphHeight, day, true, xo, yo);
 
     // graphic for temporary basalratechanges
@@ -420,8 +416,8 @@ class PrintDailyAnalysis extends BasePrint
     // graphic for iob and cob
     List <BoluscalcData> listIobCob = List<BoluscalcData>();
 
-    dynamic ptsIob = [{"x": cm(glucX(DateTime(0, 1, 1, 0, 0))), "y": cm(graphHeight)}];
-    dynamic ptsCob = [{"x": cm(glucX(DateTime(0, 1, 1, 0, 0))), "y": cm(graphHeight)}];
+    dynamic ptsIob = [{"x": cm(glucX(DateTime(0, 1, 1, 0, 0))), "y": cm(0)}];
+    dynamic ptsCob = [{"x": cm(glucX(DateTime(0, 1, 1, 0, 0))), "y": cm(0)}];
     double lastX = null;
     DateTime time = DateTime(day.date.year, day.date.month, day.date.day);
     int diff = 5;
@@ -455,29 +451,36 @@ class PrintDailyAnalysis extends BasePrint
     }
     maxIob = maxIob * 1.1;
     minIob = minIob * 1.1;
-    for (int i = 1; i < ptsIob.length; i++)
-      ptsIob[i]["y"] = cm(graphHeight / (maxIob - minIob) * (maxIob - minIob - ptsIob[i]["y"]));
-    maxCob = maxCob * 1.1;
-    for (int i = 1; i < ptsCob.length; i++)
-      ptsCob[i]["y"] = cm(graphHeight / maxCob * (maxCob - ptsCob[i]["y"]));
-    drawScaleIE(
+    double iobGraphHeight = drawScaleIE(
       xo,
       yo,
       3 * graphHeight,
       minIob,
       maxIob,
-      [S(10, 2.0), S(7, 1.0), S(3, 0.5), S(1.5, 0.2), S(0, 0.1)], (i, step)
-    => "${g.fmtNumber(minIob + i * step, 1)} ${msgInsulinUnit}");
+      [S(10, 2.0), S(7, 1.0), S(3, 0.5), S(1.5, 0.2), S(0, 0.1)], (i, step, {value: null})
+    => "${g.fmtNumber(value ?? minIob + i * step, 1)} ${msgInsulinUnit}");
+    for (int i = 0; i < ptsIob.length; i++)
+    {
+      if (maxIob - minIob > 0)ptsIob[i]["y"] = cm(iobGraphHeight / (maxIob - minIob) * (maxIob - ptsIob[i]["y"]));
+      else
+        ptsIob[i]["y"] = cm(iobGraphHeight);
+    }
 
-    drawScaleIE(
+    double cobGraphHeight = drawScaleIE(
       xo,
       yo,
       4 * graphHeight,
       0.0,
       maxCob,
-      [S(100, 20), S(50, 10), S(20, 5), S(0, 1)], (i, step)
-    => "${g.fmtNumber(i * step, 0)} g");
-
+      [S(100, 20), S(50, 10), S(20, 5), S(0, 1)], (i, step, {value: null})
+    => "${g.fmtNumber(value ?? i * step, 0)} g");
+    maxCob = maxCob * 1.1;
+    for (int i = 0; i < ptsCob.length; i++)
+    {
+      if (maxCob > 0)ptsCob[i]["y"] = cm(cobGraphHeight / maxCob * (maxCob - ptsCob[i]["y"]));
+      else
+        ptsCob[i]["y"] = cm(cobGraphHeight);
+    }
 
 /*
     for (BoluscalcData entry in listIobCob)
@@ -501,9 +504,20 @@ class PrintDailyAnalysis extends BasePrint
 
     if (lastX != null)
     {
-      ptsIob.add({"x": cm(lastX), "y": cm(graphHeight)});
-      ptsCob.add({"x": cm(lastX), "y": cm(graphHeight)});
+      ptsIob.add({"x": cm(lastX), "y": cm(iobGraphHeight / (maxIob - minIob) * maxIob)});
+      ptsCob.add({"x": cm(lastX), "y": cm(cobGraphHeight)});
     }
+
+    var graphIob = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo + 3 * graphHeight + graphHeight - iobGraphHeight)},
+      "canvas": []
+    };
+    var graphCob = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo + 4 * graphHeight + graphHeight - cobGraphHeight)},
+      "canvas": []
+    };
+    List graphIobCvs = graphIob["canvas"];
+    List graphCobCvs = graphCob["canvas"];
 
     graphIobCvs.add(graphArea(ptsIob, colIOBLine, colIOBFill));
     graphCobCvs.add(graphArea(ptsCob, colCOBLine, colCOBFill));
@@ -554,9 +568,11 @@ class PrintDailyAnalysis extends BasePrint
         break;
       }
     }
-//    double step = maxIob > 3 ? 0.5 : maxIob > 1.5 ? 0.2 : 0.1;
+
     int gridLines = (((max - min) / step) + 1).floor();
     double lineHeight = gridLines == 0 ? 0 : graphHeight / gridLines;
+
+//    top += 0.1 * (lineHeight / step);
     for (var i = 1; i < gridLines; i++)
     {
       double y = top + (gridLines - i) * lineHeight;
@@ -569,17 +585,21 @@ class PrintDailyAnalysis extends BasePrint
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
+      double value = min + (max - min) / step * i;
 //      vertCvs.add({"relativePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": g.fmtNumber(i / 10, 1), "fontSize": fs(8)});
       String text = display(i, step);
 //      String text = "${g.fmtNumber(i * step, 1)} ${msgInsulinUnit}";
-      _vertStack.add(
-        {"relativePosition": {"x": cm(xo - 1.0), "y": cm(y + yo - 0.15)}, "text": text, "fontSize": fs(8)});
+      _vertStack.add({
+        "relativePosition": {"x": cm(xo - 3.0), "y": cm(y + yo - 0.15)},
+        "columns": [{ "width": cm(2.7), "text": text, "fontSize": fs(8), "alignment": "right"}]
+      });
       _vertStack.add({
         "relativePosition": {"x": cm(xo + _colWidth * 24 + 0.3), "y": cm(y + yo - 0.15)},
         "text": text,
         "fontSize": fs(8)
       });
     }
+    return (gridLines - 1) * lineHeight;
   }
 
   getBasalGraph(double top, DayData day, bool useProfile, double xo, double yo)
@@ -627,18 +647,18 @@ class PrintDailyAnalysis extends BasePrint
       }
     }
 
-    areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
+    areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(useProfile ? basalY(0.0) : basalHeight)});
     for (ProfileEntryData entry in temp)
     {
       double x = basalX(entry.time(day.date, useProfile));
-      double y = useProfile ? basalY(entry.value) : basalY(entry.tempAdjusted * 100);
+      double y = useProfile ? basalY(entry.value) : basalHeight / profMax * (profMax - entry.tempAdjusted * 100);
       if (lastY != null)areaPoints.add({"x": cm(x), "y": cm(lastY)});
       areaPoints.add({"x": cm(x), "y": cm(y)});
       lastY = y;
     }
     if (lastY != null)areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(lastY)});
 
-    areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
+    areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(useProfile ? basalY(0.0) : basalHeight)});
     basalCvs.add(area);
 
     _graphLines["stack"].add({

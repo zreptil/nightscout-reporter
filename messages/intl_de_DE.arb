@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-07-16T15:29:47.816613",
+  "@@last_modified": "2019-07-18T08:11:41.407228",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -1003,6 +1003,16 @@
       "value": {}
     }
   },
+  "mg/dL": "mg/dL",
+  "@mg/dL": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mmol/L": "mmol/L",
+  "@mmol/L": {
+    "type": "text",
+    "placeholders": {}
+  },
   "msgProfileSwitch": "Profilwechsel - {oldName} => {newName}",
   "@msgProfileSwitch": {
     "type": "text",
@@ -1771,6 +1781,12 @@
   "Die Berechnung der PDF-Grössen wurde korrigiert, so dass nun weniger PDFs erstellt werden, wenn sie aufgrund der Grösse aufgeteilt werden.": "Die Berechnung der PDF-Grössen wurde korrigiert, so dass nun weniger PDFs erstellt werden, wenn sie aufgrund der Grösse aufgeteilt werden.",
   "@Die Berechnung der PDF-Grössen wurde korrigiert, so dass nun weniger PDFs erstellt werden, wenn sie aufgrund der Grösse aufgeteilt werden.": {
     "description": "v130f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind.": "Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind.",
+  "@Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind.": {
+    "description": "v130f4",
     "type": "text",
     "placeholders": {}
   },

@@ -19,7 +19,13 @@ class PrintWeeklyGraphic extends BasePrint
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(0, msgParam1, list: ["Eine", "Zwei", "Vier", "Acht", "Sechzehn"]),
+    ParamInfo(0, msgParam1, list: [
+      Intl.message("Eine"),
+      Intl.message("Zwei"),
+      Intl.message("Vier"),
+      Intl.message("Acht"),
+      Intl.message("Sechzehn")
+    ]),
     ParamInfo(1, msgParam2, boolValue: true),
     ParamInfo(2, msgParam3, boolValue: true),
     ParamInfo(3, PrintDailyGraphic.msgParam19, boolValue: false),
