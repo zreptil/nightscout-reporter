@@ -840,6 +840,7 @@ class ProfileData extends JsonData
       // "default" is used, if available.
       String srcKey = key;
       if (!src.store.containsKey(srcKey))srcKey = src.defaultProfile;
+      store[key].name = "Hurz";
 
       if (src.store.containsKey(srcKey))
       {
@@ -848,6 +849,7 @@ class ProfileData extends JsonData
         store[key].removeFrom(src.startDate.hour, src.startDate.minute, src.duration);
         // add all settings after the given time from src.
         store[key].addFrom(src, src.store[srcKey]);
+        store[key].name = "Oleole";//""${store[key].name} - ${src.store[srcKey].name}";
       }
     }
   }
@@ -2069,7 +2071,8 @@ class ReportData
       {
         DateTime d = profiles[idx].startDate;
         // only profiles with same day as requested
-        if (d.year == time.year && d.month == time.month && d.day == time.day)profile.mixWith(profiles[idx]);
+        if (d.year == time.year && d.month == time.month && d.day == time.day)
+          profile.mixWith(profiles[idx]);
         idx++;
       }
       if (treatments != null)

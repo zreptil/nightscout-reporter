@@ -381,7 +381,9 @@ abstract class BasePrint
   msgValuesVeryLow(value)
   => Intl.message("Sehr niedrige Werte (< ${value})", args: [value], name: "msgValuesVeryLow");
   msgKHBE(value)
-  => Intl.message("g KH ($value BE)", args: [value], name: "msgKHBE", meaning: "gram Carbohydrates displayed at analysis page");
+  =>
+    Intl.message(
+      "g KH ($value BE)", args: [value], name: "msgKHBE", meaning: "gram Carbohydrates displayed at analysis page");
   msgReservoirDays(count, txt)
   =>
     Intl.plural(count, one: "($txt Tag pro Ampulle)",
@@ -1263,6 +1265,14 @@ abstract class BasePrint
     if (!g.glucMGDL)return g.fmtNumber(gluc / 18.02, precision == null ? 1 : precision);
 
     return g.fmtNumber(gluc, precision == null ? 0 : precision);
+  }
+
+  String colForGluc(DayData day, double gluc)
+  {
+    if (gluc == null)return "";
+    if (gluc < day.basalData.targetLow)return colLow;
+    else if (gluc > day.basalData.targetHigh)return colHigh;
+    return colNorm;
   }
 
   String carbFromData(var carb, [precision = 0])

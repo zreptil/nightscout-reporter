@@ -9,7 +9,7 @@ class PrintDailyLog extends BaseProfile
   @override
   String id = "daylog";
 
-  bool showNotes, showCarbs, showIE, showSMB, showTempBasal, showProfileSwitch, showIESource, showTempTargets;
+  bool showNotes, showCarbs, showIE, showSMB, showTempBasal, showProfileSwitch, showIESource, showTempTargets, showGluc;
   int groupMinutes = 0;
 
   @override
@@ -18,14 +18,14 @@ class PrintDailyLog extends BaseProfile
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(1, msgParam1, boolValue: true),
-    ParamInfo(2, msgParam2, boolValue: true),
-    ParamInfo(3, msgParam3, boolValue: true),
-    ParamInfo(4, msgParam4, boolValue: true),
-    ParamInfo(5, msgParam5, boolValue: true),
-    ParamInfo(6, msgParam6, boolValue: true),
-    ParamInfo(7, msgParam7, boolValue: true),
-    ParamInfo(8, msgParam8, boolValue: true),
+    ParamInfo(2, msgParam1, boolValue: true),
+    ParamInfo(3, msgParam2, boolValue: true),
+    ParamInfo(4, msgParam3, boolValue: true),
+    ParamInfo(5, msgParam4, boolValue: true),
+    ParamInfo(6, msgParam5, boolValue: true),
+    ParamInfo(7, msgParam6, boolValue: true),
+    ParamInfo(8, msgParam7, boolValue: true),
+    ParamInfo(9, msgParam8, boolValue: true),
     ParamInfo(0, msgParam9, list: [
       Intl.message("Keine"),
       Intl.message("5 Minuten"),
@@ -33,6 +33,7 @@ class PrintDailyLog extends BaseProfile
       Intl.message("30 Minuten"),
       Intl.message("1 Stunde")
     ]),
+    ParamInfo(1, msgParam10, boolValue: true),
   ];
 
 
@@ -67,6 +68,8 @@ class PrintDailyLog extends BaseProfile
         break;
     }
 
+    showGluc = params[9].boolValue;
+
     return data;
   }
 
@@ -91,6 +94,8 @@ class PrintDailyLog extends BaseProfile
   => Intl.message("Temporäre Ziele");
   static String get msgParam9
   => Intl.message("Gruppierung der Zeiten");
+  static String get msgParam10
+  => Intl.message("Glukosewert");
 
   @override
   List<String> get imgList
@@ -188,7 +193,14 @@ class PrintDailyLog extends BaseProfile
             _y += lineHeight(1);
             _isFirstLine = false;
           }
-          list = fillRow(time, src, day, row, list, "row");
+          list = fillRow(
+            time,
+            src,
+            day,
+            row,
+            day.findNearest(day.entries, null, time),
+            list,
+            "row");
           row = [];
           if (list.length > 0 || _y + _lineHeight >= _maxY)
           {
@@ -208,7 +220,8 @@ class PrintDailyLog extends BaseProfile
     }
   }
 
-  List<String> fillRow(DateTime time, ReportData src, DayData day, dynamic row, List<String> list, String style)
+  List<String> fillRow(DateTime time, ReportData src, DayData day, dynamic row, EntryData glucEntry, List<String> list,
+                       String style)
   {
     String ret = "";
     if (list.length > 0)
@@ -232,9 +245,23 @@ class PrintDailyLog extends BaseProfile
       if (text != "")
       {
         _y += 2 * _cellSpace;
+        double wid = width - 1.8 - 5.1;
         addRow(true, cm(1.8), row, {"text": msgTime, "style": "total", "fontSize": size, "alignment": "center"},
           {"text": fmtTime(time), "style": styleForTime(time), "fontSize": size, "alignment": "center"});
-        addRow(true, cm(width - 1.8 - 5.1), row, {
+        if (showGluc)
+        {
+          double gluc = glucEntry?.gluc;
+          addRow(true, cm(1.3), row,
+            {"text": getGlucInfo()["unit"], "style": "total", "fontSize": size, "alignment": "center"}, {
+              "text": glucFromData(gluc),
+              "style": style,
+              "fontSize": size,
+              "alignment": "center",
+              "fillColor": colForGluc(day, gluc)
+            });
+          wid -= 1.3;
+        }
+        addRow(true, cm(wid), row, {
           "text": getText(oldY, "${fmtDate(time, null, false, true)}"),
           "style": "total",
           "fontSize": size,
@@ -258,6 +285,7 @@ class PrintDailyLog extends BaseProfile
     return text;
   }
 
+/*
   String _fillRow(DateTime time, ReportData src, DayData day, dynamic row, List<String> list, String style)
   {
     String ret = "";
@@ -267,7 +295,10 @@ class PrintDailyLog extends BaseProfile
       addRow(true, cm(1.8), row, {"text": msgTime, "style": "total", "fontSize": size, "alignment": "center"},
         {"text": fmtTime(time), "style": styleForTime(time), "fontSize": size, "alignment": "center"});
       String text = list.join(", ");
-      addRow(true, cm(width - 1.8 - 5.1), row,
+      addRow(true, cm(1.0), row,
+        {"text": getGlucInfo()["unit"], "style": "total", "fontSize": size, "alignment": "center"},
+        {"text": "??", "style": style, "fontSize": size, "alignment": "right"});
+      addRow(true, cm(width - 1.8 - 1.2 - 5.1), row,
         {"text": fmtDate(time, null, false, true), "style": "total", "fontSize": size, "alignment": "left"},
         {"text": text, "style": style, "fontSize": size, "alignment": "left"});
 
@@ -280,6 +311,7 @@ class PrintDailyLog extends BaseProfile
 
     return ret;
   }
+*/
 
   String styleForTime(DateTime time)
   {

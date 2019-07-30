@@ -10,7 +10,7 @@ import "package:intl/intl.dart";
 void main()
 async {
   String language = window.localStorage["${window.location.href.contains("/beta/")?"@":""}language"];
-  if((language == null || language.length != 5) && language != "ja_JP")
+  if((language == null || language.length != 5))
     language = "de_DE";
   Intl.systemLocale = Intl.canonicalizedLocale(language);
   await initializeTimeZone();
