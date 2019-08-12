@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-07-18T08:11:41.407228",
+  "@@last_modified": "2019-08-12T11:24:14.939888",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -276,6 +276,20 @@
   "@Verbindung zu Google Drive herstellen": {
     "type": "text",
     "placeholders": {}
+  },
+  "_msgPageCountEst": "{count,plural, =0{}=1{1 Seite oder mehr}other{{count} Seiten oder mehr}}",
+  "@_msgPageCountEst": {
+    "type": "text",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "_msgPageCount": "{count,plural, =0{}=1{1 Seite}other{{count} Seiten}}",
+  "@_msgPageCount": {
+    "type": "text",
+    "placeholders": {
+      "count": {}
+    }
   },
   "msgValidRange": "gültig von {begDate} bis {endDate}",
   "@msgValidRange": {
@@ -812,8 +826,23 @@
     "type": "text",
     "placeholders": {}
   },
+  "Gesamt": "Gesamt",
+  "@Gesamt": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Zielbereich": "Zielbereich",
   "@Zielbereich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø ICR/Stunde": "Ø ICR/Stunde",
+  "@Ø ICR/Stunde": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø ISF/Stunde": "Ø ISF/Stunde",
+  "@Ø ISF/Stunde": {
     "type": "text",
     "placeholders": {}
   },
@@ -1295,8 +1324,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Info-Linien bis zur Kurve zeichnen": "Info-Linien bis zur Kurve zeichnen",
-  "@Info-Linien bis zur Kurve zeichnen": {
+  "Notiz-Linien bis zur Kurve zeichnen": "Notiz-Linien bis zur Kurve zeichnen",
+  "@Notiz-Linien bis zur Kurve zeichnen": {
     "type": "text",
     "placeholders": {}
   },
@@ -1327,6 +1356,11 @@
   },
   "Glukose Pentagon erzeugen": "Glukose Pentagon erzeugen",
   "@Glukose Pentagon erzeugen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "1 Minute": "1 Minute",
+  "@1 Minute": {
     "type": "text",
     "placeholders": {}
   },
@@ -1384,6 +1418,64 @@
   "@Gruppierung der Zeiten": {
     "type": "text",
     "placeholders": {}
+  },
+  "Glukosewert": "Glukosewert",
+  "@Glukosewert": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wechsel (Katheter etc.)": "Wechsel (Katheter etc.)",
+  "@Wechsel (Katheter etc.)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zusätzliche Spalte anzeigen": "Zusätzliche Spalte anzeigen",
+  "@Zusätzliche Spalte anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kalibrierung und blutige Messungen": "Kalibrierung und blutige Messungen",
+  "@Kalibrierung und blutige Messungen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgLogTempTarget": "temp. Ziel {target} für {duration} min, Grund: {reason}",
+  "@msgLogTempTarget": {
+    "type": "text",
+    "placeholders": {
+      "target": {},
+      "duration": {},
+      "reason": {}
+    }
+  },
+  "msgLogTempBasal": "temp. Basal {percent}% / {duration} min",
+  "@msgLogTempBasal": {
+    "type": "text",
+    "placeholders": {
+      "percent": {},
+      "duration": {}
+    }
+  },
+  "msgLogSMB": "SMB {insulin} {unit}",
+  "@msgLogSMB": {
+    "type": "text",
+    "placeholders": {
+      "insulin": {},
+      "unit": {}
+    }
+  },
+  "Ampullenwechsel": "Ampullenwechsel",
+  "@Ampullenwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgMBG": "Blutige Messung {gluc} {unit}",
+  "@msgMBG": {
+    "type": "text",
+    "placeholders": {
+      "gluc": {},
+      "unit": {}
+    }
   },
   "Spalte Messwerte": "Spalte Messwerte",
   "@Spalte Messwerte": {
@@ -1541,6 +1633,18 @@
   "Unbegrenzt": "Unbegrenzt",
   "@Unbegrenzt": {
     "description": "big",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zur Listenansicht": "Zur Listenansicht",
+  "@Zur Listenansicht": {
+    "description": "title of listview",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zur Kachelansicht": "Zur Kachelansicht",
+  "@Zur Kachelansicht": {
+    "description": "title of tileview",
     "type": "text",
     "placeholders": {}
   },
@@ -1748,6 +1852,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "Es ist jetzt möglich, die Buttons zur PDF-Auswahl als Kacheln darstellen zu lassen. Die Option dazu ist im Menü auf der linken Seite zu finden. In der Kachelansicht werden die Buttons über die verfügbare Fläche verteilt und sind so auf kleinen Geräten leichter zu treffen. Ausserdem sieht man dann normalerweise alle verfügbaren PDFs auf einen Blick und muss nicht scrollen. Auf den aktivierten Kacheln wird angezeigt, an welcher Stelle im PDF die entsprechenden Seiten ausgegeben werden und wieviele Seiten die entsprechende Kachel ausgibt. Diese Zahl kann für die meisten Kacheln korrekt ermittelt werden, bei einigen ist das aber ohne Auswertung der Daten nicht möglich (z.B. Profile und Protokoll). In diesem Fall wird entweder keine Seitenzahl oder eine Mindestzahl an Seiten angegeben. Sobald die Erstellung des PDFs erfolgt ist, werden die korrekten Zahlen angezeigt. Die Reihenfolge der Kacheln kann so wie in der List mit dem Icon in der linken oberen Ecke verändert werden. Nach Anklicken des Aufklappzeichens in der oberen rechten Ecke können die Parameter für das entsprechende PDF erfasst werden.": "Es ist jetzt möglich, die Buttons zur PDF-Auswahl als Kacheln darstellen zu lassen. Die Option dazu ist im Menü auf der linken Seite zu finden. In der Kachelansicht werden die Buttons über die verfügbare Fläche verteilt und sind so auf kleinen Geräten leichter zu treffen. Ausserdem sieht man dann normalerweise alle verfügbaren PDFs auf einen Blick und muss nicht scrollen. Auf den aktivierten Kacheln wird angezeigt, an welcher Stelle im PDF die entsprechenden Seiten ausgegeben werden und wieviele Seiten die entsprechende Kachel ausgibt. Diese Zahl kann für die meisten Kacheln korrekt ermittelt werden, bei einigen ist das aber ohne Auswertung der Daten nicht möglich (z.B. Profile und Protokoll). In diesem Fall wird entweder keine Seitenzahl oder eine Mindestzahl an Seiten angegeben. Sobald die Erstellung des PDFs erfolgt ist, werden die korrekten Zahlen angezeigt. Die Reihenfolge der Kacheln kann so wie in der List mit dem Icon in der linken oberen Ecke verändert werden. Nach Anklicken des Aufklappzeichens in der oberen rechten Ecke können die Parameter für das entsprechende PDF erfasst werden.",
+  "@Es ist jetzt möglich, die Buttons zur PDF-Auswahl als Kacheln darstellen zu lassen. Die Option dazu ist im Menü auf der linken Seite zu finden. In der Kachelansicht werden die Buttons über die verfügbare Fläche verteilt und sind so auf kleinen Geräten leichter zu treffen. Ausserdem sieht man dann normalerweise alle verfügbaren PDFs auf einen Blick und muss nicht scrollen. Auf den aktivierten Kacheln wird angezeigt, an welcher Stelle im PDF die entsprechenden Seiten ausgegeben werden und wieviele Seiten die entsprechende Kachel ausgibt. Diese Zahl kann für die meisten Kacheln korrekt ermittelt werden, bei einigen ist das aber ohne Auswertung der Daten nicht möglich (z.B. Profile und Protokoll). In diesem Fall wird entweder keine Seitenzahl oder eine Mindestzahl an Seiten angegeben. Sobald die Erstellung des PDFs erfolgt ist, werden die korrekten Zahlen angezeigt. Die Reihenfolge der Kacheln kann so wie in der List mit dem Icon in der linken oberen Ecke verändert werden. Nach Anklicken des Aufklappzeichens in der oberen rechten Ecke können die Parameter für das entsprechende PDF erfasst werden.": {
+    "description": "v130a6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Profil werden nun die Gesamtsumme der Basalrate und die durchschnittlichen Werte für ICR und ISF pro Stunde angezeigt.": "Im Profil werden nun die Gesamtsumme der Basalrate und die durchschnittlichen Werte für ICR und ISF pro Stunde angezeigt.",
+  "@Im Profil werden nun die Gesamtsumme der Basalrate und die durchschnittlichen Werte für ICR und ISF pro Stunde angezeigt.": {
+    "description": "v130a7",
+    "type": "text",
+    "placeholders": {}
+  },
   "Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte Basalratenanpassung anzeigen.": "Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte Basalratenanpassung anzeigen.",
   "@Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte Basalratenanpassung anzeigen.": {
     "description": "v130c1",
@@ -1763,6 +1879,12 @@
   "Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde.": "Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde.",
   "@Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde.": {
     "description": "v130c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einige der Optionen für die PDFs wurden hierarchisch angeordnet. Es macht z.B. keinen Sinn, die SMB Werte in der Tagesgrafik an der Kurve platzieren zu lassen, wenn die SMB Werte gar nicht angezeigt werden. Deswegen werden Optionen, die von einer anderen Option abhängen nur dann angezeigt, wenn die entsprechende Option markiert ist. Dadurch ändert sich leider auch die Speicherung der Optionen, weshalb sich die aktuelle Auswahl der Optionen bei manchen PDFs verändert. Da müssen die Optionen dann neu gesetzt werden.": "Einige der Optionen für die PDFs wurden hierarchisch angeordnet. Es macht z.B. keinen Sinn, die SMB Werte in der Tagesgrafik an der Kurve platzieren zu lassen, wenn die SMB Werte gar nicht angezeigt werden. Deswegen werden Optionen, die von einer anderen Option abhängen nur dann angezeigt, wenn die entsprechende Option markiert ist. Dadurch ändert sich leider auch die Speicherung der Optionen, weshalb sich die aktuelle Auswahl der Optionen bei manchen PDFs verändert. Da müssen die Optionen dann neu gesetzt werden.",
+  "@Einige der Optionen für die PDFs wurden hierarchisch angeordnet. Es macht z.B. keinen Sinn, die SMB Werte in der Tagesgrafik an der Kurve platzieren zu lassen, wenn die SMB Werte gar nicht angezeigt werden. Deswegen werden Optionen, die von einer anderen Option abhängen nur dann angezeigt, wenn die entsprechende Option markiert ist. Dadurch ändert sich leider auch die Speicherung der Optionen, weshalb sich die aktuelle Auswahl der Optionen bei manchen PDFs verändert. Da müssen die Optionen dann neu gesetzt werden.": {
+    "description": "v130c4",
     "type": "text",
     "placeholders": {}
   },
@@ -1787,6 +1909,12 @@
   "Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind.": "Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind.",
   "@Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind.": {
     "description": "v130f4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es werden jetzt auch blutige Werte erkannt, die von Loop auf dem IPhone eingetragen werden.": "Es werden jetzt auch blutige Werte erkannt, die von Loop auf dem IPhone eingetragen werden.",
+  "@Es werden jetzt auch blutige Werte erkannt, die von Loop auf dem IPhone eingetragen werden.": {
+    "description": "v130f5",
     "type": "text",
     "placeholders": {}
   },

@@ -28,12 +28,6 @@ abstract class BaseProfile extends BasePrint
   List<ParamInfo> params = List<ParamInfo>();
 
   @override
-  prepareData_(ReportData data)
-  {
-    return data;
-  }
-
-  @override
   bool get isPortrait
   => false;
 

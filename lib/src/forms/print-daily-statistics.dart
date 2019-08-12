@@ -34,14 +34,21 @@ class PrintDailyStatistics extends BasePrint
   => Intl.message("Spalte Variationskoeffizient");
 
   @override
-  prepareData_(ReportData data)
+  extractParams()
   {
     showCount = params[0].boolValue;
     showStdabw = params[1].boolValue;
     showPercentile = params[2].boolValue;
     showHbA1c = params[3].boolValue;
     showVarK = params[4].boolValue;
-    return data;
+  }
+
+  @override
+  dynamic get estimatePageCount
+  {
+    int count = g?.period?.dayCount ?? 0;
+    count = (count / 19).ceil();
+    return {"count": count, "isEstimated": false};
   }
 
   @override
@@ -239,16 +246,22 @@ class PrintDailyStatistics extends BasePrint
       page.add(getTable(_widths, body));
       pages.add(page);
     }
+    else
+    {
+      Map test = pages.last.last as Map;
+      test["columns"].last["table"]["body"].add(body.last);
+    }
   }
 
   getTable(widths, body)
   {
     dynamic ret = {
-      "columns": [ {
-        "margin": [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
-        "width": cm(width),
-        "table": {"widths": widths, "body": body},
-      }
+      "columns": [
+        {
+          "margin": [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
+          "width": cm(width),
+          "table": {"widths": widths, "body": body},
+        }
       ],
       "pageBreak": ""
     };

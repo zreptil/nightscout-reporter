@@ -116,39 +116,44 @@ class PentagonData
 
   PentagonData(this.g, this.glucInfo, this.cm, this.fs, {this.xm, this.ym, this.scale, this.fontsize = -1})
   {
-    axis = [PentagonScaleData([0, 300, 480, 720, 900, 1080, 1200, 1440], 1, scaleMethod: (v)
-    => math.pow(v * 0.00614, 1.581) + 14,
-      name: msgTOR,
-      nameX: -2.5,
-      nameY: -0.4,
-      valueX: 0.15,
-      valueY: -0.11), PentagonScaleData([16.7, 20, 30, 40, 50, 60, 70, 80], 1, scaleMethod: (v)
-    => (v >= 17 ? v - 17 : 0) * 0.92 + 14,
-      name: msgCV,
-      nameX: -2.3,
-      nameY: -0.4,
-      valueX: -0.1,
-      valueY: 0.1), PentagonScaleData([0, 3, 4, 5, 6, 7, 7.2], g.glucFactor, scaleMethod: (v)
-    => math.exp(v * 0.57) + 13,
-      name: msgHYPO(glucInfo["unit"]),
-      end: 0.25,
-      nameX: -2.5,
-      nameY: 0.1,
-      valueX: -0.2,
-      valueY: 0.1), PentagonScaleData([0, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130], g.glucFactor, scaleMethod: (v)
-    => math.pow(v * 0.115, 1.51) + 14,
-      name: msgHYPER(glucInfo["unit"]),
-      beg: 0.25,
-      nameX: -2.5,
-      nameY: 0.1,
-      valueX: 0.1,
-      valueY: 0.1), PentagonScaleData([130, 190, 220, 250, 280, 310], g.glucFactor, scaleMethod: (v)
-    => math.pow((v >= 90 ? v - 90 : 0.0) * 0.0217, 2.63) + 14,
-      name: msgMEAN(glucInfo["unit"]),
-      nameX: -2.5,
-      nameY: -0.73,
-      valueX: -0.2,
-      valueY: 0.1),
+    axis = [
+      PentagonScaleData([0, 300, 480, 720, 900, 1080, 1200, 1440], 1, scaleMethod: (v)
+      => math.pow(v * 0.00614, 1.581) + 14,
+        name: msgTOR,
+        nameX: -2.5,
+        nameY: -0.4,
+        valueX: 0.15,
+        valueY: -0.11),
+      PentagonScaleData([16.7, 20, 30, 40, 50, 60, 70, 80], 1, scaleMethod: (v)
+      => (v >= 17 ? v - 17 : 0) * 0.92 + 14,
+        name: msgCV,
+        nameX: -2.3,
+        nameY: -0.4,
+        valueX: -0.1,
+        valueY: 0.1),
+      PentagonScaleData([0, 3, 4, 5, 6, 7, 7.2], g.glucFactor, scaleMethod: (v)
+      => math.exp(v * 0.57) + 13,
+        name: msgHYPO(glucInfo["unit"]),
+        end: 0.25,
+        nameX: -2.5,
+        nameY: 0.1,
+        valueX: -0.2,
+        valueY: 0.1),
+      PentagonScaleData([0, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130], g.glucFactor, scaleMethod: (v)
+      => math.pow(v * 0.115, 1.51) + 14,
+        name: msgHYPER(glucInfo["unit"]),
+        beg: 0.25,
+        nameX: -2.5,
+        nameY: 0.1,
+        valueX: 0.1,
+        valueY: 0.1),
+      PentagonScaleData([130, 190, 220, 250, 280, 310], g.glucFactor, scaleMethod: (v)
+      => math.pow((v >= 90 ? v - 90 : 0.0) * 0.0217, 2.63) + 14,
+        name: msgMEAN(glucInfo["unit"]),
+        nameX: -2.5,
+        nameY: -0.73,
+        valueX: -0.2,
+        valueY: 0.1),
     ];
 
     deg = (360.0 / axis.length) * math.pi / 180.0;
@@ -199,7 +204,7 @@ class PentagonData
       double dy = pt["y"] - cm(ym);
       for (double value in axis[i].values)
       {
-        pt = _point(i, axis[i].scaleMethod(value));// * axis[i].legendFactor
+        pt = _point(i, axis[i].scaleMethod(value)); // * axis[i].legendFactor
         double x = pt["x"];
         double y = pt["y"];
         double f = 0.05;
@@ -279,20 +284,13 @@ class PrintCGP extends BasePrint
 
   PrintCGP()
   {
-    footerTextAboveLine = {
-      "x": 0,
-      "y": 1.2,
-      "fs": 8,
-      "text": "${msgSource}"
-    };
+    footerTextAboveLine = {"x": 0, "y": 1.2, "fs": 8, "text": "${msgSource}"};
     init();
   }
 
   @override
-  prepareData_(ReportData data)
-  {
-    return data;
-  }
+  dynamic get estimatePageCount
+  => {"count": 1, "isEstimated": false};
 
   @override
   void fillPages(ReportData src, List<List<dynamic>> pages)
@@ -352,23 +350,20 @@ class PrintCGP extends BasePrint
             {"margin": [cm(0), cm(0.5), cm(0), cm(0)], "text": PentagonData.msgPGR},
             {"margin": [cm(0), cm(0.5), cm(0), cm(0)], "text": PentagonData.msgPGRInfo}
           ],
+          [{"text": PentagonData.msgPGR02, "bold": pgr < 2.1}, {"text": PentagonData.msgPGR02Info, "bold": pgr < 2.1}],
           [
-            {"text": PentagonData.msgPGR02, "bold": pgr <= 2.0},
-            {"text": PentagonData.msgPGR02Info, "bold": pgr <= 2.0}
+            {"text": PentagonData.msgPGR23, "bold": pgr >= 2.1 && pgr < 3.1},
+            {"text": PentagonData.msgPGR23Info, "bold": pgr >= 2.1 && pgr < 3.1}
           ],
           [
-            {"text": PentagonData.msgPGR23, "bold": pgr > 2.0 && pgr <= 3.0},
-            {"text": PentagonData.msgPGR23Info, "bold": pgr > 2.0 && pgr <= 3.0}
+            {"text": PentagonData.msgPGR34, "bold": pgr >= 3.1 && pgr < 4.1},
+            {"text": PentagonData.msgPGR34Info, "bold": pgr >= 3.1 && pgr < 4.1}
           ],
           [
-            {"text": PentagonData.msgPGR34, "bold": pgr > 3.0 && pgr <= 4.0},
-            {"text": PentagonData.msgPGR34Info, "bold": pgr > 3.0 && pgr <= 4.0}
+            {"text": PentagonData.msgPGR45, "bold": pgr >= 4.1 && pgr < 4.6},
+            {"text": PentagonData.msgPGR45Info, "bold": pgr >= 4.1 && pgr < 4.6}
           ],
-          [
-            {"text": PentagonData.msgPGR45, "bold": pgr > 4.0 && pgr <= 4.5},
-            {"text": PentagonData.msgPGR45Info, "bold": pgr > 4.0 && pgr <= 4.5}
-          ],
-          [{"text": PentagonData.msgPGR5, "bold": pgr > 4.5}, {"text": PentagonData.msgPGR5Info, "bold": pgr > 4.5}],
+          [{"text": PentagonData.msgPGR5, "bold": pgr >= 4.6}, {"text": PentagonData.msgPGR5Info, "bold": pgr >= 4.6}],
         ]
       }
     };

@@ -34,6 +34,23 @@
         <li class="added" @i18n="v130a5">
           Nightscout Reporter kann nun auch in Japanisch verwendet werden.
         </li>
+        <li class="added" @i18n="v130a6">
+          Es ist jetzt möglich, die Buttons zur PDF-Auswahl als Kacheln darstellen zu lassen. Die Option dazu ist im
+          Menü auf der linken Seite zu finden. In der Kachelansicht werden die Buttons über die verfügbare Fläche
+          verteilt und sind so auf kleinen Geräten leichter zu treffen. Ausserdem sieht man dann normalerweise alle
+          verfügbaren PDFs auf einen Blick und muss nicht scrollen. Auf den aktivierten Kacheln wird angezeigt,
+          an welcher Stelle im PDF die entsprechenden Seiten ausgegeben werden und wieviele Seiten die entsprechende
+          Kachel ausgibt. Diese Zahl kann für die meisten Kacheln korrekt ermittelt werden, bei einigen ist das aber
+          ohne Auswertung der Daten nicht möglich (z.B. Profile und Protokoll). In diesem Fall wird entweder keine
+          Seitenzahl oder eine Mindestzahl an Seiten angegeben. Sobald die Erstellung des PDFs erfolgt ist, werden
+          die korrekten Zahlen angezeigt. Die Reihenfolge der Kacheln kann so wie in der List mit dem Icon in der
+          linken oberen Ecke verändert werden. Nach Anklicken des Aufklappzeichens in der oberen rechten Ecke können
+          die Parameter für das entsprechende PDF erfasst werden.
+        </li>
+        <li class="added" @i18n="v130a7">
+          Im Profil werden nun die Gesamtsumme der Basalrate und die durchschnittlichen Werte für ICR und ISF
+          pro Stunde angezeigt.
+        </li>
         <li class="changed" @i18n="v130c1">
           Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel
           werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte
@@ -46,6 +63,13 @@
         <li class="changed" @i18n="v130c3">
           Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt
           wurde.
+        </li>
+        <li class="changed" @i18n="v130c4">
+          Einige der Optionen für die PDFs wurden hierarchisch angeordnet. Es macht z.B. keinen Sinn, die SMB Werte
+          in der Tagesgrafik an der Kurve platzieren zu lassen, wenn die SMB Werte gar nicht angezeigt werden. Deswegen
+          werden Optionen, die von einer anderen Option abhängen nur dann angezeigt, wenn die entsprechende Option
+          markiert ist. Dadurch ändert sich leider auch die Speicherung der Optionen, weshalb sich die aktuelle
+          Auswahl der Optionen bei manchen PDFs verändert. Da müssen die Optionen dann neu gesetzt werden.
         </li>
         <li class="fixed" @i18n="v130f1">
           Die Ermittlung der Einheit (mg/dl oder mmol/l) wird nun flexibler gehandhabt, so dass auch Leerzeichen
@@ -60,8 +84,11 @@
           der Grösse aufgeteilt werden.
         </li>
         <li class="fixed" @i18n="v130f4">
-          Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die
-          Werte auf allen PDFs gleich sind.
+          Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass
+          die Werte auf allen PDFs gleich sind.
+        </li>
+        <li class="fixed" @i18n="v130f5">
+          Es werden jetzt auch blutige Werte erkannt, die von Loop auf dem IPhone eingetragen werden.
         </li>
       </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v1211">1.2.11 - 17.05.2019</span></h2>
@@ -447,9 +474,11 @@
           Anzahl der Sensoren zur Analyse hinzugefügt
         </li>
         <li class="changed">
-          <ng-container  @i18n="v110c1a">Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun hier zu finden:</ng-container>
+          <ng-container @i18n="v110c1a">Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun hier
+            zu finden:
+          </ng-container>
           <a href="https://nightscout-reporter.zreptil.de/beta"
-          target="_blank" @i18n="v110c1b">https://nightscout-reporter.zreptil.de/beta</a>
+             target="_blank" @i18n="v110c1b">https://nightscout-reporter.zreptil.de/beta</a>
         </li>
         <li class="fixed" @i18n="v110f1">
           Übersetzungen korrigiert

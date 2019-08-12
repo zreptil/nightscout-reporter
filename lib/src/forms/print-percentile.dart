@@ -79,10 +79,8 @@ class PrintPercentile extends BasePrint
   }
 
   @override
-  prepareData_(ReportData vars)
-  {
-    return vars;
-  }
+  dynamic get estimatePageCount
+  => {"count": 1, "isEstimated": false};
 
   @override
   void fillPages(ReportData src, List<List<dynamic>> pages)

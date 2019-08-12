@@ -16,6 +16,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:dnd/dnd.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
+import 'package:nightscout_reporter/src/controls/formparams/formparams_component.dart';
 import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/forms/print-cgp.dart';
@@ -55,6 +56,7 @@ class PdfData
   templateUrl: 'app_component.html',
   directives: [
     DatepickerComponent,
+    FormparamsComponent,
     MaterialDateRangePickerComponent,
     MaterialCheckboxComponent,
     MaterialExpansionPanel,
@@ -111,6 +113,7 @@ class AppComponent
   String pdfData = "";
   List<PdfData> pdfList = List<PdfData>();
   String pdfDoc = null;
+  FormConfig tileParams = null;
 
   int get pdfSliderMax
   => Globals.PDFUNLIMITED ~/ Globals.PDFDIVIDER;
@@ -580,13 +583,14 @@ class AppComponent
     }
     Future.delayed(Duration(milliseconds: 100), ()
     {
-      Draggable(html.querySelectorAll('.sortable'), avatarHandler: AvatarHandler.clone(),
+      if (_drag != null)_drag.destroy();
+      _drag = Draggable(html.querySelectorAll('.sortable'),
+        avatarHandler: g.viewType == "tile" ? TileAvatarHandler() : AvatarHandler.clone(),
         draggingClass: "dragging",
         handle: "[name]>material-icon",
-        verticalOnly: true);
+        verticalOnly: g.viewType == "list");
       if (_drop != null)_drop.onDrop.listen(null);
-
-      _drop = Dropzone(html.querySelectorAll('.sortable'));
+      _drop = Dropzone(html.querySelectorAll(".sortable"), overClass: "dragover");
       _drop.onDrop.listen((DropzoneEvent event)
       {
         dropElement(event.draggableElement, event.dropzoneElement);
@@ -618,6 +622,7 @@ class AppComponent
     g.savePdfOrder();
   }
 
+  Draggable _drag = null;
   Dropzone _drop = null;
 
   ReportData reportData = null;
@@ -751,8 +756,7 @@ class AppComponent
         parts.add('"created_at":"${entry["created_at"]}"}');
 
         data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
-        if(store != null)
-          data.profiles.last.store[entry["profile"]] = store;
+        if (store != null)data.profiles.last.store[entry["profile"]] = store;
       }
     }
     catch (ex)
@@ -833,6 +837,11 @@ class AppComponent
               hasData = true;
               data.ns.bloody.add(e);
             }
+            else if (e.gluc <= 0)
+            {
+              hasData = true;
+              data.ns.remaining.add(e);
+            }
           }
           catch (ex)
           {
@@ -848,7 +857,19 @@ class AppComponent
         for (dynamic treatment in src)
         {
           hasData = true;
-          data.ns.treatments.add(TreatmentData.fromJson(treatment));
+          TreatmentData t = TreatmentData.fromJson(treatment);
+          data.ns.treatments.add(t);
+          if (t.eventType.toLowerCase() == "bg check")
+          {
+            EntryData entry = EntryData();
+            entry.id = t.id;
+            entry.time = t.createdAt;
+            entry.device = t.enteredBy;
+            entry.type = "mbg";
+            entry.mbg = t.glucose;
+            entry.rawbg = t.glucose;
+            data.ns.bloody.add(entry);
+          }
         }
       }
       begDate = begDate.add(days: 1);
@@ -865,6 +886,8 @@ class AppComponent
       data.ns.entries.sort((a, b)
       => a.time.compareTo(b.time));
       data.ns.bloody.sort((a, b)
+      => a.time.compareTo(b.time));
+      data.ns.remaining.sort((a, b)
       => a.time.compareTo(b.time));
       data.ns.treatments.sort((a, b)
       => a.createdAt.compareTo(b.createdAt));
@@ -938,6 +961,7 @@ class AppComponent
       }
       data.calc.entries = entryList;
       data.calc.bloody = data.ns.bloody;
+      data.calc.remaining = data.ns.remaining;
 
       data.ns.treatments.removeWhere((t)
       => filterTreatment(t));
@@ -982,6 +1006,51 @@ class AppComponent
     {
       sendIcon = "send";
     }
+  }
+
+  String classForView(String def)
+  {
+    switch (g.viewType)
+    {
+      case "tile":
+        def = "${def} is-tileview";
+        break;
+    }
+
+    return def;
+  }
+
+  int checkedIndex(cfg)
+  {
+    int ret = 0;
+    for (FormConfig check in g.listConfig)
+    {
+      if (check.form.isDebugOnly && !isDebug)continue;
+      if (check.checked)ret++;
+      if (check == cfg)return ret;
+    }
+    return ret;
+  }
+
+  showTileParams(cfg, evt)
+  {
+    evt.preventDefault();
+    tileParams == null ? tileParams = cfg : tileParams = null;
+  }
+
+  changeView()
+  {
+    switch (g.viewType)
+    {
+      case 'list':
+        g.viewType = 'tile';
+        break;
+      case 'tile':
+        g.viewType = 'list';
+        break;
+    }
+    g.save();
+    checkPrint();
   }
 
   void createPDF()
@@ -1172,6 +1241,17 @@ class AppComponent
     });
   }
 
+  String tileClass(FormConfig cfg)
+  {
+    String ret = "tile sortable";
+    if (cfg.form.isDebugOnly && isDebug)ret = "${ret} is-debug";
+    if (cfg.checked && tileParams == null)ret = "${ret} tilechecked";
+    if (cfg.form.isLocalOnly)ret = "${ret} is-local";
+    if (cfg.form.isBetaOrLocal)ret = "${ret} is-beta";
+    if (tileParams == cfg) ret = "${ret} params";
+    return ret;
+  }
+
   String expansionClass(FormConfig cfg)
   {
     String ret = "paramPanel";
@@ -1220,5 +1300,54 @@ class AppComponent
         _currPage = "normal";
         break;
     }
+  }
+}
+
+class TileAvatarHandler extends AvatarHandler
+{
+
+  TileAvatarHandler()
+  {
+  }
+
+  @override
+  void dragStart(html.Element draggable, html.Point startPosition)
+  {
+    avatar = draggable.clone(true);
+    avatar.className = "${avatar.className} dragtile";
+    html.Point pt = html.Point(draggable.offsetLeft, draggable.offsetTop);
+    html.Element parent = draggable.offsetParent;
+    while (parent != null)
+    {
+      pt = html.Point(pt.x + parent.offsetLeft, pt.y + parent.offsetTop);
+      parent = parent.offsetParent;
+    }
+    avatar.style
+      ..width = "${draggable.clientWidth}px"
+      ..height = "${draggable.clientHeight}px"
+      ..left = "${pt.x}px"
+      ..top = "${pt.y}px";
+
+    html.document.body
+      .querySelector("my-app")
+      .style
+      .overflow = "hidden";
+
+    setLeftTop(pt);
+
+    avatar.style.position = "absolute";
+    html.document.body.querySelector("my-app").append(avatar);
+  }
+
+  @override
+  void drag(html.Point startPosition, html.Point position)
+  {
+    setTranslate(position - startPosition);
+  }
+
+  @override
+  void dragEnd(html.Point startPosition, html.Point position)
+  {
+    avatar.remove();
   }
 }

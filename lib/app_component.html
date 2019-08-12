@@ -61,7 +61,7 @@
         <div class="pdfList">
           <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
                 [action]="pdfUrl">
-            <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja_JP'" />
+            <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja_JP'"/>
             <input name="filename" type="hidden" value="{{g.pdfDownload?pdfFilename(idx):''}}"/>
             <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
             <material-button class="pdfButton"
@@ -70,7 +70,7 @@
               <material-icon [icon]="pdfData.isPrinted?'done':'description'"></material-icon>
             </material-button>
             <div *ngIf="g.isLocal" class="is-local pdfSizes">
-              {{pdfData.pdf.length}}<br />
+              {{pdfData.pdf.length}}<br/>
               {{g.pdfCreationMaxSize}}
             </div>
           </form>
@@ -107,10 +107,11 @@
         <div>{{progressText}}</div>
       </div>
     </div>
-    <div class="normal-content" [style.display]="progressText == null && currPage=='normal'?'':'none'">
-      <div class="basePanel">
+    <div [class]="classForView('normal-content')"
+         [style.display]="progressText == null && currPage=='normal'?'':'none'">
+      <div [class]="classForView('basePanel')">
         <div *ngIf="g.userList.length == 1" class="userName">{{g.user.display}}</div>
-        <div class="userPanel" *ngIf="g.userList.length > 1">
+        <div [class]="classForView('userPanel')" *ngIf="g.userList.length > 1">
           <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect" slide="y"
                                     listAutoFocus>
             <material-select-item *ngFor="let item of g.userList; let idx = index"
@@ -127,12 +128,12 @@
           </material-button>
         </div>
         <datepicker [period]="g.period" (periodChange)="changePeriod($event)" [isLocal]="g.isLocal"
-                    [showInfo]="g.showInfo"></datepicker>
+                    [showInfo]="g.showInfo" [showLabel]="g.viewType=='list'"></datepicker>
       </div>
-      <div class="formlist">
+      <div class="formlist" *ngIf="g.viewType=='list'">
         <template ngFor let-cfg [ngForOf]="g.listConfig">
           <div *ngIf="isFormVisible(cfg.form)">
-            <div class="sortable" id="form-{{cfg.id}}">
+            <div class="sortable" id="list-{{cfg.id}}">
               <material-expansionpanel
                 (click)="expansionPanelClicked($event,cfg)"
                 (open)="expansionPanelOpen($event,cfg)"
@@ -146,37 +147,37 @@
                   <material-icon icon="drag_handle"></material-icon>
                   <div>{{cfg.form.display}}</div>
                 </div>
-                <template ngFor let-param [ngForOf]="cfg.form.sortedParams">
-                  <material-checkbox *ngIf="param.boolValue!=null" [(ngModel)]="param.boolValue" [label]="param.title">
-                  </material-checkbox>
-                  <div *ngIf="param.intValue!=null && param.list == null" class="paramSlider">
-                    <div>{{param.title}}: {{param.intValue}}</div>
-                    <material-slider class="slider" [(min)]="param.min" [(max)]="param.max" [(value)]="param.intValue">
-                    </material-slider>
-                  </div>
-                  <material-input *ngIf="param.stringValue!=null" [(inputText)]="param.stringValue" floatingLabel
-                                  [label]="param.title"></material-input>
-                  <div *ngIf="param.list!=null" class="paramList">
-                    <div>{{param.title}}</div>
-                    <material-dropdown-select [label]="param.title" [buttonText]="param.listValue"
-                                              popupClass="paramSelect" slide="y"
-                                              listAutoFocus>
-                      <material-select-item *ngFor="let item of param.list; let idx = index"
-                                            (trigger)="param.intValue=idx;"
-                                            class="selectItem"
-                                            [selected]="idx==param.intValue">
-                        <div class="itemTitle">{{item}}</div>
-                      </material-select-item>
-                    </material-dropdown-select>
-                  </div>
-                </template>
+                <formparams [paramList]="cfg.form.sortedParams"></formparams>
               </material-expansionpanel>
             </div>
           </div>
         </template>
       </div>
+      <div class="tilelist" *ngIf="g.viewType=='tile'">
+        <template ngFor let-cfg let-idx="index" [ngForOf]="g.listConfig">
+          <div [class]="tileClass(cfg)" id="tile-{{cfg.id}}"
+               *ngIf="isFormVisible(cfg.form) && (tileParams == null || tileParams == cfg)"
+               (click)="expansionPanelClicked($event,cfg)">
+            <div number *ngIf="cfg.checked && tileParams == null">{{checkedIndex(cfg)}}</div>
+            <div params *ngIf="cfg.form.sortedParams.length>0 && cfg.checked" [class]="tileParams==null?'':'close'"
+                 (click)="tileParams==null ? tileParams=cfg : tileParams=null;cfg.opened=!cfg.opened;$event.stopPropagation();">
+              <material-icon [icon]="tileParams==null?'expand_more':'close'"></material-icon>
+            </div>
+            <div name *ngIf="tileParams==null">
+              <material-icon icon="drag_handle"></material-icon>
+            </div>
+            <div title>{{cfg.form.display}}</div>
+            <div pages *ngIf="cfg.checked && tileParams==null">{{cfg.form.pageCountDisplay(reportData==null)}}</div>
+            <div paramPanel *ngIf="tileParams==cfg">
+              <div>
+                <formparams [paramList]="cfg.form.sortedParams"></formparams>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
     </div>
-    <div *ngIf="currPage=='normal'||currPage=='pdfList'" class="sendPanel">
+    <div *ngIf="currPage=='normal'||currPage=='pdfList'" [class]="classForView('sendPanel')">
       <material-fab *ngIf="sendIcon=='send'&&!sendDisabled"
                     [raised]="false"
                     [class]="sendClass(2,'shift2')"
@@ -241,6 +242,12 @@
                          (trigger)="currPage='settings';drawer.toggle();">
           <material-icon icon="settings"></material-icon>
           <ng-container @i18n="title of settings">Einstellungen</ng-container>
+        </material-button>
+        <material-button class="iconButton material-drawer-button" (trigger)="drawer.toggle();changeView();">
+          <material-icon *ngIf="g.viewType=='list'" icon="dashboard"></material-icon>
+          <material-icon *ngIf="g.viewType=='tile'" icon="list"></material-icon>
+          <ng-container @i18n="title of listview" *ngIf="g.viewType=='tile'">Zur Listenansicht</ng-container>
+          <ng-container @i18n="title of tileview" *ngIf="g.viewType=='list'">Zur Kachelansicht</ng-container>
         </material-button>
         <material-button class="iconButton material-drawer-button" (trigger)="currPage='whatsnew';">
           <material-icon icon="new_releases"></material-icon>
@@ -311,7 +318,7 @@
   </div>
 </div>
 <form id="postForm" [target]="g.pdfTarget" method="post" action="{{pdfUrl}}">
-  <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja_JP'" />
+  <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja_JP'"/>
   <input name="filename" type="hidden" [value]="g.pdfDownload?pdfFilename(0):''"/>
   <input name="data" type="hidden" value="{{pdfData}}"/>{{pdfFilename(0)}}
 </form>

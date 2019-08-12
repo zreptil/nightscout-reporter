@@ -1,4 +1,4 @@
-<div class="floating">{{periodFloatingLabel}}</div>
+<div class="floating" *ngIf="showLabel">{{periodFloatingLabel}}</div>
 <div [class]="infoClass('')">
   <pre class="infotext">Auswahl des Zeitraums, für den
 die PDFs erstellt werden sollen</pre>

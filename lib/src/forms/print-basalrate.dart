@@ -32,6 +32,10 @@ class PrintBasalrate extends BaseProfile
   {
   }
 
+  @override
+  dynamic get estimatePageCount
+  => {"count": 1, "isEstimated": true};
+
   double glucX(DateTime time)
   {
     return graphWidth / 1440 * (time.hour * 60 + time.minute);

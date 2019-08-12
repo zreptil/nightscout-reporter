@@ -60,7 +60,7 @@ class LangData
   String get dateformat
   => Intl.message("dd.MM.yyyy");
   String get imgPath
-  => "https://findicons.com/files/icons/2758/flag_icons/32/${img}.png";
+  => "packages/nightscout_reporter/assets/img/lang-${img}.png";
 
   LangData(this.code, this.name, this.img);
 }
@@ -81,7 +81,7 @@ class Globals
   static tz.Location refLocation = tz.getLocation("Europe/Berlin");
   static DateTime get now
   => DateTime.now();
-  String version = "1.3ßg";
+  String version = "1.3ßi";
   String lastVersion;
   static const int PDFUNLIMITED = 4000000;
   static const int PDFDIVIDER = 100000;
@@ -225,6 +225,7 @@ class Globals
     LangData("pl_PL", Intl.message("Polski"), "pl"),
     LangData("ja_JP", Intl.message("Japanisch"), "jp"),
   ];
+
   LangData _language = null;
   LangData get language
   => _language == null ? languageList[0] : _language;
@@ -257,10 +258,29 @@ class Globals
   double get glucPrecision
   => glucMGDL ? 0 : 2;
   String _pdfOrder = "";
+  String _viewType = "";
+
   set pdfOrder(String value)
   {
     _pdfOrder = value;
     sortConfigs();
+  }
+
+  String get viewType
+  => _viewType == "" ? "list" : _viewType;
+
+  set viewType(String value)
+  {
+    switch (value)
+    {
+      case "tile":
+      case "list":
+        break;
+      default:
+        value = "list";
+        break;
+    }
+    _viewType = value;
   }
 
   DatepickerPeriod period = DatepickerPeriod();
@@ -301,6 +321,7 @@ class Globals
   bool showInfo = false;
   String urlPdf = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
   String urlPlayground = "http://pdf.zreptil.de/playground.php";
+
   String infoClass(String cls)
   => showInfo ? "$cls infoarea showinfo" : "$cls infoarea";
   bool isConfigured = false;
@@ -466,6 +487,7 @@ class Globals
       ',"showCurrentGluc":"${showCurrentGluc ? 'yes' : 'no'}"'
       ',"period":"${period?.toString() ?? null}"'
       ',"pdfOrder":"${_pdfOrder}"'
+      ',"viewType":"${_viewType}"'
       '}';
   }
 
@@ -485,17 +507,13 @@ class Globals
       ',"showCurrentGluc":"${loadStorage('showCurrentGluc')}"'
       ',"period":"${loadStorage('period')}"'
       ',"pdfOrder":"${loadStorage('pdfOrder')}"'
+      ',"viewType":"${loadStorage('viewType')}"'
       ',"currCompIdx":"${loadStorage('currCompIdx')}"'
       '}';
     fromJson(src);
     canDebug = loadStorage("debug") == "yes";
     fmtDateForData = DateFormat("yyyy-MM-dd");
     fmtDateForDisplay = DateFormat(language.dateformat);
-    if(canDebug)
-    {
-      String temp = loadStorage("up");
-      if (temp != "") urlPdf = temp;
-    }
   }
 
   void fromJson(String src)
@@ -517,6 +535,7 @@ class Globals
       hidePdfInfo = JsonData.toBool(cfg["hidePdfInfo"]);
       showCurrentGluc = JsonData.toBool(cfg["showCurrentGluc"]);
       pdfOrder = JsonData.toText(cfg["pdfOrder"]);
+      viewType = JsonData.toText(cfg["viewType"]);
       period = DatepickerPeriod(src: JsonData.toText(cfg["period"]));
       period.fmtDate = language.dateformat;
       String users = cfg["mu"];
@@ -587,7 +606,8 @@ class Globals
     }
     else
       drive?.files?.update(settingsFile, settingsFile.id, uploadMedia: media)?.then((_)
-      {})?.catchError((error)
+      {
+      })?.catchError((error)
       {
 //        String msg = error.toString();
 //      display("Es ist ein Fehler aufgetreten ($error)");
@@ -696,6 +716,18 @@ class Globals
 
   Future<void> loadSettings()
   async {
+    String src = await request("settings.json");
+    try
+    {
+      var data = convert.json.decode(src);
+      if (data["urlPDF"] != null)urlPdf = data["urlPDF"];
+      if (data["urlPlayground"] != null)urlPlayground = data["urlPlayground"];
+    }
+    catch (ex)
+    {
+      String text = ex.message;
+    }
+
     _saveToGoogle = loadStorage("saveToGoogle") == "yes";
     if (saveToGoogle)
     {
@@ -819,7 +851,6 @@ class Globals
     if (canDebug)
     {
       saveStorage("debug", "yes");
-      saveStorage("up", urlPdf);
     }
     if (!itod)saveStorage("unsafe", "zh++;");
 
@@ -839,6 +870,7 @@ class Globals
     saveStorage("hidePdfInfo", hidePdfInfo ? "true" : "false");
     saveStorage("showCurrentGluc", showCurrentGluc ? "true" : "false");
     saveStorage("period", period?.toString() ?? null);
+    saveStorage("viewType", viewType);
     savePdfOrder();
 /*
     if (_dateRange.range != null)
@@ -1000,7 +1032,8 @@ class UserData
         forms[cfg.id] = cfg.asString;
     }
     catch (ex)
-    {}
+    {
+    }
 
     return '{"n":"$name",'
       '"bd":"${birthDate ?? ''}",'
@@ -1037,7 +1070,8 @@ class UserData
       }*/
     }
     catch (ex)
-    {}
+    {
+    }
     return ret;
   }
 

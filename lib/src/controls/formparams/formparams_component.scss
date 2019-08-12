@@ -1,0 +1,52 @@
+@import '../../colors.sass';
+@import 'package:angular_components/material_checkbox/mixins';
+@import 'package:angular_components/material_select/mixins';
+@import 'package:angular_components/material_slider/mixins';
+@import 'package:angular_components/material_input/mixins';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  @include material-checkbox-color($primary_back, $modifier: '');
+  @include slider-thumb-color('material-slider.slider', $primary_back);
+  @include slider-track-color('material-slider.slider', $primary_back, $mat-gray-400);
+}
+
+.paramList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  material-dropdown-select {
+    margin-left: 1em;
+    background: $primary_back;
+    color: $primary_fore;
+
+    ::ng-deep .button {
+      padding: 0.5em;
+    }
+  }
+}
+
+.paramSlider {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  material-slider {
+    margin-left: 1em;
+    width: 80%;
+  }
+}
+
+material-checkbox {
+  margin: 0;
+  align-items: flex-start;
+}
+
+.subParams {
+  margin-left: 1.5em;
+}
+

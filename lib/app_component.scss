@@ -211,6 +211,18 @@ material-drawer {
   }
 }
 
+.sendPanel.is-tileview {
+  flex-direction: row;
+  right: 1em;
+  top: 70px;
+  bottom: unset;
+
+  material-fab {
+    margin-top: 0;
+    margin-right: 0.5em;
+  }
+}
+
 .shift1, .shift2 {
   background: $primary_back;
   color: $primary_fore;
@@ -243,7 +255,6 @@ material-drawer {
 }
 
 .close {
-  background: $primary_back;
   color: $primary_fore;
 }
 
@@ -397,6 +408,11 @@ nav a {
   align-items: center;
   padding-top: 1em;
   padding-bottom: 1em;
+  width: 100%;
+}
+
+.normal-content.is-tileview {
+  flex: 1;
 }
 
 @include material-select-selected-item-color($primary_back);
@@ -486,11 +502,6 @@ nav a {
   flex-direction: column;
   align-items: flex-start;
   margin: 0;
-}
-
-material-checkbox {
-  margin: 0;
-  align-items: flex-start;
 }
 
 material-expansionpanel {
@@ -659,6 +670,8 @@ material-expansionpanel.is-debug {
   }
 
   @include material-checkbox-color($debug_fore, $modifier: '');
+  @include slider-thumb-color('material-slider.slider', $debug_fore);
+  @include slider-track-color('material-slider.slider', $debug_fore, $mat-gray-400);
 
   ::ng-deep div[aria-expanded="true"] {
     border-color: $debug_fore !important;
@@ -678,17 +691,6 @@ material-expansionpanel.is-debug {
   @include expansionpanel-focused-colors($debug_back, $debug_fore);
 }
 
-.paramSlider {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-
-  material-slider {
-    margin-left: 1em;
-    width: 80%;
-  }
-}
-
 datepicker {
   @include datepicker_primary_color($mat-yellow-500);
 }
@@ -697,6 +699,13 @@ datepicker {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.basePanel.is-tileview {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 3.5em;
 }
 
 .language {
@@ -710,7 +719,7 @@ datepicker {
 }
 
 .dragging {
-  opacity: 0.5;
+  opacity: 0;
 
   _material-expansionpanel {
     ::ng-deep header {
@@ -803,3 +812,192 @@ datepicker {
   flex-direction: column;
   align-items: center;
 }
+
+.tile {
+  position: relative;
+  text-align: center;
+
+  [name] {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+  }
+
+  [number] {
+    position: absolute;
+    top: 0;
+    opacity: 0.1;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 5em;
+    display: flex;
+  }
+
+  [pages] {
+    position: absolute;
+    bottom: 1em;
+    opacity: 0.5;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    display: flex;
+  }
+
+  [params] {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+  }
+
+  [params].close {
+    top: 0.8em;
+    right: 0.8em;
+  }
+
+  [parampanel] {
+    justify-content: center;
+    padding: 0 0.5em;
+    width: 100%;
+    align-items: center;
+    padding-right: 0.5em;
+    overflow: auto;
+    align-self: flex-end;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 0.5em;
+    }
+  }
+
+  [title] {
+    padding: 1em;
+  }
+
+  display: flex;
+  padding: 0.5em;
+  background: $secondary_back;
+  color: $secondary_fore;
+  border-radius: 0.5em;
+  margin: 0.2em;
+  cursor: pointer;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 15%;
+  max-height: 90%;
+}
+
+.tilelist {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  width: 100%;
+  justify-content: center;
+
+  .tile.dragover {
+    background-image: url("packages/nightscout_reporter/assets/img/arrow-left.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+  }
+
+  .params {
+    flex: unset;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    [title] {
+      margin-bottom: 0.5em;
+      background: $primary_back;
+      color: $primary_fore;
+      width: 100%;
+      padding: 0.5em 0;
+      border-radius: 0.5em;
+    }
+
+    [params] {
+      color: $primary_fore;
+    }
+
+  }
+
+  .is-local {
+    border-color: $local_fore;
+    background: $local_back;
+    color: $local_fore;
+    @include material-checkbox-color($local_fore, $modifier: '');
+    @include slider-thumb-color('material-slider.slider', $local_fore);
+    @include slider-track-color('material-slider.slider', $local_fore, $mat-gray-400);
+  }
+
+  .is-local.params {
+    [title] {
+      background: $local_fore;
+    }
+  }
+
+  .is-debug {
+    color: $debug_fore;
+    background: $debug_back;
+    @include material-checkbox-color($debug_fore, $modifier: '');
+    @include slider-thumb-color('material-slider.slider', $debug_fore);
+    @include slider-track-color('material-slider.slider', $debug_fore, $mat-gray-400);
+  }
+
+  .is-debug.params {
+    material-icon, [title] {
+      color: $debug_first;
+      background: $debug_fore;
+    }
+  }
+}
+
+.tilechecked {
+  background: $primary_back !important;
+  color: $primary_fore !important;
+  _border: 2px solid $primary_back !important;
+}
+
+.tilechecked.is-debug {
+  border-color: $debug_fore !important;
+  background: $debug_back !important;
+}
+
+.tilechecked.is-local {
+  background-color: $local_fore !important;
+  color: $local_back !important;
+}
+
+.dragtile {
+  display: flex;
+  padding: 0;
+  border-radius: 0.5em;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  align-items: center;
+  justify-content: center;
+  opacity: 0.75;
+}
+
+@media(max-width: 33em) {
+  .userPanel.is-tileview {
+    display: none;
+  }
+}
+
+@media(max-width: 44em) {
+  .basePanel.is-tileview {
+    align-self: flex-start;
+    margin-left: 1em;
+  }
+  .tilelist {
+    .tile {
+      min-width: 5em;
+    }
+  }
+}
+

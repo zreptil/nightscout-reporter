@@ -58,6 +58,7 @@ class ParamInfo
   String stringValue;
   int intValue;
   List<String> list;
+  List<ParamInfo> subParams;
   String get listValue
   {
     if (list == null || list.length == 0) return "";
@@ -71,7 +72,7 @@ class ParamInfo
   int sort;
 
   ParamInfo(this.sort, this.title,
-            {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null, this.list = null, this.isDeprecated = false})
+            {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null, this.list = null, this.subParams = null, this.isDeprecated = false})
   {
     if (boolValue != null)type = ParamType.bool;
     if (stringValue != null)type = ParamType.string;
@@ -81,7 +82,13 @@ class ParamInfo
 
   dynamic get asJson
   {
-    return {"b": boolValue, "s": stringValue, "i": intValue};
+    List sp = [];
+    if (subParams != null)
+    {
+      for (ParamInfo p in subParams)
+        sp.add(p.asJson);
+    }
+    return {"b": boolValue, "s": stringValue, "i": intValue, "sp": sp};
   }
 
   fill(ParamInfo src)
@@ -89,6 +96,7 @@ class ParamInfo
     boolValue = src.boolValue;
     stringValue = src.stringValue;
     intValue = src.intValue;
+    subParams = src.subParams;
   }
 
   fillFromJson(dynamic value)
@@ -109,6 +117,13 @@ class ParamInfo
           break;
         default:
           break;
+      }
+      if (subParams != null)
+      {
+        for (int i = 0; i < subParams.length; i++)
+        {
+          if (i < value["sp"].length)subParams[i].fillFromJson(value["sp"][i]);
+        }
       }
     }
     catch (ex)
@@ -281,10 +296,46 @@ abstract class BasePrint
   => isPortrait ? 29.7 : 21.0;
 
   List<List<dynamic>> _pages = List<List<dynamic>>();
-  int pageCount = 0;
   int _fileSize = 0;
   int _lastSize = 0;
 
+  dynamic get estimatePageCount;
+
+  String pageCountDisplay(forceEstimate)
+  {
+    dynamic ret = {"count": g?.period?.dayCount ?? 0, "isEstimated": true};
+    if (!forceEstimate && _pages != null && _pages.length > 0)
+    {
+      ret["count"] = _pages.length;
+      ret["isEstimated"] = false;
+    }
+    else
+    {
+      extractParams();
+      ret = estimatePageCount;
+    }
+
+    ret["count"] = (ret["count"] / pagesPerSheet).ceil();
+    return msgPageCount(ret["count"], ret["isEstimated"]);
+  }
+
+  _msgPageCountEst(count)
+  =>
+    Intl.plural(count, zero: "",
+      one: "1 Seite oder mehr",
+      other: "$count Seiten oder mehr",
+      args: [count],
+      name: "_msgPageCountEst");
+  _msgPageCount(count)
+  =>
+    Intl.plural(count, zero: "",
+      one: "1 Seite",
+      other: "$count Seiten",
+      args: [count],
+      name: "_msgPageCount");
+
+  msgPageCount(count, isEstimated)
+  => isEstimated ? _msgPageCountEst(count) : _msgPageCount(count);
   msgValidRange(begDate, endDate)
   => Intl.message("gültig von $begDate bis $endDate", args: [begDate, endDate], name: "msgValidRange");
   msgValidFrom(begDate)
@@ -529,8 +580,14 @@ abstract class BasePrint
   => Intl.message("Insulin Sensitivitäts Faktoren (ISF)");
   get msgBasalTitle
   => Intl.message("Basalrate");
+  get msgBasalSum
+  => Intl.message("Gesamt");
   get msgTargetTitle
   => Intl.message("Zielbereich");
+  get msgICRSum
+  => Intl.message("Ø ICR/Stunde");
+  get msgISFSum
+  => Intl.message("Ø ISF/Stunde");
   get msgICR
   => Intl.message("Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE");
   msgISF(String unit)
@@ -905,7 +962,9 @@ abstract class BasePrint
     return msgValidRange(beg, end);
   }
 
-  prepareData_(ReportData data);
+  extractParams()
+  {
+  }
 
   _getFooterImage(String id, {double x, double y, double width, double height = 0.0})
   {
@@ -974,7 +1033,6 @@ abstract class BasePrint
   void _addPageBreak(dynamic page)
   {
     page.last["pageBreak"] = "after";
-    pageCount++;
     // int cnt = countObjects(page);
     String text = json.encode(page);
     _fileSize += text.length - _lastSize;
@@ -1005,9 +1063,9 @@ abstract class BasePrint
 
     dynamic ret = [];
     _lastSize = 0;
-    var d = prepareData_(data);
+    extractParams();
+    var d = data;
     _pages.clear();
-    pageCount = 1;
     _fileSize = currentSize;
     try
     {

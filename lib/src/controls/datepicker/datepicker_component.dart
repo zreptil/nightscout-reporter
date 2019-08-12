@@ -82,6 +82,18 @@ class DatepickerPeriod
   Date minDate = null;
   Date maxDate = null;
   String _dowActiveText = null;
+  int get dayCount
+  {
+    int ret = 0;
+    if (start != null && end != null)
+    {
+      ret = DateTime(end.year, end.month, end.day)
+        .difference(DateTime(start.year, start.month, start.day))
+        .inDays + 1;
+    }
+    return ret;
+  }
+
   List<bool> _dowActive = [true, true, true, true, true, true, true];
   bool isDowActive(int idx)
   => idx >= 0 && idx < _dowActive.length ? _dowActive[idx] : false;
@@ -189,7 +201,8 @@ class DatepickerPeriod
       }
     }
     catch (ex)
-    {}
+    {
+    }
   }
 
   DatepickerPeriod({String src = ""})
@@ -212,8 +225,7 @@ class DatepickerPeriod
   }
 }
 
-@Component(
-  selector: 'datepicker',
+@Component(selector: 'datepicker',
   styleUrls: ['datepicker_component.css'],
   templateUrl: 'datepicker_component.html',
   directives: [
@@ -241,14 +253,25 @@ class DatepickerComponent
   String infoClass(String cls)
   => showInfo ? "$cls infoarea showinfo" : "$cls infoarea";
 
+  @Input()
+  bool showLabel = true;
+
   bool get isMaxMonth
-  =>
-    period != null && period.maxDate != null && month != null &&
-      (month.year > period.maxDate.year || (month.year == period.maxDate.year && month.month >= period.maxDate.month));
+  => period != null && period.maxDate != null && month != null && (month.year > period.maxDate.year || (month
+                                                                                                          .year == period
+                                                                                                          .maxDate.year
+                                                                                                        && month
+                                                                                                             .month >= period
+                                                                                                             .maxDate
+                                                                                                             .month));
   bool get isMinMonth
-  =>
-    period != null && period.minDate != null && month != null &&
-      (month.year < period.minDate.year || (month.year == period.minDate.year && month.month <= period.minDate.month));
+  => period != null && period.minDate != null && month != null && (month.year < period.minDate.year || (month
+                                                                                                          .year == period
+                                                                                                          .minDate.year
+                                                                                                        && month
+                                                                                                             .month <= period
+                                                                                                             .minDate
+                                                                                                             .month));
 
   get msgStartIncorrect
   => Intl.message("Das Startdatum ist nicht korrekt");
@@ -263,7 +286,8 @@ class DatepickerComponent
   @Input()
   void set period(value)
   {
-    DatepickerPeriod temp = value is DatepickerPeriod ? value : DatepickerPeriod(src: value);
+    DatepickerPeriod temp = value is DatepickerPeriod ? value :
+    DatepickerPeriod(src: value);
     _period = temp ?? _period;
     if (_period.entryKey != null && _period.list.length > 0)
     {

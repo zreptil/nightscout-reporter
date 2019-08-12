@@ -27,14 +27,15 @@ class PrintDailyAnalysis extends BasePrint
   List<ParamInfo> params = [ParamInfo(0, PrintDailyGraphic.msgParam10, boolValue: false),
   ];
 
-
   @override
-  prepareData_(ReportData data)
+  extractParams()
   {
     sortReverse = params[0].boolValue;
-
-    return data;
   }
+
+  @override
+  dynamic get estimatePageCount
+  => {"count": g?.period?.dayCount ?? 0, "isEstimated": false};
 
   static String _titleGraphic = Intl.message("Tagesanalyse");
 
@@ -144,7 +145,7 @@ class PrintDailyAnalysis extends BasePrint
       glucMax = math.max(entry.mbg, glucMax);
     for (TreatmentData entry in day.treatments)
     {
-      if (entry.glucoseType.toLowerCase() == "finger")
+      if (entry.isBloody)
         glucMax = math.max((g.glucMGDL ? 1 : 18.02) * entry.glucose, glucMax);
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
@@ -261,7 +262,7 @@ class PrintDailyAnalysis extends BasePrint
     }
     for (TreatmentData t in day.treatments)
     {
-      if (t.glucoseType.toLowerCase() == "finger")
+      if (t.isBloody)
       {
         double x = glucX(t.createdAt);
         double y = glucY((g.glucMGDL ? 1 : 18.02) * t.glucose);

@@ -40,41 +40,38 @@ class PrintDailyGraphic extends BasePrint
   String id = "daygraph";
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, showNotes,
-    sortReverse, showGlucTable, showSMBAtGluc, showInfoLinesAtGluc, sumNarrowValues, showSMB, splitBolus, showExercises,
+    sortReverse, showGlucTable, showSMBAtGluc, showNoteLinesAtGluc, sumNarrowValues, showSMB, splitBolus, showExercises,
     showCarbIE, showCGP;
 
   @override
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: true),
-    ParamInfo(4, msgParam3, boolValue: true),
-    ParamInfo(6, msgParam4, boolValue: true),
-    ParamInfo(7, msgParam5, boolValue: true),
-    ParamInfo(8, msgParam6, boolValue: false, isDeprecated: true),
-    ParamInfo(12, msgParam7, list: [
+    ParamInfo(3, msgParam3, boolValue: true),
+    ParamInfo(5, msgParam4, boolValue: true),
+    ParamInfo(6, msgParam5, boolValue: true),
+    ParamInfo(7, msgParam6, boolValue: false, isDeprecated: true),
+    ParamInfo(11, msgParam7, list: [
       Intl.message("Eine"),
       Intl.message("Zwei"),
       Intl.message("Vier"),
       Intl.message("Acht"),
       Intl.message("Sechzehn")
     ]),
-    ParamInfo(10, msgParam8, boolValue: true),
-    ParamInfo(9, msgParam9, boolValue: true),
-    ParamInfo(11, msgParam10, boolValue: false),
-    ParamInfo(13, msgParam11, boolValue: true),
-    ParamInfo(3, msgParam12, boolValue: true),
-    ParamInfo(14, msgParam13, boolValue: false),
-    ParamInfo(15, msgParam14, boolValue: true),
-    ParamInfo(2, msgParam15, boolValue: true),
-    ParamInfo(16, msgParam16, boolValue: false),
-    ParamInfo(17, msgParam17, boolValue: false),
-    ParamInfo(5, msgParam18, boolValue: false),
-    ParamInfo(18, msgParam19, boolValue: false),
+    ParamInfo(9, msgParam8, boolValue: true),
+    ParamInfo(8, msgParam9, boolValue: true, subParams: [ParamInfo(0, msgParam13, boolValue: false)]),
+    ParamInfo(10, msgParam10, boolValue: false),
+    ParamInfo(12, msgParam11, boolValue: true),
+    ParamInfo(13, msgParam14, boolValue: true),
+    ParamInfo(2, msgParam15, boolValue: true, subParams: [ParamInfo(0, msgParam12, boolValue: true)]),
+    ParamInfo(14, msgParam16, boolValue: false),
+    ParamInfo(15, msgParam17, boolValue: false),
+    ParamInfo(4, msgParam18, boolValue: false),
+    ParamInfo(16, msgParam19, boolValue: false),
   ];
 
-
   @override
-  prepareData_(ReportData data)
+  extractParams()
   {
     showPictures = params[0].boolValue;
     showInsulin = params[1].boolValue;
@@ -84,16 +81,16 @@ class PrintDailyGraphic extends BasePrint
     isPrecise = params[5].boolValue;
     showLegend = params[7].boolValue;
     showNotes = params[8].boolValue;
+    showNoteLinesAtGluc = params[8].subParams[0].boolValue;
     sortReverse = params[9].boolValue;
     showGlucTable = params[10].boolValue;
-    showSMBAtGluc = params[11].boolValue;
-    showInfoLinesAtGluc = params[12].boolValue;
-    sumNarrowValues = params[13].boolValue;
-    showSMB = params[14].boolValue;
-    splitBolus = params[15].boolValue;
-    showExercises = params[16].boolValue;
-    showCarbIE = params[17].boolValue;
-    showCGP = params[18].boolValue;
+    sumNarrowValues = params[11].boolValue;
+    showSMB = params[12].boolValue;
+    showSMBAtGluc = params[12].subParams[0].boolValue;
+    splitBolus = params[13].boolValue;
+    showExercises = params[14].boolValue;
+    showCarbIE = params[15].boolValue;
+    showCGP = params[16].boolValue;
 
     switch (params[6].intValue)
     {
@@ -113,8 +110,14 @@ class PrintDailyGraphic extends BasePrint
         pagesPerSheet = 1;
         break;
     }
+  }
 
-    return data;
+  @override
+  dynamic get estimatePageCount
+  {
+    int count = g?.period?.dayCount ?? 0;
+    if (showCGP ?? false)count *= 2;
+    return {"count": count, "isEstimated": false};
   }
 
   static String _titleGraphic = Intl.message("Tagesgrafik");
@@ -147,7 +150,7 @@ class PrintDailyGraphic extends BasePrint
   static String get msgParam12
   => Intl.message("SMB an der Kurve platzieren");
   static String get msgParam13
-  => Intl.message("Info-Linien bis zur Kurve zeichnen");
+  => Intl.message("Notiz-Linien bis zur Kurve zeichnen");
   static String get msgParam14
   => Intl.message("Nahe zusammen liegende Werte aufsummieren");
   static String get msgParam15
@@ -351,7 +354,7 @@ class PrintDailyGraphic extends BasePrint
     }
     for (TreatmentData entry in day.treatments)
     {
-      if (entry.glucoseType.toLowerCase() == "finger")glucMax = math.max(g.glucFactor * entry.glucose, glucMax);
+      if (entry.isBloody)glucMax = math.max(g.glucFactor * entry.glucose, glucMax);
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
 
@@ -405,7 +408,7 @@ class PrintDailyGraphic extends BasePrint
     }
     for (TreatmentData t in day.treatments)
     {
-      if (t.glucoseType.toLowerCase() == "finger")
+      if (t.isBloody)
       {
         double x = glucX(t.createdAt);
         double y = glucY((g.glucMGDL ? 1 : 18.02) * t.glucose);
@@ -561,8 +564,8 @@ class PrintDailyGraphic extends BasePrint
           });
           double carbsIE = carbsForIE(src, t);
           if (t.createdAt
-            .difference(collCarbs.last.start)
-            .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
+                .difference(collCarbs.last.start)
+                .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
           else
             collCarbs.add(CollectInfo(t.createdAt, t.carbs, carbsIE));
         }
@@ -585,8 +588,8 @@ class PrintDailyGraphic extends BasePrint
           });
 
           if (t.createdAt
-            .difference(collInsulin.last.start)
-            .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
+                .difference(collInsulin.last.start)
+                .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
           else
             collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
 
@@ -717,7 +720,7 @@ class PrintDailyGraphic extends BasePrint
         {
           double y = graphBottom + notesTop + idx * notesHeight;
           double top = graphBottom;
-          if (showInfoLinesAtGluc)
+          if (showNoteLinesAtGluc)
           {
             EntryData e = day.findNearest(day.entries, null, t.createdAt);
             if (e != null)top = glucY(e.gluc);
@@ -1028,8 +1031,8 @@ class PrintDailyGraphic extends BasePrint
       startDate = startDate.add(Duration(minutes: -1));
       for (ProfileData p in src.profiles)
       {
-        if (p.startDate.isAfter(startDate) && p.startDate.year == day.date.year &&
-          p.startDate.month == day.date.month && p.startDate.day == day.date.day)
+        if (p.startDate.isAfter(startDate) && p.startDate.year == day.date.year && p.startDate.month == day.date.month
+            && p.startDate.day == day.date.day)
         {
           double x = glucX(p.startDate);
           double y = graphHeight + basalTop + basalHeight;

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'dart:math';
 
+import 'package:angular_components/model/date/date.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
@@ -31,9 +32,8 @@ class PrintWeeklyGraphic extends BasePrint
     ParamInfo(3, PrintDailyGraphic.msgParam19, boolValue: false),
   ];
 
-
   @override
-  prepareData_(ReportData data)
+  extractParams()
   {
     sortReverse = params[1].boolValue;
     showDaysInGraphic = params[2].boolValue;
@@ -57,7 +57,24 @@ class PrintWeeklyGraphic extends BasePrint
         pagesPerSheet = 1;
         break;
     }
-    return data;
+  }
+
+  @override
+  dynamic get estimatePageCount
+  {
+    int count = 0;
+    if (g != null && g.period != null && g.period.start != null && g.period.end != null)
+    {
+      count = 1;
+      Date date = g.period.start.add(days: 1);
+      while (date.isOnOrBefore(g.period.end))
+      {
+        if (date.weekday == 1)count++;
+        date = date.add(days: 1);
+      }
+      if (showCGP ?? false)count *= 2;
+    }
+    return {"count": count, "isEstimated": false};
   }
 
   static String _title = Intl.message("Wochengrafik");
@@ -202,7 +219,7 @@ class PrintWeeklyGraphic extends BasePrint
       }
       for (TreatmentData t in day.treatments)
       {
-        if (t.glucoseType.toLowerCase() == "finger")
+        if (t.isBloody)
         {
           double x = glucX(t.createdAt);
           double y = glucY((g.glucMGDL ? 1 : 18.02) * t.glucose);

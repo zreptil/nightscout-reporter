@@ -30,7 +30,7 @@ class PrintTest extends BasePrint
   ];
 
   @override
-  prepareData_(ReportData data)
+  extractParams()
   {
     showEntries = params[0].boolValue;
     showTreatments = params[1].boolValue;
@@ -39,8 +39,11 @@ class PrintTest extends BasePrint
     showRawTreatments = params[4].boolValue;
     showRawProfiles = params[5].boolValue;
     rawCols = params[6].intValue;
-    return data;
   }
+
+  @override
+  dynamic get estimatePageCount
+  => {"count": 0, "isEstimated": true};
 
   @override
   bool get isDebugOnly
@@ -202,8 +205,18 @@ class PrintTest extends BasePrint
     if (showRawEntries)
     {
       _body = [];
-      _root = createRoot("raw", title: "Entries");
+      _root = createRoot("raw", title: "Entries (sgv)");
       for (EntryData entry in src.ns.entries)
+        addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
+      finalizeRawData();
+      _body = [];
+      _root = createRoot("raw", title: "Entries (mbg)");
+      for (EntryData entry in src.ns.bloody)
+        addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
+      finalizeRawData();
+      _body = [];
+      _root = createRoot("raw", title: "Entries (remaining)");
+      for (EntryData entry in src.ns.remaining)
         addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
       finalizeRawData();
     }

@@ -39,16 +39,34 @@ class JsonData
   }
 
   static String toText(value, [String def = ""])
-  => value == null ? def : value is String ? value : "${value}";
+  {
+    if (value == null)return def;
+    if (value is String) return value;
+    return "${value}";
+  }
 
   static bool toBool(value)
-  => value == null ? false : value is bool ? value : value is String ? value == "true" || value == "yes" : false;
+  {
+    if (value == null)return false;
+    if (value is bool)return value;
+    if (value is String) return (value == "true" || value == "yes");
+    return false;
+  }
 
   static double toDouble(value, [def = 0.0])
-  => value == null || value == "NaN" ? def : value is double || value is int ? value : double.tryParse(value) ?? def;
+  {
+    if (value == null || value == "NaN")return def;
+    if (value is double || value is int)return value;
+    return double.tryParse(value) ?? def;
+  }
 
   static int toInt(value, [int def = 0])
-  => value == null ? def : value is int ? value : value is double ? value.toInt() : int.tryParse(value) ?? def;
+  {
+    if (value == null)return def;
+    if (value is int)return value;
+    if (value is double)return value.toInt();
+    return int.tryParse(value) ?? def;
+  }
 }
 
 class ThresholdData extends JsonData
@@ -450,10 +468,14 @@ class ProfileStoreData extends JsonData
   List<ProfileEntryData> listTargetHigh = List<ProfileEntryData>();
   DateTime startDate;
   String units;
-  double get ieBasalSum
+  double get ieBasalSum => _listSum(listBasal);
+  double get icrSum => _listSum(listCarbratio);
+  double get isfSum => _listSum(listSens);
+
+  double _listSum(List<ProfileEntryData> list)
   {
     double ret = 0.0;
-    for (ProfileEntryData entry in listBasal)
+    for (ProfileEntryData entry in list)
       ret += (entry.value / 60.0) * entry.duration;
     return ret;
   }
@@ -840,7 +862,7 @@ class ProfileData extends JsonData
       // "default" is used, if available.
       String srcKey = key;
       if (!src.store.containsKey(srcKey))srcKey = src.defaultProfile;
-      store[key].name = "Hurz";
+//      store[key].name = "Hurz";
 
       if (src.store.containsKey(srcKey))
       {
@@ -849,7 +871,7 @@ class ProfileData extends JsonData
         store[key].removeFrom(src.startDate.hour, src.startDate.minute, src.duration);
         // add all settings after the given time from src.
         store[key].addFrom(src, src.store[srcKey]);
-        store[key].name = "Oleole";//""${store[key].name} - ${src.store[srcKey].name}";
+//        store[key].name = "${store[key].name} - ${src.store[srcKey].name}";
       }
     }
   }
@@ -1007,6 +1029,7 @@ class TreatmentData extends JsonData
   String reason;
   double targetTop;
   double targetBottom;
+  bool get isBloody => glucoseType.toLowerCase() == "finger" || eventType.toLowerCase() == "bg check";
   Uploader _from = Uploader.Unknown;
   int get timeForCalc
   => createdAt.hour * 60 + createdAt.minute;
@@ -1237,6 +1260,9 @@ class EntryData extends JsonData
   double sgv;
   double mbg;
   String type;
+  double slope = null;
+  double intercept = null;
+  double scale = null;
   bool isGap = false;
   bool isCopy = false;
   bool get isInvalid
@@ -1273,7 +1299,10 @@ class EntryData extends JsonData
       ..mbg = mbg
       ..type = type
       ..isGap = isGap
-      ..isCopy = true;
+      ..isCopy = true
+      ..slope = slope
+      ..intercept = intercept
+      ..scale = scale;
 
   factory EntryData.fromJson(Map<String, dynamic> json){
     EntryData ret = EntryData();
@@ -1288,6 +1317,9 @@ class EntryData extends JsonData
     ret.sgv = JsonData.toDouble(json["sgv"]);
     ret.mbg = JsonData.toDouble(json["mbg"]);
     ret.type = json["type"];
+    ret.slope = JsonData.toDouble(json["slope"]);
+    ret.intercept = JsonData.toDouble(json["intercept"]);
+    ret.scale = JsonData.toDouble(json["scale"]);
     return ret;
   }
 
@@ -1604,7 +1636,7 @@ class DayData
     int retDiff = 10000;
     for (EntryData entry in eList)
     {
-      if (entry.gluc < 0)continue;
+      if (entry.gluc <= 0)continue;
       DateTime time = DateTime(check.year, check.month, check.day, entry.time.hour, entry.time.minute);
       if (time == check)return entry;
       int diff = time
@@ -1619,7 +1651,7 @@ class DayData
       }
     }
     List<TreatmentData> list = tList.where((t)
-    => t.glucoseType.toLowerCase() == "finger").toList();
+    => t.isBloody).toList();
     for (TreatmentData treat in list)
     {
       DateTime time = DateTime(check.year, check.month, check.day, treat.createdAt.hour, treat.createdAt.minute);
@@ -1774,6 +1806,7 @@ class ListData
   List<DayData> days = List<DayData>();
   List<EntryData> entries = List<EntryData>();
   List<EntryData> bloody = List<EntryData>();
+  List<EntryData> remaining = List<EntryData>();
   List<TreatmentData> treatments = List<TreatmentData>();
   int catheterCount = 0;
   int ampulleCount = 0;
@@ -1860,6 +1893,7 @@ class ListData
     List<EntryData> allEntries = List<EntryData>();
     allEntries.addAll(entries);
     allEntries.addAll(bloody);
+    allEntries.addAll(remaining);
     allEntries.sort((a, b)
     => a.time.compareTo(b.time));
 /*
@@ -2071,8 +2105,7 @@ class ReportData
       {
         DateTime d = profiles[idx].startDate;
         // only profiles with same day as requested
-        if (d.year == time.year && d.month == time.month && d.day == time.day)
-          profile.mixWith(profiles[idx]);
+        if (d.year == time.year && d.month == time.month && d.day == time.day)profile.mixWith(profiles[idx]);
         idx++;
       }
       if (treatments != null)

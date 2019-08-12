@@ -37,15 +37,17 @@ class PrintAnalysis extends BasePrint
   }
 
   @override
-  prepareData_(ReportData data)
+  extractParams()
   {
     isPreciseMaterial = params[0].boolValue;
     isPreciseTarget = params[1].boolValue;
     showStdAbw = params[2].boolValue;
     useFineLimits = params[3].boolValue;
-
-    return data;
   }
+
+  @override
+  dynamic get estimatePageCount
+  => {"count": 1, "isEstimated": false};
 
   static String get msgParam1
   => Intl.message("Material mit Nachkommastellen");

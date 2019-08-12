@@ -14,11 +14,14 @@ class PrintProfile extends BaseProfile
   ];
 
   @override
-  prepareData_(ReportData data)
+  extractParams()
   {
     compressSameValues = params[0].boolValue;
-    return data;
   }
+
+  @override
+  dynamic get estimatePageCount
+  => {"count": 1, "isEstimated": true};
 
   @override
   String id = "profile";
@@ -34,6 +37,7 @@ class PrintProfile extends BaseProfile
   => Intl.message("Zeilen mit gleichen Werten zusammenfassen");
 
   double _fontSize = 10;
+  double _fontSizeTables = 8;
   bool _hasFactors = false;
 
   @override
@@ -42,11 +46,12 @@ class PrintProfile extends BaseProfile
     return src.profiles.length > 0;
   }
 
-  getFactorBody(int page, Date date, List<ProfileEntryData> list, msg(String a, String b), {int precision: 1})
+  getFactorBody(int page, Date date, List<ProfileEntryData> list, msg(String a, String b),
+                {int precision: 1, double sum: null, String sumTitle: null})
   {
     int currPage = 0;
     int pageEntries = 0;
-    int pageSize = 24;
+    int pageSize = 28;
     if (page * pageSize >= list.length) return [
       [
         {"text": "", "style": "infotitle", "fontSize": fs(_fontSize)},
@@ -106,44 +111,71 @@ class PrintProfile extends BaseProfile
       startTime = null;
     }
 
+    if (currPage == page && sum != null && sumTitle != null)
+    {
+      ret.add([
+        {
+          "text": sumTitle,
+          "style": "infotitle",
+          "fontSize": fs(_fontSize),
+          "bold": true
+        },
+        {
+          "text": g.fmtNumber(sum, precision, false),
+          "style": "infodata",
+          "fontSize": fs(_fontSize),
+          "bold": true
+        },
+      ]);
+      _hasFactors = true;
+    }
+
+
     return ret;
   }
 
   @override
   dynamic getPage(int page, ProfileGlucData profile, CalcData calc)
   {
-    _fontSize = 10;
+    _fontSize = _fontSizeTables;
     subtitle = profile.store.name;
-    titleInfo = "";//titleInfoTimeRange(profStartTime, profEndTime);
+    titleInfo = ""; //titleInfoTimeRange(profStartTime, profEndTime);
 
+    dynamic tableWidths = [cm(2.6), cm(2.5), cm(6.1), cm(1.0), cm(1.8)];
     dynamic tableBody = [
       [
+        {"text": msgTimezone, "style": "infotitle", "alignment": "right"},
+        {"text": profile.store.timezone.name, "style": "infodata", "alignment": "left"},
         {"text": msgDIA, "style": "infotitle", "alignment": "right"},
         {"text": g.fmtNumber(profile.store.dia, 2, false), "style": "infodata"},
         {"text": msgDIAUnit, "style": "infounit"},
-        {"text": msgTimezone, "style": "infotitle", "alignment": "right"},
-        {"text": profile.store.timezone.name, "style": "infodata", "alignment": "left"},
       ],
       [
+        {"text": ""},
+        {"text": ""},
         {"text": msgKHA, "style": "infotitle", "alignment": "right"},
         {"text": g.fmtNumber(profile.store.carbsHr, 0, false), "style": "infodata"},
-        {"text": msgKHAUnit, "style": "infounit", "colSpan": 3},
+        {"text": msgKHAUnit, "style": "infounit"},
       ],
     ];
     _hasFactors = false;
     dynamic icrIsfBody = [];
     Date date = g.date(profStartTime);
-    dynamic bodyICR = getFactorBody(page, date, profile.store.listCarbratio, msgFactorEntry);
+    dynamic bodyICR = getFactorBody(
+      page, date, profile.store.listCarbratio, msgFactorEntry, sum: profile.store.icrSum / 24.0, sumTitle: msgICRSum);
     List<ProfileEntryData> listISF = List<ProfileEntryData>();
     for (ProfileEntryData entry in profile.store.listSens)
     {
       listISF.add(entry.copy);
       listISF.last.forceText = fmtGluc(entry.value);
     }
-    dynamic bodyISF = getFactorBody(page, date, listISF, msgFactorEntry);
+    dynamic bodyISF = getFactorBody(
+      page, date, listISF, msgFactorEntry, precision: 0, sum: profile.store.isfSum / 24.0, sumTitle: msgISFSum);
 
     dynamic basalTargetBody = [];
-    dynamic bodyBasal = getFactorBody(page, date, profile.store.listBasal, msgFactorEntry, precision: g.basalPrecision);
+    dynamic bodyBasal = getFactorBody(page, date, profile.store.listBasal, msgFactorEntry, precision: g.basalPrecision,
+      sum: profile.store.ieBasalSum,
+      sumTitle: msgBasalSum);
     List<ProfileEntryData> listTarget = List<ProfileEntryData>();
     if (profile.store.listTargetHigh.length == profile.store.listTargetLow.length)
     {
@@ -202,12 +234,12 @@ class PrintProfile extends BaseProfile
     var ret = [
       headerFooter(),
       {
-        "margin": [cm(8), cm(yorg - 0.5), cm(0), cm(0)],
+        "margin": [cm(1.6), cm(yorg - 0.5), cm(0), cm(0)],
         "layout": "noBorders",
-        "table": {"headerRows": 0, "widths": [cm(6.6), cm(1.0), cm(1.8), cm(2.0), cm(4.0)], "body": tableBody}
+        "table": {"headerRows": 0, "widths": tableWidths, "body": tableBody}
       },
       {
-        "margin": [cm(1.2), cm(0.2), cm(0), cm(0)],
+        "margin": [cm(1.6), cm(0.2), cm(0), cm(0)],
         "layout": "noBorders",
         "table": {
           "headerRows": 0,
