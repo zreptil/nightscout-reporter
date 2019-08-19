@@ -1,13 +1,10 @@
-import 'dart:async';
-import 'dart:html';
-
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_input/material_input.dart';
-import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 
-@Component(selector: 'formparams',
+@Component(
+  selector: 'formparams',
   styleUrls: ['formparams_component.css'],
   templateUrl: 'formparams_component.html',
   directives: [
@@ -30,4 +27,10 @@ class FormparamsComponent
   List<ParamInfo> paramList;
 
   FormparamsComponent();
+
+  String getClass(ParamInfo param, [String def = ""])
+  {
+    if (param.isLoopValue)def = "${def} loop";
+    return def;
+  }
 }

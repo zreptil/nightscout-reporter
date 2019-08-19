@@ -1,16 +1,23 @@
 <template ngFor let-param [ngForOf]="paramList">
-  <material-checkbox *ngIf="param.boolValue!=null" [(ngModel)]="param.boolValue" [label]="param.title">
-  </material-checkbox>
+  <div *ngIf="param.boolValue!=null">
+    <material-checkbox [class]="getClass(param)" [(ngModel)]="param.boolValue"
+                       [label]="param.title">
+    </material-checkbox>
+  </div>
   <div *ngIf="param.intValue!=null && param.list == null" class="paramSlider">
-    <div>{{param.title}}: {{param.intValue}}</div>
-    <material-slider class="slider" [(min)]="param.min" [(max)]="param.max" [(value)]="param.intValue">
+    <div [class]="getClass(param)">{{param.title}}: {{param.intValue}}</div>
+    <material-slider [class]="getClass(param, 'slider')" [(min)]="param.min" [(max)]="param.max"
+                     [(value)]="param.intValue">
     </material-slider>
   </div>
-  <material-input *ngIf="param.stringValue!=null" [(inputText)]="param.stringValue" floatingLabel
-                  [label]="param.title"></material-input>
+  <div *ngIf="param.stringValue!=null">
+    <material-input [class]="getClass(param)" [(inputText)]="param.stringValue"
+                    floatingLabel
+                    [label]="param.title"></material-input>
+  </div>
   <div *ngIf="param.list!=null" class="paramList">
-    <div>{{param.title}}</div>
-    <material-dropdown-select [label]="param.title" [buttonText]="param.listValue"
+    <div [class]="getClass(param)">{{param.title}}</div>
+    <material-dropdown-select [class]="getClass(param)" [label]="param.title" [buttonText]="param.listValue"
                               popupClass="paramSelect" slide="y"
                               listAutoFocus>
       <material-select-item *ngFor="let item of param.list; let idx = index"

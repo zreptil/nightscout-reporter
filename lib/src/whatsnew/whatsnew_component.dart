@@ -20,8 +20,8 @@ class WhatsnewComponent
   => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
 
-  @Input()
-  bool isVisible = false;
+  bool isVisible = true;
+
   WhatsnewComponent();
 
   fire(String key)

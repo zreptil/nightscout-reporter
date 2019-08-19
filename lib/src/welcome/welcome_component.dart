@@ -29,8 +29,7 @@ class WelcomeComponent
   => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
 
-  @Input()
-  bool isVisible = false;
+  bool isVisible = true;
   WelcomeComponent();
 
   fire(String key)

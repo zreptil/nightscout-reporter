@@ -50,3 +50,11 @@ material-checkbox {
   margin-left: 1.5em;
 }
 
+.loop {
+  color: $loop_marked;
+
+  ::ng-deep .icon.filled {
+    color: $loop_marked!important;
+  }
+}
+

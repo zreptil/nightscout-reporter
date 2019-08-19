@@ -1,23 +1,41 @@
 <div id="app-content" [ngClass]="appTheme">
   <header [class]="isDebug?'material-header debug shadow':'material-header shadow'">
     <div class="material-header-row">
-      <material-button *ngIf="g.isConfigured"
-                       icon id="btnMenu"
-                       [disabled]="currPage=='pdfList'"
-                       class="material-drawer-button" (trigger)="drawer.toggle()">
-        <material-icon icon="menu"></material-icon>
-      </material-button>
       <div class="material-header-title">
-        {{g.title}}
-        <span class="betaTitle" *ngIf="g.isBeta">BETA</span>
-        <material-button class="betaTitle" *ngIf="g.isLocal" (trigger)="g.isLocal = false">
-          Lokal
+        <material-button *ngIf="g.isConfigured"
+                         icon id="btnMenu"
+                         [disabled]="currPage=='pdfList'"
+                         class="material-drawer-button" (trigger)="drawer.toggle()">
+          <material-icon icon="menu"></material-icon>
         </material-button>
-        <div class="versionText">{{g.version}}</div>
-        <div class="subtitle" *ngIf="currPage=='impressum'">{{msgImpressum}}</div>
-        <div class="subtitle" *ngIf="currPage=='dsgvo'">{{msgDSGVO}}</div>
+        <div class="title">
+          {{g.title}}
+          <span class="betaTitle" *ngIf="g.isBeta">BETA</span>
+          <material-button class="betaTitle" *ngIf="g.isLocal" (trigger)="g.isLocal = false">
+            Lokal
+          </material-button>
+          <div class="versionText">{{g.version}}</div>
+          <div class="subtitle" *ngIf="currPage=='impressum'">{{msgImpressum}}</div>
+          <div class="subtitle" *ngIf="currPage=='dsgvo'">{{msgDSGVO}}</div>
+        </div>
       </div>
-      <div class="material-spacer"></div>
+      <div [class]="classForView('basePanel')">
+        <div *ngIf="g.userList.length == 1" class="userName">{{g.user.display}}</div>
+        <div [class]="classForView('userPanel')" *ngIf="g.userList.length > 1">
+          <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect" slide="y"
+                                    listAutoFocus>
+            <material-select-item *ngFor="let item of g.userList; let idx = index"
+                                  (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');getCurrentGluc();"
+                                  class="selectItem"
+                                  [selected]="idx==g.userIdx">
+              <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>
+              <div class="itemSub">{{item.storageApiUrl}}</div>
+            </material-select-item>
+          </material-dropdown-select>
+        </div>
+        <datepicker [period]="g.period" (periodChange)="changePeriod($event)" [isLocal]="g.isLocal"
+                    [showInfo]="g.showInfo" [showLabel]="false"></datepicker>
+      </div>
       <nav class="material-navigation">
         <material-button *ngIf="g.showCurrentGluc" raised class="currentGluc" (trigger)="getCurrentGluc()">
           <pre *ngIf="!currentGlucVisible" @i18n="message for current glucose if not active">Pausiert</pre>
@@ -48,11 +66,11 @@
     </div>
   </header>
   <material-content>
-    <welcome [isVisible]="currPage=='welcome'" (closeClicked)="callbackButton"></welcome>
-    <settings [isVisible]="currPage=='settings'" (settingsresult)="settingsResult"></settings>
-    <impressum [isVisible]="currPage=='impressum'" (closeClicked)="callbackButton"></impressum>
-    <whatsnew [isVisible]="currPage=='whatsnew'" (closeClicked)="callbackButton"></whatsnew>
-    <dsgvo [isVisible]="currPage=='dsgvo'" (closeClicked)="callbackButton"></dsgvo>
+    <welcome *ngIf="currPage=='welcome'" (closeClicked)="callbackButton"></welcome>
+    <settings *ngIf="currPage=='settings'" (settingsresult)="settingsResult"></settings>
+    <impressum *ngIf="currPage=='impressum'" (closeClicked)="callbackButton"></impressum>
+    <whatsnew *ngIf="currPage=='whatsnew'" (closeClicked)="callbackButton"></whatsnew>
+    <dsgvo *ngIf="currPage=='dsgvo'" (closeClicked)="callbackButton"></dsgvo>
     <div class="centered" *ngIf="currPage=='pdfList' || progressText != null">
       <div [style.display]="currPage=='signin'?'':'none'" @i18n="message for signin to google">
         Verbinde zu Google Drive...
@@ -109,27 +127,6 @@
     </div>
     <div [class]="classForView('normal-content')"
          [style.display]="progressText == null && currPage=='normal'?'':'none'">
-      <div [class]="classForView('basePanel')">
-        <div *ngIf="g.userList.length == 1" class="userName">{{g.user.display}}</div>
-        <div [class]="classForView('userPanel')" *ngIf="g.userList.length > 1">
-          <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect" slide="y"
-                                    listAutoFocus>
-            <material-select-item *ngFor="let item of g.userList; let idx = index"
-                                  (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');getCurrentGluc();"
-                                  class="selectItem"
-                                  [selected]="idx==g.userIdx">
-              <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>
-              <div class="itemSub">{{item.storageApiUrl}}</div>
-            </material-select-item>
-          </material-dropdown-select>
-          <material-button icon class="material-drawer-button"
-                           (trigger)="currPage='settings';">
-            <material-icon icon="settings"></material-icon>
-          </material-button>
-        </div>
-        <datepicker [period]="g.period" (periodChange)="changePeriod($event)" [isLocal]="g.isLocal"
-                    [showInfo]="g.showInfo" [showLabel]="g.viewType=='list'"></datepicker>
-      </div>
       <div class="formlist" *ngIf="g.viewType=='list'">
         <template ngFor let-cfg [ngForOf]="g.listConfig">
           <div *ngIf="isFormVisible(cfg.form)">
@@ -153,26 +150,29 @@
           </div>
         </template>
       </div>
-      <div class="tilelist" *ngIf="g.viewType=='tile'">
+      <div class="tileparams" *ngIf="tileParams!=null">
+        <div title>
+          {{tileParams.form.display}}
+          <material-button (trigger)="tileParams=null;$event.stopPropagation();">
+            <material-icon icon="close"></material-icon>
+          </material-button>
+        </div>
+        <div parampanel>
+          <formparams [paramList]="tileParams.form.sortedParams"></formparams>
+        </div>
+      </div>
+      <div class="tilelist" *ngIf="g.viewType=='tile' && tileParams==null">
         <template ngFor let-cfg let-idx="index" [ngForOf]="g.listConfig">
           <div [class]="tileClass(cfg)" id="tile-{{cfg.id}}"
-               *ngIf="isFormVisible(cfg.form) && (tileParams == null || tileParams == cfg)"
+               *ngIf="isFormVisible(cfg.form)"
                (click)="expansionPanelClicked($event,cfg)">
-            <div number *ngIf="cfg.checked && tileParams == null">{{checkedIndex(cfg)}}</div>
-            <div params *ngIf="cfg.form.sortedParams.length>0 && cfg.checked" [class]="tileParams==null?'':'close'"
-                 (click)="tileParams==null ? tileParams=cfg : tileParams=null;cfg.opened=!cfg.opened;$event.stopPropagation();">
-              <material-icon [icon]="tileParams==null?'expand_more':'close'"></material-icon>
-            </div>
-            <div name *ngIf="tileParams==null">
-              <material-icon icon="drag_handle"></material-icon>
+            <div number *ngIf="cfg.checked">{{checkedIndex(cfg)}}</div>
+            <div params *ngIf="cfg.form.sortedParams.length>0 && cfg.checked"
+                 (click)="tileParams=cfg;$event.stopPropagation();">
+              <material-icon icon="more_vert"></material-icon>
             </div>
             <div title>{{cfg.form.display}}</div>
-            <div pages *ngIf="cfg.checked && tileParams==null">{{cfg.form.pageCountDisplay(reportData==null)}}</div>
-            <div paramPanel *ngIf="tileParams==cfg">
-              <div>
-                <formparams [paramList]="cfg.form.sortedParams"></formparams>
-              </div>
-            </div>
+            <div pages *ngIf="cfg.checked">{{cfg.form.pageCountDisplay(reportData==null)}}</div>
           </div>
         </template>
       </div>

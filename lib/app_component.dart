@@ -581,27 +581,44 @@ class AppComponent
         }
       }
     }
+
     Future.delayed(Duration(milliseconds: 100), ()
     {
-      if (_drag != null)_drag.destroy();
+      if (_drag != null)
+      {
+        _drag.onDragEnd.listen(null);
+        _drag.onDragStart.listen(null);
+        _drag.destroy();
+      }
+
       _drag = Draggable(html.querySelectorAll('.sortable'),
         avatarHandler: g.viewType == "tile" ? TileAvatarHandler() : AvatarHandler.clone(),
         draggingClass: "dragging",
-        handle: "[name]>material-icon",
+        handle: g.viewType == "tile" ? null : "[name]>material-icon",
         verticalOnly: g.viewType == "list");
+      _drag.onDragStart.listen((DraggableEvent event)
+      {
+      });
+      _drag.onDragEnd.listen((DraggableEvent event)
+      {
+        event.draggableElement.animate([{"transform": "rotate(180)"}], 500);
+      });
       if (_drop != null)_drop.onDrop.listen(null);
       _drop = Dropzone(html.querySelectorAll(".sortable"), overClass: "dragover");
       _drop.onDrop.listen((DropzoneEvent event)
       {
-        dropElement(event.draggableElement, event.dropzoneElement);
+        if (!dropElement(event.draggableElement, event.dropzoneElement))
+          event.dropzoneElement.attributes["dontclick"] = "true";
       });
     });
   }
 
-  void dropElement(html.Element drag, html.Element drop)
+  bool dropElement(html.Element drag, html.Element drop)
   {
     String dragId = drag.getAttribute("id").substring(5);
     String dropId = drop.getAttribute("id").substring(5);
+    if (dragId == dropId)return false;
+
     FormConfig dragCfg = null;
     int dragIdx = -1;
     int dropIdx = -1;
@@ -620,6 +637,7 @@ class AppComponent
       g.listConfig.insert(dragIdx < dropIdx ? dropIdx - 1 : dropIdx, dragCfg);
     }
     g.savePdfOrder();
+    return true;
   }
 
   Draggable _drag = null;
@@ -1010,6 +1028,7 @@ class AppComponent
 
   String classForView(String def)
   {
+    if (def == "sendPanel" && progressText != null)return def;
     switch (g.viewType)
     {
       case "tile":
@@ -1049,6 +1068,7 @@ class AppComponent
         g.viewType = 'list';
         break;
     }
+    tileParams = null;
     g.save();
     checkPrint();
   }
@@ -1125,15 +1145,9 @@ class AppComponent
                   },
                   "hba1c": {"color": "#5050ff", "fontSize": form.fs(10)},
                   "total": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10), "margin": form.m0},
-                  "timeDay": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10), "margin": form.m0},
-                  "timeNight": {
-                    "bold": true,
-                    "fillColor": "#303030",
-                    "color": "white",
-                    "fontSize": form.fs(10),
-                    "margin": form.m0
-                  },
-                  "timeLate": {"bold": true, "fillColor": "#a0a0a0", "fontSize": form.fs(10), "margin": form.m0},
+                  "timeDay": {"bold": true, "fillColor": "#d0d0d0", "margin": form.m0},
+                  "timeNight": {"bold": true, "fillColor": "#303030", "color": "white", "margin": form.m0},
+                  "timeLate": {"bold": true, "fillColor": "#a0a0a0", "margin": form.m0},
                   "row": {"fontSize": form.fs(10)}
                 }
               };
@@ -1248,7 +1262,6 @@ class AppComponent
     if (cfg.checked && tileParams == null)ret = "${ret} tilechecked";
     if (cfg.form.isLocalOnly)ret = "${ret} is-local";
     if (cfg.form.isBetaOrLocal)ret = "${ret} is-beta";
-    if (tileParams == cfg) ret = "${ret} params";
     return ret;
   }
 
@@ -1277,6 +1290,11 @@ class AppComponent
   {
     if (!cfg.opened)
     {
+      if (evt.currentTarget.attributes["dontclick"] == "true")
+      {
+        evt.currentTarget.removeAttribute("dontclick");
+        return;
+      }
       cfg.checked = !cfg.checked;
       checkPrint();
     }

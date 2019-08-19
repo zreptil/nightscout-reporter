@@ -1,4 +1,5 @@
 @import 'src/colors';
+@import 'src/colors';
 @import 'src/base';
 @import 'package:angular_components/material_button/mixins';
 @import 'package:angular_components/material_toggle/mixins';
@@ -47,6 +48,14 @@ header.material-header.debug {
 
 header.material-header .material-header-title {
   position: initial;
+  display: flex;
+  height: initial;
+  align-items: center;
+
+}
+
+header.material-header .material-header-row {
+  justify-content: space-between;
 }
 
 #app-content {
@@ -57,6 +66,7 @@ header.material-header .material-header-title {
 }
 
 material-content {
+  min-height: unset !important;
   display: flex !important;
   align-items: center;
   flex-direction: column;
@@ -204,7 +214,7 @@ material-drawer {
   flex-direction: column;
   position: fixed;
   right: 1em;
-  bottom: 2em;
+  bottom: 1em;
 
   material-fab {
     margin-top: 0.5em;
@@ -213,9 +223,12 @@ material-drawer {
 
 .sendPanel.is-tileview {
   flex-direction: row;
-  right: 1em;
-  top: 70px;
-  bottom: unset;
+  position: initial;
+  display: flex;
+  align-self: stretch;
+  justify-content: flex-end;
+  padding-top: 0.2em;
+  padding-bottom: 0.5em;
 
   material-fab {
     margin-top: 0;
@@ -406,8 +419,7 @@ nav a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding-top: 0.5em;
   width: 100%;
 }
 
@@ -465,6 +477,13 @@ nav a {
   }
 }
 
+material-dropdown-select {
+  ::ng-deep .button.border {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
 .paramList {
   display: flex;
   flex-direction: row;
@@ -490,7 +509,15 @@ nav a {
   font-size: 50%;
   color: white;
   opacity: 0.5;
-  margin-top: 0.5em;
+  position: absolute;
+  left: 5em;
+  bottom: 0.5em;
+}
+
+@media(max-width: 50em) {
+  .title {
+    display: none;
+  }
 }
 
 .paramPanel {
@@ -697,15 +724,9 @@ datepicker {
 
 .basePanel {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.basePanel.is-tileview {
-  display: flex;
   flex-direction: row;
   align-items: center;
-  height: 3.5em;
+  _height: 3.5em;
 }
 
 .language {
@@ -856,23 +877,6 @@ datepicker {
     right: 0.8em;
   }
 
-  [parampanel] {
-    justify-content: center;
-    padding: 0 0.5em;
-    width: 100%;
-    align-items: center;
-    padding-right: 0.5em;
-    overflow: auto;
-    align-self: flex-end;
-
-    > div {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      margin: 0.5em;
-    }
-  }
-
   [title] {
     padding: 1em;
   }
@@ -889,7 +893,44 @@ datepicker {
   justify-content: center;
   flex: 1;
   min-width: 15%;
-  max-height: 90%;
+  max-height: 80%;
+}
+
+.tileparams {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 0.5em;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  flex: 1;
+  padding: 0.5em;
+  max-height: 20em;
+
+  [title] {
+    background-color: $primary_back;
+    color: $primary_fore;
+    padding: 0 0 0 1em;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    align-self: stretch;
+    border-radius: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  [parampanel] {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    > formparams {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-right: 0.5em;
+    }
+  }
 }
 
 .tilelist {
@@ -900,30 +941,10 @@ datepicker {
   justify-content: center;
 
   .tile.dragover {
-    background-image: url("packages/nightscout_reporter/assets/img/arrow-left.png");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: contain;
-  }
-
-  .params {
-    flex: unset;
-    flex-direction: column;
-    justify-content: flex-start;
-
-    [title] {
-      margin-bottom: 0.5em;
-      background: $primary_back;
-      color: $primary_fore;
-      width: 100%;
-      padding: 0.5em 0;
-      border-radius: 0.5em;
-    }
-
-    [params] {
-      color: $primary_fore;
-    }
-
+    background-image: url("packages/nightscout_reporter/assets/img/arrow-left.png")!important;
+    background-repeat: no-repeat!important;
+    background-position: center center!important;
+    background-size: contain!important;
   }
 
   .is-local {
@@ -991,7 +1012,7 @@ datepicker {
 
 @media(max-width: 44em) {
   .basePanel.is-tileview {
-    align-self: flex-start;
+    align-self: center;
     margin-left: 1em;
   }
   .tilelist {

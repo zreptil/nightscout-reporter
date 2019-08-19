@@ -19,9 +19,7 @@ class ImpressumComponent
   => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
 
-  @Input()
-  bool isVisible = false;
-
+  bool isVisible = true;
   ImpressumComponent();
 
   void fire(String type)

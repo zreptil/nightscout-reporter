@@ -29,10 +29,10 @@ class PrintDailyLog extends BaseProfile
     ParamInfo(2, msgParam1, boolValue: true),
     ParamInfo(3, msgParam2, boolValue: true),
     ParamInfo(4, msgParam3, boolValue: true, subParams: [ParamInfo(0, msgParam7, boolValue: true)]),
-    ParamInfo(5, msgParam4, boolValue: true),
-    ParamInfo(6, msgParam5, boolValue: true),
-    ParamInfo(7, msgParam6, boolValue: true),
-    ParamInfo(8, msgParam8, boolValue: true),
+    ParamInfo(10, msgParam4, boolValue: true, isLoopValue: true),
+    ParamInfo(9, msgParam5, boolValue: true, isLoopValue: true),
+    ParamInfo(5, msgParam6, boolValue: true),
+    ParamInfo(8, msgParam8, boolValue: true, isLoopValue: true),
     ParamInfo(0, msgParam9, list: [
       Intl.message("Keine"),
       Intl.message("1 Minute"),
@@ -42,8 +42,8 @@ class PrintDailyLog extends BaseProfile
       Intl.message("1 Stunde")
     ]),
     ParamInfo(1, msgParam10, boolValue: true),
-    ParamInfo(9, msgParam11, boolValue: true, subParams: [ParamInfo(0, msgParam12, boolValue: true)]),
-    ParamInfo(10, msgParam13, boolValue: true),
+    ParamInfo(6, msgParam11, boolValue: true, subParams: [ParamInfo(0, msgParam12, boolValue: true)]),
+    ParamInfo(7, msgParam13, boolValue: true),
   ];
 
   @override
@@ -143,6 +143,32 @@ class PrintDailyLog extends BaseProfile
   var _body = [];
   var _page = [];
   double _y;
+  double _bloodValue = null;
+
+  String get msgDay
+  => Intl.message("Tag (08:00 - 18:00)");
+  String get msgDawn
+  => Intl.message("Dämmerung (06:00 - 08:00, 18:00 - 20:00)");
+  String get msgNight
+  => Intl.message("Nacht (20:00 - 08:00)");
+
+  @override
+  dynamic get footerText
+  =>
+    [
+      {
+        "table": {
+          "widths": [cm(6.0)],
+          "body": [
+            [{"text": msgDay, "style": "timeDay", "alignment": "center"}],
+            [{"text": msgDawn, "style": "timeLate", "alignment": "center"}],
+            [{"text": msgNight, "style": "timeNight", "alignment": "center"}]
+          ]
+        },
+        "fontSize": fs(7),
+        "layout": "noBorders"
+      }
+    ];
 
   @override
   void fillPages(ReportData src, List<List<dynamic>> pages)
@@ -156,6 +182,7 @@ class PrintDailyLog extends BaseProfile
     _page = [];
     _widths = [];
     _hasData = false;
+
     for (int i = 0; i < data.days.length; i++)
     {
       DayData day = data.days[i];
@@ -201,6 +228,8 @@ class PrintDailyLog extends BaseProfile
       TreatmentData t = TreatmentData();
       t.createdAt = e.time;
       t.eventType = "nr-${e.type}";
+      t.glucoseType = "finger";
+      t.glucose = e.bloodGluc;
       t.notes = msgMBG(glucFromData(e.bloodGluc), getGlucInfo()["unit"]);
       treatments.add(t);
     }
@@ -297,8 +326,8 @@ class PrintDailyLog extends BaseProfile
       if (lines.length > 1)y += 2 * _cellSpace;
       List<String> output = List<String>();
       double wid = width - 1.8 - 5.1;
-      if (showGluc)wid -= 1.3;
-      if (showChanges && showChangesColumn)wid -= 1.4;
+      if (showGluc)wid -= 1.6;
+      if (showChanges && showChangesColumn)wid -= 1.7;
       int charsPerLine = wid ~/ 0.165;
       while (idx < lines.length && y + _lineHeight * (lines[idx].length ~/ charsPerLine + 1) < _maxY)
       {
@@ -316,14 +345,34 @@ class PrintDailyLog extends BaseProfile
         if (showGluc)
         {
           double gluc = glucEntry?.gluc;
-          addRow(true, cm(1.3), row,
-            {"text": getGlucInfo()["unit"], "style": "total", "fontSize": size, "alignment": "center"}, {
-              "text": glucFromData(gluc),
-              "style": style,
-              "fontSize": size,
-              "alignment": "center",
-              "fillColor": colForGluc(day, gluc)
-            });
+          if (_bloodValue == null)
+          {
+            addRow(true, cm(1.3), row,
+              {"text": getGlucInfo()["unit"], "style": "total", "fontSize": size, "alignment": "center"}, {
+                "text": glucFromData(gluc),
+                "style": style,
+                "fontSize": size,
+                "alignment": "center",
+                "fillColor": colForGluc(day, gluc)
+              });
+          }
+          else
+          {
+            addRow(true, cm(1.3), row,
+              {"text": getGlucInfo()["unit"], "style": "total", "fontSize": size, "alignment": "center"}, {
+                "stack": [
+                  {"text": glucFromData(gluc), "style": style, "fontSize": size, "alignment": "center"},
+                  {
+                    "text": glucFromData(_bloodValue),
+                    "style": style,
+                    "fontSize": size,
+                    "alignment": "center",
+                    "color": colBloodValues
+                  },
+                ],
+                "fillColor": colForGluc(day, gluc)
+              });
+          }
         }
         if (showChanges && showChangesColumn)
         {
@@ -353,6 +402,7 @@ class PrintDailyLog extends BaseProfile
       else
         list = List<String>();
     }
+    _bloodValue = null;
     return list;
   }
 
@@ -458,6 +508,8 @@ class PrintDailyLog extends BaseProfile
         if (type == "nr-cal" || type == "nr-mbg")list.add("${t.notes}");
       }
     }
+
+    if (t.isBloody)_bloodValue = t.glucose;
 
     if (list.length != lastIdx && showTime && groupMinutes > 1)
     {

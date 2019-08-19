@@ -61,6 +61,24 @@ class PrintProfile extends BaseProfile
 
     dynamic ret = [];
     DateTime startTime = null;
+    if (currPage == page && sum != null && sumTitle != null)
+    {
+      ret.add([
+        {
+          "text": sumTitle,
+          "style": "infotitle",
+          "fontSize": fs(_fontSize),
+          "bold": true
+        },
+        {
+          "text": g.fmtNumber(sum, precision, false),
+          "style": "infodata",
+          "fontSize": fs(_fontSize),
+          "bold": true
+        },
+      ]);
+      _hasFactors = true;
+    }
     for (int i = 0; i < list.length; i++)
     {
       ProfileEntryData entry = list[i];
@@ -110,26 +128,6 @@ class PrintProfile extends BaseProfile
       }
       startTime = null;
     }
-
-    if (currPage == page && sum != null && sumTitle != null)
-    {
-      ret.add([
-        {
-          "text": sumTitle,
-          "style": "infotitle",
-          "fontSize": fs(_fontSize),
-          "bold": true
-        },
-        {
-          "text": g.fmtNumber(sum, precision, false),
-          "style": "infodata",
-          "fontSize": fs(_fontSize),
-          "bold": true
-        },
-      ]);
-      _hasFactors = true;
-    }
-
 
     return ret;
   }

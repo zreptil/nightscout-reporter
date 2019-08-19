@@ -1029,7 +1029,7 @@ class TreatmentData extends JsonData
   String reason;
   double targetTop;
   double targetBottom;
-  bool get isBloody => glucoseType.toLowerCase() == "finger" || eventType.toLowerCase() == "bg check";
+  bool get isBloody => glucoseType?.toLowerCase() == "finger" || eventType.toLowerCase() == "bg check";
   Uploader _from = Uploader.Unknown;
   int get timeForCalc
   => createdAt.hour * 60 + createdAt.minute;

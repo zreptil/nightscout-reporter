@@ -10,7 +10,6 @@ material-dialog {
   @include material-dialog-body-padding(0);
 }
 
-
 div[header] {
   display: flex;
   flex-direction: row;
@@ -22,12 +21,20 @@ div[header] {
       display: flex;
       flex-direction: row;
       align-content: flex-end;
+      flex-wrap: wrap;
     }
     display: flex;
     flex-direction: row;
     align-items: center;
   }
 }
+
+@media(max-width: 33em) {
+  div[header] {
+    flex-direction: column!important;
+  }
+}
+
 .root {
   padding: 1em;
   font-size: 1.2em;

@@ -55,6 +55,7 @@ class ParamInfo
   String title;
   bool boolValue;
   bool isDeprecated;
+  bool isLoopValue;
   String stringValue;
   int intValue;
   List<String> list;
@@ -68,11 +69,10 @@ class ParamInfo
 
   int min;
   int max;
-
   int sort;
 
   ParamInfo(this.sort, this.title,
-            {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null, this.list = null, this.subParams = null, this.isDeprecated = false})
+            {this.boolValue = null, this.stringValue = null, this.intValue = null, this.min = null, this.max = null, this.list = null, this.subParams = null, this.isDeprecated = false, this.isLoopValue = false})
   {
     if (boolValue != null)type = ParamType.bool;
     if (stringValue != null)type = ParamType.string;
@@ -719,6 +719,9 @@ abstract class BasePrint
     return ret;
   }
 
+  dynamic get footerText
+  => null;
+
   Object headerFooter({skipFooter: false})
   {
     bool isInput = false;
@@ -899,6 +902,11 @@ abstract class BasePrint
         "relativePosition": {"x": cm(3.1), "y": cm(height - 1.7)},
         "text": "http://www.nightscout.info",
         "color": colInfo,
+        "fontSize": fs(10)
+      },
+      footerText == null ? null : {
+        "relativePosition": {"x": cm(g.hideNightscoutInPDF ? xframe : 7.5), "y": cm(height - 1.7)},
+        "stack": footerText,
         "fontSize": fs(10)
       },
       isInput ? _getFooterImage("input", x: width - 5.6, y: height - 3.3, width: 4.0) : {},
