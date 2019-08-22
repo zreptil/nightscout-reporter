@@ -51,7 +51,7 @@ class PrintProfile extends BaseProfile
   {
     int currPage = 0;
     int pageEntries = 0;
-    int pageSize = 28;
+    int pageSize = 27;
     if (page * pageSize >= list.length) return [
       [
         {"text": "", "style": "infotitle", "fontSize": fs(_fontSize)},
@@ -137,9 +137,10 @@ class PrintProfile extends BaseProfile
   {
     _fontSize = _fontSizeTables;
     subtitle = profile.store.name;
-    titleInfo = ""; //titleInfoTimeRange(profStartTime, profEndTime);
+    // titleInfo = titleInfoTimeRange(profStartTime, profEndTime);
+    titleInfo = msgValidFrom(fmtDate(profile.store.startDate));
 
-    dynamic tableWidths = [cm(2.6), cm(2.5), cm(6.1), cm(1.0), cm(1.8)];
+    dynamic tableWidths = [cm(2.6), cm(6.0), cm(6.1), cm(1.0), cm(1.8)];
     dynamic tableBody = [
       [
         {"text": msgTimezone, "style": "infotitle", "alignment": "right"},
@@ -149,8 +150,8 @@ class PrintProfile extends BaseProfile
         {"text": msgDIAUnit, "style": "infounit"},
       ],
       [
-        {"text": ""},
-        {"text": ""},
+        {"text": "", "style": "infotitle", "alignment": "right"},
+        {"text": "", "style": "infodata", "alignment": "left"},
         {"text": msgKHA, "style": "infotitle", "alignment": "right"},
         {"text": g.fmtNumber(profile.store.carbsHr, 0, false), "style": "infodata"},
         {"text": msgKHAUnit, "style": "infounit"},

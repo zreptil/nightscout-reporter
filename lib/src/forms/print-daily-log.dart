@@ -17,7 +17,7 @@ class PrintDailyLog extends BaseProfile
   String id = "daylog";
 
   bool showNotes, showCarbs, showIE, showSMB, showTempBasal, showProfileSwitch, showIESource, showTempTargets, showGluc,
-    showChanges, showChangesColumn, showCalibration;
+    showChanges, showChangesColumn, showCalibration, showProfileSwitchDetails;
   int groupMinutes = 0;
 
   @override
@@ -31,7 +31,7 @@ class PrintDailyLog extends BaseProfile
     ParamInfo(4, msgParam3, boolValue: true, subParams: [ParamInfo(0, msgParam7, boolValue: true)]),
     ParamInfo(10, msgParam4, boolValue: true, isLoopValue: true),
     ParamInfo(9, msgParam5, boolValue: true, isLoopValue: true),
-    ParamInfo(5, msgParam6, boolValue: true),
+    ParamInfo(5, msgParam6, boolValue: true, subParams: [ParamInfo(0, msgParam14, boolValue: true)]),
     ParamInfo(8, msgParam8, boolValue: true, isLoopValue: true),
     ParamInfo(0, msgParam9, list: [
       Intl.message("Keine"),
@@ -56,6 +56,7 @@ class PrintDailyLog extends BaseProfile
     showTempBasal = params[3].boolValue;
     showSMB = params[4].boolValue;
     showProfileSwitch = params[5].boolValue;
+    showProfileSwitchDetails = params[5].subParams[0].boolValue;
     showTempTargets = params[6].boolValue;
 
     switch (params[7].intValue)
@@ -119,6 +120,8 @@ class PrintDailyLog extends BaseProfile
   => Intl.message("Zusätzliche Spalte anzeigen");
   static String get msgParam13
   => Intl.message("Kalibrierung und blutige Messungen");
+  static String get msgParam14
+  => Intl.message("Details des Profilwechsels");
 
   @override
   List<String> get imgList
@@ -471,7 +474,7 @@ class PrintDailyLog extends BaseProfile
     }
     if (showProfileSwitch && type == "profile switch")
     {
-      list.add(getProfileSwitch(src, day, t));
+      list.add(getProfileSwitch(src, day, t, showProfileSwitchDetails));
     }
 
     if (showTempTargets && type == ("temporary target"))

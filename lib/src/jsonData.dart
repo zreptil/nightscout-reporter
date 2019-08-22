@@ -468,9 +468,12 @@ class ProfileStoreData extends JsonData
   List<ProfileEntryData> listTargetHigh = List<ProfileEntryData>();
   DateTime startDate;
   String units;
-  double get ieBasalSum => _listSum(listBasal);
-  double get icrSum => _listSum(listCarbratio);
-  double get isfSum => _listSum(listSens);
+  double get ieBasalSum
+  => _listSum(listBasal);
+  double get icrSum
+  => _listSum(listCarbratio);
+  double get isfSum
+  => _listSum(listSens);
 
   double _listSum(List<ProfileEntryData> list)
   {
@@ -571,7 +574,8 @@ class ProfileStoreData extends JsonData
     }
   }
 
-  factory ProfileStoreData.fromJson(String name, Map<String, dynamic> json, double percentage, int timeshift){
+  factory ProfileStoreData.fromJson(String name, Map<String, dynamic> json, double percentage, int timeshift,
+                                    DateTime startDate){
     ProfileStoreData ret = ProfileStoreData(name);
     if (json == null)return ret;
     ret.dia = JsonData.toDouble(json["dia"]);
@@ -585,7 +589,9 @@ class ProfileStoreData extends JsonData
     {
       ret.timezone = ProfileTimezone(Globals.refTimezone);
     }
-    ret.startDate = JsonData.toDate(json["startDate"]);
+    if (startDate.year != 1970 || startDate.day != 1 || startDate.month != 1)ret.startDate = startDate;
+    else
+      ret.startDate = JsonData.toDate(json["startDate"]);
     ret.units = JsonData.toText(json["units"]);
     for (dynamic entry in json["carbratio"])
       ret.listCarbratio.add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift, percentage));
@@ -768,7 +774,7 @@ class ProfileData extends JsonData
         if (percentage == null || percentage == 0.0)percentage = 1.0;
         else
           percentage /= 100.0;
-        ret.store[key] = ProfileStoreData.fromJson(key, temp.value, percentage, timeshift);
+        ret.store[key] = ProfileStoreData.fromJson(key, temp.value, percentage, timeshift, ret.startDate);
         ret.maxPrecision = math.max(ret.maxPrecision, ret.store[key].maxPrecision);
       }
     }
@@ -1029,7 +1035,8 @@ class TreatmentData extends JsonData
   String reason;
   double targetTop;
   double targetBottom;
-  bool get isBloody => glucoseType?.toLowerCase() == "finger" || eventType.toLowerCase() == "bg check";
+  bool get isBloody
+  => glucoseType?.toLowerCase() == "finger" || eventType.toLowerCase() == "bg check";
   Uploader _from = Uploader.Unknown;
   int get timeForCalc
   => createdAt.hour * 60 + createdAt.minute;

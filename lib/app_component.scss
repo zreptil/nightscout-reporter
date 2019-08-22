@@ -14,8 +14,8 @@
 :host {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
   flex: 1;
   width: 100vw;
   height: 100vh;
@@ -65,13 +65,13 @@ header.material-header .material-header-row {
   flex-direction: column;
 }
 
-material-content {
+material-content.main {
   min-height: unset !important;
   display: flex !important;
-  align-items: center;
   flex-direction: column;
+  flex: 1;
   overflow-y: scroll;
-  position: absolute !important;
+  position: absolute;
   top: 64px;
   left: 0;
   right: 0;
@@ -82,6 +82,45 @@ material-content {
     display: flex;
     flex: 1;
     align-items: center;
+  }
+}
+
+.tileparams {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 0.5em;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  flex: 1;
+  padding: 0.5em;
+  align-self: center;
+  margin: 1em 0;
+
+  [title] {
+    background-color: $primary_back;
+    color: $primary_fore;
+    padding: 0 0 0 1em;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    align-self: stretch;
+    border-radius: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  [parampanel] {
+    display: flex;
+    flex: 1;
+    flex-basis: 0;
+    overflow-y: auto;
+    min-height: 0;
+
+    > formparams {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-right: 0.5em;
+    }
   }
 }
 
@@ -135,6 +174,7 @@ material-drawer {
   margin-top: 1em;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .pdfPage {
@@ -209,7 +249,7 @@ material-drawer {
   }
 }
 
-.sendPanel {
+.sendPanel:not(.is-tileview) {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -896,43 +936,6 @@ datepicker {
   max-height: 80%;
 }
 
-.tileparams {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  border-radius: 0.5em;
-  border: 2px solid rgba(0, 0, 0, 0.12);
-  flex: 1;
-  padding: 0.5em;
-  max-height: 20em;
-
-  [title] {
-    background-color: $primary_back;
-    color: $primary_fore;
-    padding: 0 0 0 1em;
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-    align-self: stretch;
-    border-radius: 0.5em;
-    margin-bottom: 0.5em;
-  }
-
-  [parampanel] {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-
-    > formparams {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      padding-right: 0.5em;
-    }
-  }
-}
-
 .tilelist {
   display: flex;
   flex-wrap: wrap;
@@ -941,10 +944,10 @@ datepicker {
   justify-content: center;
 
   .tile.dragover {
-    background-image: url("packages/nightscout_reporter/assets/img/arrow-left.png")!important;
-    background-repeat: no-repeat!important;
-    background-position: center center!important;
-    background-size: contain!important;
+    background-image: url("packages/nightscout_reporter/assets/img/arrow-left.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: contain !important;
   }
 
   .is-local {

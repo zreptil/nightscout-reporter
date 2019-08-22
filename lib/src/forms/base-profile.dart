@@ -116,12 +116,14 @@ abstract class BaseProfile extends BasePrint
     return true;
   }
 
-  getProfileSwitch(ReportData src, DayData day, TreatmentData t)
+  getProfileSwitch(ReportData src, DayData day, TreatmentData t, bool showDetails)
   {
     List<String> ret = List<String>();
     ProfileGlucData before = src.profile(t.createdAt.add(Duration(days: -1)));
     ProfileGlucData current = src.profile(t.createdAt);
     ret.add(msgProfileSwitch(before.store.name, current.store.name));
+
+    if (!showDetails)return ret.join("\n");
 
     if (before.store.dia != current.store.dia)ret.add(msgChangedEntry(
       msgDIA, "${g.fmtNumber(before.store.dia, 2)} ${msgDIAUnit}",

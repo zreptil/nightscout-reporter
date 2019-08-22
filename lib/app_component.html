@@ -65,7 +65,7 @@
       </nav>
     </div>
   </header>
-  <material-content>
+  <material-content class="main">
     <welcome *ngIf="currPage=='welcome'" (closeClicked)="callbackButton"></welcome>
     <settings *ngIf="currPage=='settings'" (settingsresult)="settingsResult"></settings>
     <impressum *ngIf="currPage=='impressum'" (closeClicked)="callbackButton"></impressum>
@@ -125,7 +125,18 @@
         <div>{{progressText}}</div>
       </div>
     </div>
-    <div [class]="classForView('normal-content')"
+    <div class="tileparams" *ngIf="tileParams!=null && progressText == null">
+      <div title>
+        {{tileParams.form.display}}
+        <material-button (trigger)="tileParams=null;$event.stopPropagation();">
+          <material-icon icon="close"></material-icon>
+        </material-button>
+      </div>
+      <div parampanel>
+        <formparams [paramList]="tileParams.form.sortedParams"></formparams>
+      </div>
+    </div>
+    <div [class]="classForView('normal-content')" *ngIf="tileParams==null"
          [style.display]="progressText == null && currPage=='normal'?'':'none'">
       <div class="formlist" *ngIf="g.viewType=='list'">
         <template ngFor let-cfg [ngForOf]="g.listConfig">
@@ -149,17 +160,6 @@
             </div>
           </div>
         </template>
-      </div>
-      <div class="tileparams" *ngIf="tileParams!=null">
-        <div title>
-          {{tileParams.form.display}}
-          <material-button (trigger)="tileParams=null;$event.stopPropagation();">
-            <material-icon icon="close"></material-icon>
-          </material-button>
-        </div>
-        <div parampanel>
-          <formparams [paramList]="tileParams.form.sortedParams"></formparams>
-        </div>
       </div>
       <div class="tilelist" *ngIf="g.viewType=='tile' && tileParams==null">
         <template ngFor let-cfg let-idx="index" [ngForOf]="g.listConfig">
