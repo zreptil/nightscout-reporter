@@ -163,13 +163,13 @@ class PrintTest extends BasePrint
         lines += 2;
         var row = [{"text": fmtDateTime(entry.createdAt, '??.??.???? ??:?? Uhr')}];
         row.add({"text": entry.eventType});
-        row.add({"text": "${g.fmtNumber(entry.adjustedValue(1), 0, false, "")}", "alignment": "right"});
-        row.add({"text": entry.duration > 0 ? g.fmtNumber(entry.duration, 0, false, " ") : " ", "alignment": "right"});
+        row.add({"text": "${g.fmtNumber(entry.adjustedValue(1), 0, 0, "")}", "alignment": "right"});
+        row.add({"text": entry.duration > 0 ? g.fmtNumber(entry.duration, 0, 0, " ") : " ", "alignment": "right"});
         double carbs = entry.isECarb ? entry.eCarbs : entry.carbs;
-        String text = carbs > 0.0 ? g.fmtNumber(carbs, 0, false, " ") : " ";
+        String text = carbs > 0.0 ? g.fmtNumber(carbs, 0, 0, " ") : " ";
         if (entry.isECarb)text = "e${text}";
         row.add({"text": text, "alignment": "right"});
-        text = entry.insulin > 0.0 ? g.fmtNumber(entry.insulin, 1, false, " ") : " ";
+        text = entry.insulin > 0.0 ? g.fmtNumber(entry.insulin, 1, 0, " ") : " ";
         row.add({"text": text, "alignment": "right"});
         switch (entry.eventType.toLowerCase())
         {
@@ -269,7 +269,7 @@ class PrintTest extends BasePrint
             List<String> lines = cell["text"].split("\n");
             List<String> oldText = List<String>();
             List<String> newText = List<String>();
-            if (lines.length > maxLines)
+            if (lines.length > maxLines && maxLines > 0)
             {
               for (int i = 0; i < maxLines; i++)
                 oldText.add(lines[i]);

@@ -151,14 +151,20 @@ class PrintDailyStatistics extends BasePrint
     addRow(showVarK, "auto", row, {"text": msgVarK, "style": "total", "alignment": "center"},
       {"text": "${g.fmtNumber(day.varK, 1)}", "style": style, "alignment": "right"});
     addRow(showPercentile, cm(1.5), row, {"text": msg25, "style": "total", "alignment": "center"},
-      {"text": "${glucFromData(Globals.percentile(day.entries, 25), 1)}", "style": style, "alignment": "right"});
+      {"text": "${percentileFor(Globals.percentile(day.entries, 25))}", "style": style, "alignment": "right"});
     addRow(showPercentile, cm(1.5), row, {"text": msgMedian, "style": "total", "alignment": "center"},
-      {"text": "${glucFromData(Globals.percentile(day.entries, 50), 1)}", "style": style, "alignment": "right"});
+      {"text": "${percentileFor(Globals.percentile(day.entries, 50))}", "style": style, "alignment": "right"});
     addRow(showPercentile, cm(1.5), row, {"text": msg75, "style": "total", "alignment": "center"},
-      {"text": "${glucFromData(Globals.percentile(day.entries, 75), 1)}", "style": style, "alignment": "right"});
+      {"text": "${percentileFor(Globals.percentile(day.entries, 75))}", "style": style, "alignment": "right"});
     addRow(showHbA1c, cm(1.5), row, {"text": msgHbA1C, "style": "total", "alignment": "center", "color": colHbA1c},
       {"text": "${hba1c(day.mid)} %", "style": style, "alignment": "right", "color": colHbA1c});
     _headFilled = true;
+  }
+
+  String percentileFor(double value)
+  {
+    if (value == -1)return "";
+    return glucFromData(value, 1);
   }
 
   @override
@@ -203,7 +209,7 @@ class PrintDailyStatistics extends BasePrint
     for (DayData day in src.calc.days)
     {
       day.init();
-      if (day.entries.length == 0)continue;
+      if (day.entryCount == 0)continue;
       totalDays++;
       totalDay.entries.addAll(day.entries);
       totalDay.bloody.addAll(day.bloody);

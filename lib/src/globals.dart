@@ -12,7 +12,6 @@ import 'package:googleapis_auth/auth_browser.dart' as auth;
 import 'package:http/browser_client.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
-import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 import 'package:timezone/browser.dart' as tz;
@@ -21,6 +20,7 @@ class Msg
 {
   String okText = Intl.message("Schliessen");
   String text;
+  String dbgText;
   String type = "msg";
   var links = [];
   bool get isEmpty
@@ -29,6 +29,7 @@ class Msg
   void clear()
   {
     text = null;
+    dbgText = null;
     links = [];
   }
 
@@ -36,6 +37,7 @@ class Msg
   {
     if (call != null)call();
     text = null;
+    dbgText = null;
     links = [];
   }
 }
@@ -73,19 +75,44 @@ class PeriodShift
   PeriodShift(this.name, this.shift);
 }
 
-class Globals
+class Settings
 {
-  // The timezone is set to Europe/Berlin by mdefault, but it is evaluated in
-  // the constructor for the current system.
-  static String refTimezone = "Europe/Berlin";
-  static tz.Location refLocation = tz.getLocation("Europe/Berlin");
-  static DateTime get now
-  => DateTime.now();
-  String version = "1.3.1";
+  String version = "1.3.2ßc";
+  int timestamp = 0;
+  static bool itod = html.window.localStorage["unsafe"] != "zh++;";
+  String betaPrefix = "@";
   String lastVersion;
-  static const int PDFUNLIMITED = 4000000;
-  static const int PDFDIVIDER = 100000;
+  bool glucMGDL = true;
+  bool pdfSameWindow = true;
+  bool pdfDownload = false;
+  bool hideNightscoutInPDF = true;
+  bool hidePdfInfo = false;
+  bool showCurrentGluc = false;
+  bool showInfo = false;
+  LangData _language = null;
+  String _pdfOrder = "";
+  String _viewType = "";
+  List<FormConfig> listConfig = List<FormConfig>();
   int _pdfCreationMaxSize = 400000;
+  DateFormat fmtDateForData;
+  DateFormat fmtDateForDisplay;
+  DatepickerPeriod period = DatepickerPeriod();
+  bool canDebug = false;
+  bool isBeta = html.window.location.href.contains("/beta/");
+  bool _isLocal = html.window.location.href.contains("/localhost:");
+  bool get isLocal
+  => _isLocal;
+  set isLocal(value)
+  {
+    _isLocal = value;
+  }
+
+  var doShowDebug = null;
+
+  showDebug(String msg)
+  {
+    if (canDebug && doShowDebug != null)doShowDebug(msg);
+  }
 
   int get pdfCreationMaxSize
   {
@@ -100,6 +127,273 @@ class Globals
     if (value > Globals.PDFUNLIMITED)value = Globals.PDFUNLIMITED;
     _pdfCreationMaxSize = value;
   }
+
+  set pdfOrder(String value)
+  {
+    _pdfOrder = value;
+    sortConfigs();
+  }
+
+  String get viewType
+  => _viewType == "" ? "list" : _viewType;
+
+  set viewType(String value)
+  {
+    switch (value)
+    {
+      case "tile":
+      case "list":
+        break;
+      default:
+        value = "list";
+        break;
+    }
+    _viewType = value;
+  }
+
+  List<LangData> languageList = [
+    LangData("de_DE", Intl.message("Deutsch"), "de"),
+    LangData("en_US", Intl.message("English (USA)"), "us"),
+    LangData("en_GB", Intl.message("English (GB)"), "gb"),
+    LangData("es_ES", Intl.message("Español"), "es"),
+    LangData("pl_PL", Intl.message("Polski"), "pl"),
+    LangData("ja_JP", Intl.message("Japanisch"), "jp"),
+  ];
+
+  LangData get language
+  => _language == null ? languageList[0] : _language;
+  set language(LangData value)
+  {
+    _language = value;
+  }
+
+  sortConfigs()
+  {
+    if (_pdfOrder == "")return;
+    var srcList = listConfig.sublist(0);
+    listConfig.clear();
+    var idList = _pdfOrder.split(",");
+    for (int i = 0; i < idList.length; i++)
+    {
+      FormConfig cfg = srcList.firstWhere((cfg)
+      => cfg.id == idList[i], orElse: ()
+      => null);
+      if (cfg != null)
+      {
+        srcList.remove(cfg);
+        listConfig.add(cfg);
+      }
+    }
+    for (FormConfig cfg in srcList)
+      listConfig.add(cfg);
+    savePdfOrder();
+  }
+
+  List<UserData> userList = List<UserData>();
+  int _userIdx = 0;
+  int get userIdx
+  => _userIdx;
+  set userIdx(value)
+  {
+    if (value >= 0 && value < userList.length)_userIdx = value;
+    else
+    {
+      _userIdx = 0;
+      if (userList.length == 0)userList.add(UserData(this));
+    }
+
+    for (FormConfig entry in listConfig)
+      entry.fillFromString(user.formParams[entry.id]);
+  }
+
+  UserData get user
+  {
+    if (_userIdx >= 0 && _userIdx < userList.length)return userList[_userIdx];
+    userIdx = 0;
+    return userList[0];
+  }
+
+  savePdfOrder()
+  {
+    if (listConfig.length == 0)return;
+    var idList = [];
+    for (FormConfig cfg in listConfig)
+      idList.add(cfg.id);
+    _pdfOrder = idList.join(",");
+    saveStorage("pdfOrder", _pdfOrder);
+  }
+
+  void saveStorage(String key, String value)
+  {
+    if (isBeta)key = "${betaPrefix}${key}";
+    if (value == null || value.isEmpty)html.window.localStorage.remove(key);
+    else
+      html.window.localStorage[key] = value;
+  }
+
+  String loadStorage(String key)
+  {
+    if (isBeta)key = "${betaPrefix}${key}";
+    String ret = html.window.localStorage[key];
+    if (ret == "null" || ret == null)ret = "";
+    return ret;
+  }
+
+  String get asJson
+  {
+    String save = "";
+    for (int i = 0; i < userList.length; i++)
+      save = "${save},${userList[i].asJson}";
+    return '{'
+      '"version":"$version"'
+      ',"mu":"${Settings.doit('[${save.substring(1)}]')}"'
+      ',"userIdx":"${userIdx}"'
+      ',"glucMGDL":"${glucMGDL}"'
+      ',"language":"${language.code ?? 'de_DE'}"'
+      ',"pdfSameWindow":"${pdfSameWindow ? 'yes' : 'no'}"'
+      ',"pdfDownload":"${pdfDownload ? 'yes' : 'no'}"'
+      ',"pdfCreationMaxSize":"${pdfCreationMaxSize}"'
+      ',"hideNightscoutInPDF":"${hideNightscoutInPDF ? 'yes' : 'no'}"'
+      ',"hidePdfInfo":"${hidePdfInfo ? 'yes' : 'no'}"'
+      ',"showCurrentGluc":"${showCurrentGluc ? 'yes' : 'no'}"'
+      ',"period":"${period?.toString() ?? null}"'
+      ',"pdfOrder":"${_pdfOrder}"'
+      ',"viewType":"${_viewType}"'
+      ',"timestamp":"${timestamp}"'
+      '}';
+  }
+
+  void _loadFromStorage()
+  {
+    String src = '{'
+      '"version":"${loadStorage('version')}"'
+      ',"userIdx":"${loadStorage('userIdx')}"'
+      ',"mu":"${loadStorage('mu')}"'
+      ',"glucMGDL":"${loadStorage('glucMGDL')}"'
+      ',"language":"${loadStorage('language')}"'
+      ',"pdfSameWindow":"${loadStorage('pdfSameWindow')}"'
+      ',"pdfDownload":"${loadStorage('pdfDownload')}"'
+      ',"pdfCreationMaxSize":"${loadStorage('pdfCreationMaxSize')}"'
+      ',"hideNightscoutInPDF":"${loadStorage('hideNightscoutInPDF')}"'
+      ',"hidePdfInfo":"${loadStorage('hidePdfInfo')}"'
+      ',"showCurrentGluc":"${loadStorage('showCurrentGluc')}"'
+      ',"period":"${loadStorage('period')}"'
+      ',"pdfOrder":"${loadStorage('pdfOrder')}"'
+      ',"viewType":"${loadStorage('viewType')}"'
+      ',"timestamp":"${loadStorage('timestamp')}"'
+      ',"currCompIdx":"${loadStorage('currCompIdx')}"'
+      '}';
+    fromJson(src);
+    canDebug = loadStorage("debug") == "yes";
+    fmtDateForData = DateFormat("yyyy-MM-dd");
+    fmtDateForDisplay = DateFormat(language.dateformat);
+  }
+
+  void fromJson(String src)
+  {
+    try
+    {
+      dynamic cfg = convert.json.decode(src);
+
+      lastVersion = JsonData.toText(cfg["version"]);
+      glucMGDL = JsonData.toBool(cfg["glucMGDL"]);
+      String langId = JsonData.toText(cfg["language"]);
+      int idx = languageList.indexWhere((v)
+      => v.code == langId);
+      language = languageList[idx >= 0 ? idx : 0];
+      pdfSameWindow = JsonData.toBool(cfg["pdfSameWindow"]);
+      pdfDownload = JsonData.toBool(cfg["pdfDownload"]);
+      pdfCreationMaxSize = JsonData.toInt(cfg["pdfCreationMaxSize"]);
+      hideNightscoutInPDF = JsonData.toBool(cfg["hideNightscoutInPDF"]);
+      hidePdfInfo = JsonData.toBool(cfg["hidePdfInfo"]);
+      showCurrentGluc = JsonData.toBool(cfg["showCurrentGluc"]);
+      pdfOrder = JsonData.toText(cfg["pdfOrder"]);
+      viewType = JsonData.toText(cfg["viewType"]);
+      period = DatepickerPeriod(src: JsonData.toText(cfg["period"]));
+      timestamp = JsonData.toInt(cfg["timestamp"]);
+      period.fmtDate = language.dateformat;
+      String users = cfg["mu"];
+      userList.clear();
+      // get user list from mu if available
+      if (users != null)
+      {
+        var text = tiod(users);
+        if (text != null && text.isNotEmpty)
+        {
+          try
+          {
+            var list = convert.json.decode(text);
+            for (var entry in list)
+              userList.add(UserData.fromData(this, entry));
+          }
+          catch (e)
+          {
+//            saveStorage("mu", null);
+          }
+        }
+        else
+        {
+//          saveStorage("mu", null);
+        }
+      }
+      userIdx = JsonData.toInt(cfg["userIdx"]);
+    }
+    catch (ex)
+    {
+//      String msg = ex.toString();
+    }
+  }
+
+  static tiod(String src)
+  {
+    if (!itod)return src ?? "";
+    if (src == null || src.isEmpty)return "";
+
+    String ret = "";
+    int pos = src.length ~/ 2;
+    src = "${src.substring(pos + 1)}${src.substring(0, pos - 1)}";
+    try
+    {
+      convert.base64Decode(src).forEach((value)
+      {
+        ret = "${ret}${String.fromCharCode(value)}";
+      });
+      ret = convert.utf8.decode(ret.codeUnits);
+    }
+    catch (ex)
+    {
+      ret = "";
+    }
+
+    return ret;
+  }
+
+  static doit(String src)
+  {
+    if (!itod)return src;
+//    String ret = convert.base64Encode(src.codeUnits);
+    String ret = convert.base64Encode(convert.utf8.encode(src));
+    int pos = ret.length ~/ 2;
+    math.Random rnd = math.Random();
+    String.fromCharCode(rnd.nextInt(26) + 64);
+    ret =
+    "${ret.substring(pos)}${String.fromCharCode(rnd.nextInt(26) + 64)}${String.fromCharCode(rnd.nextInt(10) + 48)}${ret
+      .substring(0, pos)}";
+    return ret;
+  }
+
+}
+
+class Globals extends Settings
+{
+  // The timezone is set to Europe/Berlin by mdefault, but it is evaluated in
+  // the constructor for the current system.
+  static String refTimezone = "Europe/Berlin";
+  static tz.Location refLocation = tz.getLocation("Europe/Berlin");
+  static DateTime get now
+  => DateTime.now();
+  static const int PDFUNLIMITED = 4000000;
+  static const int PDFDIVIDER = 100000;
 
   int get pdfControlMaxSize
   => pdfCreationMaxSize ~/ Globals.PDFDIVIDER;
@@ -121,16 +415,17 @@ class Globals
 
   static final Globals _globals = Globals._internal();
 
-//  final driveParent = "appDataFolder";
-  final driveParent = null;
+  final driveParent = "appDataFolder";
+
+//  final driveParent = null;
   auth.AutoRefreshingAuthClient _client = null;
   auth.AutoRefreshingAuthClient get client
   => _client;
   set client(auth.AutoRefreshingAuthClient value)
   {
     _client = value;
-    saveToGoogle = value != null;
-    save();
+    syncGoogle = value != null;
+    _loadFromGoogle();
   }
 
   gd.DriveApi get drive
@@ -143,10 +438,18 @@ class Globals
   Globals._internal(){
     tz.Location found = null;
 
-    int offset = DateTime
-      .now()
-      .timeZoneOffset
-      .inMilliseconds;
+    DateTime dt = DateTime.now();
+    int offset = dt.timeZoneOffset.inMilliseconds;
+    Iterable<tz.Location> list = tz.timeZoneDatabase.locations.values;
+    for (tz.Location l in list)
+    {
+      if (l.currentTimeZone.offset == offset)
+      {
+        found = l;
+        break;
+      }
+    }
+/*
     for (String key in tz.timeZoneDatabase.locations.keys)
     {
       tz.Location l = tz.timeZoneDatabase.locations[key];
@@ -156,14 +459,13 @@ class Globals
         break;
       }
     }
+*/
     if (found != null)
     {
       Globals.refTimezone = found.name;
       Globals.refLocation = found;
     }
   }
-
-  List<FormConfig> listConfig = List<FormConfig>();
 
   List<PeriodShift> get listPeriodShift
   =>
@@ -193,46 +495,6 @@ class Globals
   => Intl.message("Die URL wurde noch nicht festgelegt.");
 
   String title = "Nightscout Reporter";
-  List<UserData> userList = List<UserData>();
-  int _userIdx = 0;
-  int get userIdx
-  => _userIdx;
-  set userIdx(value)
-  {
-    if (value >= 0 && value < userList.length)_userIdx = value;
-    else
-    {
-      _userIdx = 0;
-      if (userList.length == 0)userList.add(UserData(this));
-    }
-
-    for (FormConfig entry in listConfig)
-      entry.fillFromString(user.formParams[entry.id]);
-  }
-
-  UserData get user
-  {
-    if (_userIdx >= 0 && _userIdx < userList.length)return userList[_userIdx];
-    userIdx = 0;
-    return userList[0];
-  }
-
-  List<LangData> languageList = [
-    LangData("de_DE", Intl.message("Deutsch"), "de"),
-    LangData("en_US", Intl.message("English (USA)"), "us"),
-    LangData("en_GB", Intl.message("English (GB)"), "gb"),
-    LangData("es_ES", Intl.message("Español"), "es"),
-    LangData("pl_PL", Intl.message("Polski"), "pl"),
-    LangData("ja_JP", Intl.message("Japanisch"), "jp"),
-  ];
-
-  LangData _language = null;
-  LangData get language
-  => _language == null ? languageList[0] : _language;
-  set language(LangData value)
-  {
-    _language = value;
-  }
 
   String get msgToday
   => Intl.message("Heute");
@@ -252,75 +514,29 @@ class Globals
   => Intl.message("Letzte 3 Monate");
 
   bool hasMGDL = false;
-  bool glucMGDL = true;
   double get glucFactor
   => glucMGDL ? 1 : 18.02;
   double get glucPrecision
   => glucMGDL ? 0 : 2;
-  String _pdfOrder = "";
-  String _viewType = "";
-
-  set pdfOrder(String value)
-  {
-    _pdfOrder = value;
-    sortConfigs();
-  }
-
-  String get viewType
-  => _viewType == "" ? "list" : _viewType;
-
-  set viewType(String value)
-  {
-    switch (value)
-    {
-      case "tile":
-      case "list":
-        break;
-      default:
-        value = "list";
-        break;
-    }
-    _viewType = value;
-  }
-
-  DatepickerPeriod period = DatepickerPeriod();
-  DateFormat fmtDateForData;
-  DateFormat fmtDateForDisplay;
-  bool canDebug = false;
-  bool isBeta = html.window.location.href.contains("/beta/");
-  bool _isLocal = html.window.location.href.contains("/localhost:");
-  bool get isLocal
-  => _isLocal;
-  set isLocal(value)
-  {
-    _isLocal = value;
-  }
 
   bool get showBothUnits
   => false;
   String get settingsFilename
-  => isLocal ? "settings.local" : isBeta ? "settings.beta" : "settings";
+  => "nr-settings";
   gd.File settingsFile = null;
 
-  bool _saveToGoogle = false;
-  bool get saveToGoogle
-  => _saveToGoogle;
-  set saveToGoogle(bool value)
+  bool _syncGoogle = false;
+  bool get syncGoogle
+  => _syncGoogle;
+  set syncGoogle(bool value)
   {
-    _saveToGoogle = value;
-    saveStorage("saveToGoogle", _saveToGoogle ? "yes" : null);
+    _syncGoogle = value;
+    saveStorage("syncGoogle", _syncGoogle ? "yes" : null);
   }
 
-  static bool itod = html.window.localStorage["unsafe"] != "zh++;";
-  String betaPrefix = "@";
-  bool pdfSameWindow = true;
-  bool pdfDownload = false;
-  bool hideNightscoutInPDF = true;
-  bool hidePdfInfo = false;
-  bool showCurrentGluc = false;
-  bool showInfo = false;
   String urlPdf = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
   String urlPlayground = "http://pdf.zreptil.de/playground.php";
+  String googleClientId = "939975570793-i9kj0rp6kgv470t45j1pf1hg3j9fqmbh";
 
   String infoClass(String cls)
   => showInfo ? "$cls infoarea showinfo" : "$cls infoarea";
@@ -380,6 +596,7 @@ class Globals
       return response.body;
     }).catchError((error)
     {
+      showDebug(error.toString());
       return error.toString();
     });
   }
@@ -444,22 +661,6 @@ class Globals
     save();
   }
 
-  void saveStorage(String key, String value)
-  {
-    if (isBeta)key = "${betaPrefix}${key}";
-    if (value == null || value.isEmpty)html.window.localStorage.remove(key);
-    else
-      html.window.localStorage[key] = value;
-  }
-
-  String loadStorage(String key)
-  {
-    if (isBeta)key = "${betaPrefix}${key}";
-    String ret = html.window.localStorage[key];
-    if (ret == "null" || ret == null)ret = "";
-    return ret;
-  }
-
   UserData u(url, name)
   {
     UserData ret = UserData(this);
@@ -468,180 +669,111 @@ class Globals
     return ret;
   }
 
-  String get asJson
-  {
-    String save = "";
-    for (int i = 0; i < userList.length; i++)
-      save = "${save},${userList[i].asJson}";
-    return '{'
-      '"version":"$version"'
-      ',"mu":"${Globals.doit('[${save.substring(1)}]')}"'
-      ',"userIdx":"${userIdx}"'
-      ',"glucMGDL":"${glucMGDL}"'
-      ',"language":"${language.code ?? 'de_DE'}"'
-      ',"pdfSameWindow":"${pdfSameWindow ? 'yes' : 'no'}"'
-      ',"pdfDownload":"${pdfDownload ? 'yes' : 'no'}"'
-      ',"pdfCreationMaxSize":"${pdfCreationMaxSize}"'
-      ',"hideNightscoutInPDF":"${hideNightscoutInPDF ? 'yes' : 'no'}"'
-      ',"hidePdfInfo":"${hidePdfInfo ? 'yes' : 'no'}"'
-      ',"showCurrentGluc":"${showCurrentGluc ? 'yes' : 'no'}"'
-      ',"period":"${period?.toString() ?? null}"'
-      ',"pdfOrder":"${_pdfOrder}"'
-      ',"viewType":"${_viewType}"'
-      '}';
-  }
-
-  void _loadFromStorage()
-  {
-    String src = '{'
-      '"version":"${loadStorage('version')}"'
-      ',"userIdx":"${loadStorage('userIdx')}"'
-      ',"mu":"${loadStorage('mu')}"'
-      ',"glucMGDL":"${loadStorage('glucMGDL')}"'
-      ',"language":"${loadStorage('language')}"'
-      ',"pdfSameWindow":"${loadStorage('pdfSameWindow')}"'
-      ',"pdfDownload":"${loadStorage('pdfDownload')}"'
-      ',"pdfCreationMaxSize":"${loadStorage('pdfCreationMaxSize')}"'
-      ',"hideNightscoutInPDF":"${loadStorage('hideNightscoutInPDF')}"'
-      ',"hidePdfInfo":"${loadStorage('hidePdfInfo')}"'
-      ',"showCurrentGluc":"${loadStorage('showCurrentGluc')}"'
-      ',"period":"${loadStorage('period')}"'
-      ',"pdfOrder":"${loadStorage('pdfOrder')}"'
-      ',"viewType":"${loadStorage('viewType')}"'
-      ',"currCompIdx":"${loadStorage('currCompIdx')}"'
-      '}';
-    fromJson(src);
-    canDebug = loadStorage("debug") == "yes";
-    fmtDateForData = DateFormat("yyyy-MM-dd");
-    fmtDateForDisplay = DateFormat(language.dateformat);
-  }
-
-  void fromJson(String src)
-  {
-    try
-    {
-      dynamic cfg = convert.json.decode(src);
-
-      lastVersion = JsonData.toText(cfg["version"]);
-      glucMGDL = JsonData.toBool(cfg["glucMGDL"]);
-      String langId = JsonData.toText(cfg["language"]);
-      int idx = languageList.indexWhere((v)
-      => v.code == langId);
-      language = languageList[idx >= 0 ? idx : 0];
-      pdfSameWindow = JsonData.toBool(cfg["pdfSameWindow"]);
-      pdfDownload = JsonData.toBool(cfg["pdfDownload"]);
-      pdfCreationMaxSize = JsonData.toInt(cfg["pdfCreationMaxSize"]);
-      hideNightscoutInPDF = JsonData.toBool(cfg["hideNightscoutInPDF"]);
-      hidePdfInfo = JsonData.toBool(cfg["hidePdfInfo"]);
-      showCurrentGluc = JsonData.toBool(cfg["showCurrentGluc"]);
-      pdfOrder = JsonData.toText(cfg["pdfOrder"]);
-      viewType = JsonData.toText(cfg["viewType"]);
-      period = DatepickerPeriod(src: JsonData.toText(cfg["period"]));
-      period.fmtDate = language.dateformat;
-      String users = cfg["mu"];
-      userList.clear();
-      // get user list from mu if available
-      if (users != null)
-      {
-        var text = tiod(users);
-        if (text != null && text.isNotEmpty)
-        {
-          try
-          {
-            var list = convert.json.decode(text);
-            for (var entry in list)
-              userList.add(UserData.fromData(this, entry));
-          }
-          catch (e)
-          {
-//            saveStorage("mu", null);
-          }
-        }
-        else
-        {
-//          saveStorage("mu", null);
-        }
-      }
-      userIdx = JsonData.toInt(cfg["userIdx"]);
-    }
-    catch (ex)
-    {
-//      String msg = ex.toString();
-    }
-  }
-
   void _uploadToGoogle()
   {
+    if (!_googleLoaded)return;
     if (drive == null)
     {
-      saveToGoogle = false;
-      save();
+      syncGoogle = false;
+      return;
     }
 
     if (settingsFile == null)
     {
       settingsFile = gd.File()
         ..name = settingsFilename
+        ..parents = [driveParent]
+        ..mimeType = "text/json"
         ..id = null;
-      if (driveParent != null)settingsFile.parents = [driveParent];
     }
 
     StreamController<String> controller = StreamController<String>();
     String content = asJson;
     controller.add(content);
     commons.Media media = commons.Media(
-      controller.stream.transform(convert.Utf8Encoder()), content.length, contentType: "text/javascript");
+      controller.stream.transform(convert.Utf8Encoder()), content.length, contentType: "text/json");
     if (settingsFile.id == null)
     {
-      drive?.files?.create(settingsFile, uploadMedia: media)?.then((_)
+      drive.files.generateIds(count: 1, space: driveParent).then((gd.GeneratedIds ids)
       {
-//        data.mode = "view";
-//        activate();
+        settingsFile.id = ids.ids[0];
+        drive.files.create(settingsFile, uploadMedia: media).then((_)
+        {
+
+        });
+      });
+    }
+    else
+    {
+      gd.File file = gd.File();
+      file.trashed = false;
+      drive.files.update(file, settingsFile.id, uploadMedia: media).then((gd.File file)
+      {
+//        showDebug("Datei ${file.name} gespeichert");
       })?.catchError((error)
       {
-//        String msg = error.toString();
-//        display("Es ist ein Fehler aufgetreten ($error)");
+        String msg = error.toString();
+        showDebug("Fehler beim Upload zu Google (${settingsFile.name}): $msg");
       }, test: (error)
       => true);
     }
-    else
-      drive?.files?.update(settingsFile, settingsFile.id, uploadMedia: media)?.then((_)
-      {
-      })?.catchError((error)
-      {
-//        String msg = error.toString();
-//      display("Es ist ein Fehler aufgetreten ($error)");
-      }, test: (error)
-      => true);
     controller.close();
+  }
+
+  bool _googleLoaded = false;
+
+  void _getFromGoogle()
+  {
+    drive.files.get(
+      settingsFile.id, $fields: "*", downloadOptions: commons.DownloadOptions.FullMedia, acknowledgeAbuse: false).then((
+      response)
+    {
+      var media = response as commons.Media;
+      if (media?.contentType?.startsWith("text/") ?? false)
+      {
+        Stream strm = media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
+//          Stream strm = media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
+        strm.join().then((s)
+        {
+          Settings set = Settings();
+          set.fromJson(s);
+          DateTime time = DateTime.fromMillisecondsSinceEpoch(set.timestamp);
+          if (set.timestamp > timestamp)
+          {
+            fromJson(s);
+            save(updateSync: false);
+            _initAfterLoad();
+//            showDebug("Daten auf Google vom ${time.day}.${time.month}.${time.year}, ${time.hour}:${fmtNumber(
+//              time.minute, 0, 2)} Uhr - geladen");
+          }
+          else
+          {
+//            showDebug("Daten auf Google vom ${time.day}.${time.month}.${time.year}, ${time.hour}:${fmtNumber(
+//              time.minute, 0, 2)} Uhr - verworfen");
+          }
+        });
+      }
+      else
+      {
+//          showDebug("Eine Datei der Art \"${media?.contentType}\" kann nicht verarbeitet werden. ");
+      }
+      _googleLoaded = true;
+    }).catchError((error)
+    {
+        String msg = error.toString();
+        showDebug("Es ist ein Fehler aufgetreten ($error)");
+    }, test: (error)
+    => true);
   }
 
   void _loadFromGoogle()
   {
-    if (drive == null)
+    if (_client == null || drive == null)return;
+
+    String query = "name='${settingsFilename}' and not trashed";
+    _searchDocuments(1, query).then((gd.FileList list)
     {
-      SigninComponent sign = SigninComponent();
-      sign.isAuthorized = saveToGoogle;
-      sign.doLogin().then((_)
-      {
-        _client = sign.client;
-        if (drive == null)
-        {
-          saveToGoogle = false;
-          _loadFromStorage();
-          _initAfterLoad();
-          return;
-        }
-        else
-        {
-          _loadFromGoogle();
-        }
-      });
-      return;
-    }
-    _searchDocuments(1, "name='${settingsFilename}' and not trashed").then((gd.FileList list)
-    {
-      if (list.files.length == 0)
+      if (list.files.length > 0)
       {
         settingsFile = list.files[0];
       }
@@ -649,32 +781,23 @@ class Globals
       {
         settingsFile = gd.File()
           ..name = settingsFilename
-          ..id = null;
-        if (driveParent != null)settingsFile.parents = [driveParent];
-      }
-      drive.files.get(
-        settingsFile.id, $fields: "*", downloadOptions: commons.DownloadOptions.FullMedia, acknowledgeAbuse: false)
-        .then((response)
-      {
-        var media = response as commons.Media;
-        if (media?.contentType?.startsWith("text/") ?? false)
+          ..parents = [driveParent]
+          ..mimeType = "text/json";
+        drive.files.generateIds(count: 1, space: driveParent).then((gd.GeneratedIds ids)
         {
-          Stream strm = media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
-          strm.join().then((s)
+          settingsFile.id = ids.ids[0];
+          drive.files.create(settingsFile).then((file)
           {
-            fromJson(s);
+            _getFromGoogle();
+          }).catchError((error)
+          {
+            String text = error.toString();
           });
-        }
-        else
-        {
-//          display("Eine Datei der Art \"${media?.contentType}\" kann nicht verarbeitet werden. ");
-        }
-      }).catchError((error)
-      {
-//        String msg = error.toString();
-//        display("Es ist ein Fehler aufgetreten ($error)");
-      }, test: (error)
-      => true);
+          return;
+        });
+//        if (driveParent != null)settingsFile.parents = [driveParent];
+      }
+      _getFromGoogle();
     }).catchError((error)
     {
       _loadFromStorage();
@@ -685,6 +808,7 @@ class Globals
   Future<gd.FileList> _searchDocuments(int max, String query)
   {
     gd.FileList docs = gd.FileList();
+    docs.files = List<gd.File>();
     Future<gd.FileList> next(String token)
     {
       // The API call returns only a subset of the results. It is possible
@@ -692,8 +816,8 @@ class Globals
       return drive?.files?.list(q: query,
         pageToken: token,
         pageSize: 100,
-        corpora: "user",
-//        $fields: "*",
+        corpus: "user",
+        $fields: "*",
         orderBy: "name",
         spaces: driveParent)?.then((results)
       {
@@ -703,7 +827,8 @@ class Globals
         {
           return next(results.nextPageToken);
         }
-        return (docs as Future<gd.FileList>);
+        Future<gd.FileList> ret = Future.value(docs);
+        return (ret);
       })?.catchError((error)
       {
 //        String msg = error.toString();
@@ -716,28 +841,23 @@ class Globals
 
   Future<void> loadSettings()
   async {
-    String src = await request("settings.json");
     try
     {
+      String src = await request("settings.json");
       var data = convert.json.decode(src);
       if (data["urlPDF"] != null)urlPdf = data["urlPDF"];
       if (data["urlPlayground"] != null)urlPlayground = data["urlPlayground"];
+      if (data["googleClientId"] != null)googleClientId = data["googleClientId"];
     }
     catch (ex)
     {
       String text = ex.message;
     }
 
-    _saveToGoogle = loadStorage("saveToGoogle") == "yes";
-    if (saveToGoogle)
-    {
-      _loadFromGoogle();
-    }
-    else
-    {
-      _loadFromStorage();
-      _initAfterLoad();
-    }
+    syncGoogle = loadStorage("syncGoogle") == "yes";
+    if (syncGoogle)_loadFromGoogle();
+    _loadFromStorage();
+    _initAfterLoad();
   }
 
   void _initAfterLoad()
@@ -817,7 +937,7 @@ class Globals
   }
 
   String fmtNumber(num value,
-                   [num decimals = 0, bool fillfront0 = false, String nullText = "null", bool stripTrailingZero = false])
+                   [num decimals = 0, int fillfront0 = 0, String nullText = "null", bool stripTrailingZero = false])
   {
     if (value == null)return nullText;
 
@@ -831,33 +951,29 @@ class Globals
     String ret = nf.format(value);
     if (stripTrailingZero)
       while (ret.endsWith("0") || ret.endsWith(nf.symbols.DECIMAL_SEP))ret = ret.substring(0, ret.length - 1);
+    while (fillfront0 > ret.length)ret = "0${ret}";
     return ret == "NaN" ? nullText : ret;
   }
 
-  void save()
+  void save({bool updateSync: true})
   {
     String oldLang = loadStorage("language");
-    String oldGoogle = loadStorage("saveToGoogle");
+    String oldGoogle = loadStorage("syncGoogle");
 
-    if (saveToGoogle)
-    {
-      _uploadToGoogle();
-      return;
-    }
     clearStorage();
 
     saveStorage("version", version);
-    saveStorage("saveToGoogle", oldGoogle);
+    saveStorage("syncGoogle", oldGoogle);
     if (canDebug)
     {
       saveStorage("debug", "yes");
     }
-    if (!itod)saveStorage("unsafe", "zh++;");
+    if (!Settings.itod)saveStorage("unsafe", "zh++;");
 
     String save = "";
     for (int i = 0; i < userList.length; i++)
       save = "${save},${userList[i].asJson}";
-    saveStorage("mu", Globals.doit("[${save.substring(1)}]"));
+    saveStorage("mu", Settings.doit("[${save.substring(1)}]"));
 
     saveStorage("userIdx", "$userIdx");
     bool doReload = (language.code != oldLang && language.code != null);
@@ -871,86 +987,13 @@ class Globals
     saveStorage("showCurrentGluc", showCurrentGluc ? "true" : "false");
     saveStorage("period", period?.toString() ?? null);
     saveStorage("viewType", viewType);
+    timestamp = DateTime
+      .now()
+      .millisecondsSinceEpoch;
+    saveStorage("timestamp", "${timestamp}");
     savePdfOrder();
-/*
-    if (_dateRange.range != null)
-    {
-      if (_dateRange.range.start != null)saveStorage("startDate", _dateRange.range.start.format(fmtDateForData));
-      if (_dateRange.range.end != null)saveStorage("endDate", _dateRange.range.end.format(fmtDateForData));
-    }
-*/
+    if (syncGoogle && updateSync)_uploadToGoogle();
     if (doReload)reload();
-  }
-
-  savePdfOrder()
-  {
-    if (listConfig.length == 0)return;
-    var idList = [];
-    for (FormConfig cfg in listConfig)
-      idList.add(cfg.id);
-    _pdfOrder = idList.join(",");
-    saveStorage("pdfOrder", _pdfOrder);
-  }
-
-  sortConfigs()
-  {
-    if (_pdfOrder == "")return;
-    var srcList = listConfig.sublist(0);
-    listConfig.clear();
-    var idList = _pdfOrder.split(",");
-    for (int i = 0; i < idList.length; i++)
-    {
-      FormConfig cfg = srcList.firstWhere((cfg)
-      => cfg.id == idList[i], orElse: ()
-      => null);
-      if (cfg != null)
-      {
-        srcList.remove(cfg);
-        listConfig.add(cfg);
-      }
-    }
-    for (FormConfig cfg in srcList)
-      listConfig.add(cfg);
-    savePdfOrder();
-  }
-
-  static tiod(String src)
-  {
-    if (!itod)return src ?? "";
-    if (src == null || src.isEmpty)return "";
-
-    String ret = "";
-    int pos = src.length ~/ 2;
-    src = "${src.substring(pos + 1)}${src.substring(0, pos - 1)}";
-    try
-    {
-      convert.base64Decode(src).forEach((value)
-      {
-        ret = "${ret}${String.fromCharCode(value)}";
-      });
-      if (html.window.localStorage["mu-enc"] == "utf8")ret = convert.utf8.decode(ret.codeUnits);
-    }
-    catch (ex)
-    {
-      ret = "";
-    }
-
-    return ret;
-  }
-
-  static doit(String src)
-  {
-    if (!itod)return src;
-//    String ret = convert.base64Encode(src.codeUnits);
-    html.window.localStorage["mu-enc"] = "utf8";
-    String ret = convert.base64Encode(convert.utf8.encode(src));
-    int pos = ret.length ~/ 2;
-    math.Random rnd = math.Random();
-    String.fromCharCode(rnd.nextInt(26) + 64);
-    ret =
-    "${ret.substring(pos)}${String.fromCharCode(rnd.nextInt(26) + 64)}${String.fromCharCode(rnd.nextInt(10) + 48)}${ret
-      .substring(0, pos)}";
-    return ret;
   }
 
   static double percentile(List entries, int value)

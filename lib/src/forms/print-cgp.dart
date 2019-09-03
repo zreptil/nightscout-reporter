@@ -25,22 +25,39 @@ class PentagonScaleData
 
 class PentagonData
 {
-  static String get msgTOR
-  => Intl.message("ToR [min/d]");
-  static String get msgCV
-  => Intl.message("VarK [%]"); //Intl.message("CV [%]");
-  static String msgHYPO(unit)
-  =>
-    Intl.message("Intensität HYPO\n[${unit} x min²]", args: [unit],
+  static String msgTOR([value = ""])
+  {
+    if (value != "")value = "${value} ";
+    return Intl.message("ToR [${value}min/d]", args: [value], name: "msgTOR");
+  }
+
+  static String msgCV([value = ""])
+  {
+    if (value != "")value = "${value} ";
+    return Intl.message("VarK [${value}%]", args: [value], name: "msgCV"); //Intl.message("CV [%]");
+  }
+
+  static String msgHYPO(unit, [value = ""])
+  {
+    if (value != "")unit = "${value} ${unit}";
+    return Intl.message("Intensität HYPO\n[${unit} x min²]", args: [unit, value],
       name: "msgHYPO"); //Intl.message("Intensity HYPO\n[${unit} x min²]", args: [unit], name: "msgHYPO");
-  static String msgHYPER(unit)
-  =>
-    Intl.message("Intensität HYPER\n[${unit} x min²]", args: [unit],
+  }
+
+  static String msgHYPER(unit, [value = ""])
+  {
+    if (value != "")unit = "${value} ${unit}";
+    return Intl.message("Intensität HYPER\n[${unit} x min²]", args: [unit, value],
       name: "msgHYPER"); //Intl.message("Intensity HYPER\n[${unit} x min²]", args: [unit], name: "msgHYPER");
-  static String msgMEAN(unit)
-  =>
-    Intl.message("Mittlere Glukose\n[${unit}]", args: [unit],
+  }
+
+  static String msgMEAN(unit, [value = ""])
+  {
+    if (value != "")unit = "${value} ${unit}";
+    return Intl.message("Mittlere Glukose\n[${unit}]", args: [unit, value],
       name: "msgMEAN"); //Intl.message("Mean glucose\n[${unit}]", args: [unit], name: "msgMEAN");
+  }
+
   static String get msgPGR
   => Intl.message("PGR");
 
@@ -119,14 +136,14 @@ class PentagonData
     axis = [
       PentagonScaleData([0, 300, 480, 720, 900, 1080, 1200, 1440], 1, scaleMethod: (v)
       => math.pow(v * 0.00614, 1.581) + 14,
-        name: msgTOR,
+        name: msgTOR(),
         nameX: -2.5,
         nameY: -0.4,
         valueX: 0.15,
         valueY: -0.11),
       PentagonScaleData([16.7, 20, 30, 40, 50, 60, 70, 80], 1, scaleMethod: (v)
       => (v >= 17 ? v - 17 : 0) * 0.92 + 14,
-        name: msgCV,
+        name: msgCV(),
         nameX: -2.3,
         nameY: -0.4,
         valueX: -0.1,
@@ -314,13 +331,7 @@ class PrintCGP extends BasePrint
       headerFooter(),
       {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "canvas": cgp.outputCvs},
       {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "stack": cgp.outputText},
-      infoTable(
-        cgpSrc["pgr"],
-        cgp.glucInfo["unit"],
-        cgpSrc["mean"],
-        xorg,
-        yorg + cgp.ym + cgp.axisLength * cgp.scale + 1.0,
-        2.5,
+      infoTable(cgpSrc, cgp.glucInfo["unit"], xorg, yorg + cgp.ym + cgp.axisLength * cgp.scale + 1.0, 2.5,
         width - 2 * xorg - 2.5)
 //*
       //     */
@@ -328,8 +339,9 @@ class PrintCGP extends BasePrint
     return ret;
   }
 
-  infoTable(double pgr, String unit, double mean, double x, double y, double widthId, double widthText)
+  infoTable(dynamic cgp, String unit, double x, double y, double widthId, double widthText)
   {
+    double pgr = cgp["pgr"];
     return {
       "relativePosition": {"x": cm(x), "y": cm(y)},
 //        "margin": [cm(xorg), cm(0)],
@@ -341,11 +353,17 @@ class PrintCGP extends BasePrint
         "body": [
           [{"text": PentagonData.msgGreen, "colSpan": 2}, {}],
           [{"text": PentagonData.msgYellow, "colSpan": 2}, {}],
-          [{"text": PentagonData.msgTOR}, {"text": PentagonData.msgTORInfo("70 ${unit}", "180 ${unit}")}],
-          [{"text": PentagonData.msgCV}, {"text": PentagonData.msgCVInfo}],
-          [{"text": PentagonData.msgHYPO(unit)}, {"text": PentagonData.msgHYPOInfo("70 ${unit}")}],
-          [{"text": PentagonData.msgHYPER(unit)}, {"text": PentagonData.msgHYPERInfo("180 ${unit}")}],
-          [{"text": PentagonData.msgMEAN(unit)}, {"text": PentagonData.msgMEANInfo(hba1c(mean))}],
+          [
+            {"text": PentagonData.msgTOR(g.fmtNumber(cgp["tor"]))},
+            {"text": PentagonData.msgTORInfo("70 ${unit}", "180 ${unit}")}
+          ],
+          [{"text": PentagonData.msgCV(g.fmtNumber(cgp["vark"]))}, {"text": PentagonData.msgCVInfo}],
+          [{"text": PentagonData.msgHYPO(unit, g.fmtNumber(cgp["hypo"]))}, {"text": PentagonData.msgHYPOInfo("70 ${unit}")}],
+          [{"text": PentagonData.msgHYPER(unit, g.fmtNumber(cgp["hyper"]))}, {"text": PentagonData.msgHYPERInfo("180 ${unit}")}],
+          [
+            {"text": PentagonData.msgMEAN(unit, g.fmtNumber(cgp["mean"]))},
+            {"text": PentagonData.msgMEANInfo(hba1c(cgp["mean"]))}
+          ],
           [
             {"margin": [cm(0), cm(0.5), cm(0), cm(0)], "text": PentagonData.msgPGR},
             {"margin": [cm(0), cm(0.5), cm(0), cm(0)], "text": PentagonData.msgPGRInfo}
@@ -486,6 +504,14 @@ class PrintCGP extends BasePrint
       ]
     });
 
-    return {"cgp": cgp, "pgr": pgr};
+    return {
+      "cgp": cgp,
+      "pgr": pgr,
+      "mean": avgGluc,
+      "hypo": hypoAUC,
+      "hyper": hyperAUC,
+      "tor": tor,
+      "vark": totalDay.varK
+    };
   }
 }

@@ -143,7 +143,7 @@ material-button svg {
   flex-direction: row;
 }
 
-.menuControls .iconButton {
+.menuControls ::ng-deep .iconButton {
   display: flex;
   flex: 1;
   text-align: left;
@@ -154,7 +154,7 @@ material-button svg {
   margin: 0;
 }
 
-.iconButton img, .iconButton svg {
+.iconButton img, .iconButton svg, ::ng-deep .iconButton material-icon {
   margin-right: 1em;
 }
 
@@ -398,21 +398,24 @@ material-drawer {
   text-align: center;
 }
 
+.signintext {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  flex: 1;
+}
+
 material-fab.debug-trigger {
   position: fixed;
-  bottom: 1.5em;
-  left: 2.5em;
+  bottom: 1.0em;
+  left: 1.0em;
   background: $debug_back !important;
   color: $mat-white;
 }
 
 signin {
-  position: fixed;
-  bottom: 2em;
-  left: 1em;
-
-  ::ng-deep material-button {
-    background: white;
+  ::ng-deep material-fab:not(.authorized) {
+    background: $google_signedout !important;
   }
 }
 
@@ -1025,3 +1028,28 @@ datepicker {
   }
 }
 
+#debugMessage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  background: $debug_back;
+  color: $debug_fore;
+  padding: 2em;
+  cursor: pointer;
+  overflow-y: auto;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  max-height: 80%;
+  border: 2px solid $debug_fore;
+
+  scrollbar-color: $debug_second $debug_first;
+
+  ::-webkit-scrollbar-track {
+    background-color: $debug_second;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $debug_first;
+  }
+}

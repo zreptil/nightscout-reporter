@@ -41,14 +41,16 @@ class PrintDailyGraphic extends BasePrint
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, showNotes,
     sortReverse, showGlucTable, showSMBAtGluc, showNoteLinesAtGluc, sumNarrowValues, showSMB, splitBolus, showExercises,
-    showCarbIE, showCGP;
+    showCarbIE, showCGP, showProfileStart;
 
   @override
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: true),
     ParamInfo(3, msgParam3, boolValue: true),
-    ParamInfo(5, msgParam4, boolValue: true, isLoopValue: true),
+    ParamInfo(5, msgParam4, boolValue: true,
+      isLoopValue: true,
+      subParams: [ParamInfo(0, msgParam20, boolValue: false, isLoopValue: true)]),
     ParamInfo(6, msgParam5, boolValue: true),
     ParamInfo(7, msgParam6, boolValue: false, isDeprecated: true),
     ParamInfo(11, msgParam7, list: [
@@ -79,6 +81,7 @@ class PrintDailyGraphic extends BasePrint
     showInsulin = params[1].boolValue;
     showCarbs = params[2].boolValue;
     showBasalDay = params[3].boolValue;
+    showProfileStart = params[3].subParams[0].boolValue;
     showBasalProfile = params[4].boolValue;
     isPrecise = params[5].boolValue;
     showLegend = params[7].boolValue;
@@ -165,6 +168,8 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Berechnete IE für Kohlenhydrate anzeigen");
   static String get msgParam19
   => Intl.message("Glukose Pentagon erzeugen");
+  static String get msgParam20
+  => Intl.message("Tagesstartprofil anzeigen");
 
   @override
   List<String> get imgList
@@ -995,12 +1000,12 @@ class PrintDailyGraphic extends BasePrint
       double prz = day.ieBasalSum / (day.ieBasalSum + day.ieBolusSum) * 100;
       infoBody.add([
         {"text": "Basal ges.", "fontSize": fs(10)},
-        {"text": "${g.fmtNumber(prz, 1, false)} %", "color": colBolus, "fontSize": fs(10), "alignment": "right"}
+        {"text": "${g.fmtNumber(prz, 1)} %", "color": colBolus, "fontSize": fs(10), "alignment": "right"}
       ]);
       prz = day.ieBolusSum / (day.ieBasalSum + day.ieBolusSum) * 100;
       infoBody.add([
         {"text": "Bolus ges.", "fontSize": fs(10)},
-        {"text": "${g.fmtNumber(prz, 1, false)} %", "color": colBolus, "fontSize": fs(10), "alignment": "right"}
+        {"text": "${g.fmtNumber(prz, 1)} %", "color": colBolus, "fontSize": fs(10), "alignment": "right"}
       ]);
     }
 
@@ -1031,31 +1036,17 @@ class PrintDailyGraphic extends BasePrint
     {
       DateTime startDate = DateTime(day.date.year, day.date.month, day.date.day);
       startDate = startDate.add(Duration(minutes: -1));
+      ProfileData startProfile = null;
       for (ProfileData p in src.profiles)
       {
-        if (p.startDate.isAfter(startDate) && p.startDate.year == day.date.year && p.startDate.month == day.date.month
-            && p.startDate.day == day.date.day)
+        if (p.startDate.isBefore(startDate))startProfile = p;
+        if (p.startDate.isAfter(startDate) && day.isSameDay(p.startDate))
         {
-          double x = glucX(p.startDate);
-          double y = graphHeight + basalTop + basalHeight;
-          if (x < width)
-          {
-            (stack[0]["canvas"] as List).add({
-              "type": "line",
-              "x1": cm(x),
-              "y1": cm(0),
-              "x2": cm(x),
-              "y2": cm(basalHeight + 0.25),
-              "lineWidth": cm(lw),
-              "lineColor": colProfileSwitch
-            });
-            stack.add({"relativePosition": {"x": cm(xo + x + 0.1), "y": cm(yo + y)}, "text": src
-              .profile(p.startDate)
-              .store
-              .name, "fontSize": fs(8), "color": colProfileSwitch});
-          }
+          showProfileSwitch(src, p, stack, xo, yo);
         }
       }
+      if (startProfile != null && showProfileStart)showProfileSwitch(
+        src, startProfile, stack, xo, yo, glucX(DateTime(0)));
     }
 
     String error = null;
@@ -1095,6 +1086,28 @@ class PrintDailyGraphic extends BasePrint
       legend.asOutput,
       infoTable,
     ];
+  }
+
+  showProfileSwitch(ReportData src, ProfileData p, List stack, double xo, double yo, [double x = null])
+  {
+    if (x == null)x = glucX(p.startDate);
+    double y = graphHeight + basalTop + basalHeight;
+    if (x < width)
+    {
+      (stack[0]["canvas"] as List).add({
+        "type": "line",
+        "x1": cm(x),
+        "y1": cm(0),
+        "x2": cm(x),
+        "y2": cm(basalHeight + 0.25),
+        "lineWidth": cm(lw),
+        "lineColor": colProfileSwitch
+      });
+      stack.add({"relativePosition": {"x": cm(xo + x + 0.1), "y": cm(yo + y)}, "text": src
+        .profile(p.startDate)
+        .store
+        .name, "fontSize": fs(8), "color": colProfileSwitch});
+    }
   }
 
   getBasalGraph(DayData day, bool useProfile, bool displayProfile, double xo, double yo)

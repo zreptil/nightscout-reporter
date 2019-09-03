@@ -36,4 +36,16 @@ class WelcomeComponent
   {
     _trigger.add(UIEvent(key, detail: 0));
   }
+
+  signinEvent(SigninEvent e)
+  {
+    switch (e.status)
+    {
+      case SigninStatus.signinOk:
+        fire("normal");
+        break;
+      default:
+        break;
+    }
+  }
 }

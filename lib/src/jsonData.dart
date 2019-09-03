@@ -1601,16 +1601,20 @@ class DayData
     lowCount = 0;
     for (EntryData entry in entries)
     {
-      if (entry.gluc != 0)
+      if (entry.gluc >= 0)
       {
         entryCount++;
         if (entry.gluc < basalData.targetLow)lowCount++;
         else if (entry.gluc > basalData.targetHigh)highCount++;
         else
           normCount++;
-        mid += entry.gluc;
-        min = math.min(min, entry.gluc);
-        max = math.max(max, entry.gluc);
+
+        if(entry.gluc > 0)
+        {
+          mid += entry.gluc;
+          min = math.min(min, entry.gluc);
+          max = math.max(max, entry.gluc);
+        }
       }
     }
 

@@ -71,6 +71,7 @@
     <impressum *ngIf="currPage=='impressum'" (closeClicked)="callbackButton"></impressum>
     <whatsnew *ngIf="currPage=='whatsnew'" (closeClicked)="callbackButton"></whatsnew>
     <dsgvo *ngIf="currPage=='dsgvo'" (closeClicked)="callbackButton"></dsgvo>
+    <div class="signintext" *ngIf="currPage=='signin'" @i18n="signin to google">Anmeldung bei Google...</div>
     <div class="centered" *ngIf="currPage=='pdfList' || progressText != null">
       <div [style.display]="currPage=='signin'?'':'none'" @i18n="message for signin to google">
         Verbinde zu Google Drive...
@@ -211,11 +212,6 @@
                   (trigger)="reportData=null;isDebug=!isDebug;checkPrint();">
       <material-icon icon="bug_report"></material-icon>
     </material-fab>
-    <signin [isVisible]="isSigninActive && currPage=='normal'" [autoStart]="g.saveToGoogle" [showFab]="true"
-            [raised]="true" [(isAuthorized)]="g.saveToGoogle"
-            clientId="939975570793-i9kj0rp6kgv470t45j1pf1hg3j9fqmbh"
-            (trigger)="signinEvent($event)"
-            (signinResult)="g.client=$event"></signin>
   </material-content>
   <material-drawer scrollable persistent #drawer="drawer" [(visible)]="drawerVisible" [attr.overlay]="">
     <div class="drawer-root">
@@ -249,6 +245,11 @@
           <ng-container @i18n="title of listview" *ngIf="g.viewType=='tile'">Zur Listenansicht</ng-container>
           <ng-container @i18n="title of tileview" *ngIf="g.viewType=='list'">Zur Kachelansicht</ng-container>
         </material-button>
+        <signin [isVisible]="true" [autoStart]="g.loadStorage('syncGoogle')=='yes'" [showMenuButton]="true"
+                [raised]="true" [(isAuthorized)]="g.syncGoogle"
+                [clientId]="g.googleClientId"
+                (trigger)="signinEvent($event)"
+                (signinResult)="g.client=$event;"></signin>
         <material-button class="iconButton material-drawer-button" (trigger)="currPage='whatsnew';">
           <material-icon icon="new_releases"></material-icon>
           <ng-container @i18n="title of whatsnew screen">Was bisher geschah...</ng-container>
@@ -303,6 +304,9 @@
       </div>
     </div>
   </material-drawer>
+</div>
+<div id="debugMessage" *ngIf="message.dbgText != null" (click)="message.clear();">
+  <p [innerHTML]="message.dbgText"></p>
 </div>
 <div id="messagePanel" *ngIf="message.links.length > 0 || !message.isEmpty">
   <div id="message" *ngIf="!message.isEmpty || message.links.length > 0" [class]="message.type">

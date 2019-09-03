@@ -229,7 +229,7 @@ abstract class BasePrint
   //=> g.fmtNumber((avgGluc + 86) / 33.3, 1, false);
 
   String hba1c(double avgGluc)
-  => avgGluc == null ? "" : g.fmtNumber(hba1cValue(avgGluc), 1, false);
+  => avgGluc == null ? "" : g.fmtNumber(hba1cValue(avgGluc), 1);
 
   double hba1cValue(double avgGluc)
   => avgGluc == null ? null : (avgGluc + 46.7) / 28.7;
@@ -467,11 +467,11 @@ abstract class BasePrint
   get msgReadingsCount
   => Intl.message("Anzahl Messungen");
   get msgReservoirCount
-  => Intl.message("Anzahl Ampullen");
+  => Intl.message("Anzahl Ampullenwechsel");
   get msgCatheterCount
-  => Intl.message("Anzahl Katheter");
+  => Intl.message("Anzahl Katheterwechsel");
   get msgSensorCount
-  => Intl.message("Anzahl Sensoren");
+  => Intl.message("Anzahl Sensorenwechsel");
   String get msgHbA1C
   => Intl.message("gesch. HbA1c");
   get msgHbA1CLong
@@ -551,7 +551,7 @@ abstract class BasePrint
 
   msgStdAbw(value)
   {
-    value = g.fmtNumber(value, 1, false, "0.0");
+    value = g.fmtNumber(value, 1, 0, "0.0");
     return Intl.message("(StdAbw ${value})", args: [value], name: "msgStdAbw");
   }
 
@@ -1450,9 +1450,8 @@ abstract class BasePrint
       {"relativePosition": {"x": cm(xorg) + cm(cgp.axisLength / cgp.scale), "y": cm(y)}, "stack": cgp.outputText},
 
       cgpPage.infoTable(
-        cgpSrc["pgr"],
+        cgpSrc,
         cgp.glucInfo["unit"],
-        cgpSrc["mean"],
         x,
         y,
         2.5,

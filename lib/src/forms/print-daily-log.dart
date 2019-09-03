@@ -211,7 +211,7 @@ class PrintDailyLog extends BaseProfile
 
   fillTable(DayData day, ReportData src, List<List<dynamic>> pages)
   {
-    _maxY = height - 1.8;
+    _maxY = height - 2.8;
     _headFilled = false;
     _headLine = [];
     _isFirstLine = true;

@@ -135,8 +135,6 @@ class AppComponent
   String pdfUrl = "";
   bool isDebug = false;
   globals.Msg message = globals.Msg();
-  bool get isSigninActive
-  => g.isLocal;
   String pdfFilename(idx)
   => "Nightscout-Reporter-${idx}.pdf";
   String get msgCheckSetup
@@ -312,6 +310,7 @@ class AppComponent
 //    Future.delayed(Duration(milliseconds: 10), ()
 //    {});
 //*
+    g.doShowDebug = showDebug;
     g.loadSettings().then((_)
     {
       String page = g.version == g.lastVersion ? "normal" : "whatsnew";
@@ -393,6 +392,11 @@ class AppComponent
       {"url": g.adjustUrl(url), "title": title, "class": btnClass, "icon": isDebug && icon == null ? "code" : icon});
     message.okText = msgClose;
     if (type != null)message.type = type;
+  }
+
+  void showDebug(String msg)
+  {
+    message.dbgText = msg;
   }
 
   void display(String msg, {bool append: false, List links = null})
@@ -795,15 +799,44 @@ class AppComponent
     => a.startDate.compareTo(b.startDate));
 
     // calculate the duration of the profiles
-    for (int i = 1; i < data.profiles.length; i++)
+    int i = 1;
+    while (i < data.profiles.length)
     {
       ProfileData last = data.profiles[i - 1];
       ProfileData current = data.profiles[i];
-      last.duration = current.startDate
+      int duration = current.startDate
         .difference(last.startDate)
         .inMinutes;
+      if (last.duration >= duration || last.duration == 0)
+      {
+        last.duration = duration;
+      }
+      else if (i > 2)
+      {
+        ProfileData temp = data.profiles[i - 2].copy;
+        temp.startDate = last.startDate.add(Duration(minutes: last.duration));
+        temp.duration = current.startDate
+          .difference(temp.startDate)
+          .inMinutes;
+        data.profiles.insert(i, temp);
+      }
+      i++;
     }
 
+    ProfileData last = data.profiles.last;
+    if (data.profiles.last.duration > 0 && data.profiles.length > 1)
+    {
+      ProfileData temp = data.profiles[data.profiles.length - 2].copy;
+      temp.startDate = last.startDate.add(Duration(minutes: last.duration));
+      temp.duration = 0;
+      data.profiles.add(temp);
+    }
+/*
+    String text = "";
+    for (ProfileData p in data.profiles)
+      text = "${text}<div>${p.startDate}(${p.duration} min)=${p.current?.name}</div>";
+    message.dbgText = text;
+*/
     // remove all profiles with a length of 0
     data.profiles.removeWhere((p)
     => p.duration < 2 && p != data.profiles.last);
@@ -1305,17 +1338,20 @@ class AppComponent
     switch (e.status)
     {
       case SigninStatus.requestAuthorization:
-        _currPage = "signin";
+//        _currPage = "signin";
         break;
       case SigninStatus.signinOk:
-        _currPage = "normal";
+//        _currPage = "normal";
         break;
       case SigninStatus.signedOut:
-        _currPage = "normal";
+//        _currPage = "normal";
         break;
       case SigninStatus.error:
         display(e.message);
-        _currPage = "normal";
+//        _currPage = "normal";
+        break;
+      default:
+        message.text = "${message.text} - ${e.message}";
         break;
     }
   }

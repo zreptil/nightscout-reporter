@@ -19,6 +19,12 @@ abstract class BaseProfile extends BasePrint
 {
   msgProfileSwitch(String oldName, String newName)
   => Intl.message("Profilwechsel - ${oldName} => ${newName}", args: [oldName, newName], name: "msgProfileSwitch");
+
+  msgProfileSwitchDuration(String oldName, String newName, int duration)
+  =>
+    Intl.message("Profilwechsel - ${oldName} => ${newName} für ${duration} Minuten", args: [oldName, newName, duration],
+      name: "msgProfileSwitchDuration");
+
   msgChangedEntry(String name, String from, String to)
   => Intl.message("${name} ${from} => ${to}", args: [name, from, to], name: "msgChangedEntry");
   get msgNoChange
@@ -121,7 +127,9 @@ abstract class BaseProfile extends BasePrint
     List<String> ret = List<String>();
     ProfileGlucData before = src.profile(t.createdAt.add(Duration(days: -1)));
     ProfileGlucData current = src.profile(t.createdAt);
-    ret.add(msgProfileSwitch(before.store.name, current.store.name));
+    if (t.duration > 0)ret.add(msgProfileSwitchDuration(before.store.name, current.store.name, t.duration));
+    else
+      ret.add(msgProfileSwitch(before.store.name, current.store.name));
 
     if (!showDetails)return ret.join("\n");
 

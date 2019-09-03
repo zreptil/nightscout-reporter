@@ -10,6 +10,34 @@
       </material-button>
     </div>
     <div class="root">
+      <h2><span @i18n="version">Version</span><span @i18n="v131">1.3.2 - xx.09.2019</span></h2>
+      <ul>
+        <li class="added" @i18n="v132a1">
+          Beim CGP werden die aktuellen Werte jetzt in der Legende angezeigt.
+        </li>
+        <li class="added" @i18n="v132a2">
+          Es ist jetzt möglich, die Einstellungen auf Google Drive zu speichern. Das hat den Vorteil, dass man die
+          Einstellungen nicht nur im aktuellen Browser hat, sondern bei jedem Browser, mit dem man sich bei Google
+          anmeldet. Die Einstellungen werden nach wie vor im Browser gespeichert. Bei einer Verbindung zu Google Drive
+          werden sie aber zusätzlich auf Google Drive gespeichert. Beim Laden der Seite wird überprüft, ob eine
+          Synchronisierung gewünscht ist. Wenn das der Fall ist, dann werden die Daten von Google Drive heruntergeladen.
+          Wenn die Daten darin neuer sind als die Daten im Browser, werden sie verwendet. Nach dem Speichern der Daten
+          werden bei aktivierter Synchronisierung diese Daten mit dem aktuellen Zeitstempel auf Google Drive
+          gespeichert. Die Synchronisierung wird im Menü auf der linken Seite aktiviert und deaktiviert. Sie kann auch
+          beim erstmaligen Aufruf der Seite in einem neuen Browser direkt im Willkommensbildschirm aktiviert werden.
+          Nightscout Reporter verlangt nur die Berechtigung die eigenen App-Daten zu speichern und zu laden und benötigt
+          keinen Zugriff auf andere Daten auf Google Drive.
+        </li>
+        <li class="added" @i18n="v132a3">
+          In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils
+          angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel
+          um 0 Uhr.
+        </li>
+        <li class="fixed" @i18n="v132f1">
+          In der Tagesstatistik wurden bei unvollständigen Daten teilweise fehlerhafte Werte ausgegeben. Das wurde
+          korrigiert.
+        </li>
+      </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v131">1.3.1 - 22.08.2019</span></h2>
       <ul>
         <li class="changed" @i18n="v131c1">
@@ -18,6 +46,9 @@
         </li>
         <li class="fixed" @i18n="v131f1">
           Die Listenansicht ist jetzt wieder scrollbar.
+        </li>
+        <li class="fixed" @i18n="v131f2">
+          Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.
         </li>
       </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v130">1.3.0 - 19.08.2019</span></h2>

@@ -4,6 +4,7 @@
 
 :host {
 }
+
 material-dialog {
   @include material-dialog-header-color($primary_back);
   @include material-dialog-header-shadow();
@@ -16,13 +17,15 @@ div[header] {
   color: $primary_fore;
   justify-content: space-between;
   align-items: center;
-  >div{
-    .langPanel{
+
+  > div {
+    .langPanel {
       display: flex;
       flex-direction: row;
       align-content: flex-end;
       flex-wrap: wrap;
     }
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -31,7 +34,7 @@ div[header] {
 
 @media(max-width: 33em) {
   div[header] {
-    flex-direction: column!important;
+    flex-direction: column !important;
   }
 }
 
@@ -40,33 +43,38 @@ div[header] {
   font-size: 1.2em;
   background-color: $secondary_back;
 }
-h1
-{
+
+h1 {
   margin-top: 0em;
   margin-bottom: 0.5em;
 }
-.root>div
-{
+
+.root > div {
   text-align: justify;
   padding-top: 1.0em;
 }
-a,a:visited,a:active
-{
+
+a, a:visited, a:active {
   text-decoration: none;
   cursor: pointer;
   color: $primary-back;
 }
-.controls
-{
+
+.controls {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-.right
-{
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+.right {
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
 }
 

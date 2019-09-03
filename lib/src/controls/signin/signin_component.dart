@@ -13,7 +13,7 @@ import 'package:intl/intl.dart';
 
 enum SigninStatus
 {
-  requestAuthorization, signinOk, signedOut, error
+  requestAuthorization, signinOk, signedOut, error, message
 }
 
 class SigninEvent
@@ -28,10 +28,15 @@ class SigninEvent
   styleUrls: const ['signin_component.css'],
   templateUrl: 'signin_component.html',
   directives: const [
-    MaterialButtonComponent, MaterialIconComponent, MaterialFabComponent, DeferredContentDirective, NgIf],
+    MaterialButtonComponent,
+    MaterialIconComponent,
+    MaterialFabComponent,
+    DeferredContentDirective,
+    NgIf
+  ],
   providers: const <dynamic>[materialProviders])
 class SigninComponent
-  implements OnInit
+  implements AfterViewInit
 {
   bool isBusy = false;
   @Input()
@@ -42,6 +47,8 @@ class SigninComponent
   bool autoStart = false;
   @Input()
   bool showFab = false;
+  @Input()
+  bool showMenuButton = false;
   @Input()
   String clientId = "";
   @Input()
@@ -54,6 +61,10 @@ class SigninComponent
   String msgTitleAuthorized = Intl.message("Verbindung zu Google Drive trennen");
   @Input()
   String msgTitleNotAuthorized = Intl.message("Verbindung zu Google Drive herstellen");
+  @Input()
+  String msgMenuConnected = Intl.message("Synchronisierung aufheben");
+  @Input()
+  String msgMenuNotConnected = Intl.message("Mit Google Drive synchronisieren");
 
   @Input()
   bool isAuthorized = false;
@@ -79,6 +90,13 @@ class SigninComponent
   Stream<auth.AuthClient> get signinResult
   => _signinResult.stream;
 
+  static SigninComponent create(String clientId)
+  {
+    SigninComponent ret = SigninComponent();
+    ret.clientId = clientId;
+    return ret;
+  }
+
   void doLogout()
   {
     Future.delayed(Duration(milliseconds: 1), ()
@@ -99,9 +117,9 @@ class SigninComponent
 
   Future<void> doLogin()
   async {
-    fire(SigninStatus.requestAuthorization);
     authorize(false);
     isBusy = true;
+    fire(SigninStatus.requestAuthorization);
     authorizedClient(identifier, scopes).then((client)
     {
       authorize(true);
@@ -114,7 +132,7 @@ class SigninComponent
       isBusy = false;
       if (error is auth.UserConsentException)
       {
-        _signinResult.add(null); 
+        _signinResult.add(null);
         authorize(false);
         fire(SigninStatus.error, "UserConsentException");
         return new Future.error(error);
@@ -129,13 +147,13 @@ class SigninComponent
   }
 
   @override
-  void ngOnInit()
+  void ngAfterViewInit()
   {
-    if (autoStart || isAuthorized)doLogin();
+    if (autoStart || isAuthorized)Future.delayed(Duration(milliseconds: 10), doLogin);
   }
 
   Future<auth.AutoRefreshingAuthClient> authorizedClient(auth.ClientId id, scopes)
-  {
+  async {
     isAuthorized = false;
     return auth.createImplicitBrowserFlow(id, scopes).then((auth.BrowserOAuth2Flow flow)
     {

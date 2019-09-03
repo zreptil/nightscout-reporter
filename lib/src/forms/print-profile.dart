@@ -71,7 +71,7 @@ class PrintProfile extends BaseProfile
           "bold": true
         },
         {
-          "text": g.fmtNumber(sum, precision, false),
+          "text": g.fmtNumber(sum, precision, 0),
           "style": "infodata",
           "fontSize": fs(_fontSize),
           "bold": true
@@ -113,7 +113,7 @@ class PrintProfile extends BaseProfile
             "fontSize": fs(_fontSize)
           },
           {
-            "text": entry.forceText ?? g.fmtNumber(entry.value, precision, false),
+            "text": entry.forceText ?? g.fmtNumber(entry.value, precision, 0),
             "style": "infodata",
             "fontSize": fs(_fontSize)
           },
@@ -146,14 +146,14 @@ class PrintProfile extends BaseProfile
         {"text": msgTimezone, "style": "infotitle", "alignment": "right"},
         {"text": profile.store.timezone.name, "style": "infodata", "alignment": "left"},
         {"text": msgDIA, "style": "infotitle", "alignment": "right"},
-        {"text": g.fmtNumber(profile.store.dia, 2, false), "style": "infodata"},
+        {"text": g.fmtNumber(profile.store.dia, 2, 0), "style": "infodata"},
         {"text": msgDIAUnit, "style": "infounit"},
       ],
       [
         {"text": "", "style": "infotitle", "alignment": "right"},
         {"text": "", "style": "infodata", "alignment": "left"},
         {"text": msgKHA, "style": "infotitle", "alignment": "right"},
-        {"text": g.fmtNumber(profile.store.carbsHr, 0, false), "style": "infodata"},
+        {"text": g.fmtNumber(profile.store.carbsHr, 0, 0), "style": "infodata"},
         {"text": msgKHAUnit, "style": "infounit"},
       ],
     ];

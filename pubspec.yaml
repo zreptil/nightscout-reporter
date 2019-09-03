@@ -14,8 +14,8 @@ dependencies:
   crypto: ^2.0.6
   dnd: ^1.4.2
   timezone: ^0.5.4
-  googleapis: ^0.53.0
-  googleapis_auth: ^0.2.7
+  googleapis: ^0.54.0
+  googleapis_auth: ^0.2.10
   js: ^0.6.1+1
 
 dev_dependencies:

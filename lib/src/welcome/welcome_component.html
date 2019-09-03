@@ -44,12 +44,20 @@
         PDF-Dokuments kommen Javascript und PHP zum Einsatz.
       </div>
       <div class="controls" *ngIf="!g.isConfigured">
-        <material-button class="iconButton" [raised]="true" (trigger)="fire('settings')">
-          <material-icon icon="settings"></material-icon>
-          <ng-container @i18n="label for button to open settings on welcome screen">
-            Einstellungen für die Verwendung der Seite vornehmen
-          </ng-container>
-        </material-button>
+        <div class="left">
+          <material-button class="iconButton" [raised]="true" (trigger)="fire('settings')">
+            <material-icon icon="settings"></material-icon>
+            <ng-container @i18n="label for button to open settings on welcome screen">
+              Einstellungen für die Verwendung der Seite vornehmen
+            </ng-container>
+          </material-button>
+          <signin [isVisible]="true"
+                  [raised]="true" [(isAuthorized)]="g.syncGoogle"
+                  [clientId]="g.googleClientId"
+                  (trigger)="signinEvent($event)"
+                  (signinResult)="g.client=$event;" @i18n:msgDisconnected="synchronize with google drive"
+                  msgDisconnected="Mit Google Drive synchronisieren"></signin>
+        </div>
         <div class="right">
           <material-button class="legal"
                            (trigger)="fire('impressum');"

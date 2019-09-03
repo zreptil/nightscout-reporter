@@ -214,8 +214,8 @@ class PrintAnalysis extends BasePrint
         {"text": msgReservoirCount, "style": "infotitle"},
         {"text": g.fmtNumber(data.ampulleCount), "style": "infodata"},
         {
-          "text": data.ampulleCount > 0 ? msgReservoirDays((src.dayCount / data.ampulleCount).round(),
-            g.fmtNumber(src.dayCount / data.ampulleCount, _precisionMaterial, false, "", true)) : "",
+          "text": data.ampulleCount > 1 ? msgReservoirDays((src.dayCount / data.ampulleCount).round(),
+            g.fmtNumber(src.dayCount / data.ampulleCount, _precisionMaterial, 0, "", true)) : "",
           "style": "infounit",
           "colSpan": 3
         },
@@ -226,8 +226,8 @@ class PrintAnalysis extends BasePrint
         {"text": msgCatheterCount, "style": "infotitle"},
         {"text": g.fmtNumber(data.catheterCount), "style": "infodata"},
         {
-          "text": data.catheterCount > 0 ? msgCatheterDays((src.dayCount / data.catheterCount).round(),
-            g.fmtNumber(src.dayCount / data.catheterCount, _precisionMaterial, false, "", true)) : "",
+          "text": data.catheterCount > 1 ? msgCatheterDays((src.dayCount / data.catheterCount).round(),
+            g.fmtNumber(src.dayCount / data.catheterCount, _precisionMaterial, 0, "", true)) : "",
           "style": "infounit",
           "colSpan": 3
         },
@@ -238,8 +238,8 @@ class PrintAnalysis extends BasePrint
         {"text": msgSensorCount, "style": "infotitle"},
         {"text": g.fmtNumber(data.sensorCount), "style": "infodata"},
         {
-          "text": data.sensorCount > 0 ? msgSensorDays((src.dayCount / data.sensorCount).round(),
-            g.fmtNumber(src.dayCount / data.sensorCount, _precisionMaterial, false, "", true)) : "",
+          "text": data.sensorCount > 1 ? msgSensorDays((src.dayCount / data.sensorCount).round(),
+            g.fmtNumber(src.dayCount / data.sensorCount, _precisionMaterial, 0, "", true)) : "",
           "style": "infounit",
           "colSpan": 3
         },
@@ -557,15 +557,15 @@ class PrintAnalysis extends BasePrint
       [
         {"text": "", "style": "infotitle"},
         {"text": msgKHPerDay, "style": "infotitle"},
-        {"text": g.fmtNumber(data.khCount / src.dayCount, 1, false), "style": "infodata"},
-        {"text": msgKHBE(g.fmtNumber(data.khCount / src.dayCount / 12, 1, false)), "style": "infounit", "colSpan": 2},
+        {"text": g.fmtNumber(data.khCount / src.dayCount, 1, 0), "style": "infodata"},
+        {"text": msgKHBE(g.fmtNumber(data.khCount / src.dayCount / 12, 1, 0)), "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
       ],
       [
         {"text": "", "style": "infotitle"},
         {"text": msgInsulinPerDay, "style": "infotitle"},
-        {"text": "${g.fmtNumber((data.ieBolusSum + data.ieBasalSum) / src.dayCount, 1, false)}", "style": "infodata"},
+        {"text": "${g.fmtNumber((data.ieBolusSum + data.ieBasalSum) / src.dayCount, 1)}", "style": "infodata"},
         {"text": "${msgInsulinUnit}", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
@@ -573,16 +573,16 @@ class PrintAnalysis extends BasePrint
       [
         {"text": "", "style": "infotitle"},
         {"text": msgBolusPerDay, "style": "infotitle"},
-        {"text": "${g.fmtNumber(data.ieBolusSum / src.dayCount, 1, false)}", "style": "infodata"},
-        {"text": "bolus (${g.fmtNumber(data.ieBolusPrz, 1, false)} %)", "style": "infounit", "colSpan": 2},
+        {"text": "${g.fmtNumber(data.ieBolusSum / src.dayCount, 1)}", "style": "infodata"},
+        {"text": "bolus (${g.fmtNumber(data.ieBolusPrz, 1)} %)", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
       ],
       [
         {"text": "", "style": "infotitle"},
         {"text": msgBasalPerDay, "style": "infotitle"},
-        {"text": "${g.fmtNumber(data.ieBasalSum / src.dayCount, 1, false)}", "style": "infodata"},
-        {"text": "basal (${g.fmtNumber(data.ieBasalPrz, 1, false)} %)", "style": "infounit", "colSpan": 2},
+        {"text": "${g.fmtNumber(data.ieBasalSum / src.dayCount, 1)}", "style": "infodata"},
+        {"text": "basal (${g.fmtNumber(data.ieBasalPrz, 1)} %)", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
       ],
@@ -590,8 +590,8 @@ class PrintAnalysis extends BasePrint
         {"@": data.ieMicroBolusSum > 0.0},
         {"text": "", "style": "infotitle"},
         {"text": msgMicroBolusPerDay, "style": "infotitle"},
-        {"text": "${g.fmtNumber(data.ieMicroBolusSum / src.dayCount, 1, false)}", "style": "infodata"},
-        {"text": "bolus (${g.fmtNumber(data.ieMicroBolusPrz, 1, false)} %)", "style": "infounit", "colSpan": 2},
+        {"text": "${g.fmtNumber(data.ieMicroBolusSum / src.dayCount, 1)}", "style": "infodata"},
+        {"text": "bolus (${g.fmtNumber(data.ieMicroBolusPrz, 1)} %)", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
       ],
