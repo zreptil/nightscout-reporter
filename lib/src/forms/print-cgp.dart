@@ -293,11 +293,16 @@ class PrintCGP extends BasePrint
   @override
   String subtitle = Intl.message("Comprehensive Glucose Pentagon");
 
-  @override
-  List<ParamInfo> params = [];
+  bool _isPortrait = true;
 
   @override
-  bool isPortrait = true;
+  List<ParamInfo> params = [
+    ParamInfo(0, BasePrint.msgOrientation, list: [Intl.message("Hochformat"), Intl.message("Querformat")]),
+  ];
+
+  @override
+  bool get isPortrait
+  => _isPortrait;
 
   PrintCGP()
   {
@@ -310,8 +315,26 @@ class PrintCGP extends BasePrint
   => {"count": 1, "isEstimated": false};
 
   @override
+  String get backsuffix => isPortraitParam ? "" : "landscape";
+
+  @override
+  extractParams()
+  {
+    switch (params[0].intValue)
+    {
+      case 0:
+        isPortraitParam = true;
+        break;
+      case 1:
+        isPortraitParam = false;
+        break;
+    }
+  }
+
+  @override
   void fillPages(ReportData src, List<List<dynamic>> pages)
   {
+    _isPortrait = isPortraitParam;
     pages.add(getPage(src));
     if (g.showBothUnits)
     {
@@ -327,15 +350,23 @@ class PrintCGP extends BasePrint
     var cgpSrc = calcCGP(src, src.calc.days, scale, width / 2 - xorg, 0);
     PentagonData cgp = cgpSrc["cgp"];
 // */
-    var ret = [
-      headerFooter(),
-      {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "canvas": cgp.outputCvs},
-      {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "stack": cgp.outputText},
-      infoTable(cgpSrc, cgp.glucInfo["unit"], xorg, yorg + cgp.ym + cgp.axisLength * cgp.scale + 1.0, 2.5,
-        width - 2 * xorg - 2.5)
+    var ret;
+    if (isPortrait)
+    {
+      ret = [
+        headerFooter(),
+        {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "canvas": cgp.outputCvs},
+        {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "stack": cgp.outputText},
+        infoTable(cgpSrc, cgp.glucInfo["unit"], xorg, yorg + cgp.ym + cgp.axisLength * cgp.scale + 1.0, 2.5,
+          width - 2 * xorg - 2.5)
 //*
-      //     */
-    ];
+        //     */
+      ];
+    }
+    else
+    {
+      ret = getCGPPage(src.calc.days, src);
+    }
     return ret;
   }
 
@@ -358,8 +389,14 @@ class PrintCGP extends BasePrint
             {"text": PentagonData.msgTORInfo("70 ${unit}", "180 ${unit}")}
           ],
           [{"text": PentagonData.msgCV(g.fmtNumber(cgp["vark"]))}, {"text": PentagonData.msgCVInfo}],
-          [{"text": PentagonData.msgHYPO(unit, g.fmtNumber(cgp["hypo"]))}, {"text": PentagonData.msgHYPOInfo("70 ${unit}")}],
-          [{"text": PentagonData.msgHYPER(unit, g.fmtNumber(cgp["hyper"]))}, {"text": PentagonData.msgHYPERInfo("180 ${unit}")}],
+          [
+            {"text": PentagonData.msgHYPO(unit, g.fmtNumber(cgp["hypo"]))},
+            {"text": PentagonData.msgHYPOInfo("70 ${unit}")}
+          ],
+          [
+            {"text": PentagonData.msgHYPER(unit, g.fmtNumber(cgp["hyper"]))},
+            {"text": PentagonData.msgHYPERInfo("180 ${unit}")}
+          ],
           [
             {"text": PentagonData.msgMEAN(unit, g.fmtNumber(cgp["mean"]))},
             {"text": PentagonData.msgMEANInfo(hba1c(cgp["mean"]))}

@@ -167,6 +167,7 @@ class FormConfig
       if (i >= form.params.length)form.params.add(src.form.params[i]);
       form.params[i].fill(src.form.params[i]);
     }
+    form.extractParams();
   }
 
   fillFromJson(dynamic value)
@@ -180,6 +181,7 @@ class FormConfig
     catch (ex)
     {
     }
+    form.extractParams();
   }
 
   fillFromString(String value)
@@ -199,6 +201,14 @@ abstract class BasePrint
     String ret = title; //g.canDebug && pageCount > 0 ? "$title [ $pageCount ]" : title;
     if (isLocalOnly)ret = "$ret (local)";
     return ret;
+  }
+
+  String get backsuffix => "";
+
+  String get backimage
+  {
+    extractParams();
+    return "packages/nightscout_reporter/assets/img/thumbs/${id}${backsuffix == "" ? "" : "-${backsuffix}"}.png";
   }
 
   String titleInfo;
@@ -285,6 +295,7 @@ abstract class BasePrint
   String lc = "#c0c0c0";
   String lcFrame = "#000000";
 
+  bool isPortraitParam = true;
   bool _isPortrait = true;
   bool get isPortrait
   => true;
@@ -596,6 +607,8 @@ abstract class BasePrint
   => Intl.message("Glukose-Zielbereich\n${unit}", args: [unit], name: "msgTarget");
   msgFactorEntry(String beg, String end)
   => Intl.message("${beg} - ${end}", args: [beg, end], name: "msgFactorEntry");
+  static get msgOrientation
+  => Intl.message("Ausrichtung");
   get msgProfile
   => Intl.message("Profileinstellungen");
   get msgDIA
@@ -935,6 +948,7 @@ abstract class BasePrint
 
   void init()
   {
+    isPortraitParam = isPortrait;
   }
 
   Future<String> getBase64Image(String id)
@@ -1110,7 +1124,7 @@ abstract class BasePrint
       }
       offsetX = 0.0;
       offsetY = 0.0;
-      _isPortrait = isPortrait;
+      _isPortrait = isPortraitParam;
       await fillPages(d, _pages);
       int column = 0;
       int row = 0;
@@ -1449,13 +1463,7 @@ abstract class BasePrint
       {"relativePosition": {"x": cm(xorg) + cm(cgp.axisLength / cgp.scale), "y": cm(y)}, "canvas": cgp.outputCvs},
       {"relativePosition": {"x": cm(xorg) + cm(cgp.axisLength / cgp.scale), "y": cm(y)}, "stack": cgp.outputText},
 
-      cgpPage.infoTable(
-        cgpSrc,
-        cgp.glucInfo["unit"],
-        x,
-        y,
-        2.5,
-        width - x - xorg - 2.5)
+      cgpPage.infoTable(cgpSrc, cgp.glucInfo["unit"], x, y, 2.5, width - x - xorg - 2.5)
     ];
     return ret;
   }

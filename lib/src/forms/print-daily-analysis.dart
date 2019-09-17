@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
+import 'base-daily.dart';
 import 'base-print.dart';
 import 'print-daily-graphic.dart';
 
@@ -12,30 +13,57 @@ class StepData
   StepData(this.min, this.step);
 }
 
-class PrintDailyAnalysis extends BasePrint
+class PrintDailyAnalysis extends BaseDaily
 {
   @override
   String id = "dayanalysis";
 
   bool sortReverse;
+  bool _isPortrait = true;
 
   @override
   bool get isLocalOnly
   => true;
 
   @override
-  List<ParamInfo> params = [ParamInfo(0, PrintDailyGraphic.msgParam10, boolValue: false),
+  List<ParamInfo> params = [
+    ParamInfo(0, PrintDailyGraphic.msgParam10, boolValue: false),
+    ParamInfo(1, BaseDaily.msgDaily1, boolValue: true,
+      subParams: [ParamInfo(0, BaseDaily.msgDaily2, boolValue: true, isLoopValue: true)],
+      isLoopValue: true),
+    ParamInfo(2, BasePrint.msgOrientation, list: [
+      Intl.message("Hochformat"),
+      Intl.message("Querformat")
+    ]),
   ];
 
   @override
   extractParams()
   {
     sortReverse = params[0].boolValue;
+    showSMB = params[1].boolValue;
+    showSMBAtGluc = params[1].subParams[0].boolValue;
+    switch (params[2].intValue)
+    {
+      case 0:
+        isPortraitParam = true;
+        break;
+      case 1:
+        isPortraitParam = false;
+        break;
+    }
   }
+
+  @override
+  bool get isPortrait
+  => _isPortrait;
 
   @override
   dynamic get estimatePageCount
   => {"count": g?.period?.dayCount ?? 0, "isEstimated": false};
+
+  @override
+  String get backsuffix => isPortraitParam ? "" : "landscape";
 
   static String _titleGraphic = Intl.message("Tagesanalyse");
 
@@ -45,10 +73,6 @@ class PrintDailyAnalysis extends BasePrint
   @override
   List<String> get imgList
   => ["nightscout", "katheter.print", "sensor.print", "ampulle.print"];
-
-  @override
-  bool get isPortrait
-  => true;
 
   num lineWidth;
   double glucMax = 0.0;
@@ -96,8 +120,10 @@ class PrintDailyAnalysis extends BasePrint
   void fillPages(ReportData src, List<List<dynamic>> pages)
   async {
 //    scale = height / width;
+    _isPortrait = isPortraitParam;
     var data = src.calc;
     graphWidth = width - 6.7;
+    basalWidth = graphWidth;
     graphHeight = (height - 7.0) / 5;
     lineWidth = cm(0.03);
 
@@ -145,8 +171,7 @@ class PrintDailyAnalysis extends BasePrint
       glucMax = math.max(entry.mbg, glucMax);
     for (TreatmentData entry in day.treatments)
     {
-      if (entry.isBloody)
-        glucMax = math.max((g.glucMGDL ? 1 : 18.02) * entry.glucose, glucMax);
+      if (entry.isBloody)glucMax = math.max((g.glucMGDL ? 1 : 18.02) * entry.glucose, glucMax);
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
 
@@ -252,6 +277,7 @@ class PrintDailyAnalysis extends BasePrint
         });
       }
     }
+    // graphic for glucose
     glucMax = gridLines * glucScale;
 //    glucMax = gridLines * 50.0;
     for (EntryData entry in day.bloody)
@@ -291,6 +317,25 @@ class PrintDailyAnalysis extends BasePrint
       last = entry;
     }
     graphGlucCvs.add(glucLine(points));
+    for (TreatmentData t in day.treatments)
+    {
+      double x, y;
+      if (showSMB && t.isSMB && t.insulin > 0)
+      {
+        EntryData entry = day.findNearest(day.entries, null, t.createdAt);
+        x = glucX(t.createdAt);
+        if (entry != null && showSMBAtGluc)
+        {
+          y = glucY(entry.gluc);
+        }
+        else
+        {
+          y = glucY(src.targetValue(t.createdAt)) + lw / 2;
+        }
+        paintSMB(t.insulin, x, y, graphInsulin["stack"][0]["canvas"] as List);
+      }
+    }
+
 
     DateTime date = DateTime(day.date.year, day.date.month, day.date.day);
     ProfileGlucData profile = src.profile(date);

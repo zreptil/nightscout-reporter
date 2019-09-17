@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
+import 'base-daily.dart';
 import 'base-print.dart';
 
 class CollectInfo
@@ -34,14 +35,14 @@ class CollectInfo
   }
 }
 
-class PrintDailyGraphic extends BasePrint
+class PrintDailyGraphic extends BaseDaily
 {
   @override
   String id = "daygraph";
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, showNotes,
-    sortReverse, showGlucTable, showSMBAtGluc, showNoteLinesAtGluc, sumNarrowValues, showSMB, splitBolus, showExercises,
-    showCarbIE, showCGP, showProfileStart;
+    sortReverse, showGlucTable, showNoteLinesAtGluc, sumNarrowValues, splitBolus, showExercises, showCarbIE, showCGP,
+    showProfileStart;
 
   @override
   List<ParamInfo> params = [
@@ -65,8 +66,8 @@ class PrintDailyGraphic extends BasePrint
     ParamInfo(10, msgParam10, boolValue: false),
     ParamInfo(12, msgParam11, boolValue: true),
     ParamInfo(13, msgParam14, boolValue: true),
-    ParamInfo(2, msgParam15, boolValue: true,
-      subParams: [ParamInfo(0, msgParam12, boolValue: true, isLoopValue: true)],
+    ParamInfo(2, BaseDaily.msgDaily1, boolValue: true,
+      subParams: [ParamInfo(0, BaseDaily.msgDaily2, boolValue: true, isLoopValue: true)],
       isLoopValue: true),
     ParamInfo(14, msgParam16, boolValue: false),
     ParamInfo(15, msgParam17, boolValue: false),
@@ -125,6 +126,9 @@ class PrintDailyGraphic extends BasePrint
     return {"count": count, "isEstimated": false};
   }
 
+  @override
+  String get backsuffix => showCGP ? "cgp" : "";
+
   static String _titleGraphic = Intl.message("Tagesgrafik");
 
   @override
@@ -152,14 +156,10 @@ class PrintDailyGraphic extends BasePrint
   => Intl.message("Neuester Tag zuerst");
   static String get msgParam11
   => Intl.message("Tabelle mit Glukosewerten");
-  static String get msgParam12
-  => Intl.message("SMB an der Kurve platzieren");
   static String get msgParam13
   => Intl.message("Notiz-Linien bis zur Kurve zeichnen");
   static String get msgParam14
   => Intl.message("Nahe zusammen liegende Werte aufsummieren");
-  static String get msgParam15
-  => Intl.message("SMB Werte anzeigen");
   static String get msgParam16
   => Intl.message("Bolusarten anzeigen");
   static String get msgParam17
@@ -189,7 +189,6 @@ class PrintDailyGraphic extends BasePrint
   double carbMax = 200.0;
   double bolusMax = 50.0;
   double ieMax = 0.0;
-  double graphHeight;
   double graphBottom;
   static double graphWidth;
   static double notesTop = 0.4;
@@ -215,9 +214,6 @@ class PrintDailyGraphic extends BasePrint
 
   double bolusY(double value)
   => graphHeight / 4 * value / ieMax;
-
-  double smbY(double value)
-  => graphHeight / 50 * value;
 
   double basalX(DateTime time)
   {
@@ -571,8 +567,8 @@ class PrintDailyGraphic extends BasePrint
           });
           double carbsIE = carbsForIE(src, t);
           if (t.createdAt
-                .difference(collCarbs.last.start)
-                .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
+            .difference(collCarbs.last.start)
+            .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
           else
             collCarbs.add(CollectInfo(t.createdAt, t.carbs, carbsIE));
         }
@@ -595,8 +591,8 @@ class PrintDailyGraphic extends BasePrint
           });
 
           if (t.createdAt
-                .difference(collInsulin.last.start)
-                .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
+            .difference(collInsulin.last.start)
+            .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
           else
             collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
 
@@ -1199,23 +1195,6 @@ class PrintDailyGraphic extends BasePrint
       "color": colCarbs,
       "lineWidth": cm(0),
       "points": [{"x": cm(x), "y": cm(y - h - 0.1)}, {"x": cm(x + 0.1), "y": cm(y)}, {"x": cm(x - 0.1), "y": cm(y)}],
-    });
-  }
-
-  paintSMB(double insulin, double x, double y, List cvs)
-  {
-    double h = smbY(insulin) * 2;
-    cvs.add({
-      "type": "polyline",
-      "closePath": true,
-      "_lineColor": "#000000",
-      "color": colBolus,
-      "lineWidth": cm(0),
-      "points": [
-        {"x": cm(x), "y": cm(y)},
-        {"x": cm(x + 0.1), "y": cm(y - h - 0.1)},
-        {"x": cm(x - 0.1), "y": cm(y - h - 0.1)}
-      ],
     });
   }
 }

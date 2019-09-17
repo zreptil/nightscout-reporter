@@ -106,6 +106,10 @@ material-content.main {
     align-self: stretch;
     border-radius: 0.5em;
     margin-bottom: 0.5em;
+
+    material-button {
+      min-width: 32px;
+    }
   }
 
   [parampanel] {
@@ -113,9 +117,21 @@ material-content.main {
     flex: 1;
     flex-basis: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     min-height: 0;
+    flex-direction: column;
 
-    > formparams {
+    [paramtitle] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5em;
+      border: 1px solid black;
+      border-radius: 0.5em;
+      margin: 0.5em;
+    }
+
+    formparams {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -419,12 +435,16 @@ signin {
   }
 }
 
-.betaTitle {
+.betaTitle, .localTitle {
   font-size: 50%;
 
   ::ng-deep .content {
     padding: 0 !important;
   }
+}
+
+.localTitle {
+  color: $local_back;
 }
 
 .headerinfo {
@@ -885,9 +905,10 @@ datepicker {
     position: absolute;
     top: 0.5em;
     left: 0.5em;
+    z-index: 100;
   }
 
-  [number] {
+  [number], [numberimg] {
     position: absolute;
     top: 0;
     opacity: 0.1;
@@ -896,9 +917,17 @@ datepicker {
     justify-content: center;
     font-size: 5em;
     display: flex;
+    z-index: 100;
   }
 
-  [pages] {
+  [numberimg] {
+    opacity: 0.6;
+    color: black;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  [pages], [pagesportrait] {
     position: absolute;
     bottom: 1em;
     opacity: 0.5;
@@ -907,6 +936,12 @@ datepicker {
     justify-content: center;
     font-size: 1em;
     display: flex;
+    z-index: 100;
+  }
+
+  [pagesportrait] {
+    bottom: 2.1em;
+    color: black;
   }
 
   [params] {
@@ -920,8 +955,19 @@ datepicker {
     right: 0.8em;
   }
 
+  img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    max-height: 90%;
+    max-width: 90%;
+  }
+
   [title] {
     padding: 1em;
+    z-index: 100;
   }
 
   display: flex;
@@ -955,7 +1001,7 @@ datepicker {
 
   .is-local {
     border-color: $local_fore;
-    background: $local_back;
+    background: transparent;
     color: $local_fore;
     @include material-checkbox-color($local_fore, $modifier: '');
     @include slider-thumb-color('material-slider.slider', $local_fore);

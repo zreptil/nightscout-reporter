@@ -77,6 +77,9 @@ class PrintWeeklyGraphic extends BasePrint
     return {"count": count, "isEstimated": false};
   }
 
+  @override
+  String get backsuffix => showCGP ? "cgp" : "";
+
   static String _title = Intl.message("Wochengrafik");
 
   @override

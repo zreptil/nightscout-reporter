@@ -77,28 +77,28 @@ class PeriodShift
 
 class Settings
 {
-  String version = "1.3.2ßc";
+  String version = "1.3.4";
   int timestamp = 0;
   static bool itod = html.window.localStorage["unsafe"] != "zh++;";
   String betaPrefix = "@";
   String lastVersion;
   bool glucMGDL = true;
-  bool pdfSameWindow = true;
-  bool pdfDownload = false;
   bool hideNightscoutInPDF = true;
+  bool showAllTileParams = false;
   bool hidePdfInfo = false;
   bool showCurrentGluc = false;
   bool showInfo = false;
+  bool tileShowImage = false;
   LangData _language = null;
   String _pdfOrder = "";
   String _viewType = "";
   List<FormConfig> listConfig = List<FormConfig>();
-  int _pdfCreationMaxSize = 400000;
   DateFormat fmtDateForData;
   DateFormat fmtDateForDisplay;
   DatepickerPeriod period = DatepickerPeriod();
   bool canDebug = false;
   bool isBeta = html.window.location.href.contains("/beta/");
+  bool get runsLocal => html.window.location.href.contains("/localhost:");
   bool _isLocal = html.window.location.href.contains("/localhost:");
   bool get isLocal
   => _isLocal;
@@ -112,20 +112,6 @@ class Settings
   showDebug(String msg)
   {
     if (canDebug && doShowDebug != null)doShowDebug(msg);
-  }
-
-  int get pdfCreationMaxSize
-  {
-    if (_pdfCreationMaxSize < Globals.PDFDIVIDER)_pdfCreationMaxSize = Globals.PDFDIVIDER;
-    if (_pdfCreationMaxSize > Globals.PDFUNLIMITED)_pdfCreationMaxSize = Globals.PDFUNLIMITED;
-    return _pdfCreationMaxSize;
-  }
-
-  set pdfCreationMaxSize(int value)
-  {
-    if (value < Globals.PDFDIVIDER)value = Globals.PDFDIVIDER;
-    if (value > Globals.PDFUNLIMITED)value = Globals.PDFUNLIMITED;
-    _pdfCreationMaxSize = value;
   }
 
   set pdfOrder(String value)
@@ -250,9 +236,6 @@ class Settings
       ',"userIdx":"${userIdx}"'
       ',"glucMGDL":"${glucMGDL}"'
       ',"language":"${language.code ?? 'de_DE'}"'
-      ',"pdfSameWindow":"${pdfSameWindow ? 'yes' : 'no'}"'
-      ',"pdfDownload":"${pdfDownload ? 'yes' : 'no'}"'
-      ',"pdfCreationMaxSize":"${pdfCreationMaxSize}"'
       ',"hideNightscoutInPDF":"${hideNightscoutInPDF ? 'yes' : 'no'}"'
       ',"hidePdfInfo":"${hidePdfInfo ? 'yes' : 'no'}"'
       ',"showCurrentGluc":"${showCurrentGluc ? 'yes' : 'no'}"'
@@ -260,6 +243,8 @@ class Settings
       ',"pdfOrder":"${_pdfOrder}"'
       ',"viewType":"${_viewType}"'
       ',"timestamp":"${timestamp}"'
+      ',"tileShowImage":"${tileShowImage ? 'yes' : 'no'}"'
+      ',"showAllTileParams":"${showAllTileParams ? 'yes' : 'no'}"'
       '}';
   }
 
@@ -271,8 +256,6 @@ class Settings
       ',"mu":"${loadStorage('mu')}"'
       ',"glucMGDL":"${loadStorage('glucMGDL')}"'
       ',"language":"${loadStorage('language')}"'
-      ',"pdfSameWindow":"${loadStorage('pdfSameWindow')}"'
-      ',"pdfDownload":"${loadStorage('pdfDownload')}"'
       ',"pdfCreationMaxSize":"${loadStorage('pdfCreationMaxSize')}"'
       ',"hideNightscoutInPDF":"${loadStorage('hideNightscoutInPDF')}"'
       ',"hidePdfInfo":"${loadStorage('hidePdfInfo')}"'
@@ -282,11 +265,18 @@ class Settings
       ',"viewType":"${loadStorage('viewType')}"'
       ',"timestamp":"${loadStorage('timestamp')}"'
       ',"currCompIdx":"${loadStorage('currCompIdx')}"'
+      ',"tileShowImage":"${loadStorage('tileShowImage')}"'
+      ',"showAllTileParams":"${loadStorage('showAllTileParams')}"'
       '}';
     fromJson(src);
     canDebug = loadStorage("debug") == "yes";
     fmtDateForData = DateFormat("yyyy-MM-dd");
     fmtDateForDisplay = DateFormat(language.dateformat);
+    loadFromStorage();
+  }
+
+  void loadFromStorage()
+  {
   }
 
   void fromJson(String src)
@@ -301,16 +291,15 @@ class Settings
       int idx = languageList.indexWhere((v)
       => v.code == langId);
       language = languageList[idx >= 0 ? idx : 0];
-      pdfSameWindow = JsonData.toBool(cfg["pdfSameWindow"]);
-      pdfDownload = JsonData.toBool(cfg["pdfDownload"]);
-      pdfCreationMaxSize = JsonData.toInt(cfg["pdfCreationMaxSize"]);
       hideNightscoutInPDF = JsonData.toBool(cfg["hideNightscoutInPDF"]);
+      showAllTileParams = JsonData.toBool(cfg["showAllTileParams"]);
       hidePdfInfo = JsonData.toBool(cfg["hidePdfInfo"]);
       showCurrentGluc = JsonData.toBool(cfg["showCurrentGluc"]);
       pdfOrder = JsonData.toText(cfg["pdfOrder"]);
       viewType = JsonData.toText(cfg["viewType"]);
       period = DatepickerPeriod(src: JsonData.toText(cfg["period"]));
       timestamp = JsonData.toInt(cfg["timestamp"]);
+      tileShowImage = JsonData.toBool(cfg["tileShowImage"]);
       period.fmtDate = language.dateformat;
       String users = cfg["mu"];
       userList.clear();
@@ -386,6 +375,31 @@ class Settings
 
 class Globals extends Settings
 {
+  bool pdfSameWindow = true;
+  bool pdfDownload = false;
+  int _pdfCreationMaxSize = 400000;
+  int get pdfCreationMaxSize
+  {
+    if (_pdfCreationMaxSize < Globals.PDFDIVIDER)_pdfCreationMaxSize = Globals.PDFDIVIDER;
+    if (_pdfCreationMaxSize > Globals.PDFUNLIMITED)_pdfCreationMaxSize = Globals.PDFUNLIMITED;
+    return _pdfCreationMaxSize;
+  }
+
+  set pdfCreationMaxSize(int value)
+  {
+    if (value < Globals.PDFDIVIDER)value = Globals.PDFDIVIDER;
+    if (value > Globals.PDFUNLIMITED)value = Globals.PDFUNLIMITED;
+    _pdfCreationMaxSize = value;
+  }
+
+  @override
+  void loadFromStorage()
+  {
+    pdfSameWindow = loadStorage('pdfSameWindow') == "true";
+    pdfDownload = loadStorage('pdfDownload') == "true";
+    pdfCreationMaxSize = JsonData.toInt(loadStorage('pdfCreationMaxSize'));
+  }
+
   // The timezone is set to Europe/Berlin by mdefault, but it is evaluated in
   // the constructor for the current system.
   static String refTimezone = "Europe/Berlin";
@@ -484,13 +498,31 @@ class Globals extends Settings
 
   String get msgBE
   => _khFactor == 10 ? "msgBE" : "msgKE";
-  String get msgUrlFailure
+
+  String get msgUrlFailurePrefix
   =>
     Intl.message("Die angegebene URL ist nicht erreichbar. "
-      "Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. "
-      "In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, "
-      "wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, "
+      "Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ");
+  String get msgUrlFailureSuffix
+  =>
+    Intl.message("<br><br>Wenn diese URL geschützt ist, "
       "muss ausserdem das UserToken korrekt definiert sein.");
+
+  String get msgUrlFailureHerokuapp
+  =>
+    Intl.message("In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools "
+      "wie dieses hier auf die Daten zugreifen dürfen.");
+
+  String get msgUrlFailure10be
+  =>
+    Intl.message("Auf 10be muss beim Server in den Standardeinstellungen der Haken bei "
+      "\"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.");
+  String msgUrlFailure(String url)
+  {
+    if (url.contains("ns.10be"))return "${msgUrlFailurePrefix}${msgUrlFailure10be}${msgUrlFailureSuffix}";
+    return "${msgUrlFailurePrefix}${msgUrlFailureHerokuapp}${msgUrlFailureSuffix}";
+  }
+
   String get msgNoURLDefined
   => Intl.message("Die URL wurde noch nicht festgelegt.");
 
@@ -609,10 +641,10 @@ class Globals extends Settings
     String check = "${checkUser.apiUrl}status";
     await request(check).then((String response)
     {
-      if (!response.toLowerCase().contains("status ok"))ret = msgUrlFailure;
+      if (!response.toLowerCase().contains("status ok"))ret = msgUrlFailure(check);
     }).catchError((err)
     {
-      ret = msgUrlFailure;
+      ret = msgUrlFailure(check);
     });
     return ret;
   }
@@ -760,8 +792,8 @@ class Globals extends Settings
       _googleLoaded = true;
     }).catchError((error)
     {
-        String msg = error.toString();
-        showDebug("Es ist ein Fehler aufgetreten ($error)");
+      String msg = error.toString();
+      showDebug("Es ist ein Fehler aufgetreten ($error)");
     }, test: (error)
     => true);
   }
@@ -983,10 +1015,12 @@ class Globals extends Settings
     saveStorage("pdfDownload", pdfDownload ? "true" : "false");
     saveStorage("pdfCreationMaxSize", "${pdfCreationMaxSize}");
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "true" : "false");
+    saveStorage("showAllTileParams", showAllTileParams ? "true" : "false");
     saveStorage("hidePdfInfo", hidePdfInfo ? "true" : "false");
     saveStorage("showCurrentGluc", showCurrentGluc ? "true" : "false");
     saveStorage("period", period?.toString() ?? null);
     saveStorage("viewType", viewType);
+    saveStorage("tileShowImage", tileShowImage ? "true" : "false");
     timestamp = DateTime
       .now()
       .millisecondsSinceEpoch;
@@ -1053,8 +1087,6 @@ class UserData
   String diaStartDate = "";
   String insulin = "";
 
-//  Map<String, FormConfig> formList = Map<String, FormConfig>();
-
   UserData(this.g);
 
   String get display
@@ -1103,14 +1135,6 @@ class UserData
       ret.customData = data["c"];
       ret.formParams = data["f"];
       if (ret.formParams != null && ret.formParams["analysis"] is bool)ret.formParams = {};
-//      ret.formList = Map<String, FormConfig>();
-/*
-      for (String key in data["f"].keys)
-      {
-        FormConfig cfg = FormConfig(key, false);
-        cfg.fillFromString(data["f"][key]);
-        ret.formList[key] = cfg;
-      }*/
     }
     catch (ex)
     {
@@ -1156,10 +1180,10 @@ class UserData
     String check = "${apiUrl}status";
     await g.request(check).then((String response)
     {
-      if (response != "<h1>STATUS OK</h1>")ret = g.msgUrlFailure;
+      if (response != "<h1>STATUS OK</h1>")ret = g.msgUrlFailure(check);
     }).catchError((err)
     {
-      ret = g.msgUrlFailure;
+      ret = g.msgUrlFailure(check);
     });
     return ret;
   }

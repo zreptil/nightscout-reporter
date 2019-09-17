@@ -372,6 +372,12 @@ class AppComponent
 */
   }
 
+  extractAllParams()
+  {
+    for(FormConfig cfg in g.listConfig)
+      cfg.form.extractParams();
+  }
+
   void toggleHelp()
   {
   }
@@ -1042,6 +1048,7 @@ class AppComponent
 
   void _sendClick()
   {
+    tileParams = null;
     if (sendIcon == "send")
     {
       sendIcon = "stop";

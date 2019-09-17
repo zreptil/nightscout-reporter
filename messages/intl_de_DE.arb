@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-09-03T16:10:17.627720",
+  "@@last_modified": "2019-09-12T15:35:00.872072",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -156,8 +156,23 @@
     "type": "text",
     "placeholders": {}
   },
-  "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.",
-  "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools, wie dieses hier, auf die Daten zugreifen dürfen.<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
+  "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ",
+  "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.",
+  "@<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.",
+  "@In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.",
+  "@Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": {
     "type": "text",
     "placeholders": {}
   },
@@ -285,6 +300,16 @@
   "Mit Google Drive synchronisieren": "Mit Google Drive synchronisieren",
   "@Mit Google Drive synchronisieren": {
     "description": "synchronize with google drive",
+    "type": "text",
+    "placeholders": {}
+  },
+  "SMB Werte anzeigen": "SMB Werte anzeigen",
+  "@SMB Werte anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "SMB an der Kurve platzieren": "SMB an der Kurve platzieren",
+  "@SMB an der Kurve platzieren": {
     "type": "text",
     "placeholders": {}
   },
@@ -884,6 +909,11 @@
       "end": {}
     }
   },
+  "Ausrichtung": "Ausrichtung",
+  "@Ausrichtung": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Profileinstellungen": "Profileinstellungen",
   "@Profileinstellungen": {
     "type": "text",
@@ -1261,6 +1291,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "Hochformat": "Hochformat",
+  "@Hochformat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Querformat": "Querformat",
+  "@Querformat": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tagesanalyse": "Tagesanalyse",
   "@Tagesanalyse": {
     "type": "text",
@@ -1346,11 +1386,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "SMB an der Kurve platzieren": "SMB an der Kurve platzieren",
-  "@SMB an der Kurve platzieren": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Notiz-Linien bis zur Kurve zeichnen": "Notiz-Linien bis zur Kurve zeichnen",
   "@Notiz-Linien bis zur Kurve zeichnen": {
     "type": "text",
@@ -1358,11 +1393,6 @@
   },
   "Nahe zusammen liegende Werte aufsummieren": "Nahe zusammen liegende Werte aufsummieren",
   "@Nahe zusammen liegende Werte aufsummieren": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "SMB Werte anzeigen": "SMB Werte anzeigen",
-  "@SMB Werte anzeigen": {
     "type": "text",
     "placeholders": {}
   },
@@ -1748,6 +1778,42 @@
     "type": "text",
     "placeholders": {}
   },
+  "tl;dr": "tl;dr",
+  "@tl;dr": {
+    "description": "headline for shorttext for dataprotection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert.": "Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert.",
+  "@Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert.": {
+    "description": "shorttext for dataprotection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Mehr gibt es dazu eigentlich nicht zu sagen.": "Mehr gibt es dazu eigentlich nicht zu sagen.",
+  "@Mehr gibt es dazu eigentlich nicht zu sagen.": {
+    "description": "allsaid in dataprotection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:": "Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:",
+  "@Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:": {
+    "description": "info for dsgvo in dataprotection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzeigeeinstellungen": "Anzeigeeinstellungen",
+  "@Anzeigeeinstellungen": {
+    "description": "label of area for additional functions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf Kacheln Bilder statt Namen anzeigen": "Auf Kacheln Bilder statt Namen anzeigen",
+  "@Auf Kacheln Bilder statt Namen anzeigen": {
+    "description": "label for checkbox to show images on tiles",
+    "type": "text",
+    "placeholders": {}
+  },
   "Zusatzfunktionen": "Zusatzfunktionen",
   "@Zusatzfunktionen": {
     "description": "label of area for additional functions",
@@ -1874,9 +1940,33 @@
     "type": "text",
     "placeholders": {}
   },
-  "1.3.2 - xx.09.2019": "1.3.2 - xx.09.2019",
-  "@1.3.2 - xx.09.2019": {
-    "description": "v131",
+  "1.3.3 - 12.09.2019": "1.3.3 - 12.09.2019",
+  "@1.3.3 - 12.09.2019": {
+    "description": "v133",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Kachelansicht können die Parameter aller ausgewählten Seiten zusammen in einer Liste eingestellt werden. Dazu gibt es im Titelbereich der Parameterliste neben dem Schliessen-Button einen zusätzlichen Button, mit dem man zwischen den beiden Möglichkeiten umschalten kann.": "In der Kachelansicht können die Parameter aller ausgewählten Seiten zusammen in einer Liste eingestellt werden. Dazu gibt es im Titelbereich der Parameterliste neben dem Schliessen-Button einen zusätzlichen Button, mit dem man zwischen den beiden Möglichkeiten umschalten kann.",
+  "@In der Kachelansicht können die Parameter aller ausgewählten Seiten zusammen in einer Liste eingestellt werden. Dazu gibt es im Titelbereich der Parameterliste neben dem Schliessen-Button einen zusätzlichen Button, mit dem man zwischen den beiden Möglichkeiten umschalten kann.": {
+    "description": "v133a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Einstellungen für das Herunterladen des PDFs, das Öffnen im gleichen Fenster und die Maximalgrösse der PDFs wurden von der Synchronisierung mit Google Drive ausgenommen, weil sie speziell für den verwendeten Browser oder das verwendete Gerät benötigt werden. Sie werden nach wie vor gespeichert, aber sie werden nicht zwischen verschiedenen Browsern synchronisiert.": "Die Einstellungen für das Herunterladen des PDFs, das Öffnen im gleichen Fenster und die Maximalgrösse der PDFs wurden von der Synchronisierung mit Google Drive ausgenommen, weil sie speziell für den verwendeten Browser oder das verwendete Gerät benötigt werden. Sie werden nach wie vor gespeichert, aber sie werden nicht zwischen verschiedenen Browsern synchronisiert.",
+  "@Die Einstellungen für das Herunterladen des PDFs, das Öffnen im gleichen Fenster und die Maximalgrösse der PDFs wurden von der Synchronisierung mit Google Drive ausgenommen, weil sie speziell für den verwendeten Browser oder das verwendete Gerät benötigt werden. Sie werden nach wie vor gespeichert, aber sie werden nicht zwischen verschiedenen Browsern synchronisiert.": {
+    "description": "v133c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B. die Auswahl von CGP bei Tagesgrafiken).": "Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B. die Auswahl von CGP bei Tagesgrafiken).",
+  "@Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B. die Auswahl von CGP bei Tagesgrafiken).": {
+    "description": "v133c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.3.2 - 05.09.2019": "1.3.2 - 05.09.2019",
+  "@1.3.2 - 05.09.2019": {
+    "description": "v132",
     "type": "text",
     "placeholders": {}
   },
@@ -1895,6 +1985,12 @@
   "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.",
   "@In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": {
     "description": "v132a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.": "Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.",
+  "@Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.": {
+    "description": "v132a4",
     "type": "text",
     "placeholders": {}
   },

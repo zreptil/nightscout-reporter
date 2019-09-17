@@ -474,6 +474,8 @@ class ProfileStoreData extends JsonData
   => _listSum(listCarbratio);
   double get isfSum
   => _listSum(listSens);
+  int get carbRatioPerHour
+  => carbsHr > 0 ? carbsHr : 12;
 
   double _listSum(List<ProfileEntryData> list)
   {
@@ -1232,7 +1234,7 @@ class TreatmentData extends JsonData
     {
       DateTime carbTime = createdAt;
 
-      int carbs_hr = profile.store.carbsHr;
+      int carbs_hr = profile.store.carbRatioPerHour;
       if (carbs_hr == 0)carbs_hr = 12;
       double carbs_min = carbs_hr / 60;
 
@@ -1322,6 +1324,11 @@ class EntryData extends JsonData
     ret.direction = json["direction"];
     ret.rawbg = JsonData.toDouble(json["rawbg"]);
     ret.sgv = JsonData.toDouble(json["sgv"]);
+    if (ret.sgv < 20)
+    {
+      ret.sgv = 0;
+      ret.isGap = true;
+    }
     ret.mbg = JsonData.toDouble(json["mbg"]);
     ret.type = json["type"];
     ret.slope = JsonData.toDouble(json["slope"]);
@@ -1609,7 +1616,7 @@ class DayData
         else
           normCount++;
 
-        if(entry.gluc > 0)
+        if (entry.gluc > 0)
         {
           mid += entry.gluc;
           min = math.min(min, entry.gluc);
@@ -1754,14 +1761,14 @@ class DayData
             var actStart = iob(data, lastDecayedBy).activity;
             var actEnd = iob(data, cCalc["decayedBy"]).activity;
             var avgActivity = (actStart + actEnd) / 2;
-            // units:  g     =       BG      *      scalar     /          BG / U                           *     g / U
+            // units:  g = BG * scalar / BG / U * g / U
             if (sens == 0.0)sens = 1.0;
             if (carbRatio == 0.0)carbRatio = 1.0;
             var delayedCarbs = (avgActivity * liverSensRatio / sens) * carbRatio;
-            int delayMinutes = delayedCarbs ~/ carbRatio * 60;
+            int delayMinutes = delayedCarbs ~/ profile.store.carbRatioPerHour * 60;
             if (delayMinutes > 0)
             {
-              cCalc["decayedBy"].add(Duration(minutes: delayMinutes));
+              cCalc["decayedBy"] = cCalc["decayedBy"].add(Duration(minutes: delayMinutes));
               decaysin_hr = (cCalc["decayedBy"].millisecondsSinceEpoch - time.millisecondsSinceEpoch) / 1000 / 60 / 60;
             }
           }
@@ -1770,7 +1777,7 @@ class DayData
           if (decaysin_hr > 0)
           {
             //console.info('Adding ' + delayMinutes + ' minutes to decay of ' + treatment.carbs + 'g bolus at ' + treatment.mills);
-            totalCOB += math.min(t.carbs, decaysin_hr * carbRatio);
+            totalCOB += math.min(t.carbs, decaysin_hr * profile.store.carbRatioPerHour); //carbRatio);
             //console.log('cob:', Math.min(cCalc.initialCarbs, decaysin_hr * profile.getCarbAbsorptionRate(treatment.mills)),cCalc.initialCarbs,decaysin_hr,profile.getCarbAbsorptionRate(treatment.mills));
             isDecaying = cCalc["isDecaying"];
           }
@@ -1786,9 +1793,9 @@ class DayData
     => e.timeForCalc <= check)?.value ?? 0.0;
     double carbRatio = profile.store.listCarbratio.lastWhere((e)
     => e.timeForCalc <= check)?.value ?? 0.0;
-    var rawCarbImpact = (isDecaying ? 1 : 0) * sens / carbRatio * profile.store.carbsHr / 60;
+    var rawCarbImpact = (isDecaying ? 1 : 0) * sens / carbRatio * profile.store.carbRatioPerHour / 60;
 
-    return COBData(lastDecayedBy, isDecaying, profile.store.carbsHr, rawCarbImpact, totalCOB, lastCarbs);
+    return COBData(lastDecayedBy, isDecaying, profile.store.carbRatioPerHour, rawCarbImpact, totalCOB, lastCarbs);
   }
 }
 
@@ -1829,13 +1836,13 @@ class ListData
     "low": StatisticData(0, 0),
     "norm": StatisticData(0, 0),
     "high": StatisticData(0, 0),
-    "stdLow": StatisticData(1, 69.9999),
-    "stdNorm": StatisticData(70, 179.9999),
+    "stdLow": StatisticData(1, 70),
+    "stdNorm": StatisticData(70, 180),
     "stdHigh": StatisticData(180, 9999),
     "stdVeryHigh": StatisticData(250, 9999),
-    "stdNormHigh": StatisticData(180, 249.999),
-    "stdNormLow": StatisticData(54, 69.9999),
-    "stdVeryLow": StatisticData(0, 53.9999),
+    "stdNormHigh": StatisticData(180, 250),
+    "stdNormLow": StatisticData(54, 70),
+    "stdVeryLow": StatisticData(0, 54),
   };
   double ieBolusSum = 0.0;
   double ieBasalSum = 0.0;
@@ -1893,6 +1900,7 @@ class ListData
 
   double min;
   double max;
+  int fullCount;
   void extractData(ReportData data)
   {
     stat["norm"].values.clear();
@@ -1923,15 +1931,15 @@ class ListData
 //    double t2 = 11;
 //    int t1Count = 0;
 //    int t2Count = 0;
-    int fullCount = 0;
+    fullCount = 0;
     for (var entry in allEntries)
     {
       if (entry.isInvalid)continue;
 
       ProfileGlucData glucData = data.profile(entry.time);
-      stat["low"].max = glucData.targetLow - 0.0001;
+      stat["low"].max = glucData.targetLow;// - 0.0001;
       stat["norm"].min = glucData.targetLow;
-      stat["norm"].max = glucData.targetHigh + 0.0001;
+      stat["norm"].max = glucData.targetHigh;// + 0.0001;
       stat["high"].min = glucData.targetHigh;
       stat["high"].max = 9999.9999;
       if (lastDay == null || entry.time.day != lastDay.day)
@@ -1955,16 +1963,6 @@ class ListData
             {
               if (gluc >= stat[key].min && gluc < stat[key].max)stat[key].add(gluc);
             }
-/*
-            if (gluc < glucData.targetLow)stat["low"].add(gluc);
-            else if (gluc > glucData.targetHigh)stat["high"].add(gluc);
-            else
-              stat["norm"].add(gluc);
-            if (gluc < 70)stat["stdLow"].add(gluc);
-            else if (gluc > 180)stat["stdHigh"].add(gluc);
-            else
-              stat["stdNorm"].add(gluc);
-*/
             fullCount++;
             if (gluc < min)min = entry.gluc;
             if (gluc > max)max = entry.gluc;

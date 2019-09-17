@@ -62,6 +62,12 @@
           <material-input [(ngModel)]="g.user.insulin" floatingLabel [label]="msgInsulin"></material-input>
         </div>
       </div>
+      <div class="subtitle" @i18n="label of area for additional functions">Anzeigeeinstellungen</div>
+      <div class="functions">
+        <material-checkbox [(checked)]="g.tileShowImage" @i18n="label for checkbox to show images on tiles">
+          Auf Kacheln Bilder statt Namen anzeigen
+        </material-checkbox>
+      </div>
       <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
       <div class="functions">
         <material-checkbox [(checked)]="g.pdfSameWindow" @i18n="label for checkbox to open PDF in same window">PDF im

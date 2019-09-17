@@ -9,6 +9,7 @@ class Flags
   bool hasKatheter = false;
   bool hasSensor = false;
   bool hasAmpulle = false;
+  bool hasBattery = false;
 }
 
 class PrintDailyLog extends BaseProfile
@@ -125,7 +126,7 @@ class PrintDailyLog extends BaseProfile
 
   @override
   List<String> get imgList
-  => ["nightscout", "katheter.print", "sensor.print", "ampulle.print"];
+  => ["nightscout", "katheter.print", "sensor.print", "ampulle.print", "battery.print"];
 
   @override
   bool get isPortrait
@@ -387,6 +388,8 @@ class PrintDailyLog extends BaseProfile
             {"relativePosition": {"x": cm(x += 0.5), "y": cm(0)}, "image": "sensor.print", "width": cm(0.4)});
           if (flags.hasAmpulle)stack.add(
             {"relativePosition": {"x": cm(x += 0.5), "y": cm(0.1)}, "image": "ampulle.print", "width": cm(0.4)});
+          if (flags.hasBattery)stack.add(
+            {"relativePosition": {"x": cm(x += 0.5), "y": cm(0.1)}, "image": "battery.print", "width": cm(0.4)});
           addRow(true, cm(1.4), row, {"text": "Wechsel", "style": "total", "fontSize": size, "alignment": "center"},
             {"stack": stack});
         }
@@ -450,6 +453,8 @@ class PrintDailyLog extends BaseProfile
   => Intl.message("Sensorwechsel");
   String get msgChangeInsulin
   => Intl.message("Ampullenwechsel");
+  String get msgChangeBattery
+  => Intl.message("Batteriewechsel");
   String msgMBG(gluc, unit)
   => Intl.message("Blutige Messung ${gluc} ${unit}", args: [gluc, unit], name: "msgMBG");
 
@@ -501,6 +506,11 @@ class PrintDailyLog extends BaseProfile
       {
         list.add(msgChangeInsulin);
         flags.hasAmpulle = true;
+      }
+      if (type == "pump battery change")
+      {
+        list.add(msgChangeBattery);
+        flags.hasBattery = true;
       }
     }
 

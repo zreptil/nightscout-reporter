@@ -10,7 +10,34 @@
       </material-button>
     </div>
     <div class="root">
-      <h2><span @i18n="version">Version</span><span @i18n="v131">1.3.2 - xx.09.2019</span></h2>
+      <h2><span @i18n="version">Version</span><span @i18n="v134">1.3.4 - xx.09.2019</span></h2>
+      <ul>
+        <li class="added" @i18n="v134a1">
+          Im Protokoll können jetzt auch Batteriewechsel der Pumpe angezeigt werden.
+        </li>
+        <li class="added" @i18n="v134a2">
+          Die einzelne Seite CGP kann jetzt auch im Querformat ausgegeben werden.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v133">1.3.3 - 12.09.2019</span></h2>
+      <ul>
+        <li class="added" @i18n="v133a1">
+          In der Kachelansicht können die Parameter aller ausgewählten Seiten zusammen in einer Liste eingestellt
+          werden. Dazu gibt es im Titelbereich der Parameterliste neben dem Schliessen-Button einen zusätzlichen
+          Button, mit dem man zwischen den beiden Möglichkeiten umschalten kann.
+        </li>
+        <li class="changed" @i18n="v133c1">
+          Die Einstellungen für das Herunterladen des PDFs, das Öffnen im gleichen Fenster und die Maximalgrösse
+          der PDFs wurden von der Synchronisierung mit Google Drive ausgenommen, weil sie speziell für den verwendeten
+          Browser oder das verwendete Gerät benötigt werden. Sie werden nach wie vor gespeichert, aber sie werden nicht
+          zwischen verschiedenen Browsern synchronisiert.
+        </li>
+        <li class="changed" @i18n="v133c1">
+          Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B.
+          die Auswahl von CGP bei Tagesgrafiken).
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v132">1.3.2 - 05.09.2019</span></h2>
       <ul>
         <li class="added" @i18n="v132a1">
           Beim CGP werden die aktuellen Werte jetzt in der Legende angezeigt.
@@ -32,6 +59,12 @@
           In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils
           angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel
           um 0 Uhr.
+        </li>
+        <li class="added" @i18n="v132a4">
+          Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre
+          Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine
+          visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller
+          auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.
         </li>
         <li class="fixed" @i18n="v132f1">
           In der Tagesstatistik wurden bei unvollständigen Daten teilweise fehlerhafte Werte ausgegeben. Das wurde

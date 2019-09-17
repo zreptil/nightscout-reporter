@@ -11,8 +11,9 @@
         <div class="title">
           {{g.title}}
           <span class="betaTitle" *ngIf="g.isBeta">BETA</span>
-          <material-button class="betaTitle" *ngIf="g.isLocal" (trigger)="g.isLocal = false">
-            Lokal
+          <material-button class="localTitle" *ngIf="g.runsLocal" (trigger)="g.isLocal = !g.isLocal">
+            <div *ngIf="g.isLocal">Lokal</div>
+            <div *ngIf="!g.isLocal">Vorschau</div>
           </material-button>
           <div class="versionText">{{g.version}}</div>
           <div class="subtitle" *ngIf="currPage=='impressum'">{{msgImpressum}}</div>
@@ -126,15 +127,41 @@
         <div>{{progressText}}</div>
       </div>
     </div>
-    <div class="tileparams" *ngIf="tileParams!=null && progressText == null">
+    <div class="tileparams" *ngIf="tileParams!=null && progressText == null && !g.showAllTileParams">
       <div title>
         {{tileParams.form.display}}
-        <material-button (trigger)="tileParams=null;$event.stopPropagation();">
-          <material-icon icon="close"></material-icon>
-        </material-button>
+        <div>
+          <material-button (trigger)="g.showAllTileParams=!g.showAllTileParams;$event.stopPropagation();">
+            <material-icon icon="list"></material-icon>
+          </material-button>
+          <material-button (trigger)="tileParams.form.extractParams();tileParams=null;$event.stopPropagation();">
+            <material-icon icon="close"></material-icon>
+          </material-button>
+        </div>
       </div>
       <div parampanel>
         <formparams [paramList]="tileParams.form.sortedParams"></formparams>
+      </div>
+    </div>
+    <div class="tileparams" *ngIf="tileParams!=null && progressText == null && g.showAllTileParams">
+      <div title>
+        Optionen
+        <div>
+          <material-button (trigger)="g.showAllTileParams=!g.showAllTileParams;$event.stopPropagation();">
+            <material-icon icon="description"></material-icon>
+          </material-button>
+          <material-button (trigger)="extractAllParams();tileParams=null;$event.stopPropagation();">
+            <material-icon icon="close"></material-icon>
+          </material-button>
+        </div>
+      </div>
+      <div parampanel>
+        <template ngFor let-cfg [ngForOf]="g.listConfig">
+          <div *ngIf="isFormVisible(cfg.form) && cfg.checked && cfg.form.sortedParams.length > 0">
+            <div paramtitle>{{cfg.form.display}}</div>
+            <formparams [paramList]="cfg.form.sortedParams"></formparams>
+          </div>
+        </template>
       </div>
     </div>
     <div [class]="classForView('normal-content')" *ngIf="tileParams==null"
@@ -167,13 +194,16 @@
           <div [class]="tileClass(cfg)" id="tile-{{cfg.id}}"
                *ngIf="isFormVisible(cfg.form)"
                (click)="expansionPanelClicked($event,cfg)">
-            <div number *ngIf="cfg.checked">{{checkedIndex(cfg)}}</div>
+            <img *ngIf="g.tileShowImage" [src]="cfg.form.backimage">
+            <div numberimg *ngIf="g.tileShowImage && cfg.checked">{{checkedIndex(cfg)}}</div>
+            <div number *ngIf="!g.tileShowImage && cfg.checked">{{checkedIndex(cfg)}}</div>
             <div params *ngIf="cfg.form.sortedParams.length>0 && cfg.checked"
                  (click)="tileParams=cfg;$event.stopPropagation();">
               <material-icon icon="more_vert"></material-icon>
             </div>
-            <div title>{{cfg.form.display}}</div>
-            <div pages *ngIf="cfg.checked">{{cfg.form.pageCountDisplay(reportData==null)}}</div>
+            <div *ngIf="!g.tileShowImage" title>{{cfg.form.display}}</div>
+            <div pages *ngIf="cfg.checked && (!g.tileShowImage || !cfg.form.isPortraitParam)">{{cfg.form.pageCountDisplay(reportData==null)}}</div>
+            <div pagesportrait *ngIf="cfg.checked && g.tileShowImage && cfg.form.isPortraitParam">{{cfg.form.pageCountDisplay(reportData==null)}}</div>
           </div>
         </template>
       </div>
