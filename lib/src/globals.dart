@@ -144,6 +144,7 @@ class Settings
     LangData("es_ES", Intl.message("Español"), "es"),
     LangData("pl_PL", Intl.message("Polski"), "pl"),
     LangData("ja_JP", Intl.message("Japanisch"), "jp"),
+    LangData("sk_SK", Intl.message("Slowakisch"), "sk"),
   ];
 
   LangData get language

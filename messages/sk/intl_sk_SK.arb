@@ -1,0 +1,2998 @@
+{
+  "Überprüfe Zugriff auf Nightscout ...": "Skontrolujte prístup do Nightscout ...",
+  "@Überprüfe Zugriff auf Nightscout ...": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgLoadingData": "Chyba pri načítaní údajov: {error} {stacktrace}",
+  "@msgLoadingData": {
+    "type": "text",
+    "placeholders": {
+      "error": {},
+      "stacktrace": {}
+    }
+  },
+  "Fehler beim Laden der Daten": "Pri načítavaní údajov sa vyskytla chyba",
+  "@Fehler beim Laden der Daten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgLoadingDataFor": "Načítavajú sa údaje za {date} ...",
+  "@msgLoadingDataFor": {
+    "description": "displayed when data of a day is loading",
+    "type": "text",
+    "placeholders": {
+      "date": {}
+    }
+  },
+  "Schliessen": "Zatvoriť",
+  "@Schliessen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bitte einen Zeitraum wählen.": "Vyberte obdobie.",
+  "@Bitte einen Zeitraum wählen.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bereite Daten vor...": "Spracovávajú sa údaje  ...",
+  "@Bereite Daten vor...": {
+    "description": "text when data was received and is being prepared to be used in the report",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Erzeuge PDF...": "Vytvoriť PDF ...",
+  "@Erzeuge PDF...": {
+    "description": "text when pdf is being created",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Impressum": "Pečiatka",
+  "@Impressum": {
+    "description": "label for inprint button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Datenschutzerklärung": "Ochrana osobných údajov",
+  "@Datenschutzerklärung": {
+    "description": "label for dataprotection button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "ok",
+  "@ok": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "verwerfen": "zahodiť",
+  "@verwerfen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "PDF bol vytvorený. Ak nie je zobrazený, pravdepodobne je aktívny blokovač automaticky otváraných okien, ktorý bráni zobrazeniu. Prosím, deaktivujte ho.",
+  "@Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zeitraum": "Obdobie",
+  "@Zeitraum": {
+    "description": "title for datepicker dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beim Auslesen des Profils ist ein Fehler aufgetreten.": "Pri načítaní profilu pacienta sa vyskytla chyba.",
+  "@Beim Auslesen des Profils ist ein Fehler aufgetreten.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "Pri vytváraní súboru PDF sa vyskytla chyba.",
+  "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Problem auf GitHub melden": "Nahláste problém na strákach projektu (GitHub)",
+  "@Problem auf GitHub melden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "PDF anzeigen": "Zobraziť PDF",
+  "@PDF anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Vergleich": "Porovnanie",
+  "@Vergleich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dd.MM.yyyy": "dd.MM.yyyy",
+  "@dd.MM.yyyy": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Deutsch": "Deutsch",
+  "@Deutsch": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "English (USA)": "English (USA)",
+  "@English (USA)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "English (GB)": "English (GB)",
+  "@English (GB)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Español": "Español",
+  "@Español": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Polski": "Polski",
+  "@Polski": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Japanisch": "Japan",
+  "@Japanisch": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktuelle Periode": "Aktuálne obdobie",
+  "@Aktuelle Periode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Vorherige Periode": "Predchádzajúce obdobie",
+  "@Vorherige Periode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Vorletzte Periode": "Predposledné obdobie",
+  "@Vorletzte Periode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": "Zadaná adresa URL nie je dostupná. Ak je adresa URL správna, môže to byť spôsobené nastavením Nightscout aplikácie. ",
+  "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "<br><br>Ak je táto adresa URL chránená, musíte správne zadať UserToken.",
+  "@<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "V premennej ENABLE sa musí vyskytovať slovo „cors“, aby k týmto údajom mali prístup aj externé nástroje, ako je tento program.",
+  "@In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "Na serveri 10be musíte zaškrtnúť políčko „cors“, aby tento program mal prístup k externým nástrojom.",
+  "@Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die URL wurde noch nicht festgelegt.": "URL ešte nie je nastavená.",
+  "@Die URL wurde noch nicht festgelegt.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Heute": "dnes",
+  "@Heute": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 2 Tage": "Posledné 2 dni",
+  "@Letzte 2 Tage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Tage": "Posledné 3 dni",
+  "@Letzte 3 Tage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte Woche": "Minulý týždeň",
+  "@Letzte Woche": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 2 Wochen": "Posledné 2 týždne",
+  "@Letzte 2 Wochen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Wochen": "Posledné 3 týždne",
+  "@Letzte 3 Wochen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzter Monat": "Minulý mesiac",
+  "@Letzter Monat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte 3 Monate": "Posledné 3 mesiace",
+  "@Letzte 3 Monate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die URL wurde noch nicht festgelegt": "URL ešte nie je nastavená",
+  "@Die URL wurde noch nicht festgelegt": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember": " január|február|marec|apríl|máj|jún|júl|august|september|október|november|december",
+  "@Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez": "jan|feb|mar|apr|máj|jún|júl|sep|okt|nov|dec",
+  "@Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag": "Pondelok|Utorok|Streda|Štvrtok|Piatok|Sobota|Nedeľa",
+  "@Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Mo|Di|Mi|Do|Fr|Sa|So": "Po|Ut|St|Št|Pia|So|Ne",
+  "@Mo|Di|Mi|Do|Fr|Sa|So": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Der Zeitraum enthält keine auswertbaren Tage": "Obdobie neobsahuje žiadne hodnotiteľné dni",
+  "@Der Zeitraum enthält keine auswertbaren Tage": {
+    "description": "title for datepicker dialog when period empty",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Startdatum ist nicht korrekt": "Dátum začiatku nie je správny",
+  "@Das Startdatum ist nicht korrekt": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Enddatum ist nicht korrekt": "Dátum konca je nesprávny",
+  "@Das Enddatum ist nicht korrekt": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zeitraum festlegen": "Nastaviť obdobie",
+  "@Zeitraum festlegen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anmeldung erfolgreich": "Prihlásenie bolo úspešné",
+  "@Anmeldung erfolgreich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anmelden": "registrovať",
+  "@Anmelden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verbinde zu Google...": "Pripojiť sa ku Google ...",
+  "@Verbinde zu Google...": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verbindung zu Google Drive trennen": "Odpojiť sa od Disku Google",
+  "@Verbindung zu Google Drive trennen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verbindung zu Google Drive herstellen": "Pripojte sa na Disk Google",
+  "@Verbindung zu Google Drive herstellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Synchronisierung aufheben": "Zrušenie synchronizácie",
+  "@Synchronisierung aufheben": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Mit Google Drive synchronisieren": "Synchronizácia s Diskom Google",
+  "@Mit Google Drive synchronisieren": {
+    "description": "synchronize with google drive",
+    "type": "text",
+    "placeholders": {}
+  },
+  "SMB Werte anzeigen": "Zobraziť hodnoty SMB",
+  "@SMB Werte anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "SMB an der Kurve platzieren": "Umiestniť SMB na krivku",
+  "@SMB an der Kurve platzieren": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "_msgPageCountEst": "{count, plural, =0 {} =1 {1 stránka alebo viac} other {{count} stránok alebo viac}}",
+  "@_msgPageCountEst": {
+    "type": "text",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "_msgPageCount": "{count, plural, =0 {} =1 {1 stránka} other {{count} stránok}}",
+  "@_msgPageCount": {
+    "type": "text",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "msgValidRange": "platné od {begDate} do {endDate}",
+  "@msgValidRange": {
+    "type": "text",
+    "placeholders": {
+      "begDate": {},
+      "endDate": {}
+    }
+  },
+  "msgValidFrom": "platné od {begDate}",
+  "@msgValidFrom": {
+    "type": "text",
+    "placeholders": {
+      "begDate": {}
+    }
+  },
+  "msgValidTo": "platí do {endDate}",
+  "@msgValidTo": {
+    "type": "text",
+    "placeholders": {
+      "endDate": {}
+    }
+  },
+  "IE": "IE",
+  "@IE": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Median": "medián",
+  "@Median": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bis": "do",
+  "@bis": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgTargetArea": "Cieľový rozsah ( {min} - {max} {units} )",
+  "@msgTargetArea": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {},
+      "units": {}
+    }
+  },
+  "msgTargetValue": "cieľová hodnota",
+  "@msgTargetValue": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "Glukosekurve": "krivka glukózy",
+  "@Glukosekurve": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgCarbs": "Sacharidy ( {value} g)",
+  "@msgCarbs": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgBolusInsulin": "Bolusový inzulín ( {value} )",
+  "@msgBolusInsulin": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgCorrectBolusInsulin": "Korekčný bolus ( {value} )",
+  "@msgCorrectBolusInsulin": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgCarbBolusInsulin": "Bolus jedla ( {value} )",
+  "@msgCarbBolusInsulin": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgSMBInsulin": "SMB ( {value} )",
+  "@msgSMBInsulin": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "Basalrate": "bazálna rýchlosť",
+  "@Basalrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgBasalrateDay": "Bazálna sadzba za deň ( {value} )",
+  "@msgBasalrateDay": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgBasalrateProfile": "Bazálna dávka z profilu ( {value} )",
+  "@msgBasalrateProfile": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgLegendTDD": "Celkový inzulín ( {value} )",
+  "@msgLegendTDD": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "TDD": "TDD",
+  "@TDD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es sind keine Daten für den Ausdruck vorhanden": "Nie sú k dispozícii žiadne údaje pre tlač",
+  "@Es sind keine Daten für den Ausdruck vorhanden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Katheterwechsel": "výmena katétera",
+  "@Katheterwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sensorwechsel": "výmena snímača",
+  "@Sensorwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Reservoirwechsel": "výmena nádrže",
+  "@Reservoirwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aufsummierte Werte": "Nasčítané hodnoty",
+  "@Aufsummierte Werte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Berechnete IE für Kohlenhydrate": "Vypočítaná IE na uhľohydráty",
+  "@Berechnete IE für Kohlenhydrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgKH": "{value}g",
+  "@msgKH": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgReadingsPerDay": "{howMany, plural, =0 {Nie sú k dispozícii žiadne údaje} =1 {1 meranie denne} other {{fmt} meraní denne}}",
+  "@msgReadingsPerDay": {
+    "type": "text",
+    "placeholders": {
+      "howMany": {},
+      "fmt": {}
+    }
+  },
+  "msgReadingsPerHour": "{howMany, plural, =0 {Nie sú k dispozícii žiadne údaje} =1 {1 meranie za hodinu} other {{fmt} meraní za hodinu}}",
+  "@msgReadingsPerHour": {
+    "type": "text",
+    "placeholders": {
+      "howMany": {},
+      "fmt": {}
+    }
+  },
+  "msgReadingsInMinutes": "{howMany, plural, =0 {Nie sú k dispozícii žiadne údaje} =1 {1 meranie za minútu} other {Meranie každých {fmt} minút}}",
+  "@msgReadingsInMinutes": {
+    "type": "text",
+    "placeholders": {
+      "howMany": {},
+      "fmt": {}
+    }
+  },
+  "msgValuesIn": "Hodnoty medzi {low} a {high}",
+  "@msgValuesIn": {
+    "type": "text",
+    "placeholders": {
+      "low": {},
+      "high": {}
+    }
+  },
+  "msgValuesBelow": "Hodnoty pod {low}",
+  "@msgValuesBelow": {
+    "type": "text",
+    "placeholders": {
+      "low": {}
+    }
+  },
+  "msgValuesAbove": "Hodnoty nad {high}",
+  "@msgValuesAbove": {
+    "type": "text",
+    "placeholders": {
+      "high": {}
+    }
+  },
+  "msgValuesVeryHigh": "Veľmi vysoké hodnoty (> {value} )",
+  "@msgValuesVeryHigh": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgValuesNormHigh": "Vysoké hodnoty ( {value} )",
+  "@msgValuesNormHigh": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgValuesNorm": "Cieľová oblasť ( {low} - {high} )",
+  "@msgValuesNorm": {
+    "type": "text",
+    "placeholders": {
+      "low": {},
+      "high": {}
+    }
+  },
+  "msgValuesNormLow": "Nízke hodnoty ( {value} )",
+  "@msgValuesNormLow": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgValuesVeryLow": "Veľmi nízke hodnoty (< {value} )",
+  "@msgValuesVeryLow": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgKHBE": "g KH ( {value} BE)",
+  "@msgKHBE": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgReservoirDays": "{count, plural, =0 {} =1 {( {txt} deň na ampulku)} other {( {txt} dní na ampulku)}}",
+  "@msgReservoirDays": {
+    "type": "text",
+    "placeholders": {
+      "count": {},
+      "txt": {}
+    }
+  },
+  "msgCatheterDays": "{count, plural, =0 {} =1 {( {txt} deň na katéter)} other {( {txt} dní na katéter)}}",
+  "@msgCatheterDays": {
+    "type": "text",
+    "placeholders": {
+      "count": {},
+      "txt": {}
+    }
+  },
+  "msgSensorDays": "{count, plural, =0 {} =1 {( {txt} deň na snímač)} other {( {txt} dní na snímač)}}",
+  "@msgSensorDays": {
+    "type": "text",
+    "placeholders": {
+      "count": {},
+      "txt": {}
+    }
+  },
+  "Geburtstag": "Dátum narodenia",
+  "@Geburtstag": {
+    "description": "label of editfield for birthday",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Diabetes seit": "Cukrovka od roku",
+  "@Diabetes seit": {
+    "description": "label of editfield for diabetes since",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin": "inzulín",
+  "@Insulin": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ausgewertete Tage": "Hodnotené dni",
+  "@Ausgewertete Tage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzahl Messungen": "Počet meraní",
+  "@Anzahl Messungen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzahl Ampullenwechsel": "Počet výmien ampúl",
+  "@Anzahl Ampullenwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzahl Katheterwechsel": "Počet zmien katétra",
+  "@Anzahl Katheterwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzahl Sensorenwechsel": "Počet zmien snímača",
+  "@Anzahl Sensorenwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "gesch. HbA1c": "HbA1c",
+  "@gesch. HbA1c": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Geschätzter HbA1c": "Odhadovaná HbA1c",
+  "@Geschätzter HbA1c": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Niedrigster Wert im Zeitraum": "Najnižšia hodnota za dané obdobie",
+  "@Niedrigster Wert im Zeitraum": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Höchster Wert im Zeitraum": "Najvyššia hodnota za dané obdobie",
+  "@Höchster Wert im Zeitraum": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Zuckerwert": "Ø hodnota cukru",
+  "@Ø Zuckerwert": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glykämischer Variabilitäts Index (GVI)": "Index glykemickej variability (GVI)",
+  "@Glykämischer Variabilitäts Index (GVI)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Patient Glykämischer Status (PGS)": "Glykemický stav pacienta (PGS)",
+  "@Patient Glykämischer Status (PGS)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø KH pro Tag": "Ø KH za deň",
+  "@Ø KH pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Insulin pro Tag": "Ø inzulín za deň",
+  "@Ø Insulin pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Bolus pro Tag": "Ø bolus za deň",
+  "@Ø Bolus pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Basal pro Tag": "Ø bazál za deň",
+  "@Ø Basal pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Microbolus pro Tag": "Ø mikrobolusov za deň",
+  "@Ø Microbolus pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø Insulinverhältnis": "Ø pomer inzulínu",
+  "@Ø Insulinverhältnis": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bolus": "bolus",
+  "@Bolus": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basal": "základné",
+  "@Basal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basalrate\nIE / Stunde": "Bazálna dávka IE / hodina",
+  "@Basalrate\nIE / Stunde": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Keine": "žiadny",
+  "@Keine": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Eigene Grenzwerte": "Vlastné limity",
+  "@Eigene Grenzwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Standardgrenzwerte": "štandardné limity",
+  "@Standardgrenzwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Behandlungen": "ošetrenie",
+  "@Behandlungen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ges.": "Ges.",
+  "@Ges.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Uhr-\nzeit": "hodiny",
+  "@Uhr-\nzeit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Uhrzeit": "čas",
+  "@Uhrzeit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Notiz": "poznámka",
+  "@Notiz": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anpas-\nsung": "adap-\ntácia",
+  "@Anpas-\nsung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose zu niedrig": "Glykémia je príliš nízka",
+  "@Glukose zu niedrig": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose im Zielbereich": "Glykémia v cieľovej oblasti",
+  "@Glukose im Zielbereich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)": "Zdroj: Vigersky, RA, Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). Komplexný glukózový päťuholník: Glukózovo-centrická kompozitná metrika na hodnotenie glykemickej kontroly u osôb s cukrovkou. Journal of Diabetes Science and Technology, 12 (1), 114-123. (Https://doi.org/10.1177/1932296817718561)",
+  "@Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose zu hoch": "Glykémia je príliš vysoká",
+  "@Glukose zu hoch": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgLow": "Nízko{value}",
+  "@msgLow": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgCount": "{value, plural, =0 {Žiadna hodnota} =1 {1 hodnota} other {{value} hodnoty}}",
+  "@msgCount": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgStdAbw": "(StdDev {value})",
+  "@msgStdAbw": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgTimeOfDay24": "{time} hod",
+  "@msgTimeOfDay24": {
+    "type": "text",
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "msgTimeOfDayAM": "{time} am",
+  "@msgTimeOfDayAM": {
+    "type": "text",
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "msgTimeOfDayPM": "{time} pm",
+  "@msgTimeOfDayPM": {
+    "type": "text",
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "Normal": "Normál",
+  "@Normal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgHigh": "Vysoko {value}",
+  "@msgHigh": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "10% - 90% der Werte": "10% - 90% hodnôt",
+  "@10% - 90% der Werte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "25% - 75% der Werte": "25% - 75% hodnôt",
+  "@25% - 75% der Werte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin Kohlenhydrate Verhältnis (ICR)": "Pomer uhľohydrátov inzulínu (ICR)",
+  "@Insulin Kohlenhydrate Verhältnis (ICR)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin Sensitivitäts Faktoren (ISF)": "Faktor citlivosti na inzulín (ISF)",
+  "@Insulin Sensitivitäts Faktoren (ISF)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Gesamt": "celkovo",
+  "@Gesamt": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zielbereich": "cieľová oblasť",
+  "@Zielbereich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø ICR/Stunde": "Ø ICR / hod",
+  "@Ø ICR/Stunde": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ø ISF/Stunde": "Ø ISF / hod",
+  "@Ø ISF/Stunde": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "Pomer uhľohydrátov inzulínu (ICR) X g uhľohydrátov na 1 IU",
+  "@Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgISF": "Faktory citlivosti na inzulín (ISF) 1 IU znižujú BG o X {unit}",
+  "@msgISF": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "msgTarget": "Cieľová oblasť glukózy {unit}",
+  "@msgTarget": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "msgFactorEntry": "{beg} - {end}",
+  "@msgFactorEntry": {
+    "type": "text",
+    "placeholders": {
+      "beg": {},
+      "end": {}
+    }
+  },
+  "Ausrichtung": "zarovnanie",
+  "@Ausrichtung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Profileinstellungen": "nastavenie profilu",
+  "@Profileinstellungen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dauer der Insulinaktivität (DIA)": "Trvanie aktivity inzulínu (DIA)",
+  "@Dauer der Insulinaktivität (DIA)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Stunden": "hodiny",
+  "@Stunden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dauer der Kohlenhydrataktivität": "Trvanie aktivity uhľohydrátov",
+  "@Dauer der Kohlenhydrataktivität": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zeitzone": "časové pásmo",
+  "@Zeitzone": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "g / Stunde": "g / hod",
+  "@g / Stunde": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Datum": "dátum",
+  "@Datum": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verteilung": "distribúcia",
+  "@Verteilung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Mess-\nwerte": "Hod-\nnoty",
+  "@Mess-\nwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Min": "min",
+  "@Min": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Max": "Max",
+  "@Max": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Mittel-\nwert": "Prie-\nmer",
+  "@Mittel-\nwert": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Std.\nAbw.": "Std.\nDev.",
+  "@Std.\nAbw.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "VarK\nin %": "VarK\nv%",
+  "@VarK\nin %": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "25%": "25%",
+  "@25%": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "75%": "75%",
+  "@75%": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgDaySum": "{value} dní",
+  "@msgDaySum": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "Standardabweichung": "štandardná odchýlka",
+  "@Standardabweichung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgGVINone": "nie je k dispozícii (malý {min} )",
+  "@msgGVINone": {
+    "type": "text",
+    "placeholders": {
+      "min": {}
+    }
+  },
+  "msgGVIVeryGood": "veľmi dobré ( {min} až {max} )",
+  "@msgGVIVeryGood": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "msgGVIGood": "dobré ( {min} až {max} )",
+  "@msgGVIGood": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "msgGVIBad": "zlé (viac ako {max} )",
+  "@msgGVIBad": {
+    "type": "text",
+    "placeholders": {
+      "max": {}
+    }
+  },
+  "msgPGSVeryGood": "vynikajúci (menej ako {min} )",
+  "@msgPGSVeryGood": {
+    "type": "text",
+    "placeholders": {
+      "min": {}
+    }
+  },
+  "msgPGSGood": "dobré ( {min} až {max} )",
+  "@msgPGSGood": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "msgPGSBad": "zlé ( {min} až {max} )",
+  "@msgPGSBad": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "msgPGSVeryBad": "veľmi zlé (viac ako {max} )",
+  "@msgPGSVeryBad": {
+    "type": "text",
+    "placeholders": {
+      "max": {}
+    }
+  },
+  "msgHistorical": "Historicky {value}",
+  "@msgHistorical": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "mg/dL": "mg/dl",
+  "@mg/dL": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mmol/L": "mmol/L",
+  "@mmol/L": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgProfileSwitch": "Zmena profilu z {oldName} => {newName}",
+  "@msgProfileSwitch": {
+    "type": "text",
+    "placeholders": {
+      "oldName": {},
+      "newName": {}
+    }
+  },
+  "msgProfileSwitchDuration": "Zmena profilu z {oldName} => {newName} po {duration} minút",
+  "@msgProfileSwitchDuration": {
+    "type": "text",
+    "placeholders": {
+      "oldName": {},
+      "newName": {},
+      "duration": {}
+    }
+  },
+  "msgChangedEntry": "{name} {from} => {to}",
+  "@msgChangedEntry": {
+    "type": "text",
+    "placeholders": {
+      "name": {},
+      "from": {},
+      "to": {}
+    }
+  },
+  "Keine Änderung": "Bez zmeny",
+  "@Keine Änderung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auswertung": "Zhodnotenie",
+  "@Auswertung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Material mit Nachkommastellen": "Materiál s desatinnými miestami",
+  "@Material mit Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zielbereich mit Nachkommastellen": "Cieľová oblasť s desatinnými miestami",
+  "@Zielbereich mit Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Standardabweichung statt Anzahl": "Štandardná odchýlka miesto počtu",
+  "@Standardabweichung statt Anzahl": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Standardbereich mit feinerer Abstufung": "Štandardný rad s jemnejšou gradáciou",
+  "@Standardbereich mit feinerer Abstufung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgTOR": "ToR [{value}min/d]",
+  "@msgTOR": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgCV": "VarK [{value}%]",
+  "@msgCV": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "msgHYPO": "Intenzita HYPO\n[{unit} x min²]",
+  "@msgHYPO": {
+    "type": "text",
+    "placeholders": {
+      "unit": {},
+      "value": {}
+    }
+  },
+  "msgHYPER": "Intenzita HYPER\n[{unit} x min²]",
+  "@msgHYPER": {
+    "type": "text",
+    "placeholders": {
+      "unit": {},
+      "value": {}
+    }
+  },
+  "msgMEAN": "Stredná glykémia\n[{unit}]",
+  "@msgMEAN": {
+    "type": "text",
+    "placeholders": {
+      "unit": {},
+      "value": {}
+    }
+  },
+  "PGR": "PGR",
+  "@PGR": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.": "Zelený päťuholník predstavuje rozsah hodnôt zdravého človeka bez cukrovky.",
+  "@Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.": "Žltý päťuholník predstavuje rozsah hodnôt hodnoteného obdobia.",
+  "@Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgTORInfo": "Počet minút v dni, počas ktorých sú hodnoty mimo rozsahu {min} až {max} .",
+  "@msgTORInfo": {
+    "type": "text",
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "Die glykämische Variabilität stellt die Streuung der Werte um den glykämischen Mittelwert herum in Prozent dar.": "Glykemická variabilita predstavuje roztrúsenosť hodnôt okolo glykemického priemeru v percentách.",
+  "@Die glykämische Variabilität stellt die Streuung der Werte um den glykämischen Mittelwert herum in Prozent dar.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgHYPOInfo": "Intenzita hypoglykémie za deň (hodnoty menšie alebo rovné {unit}).",
+  "@msgHYPOInfo": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "msgHYPERInfo": "Intenzita hyperglykémie za deň (hodnoty väčšie alebo rovné {unit}).",
+  "@msgHYPERInfo": {
+    "type": "text",
+    "placeholders": {
+      "unit": {}
+    }
+  },
+  "msgMEANInfo": "Glykemický priemer v uvažovanom období.",
+  "@msgMEANInfo": {
+    "type": "text",
+    "placeholders": {
+      "hba1c": {}
+    }
+  },
+  "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": "Parameter prognostické riziko glykémie predstavuje riziko dlhodobých komplikácií (doteraz štúdiami nepreukázané).",
+  "@Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "0,0 bis 2,0": "0,0 až 2,0",
+  "@0,0 bis 2,0": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sehr geringes Risiko": "veľmi nízke riziko",
+  "@sehr geringes Risiko": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "2,1 bis 3,0": "2,1 až 3,0",
+  "@2,1 bis 3,0": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "geringes Risiko": "nízke riziko",
+  "@geringes Risiko": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "3,1 bis 4,0": "3,1 až 4,0",
+  "@3,1 bis 4,0": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "moderates Risiko": "mierne riziko",
+  "@moderates Risiko": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "4,1 bis 4,5": "4,1 až 4,5",
+  "@4,1 bis 4,5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hohes Risiko": "vysoké riziko",
+  "@hohes Risiko": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ab 4,6": "od 4,6",
+  "@ab 4,6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "extrem hohes Risiko": "extrémne vysoké riziko",
+  "@extrem hohes Risiko": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "CGP": "CGP",
+  "@CGP": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Comprehensive Glucose Pentagon": "Súhrnný glykemický päťuholník",
+  "@Comprehensive Glucose Pentagon": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Hochformat": "Postojačky",
+  "@Hochformat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Querformat": "Poležiačky",
+  "@Querformat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesanalyse": "analýza dňa",
+  "@Tagesanalyse": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Eine": "jeden",
+  "@Eine": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zwei": "dva",
+  "@Zwei": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Vier": "štyri",
+  "@Vier": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Acht": "osem",
+  "@Acht": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sechzehn": "šestnásť",
+  "@Sechzehn": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesgrafik": "denný graf",
+  "@Tagesgrafik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Symbole (Katheter etc.)": "Symboly (katétre atď.)",
+  "@Symbole (Katheter etc.)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kohlenhydrate": "sacharidy",
+  "@Kohlenhydrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tages-Basalrate": "Denný bazálny pomer",
+  "@Tages-Basalrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Profil-Basalrate": "Bazálny pomer v profile",
+  "@Profil-Basalrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Basal mit zwei Nachkommastellen": "Basal s dvoma desatinnými miestami",
+  "@Basal mit zwei Nachkommastellen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Grafiken pro Seite": "Počet grafov na stránku",
+  "@Grafiken pro Seite": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Legende": "legenda",
+  "@Legende": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Notizen": "poznámky",
+  "@Notizen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neuester Tag zuerst": "Najnovší deň ako prvý",
+  "@Neuester Tag zuerst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tabelle mit Glukosewerten": "Tabuľka s hodnotami glukózy",
+  "@Tabelle mit Glukosewerten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Notiz-Linien bis zur Kurve zeichnen": "Kóty poznámok vyviesť až na krivku",
+  "@Notiz-Linien bis zur Kurve zeichnen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nahe zusammen liegende Werte aufsummieren": "Sčitovať blízko seba ležiace hodnoty",
+  "@Nahe zusammen liegende Werte aufsummieren": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bolusarten anzeigen": "Zobraziť druh bolusu",
+  "@Bolusarten anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Training anzeigen": "Zobraziť tréningy",
+  "@Training anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Berechnete IE für Kohlenhydrate anzeigen": "Zobraziť vypočítané IE pre sacharidy",
+  "@Berechnete IE für Kohlenhydrate anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose Pentagon erzeugen": "Vytvoriť glykemický päťuholník",
+  "@Glukose Pentagon erzeugen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesstartprofil anzeigen": "Zobraziť profil počiatku dňa",
+  "@Tagesstartprofil anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "1 Minute": "1 minúta",
+  "@1 Minute": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "5 Minuten": "5 minút",
+  "@5 Minuten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "15 Minuten": "15 minút",
+  "@15 Minuten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "30 Minuten": "30 minút",
+  "@30 Minuten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "1 Stunde": "1 hodina",
+  "@1 Stunde": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Protokoll": "protokol",
+  "@Protokoll": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Temporäre Basalraten": "Jednorazové dávky bazálu",
+  "@Temporäre Basalraten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "SMB": "SMB",
+  "@SMB": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Profilwechsel": "Zmena profilu",
+  "@Profilwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin-Quelle": "Zdroj inzulínu",
+  "@Insulin-Quelle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Temporäre Ziele": "Dočasné ciele",
+  "@Temporäre Ziele": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Gruppierung der Zeiten": "Zoskupovanie časov",
+  "@Gruppierung der Zeiten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukosewert": "hladina glukózy",
+  "@Glukosewert": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wechsel (Katheter etc.)": "Zmena (katéter atď.)",
+  "@Wechsel (Katheter etc.)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zusätzliche Spalte anzeigen": "Zobraziť dodatočný stĺpec",
+  "@Zusätzliche Spalte anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kalibrierung und blutige Messungen": "Kalibrácia a merania z krvi",
+  "@Kalibrierung und blutige Messungen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Details des Profilwechsels": "Podrobnosti o zmene profilu",
+  "@Details des Profilwechsels": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tag (08:00 - 18:00)": "Deň (08:00 - 18:00)",
+  "@Tag (08:00 - 18:00)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dämmerung (06:00 - 08:00, 18:00 - 20:00)": "Súmrak (06:00 - 08:00, 18:00 - 20:00)",
+  "@Dämmerung (06:00 - 08:00, 18:00 - 20:00)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nacht (20:00 - 08:00)": "Noc (20:00 - 08:00)",
+  "@Nacht (20:00 - 08:00)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgLogTempTarget": "temp. {target} cieľ na {duration} min, dôvod: {reason}",
+  "@msgLogTempTarget": {
+    "type": "text",
+    "placeholders": {
+      "target": {},
+      "duration": {},
+      "reason": {}
+    }
+  },
+  "msgLogTempBasal": "temp. Bazál {percent}% / {duration} min",
+  "@msgLogTempBasal": {
+    "type": "text",
+    "placeholders": {
+      "percent": {},
+      "duration": {}
+    }
+  },
+  "msgLogSMB": "SMB {insulin} {unit}",
+  "@msgLogSMB": {
+    "type": "text",
+    "placeholders": {
+      "insulin": {},
+      "unit": {}
+    }
+  },
+  "Ampullenwechsel": "výmena ampulky",
+  "@Ampullenwechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgMBG": "Meranie z krvi {gluc} {unit}",
+  "@msgMBG": {
+    "type": "text",
+    "placeholders": {
+      "gluc": {},
+      "unit": {}
+    }
+  },
+  "Spalte Messwerte": "Namerané hodnoty v stĺpci",
+  "@Spalte Messwerte": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte Standardabweichung": "Štandardná odchýlka stĺpca",
+  "@Spalte Standardabweichung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalten Perzentile": "Percentá v stĺpci",
+  "@Spalten Perzentile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte HbA1c": "Stĺpec HbA1c",
+  "@Spalte HbA1c": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte Variationskoeffizient": "Variačný koeficient stĺpca",
+  "@Spalte Variationskoeffizient": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesstatistik": "denná štatistika",
+  "@Tagesstatistik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose Perzentil Diagramm": "Percentilný diagram glykémie",
+  "@Glukose Perzentil Diagramm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Profil": "profil",
+  "@Profil": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zeilen mit gleichen Werten zusammenfassen": "Spojiť riadky s rovnakými hodnotami",
+  "@Zeilen mit gleichen Werten zusammenfassen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wochengrafik": "Týždenný graf",
+  "@Wochengrafik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neueste Woche zuerst": "Najnovší týždeň ako prvý",
+  "@Neueste Woche zuerst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesnamen in Grafik anzeigen": "Zobraziť názvy dní v grafike",
+  "@Tagesnamen in Grafik anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "URL adresa na rozhranie Nightscout-API (napr. https://xxx.herokuapp.com)",
+  "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Name": "Meno",
+  "@Name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "User-Token": "User-Token",
+  "@User-Token": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "Užívateľský token je potrebný, iba ak bol prístup v Nightscout obmedzený prostredníctvom AUTH_DEFAULT_ROLES",
+  "@Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgCheckUser": "Skontrolujte prístup na {url} ...",
+  "@msgCheckUser": {
+    "type": "text",
+    "placeholders": {
+      "url": {}
+    }
+  },
+  "Willkommen": "Vitajte",
+  "@Willkommen": {
+    "description": "title of welcome screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Facebook Seite": "Stránka na Facebooku",
+  "@Facebook Seite": {
+    "description": "title of facebook link",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einstellungen": "Nastavenia",
+  "@Einstellungen": {
+    "description": "title for settings dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Was bisher geschah...": "Čo sa doteraz podarilo ...",
+  "@Was bisher geschah...": {
+    "description": "title of whatsnew",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Pausiert": "Pozastavené",
+  "@Pausiert": {
+    "description": "message for current glucose if not active",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anmeldung bei Google...": "Prihláste sa do Google ...",
+  "@Anmeldung bei Google...": {
+    "description": "signin to google",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verbinde zu Google Drive...": "Pripojiť sa k Disku Google ...",
+  "@Verbinde zu Google Drive...": {
+    "description": "message for signin to google",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?": "Prečo som naštvaný niekoľkými tlačidlami namiesto toho, aby som získal jeden súbor PDF?",
+  "@Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?": {
+    "description": "btnPdfInfo",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": "Niektoré prehliadače nedokážu zobraziť súbory PDF, ktoré presahujú určitú veľkosť. Pretože to závisí od rôznych faktorov, ktoré sa nedajú ľahko určiť automaticky, existuje možnosť, namiesto veľkého súboru PDF, ktorý sa nedá zobraziť, vygenerovať niekoľko menších súborov PDF, ktoré môže prehliadač zobraziť. V nastaveniach a tu je možné túto veľkosť zadať. Táto stránka sa zobrazí, iba ak sa PDF muselo rozdeliť. Ak bol vytvorený iba jeden súbor PDF, zobrazí sa priamo.",
+  "@Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": {
+    "description": "msgPdfInfo",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Klein": "malý",
+  "@Klein": {
+    "description": "small",
+    "type": "text",
+    "placeholders": {}
+  },
+  "PDF erneut erzeugen": "Reprodukovať PDF",
+  "@PDF erneut erzeugen": {
+    "description": "pdfCreateAgain",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Gross": "skvelý",
+  "@Gross": {
+    "description": "big",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Unbegrenzt": "neobmedzený",
+  "@Unbegrenzt": {
+    "description": "big",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zur Listenansicht": "Na zobrazenie zoznamu",
+  "@Zur Listenansicht": {
+    "description": "title of listview",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zur Kachelansicht": "Zobrazenie dlaždíc",
+  "@Zur Kachelansicht": {
+    "description": "title of tileview",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nightscout Seite": "Stránka Nightscout",
+  "@Nightscout Seite": {
+    "description": "title of nightscout page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nightscout Berichte": "Nightscout správy",
+  "@Nightscout Berichte": {
+    "description": "title of nightscout reports",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Von": "z",
+  "@Von": {
+    "description": "datepicker label from",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bis": "na",
+  "@Bis": {
+    "description": "datepicker label to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ok": "ok",
+  "@Ok": {
+    "description": "buttonlabel for ok in control datepicker",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bitte überprüfe die Aktivierung der Wochentage unter dem Monat": "Skontrolujte aktiváciu pracovných dní v mesiaci",
+  "@Bitte überprüfe die Aktivierung der Wochentage unter dem Monat": {
+    "description": "subtitle for datepicker dialog when period empty",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Als ersten Tag der Woche festlegen": "Nastaviť ako prvý deň v týždni",
+  "@Als ersten Tag der Woche festlegen": {
+    "description": "title for button of weekdayname",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tl;dr": "tl; dr",
+  "@tl;dr": {
+    "description": "headline for shorttext for dataprotection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert.": "Táto webová stránka neukladá údaje na serveroch. Požadované údaje sa získajú zo zadanej adresy URL do inštancie Nightscout a pripravia sa ako PDF. Dáta potrebné na fungovanie webovej stránky sú uložené v localStorage prehliadača a neprenášajú sa na server. Ak je zapnutá synchronizácia s Diskom Google, tieto údaje sa tiež uložia do údajov aplikácie v priradenom účte Disk Google.",
+  "@Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert.": {
+    "description": "shorttext for dataprotection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Mehr gibt es dazu eigentlich nicht zu sagen.": "O tom nie je viac čo povedať.",
+  "@Mehr gibt es dazu eigentlich nicht zu sagen.": {
+    "description": "allsaid in dataprotection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:": "Keďže v Európe už nejaký čas máme DSGVO, nasledujúce pravidlá sú stále splnené. Tento text je k dispozícii iba v nemčine:",
+  "@Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:": {
+    "description": "info for dsgvo in dataprotection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzeigeeinstellungen": "nastavenia zobrazenia",
+  "@Anzeigeeinstellungen": {
+    "description": "label of area for additional functions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf Kacheln Bilder statt Namen anzeigen": "Zobraziť obrázky namiesto mien na dlaždiciach",
+  "@Auf Kacheln Bilder statt Namen anzeigen": {
+    "description": "label for checkbox to show images on tiles",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zusatzfunktionen": "doplnkové funkcie",
+  "@Zusatzfunktionen": {
+    "description": "label of area for additional functions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "PDF im selben Fenster öffnen": "Otvorte PDF v rovnakom okne",
+  "@PDF im selben Fenster öffnen": {
+    "description": "label for checkbox to open PDF in same window",
+    "type": "text",
+    "placeholders": {}
+  },
+  "PDF herunterladen (bei einigen Browsern benötigt)": "Stiahnite si PDF (potrebné v niektorých prehliadačoch)",
+  "@PDF herunterladen (bei einigen Browsern benötigt)": {
+    "description": "label for checkbox to download PDF",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Skryť rady týkajúce sa Nightscout v hlavičke a päte PDF",
+  "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
+    "description": "label for checkbox to hide nightscout in footer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzten Messwert in der Titelzeile anzeigen": "Zobraziť poslednú nameranú hodnotu v záhlaví",
+  "@Letzten Messwert in der Titelzeile anzeigen": {
+    "description": "label for checkbox to show current glucoselevel",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf, bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen Regler weiter nach links zu bewegen.": "Tento posúvač určuje maximálne povolené množstvo výstupu pred jeho rozdelením do viacerých súborov PDF. Ak sa pri vytváraní PDF zobrazí prázdne okno, zvyčajne vám pomôže posúvať tento posúvač ďalej doľava.",
+  "@Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf, bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen Regler weiter nach links zu bewegen.": {
+    "description": "pdfFileSize",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzerdaten": "používateľské dáta",
+  "@Benutzerdaten": {
+    "description": "label for settings-area with user data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einstellungen von Release-Version übernehmen": "Použiť nastavenia z verzie vydania",
+  "@Einstellungen von Release-Version übernehmen": {
+    "description": "buttonlabel for copy of settings to beta version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Speichern": "uložiť",
+  "@Speichern": {
+    "description": "buttonlabel for saving data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bestätigung": "potvrdenie",
+  "@Bestätigung": {
+    "description": "title of confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Soll der Benutzer mit der URL": "Mal by užívateľ s URL",
+  "@Soll der Benutzer mit der URL": {
+    "description": "should the user with url",
+    "type": "text",
+    "placeholders": {}
+  },
+  "wirklich gelöscht werden?": "naozaj vymazať?",
+  "@wirklich gelöscht werden?": {
+    "description": "really be deleted",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ja": "áno",
+  "@Ja": {
+    "description": "buttonlabel for confirmation yes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nein": "žiadny",
+  "@Nein": {
+    "description": "buttonlabel for confirmation no",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Willkommen bei Nightscout Reporter!": "Vitajte v Nightscout Reporter!",
+  "@Willkommen bei Nightscout Reporter!": {
+    "description": "welcome title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": "Táto stránka sa používa na generovanie dokumentov PDF s údajmi uloženými v Nightscout. Preto je potrebné mať prístup k týmto údajom, a preto je potrebné najskôr uložiť niekoľko nastavení. Pokiaľ nie sú dostupné a platné, stránka pre vás nemôže urobiť nič.",
+  "@Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": {
+    "description": "welcome section 1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "Dáta, ktoré tu zadáte, sa zvyčajne uložia do lokálneho úložiska prehliadača. Obsahuje údaje súvisiace s webovými stránkami, ktoré je možné prečítať iba z tejto webovej stránky. V tomto prípade sa nepoužívajú žiadne súbory cookie a na serveroch nie sú uložené žiadne údaje. Nastaví sa iba spojenie so špecifikovanou inštanciou Nightscout a údaje, ktoré sú k dispozícii, sa načítajú, aby sa vygeneroval dokument PDF. Toto sa potom môže predložiť diabetologickému poradcovi alebo inej zainteresovanej strane.",
+  "@Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": {
+    "description": "welcome section 2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": "Webstránka používa na svoju prácu hlavne javascript. Pri vytváraní dokumentu PDF sa používajú Javascript a PHP.",
+  "@Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": {
+    "description": "welcome section 4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur Verfügung, der mit dem angegebenen Google Konto verbunden ist.": "Keď sú nastavenia prepojené s účtom Google, používajú sa súbory cookie spoločnosti Google a údaje sa už neukládajú v lokálnom úložisku prehliadača, ale v AppStorage na Disku Google. Týmto spôsobom môžete spravovať údaje centrálne a mať ich k dispozícii v ľubovoľnom prehliadači pripojenom k zadanému účtu Google.",
+  "@Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur Verfügung, der mit dem angegebenen Google Konto verbunden ist.": {
+    "description": "welcome section 3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einstellungen für die Verwendung der Seite vornehmen": "Vykonajte nastavenia pre používanie stránky",
+  "@Einstellungen für die Verwendung der Seite vornehmen": {
+    "description": "label for button to open settings on welcome screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Version": "verzia",
+  "@Version": {
+    "description": "version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.3.3 - 12.09.2019": "1.3.3 - 12.09.2019",
+  "@1.3.3 - 12.09.2019": {
+    "description": "v133",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Kachelansicht können die Parameter aller ausgewählten Seiten zusammen in einer Liste eingestellt werden. Dazu gibt es im Titelbereich der Parameterliste neben dem Schliessen-Button einen zusätzlichen Button, mit dem man zwischen den beiden Möglichkeiten umschalten kann.": "V zobrazení dlaždíc možno parametre všetkých vybratých stránok nastaviť spolu v zozname. Na tento účel existuje ďalšie tlačidlo v nadpisovej oblasti zoznamu parametrov vedľa tlačidla Zatvoriť, pomocou ktorého môžete prepínať medzi týmito dvoma možnosťami.",
+  "@In der Kachelansicht können die Parameter aller ausgewählten Seiten zusammen in einer Liste eingestellt werden. Dazu gibt es im Titelbereich der Parameterliste neben dem Schliessen-Button einen zusätzlichen Button, mit dem man zwischen den beiden Möglichkeiten umschalten kann.": {
+    "description": "v133a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Einstellungen für das Herunterladen des PDFs, das Öffnen im gleichen Fenster und die Maximalgrösse der PDFs wurden von der Synchronisierung mit Google Drive ausgenommen, weil sie speziell für den verwendeten Browser oder das verwendete Gerät benötigt werden. Sie werden nach wie vor gespeichert, aber sie werden nicht zwischen verschiedenen Browsern synchronisiert.": "Nastavenia sťahovania PDF, ktoré sa otvárajú v tom istom okne a maximálna veľkosť súborov PDF, boli vylúčené z synchronizácie s Diskom Google, pretože sú špecifické pre prehliadač alebo zariadenie, ktoré používate. Sú stále uložené, ale nie sú synchronizované medzi rôznymi prehliadačmi.",
+  "@Die Einstellungen für das Herunterladen des PDFs, das Öffnen im gleichen Fenster und die Maximalgrösse der PDFs wurden von der Synchronisierung mit Google Drive ausgenommen, weil sie speziell für den verwendeten Browser oder das verwendete Gerät benötigt werden. Sie werden nach wie vor gespeichert, aber sie werden nicht zwischen verschiedenen Browsern synchronisiert.": {
+    "description": "v133c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B. die Auswahl von CGP bei Tagesgrafiken).": "Ukážky obrázkov na dlaždiciach sa čiastočne upravia v závislosti od zvolených možností (napr. Výber CGP pre dennú grafiku).",
+  "@Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B. die Auswahl von CGP bei Tagesgrafiken).": {
+    "description": "v133c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.3.2 - 05.09.2019": "1.3.2 - 05.09.2019",
+  "@1.3.2 - 05.09.2019": {
+    "description": "v132",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beim CGP werden die aktuellen Werte jetzt in der Legende angezeigt.": "CGP teraz zobrazuje aktuálne hodnoty v legende.",
+  "@Beim CGP werden die aktuellen Werte jetzt in der Legende angezeigt.": {
+    "description": "v132a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es ist jetzt möglich, die Einstellungen auf Google Drive zu speichern. Das hat den Vorteil, dass man die Einstellungen nicht nur im aktuellen Browser hat, sondern bei jedem Browser, mit dem man sich bei Google anmeldet. Die Einstellungen werden nach wie vor im Browser gespeichert. Bei einer Verbindung zu Google Drive werden sie aber zusätzlich auf Google Drive gespeichert. Beim Laden der Seite wird überprüft, ob eine Synchronisierung gewünscht ist. Wenn das der Fall ist, dann werden die Daten von Google Drive heruntergeladen. Wenn die Daten darin neuer sind als die Daten im Browser, werden sie verwendet. Nach dem Speichern der Daten werden bei aktivierter Synchronisierung diese Daten mit dem aktuellen Zeitstempel auf Google Drive gespeichert. Die Synchronisierung wird im Menü auf der linken Seite aktiviert und deaktiviert. Sie kann auch beim erstmaligen Aufruf der Seite in einem neuen Browser direkt im Willkommensbildschirm aktiviert werden. Nightscout Reporter verlangt nur die Berechtigung die eigenen App-Daten zu speichern und zu laden und benötigt keinen Zugriff auf andere Daten auf Google Drive.": "Teraz je možné nastavenia uložiť na Disk Google. To má tú výhodu, že nastavenia máte nielen v aktuálnom prehliadači, ale aj v každom prehliadači, pomocou ktorého sa prihlásite do spoločnosti Google. Nastavenia sú stále uložené v prehliadači. Po pripojení k službe Disk Google sa budú ukladať aj na Disk Google. Pri načítaní stránky skontroluje, či je požadovaná synchronizácia. V takom prípade sa údaje stiahnu z Disku Google. Ak sú údaje v ňom novšie ako údaje v prehliadači, použijú sa. Po uložení údajov sa synchronizáciou uložia tieto údaje s aktuálnou časovou pečiatkou na Disk Google. Synchronizácia sa aktivuje a deaktivuje v ponuke na ľavej strane. Môže sa tiež aktivovať pri prvom otvorení stránky v novom prehliadači priamo na uvítacej obrazovke. Aplikácia Nightscout Reporter vyžaduje povolenie iba na ukladanie a načítanie vlastných údajov aplikácie a nevyžaduje prístup k iným údajom na Disku Google.",
+  "@Es ist jetzt möglich, die Einstellungen auf Google Drive zu speichern. Das hat den Vorteil, dass man die Einstellungen nicht nur im aktuellen Browser hat, sondern bei jedem Browser, mit dem man sich bei Google anmeldet. Die Einstellungen werden nach wie vor im Browser gespeichert. Bei einer Verbindung zu Google Drive werden sie aber zusätzlich auf Google Drive gespeichert. Beim Laden der Seite wird überprüft, ob eine Synchronisierung gewünscht ist. Wenn das der Fall ist, dann werden die Daten von Google Drive heruntergeladen. Wenn die Daten darin neuer sind als die Daten im Browser, werden sie verwendet. Nach dem Speichern der Daten werden bei aktivierter Synchronisierung diese Daten mit dem aktuellen Zeitstempel auf Google Drive gespeichert. Die Synchronisierung wird im Menü auf der linken Seite aktiviert und deaktiviert. Sie kann auch beim erstmaligen Aufruf der Seite in einem neuen Browser direkt im Willkommensbildschirm aktiviert werden. Nightscout Reporter verlangt nur die Berechtigung die eigenen App-Daten zu speichern und zu laden und benötigt keinen Zugriff auf andere Daten auf Google Drive.": {
+    "description": "v132a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": "Pri výbere dennej bazálnej dávky je teraz možné v dennom grafe určiť, že sa zobrazí názov profilu, ktorý bol aktívny na začiatku dňa. Toto sa potom zobrazí ako zmena profilu o 0 hod.",
+  "@In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": {
+    "description": "v132a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.": "Na dlaždiciach sa teraz môžu namiesto mien zobrazovať obrázky. Obrázky potom ukazujú približný vzhľad zodpovedajúcej stránky. Nezodpovedajú skutočným údajom, ale sú iba vizuálnym znázornením, ktoré môže niektorým používateľom uľahčiť rýchly výber stránok, ktoré chcú. Aktivácia obrázkov sa uskutoční v dialógovom okne nastavení.",
+  "@Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.": {
+    "description": "v132a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesstatistik wurden bei unvollständigen Daten teilweise fehlerhafte Werte ausgegeben. Das wurde korrigiert.": "V denných štatistikách sa zobrazovali čiastočne neúplné údaje. Toto bolo opravené.",
+  "@In der Tagesstatistik wurden bei unvollständigen Daten teilweise fehlerhafte Werte ausgegeben. Das wurde korrigiert.": {
+    "description": "v132f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.3.1 - 22.08.2019": "1.3.1 - 22.08.2019",
+  "@1.3.1 - 22.08.2019": {
+    "description": "v131",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt.": "Na stránkach profilu a bazálnej dávky sa v záhlaví zobrazuje dátum, od ktorého sa profil uplatňuje.",
+  "@Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt.": {
+    "description": "v131c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Listenansicht ist jetzt wieder scrollbar.": "Zobrazenie zoznamu je teraz opäť posúvateľné.",
+  "@Die Listenansicht ist jetzt wieder scrollbar.": {
+    "description": "v131f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.": "Dočasné zmeny profilu sú teraz rozpoznané a správne zobrazené v dennej grafike.",
+  "@Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.": {
+    "description": "v131f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.3.0 - 19.08.2019": "1.3.0 - 19.08.2019",
+  "@1.3.0 - 19.08.2019": {
+    "description": "v130",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.": "„Komplexný glukózový päťuholník“ bol pridaný ako samostatný PDF a ako doplnok k dennej a týždennej grafike. Je to reprezentácia piatich meraní, pomocou ktorých je možné určiť kvalitu liečby a porovnať ju s ostatnými. Na výtlačkoch je uvedený odkaz na základnú esej.",
+  "@Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.": {
+    "description": "v130a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.": "V dennom grafe je možnosť zobraziť vypočítaný IE pre prehltnuté sacharidy. Hodnota zobrazená bezprostredne pod sacharidmi je bolus, ktorý by sa mal dodávať pre toto množstvo sacharidov v tom čase. Táto hodnota môže byť nižšia ako skutočná dodaná hodnota, pretože pri podaní inzulínu sa berie do úvahy IOB a ďalšie faktory.",
+  "@In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.": {
+    "description": "v130a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.": "Pri zobrazení cieľovej hodnoty sa v dennom grafe zohľadňujú aj dočasné ciele.",
+  "@In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.": {
+    "description": "v130a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt.": "Pri hodnotení existuje nová možnosť doladenia štandardného rozsahu. Tam sa zobrazujú veľmi vysoké a veľmi nízke hodnoty.",
+  "@In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt.": {
+    "description": "v130a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nightscout Reporter kann nun auch in Japanisch verwendet werden.": "Nightscout Reporter môžete teraz používať v japončine.",
+  "@Nightscout Reporter kann nun auch in Japanisch verwendet werden.": {
+    "description": "v130a5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es ist jetzt möglich, die Buttons zur PDF-Auswahl als Kacheln darstellen zu lassen. Die Option dazu ist im Menü auf der linken Seite zu finden. In der Kachelansicht werden die Buttons über die verfügbare Fläche verteilt und sind so auf kleinen Geräten leichter zu treffen. Ausserdem sieht man dann normalerweise alle verfügbaren PDFs auf einen Blick und muss nicht scrollen. Auf den aktivierten Kacheln wird angezeigt, an welcher Stelle im PDF die entsprechenden Seiten ausgegeben werden und wieviele Seiten die entsprechende Kachel ausgibt. Diese Zahl kann für die meisten Kacheln korrekt ermittelt werden, bei einigen ist das aber ohne Auswertung der Daten nicht möglich (z.B. Profile und Protokoll). In diesem Fall wird entweder keine Seitenzahl oder eine Mindestzahl an Seiten angegeben. Sobald die Erstellung des PDFs erfolgt ist, werden die korrekten Zahlen angezeigt. Die Reihenfolge der Kacheln kann verändert werden, indem man sie festhält und an die Stelle verschiebt, an der man sie gerne hätte. Nach Anklicken des Icons in der oberen rechten Ecke können die Parameter für das entsprechende PDF erfasst werden.": "Teraz je možné zobraziť tlačidlá pre výber PDF ako dlaždice. Túto možnosť nájdete v ponuke naľavo. V zobrazení dlaždíc sú tlačidlá rozmiestnené po dostupnej oblasti, a preto je ľahšie ich zasiahnuť na malých zariadeniach. Okrem toho zvyčajne vidíte všetky dostupné súbory PDF na prvý pohľad a nemusíte sa posúvať. Aktivované dlaždice označujú, v ktorom okamihu sú na výstupe príslušné stránky a koľko stránok zodpovedajú výstupy na dlaždice. Toto číslo sa dá určiť pre väčšinu dlaždíc správne, ale pre niektoré to nie je možné bez vyhodnotenia údajov (napr. Profilov a protokolov). V takom prípade nie je zadané žiadne číslo strany alebo minimálny počet strán. Po vytvorení PDF sa zobrazia správne čísla. Poradie dlaždíc môžete zmeniť tak, že ich podržíte a presuniete na miesto, kde by ste chceli. Po kliknutí na ikonu v pravom hornom rohu je možné zadať parametre pre zodpovedajúci súbor PDF.",
+  "@Es ist jetzt möglich, die Buttons zur PDF-Auswahl als Kacheln darstellen zu lassen. Die Option dazu ist im Menü auf der linken Seite zu finden. In der Kachelansicht werden die Buttons über die verfügbare Fläche verteilt und sind so auf kleinen Geräten leichter zu treffen. Ausserdem sieht man dann normalerweise alle verfügbaren PDFs auf einen Blick und muss nicht scrollen. Auf den aktivierten Kacheln wird angezeigt, an welcher Stelle im PDF die entsprechenden Seiten ausgegeben werden und wieviele Seiten die entsprechende Kachel ausgibt. Diese Zahl kann für die meisten Kacheln korrekt ermittelt werden, bei einigen ist das aber ohne Auswertung der Daten nicht möglich (z.B. Profile und Protokoll). In diesem Fall wird entweder keine Seitenzahl oder eine Mindestzahl an Seiten angegeben. Sobald die Erstellung des PDFs erfolgt ist, werden die korrekten Zahlen angezeigt. Die Reihenfolge der Kacheln kann verändert werden, indem man sie festhält und an die Stelle verschiebt, an der man sie gerne hätte. Nach Anklicken des Icons in der oberen rechten Ecke können die Parameter für das entsprechende PDF erfasst werden.": {
+    "description": "v130a6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Profil werden nun die Gesamtsumme der Basalrate und die durchschnittlichen Werte für ICR und ISF pro Stunde angezeigt.": "Profil teraz ukazuje celkovú bazálnu dávku a priemernú ICR a ISF za hodinu.",
+  "@Im Profil werden nun die Gesamtsumme der Basalrate und die durchschnittlichen Werte für ICR und ISF pro Stunde angezeigt.": {
+    "description": "v130a7",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Optionen für die PDFs, die eine eindeutige Beziehung zu einem laufenden Loop haben, werden nun in Blau dargestellt. Das vereinfacht es, PDFs zu erstellen, denen man nicht ohne Weiteres entnehmen kann, dass ein Loop vorliegt. Dazu müssen nur die Haken bei den blauen Optionen entfernt werden.": "Možnosti PDF, ktoré majú jedinečný vzťah k bežiacej slučke, sa teraz zobrazujú modrou farbou. To uľahčuje vytváranie súborov PDF, ktoré nie je možné ľahko odvodiť z toho, že existuje slučka. Všetko, čo musíte urobiť, je odškrtnúť modré možnosti.",
+  "@Optionen für die PDFs, die eine eindeutige Beziehung zu einem laufenden Loop haben, werden nun in Blau dargestellt. Das vereinfacht es, PDFs zu erstellen, denen man nicht ohne Weiteres entnehmen kann, dass ein Loop vorliegt. Dazu müssen nur die Haken bei den blauen Optionen entfernt werden.": {
+    "description": "v130a8",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte Basalratenanpassung anzeigen.": "Profily bazálnej dávky za deň sa teraz tiež určujú na základe údajov o liečbe. Zmeny profilu sa zobrazujú v dennom grafe a mali by tiež ukazovať správne nastavenie bazálnej dávky od okamihu zmeny.",
+  "@Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte Basalratenanpassung anzeigen.": {
+    "description": "v130c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Seiten Profil und Basalrate zeigen nun bei einem Profil, das nur temporär während eines Tages aktiv war den Zeitraum an, in dem es aktiv war.": "Na stránkach Profil a Bazálna sadzba sa teraz zobrazuje časové obdobie, počas ktorého bola aktívna na profile, ktorý bol počas dňa aktívny iba dočasne.",
+  "@Die Seiten Profil und Basalrate zeigen nun bei einem Profil, das nur temporär während eines Tages aktiv war den Zeitraum an, in dem es aktiv war.": {
+    "description": "v130c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde.": "Tlačidlá pre minulé obdobia sa nebudú zobrazovať, ak nie je vybrané žiadne obdobie alebo PDF.",
+  "@Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde.": {
+    "description": "v130c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einige der Optionen für die PDFs wurden hierarchisch angeordnet. Es macht z.B. keinen Sinn, die SMB Werte in der Tagesgrafik an der Kurve platzieren zu lassen, wenn die SMB Werte gar nicht angezeigt werden. Deswegen werden Optionen, die von einer anderen Option abhängen nur dann angezeigt, wenn die entsprechende Option markiert ist. Dadurch ändert sich leider auch die Speicherung der Optionen, weshalb sich die aktuelle Auswahl der Optionen bei manchen PDFs verändert. Da müssen die Optionen dann neu gesetzt werden.": "Niektoré z možností pre súbory PDF boli usporiadané hierarchicky. Napríklad nemá zmysel umiestňovať hodnoty SMB do grafu v dennom grafe, ak sa hodnoty SMB vôbec nezobrazujú. Preto sa možnosti, ktoré závisia od inej možnosti, zobrazia, iba ak je vybratá príslušná možnosť. To, žiaľ, zmení aj ukladanie volieb, a preto sa zmenil aktuálny výber volieb pre niektoré súbory PDF. Možnosti sa musia potom resetovať.",
+  "@Einige der Optionen für die PDFs wurden hierarchisch angeordnet. Es macht z.B. keinen Sinn, die SMB Werte in der Tagesgrafik an der Kurve platzieren zu lassen, wenn die SMB Werte gar nicht angezeigt werden. Deswegen werden Optionen, die von einer anderen Option abhängen nur dann angezeigt, wenn die entsprechende Option markiert ist. Dadurch ändert sich leider auch die Speicherung der Optionen, weshalb sich die aktuelle Auswahl der Optionen bei manchen PDFs verändert. Da müssen die Optionen dann neu gesetzt werden.": {
+    "description": "v130c4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Auswahl des Zeitraums und der Benutzer wurde in die Titelzeile verschoben.": "Výber obdobia a používateľ bol presunutý do záhlavia.",
+  "@Die Auswahl des Zeitraums und der Benutzer wurde in die Titelzeile verschoben.": {
+    "description": "v130c5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Ermittlung der Einheit (mg/dl oder mmol/l) wird nun flexibler gehandhabt, so dass auch Leerzeichen in der entsprechenden Einstellung nicht mehr zu einer Fehlinterpretation führen.": "Stanovenie jednotky (mg / dl alebo mmol / l) sa teraz vykonáva flexibilnejšie, takže aj medzery v zodpovedajúcom nastavení už nevedú k nesprávnej interpretácii.",
+  "@Die Ermittlung der Einheit (mg/dl oder mmol/l) wird nun flexibler gehandhabt, so dass auch Leerzeichen in der entsprechenden Einstellung nicht mehr zu einer Fehlinterpretation führen.": {
+    "description": "v130f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ein Fehler wurde behoben, der in der Tagesgrafik dazu führte, dass Texte in der Legende andere Texte überschrieben haben.": "Bola opravená chyba, ktorá spôsobila, že denná grafika prepísala texty v legende.",
+  "@Ein Fehler wurde behoben, der in der Tagesgrafik dazu führte, dass Texte in der Legende andere Texte überschrieben haben.": {
+    "description": "v130f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Berechnung der PDF-Grössen wurde korrigiert, so dass nun weniger PDFs erstellt werden, wenn sie aufgrund der Grösse aufgeteilt werden.": "Výpočet veľkostí PDF bol opravený, takže pri rozdelení podľa veľkosti sa vytvorí menej súborov PDF.",
+  "@Die Berechnung der PDF-Grössen wurde korrigiert, so dass nun weniger PDFs erstellt werden, wenn sie aufgrund der Grösse aufgeteilt werden.": {
+    "description": "v130f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind.": "Rovnaká databáza sa používa na výpočet analýzy, denných štatistík a denných grafov tak, aby hodnoty boli rovnaké vo všetkých PDF.",
+  "@Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind.": {
+    "description": "v130f4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es werden jetzt auch blutige Werte erkannt, die von Loop auf dem IPhone eingetragen werden.": "Teraz sú rozpoznané krvavé hodnoty, ktoré do zariadenia iPhone zadáva slučka Loop.",
+  "@Es werden jetzt auch blutige Werte erkannt, die von Loop auf dem IPhone eingetragen werden.": {
+    "description": "v130f5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.11 - 17.05.2019": "1.2.11 - 17.05.2019",
+  "@1.2.11 - 17.05.2019": {
+    "description": "v1211",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es gibt jetzt die Möglichkeit, PDFs vergangener Zeiträume zu erzeugen, ohne den Zeitraum anpassen zu müssen. Oberhalb des Buttons zur PDF-Erzeugung gibt es zwei Buttons, welche die PDFs für eine frühere Periode erzeugen. Der untere der beiden Buttons erzeugt die Vorperiode, der obere die vorletzte Periode. Auf den Buttons wird das Startdatum und das Enddatum angezeigt. Wenn z.B. als Zeitraum \"Letzte 2 Wochen\" gewählt wurde, dann wird mit dem unteren Button der Zeitraum von zwei Wochen beginnend vor vier Wochen erzeugt und mit dem oberen Button der Zeitraum von zwei Wochen beginnend vor sechs Wochen. Auf diese Art kann man recht einfach Vergleichsberichte erzeugen, um die Entwicklung der Werte zu erkennen. Auf den Seiten wird für diese Ausdrucke in der Kopfzeile das Wort \"Historisch 1\", bzw. \"Historisch 2\" oberhalb des Zeitraums ausgegeben. So kann man beim Vergleich der Werte die Daten voneinander unterscheiden.": "Teraz je možné vytvárať PDF minulých období bez toho, aby ste museli toto obdobie upravovať. Nad tlačidlom na vytváranie PDF sa nachádzajú dve tlačidlá, ktoré generujú súbory PDF skôr. Dolná časť tlačidiel generuje predchádzajúce obdobie, horné predposledné obdobie. Tlačidlá zobrazujú dátum začatia a dátum ukončenia. Napríklad, ak ste ako obdobie vybrali „posledné 2 týždne“, spodné tlačidlo začne obdobie od dvoch týždňov začínajúcich pred štyrmi týždňami a horné tlačidlo začne obdobie od pred dvoma týždňami do šiestich týždňov. Týmto spôsobom je ľahké generovať porovnávacie správy na zistenie vývoja hodnôt. Na stranách sa pre tieto výtlačky v hlavičke vytlačia slová „Historický 1“ alebo „Historický 2“ nad periódou. Pri porovnávaní hodnôt teda môžete navzájom odlíšiť údaje.",
+  "@Es gibt jetzt die Möglichkeit, PDFs vergangener Zeiträume zu erzeugen, ohne den Zeitraum anpassen zu müssen. Oberhalb des Buttons zur PDF-Erzeugung gibt es zwei Buttons, welche die PDFs für eine frühere Periode erzeugen. Der untere der beiden Buttons erzeugt die Vorperiode, der obere die vorletzte Periode. Auf den Buttons wird das Startdatum und das Enddatum angezeigt. Wenn z.B. als Zeitraum \"Letzte 2 Wochen\" gewählt wurde, dann wird mit dem unteren Button der Zeitraum von zwei Wochen beginnend vor vier Wochen erzeugt und mit dem oberen Button der Zeitraum von zwei Wochen beginnend vor sechs Wochen. Auf diese Art kann man recht einfach Vergleichsberichte erzeugen, um die Entwicklung der Werte zu erkennen. Auf den Seiten wird für diese Ausdrucke in der Kopfzeile das Wort \"Historisch 1\", bzw. \"Historisch 2\" oberhalb des Zeitraums ausgegeben. So kann man beim Vergleich der Werte die Daten voneinander unterscheiden.": {
+    "description": "v1211a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die teilweise falsch zugewiesenen Grenzwerte für die Bereiche (niedrig, normal, hoch) wurden korrigiert.": "Čiastočne nesprávne pridelené limity pre oblasti (nízke, normálne, vysoké) boli opravené.",
+  "@Die teilweise falsch zugewiesenen Grenzwerte für die Bereiche (niedrig, normal, hoch) wurden korrigiert.": {
+    "description": "v1211f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.10 - 18.04.2019": "1.2.10 - 18.04.2019",
+  "@1.2.10 - 18.04.2019": {
+    "description": "v1210",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf der Profilseite wurde die Spalte für die Werte von ICR verbreitert.": "Na stránke profilu sa stĺpec pre hodnoty ICR rozšíril.",
+  "@Auf der Profilseite wurde die Spalte für die Werte von ICR verbreitert.": {
+    "description": "v1210f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate eine Genauigkeit von mehr als 2 Nachkommastellen hat.": "V dennom grafe sa teraz zobrazujú informácie o inzulíne menšie, ak bazálna rýchlosť má presnosť viac ako 2 desatinné miesta.",
+  "@In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate eine Genauigkeit von mehr als 2 Nachkommastellen hat.": {
+    "description": "v1210f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die mittlerweile überflüssige Option zur Darstellung der Basalrate mit zwei Nachkommastellen wurde aus der Tagesgrafik entfernt.": "Dnešná nadbytočná možnosť zobrazovania bazálnej dávky s dvoma desatinnými miestami bola z denného grafu odstránená.",
+  "@Die mittlerweile überflüssige Option zur Darstellung der Basalrate mit zwei Nachkommastellen wurde aus der Tagesgrafik entfernt.": {
+    "description": "v1210f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.9 - 15.04.2019": "1.2.9 - 15.04.2019",
+  "@1.2.9 - 15.04.2019": {
+    "description": "v129",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ein Link zur Facebookseite von Nightscout Reporter wurde im Menü hinzugefügt.": "Do ponuky bol pridaný odkaz na stránku Nightscout Reporter Facebook.",
+  "@Ein Link zur Facebookseite von Nightscout Reporter wurde im Menü hinzugefügt.": {
+    "description": "v129a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Mischung von zwei Seiten auf einer PDF-Seite, die manchmal vorkam, wurde behoben.": "Zmes dvoch stránok na stránke PDF, ktorá sa niekedy vyskytla, bola opravená.",
+  "@Die Mischung von zwei Seiten auf einer PDF-Seite, die manchmal vorkam, wurde behoben.": {
+    "description": "v129f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.8 - 11.04.2019": "1.2.8 - 11.04.2019",
+  "@1.2.8 - 11.04.2019": {
+    "description": "v128",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es gibt in den Einstellungen eine neue Option, um den letzten in Nightscout gespeicherten Glukosewert in der Titelzeile anzeigen zu lassen. Wenn diese Option aktiviert ist, wird der aktuelle Wert, das Alter des Wertes, der Trendpfeil und die Differenz zum vorherigen Wert rechts in der Titelzeile angezeigt. Diese Anzeige wird jede Minute aktualisiert, solange das Browserfenster den Eingabefokus besitzt. Wenn es diesen nicht hat, wird die Aktualisierung angehalten und der Wert ausgeblendet, um nicht unnötig Systemresourcen zu belasten.": "V časti Preferences (Predvoľby) je nová možnosť zobraziť poslednú hodnotu glukózy uloženú v nočných baroch v záhlaví. Keď je zapnutá, zobrazuje na pravej strane záhlavia aktuálnu hodnotu, vek hodnoty, šípku trendu a rozdiel od predchádzajúcej hodnoty. Toto zobrazenie sa aktualizuje každú minútu, pokiaľ má okno prehľadávača vstupné zameranie. Ak ju nemá, aktualizácia pozastaví a skryje hodnotu, aby sa zbytočne nezaťažovali systémové prostriedky.",
+  "@Es gibt in den Einstellungen eine neue Option, um den letzten in Nightscout gespeicherten Glukosewert in der Titelzeile anzeigen zu lassen. Wenn diese Option aktiviert ist, wird der aktuelle Wert, das Alter des Wertes, der Trendpfeil und die Differenz zum vorherigen Wert rechts in der Titelzeile angezeigt. Diese Anzeige wird jede Minute aktualisiert, solange das Browserfenster den Eingabefokus besitzt. Wenn es diesen nicht hat, wird die Aktualisierung angehalten und der Wert ausgeblendet, um nicht unnötig Systemresourcen zu belasten.": {
+    "description": "v128a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik gibt es eine Option, mit der man sich die erfassten Trainingsdaten anzeigen lassen kann. Diese werden dann am unteren Rand über der Tabelle der Glukosewerte eingefügt.": "V dennej grafike je možnosť, pomocou ktorej môžete zobraziť zaznamenané školiace údaje. Tieto sa potom vložia do dolnej časti tabuľky nad hodnoty glukózy.",
+  "@In der Tagesgrafik gibt es eine Option, mit der man sich die erfassten Trainingsdaten anzeigen lassen kann. Diese werden dann am unteren Rand über der Tabelle der Glukosewerte eingefügt.": {
+    "description": "v128a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Spalten auf der Profilseite wurden korrigiert, damit auch längere Zeitnamen (z.B. in spanisch) Platz finden.": "Stĺpce na stránke profilu boli opravené tak, aby vyhovovali dlhším časovým menám (napr. Španielčina).",
+  "@Die Spalten auf der Profilseite wurden korrigiert, damit auch längere Zeitnamen (z.B. in spanisch) Platz finden.": {
+    "description": "v128c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren.": "Denná grafika a týždenná grafika majú teraz možnosť umiestniť 1, 2, 4, 8 alebo 16 grafiky na stránku.",
+  "@Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren.": {
+    "description": "v128c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Aufteilung auf mehrere PDF-Dateien funktioniert jetzt besser.": "Rozdelenie na niekoľko súborov PDF teraz funguje lepšie.",
+  "@Die Aufteilung auf mehrere PDF-Dateien funktioniert jetzt besser.": {
+    "description": "v128f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.7 - 28.03.2019": "1.2.7 - 28.03.2019",
+  "@1.2.7 - 28.03.2019": {
+    "description": "v127",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn der Zeitraum leer ist, wird der Button für die Auswahl deutlich markiert und in dem Dialog zur Auswahl wird in der Titelzeile ein Hinweis darauf angezeigt.": "Ak je perióda prázdna, tlačidlo pre výber je zreteľne označené av dialógovom okne pre výber sa v záhlaví zobrazuje náznak.",
+  "@Wenn der Zeitraum leer ist, wird der Button für die Auswahl deutlich markiert und in dem Dialog zur Auswahl wird in der Titelzeile ein Hinweis darauf angezeigt.": {
+    "description": "v127a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.6 - 27.03.2019": "1.2.6 - 27.03.2019",
+  "@1.2.6 - 27.03.2019": {
+    "description": "v126",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es ist jetzt möglich, die Wochentage festzulegen, die im Zeitraum berücksichtigt werden sollen. Die entsprechenden Tage werden bei der Auswahl des Zeitraums mit den Buttons unterhalb des Monats festgelegt. Auf den PDFs werden Zeiträume dann zusätzlich mit der Information versehen, welche Wochentage berücksichtigt werden, wenn es nicht alle sind.": "Teraz je možné nastaviť dni v týždni, ktoré sa majú brať do úvahy v danom období. Zodpovedajúce dni sa určia pri výbere obdobia pomocou tlačidiel pod mesiacom. V súboroch PDF sa potom dodatočne poskytujú informácie o tom, ktoré dni v týždni sa berú do úvahy, ak nie sú všetky.",
+  "@Es ist jetzt möglich, die Wochentage festzulegen, die im Zeitraum berücksichtigt werden sollen. Die entsprechenden Tage werden bei der Auswahl des Zeitraums mit den Buttons unterhalb des Monats festgelegt. Auf den PDFs werden Zeiträume dann zusätzlich mit der Information versehen, welche Wochentage berücksichtigt werden, wenn es nicht alle sind.": {
+    "description": "v126a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Skalen an den Grafiken wurden überarbeitet. Sie zeigen jetzt für mmol/L ganzzahlige Werte an und die Einheiten wurden entfernt. Diese stehen nur noch unten an der Grafik. Das betrifft die täglichen Grafiken, wöchentlichen Grafiken und das Glukose Percentil Diagramm.": "Mierka na grafike bola revidovaná. Teraz zobrazujú celé hodnoty pre mmol / l a jednotky boli odstránené. Tieto sú iba v dolnej časti grafiky. Týka sa to denných grafov, týždenných grafov a grafu percentilu glukózy.",
+  "@Die Skalen an den Grafiken wurden überarbeitet. Sie zeigen jetzt für mmol/L ganzzahlige Werte an und die Einheiten wurden entfernt. Diese stehen nur noch unten an der Grafik. Das betrifft die täglichen Grafiken, wöchentlichen Grafiken und das Glukose Percentil Diagramm.": {
+    "description": "v126c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.5 - 25.03.2019": "1.2.5 - 25.03.2019",
+  "@1.2.5 - 25.03.2019": {
+    "description": "v125",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.": "Ak sa vygenerovaný súbor PDF stane príliš veľkým, bude teraz rozdelený do niekoľkých súborov PDF. V takom prípade sa neotvorí priamo, ale zobrazí zoznam očíslovaných tlačidiel. Tieto tlačidlá po stlačení otvoria zodpovedajúci súbor PDF a začiarknutím sa označí, že bol otvorený. Toto by malo uľahčiť otváranie súborov PDF naraz, pretože pri otvorení nového okna zvyčajne prehliadač na pozadí zmizne.",
+  "@Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.": {
+    "description": "v125a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links geschoben werden, um die Dateigrösse zu verringern.": "V nastaveniach je posuvník, ktorý určuje, aké veľké by mali byť vygenerované súbory PDF. Ak sa vytvorí iba prázdny súbor PDF, tento posúvač by sa mal posúvať ďalej doľava, aby sa zmenšila veľkosť súboru.",
+  "@In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links geschoben werden, um die Dateigrösse zu verringern.": {
+    "description": "v125a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.": "V dennej grafike je teraz možné zobrazenie SMB skryť.",
+  "@In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.": {
+    "description": "v125a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach das Handle auf der linken Seite des Buttons für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.": "Poradie formulárov je teraz možné zmeniť. Jednoducho kliknite na úchyt na ľavej strane tlačidla pre formulár, podržte ho a presuňte ho na miesto, kde by sa malo vytlačiť.",
+  "@Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach das Handle auf der linken Seite des Buttons für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.": {
+    "description": "v125a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf der Analyseseite werden nun auch GVI und PGS ausgegeben.": "Na stránke analýzy sú teraz na výstupe GVI a PGS.",
+  "@Auf der Analyseseite werden nun auch GVI und PGS ausgegeben.": {
+    "description": "v125a5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf der Analyseseite kann statt der Anzahl der Werte bei den Zielbereichen jetzt die Standardabweichung der Werte im Zielbereich angezeigt werden.": "Na analytickej stránke sa namiesto počtu hodnôt v cieľových oblastiach teraz môže zobraziť štandardná odchýlka hodnôt v cieľovej oblasti.",
+  "@Auf der Analyseseite kann statt der Anzahl der Werte bei den Zielbereichen jetzt die Standardabweichung der Werte im Zielbereich angezeigt werden.": {
+    "description": "v125a6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt.": "Stránka s analýzou teraz ukazuje aj štandardnú odchýlku všetkých hodnôt za dané obdobie.",
+  "@Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt.": {
+    "description": "v125a7",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik gibt es eine Option, mit dem man die verschiedenen Arten der Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Bolus zur Korrektur. In der Legende werden dann Korrektur-, Mahlzeiten-Boli und SMB getrennt angezeigt.": "V dennom grafe je možnosť, ktorá sa môže použiť na identifikáciu rôznych typov bolusov. Ak je táto možnosť nastavená, bolus podaný jedlu sa na opravu označí inou farbou ako bolus. Legenda potom zobrazuje Korekcie, Jedlo Boli a SMB osobitne.",
+  "@In der Tagesgrafik gibt es eine Option, mit dem man die verschiedenen Arten der Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Bolus zur Korrektur. In der Legende werden dann Korrektur-, Mahlzeiten-Boli und SMB getrennt angezeigt.": {
+    "description": "v125a8",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nightscout Reporter ist nun auch grösstenteils in Spanisch und Polnisch verfügbar. Entsprechende Buttons wurden dem Hauptmenü hinzugefügt. Danke an die fleissigen Übersetzer :).": "Nightscout Reporter je teraz väčšinou k dispozícii aj v španielčine a poľštine. Zodpovedajúce tlačidlá boli pridané do hlavnej ponuky. Vďaka usilovným prekladateľom :).",
+  "@Nightscout Reporter ist nun auch grösstenteils in Spanisch und Polnisch verfügbar. Entsprechende Buttons wurden dem Hauptmenü hinzugefügt. Danke an die fleissigen Übersetzer :).": {
+    "description": "v125a9",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird.": "Ovládač na zadanie obdobia bol nastavený tak, aby sa zobrazoval správne na úzkom displeji.",
+  "@Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird.": {
+    "description": "v125c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.": "Presnosť dávky inzulínu je stanovená z profilu. Hodnota s najvyššou presnosťou určuje, o koľko desatinných miest sa budú zobrazovať základné hodnoty.",
+  "@Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.": {
+    "description": "v125c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Daten verschiedener Uploader werden nun besser interpretiert.": "Údaje od rôznych používateľov, ktorí odovzdali video, sa teraz lepšie interpretujú.",
+  "@Daten verschiedener Uploader werden nun besser interpretiert.": {
+    "description": "v125c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Daten, die von xDrip als sync markiert wurden, werden bei der Auswertung ignoriert.": "Dáta označené ako synchronizované pomocou xDrip budú počas vyhodnocovania ignorované.",
+  "@Daten, die von xDrip als sync markiert wurden, werden bei der Auswertung ignoriert.": {
+    "description": "v125c4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Farben für Dialoge und Scrollbars wurden angepasst.": "Farby pre dialógy a posuvníky boli upravené.",
+  "@Die Farben für Dialoge und Scrollbars wurden angepasst.": {
+    "description": "v125c5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Berechnung der tatsächlichen Basalrate wurde korrigiert.": "Výpočet skutočnej bazálnej dávky bol opravený.",
+  "@Die Berechnung der tatsächlichen Basalrate wurde korrigiert.": {
+    "description": "v125f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.": "Stránka profilu bola upravená tak, aby umožňovala vstupy na stránku na 24 hodín.",
+  "@Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.": {
+    "description": "v125f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.": "Odkazy na správy Nightscout a správy Nightscout v ponuke teraz fungujú správne, ak bol zadaný token používateľa.",
+  "@Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.": {
+    "description": "v125f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In Firefox ist es jetzt auch möglich, die Hauptseite zu scrollen, wenn sie länger ist, als das Browserfenster.": "Vo Firefoxe je teraz možné posúvať hlavnú stránku, ak je dlhšia ako okno prehľadávača.",
+  "@In Firefox ist es jetzt auch möglich, die Hauptseite zu scrollen, wenn sie länger ist, als das Browserfenster.": {
+    "description": "v125f4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt.": "Krvné hodnoty sa teraz zobrazujú správne aj v prípade mmol / l v grafe.",
+  "@Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt.": {
+    "description": "v125f5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.": "Štandardná odchýlka sa teraz zobrazuje správne aj pri mmol / L.",
+  "@Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.": {
+    "description": "v125f6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die fehlerhafte Zentrierung der Auswahlbuttons wurde korrigiert.": "Opravené bolo nesprávne vycentrovanie tlačidiel výberu.",
+  "@Die fehlerhafte Zentrierung der Auswahlbuttons wurde korrigiert.": {
+    "description": "v125f7",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.4 - 12.02.2019": "1.2.4 - 12.02.2019",
+  "@1.2.4 - 12.02.2019": {
+    "description": "v124",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es gibt jetzt auch die Möglichkeit, Nightscout Reporter in europäischem Englisch darzustellen. Der Unterschied zum amerikanischen Englisch besteht derzeit lediglich im Datumsformat (gb: dd/MM/yyyy, us: MM/dd/yyyy).": "Teraz je tiež možnosť predstaviť Nightscout Reporter v európskej angličtine. Rozdiel oproti americkej angličtine v súčasnosti existuje iba vo formáte dátumu (gb: dd / MM / rrrr, nás: MM / dd / rrrr).",
+  "@Es gibt jetzt auch die Möglichkeit, Nightscout Reporter in europäischem Englisch darzustellen. Der Unterschied zum amerikanischen Englisch besteht derzeit lediglich im Datumsformat (gb: dd/MM/yyyy, us: MM/dd/yyyy).": {
+    "description": "v124a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.": "Legenda pod denným grafom zobrazuje súčet uhľohydrátov za deň.",
+  "@In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.": {
+    "description": "v124a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden nun auch Reservoirwechsel angezeigt.": "V dennom grafe sa teraz zobrazujú zmeny zásobníka.",
+  "@In der Tagesgrafik werden nun auch Reservoirwechsel angezeigt.": {
+    "description": "v124a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert sein muss, damit die Werte angezeigt werden.": "Denný graf teraz ukazuje odhadovanú HbA1C a percento bolusového inzulínu a bazálneho inzulínu za deň. Toto zobrazenie sa nachádza v legende, preto sa musí povoliť zobrazenie hodnôt.",
+  "@In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert sein muss, damit die Werte angezeigt werden.": {
+    "description": "v124a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Angabe DIA auf der Profilseite wird nun mit zwei Nachkommastellen angezeigt.": "Indikácia DIA na stránke profilu sa teraz zobrazuje s dvoma desatinnými miestami.",
+  "@Die Angabe DIA auf der Profilseite wird nun mit zwei Nachkommastellen angezeigt.": {
+    "description": "v124c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Für die Tagesgrafik gibt es jetzt eine Option, um die Aufsummierung nahe beieinander liegender Werte umzuschalten.": "Pre dennú grafiku je teraz možné prepínať akumuláciu blízkych hodnôt.",
+  "@Für die Tagesgrafik gibt es jetzt eine Option, um die Aufsummierung nahe beieinander liegender Werte umzuschalten.": {
+    "description": "v124c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.": "Informácie o uhľohydrátoch v dennom grafe sa teraz vydávajú bez prípony KH.",
+  "@Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.": {
+    "description": "v124c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin an dem Tag skaliert.": "Stĺpce bolusového inzulínu v dennom grafe sa teraz upravujú podľa maximálneho bolusového inzulínu v deň.",
+  "@Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin an dem Tag skaliert.": {
+    "description": "v124c4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Analyse können die Prozentzahlen für die Zielbereiche mit Nachkommazahl angezeigt werden. Das verringert die Differenz zu 100%, wenn man sie zusammenzählt. Der verbleibende Rest sind Rundungsdifferenzen.": "V analýze môžu byť percentá pre cieľové oblasti zobrazené s desatinnými miestami. To zníži rozdiel na 100%, keď ich sčítate. Zvyšok sú zaokrúhlením rozdielov.",
+  "@In der Analyse können die Prozentzahlen für die Zielbereiche mit Nachkommazahl angezeigt werden. Das verringert die Differenz zu 100%, wenn man sie zusammenzählt. Der verbleibende Rest sind Rundungsdifferenzen.": {
+    "description": "v124c5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.3 - 04.02.2019": "1.2.3 - 04.02.2019",
+  "@1.2.3 - 04.02.2019": {
+    "description": "v123",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": "Denná grafika teraz kombinuje hladiny inzulínu a skóre uhľohydrátov, keď ich je niekoľko za hodinu. Stĺpce sa stále vydávajú jednotlivo pre každú hodnotu. Týmto spôsobom by už nemal existovať žiadny prekrývajúci sa výstup hodnôt. Súhrnné hodnoty sú zobrazené v hranatých zátvorkách, čo znamená, že hodnoty tu boli sčítané.",
+  "@In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": {
+    "description": "v123c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden, wurde behoben.": "Chyba v profile, ktorá spôsobila nesprávne prevedenie hodnôt ISF a cieľového rozsahu, bola vyriešená.",
+  "@Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden, wurde behoben.": {
+    "description": "v123f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.": "Opravené bolo chybné umiestnenie krvavých hodnôt na mmol / l v dennom grafe.",
+  "@Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.": {
+    "description": "v123f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.2 - 24.01.2019": "1.2.2 - 24.01.2019",
+  "@1.2.2 - 24.01.2019": {
+    "description": "v122",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).": "Profil teraz používa správne jednotky (mg / dl alebo mmol / l).",
+  "@Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).": {
+    "description": "v122f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.1 - 22.01.2019": "1.2.1 - 22.01.2019",
+  "@1.2.1 - 22.01.2019": {
+    "description": "v121",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.": "Nová možnosť v profile kombinovať po sebe idúce časy s rovnakými hodnotami do záznamu.",
+  "@Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.": {
+    "description": "v121a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.": "Ak boli v profile zaznamenané viackrát, ako sa zmestili na jednu stránku, boli zapísané nepretržite na ďalšiu stránku. Teraz je na vhodnom mieste vydaná nová stránka.",
+  "@Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.": {
+    "description": "v121f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.2.0 - 21.01.2019": "1.2.0 - 21.01.2019",
+  "@1.2.0 - 21.01.2019": {
+    "description": "v120",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": "V dennej štatistike a dennej grafike sa teraz zobrazujú dni v týždni spolu s dátumom.",
+  "@In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": {
+    "description": "v120a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": "Pridaný nový PDF pre týždenný graf prekrývajúci týždenné glukózové krivky.",
+  "@Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": {
+    "description": "v120a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": "Nový parameter denného grafu, ktorý určuje, či sa majú kresliť čiary pre poznámky pod grafom až po glukózovú krivku.",
+  "@Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": {
+    "description": "v120a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": "Pri hodnotení sa môžu informácie o materiáli (katéter, snímač, ampulka) zobraziť s desatinnými miestami.",
+  "@In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": {
+    "description": "v120c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": "Pri výpočte denného inzulínu sa teraz zohľadňuje aj SMB.",
+  "@Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": {
+    "description": "v120f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.1.2 - 08.01.2019": "1.1.2 - 08.01.2019",
+  "@1.1.2 - 08.01.2019": {
+    "description": "v112",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": "Denný graf teraz zobrazuje aj merania glykémie. Zobrazujú sa ako červené štvorce a súvisiace hodnoty v tabuľke pod grafom sa zobrazujú aj červenou farbou.",
+  "@In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": {
+    "description": "v112a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": "Mikroboly programu Uploader Minimed 600 Uploader sú teraz tiež identifikované a sú výstupom analýzy, ak existujú.",
+  "@Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": {
+    "description": "v112a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": "V nastaveniach je možnosť nechať stiahnuť súbor PDF namiesto jeho zobrazenia priamo v prehliadači. Toto je potrebné pre prehliadače ako Edge.",
+  "@Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": {
+    "description": "v112a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": "Korekcie uhľohydrátov sa teraz zobrazujú v dennom grafe.",
+  "@In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": {
+    "description": "v112a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).": "Výber tohto obdobia je teraz flexibilnejší. Výber sa uskutoční v dialógovom okne, ktoré zohľadňuje daný jazyk. Výber predvolených rozsahov (Dnes, Minulý týždeň atď.) Nastaví aktuálny dátum ako základ pre rozsah pri nasledujúcom hovore. Ak je rozsah nastavený priamo v kalendári, použije sa pri nasledujúcom nastavení. V predvolenom nastavení je prvý deň v týždni teraz pondelok. Môžete to však nastaviť podľa svojich preferencií kliknutím na deň v týždni v záhlaví mesiaca. Polia s dátumom sa zadávajú vo forme, ktorá zodpovedá jazyku (deň.mesiac.rok pre nemčinu, mesiac / deň / rok pre angličtinu).",
+  "@Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch).": {
+    "description": "v112c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": "Ovládací prvok kalendára už nemôže vybrať dátum po aktuálnom dni.",
+  "@Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": {
+    "description": "v112c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": "Ovládací prvok kalendára teraz zobrazuje mesiac príslušného dátumu, keď je jedno z polí Od alebo Do zamerané.",
+  "@Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": {
+    "description": "v112c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": "Ak sú medzi vstupmi 15 a viac minút medzery, zlomia čiaru v dennom grafe.",
+  "@Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": {
+    "description": "v112c4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": "Umiestnenie poznámok v dennej grafike bolo opravené tak, aby boli bližšie k dennému času. Zdvihy boli skrátené tak, že idú iba na spodok grafu a nie cez tabuľku hodnôt.",
+  "@Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": {
+    "description": "v112f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.": "Vlastné limity na analytickej stránke v mmol / l sa teraz vypočítavajú správne.",
+  "@Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.": {
+    "description": "v112f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": "Opravená chyba, ktorá spôsobila, že posledné dni určitých mesiacov sa nezobrazili v ovládacom prvku kalendára.",
+  "@Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": {
+    "description": "v112f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": "Pravdepodobne bola opravená chyba, ktorá spôsobila, že niektoré profily nesprávne vynechali hodnotu DIA.",
+  "@Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": {
+    "description": "v112f4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": "V ovládacom paneli kalendára je nastavená oblasť (dnes, minulý týždeň atď.) Teraz správne spojená s aktuálnym dňom.",
+  "@Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": {
+    "description": "v112f5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": "V dennom grafe bol opravený nesprávny výstup hodnôt glukózy v krvi.",
+  "@Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": {
+    "description": "v112f6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können.": "Profil PDF je teraz vytvorený na šírku, aby bolo možné zobraziť profily s mnohými položkami pre parametre.",
+  "@Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können.": {
+    "description": "v112f7",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden.": "Ak sú v údajoch prítomné špeciálne znaky (napr. Smajlíky v poznámkach), spôsobilo to pád pri vytváraní PDF. Toto bolo odstránené odstránením týchto špeciálnych znakov z výstupu.",
+  "@Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden.": {
+    "description": "v112f8",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.1.1 - 19.11.2018": "1.1.1 - 19.11.2018",
+  "@1.1.1 - 19.11.2018": {
+    "description": "v111",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesgrafikparameter zur Anzeige der Legende": "Denné grafické parametre na zobrazenie legendy",
+  "@Tagesgrafikparameter zur Anzeige der Legende": {
+    "description": "v111a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesgrafikparameter zur Anzeige von Notizen": "Denné grafické parametre na zobrazovanie poznámok",
+  "@Tagesgrafikparameter zur Anzeige von Notizen": {
+    "description": "v111a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "PDF für Profildaten": "PDF pre profilové údaje",
+  "@PDF für Profildaten": {
+    "description": "v111a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.": "Pridané denné grafické parametre pre spätné triedenie. Dni sa trávia od najvyššieho dátumu.",
+  "@Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.": {
+    "description": "v111a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.": "Denný graf teraz zobrazuje tabuľku s polhodinovými hodnotami glukózy. Toto je možné vypnúť pomocou parametra.",
+  "@In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.": {
+    "description": "v111a5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": "V dennej štatistike bol pridaný stĺpec Variance Coefficient (VarK).",
+  "@In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": {
+    "description": "v111a6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.": "Po aktivácii možnosti inzulínu sa SMB zobrazujú aj v dennom grafe. Môžete určiť, či sa SMB zobrazia na glukózovej krivke alebo na cieľovej hodnote.",
+  "@In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.": {
+    "description": "v111a7",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert.": "Výpočet riadku súčty na stránke Denná štatistika bol opravený.",
+  "@Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert.": {
+    "description": "v111f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.1.0 - 09.11.2018": "1.1.0 - 09.11.2018",
+  "@1.1.0 - 09.11.2018": {
+    "description": "v110",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": "Ďalšie informácie o súboroch PDF a pridané do používateľského rozhrania",
+  "@Zusätzliche Informationen zu den PDFs und im UI hinzugefügt": {
+    "description": "v110a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": "Súčty pre bolusový inzulín, bazálna dávka za deň a bazálna dávka z profilu pridaného do denného grafu",
+  "@Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": {
+    "description": "v110a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": "Niektoré formuláre je teraz možné konfigurovať pomocou parametrov; kliknite na šípku na pravej strane tlačidla formulára a urobte príslušné nastavenia v otvorenej oblasti; Šípka sa neobjaví, kým formulár nie je označený pre tlač",
+  "@Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde": {
+    "description": "v110a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzahl der Sensoren zur Analyse hinzugefügt": "Počet senzorov pridaných na analýzu",
+  "@Anzahl der Sensoren zur Analyse hinzugefügt": {
+    "description": "v110a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun hier zu finden:": "Možnosť beta funkcií bola odstránená; beta verziu nájdete tu:",
+  "@Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun hier zu finden:": {
+    "description": "v110c1a",
+    "type": "text",
+    "placeholders": {}
+  },
+  "https://nightscout-reporter.zreptil.de/beta": "https://nightscout-reporter.zreptil.de/beta",
+  "@https://nightscout-reporter.zreptil.de/beta": {
+    "description": "v110c1b",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Übersetzungen korrigiert": "Preložené preklady",
+  "@Übersetzungen korrigiert": {
+    "description": "v110f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": "Zjednotené informácie o názve pre rozsahy dátumov v súboroch PDF",
+  "@Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": {
+    "description": "v110f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": "Opravená havária, ku ktorej došlo, keď v určitom okamihu nebolo možné nájsť žiadny zodpovedajúci profil",
+  "@Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": {
+    "description": "v110f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.0.4 - 28.10.2018": "1.0.4 - 28.10.2018",
+  "@1.0.4 - 28.10.2018": {
+    "description": "v104",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzer können nun gelöscht werden": "Používatelia môžu byť teraz odstránení",
+  "@Benutzer können nun gelöscht werden": {
+    "description": "v104a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": "Používatelia môžu určiť token používateľa na pripojenie k chráneným nočným farbám",
+  "@Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": {
+    "description": "v104a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": "Sacharidy a bolusový inzulín sa teraz zobrazujú v denných grafoch",
+  "@Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": {
+    "description": "v104a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spalte HbA1c zu Tagesstatistik hinzugefügt": "Do dennej štatistiky bol pridaný stĺpec HbA1c",
+  "@Spalte HbA1c zu Tagesstatistik hinzugefügt": {
+    "description": "v104a4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt": "Doteraz boli do denných štatistík pridané chýbajúce súčty",
+  "@Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt": {
+    "description": "v104a5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Spaltenbreite der Informationen in der Analyse erhöht": "Šírka stĺpca informácií v analýze sa zvýšila",
+  "@Spaltenbreite der Informationen in der Analyse erhöht": {
+    "description": "v104f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Icons auf einigen Buttons waren zu nahe am Text": "Ikony na niektorých tlačidlách boli príliš blízko textu",
+  "@Die Icons auf einigen Buttons waren zu nahe am Text": {
+    "description": "v104f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": "Dočasné bazálne dávky s absolútnymi hodnotami sa zobrazujú správne",
+  "@Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": {
+    "description": "v104f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.0.3 - 26.10.2018": "1.0.3 - 26.10.2018",
+  "@1.0.3 - 26.10.2018": {
+    "description": "v103",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)": "Teraz môžete vytvoriť viac používateľov. Toto je užitočné na vyhodnotenie viacerých inštancií Nightscout (napr. Pre lekárov, správcov alebo vývojárov tohto softvéru).",
+  "@Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)": {
+    "description": "v103a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzerdaten werden nun verschlüsselt im Browser gespeichert": "Užívateľské údaje sú teraz uložené šifrované v prehliadači",
+  "@Benutzerdaten werden nun verschlüsselt im Browser gespeichert": {
+    "description": "v103c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Analyse-Seite wurde überarbeitet und zeigt nun Überschriften über den Bereichen an": "Stránka s analýzou bola prepracovaná a teraz zobrazuje nadpisy oblastí",
+  "@Die Analyse-Seite wurde überarbeitet und zeigt nun Überschriften über den Bereichen an": {
+    "description": "v103c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet": "Ak sa prahové hodnoty v Nightscout (BG_TARGET_BOTTOM a BG_TARGET_TOP) rovnajú 70 a 180, rozsah predvolených cieľov sa na stránke analýzy skryje.",
+  "@Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet": {
+    "description": "v103c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Tagesstatistik zeigt mmol/l-Werte nun korrekt an": "Denná štatistika teraz zobrazuje správne hodnoty mmol / l",
+  "@Die Tagesstatistik zeigt mmol/l-Werte nun korrekt an": {
+    "description": "v103f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt": "Hodnoty pre predvolený cieľový rozsah na analytickej stránke sa teraz určujú správne",
+  "@Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt": {
+    "description": "v103f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert": "PDF formátuje čísla a dátumy podľa zvoleného jazyka",
+  "@Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert": {
+    "description": "v103f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet": "Pri načítaní údajov sa na zobrazenie použije zodpovedajúci formát dátumu",
+  "@Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet": {
+    "description": "v103f4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden an dem Wert \"NONE\" im Datenfeld \"direction\" erkannt": "Chybné namerané hodnoty sa už pri hodnotení grafiky nezohľadňujú; tieto sú rozpoznávané hodnotou \"NONE\" v dátovom poli \"direction\"",
+  "@Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden an dem Wert \"NONE\" im Datenfeld \"direction\" erkannt": {
+    "description": "v103f5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt": "Pri výpočte uhľohydrátov sa zohľadňujú ďalšie súbory údajov",
+  "@Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt": {
+    "description": "v103f5",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Diverse Abstürze beim Auslesen der Daten bereinigt": "Rôzne zlyhania pri čítaní upravených údajov",
+  "@Diverse Abstürze beim Auslesen der Daten bereinigt": {
+    "description": "v103f6",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird": "Schopnosť zobraziť adresu URL v záhlaví bola odstránená, pretože aktuálny používateľ alebo jeho adresa URL sa teraz zobrazuje priamo",
+  "@Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird": {
+    "description": "v103d1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.0.2 - 23.10.2018": "1.0.2 - 23.10.2018",
+  "@1.0.2 - 23.10.2018": {
+    "description": "v102",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": "Do denného grafu bola pridaná legenda o zmenách katétrov a senzorov.",
+  "@Legende für Katheter- und Sensorwechsel zur Tagesgrafik hinzugefügt.": {
+    "description": "v102a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": "Poradie strán PDF sa zmenilo - percentuálny diagram teraz prichádza po analýze.",
+  "@Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": {
+    "description": "v102c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": "Údaje pre hodnoty glukózy s nesprávnym formátom dátumu sa napriek tomu stále načítajú správne.",
+  "@Daten für die Glukosewerte mit fehlerhaftem Datumsformat werden jetzt trotzdem korrekt ausgelesen.": {
+    "description": "v102f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Hohe Basalraten werden jetzt besser dargestellt.": "Teraz sú lepšie zastúpené vysoké bazálne dávky.",
+  "@Hohe Basalraten werden jetzt besser dargestellt.": {
+    "description": "v102f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.0.1 - 23.10.2018": "1.0.1 - 23.10.2018",
+  "@1.0.1 - 23.10.2018": {
+    "description": "v101",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": "Táto stránka bola pridaná. Zobrazí sa pri každom spustení aplikácie Nightscout Reporter, ak sa nezobrazila v aktuálnej verzii. Okrem toho ho možno vyvolať znova v ponuke Hamburger.",
+  "@Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": {
+    "description": "v101a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Schliessen Button im Nachrichtenbereich hinzugefügt.": "Tlačidlo Zavrieť bolo pridané do oblasti správ.",
+  "@Schliessen Button im Nachrichtenbereich hinzugefügt.": {
+    "description": "v101a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": "Chyby sú lepšie zachytené a nahradené zmysluplným textom.",
+  "@Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": {
+    "description": "v101c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.": "Kliknutím na oblasť správy ju už nezatvoríte.",
+  "@Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr.": {
+    "description": "v101c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": "Meno, dátum narodenia, inzulín a dátum začiatku diabetu môžu byť teraz ponechané prázdne bez toho, aby to malo negatívny vplyv na prezentáciu v PDF.",
+  "@Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": {
+    "description": "v101c3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": "Chybové hlásenie pri načítaní profilov bez odstránenia dátumu začiatku.",
+  "@Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": {
+    "description": "v101f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": "Ak nie sú k dispozícii žiadne údaje, vygenerujú sa prázdne stránky s vhodným nápovedou.",
+  "@Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": {
+    "description": "v101f2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.": "Glukózový graf denných grafov bol zbavený chýbajúcich údajov.",
+  "@Die Glukosekurve der täglichen Grafiken wurde von fehlenden Daten befreit.": {
+    "description": "v101f3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": "Bazálna sadzba PDF bola nesprávna, ak pre každú hodinu neexistovala hodnota.",
+  "@Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": {
+    "description": "v101f4",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.0.0 - 20.10.2018": "1.0.0 - 20.10.2018",
+  "@1.0.0 - 20.10.2018": {
+    "description": "v100",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Initiale Version, alles ist neu!": "Počiatočná verzia, všetko je nové!",
+  "@Initiale Version, alles ist neu!": {
+    "description": "v100a1",
+    "type": "text",
+    "placeholders": {}
+  }
+}
