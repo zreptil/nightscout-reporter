@@ -10,7 +10,7 @@ creates some PDFs for handing out to diabetes doctors or coaches.
 ```
 # version 0.17.6 needed which is not compatible with angular: ^5.3.1
 # so install it globally
-# should but doesn't contain pull request: pub global activate intl_translation
+# should, but doesn't contain pull request: pub global activate intl_translation
 pub global activate -sgit https://github.com/zreptil/intl_translation.git
 
 # generate translation resources from ARB files

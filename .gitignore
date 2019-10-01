@@ -13,6 +13,6 @@ build/
 doc/api/
 
 # bin/i18n- files
-temp/
+.temp/
 arbFiles.lst
 dartFiles.lst
