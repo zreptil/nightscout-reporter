@@ -2,6 +2,7 @@
 .dart_tool/
 .packages
 .idea
+.vscode/
 # Remove the following pattern if you wish to check in your lock file
 pubspec.lock
 
@@ -10,3 +11,8 @@ build/
 
 # Directory created by dartdoc
 doc/api/
+
+# bin/i18n- files
+temp/
+arbFiles.lst
+dartFiles.lst
