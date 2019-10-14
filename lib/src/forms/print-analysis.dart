@@ -118,7 +118,7 @@ class PrintAnalysis extends BasePrint
   }
 
   @override
-  void fillPages(ReportData src, List<List<dynamic>> pages)
+  void fillPages(ReportData src, List<Page> pages)
   {
     pages.add(getPage(src));
     if (g.showBothUnits)
@@ -130,10 +130,10 @@ class PrintAnalysis extends BasePrint
 //    if (showInfoSheet)pages.add(getInfoPage(src));
   }
 
-  getPage(ReportData src)
+  Page getPage(ReportData src)
   {
     titleInfo = titleInfoBegEnd(src);
-    var data = src.calc;
+    var data = src.data;
 
     var avgGluc = data.avgGluc;
     var glucWarnColor = colNorm;
@@ -175,18 +175,20 @@ class PrintAnalysis extends BasePrint
     totalDay.entries.addAll(data.entries);
     totalDay.init();
 
-    double tgHigh = data.stat["high"].values.length / data.count * f;
-    double tgNorm = data.stat["norm"].values.length / data.count * f;
-    double tgLow = data.stat["low"].values.length / data.count * f;
+    int count = data.fullCount;
 
-    double above180 = data.entriesAbove(180) / data.count * f;
-    double in70180 = data.entriesIn(70, 180) / data.count * (useFineLimits ? f1 : f);
-    double below70 = data.entriesBelow(70) / data.count * f;
+    double tgHigh = data.stat["high"].values.length / count * f;
+    double tgNorm = data.stat["norm"].values.length / count * f;
+    double tgLow = data.stat["low"].values.length / count * f;
 
-    double above250 = data.entriesAbove(250) / data.count * f1;
-    double in180250 = data.entriesIn(180, 250) / data.count * f1;
-    double in5470 = data.entriesIn(54, 70) / data.count * f1;
-    double below54 = data.entriesBelow(54) / data.count * f1;
+    double above180 = data.entriesAbove(180) / count * f;
+    double in70180 = data.entriesIn(70, 180) / count * (useFineLimits ? f1 : f);
+    double below70 = data.entriesBelow(70) / count * f;
+
+    double above250 = data.entriesAbove(250) / count * f1;
+    double in180250 = data.entriesIn(180, 250) / count * f1;
+    double in5470 = data.entriesIn(54, 70) / count * f1;
+    double below54 = data.entriesBelow(54) / count * f1;
 /*
     above250 = (data.count / 5) / data.count * f1;
     in180250 = above250;
@@ -194,6 +196,10 @@ class PrintAnalysis extends BasePrint
     below54 = above250;
     in70180 = above250;
 */
+    String txt = g.fmtNumber(src.dayCount / data.ampulleCount, _precisionMaterial, 0, "", true);
+    String ampulleCount = data.ampulleCount > 1
+      ? msgReservoirDays((src.dayCount / data.ampulleCount).round(), txt)
+      : "";
     var tableBody = [
       [
         {"text": "", "style": "infotitle"},
@@ -205,7 +211,7 @@ class PrintAnalysis extends BasePrint
       [
         {"text": "", "style": "infotitle"},
         {"text": msgReadingsCount, "style": "infotitle"},
-        {"text": g.fmtNumber(data.count), "style": "infodata"},
+        {"text": g.fmtNumber(count), "style": "infodata"},
         {"text": "($countPeriod)", "style": "infounit", "colSpan": 3},
         {"text": "", "style": "infounit"},
       ],
@@ -213,12 +219,7 @@ class PrintAnalysis extends BasePrint
         {"text": "", "style": "infotitle"},
         {"text": msgReservoirCount, "style": "infotitle"},
         {"text": g.fmtNumber(data.ampulleCount), "style": "infodata"},
-        {
-          "text": data.ampulleCount > 1 ? msgReservoirDays((src.dayCount / data.ampulleCount).round(),
-            g.fmtNumber(src.dayCount / data.ampulleCount, _precisionMaterial, 0, "", true)) : "",
-          "style": "infounit",
-          "colSpan": 3
-        },
+        {"text": ampulleCount, "style": "infounit", "colSpan": 3},
         {"text": "", "style": "infounit"},
       ],
       [
@@ -260,7 +261,7 @@ class PrintAnalysis extends BasePrint
             "style": "infotitle"
           },
           {
-            "text": "${g.fmtNumber(data.stat["high"].values.length / data.count * 100, _precisionTarget)} %",
+            "text": "${g.fmtNumber(data.stat["high"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
           },
           {"text": fillLimitInfo(data.stat["high"]), "style": "infounit", "colSpan": 2},
@@ -290,7 +291,7 @@ class PrintAnalysis extends BasePrint
             "style": "infotitle"
           },
           {
-            "text": "${g.fmtNumber(data.stat["norm"].values.length / data.count * 100, _precisionTarget)} %",
+            "text": "${g.fmtNumber(data.stat["norm"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
           },
           {"text": fillLimitInfo(data.stat["norm"]), "style": "infounit", "colSpan": 2},
@@ -305,7 +306,7 @@ class PrintAnalysis extends BasePrint
             "style": "infotitle"
           },
           {
-            "text": "${g.fmtNumber(data.stat["low"].values.length / data.count * 100, _precisionTarget)} %",
+            "text": "${g.fmtNumber(data.stat["low"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
           },
           {"text": fillLimitInfo(data.stat["low"]), "style": "infounit", "colSpan": 2},
@@ -322,7 +323,7 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {"text": msgValuesVeryHigh("${glucFromData(250)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
           {
-            "text": "${g.fmtNumber(data.stat["stdVeryHigh"].values.length / data.count * 100, _precisionTarget)} %",
+            "text": "${g.fmtNumber(data.stat["stdVeryHigh"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
           },
           {"text": fillLimitInfo(data.stat["stdVeryHigh"]), "style": "infounit", "colSpan": 2},
@@ -374,7 +375,7 @@ class PrintAnalysis extends BasePrint
             "style": "infotitle"
           },
           {
-            "text": "${g.fmtNumber(data.stat["stdNormHigh"].values.length / data.count * 100, _precisionTarget)} %",
+            "text": "${g.fmtNumber(data.stat["stdNormHigh"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
           },
           {"text": fillLimitInfo(data.stat["stdNormHigh"]), "style": "infounit", "colSpan": 2},
@@ -389,7 +390,7 @@ class PrintAnalysis extends BasePrint
             "style": "infotitle"
           },
           {
-            "text": "${g.fmtNumber(data.stat["stdNorm"].values.length / data.count * 100, _precisionTarget)} %",
+            "text": "${g.fmtNumber(data.stat["stdNorm"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
           },
           {"text": fillLimitInfo(data.stat["stdNorm"]), "style": "infounit", "colSpan": 2},
@@ -404,7 +405,7 @@ class PrintAnalysis extends BasePrint
             "style": "infotitle"
           },
           {
-            "text": "${g.fmtNumber(data.stat["stdNormLow"].values.length / data.count * 100, _precisionTarget)} %",
+            "text": "${g.fmtNumber(data.stat["stdNormLow"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
           },
           {"text": fillLimitInfo(data.stat["stdNormLow"]), "style": "infounit", "colSpan": 2},
@@ -415,7 +416,7 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {"text": msgValuesVeryLow("${glucFromData(54)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
           {
-            "text": "${g.fmtNumber(data.stat["stdVeryLow"].values.length / data.count * 100, _precisionTarget)} %",
+            "text": "${g.fmtNumber(data.stat["stdVeryLow"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
           },
           {"text": fillLimitInfo(data.stat["stdVeryLow"]), "style": "infounit", "colSpan": 2},
@@ -431,7 +432,7 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {"text": msgValuesAbove("${glucFromData(180)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
           {
-            "text": "${g.fmtNumber(data.stat["stdHigh"].values.length / data.count * 100, _precisionTarget)} %",
+            "text": "${g.fmtNumber(data.stat["stdHigh"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
           },
           {"text": fillLimitInfo(data.stat["stdHigh"]), "style": "infounit", "colSpan": 2},
@@ -467,7 +468,7 @@ class PrintAnalysis extends BasePrint
             "style": "infotitle"
           },
           {
-            "text": "${g.fmtNumber(data.stat["stdNorm"].values.length / data.count * 100, _precisionTarget)} %",
+            "text": "${g.fmtNumber(data.stat["stdNorm"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
           },
           {"text": fillLimitInfo(data.stat["stdNorm"]), "style": "infounit", "colSpan": 2},
@@ -478,7 +479,7 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {"text": msgValuesBelow("${glucFromData(70)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
           {
-            "text": "${g.fmtNumber(data.stat["stdLow"].values.length / data.count * 100, _precisionTarget)} %",
+            "text": "${g.fmtNumber(data.stat["stdLow"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
           },
           {"text": fillLimitInfo(data.stat["stdLow"]), "style": "infounit", "colSpan": 2},
@@ -621,10 +622,11 @@ class PrintAnalysis extends BasePrint
       {
         "margin": [cm(3.7), cm(0.5), cm(0), cm(0)],
         "layout": "noBorders",
+        "fontSize": fs(10),
         "table": {"headerRows": 0, "widths": [cm(0), cm(7.3), cm(1.5), cm(1.5), cm(1.5), cm(4.5)], "body": tableBody}
       }
     ];
-    return ret;
+    return Page(isPortrait, ret);
   }
 
   getInfoPage(ReportData src)

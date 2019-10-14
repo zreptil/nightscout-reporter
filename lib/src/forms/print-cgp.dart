@@ -332,7 +332,7 @@ class PrintCGP extends BasePrint
   }
 
   @override
-  void fillPages(ReportData src, List<List<dynamic>> pages)
+  void fillPages(ReportData src, List<Page> pages)
   {
     _isPortrait = isPortraitParam;
     pages.add(getPage(src));
@@ -344,10 +344,10 @@ class PrintCGP extends BasePrint
     }
   }
 
-  getPage(ReportData src)
+  Page getPage(ReportData src)
   {
     titleInfo = titleInfoBegEnd(src);
-    var cgpSrc = calcCGP(src, src.calc.days, scale, width / 2 - xorg, 0);
+    var cgpSrc = calcCGP(src, src.data.days, scale, width / 2 - xorg, 0);
     PentagonData cgp = cgpSrc["cgp"];
 // */
     var ret;
@@ -365,9 +365,9 @@ class PrintCGP extends BasePrint
     }
     else
     {
-      ret = getCGPPage(src.calc.days, src);
+      ret = getCGPPage(src.data.days, src);
     }
-    return ret;
+    return Page(isPortrait, ret);
   }
 
   infoTable(dynamic cgp, String unit, double x, double y, double widthId, double widthText)
@@ -495,7 +495,7 @@ class PrintCGP extends BasePrint
     double areaHealthy = cgp.paintValues(
       [0, 16.7, 0, 0, 90], lw, colLine: colCGPHealthyLine, colFill: colCGPHealthyFill, opacity: 0.4);
 
-    var data = src.ns;
+    var data = src.data;
     DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")));
     totalDay.entries.addAll(data.entries);
     totalDay.init();

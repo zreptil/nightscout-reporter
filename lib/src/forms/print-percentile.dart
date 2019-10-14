@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 
-import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -49,12 +48,37 @@ class PrintPercentile extends BasePrint
   @override
   String id = "percentile";
 
-  @override
-  String title = Intl.message("Glukose Perzentil Diagramm");
+  bool showGPD;
+  bool showTable;
 
   @override
-  bool get isPortrait
-  => false;
+  List<ParamInfo> params = [
+    ParamInfo(0, BasePrint.msgOutput, list: [BasePrint.msgGraphic, BasePrint.msgTable, BasePrint.msgAll,
+    ]),
+  ];
+
+  @override
+  extractParams()
+  {
+    showGPD = params[0].intValue == 0 || params[0].intValue == 2;
+    showTable = params[0].intValue == 1 || params[0].intValue == 2;
+    pagesPerSheet = 1;
+  }
+
+  @override
+  dynamic get estimatePageCount
+  => {"count": showTable ? 2 : 1, "isEstimated": false};
+
+  @override
+  String get backsuffix
+  => "${params[0].intValue}";
+
+  @override
+  static String _title = BasePrint.msgGPD;
+  String title = _title;
+
+  @override
+  bool isPortrait = false;
 
   num lineWidth;
   String colText = "#008800";
@@ -79,26 +103,134 @@ class PrintPercentile extends BasePrint
   }
 
   @override
-  dynamic get estimatePageCount
-  => {"count": 1, "isEstimated": false};
-
-  @override
-  void fillPages(ReportData src, List<List<dynamic>> pages)
+  void fillPages(ReportData src, List<Page> pages)
   async {
-    pages.add(getPage(src));
+    if (showGPD)pages.add(getPage(src));
+    if (showTable)pages.add(getTablePage(src));
     if (g.showBothUnits)
     {
       g.glucMGDL = !g.glucMGDL;
-      pages.add(getPage(src));
+      if (showGPD)pages.add(getPage(src));
+      if (showTable)pages.add(getTablePage(src));
       g.glucMGDL = !g.glucMGDL;
     }
   }
 
-  getPage(ReportData src)
+  fillRow(ReportData src, dynamic row, double f, int hour, List<EntryData> list, String style)
+  {
+    String firstCol = "${g.fmtNumber(hour, 0, 2)}:00";
+    DayData day = DayData(null, src.profile(DateTime(src.begDate.year, src.begDate.month, src.begDate.day)));
+    day.entries.addAll(list);
+    day.init();
+    DateTime time = DateTime(0, 1, 1, hour);
+    PercentileData perc = PercentileData(time);
+    for (EntryData entry in list)
+    {
+      if (entry.gluc < 0)continue;
+      perc.add(entry);
+    }
+/*
+    for (EntryData entry in list)
+    {
+      if (entry.gluc > 0)
+      {
+        average += entry.gluc;
+        count++;
+        if (entry.gluc < min)min = entry.gluc;
+        if (entry.gluc > max)max = entry.gluc;
+      }
+    }
+    average /= count;
+ */
+    double f = fs(10);
+    double wid = 2.0 / 100.0;
+    double w = (width - 4.0 - 2.0 - wid * 100) / 8 - 0.45;
+    addTableRow(true, cm(2.0), row, {"text": msgTime, "style": "total", "alignment": "center"},
+      {"text": firstCol, "style": "total", "alignment": "center", "fontSize": f});
+    addTableRow(true, cm(wid * 100), row, {"text": msgDistribution, "style": "total", "alignment": "center"}, {
+      "style": style,
+      "canvas": [
+        {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * wid), "h": cm(0.5)},
+        {
+          "type": "rect",
+          "color": colNorm,
+          "x": cm(day.lowPrz * wid),
+          "y": cm(0),
+          "w": cm(day.normPrz * wid),
+          "h": cm(0.5)
+        },
+        {
+          "type": "rect",
+          "color": colHigh,
+          "x": cm((day.lowPrz + day.normPrz) * wid),
+          "y": cm(0),
+          "w": cm(day.highPrz * wid),
+          "h": cm(0.5)
+        }
+      ]
+    });
+    addTableRow(true, cm(w), row, {"text": msgValues, "style": "total", "alignment": "center"},
+      {"text": "${g.fmtNumber(day.entryCount, 0)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, cm(w), row, {"text": msgAverage, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(day.avgGluc, 1)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, cm(w), row, {"text": msgMin, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(day.min, 1)}", "style": style, "alignment": "right", "fontSize": f});
+//*
+    addTableRow(true, cm(w), row, {"text": msg25, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(perc.percentile(25), 1)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, cm(w), row, {"text": msgMedian, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(perc.percentile(50), 1)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, cm(w), row, {"text": msg75, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(perc.percentile(75), 1)}", "style": style, "alignment": "right", "fontSize": f});
+// */
+    addTableRow(true, cm(w), row, {"text": msgMax, "style": "total", "alignment": "center"},
+      {"text": "${glucFromData(day.max, 1)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, cm(w), row, {"text": msgDeviation, "style": "total", "alignment": "center"},
+      {"text": "${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right", "fontSize": f});
+    tableHeadFilled = true;
+  }
+
+  Page getTablePage(ReportData src)
+  {
+    isPortrait = true;
+    var body = [];
+    double f = 3.3;
+    f /= 100;
+
+    tableHeadFilled = false;
+    tableHeadLine = [];
+    tableWidths = [];
+    yorg -= 0.5;
+
+    for (var i = 0; i < 24; i++)
+    {
+      List<EntryData> list = List<EntryData>();
+      for (DayData day in src.data.days)
+      {
+        Iterable<EntryData> entries = day.entries.where((e)
+        => e.time.hour == i);
+        list.addAll(entries);
+      }
+      var row = [];
+      fillRow(src, row, f, i, list, "row");
+      if (body.length == 0)body.add(tableHeadLine);
+      body.add(row);
+    }
+    yorg += 0.5;
+
+    title = BasePrint.msgHourlyStats;
+    dynamic content = [headerFooter(), getTable(tableWidths, body)];
+    dynamic ret = Page(isPortrait, content);
+    isPortrait = false;
+    title = _title;
+    return ret;
+  }
+
+  Page getPage(ReportData src)
   {
     double xo = xorg;
     double yo = yorg;
-    var data = src.calc;
+    var data = src.data;
     lineWidth = cm(0.03);
 
     titleInfo = titleInfoBegEnd(src);
@@ -127,7 +259,6 @@ class PrintPercentile extends BasePrint
     var horzLines = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
     var horzLegend = {"stack": []};
     var vertLegend = {"stack": []};
-    var graph = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
 
     List vertCvs = vertLines["canvas"] as List;
     List horzCvs = vertLines["canvas"] as List;
@@ -142,8 +273,8 @@ class PrintPercentile extends BasePrint
       horzCvs,
       horzStack,
       vertStack);
-    if (grid.lineHeight == 0)
-      return [headerFooter(), {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "text": msgMissingData}];
+    if (grid.lineHeight == 0) return Page(
+      false, [headerFooter(), {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "text": msgMissingData}]);
     glucMax = grid.gridLines * grid.glucScale;
     double yHigh = glucY(src
       .profile(Globals.now)
@@ -184,7 +315,7 @@ class PrintPercentile extends BasePrint
         {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000000", "fillOpacity": 1}
       ]
     };
-    var percGraph = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": []};
+    var percGraph = {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "canvas": [], "pageBreak": "-"};
     var percLegend = LegendData(cm(xo), cm(yo + grid.lineHeight * grid.gridLines + 1.0), cm(8.0), 100);
 
     if (addPercentileGraph(percGraph, percList, 10, 90, "#aaaaff"))addLegendEntry(
@@ -199,8 +330,11 @@ class PrintPercentile extends BasePrint
       .targetLow), glucFromData(src
       .profile(Globals.now)
       .targetHigh), getGlucInfo()["unit"]));
-    return [
-      headerFooter(), vertLegend, vertLines, horzLegend, horzLines, limitLines, percGraph, graph, percLegend.asOutput];
+    dynamic ret = Page(
+      false, [headerFooter(), vertLegend, vertLines, horzLegend, horzLines, limitLines, percLegend.asOutput, percGraph,
+    ]);
+
+    return ret;
   }
 
   bool addPercentileGraph(var percGraph, List<PercentileData> percList, int low, int high, String color)

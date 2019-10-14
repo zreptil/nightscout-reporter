@@ -77,7 +77,7 @@ class PeriodShift
 
 class Settings
 {
-  String version = "1.3.4";
+  String version = "1.3.6";
   int timestamp = 0;
   static bool itod = html.window.localStorage["unsafe"] != "zh++;";
   String betaPrefix = "@";
@@ -89,6 +89,7 @@ class Settings
   bool showCurrentGluc = false;
   bool showInfo = false;
   bool tileShowImage = false;
+  bool isDataSmoothing = true;
   LangData _language = null;
   String _pdfOrder = "";
   String _viewType = "";
@@ -98,7 +99,8 @@ class Settings
   DatepickerPeriod period = DatepickerPeriod();
   bool canDebug = false;
   bool isBeta = html.window.location.href.contains("/beta/");
-  bool get runsLocal => html.window.location.href.contains("/localhost:");
+  bool get runsLocal
+  => html.window.location.href.contains("/localhost:");
   bool _isLocal = html.window.location.href.contains("/localhost:");
   bool get isLocal
   => _isLocal;
@@ -969,7 +971,7 @@ class Globals extends Settings
   }
 
   String fmtNumber(num value,
-                   [num decimals = 0, int fillfront0 = 0, String nullText = "null", bool stripTrailingZero = false])
+                   [num decimals = 0, int fillfront0 = 0, String nullText = "null", bool stripTrailingZero = false, bool forceSign = false])
   {
     if (value == null)return nullText;
 
@@ -982,9 +984,18 @@ class Globals extends Settings
     NumberFormat nf = NumberFormat(fmt, language.code);
     String ret = nf.format(value);
     if (stripTrailingZero)
-      while (ret.endsWith("0") || ret.endsWith(nf.symbols.DECIMAL_SEP))ret = ret.substring(0, ret.length - 1);
-    while (fillfront0 > ret.length)ret = "0${ret}";
-    return ret == "NaN" ? nullText : ret;
+    {
+      while (ret.endsWith("0"))ret = ret.substring(0, ret.length - 1);
+      if (ret.endsWith(nf.symbols.DECIMAL_SEP))ret = ret.substring(0, ret.length - 1);
+    }
+
+    if (fillfront0 > 0)
+    {
+      if (value < 0)ret = ret.substring(1);
+      while (fillfront0 > ret.length)ret = "0${ret}";
+      if (value < 0)ret = "-${ret}";
+    }
+    return ret == "NaN" ? nullText : (forceSign && value >= 0) ? "+${ret}" : ret;
   }
 
   void save({bool updateSync: true})

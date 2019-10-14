@@ -42,7 +42,7 @@ class PrintDailyGraphic extends BaseDaily
 
   bool showPictures, showInsulin, showCarbs, showBasalDay, showBasalProfile, showLegend, isPrecise, showNotes,
     sortReverse, showGlucTable, showNoteLinesAtGluc, sumNarrowValues, splitBolus, showExercises, showCarbIE, showCGP,
-    showProfileStart;
+    showProfileStart, showHTMLNotes;
 
   @override
   List<ParamInfo> params = [
@@ -54,7 +54,7 @@ class PrintDailyGraphic extends BaseDaily
       subParams: [ParamInfo(0, msgParam20, boolValue: false, isLoopValue: true)]),
     ParamInfo(6, msgParam5, boolValue: true),
     ParamInfo(7, msgParam6, boolValue: false, isDeprecated: true),
-    ParamInfo(11, msgParam7, list: [
+    ParamInfo(11, BasePrint.msgGraphsPerPage, list: [
       Intl.message("Eine"),
       Intl.message("Zwei"),
       Intl.message("Vier"),
@@ -62,7 +62,8 @@ class PrintDailyGraphic extends BaseDaily
       Intl.message("Sechzehn")
     ]),
     ParamInfo(9, msgParam8, boolValue: true),
-    ParamInfo(8, msgParam9, boolValue: true, subParams: [ParamInfo(0, msgParam13, boolValue: false)]),
+    ParamInfo(8, msgParam9, boolValue: true,
+      subParams: [ParamInfo(0, msgParam13, boolValue: false), ParamInfo(1, msgParam21, boolValue: false)]),
     ParamInfo(10, msgParam10, boolValue: false),
     ParamInfo(12, msgParam11, boolValue: true),
     ParamInfo(13, msgParam14, boolValue: true),
@@ -88,6 +89,7 @@ class PrintDailyGraphic extends BaseDaily
     showLegend = params[7].boolValue;
     showNotes = params[8].boolValue;
     showNoteLinesAtGluc = params[8].subParams[0].boolValue;
+    showHTMLNotes = params[8].subParams[1].boolValue;
     sortReverse = params[9].boolValue;
     showGlucTable = params[10].boolValue;
     sumNarrowValues = params[11].boolValue;
@@ -127,7 +129,8 @@ class PrintDailyGraphic extends BaseDaily
   }
 
   @override
-  String get backsuffix => showCGP ? "cgp" : "";
+  String get backsuffix
+  => showCGP ? "cgp" : "";
 
   static String _titleGraphic = Intl.message("Tagesgrafik");
 
@@ -146,8 +149,6 @@ class PrintDailyGraphic extends BaseDaily
   => Intl.message("Profil-Basalrate");
   static String get msgParam6
   => Intl.message("Basal mit zwei Nachkommastellen");
-  static String get msgParam7
-  => Intl.message("Grafiken pro Seite");
   static String get msgParam8
   => Intl.message("Legende");
   static String get msgParam9
@@ -170,6 +171,8 @@ class PrintDailyGraphic extends BaseDaily
   => Intl.message("Glukose Pentagon erzeugen");
   static String get msgParam20
   => Intl.message("Tagesstartprofil anzeigen");
+  static String get msgParam21
+  => Intl.message("HTML-Notizen anzeigen");
 
   @override
   List<String> get imgList
@@ -232,10 +235,10 @@ class PrintDailyGraphic extends BaseDaily
   }
 
   @override
-  void fillPages(ReportData src, List<List<dynamic>> pages)
+  void fillPages(ReportData src, List<Page> pages)
   async {
 //    scale = height / width;
-    var data = src.calc;
+    var data = src.data;
 
     graphWidth = 23.25;
     graphHeight = 6.5;
@@ -268,7 +271,7 @@ class PrintDailyGraphic extends BaseDaily
       }
       else
       {
-        pages.add(getEmptyForm(src));
+        pages.add(getEmptyForm(isPortrait, src));
       }
     }
     title = _titleGraphic;
@@ -279,7 +282,7 @@ class PrintDailyGraphic extends BaseDaily
   => {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": points};
 
   bool hasExercises;
-  getPage(DayData day, ReportData src)
+  Page getPage(DayData day, ReportData src)
   {
     footerTextAboveLine["text"] = "";
     double graphHeightSave = graphHeight;
@@ -311,7 +314,7 @@ class PrintDailyGraphic extends BaseDaily
     return ret;
   }
 
-  _getPage(DayData day, ReportData src)
+  Page _getPage(DayData day, ReportData src)
   {
     title = _titleGraphic;
     double collMinutes = sumNarrowValues ? 60 : -1;
@@ -399,8 +402,8 @@ class PrintDailyGraphic extends BaseDaily
       horzStack,
       vertStack,
       graphBottom: graphBottom);
-    if (grid.lineHeight == 0)
-      return [headerFooter(), {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "text": msgMissingData}];
+    if (grid.lineHeight == 0) return Page(
+      isPortrait, [headerFooter(), {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "text": msgMissingData}]);
 
     glucMax = grid.gridLines * grid.glucScale;
     for (EntryData entry in day.bloody)
@@ -567,8 +570,8 @@ class PrintDailyGraphic extends BaseDaily
           });
           double carbsIE = carbsForIE(src, t);
           if (t.createdAt
-            .difference(collCarbs.last.start)
-            .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
+                .difference(collCarbs.last.start)
+                .inMinutes < collMinutes)collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
           else
             collCarbs.add(CollectInfo(t.createdAt, t.carbs, carbsIE));
         }
@@ -591,8 +594,8 @@ class PrintDailyGraphic extends BaseDaily
           });
 
           if (t.createdAt
-            .difference(collInsulin.last.start)
-            .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
+                .difference(collInsulin.last.start)
+                .inMinutes < collMinutes)collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
           else
             collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
 
@@ -689,14 +692,19 @@ class PrintDailyGraphic extends BaseDaily
       }
       else if (showNotes && (t.notes ?? "").isNotEmpty && !t.isECarb)
       {
+        String notes = t.notes;
+        if (!showHTMLNotes)
+        {
+          notes = t.notes.replaceAll(RegExp(r"<.*>"), "");
+        }
         double x = glucX(t.createdAt);
 // *** line length estimation ***
 // the following code is used to estimate the length of the note-lines for
 // trying to avoid overlapping.
         int idx = noteLines.indexWhere((v)
         => v < x);
-        bool isMultiline = t.notes.indexOf("\n") > 0;
-        int len = t.notes.indexOf("\n") > 0 ? t.notes.indexOf("\n") : t.notes.length;
+        bool isMultiline = notes.indexOf("\n") > 0;
+        int len = notes.indexOf("\n") > 0 ? notes.indexOf("\n") : notes.length;
         double pos = x + len * 0.15;
         if (idx < 0)
         {
@@ -710,7 +718,7 @@ class PrintDailyGraphic extends BaseDaily
 
         if (isMultiline)
         {
-          List<String> lines = t.notes.split("\n");
+          List<String> lines = notes.split("\n");
           for (int i = 0; i < lines.length; i++)
           {
             pos = x + lines[i].length * 0.15;
@@ -739,14 +747,14 @@ class PrintDailyGraphic extends BaseDaily
           });
           (graphLegend["stack"] as List).add({
             "relativePosition": {"x": cm(x + 0.05), "y": cm(y + notesHeight - 0.25)},
-            "text": t.notes,
+            "text": notes,
             "fontSize": fs(8),
             "alignment": "left",
             "color": t.duration > 0 ? colDurationNotes : colNotes
           });
           if (t.duration > 0)
           {
-            x = glucX(t.createdAt.add(Duration(minutes: t.duration)));
+            x = glucX(t.createdAt.add(Duration(seconds: t.duration)));
             graphGlucCvs.add({
               "type": "line",
               "x1": cm(x),
@@ -889,7 +897,7 @@ class PrintDailyGraphic extends BaseDaily
         },
         {
           "type": "polyline",
-          "lineWidth": cm(lw),
+          "lineWidth": cm(lw * 2),
           "closePath": false,
           "lineColor": colTargetValue,
           "points": targetValues
@@ -1056,13 +1064,13 @@ class PrintDailyGraphic extends BaseDaily
 */
     if (error != null)
     {
-      return [
+      return Page(isPortrait, [
         headerFooter(),
         {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": "Fehler bei $error", "color": "red"}
-      ];
+      ]);
     }
 
-    return [
+    return Page(isPortrait, [
       headerFooter(),
       glucTableCvs,
       exerciseCvs,
@@ -1081,7 +1089,7 @@ class PrintDailyGraphic extends BaseDaily
       graphLegend,
       legend.asOutput,
       infoTable,
-    ];
+    ]);
   }
 
   showProfileSwitch(ReportData src, ProfileData p, List stack, double xo, double yo, [double x = null])

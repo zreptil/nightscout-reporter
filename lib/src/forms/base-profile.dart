@@ -52,7 +52,7 @@ abstract class BaseProfile extends BasePrint
   DateTime profEndTime;
 
   @override
-  void fillPages(ReportData src, List<List<dynamic>> pages)
+  void fillPages(ReportData src, List<Page> pages)
   {
 /*
     List<String> dbg = List<String>();
@@ -102,7 +102,7 @@ abstract class BaseProfile extends BasePrint
 
       for (int p = 0; !done; p++)
       {
-        dynamic page = getPage(p, src.profile(profiles[i].startDate), calc);
+        Page page = getPage(p, src.profile(profiles[i].startDate), calc);
         done = page == null;
         if (!done)pages.add(page);
       }
@@ -220,5 +220,5 @@ abstract class BaseProfile extends BasePrint
     }
   }
 
-  dynamic getPage(int page, ProfileGlucData profile, CalcData calc);
+  Page getPage(int page, ProfileGlucData profile, CalcData calc);
 }

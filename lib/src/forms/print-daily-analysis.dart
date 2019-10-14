@@ -31,10 +31,7 @@ class PrintDailyAnalysis extends BaseDaily
     ParamInfo(1, BaseDaily.msgDaily1, boolValue: true,
       subParams: [ParamInfo(0, BaseDaily.msgDaily2, boolValue: true, isLoopValue: true)],
       isLoopValue: true),
-    ParamInfo(2, BasePrint.msgOrientation, list: [
-      Intl.message("Hochformat"),
-      Intl.message("Querformat")
-    ]),
+    ParamInfo(2, BasePrint.msgOrientation, list: [Intl.message("Hochformat"), Intl.message("Querformat")]),
   ];
 
   @override
@@ -63,7 +60,8 @@ class PrintDailyAnalysis extends BaseDaily
   => {"count": g?.period?.dayCount ?? 0, "isEstimated": false};
 
   @override
-  String get backsuffix => isPortraitParam ? "" : "landscape";
+  String get backsuffix
+  => isPortraitParam ? "" : "landscape";
 
   static String _titleGraphic = Intl.message("Tagesanalyse");
 
@@ -117,11 +115,11 @@ class PrintDailyAnalysis extends BaseDaily
   }
 
   @override
-  void fillPages(ReportData src, List<List<dynamic>> pages)
+  void fillPages(ReportData src, List<Page> pages)
   async {
 //    scale = height / width;
     _isPortrait = isPortraitParam;
-    var data = src.calc;
+    var data = src.data;
     graphWidth = width - 6.7;
     basalWidth = graphWidth;
     graphHeight = (height - 7.0) / 5;
@@ -132,7 +130,7 @@ class PrintDailyAnalysis extends BaseDaily
       DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
       if (day.entries.length != 0 || day.treatments.length != 0)pages.add(getPage(day, src));
       else
-        pages.add(getEmptyForm(src));
+        pages.add(getEmptyForm(_isPortrait, src));
     }
     title = _titleGraphic;
   }
@@ -156,7 +154,7 @@ class PrintDailyAnalysis extends BaseDaily
   List _vertStack, _horzStack;
   double _colWidth;
 
-  getPage(DayData day, ReportData src)
+  Page getPage(DayData day, ReportData src)
   {
     title = _titleGraphic;
     basalHeight = graphHeight;
@@ -233,7 +231,8 @@ class PrintDailyAnalysis extends BaseDaily
 
     if (lineHeight == 0)
     {
-      return [headerFooter(), {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": msgMissingData}];
+      return Page(
+        isPortrait, [headerFooter(), {"relativePosition": {"x": cm(xo), "y": cm(yo)}, "text": msgMissingData}]);
     }
 
     for (var i = 0; i <= gridLines; i++)
@@ -582,7 +581,7 @@ class PrintDailyAnalysis extends BaseDaily
       });
     }
 
-    return [
+    return Page(isPortrait, [
       headerFooter(),
       dayBasal,
       profileBasal,
@@ -600,7 +599,7 @@ class PrintDailyAnalysis extends BaseDaily
       graphInsulin,
       graphCarbs,
       graphLegend,
-    ];
+    ]);
   }
 
   drawScaleIE(double xo, double yo, double top, double min, double max, List<StepData> steps, Function display)

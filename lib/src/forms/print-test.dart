@@ -16,6 +16,7 @@ class PrintTest extends BasePrint
   bool showRawEntries = false;
   bool showRawTreatments = false;
   bool showRawProfiles = false;
+  bool showDayProfile = false;
   int rawCols = 3;
 
   @override
@@ -26,7 +27,8 @@ class PrintTest extends BasePrint
     ParamInfo(3, "Rohdaten Einträge", boolValue: false),
     ParamInfo(4, "Rohdaten Behandlungen", boolValue: false),
     ParamInfo(5, "Rohdaten Profile", boolValue: false),
-    ParamInfo(6, "Rohdaten Spalten", intValue: 2, min: 1, max: 3)
+    ParamInfo(7, "Rohdaten Spalten", intValue: 2, min: 1, max: 3),
+    ParamInfo(6, "Tagesprofil", boolValue: false),
   ];
 
   @override
@@ -39,6 +41,7 @@ class PrintTest extends BasePrint
     showRawTreatments = params[4].boolValue;
     showRawProfiles = params[5].boolValue;
     rawCols = params[6].intValue;
+    showDayProfile = params[7].boolValue;
   }
 
   @override
@@ -91,6 +94,9 @@ class PrintTest extends BasePrint
           {"text": "IE", "fillColor": color},
         ]);
         break;
+      case "profiles":
+        _body.add([{"text": title, "fillColor": color}]);
+        break;
       case "raw":
         _rawLineCount += 6;
         _body.add([{"text": title, "fontSize": fs(12), "colSpan": rawCols}]);
@@ -114,16 +120,16 @@ class PrintTest extends BasePrint
 
   int _rawLineCount = 0;
   int _rawCurrLines = 0;
-  var _page;
-  List<List<dynamic>> _pages;
+  Page _page;
+  List<Page> _pages;
 
   @override
-  void fillPages(ReportData src, List<List<dynamic>> pages)
+  void fillPages(ReportData src, List<Page> pages)
   {
     _rawLineCount = 0;
     _rawCurrLines = 0;
     _pages = pages;
-    _page = [headerFooter(skipFooter: true)];
+    _page = Page(isPortrait, [headerFooter(skipFooter: true)]);
     _body = [];
     _isFirst = true;
     if (showEntries)
@@ -237,6 +243,23 @@ class PrintTest extends BasePrint
       finalizeRawData();
 // */
     }
+    if (showDayProfile)
+    {
+      for (DayData day in src.data.days)
+      {
+        _body = [];
+        _root = createRoot("profiles", title: "Tagesprofil für ${fmtDate(day.date)}");
+        String text = "";
+        for (ProfileEntryData entry in day.profile)
+        {
+          text = "${text}${fmtTime(entry.time(day.date), withSeconds: true)} ${g.fmtNumber(
+            entry.tempAdjusted * 100, 0, 3, "null", false, true)} / ${entry.duration} min\n";
+        }
+        var row = [{"text": text, "fontSize": fs(8)}];
+        _body.add(row);
+        _page.content.add(_root);
+      }
+    }
 
     _pages.add(_page);
   }
@@ -312,10 +335,10 @@ class PrintTest extends BasePrint
   {
     _rawLineCount = 0;
     _rawCurrLines = 0;
-    _page.add(_root);
+    _page.content.add(_root);
     _pages.add(_page);
     _isFirst = true;
-    _page = [headerFooter(skipFooter: true)];
+    _page = Page(isPortrait, [headerFooter(skipFooter: true)]);
     _body = [];
     _root = createRoot(null);
   }
@@ -324,7 +347,7 @@ class PrintTest extends BasePrint
   {
 //    if (body.last.length < rawCols)body.last.last["colSpan"] = rawCols - body.last.length + 1;
     while (_body.last.length < rawCols)_body.last.add({"text": ""});
-    _page.add(_root);
+    _page.content.add(_root);
 //    pages.add(body);
   }
 }

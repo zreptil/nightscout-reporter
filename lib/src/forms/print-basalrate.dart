@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:angular_components/angular_components.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
+import 'base-print.dart';
 import 'base-profile.dart';
 
 class PrintBasalrate extends BaseProfile
@@ -42,7 +43,7 @@ class PrintBasalrate extends BaseProfile
   }
 
   @override
-  dynamic getPage(int page, ProfileGlucData profile, CalcData calc)
+  Page getPage(int page, ProfileGlucData profile, CalcData calc)
   {
     if (page > 0)return null;
     subtitle = profile.store.name;
@@ -359,7 +360,7 @@ class PrintBasalrate extends BaseProfile
       brLegend
     ];
 
-    return content;
+    return Page(isPortrait, content);
   }
 
   getIllegalMark(xo, yo, x, y)

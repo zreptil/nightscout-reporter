@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-09-12T15:35:00.872072",
+    "@@last_modified": "2019-10-14T16:14:38.045970",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -758,6 +758,36 @@
         "type": "text",
         "placeholders": {}
     },
+    "Ausgabe": "Output",
+    "@Ausgabe": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Grafik": "Graphic",
+    "@Grafik": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Tabelle": "Table",
+    "@Tabelle": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Alles": "All",
+    "@Alles": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Glukose Perzentil Diagramm": "Glucose Percentile Diagram",
+    "@Glukose Perzentil Diagramm": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Stündliche Statistik": "Hourly Statistics",
+    "@Stündliche Statistik": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Notiz": "Note",
     "@Notiz": {
         "type": "text",
@@ -770,6 +800,11 @@
     },
     "Glukose zu niedrig": "Glucose too low",
     "@Glukose zu niedrig": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Grafiken pro Seite": "Graphics per page",
+    "@Grafiken pro Seite": {
         "type": "text",
         "placeholders": {}
     },
@@ -1003,6 +1038,16 @@
     },
     "Standardabweichung": "Standard deviation",
     "@Standardabweichung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Kalibrierung": "Calibration",
+    "@Kalibrierung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wechsel": "Change",
+    "@Wechsel": {
         "type": "text",
         "placeholders": {}
     },
@@ -1361,11 +1406,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Grafiken pro Seite": "Graphics per page",
-    "@Grafiken pro Seite": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Legende": "Legend",
     "@Legende": {
         "type": "text",
@@ -1418,6 +1458,11 @@
     },
     "Tagesstartprofil anzeigen": "Show profile at daystart",
     "@Tagesstartprofil anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "HTML-Notizen anzeigen": "Display HTML-notes",
+    "@HTML-Notizen anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1506,6 +1551,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dauer mit Minutenbruchteil": "Precise duration",
+    "@Dauer mit Minutenbruchteil": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Tag (08:00 - 18:00)": "Day (08:00 - 18:00)",
     "@Tag (08:00 - 18:00)": {
         "type": "text",
@@ -1551,6 +1601,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Batteriewechsel": "Batterychange",
+    "@Batteriewechsel": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgMBG": "Blood value {gluc} {unit}",
     "@msgMBG": {
         "type": "text",
@@ -1586,11 +1641,6 @@
     },
     "Tagesstatistik": "Daily Statistics",
     "@Tagesstatistik": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Glukose Perzentil Diagramm": "Glucose Percentile Diagram",
-    "@Glukose Perzentil Diagramm": {
         "type": "text",
         "placeholders": {}
     },
@@ -1937,6 +1987,66 @@
     "Version": "Version",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.3.6 - xx.10.2019": "1.3.6 - 10/xx/2019",
+    "@1.3.6 - xx.10.2019": {
+        "description": "v136",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen komplette HTML-Seiten rein, was im PDF extrem schlecht darstellbar ist. Deswegen kann man diese mit Setzen der Option ausblenden.": "In the daily graphics, there is the option to suppress HTML notes. Some uploaders write complete HTML pages in the notes, which is extremely difficult to render in the PDF. That's why you can hide them by setting this option.",
+    "@In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen komplette HTML-Seiten rein, was im PDF extrem schlecht darstellbar ist. Deswegen kann man diese mit Setzen der Option ausblenden.": {
+        "description": "v136a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": "The Glucose Percentile Graph has been expanded to include the Hourly Statistics table. This tabulates the values of the period for each hour of the day. You can either create just the graphic, just the table or both together.",
+    "@Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": {
+        "description": "v136a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.3.5 - 23.09.2019": "1.3.5 - 09/23/2019",
+    "@1.3.5 - 23.09.2019": {
+        "description": "v135",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler in der Zahlenformatierung wurde behoben.": "An error in number formatting has been fixed.",
+    "@Ein Fehler in der Zahlenformatierung wurde behoben.": {
+        "description": "v135f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": "The temporary basal rate at the beginning of the day has been set incorrectly if it was set in the previous day. This has been fixed.",
+    "@Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": {
+        "description": "v135f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.3.4 - 17.09.2019": "1.3.4 - 09/17/2019",
+    "@1.3.4 - 17.09.2019": {
+        "description": "v134",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Protokoll können jetzt auch Batteriewechsel der Pumpe angezeigt werden.": "The protocol can now also show battery changes of the pump.",
+    "@Im Protokoll können jetzt auch Batteriewechsel der Pumpe angezeigt werden.": {
+        "description": "v134a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die einzelne Seite CGP kann jetzt auch im Querformat ausgegeben werden.": "The single page CGP can now also be output in landscape format.",
+    "@Die einzelne Seite CGP kann jetzt auch im Querformat ausgegeben werden.": {
+        "description": "v134a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Aufsummierung der Werte in der Analyse wurde korrigiert.": "The accumulation of the values in the analysis has been corrected.",
+    "@Die Aufsummierung der Werte in der Analyse wurde korrigiert.": {
+        "description": "v134f1",
         "type": "text",
         "placeholders": {}
     },

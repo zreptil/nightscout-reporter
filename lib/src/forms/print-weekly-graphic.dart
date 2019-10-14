@@ -20,7 +20,7 @@ class PrintWeeklyGraphic extends BasePrint
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(0, msgParam1, list: [
+    ParamInfo(0, BasePrint.msgGraphsPerPage, list: [
       Intl.message("Eine"),
       Intl.message("Zwei"),
       Intl.message("Vier"),
@@ -78,15 +78,14 @@ class PrintWeeklyGraphic extends BasePrint
   }
 
   @override
-  String get backsuffix => showCGP ? "cgp" : "";
+  String get backsuffix
+  => showCGP ? "cgp" : "";
 
   static String _title = Intl.message("Wochengrafik");
 
   @override
   String title = _title;
 
-  static String get msgParam1
-  => Intl.message("Grafiken pro Seite");
   static String get msgParam2
   => Intl.message("Neueste Woche zuerst");
   static String get msgParam3
@@ -126,9 +125,9 @@ class PrintWeeklyGraphic extends BasePrint
   }
 
   @override
-  void fillPages(ReportData src, List<List<dynamic>> pages)
+  void fillPages(ReportData src, List<Page> pages)
   async {
-    var data = src.calc;
+    var data = src.data;
 
     if (data.days.length == 0)return;
 
@@ -166,7 +165,7 @@ class PrintWeeklyGraphic extends BasePrint
   dynamic glucLine(dynamic points, String color)
   => {"type": "polyline", "lineWidth": cm(lw * 2), "closePath": false, "lineColor": color, "points": points};
 
-  _getPage(List<DayData> days, ReportData src)
+  Page _getPage(List<DayData> days, ReportData src)
   {
     footerTextAboveLine["text"] = "";
     double xo = xorg;
@@ -203,8 +202,8 @@ class PrintWeeklyGraphic extends BasePrint
       horzStack,
       vertStack,
       glucScale: g.glucMGDL ? 20 : 18.02 * 0.5);
-    if (grid.lineHeight == 0)
-      return [headerFooter(), {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "text": msgMissingData}];
+    if (grid.lineHeight == 0) return Page(
+      isPortrait, [headerFooter(), {"relativePosition": {"x": cm(xorg), "y": cm(yorg)}, "text": msgMissingData}]);
 
 
     glucMax = (grid.gridLines * grid.glucScale).toDouble();
@@ -314,6 +313,7 @@ class PrintWeeklyGraphic extends BasePrint
         {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1}
       ]
     };
-    return [headerFooter(), vertLegend, vertLines, horzLegend, horzLines, limitLines, graphGluc, legend.asOutput];
+    return Page(isPortrait,
+      [headerFooter(), vertLegend, vertLines, horzLegend, horzLines, limitLines, graphGluc, legend.asOutput, {"text": ""}]);
   }
 }

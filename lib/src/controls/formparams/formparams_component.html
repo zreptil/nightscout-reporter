@@ -7,7 +7,7 @@
   <div *ngIf="param.intValue!=null && param.list == null" class="paramSlider">
     <div [class]="getClass(param)">{{param.title}}: {{param.intValue}}</div>
     <material-slider [class]="getClass(param, 'slider')" [(min)]="param.min" [(max)]="param.max"
-                     [(value)]="param.intValue">
+                     [(value)]="param.sliderValue">
     </material-slider>
   </div>
   <div *ngIf="param.stringValue!=null">

@@ -18,7 +18,7 @@ class PrintDailyLog extends BaseProfile
   String id = "daylog";
 
   bool showNotes, showCarbs, showIE, showSMB, showTempBasal, showProfileSwitch, showIESource, showTempTargets, showGluc,
-    showChanges, showChangesColumn, showCalibration, showProfileSwitchDetails;
+    showChanges, showChangesColumn, showCalibration, showProfileSwitchDetails, showTempDigit;
   int groupMinutes = 0;
 
   @override
@@ -30,7 +30,9 @@ class PrintDailyLog extends BaseProfile
     ParamInfo(2, msgParam1, boolValue: true),
     ParamInfo(3, msgParam2, boolValue: true),
     ParamInfo(4, msgParam3, boolValue: true, subParams: [ParamInfo(0, msgParam7, boolValue: true)]),
-    ParamInfo(10, msgParam4, boolValue: true, isLoopValue: true),
+    ParamInfo(10, msgParam4, boolValue: true,
+      isLoopValue: true,
+      subParams: [ParamInfo(0, msgParam15, boolValue: false, isLoopValue: true)]),
     ParamInfo(9, msgParam5, boolValue: true, isLoopValue: true),
     ParamInfo(5, msgParam6, boolValue: true, subParams: [ParamInfo(0, msgParam14, boolValue: true)]),
     ParamInfo(8, msgParam8, boolValue: true, isLoopValue: true),
@@ -55,6 +57,7 @@ class PrintDailyLog extends BaseProfile
     showIE = params[2].boolValue;
     showIESource = params[2].subParams[0].boolValue;
     showTempBasal = params[3].boolValue;
+    showTempDigit = params[3].subParams[0].boolValue;
     showSMB = params[4].boolValue;
     showProfileSwitch = params[5].boolValue;
     showProfileSwitchDetails = params[5].subParams[0].boolValue;
@@ -123,6 +126,8 @@ class PrintDailyLog extends BaseProfile
   => Intl.message("Kalibrierung und blutige Messungen");
   static String get msgParam14
   => Intl.message("Details des Profilwechsels");
+  static String get msgParam15
+  => Intl.message("Dauer mit Minutenbruchteil");
 
   @override
   List<String> get imgList
@@ -141,9 +146,9 @@ class PrintDailyLog extends BaseProfile
 
   bool _isFirstLine = true;
   bool _hasData = false;
-  bool _headFilled = false;
-  dynamic _headLine = [];
-  dynamic _widths = [];
+  bool tableHeadFilled = false;
+  dynamic tableHeadLine = [];
+  dynamic tableWidths = [];
   var _body = [];
   var _page = [];
   double _y;
@@ -175,16 +180,16 @@ class PrintDailyLog extends BaseProfile
     ];
 
   @override
-  void fillPages(ReportData src, List<List<dynamic>> pages)
+  void fillPages(ReportData src, List<Page> pages)
   async {
-    var data = src.calc;
+    var data = src.data;
     titleInfo = titleInfoBegEnd(src);
 
     lineWidth = cm(0.03);
     _y = yorg - 0.3;
     _body = [];
     _page = [];
-    _widths = [];
+    tableWidths = [];
     _hasData = false;
 
     for (int i = 0; i < data.days.length; i++)
@@ -196,8 +201,8 @@ class PrintDailyLog extends BaseProfile
     if (_hasData)
     {
       _page.add(headerFooter());
-      _page.add(getTable(_widths, _body));
-      pages.add(_page);
+      _page.add(getTable(tableWidths, _body));
+      pages.add(Page(isPortrait, _page));
     }
   }
 
@@ -210,11 +215,11 @@ class PrintDailyLog extends BaseProfile
   double lineHeight(int lineCount)
   => 2 * _cellSpace + lineCount * (_lineHeight + _cellSpace);
 
-  fillTable(DayData day, ReportData src, List<List<dynamic>> pages)
+  fillTable(DayData day, ReportData src, List<Page> pages)
   {
     _maxY = height - 2.8;
-    _headFilled = false;
-    _headLine = [];
+    tableHeadFilled = false;
+    tableHeadLine = [];
     _isFirstLine = true;
 
 //    int groupMinutes = g.isLocal ? 60 : 0;
@@ -246,7 +251,7 @@ class PrintDailyLog extends BaseProfile
         t.createdAt = e.time;
         t.eventType = "nr-${e.type}";
         t.notes =
-        "Kalibrierung - scale ${g.fmtNumber(e.scale, 2)}, intercept ${g.fmtNumber(e.intercept, 0)}, slope ${g.fmtNumber(
+        "${BasePrint.msgCalibration} - scale ${g.fmtNumber(e.scale, 2)}, intercept ${g.fmtNumber(e.intercept, 0)}, slope ${g.fmtNumber(
           e.slope, 2)}";
         treatments.add(t);
       }
@@ -275,7 +280,7 @@ class PrintDailyLog extends BaseProfile
           _hasData = true;
           if (_isFirstLine)
           {
-            _body.add(_headLine);
+            _body.add(tableHeadLine);
             _y += lineHeight(1);
             _isFirstLine = false;
           }
@@ -292,10 +297,10 @@ class PrintDailyLog extends BaseProfile
           if (list.length > 0 || _y + _lineHeight >= _maxY)
           {
             _page.add(headerFooter());
-            _page.add(getTable(_widths, _body));
-            pages.add(_page);
+            _page.add(getTable(tableWidths, _body));
+            pages.add(Page(isPortrait, _page));
             _page = [];
-            _body = [_headLine];
+            _body = [tableHeadLine];
             _y = yorg - 0.3 + lineHeight(2);
             _isFirstLine = false;
           }
@@ -390,7 +395,7 @@ class PrintDailyLog extends BaseProfile
             {"relativePosition": {"x": cm(x += 0.5), "y": cm(0.1)}, "image": "ampulle.print", "width": cm(0.4)});
           if (flags.hasBattery)stack.add(
             {"relativePosition": {"x": cm(x += 0.5), "y": cm(0.1)}, "image": "battery.print", "width": cm(0.4)});
-          addRow(true, cm(1.4), row, {"text": "Wechsel", "style": "total", "fontSize": size, "alignment": "center"},
+          addRow(true, cm(1.4), row, {"text": BasePrint.msgChange, "style": "total", "fontSize": size, "alignment": "center"},
             {"stack": stack});
         }
         addRow(true, cm(wid), row, {
@@ -400,7 +405,7 @@ class PrintDailyLog extends BaseProfile
           "alignment": "left"
         }, {"text": text, "style": style, "fontSize": size, "alignment": "left"});
         _body.add(row);
-        _headFilled = true;
+        tableHeadFilled = true;
       }
 
       lines.removeRange(0, idx);
@@ -432,8 +437,8 @@ class PrintDailyLog extends BaseProfile
     {
       ret = day.profile[i];
       DateTime check = ret.time(day.date, true);
-      if ((check.hour == time.hour && time.minute == check.minute) || (check.isBefore(time) && time.add(
-        Duration(minutes: ret.duration)).isBefore(check)))return ret;
+      if ((check.hour == time.hour && time.minute == check.minute && time.second == check.second) || (check.isBefore(
+        time) && time.add(Duration(seconds: ret.duration)).isBefore(check)))return ret;
     }
 
     return null;
@@ -475,7 +480,8 @@ class PrintDailyLog extends BaseProfile
     if (showTempBasal && type == "temp basal")
     {
       ProfileEntryData entry = basalFor(day, t.createdAt);
-      if (entry != null)list.add(msgLogTempBasal(g.fmtNumber(entry.tempAdjusted * 100), entry.duration));
+      if (entry != null)list.add(msgLogTempBasal(g.fmtNumber(entry.tempAdjusted * 100, 0, 0, "null", false, true),
+        g.fmtNumber(entry.duration / 60, showTempDigit ? 1 : 0)));
     }
     if (showProfileSwitch && type == "profile switch")
     {
@@ -488,7 +494,7 @@ class PrintDailyLog extends BaseProfile
       if (t.targetBottom == t.targetTop)target = "${g.glucFromData(t.targetBottom)} ${getGlucInfo()["unit"]}";
       else
         target = "${g.glucFromData(t.targetBottom)} - ${g.glucFromData(t.targetTop)} ${getGlucInfo()["unit"]}";
-      list.add(msgLogTempTarget(target, t.duration, t.reason));
+      list.add(msgLogTempTarget(target, t.duration / 60, t.reason));
     }
     if (showChanges)
     {
@@ -534,10 +540,10 @@ class PrintDailyLog extends BaseProfile
   addRow(bool check, var width, dynamic dst, dynamic head, dynamic content)
   {
     if (!check)return;
-    if (!_headFilled)
+    if (!tableHeadFilled)
     {
-      _headLine.add(head);
-      _widths.add(width);
+      tableHeadLine.add(head);
+      tableWidths.add(width);
     }
     dst.add(content);
   }

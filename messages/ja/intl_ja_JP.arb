@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-09-12T15:35:00.872072",
+    "@@last_modified": "2019-10-14T16:14:38.045970",
     "Überprüfe Zugriff auf Nightscout ...": "ナイトスカウトの接続を確認しています…",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -156,22 +156,22 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": "The specified URL is not reachable. If the URL is correct, then it may be due to the Nightscout-settings. ",
+    "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": "指定されたURLにアクセスできません。URLが正しい場合はNightscoutセッティングを確認してください。 ",
     "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": {
         "type": "text",
         "placeholders": {}
     },
-    "<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "<br> <br> If this URL is protected, the UserToken must also be defined correctly.",
+    "<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "<br><br>このURLを保護している場合は、UserTokenを設定する必要があります。",
     "@<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
         "type": "text",
         "placeholders": {}
     },
-    "In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "The variable ENABLE must contain the word \"cors\" so that external tools like this one can access the data.",
+    "In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "このような外部ツールがNightscoutに接続できるようにする為には、Nightscoutの設定で変数ENABLEに”cros”を追加する必要があります。",
     "@In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": {
         "type": "text",
         "placeholders": {}
     },
-    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "On 10be, the default settings for the server must enable the \"cors\" checkbox so that external tools like this one can access the data.",
+    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "このような外部ツールが10beに接続できるようにする為には、10beの設定で”cros”のチェックボックスをオンにする必要があります。；",
     "@Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": {
         "type": "text",
         "placeholders": {}
@@ -292,12 +292,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Synchronisierung aufheben": "Cancel Sync",
+    "Synchronisierung aufheben": "同期をキャンセル",
     "@Synchronisierung aufheben": {
         "type": "text",
         "placeholders": {}
     },
-    "Mit Google Drive synchronisieren": "Sync with Google Drive",
+    "Mit Google Drive synchronisieren": "GoogleDriveと同期する",
     "@Mit Google Drive synchronisieren": {
         "description": "synchronize with google drive",
         "type": "text",
@@ -628,17 +628,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Anzahl Ampullenwechsel": "Count of reservoir changes",
+    "Anzahl Ampullenwechsel": "リザーバーの交換回数",
     "@Anzahl Ampullenwechsel": {
         "type": "text",
         "placeholders": {}
     },
-    "Anzahl Katheterwechsel": "Count of site changes",
+    "Anzahl Katheterwechsel": "注入場所変更回数",
     "@Anzahl Katheterwechsel": {
         "type": "text",
         "placeholders": {}
     },
-    "Anzahl Sensorenwechsel": "Count of sensor changes",
+    "Anzahl Sensorenwechsel": "センサー変更回数",
     "@Anzahl Sensorenwechsel": {
         "type": "text",
         "placeholders": {}
@@ -758,6 +758,36 @@
         "type": "text",
         "placeholders": {}
     },
+    "Ausgabe": "Output",
+    "@Ausgabe": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Grafik": "Graphic",
+    "@Grafik": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Tabelle": "Table",
+    "@Tabelle": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Alles": "All",
+    "@Alles": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Glukose Perzentil Diagramm": "血糖値変動パターン",
+    "@Glukose Perzentil Diagramm": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Stündliche Statistik": "Hourly Statistics",
+    "@Stündliche Statistik": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Notiz": "ノート",
     "@Notiz": {
         "type": "text",
@@ -770,6 +800,11 @@
     },
     "Glukose zu niedrig": "低血糖",
     "@Glukose zu niedrig": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Grafiken pro Seite": "１ページのグラフ数",
+    "@Grafiken pro Seite": {
         "type": "text",
         "placeholders": {}
     },
@@ -909,7 +944,7 @@
             "end": {}
         }
     },
-    "Ausrichtung": "Orientation",
+    "Ausrichtung": "方向",
     "@Ausrichtung": {
         "type": "text",
         "placeholders": {}
@@ -1006,6 +1041,16 @@
         "type": "text",
         "placeholders": {}
     },
+    "Kalibrierung": "Calibration",
+    "@Kalibrierung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wechsel": "Change",
+    "@Wechsel": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgGVINone": "利用不可({min} 分未満)",
     "@msgGVINone": {
         "type": "text",
@@ -1091,7 +1136,7 @@
             "newName": {}
         }
     },
-    "msgProfileSwitchDuration": "Profileswitch - {oldName} => {newName} for {duration} Minutes",
+    "msgProfileSwitchDuration": "プロフィール変更 - {oldName} => {newName} から {duration} 分",
     "@msgProfileSwitchDuration": {
         "type": "text",
         "placeholders": {
@@ -1146,7 +1191,7 @@
             "value": {}
         }
     },
-    "msgCV": "CV [{value}%]",
+    "msgCV": "血糖変動係数{value}%]",
     "@msgCV": {
         "type": "text",
         "placeholders": {
@@ -1291,12 +1336,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Hochformat": "Portrait",
+    "Hochformat": "縦向き",
     "@Hochformat": {
         "type": "text",
         "placeholders": {}
     },
-    "Querformat": "Landscape",
+    "Querformat": "横向き",
     "@Querformat": {
         "type": "text",
         "placeholders": {}
@@ -1361,11 +1406,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Grafiken pro Seite": "１ページのグラフ数",
-    "@Grafiken pro Seite": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Legende": "凡例",
     "@Legende": {
         "type": "text",
@@ -1416,8 +1456,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesstartprofil anzeigen": "Show profile at daystart",
+    "Tagesstartprofil anzeigen": "開始日にプロファイルを表示",
     "@Tagesstartprofil anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "HTML-Notizen anzeigen": "Display HTML-notes",
+    "@HTML-Notizen anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1501,8 +1546,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Details des Profilwechsels": "Details of Profileswitch",
+    "Details des Profilwechsels": "プロファイル変更の詳細",
     "@Details des Profilwechsels": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dauer mit Minutenbruchteil": "Precise duration",
+    "@Dauer mit Minutenbruchteil": {
         "type": "text",
         "placeholders": {}
     },
@@ -1551,6 +1601,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Batteriewechsel": "電池交換",
+    "@Batteriewechsel": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgMBG": "血糖値{gluc}{unit}",
     "@msgMBG": {
         "type": "text",
@@ -1586,11 +1641,6 @@
     },
     "Tagesstatistik": "日別統計",
     "@Tagesstatistik": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Glukose Perzentil Diagramm": "血糖値変動パターン",
-    "@Glukose Perzentil Diagramm": {
         "type": "text",
         "placeholders": {}
     },
@@ -1676,7 +1726,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Anmeldung bei Google...": "Signing in to Google…",
+    "Anmeldung bei Google...": "Googleにサインインしています。",
     "@Anmeldung bei Google...": {
         "description": "signin to google",
         "type": "text",
@@ -1784,31 +1834,31 @@
         "type": "text",
         "placeholders": {}
     },
-    "Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert.": "This website does not store data on servers. The required data is retrieved from the entered URL to the Nightscout instance and formatted as PDF. The data required for the website to work is stored in the localStorage of the browser and not transmitted to the server. If syncing with Google Drive is turned on, then that data will also be stored in the application data on Google Drive's associated account.",
+    "Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert.": "このウェブサイトはサーバー上にデータを保存しません。Nightscoutのサイトから必要なデータを取得しPDFとして出力されます。ウェブサイトが必要なデータはブラウザのLocalStrage領域に保存しサーバーには送信しません。Googleドライブの同期がオンになっている場合は、Googleドライブにも保存されます。",
     "@Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert.": {
         "description": "shorttext for dataprotection",
         "type": "text",
         "placeholders": {}
     },
-    "Mehr gibt es dazu eigentlich nicht zu sagen.": "There is nothing more to say about it.",
+    "Mehr gibt es dazu eigentlich nicht zu sagen.": "何もありません。",
     "@Mehr gibt es dazu eigentlich nicht zu sagen.": {
         "description": "allsaid in dataprotection",
         "type": "text",
         "placeholders": {}
     },
-    "Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:": "Since we have a DSGVO in Europe, the following text meets the rules for it. The following text is only available in German:",
+    "Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:": "以下の文章はヨーロッパDSGVOに順守しています。又、このテキストはドイツ語のみで利用可能です。：",
     "@Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:": {
         "description": "info for dsgvo in dataprotection",
         "type": "text",
         "placeholders": {}
     },
-    "Anzeigeeinstellungen": "Displaysettings",
+    "Anzeigeeinstellungen": "画面設定",
     "@Anzeigeeinstellungen": {
         "description": "label of area for additional functions",
         "type": "text",
         "placeholders": {}
     },
-    "Auf Kacheln Bilder statt Namen anzeigen": "Show images instead of names on tiles",
+    "Auf Kacheln Bilder statt Namen anzeigen": "タイルに名称ではなくイメージを表示する。",
     "@Auf Kacheln Bilder statt Namen anzeigen": {
         "description": "label for checkbox to show images on tiles",
         "type": "text",
@@ -1940,7 +1990,67 @@
         "type": "text",
         "placeholders": {}
     },
-    "1.3.3 - 12.09.2019": "1.3.3 - 12/09/2019",
+    "1.3.6 - xx.10.2019": "1.3.6 - xx/10/2019",
+    "@1.3.6 - xx.10.2019": {
+        "description": "v136",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen komplette HTML-Seiten rein, was im PDF extrem schlecht darstellbar ist. Deswegen kann man diese mit Setzen der Option ausblenden.": "In the daily graphics, there is the option to suppress HTML notes. Some uploaders write complete HTML pages in the notes, which is extremely difficult to render in the PDF. That's why you can hide them by setting this option.",
+    "@In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen komplette HTML-Seiten rein, was im PDF extrem schlecht darstellbar ist. Deswegen kann man diese mit Setzen der Option ausblenden.": {
+        "description": "v136a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": "The Glucose Percentile Graph has been expanded to include the Hourly Statistics table. This tabulates the values of the period for each hour of the day. You can either create just the graphic, just the table or both together.",
+    "@Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": {
+        "description": "v136a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.3.5 - 23.09.2019": "1.3.5 ‐ 2019/09/23",
+    "@1.3.5 - 23.09.2019": {
+        "description": "v135",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler in der Zahlenformatierung wurde behoben.": "数値の書式エラーが修正されました。",
+    "@Ein Fehler in der Zahlenformatierung wurde behoben.": {
+        "description": "v135f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": "The temporary basal rate at the beginning of the day has been set incorrectly if it was set in the previous day. This has been fixed.",
+    "@Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": {
+        "description": "v135f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.3.4 - 17.09.2019": "1.3.4 - 2019/09/17",
+    "@1.3.4 - 17.09.2019": {
+        "description": "v134",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Protokoll können jetzt auch Batteriewechsel der Pumpe angezeigt werden.": "The protocol can now also show battery changes of the pump.",
+    "@Im Protokoll können jetzt auch Batteriewechsel der Pumpe angezeigt werden.": {
+        "description": "v134a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die einzelne Seite CGP kann jetzt auch im Querformat ausgegeben werden.": "The single page CGP can now also be output in landscape format.",
+    "@Die einzelne Seite CGP kann jetzt auch im Querformat ausgegeben werden.": {
+        "description": "v134a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Aufsummierung der Werte in der Analyse wurde korrigiert.": "The accumulation of the values in the analysis has been corrected.",
+    "@Die Aufsummierung der Werte in der Analyse wurde korrigiert.": {
+        "description": "v134f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.3.3 - 12.09.2019": "1.3.3 - 2019/09/12",
     "@1.3.3 - 12.09.2019": {
         "description": "v133",
         "type": "text",
@@ -1964,7 +2074,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "1.3.2 - 05.09.2019": "1.3.2 - 05/09/2019",
+    "1.3.2 - 05.09.2019": "1.3.2 - 2019/09/05",
     "@1.3.2 - 05.09.2019": {
         "description": "v132",
         "type": "text",
@@ -1982,7 +2092,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": "When selecting the daily basal rate, it is now possible to specify in the options of the daily graph that the name of the profile that was active at the beginning of the day is displayed. This will then be displayed as a profile change at 0 am.",
+    "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": "デイリーグラフを表示する際に、その日最初にアクティブだったプロフィール名を表示できるようになりまた。このプロファイルは午前０時より変更したとして表示されます。",
     "@In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": {
         "description": "v132a3",
         "type": "text",
@@ -1994,37 +2104,37 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesstatistik wurden bei unvollständigen Daten teilweise fehlerhafte Werte ausgegeben. Das wurde korrigiert.": "Fixed wrong data display in the daily statistics when a day has too little data.",
+    "In der Tagesstatistik wurden bei unvollständigen Daten teilweise fehlerhafte Werte ausgegeben. Das wurde korrigiert.": "1日のデータが少なすぎる場合、日別統計に誤ったデータが表示されるエラーを修正しました。",
     "@In der Tagesstatistik wurden bei unvollständigen Daten teilweise fehlerhafte Werte ausgegeben. Das wurde korrigiert.": {
         "description": "v132f1",
         "type": "text",
         "placeholders": {}
     },
-    "1.3.1 - 22.08.2019": "1.3.1 - 22/08/2019",
+    "1.3.1 - 22.08.2019": "1.3.1 - 2019/08/22",
     "@1.3.1 - 22.08.2019": {
         "description": "v131",
         "type": "text",
         "placeholders": {}
     },
-    "Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt.": "On the profile and basal rate pages, the title bar now again shows the date where this profile starts.",
+    "Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt.": "プロフィールの開始日が、プロフィールページと基礎レートページのタイトルバーに表示されます。",
     "@Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt.": {
         "description": "v131c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Listenansicht ist jetzt wieder scrollbar.": "The listview is scrollable again.",
+    "Die Listenansicht ist jetzt wieder scrollbar.": "リストビューが再度スクロール可能になります。",
     "@Die Listenansicht ist jetzt wieder scrollbar.": {
         "description": "v131f1",
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.": "Temporary profile changes are now recognized and displayed correctly in the daily graphics.",
+    "Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.": "一時的にプロフィールを変更した場合でも、正しく認識され表示されるようになりました。",
     "@Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.": {
         "description": "v131f2",
         "type": "text",
         "placeholders": {}
     },
-    "1.3.0 - 19.08.2019": "1.3.0 - 19/08/2019",
+    "1.3.0 - 19.08.2019": "1.3.0 - 2019/08/19",
     "@1.3.0 - 19.08.2019": {
         "description": "v130",
         "type": "text",
@@ -2060,13 +2170,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Es ist jetzt möglich, die Buttons zur PDF-Auswahl als Kacheln darstellen zu lassen. Die Option dazu ist im Menü auf der linken Seite zu finden. In der Kachelansicht werden die Buttons über die verfügbare Fläche verteilt und sind so auf kleinen Geräten leichter zu treffen. Ausserdem sieht man dann normalerweise alle verfügbaren PDFs auf einen Blick und muss nicht scrollen. Auf den aktivierten Kacheln wird angezeigt, an welcher Stelle im PDF die entsprechenden Seiten ausgegeben werden und wieviele Seiten die entsprechende Kachel ausgibt. Diese Zahl kann für die meisten Kacheln korrekt ermittelt werden, bei einigen ist das aber ohne Auswertung der Daten nicht möglich (z.B. Profile und Protokoll). In diesem Fall wird entweder keine Seitenzahl oder eine Mindestzahl an Seiten angegeben. Sobald die Erstellung des PDFs erfolgt ist, werden die korrekten Zahlen angezeigt. Die Reihenfolge der Kacheln kann verändert werden, indem man sie festhält und an die Stelle verschiebt, an der man sie gerne hätte. Nach Anklicken des Icons in der oberen rechten Ecke können die Parameter für das entsprechende PDF erfasst werden.": "It is now possible to display the buttons for PDF selection as tiles. The option can be found in the menu on the left. In the tile view, the buttons are distributed over the available area and are thus easier to hit on small devices. In addition, you normally see all available PDFs at a glance and do not have to scroll. The activated tiles indicate at which point in the PDF the corresponding pages are created and how many pages the corresponding tile creates. The number of pages can be determined correctly for most tiles, but for some this is not possible without data insight (for example, profiles and protocol). In this case, either no page number or a minimum number of pages is shown. Once the PDF is created, the correct numbers will be displayed. The sortorder of the tiles can be changed by dragging it to where you want it. After clicking the icon in the upper right corner, the parameters for the corresponding PDF can be set.",
+    "Es ist jetzt möglich, die Buttons zur PDF-Auswahl als Kacheln darstellen zu lassen. Die Option dazu ist im Menü auf der linken Seite zu finden. In der Kachelansicht werden die Buttons über die verfügbare Fläche verteilt und sind so auf kleinen Geräten leichter zu treffen. Ausserdem sieht man dann normalerweise alle verfügbaren PDFs auf einen Blick und muss nicht scrollen. Auf den aktivierten Kacheln wird angezeigt, an welcher Stelle im PDF die entsprechenden Seiten ausgegeben werden und wieviele Seiten die entsprechende Kachel ausgibt. Diese Zahl kann für die meisten Kacheln korrekt ermittelt werden, bei einigen ist das aber ohne Auswertung der Daten nicht möglich (z.B. Profile und Protokoll). In diesem Fall wird entweder keine Seitenzahl oder eine Mindestzahl an Seiten angegeben. Sobald die Erstellung des PDFs erfolgt ist, werden die korrekten Zahlen angezeigt. Die Reihenfolge der Kacheln kann verändert werden, indem man sie festhält und an die Stelle verschiebt, an der man sie gerne hätte. Nach Anklicken des Icons in der oberen rechten Ecke können die Parameter für das entsprechende PDF erfasst werden.": "PDFを選択するボタンがタイルとして表示できるようになりました。このオプションは左側のメニューより設定できます。タイルビューでは、小さなデバイスでも画面内にボタンが配置され表示が容易になります。表示可能なPDFがスクロールせずに全て表示されます。アクティブにしたタイルには、PDFで印刷される場所とページ数が表示されます。この数はほとんどのタイルで正しく決定できますが、データ分析(例: プロファイルとプロトコル) を行わないと決定できないタイルもあります。この場合、ページ番号を指定しないか、最小ページ数を指定します。PDFが作成されると、正しい番号が表示されます。タイルを持って好きな場所に移動することで、印刷の順番を変えることができます。右上隅のアイコンをクリックすると、対応するPDFのパラメータをキャプチャできます。",
     "@Es ist jetzt möglich, die Buttons zur PDF-Auswahl als Kacheln darstellen zu lassen. Die Option dazu ist im Menü auf der linken Seite zu finden. In der Kachelansicht werden die Buttons über die verfügbare Fläche verteilt und sind so auf kleinen Geräten leichter zu treffen. Ausserdem sieht man dann normalerweise alle verfügbaren PDFs auf einen Blick und muss nicht scrollen. Auf den aktivierten Kacheln wird angezeigt, an welcher Stelle im PDF die entsprechenden Seiten ausgegeben werden und wieviele Seiten die entsprechende Kachel ausgibt. Diese Zahl kann für die meisten Kacheln korrekt ermittelt werden, bei einigen ist das aber ohne Auswertung der Daten nicht möglich (z.B. Profile und Protokoll). In diesem Fall wird entweder keine Seitenzahl oder eine Mindestzahl an Seiten angegeben. Sobald die Erstellung des PDFs erfolgt ist, werden die korrekten Zahlen angezeigt. Die Reihenfolge der Kacheln kann verändert werden, indem man sie festhält und an die Stelle verschiebt, an der man sie gerne hätte. Nach Anklicken des Icons in der oberen rechten Ecke können die Parameter für das entsprechende PDF erfasst werden.": {
         "description": "v130a6",
         "type": "text",
         "placeholders": {}
     },
-    "Im Profil werden nun die Gesamtsumme der Basalrate und die durchschnittlichen Werte für ICR und ISF pro Stunde angezeigt.": "The profile now shows the total basal rate and the average ICR and ISF per hour.",
+    "Im Profil werden nun die Gesamtsumme der Basalrate und die durchschnittlichen Werte für ICR und ISF pro Stunde angezeigt.": "プロフィールには合計基礎量と平均ICRおよびISFが表示されます。",
     "@Im Profil werden nun die Gesamtsumme der Basalrate und die durchschnittlichen Werte für ICR und ISF pro Stunde angezeigt.": {
         "description": "v130a7",
         "type": "text",
@@ -2102,7 +2212,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Auswahl des Zeitraums und der Benutzer wurde in die Titelzeile verschoben.": "The selection of the period and the user has been moved to the title bar.",
+    "Die Auswahl des Zeitraums und der Benutzer wurde in die Titelzeile verschoben.": "タイトルバーに期間とユーザーの選択が移動されました。",
     "@Die Auswahl des Zeitraums und der Benutzer wurde in die Titelzeile verschoben.": {
         "description": "v130c5",
         "type": "text",

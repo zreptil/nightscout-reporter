@@ -58,6 +58,13 @@ class ParamInfo
   bool isLoopValue;
   String stringValue;
   int intValue;
+  int get sliderValue
+  => intValue >= min && intValue <= max ? intValue : min;
+  set sliderValue(int value)
+  {
+    intValue = value;
+  }
+
   List<String> list;
   List<ParamInfo> subParams;
   String get listValue
@@ -190,6 +197,31 @@ class FormConfig
   }
 }
 
+class Page
+{
+  bool isPortrait = false;
+
+  double get width
+  => isPortrait ? 21.0 : 29.7;
+  double get height
+  => isPortrait ? 29.7 : 21.0;
+
+  double x = 0;
+  double y = 0;
+
+  List<dynamic> content = List<dynamic>();
+  void offset(double x, double y)
+  {
+    this.x = x;
+    this.y = y;
+  }
+
+  dynamic get asElement
+  => {"absolutePosition": {"x": x, "y": y}, "stack": content};
+
+  Page(this.isPortrait, this.content);
+}
+
 abstract class BasePrint
 {
   Globals g = Globals();
@@ -203,7 +235,8 @@ abstract class BasePrint
     return ret;
   }
 
-  String get backsuffix => "";
+  String get backsuffix
+  => "";
 
   String get backimage
   {
@@ -299,16 +332,14 @@ abstract class BasePrint
   bool _isPortrait = true;
   bool get isPortrait
   => true;
-  bool get isSheetPortrait
-  => _isPortrait;
+
   double get width
   => isPortrait ? 21.0 : 29.7;
   double get height
   => isPortrait ? 29.7 : 21.0;
 
-  List<List<dynamic>> _pages = List<List<dynamic>>();
+  List<Page> _pages = List<Page>();
   int _fileSize = 0;
-  int _lastSize = 0;
 
   dynamic get estimatePageCount;
 
@@ -531,12 +562,26 @@ abstract class BasePrint
   => Intl.message("Uhr-\nzeit");
   get msgTime
   => Intl.message("Uhrzeit");
+  static String get msgOutput
+  => Intl.message("Ausgabe");
+  static String get msgGraphic
+  => Intl.message("Grafik");
+  static String get msgTable
+  => Intl.message("Tabelle");
+  static String get msgAll
+  => Intl.message("Alles");
+  static String get msgGPD
+  => Intl.message("Glukose Perzentil Diagramm");
+  static get msgHourlyStats
+  => Intl.message("Stündliche Statistik");
   get msgNote
   => Intl.message("Notiz");
   get msgAdjustment
   => Intl.message("Anpas-\nsung");
   get msgGlucLow
   => Intl.message("Glukose zu niedrig");
+  static String get msgGraphsPerPage
+  => Intl.message("Grafiken pro Seite");
   get msgGlucNorm
   => Intl.message("Glukose im Zielbereich");
   get msgSource
@@ -645,6 +690,11 @@ abstract class BasePrint
   => Intl.message("$value Tage", args: [value], name: "msgDaySum");
   get msgStandardDeviation
   => Intl.message("Standardabweichung");
+  static String get msgCalibration
+  => Intl.message("Kalibrierung");
+  static String get msgChange
+  => Intl.message("Wechsel");
+
   msgGVINone(min)
   {
     min = g.fmtNumber(min, 1);
@@ -940,6 +990,37 @@ abstract class BasePrint
     return ret;
   }
 
+  bool tableHeadFilled = false;
+  dynamic tableHeadLine = [];
+  dynamic tableWidths = [];
+  addTableRow(bool check, var width, dynamic dst, dynamic head, dynamic content)
+  {
+    if (!check)return;
+    if (!tableHeadFilled)
+    {
+      tableHeadLine.add(head);
+      tableWidths.add(width);
+    }
+    dst.add(content);
+  }
+
+  getTable(widths, body)
+  {
+    dynamic ret = {
+      "columns": [
+        {
+          "margin": [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
+          "width": cm(width),
+          "fontSize": fs(10),
+          "table": {"widths": widths, "body": body},
+        }
+      ],
+      "pageBreak": ""
+    };
+
+    return ret;
+  }
+
   dynamic m0 = [];
 
   Map<String, String> images = Map<String, String>();
@@ -1025,15 +1106,15 @@ abstract class BasePrint
 
   hasData(ReportData src)
   {
-    return src.dayCount > 0 && src.ns.count > 0;
+    return src.dayCount > 0 && src.data.count > 0;
   }
 
-  getEmptyForm(ReportData data)
+  Page getEmptyForm(bool isPortrait, ReportData data)
   {
-    return [
+    return Page(isPortrait, [
       headerFooter(),
       {"margin": [cm(2), cm(3.5), cm(2), cm(0)], "text": msgMissingData, "fontSize": fs(10), "alignment": "center"},
-    ];
+    ]);
   }
 
   int countObjects(var src)
@@ -1052,21 +1133,21 @@ abstract class BasePrint
     return ret;
   }
 
-  void _addPageBreak(dynamic page)
+  void _addPageBreak(Page page)
   {
-    page.last["pageBreak"] = "after";
+    if (page.content.last["pageBreak"] == "-")return;
+    page.content.last["pageBreak"] = "after";
     // int cnt = countObjects(page);
-    String text = json.encode(page);
-    _fileSize += text.length - _lastSize;
-    _lastSize = text.length;
+    String text = json.encode(page.content);
+    _fileSize += text.length;
     if (g.pdfCreationMaxSize != Globals.PDFUNLIMITED && _fileSize > g.pdfCreationMaxSize)
     {
-      page.last["pageBreak"] = "newFile";
+      page.content.last["pageBreak"] = "newFile";
       _fileSize = 0;
     }
   }
 
-  getFormData(ReportData data, int currentSize)
+  Future<List<Page>> getFormPages(ReportData data, int currentSize)
   async {
     m0 = [cm(0), cm(0), cm(0), cm(0)];
     for (String id in imgList)
@@ -1081,10 +1162,9 @@ abstract class BasePrint
       }
     }
 
-    if (!hasData(data))return getEmptyForm(data);
+    if (!hasData(data))return [getEmptyForm(isPortrait, data)];
 
-    dynamic ret = [];
-    _lastSize = 0;
+    List<Page> ret = List<Page>();
     extractParams();
     var d = data;
     _pages.clear();
@@ -1130,39 +1210,43 @@ abstract class BasePrint
       int row = 0;
       for (int i = 0; i < _pages.length; i++)
       {
-        List<dynamic> page = _pages[i];
+        Page page = _pages[i];
+        switch (pagesPerSheet)
+        {
+          case 2:
+          case 8:
+          case 32:
+            page.isPortrait = !page.isPortrait;
+            break;
+        }
         offsetX = column * width;
         offsetY = row * height;
-        ret.add({"absolutePosition": {"x": cmx(0), "y": cmy(0)}, "stack": page});
+        page.offset(cmx(0), cmy(0));
+        if (column == 0 && row == 0)ret.add(page);
+        else
+          ret.last.content.add(page.asElement);
         column++;
 
         if (column >= colCount)
         {
           column = 0;
           row++;
-          if (row >= rowCount && page != _pages.last)
+          if (row >= rowCount && i < _pages.length - 1)
           {
             row = 0;
-            _addPageBreak(ret);
+            _addPageBreak(page);
           }
         }
 //        ret.addAll(page);
 //        if(page != _pages.last)
 //          addPageBreak(ret.last);
       }
-      switch (pagesPerSheet)
-      {
-        case 2:
-        case 8:
-        case 32:
-          _isPortrait = !_isPortrait;
-          break;
-      }
     }
     catch (ex, s)
     {
       offsetX = 0.0;
       offsetY = 0.0;
+/*
       ret = {
         "pageSize": "a4",
         "pageOrientation": "portrait",
@@ -1173,23 +1257,26 @@ abstract class BasePrint
           {"text": "\n$s", "fontSize": fs(10), "alignment": "left"}
         ]
       };
+ */
       ret = [
-        {
-          "margin": [cmx(1.0), cmy(0.5), cmx(1.0), cmy(0)],
-          "text": "Fehler bei Erstellung von \"${title}\"",
-          "fontSize": fs(20),
-          "alignment": "center",
-          "color": "red"
-        },
-        {"margin": [cmx(1.0), cmy(0.0), cmx(1.0), cmy(0)], "text": "\n$ex", "fontSize": fs(10), "alignment": "left"},
-        {"margin": [cmx(1.0), cmy(0.5), cmx(1.0), cmy(0)], "text": "\n$s", "fontSize": fs(10), "alignment": "left"}
+        Page(isPortrait, [
+          {
+            "margin": [cmx(1.0), cmy(0.5), cmx(1.0), cmy(0)],
+            "text": "Fehler bei Erstellung von \"${title}\"",
+            "fontSize": fs(20),
+            "alignment": "center",
+            "color": "red"
+          },
+          {"margin": [cmx(1.0), cmy(0.0), cmx(1.0), cmy(0)], "text": "\n$ex", "fontSize": fs(10), "alignment": "left"},
+          {"margin": [cmx(1.0), cmy(0.5), cmx(1.0), cmy(0)], "text": "\n$s", "fontSize": fs(10), "alignment": "left"}
+        ])
       ];
     }
 
     return ret;
   }
 
-  void fillPages(ReportData src, List<List<dynamic>> pages);
+  void fillPages(ReportData src, List<Page> pages);
 
   double mm(pt)
   {
@@ -1218,16 +1305,19 @@ abstract class BasePrint
   double fs(double size)
   => size * scale;
 
-  String fmtTime(var date, {String def: null, bool withUnit: false, bool withMinutes: true})
+  String fmtTime(var date, {String def: null, bool withUnit: false, bool withMinutes: true, bool withSeconds: false})
   {
     if (def == null)def = "";
     if (date == null)return def;
+
+    if (withSeconds)withMinutes = true;
 
     if (date is DateTime)
     {
       int hour = date.hour;
       if (!g.language.is24HourFormat)hour = hour > 12 ? hour - 12 : hour;
       String m = withMinutes ? ":${(date.minute < 10 ? "0" : "")}${date.minute}" : "";
+      if (withSeconds)m = "${m}:${(date.second < 10 ? "0" : "")}${date.second}";
       String ret = "${(hour < 10 ? "0" : "")}${hour}$m";
       if (withUnit)
       {
@@ -1446,7 +1536,7 @@ abstract class BasePrint
     return ret;
   }
 
-  getCGPPage(var dayList, ReportData src)
+  Page getCGPPage(var dayList, ReportData src)
   {
     PrintCGP cgpPage = PrintCGP();
     cgpPage.scale = scale;
@@ -1465,7 +1555,7 @@ abstract class BasePrint
 
       cgpPage.infoTable(cgpSrc, cgp.glucInfo["unit"], x, y, 2.5, width - x - xorg - 2.5)
     ];
-    return ret;
+    return Page(isPortrait, ret);
   }
 
   addLegendEntry(LegendData legend, String color, String text,

@@ -64,18 +64,8 @@ class PrintProfile extends BaseProfile
     if (currPage == page && sum != null && sumTitle != null)
     {
       ret.add([
-        {
-          "text": sumTitle,
-          "style": "infotitle",
-          "fontSize": fs(_fontSize),
-          "bold": true
-        },
-        {
-          "text": g.fmtNumber(sum, precision, 0),
-          "style": "infodata",
-          "fontSize": fs(_fontSize),
-          "bold": true
-        },
+        {"text": sumTitle, "style": "infotitle", "fontSize": fs(_fontSize), "bold": true},
+        {"text": g.fmtNumber(sum, precision, 0), "style": "infodata", "fontSize": fs(_fontSize), "bold": true},
       ]);
       _hasFactors = true;
     }
@@ -133,7 +123,7 @@ class PrintProfile extends BaseProfile
   }
 
   @override
-  dynamic getPage(int page, ProfileGlucData profile, CalcData calc)
+  Page getPage(int page, ProfileGlucData profile, CalcData calc)
   {
     _fontSize = _fontSizeTables;
     subtitle = profile.store.name;
@@ -143,18 +133,18 @@ class PrintProfile extends BaseProfile
     dynamic tableWidths = [cm(2.6), cm(6.0), cm(6.1), cm(1.0), cm(1.8)];
     dynamic tableBody = [
       [
-        {"text": msgTimezone, "style": "infotitle", "alignment": "right"},
-        {"text": profile.store.timezone.name, "style": "infodata", "alignment": "left"},
-        {"text": msgDIA, "style": "infotitle", "alignment": "right"},
-        {"text": g.fmtNumber(profile.store.dia, 2, 0), "style": "infodata"},
-        {"text": msgDIAUnit, "style": "infounit"},
+        {"text": msgTimezone, "style": "infotitle", "alignment": "right", "fontSize": fs(_fontSize)},
+        {"text": profile.store.timezone.name, "style": "infodata", "alignment": "left", "fontSize": fs(_fontSize)},
+        {"text": msgDIA, "style": "infotitle", "alignment": "right", "fontSize": fs(_fontSize)},
+        {"text": g.fmtNumber(profile.store.dia, 2, 0), "style": "infodata", "fontSize": fs(_fontSize)},
+        {"text": msgDIAUnit, "style": "infounit", "fontSize": fs(_fontSize)},
       ],
       [
-        {"text": "", "style": "infotitle", "alignment": "right"},
-        {"text": "", "style": "infodata", "alignment": "left"},
-        {"text": msgKHA, "style": "infotitle", "alignment": "right"},
-        {"text": g.fmtNumber(profile.store.carbsHr, 0, 0), "style": "infodata"},
-        {"text": msgKHAUnit, "style": "infounit"},
+        {"text": "", "style": "infotitle", "alignment": "right", "fontSize": fs(_fontSize)},
+        {"text": "", "style": "infodata", "alignment": "left", "fontSize": fs(_fontSize)},
+        {"text": msgKHA, "style": "infotitle", "alignment": "right", "fontSize": fs(_fontSize)},
+        {"text": g.fmtNumber(profile.store.carbsHr, 0, 0), "style": "infodata", "fontSize": fs(_fontSize)},
+        {"text": msgKHAUnit, "style": "infounit", "fontSize": fs(_fontSize)},
       ],
     ];
     _hasFactors = false;
@@ -260,6 +250,6 @@ class PrintProfile extends BaseProfile
         }
       }
     ];
-    return ret;
+    return Page(isPortrait, ret);
   }
 }

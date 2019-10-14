@@ -374,7 +374,7 @@ class AppComponent
 
   extractAllParams()
   {
-    for(FormConfig cfg in g.listConfig)
+    for (FormConfig cfg in g.listConfig)
       cfg.form.extractParams();
   }
 
@@ -743,9 +743,9 @@ class AppComponent
         if (g.isLocal)src.add({
           "_id": "fake",
           "eventType": "Profile Switch",
-          "duration": 1440,
+          "duration": 86400,
           "profile": "Fake",
-          "profileJson": '{"dia": "5","carbratio": [{"time": "00:00", "value": "0.1", "timeAsSeconds": "0"},{"time": "01:30", "value": "0.2", "timeAsSeconds": "5400"},{"time": "06:00", "value": "0.3", "timeAsSeconds": "21600"},{"time": "11:00", "value": "0.4", "timeAsSeconds": "39600"},{"time": "15:30", "value": "0.5", "timeAsSeconds": "55800"},{"time": "19:00", "value": "0.6", "timeAsSeconds": "68400"},{"time": "21:00", "value": "0.7", "timeAsSeconds": "75600"}],"carbs_hr": "0","delay": "20","sens": [{"time": "00:00", "value": "60", "timeAsSeconds": "0"},{"time": "01:30", "value": "40", "timeAsSeconds": "5400"},{"time": "06:00", "value": "30", "timeAsSeconds": "21600"},{"time": "11:00", "value": "40", "timeAsSeconds": "39600"},{"time": "15:30", "value": "50", "timeAsSeconds": "55800"},{"time": "19:00", "value": "60", "timeAsSeconds": "68400"},{"time": "21:00", "value": "90", "timeAsSeconds": "75600"}],"timezone": "Europe\\/Berlin","basal": [{"time": "00:00", "value": "0.1", "timeAsSeconds": "0"},{"time": "01:00", "value": "0.2", "timeAsSeconds": "3600"},{"time": "02:00", "value": "0.3", "timeAsSeconds": "7200"},{"time": "03:00", "value": "0.4", "timeAsSeconds": "10800"},{"time": "04:00", "value": "0.5", "timeAsSeconds": "14400"},{"time": "05:00", "value": "0.6", "timeAsSeconds": "18000"},{"time": "06:00", "value": "0.7", "timeAsSeconds": "21600"},{"time": "07:00", "value": "0.8", "timeAsSeconds": "25200"},{"time": "08:00", "value": "0.9", "timeAsSeconds": "28800"},{"time": "09:00", "value": "1.0", "timeAsSeconds": "32400"},{"time": "10:00", "value": "1.1", "timeAsSeconds": "36000"},{"time": "11:00", "value": "1.2", "timeAsSeconds": "39600"},{"time": "12:00", "value": "1.3", "timeAsSeconds": "43200"},{"time": "13:00", "value": "1.4", "timeAsSeconds": "46800"},{"time": "14:00", "value": "1.5", "timeAsSeconds": "50400"},{"time": "15:00", "value": "1.6", "timeAsSeconds": "54000"},{"time": "16:00", "value": "1.7", "timeAsSeconds": "57600"},{"time": "17:00", "value": "1.8", "timeAsSeconds": "61200"},{"time": "18:00", "value": "1.9", "timeAsSeconds": "64800"},{"time": "19:00", "value": "2.0", "timeAsSeconds": "68400"},{"time": "20:00", "value": "2.1", "timeAsSeconds": "72000"},{"time": "21:00", "value": "2.2", "timeAsSeconds": "75600"},{"time": "22:00", "value": "2.3", "timeAsSeconds": "79200"},{"time": "23:00", "value": "2.4", "timeAsSeconds": "82800"}],"target_low": [{"time": "00:00", "value": "100", "timeAsSeconds": "0"},{"time": "06:00", "value": "110"},{"time": "20:00", "value": "100"}],"target_high": [{"time": "00:00", "value": "100", "timeAsSeconds": "0"},{"time": "06:00", "value": "110"},{"time": "20:00", "value": "100"}],"startDate": "1970-01-01T00:00:00.000Z","units": "mg/dl"}',
+          "profileJson": '{"dia": "5","carbratio": [{"time": "00:00", "value": "0.1", "timeAsSeconds": "0"},{"time": "01:30", "value": "0.2", "timeAsSeconds": "5400"},{"time": "06:00", "value": "0.3", "timeAsSeconds": "21600"},{"time": "11:00", "value": "0.4", "timeAsSeconds": "39600"},{"time": "15:30", "value": "0.5", "timeAsSeconds": "55800"},{"time": "19:00", "value": "0.6", "timeAsSeconds": "68400"},{"time": "21:00", "value": "0.7", "timeAsSeconds": "75600"}],"carbs_hr": "0","delay": "20","sens": [{"time": "00:00", "value": "60", "timeAsSeconds": "0"},{"time": "01:30", "value": "40", "timeAsSeconds": "5400"},{"time": "06:00", "value": "30", "timeAsSeconds": "21600"},{"time": "11:00", "value": "40", "timeAsSeconds": "39600"},{"time": "15:30", "value": "50", "timeAsSeconds": "55800"},{"time": "19:00", "value": "60", "timeAsSeconds": "68400"},{"time": "21:00", "value": "90", "timeAsSeconds": "75600"}],"timezone": "Europe\\/Berlin","basal": [{"time": "00:00", "value": "0.1", "timeAsSeconds": "0"},{"time": "01:00", "value": "0.2", "timeAsSeconds": "3600"},{"time": "02:00", "value": "0.3", "timeAsSeconds": "7200"},{"time": "03:00", "value": "0.4", "timeAsSeconds": "10800"},{"time": "04:00", "value": "0.5", "timeAsSeconds": "14410"},{"time": "05:00", "value": "0.6", "timeAsSeconds": "18000"},{"time": "06:00", "value": "0.7", "timeAsSeconds": "21600"},{"time": "07:00", "value": "0.8", "timeAsSeconds": "25200"},{"time": "08:00", "value": "0.9", "timeAsSeconds": "28800"},{"time": "09:00", "value": "1.0", "timeAsSeconds": "32400"},{"time": "10:00", "value": "1.1", "timeAsSeconds": "36000"},{"time": "11:00", "value": "1.2", "timeAsSeconds": "39600"},{"time": "12:00", "value": "1.3", "timeAsSeconds": "43200"},{"time": "13:00", "value": "1.4", "timeAsSeconds": "46800"},{"time": "14:00", "value": "1.5", "timeAsSeconds": "50400"},{"time": "15:00", "value": "1.6", "timeAsSeconds": "54000"},{"time": "16:00", "value": "1.7", "timeAsSeconds": "57600"},{"time": "17:00", "value": "1.8", "timeAsSeconds": "61200"},{"time": "18:00", "value": "1.9", "timeAsSeconds": "64800"},{"time": "19:00", "value": "2.0", "timeAsSeconds": "68400"},{"time": "20:00", "value": "2.1", "timeAsSeconds": "72000"},{"time": "21:00", "value": "2.2", "timeAsSeconds": "75600"},{"time": "22:00", "value": "2.3", "timeAsSeconds": "79200"},{"time": "23:00", "value": "2.4", "timeAsSeconds": "82800"}],"target_low": [{"time": "00:00", "value": "100", "timeAsSeconds": "0"},{"time": "06:00", "value": "110"},{"time": "20:00", "value": "100"}],"target_high": [{"time": "00:00", "value": "100", "timeAsSeconds": "0"},{"time": "06:00", "value": "110"},{"time": "20:00", "value": "100"}],"startDate": "1970-01-01T00:00:00.000Z","units": "mg/dl"}',
           "profilePlugin": "info.nightscout.androidaps.plugins.ProfileNS.NSProfilePlugin",
           "created_at": "2019-03-04T10:00:00Z",
           "enteredBy": "Nightscout Reporter",
@@ -812,7 +812,7 @@ class AppComponent
       ProfileData current = data.profiles[i];
       int duration = current.startDate
         .difference(last.startDate)
-        .inMinutes;
+        .inSeconds;
       if (last.duration >= duration || last.duration == 0)
       {
         last.duration = duration;
@@ -820,10 +820,10 @@ class AppComponent
       else if (i > 2)
       {
         ProfileData temp = data.profiles[i - 2].copy;
-        temp.startDate = last.startDate.add(Duration(minutes: last.duration));
+        temp.startDate = last.startDate.add(Duration(seconds: last.duration));
         temp.duration = current.startDate
           .difference(temp.startDate)
-          .inMinutes;
+          .inSeconds;
         data.profiles.insert(i, temp);
       }
       i++;
@@ -833,7 +833,7 @@ class AppComponent
     if (data.profiles.last.duration > 0 && data.profiles.length > 1)
     {
       ProfileData temp = data.profiles[data.profiles.length - 2].copy;
-      temp.startDate = last.startDate.add(Duration(minutes: last.duration));
+      temp.startDate = last.startDate.add(Duration(seconds: last.duration));
       temp.duration = 0;
       data.profiles.add(temp);
     }
@@ -847,6 +847,7 @@ class AppComponent
     data.profiles.removeWhere((p)
     => p.duration < 2 && p != data.profiles.last);
 
+    TreatmentData lastTempBasal = null;
     while (begDate <= endDate)
     {
       bool hasData = false;
@@ -906,9 +907,26 @@ class AppComponent
             break;
           }
         }
+        String tmp;
+        if (lastTempBasal == null)
+        {
+          // find last temp basal of treatments of day before current day.
+          url = "${g.user.apiUrl}treatments.json?find[created_at][\$lt]=${profileBeg
+            .toIso8601String()}&find[created_at][\$gt]=${profileBeg.add(Duration(days: -1))
+            .toIso8601String()}&count=100000&find[eventType][\$eq]=Temp%20Basal";
+          tmp = await g.request(url);
+          src = json.decode(tmp);
+          List<TreatmentData> list = List<TreatmentData>();
+          for (dynamic treatment in src)
+            list.add(TreatmentData.fromJson(treatment));
+          list.sort((a, b)
+          => a.createdAt.compareTo(b.createdAt));
+          if (list.length > 0)lastTempBasal = list.last;
+        }
+
         url = "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${profileBeg
           .toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000";
-        String tmp = await g.request(url);
+        tmp = await g.request(url);
         src = json.decode(tmp);
         displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
         for (dynamic treatment in src)
@@ -1024,8 +1042,8 @@ class AppComponent
       => filterTreatment(t));
       data.calc.treatments = data.ns.treatments;
 
-      data.calc.extractData(data);
-      data.ns.extractData(data);
+      data.calc.extractData(data, lastTempBasal);
+      data.ns.extractData(data, lastTempBasal);
     }
     else
     {
@@ -1137,6 +1155,8 @@ class AppComponent
       var doc = null;
       List<dynamic> docList = List<dynamic>();
       int docLen = 0;
+      Page prevPage = null;
+      BasePrint prevForm = null;
       for (FormConfig cfg in g.listConfig)
       {
         BasePrint form = cfg.form;
@@ -1145,77 +1165,83 @@ class AppComponent
           docLen = json
             .encode(doc)
             .length;
-          dynamic formData = await form.getFormData(vars, docLen);
-          List<List<dynamic>> fileList = [[]];
-          for (dynamic entry in formData)
+          List<Page> formPages = await form.getFormPages(vars, docLen);
+          List<List<Page>> fileList = [List<Page>()];
+          for (Page page in formPages)
           {
-            if (entry["pageBreak"] == "newFile" && !fileList.last.isEmpty)
+            dynamic entry = page.content.last;
+            if (entry["pageBreak"] == "newFile" && fileList.last.length > 0)
             {
-              entry["pageBreak"] = "";
-              fileList.last.add(entry);
-              fileList.add([]);
+              entry.remove("pageBreak");
+              fileList.last.add(page);
+              fileList.add(List<Page>());
             }
             else
             {
-              if (entry["pageBreak"] == "newFile")entry["pageBreak"] = "after";
-              fileList.last.add(entry);
+              if (entry["pageBreak"] == "newFile")entry.remove("pageBreak");//entry["pageBreak"] = "after";
+              fileList.last.add(page);
             }
           }
 
-          for (dynamic data in fileList)
+          for (List<Page> pageList in fileList)
           {
+            dynamic content = [];
+            for (Page page in pageList)
+            {
+              if (prevPage != null)
+              {
+                var pagebreak = {"text": "", "pageBreak": "after"};
+                if (page.isPortrait != prevPage.isPortrait)
+                {
+                  pagebreak["pageSize"] = "a4";
+                  pagebreak["pageOrientation"] = page.isPortrait ? "portrait" : "landscape";
+                }
+                content.add(pagebreak);
+              }
+              content.add(page.asElement);
+              prevPage = page;
+            }
             if (doc == null)
             {
               doc = {
                 "pageSize": "a4",
-                "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
+                "pageOrientation": pageList[0].isPortrait ? "portrait" : "landscape",
                 "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
-                "content": data,
+                "content": content,
                 "images": form.images,
                 "styles": {
                   "infoline": {"margin": [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]},
-                  "perstitle": {"fontSize": form.fs(10.0), "alignment": "right"},
-                  "persdata": {"fontSize": form.fs(10.0), "color": "#0000ff"},
-                  "infotitle": {"fontSize": form.fs(10.0), "alignment": "left"},
-                  "infodata": {"fontSize": form.fs(10.0), "alignment": "right", "color": "#0000ff"},
-                  "infounit": {
-                    "margin": [form.cm(0), form.cm(0.07), form.cm(0), form.cm(0)],
-                    "fontSize": form.fs(8),
-                    "color": "#0000ff"
-                  },
-                  "hba1c": {"color": "#5050ff", "fontSize": form.fs(10)},
-                  "total": {"bold": true, "fillColor": "#d0d0d0", "fontSize": form.fs(10), "margin": form.m0},
+                  "perstitle": {"alignment": "right"},
+                  "persdata": {"color": "#0000ff"},
+                  "infotitle": {"alignment": "left"},
+                  "infodata": {"alignment": "right", "color": "#0000ff"},
+                  "infounit": {"margin": [form.cm(0), form.cm(0), form.cm(0), form.cm(0)], "color": "#0000ff"},
+                  "hba1c": {"color": "#5050ff"},
+                  "total": {"bold": true, "fillColor": "#d0d0d0", "margin": form.m0},
                   "timeDay": {"bold": true, "fillColor": "#d0d0d0", "margin": form.m0},
                   "timeNight": {"bold": true, "fillColor": "#303030", "color": "white", "margin": form.m0},
                   "timeLate": {"bold": true, "fillColor": "#a0a0a0", "margin": form.m0},
-                  "row": {"fontSize": form.fs(10)}
+                  "row": {}
                 }
               };
             }
             else
             {
-              var pagebreak = {
-                "text": "",
-                "pageBreak": "after",
-                "pageSize": "a4",
-                "pageOrientation": form.isSheetPortrait ? "portrait" : "landscape",
-              };
-              doc["content"].add(pagebreak);
-              for (var entry in data)
-                doc["content"].add(entry);
-
+              doc["content"].add(content);
               for (String key in form.images.keys)
                 (doc["images"] as Map<String, String>)[key] = form.images[key];
             }
 
-            if (data != fileList.last)
+            if (pageList != fileList.last)
             {
               docList.add(doc);
               doc = null;
+              prevPage = null;
             }
           }
         }
 //        if (g.isLocal && data != fileList.last)doc = null;
+        prevForm = form;
       }
 /*
       pdfMake.Styles styles = pdfMake.Styles();
