@@ -22,6 +22,32 @@
           tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik,
           nur die Tabelle oder beides zusammen erzeugen lassen.
         </li>
+        <li class="added" @i18n="v136a3">
+          In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.
+        </li>
+        <li class="added" @i18n="v136a4">
+          Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche
+          Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke,
+          aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt
+          wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten
+          werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen
+          wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an
+          Seiten zu reduzieren.
+        </li>
+        <li class="changed" @i18n="v136c1">
+          Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um
+          eine sinnvollere Verwaltung zu ermöglichen.
+        </li>
+        <li class="changed" @i18n="v136c2">
+          Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar
+          sind.
+        </li>
+        <li class="fixed" @i18n="v136f1">
+          Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.
+        </li>
+        <li class="fixed" @i18n="v136f2">
+          Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.
+        </li>
       </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v135">1.3.5 - 23.09.2019</span></h2>
       <ul>

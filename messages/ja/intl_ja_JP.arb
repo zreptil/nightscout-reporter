@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-10-14T16:14:38.045970",
+    "@@last_modified": "2019-10-24T13:07:38.299969",
     "Überprüfe Zugriff auf Nightscout ...": "ナイトスカウトの接続を確認しています…",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -138,6 +138,11 @@
     },
     "Japanisch": "日本語",
     "@Japanisch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Slowakisch": "Slovak",
+    "@Slowakisch": {
         "type": "text",
         "placeholders": {}
     },
@@ -1614,6 +1619,16 @@
             "unit": {}
         }
     },
+    "Tagesprofil": "Daily Profile",
+    "@Tagesprofil": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Sekunden anzeigen": "Show seconds",
+    "@Sekunden anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Spalte Messwerte": "値のカウント",
     "@Spalte Messwerte": {
         "type": "text",
@@ -2005,6 +2020,42 @@
     "Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": "The Glucose Percentile Graph has been expanded to include the Hourly Statistics table. This tabulates the values of the period for each hour of the day. You can either create just the graphic, just the table or both together.",
     "@Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": {
         "description": "v136a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.": "Slovak is now also available In the language selection.",
+    "@In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.": {
+        "description": "v136a3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": "There is a new PDF page for the daily profiles. It contains a table showing the actual basal rate for the day, including all temporary adjustments. I needed that for debugging, but maybe the some users find it interesting too. The profile displayed there corresponds to the day profile on the page Daily Graphics. Loops can produce many pages, as the basalrate is usually adjusted every few minutes. Therefore, depending on the amount of data, the table is displayed in a maximum of three columns to reduce the number of pages.",
+    "@Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": {
+        "description": "v136a4",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": "In the settings dialog, the lines with the user details and the URL were exchanged for a more meaningful administration.",
+    "@Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": {
+        "description": "v136c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": "The page numbers on the tiles have been moved further to the bottom so they are always easy to read.",
+    "@Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": {
+        "description": "v136c2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": "The profiles for the period were partially incorrectly identified. That should be fixed.",
+    "@Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": {
+        "description": "v136f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": "The determination of the effective daily basal rate has been restructured and should now give more accurate values.",
+    "@Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": {
+        "description": "v136f2",
         "type": "text",
         "placeholders": {}
     },

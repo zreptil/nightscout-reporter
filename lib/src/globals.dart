@@ -77,7 +77,7 @@ class PeriodShift
 
 class Settings
 {
-  String version = "1.3.6";
+  String version = "1.3.6ßa";
   int timestamp = 0;
   static bool itod = html.window.localStorage["unsafe"] != "zh++;";
   String betaPrefix = "@";
@@ -139,6 +139,7 @@ class Settings
     _viewType = value;
   }
 
+  // https://findicons.com/files/icons/2758/flag_icons/32/*.png
   List<LangData> languageList = [
     LangData("de_DE", Intl.message("Deutsch"), "de"),
     LangData("en_US", Intl.message("English (USA)"), "us"),
@@ -146,6 +147,7 @@ class Settings
     LangData("es_ES", Intl.message("Español"), "es"),
     LangData("pl_PL", Intl.message("Polski"), "pl"),
     LangData("ja_JP", Intl.message("Japanisch"), "jp"),
+    LangData("sk_SK", Intl.message("Slowakisch"), "sk"),
   ];
 
   LangData get language
@@ -1086,11 +1088,20 @@ class Globals extends Settings
   }
 }
 
+class UrlData
+{
+  String url;
+  String token;
+  DateTime startDate;
+  DateTime endDate;
+}
+
 class UserData
 {
   Globals g;
   String name = "";
   String birthDate = "";
+  List<UrlData> listStorageApiUrl = List<UrlData>();
   String storageApiUrl = "";
   String token = "";
   dynamic customData = Map<String, String>();

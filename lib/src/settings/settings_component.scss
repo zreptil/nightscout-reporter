@@ -29,6 +29,23 @@ material-slider {
   font-size: 12px;
 }
 
+.userinfo {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.controls{
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+
+  material-fab:not([disabled]) {
+    background-color: $settings_header_back;
+    color: $primary-fore;
+  }
+}
+
 .urlPanel {
   display: flex;
   align-items: baseline;
@@ -38,11 +55,6 @@ material-slider {
     flex-shrink: 0;
     flex-grow: 1;
   }
-
-  material-fab:not([disabled]) {
-    background-color: $settings_header_back;
-    color: $primary-fore;
-  }
 }
 
 .functions {
@@ -50,12 +62,6 @@ material-slider {
   flex-direction: column;
   align-items: flex-start;
 }
-
-.userinfo {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 
 material-dialog[main] {
   min-width: 80%;

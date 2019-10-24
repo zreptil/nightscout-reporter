@@ -1344,7 +1344,7 @@ abstract class BasePrint
     return date;
   }
 
-  String fmtDateTime(var date, [var def = null])
+  String fmtDateTime(var date, [var def = null, bool withSeconds = false])
   {
     if (def == null)def = "";
     if (date == null)return def;
@@ -1353,6 +1353,8 @@ abstract class BasePrint
     {
       String ret = "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date
         .year} ${(date.hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute}";
+      if(withSeconds)
+        ret = "${ret}:${(date.second < 10 ? "0" : "")}${date.second}";
       return msgTimeOfDay24(ret);
     }
 

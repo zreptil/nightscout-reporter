@@ -71,7 +71,7 @@ class PrintPercentile extends BasePrint
 
   @override
   String get backsuffix
-  => "${params[0].intValue}";
+  => "${params[0].intValue??0}";
 
   @override
   static String _title = BasePrint.msgGPD;

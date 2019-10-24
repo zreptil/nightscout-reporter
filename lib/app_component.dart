@@ -27,6 +27,7 @@ import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
+import 'package:nightscout_reporter/src/forms/print-daily-profile.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
@@ -330,6 +331,7 @@ class AppComponent
         PrintWeeklyGraphic(),
         PrintBasalrate(),
         PrintCGP(),
+        PrintDailyProfile(),
       ];
       g.listConfig = List<FormConfig>();
       for (BasePrint form in srcList)
@@ -913,7 +915,7 @@ class AppComponent
           // find last temp basal of treatments of day before current day.
           url = "${g.user.apiUrl}treatments.json?find[created_at][\$lt]=${profileBeg
             .toIso8601String()}&find[created_at][\$gt]=${profileBeg.add(Duration(days: -1))
-            .toIso8601String()}&count=100000&find[eventType][\$eq]=Temp%20Basal";
+            .toIso8601String()}&count=100&find[eventType][\$eq]=Temp%20Basal";
           tmp = await g.request(url);
           src = json.decode(tmp);
           List<TreatmentData> list = List<TreatmentData>();
@@ -1156,7 +1158,6 @@ class AppComponent
       List<dynamic> docList = List<dynamic>();
       int docLen = 0;
       Page prevPage = null;
-      BasePrint prevForm = null;
       for (FormConfig cfg in g.listConfig)
       {
         BasePrint form = cfg.form;
@@ -1241,7 +1242,7 @@ class AppComponent
           }
         }
 //        if (g.isLocal && data != fileList.last)doc = null;
-        prevForm = form;
+//        prevForm = form;
       }
 /*
       pdfMake.Styles styles = pdfMake.Styles();

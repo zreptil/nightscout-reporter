@@ -31,6 +31,25 @@
           </div>
         </div>
         <div class="error" *ngIf="errUserInvalid!=null" [innerHTML]="errUserInvalid"></div>
+        <div class="userinfo">
+          <material-input [(ngModel)]="g.user.name" floatingLabel [label]="msgName"></material-input>
+          <material-input [(ngModel)]="g.user.birthDate" floatingLabel label="Geburtstag"
+                          @i18n:label="label of editfield for birthday"></material-input>
+          <material-input [(ngModel)]="g.user.diaStartDate" floatingLabel label="Diabetes seit"
+                          @i18n:label="label of editfield for diabetes since"></material-input>
+          <material-input [(ngModel)]="g.user.insulin" floatingLabel [label]="msgInsulin"></material-input>
+          <div class="controls">
+            <material-fab mini
+                          [disabled]="g.userList.last?.storageApiUrl.isEmpty"
+                          (trigger)="addUser()">
+              <material-icon icon="add"></material-icon>
+            </material-fab>
+            <material-fab mini [disabled]="g.user.storageApiUrl.isEmpty"
+                          (trigger)="showConfirmation=true">
+              <material-icon icon="delete"></material-icon>
+            </material-fab>
+          </div>
+        </div>
         <div class="urlPanel">
           <material-input [label]="msgUrlNightscout"
                           autoFocus
@@ -43,23 +62,15 @@
                           [hintText]="msgUserTokenHint"
                           [(ngModel)]="g.user.token">
           </material-input>
-          <material-fab mini
-                        [disabled]="g.userList.last?.storageApiUrl.isEmpty"
-                        (trigger)="addUser()">
-            <material-icon icon="add"></material-icon>
-          </material-fab>
-          <material-fab mini [disabled]="g.user.storageApiUrl.isEmpty"
-                        (trigger)="showConfirmation=true">
-            <material-icon icon="delete"></material-icon>
-          </material-fab>
-        </div>
-        <div class="userinfo">
-          <material-input [(ngModel)]="g.user.name" floatingLabel [label]="msgName"></material-input>
-          <material-input [(ngModel)]="g.user.birthDate" floatingLabel label="Geburtstag"
-                          @i18n:label="label of editfield for birthday"></material-input>
-          <material-input [(ngModel)]="g.user.diaStartDate" floatingLabel label="Diabetes seit"
-                          @i18n:label="label of editfield for diabetes since"></material-input>
-          <material-input [(ngModel)]="g.user.insulin" floatingLabel [label]="msgInsulin"></material-input>
+          <div class="controls" *ngIf="g.isLocal">
+            <material-fab mini
+                          (trigger)="addUrl()">
+              <material-icon icon="add"></material-icon>
+            </material-fab>
+            <material-fab mini (trigger)="showConfirmation=true">
+              <material-icon icon="delete"></material-icon>
+            </material-fab>
+          </div>
         </div>
       </div>
       <div class="subtitle" @i18n="label of area for additional functions">Anzeigeeinstellungen</div>

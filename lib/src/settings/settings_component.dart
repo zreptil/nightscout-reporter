@@ -97,6 +97,11 @@ class SettingsComponent
     });
   }
 
+  addUrl()
+  {
+
+  }
+
   Future<void> checkUser([String event = null])
   async {
     {

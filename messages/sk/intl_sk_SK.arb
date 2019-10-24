@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-10-14T16:14:38.045970",
+    "@@last_modified": "2019-10-24T13:07:38.299969",
     "Überprüfe Zugriff auf Nightscout ...": "Skontrolujte prístup do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -138,6 +138,11 @@
     },
     "Japanisch": "Japan",
     "@Japanisch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Slowakisch": "Slovenčina",
+    "@Slowakisch": {
         "type": "text",
         "placeholders": {}
     },
@@ -758,22 +763,22 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgabe": "Ausgabe",
+    "Ausgabe": "Výdaj",
     "@Ausgabe": {
         "type": "text",
         "placeholders": {}
     },
-    "Grafik": "Grafik",
+    "Grafik": "Grafika",
     "@Grafik": {
         "type": "text",
         "placeholders": {}
     },
-    "Tabelle": "Tabelle",
+    "Tabelle": "Tabuľka",
     "@Tabelle": {
         "type": "text",
         "placeholders": {}
     },
-    "Alles": "Alles",
+    "Alles": "Všetko",
     "@Alles": {
         "type": "text",
         "placeholders": {}
@@ -783,7 +788,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Stündliche Statistik": "Stündliche Statistik",
+    "Stündliche Statistik": "Hodinová štatistika",
     "@Stündliche Statistik": {
         "type": "text",
         "placeholders": {}
@@ -1041,12 +1046,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Kalibrierung": "Kalibrierung",
+    "Kalibrierung": "Kalibrácia",
     "@Kalibrierung": {
         "type": "text",
         "placeholders": {}
     },
-    "Wechsel": "Wechsel",
+    "Wechsel": "Výmena",
     "@Wechsel": {
         "type": "text",
         "placeholders": {}
@@ -1461,7 +1466,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "HTML-Notizen anzeigen": "HTML-Notizen anzeigen",
+    "HTML-Notizen anzeigen": "Zobraziť HTML poznámky",
     "@HTML-Notizen anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1551,7 +1556,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dauer mit Minutenbruchteil": "Dauer mit Minutenbruchteil",
+    "Dauer mit Minutenbruchteil": "Trvanie v zlomkoch minúty",
     "@Dauer mit Minutenbruchteil": {
         "type": "text",
         "placeholders": {}
@@ -1613,6 +1618,16 @@
             "gluc": {},
             "unit": {}
         }
+    },
+    "Tagesprofil": "Denný profil",
+    "@Tagesprofil": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Sekunden anzeigen": "Sekunden anzeigen",
+    "@Sekunden anzeigen": {
+        "type": "text",
+        "placeholders": {}
     },
     "Spalte Messwerte": "Namerané hodnoty v stĺpci",
     "@Spalte Messwerte": {
@@ -1996,15 +2011,51 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen komplette HTML-Seiten rein, was im PDF extrem schlecht darstellbar ist. Deswegen kann man diese mit Setzen der Option ausblenden.": "In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen komplette HTML-Seiten rein, was im PDF extrem schlecht darstellbar ist. Deswegen kann man diese mit Setzen der Option ausblenden.",
+    "In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen komplette HTML-Seiten rein, was im PDF extrem schlecht darstellbar ist. Deswegen kann man diese mit Setzen der Option ausblenden.": "V dennom prehľade je nastavenie na potlačenie zobrazovania HTML poznámok. Mnohí užívateľia píšu do poznámok celé HTML stránky, čo sa vo formáte PDF zobrazuje veľmi rušivo. Preto je tu možnosť ich zobrazovanie úplne vypnúť.",
     "@In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen komplette HTML-Seiten rein, was im PDF extrem schlecht darstellbar ist. Deswegen kann man diese mit Setzen der Option ausblenden.": {
         "description": "v136a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": "Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.",
+    "Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": "Graf percentilu glykémie bol rozšírený o \"Hodinovú štatistiku\". Táto zobrazuje v tabuľke hodnoty každej hodiny daného dňa. Je možné zobraziť len graf, len tabuľku, alebo oboje spoločne.",
     "@Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": {
         "description": "v136a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.": "Vo výbere jazyka je teraz k dispozícii aj slovenský jazyk.",
+    "@In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.": {
+        "description": "v136a3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.",
+    "@Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": {
+        "description": "v136a4",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.",
+    "@Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": {
+        "description": "v136c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": "Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.",
+    "@Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": {
+        "description": "v136c2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.",
+    "@Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": {
+        "description": "v136f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.",
+    "@Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": {
+        "description": "v136f2",
         "type": "text",
         "placeholders": {}
     },

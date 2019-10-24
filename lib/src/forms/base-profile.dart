@@ -88,7 +88,7 @@ abstract class BaseProfile extends BasePrint
         calc.endDate = src.profiles[i + 1].startDate.add(Duration(days: -1));
         if (startDate
               .difference(src.profiles[i + 1].startDate)
-              .inDays >= 0)continue;
+              .inHours >= 0)continue;
       }
       else
       {

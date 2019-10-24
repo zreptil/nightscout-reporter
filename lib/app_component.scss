@@ -929,7 +929,7 @@ datepicker {
 
   [pages], [pagesportrait] {
     position: absolute;
-    bottom: 1em;
+    bottom: 0em;
     opacity: 0.5;
     width: 100%;
     align-items: center;
@@ -940,8 +940,6 @@ datepicker {
   }
 
   [pagesportrait] {
-    bottom: 2.1em;
-    color: black;
   }
 
   [params] {
@@ -961,7 +959,7 @@ datepicker {
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 0;
-    max-height: 90%;
+    max-height: 75%;
     max-width: 90%;
   }
 

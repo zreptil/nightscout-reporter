@@ -1054,7 +1054,8 @@ class TreatmentData extends JsonData
   double targetTop;
   double targetBottom;
   String _key600 = null;
-  String get key600 => _key600 ?? "";
+  String get key600
+  => _key600 ?? "";
   bool get isBloody
   => glucoseType?.toLowerCase() == "finger" || eventType.toLowerCase() == "bg check";
   Uploader _from = Uploader.Unknown;
@@ -1157,7 +1158,8 @@ class TreatmentData extends JsonData
       .. targetBottom = targetBottom
       .. _from = _from
       .. _key600 = _key600
-      .. isECarb = isECarb;
+      .. isECarb = isECarb
+      .. raw = raw;
 
   factory TreatmentData.fromJson(Map<String, dynamic> json){
     TreatmentData ret = TreatmentData();
@@ -1297,9 +1299,9 @@ class EntryData extends JsonData
   bool isGap = false;
   bool isCopy = false;
   bool get isInvalid
-  => type != "mbg" && direction != null && direction.toLowerCase() == "none";
+  => false; //type != "mbg" && direction != null && direction.toLowerCase() == "none";
   bool get isInvalidOrGluc0
-  => (type != "mbg" && direction != null && direction.toLowerCase() == "none") || gluc == null || gluc == 0;
+  => isInvalid || gluc == null || gluc == 0;
   double get gluc
   {
     return isGap ? -1 : (type == "sgv" ? sgv : rawbg) ?? 0;
@@ -1515,13 +1517,9 @@ class DayData
   List<ProfileEntryData> get profile
   {
     if (_profile != null)return _profile;
-    if (basalData.store.listBasal.length == 0)
-    {
-      _profile = List<ProfileEntryData>();
-      return _profile;
-    }
-
     _profile = List<ProfileEntryData>();
+    if (basalData.store.listBasal.length == 0)return _profile;
+
     // fill profile with datasets representing the profile for that day
     for (ProfileEntryData entry in basalData.store.listBasal)
     {
@@ -1546,29 +1544,27 @@ class DayData
     // fill profile with treatments of type "temp basal" to get the actual basalrate
     for (TreatmentData t in treatments)
     {
-      if (t.eventType.toLowerCase() == "temp basal")
+      if (t.eventType.toLowerCase() != "temp basal")continue;
+      bool doAdd = true;
+      if (t.duration <= 0)
       {
-        bool doAdd = true;
-        if (t.duration <= 0)
+        if (t.key600.toLowerCase().startsWith("resume"))
         {
-          if (t.key600.toLowerCase().startsWith("resume"))
-          {
-            t.duration = 1440 * 60 - t.timeForCalc - 1;
-            t._percent = 0;
-          }
-          else
-          {
-            doAdd = false;
-          }
+          t.duration = 86399 - t.timeForCalc;
+          t._percent = 0;
         }
+        else
+        {
+          doAdd = false;
+        }
+      }
 
-        if (doAdd)
-        {
-          ProfileEntryData entry = ProfileEntryData.fromTreatment(basalData.store.timezone, t);
-          // value null means this value has to be calculated in the next loop
-          entry.value = null;
-          _profile.add(entry);
-        }
+      if (doAdd)
+      {
+        ProfileEntryData entry = ProfileEntryData.fromTreatment(basalData.store.timezone, t);
+        // value null means this value has to be calculated in the next loop
+        entry.value = null;
+        _profile.add(entry);
       }
     }
     // sort the profile to have the entries in the correct order
@@ -1588,13 +1584,20 @@ class DayData
         entry.value = entry.adjustedValue(last.orgValue);
 
         DateTime endTime = entry.time(date).add(Duration(seconds: entry.duration));
-        if (i < _profile.length - 1 && endTime.isBefore(_profile[i + 1].time(date)))
+        if (i < _profile.length - 1)
         {
-          ProfileEntryData temp = ProfileEntryData(basalData.store.timezone, endTime);
-          temp.transferCalcValues(last);
-          temp.value = last.orgValue;
-          temp.orgValue = last.orgValue;
-          _profile.insert(i + 1, temp);
+          if (endTime.isBefore(_profile[i + 1].time(date)))
+          {
+            // entry ends before next entry starts
+            ProfileEntryData temp = ProfileEntryData(basalData.store.timezone, endTime);
+            if (i < _profile.length - 2)temp.duration = _profile[i + 2]._time
+              .difference(endTime)
+              .inSeconds;
+            temp.transferCalcValues(last);
+            temp.value = last.orgValue;
+            temp.orgValue = last.orgValue;
+            _profile.insert(i + 1, temp);
+          }
         }
         else if (i == _profile.length - 1 && endTime.isBefore(
           DateTime(lastTime.year, lastTime.month, lastTime.day, 23, 59, 59)))
@@ -1615,29 +1618,41 @@ class DayData
           DateTime endTime = lastTime.add(Duration(seconds: last.duration));
           if (endTime.isAfter(entry.time(date)))
           {
+            int duration = endTime
+              .difference(entry.time(date))
+              .inSeconds;
+            ProfileEntryData clone = entry.clone(entry.time(date).add(Duration(seconds: duration)));
             // transfer the calculationdata from the last entry
             entry.transferCalcValues(last);
             // recalculate the value based on the value from the profile
             entry.value = entry.adjustedValue(entry.orgValue);
-            entry.duration = endTime
+            int currDuration = entry.duration;
+            if (i < _profile.length - 1)currDuration = _profile[i + 1]
+              .time(date)
               .difference(entry.time(date))
               .inSeconds;
+            if (duration < currDuration)
+            {
+              clone.duration = currDuration - duration;
+              _profile.insert(i + 1, clone);
+            }
+            entry.duration = duration;
           }
         }
-      }
-      // finalize the last entry by setting its duration to fit the start of the current entry
-      if (last != null)
-      {
-        last.duration = entry
-          .time(date)
-          .difference(lastTime)
-          .inSeconds;
       }
       last = entry;
       lastTime = last.time(date);
     }
 
-//    last.duration = (23 - lastTime.hour) * 60 + (60 - lastTime.minute);
+    // finalize the entries by recalculating their duration
+    for (int i = 1; i < _profile.length; i++)
+    {
+      _profile[i - 1].duration = _profile[i]
+        .time(date)
+        .difference(_profile[i - 1].time(date))
+        .inSeconds;
+    }
+    _profile.last.duration = 86399 - _profile.last.timeForCalc;
 
     _profile.removeWhere((p)
     => p.duration == 0);
@@ -1688,33 +1703,7 @@ class DayData
         carbs += t.carbs;
       }
     }
-/*
-    if (nextDay != null && false)
-    {
-      TreatmentData t = treatments.lastWhere((t)
-      => t.eventType.toLowerCase() == "temp basal", orElse: ()
-      => null);
-      if (t != null)
-      {
-        if (t.timeForCalc + t.duration > 86400)
-        {
-          TreatmentData t1 = t.copy;
-          t.duration = 86400 - t.timeForCalc;
-          int idx = nextDay.treatments.indexWhere((t)
-          => t.eventType.toLowerCase() == "temp basal");
-          TreatmentData next = idx >= 0 ? nextDay.treatments[idx] : null;
-          if (next != null && next.timeForCalc > 0 && t1.duration - t.duration > 0)
-          {
-            t1.duration = t1.duration - t.duration;
-            t1.eventType = "woscht";
-            t1.notes = "HURZ!";
-            t1.createdAt = DateTime(t1.createdAt.year, t1.createdAt.month, t1.createdAt.day).add(Duration(days: 1));
-            nextDay.treatments.insert(idx, t1);
-          }
-        }
-      }
-    }
-// */
+    _profile = null;
   }
 
   dynamic findNearest(List<EntryData> eList, List<TreatmentData> tList, DateTime check,
@@ -2100,12 +2089,14 @@ class ListData
 //*
     if (addList.length == 0)
     {
-      var list = treatments.where((t)
-      => t.eventType.toLowerCase() == "temp basal");
-      for (int i = 0; i < list.length; i++)
+      int lastIdx = -1;
+      for (int i = 0; i < treatments.length; i++)
       {
-        TreatmentData t = i == 0 ? lastTempBasal : list.elementAt(i - 1);
-        TreatmentData t1 = list.elementAt(i);
+        TreatmentData t1 = treatments[i];
+        if (t1.eventType.toLowerCase() != "temp basal")continue;
+        TreatmentData t = lastIdx == -1 ? lastTempBasal : treatments[lastIdx];
+        if (t == null) continue;
+        lastIdx = i;
 
         int duration = t1.createdAt
           .difference(t.createdAt)
@@ -2114,23 +2105,27 @@ class ListData
         // next treatment and current treatment then cut the duration of current
         // treatment to the difference
         if (duration < t.duration)t.duration = duration;
+
+        // if next treatment is in the next day, cut current duration so that the
+        // end is at end of the day and insert a new treatment with the duration
+        // up to the next treatment
         DateTime date = t.createdAt.add(Duration(days: 1));
         if (date.day == t1.createdAt.day && date.month == t1.createdAt.month && date.year == t1.createdAt.year)
         {
-          // if next treatment is in the next day, cut current duration so that the
-          // end is at end of the day and insert a new treatment with the duration
-          // up to the next treatment
           TreatmentData newTreat = t.copy;
           newTreat.createdAt = DateTime(date.year, date.month, date.day, 0, 0);
-          t.duration = 86400 - t.timeForCalc;
-          newTreat.duration -= t.duration;
-          addList.add(newTreat);
+          int duration = 86399 - t.timeForCalc;
+          newTreat.duration -= duration;
+          if (newTreat.duration > 0)
+          {
+            t.duration = duration;
+            addList.add(newTreat);
+          }
         }
       }
       if (addList.length > 0)
       {
-        for (TreatmentData t in addList)
-          treatments.add(t);
+        treatments.addAll(addList);
         treatments.sort((a, b)
         => a.createdAt.compareTo(b.createdAt));
       }
@@ -2173,7 +2168,7 @@ class ListData
       }
 
       int idx = days.indexWhere((d)
-      => d.isSameDay(t.createdAt));
+      => d.isSameDay(t.createdAt.toLocal()));
       if (idx >= 0)days[idx].treatments.add(t);
 
       khCount += t.carbs;

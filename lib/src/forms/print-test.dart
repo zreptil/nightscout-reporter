@@ -231,7 +231,7 @@ class PrintTest extends BasePrint
       _body = [];
       _root = createRoot("raw", title: "Treatments");
       for (TreatmentData entry in src.ns.treatments)
-        addRawData(entry.raw, fmtDateTime(entry.createdAt.toLocal()));
+        addRawData(entry.raw, fmtDateTime(entry.createdAt.toLocal(), null, true));
       finalizeRawData();
     }
     if (showRawProfiles)
