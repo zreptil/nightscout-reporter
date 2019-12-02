@@ -9,7 +9,8 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  @include material-checkbox-color($primary_back, $modifier: '');
+  @include material-checkbox-color(var(--primaryBack), $modifier: '');
+  @include material-checkbox-color(var(--loopMarked), $modifier: '.loop');
   @include slider-thumb-color('material-slider.slider', $primary_back);
   @include slider-track-color('material-slider.slider', $primary_back, $mat-gray-400);
 }
@@ -21,8 +22,8 @@
 
   material-dropdown-select {
     margin-left: 1em;
-    background: $primary_back;
-    color: $primary_fore;
+    background: var(--primaryBack);
+    color: var(--primaryFore);
 
     ::ng-deep .button {
       padding: 0.5em;
@@ -51,10 +52,10 @@ material-checkbox {
 }
 
 .loop {
-  color: $loop_marked;
+  color: var(--loopMarked);
 
   ::ng-deep .icon.filled {
-    color: $loop_marked!important;
+    color: var(loopMarked) !important;
   }
 }
 

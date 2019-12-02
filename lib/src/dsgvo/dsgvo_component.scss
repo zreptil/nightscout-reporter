@@ -1,4 +1,4 @@
-@import '../colors';
+@import '../colors.sass';
 @import '../base';
 @import 'package:angular_components/material_dialog/mixins';
 
@@ -11,26 +11,34 @@ material-dialog {
   }
 
   ::ng-deep main::-webkit-scrollbar-track {
-    background-color: $legal_body_back;
+    background-color: var(--legalBodyBack);
   }
 
   ::ng-deep main::-webkit-scrollbar-thumb {
-    background-color: $legal_scroll_thumb;
+    background-color: var(--legalScrollThumb);
   }
 
   ::ng-deep main {
-    scrollbar-color: $legal_scroll_thumb $legal_body_back;
+    scrollbar-color: var(--legalScrollThumb) var(--legalBodyBack);
   }
 
-  @include material-dialog-header-color($legal_header_back);
+  @include material-dialog-header-color(var(--legalHeaderBack));
   @include material-dialog-header-shadow();
   @include material-dialog-body-padding(0);
+}
+
+material-dialog.headered-dialog {
+  @include material-dialog-header-color(var(--legalHeaderBack));
+
+  ::ng-deep h1{
+    color: var(--legalHeaderFore) !important;
+  }
 }
 
 div[header] {
   display: flex;
   flex-direction: row;
-  color: $legal_header_fore;
+  color: var(--legalHeaderFore);
   justify-content: space-between;
   align-items: center;
 }
@@ -38,8 +46,8 @@ div[header] {
 .root {
   padding: 1em;
   font-size: 1.2em;
-  color: $legal_body_fore;
-  background-color: $legal_body_back;
+  color: var(--legalBodyFore);
+  background-color: var(--legalBodyBack);
 }
 
 h1 {
@@ -50,5 +58,5 @@ h1 {
 a, a:visited, a:active {
   text-decoration: none;
   cursor: pointer;
-  color: $primary-back;
+  color: var(--legalHeaderBack);
 }

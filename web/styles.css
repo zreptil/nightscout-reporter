@@ -10,10 +10,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-body,.cover
-{
-  background-color: #57bb8a;
-}
 
 * {
   font-family: Roboto, Helvetica, Arial, sans-serif;

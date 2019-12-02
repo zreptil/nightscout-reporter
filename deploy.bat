@@ -23,6 +23,7 @@ rd %dstdir% /s/q %tolog%
 md %dstdir% %tolog%
 del %rarfile% %tolog%
 xcopy build\*.* %dstdir% /s %options% 
+xcopy lib\assets\*.css %dstdir%\packages\nightscout_reporter\assets\  /s %options% 
 copy settings.json %dstdir% %tolog%
 %unrar% x nr-pdfmake.rar %dstdir% %tolog%
 del %dstdir%\.build.manifest %tolog%

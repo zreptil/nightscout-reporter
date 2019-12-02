@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-10-24T13:07:38.299969",
+    "@@last_modified": "2019-11-29T06:57:01.631300",
     "Überprüfe Zugriff auf Nightscout ...": "Skontrolujte prístup do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -111,6 +111,21 @@
         "type": "text",
         "placeholders": {}
     },
+    "Automatisch_theme selection - automatic": "Automaticky",
+    "@Automatisch_theme selection - automatic": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Standard_theme selection - standard": "Štandardný",
+    "@Standard_theme selection - standard": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Weihnachten_theme selection - christmas": "Vianočný",
+    "@Weihnachten_theme selection - christmas": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Deutsch": "Deutsch",
     "@Deutsch": {
         "type": "text",
@@ -136,13 +151,18 @@
         "type": "text",
         "placeholders": {}
     },
-    "Japanisch": "Japan",
-    "@Japanisch": {
+    "日本の": "日本の",
+    "@日本の": {
         "type": "text",
         "placeholders": {}
     },
-    "Slowakisch": "Slovenčina",
-    "@Slowakisch": {
+    "Slovenský": "Slovenský",
+    "@Slovenský": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Français": "Français",
+    "@Français": {
         "type": "text",
         "placeholders": {}
     },
@@ -354,12 +374,12 @@
             "endDate": {}
         }
     },
-    "IE": "IE",
+    "IE": "U",
     "@IE": {
         "type": "text",
         "placeholders": {}
     },
-    "Median": "medián",
+    "Median": "Medián",
     "@Median": {
         "type": "text",
         "placeholders": {}
@@ -368,6 +388,14 @@
     "@bis": {
         "type": "text",
         "placeholders": {}
+    },
+    "msgDuration": "{hours} hod {minutes} min",
+    "@msgDuration": {
+        "type": "text",
+        "placeholders": {
+            "hours": {},
+            "minutes": {}
+        }
     },
     "msgTargetArea": "Cieľový rozsah ( {min} - {max} {units} )",
     "@msgTargetArea": {
@@ -385,7 +413,7 @@
             "value": {}
         }
     },
-    "Glukosekurve": "krivka glukózy",
+    "Glukosekurve": "Krivka glukózy",
     "@Glukosekurve": {
         "type": "text",
         "placeholders": {}
@@ -403,6 +431,21 @@
         "placeholders": {
             "value": {}
         }
+    },
+    "Mahlzeitenbolus_bolus to handle a meal": "Bolus k jedlu",
+    "@Mahlzeitenbolus_bolus to handle a meal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bolus Rechner_bolus calculated by the bolus wizard": "Bolusová kalkulačka",
+    "@Bolus Rechner_bolus calculated by the bolus wizard": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Verzögerter Bolus": "Oneskorený bolus",
+    "@Verzögerter Bolus": {
+        "type": "text",
+        "placeholders": {}
     },
     "msgCorrectBolusInsulin": "Korekčný bolus ( {value} )",
     "@msgCorrectBolusInsulin": {
@@ -425,7 +468,7 @@
             "value": {}
         }
     },
-    "Basalrate": "bazálna rýchlosť",
+    "Basalrate": "Bazálna rýchlosť",
     "@Basalrate": {
         "type": "text",
         "placeholders": {}
@@ -575,7 +618,7 @@
             "value": {}
         }
     },
-    "msgKHBE": "g KH ( {value} BE)",
+    "msgKHBE": "g sach. ( {value} BE)",
     "@msgKHBE": {
         "type": "text",
         "placeholders": {
@@ -618,7 +661,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Insulin": "inzulín",
+    "Insulin": "Inzulín",
     "@Insulin": {
         "type": "text",
         "placeholders": {}
@@ -683,7 +726,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ø KH pro Tag": "Ø KH za deň",
+    "Ø KH pro Tag": "Ø sach. za deň",
     "@Ø KH pro Tag": {
         "type": "text",
         "placeholders": {}
@@ -723,7 +766,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Basalrate\nIE / Stunde": "Bazálna dávka IE / hodina",
+    "Basalrate\nIE / Stunde": "Bazálna dávka U / hodina",
     "@Basalrate\nIE / Stunde": {
         "type": "text",
         "placeholders": {}
@@ -738,12 +781,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Standardgrenzwerte": "štandardné limity",
+    "Standardgrenzwerte": "Štandardné limity",
     "@Standardgrenzwerte": {
         "type": "text",
         "placeholders": {}
     },
-    "Behandlungen": "ošetrenie",
+    "Behandlungen": "Ošetrenia",
     "@Behandlungen": {
         "type": "text",
         "placeholders": {}
@@ -758,8 +801,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Uhrzeit": "čas",
+    "Uhrzeit": "Čas",
     "@Uhrzeit": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Summe": "Suma",
+    "@Summe": {
         "type": "text",
         "placeholders": {}
     },
@@ -892,7 +940,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Insulin Kohlenhydrate Verhältnis (ICR)": "Pomer uhľohydrátov inzulínu (ICR)",
+    "Insulin Kohlenhydrate Verhältnis (ICR)": "Pomer inzulínu a sacharidov (ICR)",
     "@Insulin Kohlenhydrate Verhältnis (ICR)": {
         "type": "text",
         "placeholders": {}
@@ -922,7 +970,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "Pomer uhľohydrátov inzulínu (ICR) X g uhľohydrátov na 1 IU",
+    "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "Pomer inzulínu a sacharidov (ICR)\nX g sacharidov na 1 U",
     "@Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": {
         "type": "text",
         "placeholders": {}
@@ -969,12 +1017,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dauer der Kohlenhydrataktivität": "Trvanie aktivity uhľohydrátov",
+    "Dauer der Kohlenhydrataktivität": "Trvanie aktivity sacharidov",
     "@Dauer der Kohlenhydrataktivität": {
         "type": "text",
         "placeholders": {}
     },
-    "Zeitzone": "časové pásmo",
+    "Zeitzone": "Časové pásmo",
     "@Zeitzone": {
         "type": "text",
         "placeholders": {}
@@ -984,12 +1032,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Datum": "dátum",
+    "Datum": "Dátum",
     "@Datum": {
         "type": "text",
         "placeholders": {}
     },
-    "Verteilung": "distribúcia",
+    "Verteilung": "Distribúcia",
     "@Verteilung": {
         "type": "text",
         "placeholders": {}
@@ -999,7 +1047,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Min": "min",
+    "Min": "Min",
     "@Min": {
         "type": "text",
         "placeholders": {}
@@ -1041,15 +1089,19 @@
             "value": {}
         }
     },
-    "Standardabweichung": "štandardná odchýlka",
+    "Standardabweichung": "Štandardná odchýlka",
     "@Standardabweichung": {
         "type": "text",
         "placeholders": {}
     },
-    "Kalibrierung": "Kalibrácia",
-    "@Kalibrierung": {
+    "msgCalibration": "Kalibrierung (scale {scale} / intercept {intercept} / slope {slope})",
+    "@msgCalibration": {
         "type": "text",
-        "placeholders": {}
+        "placeholders": {
+            "scale": {},
+            "intercept": {},
+            "slope": {}
+        }
     },
     "Wechsel": "Výmena",
     "@Wechsel": {
@@ -1381,7 +1433,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesgrafik": "denný graf",
+    "Tagesgrafik": "Denný graf",
     "@Tagesgrafik": {
         "type": "text",
         "placeholders": {}
@@ -1471,6 +1523,26 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dauer der abgeschalteten Basalrate anzeigen": "Zobrazovať trvanie odpojenia bazálnej dávky",
+    "@Dauer der abgeschalteten Basalrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Basal ges.": "Celkom bazál",
+    "@Basal ges.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bolus ges.": "Celkom bolus",
+    "@Bolus ges.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Basal 0%": "Basal 0%",
+    "@Basal 0%": {
+        "type": "text",
+        "placeholders": {}
+    },
     "1 Minute": "1 minúta",
     "@1 Minute": {
         "type": "text",
@@ -1496,7 +1568,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Protokoll": "protokol",
+    "Protokoll": "Protokol",
     "@Protokoll": {
         "type": "text",
         "placeholders": {}
@@ -1624,7 +1696,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Sekunden anzeigen": "Sekunden anzeigen",
+    "Sekunden anzeigen": "Zobraziť sekundy",
     "@Sekunden anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1654,12 +1726,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesstatistik": "denná štatistika",
+    "Tagesstatistik": "Denná štatistika",
     "@Tagesstatistik": {
         "type": "text",
         "placeholders": {}
     },
-    "Profil": "profil",
+    "Profil": "Profil",
     "@Profil": {
         "type": "text",
         "placeholders": {}
@@ -1753,13 +1825,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?": "Prečo som naštvaný niekoľkými tlačidlami namiesto toho, aby som získal jeden súbor PDF?",
+    "Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?": "Prečo som obťažovaný niekoľkými tlačidlami, namiesto toho, aby som získal jeden súbor PDF?",
     "@Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?": {
         "description": "btnPdfInfo",
         "type": "text",
         "placeholders": {}
     },
-    "Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": "Niektoré prehliadače nedokážu zobraziť súbory PDF, ktoré presahujú určitú veľkosť. Pretože to závisí od rôznych faktorov, ktoré sa nedajú ľahko určiť automaticky, existuje možnosť, namiesto veľkého súboru PDF, ktorý sa nedá zobraziť, vygenerovať niekoľko menších súborov PDF, ktoré môže prehliadač zobraziť. V nastaveniach a tu je možné túto veľkosť zadať. Táto stránka sa zobrazí, iba ak sa PDF muselo rozdeliť. Ak bol vytvorený iba jeden súbor PDF, zobrazí sa priamo.",
+    "Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": "Niektoré prehliadače nedokážu zobraziť súbory PDF, ktoré presahujú určitú veľkosť. Pretože to závisí od faktorov, ktoré sa nedajú ľahko automaticky vyhodnotiť, je tu možnosť namiesto problematického veľkého súboru, vygenerovať niekoľko menších súborov PDF, ktoré prehliadač dokáže zobraziť. V nastaveniach a na tomto mieste je možné túto veľkosť zadať. Táto stránka sa zobrazí, iba ak sa PDF muselo rozdeliť. Ak bol vytvorený iba jeden súbor PDF, zobrazí sa bez otázky.",
     "@Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": {
         "description": "msgPdfInfo",
         "type": "text",
@@ -1771,13 +1843,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "PDF erneut erzeugen": "Reprodukovať PDF",
+    "PDF erneut erzeugen": "Znovu vytvoriť PDF",
     "@PDF erneut erzeugen": {
         "description": "pdfCreateAgain",
         "type": "text",
         "placeholders": {}
     },
-    "Gross": "skvelý",
+    "Gross": "veľký",
     "@Gross": {
         "description": "big",
         "type": "text",
@@ -1867,9 +1939,15 @@
         "type": "text",
         "placeholders": {}
     },
-    "Anzeigeeinstellungen": "nastavenia zobrazenia",
+    "Anzeigeeinstellungen": "Nastavenia zobrazenia",
     "@Anzeigeeinstellungen": {
-        "description": "label of area for additional functions",
+        "description": "label of area for display setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Darstellung": "Vzhľad",
+    "@Darstellung": {
+        "description": "label for themeselection",
         "type": "text",
         "placeholders": {}
     },
@@ -1879,7 +1957,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Zusatzfunktionen": "doplnkové funkcie",
+    "Zusatzfunktionen": "Doplnkové nastavenia",
     "@Zusatzfunktionen": {
         "description": "label of area for additional functions",
         "type": "text",
@@ -1915,7 +1993,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Benutzerdaten": "používateľské dáta",
+    "Benutzerdaten": "Informácie o pacientovi",
     "@Benutzerdaten": {
         "description": "label for settings-area with user data",
         "type": "text",
@@ -1969,13 +2047,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": "Táto stránka sa používa na generovanie dokumentov PDF s údajmi uloženými v Nightscout. Preto je potrebné mať prístup k týmto údajom, a preto je potrebné najskôr uložiť niekoľko nastavení. Pokiaľ nie sú dostupné a platné, stránka pre vás nemôže urobiť nič.",
+    "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": "Táto stránka sa používa na generovanie dokumentov PDF z údajov uložených v Nightscout. Preto je potrebné nastaviť niektoré údaje, ktoré umožnia prístup k týmto údajom. Pokiaľ dáta nebudú dostupné a aktuálne, stránka pre vás nemôže nič zmysluplného urobiť.",
     "@Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": {
         "description": "welcome section 1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "Dáta, ktoré tu zadáte, sa zvyčajne uložia do lokálneho úložiska prehliadača. Obsahuje údaje súvisiace s webovými stránkami, ktoré je možné prečítať iba z tejto webovej stránky. V tomto prípade sa nepoužívajú žiadne súbory cookie a na serveroch nie sú uložené žiadne údaje. Nastaví sa iba spojenie so špecifikovanou inštanciou Nightscout a údaje, ktoré sú k dispozícii, sa načítajú, aby sa vygeneroval dokument PDF. Toto sa potom môže predložiť diabetologickému poradcovi alebo inej zainteresovanej strane.",
+    "Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "Dáta, ktoré v nastaveniach zadáte, sa zvyčajne uložia do lokálneho úložiska prehliadača (localStorage). Toto úložisko obsahuje údaje priamo súvisiace s adresou tejto stránky a je možné ich prečítať jedine aplikáciou pochádzajúcou z tejto adresy. V tomto prípade sa nepoužívajú žiadne súbory cookie a na serveroch nie sú uložené žiadne údaje. Nastaví sa iba spojenie so špecifikovanou inštanciou Nightscout a údaje, ktoré sú k dispozícii, sa načítajú, aby sa vygeneroval dokument PDF. Toto sa potom môže predložiť diabetologickému poradcovi alebo inej zainteresovanej strane.",
     "@Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": {
         "description": "welcome section 2",
         "type": "text",
@@ -1993,7 +2071,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Einstellungen für die Verwendung der Seite vornehmen": "Vykonajte nastavenia pre používanie stránky",
+    "Einstellungen für die Verwendung der Seite vornehmen": "Nastavenia potrebné pre používanie aplikácie",
     "@Einstellungen für die Verwendung der Seite vornehmen": {
         "description": "label for button to open settings on welcome screen",
         "type": "text",
@@ -2005,8 +2083,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "1.3.6 - xx.10.2019": "1.3.6 - xx.10.2019",
-    "@1.3.6 - xx.10.2019": {
+    "1.3.6 - xx.11.2019": "1.3.6 - xx.11.2019",
+    "@1.3.6 - xx.11.2019": {
         "description": "v136",
         "type": "text",
         "placeholders": {}
@@ -2029,33 +2107,63 @@
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.",
+    "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": "Pribudla PDF stránka denných profilov. Zobrazuje sa tu skutočné množstvo bazálneho inzulínu na deň, vrátane občasných korekcií. Je to potrebné hlavne pre ladenie aplikácie, ale možno sa hodí aj iným užívateľom. Tu zobrazený profil je rovnaký ako na denný profil na stránke denného grafu. V prípade pumpy to môže byť veľmi veľa výsledkov, keďže sa čiastkové korekcie dejú každých pár minút.",
     "@Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": {
         "description": "v136a4",
         "type": "text",
         "placeholders": {}
     },
-    "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.",
+    "In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.": "V dennom grafe sa teraz zobrazujú aj oneskorené bolusové dávky inzulínu.",
+    "@In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.": {
+        "description": "v136a5",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.": "V dennom grafe je teraz možné zobraziť ako dlho bola bazálna dávka inzulínu na 0%.",
+    "@In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.": {
+        "description": "v136a6",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.",
+    "@Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": {
+        "description": "v136a7",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": "Poradie riadkov zadávania údajov pacienta a URL v nastaveniach bolo zmenené.",
     "@Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": {
         "description": "v136c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": "Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.",
+    "Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": "Počet strán v kachličkovom zobrazení bol posunutý nižšie, aby bol vždy lepšie čitateľný.",
     "@Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": {
         "description": "v136c2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.",
+    "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": "Profily za časové obdobie neboli správne identifikované. To by malo byť vyriešené.",
     "@Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": {
         "description": "v136f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.",
+    "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": "Výpočet efektívnej dennej bazálnej dávky inzulínu bol zmenený a mal by teraz vracať presnejšie hodnoty.",
     "@Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": {
         "description": "v136f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.": "Odstránená chyba násobenia počtu sacharidov pri opakovanej tlači PDF.",
+    "@Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.": {
+        "description": "v136f3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.": "Odstránený problém, že sa ńedali vytvoriť správy za učité dni.",
+    "@Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.": {
+        "description": "v136f4",
         "type": "text",
         "placeholders": {}
     },
@@ -2569,7 +2677,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.": "Legenda pod denným grafom zobrazuje súčet uhľohydrátov za deň.",
+    "In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.": "Legenda pod denným grafom zobrazuje súčet sacharidov za deň.",
     "@In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.": {
         "description": "v124a2",
         "type": "text",
@@ -2599,7 +2707,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.": "Informácie o uhľohydrátoch v dennom grafe sa teraz vydávajú bez prípony KH.",
+    "Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.": "Informácie o sacharidoch v dennom grafe sa teraz zobrazujú bez prípony.",
     "@Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.": {
         "description": "v124c3",
         "type": "text",
@@ -2623,7 +2731,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": "Denná grafika teraz kombinuje hladiny inzulínu a skóre uhľohydrátov, keď ich je niekoľko za hodinu. Stĺpce sa stále vydávajú jednotlivo pre každú hodnotu. Týmto spôsobom by už nemal existovať žiadny prekrývajúci sa výstup hodnôt. Súhrnné hodnoty sú zobrazené v hranatých zátvorkách, čo znamená, že hodnoty tu boli sčítané.",
+    "In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": "Denná grafika teraz sčítava hladiny inzulínu a sacharidov v prípade, že ich je niekoľko za hodinu. Stĺpce sa stále zobrazujú jednotlivo pre každú hodnotu. Týmto spôsobom by sa už nemalo stať, že sa zobrazené hodnoty budú prekrývať. Súhrnné hodnoty sú zobrazené v hranatých zátvorkách, čo znamená, že hodnoty tu boli sčítané.",
     "@In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": {
         "description": "v123c1",
         "type": "text",
@@ -2731,7 +2839,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": "Korekcie uhľohydrátov sa teraz zobrazujú v dennom grafe.",
+    "In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": "Korekcie sacharidov sa teraz zobrazujú v dennom grafe.",
     "@In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": {
         "description": "v112a4",
         "type": "text",
@@ -3037,7 +3145,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt": "Pri výpočte uhľohydrátov sa zohľadňujú ďalšie súbory údajov",
+    "Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt": "Pri výpočte sacharidov sa zohľadňujú ďalšie súbory údajov",
     "@Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt": {
         "description": "v103f5",
         "type": "text",

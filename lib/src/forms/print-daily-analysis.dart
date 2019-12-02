@@ -459,8 +459,6 @@ class PrintDailyAnalysis extends BaseDaily
     var dayBasal = getBasalGraph(top, day, false, xo, yo);
 
     // graphic for iob and cob
-    List <BoluscalcData> listIobCob = List<BoluscalcData>();
-
     dynamic ptsIob = [{"x": cm(glucX(DateTime(0, 1, 1, 0, 0))), "y": cm(0)}];
     dynamic ptsCob = [{"x": cm(glucX(DateTime(0, 1, 1, 0, 0))), "y": cm(0)}];
     double lastX = null;
@@ -630,7 +628,7 @@ class PrintDailyAnalysis extends BaseDaily
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
-      double value = min + (max - min) / step * i;
+//      double value = min + (max - min) / step * i;
 //      vertCvs.add({"relativePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": g.fmtNumber(i / 10, 1), "fontSize": fs(8)});
       String text = display(i, step);
 //      String text = "${g.fmtNumber(i * step, 1)} ${msgInsulinUnit}";

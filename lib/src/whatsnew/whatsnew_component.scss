@@ -1,4 +1,4 @@
-@import '../colors';
+@import '../colors.sass';
 @import '../base';
 @import 'package:angular_components/material_dialog/mixins';
 
@@ -12,26 +12,34 @@ material-dialog {
   }
 
   ::ng-deep main::-webkit-scrollbar-track {
-    background-color: $whatsnew_body_back;
+    background-color: var(--whatsnewBodyBack);
   }
 
   ::ng-deep main::-webkit-scrollbar-thumb {
-    background-color: $whatsnew_scroll_thumb;
+    background-color: var(--whatsnewScrollThumb);
   }
 
   ::ng-deep main {
-    scrollbar-color: $whatsnew_scroll_thumb $whatsnew_body_back;
+    scrollbar-color: var(--whatsnewScrollThumb) var(--whatsnewBodyBack);
   }
 
-  @include material-dialog-header-color($whatsnew_header_back);
+  @include material-dialog-header-color(var(--whatsnewHeaderBack));
   @include material-dialog-header-shadow();
   @include material-dialog-body-padding(0);
+}
+
+material-dialog.headered-dialog {
+  @include material-dialog-header-color(var(--whatsnewHeaderBack));
+
+  ::ng-deep h1{
+    color: var(--whatsnewHeaderFore) !important;
+  }
 }
 
 div[header] {
   display: flex;
   flex-direction: row;
-  color: $whatsnew_header_fore;
+  color: var(--whatsnewHeaderFore);
   justify-content: space-between;
   align-items: center;
 }
@@ -39,8 +47,8 @@ div[header] {
 .root {
   padding: 1em;
   font-size: 1.2em;
-  background-color: $whatsnew_body_back;
-  color: $whatsnew_body_fore;
+  background-color: var(--whatsnewBodyBack);
+  color: var(--whatsnewBodyFore);
 }
 
 h2 {

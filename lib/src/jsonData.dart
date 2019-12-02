@@ -490,7 +490,7 @@ class ProfileStoreData extends JsonData
   {
     double ret = 0.0;
     for (ProfileEntryData entry in list)
-      ret += entry.value * entry.duration / 3600;
+      ret += (entry.value ?? 0) * (entry.duration ?? 0) / 3600;
     return ret;
   }
 
@@ -1044,6 +1044,8 @@ class TreatmentData extends JsonData
   double _carbs;
   double insulin;
   double microbolus;
+  int splitExt;
+  int splitNow;
   bool isSMB;
   String pumpId;
   double glucose;
@@ -1146,6 +1148,8 @@ class TreatmentData extends JsonData
       .. NSClientId = NSClientId
       .. _carbs = _carbs
       .. insulin = insulin
+      .. splitExt = splitExt
+      .. splitNow = splitNow
       .. microbolus = microbolus
       .. isSMB = isSMB
       .. pumpId = pumpId
@@ -1177,6 +1181,9 @@ class TreatmentData extends JsonData
     ret.NSClientId = JsonData.toText(json["NSCLIENT_ID"]);
     ret._carbs = JsonData.toDouble(json["carbs"]);
     ret.insulin = JsonData.toDouble(json["insulin"]);
+    if (ret.insulin == 0.0)ret.insulin = JsonData.toDouble(json["enteredinsulin"]);
+    ret.splitExt = JsonData.toInt(json["splitExt"]);
+    ret.splitNow = JsonData.toInt(json["splitNow"]);
     ret.isSMB = JsonData.toBool(json["isSMB"]);
     ret.pumpId = JsonData.toText(json["pumpId"]);
     ret.glucose = JsonData.toDouble(json["glucose"]);
@@ -1483,7 +1490,7 @@ class DayData
   {
     double ret = 0.0;
     for (TreatmentData entry in treatments)
-      ret += entry.bolusInsulin;
+      ret += (entry.bolusInsulin ?? 0);
     return ret;
   }
 
@@ -1492,6 +1499,16 @@ class DayData
     double ret = 0.0;
     for (ProfileEntryData entry in profile)
       ret += (entry.value ?? 0) * (entry.duration ?? 0) / 3600.0;
+    return ret;
+  }
+
+  int get basalZeroDuration
+  {
+    int ret = 0;
+    for (ProfileEntryData entry in profile)
+    {
+      if (entry.value == 0 && entry.duration != null)ret += entry.duration;
+    }
     return ret;
   }
 
@@ -1571,6 +1588,7 @@ class DayData
     _profile.sort((a, b)
     => a.time(date).compareTo(b.time(date)));
 
+    bool isInserted = false;
     // calculate the values based on the profile data
     for (int i = 0; i < _profile.length; i++)
     {
@@ -1608,12 +1626,14 @@ class DayData
           temp.orgValue = last.orgValue;
           _profile.add(temp);
         }
+        isInserted = false;
       }
       else
       {
         // entry is from the base profile
-        if (last.isCalculated)
+        if (last.isCalculated && !isInserted)
         {
+          isInserted = false;
           // if the last value was calculated check if the duration is still running
           DateTime endTime = lastTime.add(Duration(seconds: last.duration));
           if (endTime.isAfter(entry.time(date)))
@@ -1635,6 +1655,7 @@ class DayData
             {
               clone.duration = currDuration - duration;
               _profile.insert(i + 1, clone);
+              isInserted = true;
             }
             entry.duration = duration;
           }
@@ -1656,6 +1677,26 @@ class DayData
 
     _profile.removeWhere((p)
     => p.duration == 0);
+
+    // join all entries that have the same value to one entry
+    List<ProfileEntryData> ret = List<ProfileEntryData>();
+    for (int i = 1; i < _profile.length; i++)
+    {
+      ProfileEntryData prev = _profile[i - 1];
+      ProfileEntryData curr = _profile[i];
+      if (prev.value == curr.value)
+      {
+        curr.duration += prev.duration;
+        curr._time = prev._time;
+      }
+      else
+      {
+        ret.add(prev);
+      }
+    }
+    ret.add(_profile.last);
+    _profile = ret;
+
     return _profile;
   }
 
@@ -1668,6 +1709,8 @@ class DayData
     normCount = 0;
     highCount = 0;
     lowCount = 0;
+    carbCount = 0;
+    carbs = 0;
     for (EntryData entry in entries)
     {
       if (entry.gluc >= 0)

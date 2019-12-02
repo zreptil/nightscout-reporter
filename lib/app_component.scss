@@ -1,5 +1,4 @@
-@import 'src/colors';
-@import 'src/colors';
+@import 'src/colors.sass';
 @import 'src/base';
 @import 'package:angular_components/material_button/mixins';
 @import 'package:angular_components/material_toggle/mixins';
@@ -9,6 +8,7 @@
 @import 'package:angular_components/material_select/mixins';
 @import 'package:angular_components/material_slider/mixins';
 @import 'package:angular_components/app_layout/mixins';
+@import 'package:angular_components/material_progress/mixins';
 @import 'src/controls/datepicker/mixins';
 
 :host {
@@ -19,29 +19,30 @@
   flex: 1;
   width: 100vw;
   height: 100vh;
-  @include material-checkbox-color($primary_back, $modifier: '');
+  @include material-checkbox-color(var(--primaryBack), $modifier: '');
   @include slider-thumb-color('material-slider.slider', $primary_back);
   @include slider-track-color('material-slider.slider', $primary_back, $mat-gray-400);
+  @include material-progress-theme(var(--primaryBack), var(--primaryBack), var(--primaryFore));
 
   ::-webkit-scrollbar {
     width: auto;
   }
 
   ::-webkit-scrollbar-track {
-    background-color: $secondary_back;
+    background-color: var(--secondaryBack);
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: $primary_back;
+    background-color: var(--primaryBack);
   }
 }
 
 header.material-header {
-  background-color: $primary_back;
+  background-color: var(--primaryBack);
 }
 
 header.material-header.debug {
-  color: $debug_fore !important;
+  color: var(--debugFore) !important;
   text-shadow: -1px 0 $debug_shadow, 0 1px $debug_shadow, 1px 0 $debug_shadow, 0 -1px $debug_shadow;
   background: $debug_back;
 }
@@ -59,7 +60,7 @@ header.material-header .material-header-row {
 }
 
 #app-content {
-  background-color: $secondary_back;
+  background-color: var(--secondaryBack);
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -76,7 +77,7 @@ material-content.main {
   left: 0;
   right: 0;
   bottom: 0;
-  scrollbar-color: $primary_back $secondary_back;
+  scrollbar-color: var(--primaryBack) var(--secondaryBack);
 
   > div.centered {
     display: flex;
@@ -97,8 +98,8 @@ material-content.main {
   margin: 1em 0;
 
   [title] {
-    background-color: $primary_back;
-    color: $primary_fore;
+    background-color: var(--primaryBack);
+    color: var(--primaryFore);
     padding: 0 0 0 1em;
     justify-content: space-between;
     align-items: center;
@@ -181,9 +182,9 @@ material-drawer {
   display: flex;
   flex: 1;
   flex-direction: column;
-  background-color: $primary_back;
+  background-color: var(--primaryBack);
   justify-content: space-between;
-  color: $primary_fore;
+  color: var(--primaryFore);
 }
 
 .formlist {
@@ -215,12 +216,12 @@ material-drawer {
   }
 
   .pdfList .pdfButton, .pdfInfoPanel .pdfButton {
-    background: $pdf_btn_back;
-    color: $pdf_btn_fore;
+    background: var(--pdfBtnBack);
+    color: var(--pdfBtnFore);
     margin-bottom: 0.1em;
 
     .pdfButtonText {
-      color: $pdf_btn_fore;
+      color: var(--pdfBtnFore);
       font-weight: bold;
     }
   }
@@ -235,7 +236,7 @@ material-drawer {
 
   .pdfInfo {
     margin-top: 1em;
-    color: $pdf_info_fore;
+    color: var(--pdfInfoFore);
     background-color: transparent;
     text-transform: none;
   }
@@ -293,8 +294,8 @@ material-drawer {
 }
 
 .shift1, .shift2 {
-  background: $primary_back;
-  color: $primary_fore;
+  background: var(--primaryBack);
+  color: var(--primaryFore);
 
   ::ng-deep .content {
     font-size: 50%;
@@ -302,7 +303,7 @@ material-drawer {
 }
 
 .sendMarked {
-  background: $send_marked !important;
+  background: var(--sendMarked) !important;
 }
 
 .shift1 {
@@ -314,8 +315,8 @@ material-drawer {
 }
 
 .send {
-  background: $primary_back;
-  color: $primary_fore;
+  background: var(--primaryBack);
+  color: var(--primaryFore);
 }
 
 .stop {
@@ -324,7 +325,7 @@ material-drawer {
 }
 
 .close {
-  color: $primary_fore;
+  color: var(--primaryFore);
 }
 
 #messagePanel {
@@ -347,7 +348,7 @@ material-drawer {
   overflow-y: auto;
 
   material-button:not(.msgClose) {
-    background-color: $primary_back;
+    background-color: var(--primaryBack);
     margin-bottom: 0.2em;
   }
 
@@ -380,12 +381,12 @@ material-drawer {
 .toggle-debug {
   display: flex;
   flex-direction: row;
-  color: $debug_fore !important;
+  color: var(--debugFore) !important;
   text-shadow: -1px 0 $debug_shadow, 0 1px $debug_shadow, 1px 0 $debug_shadow, 0 -1px $debug_shadow;
   background: $debug_back !important;
   padding: 0.3em;
   align-items: center;
-  @include material-toggle-theme($primary-color: $debug_fore);
+  @include material-toggle-theme($primary-color: var(--debugFore));
 }
 
 .noshadow {
@@ -424,14 +425,21 @@ material-drawer {
 material-fab.debug-trigger {
   position: fixed;
   bottom: 1.0em;
-  left: 1.0em;
+  left: 5.0em;
   background: $debug_back !important;
   color: $mat-white;
 }
 
+img.logo {
+  position: fixed;
+  bottom: 0.5em;
+  left: 1em;
+  height: 48px;
+}
+
 signin {
   ::ng-deep material-fab:not(.authorized) {
-    background: $google_signedout !important;
+    background: var(--googleSignedout) !important;
   }
 }
 
@@ -444,7 +452,7 @@ signin {
 }
 
 .localTitle {
-  color: $local_back;
+  color: var(--localBack);
 }
 
 .headerinfo {
@@ -456,7 +464,7 @@ signin {
 }
 
 .currLang {
-  background: $secondary-back;
+  background: var(--secondaryBack);
 }
 
 a {
@@ -490,12 +498,12 @@ nav a {
   flex: 1;
 }
 
-@include material-select-selected-item-color($primary_back);
-@include material-select-selected-color($primary_fore);
+@include material-select-selected-item-color(var(--primaryBack));
+@include material-select-selected-color(var(--primaryFore));
 
 .userSelect {
   ::ng-deep material-list {
-    background: $secondary_back;
+    background: var(--secondaryBack);
     padding: 0;
 
     material-select-item {
@@ -510,7 +518,7 @@ nav a {
       }
 
       .selected-accent {
-        background-color: $primary_back;
+        background-color: var(--primaryBack);
       }
     }
   }
@@ -518,7 +526,7 @@ nav a {
 
 .paramSelect {
   ::ng-deep material-list {
-    background: $secondary_back;
+    background: var(--secondaryBack);
     padding: 0;
 
     material-select-item {
@@ -529,13 +537,13 @@ nav a {
       padding: 0.2em 0.5em;
 
       .selected-accent {
-        background-color: $primary_back;
+        background-color: var(--primaryBack);
       }
     }
 
     material-select-item.selected {
-      background-color: $primary_back;
-      color: $primary_fore;
+      background-color: var(--primaryBack);
+      color: var(--primaryFore);
     }
   }
 }
@@ -554,8 +562,8 @@ material-dropdown-select {
 
   material-dropdown-select {
     margin-left: 1em;
-    background: $primary_back;
-    color: $primary_fore;
+    background: var(--primaryBack);
+    color: var(--primaryFore);
 
     ::ng-deep .button {
       padding: 0.5em;
@@ -600,8 +608,8 @@ material-expansionpanel {
   min-width: 20em;
   max-width: 20em;
   border: 2px solid transparent;
-  @include expansionpanel-colors($secondary_back, $secondary_fore);
-  @include expansionpanel-focused-colors(transparent, $secondary_fore);
+  @include expansionpanel-colors(var(--secondaryBack), var(--secondaryFore));
+  @include expansionpanel-focused-colors(transparent, var(--secondaryFore));
   @include expansionpanel-border-radius(0.5em);
   margin-top: 0.2em;
   margin-bottom: 0.2em;
@@ -622,7 +630,7 @@ material-expansionpanel {
   }
 
   ::ng-deep div[aria-expanded="true"] {
-    border: 2px solid $primary_back !important;
+    border: 2px solid var(--primaryBack) !important;
 
     ::ng-deep .header {
       border: 0;
@@ -646,7 +654,7 @@ material-expansionpanel {
 
 material-expansionpanel.checked {
   ::ng-deep .header {
-    border: 2px solid $primary_back;
+    border: 2px solid var(--primaryBack);
     border-radius: 0.5em;
     font-weight: bold;
   }
@@ -659,126 +667,126 @@ material-expansionpanel.checked {
 }
 
 material-button.is-local, div.is-local {
-  background: $local_back;
+  background: var(--localBack);
 }
 
 material-expansionpanel.is-local.checked {
   ::ng-deep .header {
-    border-color: $local_fore !important;
+    border-color: var(--localFore) !important;
   }
 
   [name] {
     > material-icon {
-      color: $local_fore;
+      color: var(--localFore);
     }
   }
 }
 
 material-expansionpanel.is-local {
   ::ng-deep .header {
-    color: $local_fore !important;
-    background: $local_back;
+    color: var(--localFore) !important;
+    background: var(--localBack);
   }
 
-  @include material-checkbox-color($local_fore, $modifier: '');
+  @include material-checkbox-color(var(--localFore), $modifier: '');
 
   ::ng-deep div[aria-expanded="true"] {
-    border-color: $local_fore !important;
-    background-color: $local_back !important;
+    border-color: var(--localFore) !important;
+    background-color: var(--localBack) !important;
 
     ::ng-deep .header {
       border: 0;
-      color: $local_fore !important;
+      color: var(--localFore) !important;
     }
   }
 
   ::ng-deep material-icon.expand-button {
-    color: $local_fore !important;
+    color: var(--localFore) !important;
   }
 
-  @include expansionpanel-colors($local_back, $local_fore);
-  @include expansionpanel-focused-colors($local_back, $local_fore);
+  @include expansionpanel-colors(var(--localBack), var(--localFore));
+  @include expansionpanel-focused-colors(var(--localBack), var(--localFore));
 }
 
 material-button.is-beta, div.is-beta {
-  background: $beta_back;
+  background: var(--betaBack);
 }
 
 material-expansionpanel.is-beta.checked {
   ::ng-deep .header {
-    border-color: $beta_fore !important;
+    border-color: var(--betaFore) !important;
   }
 
   [name] {
     > material-icon {
-      color: $beta_fore;
+      color: var(--betaFore);
     }
   }
 }
 
 material-expansionpanel.is-beta {
   ::ng-deep .header {
-    color: $beta_fore !important;
-    background: $beta_back;
+    color: var(--betaFore) !important;
+    background: var(--betaBack);
   }
 
-  @include material-checkbox-color($beta_fore, $modifier: '');
+  @include material-checkbox-color(var(--betaFore), $modifier: '');
 
   ::ng-deep div[aria-expanded="true"] {
-    border-color: $beta_fore !important;
-    background-color: $beta_back !important;
+    border-color: var(--betaFore) !important;
+    background-color: var(--betaBack) !important;
 
     ::ng-deep .header {
       border: 0;
-      color: $beta_fore !important;
+      color: var(--betaFore) !important;
     }
   }
 
   ::ng-deep material-icon.expand-button {
-    color: $beta_fore !important;
+    color: var(--betaFore) !important;
   }
 
-  @include expansionpanel-colors($beta_back, $beta_fore);
-  @include expansionpanel-focused-colors($beta_back, $beta_fore);
+  @include expansionpanel-colors(var(--betaBack), var(--betaFore));
+  @include expansionpanel-focused-colors(var(--betaBack), var(--betaFore));
 }
 
 material-expansionpanel.is-debug.checked {
-  border-color: $debug_fore !important;
+  border-color: var(--debugFore) !important;
   border-radius: 0.5em;
 
   [name] {
     > material-icon {
-      color: $debug_fore;
+      color: var(--debugFore);
     }
   }
 }
 
 material-expansionpanel.is-debug {
   ::ng-deep .header {
-    color: $debug_fore !important;
+    color: var(--debugFore) !important;
     background: $debug_back;
   }
 
-  @include material-checkbox-color($debug_fore, $modifier: '');
+  @include material-checkbox-color(var(--debugFore), $modifier: '');
   @include slider-thumb-color('material-slider.slider', $debug_fore);
   @include slider-track-color('material-slider.slider', $debug_fore, $mat-gray-400);
 
   ::ng-deep div[aria-expanded="true"] {
-    border-color: $debug_fore !important;
+    border-color: var(--debugFore) !important;
     background: $debug_back !important;
 
     ::ng-deep .header {
       border: 0;
-      color: $debug_fore !important;
+      color: var(--debugFore) !important;
     }
   }
 
   ::ng-deep material-icon.expand-button {
-    color: $debug_fore !important;
+    color: var(--debugFore) !important;
   }
 
-  @include expansionpanel-colors(transparent, $debug_fore);
-  @include expansionpanel-focused-colors($debug_back, $debug_fore);
+  @include expansionpanel-colors(transparent, var(--debugFore));
+  @include expansionpanel-focused-colors($debug_back, var(--debugFore));
 }
 
 datepicker {
@@ -810,14 +818,16 @@ datepicker {
       border-color: rgba(255, 255, 255, 0.5);
     }
 
-    @include expansionpanel-colors(rgba(255, 255, 255, 0.5), $secondary_fore);
+    @include expansionpanel-colors(rgba(255, 255, 255, 0.5), var(--secondaryFore));
   }
 }
 
 .currentGluc {
-  color: $primary_back;
-  background: $primary_fore;
+  color: var(--primaryBack);
+  background: var(--primaryFore);
   text-shadow: none;
+  border-radius: 0.75em!important;
+  border: 2px solid var(--secondaryBack);
 
   pre {
     font-size: 75%;
@@ -848,7 +858,7 @@ datepicker {
     ::ng-deep [diff] {
       font-size: 70%;
       font-weight: bold;
-      color: $secondary_fore;
+      color: var(--secondaryFore);
     }
 
     ::ng-deep [arrow] {
@@ -857,12 +867,12 @@ datepicker {
 
     .arrow {
       width: 3.5em;
-      stroke: $primary_back;
-      fill: $primary_back;
+      stroke: var(--primaryBack);
+      fill: var(--primaryBack);
 
       .circle {
         stroke-width: 0.5em;
-        fill: $secondary_back;
+        fill: var(--secondaryBack);
       }
     }
   }
@@ -970,8 +980,8 @@ datepicker {
 
   display: flex;
   padding: 0.5em;
-  background: $secondary_back;
-  color: $secondary_fore;
+  background: var(--secondaryBack);
+  color: var(--secondaryFore);
   border-radius: 0.5em;
   margin: 0.2em;
   cursor: pointer;
@@ -998,22 +1008,22 @@ datepicker {
   }
 
   .is-local {
-    border-color: $local_fore;
+    border-color: var(--localFore);
     background: transparent;
-    color: $local_fore;
-    @include material-checkbox-color($local_fore, $modifier: '');
+    color: var(--localFore);
+    @include material-checkbox-color(var(--localFore), $modifier: '');
     @include slider-thumb-color('material-slider.slider', $local_fore);
-    @include slider-track-color('material-slider.slider', $local_fore, $mat-gray-400);
+    @include slider-track-color('material-slider.slider', var(--localFore), $mat-gray-400);
   }
 
   .is-local.params {
     [title] {
-      background: $local_fore;
+      background: var(--localFore);
     }
   }
 
   .is-debug {
-    color: $debug_fore;
+    color: var(--debugFore);
     background: $debug_back;
     @include material-checkbox-color($debug_fore, $modifier: '');
     @include slider-thumb-color('material-slider.slider', $debug_fore);
@@ -1022,26 +1032,26 @@ datepicker {
 
   .is-debug.params {
     material-icon, [title] {
-      color: $debug_first;
-      background: $debug_fore;
+      color: var(--debugFirst);
+      background: var(--debugFore);
     }
   }
 }
 
 .tilechecked {
-  background: $primary_back !important;
-  color: $primary_fore !important;
-  _border: 2px solid $primary_back !important;
+  background: var(--primaryBack) !important;
+  color: var(--primaryFore) !important;
+  _border: 2px solid var(--primaryBack) !important;
 }
 
 .tilechecked.is-debug {
-  border-color: $debug_fore !important;
+  border-color: var(--debugFore) !important;
   background: $debug_back !important;
 }
 
 .tilechecked.is-local {
-  background-color: $local_fore !important;
-  color: $local_back !important;
+  background-color: var(--localFore) !important;
+  color: var(--localBack) !important;
 }
 
 .dragtile {
@@ -1078,22 +1088,22 @@ datepicker {
   top: 50%;
   display: block;
   background: $debug_back;
-  color: $debug_fore;
+  color: var(--debugFore);
   padding: 2em;
   cursor: pointer;
   overflow-y: auto;
   transform: translate(-50%, -50%);
   z-index: 1000;
   max-height: 80%;
-  border: 2px solid $debug_fore;
+  border: 2px solid var(--debugFore);
 
-  scrollbar-color: $debug_second $debug_first;
+  scrollbar-color: var(--debugSecond) var(--debugFirst);
 
   ::-webkit-scrollbar-track {
-    background-color: $debug_second;
+    background-color: var(--debugSecond);
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: $debug_first;
+    background-color: var(--debugFirst);
   }
 }

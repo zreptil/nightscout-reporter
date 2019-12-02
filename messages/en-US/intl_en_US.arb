@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-10-24T13:07:38.299969",
+    "@@last_modified": "2019-11-29T06:57:01.631300",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -111,6 +111,21 @@
         "type": "text",
         "placeholders": {}
     },
+    "Automatisch_theme selection - automatic": "Automatic",
+    "@Automatisch_theme selection - automatic": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Standard_theme selection - standard": "Standard",
+    "@Standard_theme selection - standard": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Weihnachten_theme selection - christmas": "Christmas",
+    "@Weihnachten_theme selection - christmas": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Deutsch": "Deutsch",
     "@Deutsch": {
         "type": "text",
@@ -136,13 +151,18 @@
         "type": "text",
         "placeholders": {}
     },
-    "Japanisch": "Japanese",
-    "@Japanisch": {
+    "日本の": "日本の",
+    "@日本の": {
         "type": "text",
         "placeholders": {}
     },
-    "Slowakisch": "Slovak",
-    "@Slowakisch": {
+    "Slovenský": "Slovenský",
+    "@Slovenský": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Français": "Français",
+    "@Français": {
         "type": "text",
         "placeholders": {}
     },
@@ -369,6 +389,14 @@
         "type": "text",
         "placeholders": {}
     },
+    "msgDuration": "{hours} h {minutes} m",
+    "@msgDuration": {
+        "type": "text",
+        "placeholders": {
+            "hours": {},
+            "minutes": {}
+        }
+    },
     "msgTargetArea": "Target Range ({min} - {max} {units})",
     "@msgTargetArea": {
         "type": "text",
@@ -403,6 +431,21 @@
         "placeholders": {
             "value": {}
         }
+    },
+    "Mahlzeitenbolus_bolus to handle a meal": "Meal Bolus",
+    "@Mahlzeitenbolus_bolus to handle a meal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bolus Rechner_bolus calculated by the bolus wizard": "Bolus Wizard",
+    "@Bolus Rechner_bolus calculated by the bolus wizard": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Verzögerter Bolus": "Delayed Bolus",
+    "@Verzögerter Bolus": {
+        "type": "text",
+        "placeholders": {}
     },
     "msgCorrectBolusInsulin": "Correction Bolus ({value})",
     "@msgCorrectBolusInsulin": {
@@ -763,6 +806,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Summe": "Sum",
+    "@Summe": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Ausgabe": "Output",
     "@Ausgabe": {
         "type": "text",
@@ -1046,10 +1094,14 @@
         "type": "text",
         "placeholders": {}
     },
-    "Kalibrierung": "Calibration",
-    "@Kalibrierung": {
+    "msgCalibration": "Calibration (scale {scale} / intercept {intercept} / slope {slope})",
+    "@msgCalibration": {
         "type": "text",
-        "placeholders": {}
+        "placeholders": {
+            "scale": {},
+            "intercept": {},
+            "slope": {}
+        }
     },
     "Wechsel": "Change",
     "@Wechsel": {
@@ -1471,6 +1523,26 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dauer der abgeschalteten Basalrate anzeigen": "Show the duration of the disabled basal rate",
+    "@Dauer der abgeschalteten Basalrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Basal ges.": "Basal total",
+    "@Basal ges.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bolus ges.": "Bolus total",
+    "@Bolus ges.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Basal 0%": "Basal 0%",
+    "@Basal 0%": {
+        "type": "text",
+        "placeholders": {}
+    },
     "1 Minute": "1 Minute",
     "@1 Minute": {
         "type": "text",
@@ -1869,7 +1941,13 @@
     },
     "Anzeigeeinstellungen": "Displaysettings",
     "@Anzeigeeinstellungen": {
-        "description": "label of area for additional functions",
+        "description": "label of area for display setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Darstellung": "Display theme",
+    "@Darstellung": {
+        "description": "label for themeselection",
         "type": "text",
         "placeholders": {}
     },
@@ -2005,8 +2083,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "1.3.6 - xx.10.2019": "1.3.6 - 10/xx/2019",
-    "@1.3.6 - xx.10.2019": {
+    "1.3.6 - xx.11.2019": "1.3.6 - 11/xx/2019",
+    "@1.3.6 - xx.11.2019": {
         "description": "v136",
         "type": "text",
         "placeholders": {}
@@ -2035,6 +2113,24 @@
         "type": "text",
         "placeholders": {}
     },
+    "In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.": "Delayed boli are now displayed in the daily graph.",
+    "@In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.": {
+        "description": "v136a5",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.": "The daily graph now shows the duration of the basal rate at 0%.",
+    "@In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.": {
+        "description": "v136a6",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": "The UI can now be displayed in different representations. These show themselves at the moment by different colors and a changed icon in the Browser tab and when loading the site. This does not affect the generated PDF files. It's the preparation for a partially customizable surface. The theme of the presentation is set by default by the system, which currently means that a Christmas theme will be displayed in December. However, this can also be overridden in the Display settings section in the settings. The representation Standard corresponds to the previous color scheme. Automatic means that the theme is determined by the system. At the moment this means the Christmas presentation in December. However, there may be other criteria in the future that will be used to adjust the theme. The direct definition of a theme in the settings will always take precedence over the system logic.",
+    "@Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": {
+        "description": "v136a7",
+        "type": "text",
+        "placeholders": {}
+    },
     "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": "In the settings dialog, the lines with the user details and the URL were exchanged for a more meaningful administration.",
     "@Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": {
         "description": "v136c1",
@@ -2056,6 +2152,18 @@
     "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": "The determination of the effective daily basal rate has been restructured and should now give more accurate values.",
     "@Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": {
         "description": "v136f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.": "The error with the multiplication of the carbohydrates with the repeated output of the PDFs was corrected.",
+    "@Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.": {
+        "description": "v136f3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.": "The problem that certain days could not be created has been fixed.",
+    "@Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.": {
+        "description": "v136f4",
         "type": "text",
         "placeholders": {}
     },
