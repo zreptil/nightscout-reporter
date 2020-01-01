@@ -1400,9 +1400,12 @@ class DayData
 {
   Date date;
   ProfileGlucData basalData;
+  StatusData statusData;
   int lowCount = 0;
   int normCount = 0;
   int highCount = 0;
+  int topCount = 0;
+  int bottomCount = 0;
   int entryCount = 0;
   int carbCount = 0;
   double carbs = 0;
@@ -1436,10 +1439,14 @@ class DayData
   => (mid ?? 0) != 0 ? stdAbw(true) / mid * 100 : 0;
   double get lowPrz
   => entryCount == 0 ? 0 : lowCount / entryCount * 100;
+  double get bottomPrz
+  => entryCount == 0 ? 0 : bottomCount / entryCount * 100;
   double get normPrz
   => entryCount == 0 ? 0 : normCount / entryCount * 100;
   double get highPrz
   => entryCount == 0 ? 0 : highCount / entryCount * 100;
+  double get topPrz
+  => entryCount == 0 ? 0 : topCount / entryCount * 100;
   double get avgCarbs
   => carbCount > 0 ? carbs / carbCount : 0;
   bool isSameDay(DateTime time)
@@ -1512,7 +1519,7 @@ class DayData
     return ret;
   }
 
-  DayData(date, this.basalData)
+  DayData(date, this.basalData, this.statusData)
   {
     if (date == null)this.date = Date(0);
     else
@@ -1708,6 +1715,8 @@ class DayData
     entryCount = 0;
     normCount = 0;
     highCount = 0;
+    topCount = 0;
+    bottomCount = 0;
     lowCount = 0;
     carbCount = 0;
     carbs = 0;
@@ -1716,8 +1725,10 @@ class DayData
       if (entry.gluc >= 0)
       {
         entryCount++;
-        if (entry.gluc < basalData.targetLow)lowCount++;
-        else if (entry.gluc > basalData.targetHigh)highCount++;
+        if (entry.gluc < statusData.settings.thresholds.bgLow) lowCount++;
+        else if (entry.gluc < statusData.settings.thresholds.bgTargetBottom) bottomCount++;
+        else if (entry.gluc > statusData.settings.thresholds.bgHigh) highCount++;
+        else if (entry.gluc > statusData.settings.thresholds.bgTargetTop) topCount++;
         else
           normCount++;
 
@@ -2051,7 +2062,7 @@ class ListData
       stat["high"].max = 9999.9999;
       if (lastDay == null || entry.time.day != lastDay.day)
       {
-        days.add(DayData(entry.time, glucData));
+        days.add(DayData(entry.time, glucData, data.status));
         lastDay = entry.time;
       }
       if (entry.type == "mbg")

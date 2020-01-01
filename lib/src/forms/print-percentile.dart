@@ -120,7 +120,7 @@ class PrintPercentile extends BasePrint
   fillRow(ReportData src, dynamic row, double f, int hour, List<EntryData> list, String style)
   {
     String firstCol = "${g.fmtNumber(hour, 0, 2)}:00";
-    DayData day = DayData(null, src.profile(DateTime(src.begDate.year, src.begDate.month, src.begDate.day)));
+    DayData day = DayData(null, src.profile(DateTime(src.begDate.year, src.begDate.month, src.begDate.day)), src.status);
     day.entries.addAll(list);
     day.init();
     DateTime time = DateTime(0, 1, 1, hour);
