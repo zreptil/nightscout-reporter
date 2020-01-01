@@ -1062,16 +1062,13 @@ class AppComponent implements OnInit {
 
         for (var doc in docList) {
           String dst = convert.jsonEncode(doc);
-          if (isDebug)
-          {
-            pdfUrl = "http://devubuntu.home.local/NightScoutReporter/pdfmake/playground.php";
+          if (isDebug) {
+            pdfUrl = "http://pdf.zreptil.de/playground.php";
             dst = dst.replaceAll("],", "],\n");
             dst = dst.replaceAll(",\"", ",\n\"");
             dst = dst.replaceAll(":[", ":\n[");
-          }
-          else
-          {
-            pdfUrl = "http://devubuntu.home.local/NightScoutReporter/pdfmake/pdfmake.php";
+          } else {
+            pdfUrl = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
           }
           pdfList.add(PdfData(pdfString(dst)));
         }
