@@ -10,7 +10,7 @@
       </material-button>
     </div>
     <div class="root">
-      <h2><span @i18n="version">Version</span><span @i18n="v136">1.3.6 - xx.10.2019</span></h2>
+      <h2><span @i18n="version">Version</span><span @i18n="v136">1.3.6 - xx.12.2019</span></h2>
       <ul>
         <li class="added" @i18n="v136a1">
           In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen
@@ -34,6 +34,28 @@
           wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an
           Seiten zu reduzieren.
         </li>
+        <li class="added" @i18n="v136a5">
+          In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.
+        </li>
+        <li class="added" @i18n="v136a6">
+          In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.
+        </li>
+        <li class="added" @i18n="v136a7">
+          Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte
+          Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die
+          erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der
+          Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein
+          weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen
+          auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch
+          bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche
+          Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema
+          angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der
+          systemeigenen Logik.
+        </li>
+        <li class="added" @i18n="v136a8">
+          Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden
+          Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.
+        </li>
         <li class="changed" @i18n="v136c1">
           Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um
           eine sinnvollere Verwaltung zu ermöglichen.
@@ -47,6 +69,12 @@
         </li>
         <li class="fixed" @i18n="v136f2">
           Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.
+        </li>
+        <li class="fixed" @i18n="v136f3">
+          Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.
+        </li>
+        <li class="fixed" @i18n="v136f4">
+          Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.
         </li>
       </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v135">1.3.5 - 23.09.2019</span></h2>

@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-10-24T13:07:38.299969",
+    "@@last_modified": "2019-11-29T06:57:01.631300",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -111,6 +111,21 @@
         "type": "text",
         "placeholders": {}
     },
+    "Automatisch_theme selection - automatic": "Automático",
+    "@Automatisch_theme selection - automatic": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Standard_theme selection - standard": "Por defecto",
+    "@Standard_theme selection - standard": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Weihnachten_theme selection - christmas": "Navidad",
+    "@Weihnachten_theme selection - christmas": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Deutsch": "Deutsch",
     "@Deutsch": {
         "type": "text",
@@ -136,13 +151,18 @@
         "type": "text",
         "placeholders": {}
     },
-    "Japanisch": "Japonés",
-    "@Japanisch": {
+    "日本の": "日本の",
+    "@日本の": {
         "type": "text",
         "placeholders": {}
     },
-    "Slowakisch": "Slowakisch",
-    "@Slowakisch": {
+    "Slovenský": "Slovenský",
+    "@Slovenský": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Français": "Français",
+    "@Français": {
         "type": "text",
         "placeholders": {}
     },
@@ -369,6 +389,14 @@
         "type": "text",
         "placeholders": {}
     },
+    "msgDuration": "{hours} h {minutes} min",
+    "@msgDuration": {
+        "type": "text",
+        "placeholders": {
+            "hours": {},
+            "minutes": {}
+        }
+    },
     "msgTargetArea": "Rango objetivo ({min} - {max} {units})",
     "@msgTargetArea": {
         "type": "text",
@@ -403,6 +431,21 @@
         "placeholders": {
             "value": {}
         }
+    },
+    "Mahlzeitenbolus_bolus to handle a meal": "Bolo comida",
+    "@Mahlzeitenbolus_bolus to handle a meal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bolus Rechner_bolus calculated by the bolus wizard": "Calculadora de Bolo",
+    "@Bolus Rechner_bolus calculated by the bolus wizard": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Verzögerter Bolus": "Bolo retardado",
+    "@Verzögerter Bolus": {
+        "type": "text",
+        "placeholders": {}
     },
     "msgCorrectBolusInsulin": "Bolo de corrección ({value})",
     "@msgCorrectBolusInsulin": {
@@ -763,7 +806,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgabe": "Ausgabe",
+    "Summe": "Total",
+    "@Summe": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ausgabe": "Edición",
     "@Ausgabe": {
         "type": "text",
         "placeholders": {}
@@ -1046,10 +1094,14 @@
         "type": "text",
         "placeholders": {}
     },
-    "Kalibrierung": "Calibración",
-    "@Kalibrierung": {
+    "msgCalibration": "Calibración (scale {scale} / intercept {intercept} / slope {slope})",
+    "@msgCalibration": {
         "type": "text",
-        "placeholders": {}
+        "placeholders": {
+            "scale": {},
+            "intercept": {},
+            "slope": {}
+        }
     },
     "Wechsel": "Cambio",
     "@Wechsel": {
@@ -1471,6 +1523,26 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dauer der abgeschalteten Basalrate anzeigen": "Mostrar duración de tasa basal apagada",
+    "@Dauer der abgeschalteten Basalrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Basal ges.": "Basal total",
+    "@Basal ges.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bolus ges.": "Bolo total",
+    "@Bolus ges.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Basal 0%": "Basal 0%",
+    "@Basal 0%": {
+        "type": "text",
+        "placeholders": {}
+    },
     "1 Minute": "1 minuto",
     "@1 Minute": {
         "type": "text",
@@ -1619,12 +1691,12 @@
             "unit": {}
         }
     },
-    "Tagesprofil": "Tagesprofil",
+    "Tagesprofil": "Perfil de día",
     "@Tagesprofil": {
         "type": "text",
         "placeholders": {}
     },
-    "Sekunden anzeigen": "Sekunden anzeigen",
+    "Sekunden anzeigen": "Mostrar segundos",
     "@Sekunden anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1869,7 +1941,13 @@
     },
     "Anzeigeeinstellungen": "Configuración de pantalla",
     "@Anzeigeeinstellungen": {
-        "description": "label of area for additional functions",
+        "description": "label of area for display setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Darstellung": "Presentación",
+    "@Darstellung": {
+        "description": "label for themeselection",
         "type": "text",
         "placeholders": {}
     },
@@ -2005,8 +2083,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "1.3.6 - xx.10.2019": "1.3.6 - xx.10.2019",
-    "@1.3.6 - xx.10.2019": {
+    "1.3.6 - xx.11.2019": "1.3.6 - xx.11.2019",
+    "@1.3.6 - xx.11.2019": {
         "description": "v136",
         "type": "text",
         "placeholders": {}
@@ -2023,39 +2101,69 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.": "In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.",
+    "In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.": "Existe eslovaco en la selección de lenguajes.",
     "@In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.": {
         "description": "v136a3",
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.",
+    "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": "Hay una página para el perfil diario. Ahí se muestra una tabla con la tasa basal actual incluyendo los ajustes temporales. Lo necesitaba para trabajos de programación, pero quizás a alguien le resulta interesante. El perfil que se muestra corresponde al perfil en la página del gráfico diario. En modo del bucle cerrado pueden ser muchas páginas por que cada pocos minutos se ajusta la tasa basal. Por esto la tabla contiene como máximo tres columnas para reducir la cantidad de páginas.",
     "@Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": {
         "description": "v136a4",
         "type": "text",
         "placeholders": {}
     },
-    "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.",
+    "In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.": "El gráfico diario ahora también se muestra el bolo retardado.",
+    "@In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.": {
+        "description": "v136a5",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.": "El gráfico diario ahora también se puede mostrar la duración de la tasa basal en 0%.",
+    "@In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.": {
+        "description": "v136a6",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.",
+    "@Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": {
+        "description": "v136a7",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": "Se han cambiado los espacios para nombre de usuario y URL por razones de eficacia.",
     "@Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": {
         "description": "v136c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": "Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.",
+    "Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": "Los números de las páginas se han movido para abajo para mejorar el diseño.",
     "@Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": {
         "description": "v136c2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.",
+    "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": "Se han eliminado errores al identificar perfiles para ciertos períodos.",
     "@Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": {
         "description": "v136f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.",
+    "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": "La calculation de la tasa basal diaria tiene una estructura nueva que llevara a datos más precisos.",
     "@Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": {
         "description": "v136f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.": "El problema con la multiplicacion de los hidratos de carbono al crear varios PDF seguidos ha sido corregido.",
+    "@Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.": {
+        "description": "v136f3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.": "Se han eliminado errores al crear datos para ciertos dias.",
+    "@Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.": {
+        "description": "v136f4",
         "type": "text",
         "placeholders": {}
     },

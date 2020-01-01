@@ -67,14 +67,14 @@ class PrintPercentile extends BasePrint
 
   @override
   dynamic get estimatePageCount
-  => {"count": showTable ? 2 : 1, "isEstimated": false};
+  => {"count": showGPD && showTable ? 2 : 1, "isEstimated": false};
 
   @override
   String get backsuffix
   => "${params[0].intValue??0}";
 
-  @override
   static String _title = BasePrint.msgGPD;
+  @override
   String title = _title;
 
   @override
@@ -105,6 +105,7 @@ class PrintPercentile extends BasePrint
   @override
   void fillPages(ReportData src, List<Page> pages)
   async {
+    titleInfo = titleInfoBegEnd(src);
     if (showGPD)pages.add(getPage(src));
     if (showTable)pages.add(getTablePage(src));
     if (g.showBothUnits)
@@ -233,7 +234,6 @@ class PrintPercentile extends BasePrint
     var data = src.data;
     lineWidth = cm(0.03);
 
-    titleInfo = titleInfoBegEnd(src);
     List<PercentileData> percList = List<PercentileData>();
     for (EntryData entry in data.entries)
     {

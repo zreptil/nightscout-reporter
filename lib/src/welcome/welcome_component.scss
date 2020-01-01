@@ -6,7 +6,7 @@
 }
 
 material-dialog {
-  @include material-dialog-header-color($primary_back);
+  @include material-dialog-header-color(var(--primaryBack));
   @include material-dialog-header-shadow();
   @include material-dialog-body-padding(0);
 }
@@ -14,7 +14,7 @@ material-dialog {
 div[header] {
   display: flex;
   flex-direction: row;
-  color: $primary_fore;
+  color: var(--primaryFore);
   justify-content: space-between;
   align-items: center;
 
@@ -41,7 +41,7 @@ div[header] {
 .root {
   padding: 1em;
   font-size: 1.2em;
-  background-color: $secondary_back;
+  background-color: var(--secondaryBack);
 }
 
 h1 {
@@ -57,7 +57,7 @@ h1 {
 a, a:visited, a:active {
   text-decoration: none;
   cursor: pointer;
-  color: $primary-back;
+  color: var(--primaryBack);
 }
 
 .controls {

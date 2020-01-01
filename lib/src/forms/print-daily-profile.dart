@@ -59,7 +59,7 @@ class PrintDailyProfile extends BasePrint
     }
   }
 
-  Page getPage(ReportData src, DayData day, List<Page> pages)
+  void getPage(ReportData src, DayData day, List<Page> pages)
   {
     titleInfo = fmtDate(day.date, null, false, true);
 
@@ -91,7 +91,7 @@ class PrintDailyProfile extends BasePrint
         [
           {"text": msgTime, "style": "total", "alignment": "center"},
           {"text": getGlucInfo()["unit"], "style": "total", "alignment": "center"},
-          {"text": "Summe", "style": "total", "alignment": "center"}
+          {"text": msgSum, "style": "total", "alignment": "center"}
         ]
       ]);
 

@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-10-24T13:07:38.299969",
+    "@@last_modified": "2019-11-29T06:57:01.631300",
     "Überprüfe Zugriff auf Nightscout ...": "Sprawdzam dostęp do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -75,7 +75,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Zeitraum": "Wybierz okres",
+    "Zeitraum": "okres\n",
     "@Zeitraum": {
         "description": "title for datepicker dialog",
         "type": "text",
@@ -101,13 +101,28 @@
         "type": "text",
         "placeholders": {}
     },
-    "Vergleich": "Comparison",
+    "Vergleich": "Porównanie",
     "@Vergleich": {
         "type": "text",
         "placeholders": {}
     },
     "dd.MM.yyyy": "dd.MM.yyyy",
     "@dd.MM.yyyy": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Automatisch_theme selection - automatic": "Automatic",
+    "@Automatisch_theme selection - automatic": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Standard_theme selection - standard": "Standard",
+    "@Standard_theme selection - standard": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Weihnachten_theme selection - christmas": "Christmas",
+    "@Weihnachten_theme selection - christmas": {
         "type": "text",
         "placeholders": {}
     },
@@ -136,47 +151,52 @@
         "type": "text",
         "placeholders": {}
     },
-    "Japanisch": "Japanese",
-    "@Japanisch": {
+    "日本の": "日本の",
+    "@日本の": {
         "type": "text",
         "placeholders": {}
     },
-    "Slowakisch": "Slovak",
-    "@Slowakisch": {
+    "Slovenský": "Slovenský",
+    "@Slovenský": {
         "type": "text",
         "placeholders": {}
     },
-    "Aktuelle Periode": "Current period",
+    "Français": "Français",
+    "@Français": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Aktuelle Periode": "Bieżący okres",
     "@Aktuelle Periode": {
         "type": "text",
         "placeholders": {}
     },
-    "Vorherige Periode": "Previous period",
+    "Vorherige Periode": "Poprzedni okres",
     "@Vorherige Periode": {
         "type": "text",
         "placeholders": {}
     },
-    "Vorletzte Periode": "Penultimate period",
+    "Vorletzte Periode": "??? Okres ostateczny",
     "@Vorletzte Periode": {
         "type": "text",
         "placeholders": {}
     },
-    "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": "The specified URL is not reachable. If the URL is correct, then it may be due to the Nightscout-settings. ",
+    "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": "Podany adres URL jest nieosiągalny. Jeśli adres URL jest poprawny, może to być spowodowane ustawieniami Nightscout. ",
     "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": {
         "type": "text",
         "placeholders": {}
     },
-    "<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "<br> <br> If this URL is protected, the UserToken must also be defined correctly.",
+    "<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "<br> <br> Jeśli ten adres URL jest chroniony przy pomocy tokena, to token użytkownika musi być podany.",
     "@<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
         "type": "text",
         "placeholders": {}
     },
-    "In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "The variable ENABLE must contain the word \"cors\" so that external tools like this one can access the data.",
+    "In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "Zmienna ENABLE musi zawierać słowo „cors”, tak aby zewnętrzne narzędzia (jak Nightscout Reporter) mogły uzyskać dostęp do danych.",
     "@In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": {
         "type": "text",
         "placeholders": {}
     },
-    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "On 10be, the default settings for the server must enable the \"cors\" checkbox so that external tools like this one can access the data.",
+    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "Na serwerze 10be, należy zaznaczyć \"cors\", aby zewnętrzne narzędzia, takie jak Nightscout Reporter mogły uzyskać dostęp do danych.",
     "@Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": {
         "type": "text",
         "placeholders": {}
@@ -251,7 +271,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Der Zeitraum enthält keine auswertbaren Tage": "The period contains no evaluable days",
+    "Der Zeitraum enthält keine auswertbaren Tage": "Okres nie zawiera dni dających się ocenić",
     "@Der Zeitraum enthält keine auswertbaren Tage": {
         "description": "title for datepicker dialog when period empty",
         "type": "text",
@@ -297,18 +317,18 @@
         "type": "text",
         "placeholders": {}
     },
-    "Synchronisierung aufheben": "Cancel Sync",
+    "Synchronisierung aufheben": "Anuluj synchronizację",
     "@Synchronisierung aufheben": {
         "type": "text",
         "placeholders": {}
     },
-    "Mit Google Drive synchronisieren": "Sync with Google Drive",
+    "Mit Google Drive synchronisieren": "Synchronizacja z Google Drive",
     "@Mit Google Drive synchronisieren": {
         "description": "synchronize with google drive",
         "type": "text",
         "placeholders": {}
     },
-    "SMB Werte anzeigen": "Pokaż wartość SMB",
+    "SMB Werte anzeigen": "Uwzględnij SMB",
     "@SMB Werte anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -318,14 +338,14 @@
         "type": "text",
         "placeholders": {}
     },
-    "_msgPageCountEst": "{count,plural, one {} =0{}=1{1 page or more}other{{count} pages or more}}",
+    "_msgPageCountEst": "{count,plural, one {} few {{count} stron lub więcej} many {{count} stron lub więcej} =0{}=1{1 strona lub więcej}other{{count} stron lub więcej}}",
     "@_msgPageCountEst": {
         "type": "text",
         "placeholders": {
             "count": {}
         }
     },
-    "_msgPageCount": "{count,plural, one {} =0{}=1{1 page}other{{count} pages}}",
+    "_msgPageCount": "{count,plural, one {} few {{count} strony} many {{count} strony} =0{}=1{1 strona}other{{count} strony}}",
     "@_msgPageCount": {
         "type": "text",
         "placeholders": {
@@ -340,7 +360,7 @@
             "endDate": {}
         }
     },
-    "msgValidFrom": "obowiązuje od {begDate}",
+    "msgValidFrom": "wprowadzony {begDate}",
     "@msgValidFrom": {
         "type": "text",
         "placeholders": {
@@ -369,7 +389,15 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgTargetArea": "Zakres docelowy ({min} - {max} {units})",
+    "msgDuration": "{hours} h {minutes} m",
+    "@msgDuration": {
+        "type": "text",
+        "placeholders": {
+            "hours": {},
+            "minutes": {}
+        }
+    },
+    "msgTargetArea": "zakres docelowy ({min} - {max} {units})",
     "@msgTargetArea": {
         "type": "text",
         "placeholders": {
@@ -378,19 +406,19 @@
             "units": {}
         }
     },
-    "msgTargetValue": "Wartość docelowa",
+    "msgTargetValue": "wartość docelowa",
     "@msgTargetValue": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "Glukosekurve": "Krzywa cukrowa",
+    "Glukosekurve": "wykres glikemii",
     "@Glukosekurve": {
         "type": "text",
         "placeholders": {}
     },
-    "msgCarbs": "Węglowodany ({value}g)",
+    "msgCarbs": "węglowodany {value}g",
     "@msgCarbs": {
         "type": "text",
         "placeholders": {
@@ -404,47 +432,62 @@
             "value": {}
         }
     },
-    "msgCorrectBolusInsulin": "Bolus korekcyjny ({value})",
+    "Mahlzeitenbolus_bolus to handle a meal": "Meal Bolus",
+    "@Mahlzeitenbolus_bolus to handle a meal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bolus Rechner_bolus calculated by the bolus wizard": "Bolus Wizard",
+    "@Bolus Rechner_bolus calculated by the bolus wizard": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Verzögerter Bolus": "Bolus przedłużony",
+    "@Verzögerter Bolus": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgCorrectBolusInsulin": "bolus: korekta ({value})",
     "@msgCorrectBolusInsulin": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgCarbBolusInsulin": "Bolus posiłkowy ({value})",
+    "msgCarbBolusInsulin": "bolus: posiłek ({value})",
     "@msgCarbBolusInsulin": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgSMBInsulin": "SMB ({value})",
+    "msgSMBInsulin": "bolus: SMB ({value})",
     "@msgSMBInsulin": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "Basalrate": "Dawka podstawowa (bazowa)",
+    "Basalrate": "Schemat bazy",
     "@Basalrate": {
         "type": "text",
         "placeholders": {}
     },
-    "msgBasalrateDay": "Baza dobowa ({value})",
+    "msgBasalrateDay": "baza: realna ({value})",
     "@msgBasalrateDay": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgBasalrateProfile": "Baza dobowa (nominalna z profilu) ({value})",
+    "msgBasalrateProfile": "Baza: nominalna ({value})",
     "@msgBasalrateProfile": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgLegendTDD": "Dzienna Dawka Insuliny (DDI) ({value})",
+    "msgLegendTDD": "Dobowa Dawka Insuliny DDI ({value})",
     "@msgLegendTDD": {
         "type": "text",
         "placeholders": {
@@ -461,27 +504,27 @@
         "type": "text",
         "placeholders": {}
     },
-    "Katheterwechsel": "Zmiana zestawu infuzyjnego",
+    "Katheterwechsel": "wymiana zestawu infuzyjnego",
     "@Katheterwechsel": {
         "type": "text",
         "placeholders": {}
     },
-    "Sensorwechsel": "Zmiana sensora CGM",
+    "Sensorwechsel": "wymiana sensora CGM",
     "@Sensorwechsel": {
         "type": "text",
         "placeholders": {}
     },
-    "Reservoirwechsel": "Zmiana zbiorniczka z insuliną",
+    "Reservoirwechsel": "wymiana zbiorniczka",
     "@Reservoirwechsel": {
         "type": "text",
         "placeholders": {}
     },
-    "Aufsummierte Werte": "Wartości zsumowane",
+    "Aufsummierte Werte": "wartości zsumowane",
     "@Aufsummierte Werte": {
         "type": "text",
         "placeholders": {}
     },
-    "Berechnete IE für Kohlenhydrate": "Calculated U for carbs",
+    "Berechnete IE für Kohlenhydrate": "bolus",
     "@Berechnete IE für Kohlenhydrate": {
         "type": "text",
         "placeholders": {}
@@ -509,7 +552,7 @@
             "fmt": {}
         }
     },
-    "msgReadingsInMinutes": "{howMany,plural, =0{brak pomiarów}=1{1 pomiar na minutę}other{{fmt} pomiarów na minutę}}",
+    "msgReadingsInMinutes": "{howMany,plural, =0{brak pomiarów}=1{pomiar co 1 minutę}other{pomiar co {fmt} minut}}",
     "@msgReadingsInMinutes": {
         "type": "text",
         "placeholders": {
@@ -517,7 +560,7 @@
             "fmt": {}
         }
     },
-    "msgValuesIn": "Odczyty między {low} i {high}",
+    "msgValuesIn": "Odczyty w zakresie: {low} - {high}",
     "@msgValuesIn": {
         "type": "text",
         "placeholders": {
@@ -532,28 +575,28 @@
             "low": {}
         }
     },
-    "msgValuesAbove": "Odczyty powyżej {high}",
+    "msgValuesAbove": "Odczyty powyżej zakresu: {high}",
     "@msgValuesAbove": {
         "type": "text",
         "placeholders": {
             "high": {}
         }
     },
-    "msgValuesVeryHigh": "Very High Values ( > {value})",
+    "msgValuesVeryHigh": "Powyżej zakresu, poziom 2 ( > {value})",
     "@msgValuesVeryHigh": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgValuesNormHigh": "High Values ({value})",
+    "msgValuesNormHigh": "Powyżej zakresu, poziom 1 ({value})",
     "@msgValuesNormHigh": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgValuesNorm": "Target area ({low} - {high})",
+    "msgValuesNorm": "W zakresie ({low} - {high})",
     "@msgValuesNorm": {
         "type": "text",
         "placeholders": {
@@ -561,21 +604,21 @@
             "high": {}
         }
     },
-    "msgValuesNormLow": "Low Values ({value})",
+    "msgValuesNormLow": "Poniżej zakresu, poziom 1 ({value})",
     "@msgValuesNormLow": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgValuesVeryLow": "Very Low Values (< {value})",
+    "msgValuesVeryLow": "Poniżej zakresu, poziom 2 (< {value})",
     "@msgValuesVeryLow": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgKHBE": "g węglowodanów ({value})",
+    "msgKHBE": "g (średnio {value}g/godz.)",
     "@msgKHBE": {
         "type": "text",
         "placeholders": {
@@ -590,7 +633,7 @@
             "txt": {}
         }
     },
-    "msgCatheterDays": "{count, plural, =0 {brak danych} =1 {({txt} dzień na zestaw infuzyjny)} other {({txt} dni na zestaw infuzyjny)}}",
+    "msgCatheterDays": "{count, plural, =0 {brak danych} =1 {(zmiana co {txt} dn.)} other {(zmiana co {txt} dn.)}}",
     "@msgCatheterDays": {
         "type": "text",
         "placeholders": {
@@ -623,37 +666,37 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgewertete Tage": "Dni objętych raportem",
+    "Ausgewertete Tage": "Liczba dni uwzględniona w raporcie",
     "@Ausgewertete Tage": {
         "type": "text",
         "placeholders": {}
     },
-    "Anzahl Messungen": "Ilość pomiarów",
+    "Anzahl Messungen": "Liczba pomiarów (z krwi i CGM razem)",
     "@Anzahl Messungen": {
         "type": "text",
         "placeholders": {}
     },
-    "Anzahl Ampullenwechsel": "Count of reservoir changes",
+    "Anzahl Ampullenwechsel": "Liczba zmian zbiornika na insulinę",
     "@Anzahl Ampullenwechsel": {
         "type": "text",
         "placeholders": {}
     },
-    "Anzahl Katheterwechsel": "Count of site changes",
+    "Anzahl Katheterwechsel": "Liczba zmian zestawu infuzyjnego",
     "@Anzahl Katheterwechsel": {
         "type": "text",
         "placeholders": {}
     },
-    "Anzahl Sensorenwechsel": "Count of sensor changes",
+    "Anzahl Sensorenwechsel": "Liczba zmian sensora CGM",
     "@Anzahl Sensorenwechsel": {
         "type": "text",
         "placeholders": {}
     },
-    "gesch. HbA1c": "Szacowana HbA1c",
+    "gesch. HbA1c": "szac. HbA1c",
     "@gesch. HbA1c": {
         "type": "text",
         "placeholders": {}
     },
-    "Geschätzter HbA1c": "przewidywana HbA1c",
+    "Geschätzter HbA1c": "Przewidywana HbA1c",
     "@Geschätzter HbA1c": {
         "type": "text",
         "placeholders": {}
@@ -688,22 +731,22 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ø Insulin pro Tag": "Średnia dobowa dawka insuliny",
+    "Ø Insulin pro Tag": "Średnia dobowa dawka insuliny (DDI)",
     "@Ø Insulin pro Tag": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø Bolus pro Tag": "Średnia wartość bolusa dziennie",
+    "Ø Bolus pro Tag": "Średnia wartość insuliny z bolusów dziennie",
     "@Ø Bolus pro Tag": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø Basal pro Tag": "Średnia dawka podstawowa dziennie",
+    "Ø Basal pro Tag": "Średnia dawka insuliny z bazy dziennie",
     "@Ø Basal pro Tag": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø Microbolus pro Tag": "Średnia wartość mikrobolusów dziennie",
+    "Ø Microbolus pro Tag": "Średnia wartość insuliny z mikrobolusów dziennie",
     "@Ø Microbolus pro Tag": {
         "type": "text",
         "placeholders": {}
@@ -723,7 +766,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Basalrate\nIE / Stunde": "Dawka bazowa (baza) j/godz.",
+    "Basalrate\nIE / Stunde": "Dawka bazowa \n(j/godz.)",
     "@Basalrate\nIE / Stunde": {
         "type": "text",
         "placeholders": {}
@@ -733,17 +776,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Eigene Grenzwerte": "Indywidualny zakres docelowy ",
+    "Eigene Grenzwerte": "czas w zakresie wg wytycznych ATTD 2019\n",
     "@Eigene Grenzwerte": {
         "type": "text",
         "placeholders": {}
     },
-    "Standardgrenzwerte": "Indywidualny zakres docelowy ",
+    "Standardgrenzwerte": "czas w zakresie wg wytycznych ATTD 2019\n",
     "@Standardgrenzwerte": {
         "type": "text",
         "placeholders": {}
     },
-    "Behandlungen": "Terapia",
+    "Behandlungen": "statystyka: terapia",
     "@Behandlungen": {
         "type": "text",
         "placeholders": {}
@@ -763,22 +806,27 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgabe": "Output",
+    "Summe": "Sum",
+    "@Summe": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ausgabe": "Generuj",
     "@Ausgabe": {
         "type": "text",
         "placeholders": {}
     },
-    "Grafik": "Graphic",
+    "Grafik": "Wykres",
     "@Grafik": {
         "type": "text",
         "placeholders": {}
     },
-    "Tabelle": "Table",
+    "Tabelle": "Tabelę",
     "@Tabelle": {
         "type": "text",
         "placeholders": {}
     },
-    "Alles": "All",
+    "Alles": "Wykres i tabelę",
     "@Alles": {
         "type": "text",
         "placeholders": {}
@@ -788,7 +836,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Stündliche Statistik": "Hourly Statistics",
+    "Stündliche Statistik": "Statystyki godzinowe",
     "@Stündliche Statistik": {
         "type": "text",
         "placeholders": {}
@@ -798,22 +846,22 @@
         "type": "text",
         "placeholders": {}
     },
-    "Anpas-\nsung": "Dostosowanie",
+    "Anpas-\nsung": "modyf.",
     "@Anpas-\nsung": {
         "type": "text",
         "placeholders": {}
     },
-    "Glukose zu niedrig": "Zbyt niski poziom glukozy",
+    "Glukose zu niedrig": "glikemia poniżej zakresu",
     "@Glukose zu niedrig": {
         "type": "text",
         "placeholders": {}
     },
-    "Grafiken pro Seite": "Graphics per page",
+    "Grafiken pro Seite": "Wykresów na stronę",
     "@Grafiken pro Seite": {
         "type": "text",
         "placeholders": {}
     },
-    "Glukose im Zielbereich": "Poziom glukozy w zakresie docelowym",
+    "Glukose im Zielbereich": "glikemia w zakresie",
     "@Glukose im Zielbereich": {
         "type": "text",
         "placeholders": {}
@@ -823,19 +871,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Glukose zu hoch": "Zbyt wysoki poziom glukozy",
+    "Glukose zu hoch": "glikemia powyżej zakresu",
     "@Glukose zu hoch": {
         "type": "text",
         "placeholders": {}
     },
-    "msgLow": "Nisko {value}",
+    "msgLow": "poniżej zakresu {value}",
     "@msgLow": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgCount": "{value,plural, one {} =0{No value}=1{1 value}other{{value} values}}",
+    "msgCount": "{value,plural, one {} few {{value} Wartość} many {{value} Wartość} =0{Brak wartości}=1{1 wartość}other{{value} Wartość}}",
     "@msgCount": {
         "type": "text",
         "placeholders": {
@@ -870,12 +918,12 @@
             "time": {}
         }
     },
-    "Normal": "W zakresie",
+    "Normal": "w zakresie\n",
     "@Normal": {
         "type": "text",
         "placeholders": {}
     },
-    "msgHigh": "Wysoki {value}",
+    "msgHigh": "powyżej zakresu {value}",
     "@msgHigh": {
         "type": "text",
         "placeholders": {
@@ -902,7 +950,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Gesamt": "Total",
+    "Gesamt": "Baza dobowa \n",
     "@Gesamt": {
         "type": "text",
         "placeholders": {}
@@ -912,29 +960,29 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ø ICR/Stunde": "Avg. ICR/Hour",
+    "Ø ICR/Stunde": "Uśredniony IC\n",
     "@Ø ICR/Stunde": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø ISF/Stunde": "Avg. ISF/Hour",
+    "Ø ISF/Stunde": "Uśredniony ISF\n",
     "@Ø ISF/Stunde": {
         "type": "text",
         "placeholders": {}
     },
-    "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "Przelicznik węglowodanowy (IC) X g węglowodanów na 1j insuliny",
+    "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "Przelicznik węglowodanowy IC \n(ile gram węglowodanów na 1j insuliny)",
     "@Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": {
         "type": "text",
         "placeholders": {}
     },
-    "msgISF": "??? Insulin Sensitivity Factors (ISF) 1 IU reduces BG by X {unit}",
+    "msgISF": "Wrażliwość na insulinę ISF \n(o ile {unit} 1j insuliny redukuje stężenie glukozy) ",
     "@msgISF": {
         "type": "text",
         "placeholders": {
             "unit": {}
         }
     },
-    "msgTarget": "Zakres docelowy glikemii {unit}",
+    "msgTarget": "Zakres docelowy glikemii \n({unit})",
     "@msgTarget": {
         "type": "text",
         "placeholders": {
@@ -949,7 +997,7 @@
             "end": {}
         }
     },
-    "Ausrichtung": "Orientation",
+    "Ausrichtung": "Orientacja",
     "@Ausrichtung": {
         "type": "text",
         "placeholders": {}
@@ -959,27 +1007,27 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dauer der Insulinaktivität (DIA)": "Czas trwania aktywnej insuliny (DIA)",
+    "Dauer der Insulinaktivität (DIA)": "Czas trwania aktywnej insuliny (DIA):",
     "@Dauer der Insulinaktivität (DIA)": {
         "type": "text",
         "placeholders": {}
     },
-    "Stunden": "godziny",
+    "Stunden": "godz.",
     "@Stunden": {
         "type": "text",
         "placeholders": {}
     },
-    "Dauer der Kohlenhydrataktivität": "Czas wchłaniania węglowodanów",
+    "Dauer der Kohlenhydrataktivität": "Czas wchłaniania węglowodanów:",
     "@Dauer der Kohlenhydrataktivität": {
         "type": "text",
         "placeholders": {}
     },
-    "Zeitzone": "Strefa czasowa",
+    "Zeitzone": "Strefa czasowa:",
     "@Zeitzone": {
         "type": "text",
         "placeholders": {}
     },
-    "g / Stunde": "g / godz.",
+    "g / Stunde": "g/godz.",
     "@g / Stunde": {
         "type": "text",
         "placeholders": {}
@@ -994,7 +1042,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Mess-\nwerte": "Wartości\n",
+    "Mess-\nwerte": "Liczba pomiarów",
     "@Mess-\nwerte": {
         "type": "text",
         "placeholders": {}
@@ -1014,12 +1062,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Std.\nAbw.": "SD",
+    "Std.\nAbw.": "SD %",
     "@Std.\nAbw.": {
         "type": "text",
         "placeholders": {}
     },
-    "VarK\nin %": "??? CV in %",
+    "VarK\nin %": "CV %",
     "@VarK\nin %": {
         "type": "text",
         "placeholders": {}
@@ -1041,17 +1089,21 @@
             "value": {}
         }
     },
-    "Standardabweichung": "Odchylenie standardowe",
+    "Standardabweichung": "Odchylenie standardowe (SD)",
     "@Standardabweichung": {
         "type": "text",
         "placeholders": {}
     },
-    "Kalibrierung": "Calibration",
-    "@Kalibrierung": {
+    "msgCalibration": "Calibration (scale {scale} / intercept {intercept} / slope {slope})",
+    "@msgCalibration": {
         "type": "text",
-        "placeholders": {}
+        "placeholders": {
+            "scale": {},
+            "intercept": {},
+            "slope": {}
+        }
     },
-    "Wechsel": "Change",
+    "Wechsel": "Zmiana",
     "@Wechsel": {
         "type": "text",
         "placeholders": {}
@@ -1116,7 +1168,7 @@
             "max": {}
         }
     },
-    "msgHistorical": "Historical {value}",
+    "msgHistorical": "Historyczny {value}",
     "@msgHistorical": {
         "type": "text",
         "placeholders": {
@@ -1133,7 +1185,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgProfileSwitch": "Zmiana profilu - {oldName} => {newName}",
+    "msgProfileSwitch": "zmiana profilu - {oldName} => {newName}",
     "@msgProfileSwitch": {
         "type": "text",
         "placeholders": {
@@ -1141,7 +1193,7 @@
             "newName": {}
         }
     },
-    "msgProfileSwitchDuration": "Profileswitch - {oldName} => {newName} for {duration} Minutes",
+    "msgProfileSwitchDuration": "Zmiana profilu - {oldName} => {newName} na {duration} minut",
     "@msgProfileSwitchDuration": {
         "type": "text",
         "placeholders": {
@@ -1164,7 +1216,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Auswertung": "Analiza statystyczna",
+    "Auswertung": "Podsumowanie",
     "@Auswertung": {
         "type": "text",
         "placeholders": {}
@@ -1174,7 +1226,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Zielbereich mit Nachkommastellen": "Zakres docelowy z miejscem po przecinku",
+    "Zielbereich mit Nachkommastellen": "Zakres docelowy z miejscem po przecinku (dla mmol)",
     "@Zielbereich mit Nachkommastellen": {
         "type": "text",
         "placeholders": {}
@@ -1184,12 +1236,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Standardbereich mit feinerer Abstufung": "Standard range with finer gradation",
+    "Standardbereich mit feinerer Abstufung": "Czas w zakresie z dokładnym podziałem wg wytycznych ATTD 2019",
     "@Standardbereich mit feinerer Abstufung": {
         "type": "text",
         "placeholders": {}
     },
-    "msgTOR": "ToR [{value}min/d]",
+    "msgTOR": "Czas poza zakresem \n[{value}min/d]",
     "@msgTOR": {
         "type": "text",
         "placeholders": {
@@ -1203,7 +1255,7 @@
             "value": {}
         }
     },
-    "msgHYPO": "Intensität HYPO\n[{unit} x min²]",
+    "msgHYPO": "Epizody hiperglikemii\n[{unit} x min²]",
     "@msgHYPO": {
         "type": "text",
         "placeholders": {
@@ -1211,7 +1263,7 @@
             "value": {}
         }
     },
-    "msgHYPER": "Intensity HYPER\n[{unit} x min²]",
+    "msgHYPER": "Intensywność hiperglikemii [{unit} x min²]",
     "@msgHYPER": {
         "type": "text",
         "placeholders": {
@@ -1219,7 +1271,7 @@
             "value": {}
         }
     },
-    "msgMEAN": "Average glucose\n[{unit}]",
+    "msgMEAN": "Średnie stężenie glukozy\n[{unit}]",
     "@msgMEAN": {
         "type": "text",
         "placeholders": {
@@ -1232,17 +1284,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.": "The green pentagon represents the value range of a healthy person without diabetes.",
+    "Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.": "Zielony pięciokąt reprezentuje zakres wartości zdrowej osoby bez cukrzycy.",
     "@Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.": {
         "type": "text",
         "placeholders": {}
     },
-    "Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.": "The yellow pentagon represents the value range of the specified period.",
+    "Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.": "Żółty pięciokąt reprezentuje zakres wartości określonego okresu.",
     "@Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.": {
         "type": "text",
         "placeholders": {}
     },
-    "msgTORInfo": "The time per day in minutes in which the values are outside the range {min} to {max}.",
+    "msgTORInfo": "Czas dziennie w minutach, w którym wartości znajdują się poza zakresem od {min} do {max}.",
     "@msgTORInfo": {
         "type": "text",
         "placeholders": {
@@ -1250,33 +1302,33 @@
             "max": {}
         }
     },
-    "Die glykämische Variabilität stellt die Streuung der Werte um den glykämischen Mittelwert herum in Prozent dar.": "Glycemic variability represents the variation of values around the glycemic average value in percent.",
+    "Die glykämische Variabilität stellt die Streuung der Werte um den glykämischen Mittelwert herum in Prozent dar.": "Zmienność glikemiczna stanowi zmienność wartości w procentach.",
     "@Die glykämische Variabilität stellt die Streuung der Werte um den glykämischen Mittelwert herum in Prozent dar.": {
         "type": "text",
         "placeholders": {}
     },
-    "msgHYPOInfo": "The intensity of hypoglycaemia per day (values less than or equal to {unit}).",
+    "msgHYPOInfo": "Epizody hipoglikemii na dobę (wartości mniejsze lub równe {unit}).",
     "@msgHYPOInfo": {
         "type": "text",
         "placeholders": {
             "unit": {}
         }
     },
-    "msgHYPERInfo": "The intensity of hyperglycaemia per day (values greater than or equal to {unit}).",
+    "msgHYPERInfo": "Epizody hiperglikemii na dobę (wartości większe lub równe {unit}).",
     "@msgHYPERInfo": {
         "type": "text",
         "placeholders": {
             "unit": {}
         }
     },
-    "msgMEANInfo": "The mean glycemic value in specified period.",
+    "msgMEANInfo": "Średnia wartość glikemii w określonym okresie.",
     "@msgMEANInfo": {
         "type": "text",
         "placeholders": {
             "hba1c": {}
         }
     },
-    "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": "The Prognostic Glycemic Riskparameter represents the risk of long-term complications (not proven by studies up to now).",
+    "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": "Parametr Ryzyka Prognostycznego opisuje ryzyko długotrwałych powikłań \n(niepotwierdzonych dotychczas badaniami).",
     "@Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": {
         "type": "text",
         "placeholders": {}
@@ -1286,7 +1338,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "sehr geringes Risiko": "very low risk",
+    "sehr geringes Risiko": "- bardzo niskie ryzyko",
     "@sehr geringes Risiko": {
         "type": "text",
         "placeholders": {}
@@ -1296,7 +1348,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "geringes Risiko": "low risk",
+    "geringes Risiko": "- niskie ryzyko",
     "@geringes Risiko": {
         "type": "text",
         "placeholders": {}
@@ -1306,7 +1358,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "moderates Risiko": "moderate risk",
+    "moderates Risiko": "- umiarkowane ryzyko",
     "@moderates Risiko": {
         "type": "text",
         "placeholders": {}
@@ -1316,37 +1368,37 @@
         "type": "text",
         "placeholders": {}
     },
-    "hohes Risiko": "high risk",
+    "hohes Risiko": "- wysokie ryzyko",
     "@hohes Risiko": {
         "type": "text",
         "placeholders": {}
     },
-    "ab 4,6": "from 4,6",
+    "ab 4,6": "od 4,6",
     "@ab 4,6": {
         "type": "text",
         "placeholders": {}
     },
-    "extrem hohes Risiko": "extremely high risk",
+    "extrem hohes Risiko": "- bardzo wysokie ryzyko",
     "@extrem hohes Risiko": {
         "type": "text",
         "placeholders": {}
     },
-    "CGP": "CGP",
+    "CGP": "Kompleksowy Pentagon Glukozowy",
     "@CGP": {
         "type": "text",
         "placeholders": {}
     },
-    "Comprehensive Glucose Pentagon": "Comprehensive Glucose Pentagon",
+    "Comprehensive Glucose Pentagon": "Kompleksowy Pentagon Glukozowy",
     "@Comprehensive Glucose Pentagon": {
         "type": "text",
         "placeholders": {}
     },
-    "Hochformat": "Portrait",
+    "Hochformat": "Pionowo",
     "@Hochformat": {
         "type": "text",
         "placeholders": {}
     },
-    "Querformat": "Landscape",
+    "Querformat": "Poziomo",
     "@Querformat": {
         "type": "text",
         "placeholders": {}
@@ -1356,27 +1408,27 @@
         "type": "text",
         "placeholders": {}
     },
-    "Eine": "One",
+    "Eine": "Jeden",
     "@Eine": {
         "type": "text",
         "placeholders": {}
     },
-    "Zwei": "Two",
+    "Zwei": "Dwa",
     "@Zwei": {
         "type": "text",
         "placeholders": {}
     },
-    "Vier": "Four",
+    "Vier": "Cztery",
     "@Vier": {
         "type": "text",
         "placeholders": {}
     },
-    "Acht": "Eight",
+    "Acht": "Osiem",
     "@Acht": {
         "type": "text",
         "placeholders": {}
     },
-    "Sechzehn": "Sixteen",
+    "Sechzehn": "Szesnaście",
     "@Sechzehn": {
         "type": "text",
         "placeholders": {}
@@ -1401,7 +1453,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Profil-Basalrate": "Dawka podstawowa (baza) z profilu Nightscout",
+    "Profil-Basalrate": "Dawka podstawowa z profilu Nightscout",
     "@Profil-Basalrate": {
         "type": "text",
         "placeholders": {}
@@ -1431,7 +1483,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Notiz-Linien bis zur Kurve zeichnen": "Draw lines from notes to the curve",
+    "Notiz-Linien bis zur Kurve zeichnen": "Poprowadź linie pomocnicze do notatek",
     "@Notiz-Linien bis zur Kurve zeichnen": {
         "type": "text",
         "placeholders": {}
@@ -1441,62 +1493,82 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bolusarten anzeigen": "Show bolus types",
+    "Bolusarten anzeigen": "Pokaż typ bolusa",
     "@Bolusarten anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Training anzeigen": "Show exercises",
+    "Training anzeigen": "Pokaż ćwiczenia",
     "@Training anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Berechnete IE für Kohlenhydrate anzeigen": "Show calculated U for carbs",
+    "Berechnete IE für Kohlenhydrate anzeigen": "Pokaż bolusy",
     "@Berechnete IE für Kohlenhydrate anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Glukose Pentagon erzeugen": "Create glucose pentagon",
+    "Glukose Pentagon erzeugen": "Generuj pentagon glukozowy",
     "@Glukose Pentagon erzeugen": {
         "type": "text",
         "placeholders": {}
     },
-    "Tagesstartprofil anzeigen": "Show profile at daystart",
+    "Tagesstartprofil anzeigen": "Pokaż profil na początku dnia",
     "@Tagesstartprofil anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "HTML-Notizen anzeigen": "Display HTML-notes",
+    "HTML-Notizen anzeigen": "Pokaż notatki",
     "@HTML-Notizen anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "1 Minute": "1 Minute",
+    "Dauer der abgeschalteten Basalrate anzeigen": "Pokaż czas zatrzymania podaży dawki podstawowej (baza 0%)",
+    "@Dauer der abgeschalteten Basalrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Basal ges.": "baza udział",
+    "@Basal ges.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bolus ges.": "bolus udział",
+    "@Bolus ges.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Basal 0%": "baza: zatrzymanie (0%)",
+    "@Basal 0%": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "1 Minute": "1 Minuta",
     "@1 Minute": {
         "type": "text",
         "placeholders": {}
     },
-    "5 Minuten": "5 Minutes",
+    "5 Minuten": "5 Minut",
     "@5 Minuten": {
         "type": "text",
         "placeholders": {}
     },
-    "15 Minuten": "15 Minutes",
+    "15 Minuten": "15 Minut",
     "@15 Minuten": {
         "type": "text",
         "placeholders": {}
     },
-    "30 Minuten": "30 Minutes",
+    "30 Minuten": "30 Minut",
     "@30 Minuten": {
         "type": "text",
         "placeholders": {}
     },
-    "1 Stunde": "1 Hour",
+    "1 Stunde": "1 Godzina",
     "@1 Stunde": {
         "type": "text",
         "placeholders": {}
     },
-    "Protokoll": "Log",
+    "Protokoll": "Dzienniczek",
     "@Protokoll": {
         "type": "text",
         "placeholders": {}
@@ -1516,47 +1588,47 @@
         "type": "text",
         "placeholders": {}
     },
-    "Insulin-Quelle": "Insulin-source",
+    "Insulin-Quelle": "Źródło insuliny",
     "@Insulin-Quelle": {
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Ziele": "Temporary Targets",
+    "Temporäre Ziele": "Cel tymczasowy (TT)",
     "@Temporäre Ziele": {
         "type": "text",
         "placeholders": {}
     },
-    "Gruppierung der Zeiten": "Grouping of times",
+    "Gruppierung der Zeiten": "Grupowanie okresów",
     "@Gruppierung der Zeiten": {
         "type": "text",
         "placeholders": {}
     },
-    "Glukosewert": "Glucose",
+    "Glukosewert": "Glukoza",
     "@Glukosewert": {
         "type": "text",
         "placeholders": {}
     },
-    "Wechsel (Katheter etc.)": "Changes (catheters etc.)",
+    "Wechsel (Katheter etc.)": "Zmiany (zestawy infuzyjne, itp.)",
     "@Wechsel (Katheter etc.)": {
         "type": "text",
         "placeholders": {}
     },
-    "Zusätzliche Spalte anzeigen": "Sho additional column",
+    "Zusätzliche Spalte anzeigen": "Wybierz dodatkowe kolumny",
     "@Zusätzliche Spalte anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Kalibrierung und blutige Messungen": "Calibration and blood values",
+    "Kalibrierung und blutige Messungen": "Kalibracja i pomiary z krwi",
     "@Kalibrierung und blutige Messungen": {
         "type": "text",
         "placeholders": {}
     },
-    "Details des Profilwechsels": "Details of Profileswitch",
+    "Details des Profilwechsels": "Szczegóły profilu",
     "@Details des Profilwechsels": {
         "type": "text",
         "placeholders": {}
     },
-    "Dauer mit Minutenbruchteil": "Precise duration",
+    "Dauer mit Minutenbruchteil": "Dokładny czas trwania",
     "@Dauer mit Minutenbruchteil": {
         "type": "text",
         "placeholders": {}
@@ -1576,7 +1648,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgLogTempTarget": "temp target {target} for {duration} min, reason: {reason}",
+    "msgLogTempTarget": "cel tymczasowy {target} na {duration} min, powód: {reason}",
     "@msgLogTempTarget": {
         "type": "text",
         "placeholders": {
@@ -1585,7 +1657,7 @@
             "reason": {}
         }
     },
-    "msgLogTempBasal": "temp basal {percent}% / {duration} min",
+    "msgLogTempBasal": "baza tymczasowa {percent}% / {duration} min",
     "@msgLogTempBasal": {
         "type": "text",
         "placeholders": {
@@ -1611,7 +1683,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgMBG": "Blood value {gluc} {unit}",
+    "msgMBG": "Pomiar z krwi {gluc} {unit}",
     "@msgMBG": {
         "type": "text",
         "placeholders": {
@@ -1619,12 +1691,12 @@
             "unit": {}
         }
     },
-    "Tagesprofil": "Daily Profile",
+    "Tagesprofil": "Praca TBR",
     "@Tagesprofil": {
         "type": "text",
         "placeholders": {}
     },
-    "Sekunden anzeigen": "Show seconds",
+    "Sekunden anzeigen": "Czas z sekundami",
     "@Sekunden anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1634,7 +1706,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Spalte Standardabweichung": "Kolumna odchylenie standardowe",
+    "Spalte Standardabweichung": "Kolumna odchylenie standardowe SD",
     "@Spalte Standardabweichung": {
         "type": "text",
         "placeholders": {}
@@ -1649,7 +1721,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Spalte Variationskoeffizient": "Kolumna współczynnik zmienności",
+    "Spalte Variationskoeffizient": "Kolumna współczynnik zmienności CV",
     "@Spalte Variationskoeffizient": {
         "type": "text",
         "placeholders": {}
@@ -1664,7 +1736,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Zeilen mit gleichen Werten zusammenfassen": "Łącz odczyty o tej samej wartości",
+    "Zeilen mit gleichen Werten zusammenfassen": "Połącz jednakowe wartości w bloki czasowe",
     "@Zeilen mit gleichen Werten zusammenfassen": {
         "type": "text",
         "placeholders": {}
@@ -1674,7 +1746,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Neueste Woche zuerst": "Newest week first",
+    "Neueste Woche zuerst": "Od najnowszych",
     "@Neueste Woche zuerst": {
         "type": "text",
         "placeholders": {}
@@ -1689,17 +1761,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Name": "Nazwa",
+    "Name": "Imię",
     "@Name": {
         "type": "text",
         "placeholders": {}
     },
-    "User-Token": "Token użytkownika",
+    "User-Token": "Token użytkownika (tylko gdy wymagany)",
     "@User-Token": {
         "type": "text",
         "placeholders": {}
     },
-    "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "Token użytkownika jest wymagane tylko jeśli dostęp do strony Nightscout został ograniczony w zmiennej AUTH_DEFAULT_ROLES",
+    "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "Token użytkownika jest wymagany tylko jeśli dostęp do strony Nightscout został ograniczony w zmiennej AUTH_DEFAULT_ROLES",
     "@Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
         "type": "text",
         "placeholders": {}
@@ -1729,7 +1801,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Was bisher geschah...": "Co się stało do tej pory...",
+    "Was bisher geschah...": "Historia wersji i zmian",
     "@Was bisher geschah...": {
         "description": "title of whatsnew",
         "type": "text",
@@ -1789,13 +1861,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Zur Listenansicht": "To the list view",
+    "Zur Listenansicht": "Widok listy",
     "@Zur Listenansicht": {
         "description": "title of listview",
         "type": "text",
         "placeholders": {}
     },
-    "Zur Kachelansicht": "To the tile view",
+    "Zur Kachelansicht": "Widok kafelków",
     "@Zur Kachelansicht": {
         "description": "title of tileview",
         "type": "text",
@@ -1819,7 +1891,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bis": "To",
+    "Bis": "do",
     "@Bis": {
         "description": "datepicker label to",
         "type": "text",
@@ -1867,19 +1939,25 @@
         "type": "text",
         "placeholders": {}
     },
-    "Anzeigeeinstellungen": "Displaysettings",
+    "Anzeigeeinstellungen": "Ustawienia wyświetlania",
     "@Anzeigeeinstellungen": {
-        "description": "label of area for additional functions",
+        "description": "label of area for display setting",
         "type": "text",
         "placeholders": {}
     },
-    "Auf Kacheln Bilder statt Namen anzeigen": "Show images instead of names on tiles",
+    "Darstellung": "Display theme",
+    "@Darstellung": {
+        "description": "label for themeselection",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Auf Kacheln Bilder statt Namen anzeigen": "Pokaż miniaturki stron zamiast nazw w widoku kafelków",
     "@Auf Kacheln Bilder statt Namen anzeigen": {
         "description": "label for checkbox to show images on tiles",
         "type": "text",
         "placeholders": {}
     },
-    "Zusatzfunktionen": "Dodatkowe funkcje",
+    "Zusatzfunktionen": "\nDodatkowe funkcje",
     "@Zusatzfunktionen": {
         "description": "label of area for additional functions",
         "type": "text",
@@ -1903,7 +1981,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Letzten Messwert in der Titelzeile anzeigen": "Show last glucose value in titlebar",
+    "Letzten Messwert in der Titelzeile anzeigen": "Pokaż ostatni odczyt CGM i trend na pasku tytułu",
     "@Letzten Messwert in der Titelzeile anzeigen": {
         "description": "label for checkbox to show current glucoselevel",
         "type": "text",
@@ -1915,7 +1993,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Benutzerdaten": "Dane użytkownika",
+    "Benutzerdaten": "Dane pacjenta",
     "@Benutzerdaten": {
         "description": "label for settings-area with user data",
         "type": "text",
@@ -1969,13 +2047,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": "Ta strona jest używana do generowania raportów diabetologicznych w formie PDF na podstawie danych pobranych ze strony Nightscout. W związku z tym konieczne jest nadanie uprawnień do odczytu tych danych. Tak długo, jak dane te nie będą dostępne, Nightscout Reporter nie jest w stanie wygenerować raportu dla Ciebie.",
+    "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": "Niniejsza strona służy do generowania raportów diabetologicznych w formie PDF na podstawie danych pobranych z serwisu Nightscout. W związku z tym konieczne jest nadanie uprawnień do odczytu tych danych. Tak długo, jak uprawnienia te nie będą nadane, Nightscout Reporter nie będzie w stanie wygenerować raportu.",
     "@Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": {
         "description": "welcome section 1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "Dane, które wpisujesz tutaj będą przechowywane w pamięci podręcznej przeglądarki. Są to zarówno dane związane z wyświetlaniem witryny, oraz te, które zostały pobrane ze strony Nightscout. Pliki cookie i dane użytkownika nie są przechowywane nigdzie, poza komputerem użytkownika. Połączenie ze stroną Nightscout i import danych są dokonywane jednorazowo w trakcie generowania pliku PDF, a dane nie są zapisywane w innym miejscu. Wygenerowany PDF jest gotowym dokumentem, który można przekazać diabetologowi lub doradcy w poradni cukrzycowej celem omówienia postępów w terapii.",
+    "Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "Dane, które wpisujesz tutaj będą przechowywane w pamięci podręcznej przeglądarki. Są to zarówno dane związane z wyświetlaniem witryny, oraz te, które zostały pobrane ze strony Nightscout. Pliki cookie i dane użytkownika nie są przechowywane nigdzie poza komputerem użytkownika. Połączenie ze stroną Nightscout i import danych są dokonywane jednorazowo w trakcie generowania pliku PDF, a dane nie są zapisywane w innym miejscu. Wygenerowany PDF jest gotowym dokumentem, który można przekazać diabetologowi lub doradcy/edukatorowi w poradni cukrzycowej celem omówienia postępów w terapii.",
     "@Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": {
         "description": "welcome section 2",
         "type": "text",
@@ -2005,8 +2083,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "1.3.6 - xx.10.2019": "1.3.6 - xx/10/2019",
-    "@1.3.6 - xx.10.2019": {
+    "1.3.6 - xx.11.2019": "1.3.6 - xx/11/2019",
+    "@1.3.6 - xx.11.2019": {
         "description": "v136",
         "type": "text",
         "placeholders": {}
@@ -2035,6 +2113,24 @@
         "type": "text",
         "placeholders": {}
     },
+    "In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.": "Delayed boli are now displayed in the daily graph.",
+    "@In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.": {
+        "description": "v136a5",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.": "The daily graph now shows the duration of the basal rate at 0%.",
+    "@In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.": {
+        "description": "v136a6",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": "The UI can now be displayed in different representations. These show themselves at the moment by different colours and a changed icon in the Browser tab and when loading the site. This does not affect the generated PDF files. It's the preparation for a partially customizable surface. The theme of the presentation is set by default by the system, which currently means that a Christmas theme will be displayed in December. However, this can also be overridden in the Display settings section in the settings. The representation Standard corresponds to the previous colour scheme. Automatic means that the theme is determined by the system. At the moment this means the Christmas presentation in December. However, there may be other criteria in the future that will be used to adjust the theme. The direct definition of a theme in the settings will always take precedence over the system logic.",
+    "@Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": {
+        "description": "v136a7",
+        "type": "text",
+        "placeholders": {}
+    },
     "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": "In the settings dialog, the lines with the user details and the URL were exchanged for a more meaningful administration.",
     "@Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": {
         "description": "v136c1",
@@ -2056,6 +2152,18 @@
     "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": "The determination of the effective daily basal rate has been restructured and should now give more accurate values.",
     "@Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": {
         "description": "v136f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.": "The error with the multiplication of the carbohydrates with the repeated output of the PDFs was corrected.",
+    "@Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.": {
+        "description": "v136f3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.": "The problem that certain days could not be created has been fixed.",
+    "@Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.": {
+        "description": "v136f4",
         "type": "text",
         "placeholders": {}
     },
@@ -2143,19 +2251,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": "When selecting the daily basal rate, it is now possible to specify in the options of the daily graph that the name of the profile that was active at the beginning of the day is displayed. This will then be displayed as a profile change at 0 am.",
+    "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": "Podczas wybierania dobowej dawki podstawowej, w opcjach wykresu dziennego możliwe jest określenie nazwy profilu, który był aktywny na początku dnia. Następnie zostanie wyświetlony jako zmiana profilu o godzinie 0 am.",
     "@In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": {
         "description": "v132a3",
         "type": "text",
         "placeholders": {}
     },
-    "Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.": "Images can now be displayed on tiles instead of names. The pictures then show the approximate appearance of the corresponding page. They do not correspond to the actual data, but are just a visual representation that may make it easier for some users to quickly select the pages they want. The activation of the images can be done using the settings dialog.",
+    "Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.": "Zdjęcia mogą być teraz wyświetlane na kafelkach zamiast na nazwach. Zdjęcia pokazują przybliżony wygląd odpowiedniej strony. Nie odpowiadają one faktycznym danym, ale są tylko prezentacją wizualną, która może ułatwić niektórym użytkownikom szybki wybór stron, których chcą. Aktywacja obrazów może być wykonana za pomocą okna ustawień.",
     "@Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.": {
         "description": "v132a4",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesstatistik wurden bei unvollständigen Daten teilweise fehlerhafte Werte ausgegeben. Das wurde korrigiert.": "Fixed wrong data display in the daily statistics when a day has too little data.",
+    "In der Tagesstatistik wurden bei unvollständigen Daten teilweise fehlerhafte Werte ausgegeben. Das wurde korrigiert.": "Naprawiono błędne wyświetlanie danych w dziennych statystykach, gdy dzień ma zbyt mało danych.",
     "@In der Tagesstatistik wurden bei unvollständigen Daten teilweise fehlerhafte Werte ausgegeben. Das wurde korrigiert.": {
         "description": "v132f1",
         "type": "text",
@@ -2167,19 +2275,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt.": "On the profile and basal rate pages, the title bar now again shows the date where this profile starts.",
+    "Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt.": "Na stronach profilu i stawek bazowych, pasek tytułu ponownie pokazuje datę rozpoczęcia tego profilu.",
     "@Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt.": {
         "description": "v131c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Listenansicht ist jetzt wieder scrollbar.": "The listview is scrollable again.",
+    "Die Listenansicht ist jetzt wieder scrollbar.": "Widok listy jest ponownie przewijany.",
     "@Die Listenansicht ist jetzt wieder scrollbar.": {
         "description": "v131f1",
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.": "Temporary profile changes are now recognized and displayed correctly in the daily graphics.",
+    "Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.": "Tymczasowe zmiany profilu są teraz rozpoznawane i wyświetlane poprawnie w dziennej grafiki.",
     "@Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.": {
         "description": "v131f2",
         "type": "text",
@@ -2191,31 +2299,31 @@
         "type": "text",
         "placeholders": {}
     },
-    "Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.": "The \"Comprehensive Glucose Pentagon\" has been added as a separate PDF and as an additional page to the daily and weekly chart. It is a representation of five measures, with the help of which the quality of the therapy can be determined and compared with others. On the printouts, a reference is output to the underlying paper.",
+    "Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.": "\"Kompleksowy Pentagon Glukozy\" został dodany jako oddzielny PDF oraz jako dodatkowa strona do dziennego i tygodniowego wykresu. Przedstawia ona pięć środków, dzięki którym można określić jakość leczenia i porównać go z innymi. Na wydrukach odsyła się do dokumentu wyjściowego.",
     "@Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.": {
         "description": "v130a1",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.": "In the daily graph, there is an option to display the calculated IE for ingested carbohydrates. The value displayed below the carbs is the bolus that should be delivered for that amount of carbohydrate at that time. This value may be lower than the actual value delivered, because IOB and other factors are taken into account for insulin delivery.",
+    "In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.": "Na wykresie dziennym istnieje możliwość wyświetlenia obliczonego IE dla węglowodanów. Wartość przedstawiona poniżej węglowodanów to bolus, który powinien zostać dostarczony dla tej ilości węglowodanów w tym czasie. Wartość ta może być niższa od rzeczywistej dostarczonej wartości, ponieważ IOB i inne czynniki są brane pod uwagę przy podawaniu insuliny.",
     "@In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.": {
         "description": "v130a2",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.": "In the daily graph, the temporary targets are now also taken into account when displaying the target value.",
+    "In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.": "Na wykresie dziennym tymczasowe cele są obecnie również brane pod uwagę przy podawaniu wartości docelowej.",
     "@In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.": {
         "description": "v130a3",
         "type": "text",
         "placeholders": {}
     },
-    "In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt.": "There is a new option in the analysis to fine-tune the standard range. Very high values and very low values are displayed with this option.",
+    "In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt.": "W analizie jest nowa opcja dopasowania standardowy zakresu. Z tą opcją wyświetlane są zarówno bardzo wysokie wartości jak i bardzo niskie wartości.",
     "@In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt.": {
         "description": "v130a4",
         "type": "text",
         "placeholders": {}
     },
-    "Nightscout Reporter kann nun auch in Japanisch verwendet werden.": "Nightscout Reporter can now be used in Japanese.",
+    "Nightscout Reporter kann nun auch in Japanisch verwendet werden.": "Nightscout Reporter może być używany w języku japońskim.",
     "@Nightscout Reporter kann nun auch in Japanisch verwendet werden.": {
         "description": "v130a5",
         "type": "text",
@@ -2929,19 +3037,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Benutzer können nun gelöscht werden": "Users can now be deleted",
+    "Benutzer können nun gelöscht werden": "Użytkownicy mogą być teraz usuwani",
     "@Benutzer können nun gelöscht werden": {
         "description": "v104a1",
         "type": "text",
         "placeholders": {}
     },
-    "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": "Users can specify a user token to connect to protected nightscout instances",
+    "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": "Użytkownicy mogą określić token użytkownika, aby połączyć się z chronionymi instalacjami Nightscout",
     "@Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": {
         "description": "v104a2",
         "type": "text",
         "placeholders": {}
     },
-    "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": "Carbohydrates and bolus insulin are now displayed in the daily graphs",
+    "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": "Węglowodany i insulina w bolusie są teraz wyświetlane na wykresach dziennych",
     "@Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": {
         "description": "v104a3",
         "type": "text",
@@ -3097,7 +3205,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Schliessen Button im Nachrichtenbereich hinzugefügt.": "Close button added in the message area.",
+    "Schliessen Button im Nachrichtenbereich hinzugefügt.": "Przycisk Zamknij dodany w obszarze wiadomości.",
     "@Schliessen Button im Nachrichtenbereich hinzugefügt.": {
         "description": "v101a2",
         "type": "text",
