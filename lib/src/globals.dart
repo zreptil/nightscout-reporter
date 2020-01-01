@@ -570,8 +570,8 @@ class Globals extends Settings
     saveStorage("syncGoogle", _syncGoogle ? "yes" : null);
   }
 
-  String urlPdf = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
-  String urlPlayground = "http://pdf.zreptil.de/playground.php";
+  String urlPdf = "http://devubuntu.home.local/NightScoutReporter/pdfmake/pdfmake.php";
+  String urlPlayground = "http://devubuntu.home.local/NightScoutReporter/pdfmake/playground.php";
   String googleClientId = "939975570793-i9kj0rp6kgv470t45j1pf1hg3j9fqmbh";
 
   String infoClass(String cls)
