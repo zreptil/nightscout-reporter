@@ -67,7 +67,7 @@ class PrintPercentile extends BasePrint
 
   @override
   dynamic get estimatePageCount
-  => {"count": showGPD && showTable ? 3 : 1, "isEstimated": false};
+  => {"count": showGPD && showTable ? 2 : 1, "isEstimated": false};
 
   @override
   String get backsuffix
@@ -148,23 +148,23 @@ class PrintPercentile extends BasePrint
  */
     double f = fs(10);
     double wid = 2.0 / 100.0;
-    double w = (width - 4.0 - 2.0 - wid * 100) / 8 - 0.45;
+//    double w = (width - 4.0 - 2.0 - wid * 100) / 8 - 0.45;
     addTableRow(true, cm(2.0), row, {"text": msgTime, "style": "total", "alignment": "center"},
       {"text": firstCol, "style": "total", "alignment": "center", "fontSize": f});
     addTableRow(true, cm(wid * 100), row, {"text": msgDistribution, "style": "total", "alignment": "center"}, {
       "style": style,
       "canvas": [
-        {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * wid), "h": cm(0.5)},
-        {"type": "rect", "color": colNormLow, "x": cm(day.lowPrz * wid), "y": cm(0), "w": cm(day.bottomPrz * wid), "h": cm(0.5)},
-        {"type": "rect", "color": colNorm, "x": cm((day.lowPrz + day.bottomPrz) * wid), "y": cm(0), "w": cm(day.normPrz * wid), "h": cm(0.5)},
-        {"type": "rect", "color": colNormHigh, "x": cm((day.lowPrz + day.bottomPrz + day.normPrz) * wid), "y": cm(0), "w": cm(day.topPrz * wid), "h": cm(0.5)},
+        {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * wid), "h": cm(0.4)},
+        {"type": "rect", "color": colNormLow, "x": cm(day.lowPrz * wid), "y": cm(0), "w": cm(day.bottomPrz * wid), "h": cm(0.4)},
+        {"type": "rect", "color": colNorm, "x": cm((day.lowPrz + day.bottomPrz) * wid), "y": cm(0), "w": cm(day.normPrz * wid), "h": cm(0.4)},
+        {"type": "rect", "color": colNormHigh, "x": cm((day.lowPrz + day.bottomPrz + day.normPrz) * wid), "y": cm(0), "w": cm(day.topPrz * wid), "h": cm(0.4)},
         {
           "type": "rect",
           "color": colHigh,
           "x": cm((day.lowPrz + day.bottomPrz + day.normPrz + day.topPrz) * wid),
           "y": cm(0),
           "w": cm(day.highPrz * wid),
-          "h": cm(0.5)
+          "h": cm(0.4)
         }
       ]
     });
@@ -218,24 +218,26 @@ class PrintPercentile extends BasePrint
       "alignment": "right",
       "fillColor": style == "total" ? colHigh : null
     });
-    addTableRow(true, cm(w), row, {"text": msgValues, "style": "total", "alignment": "center"},
+    addTableRow(true, "auto", row, {"text": msgValues, "style": "total", "alignment": "center"},
       {"text": "${g.fmtNumber(day.entryCount, 0)}", "style": style, "alignment": "right", "fontSize": f});
-    addTableRow(true, cm(w), row, {"text": msgAverage, "style": "total", "alignment": "center"},
-      {"text": "${glucFromData(day.avgGluc, 1)}", "style": style, "alignment": "right", "fontSize": f});
-    addTableRow(true, cm(w), row, {"text": msgMin, "style": "total", "alignment": "center"},
+    addTableRow(true, "auto", row, {"text": msgMin, "style": "total", "alignment": "center"},
       {"text": "${glucFromData(day.min, 1)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, "auto", row, {"text": msgMax, "style": "total", "alignment": "center"},
+        {"text": "${glucFromData(day.max, 1)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, "auto", row, {"text": msgAverage, "style": "total", "alignment": "center"},
+        {"text": "${glucFromData(day.avgGluc, 1)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, "auto", row, {"text": msgDeviation, "style": "total", "alignment": "center"},
+        {"text": "${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, "auto", row, {"text": msgVarK, "style": "total", "alignment": "center"},
+        {"text": "${g.fmtNumber(day.varK, 1)}", "style": style, "alignment": "right"});
 //*
-    addTableRow(true, cm(w), row, {"text": msg25, "style": "total", "alignment": "center"},
+    addTableRow(true, "auto", row, {"text": msg25, "style": "total", "alignment": "center"},
       {"text": "${glucFromData(perc.percentile(25), 1)}", "style": style, "alignment": "right", "fontSize": f});
-    addTableRow(true, cm(w), row, {"text": msgMedian, "style": "total", "alignment": "center"},
+    addTableRow(true, "auto", row, {"text": msgMedian, "style": "total", "alignment": "center"},
       {"text": "${glucFromData(perc.percentile(50), 1)}", "style": style, "alignment": "right", "fontSize": f});
-    addTableRow(true, cm(w), row, {"text": msg75, "style": "total", "alignment": "center"},
+    addTableRow(true, "auto", row, {"text": msg75, "style": "total", "alignment": "center"},
       {"text": "${glucFromData(perc.percentile(75), 1)}", "style": style, "alignment": "right", "fontSize": f});
 // */
-    addTableRow(true, cm(w), row, {"text": msgMax, "style": "total", "alignment": "center"},
-      {"text": "${glucFromData(day.max, 1)}", "style": style, "alignment": "right", "fontSize": f});
-    addTableRow(true, cm(w), row, {"text": msgDeviation, "style": "total", "alignment": "center"},
-      {"text": "${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right", "fontSize": f});
     tableHeadFilled = true;
   }
 
