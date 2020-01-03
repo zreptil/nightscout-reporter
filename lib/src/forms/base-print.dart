@@ -460,7 +460,7 @@ abstract class BasePrint {
   }
   msgVeryLow(value) {
     value = "\n<${glucFromData(value)}";
-    return Intl.message("sehr Tief${value}", args: [value], name: "msgLow");
+    return Intl.message("sehr Tief${value}", args: [value], name: "msgVeryLow");
   }
 
   msgCount(int value) {
@@ -483,7 +483,7 @@ abstract class BasePrint {
   }
   msgVeryHigh(value) {
     value = "\n>=${glucFromData(value)}";
-    return Intl.message("sehr Hoch${value}", args: [value], name: "msgHigh");
+    return Intl.message("sehr Hoch${value}", args: [value], name: "msgVeryHigh");
   }
 
   get msgPercentile1090 => Intl.message("10% - 90% der Werte");
