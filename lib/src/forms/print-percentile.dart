@@ -67,7 +67,7 @@ class PrintPercentile extends BasePrint
 
   @override
   dynamic get estimatePageCount
-  => {"count": showGPD && showTable ? 2 : 1, "isEstimated": false};
+  => {"count": showGPD && showTable ? 3 : 1, "isEstimated": false};
 
   @override
   String get backsuffix
@@ -79,6 +79,8 @@ class PrintPercentile extends BasePrint
 
   @override
   bool isPortrait = false;
+
+  SettingsData _settings;
 
   num lineWidth;
   String colText = "#008800";
@@ -105,6 +107,7 @@ class PrintPercentile extends BasePrint
   @override
   void fillPages(ReportData src, List<Page> pages)
   async {
+    _settings = src.status.settings;
     titleInfo = titleInfoBegEnd(src);
     if (showGPD)pages.add(getPage(src));
     if (showTable)pages.add(getTablePage(src));
@@ -165,6 +168,56 @@ class PrintPercentile extends BasePrint
         }
       ]
     });
+    addTableRow(true, "*", row, {
+      "text": msgVeryLow(_settings.thresholds.bgLow),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colLow
+    }, {
+      "text": "${g.fmtNumber(day.lowPrz, 0)} %",
+      "style": style,
+      "alignment": "right",
+      "fillColor": style == "total" ? colLow : null
+    });
+    addTableRow(true, "*", row, {
+      "text": msgLow(_settings.thresholds.bgLow, _settings.thresholds.bgTargetBottom),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colNormLow
+    }, {
+      "text": "${g.fmtNumber(day.bottomPrz, 0)} %",
+      "style": style,
+      "alignment": "right",
+      "fillColor": style == "total" ? colNormLow : null
+    });
+    addTableRow(true, "*", row, {"text": msgNormal, "style": "total", "alignment": "center", "fillColor": colNorm}, {
+      "text": "${g.fmtNumber(day.normPrz, 0)} %",
+      "style": style,
+      "alignment": "right",
+      "fillColor": style == "total" ? colNorm : null
+    });
+    addTableRow(true, "*", row, {
+      "text": msgHigh(_settings.thresholds.bgTargetTop, _settings.thresholds.bgHigh),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colNormHigh
+    }, {
+      "text": "${g.fmtNumber(day.topPrz, 0)} %",
+      "style": style,
+      "alignment": "right",
+      "fillColor": style == "total" ? colNormHigh : null
+    });
+    addTableRow(true, "*", row, {
+      "text": msgVeryHigh(_settings.thresholds.bgHigh),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colHigh
+    }, {
+      "text": "${g.fmtNumber(day.highPrz, 0)} %",
+      "style": style,
+      "alignment": "right",
+      "fillColor": style == "total" ? colHigh : null
+    });
     addTableRow(true, cm(w), row, {"text": msgValues, "style": "total", "alignment": "center"},
       {"text": "${g.fmtNumber(day.entryCount, 0)}", "style": style, "alignment": "right", "fontSize": f});
     addTableRow(true, cm(w), row, {"text": msgAverage, "style": "total", "alignment": "center"},
@@ -188,7 +241,7 @@ class PrintPercentile extends BasePrint
 
   Page getTablePage(ReportData src)
   {
-    isPortrait = true;
+    isPortrait = false;
     var body = [];
     double f = 3.3;
     f /= 100;
