@@ -454,8 +454,8 @@ abstract class BasePrint {
   get msgSource => Intl.message(
       "Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)");
   get msgGlucHigh => Intl.message("Glukose zu hoch");
-  msgLow(value) {
-    value = "\n<${glucFromData(value)}";
+  msgLow(valueFrom, valueTo) {
+    String value = "\n>=${glucFromData(valueFrom)} <${glucFromData(valueTo)}";
     return Intl.message("Tief${value}", args: [value], name: "msgLow");
   }
   msgVeryLow(value) {
@@ -477,8 +477,8 @@ abstract class BasePrint {
   static msgTimeOfDayPM(time) => Intl.message("${time} pm", args: [time], name: "msgTimeOfDayPM");
 
   get msgNormal => "${Intl.message("Normal")}\n${getGlucInfo()["unit"]}";
-  msgHigh(value) {
-    value = "\n>=${glucFromData(value)}";
+  msgHigh(valueFrom, valueTo) {
+    String value = "\n>=${glucFromData(valueFrom)} <${glucFromData(valueTo)}";
     return Intl.message("Hoch${value}", args: [value], name: "msgHigh");
   }
   msgVeryHigh(value) {

@@ -77,11 +77,13 @@ class PrintDailyStatistics extends BasePrint
       "style": style,
       "canvas": [
         {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * f), "h": cm(0.5)},
-        {"type": "rect", "color": colNorm, "x": cm(day.lowPrz * f), "y": cm(0), "w": cm(day.normPrz * f), "h": cm(0.5)},
+        {"type": "rect", "color": colNormLow, "x": cm(day.lowPrz * f), "y": cm(0), "w": cm(day.bottomPrz * f), "h": cm(0.5)},
+        {"type": "rect", "color": colNorm, "x": cm((day.lowPrz + day.bottomPrz) * f), "y": cm(0), "w": cm(day.normPrz * f), "h": cm(0.5)},
+        {"type": "rect", "color": colNormHigh, "x": cm((day.lowPrz + day.bottomPrz + day.normPrz) * f), "y": cm(0), "w": cm(day.topPrz * f), "h": cm(0.5)},
         {
           "type": "rect",
           "color": colHigh,
-          "x": cm((day.lowPrz + day.normPrz) * f),
+          "x": cm((day.lowPrz + day.bottomPrz + day.normPrz + day.topPrz) * f),
           "y": cm(0),
           "w": cm(day.highPrz * f),
           "h": cm(0.5)
@@ -100,15 +102,15 @@ class PrintDailyStatistics extends BasePrint
       "fillColor": style == "total" ? colLow : null
     });
     addTableRow(true, "*", row, {
-      "text": msgLow(_settings.thresholds.bgTargetBottom),
+      "text": msgLow(_settings.thresholds.bgTargetBottom, _settings.thresholds.bgLow),
       "style": "total",
       "alignment": "center",
-      "fillColor": colLow
+      "fillColor": colNormLow
     }, {
       "text": "${g.fmtNumber(day.bottomPrz, 0)} %",
       "style": style,
       "alignment": "right",
-      "fillColor": style == "total" ? colLow : null
+      "fillColor": style == "total" ? colNormLow : null
     });
     addTableRow(true, "*", row, {"text": msgNormal, "style": "total", "alignment": "center", "fillColor": colNorm}, {
       "text": "${g.fmtNumber(day.normPrz, 0)} %",
@@ -117,15 +119,15 @@ class PrintDailyStatistics extends BasePrint
       "fillColor": style == "total" ? colNorm : null
     });
     addTableRow(true, "*", row, {
-      "text": msgHigh(_settings.thresholds.bgTargetTop),
+      "text": msgHigh(_settings.thresholds.bgTargetTop, _settings.thresholds.bgHigh),
       "style": "total",
       "alignment": "center",
-      "fillColor": colHigh
+      "fillColor": colNormHigh
     }, {
       "text": "${g.fmtNumber(day.topPrz, 0)} %",
       "style": style,
       "alignment": "right",
-      "fillColor": style == "total" ? colHigh : null
+      "fillColor": style == "total" ? colNormHigh : null
     });
     addTableRow(true, "*", row, {
       "text": msgVeryHigh(_settings.thresholds.bgHigh),
@@ -158,11 +160,11 @@ class PrintDailyStatistics extends BasePrint
         {"text": "${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right"});
     addTableRow(showVarK, "auto", row, {"text": msgVarK, "style": "total", "alignment": "center"},
         {"text": "${g.fmtNumber(day.varK, 1)}", "style": style, "alignment": "right"});
-    addTableRow(showPercentile, cm(1.5), row, {"text": msg25, "style": "total", "alignment": "center"},
+    addTableRow(showPercentile, cm(1), row, {"text": msg25, "style": "total", "alignment": "center"},
         {"text": "${percentileFor(Globals.percentile(day.entries, 25))}", "style": style, "alignment": "right"});
-    addTableRow(showPercentile, cm(1.5), row, {"text": msgMedian, "style": "total", "alignment": "center"},
+    addTableRow(showPercentile, cm(1.25), row, {"text": msgMedian, "style": "total", "alignment": "center"},
         {"text": "${percentileFor(Globals.percentile(day.entries, 50))}", "style": style, "alignment": "right"});
-    addTableRow(showPercentile, cm(1.5), row, {"text": msg75, "style": "total", "alignment": "center"},
+    addTableRow(showPercentile, cm(1), row, {"text": msg75, "style": "total", "alignment": "center"},
         {"text": "${percentileFor(Globals.percentile(day.entries, 75))}", "style": style, "alignment": "right"});
     addTableRow(showHbA1c, cm(1.5), row, {"text": msgHbA1C, "style": "total", "alignment": "center", "color": colHbA1c},
         {"text": "${hba1c(day.mid)} %", "style": style, "alignment": "right", "color": colHbA1c});
