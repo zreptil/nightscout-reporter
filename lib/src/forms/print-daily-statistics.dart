@@ -102,7 +102,7 @@ class PrintDailyStatistics extends BasePrint
       "fillColor": style == "total" ? colLow : null
     });
     addTableRow(true, "*", row, {
-      "text": msgLow(_settings.thresholds.bgTargetBottom, _settings.thresholds.bgLow),
+      "text": msgLow(_settings.thresholds.bgLow, _settings.thresholds.bgTargetBottom),
       "style": "total",
       "alignment": "center",
       "fillColor": colNormLow
@@ -166,7 +166,7 @@ class PrintDailyStatistics extends BasePrint
         {"text": "${percentileFor(Globals.percentile(day.entries, 50))}", "style": style, "alignment": "right"});
     addTableRow(showPercentile, cm(1), row, {"text": msg75, "style": "total", "alignment": "center"},
         {"text": "${percentileFor(Globals.percentile(day.entries, 75))}", "style": style, "alignment": "right"});
-    addTableRow(showHbA1c, cm(1.5), row, {"text": msgHbA1C, "style": "total", "alignment": "center", "color": colHbA1c},
+    addTableRow(showHbA1c, cm(1.25), row, {"text": msgHbA1C, "style": "total", "alignment": "center", "color": colHbA1c},
         {"text": "${hba1c(day.mid)} %", "style": style, "alignment": "right", "color": colHbA1c});
     tableHeadFilled = true;
   }

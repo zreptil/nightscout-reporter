@@ -1727,8 +1727,8 @@ class DayData
         entryCount++;
         if (entry.gluc < statusData.settings.thresholds.bgLow) lowCount++;
         else if (entry.gluc < statusData.settings.thresholds.bgTargetBottom) bottomCount++;
-        else if (entry.gluc > statusData.settings.thresholds.bgHigh) highCount++;
-        else if (entry.gluc > statusData.settings.thresholds.bgTargetTop) topCount++;
+        else if (entry.gluc >= statusData.settings.thresholds.bgHigh) highCount++;
+        else if (entry.gluc >= statusData.settings.thresholds.bgTargetTop) topCount++;
         else
           normCount++;
 
