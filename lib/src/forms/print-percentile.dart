@@ -147,9 +147,9 @@ class PrintPercentile extends BasePrint
     average /= count;
  */
     double f = fs(10);
-    double wid = 2.0 / 100.0;
+    double wid = 3.0 / 100.0;
 //    double w = (width - 4.0 - 2.0 - wid * 100) / 8 - 0.45;
-    addTableRow(true, cm(2.0), row, {"text": msgTime, "style": "total", "alignment": "center"},
+    addTableRow(true, "auto", row, {"text": msgTime, "style": "total", "alignment": "center"},
       {"text": firstCol, "style": "total", "alignment": "center", "fontSize": f});
     addTableRow(true, cm(wid * 100), row, {"text": msgDistribution, "style": "total", "alignment": "center"}, {
       "style": style,
@@ -168,7 +168,7 @@ class PrintPercentile extends BasePrint
         }
       ]
     });
-    addTableRow(true, "*", row, {
+    addTableRow(true, "auto", row, {
       "text": msgVeryLow(_settings.thresholds.bgLow),
       "style": "total",
       "alignment": "center",
@@ -179,7 +179,7 @@ class PrintPercentile extends BasePrint
       "alignment": "right",
       "fillColor": style == "total" ? colLow : null
     });
-    addTableRow(true, "*", row, {
+    addTableRow(true, "auto", row, {
       "text": msgLow(_settings.thresholds.bgLow, _settings.thresholds.bgTargetBottom),
       "style": "total",
       "alignment": "center",
@@ -190,13 +190,13 @@ class PrintPercentile extends BasePrint
       "alignment": "right",
       "fillColor": style == "total" ? colNormLow : null
     });
-    addTableRow(true, "*", row, {"text": msgNormal, "style": "total", "alignment": "center", "fillColor": colNorm}, {
+    addTableRow(true, "auto", row, {"text": msgNormal, "style": "total", "alignment": "center", "fillColor": colNorm}, {
       "text": "${g.fmtNumber(day.normPrz, 0)} %",
       "style": style,
       "alignment": "right",
       "fillColor": style == "total" ? colNorm : null
     });
-    addTableRow(true, "*", row, {
+    addTableRow(true, "auto", row, {
       "text": msgHigh(_settings.thresholds.bgTargetTop, _settings.thresholds.bgHigh),
       "style": "total",
       "alignment": "center",
@@ -207,7 +207,7 @@ class PrintPercentile extends BasePrint
       "alignment": "right",
       "fillColor": style == "total" ? colNormHigh : null
     });
-    addTableRow(true, "*", row, {
+    addTableRow(true, "auto", row, {
       "text": msgVeryHigh(_settings.thresholds.bgHigh),
       "style": "total",
       "alignment": "center",
@@ -267,11 +267,13 @@ class PrintPercentile extends BasePrint
       if (body.length == 0)body.add(tableHeadLine);
       body.add(row);
     }
-    yorg += 0.5;
 
     title = BasePrint.msgHourlyStats;
     dynamic content = [headerFooter(), getTable(tableWidths, body)];
     dynamic ret = Page(isPortrait, content);
+
+    yorg += 0.5;  // gruoner 01/04/20 moved to place table completely on one single page
+
     isPortrait = false;
     title = _title;
     return ret;
