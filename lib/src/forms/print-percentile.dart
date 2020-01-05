@@ -139,17 +139,17 @@ class PrintPercentile extends BasePrint {
     addTableRow(true, cm(wid * 100), row, {"text": msgDistribution, "style": "total", "alignment": "center"}, {
       "style": style,
       "canvas": [
-        {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * wid), "h": cm(0.45)},
-        {"type": "rect", "color": colNormLow, "x": cm(day.lowPrz * wid), "y": cm(0), "w": cm(day.bottomPrz * wid), "h": cm(0.45)},
-        {"type": "rect", "color": colNorm, "x": cm((day.lowPrz + day.bottomPrz) * wid), "y": cm(0), "w": cm(day.normPrz * wid), "h": cm(0.45)},
-        {"type": "rect", "color": colNormHigh, "x": cm((day.lowPrz + day.bottomPrz + day.normPrz) * wid), "y": cm(0), "w": cm(day.topPrz * wid), "h": cm(0.45)},
+        {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * wid), "h": cm(0.4)},
+        {"type": "rect", "color": colNormLow, "x": cm(day.lowPrz * wid), "y": cm(0), "w": cm(day.bottomPrz * wid), "h": cm(0.4)},
+        {"type": "rect", "color": colNorm, "x": cm((day.lowPrz + day.bottomPrz) * wid), "y": cm(0), "w": cm(day.normPrz * wid), "h": cm(0.4)},
+        {"type": "rect", "color": colNormHigh, "x": cm((day.lowPrz + day.bottomPrz + day.normPrz) * wid), "y": cm(0), "w": cm(day.topPrz * wid), "h": cm(0.4)},
         {
           "type": "rect",
           "color": colHigh,
           "x": cm((day.lowPrz + day.bottomPrz + day.normPrz + day.topPrz) * wid),
           "y": cm(0),
           "w": cm(day.highPrz * wid),
-          "h": cm(0.45)
+          "h": cm(0.4)
         }
       ]
     });
