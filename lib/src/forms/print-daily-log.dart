@@ -168,9 +168,9 @@ class PrintDailyLog extends BaseProfile {
       ];
 
   @override
-  void fillPages(ReportData src, List<Page> pages) async {
-    var data = src.data;
-    titleInfo = titleInfoBegEnd(src);
+  void fillPages(List<Page> pages) async {
+    var data = repData.data;
+    titleInfo = titleInfoBegEnd();
 
     lineWidth = cm(0.03);
     _y = yorg - 0.3;
@@ -179,9 +179,11 @@ class PrintDailyLog extends BaseProfile {
     tableWidths = [];
     _hasData = false;
 
+    int oldLength = pages.length;
     for (int i = 0; i < data.days.length; i++) {
       DayData day = data.days[i];
-      fillTable(day, src, pages);
+      fillTable(day, pages);
+      if (repData.isForThumbs) i = data.days.length;
     }
 
     if (_hasData) {
@@ -189,6 +191,7 @@ class PrintDailyLog extends BaseProfile {
       _page.add(getTable(tableWidths, _body));
       pages.add(Page(isPortrait, _page));
     }
+    if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
   }
 
 //  double _cellSpace = 0.11;
@@ -199,7 +202,7 @@ class PrintDailyLog extends BaseProfile {
 
   double lineHeight(int lineCount) => 2 * _cellSpace + lineCount * (_lineHeight + _cellSpace);
 
-  fillTable(DayData day, ReportData src, List<Page> pages) {
+  fillTable(DayData day, List<Page> pages) {
     _maxY = height - 2.8;
     tableHeadFilled = false;
     tableHeadLine = [];
@@ -243,7 +246,7 @@ class PrintDailyLog extends BaseProfile {
       bool wasAdded = false;
       if (groupMinutes == 0 || t.createdAt.isBefore(nextTime)) {
         wasAdded = true;
-        fillList(groupMinutes != 0, src, day, t, list, flags);
+        fillList(groupMinutes != 0, repData, day, t, list, flags);
       }
 
       if (groupMinutes == 0 || !t.createdAt.isBefore(nextTime)) {
@@ -256,7 +259,7 @@ class PrintDailyLog extends BaseProfile {
             _y += lineHeight(1);
             _isFirstLine = false;
           }
-          list = fillRow(time, src, day, row, day.findNearest(day.entries, null, time), list, flags, "row");
+          list = fillRow(time, repData, day, row, day.findNearest(day.entries, null, time), list, flags, "row");
           row = [];
           if (list.length > 0 || _y + _lineHeight >= _maxY) {
             _page.add(headerFooter());
@@ -446,11 +449,9 @@ class PrintDailyLog extends BaseProfile {
       list.add("${t.notes.replaceAll("<br>", "\n")}");
     if (showCarbs && t.carbs != null && t.carbs != 0) list.add("${msgCarbs(t.carbs.toString())}");
     if (showIE && t.insulin != null && t.insulin != 0 && !t.isSMB) {
-      if (showIESource)
-      {
+      if (showIESource) {
         String text = t.eventType;
-        switch(text)
-        {
+        switch (text) {
           case "Meal Bolus":
             text = msgMealBolus;
             break;
@@ -459,9 +460,7 @@ class PrintDailyLog extends BaseProfile {
             break;
         }
         list.add("${text} ${t.insulin} ${msgInsulinUnit}");
-      }
-      else
-      {
+      } else {
         list.add("${t.insulin} ${msgInsulinUnit}");
       }
     }
@@ -479,9 +478,9 @@ class PrintDailyLog extends BaseProfile {
     if (showTempTargets && type == ("temporary target")) {
       String target;
       if (t.targetBottom == t.targetTop)
-        target = "${g.glucFromData(t.targetBottom)} ${getGlucInfo()["unit"]}";
+        target = "${g.fmtBasal(t.targetBottom)} ${getGlucInfo()["unit"]}";
       else
-        target = "${g.glucFromData(t.targetBottom)} - ${g.glucFromData(t.targetTop)} ${getGlucInfo()["unit"]}";
+        target = "${t.targetBottom} - ${t.targetTop} ${getGlucInfo()["unit"]}";
       list.add(msgLogTempTarget(target, t.duration / 60, t.reason));
     }
     if (showChanges) {

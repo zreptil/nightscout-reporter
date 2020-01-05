@@ -221,3 +221,13 @@ login {
     width: 5%;
   }
 }
+
+material-input {
+  ::ng-deep .focused-underline {
+    background: var(--settingsHeaderBack);
+  }
+
+  ::ng-deep .focused.label-text {
+    color: var(--settingsHeaderBack);
+  }
+}

@@ -1611,7 +1611,6 @@ class DayData
             if (i < _profile.length - 2)temp.duration = _profile[i + 2]._time
               .difference(endTime)
               .inSeconds;
-            temp.transferCalcValues(last);
             temp.value = last.orgValue;
             temp.orgValue = last.orgValue;
             _profile.insert(i + 1, temp);
@@ -1909,6 +1908,7 @@ class StatisticData
 {
   double min, max;
   List<double> values = List<double>();
+  List<EntryData> entries = List<EntryData>();
   double sum = 0.0;
   double varianz = 0.0;
   double median;
@@ -1918,9 +1918,10 @@ class StatisticData
   => math.sqrt(varianz);
   StatisticData(this.min, this.max);
 
-  add(double value)
+  add(EntryData entry, double value)
   {
     values.add(value);
+    entries.add(entry);
     sum += value;
   }
 }
@@ -2068,7 +2069,7 @@ class ListData
           {
             for (String key in stat.keys)
             {
-              if (gluc >= stat[key].min && gluc < stat[key].max)stat[key].add(gluc);
+              if (gluc >= stat[key].min && gluc < stat[key].max)stat[key].add(entry, gluc);
             }
             fullCount++;
             if (gluc < min)min = entry.gluc;
@@ -2235,12 +2236,14 @@ class ReportData
   Date endDate;
   int dayCount = 0;
   List<ProfileData> profiles = List<ProfileData>();
+  UserData user = null;
   ListData ns = ListData();
   ListData calc = ListData();
   ListData get data
   => globals == null ? calc : globals.isDataSmoothing ? calc : ns;
   StatusData status;
   Globals globals;
+  bool isForThumbs = false;
 
   // get profile for a specific time
   ProfileGlucData profile(DateTime time, [List<TreatmentData> treatments = null])

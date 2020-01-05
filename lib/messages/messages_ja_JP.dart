@@ -72,95 +72,97 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m26(value) => "履歴${value}";
 
-  static m27(unit) => "インスリン効果値(ISF) 1 IUでX ${unit} の血糖値が下がる";
+  static m27(value) => "Hypos (< ${value})";
 
-  static m28(value) => "${value}g";
+  static m28(unit) => "インスリン効果値(ISF) 1 IUでX ${unit} の血糖値が下がる";
 
-  static m29(value) => "g CH (${value} BU)";
+  static m29(value) => "${value}g";
 
-  static m30(value) => "総インスリン量(${value})";
+  static m30(value) => "g CH (${value} BU)";
 
-  static m31(error, stacktrace) => "データ取得エラー:${error}${stacktrace}";
+  static m31(value) => "総インスリン量(${value})";
 
-  static m32(date) => "データを${date} より取得しています…";
+  static m32(error, stacktrace) => "データ取得エラー:${error}${stacktrace}";
 
-  static m33(insulin, unit) => "SMB${insulin}${unit}";
+  static m33(date) => "データを${date} より取得しています…";
 
-  static m34(percent, duration) => "一時基礎料${percent}%/${duration} 分";
+  static m34(insulin, unit) => "SMB${insulin}${unit}";
 
-  static m35(target, duration, reason) => "目標範囲${target}、${duration} 分、理由：${reason}";
+  static m35(percent, duration) => "一時基礎料${percent}%/${duration} 分";
 
-  static m36(value) => "低血糖${value}";
+  static m36(target, duration, reason) => "目標範囲${target}、${duration} 分、理由：${reason}";
 
-  static m37(gluc, unit) => "血糖値${gluc}${unit}";
+  static m37(value) => "低血糖${value}";
 
-  static m38(unit, value) => "平均血糖値[${unit}]";
+  static m38(gluc, unit) => "血糖値${gluc}${unit}";
 
-  static m39(hba1c) => "指定期間の平均血糖値";
+  static m39(unit, value) => "平均血糖値[${unit}]";
 
-  static m40(min, max) => "不良 (${min} to ${max})";
+  static m40(hba1c) => "指定期間の平均血糖値";
 
-  static m41(min, max) => "良好 (${min} to ${max})";
+  static m41(min, max) => "不良 (${min} to ${max})";
 
-  static m42(max) => "とても悪い ( ${max} 超)";
+  static m42(min, max) => "良好 (${min} to ${max})";
 
-  static m43(min) => "優秀(${min} 未満)";
+  static m43(max) => "とても悪い ( ${max} 超)";
 
-  static m44(oldName, newName) => "プロフィール変更 - ${oldName} => ${newName}";
+  static m44(min) => "優秀(${min} 未満)";
 
-  static m45(oldName, newName, duration) => "プロフィール変更 - ${oldName} => ${newName} から ${duration} 分";
+  static m45(oldName, newName) => "プロフィール変更 - ${oldName} => ${newName}";
 
-  static m46(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/分', other: '${fmt}分毎にデータ')}";
+  static m46(oldName, newName, duration) => "プロフィール変更 - ${oldName} => ${newName} から ${duration} 分";
 
-  static m47(howMany, fmt) => "${Intl.plural(howMany, zero: '値がありません', one: '1日あたり１データ', other: '1日あたり${fmt}データ')}";
+  static m47(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/分', other: '${fmt}分毎にデータ')}";
 
-  static m48(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/時間', other: '${fmt} 件のデータ/時間')}";
+  static m48(howMany, fmt) => "${Intl.plural(howMany, zero: '値がありません', one: '1日あたり１データ', other: '1日あたり${fmt}データ')}";
 
-  static m49(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/リザーバー)', other: '(${txt} 日間/リザーバー)')}";
+  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/時間', other: '${fmt} 件のデータ/時間')}";
 
-  static m50(value) => "SMB(${value})";
+  static m50(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/リザーバー)', other: '(${txt} 日間/リザーバー)')}";
 
-  static m51(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/センサー)', other: '(${txt} 日間/センサー)')}";
+  static m51(value) => "SMB(${value})";
 
-  static m52(value) => "(標準偏差 ${value})";
+  static m52(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/センサー)', other: '(${txt} 日間/センサー)')}";
 
-  static m53(value) => "ToR [${value}min/d]";
+  static m53(value) => "(標準偏差 ${value})";
 
-  static m54(min, max) => "1日あたりの目標範囲外の時間${min} から${max}。";
+  static m54(value) => "ToR [${value}min/d]";
 
-  static m55(unit) => "血糖値目標範囲${unit}";
+  static m55(min, max) => "1日あたりの目標範囲外の時間${min} から${max}。";
 
-  static m56(min, max, units) => "目標範囲(${min} - ${max} ${units})";
+  static m56(unit) => "血糖値目標範囲${unit}";
 
-  static m57(value) => "目標値";
+  static m57(min, max, units) => "目標範囲(${min} - ${max} ${units})";
 
-  static m58(time) => "${time}";
+  static m58(value) => "目標値";
 
-  static m59(time) => "午前${time}";
+  static m59(time) => "${time}";
 
-  static m60(time) => "午後${time}";
+  static m60(time) => "午前${time}";
 
-  static m61(begDate) => "${begDate} から有効";
+  static m61(time) => "午後${time}";
 
-  static m62(begDate, endDate) => "${begDate} から${endDate} まで有効";
+  static m62(begDate) => "${begDate} から有効";
 
-  static m63(endDate) => "${endDate} まで有効";
+  static m63(begDate, endDate) => "${begDate} から${endDate} まで有効";
 
-  static m64(high) => "${high} を超えた値";
+  static m64(endDate) => "${endDate} まで有効";
 
-  static m65(low) => "${low} 未満の値";
+  static m65(high) => "${high} を超えた値";
 
-  static m66(low, high) => "${low} から${high} の値";
+  static m66(low) => "${low} 未満の値";
 
-  static m67(low, high) => "目標範囲 (${low} - ${high})";
+  static m67(low, high) => "${low} から${high} の値";
 
-  static m68(value) => "高い値 (${value})";
+  static m68(low, high) => "目標範囲 (${low} - ${high})";
 
-  static m69(value) => "低い値 (${value})";
+  static m69(value) => "高い値 (${value})";
 
-  static m70(value) => "非常に高い ( > ${value})";
+  static m70(value) => "低い値 (${value})";
 
-  static m71(value) => "非常に低い値 (< ${value})";
+  static m71(value) => "非常に高い ( > ${value})";
+
+  static m72(value) => "非常に低い値 (< ${value})";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -193,7 +195,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "1.3.3 - 12.09.2019" : MessageLookupByLibrary.simpleMessage("1.3.3 - 2019/09/12"),
     "1.3.4 - 17.09.2019" : MessageLookupByLibrary.simpleMessage("1.3.4 - 2019/09/17"),
     "1.3.5 - 23.09.2019" : MessageLookupByLibrary.simpleMessage("1.3.5 ‐ 2019/09/23"),
-    "1.3.6 - xx.11.2019" : MessageLookupByLibrary.simpleMessage("1.3.6 - xx/11/2019"),
+    "1.3.6 - 18.12.2019" : MessageLookupByLibrary.simpleMessage("1.3.6 - 18/12/2019"),
     "10% - 90% der Werte" : MessageLookupByLibrary.simpleMessage("値の10% - 90%"),
     "15 Minuten" : MessageLookupByLibrary.simpleMessage("15 分"),
     "2,1 bis 3,0" : MessageLookupByLibrary.simpleMessage("2,1 ～ 3,0"),
@@ -219,6 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Anzahl Katheterwechsel" : MessageLookupByLibrary.simpleMessage("注入場所変更回数"),
     "Anzahl Messungen" : MessageLookupByLibrary.simpleMessage("値数"),
     "Anzahl Sensorenwechsel" : MessageLookupByLibrary.simpleMessage("センサー変更回数"),
+    "Anzahl Unterzuckerungen" : MessageLookupByLibrary.simpleMessage("Number of Hypos"),
     "Anzahl der Sensoren zur Analyse hinzugefügt" : MessageLookupByLibrary.simpleMessage("分析へのセンサー数追加"),
     "Anzeigeeinstellungen" : MessageLookupByLibrary.simpleMessage("画面設定"),
     "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen." : MessageLookupByLibrary.simpleMessage("このような外部ツールが10beに接続できるようにする為には、10beの設定で”cros”のチェックボックスをオンにする必要があります。；"),
@@ -244,6 +247,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Batteriewechsel" : MessageLookupByLibrary.simpleMessage("電池交換"),
     "Behandlungen" : MessageLookupByLibrary.simpleMessage("トリートメント"),
     "Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren." : MessageLookupByLibrary.simpleMessage("デイリーグラフとウィークリーグラフで1枚のPDFに複数の画像を表示できるようになりました。（1枚・2枚・4枚・8枚・16枚）"),
+    "Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden." : MessageLookupByLibrary.simpleMessage("In the analysis, an area can now be displayed, showing the number of hypos in the selected period and the time of the last hypo."),
+    "Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel." : MessageLookupByLibrary.simpleMessage("With the basalrate and the profile, there is now an option to have only the last one printed in the corresponding period. This reduces the number of pages with frequent profile changes."),
     "Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt" : MessageLookupByLibrary.simpleMessage("追加データは炭水化物の計算に利用されます"),
     "Beim Auslesen des Profils ist ein Fehler aufgetreten." : MessageLookupByLibrary.simpleMessage("プロファイル読み込み中にエラーが発生しました。"),
     "Beim CGP werden die aktuellen Werte jetzt in der Legende angezeigt." : MessageLookupByLibrary.simpleMessage("The CGP now displays the current values in the legend."),
@@ -269,7 +274,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "CGP" : MessageLookupByLibrary.simpleMessage("CGP"),
     "Comprehensive Glucose Pentagon" : MessageLookupByLibrary.simpleMessage("グルコース総合グラフ"),
     "Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:" : MessageLookupByLibrary.simpleMessage("以下の文章はヨーロッパDSGVOに順守しています。又、このテキストはドイツ語のみで利用可能です。："),
-    "Darstellung" : MessageLookupByLibrary.simpleMessage("Display theme"),
     "Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben." : MessageLookupByLibrary.simpleMessage("「グルコース総合グラフ」をデイリーチャートとウィークリーチャートに別ページとして追加しました。このグラフは５つの要素を表しており、各要素を比較して治療の質を決定できます。印刷出力では出力している各レポートの追加ページとして出力されます。"),
     "Das Anklicken des Nachrichtenbereichs schliesst diesen nicht mehr." : MessageLookupByLibrary.simpleMessage("メッセージエリアをクリックしても、ページが閉じなくなりました。"),
     "Das Control für die Eingabe des Zeitraums wurde angepasst, damit es auf schmalen Display auch korrekt dargestellt wird." : MessageLookupByLibrary.simpleMessage("期間選択の選択画面が、狭いディスプレイで正しく表示されるように調整しました。"),
@@ -327,7 +331,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Die Mischung von zwei Seiten auf einer PDF-Seite, die manchmal vorkam, wurde behoben." : MessageLookupByLibrary.simpleMessage("1つのPDFページに2ページ混在することがありましたが修正しました。"),
     "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun hier zu finden:" : MessageLookupByLibrary.simpleMessage("ベータ機能の予定は削除されました。ベータバージョンは現在こちらから利用可能です。："),
     "Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird" : MessageLookupByLibrary.simpleMessage("ユーザー名とユーザーのURLが直接表示されるようになった為、タイトルバーにURLを表示する機能は削除されました。"),
-    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik." : MessageLookupByLibrary.simpleMessage("The UI can now be displayed in different representations. These show themselves at the moment by different colours and a changed icon in the Browser tab and when loading the site. This does not affect the generated PDF files. It\'s the preparation for a partially customizable surface. The theme of the presentation is set by default by the system, which currently means that a Christmas theme will be displayed in December. However, this can also be overridden in the Display settings section in the settings. The representation Standard corresponds to the previous colour scheme. Automatic means that the theme is determined by the system. At the moment this means the Christmas presentation in December. However, there may be other criteria in the future that will be used to adjust the theme. The direct definition of a theme in the settings will always take precedence over the system logic."),
+    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik." : MessageLookupByLibrary.simpleMessage("The UI can now assume different representations. These show themselves at the moment by different colours and an adapted icon in the Browser tab and with the loading of the side. This does not affect the generated PDF files. It\'s the preparation for a partially customizable surface. The theme of the UI is set by default by the system, which currently means that a Christmas theme will be displayed in December. But this can be changed by clicking on the icon, which can be seen at the bottom left. When clicking the icon, an area with the available themes is displayed to the right of the icon. The first icon (the little wizard) means that the theme is determined by the system. At the moment this means the Christmas presentation in December. However, there may be other criteria in the future that will be used to adjust the theme. However, the direct definition of a theme with one of the other icons always takes precedence over the system logic."),
     "Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle." : MessageLookupByLibrary.simpleMessage("デイリーグラフのポンプ履歴の表示位置は、時間近くに表示されるように修正しました。短くグラフの下部に表示し、値と重なりません。"),
     "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein." : MessageLookupByLibrary.simpleMessage("The profiles for the period were partially incorrectly identified. That should be fixed."),
     "Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen." : MessageLookupByLibrary.simpleMessage("プロフィールページでは24時間のエントリーが1ページに収まるように調整されています。"),
@@ -477,6 +481,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Letzte 3 Monate" : MessageLookupByLibrary.simpleMessage("3カ月"),
     "Letzte 3 Tage" : MessageLookupByLibrary.simpleMessage("3日"),
     "Letzte 3 Wochen" : MessageLookupByLibrary.simpleMessage("3週間"),
+    "Letzte Unterzuckerung" : MessageLookupByLibrary.simpleMessage("Last Hypo"),
     "Letzte Woche" : MessageLookupByLibrary.simpleMessage("１週間"),
     "Letzten Messwert in der Titelzeile anzeigen" : MessageLookupByLibrary.simpleMessage("タイトルバーに最新の血糖値を表示する"),
     "Letzter Monat" : MessageLookupByLibrary.simpleMessage("1カ月"),
@@ -484,6 +489,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)" : MessageLookupByLibrary.simpleMessage("複数のユーザーのレポートを作成できるようになりました。 複数のナイトスカウトの事例を分析するのに役立ちます(例: 医師、介護者、またはこのソフトウェアの開発者など)。"),
     "Material mit Nachkommastellen" : MessageLookupByLibrary.simpleMessage("小数点以下を表示する"),
     "Max" : MessageLookupByLibrary.simpleMessage("最大"),
+    "Max Mustermann" : MessageLookupByLibrary.simpleMessage("John Smith"),
     "Median" : MessageLookupByLibrary.simpleMessage("中央値"),
     "Mehr gibt es dazu eigentlich nicht zu sagen." : MessageLookupByLibrary.simpleMessage("何もありません。"),
     "Mess-\nwerte" : MessageLookupByLibrary.simpleMessage("値"),
@@ -511,6 +517,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Notiz" : MessageLookupByLibrary.simpleMessage("ノート"),
     "Notiz-Linien bis zur Kurve zeichnen" : MessageLookupByLibrary.simpleMessage("ノートから血糖値カーブまで線を引く"),
     "Notizen" : MessageLookupByLibrary.simpleMessage("ポンプ履歴"),
+    "Nur letzte Basalrate ausgeben" : MessageLookupByLibrary.simpleMessage("Show only last basalrate"),
+    "Nur letztes Profil ausgeben" : MessageLookupByLibrary.simpleMessage("Show only last profile"),
     "Ok" : MessageLookupByLibrary.simpleMessage("OK"),
     "Optionen für die PDFs, die eine eindeutige Beziehung zu einem laufenden Loop haben, werden nun in Blau dargestellt. Das vereinfacht es, PDFs zu erstellen, denen man nicht ohne Weiteres entnehmen kann, dass ein Loop vorliegt. Dazu müssen nur die Haken bei den blauen Optionen entfernt werden." : MessageLookupByLibrary.simpleMessage("Options for the PDFs that have a unique relationship to a running loop are now displayed in blue. This makes it easy to create PDFs where you can not easily deduce that there is a loop running. All you have to do is to uncheck the blue options."),
     "PDF anzeigen" : MessageLookupByLibrary.simpleMessage("PDFを開く"),
@@ -585,6 +593,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Uhr-\nzeit" : MessageLookupByLibrary.simpleMessage("時間"),
     "Uhrzeit" : MessageLookupByLibrary.simpleMessage("時間"),
     "Unbegrenzt" : MessageLookupByLibrary.simpleMessage("無制限"),
+    "Unterzuckerungen anzeigen" : MessageLookupByLibrary.simpleMessage("Show hypoglycemia"),
     "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)" : MessageLookupByLibrary.simpleMessage("NightscoutのURL(例：https://xxx.herokuapp.com)"),
     "User-Token" : MessageLookupByLibrary.simpleMessage("ユーザートークン"),
     "VarK\nin %" : MessageLookupByLibrary.simpleMessage("CV in %"),
@@ -668,51 +677,52 @@ class MessageLookup extends MessageLookupByLibrary {
     "msgHYPOInfo" : m24,
     "msgHigh" : m25,
     "msgHistorical" : m26,
-    "msgISF" : m27,
-    "msgKH" : m28,
-    "msgKHBE" : m29,
-    "msgLegendTDD" : m30,
-    "msgLoadingData" : m31,
-    "msgLoadingDataFor" : m32,
-    "msgLogSMB" : m33,
-    "msgLogTempBasal" : m34,
-    "msgLogTempTarget" : m35,
-    "msgLow" : m36,
-    "msgMBG" : m37,
-    "msgMEAN" : m38,
-    "msgMEANInfo" : m39,
-    "msgPGSBad" : m40,
-    "msgPGSGood" : m41,
-    "msgPGSVeryBad" : m42,
-    "msgPGSVeryGood" : m43,
-    "msgProfileSwitch" : m44,
-    "msgProfileSwitchDuration" : m45,
-    "msgReadingsInMinutes" : m46,
-    "msgReadingsPerDay" : m47,
-    "msgReadingsPerHour" : m48,
-    "msgReservoirDays" : m49,
-    "msgSMBInsulin" : m50,
-    "msgSensorDays" : m51,
-    "msgStdAbw" : m52,
-    "msgTOR" : m53,
-    "msgTORInfo" : m54,
-    "msgTarget" : m55,
-    "msgTargetArea" : m56,
-    "msgTargetValue" : m57,
-    "msgTimeOfDay24" : m58,
-    "msgTimeOfDayAM" : m59,
-    "msgTimeOfDayPM" : m60,
-    "msgValidFrom" : m61,
-    "msgValidRange" : m62,
-    "msgValidTo" : m63,
-    "msgValuesAbove" : m64,
-    "msgValuesBelow" : m65,
-    "msgValuesIn" : m66,
-    "msgValuesNorm" : m67,
-    "msgValuesNormHigh" : m68,
-    "msgValuesNormLow" : m69,
-    "msgValuesVeryHigh" : m70,
-    "msgValuesVeryLow" : m71,
+    "msgHypoTitle" : m27,
+    "msgISF" : m28,
+    "msgKH" : m29,
+    "msgKHBE" : m30,
+    "msgLegendTDD" : m31,
+    "msgLoadingData" : m32,
+    "msgLoadingDataFor" : m33,
+    "msgLogSMB" : m34,
+    "msgLogTempBasal" : m35,
+    "msgLogTempTarget" : m36,
+    "msgLow" : m37,
+    "msgMBG" : m38,
+    "msgMEAN" : m39,
+    "msgMEANInfo" : m40,
+    "msgPGSBad" : m41,
+    "msgPGSGood" : m42,
+    "msgPGSVeryBad" : m43,
+    "msgPGSVeryGood" : m44,
+    "msgProfileSwitch" : m45,
+    "msgProfileSwitchDuration" : m46,
+    "msgReadingsInMinutes" : m47,
+    "msgReadingsPerDay" : m48,
+    "msgReadingsPerHour" : m49,
+    "msgReservoirDays" : m50,
+    "msgSMBInsulin" : m51,
+    "msgSensorDays" : m52,
+    "msgStdAbw" : m53,
+    "msgTOR" : m54,
+    "msgTORInfo" : m55,
+    "msgTarget" : m56,
+    "msgTargetArea" : m57,
+    "msgTargetValue" : m58,
+    "msgTimeOfDay24" : m59,
+    "msgTimeOfDayAM" : m60,
+    "msgTimeOfDayPM" : m61,
+    "msgValidFrom" : m62,
+    "msgValidRange" : m63,
+    "msgValidTo" : m64,
+    "msgValuesAbove" : m65,
+    "msgValuesBelow" : m66,
+    "msgValuesIn" : m67,
+    "msgValuesNorm" : m68,
+    "msgValuesNormHigh" : m69,
+    "msgValuesNormLow" : m70,
+    "msgValuesVeryHigh" : m71,
+    "msgValuesVeryLow" : m72,
     "ok" : MessageLookupByLibrary.simpleMessage("ok"),
     "sehr geringes Risiko" : MessageLookupByLibrary.simpleMessage("とてもリスクが少ない"),
     "tl;dr" : MessageLookupByLibrary.simpleMessage("tl;dr"),

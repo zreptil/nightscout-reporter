@@ -423,18 +423,60 @@ material-drawer {
 }
 
 material-fab.debug-trigger {
-  position: fixed;
-  bottom: 1.0em;
-  left: 5.0em;
   background: $debug_back !important;
   color: $mat-white;
 }
 
-img.logo {
+.themePanel {
+  display: flex;
+  flex-direction: row;
   position: fixed;
+  bottom: 0.75em;
+  left: 4em;
+  overflow: hidden;
+  justify-content: flex-end;
+
+  .logo {
+    height: 90%;
+  }
+}
+
+@keyframes showthemes {
+  0% {width: 0em;}
+  10% {width: 0em;}
+  90% {width: 10.5em;}
+  100% {width: 9.5em;}
+}
+
+@keyframes hidethemes {
+  0% {width: 9.5em;}
+  10% {width: 10.5em;}
+  90% {width: 0em;}
+  100% {width: 0em;}
+}
+
+@keyframes showthemeslogo {
+  0% {transform: rotate(0deg);}
+  10% {transform: rotate(-30deg);}
+  90% {transform: rotate(390deg);}
+  100% {transform: rotate(360deg);}
+}
+
+@keyframes hidethemeslogo {
+  0% {transform: rotate(360deg);}
+  10% {transform: rotate(390deg);}
+  90% {transform: rotate(-30deg);}
+  100% {transform: rotate(0deg);}
+}
+
+.owllogo {
+  position: fixed !important;
   bottom: 0.5em;
   left: 1em;
-  height: 48px;
+
+  img {
+    height: 90%;
+  }
 }
 
 signin {
@@ -483,7 +525,7 @@ nav a {
 .material-navigation {
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .normal-content {
@@ -826,7 +868,7 @@ datepicker {
   color: var(--primaryBack);
   background: var(--primaryFore);
   text-shadow: none;
-  border-radius: 0.75em!important;
+  border-radius: 0.75em !important;
   border: 2px solid var(--secondaryBack);
 
   pre {

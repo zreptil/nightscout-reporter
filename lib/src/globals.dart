@@ -66,10 +66,12 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = "1.3.6ßd";
+  String version = "1.3.7";
   static String get msgThemeAuto => Intl.message("Automatisch", meaning: "theme selection - automatic");
   static String get msgThemeStandard => Intl.message("Standard", meaning: "theme selection - standard");
   static String get msgThemeXmas => Intl.message("Weihnachten", meaning: "theme selection - christmas");
+  String get msgUnitMGDL => Intl.message("mg/dL");
+  String get msgUnitMMOL => Intl.message("mmol/L");
 
   int timestamp = 0;
   static bool itod = html.window.localStorage["unsafe"] != "zh++;";
@@ -95,11 +97,10 @@ class Settings {
   bool get runsLocal => html.window.location.href.contains("/localhost:");
   bool _isLocal = html.window.location.href.contains("/localhost:");
   bool get isLocal => _isLocal;
-  Map<String, String> themeList = Map<String, String>.unmodifiable({
-    null: msgThemeAuto,
-    "standard": msgThemeStandard,
-    "xmas": msgThemeXmas
-  });
+  bool _showBothUnits = false;
+  bool get showBothUnits => _showBothUnits;
+  Map<String, String> themeList =
+      Map<String, String>.unmodifiable({null: msgThemeAuto, "standard": msgThemeStandard, "xmas": msgThemeXmas});
 
   String _theme = null;
   String get themeName => themeList[_theme];
@@ -120,6 +121,10 @@ class Settings {
 
   set isLocal(value) {
     _isLocal = value;
+  }
+
+  set showBothUnits(value) {
+    _showBothUnits = value;
   }
 
   var doShowDebug = null;
@@ -307,6 +312,8 @@ class Settings {
 //          saveStorage("mu", null);
         }
       }
+      userList.sort((a, b)
+      => a.display.compareTo(b.display));
       userIdx = JsonData.toInt(cfg["userIdx"]);
     } catch (ex) {
 //      String msg = ex.toString();
@@ -486,7 +493,6 @@ class Globals extends Settings {
   double get glucFactor => glucMGDL ? 1 : 18.02;
   double get glucPrecision => glucMGDL ? 0 : 2;
 
-  bool get showBothUnits => false;
   String get settingsFilename => "nr-settings";
   gd.File settingsFile = null;
 
@@ -580,10 +586,6 @@ class Globals extends Settings {
       html.window.location.href = html.window.location.href.substring(0, pos - 1);
     else
       html.window.location.reload();
-  }
-
-  addForm(BasePrint form) {
-    listConfig.add(FormConfig(form, false));
   }
 
   void clearStorage() {
@@ -941,6 +943,8 @@ class UserData {
 
   UserData(this.g);
 
+  static String get modelName => Intl.message("Max Mustermann", desc: "modelname used in images on tiles");
+
   String get display {
     return name.isEmpty ? storageApiUrl : name;
   }
@@ -999,7 +1003,7 @@ class UserData {
   }
 
   String urlForData(DateTime begDate, DateTime endDate) {
-    return "${g.user.apiUrl}entries.json?find[date][\$gte]=${begDate.millisecondsSinceEpoch}&find[date][\$lte]=${endDate.millisecondsSinceEpoch}&count=100000";
+    return "${apiUrl}entries.json?find[date][\$gte]=${begDate.millisecondsSinceEpoch}&find[date][\$lte]=${endDate.millisecondsSinceEpoch}&count=100000";
   }
 
   String get reportUrl {

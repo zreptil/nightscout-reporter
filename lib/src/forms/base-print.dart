@@ -37,7 +37,7 @@ class LegendData {
     return columns.last["stack"];
   }
 
-  dynamic get asOutput => {"stack": columns};
+  dynamic get asOutput => columns.length > 0 ? {"stack": columns} : null;
 
   LegendData(this.x, this.y, this.colWidth, this.maxLines);
 }
@@ -47,14 +47,23 @@ enum ParamType { none, bool, string, int, list }
 class ParamInfo {
   ParamType type = ParamType.none;
   String title;
-  bool boolValue;
+  bool _boolValue;
+  String _stringValue;
+  int _intValue;
+  List<String> _list;
+  bool isForThumbs = false;
+  bool get boolValue => isForThumbs ? thumbValue : _boolValue;
+  String get stringValue => isForThumbs ? thumbValue : _stringValue;
+  int get intValue => isForThumbs ? thumbValue : _intValue;
+  set boolValue(value) => _boolValue = value;
+  set intValue(value) => _intValue = value;
+  set stringValue(value) => _stringValue = value;
+  var thumbValue;
   bool isDeprecated;
   bool isLoopValue;
-  String stringValue;
-  int intValue;
   int get sliderValue => intValue >= min && intValue <= max ? intValue : min;
   set sliderValue(int value) {
-    intValue = value;
+    _intValue = value;
   }
 
   List<String> list;
@@ -70,19 +79,35 @@ class ParamInfo {
   int sort;
 
   ParamInfo(this.sort, this.title,
-      {this.boolValue = null,
-      this.stringValue = null,
-      this.intValue = null,
+      {bool boolValue = null,
+      String stringValue = null,
+      int intValue = null,
       this.min = null,
       this.max = null,
       this.list = null,
       this.subParams = null,
       this.isDeprecated = false,
-      this.isLoopValue = false}) {
-    if (boolValue != null) type = ParamType.bool;
-    if (stringValue != null) type = ParamType.string;
-    if (intValue != null) type = ParamType.int;
-    if (list != null) type = ParamType.list;
+      this.isLoopValue = false,
+      this.thumbValue = null}) {
+    _boolValue = boolValue;
+    _intValue = intValue;
+    _stringValue = stringValue;
+    if (boolValue != null) {
+      type = ParamType.bool;
+      thumbValue ??= boolValue;
+    }
+    if (stringValue != null) {
+      type = ParamType.string;
+      thumbValue ??= stringValue;
+    }
+    if (intValue != null) {
+      type = ParamType.int;
+      thumbValue ??= intValue;
+    }
+    if (list != null) {
+      type = ParamType.list;
+      thumbValue ??= 0;
+    }
   }
 
   dynamic get asJson {
@@ -94,9 +119,9 @@ class ParamInfo {
   }
 
   fill(ParamInfo src) {
-    boolValue = src.boolValue;
-    stringValue = src.stringValue;
-    intValue = src.intValue;
+    _boolValue = src.boolValue;
+    _stringValue = src.stringValue;
+    _intValue = src.intValue;
     subParams = src.subParams;
   }
 
@@ -104,14 +129,14 @@ class ParamInfo {
     try {
       switch (type) {
         case ParamType.bool:
-          boolValue = value["b"] ?? false;
+          _boolValue = value["b"] ?? false;
           break;
         case ParamType.string:
-          stringValue = value["s"] ?? "";
+          _stringValue = value["s"] ?? "";
           break;
         case ParamType.int:
         case ParamType.list:
-          intValue = value["i"] ?? 0;
+          _intValue = value["i"] ?? 0;
           break;
         default:
           break;
@@ -439,6 +464,7 @@ abstract class BasePrint {
   get msgTotal => Intl.message("Ges.");
   get msgTimeShort => Intl.message("Uhr-\nzeit");
   get msgTime => Intl.message("Uhrzeit");
+  get msgIEHr => Intl.message("IE/std");
   get msgSum => Intl.message("Summe");
   static String get msgOutput => Intl.message("Ausgabe");
   static String get msgGraphic => Intl.message("Grafik");
@@ -580,9 +606,6 @@ abstract class BasePrint {
   }
 
   msgHistorical(value) => Intl.message("Historisch ${value}", args: [value], name: "msgHistorical");
-
-  String get msgUnitMGDL => Intl.message("mg/dL");
-  String get msgUnitMMOL => Intl.message("mmol/L");
 
   String titleInfoForDates(DateTime startDate, DateTime endDate) {
     String ret;
@@ -726,13 +749,13 @@ abstract class BasePrint {
     // footer
     if (skipFooter) return ret;
     String rightText = "";
-    if (g.user.name.isEmpty) {
-      if (!g.user.birthDate.isEmpty) rightText = "*${g.user.birthDate}";
+    if (repData.user.name.isEmpty) {
+      if (!repData.user.birthDate.isEmpty) rightText = "*${repData.user.birthDate}";
     } else {
-      if (!g.user.birthDate.isEmpty)
-        rightText = "${g.user.name}, *${g.user.birthDate}";
+      if (!repData.user.birthDate.isEmpty)
+        rightText = "${repData.user.name}, *${repData.user.birthDate}";
       else
-        rightText = g.user.name;
+        rightText = repData.user.name;
     }
 
     stack.addAll([
@@ -850,8 +873,10 @@ abstract class BasePrint {
     return "";
   }
 
-  String titleInfoBegEnd(ReportData src) {
-    return titleInfoDateRange(src.begDate, src.endDate);
+  ReportData repData;
+
+  String titleInfoBegEnd() {
+    return titleInfoDateRange(repData.begDate, repData.endDate);
   }
 
   String titleInfoDateRange(Date begDate, Date endDate, {withTime: false}) {
@@ -913,7 +938,7 @@ abstract class BasePrint {
     return src.dayCount > 0 && src.data.count > 0;
   }
 
-  Page getEmptyForm(bool isPortrait, ReportData data) {
+  Page getEmptyForm(bool isPortrait) {
     return Page(isPortrait, [
       headerFooter(),
       {
@@ -948,6 +973,7 @@ abstract class BasePrint {
   }
 
   Future<List<Page>> getFormPages(ReportData data, int currentSize) async {
+    this.repData = data;
     m0 = [cm(0), cm(0), cm(0), cm(0)];
     for (String id in imgList) {
       try {
@@ -957,10 +983,12 @@ abstract class BasePrint {
       }
     }
 
-    if (!hasData(data)) return [getEmptyForm(isPortrait, data)];
+    if (!hasData(data)) return [getEmptyForm(isPortrait)];
 
     List<Page> ret = List<Page>();
+    for (ParamInfo param in params) param.isForThumbs = data.isForThumbs;
     extractParams();
+    for (ParamInfo param in params) param.isForThumbs = false;
     var d = data;
     _pages.clear();
     _fileSize = currentSize;
@@ -997,7 +1025,7 @@ abstract class BasePrint {
       }
       offsetX = 0.0;
       offsetY = 0.0;
-      await fillPages(d, _pages);
+      await fillPages(_pages);
       int column = 0;
       int row = 0;
       for (int i = 0; i < _pages.length; i++) {
@@ -1073,7 +1101,7 @@ abstract class BasePrint {
     return ret;
   }
 
-  void fillPages(ReportData src, List<Page> pages);
+  void fillPages(List<Page> pages);
 
   double mm(pt) {
     return pt / 0.35277;
@@ -1201,8 +1229,8 @@ abstract class BasePrint {
   }
 
   getGlucInfo() {
-    var ret = {"step": 1, "unit": msgUnitMGDL};
-    if (!g.glucMGDL) ret = {"step": 0.1, "unit": msgUnitMMOL};
+    var ret = {"step": 1, "unit": g.msgUnitMGDL};
+    if (!g.glucMGDL) ret = {"step": 0.1, "unit": g.msgUnitMMOL};
     ret["factor"] = g.glucFactor;
     return ret;
   }
@@ -1316,12 +1344,13 @@ abstract class BasePrint {
     return ret;
   }
 
-  Page getCGPPage(var dayList, ReportData src) {
+  Page getCGPPage(var dayList) {
     PrintCGP cgpPage = PrintCGP();
+    cgpPage.repData = repData;
     cgpPage.scale = scale;
     title = cgpPage.title;
     subtitle = cgpPage.subtitle;
-    var cgpSrc = cgpPage.calcCGP(src, dayList, 1.0, 0, 0.3);
+    var cgpSrc = cgpPage.calcCGP(dayList, 1.0, 0, 0.3);
     PentagonData cgp = cgpSrc["cgp"];
     footerTextAboveLine = cgpPage.footerTextAboveLine;
     footerTextAboveLine["y"] = 0.9;

@@ -15,6 +15,10 @@
             <div *ngIf="g.isLocal">Lokal</div>
             <div *ngIf="!g.isLocal">Vorschau</div>
           </material-button>
+          <material-button class="localTitle" *ngIf="g.isLocal" (trigger)="g.showBothUnits = !g.showBothUnits">
+            <div *ngIf="!g.showBothUnits">{{g.glucMGDL?g.msgUnitMGDL:g.msgUnitMMOL}}</div>
+            <div *ngIf="g.showBothUnits">{{g.msgUnitMGDL}}<br/>{{g.msgUnitMMOL}}</div>
+          </material-button>
           <div class="versionText">{{g.version}}</div>
           <div class="subtitle" *ngIf="currPage=='impressum'">{{msgImpressum}}</div>
           <div class="subtitle" *ngIf="currPage=='dsgvo'">{{msgDSGVO}}</div>
@@ -62,6 +66,14 @@
         <a *ngIf="!g.showCurrentGluc" href="http://www.nightscout.info/" target="_blank">#WeAreNotWaiting</a>
         <material-button icon class="is-local" *ngIf="g.isLocal" (trigger)="g.showInfo=!g.showInfo">
           <material-icon icon="help_outline"></material-icon>
+        </material-button>
+        <material-fab mini class="debug-trigger" *ngIf="g.canDebug && currPage=='normal'"
+                      (trigger)="reportData=null;isDebug=!isDebug;checkPrint();">
+          <material-icon icon="bug_report"></material-icon>
+        </material-fab>
+        <material-button icon class="is-local" *ngIf="g.isLocal && currPage=='normal' && tileParams==null"
+                         (trigger)="createThumbs();">
+          <material-icon icon="burst_mode"></material-icon>
         </material-button>
       </nav>
     </div>
@@ -202,13 +214,17 @@
               <material-icon icon="more_vert"></material-icon>
             </div>
             <div *ngIf="!g.tileShowImage" title>{{cfg.form.display}}</div>
-            <div pages *ngIf="cfg.checked && (!g.tileShowImage || !cfg.form.isPortraitParam)">{{cfg.form.pageCountDisplay(reportData==null)}}</div>
-            <div pagesportrait *ngIf="cfg.checked && g.tileShowImage && cfg.form.isPortraitParam">{{cfg.form.pageCountDisplay(reportData==null)}}</div>
+            <div pages *ngIf="cfg.checked && (!g.tileShowImage || !cfg.form.isPortraitParam)">
+              {{cfg.form.pageCountDisplay(reportData==null)}}
+            </div>
+            <div pagesportrait *ngIf="cfg.checked && g.tileShowImage && cfg.form.isPortraitParam">
+              {{cfg.form.pageCountDisplay(reportData==null)}}
+            </div>
           </div>
         </template>
       </div>
     </div>
-    <div *ngIf="currPage=='normal'||currPage=='pdfList'" [class]="classForView('sendPanel')">
+    <div *ngIf="(currPage=='normal'||currPage=='pdfList')&&tileParams==null" [class]="classForView('sendPanel')">
       <material-fab *ngIf="sendIcon=='send'&&!sendDisabled"
                     [raised]="false"
                     [class]="sendClass(2,'shift2')"
@@ -238,11 +254,16 @@
         <material-icon [icon]="createIcon"></material-icon>
       </material-fab>
     </div>
-    <material-fab mini class="debug-trigger" *ngIf="g.canDebug && currPage=='normal'"
-                  (trigger)="reportData=null;isDebug=!isDebug;checkPrint();">
-      <material-icon icon="bug_report"></material-icon>
+    <div class="themePanel" [style]="themeStyle" *ngIf="currPage=='normal'">
+      <material-fab mini class="" *ngFor="let item of g.themeList.keys; let idx = index"
+                    (trigger)="toggleThemePanel(item);">
+        <img class="logo" src="packages/nightscout_reporter/assets/themes/wizard.png" *ngIf="item==null">
+        <img class="logo" src="packages/nightscout_reporter/assets/themes/{{item}}/owl.png" *ngIf="item!=null">
+      </material-fab>
+    </div>
+    <material-fab class="owllogo" (trigger)="toggleThemePanel('')" [style]="logoStyle">
+      <img src="packages/nightscout_reporter/assets/themes/{{g.theme}}/owl.png">
     </material-fab>
-    <img class="logo" src="packages/nightscout_reporter/assets/themes/{{g.theme}}/owl.png">
   </material-content>
   <material-drawer scrollable persistent #drawer="drawer" [(visible)]="drawerVisible" [attr.overlay]="">
     <div class="drawer-root">
