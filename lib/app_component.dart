@@ -45,61 +45,64 @@ import 'src/whatsnew/whatsnew_component.dart';
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
 
-class PdfData {
+class PdfData
+{
   String pdf;
   bool isPrinted = false;
 
   PdfData(this.pdf);
 }
 
-@Component(
-    selector: 'my-app',
-    styleUrls: ['app_component.css', 'package:angular_components/app_layout/layout.scss.css'],
-    templateUrl: 'app_component.html',
-    directives: [
-      DatepickerComponent,
-      FormparamsComponent,
-      MaterialDateRangePickerComponent,
-      MaterialCheckboxComponent,
-      MaterialExpansionPanel,
-      MaterialFabComponent,
-      MaterialIconComponent,
-      MaterialPersistentDrawerDirective,
-      MaterialButtonComponent,
-      DeferredContentDirective,
-      MaterialDropdownSelectComponent,
-      MaterialSelectItemComponent,
-      MaterialSliderComponent,
-      SettingsComponent,
-      ImpressumComponent,
-      DSGVOComponent,
-      WelcomeComponent,
-      WhatsnewComponent,
-      MaterialInputComponent,
-      MaterialProgressComponent,
-      MaterialToggleComponent,
-      MaterialDropdownSelectComponent,
-      MaterialSelectItemComponent,
-      SigninComponent,
-      NgClass,
-      NgFor,
-      NgIf,
-      NgModel,
-    ],
-    providers: const <dynamic>[
-      overlayBindings,
-      materialProviders,
-    ])
-class AppComponent implements OnInit {
-  String get timezone => globals.Globals.refTimezone;
+@Component(selector: 'my-app',
+  styleUrls: ['app_component.css', 'package:angular_components/app_layout/layout.scss.css'],
+  templateUrl: 'app_component.html',
+  directives: [
+    DatepickerComponent,
+    FormparamsComponent,
+    MaterialDateRangePickerComponent,
+    MaterialCheckboxComponent,
+    MaterialExpansionPanel,
+    MaterialFabComponent,
+    MaterialIconComponent,
+    MaterialPersistentDrawerDirective,
+    MaterialButtonComponent,
+    DeferredContentDirective,
+    MaterialDropdownSelectComponent,
+    MaterialSelectItemComponent,
+    MaterialSliderComponent,
+    SettingsComponent,
+    ImpressumComponent,
+    DSGVOComponent,
+    WelcomeComponent,
+    WhatsnewComponent,
+    MaterialInputComponent,
+    MaterialProgressComponent,
+    MaterialToggleComponent,
+    MaterialDropdownSelectComponent,
+    MaterialSelectItemComponent,
+    SigninComponent,
+    NgClass,
+    NgFor,
+    NgIf,
+    NgModel,
+  ],
+  providers: const <dynamic>[overlayBindings, materialProviders,
+  ])
+class AppComponent
+  implements OnInit
+{
+  String get timezone
+  => globals.Globals.refTimezone;
   bool paramboolValue = false;
   globals.Globals g = globals.Globals();
   bool drawerVisible = false;
   bool pdfInfoVisible = false;
   String _currPage;
   String _lastPage = "welcome";
-  String get currPage => progressText == null || progressText.isNotEmpty ? _currPage : "progress";
-  set currPage(String value) {
+  String get currPage
+  => progressText == null || progressText.isNotEmpty ? _currPage : "progress";
+  set currPage(String value)
+  {
     if (currPage != "welcome") _lastPage = currPage;
     _currPage = value;
   }
@@ -115,51 +118,74 @@ class AppComponent implements OnInit {
   String pdfDoc = null;
   FormConfig tileParams = null;
 
-  int get pdfSliderMax => Globals.PDFUNLIMITED ~/ Globals.PDFDIVIDER;
+  int get pdfSliderMax
+  => Globals.PDFUNLIMITED ~/ Globals.PDFDIVIDER;
 
   String progressText = null;
   int progressMax = 100;
   int progressValue = 0;
   String sendIcon = "send";
-  String sendClass(int shift, String ret) {
-    if (ret != "stop" &&
-        reportData != null &&
-        g.period.shiftStartBy(shift) == reportData.begDate &&
-        g.period.shiftEndBy(shift) == reportData.endDate) ret = "${ret} sendMarked";
+  String sendClass(int shift, String ret)
+  {
+    if (ret != "stop" && reportData != null && g.period.shiftStartBy(shift) == reportData.begDate &&
+      g.period.shiftEndBy(shift) == reportData.endDate) ret = "${ret} sendMarked";
     return ret;
   }
 
-  String get createIcon => isDebug && sendIcon == "send" ? "vertical_align_bottom" : sendIcon;
+  String get createIcon
+  => isDebug && sendIcon == "send" ? "vertical_align_bottom" : sendIcon;
   String pdfUrl = "";
   bool isDebug = false;
   globals.Msg message = globals.Msg();
-  String pdfFilename(idx) => "Nightscout-Reporter-${idx}.pdf";
-  String get msgCheckSetup => Intl.message("Überprüfe Zugriff auf Nightscout ...");
-  String msgLoadingData(error, stacktrace) => Intl.message("Fehler beim Laden der Daten:\n$error\n$stacktrace",
-      args: [error, stacktrace], name: "msgLoadingData");
-  String get msgLoadingDataError => Intl.message("Fehler beim Laden der Daten");
-  String msgLoadingDataFor(date) => Intl.message("Lade Daten für $date...",
-      args: [date], name: "msgLoadingDataFor", desc: "displayed when data of a day is loading");
+  String pdfFilename(idx)
+  => "Nightscout-Reporter-${idx}.pdf";
+  String get msgCheckSetup
+  => Intl.message("Überprüfe Zugriff auf Nightscout ...");
+  String msgLoadingData(error, stacktrace)
+  => Intl.message(
+    "Fehler beim Laden der Daten:\n$error\n$stacktrace", args: [error, stacktrace], name: "msgLoadingData");
+  String get msgLoadingDataError
+  => Intl.message("Fehler beim Laden der Daten");
+  String msgLoadingDataFor(date)
+  => Intl.message("Lade Daten für $date...", args: [date],
+    name: "msgLoadingDataFor",
+    desc: "displayed when data of a day is loading");
   dynamic currLang = null;
-  String get msgClose => Intl.message("Schliessen");
-  String get msgEmptyRange => Intl.message("Bitte einen Zeitraum wählen.");
-  String get msgPreparingData => Intl.message("Bereite Daten vor...",
-      desc: "text when data was received and is being prepared to be used in the report");
-  String get msgCreatingPDF => Intl.message("Erzeuge PDF...", desc: "text when pdf is being created");
-  String get msgImpressum => Intl.message("Impressum");
-  String get msgDSGVO => Intl.message("Datenschutzerklärung");
-  String get msgApply => Intl.message("ok");
-  String get msgCancel => Intl.message("verwerfen");
-  String get msgPDFCreated => Intl.message(
-      "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.");
-  String get msgPeriod => Intl.message("Zeitraum");
-  String get msgProfileError => Intl.message("Beim Auslesen des Profils ist ein Fehler aufgetreten.");
-  String get msgPDFCreationError => Intl.message("Beim Erzeugen des PDF ist ein Fehler aufgetreten.");
-  String get msgGitHubIssue => Intl.message("Problem auf GitHub melden");
-  String get msgShowPDF => Intl.message("PDF anzeigen");
-  String get msgPeriodCompare => Intl.message("Vergleich");
+  String get msgClose
+  => Intl.message("Schliessen");
+  String get msgEmptyRange
+  => Intl.message("Bitte einen Zeitraum wählen.");
+  String get msgPreparingData
+  => Intl.message(
+    "Bereite Daten vor...", desc: "text when data was received and is being prepared to be used in the report");
+  String get msgCreatingPDF
+  => Intl.message("Erzeuge PDF...", desc: "text when pdf is being created");
+  String get msgImpressum
+  => Intl.message("Impressum");
+  String get msgDSGVO
+  => Intl.message("Datenschutzerklärung");
+  String get msgApply
+  => Intl.message("ok");
+  String get msgCancel
+  => Intl.message("verwerfen");
+  String get msgPDFCreated
+  => Intl.message(
+    "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.");
+  String get msgPeriod
+  => Intl.message("Zeitraum");
+  String get msgProfileError
+  => Intl.message("Beim Auslesen des Profils ist ein Fehler aufgetreten.");
+  String get msgPDFCreationError
+  => Intl.message("Beim Erzeugen des PDF ist ein Fehler aufgetreten.");
+  String get msgGitHubIssue
+  => Intl.message("Problem auf GitHub melden");
+  String get msgShowPDF
+  => Intl.message("PDF anzeigen");
+  String get msgPeriodCompare
+  => Intl.message("Vergleich");
 
-  bool isFormVisible(BasePrint form) {
+  bool isFormVisible(BasePrint form)
+  {
     if (form.isDebugOnly && !isDebug) return false;
     if (form.isLocalOnly && !g.isLocal) return false;
     if (form.isBetaOrLocal && !(g.isBeta || g.isLocal)) return false;
@@ -171,13 +197,16 @@ class AppComponent implements OnInit {
   String currentGlucDiff = null;
   String currentGlucTime = null;
   int glucDir = 360;
-  String get currentGlucDir => glucDir < 360 ? "translate(0,2px)rotate(${glucDir}deg)" : null;
+  String get currentGlucDir
+  => glucDir < 360 ? "translate(0,2px)rotate(${glucDir}deg)" : null;
   Timer glucTimer = null;
   bool glucRunning = false;
 
   int currentGlucCounter = 0;
-  getCurrentGluc() async {
-    if (glucTimer != null) {
+  getCurrentGluc()
+  async {
+    if (glucTimer != null)
+    {
       glucTimer.cancel();
       glucTimer = null;
     }
@@ -187,48 +216,59 @@ class AppComponent implements OnInit {
     if (!g.showCurrentGluc || glucRunning) return "";
     glucRunning = true;
     String url = "${g.user.apiUrl}status.json";
-    if (!g.hasMGDL) {
+    if (!g.hasMGDL)
+    {
       String content = await g.request(url);
       StatusData status = StatusData.fromJson(json.decode(content));
       g.setGlucMGDL(status);
     }
     url = "${g.user.apiUrl}entries.json?count=2";
     List<dynamic> src = json.decode(await g.request(url));
-    if (src.length != 2) {
+    if (src.length != 2)
+    {
       currentGluc = "Keine Daten";
       currentGlucDiff = "";
       glucDir = 360;
-    } else {
-      try {
+    }
+    else
+    {
+      try
+      {
         EntryData eNow = EntryData.fromJson(src[0]);
         EntryData ePrev = EntryData.fromJson(src[1]);
-        int span = eNow.time.difference(ePrev.time).inMinutes;
+        int span = eNow.time
+          .difference(ePrev.time)
+          .inMinutes;
         glucDir = 360;
         currentGlucDiff = "";
         currentGlucTime = "";
         if (span > 15) return currentGluc;
-        int time = DateTime.now().difference(eNow.time).inMinutes;
+        int time = DateTime
+          .now()
+          .difference(eNow.time)
+          .inMinutes;
         currentGlucTime = "${time} min";
 
         currentGluc = g.fmtNumber(eNow.gluc / g.glucFactor, g.glucPrecision);
-        currentGlucDiff =
-            "${eNow.gluc > ePrev.gluc ? '+' : ''}${g.fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / g.glucFactor, g.glucPrecision)}";
+        currentGlucDiff = "${eNow.gluc > ePrev.gluc ? '+' : ''}${g.fmtNumber(
+          (eNow.gluc - ePrev.gluc) * 5 / span / g.glucFactor, g.glucPrecision)}";
         double diff = eNow.gluc - ePrev.gluc;
         int limit = 10 * span ~/ 5;
-        if (diff > limit)
-          glucDir = -90;
-        else if (diff < -limit)
-          glucDir = 90;
+        if (diff > limit)glucDir = -90;
+        else if (diff < -limit)glucDir = 90;
         else
           glucDir = 90 - ((diff + limit) / limit * 90).toInt();
-      } catch (ex) {
+      }
+      catch (ex)
+      {
         currentGluc = "?";
         currentGlucDiff = "";
         glucDir = 360;
       }
     }
 
-    if (currentGlucVisible) glucTimer = Timer(Duration(minutes: 1), () => getCurrentGluc());
+    if (currentGlucVisible) glucTimer = Timer(Duration(minutes: 1), ()
+    => getCurrentGluc());
 
     glucRunning = false;
     return currentGluc;
@@ -237,39 +277,47 @@ class AppComponent implements OnInit {
   String appTitle = "";
   bool currentGlucVisible = true;
 
-  Future<void> setTheme(String name) async{
+  Future<void> setTheme(String name)
+  async {
     String content = await g.request("packages/nightscout_reporter/assets/themes/${name}/colors.json");
     dynamic theme = json.decode(content);
 //    dynamic theme = themes[name];
     if (theme == null) return;
-    for (String key in theme.keys) {
+    for (String key in theme.keys)
+    {
       String value = theme[key];
-      if(materialColors.containsKey(value))
-        value = materialColors[value].hexString;
+      if (materialColors.containsKey(value)) value = materialColors[value].hexString;
       html.document.body.style.setProperty("--$key", value);
     }
     g.saveStorage("webtheme", name);
   }
 
   @override
-  Future<Null> ngOnInit() async {
+  Future<Null> ngOnInit()
+  async {
     g.theme = g.loadStorage("theme");
     await setTheme(g.theme);
 
-    appTitle = html.document.querySelector("head>title").text;
+    appTitle = html.document
+      .querySelector("head>title")
+      .text;
 
-    html.window.onBlur.listen((e) async {
+    html.window.onBlur.listen((e)
+    async {
       if (!g.showCurrentGluc || isDebug) return;
       currentGlucVisible = false;
-      if (glucTimer != null) {
+      if (glucTimer != null)
+      {
         glucTimer.cancel();
         glucTimer = null;
       }
     });
-    html.window.onFocus.listen((e) async {
+    html.window.onFocus.listen((e)
+    async {
       if (!g.showCurrentGluc || isDebug) return;
       currentGlucVisible = true;
-      Future.delayed(Duration(milliseconds: 250), () => getCurrentGluc());
+      Future.delayed(Duration(milliseconds: 250), ()
+      => getCurrentGluc());
     });
 
     display(null);
@@ -279,7 +327,8 @@ class AppComponent implements OnInit {
 //    {});
 //*
     g.doShowDebug = showDebug;
-    g.loadSettings().then((_) {
+    g.loadSettings().then((_)
+    {
       String page = g.version == g.lastVersion ? "normal" : "whatsnew";
       _currPage = g.isConfigured ? page : "welcome";
       _lastPage = _currPage;
@@ -300,7 +349,8 @@ class AppComponent implements OnInit {
         PrintDailyProfile(),
       ];
       g.listConfig = List<FormConfig>();
-      for (BasePrint form in srcList) g.listConfig.add(FormConfig(form, false));
+      for (BasePrint form in srcList)
+        g.listConfig.add(FormConfig(form, false));
       g.sortConfigs();
       g.userIdx = g.userIdx;
 
@@ -313,9 +363,12 @@ class AppComponent implements OnInit {
       checkPrint();
 
       g.period.maxDate = Date.today();
-      try {
+      try
+      {
         g.period.minDate = Date.parseLoose(g.user.birthDate, g.fmtDateForDisplay);
-      } catch (ex) {
+      }
+      catch (ex)
+      {
         g.period.minDate = null;
       }
       getCurrentGluc();
@@ -336,40 +389,48 @@ class AppComponent implements OnInit {
 */
   }
 
-  extractAllParams() {
-    for (FormConfig cfg in g.listConfig) cfg.form.extractParams();
+  extractAllParams()
+  {
+    for (FormConfig cfg in g.listConfig)
+      cfg.form.extractParams();
   }
 
-  void toggleHelp() {}
+  void toggleHelp()
+  {}
 
-  void togglePage(String id) {
+  void togglePage(String id)
+  {
     currPage = currPage == id ? "normal" : id;
   }
 
   void displayLink(String title, String url,
-      {bool clear: false, String type: null, String btnClass: "", String icon: null}) {
+    {bool clear: false, String type: null, String btnClass: "", String icon: null})
+  {
     if (!isDebug && type == "debug") return;
 
     if (clear) message.links = [];
 
     message.links.add(
-        {"url": g.adjustUrl(url), "title": title, "class": btnClass, "icon": isDebug && icon == null ? "code" : icon});
+      {"url": g.adjustUrl(url), "title": title, "class": btnClass, "icon": isDebug && icon == null ? "code" : icon});
     message.okText = msgClose;
     if (type != null) message.type = type;
   }
 
-  void showDebug(String msg) {
+  void showDebug(String msg)
+  {
     message.dbgText = msg;
   }
 
-  void display(String msg, {bool append: false, List links = null}) {
+  void display(String msg, {bool append: false, List links = null})
+  {
     if (append) msg = "${message.isEmpty ? '' : '${message.text}<br />'}$msg";
     if (links != null) message.links = links;
     message.text = msg;
     message.type = "msg";
   }
 
-  void callNightscout() {
+  void callNightscout()
+  {
     String url = g.user.apiUrl;
     int pos = url.indexOf("/api");
     if (pos >= 0) url = url.substring(0, pos);
@@ -377,14 +438,18 @@ class AppComponent implements OnInit {
     navigate(url);
   }
 
-  void callNightscoutReports() {
+  void callNightscoutReports()
+  {
     navigate(g.user.reportUrl);
   }
 
-  formId(int idx) => "postForm${idx}";
+  formId(int idx)
+  => "postForm${idx}";
 
-  String pdfString(String doc) {
-    if (doc != null) {
+  String pdfString(String doc)
+  {
+    if (doc != null)
+    {
       // remove special chars from output (e.g. smiley placed in notes)
       String temp = doc;
       doc = "";
@@ -394,28 +459,38 @@ class AppComponent implements OnInit {
     return convert.base64.encode(convert.utf8.encode(doc));
   }
 
-  void navigate(String url) {
-    if (url.startsWith("showPlayground") || url.startsWith("showPdf")) {
+  void navigate(String url)
+  {
+    if (url.startsWith("showPlayground") || url.startsWith("showPdf"))
+    {
       String doc = pdfDoc;
-      if (url == "showPlayground") {
+      if (url == "showPlayground")
+      {
         pdfUrl = g.urlPlayground;
-        if (doc != null) {
+        if (doc != null)
+        {
           doc = doc.replaceAll("],", "],\n");
           doc = doc.replaceAll(",\"", ",\n\"");
           doc = doc.replaceAll(":[", ":\n[");
         }
-      } else {
+      }
+      else
+      {
         pdfUrl = g.urlPdf;
       }
 
-      if (pdfDoc != null && pdfList.length == 0) {
+      if (pdfDoc != null && pdfList.length == 0)
+      {
         pdfData = pdfString(doc);
-        Future.delayed(Duration(milliseconds: 1), () {
+        Future.delayed(Duration(milliseconds: 1), ()
+        {
           var form = html.querySelector("#postForm") as html.FormElement;
           form.submit();
 //        display(msgPDFCreated);
         });
-      } else if (pdfList.length > 0) {
+      }
+      else if (pdfList.length > 0)
+      {
 /*
         Future.delayed(Duration(milliseconds: 1000), ()
         {
@@ -430,18 +505,24 @@ class AppComponent implements OnInit {
         });
 // */
       }
-    } else {
+    }
+    else
+    {
       html.window.open(url, "_blank");
     }
   }
 
-  void openPDF(int idx) {
+  void openPDF(int idx)
+  {
     if (idx >= pdfList.length) return;
 
-    if (g.pdfSameWindow) {
-      for (int i = 0; i < pdfList.length; i++) {
+    if (g.pdfSameWindow)
+    {
+      for (int i = 0; i < pdfList.length; i++)
+      {
         pdfList[i].isPrinted = true;
-        Future.delayed(Duration(milliseconds: 10), () {
+        Future.delayed(Duration(milliseconds: 10), ()
+        {
           var form = html.querySelector("#${formId(i)}") as html.FormElement;
           form.submit();
         });
@@ -450,23 +531,28 @@ class AppComponent implements OnInit {
     }
 
     pdfList[idx].isPrinted = true;
-    Future.delayed(Duration(milliseconds: 10), () {
+    Future.delayed(Duration(milliseconds: 10), ()
+    {
       var form = html.querySelector("#${formId(idx)}") as html.FormElement;
       form.submit();
     });
   }
 
-  void callbackButton(html.UIEvent evt) {
+  void callbackButton(html.UIEvent evt)
+  {
     String page = evt.type;
-    if (page.startsWith("@")) {
+    if (page.startsWith("@"))
+    {
       page = page.substring(1);
       if (!g.isConfigured) page = "welcome";
     }
     currPage = page;
   }
 
-  void settingsResult(html.UIEvent evt) {
-    switch (evt.type) {
+  void settingsResult(html.UIEvent evt)
+  {
+    switch (evt.type)
+    {
       case "ok":
         g.save();
         reportData = null;
@@ -484,11 +570,13 @@ class AppComponent implements OnInit {
     getCurrentGluc();
   }
 
-  void checkSetup() {
+  void checkSetup()
+  {
     progressText = msgCheckSetup;
     progressValue = progressMax + 1;
     display(null);
-    g.checkSetup().then((String error) {
+    g.checkSetup().then((String error)
+    {
       g.isConfigured = error == null || error.isEmpty;
       _currPage = g.isConfigured ? _lastPage : "welcome";
 
@@ -497,54 +585,65 @@ class AppComponent implements OnInit {
     progressText = null;
   }
 
-  changePeriod(DatepickerPeriod period) {
+  changePeriod(DatepickerPeriod period)
+  {
     g.period = period;
     reportData = null;
     checkPrint();
   }
 
-  void checkPrint() {
+  void checkPrint()
+  {
     sendDisabled = true;
     if (g.period.isEmpty) return;
 
-    for (FormConfig cfg in g.listConfig) {
-      if (cfg.checked) {
-        if (cfg.form.isDebugOnly) {
+    for (FormConfig cfg in g.listConfig)
+    {
+      if (cfg.checked)
+      {
+        if (cfg.form.isDebugOnly)
+        {
           if (isDebug) sendDisabled = false;
-        } else {
+        }
+        else
+        {
           sendDisabled = false;
         }
       }
     }
 
-    Future.delayed(Duration(milliseconds: 100), () {
-      if (_drag != null) {
+    Future.delayed(Duration(milliseconds: 100), ()
+    {
+      if (_drag != null)
+      {
         _drag.onDragEnd.listen(null);
         _drag.onDragStart.listen(null);
         _drag.destroy();
       }
 
       _drag = Draggable(html.querySelectorAll('.sortable'),
-          avatarHandler: g.viewType == "tile" ? TileAvatarHandler() : AvatarHandler.clone(),
-          draggingClass: "dragging",
-          handle: g.viewType == "tile" ? null : "[name]>material-icon",
-          verticalOnly: g.viewType == "list");
-      _drag.onDragStart.listen((DraggableEvent event) {});
-      _drag.onDragEnd.listen((DraggableEvent event) {
-        event.draggableElement.animate([
-          {"transform": "rotate(180)"}
-        ], 500);
+        avatarHandler: g.viewType == "tile" ? TileAvatarHandler() : AvatarHandler.clone(),
+        draggingClass: "dragging",
+        handle: g.viewType == "tile" ? null : "[name]>material-icon",
+        verticalOnly: g.viewType == "list");
+      _drag.onDragStart.listen((DraggableEvent event)
+      {});
+      _drag.onDragEnd.listen((DraggableEvent event)
+      {
+        event.draggableElement.animate([{"transform": "rotate(180)"}], 500);
       });
       if (_drop != null) _drop.onDrop.listen(null);
       _drop = Dropzone(html.querySelectorAll(".sortable"), overClass: "dragover");
-      _drop.onDrop.listen((DropzoneEvent event) {
+      _drop.onDrop.listen((DropzoneEvent event)
+      {
         if (!dropElement(event.draggableElement, event.dropzoneElement))
           event.dropzoneElement.attributes["dontclick"] = "true";
       });
     });
   }
 
-  bool dropElement(html.Element drag, html.Element drop) {
+  bool dropElement(html.Element drag, html.Element drop)
+  {
     String dragId = drag.getAttribute("id").substring(5);
     String dropId = drop.getAttribute("id").substring(5);
     if (dragId == dropId) return false;
@@ -552,14 +651,17 @@ class AppComponent implements OnInit {
     FormConfig dragCfg = null;
     int dragIdx = -1;
     int dropIdx = -1;
-    for (int i = 0; i < g.listConfig.length; i++) {
-      if (g.listConfig[i].id == dragId) {
+    for (int i = 0; i < g.listConfig.length; i++)
+    {
+      if (g.listConfig[i].id == dragId)
+      {
         dragCfg = g.listConfig[i];
         dragIdx = i;
       }
       if (g.listConfig[i].id == dropId) dropIdx = i;
     }
-    if (dragCfg != null && dropIdx >= 0) {
+    if (dragCfg != null && dropIdx >= 0)
+    {
       g.listConfig.removeAt(dragIdx);
       g.listConfig.insert(dragIdx < dropIdx ? dropIdx - 1 : dropIdx, dragCfg);
     }
@@ -571,13 +673,38 @@ class AppComponent implements OnInit {
   Dropzone _drop = null;
 
   ReportData reportData = null;
-  Future<ReportData> loadData() async {
+  Future<ReportData> loadData(bool isForThumbs)
+  async {
     Date beg = g.period.shiftStartBy(g.currPeriodShift.shift);
     Date end = g.period.shiftEndBy(g.currPeriodShift.shift);
+    if (isForThumbs)
+    {
+      beg = Date(2019, 8, 26);
+      end = Date(2019, 9, 1);
+      reportData = null;
+    }
 
     if (reportData != null && reportData.begDate == beg && reportData.endDate == end) return reportData;
 
     ReportData data = ReportData(g, beg, end);
+    data.isForThumbs = isForThumbs;
+
+    if (isForThumbs)
+    {
+      data.user = UserData(g);
+      data.user.name = UserData.modelName;
+      data.user.birthDate = "13.2.1965";
+      data.user.diaStartDate = "1.1.1996";
+      data.user.insulin = "Novorapid";
+      data.user.storageApiUrl = "https://diamant-ns.herokuapp.com";
+      data.user.token = null;
+      data.user.customData = {};
+      data.user.formParams = {};
+    }
+    else
+    {
+      data.user = g.user;
+    }
 /*
     if (reportData != null && reportData.begDate == g.dateRange.range.start &&
       reportData.endDate == g.dateRange.range.end)return reportData;
@@ -589,7 +716,9 @@ class AppComponent implements OnInit {
     DateTime bd = DateTime(data.begDate.year, data.begDate.month, data.begDate.day);
     DateTime ed = DateTime(data.endDate.year, data.endDate.month, data.endDate.day);
 
-    progressMax = ed.difference(bd).inDays;
+    progressMax = ed
+      .difference(bd)
+      .inDays;
     progressValue = 0;
 
     Date begDate = data.begDate;
@@ -598,35 +727,42 @@ class AppComponent implements OnInit {
     message.links = [];
     message.type = "msg toggle-debug";
 
-    String url = "${g.user.apiUrl}status.json";
+    String url = "${data.user.apiUrl}status.json";
     displayLink("status", url, type: "debug");
     String content = await g.request(url);
     data.status = StatusData.fromJson(json.decode(content));
     g.setGlucMGDL(data.status);
-    url = "${g.user.apiUrl}profile.json";
+    url = "${data.user.apiUrl}profile.json";
     displayLink("profile", url, type: "debug");
     content = await g.request(url);
 //      if (g.dateRange.range.start == null || g.dateRange.range.end == null)
-    if (g.period.start == null || g.period.end == null) {
+    if (g.period.start == null || g.period.end == null)
+    {
       data.error = StateError(msgEmptyRange);
       return data;
     }
 
-    try {
+    try
+    {
       g.basalPrecision = 0;
       List<dynamic> src = json.decode(content);
-      for (dynamic entry in src) {
+      for (dynamic entry in src)
+      {
         data.profiles.add(ProfileData.fromJson(entry));
         g.basalPrecision = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
       }
 //        display("${ret.begDate.toString()} - ${ret.endDate.toString()}");
-    } catch (ex) {
-      if (isDebug) {
-        if (ex is Error)
-          display("${ex.toString()}\n${ex.stackTrace}");
+    }
+    catch (ex)
+    {
+      if (isDebug)
+      {
+        if (ex is Error)display("${ex.toString()}\n${ex.stackTrace}");
         else
           display(ex.toString());
-      } else {
+      }
+      else
+      {
 /*
           display(msgProfileError, links: [ {
             "url": "https://github.com/zreptil/nightscout-reporter/issues/new?title=problem in profile-data&body=${msgProfileError}",
@@ -639,11 +775,12 @@ class AppComponent implements OnInit {
     }
 
     // find profileswitches in treatments, create profiledata and mix it in the profiles
-    url =
-        "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch";
+    url = "${data.user.apiUrl}treatments.json?find[created_at][\$gte]=${begDate.year -
+      1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch";
     displayLink("profileswitch", url, type: "debug");
     content = await g.request(url);
-    try {
+    try
+    {
       List<dynamic> src = json.decode(content);
 /*
         if (g.isLocal)src.add({
@@ -660,20 +797,25 @@ class AppComponent implements OnInit {
           "insulin": null
         });
  // */
-      for (dynamic entry in src) {
+      for (dynamic entry in src)
+      {
         DateTime check = JsonData.toDate(entry["created_at"]);
-        if (data.profiles.firstWhere((p) => p.createdAt == check, orElse: () => null) != null ||
-            entry["profile"] == null) continue;
+        if (data.profiles.firstWhere((p)
+        => p.createdAt == check, orElse: ()
+        => null) != null || entry["profile"] == null) continue;
         List<String> parts = List<String>();
         parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
         // some uploaders (e.g. Minimed 600-series) don't save profileJson, so we need
         // to find it here
         ProfileStoreData store = null;
-        if (entry["profileJson"] == null) {
+        if (entry["profileJson"] == null)
+        {
           String key = entry["profile"];
-          ProfileData prof = data.profiles
-              .lastWhere((p) => p.startDate.isBefore(check) && p.store.containsKey(key), orElse: () => null);
-          if (prof != null) {
+          ProfileData prof = data.profiles.lastWhere((p)
+          => p.startDate.isBefore(check) && p.store.containsKey(key), orElse: ()
+          => null);
+          if (prof != null)
+          {
             store = prof.store[key];
           }
         }
@@ -687,38 +829,52 @@ class AppComponent implements OnInit {
         data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
         if (store != null) data.profiles.last.store[entry["profile"]] = store;
       }
-    } catch (ex) {
-      if (isDebug) {
-        if (ex is Error)
-          display("${ex.toString()}\n${ex.stackTrace}");
+    }
+    catch (ex)
+    {
+      if (isDebug)
+      {
+        if (ex is Error)display("${ex.toString()}\n${ex.stackTrace}");
         else
           display(ex.toString());
-      } else {
+      }
+      else
+      {
         display(msgProfileError);
       }
     }
 
-    data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
+    data.profiles.sort((a, b)
+    => a.startDate.compareTo(b.startDate));
 
     // calculate the duration of the profiles
     int i = 1;
-    while (i < data.profiles.length) {
+    while (i < data.profiles.length)
+    {
       ProfileData last = data.profiles[i - 1];
       ProfileData current = data.profiles[i];
-      int duration = current.startDate.difference(last.startDate).inSeconds;
-      if (last.duration >= duration || last.duration == 0) {
+      int duration = current.startDate
+        .difference(last.startDate)
+        .inSeconds;
+      if (last.duration >= duration || last.duration == 0)
+      {
         last.duration = duration;
-      } else if (i > 2) {
+      }
+      else if (i > 2)
+      {
         ProfileData temp = data.profiles[i - 2].copy;
         temp.startDate = last.startDate.add(Duration(seconds: last.duration));
-        temp.duration = current.startDate.difference(temp.startDate).inSeconds;
+        temp.duration = current.startDate
+          .difference(temp.startDate)
+          .inSeconds;
         data.profiles.insert(i, temp);
       }
       i++;
     }
 
     ProfileData last = data.profiles.last;
-    if (data.profiles.last.duration > 0 && data.profiles.length > 1) {
+    if (data.profiles.last.duration > 0 && data.profiles.length > 1)
+    {
       ProfileData temp = data.profiles[data.profiles.length - 2].copy;
       temp.startDate = last.startDate.add(Duration(seconds: last.duration));
       temp.duration = 0;
@@ -731,66 +887,97 @@ class AppComponent implements OnInit {
     message.dbgText = text;
 */
     // remove all profiles with a length of 0
-    data.profiles.removeWhere((p) => p.duration < 2 && p != data.profiles.last);
+    data.profiles.removeWhere((p)
+    => p.duration < 2 && p != data.profiles.last);
 
     TreatmentData lastTempBasal = null;
-    while (begDate <= endDate) {
+    while (begDate <= endDate)
+    {
       bool hasData = false;
-      if (g.period.isDowActive(begDate.weekday - 1)) {
-        DateTime beg = DateTime(begDate.year, begDate.month, begDate.day, 0, 0, 0, 0).toUtc();
+      if (g.period.isDowActive(begDate.weekday - 1))
+      {
+        DateTime beg = DateTime(
+          begDate.year,
+          begDate.month,
+          begDate.day,
+          0,
+          0,
+          0,
+          0).toUtc();
 
-        DateTime end = DateTime(begDate.year, begDate.month, begDate.day, 23, 59, 59, 999).toUtc();
+        DateTime end = DateTime(
+          begDate.year,
+          begDate.month,
+          begDate.day,
+          23,
+          59,
+          59,
+          999).toUtc();
 
         ProfileGlucData profile = data.profile(beg);
         DateTime profileBeg = beg.add(Duration(hours: -profile.store.timezone.localDiff));
         DateTime profileEnd = end.add(Duration(hours: -profile.store.timezone.localDiff));
 
         progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
-        String url = g.user.urlForData(beg, end);
+        String url = data.user.urlForData(beg, end);
         List<dynamic> src = json.decode(await g.request(url));
         displayLink("e${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
-        for (dynamic entry in src) {
-          try {
+        for (dynamic entry in src)
+        {
+          try
+          {
             EntryData e = EntryData.fromJson(entry);
-            if (e.gluc > 0) {
+            if (e.gluc > 0)
+            {
               hasData = true;
               data.ns.entries.add(e);
             }
-            if (e.mbg > 0) {
+            if (e.mbg > 0)
+            {
               hasData = true;
               data.ns.bloody.add(e);
-            } else if (e.gluc <= 0) {
+            }
+            else if (e.gluc <= 0)
+            {
               hasData = true;
               data.ns.remaining.add(e);
             }
-          } catch (ex) {
+          }
+          catch (ex)
+          {
             if (isDebug) display("Fehler im Entry-Datensatz: ${entry.toString()}");
             break;
           }
         }
         String tmp;
-        if (lastTempBasal == null) {
+        if (lastTempBasal == null)
+        {
           // find last temp basal of treatments of day before current day.
-          url =
-              "${g.user.apiUrl}treatments.json?find[created_at][\$lt]=${profileBeg.toIso8601String()}&find[created_at][\$gt]=${profileBeg.add(Duration(days: -1)).toIso8601String()}&count=100&find[eventType][\$eq]=Temp%20Basal";
+          url = "${data.user.apiUrl}treatments.json?find[created_at][\$lt]=${profileBeg
+            .toIso8601String()}&find[created_at][\$gt]=${profileBeg.add(Duration(days: -1))
+            .toIso8601String()}&count=100&find[eventType][\$eq]=Temp%20Basal";
           tmp = await g.request(url);
           src = json.decode(tmp);
           List<TreatmentData> list = List<TreatmentData>();
-          for (dynamic treatment in src) list.add(TreatmentData.fromJson(treatment));
-          list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+          for (dynamic treatment in src)
+            list.add(TreatmentData.fromJson(treatment));
+          list.sort((a, b)
+          => a.createdAt.compareTo(b.createdAt));
           if (list.length > 0) lastTempBasal = list.last;
         }
 
-        url =
-            "${g.user.apiUrl}treatments.json?find[created_at][\$gte]=${profileBeg.toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000";
+        url = "${data.user.apiUrl}treatments.json?find[created_at][\$gte]=${profileBeg
+          .toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000";
         tmp = await g.request(url);
         src = json.decode(tmp);
         displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
-        for (dynamic treatment in src) {
+        for (dynamic treatment in src)
+        {
           hasData = true;
           TreatmentData t = TreatmentData.fromJson(treatment);
           data.ns.treatments.add(t);
-          if (t.eventType.toLowerCase() == "bg check") {
+          if (t.eventType.toLowerCase() == "bg check")
+          {
             EntryData entry = EntryData();
             entry.id = t.id;
             entry.time = t.createdAt;
@@ -808,14 +995,19 @@ class AppComponent implements OnInit {
       if (sendIcon != "stop") return data;
     }
 
-    if (sendIcon == "stop") {
+    if (sendIcon == "stop")
+    {
       progressText = msgPreparingData;
       progressValue = progressMax + 1;
 
-      data.ns.entries.sort((a, b) => a.time.compareTo(b.time));
-      data.ns.bloody.sort((a, b) => a.time.compareTo(b.time));
-      data.ns.remaining.sort((a, b) => a.time.compareTo(b.time));
-      data.ns.treatments.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+      data.ns.entries.sort((a, b)
+      => a.time.compareTo(b.time));
+      data.ns.bloody.sort((a, b)
+      => a.time.compareTo(b.time));
+      data.ns.remaining.sort((a, b)
+      => a.time.compareTo(b.time));
+      data.ns.treatments.sort((a, b)
+      => a.createdAt.compareTo(b.createdAt));
 
       int diffTime = 5;
       // gaps between entries that span more than the given minutes
@@ -824,9 +1016,10 @@ class AppComponent implements OnInit {
 //*
       // Create an array with EntryData every [diffTime] minutes
       List<EntryData> entryList = List<EntryData>();
-      if (data.ns.entries.length != 0) {
-        DateTime target =
-            DateTime(data.ns.entries.first.time.year, data.ns.entries.first.time.month, data.ns.entries.first.time.day);
+      if (data.ns.entries.length != 0)
+      {
+        DateTime target = DateTime(
+          data.ns.entries.first.time.year, data.ns.entries.first.time.month, data.ns.entries.first.time.day);
         EntryData prev = data.ns.entries.first;
         DateTime t = DateTime(prev.time.year, prev.time.month, prev.time.day);
         prev = EntryData();
@@ -834,30 +1027,44 @@ class AppComponent implements OnInit {
         EntryData next = EntryData();
         next.time = target;
         // distribute entries
-        for (EntryData entry in data.ns.entries) {
+        for (EntryData entry in data.ns.entries)
+        {
           if (entry.isInvalid) continue;
-          DateTime current =
-              DateTime(entry.time.year, entry.time.month, entry.time.day, entry.time.hour, entry.time.minute);
-          if (current.isAtSameMomentAs(target)) {
+          DateTime current = DateTime(
+            entry.time.year, entry.time.month, entry.time.day, entry.time.hour, entry.time.minute);
+          if (current.isAtSameMomentAs(target))
+          {
             prev = entry;
             prev.time = current;
             entry.isCopy = true;
             entryList.add(entry);
             target = target.add(Duration(minutes: diffTime));
-          } else if (current.isBefore(target)) {
+          }
+          else if (current.isBefore(target))
+          {
             next.slice(entry, next, 0.5);
-          } else {
+          }
+          else
+          {
             next = entry.copy;
-            int max = current.difference(prev.time).inMinutes;
-            while (current.isAfter(target) || current.isAtSameMomentAs(target)) {
-              double factor = max == 0 ? 0 : target.difference(prev.time).inMinutes / max;
+            int max = current
+              .difference(prev.time)
+              .inMinutes;
+            while (current.isAfter(target) || current.isAtSameMomentAs(target))
+            {
+              double factor = max == 0 ? 0 : target
+                .difference(prev.time)
+                .inMinutes / max;
               next = next.copy;
               if (max >= minGapKeep) next.isGap = true;
               next.time = target;
-              if (current.isAtSameMomentAs(target)) {
+              if (current.isAtSameMomentAs(target))
+              {
                 next.isCopy = true;
                 next.slice(entry, entry, 1.0);
-              } else {
+              }
+              else
+              {
                 next.slice(prev, entry, factor);
               }
               entryList.add(next);
@@ -873,43 +1080,56 @@ class AppComponent implements OnInit {
       data.calc.bloody = data.ns.bloody;
       data.calc.remaining = data.ns.remaining;
 
-      data.ns.treatments.removeWhere((t) => filterTreatment(t));
+      data.ns.treatments.removeWhere((t)
+      => filterTreatment(t));
       data.calc.treatments = data.ns.treatments;
 
       data.calc.extractData(data, lastTempBasal);
       data.ns.extractData(data, lastTempBasal);
-    } else {}
+    }
+    else
+    {}
     return data;
   }
 
-  bool filterTreatment(TreatmentData t) {
+  bool filterTreatment(TreatmentData t)
+  {
     if (t.enteredBy.toLowerCase() == "sync") return true;
 
     return false;
   }
 
-  void shiftClick(PeriodShift shift) {
+  void shiftClick(PeriodShift shift)
+  {
     g.currShiftIdx = shift.shift;
     _sendClick();
   }
 
-  void _sendClick() {
+  void _sendClick()
+  {
     tileParams = null;
-    if (sendIcon == "send") {
+    if (sendIcon == "send")
+    {
       sendIcon = "stop";
       drawerVisible = false;
       createPDF();
-    } else if (sendIcon == "close") {
+    }
+    else if (sendIcon == "close")
+    {
       sendIcon = "send";
       currPage = "normal";
-    } else {
+    }
+    else
+    {
       sendIcon = "send";
     }
   }
 
-  String classForView(String def) {
+  String classForView(String def)
+  {
     if (def == "sendPanel" && progressText != null) return def;
-    switch (g.viewType) {
+    switch (g.viewType)
+    {
       case "tile":
         def = "${def} is-tileview";
         break;
@@ -918,9 +1138,11 @@ class AppComponent implements OnInit {
     return def;
   }
 
-  int checkedIndex(cfg) {
+  int checkedIndex(cfg)
+  {
     int ret = 0;
-    for (FormConfig check in g.listConfig) {
+    for (FormConfig check in g.listConfig)
+    {
       if (check.form.isDebugOnly && !isDebug) continue;
       if (check.checked) ret++;
       if (check == cfg) return ret;
@@ -928,13 +1150,16 @@ class AppComponent implements OnInit {
     return ret;
   }
 
-  showTileParams(cfg, evt) {
+  showTileParams(cfg, evt)
+  {
     evt.preventDefault();
     tileParams == null ? tileParams = cfg : tileParams = null;
   }
 
-  changeView() {
-    switch (g.viewType) {
+  changeView()
+  {
+    switch (g.viewType)
+    {
       case 'list':
         g.viewType = 'tile';
         break;
@@ -947,18 +1172,22 @@ class AppComponent implements OnInit {
     checkPrint();
   }
 
-  void createPDF() {
+  void createPDF({bool isForThumbs: false})
+  {
     g.save();
     display("");
     pdfList.clear();
-    loadData().then((ReportData vars) async {
+    loadData(isForThumbs).then((ReportData src)
+    async {
       progressText = msgCreatingPDF;
-      if (vars.error != null) {
-        if (isDebug) display(msgLoadingData(vars.error.toString(), vars.error.stackTrace.toString()));
+      if (src.error != null)
+      {
+        if (isDebug) display(msgLoadingData(src.error.toString(), src.error.stackTrace.toString()));
         display(msgLoadingDataError);
         return;
       }
-      if (sendIcon == "send") {
+      if (sendIcon == "send")
+      {
         progressText = null;
         reportData = null;
         return;
@@ -968,30 +1197,74 @@ class AppComponent implements OnInit {
       List<dynamic> docList = List<dynamic>();
       int docLen = 0;
       Page prevPage = null;
-      for (FormConfig cfg in g.listConfig) {
+      List<FormConfig> listConfig = List<FormConfig>();
+      if (isForThumbs)
+      {
+        for (FormConfig cfg in g.listConfig)
+        {
+          listConfig.add(cfg);
+          switch (cfg.id)
+          {
+            case "cgp":
+              cfg = FormConfig(PrintCGP(), false);
+              cfg.form.params[0].thumbValue = 1;
+              listConfig.add(cfg);
+              break;
+            case "dayanalysis":
+              cfg = FormConfig(PrintDailyAnalysis(), false);
+              cfg.form.params[2].thumbValue = 1;
+              listConfig.add(cfg);
+              break;
+          }
+        }
+      }
+      else
+      {
+        listConfig = g.listConfig;
+      }
+      for (FormConfig cfg in listConfig)
+      {
         BasePrint form = cfg.form;
-        if (cfg.checked && (!form.isDebugOnly || isDebug)) {
-          docLen = json.encode(doc).length;
-          List<Page> formPages = await form.getFormPages(vars, docLen);
+        if ((cfg.checked && (!form.isDebugOnly || isDebug)) || isForThumbs)
+        {
+          docLen = json
+            .encode(doc)
+            .length;
+          List<Page> formPages = await form.getFormPages(src, docLen);
           List<List<Page>> fileList = [List<Page>()];
-          for (Page page in formPages) {
+          for (Page page in formPages)
+          {
             dynamic entry = page.content.last;
-            if (entry["pageBreak"] == "newFile" && fileList.last.length > 0) {
+            if (entry["pageBreak"] == "newFile" && fileList.last.length > 0)
+            {
               entry.remove("pageBreak");
               fileList.last.add(page);
               fileList.add(List<Page>());
-            } else {
+            }
+            else
+            {
               if (entry["pageBreak"] == "newFile") entry.remove("pageBreak"); //entry["pageBreak"] = "after";
               fileList.last.add(page);
             }
           }
 
-          for (List<Page> pageList in fileList) {
+          if (isForThumbs && fileList.length > 1)
+          {
+            fileList.removeRange(1, fileList.length - 1);
+            if (fileList[0].length > 1) fileList[0].removeRange(1, fileList[0].length - 1);
+          }
+
+          for (List<Page> pageList in fileList)
+          {
             dynamic content = [];
-            for (Page page in pageList) {
-              if (prevPage != null) {
+
+            for (Page page in pageList)
+            {
+              if (prevPage != null)
+              {
                 var pagebreak = {"text": "", "pageBreak": "after"};
-                if (page.isPortrait != prevPage.isPortrait) {
+                if (page.isPortrait != prevPage.isPortrait)
+                {
                   pagebreak["pageSize"] = "a4";
                   pagebreak["pageOrientation"] = page.isPortrait ? "portrait" : "landscape";
                 }
@@ -1000,7 +1273,8 @@ class AppComponent implements OnInit {
               content.add(page.asElement);
               prevPage = page;
             }
-            if (doc == null) {
+            if (doc == null)
+            {
               doc = {
                 "pageSize": "a4",
                 "pageOrientation": pageList[0].isPortrait ? "portrait" : "landscape",
@@ -1008,17 +1282,12 @@ class AppComponent implements OnInit {
                 "content": content,
                 "images": form.images,
                 "styles": {
-                  "infoline": {
-                    "margin": [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]
-                  },
+                  "infoline": {"margin": [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]},
                   "perstitle": {"alignment": "right"},
                   "persdata": {"color": "#0000ff"},
                   "infotitle": {"alignment": "left"},
                   "infodata": {"alignment": "right", "color": "#0000ff"},
-                  "infounit": {
-                    "margin": [form.cm(0), form.cm(0), form.cm(0), form.cm(0)],
-                    "color": "#0000ff"
-                  },
+                  "infounit": {"margin": [form.cm(0), form.cm(0), form.cm(0), form.cm(0)], "color": "#0000ff"},
                   "hba1c": {"color": "#5050ff"},
                   "total": {"bold": true, "fillColor": "#d0d0d0", "margin": form.m0},
                   "timeDay": {"bold": true, "fillColor": "#d0d0d0", "margin": form.m0},
@@ -1027,12 +1296,16 @@ class AppComponent implements OnInit {
                   "row": {}
                 }
               };
-            } else {
+            }
+            else
+            {
               doc["content"].add(content);
-              for (String key in form.images.keys) (doc["images"] as Map<String, String>)[key] = form.images[key];
+              for (String key in form.images.keys)
+                (doc["images"] as Map<String, String>)[key] = form.images[key];
             }
 
-            if (pageList != fileList.last) {
+            if (pageList != fileList.last)
+            {
               docList.add(doc);
               doc = null;
               prevPage = null;
@@ -1056,18 +1329,23 @@ class AppComponent implements OnInit {
 //*
       if (doc != null) docList.add(doc);
 
-      if (docList.length > 1) {
+      if (docList.length > 1)
+      {
         pdfList.clear();
         pdfDoc = null;
 
-        for (var doc in docList) {
+        for (var doc in docList)
+        {
           String dst = convert.jsonEncode(doc);
-          if (isDebug) {
+          if (isDebug)
+          {
             pdfUrl = "http://pdf.zreptil.de/playground.php";
             dst = dst.replaceAll("],", "],\n");
             dst = dst.replaceAll(",\"", ",\n\"");
             dst = dst.replaceAll(":[", ":\n[");
-          } else {
+          }
+          else
+          {
             pdfUrl = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
           }
           pdfList.add(PdfData(pdfString(dst)));
@@ -1077,29 +1355,36 @@ class AppComponent implements OnInit {
         sendIcon = "close";
         progressText = null;
         return;
-      } else {
+      }
+      else
+      {
         pdfDoc = convert.jsonEncode(docList[0]);
       }
 
-      if (!isDebug) {
-        if (message.text.isEmpty)
-          navigate("showPdf");
+      if (!isDebug)
+      {
+        if (message.text.isEmpty)navigate("showPdf");
         else
           displayLink(msgShowPDF, "showPdf", btnClass: "action", icon: "description");
-      } else {
+      }
+      else
+      {
         displayLink("playground", "showPlayground", btnClass: "action", icon: "description");
         displayLink("pdf", "showPdf", btnClass: "action", icon: "description");
       }
 // */
       sendIcon = "send";
       progressText = null;
-    }).catchError((error) {
-      if (isDebug) {
-        if (error is Error)
-          display("${error.toString()}\n${error.stackTrace}");
+    }).catchError((error)
+    {
+      if (isDebug)
+      {
+        if (error is Error)display("${error.toString()}\n${error.stackTrace}");
         else
           display(error.toString());
-      } else {
+      }
+      else
+      {
         display(msgPDFCreationError);
       }
       sendIcon = "send";
@@ -1108,7 +1393,8 @@ class AppComponent implements OnInit {
     });
   }
 
-  String tileClass(FormConfig cfg) {
+  String tileClass(FormConfig cfg)
+  {
     String ret = "tile sortable";
     if (cfg.form.isDebugOnly && isDebug) ret = "${ret} is-debug";
     if (cfg.checked && tileParams == null) ret = "${ret} tilechecked";
@@ -1117,7 +1403,8 @@ class AppComponent implements OnInit {
     return ret;
   }
 
-  String expansionClass(FormConfig cfg) {
+  String expansionClass(FormConfig cfg)
+  {
     String ret = "paramPanel";
     if (cfg.form.isDebugOnly && isDebug) ret = "${ret} is-debug";
     if (cfg.checked) ret = "${ret} checked";
@@ -1126,18 +1413,59 @@ class AppComponent implements OnInit {
     return ret;
   }
 
-  expansionPanelOpen(evt, FormConfig cfg) {
+  expansionPanelOpen(evt, FormConfig cfg)
+  {
     cfg.opened = true;
   }
 
-  expansionPanelClose(evt, FormConfig cfg) {
+  expansionPanelClose(evt, FormConfig cfg)
+  {
     cfg.checked = !cfg.checked;
     cfg.opened = false;
   }
 
-  expansionPanelClicked(evt, FormConfig cfg) {
-    if (!cfg.opened) {
-      if (evt.currentTarget.attributes["dontclick"] == "true") {
+  String themeStyle = "width:0em;";
+  String logoStyle = "";
+  bool themePanelShown = false;
+
+  toggleThemePanel(String themeKey)
+  {
+    String ts = "";
+    String ls = "";
+    double duration = 1;
+    if (themePanelShown)
+    {
+      themeStyle = "animation:hidethemes ${duration}s ease-in-out normal forwards;";
+      logoStyle = "animation:hidethemeslogo ${duration}s ease-in-out normal forwards;";
+      ts = "animation-iteration-count:0;width:0em;";
+      ls = "animation-iteration-count:0;transform: rotate(0deg);";
+    }
+    else
+    {
+      themeStyle = "animation:showthemes ${duration}s ease-in-out normal forwards;";
+      logoStyle = "animation:showthemeslogo ${duration}s ease-in-out normal forwards;";
+      ts = "animation-iteration-count:0;width:9.5em;";
+      ls = "animation-iteration-count:0;transform: rotate(360deg);";
+    }
+    Future.delayed(Duration(milliseconds: (duration * 1100).toInt()), ()
+    {
+      themeStyle = ts;
+      logoStyle = ls;
+      if (themeKey != "")
+      {
+        g.theme = themeKey;
+        setTheme(g.theme);
+      }
+    });
+    themePanelShown = !themePanelShown;
+  }
+
+  expansionPanelClicked(evt, FormConfig cfg)
+  {
+    if (!cfg.opened)
+    {
+      if (evt.currentTarget.attributes["dontclick"] == "true")
+      {
         evt.currentTarget.removeAttribute("dontclick");
         return;
       }
@@ -1146,8 +1474,10 @@ class AppComponent implements OnInit {
     }
   }
 
-  signinEvent(SigninEvent e) {
-    switch (e.status) {
+  signinEvent(SigninEvent e)
+  {
+    switch (e.status)
+    {
       case SigninStatus.requestAuthorization:
 //        _currPage = "signin";
         break;
@@ -1166,18 +1496,29 @@ class AppComponent implements OnInit {
         break;
     }
   }
+
+  createThumbs()
+  {
+    sendIcon = "stop";
+    drawerVisible = false;
+    createPDF(isForThumbs: true);
+  }
 }
 
-class TileAvatarHandler extends AvatarHandler {
-  TileAvatarHandler() {}
+class TileAvatarHandler extends AvatarHandler
+{
+  TileAvatarHandler()
+  {}
 
   @override
-  void dragStart(html.Element draggable, html.Point startPosition) {
+  void dragStart(html.Element draggable, html.Point startPosition)
+  {
     avatar = draggable.clone(true);
     avatar.className = "${avatar.className} dragtile";
     html.Point pt = html.Point(draggable.offsetLeft, draggable.offsetTop);
     html.Element parent = draggable.offsetParent;
-    while (parent != null) {
+    while (parent != null)
+    {
       pt = html.Point(pt.x + parent.offsetLeft, pt.y + parent.offsetTop);
       parent = parent.offsetParent;
     }
@@ -1187,7 +1528,10 @@ class TileAvatarHandler extends AvatarHandler {
       ..left = "${pt.x}px"
       ..top = "${pt.y}px";
 
-    html.document.body.querySelector("my-app").style.overflow = "hidden";
+    html.document.body
+      .querySelector("my-app")
+      .style
+      .overflow = "hidden";
 
     setLeftTop(pt);
 
@@ -1196,12 +1540,14 @@ class TileAvatarHandler extends AvatarHandler {
   }
 
   @override
-  void drag(html.Point startPosition, html.Point position) {
+  void drag(html.Point startPosition, html.Point position)
+  {
     setTranslate(position - startPosition);
   }
 
   @override
-  void dragEnd(html.Point startPosition, html.Point position) {
+  void dragEnd(html.Point startPosition, html.Point position)
+  {
     avatar.remove();
   }
 }

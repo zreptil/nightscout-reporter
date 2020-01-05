@@ -28,7 +28,7 @@
   "pdfBtnBack": "mat-green-400",
   "pdfBtnFore": "#ffffffcc",
   "pdfInfoFore": "#000000b2",
-  "sendMarked": "mat-light-green-800",
+  "sendMarked": "mat-purple-400",
   "googleSignedout": "mat-red-400",
-  "loopMarked": "mat-orange-900"
+  "loopMarked": "mat-blue-900"
 }

@@ -328,7 +328,7 @@ class PrintBasalrate extends BaseProfile {
         "fontSize": fs(8),
         "alignment": "left"
       });
-//*
+/*
       String text = "";
       if (i < calc.nextBRTimes.length && brtimes[i].value != calc.nextBRTimes[i].value) {
         text = g.fmtBasal(calc.nextBRTimes[i].value);

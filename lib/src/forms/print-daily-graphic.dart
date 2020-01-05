@@ -223,9 +223,9 @@ class PrintDailyGraphic extends BaseDaily {
   }
 
   @override
-  void fillPages(ReportData src, List<Page> pages) async {
+  void fillPages(List<Page> pages) async {
 //    scale = height / width;
-    var data = src.data;
+    var data = repData.data;
 
     graphWidth = 23.25;
     graphHeight = 6.5;
@@ -245,17 +245,18 @@ class PrintDailyGraphic extends BaseDaily {
     for (int i = 0; i < data.days.length; i++) {
       DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
       if (day.entries.length != 0 || day.treatments.length != 0) {
-        pages.add(getPage(day, src));
-        if (showCGP) pages.add(getCGPPage(day, src));
+        pages.add(getPage(day));
+        if (showCGP || repData.isForThumbs) pages.add(getCGPPage(day));
         if (g.showBothUnits) {
           g.glucMGDL = !g.glucMGDL;
-          pages.add(getPage(day, src));
-          if (showCGP) pages.add(getCGPPage(day, src));
+          pages.add(getPage(day));
+          if (showCGP) pages.add(getCGPPage(day));
           g.glucMGDL = !g.glucMGDL;
         }
       } else {
-        pages.add(getEmptyForm(isPortrait, src));
+        pages.add(getEmptyForm(isPortrait));
       }
+      if (repData.isForThumbs) i = data.days.length;
     }
     title = _titleGraphic;
     g.glucMGDL = saveMGDL;
@@ -265,7 +266,7 @@ class PrintDailyGraphic extends BaseDaily {
       {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": points};
 
   bool hasExercises;
-  Page getPage(DayData day, ReportData src) {
+  Page getPage(DayData day) {
     footerTextAboveLine["text"] = "";
     double graphHeightSave = graphHeight;
     hasExercises =
@@ -273,7 +274,7 @@ class PrintDailyGraphic extends BaseDaily {
 
     if (showExercises && hasExercises) graphHeight -= glucExerciseHeight;
     glucExerciseTop = graphHeight;
-    var ret = _getPage(day, src);
+    var ret = _getPage(day, repData);
     graphHeight = graphHeightSave;
     return ret;
   }
@@ -578,6 +579,7 @@ class PrintDailyGraphic extends BaseDaily {
           }
           if (insulinExt > 0) {
             double w = glucX(t.createdAt.add(Duration(seconds: t.duration))) - x;
+            if (w < 0) w = graphWidth - x;
             double h = bolusY(insulinExt);
             (graphInsulin["stack"][0]["canvas"] as List).add({
               "type": "rect",
@@ -1064,7 +1066,7 @@ class PrintDailyGraphic extends BaseDaily {
       ]);
     }
 
-    return Page(isPortrait, [
+    var ret = Page(isPortrait, [
       headerFooter(),
       glucTableCvs,
       exerciseCvs,
@@ -1081,9 +1083,14 @@ class PrintDailyGraphic extends BaseDaily {
       dayBasal,
       profileBasal,
       graphLegend,
-      legend.asOutput,
-      infoTable,
     ]);
+
+    if (legend.asOutput != null) {
+      ret.content.add(legend.asOutput);
+      ret.content.add(infoTable);
+    }
+
+    return ret;
   }
 
   showProfileSwitch(ReportData src, ProfileData p, List stack, double xo, double yo, [double x = null]) {
