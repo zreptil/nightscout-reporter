@@ -92,12 +92,12 @@ class PrintPercentile extends BasePrint {
   }
 
   @override
-  void fillPages(ReportData src, List<Page> pages)
+  void fillPages(List<Page> pages)
   async {
-    _settings = src.status.settings;
-    titleInfo = titleInfoBegEnd(src);
-    if (showGPD)pages.add(getPage(src));
-    if (showTable)pages.add(getTablePage(src));
+    _settings = repData.status.settings;
+    titleInfo = titleInfoBegEnd();
+    if (showGPD)pages.add(getPage());
+    if (showTable)pages.add(getTablePage());
     if (g.showBothUnits)
     {
       g.glucMGDL = !g.glucMGDL;
@@ -109,7 +109,7 @@ class PrintPercentile extends BasePrint {
 
   fillRow(dynamic row, double f, int hour, List<EntryData> list, String style) {
     String firstCol = "${g.fmtNumber(hour, 0, 2)}:00";
-    DayData day = DayData(null, src.profile(DateTime(src.begDate.year, src.begDate.month, src.begDate.day)), src.status);
+    DayData day = DayData(null, repData.profile(DateTime(repData.begDate.year, repData.begDate.month, repData.begDate.day)), repData.status);
     day.entries.addAll(list);
     day.init();
     DateTime time = DateTime(0, 1, 1, hour);
@@ -226,7 +226,7 @@ class PrintPercentile extends BasePrint {
     tableHeadFilled = true;
   }
 
-  Page getTablePage(ReportData src)
+  Page getTablePage()
   {
     isPortrait = false;
     var body = [];
