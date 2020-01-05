@@ -178,13 +178,13 @@ class PrintDailyStatistics extends BasePrint
   }
 
   @override
-  void fillPages(ReportData src, List<Page> pages)
+  void fillPages(List<Page> pages)
   {
     tableHeadFilled = false;
     tableHeadLine = [];
     tableWidths = [];
-    titleInfo = titleInfoBegEnd(src);
-    _settings = src.status.settings;
+    titleInfo = titleInfoBegEnd();
+    _settings = repData.status.settings;
     double f = 3.3;
     var body = [];
     // maybe later the margins will work properly, up to now it
@@ -216,7 +216,8 @@ class PrintDailyStatistics extends BasePrint
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
     int totalDays = 0;
-    for (DayData day in src.data.days)
+    int oldLength = pages.length;
+    for (DayData day in repData.data.days)
     {
       day.init();
       if (day.entryCount == 0)continue;
@@ -228,7 +229,7 @@ class PrintDailyStatistics extends BasePrint
       totalDay.basalData.targetLow = min(totalDay.basalData.targetLow, day.basalData.targetLow);
       var row = [];
       fillRow(row, f, fmtDate(day.date, null, true), day, "row");
-      ProfileGlucData profile = src.profile(DateTime(day.date.year, day.date.month, day.date.day));
+      ProfileGlucData profile = repData.profile(DateTime(day.date.year, day.date.month, day.date.day));
       if (prevProfile == null || profile.targetLow != prevProfile.targetLow || profile.targetHigh != prevProfile
         .targetHigh)
       {
@@ -267,5 +268,6 @@ class PrintDailyStatistics extends BasePrint
       Map test = pages.last.content.last as Map;
       test["columns"].last["table"]["body"].add(body.last);
     }
+    if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
   }
 }

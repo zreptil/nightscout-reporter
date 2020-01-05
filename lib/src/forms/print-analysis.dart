@@ -11,7 +11,7 @@ class PrintAnalysis extends BasePrint
   @override
   String title = Intl.message("Auswertung");
 
-  bool isPreciseMaterial, isPreciseTarget, showStdAbw;
+  bool isPreciseMaterial, isPreciseTarget, showStdAbw, showHypoGlucs;
   int get _precisionMaterial
   => isPreciseMaterial ? 2 : 0;
   int get _precisionTarget
@@ -21,10 +21,11 @@ class PrintAnalysis extends BasePrint
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(0, msgParam1, boolValue: true),
+    ParamInfo(0, msgParam1, boolValue: true, thumbValue: false),
     ParamInfo(1, msgParam2, boolValue: false),
     ParamInfo(2, msgParam3, boolValue: false),
     ParamInfo(3, msgParam4, boolValue: false),
+    ParamInfo(4, msgParam5, boolValue: false),
   ];
 
   @override
@@ -43,6 +44,7 @@ class PrintAnalysis extends BasePrint
     isPreciseTarget = params[1].boolValue;
     showStdAbw = params[2].boolValue;
     useFineLimits = params[3].boolValue;
+    showHypoGlucs = params[4].boolValue;
   }
 
   @override
@@ -60,6 +62,21 @@ class PrintAnalysis extends BasePrint
 
   static String get msgParam4
   => Intl.message("Standardbereich mit feinerer Abstufung");
+
+  static String get msgParam5
+  => Intl.message("Unterzuckerungen anzeigen");
+
+  String msgHypoTitle(value)
+  {
+    return Intl.message("Unterzuckerungen (< $value)", args: [value], name: "msgHypoTitle");
+  }
+
+  String get msgHypoCount
+  => Intl.message("Anzahl Unterzuckerungen");
+  String get msgHypoDate
+  => Intl.message("Letzte Unterzuckerung");
+  String get msgNoHypo
+  => Intl.message("Keine");
 
   addBodyArea(List body, String title, List lines, {showLine: true})
   {
@@ -112,39 +129,39 @@ class PrintAnalysis extends BasePrint
 */
   String fillLimitInfo(var stat)
   {
-    if (showStdAbw)return msgStdAbw(stat.stdAbw);
+    if (showStdAbw) return msgStdAbw(stat.stdAbw);
 
     return msgCount(stat.values.length);
   }
 
   @override
-  void fillPages(ReportData src, List<Page> pages)
+  void fillPages(List<Page> pages)
   {
-    pages.add(getPage(src));
+    pages.add(getPage());
     if (g.showBothUnits)
     {
       g.glucMGDL = !g.glucMGDL;
-      pages.add(getPage(src));
+      pages.add(getPage());
       g.glucMGDL = !g.glucMGDL;
     }
 //    if (showInfoSheet)pages.add(getInfoPage(src));
   }
 
-  Page getPage(ReportData src)
+  Page getPage()
   {
-    titleInfo = titleInfoBegEnd(src);
-    var data = src.data;
+    titleInfo = titleInfoBegEnd();
+    var data = repData.data;
 
     var avgGluc = data.avgGluc;
     var glucWarnColor = colNorm;
     var glucWarnText = "";
 //    if (hba1c > 7)glucWarnColor = blendColor("ffffff", "ff0000", (hba1c - 7) / 2);
-    if (avgGluc >= src.status.settings.thresholds.bgTargetTop && avgGluc < src.status.settings.thresholds.bgTargetTop)
+    if (avgGluc >= repData.status.settings.thresholds.bgTargetTop && avgGluc < repData.status.settings.thresholds.bgTargetTop)
       glucWarnColor = blendColor(glucWarnColor, colHigh,
-        (avgGluc - src.status.settings.thresholds.bgTargetTop) / (180 - src.status.settings.thresholds.bgTargetTop));
-    else if (avgGluc < src.status.settings.thresholds.bgTargetBottom) glucWarnColor = blendColor(glucWarnColor, colHigh,
-      (src.status.settings.thresholds.bgTargetBottom - avgGluc) / (src.status.settings.thresholds.bgTargetBottom));
-    else if (avgGluc > src.status.settings.thresholds.bgTargetTop)glucWarnColor = colHigh;
+        (avgGluc - repData.status.settings.thresholds.bgTargetTop) / (180 - repData.status.settings.thresholds.bgTargetTop));
+    else if (avgGluc < repData.status.settings.thresholds.bgTargetBottom) glucWarnColor = blendColor(glucWarnColor, colHigh,
+      (repData.status.settings.thresholds.bgTargetBottom - avgGluc) / (repData.status.settings.thresholds.bgTargetBottom));
+    else if (avgGluc > repData.status.settings.thresholds.bgTargetTop) glucWarnColor = colHigh;
 /*
     var pumpList = [];
     for (var entry in config ["pumps"])
@@ -155,7 +172,7 @@ class PrintAnalysis extends BasePrint
     }
 
 */
-    var cntp = src.dayCount > 0 ? (data.count / src.dayCount) : 0;
+    var cntp = repData.dayCount > 0 ? (data.count / repData.dayCount) : 0;
     String countPeriod = msgReadingsPerDay(cntp.toInt(), g.fmtNumber(cntp));
     if (cntp > 24)
     {
@@ -169,7 +186,7 @@ class PrintAnalysis extends BasePrint
     }
 
     double f = 1.5;
-    double f1 = 2.8;
+    double f1 = 2.5;
 
     DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")), src.status);
     totalDay.entries.addAll(data.entries);
@@ -180,15 +197,23 @@ class PrintAnalysis extends BasePrint
     double tgHigh = data.stat["high"].values.length / count * f;
     double tgNorm = data.stat["norm"].values.length / count * f;
     double tgLow = data.stat["low"].values.length / count * f;
-
-    double above180 = data.entriesAbove(180) / count * f;
+/*
+    double above180 = data.entriesAbove(180) / count * (useFineLimits ? f1 : f);
     double in70180 = data.entriesIn(70, 180) / count * (useFineLimits ? f1 : f);
-    double below70 = data.entriesBelow(70) / count * f;
-
+    double below70 = data.entriesBelow(70) / count * (useFineLimits ? f1 : f);
     double above250 = data.entriesAbove(250) / count * f1;
     double in180250 = data.entriesIn(180, 250) / count * f1;
     double in5470 = data.entriesIn(54, 70) / count * f1;
     double below54 = data.entriesBelow(54) / count * f1;
+*/
+    double above180 = data.stat["stdHigh"].values.length / count * (useFineLimits ? f1 : f);
+    double in70180 = data.stat["stdNorm"].values.length / count * (useFineLimits ? f1 : f);
+    double below70 = data.stat["stdLow"].values.length / count * (useFineLimits ? f1 : f);
+
+    double above250 = data.stat["stdVeryHigh"].values.length / count * f1;
+    double in180250 = data.stat["stdNormHigh"].values.length / count * f1;
+    double in5470 = data.stat["stdNormLow"].values.length / count * f1;
+    double below54 = data.stat["stdVeryLow"].values.length / count * f1;
 /*
     above250 = (data.count / 5) / data.count * f1;
     in180250 = above250;
@@ -196,15 +221,15 @@ class PrintAnalysis extends BasePrint
     below54 = above250;
     in70180 = above250;
 */
-    String txt = g.fmtNumber(src.dayCount / data.ampulleCount, _precisionMaterial, 0, "", true);
+    String txt = g.fmtNumber(repData.dayCount / data.ampulleCount, _precisionMaterial, 0, "", true);
     String ampulleCount = data.ampulleCount > 1
-      ? msgReservoirDays((src.dayCount / data.ampulleCount).round(), txt)
+      ? msgReservoirDays((repData.dayCount / data.ampulleCount).round(), txt)
       : "";
     var tableBody = [
       [
         {"text": "", "style": "infotitle"},
         {"text": msgDays, "style": "infotitle"},
-        {"text": src.dayCount, "style": "infodata"},
+        {"text": repData.dayCount, "style": "infodata"},
         {"text": "", "style": "infounit", "colSpan": 3},
         {"text": "", "style": "infounit"},
       ],
@@ -227,8 +252,8 @@ class PrintAnalysis extends BasePrint
         {"text": msgCatheterCount, "style": "infotitle"},
         {"text": g.fmtNumber(data.catheterCount), "style": "infodata"},
         {
-          "text": data.catheterCount > 1 ? msgCatheterDays((src.dayCount / data.catheterCount).round(),
-            g.fmtNumber(src.dayCount / data.catheterCount, _precisionMaterial, 0, "", true)) : "",
+          "text": data.catheterCount > 1 ? msgCatheterDays((repData.dayCount / data.catheterCount).round(),
+            g.fmtNumber(repData.dayCount / data.catheterCount, _precisionMaterial, 0, "", true)) : "",
           "style": "infounit",
           "colSpan": 3
         },
@@ -239,8 +264,8 @@ class PrintAnalysis extends BasePrint
         {"text": msgSensorCount, "style": "infotitle"},
         {"text": g.fmtNumber(data.sensorCount), "style": "infodata"},
         {
-          "text": data.sensorCount > 1 ? msgSensorDays((src.dayCount / data.sensorCount).round(),
-            g.fmtNumber(src.dayCount / data.sensorCount, _precisionMaterial, 0, "", true)) : "",
+          "text": data.sensorCount > 1 ? msgSensorDays((repData.dayCount / data.sensorCount).round(),
+            g.fmtNumber(repData.dayCount / data.sensorCount, _precisionMaterial, 0, "", true)) : "",
           "style": "infounit",
           "colSpan": 3
         },
@@ -250,14 +275,14 @@ class PrintAnalysis extends BasePrint
 
     double cvsLeft = -0.5;
     double cvsWidth = 0.8;
-    if (src.status.settings.thresholds.bgTargetBottom != 70 || src.status.settings.thresholds.bgTargetTop != 180)
+    if (repData.status.settings.thresholds.bgTargetBottom != 70 || repData.status.settings.thresholds.bgTargetTop != 180)
     {
       addBodyArea(tableBody, msgOwnLimits, [
         [
           {"text": "", "style": "infotitle"},
           {
             "text": msgValuesAbove(
-              "${glucFromData(src.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
+              "${glucFromData(repData.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
             "style": "infotitle"
           },
           {
@@ -286,8 +311,8 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {
             "text": msgValuesIn(
-              "${glucFromData(src.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}",
-              "${glucFromData(src.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
+              "${glucFromData(repData.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}",
+              "${glucFromData(repData.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
             "style": "infotitle"
           },
           {
@@ -302,7 +327,7 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {
             "text": msgValuesBelow(
-              "${glucFromData(src.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}"),
+              "${glucFromData(repData.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}"),
             "style": "infotitle"
           },
           {
@@ -489,6 +514,40 @@ class PrintAnalysis extends BasePrint
       ]);
     }
 
+    if (showHypoGlucs)
+    {
+      int uzCount = 0;
+      EntryData lastEntry = null;
+      for (EntryData entry in data.stat["stdVeryLow"].entries)
+      {
+        if (lastEntry == null || entry.time
+          .difference(lastEntry.time)
+          .inMinutes > 30)
+        {
+          uzCount++;
+          lastEntry = entry;
+        }
+      }
+
+      addBodyArea(tableBody, msgHypoTitle("${glucFromData(54)} ${getGlucInfo()["unit"]}"), [
+        [
+          {"text": "", "style": "infotitle"},
+          {"text": msgHypoCount, "style": "infotitle"},
+          {"text": "", "style": "infodata"},
+          {"text": "${uzCount}", "style": "infounit"},
+          {"text": "", "style": "infotitle"},
+          {"text": "", "style": "infounit"},
+        ],
+        [
+          {"text": "", "style": "infotitle"},
+          {"text": msgHypoDate, "style": "infotitle"},
+          {"text": "", "style": "infodata"},
+          {"text": "${lastEntry != null ? fmtDateTime(lastEntry.time) : msgNoHypo}", "style": "infounit", "colSpan": 3},
+          {"text": "", "style": "infotitle"},
+          {"text": "", "style": "infounit"},
+        ],
+      ]);
+    }
 
     addBodyArea(tableBody, msgPeriod, [
       [
@@ -558,15 +617,15 @@ class PrintAnalysis extends BasePrint
       [
         {"text": "", "style": "infotitle"},
         {"text": msgKHPerDay, "style": "infotitle"},
-        {"text": g.fmtNumber(data.khCount / src.dayCount, 1, 0), "style": "infodata"},
-        {"text": msgKHBE(g.fmtNumber(data.khCount / src.dayCount / 12, 1, 0)), "style": "infounit", "colSpan": 2},
+        {"text": g.fmtNumber(data.khCount / repData.dayCount, 1, 0), "style": "infodata"},
+        {"text": msgKHBE(g.fmtNumber(data.khCount / repData.dayCount / 12, 1, 0)), "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
       ],
       [
         {"text": "", "style": "infotitle"},
         {"text": msgInsulinPerDay, "style": "infotitle"},
-        {"text": "${g.fmtNumber((data.ieBolusSum + data.ieBasalSum) / src.dayCount, 1)}", "style": "infodata"},
+        {"text": "${g.fmtNumber((data.ieBolusSum + data.ieBasalSum) / repData.dayCount, 1)}", "style": "infodata"},
         {"text": "${msgInsulinUnit}", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
@@ -574,7 +633,7 @@ class PrintAnalysis extends BasePrint
       [
         {"text": "", "style": "infotitle"},
         {"text": msgBolusPerDay, "style": "infotitle"},
-        {"text": "${g.fmtNumber(data.ieBolusSum / src.dayCount, 1)}", "style": "infodata"},
+        {"text": "${g.fmtNumber(data.ieBolusSum / repData.dayCount, 1)}", "style": "infodata"},
         {"text": "bolus (${g.fmtNumber(data.ieBolusPrz, 1)} %)", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
@@ -582,7 +641,7 @@ class PrintAnalysis extends BasePrint
       [
         {"text": "", "style": "infotitle"},
         {"text": msgBasalPerDay, "style": "infotitle"},
-        {"text": "${g.fmtNumber(data.ieBasalSum / src.dayCount, 1)}", "style": "infodata"},
+        {"text": "${g.fmtNumber(data.ieBasalSum / repData.dayCount, 1)}", "style": "infodata"},
         {"text": "basal (${g.fmtNumber(data.ieBasalPrz, 1)} %)", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
@@ -591,7 +650,7 @@ class PrintAnalysis extends BasePrint
         {"@": data.ieMicroBolusSum > 0.0},
         {"text": "", "style": "infotitle"},
         {"text": msgMicroBolusPerDay, "style": "infotitle"},
-        {"text": "${g.fmtNumber(data.ieMicroBolusSum / src.dayCount, 1)}", "style": "infodata"},
+        {"text": "${g.fmtNumber(data.ieMicroBolusSum / repData.dayCount, 1)}", "style": "infodata"},
         {"text": "bolus (${g.fmtNumber(data.ieMicroBolusPrz, 1)} %)", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
@@ -601,7 +660,7 @@ class PrintAnalysis extends BasePrint
       headerFooter(),
       {
         "margin": [cm(0), cm(yorg), cm(0), cm(0)],
-        "columns": [{"width": cm(width), "text": "${src.globals.user.name}", "fontSize": fs(20), "alignment": "center"}]
+        "columns": [{"width": cm(width), "text": "${repData.user.name}", "fontSize": fs(20), "alignment": "center"}]
       },
       {
         "margin": [cm(5.5), cm(0.5), cm(0), cm(0)],
@@ -610,12 +669,12 @@ class PrintAnalysis extends BasePrint
           "headerRows": 0,
           "widths": [cm(5), cm(8)],
           "body": [
-            [{"text": msgBirthday, "style": "perstitle"}, {"text": src.globals.user.birthDate, "style": "persdata"}],
+            [{"text": msgBirthday, "style": "perstitle"}, {"text": repData.user.birthDate, "style": "persdata"}],
             [
               {"text": msgDiabSince, "style": "perstitle"},
-              {"text": src.globals.user.diaStartDate, "style": "persdata"}
+              {"text": repData.user.diaStartDate, "style": "persdata"}
             ],
-            [{"text": msgInsulin, "style": "perstitle"}, {"text": src.globals.user.insulin, "style": "persdata"}]
+            [{"text": msgInsulin, "style": "perstitle"}, {"text": repData.user.insulin, "style": "persdata"}]
           ]
         }
       },

@@ -75,18 +75,6 @@
       </div>
       <div class="subtitle" @i18n="label of area for display setting">Anzeigeeinstellungen</div>
       <div class="functions">
-        <div class="controls">
-          <div class="label" @i18n="label for themeselection">Darstellung</div>
-          <material-dropdown-select label="Thema" [buttonText]="g.themeName" popupClass="themeSelect" slide="y"
-                                    listAutoFocus>
-            <material-select-item *ngFor="let key of g.themeList.keys"
-                                  (trigger)="g.theme=key;changeTheme();"
-                                  class="selectItem"
-                                  [selected]="key==g.themeKey">
-              <div class="itemTitle">{{g.themeList[key]}}</div>
-            </material-select-item>
-          </material-dropdown-select>
-        </div>
         <material-checkbox [(checked)]="g.tileShowImage" @i18n="label for checkbox to show images on tiles">
           Auf Kacheln Bilder statt Namen anzeigen
         </material-checkbox>

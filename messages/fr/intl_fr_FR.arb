@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-11-29T06:57:01.631300",
+    "@@last_modified": "2019-12-20T09:49:41.097856",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -126,6 +126,16 @@
         "type": "text",
         "placeholders": {}
     },
+    "mg/dL": "mg/dL",
+    "@mg/dL": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "mmol/L": "mmol/L",
+    "@mmol/L": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Deutsch": "Allemand",
     "@Deutsch": {
         "type": "text",
@@ -243,6 +253,12 @@
     },
     "Letzte 3 Monate": "Les 3 derniers mois",
     "@Letzte 3 Monate": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Max Mustermann": "Jean Dupont",
+    "@Max Mustermann": {
+        "description": "modelname used in images on tiles",
         "type": "text",
         "placeholders": {}
     },
@@ -1175,16 +1191,6 @@
             "value": {}
         }
     },
-    "mg/dL": "mg/dL",
-    "@mg/dL": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "mmol/L": "mmol/L",
-    "@mmol/L": {
-        "type": "text",
-        "placeholders": {}
-    },
     "msgProfileSwitch": "Changement de profil - {oldName} => {newName}",
     "@msgProfileSwitch": {
         "type": "text",
@@ -1238,6 +1244,33 @@
     },
     "Standardbereich mit feinerer Abstufung": "Plage standard avec gradation plus fine",
     "@Standardbereich mit feinerer Abstufung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Unterzuckerungen anzeigen": "Afficher l'hypoglycémie",
+    "@Unterzuckerungen anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgHypoTitle": "Hypoglycémies (< {value})",
+    "@msgHypoTitle": {
+        "type": "text",
+        "placeholders": {
+            "value": {}
+        }
+    },
+    "Anzahl Unterzuckerungen": "Nombre d'hypoglycémies",
+    "@Anzahl Unterzuckerungen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte Unterzuckerung": "Dernière hypoglycémie",
+    "@Letzte Unterzuckerung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nur letzte Basalrate ausgeben": "Afficher uniquement le dernier débit de base",
+    "@Nur letzte Basalrate ausgeben": {
         "type": "text",
         "placeholders": {}
     },
@@ -1741,6 +1774,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Nur letztes Profil ausgeben": "Afficher uniquement le dernier profil",
+    "@Nur letztes Profil ausgeben": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Wochengrafik": "Graphes hebdomadaires",
     "@Wochengrafik": {
         "type": "text",
@@ -1945,12 +1983,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Darstellung": "Thème de l'affichage",
-    "@Darstellung": {
-        "description": "label for themeselection",
-        "type": "text",
-        "placeholders": {}
-    },
     "Auf Kacheln Bilder statt Namen anzeigen": "Afficher les images au lieu des noms sur les tuiles",
     "@Auf Kacheln Bilder statt Namen anzeigen": {
         "description": "label for checkbox to show images on tiles",
@@ -2083,8 +2115,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "1.3.6 - xx.11.2019": "1.3.6 - xx/11/2019",
-    "@1.3.6 - xx.11.2019": {
+    "1.3.6 - 18.12.2019": "1.3.6 - 18/12/2019",
+    "@1.3.6 - 18.12.2019": {
         "description": "v136",
         "type": "text",
         "placeholders": {}
@@ -2125,9 +2157,21 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": "L'interface utilisateur peut maintenant être affichée de différentes manières. Celles-ce s'affichent pour le moment de différentes couleurs et une icône modifiée dans l'onglet du navigateur et lors du chargement du site. Cela n'affecte pas les fichiers PDF générés. Il s'agit de la préparation pour une zone partiellement personnalisable. Le thème de la présentation est défini par défaut par le système, ce qui signifie qu'un thème de Noël sera affiché en décembre. Cependant, cela peut aussi être modifié dans les paramètres d'affichage du système. La représentation par défaut correspond à la combinaison précédente de couleurs. Automatique signifie que le thème est choisi par le système. Pour le moment, cela signifie la présentation de Noël en décembre. Cependant, il pourra y avoir d'autres critères dans le futur qui seront utilisés ajuster le thème. La définition directe d'un thème dans les paramètres aura toujours priorité sur la logique système.",
-    "@Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": {
+    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik.": "L'interface utilisateur peut maintenant être affichée de différentes manières. Celles-ci modifient pour le moment différentes couleurs et une icône modifiée dans l'onglet du navigateur et lors du chargement du site. Cela n'affecte pas les fichiers PDF générés. Il s'agit de la préparation pour un site partiellement personnalisable. Le thème de la présentation est défini par défaut par le système, ce qui signifie qu'un thème de Noël sera affiché en décembre. Cependant, cela peut aussi être modifié dans les paramètres d'affichage du système. La représentation par défaut correspond à la combinaison précédente de couleurs. La première icone signifie que le thème est choisi par le système. Pour le moment, cela signifie la présentation de Noël en décembre. Cependant, il pourra y avoir d'autres critères dans le futur qui seront utilisés pour ajuster le thème. La définition directe d'un thème dans les paramètres aura toujours priorité sur la logique système.",
+    "@Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik.": {
         "description": "v136a7",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.": "Avec le débit de base et le profil, il est maintenant possible de ne faire imprimer que le dernier au cours de la période correspondante. Cela réduit le nombre de pages avec des changements fréquents de profils / débits de base.",
+    "@Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.": {
+        "description": "v136a8",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden.": "Dans l'analyse, une zone peut maintenant être affichée, montrant le nombre d'hypoglycémies dans la période sélectionnée et l\"heure de la dernière hypoglycémie.",
+    "@Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden.": {
+        "description": "v136a9",
         "type": "text",
         "placeholders": {}
     },

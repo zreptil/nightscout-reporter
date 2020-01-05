@@ -47,23 +47,23 @@ abstract class BaseProfile extends BasePrint {
   DateTime profEndTime;
 
   @override
-  void fillPages(ReportData src, List<Page> pages) {
+  void fillPages(List<Page> pages) {
 /*
     List<String> dbg = List<String>();
     for(ProfileData p in src.profiles)
       dbg.add("${fmtDateTime(p.startDate)} - ${p.duration}");
 */
-    DateTime startDate = DateTime(src.begDate.year, src.begDate.month, src.begDate.day);
-    DateTime endDate = DateTime(src.endDate.year, src.endDate.month, src.endDate.day + 1);
-    List<ProfileData> profiles = src.profiles;
+    DateTime startDate = DateTime(repData.begDate.year, repData.begDate.month, repData.begDate.day);
+    DateTime endDate = DateTime(repData.endDate.year, repData.endDate.month, repData.endDate.day + 1);
+    List<ProfileData> profiles = repData.profiles;
     List<String> _alreadyDone = List<String>();
     List<Page> pageList = List<Page>();
     int lastIdx = -1;
-    for (int i = 0; i < src.profiles.length; i++) {
+    for (int i = 0; i < repData.profiles.length; i++) {
       profEndTime;
-      profStartTime = src.profiles[i].startDate;
-      if (i < src.profiles.length - 1) {
-        profEndTime = src.profiles[i + 1].startDate.add(Duration(minutes: -1));
+      profStartTime = repData.profiles[i].startDate;
+      if (i < repData.profiles.length - 1) {
+        profEndTime = repData.profiles[i + 1].startDate.add(Duration(minutes: -1));
       } else {
         profEndTime = null;
       }
@@ -74,28 +74,28 @@ abstract class BaseProfile extends BasePrint {
 
       bool done = false;
       CalcData calc = CalcData();
-      if (i < src.profiles.length - 1) {
-        calc.nextBRTimes = src.profiles[i + 1].current.listBasal;
-        calc.endDate = src.profiles[i + 1].startDate.add(Duration(days: -1));
-        if (startDate.difference(src.profiles[i + 1].startDate).inHours >= 0) continue;
+      if (i < repData.profiles.length - 1) {
+        calc.nextBRTimes = repData.profiles[i + 1].current.listBasal;
+        calc.endDate = repData.profiles[i + 1].startDate.add(Duration(days: -1));
+        if (startDate.difference(repData.profiles[i + 1].startDate).inHours >= 0) continue;
       } else {
-        calc.nextBRTimes = src.profiles[i].current.listBasal;
+        calc.nextBRTimes = repData.profiles[i].current.listBasal;
         calc.endDate = null;
       }
 
-      String hash = src.profiles[i].current.hash;
+      String hash = repData.profiles[i].current.hash;
       if (_alreadyDone.contains(hash)) continue;
       _alreadyDone.add(hash);
 
       lastIdx = pageList.length;
       for (int p = 0; !done; p++) {
-        Page page = getPage(p, src.profile(profiles[i].startDate), calc);
+        Page page = getPage(p, repData.profile(profiles[i].startDate), calc);
         done = page == null;
         if (!done) pageList.add(page);
       }
     }
 
-    if (onlyLast && pageList.length > 0)
+    if ((onlyLast || repData.isForThumbs) && pageList.length > 0)
       pageList.removeRange(0, lastIdx);
 
     pages.addAll(pageList);

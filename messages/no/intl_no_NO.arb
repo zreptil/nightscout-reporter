@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-11-29T06:57:01.631300",
+    "@@last_modified": "2019-12-20T09:49:41.097856",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -126,6 +126,16 @@
         "type": "text",
         "placeholders": {}
     },
+    "mg/dL": "mg/dL",
+    "@mg/dL": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "mmol/L": "mmol/L",
+    "@mmol/L": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Deutsch": "Deutsch",
     "@Deutsch": {
         "type": "text",
@@ -243,6 +253,12 @@
     },
     "Letzte 3 Monate": "Last 3 months",
     "@Letzte 3 Monate": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Max Mustermann": "John Smith",
+    "@Max Mustermann": {
+        "description": "modelname used in images on tiles",
         "type": "text",
         "placeholders": {}
     },
@@ -1175,16 +1191,6 @@
             "value": {}
         }
     },
-    "mg/dL": "mg/dL",
-    "@mg/dL": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "mmol/L": "mmol/L",
-    "@mmol/L": {
-        "type": "text",
-        "placeholders": {}
-    },
     "msgProfileSwitch": "Profileswitch - {oldName} => {newName}",
     "@msgProfileSwitch": {
         "type": "text",
@@ -1238,6 +1244,33 @@
     },
     "Standardbereich mit feinerer Abstufung": "Standard range with finer gradation",
     "@Standardbereich mit feinerer Abstufung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Unterzuckerungen anzeigen": "Show hypoglycemia",
+    "@Unterzuckerungen anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgHypoTitle": "Hypos (< {value})",
+    "@msgHypoTitle": {
+        "type": "text",
+        "placeholders": {
+            "value": {}
+        }
+    },
+    "Anzahl Unterzuckerungen": "Number of Hypos",
+    "@Anzahl Unterzuckerungen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte Unterzuckerung": "Last Hypo",
+    "@Letzte Unterzuckerung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nur letzte Basalrate ausgeben": "Show only last basalrate",
+    "@Nur letzte Basalrate ausgeben": {
         "type": "text",
         "placeholders": {}
     },
@@ -1741,6 +1774,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Nur letztes Profil ausgeben": "Show only last profile",
+    "@Nur letztes Profil ausgeben": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Wochengrafik": "Weekly Graphics",
     "@Wochengrafik": {
         "type": "text",
@@ -1945,12 +1983,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Darstellung": "Display theme",
-    "@Darstellung": {
-        "description": "label for themeselection",
-        "type": "text",
-        "placeholders": {}
-    },
     "Auf Kacheln Bilder statt Namen anzeigen": "Show images instead of names on tiles",
     "@Auf Kacheln Bilder statt Namen anzeigen": {
         "description": "label for checkbox to show images on tiles",
@@ -2083,8 +2115,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "1.3.6 - xx.11.2019": "1.3.6 - xx/11/2019",
-    "@1.3.6 - xx.11.2019": {
+    "1.3.6 - 18.12.2019": "1.3.6 - 18/12/2019",
+    "@1.3.6 - 18.12.2019": {
         "description": "v136",
         "type": "text",
         "placeholders": {}
@@ -2125,9 +2157,21 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": "The UI can now be displayed in different representations. These show themselves at the moment by different colours and a changed icon in the Browser tab and when loading the site. This does not affect the generated PDF files. It's the preparation for a partially customizable surface. The theme of the presentation is set by default by the system, which currently means that a Christmas theme will be displayed in December. However, this can also be overridden in the Display settings section in the settings. The representation Standard corresponds to the previous colour scheme. Automatic means that the theme is determined by the system. At the moment this means the Christmas presentation in December. However, there may be other criteria in the future that will be used to adjust the theme. The direct definition of a theme in the settings will always take precedence over the system logic.",
-    "@Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber in den Einstellungen im Abschnitt Anzeigeeinstellungen auch überschrieben werden. Die Darstellung Standard entspricht dabei dem bisherigen Farbschema. Automatisch bedeutet, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas in den Einstellungen hat aber immer Vorrang vor der systemeigenen Logik.": {
+    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik.": "The UI can now assume different representations. These show themselves at the moment by different colours and an adapted icon in the Browser tab and with the loading of the side. This does not affect the generated PDF files. It's the preparation for a partially customizable surface. The theme of the UI is set by default by the system, which currently means that a Christmas theme will be displayed in December. But this can be changed by clicking on the icon, which can be seen at the bottom left. When clicking the icon, an area with the available themes is displayed to the right of the icon. The first icon (the little wizard) means that the theme is determined by the system. At the moment this means the Christmas presentation in December. However, there may be other criteria in the future that will be used to adjust the theme. However, the direct definition of a theme with one of the other icons always takes precedence over the system logic.",
+    "@Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik.": {
         "description": "v136a7",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.": "With the basalrate and the profile, there is now an option to have only the last one printed in the corresponding period. This reduces the number of pages with frequent profile changes.",
+    "@Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.": {
+        "description": "v136a8",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden.": "In the analysis, an area can now be displayed, showing the number of hypos in the selected period and the time of the last hypo.",
+    "@Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden.": {
+        "description": "v136a9",
         "type": "text",
         "placeholders": {}
     },
