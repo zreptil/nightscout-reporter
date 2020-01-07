@@ -116,7 +116,7 @@ class PrintProfile extends BaseProfile {
     _fontSize = _fontSizeTables;
     subtitle = profile.store.name;
     // titleInfo = titleInfoTimeRange(profStartTime, profEndTime);
-    titleInfo = msgValidFrom(fmtDate(profile.store.startDate));
+    titleInfo = msgValidFrom(fmtDateTime(profile.store.startDate));
 
     dynamic tableWidths = [cm(2.6), cm(6.0), cm(6.1), cm(1.0), cm(1.8)];
     dynamic tableBody = [
