@@ -533,8 +533,10 @@ abstract class BasePrint {
   get msgAverage => Intl.message("Mittel-\nwert");
   get msgDeviation => Intl.message("Std.\nAbw.");
   get msgVarK => Intl.message("VarK\nin %");
+  get msg10 => Intl.message("10%");
   get msg25 => Intl.message("25%");
   get msg75 => Intl.message("75%");
+  get msg90 => Intl.message("90%");
   String msgDaySum(int value) => Intl.message("$value Tage", args: [value], name: "msgDaySum");
   get msgStandardDeviation => Intl.message("Standardabweichung");
   static String msgCalibration(scale, intercept, slope) =>
@@ -1169,7 +1171,7 @@ abstract class BasePrint {
 
     if (date is DateTime) {
       String ret =
-          "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year} ${(date.hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute}";
+          "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year}, ${(date.hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute}";
       if (withSeconds) ret = "${ret}:${(date.second < 10 ? "0" : "")}${date.second}";
       return msgTimeOfDay24(ret);
     }

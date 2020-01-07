@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -42,20 +43,25 @@ class PrintPercentile extends BasePrint {
 
   bool showGPD;
   bool showTable;
+  bool showCol1090;
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(0, BasePrint.msgOutput, list: [
-      BasePrint.msgGraphic,
-      BasePrint.msgTable,
-      BasePrint.msgAll,
-    ], thumbValue: 2),
+    ParamInfo(0, BasePrint.msgOutput,
+        list: [
+          BasePrint.msgGraphic,
+          BasePrint.msgTable,
+          BasePrint.msgAll,
+        ],
+        thumbValue: 2),
+    ParamInfo(1, msgCol1090, boolValue: false)
   ];
 
   @override
   extractParams() {
     showGPD = params[0].intValue == 0 || params[0].intValue == 2;
     showTable = params[0].intValue == 1 || params[0].intValue == 2;
+    showCol1090 = params[1].boolValue;
     pagesPerSheet = 1;
   }
 
@@ -73,6 +79,7 @@ class PrintPercentile extends BasePrint {
   bool isPortrait = false;
 
   num lineWidth;
+  static String get msgCol1090 => Intl.message("Spalten für 10% und 90% anzeigen");
   String colText = "#008800";
   String colLine = "#606060";
   String colBasal = "#0097a7";
@@ -104,7 +111,8 @@ class PrintPercentile extends BasePrint {
 
   fillRow(dynamic row, double f, int hour, List<EntryData> list, String style) {
     String firstCol = "${g.fmtNumber(hour, 0, 2)}:00";
-    DayData day = DayData(null, repData.profile(DateTime(repData.begDate.year, repData.begDate.month, repData.begDate.day)));
+    DayData day =
+        DayData(null, repData.profile(DateTime(repData.begDate.year, repData.begDate.month, repData.begDate.day)));
     day.entries.addAll(list);
     day.init();
     DateTime time = DateTime(0, 1, 1, hour);
@@ -126,54 +134,63 @@ class PrintPercentile extends BasePrint {
     }
     average /= count;
  */
-    double f = fs(10);
+
     double wid = 2.0 / 100.0;
-    double w = (width - 4.0 - 2.0 - wid * 100) / 8 - 0.45;
-    addTableRow(true, cm(2.0), row, {"text": msgTime, "style": "total", "alignment": "center"},
+    int colcount = showCol1090 ? 10 : 8;
+    double f = fs(showCol1090 ? 7 : 10);
+    double w = (width - 4.0 - 2.0 - wid * 100) / colcount - 0.45;
+    double h = showCol1090 ? 0.35 : 0.5;
+    addTableRow(true, cm(2.0), row, {"text": msgTime, "style": "total", "alignment": "center", "fontSize": f},
         {"text": firstCol, "style": "total", "alignment": "center", "fontSize": f});
-    addTableRow(true, cm(wid * 100), row, {
-      "text": msgDistribution,
-      "style": "total",
-      "alignment": "center"
-    }, {
-      "style": style,
-      "canvas": [
-        {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * wid), "h": cm(0.5)},
-        {
-          "type": "rect",
-          "color": colNorm,
-          "x": cm(day.lowPrz * wid),
-          "y": cm(0),
-          "w": cm(day.normPrz * wid),
-          "h": cm(0.5)
-        },
-        {
-          "type": "rect",
-          "color": colHigh,
-          "x": cm((day.lowPrz + day.normPrz) * wid),
-          "y": cm(0),
-          "w": cm(day.highPrz * wid),
-          "h": cm(0.5)
-        }
-      ]
-    });
-    addTableRow(true, cm(w), row, {"text": msgValues, "style": "total", "alignment": "center"},
+    var canvas = [
+      {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * wid), "h": cm(h)},
+      {
+        "type": "rect",
+        "color": colNorm,
+        "x": cm(day.lowPrz * wid),
+        "y": cm(0),
+        "w": cm(day.normPrz * wid),
+        "h": cm(h),
+      },
+      {
+        "type": "rect",
+        "color": colHigh,
+        "x": cm((day.lowPrz + day.normPrz) * wid),
+        "y": cm(0),
+        "w": cm(day.highPrz * wid),
+        "h": cm(h)
+      }
+    ];
+    if (day.entryCount == 0) canvas = [];
+    addTableRow(
+        true,
+        cm(wid * 100),
+        row,
+        {"text": msgDistribution, "style": "total", "alignment": "center", "fontSize": f},
+        {"style": style, "canvas": canvas});
+    addTableRow(true, cm(w), row, {"text": msgValues, "style": "total", "alignment": "center", "fontSize": f},
         {"text": "${g.fmtNumber(day.entryCount, 0)}", "style": style, "alignment": "right", "fontSize": f});
-    addTableRow(true, cm(w), row, {"text": msgAverage, "style": "total", "alignment": "center"},
+    addTableRow(true, cm(w), row, {"text": msgAverage, "style": "total", "alignment": "center", "fontSize": f},
         {"text": "${glucFromData(day.avgGluc, 1)}", "style": style, "alignment": "right", "fontSize": f});
-    addTableRow(true, cm(w), row, {"text": msgMin, "style": "total", "alignment": "center"},
-        {"text": "${glucFromData(day.min, 1)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, cm(w), row, {"text": msgMin, "style": "total", "alignment": "center", "fontSize": f},
+        {"text": "${glucFromData(day.minText, 1)}", "style": style, "alignment": "right", "fontSize": f});
 //*
-    addTableRow(true, cm(w), row, {"text": msg25, "style": "total", "alignment": "center"},
+    if (showCol1090)
+      addTableRow(true, cm(w), row, {"text": msg10, "style": "total", "alignment": "center", "fontSize": f},
+          {"text": "${glucFromData(perc.percentile(10), 1)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, cm(w), row, {"text": msg25, "style": "total", "alignment": "center", "fontSize": f},
         {"text": "${glucFromData(perc.percentile(25), 1)}", "style": style, "alignment": "right", "fontSize": f});
-    addTableRow(true, cm(w), row, {"text": msgMedian, "style": "total", "alignment": "center"},
+    addTableRow(true, cm(w), row, {"text": msgMedian, "style": "total", "alignment": "center", "fontSize": f},
         {"text": "${glucFromData(perc.percentile(50), 1)}", "style": style, "alignment": "right", "fontSize": f});
-    addTableRow(true, cm(w), row, {"text": msg75, "style": "total", "alignment": "center"},
+    addTableRow(true, cm(w), row, {"text": msg75, "style": "total", "alignment": "center", "fontSize": f},
         {"text": "${glucFromData(perc.percentile(75), 1)}", "style": style, "alignment": "right", "fontSize": f});
+    if (showCol1090)
+      addTableRow(true, cm(w), row, {"text": msg90, "style": "total", "alignment": "center", "fontSize": f},
+          {"text": "${glucFromData(perc.percentile(90), 1)}", "style": style, "alignment": "right", "fontSize": f});
 // */
-    addTableRow(true, cm(w), row, {"text": msgMax, "style": "total", "alignment": "center"},
-        {"text": "${glucFromData(day.max, 1)}", "style": style, "alignment": "right", "fontSize": f});
-    addTableRow(true, cm(w), row, {"text": msgDeviation, "style": "total", "alignment": "center"},
+    addTableRow(true, cm(w), row, {"text": msgMax, "style": "total", "alignment": "center", "fontSize": f},
+        {"text": "${glucFromData(day.maxText, 1)}", "style": style, "alignment": "right", "fontSize": f});
+    addTableRow(true, cm(w), row, {"text": msgDeviation, "style": "total", "alignment": "center", "fontSize": f},
         {"text": "${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right", "fontSize": f});
     tableHeadFilled = true;
   }
