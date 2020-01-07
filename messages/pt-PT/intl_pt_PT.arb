@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2019-12-20T09:49:41.097856",
+    "@@last_modified": "2020-01-07T15:17:10.050215",
     "Überprüfe Zugriff auf Nightscout ...": "A verificar acesso ao Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -822,6 +822,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "IE/std": "U/hr",
+    "@IE/std": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Summe": "Sum",
     "@Summe": {
         "type": "text",
@@ -1088,6 +1093,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "10%": "10%",
+    "@10%": {
+        "type": "text",
+        "placeholders": {}
+    },
     "25%": "25%",
     "@25%": {
         "type": "text",
@@ -1095,6 +1105,11 @@
     },
     "75%": "75%",
     "@75%": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "90%": "90%",
+    "@90%": {
         "type": "text",
         "placeholders": {}
     },
@@ -1764,6 +1779,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Spalten für 10% und 90% anzeigen": "Show columns for 10% and 90%",
+    "@Spalten für 10% und 90% anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Profil": "Perfil",
     "@Profil": {
         "type": "text",
@@ -2112,6 +2132,48 @@
     "Version": "Versão",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.3.7 - 7.1.2020": "1.3.7 - 7/1/2020",
+    "@1.3.7 - 7.1.2020": {
+        "description": "v137",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.": "There is a new option on the page \"Hourly Statistics\" to also show columns with 10% and 90%.",
+    "@Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.": {
+        "description": "v137a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.": "The validity is now displayed with the time on the \"Profile\" page.",
+    "@Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.": {
+        "description": "v137c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.": "The entries in the log for temporary targets are now displayed correctly even with mmol data.",
+    "@Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.": {
+        "description": "v137f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.": "The heading above the middle column in the daily profile has been corrected.",
+    "@Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.": {
+        "description": "v137f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Balken in der Analyse werden jetzt korrekt skaliert.": "The bars in the analysis are now scaled correctly.",
+    "@Die Balken in der Analyse werden jetzt korrekt skaliert.": {
+        "description": "v137f3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.": "Most of the columns on the page \"Hourly Statistics\" are left blank if there is no data.",
+    "@Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.": {
+        "description": "v137f4",
         "type": "text",
         "placeholders": {}
     },

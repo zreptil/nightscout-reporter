@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
@@ -42,20 +43,25 @@ class PrintPercentile extends BasePrint {
 
   bool showGPD;
   bool showTable;
+  bool showCol1090;
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(0, BasePrint.msgOutput, list: [
-      BasePrint.msgGraphic,
-      BasePrint.msgTable,
-      BasePrint.msgAll,
-    ], thumbValue: 2),
+    ParamInfo(0, BasePrint.msgOutput,
+        list: [
+          BasePrint.msgGraphic,
+          BasePrint.msgTable,
+          BasePrint.msgAll,
+        ],
+        thumbValue: 2),
+    ParamInfo(1, msgCol1090, boolValue: false)
   ];
 
   @override
   extractParams() {
     showGPD = params[0].intValue == 0 || params[0].intValue == 2;
     showTable = params[0].intValue == 1 || params[0].intValue == 2;
+    showCol1090 = params[1].boolValue;
     pagesPerSheet = 1;
   }
 
@@ -75,6 +81,7 @@ class PrintPercentile extends BasePrint {
   SettingsData _settings;
 
   num lineWidth;
+  static String get msgCol1090 => Intl.message("Spalten für 10% und 90% anzeigen");
   String colText = "#008800";
   String colLine = "#606060";
   String colBasal = "#0097a7";

@@ -736,6 +736,7 @@ class ProfileData extends JsonData
   String units;
   DateTime createdAt;
   int maxPrecision = 0;
+  bool isFromNS = false;
 
   ProfileData get copy
   {
@@ -764,9 +765,10 @@ class ProfileData extends JsonData
 
   ProfileData();
 
-  factory ProfileData.fromJson(Map<String, dynamic> json){
+  factory ProfileData.fromJson(Map<String, dynamic> json, {bool isFromNS: false}){
     ProfileData ret = ProfileData();
     ret.raw = json;
+    ret.isFromNS = isFromNS;
     if (json == null)return ret;
     ret.id = json["int"];
     ret.defaultProfile = json["defaultProfile"];
@@ -1411,6 +1413,8 @@ class DayData
   double carbs = 0;
   double min;
   double max;
+  String get minText => min == 10000 ? "" : "$min";
+  String get maxText => max == -10000 ? "" : "$max";
   double mid;
   double varianz = 0.0;
   double stdAbw(bool isMGDL)
