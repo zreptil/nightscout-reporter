@@ -108,6 +108,8 @@ class PrintProfile extends BaseProfile {
       startTime = null;
     }
 
+    if (ret.length == 0) ret.add([]);
+
     return ret;
   }
 

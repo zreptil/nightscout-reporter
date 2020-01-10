@@ -357,16 +357,16 @@ class PrintCGP extends BasePrint {
             {"text": PentagonData.msgCVInfo}
           ],
           [
-            {"text": PentagonData.msgHYPO(unit, g.fmtNumber(cgp["hypo"]))},
+            {"text": PentagonData.msgHYPO(unit, g.fmtNumber(g.glucFromData(cgp["hypo"])))},
             {"text": PentagonData.msgHYPOInfo("70 ${unit}")}
           ],
           [
-            {"text": PentagonData.msgHYPER(unit, g.fmtNumber(cgp["hyper"]))},
+            {"text": PentagonData.msgHYPER(unit, g.fmtNumber(g.glucFromData(cgp["hyper"])))},
             {"text": PentagonData.msgHYPERInfo("180 ${unit}")}
           ],
           [
-            {"text": PentagonData.msgMEAN(unit, g.fmtNumber(cgp["mean"]))},
-            {"text": PentagonData.msgMEANInfo(hba1c(cgp["mean"]))}
+            {"text": PentagonData.msgMEAN(unit, g.fmtNumber(g.glucFromData(cgp["mean"])))},
+            {"text": PentagonData.msgMEANInfo(hba1c(g.glucFromData(cgp["mean"])))}
           ],
           [
             {
@@ -469,11 +469,17 @@ class PrintCGP extends BasePrint {
     totalDay.entries.addAll(data.entries);
     totalDay.init();
     double avgGluc = 0.0;
+    double varK = 0.0;
     if (dayData is DayData) {
       avgGluc = dayData.avgGluc;
+      varK = dayData.varK;
     } else if (dayData is List<DayData>) {
-      for (DayData day in dayData) avgGluc += day.avgGluc;
+      for (DayData day in dayData) {
+        avgGluc += day.avgGluc;
+        varK += day.varK;
+      }
       avgGluc /= dayData.length;
+      varK /= dayData.length;
     }
 
     int count = data.entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc >= 70 && entry.gluc <= 180).length;
@@ -503,14 +509,6 @@ class PrintCGP extends BasePrint {
       ]
     });
 
-    return {
-      "cgp": cgp,
-      "pgr": pgr,
-      "mean": avgGluc,
-      "hypo": hypoAUC,
-      "hyper": hyperAUC,
-      "tor": tor,
-      "vark": totalDay.varK
-    };
+    return {"cgp": cgp, "pgr": pgr, "mean": avgGluc, "hypo": hypoAUC, "hyper": hyperAUC, "tor": tor, "vark": varK};
   }
 }
