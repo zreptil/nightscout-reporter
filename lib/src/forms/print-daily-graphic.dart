@@ -413,6 +413,7 @@ class PrintDailyGraphic extends BaseDaily {
     for (EntryData entry in day.bloody) {
       double x = glucX(entry.time);
       double y = glucY(entry.mbg);
+      y = glucY(entry.mbg);
       graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": colBloodValues});
     }
     for (TreatmentData t in day.treatments) {

@@ -727,18 +727,17 @@ class AppComponent implements OnInit {
     while (i < data.profiles.length) {
       ProfileData last = data.profiles[i - 1];
       ProfileData current = data.profiles[i];
-      if (last.isFromNS) baseProfile = last;
       int duration = current.startDate.difference(last.startDate).inSeconds;
       if (last.duration >= duration || last.duration == 0) {
         last.duration = duration;
-      } else if (i > 2) {
-//        ProfileData temp = baseProfile.copy;
-//        temp.isFromNS = true;
-        ProfileData temp = data.profiles[i - 2].copy;
+      } else {
+        ProfileData temp = baseProfile.copy;
         temp.startDate = last.startDate.add(Duration(seconds: last.duration));
         temp.duration = current.startDate.difference(temp.startDate).inSeconds;
         data.profiles.insert(i, temp);
+        i++;
       }
+      if (current.isFromNS) baseProfile = current;
       i++;
     }
 
@@ -821,7 +820,7 @@ class AppComponent implements OnInit {
             entry.time = t.createdAt;
             entry.device = t.enteredBy;
             entry.type = "mbg";
-            entry.mbg = t.glucose;
+            entry.mbg = t.glucose * (g.glucMGDL ? 1 : 18.02);
             entry.rawbg = t.glucose;
             data.ns.bloody.add(entry);
           }
@@ -1054,7 +1053,7 @@ class AppComponent implements OnInit {
             if (doc == null) {
               doc = {
                 "pageSize": "a4",
-                "pageOrientation": pageList[0].isPortrait ? "portrait" : "landscape",
+                "pageOrientation": pageList.length == 0 || pageList[0].isPortrait ? "portrait" : "landscape",
                 "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
                 "content": content,
                 "images": form.images,
