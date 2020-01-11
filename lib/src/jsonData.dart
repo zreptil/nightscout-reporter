@@ -1487,7 +1487,6 @@ class DayData {
     for (EntryData entry in entries) {
       if (entry.gluc >= 0) {
         entryCount++;
-<<<<<<< HEAD
         if (entry.gluc < statusData.settings.thresholds.bgLow)
           lowCount++;
         else if (entry.gluc < statusData.settings.thresholds.bgTargetBottom)
