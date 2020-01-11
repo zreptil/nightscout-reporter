@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-01-07T15:17:10.050215",
+    "@@last_modified": "2020-01-09T14:38:57.031527",
     "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -2132,6 +2132,36 @@
     "Version": "Version",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.3.8 - 9.1.2020": "1.3.8 - 9.1.2020",
+    "@1.3.8 - 9.1.2020": {
+        "description": "v138",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet.": "Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet.",
+    "@Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet.": {
+        "description": "v138a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt.": "Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt.",
+    "@Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt.": {
+        "description": "v138f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben.": "Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben.",
+    "@Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben.": {
+        "description": "v138f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.",
+    "@Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": {
+        "description": "v138f3",
         "type": "text",
         "placeholders": {}
     },

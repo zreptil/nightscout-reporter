@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-01-07T15:17:10.050215",
+    "@@last_modified": "2020-01-09T14:38:57.031527",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -256,7 +256,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Max Mustermann": "Max Mustermann",
+    "Max Mustermann": "Juan Gómez",
     "@Max Mustermann": {
         "description": "modelname used in images on tiles",
         "type": "text",
@@ -822,7 +822,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "IE/std": "IE/std",
+    "IE/std": "UI /h",
     "@IE/std": {
         "type": "text",
         "placeholders": {}
@@ -1262,29 +1262,29 @@
         "type": "text",
         "placeholders": {}
     },
-    "Unterzuckerungen anzeigen": "Unterzuckerungen anzeigen",
+    "Unterzuckerungen anzeigen": "Mostrar hipoglycemias",
     "@Unterzuckerungen anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "msgHypoTitle": "Unterzuckerungen (< {value})",
+    "msgHypoTitle": "Hipoglycemia (< {value})",
     "@msgHypoTitle": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "Anzahl Unterzuckerungen": "Anzahl Unterzuckerungen",
+    "Anzahl Unterzuckerungen": "Número de hipoglycemias",
     "@Anzahl Unterzuckerungen": {
         "type": "text",
         "placeholders": {}
     },
-    "Letzte Unterzuckerung": "Letzte Unterzuckerung",
+    "Letzte Unterzuckerung": "Última hipoglucemia",
     "@Letzte Unterzuckerung": {
         "type": "text",
         "placeholders": {}
     },
-    "Nur letzte Basalrate ausgeben": "Nur letzte Basalrate ausgeben",
+    "Nur letzte Basalrate ausgeben": "Solo mostrar perfil basal reciente",
     "@Nur letzte Basalrate ausgeben": {
         "type": "text",
         "placeholders": {}
@@ -1779,7 +1779,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Spalten für 10% und 90% anzeigen": "Spalten für 10% und 90% anzeigen",
+    "Spalten für 10% und 90% anzeigen": "Mostrar columnas para 10% y 90%",
     "@Spalten für 10% und 90% anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1794,7 +1794,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Nur letztes Profil ausgeben": "Nur letztes Profil ausgeben",
+    "Nur letztes Profil ausgeben": "Solo mostrar perfil reciente",
     "@Nur letztes Profil ausgeben": {
         "type": "text",
         "placeholders": {}
@@ -2135,43 +2135,73 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.3.8 - 9.1.2020": "1.3.8 - 9.1.2020",
+    "@1.3.8 - 9.1.2020": {
+        "description": "v138",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet.": "Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet.",
+    "@Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet.": {
+        "description": "v138a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt.": "Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt.",
+    "@Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt.": {
+        "description": "v138f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben.": "Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben.",
+    "@Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben.": {
+        "description": "v138f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.",
+    "@Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": {
+        "description": "v138f3",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.3.7 - 7.1.2020": "1.3.7 - 7.1.2020",
     "@1.3.7 - 7.1.2020": {
         "description": "v137",
         "type": "text",
         "placeholders": {}
     },
-    "Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.": "Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.",
+    "Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.": "En la página \"estatistica por hora\" hay una da opción para mostrar columnas con 10% y 90%.",
     "@Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.": {
         "description": "v137a1",
         "type": "text",
         "placeholders": {}
     },
-    "Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.": "Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.",
+    "Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.": "En la página \"perfil\" ahora se muestra la validez con hora.",
     "@Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.": {
         "description": "v137c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.": "Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.",
+    "Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.": "Las entradas en el protocolo para objetivos temporales ahora también se muestran en mmol correctamente.",
     "@Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.": {
         "description": "v137f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.": "Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.",
+    "Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.": "El título de la columna mediana en el perfil diario ha sido corregido.",
     "@Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.": {
         "description": "v137f2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Balken in der Analyse werden jetzt korrekt skaliert.": "Die Balken in der Analyse werden jetzt korrekt skaliert.",
+    "Die Balken in der Analyse werden jetzt korrekt skaliert.": "La barra en la análisis ahora son escaladas correctamente.",
     "@Die Balken in der Analyse werden jetzt korrekt skaliert.": {
         "description": "v137f3",
         "type": "text",
         "placeholders": {}
     },
-    "Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.": "Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.",
+    "Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.": "En la página \"estatistica por hora\" la mayoría de las columnas se quedan vacias si no contienen datos.",
     "@Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.": {
         "description": "v137f4",
         "type": "text",
@@ -2219,19 +2249,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik.": "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik.",
+    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik.": "La cara ahora puede mostrarse de distintas maneras. Esto se muestra con diferentesccolores, con un icono adaptado y al cargar la página. Esto afecta a los PDF creados. Es la preparación para una cara configurable. El tema de la cara será determinado por el sistema, lo que quiere decir, que en diciembre es un tema navideño. Esto se puede cambiar haciendo clic en el icono que a partir de ahora se muestra abajo a la izquierda. Al hacer clic a la derecha se muestran diferentes iconos. El primero (el pequeño mago) signific, que la cara será determinada por el sistem. De momento es el diseño navideño en diciembre. En el futuro puede haber más criterios para determinar el tema. La determinación del tema a mano siempre tiene prioridad a la del sistema.",
     "@Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik.": {
         "description": "v136a7",
         "type": "text",
         "placeholders": {}
     },
-    "Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.": "Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.",
+    "Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.": "Para la tasa basal y el perfil ahora hay una opción para solo mostrar el perfil o la tasa reciente durante el periodo elegido. Esto reduce la cantidad de páginas producidos por muchos cambios de perfil.",
     "@Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.": {
         "description": "v136a8",
         "type": "text",
         "placeholders": {}
     },
-    "Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden.": "Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden.",
+    "Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden.": "Para la análisis ahora se puede elegir un espacio en el que se muestra el número de hipoglucemias durante el periodo elegido y la hora de la última hipoglucemia.",
     "@Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden.": {
         "description": "v136a9",
         "type": "text",

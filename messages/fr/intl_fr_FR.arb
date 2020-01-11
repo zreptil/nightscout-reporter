@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-01-07T15:17:10.050215",
+    "@@last_modified": "2020-01-09T14:38:57.031527",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1779,7 +1779,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Spalten für 10% und 90% anzeigen": "Show columns for 10% and 90%",
+    "Spalten für 10% und 90% anzeigen": "Afficher les colonnes pour 10% et 90%",
     "@Spalten für 10% und 90% anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -2135,43 +2135,73 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.3.8 - 9.1.2020": "1.3.8 - 9/1/2020",
+    "@1.3.8 - 9.1.2020": {
+        "description": "v138",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet.": "The images on the tiles are now labeled in the respective language.",
+    "@Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet.": {
+        "description": "v138a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt.": "The values in the CGP are now also correctly displayed for mmol data.",
+    "@Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt.": {
+        "description": "v138f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben.": "The glycemic variability is now correctly displayed in the CGP even with daily and weekly graphics.",
+    "@Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben.": {
+        "description": "v138f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": "Bloody values should now also be displayed correctly in the daily graph for mmol data.",
+    "@Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": {
+        "description": "v138f3",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.3.7 - 7.1.2020": "1.3.7 - 7/1/2020",
     "@1.3.7 - 7.1.2020": {
         "description": "v137",
         "type": "text",
         "placeholders": {}
     },
-    "Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.": "There is a new option on the page \"Hourly Statistics\" to also show columns with 10% and 90%.",
+    "Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.": "Il y a une nouvelle option sur la page \"Statistiques horaires\" pour afficher également les colonnes avec 10% et 90%.",
     "@Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.": {
         "description": "v137a1",
         "type": "text",
         "placeholders": {}
     },
-    "Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.": "The validity is now displayed with the time on the \"Profile\" page.",
+    "Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.": "La validité est maintenant affichée avec l'heure sur la page \"Profil\".",
     "@Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.": {
         "description": "v137c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.": "The entries in the log for temporary targets are now displayed correctly even with mmol data.",
+    "Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.": "Les entrées dans le journal des cibles temporaires sont maintenant affichées correctement, même avec les données en mmol.",
     "@Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.": {
         "description": "v137f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.": "The heading above the middle column in the daily profile has been corrected.",
+    "Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.": "L'en-tête au-dessus de la colonne du milieu dans le profil quotidien a été corrigé.",
     "@Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.": {
         "description": "v137f2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Balken in der Analyse werden jetzt korrekt skaliert.": "The bars in the analysis are now scaled correctly.",
+    "Die Balken in der Analyse werden jetzt korrekt skaliert.": "Les barres de l'analyse sont maintenant redimensionnées correctement.",
     "@Die Balken in der Analyse werden jetzt korrekt skaliert.": {
         "description": "v137f3",
         "type": "text",
         "placeholders": {}
     },
-    "Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.": "Most of the columns on the page \"Hourly Statistics\" are left blank if there is no data.",
+    "Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.": "La plupart des colonnes de la page \"Statistiques horaires\" sont laissées vides s'il n'y a pas de données.",
     "@Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.": {
         "description": "v137f4",
         "type": "text",

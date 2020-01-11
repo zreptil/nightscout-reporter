@@ -231,7 +231,7 @@ abstract class BasePrint {
 
   String get backimage {
     extractParams();
-    return "packages/nightscout_reporter/assets/img/thumbs/${id}${backsuffix == "" ? "" : "-${backsuffix}"}.png";
+    return "packages/nightscout_reporter/assets/img/thumbs/${g.language.img}/${id}${backsuffix == "" ? "" : "-${backsuffix}"}.png";
   }
 
   String titleInfo;
