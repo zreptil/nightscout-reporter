@@ -160,13 +160,13 @@ class PrintDailyStatistics extends BasePrint
         {"text": "${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right"});
     addTableRow(showVarK, "auto", row, {"text": msgVarK, "style": "total", "alignment": "center"},
         {"text": "${g.fmtNumber(day.varK, 1)}", "style": style, "alignment": "right"});
-    addTableRow(showPercentile, cm(1), row, {"text": msg25, "style": "total", "alignment": "center"},
+    addTableRow(showPercentile, "auto", row, {"text": msg25, "style": "total", "alignment": "center"},
         {"text": "${percentileFor(Globals.percentile(day.entries, 25))}", "style": style, "alignment": "right"});
-    addTableRow(showPercentile, cm(1.25), row, {"text": msgMedian, "style": "total", "alignment": "center"},
+    addTableRow(showPercentile, "auto", row, {"text": msgMedian, "style": "total", "alignment": "center"},
         {"text": "${percentileFor(Globals.percentile(day.entries, 50))}", "style": style, "alignment": "right"});
-    addTableRow(showPercentile, cm(1), row, {"text": msg75, "style": "total", "alignment": "center"},
+    addTableRow(showPercentile, "auto", row, {"text": msg75, "style": "total", "alignment": "center"},
         {"text": "${percentileFor(Globals.percentile(day.entries, 75))}", "style": style, "alignment": "right"});
-    addTableRow(showHbA1c, cm(1.25), row, {"text": msgHbA1C, "style": "total", "alignment": "center", "color": colHbA1c},
+    addTableRow(showHbA1c, "auto", row, {"text": msgHbA1C, "style": "total", "alignment": "center", "color": colHbA1c},
         {"text": "${hba1c(day.mid)} %", "style": style, "alignment": "right", "color": colHbA1c});
     tableHeadFilled = true;
   }
