@@ -52,7 +52,7 @@ class PrintDailyStatistics extends BasePrint
   }
 
   @override
-  String title = Intl.message("Tagesstatistik");
+  String get title => Intl.message("Tagesstatistik");
 
   @override
   bool get isPortrait

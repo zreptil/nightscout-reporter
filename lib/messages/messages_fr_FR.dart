@@ -22,147 +22,149 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m1(count) => "${Intl.plural(count, zero: '', one: '1 page ou plus', other: '${count} pages ou plus')}";
 
-  static m2(value) => "Débit basal pour la journée (${value})";
+  static m2(time) => "Le débit basal est valide depuis ${time} et n\'inclut aucune modification temporaire.";
 
-  static m3(value) => "Débit basal du profil (${value})";
+  static m3(value) => "Débit basal pour la journée (${value})";
 
-  static m4(value) => "Bolus d\'insuline (${value})";
+  static m4(value) => "Débit basal du profil (${value})";
 
-  static m5(value) => "CV [${value}%]";
+  static m5(value) => "Bolus d\'insuline (${value})";
 
-  static m6(scale, intercept, slope) => "Calibration (échelle ${scale} / intercepter ${intercept} / pente ${slope})";
+  static m6(value) => "CV [${value}%]";
 
-  static m7(value) => "Bolus repas (${value})";
+  static m7(scale, intercept, slope) => "Calibration (échelle ${scale} / intercepter ${intercept} / pente ${slope})";
 
-  static m8(value) => "Glucides (${value} g)";
+  static m8(value) => "Bolus repas (${value})";
 
-  static m9(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} jour par cathéter)', other: '(${txt} jours par cathéter)')}";
+  static m9(value) => "Glucides (${value} g)";
 
-  static m10(name, from, to) => "${name} ${from} => ${to}";
+  static m10(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} jour par cathéter)', other: '(${txt} jours par cathéter)')}";
 
-  static m11(url) => "Vérification de l\'accès à ${url}...";
+  static m11(name, from, to) => "${name} ${from} => ${to}";
 
-  static m12(value) => "Bolus de correction (${value})";
+  static m12(url) => "Vérification de l\'accès à ${url}...";
 
-  static m13(value) => "${Intl.plural(value, zero: '', one: 'No value', other: '${value} mesures')}";
+  static m13(value) => "Bolus de correction (${value})";
 
-  static m14(value) => "${value} Jours";
+  static m14(value) => "${Intl.plural(value, zero: '', one: 'No value', other: '${value} mesures')}";
 
-  static m15(hours, minutes) => "${hours} h ${minutes} m";
+  static m15(value) => "${value} Jours";
 
-  static m16(beg, end) => "${beg} - ${end}";
+  static m16(hours, minutes) => "${hours} h ${minutes} m";
 
-  static m17(max) => "mauvais (supérieur à ${max})";
+  static m17(beg, end) => "${beg} - ${end}";
 
-  static m18(min, max) => "bon (${min} à ${max})";
+  static m18(max) => "mauvais (supérieur à ${max})";
 
-  static m19(min) => "non disponible (moins de ${min})";
+  static m19(min, max) => "bon (${min} à ${max})";
 
-  static m20(min, max) => "très bon (${min} à ${max})";
+  static m20(min) => "non disponible (moins de ${min})";
 
-  static m21(unit, value) => "Intensité Hyper\n[${unit} x min²]";
+  static m21(min, max) => "très bon (${min} à ${max})";
 
-  static m22(unit) => "L\'intensité de l\'hyperglycémie par jour (valeurs supérieures ou égales à ${unit}).";
+  static m22(unit, value) => "Intensité Hyper\n[${unit} x min²]";
 
-  static m23(unit, value) => "Intensité Hypo\n[${unit} x min²]";
+  static m23(unit) => "L\'intensité de l\'hyperglycémie par jour (valeurs supérieures ou égales à ${unit}).";
 
-  static m24(unit) => "L\'intensité de l\'hypoglycémie par jour (valeurs inférieures ou égales à ${unit}).";
+  static m24(unit, value) => "Intensité Hypo\n[${unit} x min²]";
 
-  static m25(value) => "Valeur Haute${value}";
+  static m25(unit) => "L\'intensité de l\'hypoglycémie par jour (valeurs inférieures ou égales à ${unit}).";
 
-  static m26(value) => "Historique ${value}";
+  static m26(value) => "Valeur Haute${value}";
 
-  static m27(value) => "Hypoglycémies (< ${value})";
+  static m27(value) => "Historique ${value}";
 
-  static m28(unit) => "Sensibilité à l\'insuline (ISF) 1 Unité d\'insuline réduit la glycémie de X ${unit}";
+  static m28(value) => "Hypoglycémies (< ${value})";
 
-  static m29(value) => "${value}g";
+  static m29(unit) => "Sensibilité à l\'insuline (ISF) 1 Unité d\'insuline réduit la glycémie de X ${unit}";
 
-  static m30(value) => "g CH (${value} BU)";
+  static m30(value) => "${value}g";
 
-  static m31(value) => "Dose journalière totale (${value})";
+  static m31(value) => "g CH (${value} BU)";
 
-  static m32(error, stacktrace) => "Erreur lors du chargement des données : ${error} ${stacktrace}";
+  static m32(value) => "Dose journalière totale (${value})";
 
-  static m33(date) => "Chargement des données pour ${date}...";
+  static m33(error, stacktrace) => "Erreur lors du chargement des données : ${error} ${stacktrace}";
 
-  static m34(insulin, unit) => "SMB ${insulin} ${unit}";
+  static m34(date) => "Chargement des données pour ${date}...";
 
-  static m35(percent, duration) => "débit de base temporaire ${percent}% / ${duration} min";
+  static m35(insulin, unit) => "SMB ${insulin} ${unit}";
 
-  static m36(target, duration, reason) => "cible temporaire ${target} pour ${duration} min, raison: ${reason}";
+  static m36(percent, duration) => "débit de base temporaire ${percent}% / ${duration} min";
 
-  static m37(value) => "Valeur Basse${value}";
+  static m37(target, duration, reason) => "cible temporaire ${target} pour ${duration} min, raison: ${reason}";
 
-  static m38(gluc, unit) => "Valeur de glycémie ${gluc} ${unit}";
+  static m38(value) => "Valeur Basse${value}";
 
-  static m39(unit, value) => "Glycémie moyenne\n[${unit}]";
+  static m39(gluc, unit) => "Valeur de glycémie ${gluc} ${unit}";
 
-  static m40(hba1c) => "La valeur glycémique moyenne de la période spécifiée.";
+  static m40(unit, value) => "Glycémie moyenne\n[${unit}]";
 
-  static m41(min, max) => "mauvais (${min} à ${max})";
+  static m41(hba1c) => "La valeur glycémique moyenne de la période spécifiée.";
 
-  static m42(min, max) => "bon (${min} à ${max})";
+  static m42(min, max) => "mauvais (${min} à ${max})";
 
-  static m43(max) => "très mauvais (supérieur à ${max})";
+  static m43(min, max) => "bon (${min} à ${max})";
 
-  static m44(min) => "excellent (moins de ${min})";
+  static m44(max) => "très mauvais (supérieur à ${max})";
 
-  static m45(oldName, newName) => "Changement de profil - ${oldName} => ${newName}";
+  static m45(min) => "excellent (moins de ${min})";
 
-  static m46(oldName, newName, duration) => "Changement de profil - ${oldName} => ${newName} pour ${duration} minutes";
+  static m46(oldName, newName) => "Changement de profil - ${oldName} => ${newName}";
 
-  static m47(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par minute', other: 'valeur chaque ${fmt} minutes')}";
+  static m47(oldName, newName, duration) => "Changement de profil - ${oldName} => ${newName} pour ${duration} minutes";
 
-  static m48(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par jour', other: '${fmt} valeurs par jour')}";
+  static m48(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par minute', other: 'valeur chaque ${fmt} minutes')}";
 
-  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par heure', other: '${fmt} valeurs par heure')}";
+  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par jour', other: '${fmt} valeurs par jour')}";
 
-  static m50(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} jour par réservoir)', other: '(${txt} jours par réservoir)')}";
+  static m50(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par heure', other: '${fmt} valeurs par heure')}";
 
-  static m51(value) => "SMB (${value})";
+  static m51(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} jour par réservoir)', other: '(${txt} jours par réservoir)')}";
 
-  static m52(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} jour par capteur)', other: '(${txt} jours par capteur)')}";
+  static m52(value) => "SMB (${value})";
 
-  static m53(value) => "(Éc.type ${value})";
+  static m53(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} jour par capteur)', other: '(${txt} jours par capteur)')}";
 
-  static m54(value) => "ToR [${value}min/d]";
+  static m54(value) => "(Éc.type ${value})";
 
-  static m55(min, max) => "La durée quotidienne en minutes dans laquelle les valeurs sont en dehors de l\'intervalle ${min} à ${max}.";
+  static m55(value) => "ToR [${value}min/d]";
 
-  static m56(unit) => "Zone cible de glycémies ${unit}";
+  static m56(min, max) => "La durée quotidienne en minutes dans laquelle les valeurs sont en dehors de l\'intervalle ${min} à ${max}.";
 
-  static m57(min, max, units) => "Plage cible (${min} - ${max} ${units})";
+  static m57(unit) => "Zone cible de glycémies ${unit}";
 
-  static m58(value) => "Valeur cible";
+  static m58(min, max, units) => "Plage cible (${min} - ${max} ${units})";
 
-  static m59(time) => "${time}";
+  static m59(value) => "Valeur cible";
 
-  static m60(time) => "${time} am";
+  static m60(time) => "${time}";
 
-  static m61(time) => "${time} pm";
+  static m61(time) => "${time} am";
 
-  static m62(begDate) => "valide depuis ${begDate}";
+  static m62(time) => "${time} pm";
 
-  static m63(begDate, endDate) => "valide de ${begDate} à ${endDate}";
+  static m63(begDate) => "valide depuis ${begDate}";
 
-  static m64(endDate) => "valide jusqu\'à ${endDate}";
+  static m64(begDate, endDate) => "valide de ${begDate} à ${endDate}";
 
-  static m65(high) => "Valeurs supérieures à ${high}";
+  static m65(endDate) => "valide jusqu\'à ${endDate}";
 
-  static m66(low) => "Valeurs inférieures à ${low}";
+  static m66(high) => "Valeurs supérieures à ${high}";
 
-  static m67(low, high) => "Valeurs entre ${low} et ${high}";
+  static m67(low) => "Valeurs inférieures à ${low}";
 
-  static m68(low, high) => "Plage cible (${low} - ${high})";
+  static m68(low, high) => "Valeurs entre ${low} et ${high}";
 
-  static m69(value) => "Valeurs élevées (${value})";
+  static m69(low, high) => "Plage cible (${low} - ${high})";
 
-  static m70(value) => "Valeurs basses (${value})";
+  static m70(value) => "Valeurs élevées (${value})";
 
-  static m71(value) => "Valeurs très élevées ( > ${value})";
+  static m71(value) => "Valeurs basses (${value})";
 
-  static m72(value) => "Valeurs très basses (< ${value})";
+  static m72(value) => "Valeurs très élevées ( > ${value})";
+
+  static m73(value) => "Valeurs très basses (< ${value})";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -198,6 +200,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "1.3.6 - 18.12.2019" : MessageLookupByLibrary.simpleMessage("1.3.6 - 18/12/2019"),
     "1.3.7 - 7.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.7 - 7/1/2020"),
     "1.3.8 - 9.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.8 - 9/1/2020"),
+    "1.3.9 - xx.2.2020" : MessageLookupByLibrary.simpleMessage("1.3.9 - 2/xx/2020"),
     "10%" : MessageLookupByLibrary.simpleMessage("10%"),
     "10% - 90% der Werte" : MessageLookupByLibrary.simpleMessage("10% - 90% des valeurs"),
     "15 Minuten" : MessageLookupByLibrary.simpleMessage("15 minutes"),
@@ -214,6 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte" : MessageLookupByLibrary.simpleMessage("Correction d\'un plantage qui s\'est produit quand aucun profil correspondant n\'a pu être trouvé pendant un certain temps"),
     "Acht" : MessageLookupByLibrary.simpleMessage("Huit"),
     "Aktuelle Periode" : MessageLookupByLibrary.simpleMessage("Période actuelle"),
+    "Alle Werte für den Tag anzeigen" : MessageLookupByLibrary.simpleMessage("Afficher toutes les valeurs pour la journée"),
     "Alles" : MessageLookupByLibrary.simpleMessage("Tous"),
     "Als ersten Tag der Woche festlegen" : MessageLookupByLibrary.simpleMessage("Définir comme premier jour de la semaine"),
     "Ampullenwechsel" : MessageLookupByLibrary.simpleMessage("Changement de réservoir"),
@@ -272,13 +276,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt" : MessageLookupByLibrary.simpleMessage("Ajout des totaux manquants dans les statistiques quotidiennes"),
     "Bitte einen Zeitraum wählen." : MessageLookupByLibrary.simpleMessage("Choisissez une période."),
     "Bitte überprüfe die Aktivierung der Wochentage unter dem Monat" : MessageLookupByLibrary.simpleMessage("Veuillez vérifier l\'activation des jours de la semaine en dessous du mois"),
-    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden." : MessageLookupByLibrary.simpleMessage("Bloody values should now also be displayed correctly in the daily graph for mmol data."),
+    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden." : MessageLookupByLibrary.simpleMessage("Les glycémies capillaires devraient maintenant également être affichées correctement dans le graphique quotidien pour les données en mmol."),
     "Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt." : MessageLookupByLibrary.simpleMessage("Les glycémies capillaires sont maintenant affichées correctement dans les graphiques."),
     "Bolus" : MessageLookupByLibrary.simpleMessage("Bolus"),
     "Bolus Rechner_bolus calculated by the bolus wizard" : MessageLookupByLibrary.simpleMessage("Assistant bolus"),
     "Bolus ges." : MessageLookupByLibrary.simpleMessage("Bolus total"),
     "Bolusarten anzeigen" : MessageLookupByLibrary.simpleMessage("Montrer les types de bolus"),
     "CGP" : MessageLookupByLibrary.simpleMessage("CGP"),
+    "COB (Carbs On Board) anzeigen" : MessageLookupByLibrary.simpleMessage("Show COB (Carbs On Board)"),
     "Comprehensive Glucose Pentagon" : MessageLookupByLibrary.simpleMessage("Pentagone de glycémies complet"),
     "Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:" : MessageLookupByLibrary.simpleMessage("Étant donné que nous avons un DSGVO en Europe, le texte suivant répond aux règles. Le texte suivant n\'est disponible qu\'en allemand:"),
     "Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben." : MessageLookupByLibrary.simpleMessage("Le \"Pentagone de Comprehension des Glycémies\" a été ajouté en format PDF séparé et en page supplémentaire aux tableaux quotidien et hebdomadaire. Il s\'agit d\'une représentation de cinq mesures, à l\'aide desquelles la qualité de la thérapie peut être déterminée et comparée à d\'autres. Sur les impressions, une référence est donnée au papier sous-jacent."),
@@ -356,6 +361,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Die URL wurde noch nicht festgelegt." : MessageLookupByLibrary.simpleMessage("L\'URL n\'a pas encore été configurée."),
     "Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B. die Auswahl von CGP bei Tagesgrafiken)." : MessageLookupByLibrary.simpleMessage("Les images de prévisualisation sur les tuiles s\'ajusteront partiellement en fonction des options sélectionnées (par exemple, choisir CGP pour les graphes quotidiens)."),
     "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz." : MessageLookupByLibrary.simpleMessage("Le site utilise principalement Javascript pour faire son travail. Lors de la création de documents PDF, Javascript et PHP sont utilisés."),
+    "Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben." : MessageLookupByLibrary.simpleMessage("The values VarK and ToR in the CGP are correctly output for day and week graphics in the legend and in the graphic."),
     "Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt" : MessageLookupByLibrary.simpleMessage("Les valeurs de la plage de cible par défaut sont maintenant calculées correctement sur la page d\'analyse"),
     "Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt." : MessageLookupByLibrary.simpleMessage("The values in the CGP are now also correctly displayed for mmol data."),
     "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. " : MessageLookupByLibrary.simpleMessage("L\'URL spécifiée n\'est pas accessible. Si l\'URL est correcte, cela peut être dû aux paramètres de Nightscout. "),
@@ -377,6 +383,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Diverse Abstürze beim Auslesen der Daten bereinigt" : MessageLookupByLibrary.simpleMessage("Correction de divers plantages lors de la lecture des données"),
     "Dämmerung (06:00 - 08:00, 18:00 - 20:00)" : MessageLookupByLibrary.simpleMessage("Aube (06:00 - 08:00, 18:00 - 20:00)"),
     "Eigene Grenzwerte" : MessageLookupByLibrary.simpleMessage("Zone cible propre"),
+    "Eigenen Zielbereich verwenden" : MessageLookupByLibrary.simpleMessage("Use own targetarea"),
     "Ein Fehler in der Zahlenformatierung wurde behoben." : MessageLookupByLibrary.simpleMessage("Une erreur dans le formatage des nombres a été corrigée."),
     "Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden." : MessageLookupByLibrary.simpleMessage("Correction d\'un bug qui faisait que les derniers jours de certains mois ne s\'affichaient pas dans le calendrier."),
     "Ein Fehler wurde behoben, der in der Tagesgrafik dazu führte, dass Texte in der Legende andere Texte überschrieben haben." : MessageLookupByLibrary.simpleMessage("Le bogue qui a amené les graphiques quotidiens à écraser les textes de la légende a été corrigé."),
@@ -392,6 +399,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "English (GB)" : MessageLookupByLibrary.simpleMessage("Anglais (GB)"),
     "English (USA)" : MessageLookupByLibrary.simpleMessage("Anglais (USA)"),
     "Erzeuge PDF..." : MessageLookupByLibrary.simpleMessage("Création du PDF ..."),
+    "Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist." : MessageLookupByLibrary.simpleMessage("Il y a un nouveau PDF appelé Tendance Quotidienne. Cela montre les valeurs d\'une journée ainsi que la tendance sur l\'heure et le taux de basal défini dans le profil. Ceci est un bon aperçu pour les tests de débit basal pour voir où quelque chose doit être ajusté."),
     "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren." : MessageLookupByLibrary.simpleMessage("Il y a une nouvelle page PDF pour les profils quotidiens. Il contient un tableau montrant le débit basal réel pour la journée, y compris tous les ajustements temporaires. J\'ai eu besoin de ça pour le débogage, mais peut-être que certains utilisateurs le trouveront aussi intéressant. Le profil affiché correspond au profil journalier sur la page Graphiques journaliers. Les boucles peuvent produire de nombreuses pages, car le taux de base est généralement ajusté toutes les quelques minutes. Par conséquent, en fonction de la quantité de données, le tableau est affiché dans un maximum de trois colonnes pour réduire le nombre de pages."),
     "Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt." : MessageLookupByLibrary.simpleMessage("Il y a une option dans les paramètres pour télécharger le PDF au lieu de l\'afficher directement dans le navigateur. Ceci est nécessaire pour les navigateurs comme Edge."),
     "Es gibt in den Einstellungen eine neue Option, um den letzten in Nightscout gespeicherten Glukosewert in der Titelzeile anzeigen zu lassen. Wenn diese Option aktiviert ist, wird der aktuelle Wert, das Alter des Wertes, der Trendpfeil und die Differenz zum vorherigen Wert rechts in der Titelzeile angezeigt. Diese Anzeige wird jede Minute aktualisiert, solange das Browserfenster den Eingabefokus besitzt. Wenn es diesen nicht hat, wird die Aktualisierung angehalten und der Wert ausgeblendet, um nicht unnötig Systemresourcen zu belasten." : MessageLookupByLibrary.simpleMessage("Il y a une nouvelle option dans les paramètres pour afficher la dernière valeur de glucose stockée dans Nightscout dans la barre de titre. Si cette option est activée, la valeur actuelle, l\'âge de la valeur, la flèche de tendance et la différence par rapport à la valeur précédente sont affichées à droite de la barre de titre. Cet affichage est mis à jour toutes les minutes tant que la fenêtre de votre navigateur a le focus d\'entrée. Si ce n\'est pas le cas, la mise à jour est arrêtée et la valeur est cachée pour éviter une charge inutile sur les ressources système."),
@@ -435,6 +443,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Höchster Wert im Zeitraum" : MessageLookupByLibrary.simpleMessage("Valeur la plus élevée de la période"),
     "IE" : MessageLookupByLibrary.simpleMessage("U"),
     "IE/std" : MessageLookupByLibrary.simpleMessage("U/hr"),
+    "IOB (Insulin On Board) anzeigen" : MessageLookupByLibrary.simpleMessage("Show IOB (Insulin On Board)"),
     "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen." : MessageLookupByLibrary.simpleMessage("Dans la boîte de dialogue des paramètres, les lignes avec les détails de l\'utilisateur et l\'URL ont été remplacées pour une administration plus significative."),
     "Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden." : MessageLookupByLibrary.simpleMessage("Le contrôle du calendrier ne peut plus sélectionner une date après la date courante."),
     "Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen." : MessageLookupByLibrary.simpleMessage("Dans le contrôle du calendrier, une période définie (aujourd\'hui, la semaine dernière, etc.) est maintenant correctement basée sur le jour actuel."),
@@ -456,8 +465,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden." : MessageLookupByLibrary.simpleMessage("Dans le graphe quotidien, il y a une option pour afficher les unités calculées pour les glucides ingérés. La valeur affichée sous les glucides est le bolus qui devrait être livré pour cette quantité de glucides à ce moment-là. Cette valeur peut être inférieure à la valeur réelle livrée, car l\'insuline active et d\'autres facteurs sont pris en compte pour la livraison de l\'insuline."),
     "In der Tagesgrafik gibt es eine Option, mit dem man die verschiedenen Arten der Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Bolus zur Korrektur. In der Legende werden dann Korrektur-, Mahlzeiten-Boli und SMB getrennt angezeigt." : MessageLookupByLibrary.simpleMessage("Il y a une option dans les graphiques quotidiens qui permet de distinguer les différents types de bolus. Si cette option est définie, un bolus donné pour un repas est marqué d\'une autre couleur que le bolus donné comme correction. Dans la légende, il y a aussi des valeurs distinctes pour le bolus, le bolus correctif et les SMB (super micro bolus)."),
     "In der Tagesgrafik gibt es eine Option, mit der man sich die erfassten Trainingsdaten anzeigen lassen kann. Diese werden dann am unteren Rand über der Tabelle der Glukosewerte eingefügt." : MessageLookupByLibrary.simpleMessage("Dans le graphe quotidien il y a une option, qui ajoute les données des activités au graphique. Il sera affiché en bas du graphique à droite au-dessus de la table des glycémies."),
+    "In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden." : MessageLookupByLibrary.simpleMessage("There is a new option in the daily graph to prevent the rounding of the insulin values to the maximum precision in the profile. This makes sense when either there is no profile or when values are entered with greater precision than in the profile."),
     "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden." : MessageLookupByLibrary.simpleMessage("L\'affichage de SMB peut maintenant être caché dans les graphes quotidiens."),
     "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr." : MessageLookupByLibrary.simpleMessage("Lors de la sélection du débit de base quotidien, il est maintenant possible de spécifier dans les options du graphique quotidien que le nom du profil qui était actif au début de la journée est affiché. Ceci sera ensuite affiché en tant que changement de profil à 0 heures."),
+    "In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch." : MessageLookupByLibrary.simpleMessage("You can now display IOB and COB in the daily graphic. This functionality is currently very beta. The display works quite well, but if there is no meal and no insulin dose, they are not displayed for the day. I\'m still working on that."),
     "In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief." : MessageLookupByLibrary.simpleMessage("Le graphe quaotidien montre maintenant la durée du débit basal à 0%."),
     "In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate eine Genauigkeit von mehr als 2 Nachkommastellen hat." : MessageLookupByLibrary.simpleMessage("Si le débit de base a plus de 2 décimales, la valeur de l\'insuline est plus faible sur les graphiques quotidiens."),
     "In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt." : MessageLookupByLibrary.simpleMessage("Le graphe quotidien affiche maintenant aussi les valeurs de glycémie. Ils sont affichés sous forme de carrés rouges et les valeurs associées dans le tableau sous le graphique sont également affichées en rouge."),
@@ -478,10 +489,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "Insulin Kohlenhydrate Verhältnis (ICR)" : MessageLookupByLibrary.simpleMessage("Ratio de glucides (ICR)"),
     "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE" : MessageLookupByLibrary.simpleMessage("Ratio de glucides (ICR) X g de glucides pour 1 Unité d\'insuline"),
     "Insulin Sensitivitäts Faktoren (ISF)" : MessageLookupByLibrary.simpleMessage("Facteurs de sensibilité à l\'insuline (FSI)"),
+    "Insulin auf maximale Stellen im Profil runden" : MessageLookupByLibrary.simpleMessage("Arrondir l\'insuline pour une précision maximale dans le profil"),
     "Insulin-Quelle" : MessageLookupByLibrary.simpleMessage("Insuline source"),
     "Ja" : MessageLookupByLibrary.simpleMessage("Oui"),
     "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember" : MessageLookupByLibrary.simpleMessage("Janvier|Février|Mars|Avril|Mai|Juin|Juillet|Août|Septembre|Octobre|Novembre|Décembre"),
     "Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez" : MessageLookupByLibrary.simpleMessage("Jan|Fév|Mar|Avr|Mai|Juin|Jul|Août|Sep|Oct|Nov|Déc"),
+    "KH" : MessageLookupByLibrary.simpleMessage("Glucides"),
     "Kalibrierung und blutige Messungen" : MessageLookupByLibrary.simpleMessage("Calibration et valeurs de glycémies"),
     "Katheterwechsel" : MessageLookupByLibrary.simpleMessage("Changement de cathéter"),
     "Keine" : MessageLookupByLibrary.simpleMessage("Aucun"),
@@ -600,12 +613,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "Tagesprofil" : MessageLookupByLibrary.simpleMessage("Profil quotidien"),
     "Tagesstartprofil anzeigen" : MessageLookupByLibrary.simpleMessage("Afficher le profil au début de la journée"),
     "Tagesstatistik" : MessageLookupByLibrary.simpleMessage("Statistiques quotidiennes"),
+    "Tagestrend" : MessageLookupByLibrary.simpleMessage("Tendance quotidienne"),
     "Temporäre Basalraten" : MessageLookupByLibrary.simpleMessage("Débit de base temporaire"),
     "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt" : MessageLookupByLibrary.simpleMessage("Les débits de base temporaires avec des valeurs absolues sont affichées correctement"),
     "Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt." : MessageLookupByLibrary.simpleMessage("Les changements temporaires de profil sont maintenant reconnus et affichés correctement dans les graphiques quotidiens."),
     "Temporäre Ziele" : MessageLookupByLibrary.simpleMessage("Objectifs temporaires"),
     "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht" : MessageLookupByLibrary.simpleMessage("Les informations de titre pour les plages de dates sur les PDF sont unifiées"),
     "Training anzeigen" : MessageLookupByLibrary.simpleMessage("Montrer les activités"),
+    "Trend" : MessageLookupByLibrary.simpleMessage("Tendance"),
     "Uhr-\nzeit" : MessageLookupByLibrary.simpleMessage("Horaire"),
     "Uhrzeit" : MessageLookupByLibrary.simpleMessage("Heure de la journée"),
     "Unbegrenzt" : MessageLookupByLibrary.simpleMessage("Illimité"),
@@ -631,6 +646,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wechsel (Katheter etc.)" : MessageLookupByLibrary.simpleMessage("Changements (cathéters etc.)"),
     "Weihnachten_theme selection - christmas" : MessageLookupByLibrary.simpleMessage("Noël"),
     "Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden." : MessageLookupByLibrary.simpleMessage("Si des caractères spéciaux sont présents dans les données (par exemple des émoticônes dans les notes), cela causait un plantage lors de la création du PDF. Cela a été corrigé en supprimant ces caractères spéciaux pour l\'impression."),
+    "Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite." : MessageLookupByLibrary.simpleMessage("If there are empty columns on the profile page, this no longer leads to an empty page."),
     "Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird." : MessageLookupByLibrary.simpleMessage("Si le PDF généré est trop volumineux, il est maintenant divisé en plusieurs fichiers PDF. Dans ce cas, il ne s\'ouvrira pas directement, mais il y aura une liste de boutons numérotés. Ces boutons ouvrent le PDF correspondant et obtiennent une marque indiquant qu\'il a été ouvert. Cela devrait faciliter l\'ouverture des fichiers PDF, car la fenêtre du navigateur est généralement déplacée en arrière-plan quand une nouvelle fenêtre est ouverte."),
     "Wenn der Zeitraum leer ist, wird der Button für die Auswahl deutlich markiert und in dem Dialog zur Auswahl wird in der Titelzeile ein Hinweis darauf angezeigt." : MessageLookupByLibrary.simpleMessage("Si la période est vide, le bouton de la sélection est clairement identifié et dans la boîte de dialogue, et une indication apparaît dans la barre de titre dans la boîte de dialogue de sélection."),
     "Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet" : MessageLookupByLibrary.simpleMessage("Si les seuils dans Nightscout (BG_TARGET_BOTTOM et BG_TARGET_TOP) sont égal à 70 et 180, alors la plage pour les valeurs par défaut sera masquée sur la page d\'analyse"),
@@ -668,77 +684,78 @@ class MessageLookup extends MessageLookupByLibrary {
     "mg/dL" : MessageLookupByLibrary.simpleMessage("mg/dL"),
     "mmol/L" : MessageLookupByLibrary.simpleMessage("mmol/L"),
     "moderates Risiko" : MessageLookupByLibrary.simpleMessage("risque modéré"),
-    "msgBasalrateDay" : m2,
-    "msgBasalrateProfile" : m3,
-    "msgBolusInsulin" : m4,
-    "msgCV" : m5,
-    "msgCalibration" : m6,
-    "msgCarbBolusInsulin" : m7,
-    "msgCarbs" : m8,
-    "msgCatheterDays" : m9,
-    "msgChangedEntry" : m10,
-    "msgCheckUser" : m11,
-    "msgCorrectBolusInsulin" : m12,
-    "msgCount" : m13,
-    "msgDaySum" : m14,
-    "msgDuration" : m15,
-    "msgFactorEntry" : m16,
-    "msgGVIBad" : m17,
-    "msgGVIGood" : m18,
-    "msgGVINone" : m19,
-    "msgGVIVeryGood" : m20,
-    "msgHYPER" : m21,
-    "msgHYPERInfo" : m22,
-    "msgHYPO" : m23,
-    "msgHYPOInfo" : m24,
-    "msgHigh" : m25,
-    "msgHistorical" : m26,
-    "msgHypoTitle" : m27,
-    "msgISF" : m28,
-    "msgKH" : m29,
-    "msgKHBE" : m30,
-    "msgLegendTDD" : m31,
-    "msgLoadingData" : m32,
-    "msgLoadingDataFor" : m33,
-    "msgLogSMB" : m34,
-    "msgLogTempBasal" : m35,
-    "msgLogTempTarget" : m36,
-    "msgLow" : m37,
-    "msgMBG" : m38,
-    "msgMEAN" : m39,
-    "msgMEANInfo" : m40,
-    "msgPGSBad" : m41,
-    "msgPGSGood" : m42,
-    "msgPGSVeryBad" : m43,
-    "msgPGSVeryGood" : m44,
-    "msgProfileSwitch" : m45,
-    "msgProfileSwitchDuration" : m46,
-    "msgReadingsInMinutes" : m47,
-    "msgReadingsPerDay" : m48,
-    "msgReadingsPerHour" : m49,
-    "msgReservoirDays" : m50,
-    "msgSMBInsulin" : m51,
-    "msgSensorDays" : m52,
-    "msgStdAbw" : m53,
-    "msgTOR" : m54,
-    "msgTORInfo" : m55,
-    "msgTarget" : m56,
-    "msgTargetArea" : m57,
-    "msgTargetValue" : m58,
-    "msgTimeOfDay24" : m59,
-    "msgTimeOfDayAM" : m60,
-    "msgTimeOfDayPM" : m61,
-    "msgValidFrom" : m62,
-    "msgValidRange" : m63,
-    "msgValidTo" : m64,
-    "msgValuesAbove" : m65,
-    "msgValuesBelow" : m66,
-    "msgValuesIn" : m67,
-    "msgValuesNorm" : m68,
-    "msgValuesNormHigh" : m69,
-    "msgValuesNormLow" : m70,
-    "msgValuesVeryHigh" : m71,
-    "msgValuesVeryLow" : m72,
+    "msgBasalInfo" : m2,
+    "msgBasalrateDay" : m3,
+    "msgBasalrateProfile" : m4,
+    "msgBolusInsulin" : m5,
+    "msgCV" : m6,
+    "msgCalibration" : m7,
+    "msgCarbBolusInsulin" : m8,
+    "msgCarbs" : m9,
+    "msgCatheterDays" : m10,
+    "msgChangedEntry" : m11,
+    "msgCheckUser" : m12,
+    "msgCorrectBolusInsulin" : m13,
+    "msgCount" : m14,
+    "msgDaySum" : m15,
+    "msgDuration" : m16,
+    "msgFactorEntry" : m17,
+    "msgGVIBad" : m18,
+    "msgGVIGood" : m19,
+    "msgGVINone" : m20,
+    "msgGVIVeryGood" : m21,
+    "msgHYPER" : m22,
+    "msgHYPERInfo" : m23,
+    "msgHYPO" : m24,
+    "msgHYPOInfo" : m25,
+    "msgHigh" : m26,
+    "msgHistorical" : m27,
+    "msgHypoTitle" : m28,
+    "msgISF" : m29,
+    "msgKH" : m30,
+    "msgKHBE" : m31,
+    "msgLegendTDD" : m32,
+    "msgLoadingData" : m33,
+    "msgLoadingDataFor" : m34,
+    "msgLogSMB" : m35,
+    "msgLogTempBasal" : m36,
+    "msgLogTempTarget" : m37,
+    "msgLow" : m38,
+    "msgMBG" : m39,
+    "msgMEAN" : m40,
+    "msgMEANInfo" : m41,
+    "msgPGSBad" : m42,
+    "msgPGSGood" : m43,
+    "msgPGSVeryBad" : m44,
+    "msgPGSVeryGood" : m45,
+    "msgProfileSwitch" : m46,
+    "msgProfileSwitchDuration" : m47,
+    "msgReadingsInMinutes" : m48,
+    "msgReadingsPerDay" : m49,
+    "msgReadingsPerHour" : m50,
+    "msgReservoirDays" : m51,
+    "msgSMBInsulin" : m52,
+    "msgSensorDays" : m53,
+    "msgStdAbw" : m54,
+    "msgTOR" : m55,
+    "msgTORInfo" : m56,
+    "msgTarget" : m57,
+    "msgTargetArea" : m58,
+    "msgTargetValue" : m59,
+    "msgTimeOfDay24" : m60,
+    "msgTimeOfDayAM" : m61,
+    "msgTimeOfDayPM" : m62,
+    "msgValidFrom" : m63,
+    "msgValidRange" : m64,
+    "msgValidTo" : m65,
+    "msgValuesAbove" : m66,
+    "msgValuesBelow" : m67,
+    "msgValuesIn" : m68,
+    "msgValuesNorm" : m69,
+    "msgValuesNormHigh" : m70,
+    "msgValuesNormLow" : m71,
+    "msgValuesVeryHigh" : m72,
+    "msgValuesVeryLow" : m73,
     "ok" : MessageLookupByLibrary.simpleMessage("ok"),
     "sehr geringes Risiko" : MessageLookupByLibrary.simpleMessage("très faible risque"),
     "tl;dr" : MessageLookupByLibrary.simpleMessage("tl;dr"),

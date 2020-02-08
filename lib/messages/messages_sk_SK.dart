@@ -22,147 +22,149 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m1(count) => "${Intl.plural(count, zero: '', one: '1 stránka alebo viac', other: '${count} stránok alebo viac')}";
 
-  static m2(value) => "Bazálna sadzba za deň ( ${value} )";
+  static m2(time) => "Die angezeigte Basalrate ist seit ${time}  gültig und beinhaltet keine temporären Änderungen.";
 
-  static m3(value) => "Bazálna dávka z profilu ( ${value} )";
+  static m3(value) => "Bazálna sadzba za deň ( ${value} )";
 
-  static m4(value) => "Bolusový inzulín ( ${value} )";
+  static m4(value) => "Bazálna dávka z profilu ( ${value} )";
 
-  static m5(value) => "VarK [${value}%]";
+  static m5(value) => "Bolusový inzulín ( ${value} )";
 
-  static m6(scale, intercept, slope) => "Kalibrácia (scale ${scale} / intercept ${intercept} / slope ${slope})";
+  static m6(value) => "VarK [${value}%]";
 
-  static m7(value) => "Bolus jedla ( ${value} )";
+  static m7(scale, intercept, slope) => "Kalibrácia (scale ${scale} / intercept ${intercept} / slope ${slope})";
 
-  static m8(value) => "Sacharidy ( ${value} g)";
+  static m8(value) => "Bolus jedla ( ${value} )";
 
-  static m9(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na katéter)', other: '( ${txt} dní na katéter)')}";
+  static m9(value) => "Sacharidy ( ${value} g)";
 
-  static m10(name, from, to) => "${name} ${from} => ${to}";
+  static m10(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na katéter)', other: '( ${txt} dní na katéter)')}";
 
-  static m11(url) => "Skontrolujte prístup na ${url} ...";
+  static m11(name, from, to) => "${name} ${from} => ${to}";
 
-  static m12(value) => "Korekčný bolus ( ${value} )";
+  static m12(url) => "Skontrolujte prístup na ${url} ...";
 
-  static m13(value) => "${Intl.plural(value, zero: 'Žiadna hodnota', one: '1 hodnota', other: '${value} hodnoty')}";
+  static m13(value) => "Korekčný bolus ( ${value} )";
 
-  static m14(value) => "${value} dní";
+  static m14(value) => "${Intl.plural(value, zero: 'Žiadna hodnota', one: '1 hodnota', other: '${value} hodnoty')}";
 
-  static m15(hours, minutes) => "${hours} hod ${minutes} min";
+  static m15(value) => "${value} dní";
 
-  static m16(beg, end) => "${beg} - ${end}";
+  static m16(hours, minutes) => "${hours} hod ${minutes} min";
 
-  static m17(max) => "zlé (viac ako ${max} )";
+  static m17(beg, end) => "${beg} - ${end}";
 
-  static m18(min, max) => "dobré ( ${min} až ${max} )";
+  static m18(max) => "zlé (viac ako ${max} )";
 
-  static m19(min) => "nie je k dispozícii (malý ${min} )";
+  static m19(min, max) => "dobré ( ${min} až ${max} )";
 
-  static m20(min, max) => "veľmi dobré ( ${min} až ${max} )";
+  static m20(min) => "nie je k dispozícii (malý ${min} )";
 
-  static m21(unit, value) => "Intenzita HYPER\n[${unit} x min²]";
+  static m21(min, max) => "veľmi dobré ( ${min} až ${max} )";
 
-  static m22(unit) => "Intenzita hyperglykémie za deň (hodnoty väčšie alebo rovné ${unit}).";
+  static m22(unit, value) => "Intenzita HYPER\n[${unit} x min²]";
 
-  static m23(unit, value) => "Intenzita HYPO\n[${unit} x min²]";
+  static m23(unit) => "Intenzita hyperglykémie za deň (hodnoty väčšie alebo rovné ${unit}).";
 
-  static m24(unit) => "Intenzita hypoglykémie za deň (hodnoty menšie alebo rovné ${unit}).";
+  static m24(unit, value) => "Intenzita HYPO\n[${unit} x min²]";
 
-  static m25(value) => "Vysoko ${value}";
+  static m25(unit) => "Intenzita hypoglykémie za deň (hodnoty menšie alebo rovné ${unit}).";
 
-  static m26(value) => "Historicky ${value}";
+  static m26(value) => "Vysoko ${value}";
 
-  static m27(value) => "Hypoglykémie (< ${value})";
+  static m27(value) => "Historicky ${value}";
 
-  static m28(unit) => "Faktory citlivosti na inzulín (ISF) 1 IU znižujú BG o X ${unit}";
+  static m28(value) => "Hypoglykémie (< ${value})";
 
-  static m29(value) => "${value}g";
+  static m29(unit) => "Faktory citlivosti na inzulín (ISF) 1 IU znižujú BG o X ${unit}";
 
-  static m30(value) => "g sach. ( ${value} BE)";
+  static m30(value) => "${value}g";
 
-  static m31(value) => "Celkový inzulín ( ${value} )";
+  static m31(value) => "g sach. ( ${value} BE)";
 
-  static m32(error, stacktrace) => "Chyba pri načítaní údajov: ${error} ${stacktrace}";
+  static m32(value) => "Celkový inzulín ( ${value} )";
 
-  static m33(date) => "Načítavajú sa údaje za ${date} ...";
+  static m33(error, stacktrace) => "Chyba pri načítaní údajov: ${error} ${stacktrace}";
 
-  static m34(insulin, unit) => "SMB ${insulin} ${unit}";
+  static m34(date) => "Načítavajú sa údaje za ${date} ...";
 
-  static m35(percent, duration) => "temp. Bazál ${percent}% / ${duration} min";
+  static m35(insulin, unit) => "SMB ${insulin} ${unit}";
 
-  static m36(target, duration, reason) => "temp. ${target} cieľ na ${duration} min, dôvod: ${reason}";
+  static m36(percent, duration) => "temp. Bazál ${percent}% / ${duration} min";
 
-  static m37(value) => "Nízko${value}";
+  static m37(target, duration, reason) => "temp. ${target} cieľ na ${duration} min, dôvod: ${reason}";
 
-  static m38(gluc, unit) => "Meranie z krvi ${gluc} ${unit}";
+  static m38(value) => "Nízko${value}";
 
-  static m39(unit, value) => "Stredná glykémia\n[${unit}]";
+  static m39(gluc, unit) => "Meranie z krvi ${gluc} ${unit}";
 
-  static m40(hba1c) => "Glykemický priemer v uvažovanom období.";
+  static m40(unit, value) => "Stredná glykémia\n[${unit}]";
 
-  static m41(min, max) => "zlé ( ${min} až ${max} )";
+  static m41(hba1c) => "Glykemický priemer v uvažovanom období.";
 
-  static m42(min, max) => "dobré ( ${min} až ${max} )";
+  static m42(min, max) => "zlé ( ${min} až ${max} )";
 
-  static m43(max) => "veľmi zlé (viac ako ${max} )";
+  static m43(min, max) => "dobré ( ${min} až ${max} )";
 
-  static m44(min) => "vynikajúci (menej ako ${min} )";
+  static m44(max) => "veľmi zlé (viac ako ${max} )";
 
-  static m45(oldName, newName) => "Zmena profilu z ${oldName} => ${newName}";
+  static m45(min) => "vynikajúci (menej ako ${min} )";
 
-  static m46(oldName, newName, duration) => "Zmena profilu z ${oldName} => ${newName} po ${duration} minút";
+  static m46(oldName, newName) => "Zmena profilu z ${oldName} => ${newName}";
 
-  static m47(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za minútu', other: 'Meranie každých ${fmt} minút')}";
+  static m47(oldName, newName, duration) => "Zmena profilu z ${oldName} => ${newName} po ${duration} minút";
 
-  static m48(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie denne', other: '${fmt} meraní denne')}";
+  static m48(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za minútu', other: 'Meranie každých ${fmt} minút')}";
 
-  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za hodinu', other: '${fmt} meraní za hodinu')}";
+  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie denne', other: '${fmt} meraní denne')}";
 
-  static m50(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na ampulku)', other: '( ${txt} dní na ampulku)')}";
+  static m50(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za hodinu', other: '${fmt} meraní za hodinu')}";
 
-  static m51(value) => "SMB ( ${value} )";
+  static m51(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na ampulku)', other: '( ${txt} dní na ampulku)')}";
 
-  static m52(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na snímač)', other: '( ${txt} dní na snímač)')}";
+  static m52(value) => "SMB ( ${value} )";
 
-  static m53(value) => "(StdDev ${value})";
+  static m53(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na snímač)', other: '( ${txt} dní na snímač)')}";
 
-  static m54(value) => "ToR [${value}min/d]";
+  static m54(value) => "(StdDev ${value})";
 
-  static m55(min, max) => "Počet minút v dni, počas ktorých sú hodnoty mimo rozsahu ${min} až ${max} .";
+  static m55(value) => "ToR [${value}min/d]";
 
-  static m56(unit) => "Cieľová oblasť glukózy ${unit}";
+  static m56(min, max) => "Počet minút v dni, počas ktorých sú hodnoty mimo rozsahu ${min} až ${max} .";
 
-  static m57(min, max, units) => "Cieľový rozsah ( ${min} - ${max} ${units} )";
+  static m57(unit) => "Cieľová oblasť glukózy ${unit}";
 
-  static m58(value) => "cieľová hodnota";
+  static m58(min, max, units) => "Cieľový rozsah ( ${min} - ${max} ${units} )";
 
-  static m59(time) => "${time} hod";
+  static m59(value) => "cieľová hodnota";
 
-  static m60(time) => "${time} am";
+  static m60(time) => "${time} hod";
 
-  static m61(time) => "${time} pm";
+  static m61(time) => "${time} am";
 
-  static m62(begDate) => "platné od ${begDate}";
+  static m62(time) => "${time} pm";
 
-  static m63(begDate, endDate) => "platné od ${begDate} do ${endDate}";
+  static m63(begDate) => "platné od ${begDate}";
 
-  static m64(endDate) => "platí do ${endDate}";
+  static m64(begDate, endDate) => "platné od ${begDate} do ${endDate}";
 
-  static m65(high) => "Hodnoty nad ${high}";
+  static m65(endDate) => "platí do ${endDate}";
 
-  static m66(low) => "Hodnoty pod ${low}";
+  static m66(high) => "Hodnoty nad ${high}";
 
-  static m67(low, high) => "Hodnoty medzi ${low} a ${high}";
+  static m67(low) => "Hodnoty pod ${low}";
 
-  static m68(low, high) => "Cieľová oblasť ( ${low} - ${high} )";
+  static m68(low, high) => "Hodnoty medzi ${low} a ${high}";
 
-  static m69(value) => "Vysoké hodnoty ( ${value} )";
+  static m69(low, high) => "Cieľová oblasť ( ${low} - ${high} )";
 
-  static m70(value) => "Nízke hodnoty ( ${value} )";
+  static m70(value) => "Vysoké hodnoty ( ${value} )";
 
-  static m71(value) => "Veľmi vysoké hodnoty (> ${value} )";
+  static m71(value) => "Nízke hodnoty ( ${value} )";
 
-  static m72(value) => "Veľmi nízke hodnoty (< ${value} )";
+  static m72(value) => "Veľmi vysoké hodnoty (> ${value} )";
+
+  static m73(value) => "Veľmi nízke hodnoty (< ${value} )";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -198,6 +200,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "1.3.6 - 18.12.2019" : MessageLookupByLibrary.simpleMessage("1.3.6 - 18.12.2019"),
     "1.3.7 - 7.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.7 - 7.1.2020"),
     "1.3.8 - 9.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.8 - 9.1.2020"),
+    "1.3.9 - xx.2.2020" : MessageLookupByLibrary.simpleMessage("1.3.9 - xx.2.2020"),
     "10%" : MessageLookupByLibrary.simpleMessage("10%"),
     "10% - 90% der Werte" : MessageLookupByLibrary.simpleMessage("10% - 90% hodnôt"),
     "15 Minuten" : MessageLookupByLibrary.simpleMessage("15 minút"),
@@ -214,6 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte" : MessageLookupByLibrary.simpleMessage("Opravená havária, ku ktorej došlo, keď v určitom okamihu nebolo možné nájsť žiadny zodpovedajúci profil"),
     "Acht" : MessageLookupByLibrary.simpleMessage("osem"),
     "Aktuelle Periode" : MessageLookupByLibrary.simpleMessage("Aktuálne obdobie"),
+    "Alle Werte für den Tag anzeigen" : MessageLookupByLibrary.simpleMessage("Alle Werte für den Tag anzeigen"),
     "Alles" : MessageLookupByLibrary.simpleMessage("Všetko"),
     "Als ersten Tag der Woche festlegen" : MessageLookupByLibrary.simpleMessage("Nastaviť ako prvý deň v týždni"),
     "Ampullenwechsel" : MessageLookupByLibrary.simpleMessage("výmena ampulky"),
@@ -236,8 +240,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Auf der Analyseseite werden nun auch GVI und PGS ausgegeben." : MessageLookupByLibrary.simpleMessage("Na stránke analýzy sú teraz na výstupe GVI a PGS."),
     "Auf der Analyseseite wird jetzt auch die Standardabweichung aller Werte der Periode angezeigt." : MessageLookupByLibrary.simpleMessage("Stránka s analýzou teraz ukazuje aj štandardnú odchýlku všetkých hodnôt za dané obdobie."),
     "Auf der Profilseite wurde die Spalte für die Werte von ICR verbreitert." : MessageLookupByLibrary.simpleMessage("Na stránke profilu sa stĺpec pre hodnoty ICR rozšíril."),
-    "Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt." : MessageLookupByLibrary.simpleMessage("Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt."),
-    "Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen." : MessageLookupByLibrary.simpleMessage("Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen."),
+    "Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt." : MessageLookupByLibrary.simpleMessage("Na stránke \"Profil\" sa zobrazuje platnosť záznamu aj s časovým údajom."),
+    "Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen." : MessageLookupByLibrary.simpleMessage("Stránka \"Hodinová štatistika\" má novú voľbu, aby bolo možné stĺpce zobraziť aj v pomere 10% a 90%."),
     "Aufsummierte Werte" : MessageLookupByLibrary.simpleMessage("Nasčítané hodnoty"),
     "Ausgabe" : MessageLookupByLibrary.simpleMessage("Výdaj"),
     "Ausgewertete Tage" : MessageLookupByLibrary.simpleMessage("Hodnotené dni"),
@@ -272,13 +276,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt" : MessageLookupByLibrary.simpleMessage("Doteraz boli do denných štatistík pridané chýbajúce súčty"),
     "Bitte einen Zeitraum wählen." : MessageLookupByLibrary.simpleMessage("Vyberte obdobie."),
     "Bitte überprüfe die Aktivierung der Wochentage unter dem Monat" : MessageLookupByLibrary.simpleMessage("Skontrolujte aktiváciu pracovných dní v mesiaci"),
-    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden." : MessageLookupByLibrary.simpleMessage("Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden."),
+    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden." : MessageLookupByLibrary.simpleMessage("Hodnoty glykémie v mmol formáte sa teraz zobrazujú správne aj v dennom prehľade."),
     "Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt." : MessageLookupByLibrary.simpleMessage("Krvné hodnoty sa teraz zobrazujú správne aj v prípade mmol / l v grafe."),
     "Bolus" : MessageLookupByLibrary.simpleMessage("bolus"),
     "Bolus Rechner_bolus calculated by the bolus wizard" : MessageLookupByLibrary.simpleMessage("Bolusová kalkulačka"),
     "Bolus ges." : MessageLookupByLibrary.simpleMessage("Celkom bolus"),
     "Bolusarten anzeigen" : MessageLookupByLibrary.simpleMessage("Zobraziť druh bolusu"),
     "CGP" : MessageLookupByLibrary.simpleMessage("CGP"),
+    "COB (Carbs On Board) anzeigen" : MessageLookupByLibrary.simpleMessage("Zobraziť COB (Carbs On Board)"),
     "Comprehensive Glucose Pentagon" : MessageLookupByLibrary.simpleMessage("Súhrnný glykemický päťuholník"),
     "Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:" : MessageLookupByLibrary.simpleMessage("Keďže v Európe už nejaký čas máme DSGVO, nasledujúce pravidlá sú stále splnené. Tento text je k dispozícii iba v nemčine:"),
     "Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben." : MessageLookupByLibrary.simpleMessage("„Komplexný glukózový päťuholník“ bol pridaný ako samostatný PDF a ako doplnok k dennej a týždennej grafike. Je to reprezentácia piatich meraní, pomocou ktorých je možné určiť kvalitu liečby a porovnať ju s ostatnými. Na výtlačkoch je uvedený odkaz na základnú esej."),
@@ -316,17 +321,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "Die Auswahl des Zeitraums ist nun flexibler. Die Auswahl erfolgt in einem Dialog, der die eingestellte Sprache berücksichtigt. Mit der Auswahl der vorbelegten Bereiche (Heute, Letzte Woche, usw.) wird festgelegt, dass beim nächsten Aufruf das aktuelle Datum als Grundlage für den Bereich verwendet wird. Wenn der Bereich direkt im Kalender festgelegt wird, dann gilt dieser beim nächsten Aufruf so wie er festgelegt wurde. Standardmässig ist der erste Tag der Woche jetzt ein Montag. Dieser kann aber durch Anklicken des Wochentags in der Titelzeile des Monats auf die eigene Präferenz festgelegt werden. Die Eingabe der Datumsfelder erfolgt in der Form, die der Sprache entspricht (Tag.Monat.Jahr für deutsch, Monat/Tag/Jahr für englisch)." : MessageLookupByLibrary.simpleMessage("Výber tohto obdobia je teraz flexibilnejší. Výber sa uskutoční v dialógovom okne, ktoré zohľadňuje daný jazyk. Výber predvolených rozsahov (Dnes, Minulý týždeň atď.) Nastaví aktuálny dátum ako základ pre rozsah pri nasledujúcom hovore. Ak je rozsah nastavený priamo v kalendári, použije sa pri nasledujúcom nastavení. V predvolenom nastavení je prvý deň v týždni teraz pondelok. Môžete to však nastaviť podľa svojich preferencií kliknutím na deň v týždni v záhlaví mesiaca. Polia s dátumom sa zadávajú vo forme, ktorá zodpovedá jazyku (deň.mesiac.rok pre nemčinu, mesiac / deň / rok pre angličtinu)."),
     "Die Auswahl des Zeitraums und der Benutzer wurde in die Titelzeile verschoben." : MessageLookupByLibrary.simpleMessage("Výber obdobia a používateľ bol presunutý do záhlavia."),
     "Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin an dem Tag skaliert." : MessageLookupByLibrary.simpleMessage("Stĺpce bolusového inzulínu v dennom grafe sa teraz upravujú podľa maximálneho bolusového inzulínu v deň."),
-    "Die Balken in der Analyse werden jetzt korrekt skaliert." : MessageLookupByLibrary.simpleMessage("Die Balken in der Analyse werden jetzt korrekt skaliert."),
+    "Die Balken in der Analyse werden jetzt korrekt skaliert." : MessageLookupByLibrary.simpleMessage("Grafy v Analýze majú teraz správne rozmery."),
     "Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte Basalratenanpassung anzeigen." : MessageLookupByLibrary.simpleMessage("Profily bazálnej dávky za deň sa teraz tiež určujú na základe údajov o liečbe. Zmeny profilu sa zobrazujú v dennom grafe a mali by tiež ukazovať správne nastavenie bazálnej dávky od okamihu zmeny."),
     "Die Berechnung der PDF-Grössen wurde korrigiert, so dass nun weniger PDFs erstellt werden, wenn sie aufgrund der Grösse aufgeteilt werden." : MessageLookupByLibrary.simpleMessage("Výpočet veľkostí PDF bol opravený, takže pri rozdelení podľa veľkosti sa vytvorí menej súborov PDF."),
     "Die Berechnung der Summenzeile auf der Seite Tagesstatistik wurde korrigiert." : MessageLookupByLibrary.simpleMessage("Výpočet riadku súčty na stránke Denná štatistika bol opravený."),
     "Die Berechnung der tatsächlichen Basalrate wurde korrigiert." : MessageLookupByLibrary.simpleMessage("Výpočet skutočnej bazálnej dávky bol opravený."),
     "Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB." : MessageLookupByLibrary.simpleMessage("Pri výpočte denného inzulínu sa teraz zohľadňuje aj SMB."),
-    "Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet." : MessageLookupByLibrary.simpleMessage("Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet."),
+    "Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet." : MessageLookupByLibrary.simpleMessage("Kachličky majú teraz popisky v zvolenom jazyku."),
     "Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde." : MessageLookupByLibrary.simpleMessage("Tlačidlá pre minulé obdobia sa nebudú zobrazovať, ak nie je vybrané žiadne obdobie alebo PDF."),
     "Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden." : MessageLookupByLibrary.simpleMessage("Dáta, ktoré v nastaveniach zadáte, sa zvyčajne uložia do lokálneho úložiska prehliadača (localStorage). Toto úložisko obsahuje údaje priamo súvisiace s adresou tejto stránky a je možné ich prečítať jedine aplikáciou pochádzajúcou z tejto adresy. V tomto prípade sa nepoužívajú žiadne súbory cookie a na serveroch nie sú uložené žiadne údaje. Nastaví sa iba spojenie so špecifikovanou inštanciou Nightscout a údaje, ktoré sú k dispozícii, sa načítajú, aby sa vygeneroval dokument PDF. Toto sa potom môže predložiť diabetologickému poradcovi alebo inej zainteresovanej strane."),
     "Die Einstellungen für das Herunterladen des PDFs, das Öffnen im gleichen Fenster und die Maximalgrösse der PDFs wurden von der Synchronisierung mit Google Drive ausgenommen, weil sie speziell für den verwendeten Browser oder das verwendete Gerät benötigt werden. Sie werden nach wie vor gespeichert, aber sie werden nicht zwischen verschiedenen Browsern synchronisiert." : MessageLookupByLibrary.simpleMessage("Nastavenia sťahovania PDF, ktoré sa otvárajú v tom istom okne a maximálna veľkosť súborov PDF, boli vylúčené z synchronizácie s Diskom Google, pretože sú špecifické pre prehliadač alebo zariadenie, ktoré používate. Sú stále uložené, ale nie sú synchronizované medzi rôznymi prehliadačmi."),
-    "Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt." : MessageLookupByLibrary.simpleMessage("Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt."),
+    "Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt." : MessageLookupByLibrary.simpleMessage("Záznamy v protokole pre dočasné ciele sa teraz zobrazujú správne aj pri mmol jednotkách."),
     "Die Ermittlung der Einheit (mg/dl oder mmol/l) wird nun flexibler gehandhabt, so dass auch Leerzeichen in der entsprechenden Einstellung nicht mehr zu einer Fehlinterpretation führen." : MessageLookupByLibrary.simpleMessage("Stanovenie jednotky (mg / dl alebo mmol / l) sa teraz vykonáva flexibilnejšie, takže aj medzery v zodpovedajúcom nastavení už nevedú k nesprávnej interpretácii."),
     "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben." : MessageLookupByLibrary.simpleMessage("Výpočet efektívnej dennej bazálnej dávky inzulínu bol zmenený a mal by teraz vracať presnejšie hodnoty."),
     "Die Farben für Dialoge und Scrollbars wurden angepasst." : MessageLookupByLibrary.simpleMessage("Farby pre dialógy a posuvníky boli upravené."),
@@ -356,20 +361,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "Die URL wurde noch nicht festgelegt." : MessageLookupByLibrary.simpleMessage("URL ešte nie je nastavená."),
     "Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B. die Auswahl von CGP bei Tagesgrafiken)." : MessageLookupByLibrary.simpleMessage("Ukážky obrázkov na dlaždiciach sa čiastočne upravia v závislosti od zvolených možností (napr. Výber CGP pre dennú grafiku)."),
     "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz." : MessageLookupByLibrary.simpleMessage("Webstránka používa na svoju prácu hlavne javascript. Pri vytváraní dokumentu PDF sa používajú Javascript a PHP."),
+    "Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben." : MessageLookupByLibrary.simpleMessage("Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben."),
     "Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt" : MessageLookupByLibrary.simpleMessage("Hodnoty pre predvolený cieľový rozsah na analytickej stránke sa teraz určujú správne"),
-    "Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt." : MessageLookupByLibrary.simpleMessage("Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt."),
+    "Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt." : MessageLookupByLibrary.simpleMessage("Hodnoty v jednotke mmol sa teraz zobrazia správne aj na stránke CGP (súhrnný glykemický päťuholník)."),
     "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. " : MessageLookupByLibrary.simpleMessage("Zadaná adresa URL nie je dostupná. Ak je adresa URL správna, môže to byť spôsobené nastavením Nightscout aplikácie. "),
     "Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet." : MessageLookupByLibrary.simpleMessage("Vlastné limity na analytickej stránke v mmol / l sa teraz vypočítavajú správne."),
     "Die einzelne Seite CGP kann jetzt auch im Querformat ausgegeben werden." : MessageLookupByLibrary.simpleMessage("Stránku CGP je teraz možné individuálne vytlačiť aj poležiacky."),
     "Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert." : MessageLookupByLibrary.simpleMessage("Opravené bolo chybné umiestnenie krvavých hodnôt na mmol / l v dennom grafe."),
     "Die fehlerhafte Zentrierung der Auswahlbuttons wurde korrigiert." : MessageLookupByLibrary.simpleMessage("Opravené bolo nesprávne vycentrovanie tlačidiel výberu."),
     "Die glykämische Variabilität stellt die Streuung der Werte um den glykämischen Mittelwert herum in Prozent dar." : MessageLookupByLibrary.simpleMessage("Glykemická variabilita predstavuje roztrúsenosť hodnôt okolo glykemického priemeru v percentách."),
-    "Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben." : MessageLookupByLibrary.simpleMessage("Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben."),
-    "Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen." : MessageLookupByLibrary.simpleMessage("Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen."),
+    "Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben." : MessageLookupByLibrary.simpleMessage("Glykemická variabilita sa teraz v zobrazuje na stránke CGP (súhrnný glykemický päťuholník) správne aj pri období dňa a týždňa."),
+    "Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen." : MessageLookupByLibrary.simpleMessage("Väčšina stĺpcov na stránke \"Hodinová štatistika\" zostane prázdna ak nie je dostatok dát."),
     "Die mittlerweile überflüssige Option zur Darstellung der Basalrate mit zwei Nachkommastellen wurde aus der Tagesgrafik entfernt." : MessageLookupByLibrary.simpleMessage("Dnešná nadbytočná možnosť zobrazovania bazálnej dávky s dvoma desatinnými miestami bola z denného grafu odstránená."),
     "Die teilweise falsch zugewiesenen Grenzwerte für die Bereiche (niedrig, normal, hoch) wurden korrigiert." : MessageLookupByLibrary.simpleMessage("Čiastočne nesprávne pridelené limity pre oblasti (nízke, normálne, vysoké) boli opravené."),
     "Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben." : MessageLookupByLibrary.simpleMessage("Dočasný bazálny koeficient na počiatku dňa bol do teraz nastavený nesprávne. Teraz je to opravené."),
-    "Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert." : MessageLookupByLibrary.simpleMessage("Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert."),
+    "Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert." : MessageLookupByLibrary.simpleMessage("Opravený nadpis nad stredným stĺpcom denného profilu."),
     "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun." : MessageLookupByLibrary.simpleMessage("Táto stránka sa používa na generovanie dokumentov PDF z údajov uložených v Nightscout. Preto je potrebné nastaviť niektoré údaje, ktoré umožnia prístup k týmto údajom. Pokiaľ dáta nebudú dostupné a aktuálne, stránka pre vás nemôže nič zmysluplného urobiť."),
     "Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden." : MessageLookupByLibrary.simpleMessage("Táto stránka bola pridaná. Zobrazí sa pri každom spustení aplikácie Nightscout Reporter, ak sa nezobrazila v aktuálnej verzii. Okrem toho ho možno vyvolať znova v ponuke Hamburger."),
     "Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert." : MessageLookupByLibrary.simpleMessage("Táto webová stránka neukladá údaje na serveroch. Požadované údaje sa získajú zo zadanej adresy URL do inštancie Nightscout a pripravia sa ako PDF. Dáta potrebné na fungovanie webovej stránky sú uložené v localStorage prehliadača a neprenášajú sa na server. Ak je zapnutá synchronizácia s Diskom Google, tieto údaje sa tiež uložia do údajov aplikácie v priradenom účte Disk Google."),
@@ -377,6 +383,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Diverse Abstürze beim Auslesen der Daten bereinigt" : MessageLookupByLibrary.simpleMessage("Rôzne zlyhania pri čítaní upravených údajov"),
     "Dämmerung (06:00 - 08:00, 18:00 - 20:00)" : MessageLookupByLibrary.simpleMessage("Súmrak (06:00 - 08:00, 18:00 - 20:00)"),
     "Eigene Grenzwerte" : MessageLookupByLibrary.simpleMessage("Vlastné limity"),
+    "Eigenen Zielbereich verwenden" : MessageLookupByLibrary.simpleMessage("Eigenen Zielbereich verwenden"),
     "Ein Fehler in der Zahlenformatierung wurde behoben." : MessageLookupByLibrary.simpleMessage("Chyba vo formáte čísla bola opravená."),
     "Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden." : MessageLookupByLibrary.simpleMessage("Opravená chyba, ktorá spôsobila, že posledné dni určitých mesiacov sa nezobrazili v ovládacom prvku kalendára."),
     "Ein Fehler wurde behoben, der in der Tagesgrafik dazu führte, dass Texte in der Legende andere Texte überschrieben haben." : MessageLookupByLibrary.simpleMessage("Bola opravená chyba, ktorá spôsobila, že denná grafika prepísala texty v legende."),
@@ -392,6 +399,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "English (GB)" : MessageLookupByLibrary.simpleMessage("English (GB)"),
     "English (USA)" : MessageLookupByLibrary.simpleMessage("English (USA)"),
     "Erzeuge PDF..." : MessageLookupByLibrary.simpleMessage("Vytvoriť PDF ..."),
+    "Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist." : MessageLookupByLibrary.simpleMessage("Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist."),
     "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren." : MessageLookupByLibrary.simpleMessage("Pribudla PDF stránka denných profilov. Zobrazuje sa tu skutočné množstvo bazálneho inzulínu na deň, vrátane občasných korekcií. Je to potrebné hlavne pre ladenie aplikácie, ale možno sa hodí aj iným užívateľom. Tu zobrazený profil je rovnaký ako na denný profil na stránke denného grafu. V prípade pumpy to môže byť veľmi veľa výsledkov, keďže sa čiastkové korekcie dejú každých pár minút."),
     "Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt." : MessageLookupByLibrary.simpleMessage("V nastaveniach je možnosť nechať stiahnuť súbor PDF namiesto jeho zobrazenia priamo v prehliadači. Toto je potrebné pre prehliadače ako Edge."),
     "Es gibt in den Einstellungen eine neue Option, um den letzten in Nightscout gespeicherten Glukosewert in der Titelzeile anzeigen zu lassen. Wenn diese Option aktiviert ist, wird der aktuelle Wert, das Alter des Wertes, der Trendpfeil und die Differenz zum vorherigen Wert rechts in der Titelzeile angezeigt. Diese Anzeige wird jede Minute aktualisiert, solange das Browserfenster den Eingabefokus besitzt. Wenn es diesen nicht hat, wird die Aktualisierung angehalten und der Wert ausgeblendet, um nicht unnötig Systemresourcen zu belasten." : MessageLookupByLibrary.simpleMessage("V časti Preferences (Predvoľby) je nová možnosť zobraziť poslednú hodnotu glukózy uloženú v nočných baroch v záhlaví. Keď je zapnutá, zobrazuje na pravej strane záhlavia aktuálnu hodnotu, vek hodnoty, šípku trendu a rozdiel od predchádzajúcej hodnoty. Toto zobrazenie sa aktualizuje každú minútu, pokiaľ má okno prehľadávača vstupné zameranie. Ak ju nemá, aktualizácia pozastaví a skryje hodnotu, aby sa zbytočne nezaťažovali systémové prostriedky."),
@@ -435,6 +443,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Höchster Wert im Zeitraum" : MessageLookupByLibrary.simpleMessage("Najvyššia hodnota za dané obdobie"),
     "IE" : MessageLookupByLibrary.simpleMessage("U"),
     "IE/std" : MessageLookupByLibrary.simpleMessage("U/hod"),
+    "IOB (Insulin On Board) anzeigen" : MessageLookupByLibrary.simpleMessage("Zobraziť IOB (Insulin On Board)"),
     "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen." : MessageLookupByLibrary.simpleMessage("Poradie riadkov zadávania údajov pacienta a URL v nastaveniach bolo zmenené."),
     "Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden." : MessageLookupByLibrary.simpleMessage("Ovládací prvok kalendára už nemôže vybrať dátum po aktuálnom dni."),
     "Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen." : MessageLookupByLibrary.simpleMessage("V ovládacom paneli kalendára je nastavená oblasť (dnes, minulý týždeň atď.) Teraz správne spojená s aktuálnym dňom."),
@@ -456,8 +465,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden." : MessageLookupByLibrary.simpleMessage("V dennom grafe je možnosť zobraziť vypočítaný IE pre prehltnuté sacharidy. Hodnota zobrazená bezprostredne pod sacharidmi je bolus, ktorý by sa mal dodávať pre toto množstvo sacharidov v tom čase. Táto hodnota môže byť nižšia ako skutočná dodaná hodnota, pretože pri podaní inzulínu sa berie do úvahy IOB a ďalšie faktory."),
     "In der Tagesgrafik gibt es eine Option, mit dem man die verschiedenen Arten der Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Bolus zur Korrektur. In der Legende werden dann Korrektur-, Mahlzeiten-Boli und SMB getrennt angezeigt." : MessageLookupByLibrary.simpleMessage("V dennom grafe je možnosť, ktorá sa môže použiť na identifikáciu rôznych typov bolusov. Ak je táto možnosť nastavená, bolus podaný jedlu sa na opravu označí inou farbou ako bolus. Legenda potom zobrazuje Korekcie, Jedlo Boli a SMB osobitne."),
     "In der Tagesgrafik gibt es eine Option, mit der man sich die erfassten Trainingsdaten anzeigen lassen kann. Diese werden dann am unteren Rand über der Tabelle der Glukosewerte eingefügt." : MessageLookupByLibrary.simpleMessage("V dennej grafike je možnosť, pomocou ktorej môžete zobraziť zaznamenané školiace údaje. Tieto sa potom vložia do dolnej časti tabuľky nad hodnoty glukózy."),
+    "In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden." : MessageLookupByLibrary.simpleMessage("In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden."),
     "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden." : MessageLookupByLibrary.simpleMessage("V dennej grafike je teraz možné zobrazenie SMB skryť."),
     "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr." : MessageLookupByLibrary.simpleMessage("Pri výbere dennej bazálnej dávky je teraz možné v dennom grafe určiť, že sa zobrazí názov profilu, ktorý bol aktívny na začiatku dňa. Toto sa potom zobrazí ako zmena profilu o 0 hod."),
+    "In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch." : MessageLookupByLibrary.simpleMessage("Teraz je možné v dennom grafe zobrazovať IOB a COB. Táto funkcionalita je na teraz v beta fáze. Zobrazenie vyzerá celkom dobre, ale chýba ak neboli zadané žiadne jedlá ani dávky inzulínu. Pracuje sa na tom."),
     "In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief." : MessageLookupByLibrary.simpleMessage("V dennom grafe je teraz možné zobraziť ako dlho bola bazálna dávka inzulínu na 0%."),
     "In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate eine Genauigkeit von mehr als 2 Nachkommastellen hat." : MessageLookupByLibrary.simpleMessage("V dennom grafe sa teraz zobrazujú informácie o inzulíne menšie, ak bazálna rýchlosť má presnosť viac ako 2 desatinné miesta."),
     "In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt." : MessageLookupByLibrary.simpleMessage("Denný graf teraz zobrazuje aj merania glykémie. Zobrazujú sa ako červené štvorce a súvisiace hodnoty v tabuľke pod grafom sa zobrazujú aj červenou farbou."),
@@ -478,10 +489,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "Insulin Kohlenhydrate Verhältnis (ICR)" : MessageLookupByLibrary.simpleMessage("Pomer inzulínu a sacharidov (ICR)"),
     "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE" : MessageLookupByLibrary.simpleMessage("Pomer inzulínu a sacharidov (ICR)\nX g sacharidov na 1 U"),
     "Insulin Sensitivitäts Faktoren (ISF)" : MessageLookupByLibrary.simpleMessage("Faktor citlivosti na inzulín (ISF)"),
+    "Insulin auf maximale Stellen im Profil runden" : MessageLookupByLibrary.simpleMessage("Insulin auf maximale Stellen im Profil runden"),
     "Insulin-Quelle" : MessageLookupByLibrary.simpleMessage("Zdroj inzulínu"),
     "Ja" : MessageLookupByLibrary.simpleMessage("áno"),
     "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember" : MessageLookupByLibrary.simpleMessage(" január|február|marec|apríl|máj|jún|júl|august|september|október|november|december"),
     "Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez" : MessageLookupByLibrary.simpleMessage("jan|feb|mar|apr|máj|jún|júl|sep|okt|nov|dec"),
+    "KH" : MessageLookupByLibrary.simpleMessage("KH"),
     "Kalibrierung und blutige Messungen" : MessageLookupByLibrary.simpleMessage("Kalibrácia a merania z krvi"),
     "Katheterwechsel" : MessageLookupByLibrary.simpleMessage("výmena katétera"),
     "Keine" : MessageLookupByLibrary.simpleMessage("žiadny"),
@@ -504,7 +517,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Man kann jetzt mehrere Benutzer anlegen. Das ist nützlich, um mehrere Nightscout-Instanzen auszuwerten (z.B. für Ärzte, Betreuer oder den Entwickler dieser Software)" : MessageLookupByLibrary.simpleMessage("Teraz môžete vytvoriť viac používateľov. Toto je užitočné na vyhodnotenie viacerých inštancií Nightscout (napr. Pre lekárov, správcov alebo vývojárov tohto softvéru)."),
     "Material mit Nachkommastellen" : MessageLookupByLibrary.simpleMessage("Materiál s desatinnými miestami"),
     "Max" : MessageLookupByLibrary.simpleMessage("Max"),
-    "Max Mustermann" : MessageLookupByLibrary.simpleMessage("Max Mustermann"),
+    "Max Mustermann" : MessageLookupByLibrary.simpleMessage("Janko Mrkvička"),
     "Median" : MessageLookupByLibrary.simpleMessage("Medián"),
     "Mehr gibt es dazu eigentlich nicht zu sagen." : MessageLookupByLibrary.simpleMessage("O tom nie je viac čo povedať."),
     "Mess-\nwerte" : MessageLookupByLibrary.simpleMessage("Hod-\nnoty"),
@@ -600,12 +613,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "Tagesprofil" : MessageLookupByLibrary.simpleMessage("Denný profil"),
     "Tagesstartprofil anzeigen" : MessageLookupByLibrary.simpleMessage("Zobraziť profil počiatku dňa"),
     "Tagesstatistik" : MessageLookupByLibrary.simpleMessage("Denná štatistika"),
+    "Tagestrend" : MessageLookupByLibrary.simpleMessage("Tagestrend"),
     "Temporäre Basalraten" : MessageLookupByLibrary.simpleMessage("Jednorazové dávky bazálu"),
     "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt" : MessageLookupByLibrary.simpleMessage("Dočasné bazálne dávky s absolútnymi hodnotami sa zobrazujú správne"),
     "Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt." : MessageLookupByLibrary.simpleMessage("Dočasné zmeny profilu sú teraz rozpoznané a správne zobrazené v dennej grafike."),
     "Temporäre Ziele" : MessageLookupByLibrary.simpleMessage("Dočasné ciele"),
     "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht" : MessageLookupByLibrary.simpleMessage("Zjednotené informácie o názve pre rozsahy dátumov v súboroch PDF"),
     "Training anzeigen" : MessageLookupByLibrary.simpleMessage("Zobraziť tréningy"),
+    "Trend" : MessageLookupByLibrary.simpleMessage("Trend"),
     "Uhr-\nzeit" : MessageLookupByLibrary.simpleMessage("hodiny"),
     "Uhrzeit" : MessageLookupByLibrary.simpleMessage("Čas"),
     "Unbegrenzt" : MessageLookupByLibrary.simpleMessage("neobmedzený"),
@@ -631,6 +646,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wechsel (Katheter etc.)" : MessageLookupByLibrary.simpleMessage("Zmena (katéter atď.)"),
     "Weihnachten_theme selection - christmas" : MessageLookupByLibrary.simpleMessage("Vianočný"),
     "Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden." : MessageLookupByLibrary.simpleMessage("Ak sú v údajoch prítomné špeciálne znaky (napr. Smajlíky v poznámkach), spôsobilo to pád pri vytváraní PDF. Toto bolo odstránené odstránením týchto špeciálnych znakov z výstupu."),
+    "Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite." : MessageLookupByLibrary.simpleMessage("Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite."),
     "Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird." : MessageLookupByLibrary.simpleMessage("Ak sa vygenerovaný súbor PDF stane príliš veľkým, bude teraz rozdelený do niekoľkých súborov PDF. V takom prípade sa neotvorí priamo, ale zobrazí zoznam očíslovaných tlačidiel. Tieto tlačidlá po stlačení otvoria zodpovedajúci súbor PDF a začiarknutím sa označí, že bol otvorený. Toto by malo uľahčiť otváranie súborov PDF naraz, pretože pri otvorení nového okna zvyčajne prehliadač na pozadí zmizne."),
     "Wenn der Zeitraum leer ist, wird der Button für die Auswahl deutlich markiert und in dem Dialog zur Auswahl wird in der Titelzeile ein Hinweis darauf angezeigt." : MessageLookupByLibrary.simpleMessage("Ak je perióda prázdna, tlačidlo pre výber je zreteľne označené av dialógovom okne pre výber sa v záhlaví zobrazuje náznak."),
     "Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet" : MessageLookupByLibrary.simpleMessage("Ak sa prahové hodnoty v Nightscout (BG_TARGET_BOTTOM a BG_TARGET_TOP) rovnajú 70 a 180, rozsah predvolených cieľov sa na stránke analýzy skryje."),
@@ -668,77 +684,78 @@ class MessageLookup extends MessageLookupByLibrary {
     "mg/dL" : MessageLookupByLibrary.simpleMessage("mg/dl"),
     "mmol/L" : MessageLookupByLibrary.simpleMessage("mmol/L"),
     "moderates Risiko" : MessageLookupByLibrary.simpleMessage("mierne riziko"),
-    "msgBasalrateDay" : m2,
-    "msgBasalrateProfile" : m3,
-    "msgBolusInsulin" : m4,
-    "msgCV" : m5,
-    "msgCalibration" : m6,
-    "msgCarbBolusInsulin" : m7,
-    "msgCarbs" : m8,
-    "msgCatheterDays" : m9,
-    "msgChangedEntry" : m10,
-    "msgCheckUser" : m11,
-    "msgCorrectBolusInsulin" : m12,
-    "msgCount" : m13,
-    "msgDaySum" : m14,
-    "msgDuration" : m15,
-    "msgFactorEntry" : m16,
-    "msgGVIBad" : m17,
-    "msgGVIGood" : m18,
-    "msgGVINone" : m19,
-    "msgGVIVeryGood" : m20,
-    "msgHYPER" : m21,
-    "msgHYPERInfo" : m22,
-    "msgHYPO" : m23,
-    "msgHYPOInfo" : m24,
-    "msgHigh" : m25,
-    "msgHistorical" : m26,
-    "msgHypoTitle" : m27,
-    "msgISF" : m28,
-    "msgKH" : m29,
-    "msgKHBE" : m30,
-    "msgLegendTDD" : m31,
-    "msgLoadingData" : m32,
-    "msgLoadingDataFor" : m33,
-    "msgLogSMB" : m34,
-    "msgLogTempBasal" : m35,
-    "msgLogTempTarget" : m36,
-    "msgLow" : m37,
-    "msgMBG" : m38,
-    "msgMEAN" : m39,
-    "msgMEANInfo" : m40,
-    "msgPGSBad" : m41,
-    "msgPGSGood" : m42,
-    "msgPGSVeryBad" : m43,
-    "msgPGSVeryGood" : m44,
-    "msgProfileSwitch" : m45,
-    "msgProfileSwitchDuration" : m46,
-    "msgReadingsInMinutes" : m47,
-    "msgReadingsPerDay" : m48,
-    "msgReadingsPerHour" : m49,
-    "msgReservoirDays" : m50,
-    "msgSMBInsulin" : m51,
-    "msgSensorDays" : m52,
-    "msgStdAbw" : m53,
-    "msgTOR" : m54,
-    "msgTORInfo" : m55,
-    "msgTarget" : m56,
-    "msgTargetArea" : m57,
-    "msgTargetValue" : m58,
-    "msgTimeOfDay24" : m59,
-    "msgTimeOfDayAM" : m60,
-    "msgTimeOfDayPM" : m61,
-    "msgValidFrom" : m62,
-    "msgValidRange" : m63,
-    "msgValidTo" : m64,
-    "msgValuesAbove" : m65,
-    "msgValuesBelow" : m66,
-    "msgValuesIn" : m67,
-    "msgValuesNorm" : m68,
-    "msgValuesNormHigh" : m69,
-    "msgValuesNormLow" : m70,
-    "msgValuesVeryHigh" : m71,
-    "msgValuesVeryLow" : m72,
+    "msgBasalInfo" : m2,
+    "msgBasalrateDay" : m3,
+    "msgBasalrateProfile" : m4,
+    "msgBolusInsulin" : m5,
+    "msgCV" : m6,
+    "msgCalibration" : m7,
+    "msgCarbBolusInsulin" : m8,
+    "msgCarbs" : m9,
+    "msgCatheterDays" : m10,
+    "msgChangedEntry" : m11,
+    "msgCheckUser" : m12,
+    "msgCorrectBolusInsulin" : m13,
+    "msgCount" : m14,
+    "msgDaySum" : m15,
+    "msgDuration" : m16,
+    "msgFactorEntry" : m17,
+    "msgGVIBad" : m18,
+    "msgGVIGood" : m19,
+    "msgGVINone" : m20,
+    "msgGVIVeryGood" : m21,
+    "msgHYPER" : m22,
+    "msgHYPERInfo" : m23,
+    "msgHYPO" : m24,
+    "msgHYPOInfo" : m25,
+    "msgHigh" : m26,
+    "msgHistorical" : m27,
+    "msgHypoTitle" : m28,
+    "msgISF" : m29,
+    "msgKH" : m30,
+    "msgKHBE" : m31,
+    "msgLegendTDD" : m32,
+    "msgLoadingData" : m33,
+    "msgLoadingDataFor" : m34,
+    "msgLogSMB" : m35,
+    "msgLogTempBasal" : m36,
+    "msgLogTempTarget" : m37,
+    "msgLow" : m38,
+    "msgMBG" : m39,
+    "msgMEAN" : m40,
+    "msgMEANInfo" : m41,
+    "msgPGSBad" : m42,
+    "msgPGSGood" : m43,
+    "msgPGSVeryBad" : m44,
+    "msgPGSVeryGood" : m45,
+    "msgProfileSwitch" : m46,
+    "msgProfileSwitchDuration" : m47,
+    "msgReadingsInMinutes" : m48,
+    "msgReadingsPerDay" : m49,
+    "msgReadingsPerHour" : m50,
+    "msgReservoirDays" : m51,
+    "msgSMBInsulin" : m52,
+    "msgSensorDays" : m53,
+    "msgStdAbw" : m54,
+    "msgTOR" : m55,
+    "msgTORInfo" : m56,
+    "msgTarget" : m57,
+    "msgTargetArea" : m58,
+    "msgTargetValue" : m59,
+    "msgTimeOfDay24" : m60,
+    "msgTimeOfDayAM" : m61,
+    "msgTimeOfDayPM" : m62,
+    "msgValidFrom" : m63,
+    "msgValidRange" : m64,
+    "msgValidTo" : m65,
+    "msgValuesAbove" : m66,
+    "msgValuesBelow" : m67,
+    "msgValuesIn" : m68,
+    "msgValuesNorm" : m69,
+    "msgValuesNormHigh" : m70,
+    "msgValuesNormLow" : m71,
+    "msgValuesVeryHigh" : m72,
+    "msgValuesVeryLow" : m73,
     "ok" : MessageLookupByLibrary.simpleMessage("ok"),
     "sehr geringes Risiko" : MessageLookupByLibrary.simpleMessage("veľmi nízke riziko"),
     "tl;dr" : MessageLookupByLibrary.simpleMessage("tl; dr"),

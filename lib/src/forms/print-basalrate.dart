@@ -53,7 +53,7 @@ class PrintBasalrate extends BaseProfile {
     if (page > 0) return null;
     subtitle = profile.store.name;
     // titleInfo = titleInfoTimeRange(profStartTime, profEndTime);
-    titleInfo = msgValidFrom(fmtDate(profile.store.startDate));
+    titleInfo = msgValidFrom(fmtDateTime(profile.store.startDate));
 
 //    getPage(ProfileGlucData profile, CalcData calc)
 //  {

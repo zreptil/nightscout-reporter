@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-01-09T14:38:57.031527",
+    "@@last_modified": "2020-02-07T15:31:16.701902",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -103,6 +103,12 @@
     },
     "Vergleich": "Comparaison",
     "@Vergleich": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Max Mustermann": "Jean Dupont",
+    "@Max Mustermann": {
+        "description": "modelname used in images on tiles",
         "type": "text",
         "placeholders": {}
     },
@@ -253,12 +259,6 @@
     },
     "Letzte 3 Monate": "Les 3 derniers mois",
     "@Letzte 3 Monate": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Max Mustermann": "Jean Dupont",
-    "@Max Mustermann": {
-        "description": "modelname used in images on tiles",
         "type": "text",
         "placeholders": {}
     },
@@ -542,6 +542,11 @@
     },
     "Berechnete IE für Kohlenhydrate": "U calculées pour les glucides",
     "@Berechnete IE für Kohlenhydrate": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "KH": "Glucides",
+    "@KH": {
         "type": "text",
         "placeholders": {}
     },
@@ -829,6 +834,11 @@
     },
     "Summe": "Somme",
     "@Summe": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Trend": "Tendance",
+    "@Trend": {
         "type": "text",
         "placeholders": {}
     },
@@ -1136,6 +1146,11 @@
     },
     "Wechsel": "Modification",
     "@Wechsel": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Eigenen Zielbereich verwenden": "Use own targetarea",
+    "@Eigenen Zielbereich verwenden": {
         "type": "text",
         "placeholders": {}
     },
@@ -1456,6 +1471,23 @@
         "type": "text",
         "placeholders": {}
     },
+    "Tagestrend": "Tendance quotidienne",
+    "@Tagestrend": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Alle Werte für den Tag anzeigen": "Afficher toutes les valeurs pour la journée",
+    "@Alle Werte für den Tag anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgBasalInfo": "Le débit basal est valide depuis {time} et n'inclut aucune modification temporaire.",
+    "@msgBasalInfo": {
+        "type": "text",
+        "placeholders": {
+            "time": {}
+        }
+    },
     "Eine": "Un",
     "@Eine": {
         "type": "text",
@@ -1573,6 +1605,21 @@
     },
     "Dauer der abgeschalteten Basalrate anzeigen": "Afficher la durée du débit de base désactivé",
     "@Dauer der abgeschalteten Basalrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Insulin auf maximale Stellen im Profil runden": "Arrondir l'insuline pour une précision maximale dans le profil",
+    "@Insulin auf maximale Stellen im Profil runden": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "COB (Carbs On Board) anzeigen": "Show COB (Carbs On Board)",
+    "@COB (Carbs On Board) anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "IOB (Insulin On Board) anzeigen": "Show IOB (Insulin On Board)",
+    "@IOB (Insulin On Board) anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2135,6 +2182,42 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.3.9 - xx.2.2020": "1.3.9 - 2/xx/2020",
+    "@1.3.9 - xx.2.2020": {
+        "description": "v139",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist.": "Il y a un nouveau PDF appelé Tendance Quotidienne. Cela montre les valeurs d'une journée ainsi que la tendance sur l'heure et le taux de basal défini dans le profil. Ceci est un bon aperçu pour les tests de débit basal pour voir où quelque chose doit être ajusté.",
+    "@Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist.": {
+        "description": "v139a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden.": "There is a new option in the daily graph to prevent the rounding of the insulin values to the maximum precision in the profile. This makes sense when either there is no profile or when values are entered with greater precision than in the profile.",
+    "@In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden.": {
+        "description": "v139a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.": "You can now display IOB and COB in the daily graphic. This functionality is currently very beta. The display works quite well, but if there is no meal and no insulin dose, they are not displayed for the day. I'm still working on that.",
+    "@In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.": {
+        "description": "v139a3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite.": "If there are empty columns on the profile page, this no longer leads to an empty page.",
+    "@Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite.": {
+        "description": "v139f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben.": "The values VarK and ToR in the CGP are correctly output for day and week graphics in the legend and in the graphic.",
+    "@Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben.": {
+        "description": "v139f2",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.3.8 - 9.1.2020": "1.3.8 - 9/1/2020",
     "@1.3.8 - 9.1.2020": {
         "description": "v138",
@@ -2159,7 +2242,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": "Bloody values should now also be displayed correctly in the daily graph for mmol data.",
+    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": "Les glycémies capillaires devraient maintenant également être affichées correctement dans le graphique quotidien pour les données en mmol.",
     "@Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": {
         "description": "v138f3",
         "type": "text",
