@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-01-09T14:38:57.031527",
+  "@@last_modified": "2020-02-07T15:31:16.701902",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -103,6 +103,12 @@
   },
   "Vergleich": "Vergleich",
   "@Vergleich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Max Mustermann": "Max Mustermann",
+  "@Max Mustermann": {
+    "description": "modelname used in images on tiles",
     "type": "text",
     "placeholders": {}
   },
@@ -253,12 +259,6 @@
   },
   "Letzte 3 Monate": "Letzte 3 Monate",
   "@Letzte 3 Monate": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Max Mustermann": "Max Mustermann",
-  "@Max Mustermann": {
-    "description": "modelname used in images on tiles",
     "type": "text",
     "placeholders": {}
   },
@@ -542,6 +542,11 @@
   },
   "Berechnete IE für Kohlenhydrate": "Berechnete IE für Kohlenhydrate",
   "@Berechnete IE für Kohlenhydrate": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "KH": "KH",
+  "@KH": {
     "type": "text",
     "placeholders": {}
   },
@@ -829,6 +834,11 @@
   },
   "Summe": "Summe",
   "@Summe": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Trend": "Trend",
+  "@Trend": {
     "type": "text",
     "placeholders": {}
   },
@@ -1136,6 +1146,11 @@
   },
   "Wechsel": "Wechsel",
   "@Wechsel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Eigenen Zielbereich verwenden": "Eigenen Zielbereich verwenden",
+  "@Eigenen Zielbereich verwenden": {
     "type": "text",
     "placeholders": {}
   },
@@ -1456,6 +1471,23 @@
     "type": "text",
     "placeholders": {}
   },
+  "Tagestrend": "Tagestrend",
+  "@Tagestrend": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle Werte für den Tag anzeigen": "Alle Werte für den Tag anzeigen",
+  "@Alle Werte für den Tag anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgBasalInfo": "Die angezeigte Basalrate ist seit {time}  gültig und beinhaltet keine temporären Änderungen.",
+  "@msgBasalInfo": {
+    "type": "text",
+    "placeholders": {
+      "time": {}
+    }
+  },
   "Eine": "Eine",
   "@Eine": {
     "type": "text",
@@ -1573,6 +1605,21 @@
   },
   "Dauer der abgeschalteten Basalrate anzeigen": "Dauer der abgeschalteten Basalrate anzeigen",
   "@Dauer der abgeschalteten Basalrate anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulin auf maximale Stellen im Profil runden": "Insulin auf maximale Stellen im Profil runden",
+  "@Insulin auf maximale Stellen im Profil runden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "COB (Carbs On Board) anzeigen": "COB (Carbs On Board) anzeigen",
+  "@COB (Carbs On Board) anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "IOB (Insulin On Board) anzeigen": "IOB (Insulin On Board) anzeigen",
+  "@IOB (Insulin On Board) anzeigen": {
     "type": "text",
     "placeholders": {}
   },
@@ -2132,6 +2179,42 @@
   "Version": "Version",
   "@Version": {
     "description": "version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.3.9 - xx.2.2020": "1.3.9 - xx.2.2020",
+  "@1.3.9 - xx.2.2020": {
+    "description": "v139",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist.": "Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist.",
+  "@Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist.": {
+    "description": "v139a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden.": "In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden.",
+  "@In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden.": {
+    "description": "v139a2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.": "In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.",
+  "@In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.": {
+    "description": "v139a3",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite.": "Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite.",
+  "@Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite.": {
+    "description": "v139f1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben.": "Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben.",
+  "@Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben.": {
+    "description": "v139f2",
     "type": "text",
     "placeholders": {}
   },

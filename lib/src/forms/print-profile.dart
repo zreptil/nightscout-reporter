@@ -27,7 +27,7 @@ class PrintProfile extends BaseProfile {
   String id = "profile";
 
   @override
-  String title = Intl.message("Profil");
+  String get title => Intl.message("Profil");
 
   PrintProfile() : super() {}
 
