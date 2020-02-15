@@ -42,6 +42,11 @@ class LegendData {
   LegendData(this.x, this.y, this.colWidth, this.maxLines);
 }
 
+class StepData {
+  double min, step;
+  StepData(this.min, this.step);
+}
+
 enum ParamType { none, bool, string, int, list }
 
 class ParamInfo {
@@ -302,6 +307,11 @@ abstract class BasePrint {
   String colIOBLine = "#a0a0ff";
   String colCOBFill = "#ffa050";
   String colCOBLine = "#ffa050";
+  String colTrendCrit = "#f59595";
+  String colTrendWarn = "#f2f595";
+  String colTrendNorm = "#98f595";
+  String colCOBDaily = "#ffe090";
+  String colIOBDaily = "#d0d0ff";
 
   double xorg = 3.35;
   double yorg = 3.9;
@@ -385,6 +395,7 @@ abstract class BasePrint {
   String get msgAmpulleChange => Intl.message("Reservoirwechsel");
   String get msgCollectedValues => Intl.message("Aufsummierte Werte");
   String get msgCarbIE => Intl.message("Berechnete IE für Kohlenhydrate");
+  String get msgKHTitle => Intl.message("KH");
   msgKH(value) => Intl.message("${value}g", args: [value], name: "msgKH");
   msgReadingsPerDay(howMany, fmt) => Intl.plural(howMany,
       zero: "Keine Messwerte vorhanden",
@@ -466,6 +477,7 @@ abstract class BasePrint {
   get msgTime => Intl.message("Uhrzeit");
   get msgIEHr => Intl.message("IE/std");
   get msgSum => Intl.message("Summe");
+  get msgTrend => Intl.message("Trend");
   static String get msgOutput => Intl.message("Ausgabe");
   static String get msgGraphic => Intl.message("Grafik");
   static String get msgTable => Intl.message("Tabelle");
@@ -543,6 +555,7 @@ abstract class BasePrint {
       Intl.message("Kalibrierung (scale $scale / intercept $intercept / slope $slope)",
           args: [scale, intercept, slope], name: "msgCalibration");
   static String get msgChange => Intl.message("Wechsel");
+  static String get msgOwnTargetArea => Intl.message("Eigenen Zielbereich verwenden");
 
   msgGVINone(min) {
     min = g.fmtNumber(min, 1);
@@ -1248,6 +1261,12 @@ abstract class BasePrint {
     return g.fmtNumber(gluc, precision == null ? 0 : precision);
   }
 
+  String styleForTime(DateTime time) {
+    if (time.hour < 6 || time.hour > 20) return "timeNight";
+    if (time.hour < 8 || time.hour > 17) return "timeLate";
+    return "timeDay";
+  }
+
   String colForGluc(DayData day, double gluc) {
     if (gluc == null) return "";
     if (gluc < day.basalData.targetLow)
@@ -1346,13 +1365,13 @@ abstract class BasePrint {
     return ret;
   }
 
-  Page getCGPPage(var dayList) {
+  Page getCGPPage(var dayList, bool useOwnTargetArea) {
     PrintCGP cgpPage = PrintCGP();
     cgpPage.repData = repData;
     cgpPage.scale = scale;
     title = cgpPage.title;
     subtitle = cgpPage.subtitle;
-    var cgpSrc = cgpPage.calcCGP(dayList, 1.0, 0, 0.3);
+    var cgpSrc = cgpPage.calcCGP(dayList, 1.0, 0, 0.3, useOwnTargetArea);
     PentagonData cgp = cgpSrc["cgp"];
     footerTextAboveLine = cgpPage.footerTextAboveLine;
     footerTextAboveLine["y"] = 0.9;
@@ -1512,89 +1531,160 @@ abstract class BasePrint {
       });
   }
 
-  GridData drawGraphicGrid4Days(
-      double glucMax, double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack,
-      {double glucScale: 0.0, double graphBottom: 0.0}) {
-    GridData ret = GridData();
-    if (graphBottom == 0.0) graphBottom = graphHeight;
-    ret.glucScale = glucScale == 0.0 ? g.glucMGDL ? 50 : 18.02 * 1 : glucScale;
-    ret.gridLines = (glucMax / ret.glucScale).ceil();
+  double calcX(double width, DateTime time) => width / 1440 * (time.hour * 60 + time.minute);
+  double calcY(double height, double max, double value) => height / max * (max - value);
+  S(double min, double step) => StepData(min, step);
 
-    ret.lineHeight = ret.gridLines == 0 ? 0 : graphHeight / ret.gridLines;
-    ret.colWidth = graphWidth / 24;
-
-    // draw vertical lines with times below graphic
-    for (int i = 0; i < 25; i++) {
-      vertCvs.add({
-        "type": "line",
-        "x1": cm(i * ret.colWidth),
-        "y1": cm(0),
-        "x2": cm(i * ret.colWidth),
-        "y2": cm(graphBottom - lw / 2),
-        "lineWidth": cm(lw),
-        "lineColor": i > 0 && i < 24 ? lc : lcFrame
-      });
-      if (i < 24)
-        horzStack.add({
-          "relativePosition": {"x": cm(xorg + i * ret.colWidth), "y": cm(yorg + graphBottom + 0.05)},
-          "text": fmtTime(i),
-          "fontSize": fs(8)
-        });
+  drawScaleIE(double xo, double yo, double graphHeight, double top, double min, double max, double colWidth,
+      dynamic horzCvs, dynamic vertStack, List<StepData> steps, Function display) {
+    double step = 0.1;
+    for (StepData entry in steps) {
+      if (max - min > entry.min) {
+        step = entry.step;
+        break;
+      }
     }
+    int gridLines = (((max - min) / step) + 1).floor();
+    double lineHeight = gridLines == 0 ? 0 : graphHeight / gridLines;
 
-    if (ret.lineHeight == 0) return ret;
-
-    double lastY = null;
-    for (int i = 0; i <= ret.gridLines; i++) {
-      double y = (ret.gridLines - i) * ret.lineHeight - lw / 2;
-      if (lastY != null && lastY - y < 0.5) continue;
-
-      lastY = y;
+//    top += 0.1 * (lineHeight / step);
+    for (var i = 1; i < gridLines; i++) {
+      double y = top + (gridLines - i) * lineHeight;
       horzCvs.add({
         "type": "line",
-        "x1": cm(i > 0 ? -0.2 : 0.0),
-        "y1": cm(y),
-        "x2": cm(24 * ret.colWidth + (i > 0 ? 0.2 : 0.0)),
-        "y2": cm(y),
+        "x1": cm(0),
+        "y1": cm(y) - lw / 2,
+        "x2": cm(24 * colWidth + 0.2),
+        "y2": cm(y) - lw / 2,
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
+//      double value = min + (max - min) / step * i;
+//      vertCvs.add({"relativePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": g.fmtNumber(i / 10, 1), "fontSize": fs(8)});
+      String text = display(i, step);
+//      String text = "${g.fmtNumber(i * step, 1)} ${msgInsulinUnit}";
+      vertStack.add({
+        "relativePosition": {"x": cm(xo - 3.0), "y": cm(y + yo - 0.15)},
+        "columns": [
+          {"width": cm(2.7), "text": text, "fontSize": fs(8), "alignment": "right"}
+        ]
+      });
+      vertStack.add({
+        "relativePosition": {"x": cm(xo + colWidth * 24 + 0.3), "y": cm(y + yo - 0.15)},
+        "text": text,
+        "fontSize": fs(8)
+      });
+    }
+    return (gridLines - 1) * lineHeight;
+  }
 
-      if (i > 0) {
-//        String text = "${glucFromData(g.fmtNumber(i * glucScale, 0))}\n${getGlucInfo()["unit"]}";
-        String text = "${glucFromData(g.fmtNumber(i * ret.glucScale, 0))}";
-        vertStack.add({
-          "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
-          "columns": [
-            {"width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}
-          ]
-        });
-        vertStack.add({
-          "relativePosition": {
-            "x": cm(xorg + 24 * ret.colWidth + 0.3),
-            "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
-          },
-          "text": text,
-          "fontSize": fs(8)
-        });
+  dynamic getIobCob(
+      double xo, double yo, double graphWidth, double graphHeight, dynamic horzCvs, dynamic vertStack, DayData day,
+      [double upperIob = 0, double upperCob = 0]) {
+    double colWidth = graphWidth / 24;
+    // graphic for iob and cob
+    dynamic ptsIob = [
+      {"x": cm(calcX(graphWidth, DateTime(0, 1, 1, 0, 0))), "y": cm(0)}
+    ];
+    dynamic ptsCob = [
+      {"x": cm(calcX(graphWidth, DateTime(0, 1, 1, 0, 0))), "y": cm(0)}
+    ];
+    DateTime time = DateTime(day.date.year, day.date.month, day.date.day);
+    int diff = 5;
+    double maxIob = -1000.0;
+    double minIob = 0.0;
+    double maxCob = -1000.0;
+    double lastX = 0;
+    int i = 0;
+    while (i < 1440) {
+      if (i + diff >= 1440 && i != 1439) diff = 1439 - i;
+      if (i < 1440) {
+        double x = calcX(graphWidth, time);
+        double y = day.iob(repData, time, day.prevDay).iob - 1.0;
+        maxIob = max(maxIob, y);
+        minIob = min(minIob, y);
+        ptsIob.add({"x": cm(x), "y": y});
+//*
+        y = day.cob(repData, time, day.prevDay).cob;
+        maxCob = max(maxCob, y);
+        ptsCob.add({"x": cm(x), "y": y});
+// */
+        lastX = x;
+        time = time.add(Duration(minutes: diff));
+      }
+      i += diff;
+    }
+    if (upperIob == 0) {
+      minIob = minIob * 1.1;
+      maxIob = maxIob * 1.1;
+    } else {
+      maxIob = upperIob;
+    }
+    double iobHeight = drawScaleIE(
+        xo,
+        yo,
+        graphHeight,
+        3 * graphHeight,
+        minIob,
+        maxIob,
+        colWidth,
+        horzCvs,
+        vertStack,
+        [S(10, 2.0), S(7, 1.0), S(3, 0.5), S(1.5, 0.2), S(0, 0.1)],
+        (i, step, {value: null}) => "${g.fmtNumber(value ?? minIob + i * step, 1)} ${msgInsulinUnit}");
+    for (int i = 0; i < ptsIob.length; i++) {
+      if (maxIob - minIob > 0) {
+        double y = ptsIob[i]["y"];
+        if (upperIob > 0)
+          ptsIob[i]["y"] = cm(iobHeight / maxIob * (y + minIob));
+        else
+          ptsIob[i]["y"] = cm(iobHeight / (maxIob - minIob) * (maxIob - y));
       } else {
-        String text = "${getGlucInfo()["unit"]}";
-        vertStack.add({
-          "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
-          "columns": [
-            {"width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}
-          ]
-        });
-        vertStack.add({
-          "relativePosition": {
-            "x": cm(xorg + 24 * ret.colWidth + 0.3),
-            "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
-          },
-          "text": text,
-          "fontSize": fs(8)
-        });
+        ptsIob[i]["y"] = cm(iobHeight);
       }
     }
-    return ret;
+
+    double cobHeight = drawScaleIE(
+        xo,
+        yo,
+        graphHeight,
+        4 * graphHeight,
+        0.0,
+        maxCob,
+        colWidth,
+        horzCvs,
+        vertStack,
+        [S(100, 20), S(50, 10), S(20, 5), S(0, 1)],
+        (i, step, {value: null}) => "${g.fmtNumber(value ?? i * step, 0)} g");
+
+    if (upperCob == 0)
+      maxCob = maxCob * 1.1;
+    else
+      maxCob = upperCob;
+    for (int i = 0; i < ptsCob.length; i++) {
+      if (maxCob > 0)
+        ptsCob[i]["y"] = cm(cobHeight / maxCob * (maxCob - ptsCob[i]["y"]));
+      else
+        ptsCob[i]["y"] = cm(cobHeight);
+    }
+
+    if (lastX != null) {
+      double y = 0;
+      if (upperIob > 0)
+        ptsIob.add({"x": cm(lastX), "y": cm(iobHeight / maxIob * (y + minIob))});
+      else if(maxIob - minIob > 0)
+        ptsIob.add({"x": cm(lastX), "y": cm(iobHeight / (maxIob - minIob) * (maxIob - y))});
+      else
+        ptsIob.add({"x": cm(lastX), "y": cm(iobHeight)});
+      ptsCob.add({"x": cm(lastX), "y": cm(cobHeight)});
+    }
+
+    return {
+      "iob": ptsIob,
+      "cob": ptsCob,
+      "iobHeight": iobHeight,
+      "cobHeight": cobHeight,
+      "iobTop": iobHeight / maxIob * minIob
+    };
   }
 }

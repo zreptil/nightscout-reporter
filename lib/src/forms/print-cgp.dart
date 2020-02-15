@@ -258,16 +258,18 @@ class PrintCGP extends BasePrint {
   String id = "cgp";
 
   @override
-  String title = Intl.message("CGP");
+  String get title => Intl.message("CGP");
 
   @override
-  String subtitle = Intl.message("Comprehensive Glucose Pentagon");
+  String get subtitle => Intl.message("Comprehensive Glucose Pentagon");
 
   bool _isPortrait = true;
+  bool useOwnTargetArea = true;
 
   @override
   List<ParamInfo> params = [
     ParamInfo(0, BasePrint.msgOrientation, list: [Intl.message("Hochformat"), Intl.message("Querformat")]),
+    ParamInfo(1, BasePrint.msgOwnTargetArea, boolValue: false),
   ];
 
   @override
@@ -294,6 +296,7 @@ class PrintCGP extends BasePrint {
         isPortraitParam = false;
         break;
     }
+    useOwnTargetArea = params[1].boolValue;
   }
 
   @override
@@ -309,9 +312,9 @@ class PrintCGP extends BasePrint {
 
   Page getPage() {
     titleInfo = titleInfoBegEnd();
-    if (!isPortrait) return getCGPPage(repData.data.days);
+    if (!isPortrait) return getCGPPage(repData.data.days, useOwnTargetArea);
 
-    var cgpSrc = calcCGP(repData.data.days, scale, width / 2 - xorg, 0);
+    var cgpSrc = calcCGP(repData.data.days, scale, width / 2 - xorg, 0, useOwnTargetArea);
     PentagonData cgp = cgpSrc["cgp"];
     var ret = [
       headerFooter(),
@@ -350,7 +353,7 @@ class PrintCGP extends BasePrint {
           ],
           [
             {"text": PentagonData.msgTOR(g.fmtNumber(cgp["tor"]))},
-            {"text": PentagonData.msgTORInfo("70 ${unit}", "180 ${unit}")}
+            {"text": PentagonData.msgTORInfo("${cgp["low"]} ${unit}", "${cgp["high"]} ${unit}")}
           ],
           [
             {"text": PentagonData.msgCV(g.fmtNumber(cgp["vark"]))},
@@ -358,11 +361,11 @@ class PrintCGP extends BasePrint {
           ],
           [
             {"text": PentagonData.msgHYPO(unit, g.fmtNumber(g.glucFromData(cgp["hypo"])))},
-            {"text": PentagonData.msgHYPOInfo("70 ${unit}")}
+            {"text": PentagonData.msgHYPOInfo("${cgp["low"]} ${unit}")}
           ],
           [
             {"text": PentagonData.msgHYPER(unit, g.fmtNumber(g.glucFromData(cgp["hyper"])))},
-            {"text": PentagonData.msgHYPERInfo("180 ${unit}")}
+            {"text": PentagonData.msgHYPERInfo("${cgp["high"]} ${unit}")}
           ],
           [
             {"text": PentagonData.msgMEAN(unit, g.fmtNumber(g.glucFromData(cgp["mean"])))},
@@ -403,17 +406,17 @@ class PrintCGP extends BasePrint {
     };
   }
 
-  _calcAUC(var data) {
+  _calcAUC(var data, int low, int high) {
     double hyperAUC = 0.0;
     double hypoAUC = 0.0;
 
     if (data is DayData) {
-      return _calcAUCForDay(data);
+      return _calcAUCForDay(data, low, high);
     } else if (data is List<DayData>) {
       // calculate area under curve for values >= 180 mg/dl and values <= 70 mg/dl
       // loop through every day in period
       for (DayData day in data) {
-        var auc = _calcAUCForDay(day);
+        var auc = _calcAUCForDay(day, low, high);
         hyperAUC += auc["hyper"];
         hypoAUC += auc["hypo"];
       }
@@ -425,7 +428,7 @@ class PrintCGP extends BasePrint {
     return {"hyper": hyperAUC, "hypo": hypoAUC};
   }
 
-  _calcAUCForDay(DayData day) {
+  _calcAUCForDay(DayData day, int low, int high) {
     double hyperTime = 0.0;
     double hyper = 0.0;
     double hypoTime = 0.0;
@@ -435,14 +438,14 @@ class PrintCGP extends BasePrint {
       if (entry.isGap) continue;
       // if gluc is 180 or above
       // add area under curve for 5 minutes
-      if (entry.gluc >= 180) {
+      if (entry.gluc >= high) {
         hyper += entry.gluc * 5;
         hyperTime += 5;
       }
 
       // if gluc is 70 or below
       // add area under curve for 5 minutes
-      if (entry.gluc <= 70) {
+      if (entry.gluc <= low) {
         hypo += (70 - entry.gluc) * 5;
         hypoTime += 5;
       }
@@ -455,11 +458,19 @@ class PrintCGP extends BasePrint {
     return {"hyper": hyper, "hypo": hypo};
   }
 
-  calcCGP(var dayData, double scale, double xm, double ym) {
+  calcCGP(var dayData, double scale, double xm, double ym, bool useOwnTargetArea) {
     PentagonData cgp = PentagonData(g, getGlucInfo(), cm, fs, xm: xm, ym: ym, scale: scale);
     cgp.ym += cgp.axisLength * 1.1 * cgp.scale;
     cgp.paintPentagon(1.0, lw, colLine: colCGPLine);
     cgp.paintAxis(lw, colLine: colValue);
+
+    int low = 70;
+    int high = 180;
+
+    if (useOwnTargetArea) {
+      low = repData.status.settings.thresholds.bgTargetBottom;
+      high = repData.status.settings.thresholds.bgTargetTop;
+    }
 
     double areaHealthy =
         cgp.paintValues([0, 16.7, 0, 0, 90], lw, colLine: colCGPHealthyLine, colFill: colCGPHealthyFill, opacity: 0.4);
@@ -470,9 +481,14 @@ class PrintCGP extends BasePrint {
     totalDay.init();
     double avgGluc = 0.0;
     double varK = 0.0;
+    int fullCount = data.count;
+    int count = data.entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc >= 70 && entry.gluc <= 180).length;
+
     if (dayData is DayData) {
       avgGluc = dayData.avgGluc;
       varK = dayData.varK;
+      fullCount = dayData.entries.length;
+      count = dayData.entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc >= 70 && entry.gluc <= 180).length;
     } else if (dayData is List<DayData>) {
       for (DayData day in dayData) {
         avgGluc += day.avgGluc;
@@ -482,15 +498,12 @@ class PrintCGP extends BasePrint {
       varK /= dayData.length;
     }
 
-    int count = data.entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc >= 70 && entry.gluc <= 180).length;
-
-    double tor = 1440 - count / data.count * 1440;
-
-    var auc = _calcAUC(dayData);
+    double tor = 1440 - count / fullCount * 1440;
+    var auc = _calcAUC(dayData, low, high);
     double hyperAUC = auc["hyper"];
     double hypoAUC = auc["hypo"];
 //*
-    double areaPatient = cgp.paintValues([tor, totalDay.varK, hypoAUC, hyperAUC, avgGluc], lw,
+    double areaPatient = cgp.paintValues([tor, varK, hypoAUC, hyperAUC, avgGluc], lw,
         colLine: colCGPPatientLine, colFill: colCGPPatientFill, opacity: 0.4);
 // */
 //    double areaPatient = 1.0;
@@ -509,6 +522,16 @@ class PrintCGP extends BasePrint {
       ]
     });
 
-    return {"cgp": cgp, "pgr": pgr, "mean": avgGluc, "hypo": hypoAUC, "hyper": hyperAUC, "tor": tor, "vark": varK};
+    return {
+      "cgp": cgp,
+      "pgr": pgr,
+      "mean": avgGluc,
+      "hypo": hypoAUC,
+      "hyper": hyperAUC,
+      "tor": tor,
+      "vark": varK,
+      "low": low,
+      "high": high
+    };
   }
 }

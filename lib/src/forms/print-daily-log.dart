@@ -101,7 +101,7 @@ class PrintDailyLog extends BaseProfile {
   dynamic get estimatePageCount => {"count": 0, "isEstimated": true};
 
   @override
-  String title = Intl.message("Protokoll");
+  String get title => Intl.message("Protokoll");
 
   static String get msgParam1 => Intl.message("Notizen");
   static String get msgParam2 => Intl.message("Kohlenhydrate");
@@ -410,12 +410,6 @@ class PrintDailyLog extends BaseProfile {
   String getText(double y, String text) {
 //    if (g.isLocal)return "${g.fmtNumber(y, 1)} - $text";
     return text;
-  }
-
-  String styleForTime(DateTime time) {
-    if (time.hour < 6 || time.hour > 20) return "timeNight";
-    if (time.hour < 8 || time.hour > 17) return "timeLate";
-    return "timeDay";
   }
 
   ProfileEntryData basalFor(DayData day, DateTime time) {

@@ -29,6 +29,7 @@ class JsonData {
   static DateTime toDate(value) {
     if (value == null) return DateTime(0, 1, 1);
     if (value is int) return DateTime.fromMillisecondsSinceEpoch(value);
+    if (value is double) return DateTime.fromMillisecondsSinceEpoch(value.toInt());
     return DateTime.tryParse(value).toLocal() ?? DateTime(0, 1, 1);
   }
 
@@ -1129,6 +1130,42 @@ class TreatmentData extends JsonData {
     }
     return null;
   }
+
+  calcTotalCOB(ReportData data, DayData yesterday, dynamic ret, ProfileGlucData profile, DateTime time, var iob) {
+    // TODO: figure out the liverSensRatio that gives the most accurate purple line predictions
+    double liverSensRatio = 8.0;
+    double sens = profile.store.listSens.lastWhere((e) => e.timeForCalc <= timeForCalc)?.value ?? 0.0;
+    double carbRatio = profile.store.listCarbratio.lastWhere((e) => e.timeForCalc <= timeForCalc)?.value ?? 0.0;
+    var cCalc = calcCOB(profile, time, ret["lastDecayedBy"]?.millisecondsSinceEpoch ?? 0);
+    if (cCalc != null) {
+      double decaysin_hr = (cCalc["decayedBy"].millisecondsSinceEpoch - time.millisecondsSinceEpoch) / 1000 / 60 / 60;
+      if (decaysin_hr > -10) {
+        // units: BG
+        var actStart = iob(data, ret["lastDecayedBy"], yesterday).activity;
+        var actEnd = iob(data, cCalc["decayedBy"], yesterday).activity;
+        var avgActivity = (actStart + actEnd) / 2;
+        // units:  g = BG * scalar / BG / U * g / U
+        if (sens == 0.0) sens = 1.0;
+        if (carbRatio == 0.0) carbRatio = 1.0;
+        var delayedCarbs = (avgActivity * liverSensRatio / sens) * carbRatio;
+        int delayMinutes = delayedCarbs ~/ profile.store.carbRatioPerHour * 60;
+        if (delayMinutes > 0) {
+          cCalc["decayedBy"] = cCalc["decayedBy"].add(Duration(minutes: delayMinutes));
+          decaysin_hr = (cCalc["decayedBy"].millisecondsSinceEpoch - time.millisecondsSinceEpoch) / 1000 / 60 / 60;
+        }
+      }
+
+      ret["lastDecayedBy"] = cCalc["decayedBy"];
+      if (decaysin_hr > 0) {
+        //console.info('Adding ' + delayMinutes + ' minutes to decay of ' + treatment.carbs + 'g bolus at ' + treatment.mills);
+        ret["totalCOB"] += math.min(carbs, decaysin_hr * profile.store.carbRatioPerHour);
+        //console.log('cob:', Math.min(cCalc.initialCarbs, decaysin_hr * profile.getCarbAbsorptionRate(treatment.mills)),cCalc.initialCarbs,decaysin_hr,profile.getCarbAbsorptionRate(treatment.mills));
+        ret["isDecaying"] = cCalc["isDecaying"];
+      }
+    } else {
+      ret["totalCOB"] = 0;
+    }
+  }
 }
 
 class EntryData extends JsonData {
@@ -1189,13 +1226,15 @@ class EntryData extends JsonData {
     ret.device = json["device"];
     ret.direction = json["direction"];
     ret.rawbg = JsonData.toDouble(json["rawbg"]);
+    ret.type = json["type"];
     ret.sgv = JsonData.toDouble(json["sgv"]);
     ret.mbg = JsonData.toDouble(json["mbg"]);
+    if (ret.type == null && ret.sgv > 0) ret.type = "sgv";
+    if (ret.type == null && ret.mbg > 0) ret.type = "mbg";
     if (ret.sgv < 20) {
       ret.sgv = 0;
       ret.isGap = true;
     }
-    ret.type = json["type"];
     ret.slope = JsonData.toDouble(json["slope"]);
     ret.intercept = JsonData.toDouble(json["intercept"]);
     ret.scale = JsonData.toDouble(json["scale"]);
@@ -1228,6 +1267,7 @@ class COBData {
 }
 
 class DayData {
+  DayData prevDay = null;
   Date date;
   ProfileGlucData basalData;
   int lowCount = 0;
@@ -1544,7 +1584,7 @@ class DayData {
     return ret;
   }
 
-  IOBData iob(ReportData data, DateTime time) {
+  IOBData iob(ReportData data, DateTime time, DayData yesterday) {
     double totalIOB = 0.0;
     double totalActivity = 0.0;
 
@@ -1553,6 +1593,14 @@ class DayData {
     TreatmentData lastBolus = null;
     int check = time.millisecondsSinceEpoch;
     ProfileGlucData profile = data.profile(time);
+
+    if (yesterday != null && false) {
+      IOBData temp = yesterday.iob(
+          data, DateTime(yesterday.date.year, yesterday.date.month, yesterday.date.day, 23, 59, 59), null);
+      totalIOB = temp.iob;
+      totalActivity = temp.activity;
+      lastBolus = temp.lastBolus;
+    }
 
     for (TreatmentData t in treatments) {
       if (!isSameDay_(t.createdAt, time) || t.createdAt.millisecondsSinceEpoch > check) continue;
@@ -1570,20 +1618,28 @@ class DayData {
     return IOBData(totalIOB, totalActivity, lastBolus);
   }
 
-  IOBData calcIobTotal(ReportData data, DateTime time) {
+  IOBData calcIobTotal(ReportData data, DateTime time, DayData yesterday) {
     if (time == null) time = DateTime.now();
 
-    return iob(data, time);
+    return iob(data, time, yesterday);
   }
 
-  COBData cob(ReportData data, DateTime time) {
-    // TODO: figure out the liverSensRatio that gives the most accurate purple line predictions
-    double liverSensRatio = 8.0;
+  COBData cob(ReportData data, DateTime time, DayData yesterday) {
     double totalCOB = 0.0;
     TreatmentData lastCarbs = null;
 
     bool isDecaying = false;
     DateTime lastDecayedBy = null;
+
+    if (yesterday != null && false) {
+      COBData prev = yesterday.cob(
+          data, DateTime(yesterday.date.year, yesterday.date.month, yesterday.date.day, 23, 59, 59), null);
+      totalCOB = prev.cob;
+      lastCarbs = prev.lastCarbs;
+      lastDecayedBy = prev.decayedBy;
+      isDecaying = prev.isDecaying;
+    }
+
     int check = time.hour * 3600 + time.minute * 60 + time.second;
     ProfileGlucData profile = data.profile(time);
 
@@ -1593,41 +1649,22 @@ class DayData {
       int tCheck = t.timeForCalc;
 
       if (t.carbs != null && t.carbs > 0) {
-        double sens = profile.store.listSens.lastWhere((e) => e.timeForCalc <= tCheck)?.value ?? 0.0;
-        double carbRatio = profile.store.listCarbratio.lastWhere((e) => e.timeForCalc <= tCheck)?.value ?? 0.0;
+        dynamic temp = {"totalCOB": totalCOB, "isDecaying": isDecaying, "lastDecayedBy": lastDecayedBy};
+        t.calcTotalCOB(data, yesterday, temp, profile, time, iob);
+        totalCOB = temp["totalCOB"];
+        isDecaying = temp["isDecaying"];
+        lastDecayedBy = temp["lastDecayedBy"];
         lastCarbs = t;
-        var cCalc = t.calcCOB(profile, time, lastDecayedBy?.millisecondsSinceEpoch ?? 0);
-        if (cCalc != null) {
-          double decaysin_hr =
-              (cCalc["decayedBy"].millisecondsSinceEpoch - time.millisecondsSinceEpoch) / 1000 / 60 / 60;
-          if (decaysin_hr > -10) {
-            // units: BG
-            var actStart = iob(data, lastDecayedBy).activity;
-            var actEnd = iob(data, cCalc["decayedBy"]).activity;
-            var avgActivity = (actStart + actEnd) / 2;
-            // units:  g = BG * scalar / BG / U * g / U
-            if (sens == 0.0) sens = 1.0;
-            if (carbRatio == 0.0) carbRatio = 1.0;
-            var delayedCarbs = (avgActivity * liverSensRatio / sens) * carbRatio;
-            int delayMinutes = delayedCarbs ~/ profile.store.carbRatioPerHour * 60;
-            if (delayMinutes > 0) {
-              cCalc["decayedBy"] = cCalc["decayedBy"].add(Duration(minutes: delayMinutes));
-              decaysin_hr = (cCalc["decayedBy"].millisecondsSinceEpoch - time.millisecondsSinceEpoch) / 1000 / 60 / 60;
-            }
-          }
-
-          lastDecayedBy = cCalc["decayedBy"];
-          if (decaysin_hr > 0) {
-            //console.info('Adding ' + delayMinutes + ' minutes to decay of ' + treatment.carbs + 'g bolus at ' + treatment.mills);
-            totalCOB += math.min(t.carbs, decaysin_hr * profile.store.carbRatioPerHour); //carbRatio);
-            //console.log('cob:', Math.min(cCalc.initialCarbs, decaysin_hr * profile.getCarbAbsorptionRate(treatment.mills)),cCalc.initialCarbs,decaysin_hr,profile.getCarbAbsorptionRate(treatment.mills));
-            isDecaying = cCalc["isDecaying"];
-          }
-        } else {
-          totalCOB = 0;
-        }
       }
     }
+
+    TreatmentData t = TreatmentData();
+    t.createdAt = time;
+    dynamic temp = {"totalCOB": totalCOB, "isDecaying": isDecaying, "lastDecayedBy": lastDecayedBy};
+    t.calcTotalCOB(data, yesterday, temp, profile, time, iob);
+    totalCOB = temp["totalCOB"];
+    isDecaying = temp["isDecaying"];
+    lastDecayedBy = temp["lastDecayedBy"];
 
     double sens = profile.store.listSens.lastWhere((e) => e.timeForCalc <= check)?.value ?? 0.0;
     double carbRatio = profile.store.listCarbratio.lastWhere((e) => e.timeForCalc <= check)?.value ?? 0.0;
@@ -1897,9 +1934,12 @@ class ListData {
     ieBasalSum = 0.0;
     for (int i = 0; i < days.length; i++) {
       DayData day = days[i];
+      day.prevDay = i > 0 ? days[i - 1] : null;
       day.init(i < days.length - 1 ? days[i + 1] : null);
       ieBasalSum += day.ieBasalSum;
     }
+    // the last day before the period was added at the beginning. Now it has to be removed.
+    if (days.length > 0) days.removeAt(0);
   }
 }
 
@@ -1918,7 +1958,7 @@ class ReportData {
   bool isForThumbs = false;
 
   // get profile for a specific time
-  ProfileGlucData profile(DateTime time, [List<TreatmentData> treatments = null]) {
+  ProfileGlucData profile(DateTime time, [List<TreatmentData> treatments = null, bool doMix = true]) {
 //    DateTime check = DateTime(time.year, time.month, time.day);
     ProfileGlucData ret = ProfileGlucData(ProfileStoreData("${time.toIso8601String()}"));
     ProfileData profile = null;
@@ -1932,7 +1972,7 @@ class ReportData {
       profile = profiles[idx].copy;
       idx++;
       // mix following profiles in
-      while (idx < profiles.length) {
+      while (idx < profiles.length && doMix) {
         DateTime d = profiles[idx].startDate;
         // only profiles with same day as requested
         if (d.year == time.year && d.month == time.month && d.day == time.day) profile.mixWith(profiles[idx]);
