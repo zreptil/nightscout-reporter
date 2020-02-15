@@ -13,7 +13,7 @@ class PrintWeeklyGraphic extends BasePrint {
   @override
   String id = "weekgraph";
 
-  bool sortReverse, showDaysInGraphic = true, showCGP;
+  bool sortReverse, showDaysInGraphic = true, showCGP, useOwnTargetArea;
 
   @override
   List<ParamInfo> params = [
@@ -26,7 +26,8 @@ class PrintWeeklyGraphic extends BasePrint {
     ]),
     ParamInfo(1, msgParam2, boolValue: true),
     ParamInfo(2, msgParam3, boolValue: true),
-    ParamInfo(3, PrintDailyGraphic.msgParam19, boolValue: false, thumbValue: true),
+    ParamInfo(3, PrintDailyGraphic.msgParam19,
+        boolValue: false, thumbValue: true, subParams: [ParamInfo(0, BasePrint.msgOwnTargetArea, boolValue: false)]),
   ];
 
   @override
@@ -34,6 +35,7 @@ class PrintWeeklyGraphic extends BasePrint {
     sortReverse = params[1].boolValue;
     showDaysInGraphic = params[2].boolValue;
     showCGP = params[3].boolValue;
+    useOwnTargetArea = params[3].subParams[0].boolValue;
 
     switch (params[0].intValue) {
       case 1:
@@ -72,10 +74,10 @@ class PrintWeeklyGraphic extends BasePrint {
   @override
   String get backsuffix => showCGP ? "cgp" : "";
 
-  static String _title = Intl.message("Wochengrafik");
+  String get _title => Intl.message("Wochengrafik");
 
   @override
-  String title = _title;
+  String get title => _title;
 
   static String get msgParam2 => Intl.message("Neueste Woche zuerst");
   static String get msgParam3 => Intl.message("Tagesnamen in Grafik anzeigen");
@@ -132,7 +134,7 @@ class PrintWeeklyGraphic extends BasePrint {
       basalTop = 2.0;
       graphBottom = graphHeight;
       pages.add(_getPage(week, repData));
-      if (showCGP) pages.add(getCGPPage(week));
+      if (showCGP) pages.add(getCGPPage(week, useOwnTargetArea));
       if (g.showBothUnits) {
         g.glucMGDL = !g.glucMGDL;
         pages.add(_getPage(week, repData));
@@ -148,6 +150,8 @@ class PrintWeeklyGraphic extends BasePrint {
       {"type": "polyline", "lineWidth": cm(lw * 2), "closePath": false, "lineColor": color, "points": points};
 
   Page _getPage(List<DayData> days, ReportData src) {
+    title = _title;
+    subtitle = null;
     footerTextAboveLine["text"] = "";
     double xo = xorg;
     double yo = yorg;

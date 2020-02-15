@@ -22,6 +22,7 @@ import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/forms/print-cgp.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-analysis.dart';
+import 'package:nightscout_reporter/src/forms/print-daily-gluc.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-profile.dart';
@@ -140,7 +141,6 @@ class AppComponent implements OnInit {
   String get msgLoadingDataError => Intl.message("Fehler beim Laden der Daten");
   String msgLoadingDataFor(date) => Intl.message("Lade Daten für $date...",
       args: [date], name: "msgLoadingDataFor", desc: "displayed when data of a day is loading");
-  dynamic currLang = null;
   String get msgClose => Intl.message("Schliessen");
   String get msgEmptyRange => Intl.message("Bitte einen Zeitraum wählen.");
   String get msgPreparingData => Intl.message("Bereite Daten vor...",
@@ -297,13 +297,15 @@ class AppComponent implements OnInit {
         PrintBasalrate(),
         PrintCGP(),
         PrintDailyProfile(),
+        PrintDailyGluc(),
       ];
       g.listConfig = List<FormConfig>();
+      g.listConfigOrg = List<FormConfig>();
       for (BasePrint form in srcList) g.listConfig.add(FormConfig(form, false));
+      g.listConfigOrg.addAll(g.listConfig);
       g.sortConfigs();
       g.userIdx = g.userIdx;
 
-      currLang = g.language;
       if (html.window.location.href.endsWith("?dsgvo")) currPage = "dsgvo";
       if (html.window.location.href.endsWith("?impressum")) currPage = "impressum";
       if (html.window.location.href.endsWith("?whatsnew")) currPage = "whatsnew";
@@ -393,8 +395,10 @@ class AppComponent implements OnInit {
     return convert.base64.encode(convert.utf8.encode(doc));
   }
 
+  String languageClass(item) => g.language != null && item.code == g.language.code ? 'language currLang' : 'language';
+
   void navigate(String url) {
-    if (url.startsWith("showPlayground") || url.startsWith("showPdf")) {
+    if (url.startsWith("showPlayground") || url.startsWith("showPdf") || url.startsWith("makePdfImages")) {
       String doc = pdfDoc;
       if (url == "showPlayground") {
         pdfUrl = g.urlPlayground;
@@ -403,8 +407,10 @@ class AppComponent implements OnInit {
           doc = doc.replaceAll(",\"", ",\n\"");
           doc = doc.replaceAll(":[", ":\n[");
         }
-      } else {
+      } else if (url == "showPdf") {
         pdfUrl = g.urlPdf;
+      } else if (url == "makePdfImages") {
+        pdfUrl = "${g.urlPdf}?images=${g.language.img}";
       }
 
       if (pdfDoc != null && pdfList.length == 0) {
@@ -414,6 +420,17 @@ class AppComponent implements OnInit {
           form.submit();
 //        display(msgPDFCreated);
         });
+        if (url == "makePdfImages") {
+          if (thumbLangIdx < g.languageList.length - 1) {
+            Future.delayed(Duration(milliseconds: 500), () {
+              createThumbs();
+            });
+          } else {
+            g.setLanguage(thumbLangSave);
+            thumbLangIdx = -1;
+            thumbLangSave = null;
+          }
+        }
       } else if (pdfList.length > 0) {
 /*
         Future.delayed(Duration(milliseconds: 1000), ()
@@ -568,6 +585,7 @@ class AppComponent implements OnInit {
 
   Draggable _drag = null;
   Dropzone _drop = null;
+  String msgModelName = Intl.message("Max Mustermann", desc: "modelname used in images on tiles");
 
   ReportData reportData = null;
   Future<ReportData> loadData(bool isForThumbs) async {
@@ -586,7 +604,7 @@ class AppComponent implements OnInit {
 
     if (isForThumbs) {
       data.user = UserData(g);
-      data.user.name = UserData.modelName;
+      data.user.name = msgModelName;
       data.user.birthDate = "13.2.1965";
       data.user.diaStartDate = "1.1.1996";
       data.user.insulin = "Novorapid";
@@ -758,6 +776,8 @@ class AppComponent implements OnInit {
     data.profiles.removeWhere((p) => p.duration < 2 && p != data.profiles.last);
 
     TreatmentData lastTempBasal = null;
+    // add the previous day of the period to have the daydata available in forms that need this information
+    begDate = begDate.add(days: -1);
     while (begDate <= endDate) {
       bool hasData = false;
       if (g.period.isDowActive(begDate.weekday - 1)) {
@@ -972,7 +992,7 @@ class AppComponent implements OnInit {
   }
 
   void createPDF({bool isForThumbs: false}) {
-    g.save();
+    g.save(skipReload: isForThumbs);
     display("");
     pdfList.clear();
     loadData(isForThumbs).then((ReportData src) async {
@@ -994,7 +1014,7 @@ class AppComponent implements OnInit {
       Page prevPage = null;
       List<FormConfig> listConfig = List<FormConfig>();
       if (isForThumbs) {
-        for (FormConfig cfg in g.listConfig) {
+        for (FormConfig cfg in g.listConfigOrg) {
           listConfig.add(cfg);
           switch (cfg.id) {
             case "cgp":
@@ -1132,7 +1152,9 @@ class AppComponent implements OnInit {
       }
 
       if (!isDebug) {
-        if (message.text.isEmpty)
+        if (message.text.isEmpty) if (isForThumbs)
+          navigate("makePdfImages");
+        else
           navigate("showPdf");
         else
           displayLink(msgShowPDF, "showPdf", btnClass: "action", icon: "description");
@@ -1162,7 +1184,7 @@ class AppComponent implements OnInit {
     String ret = "tile sortable";
     if (cfg.form.isDebugOnly && isDebug) ret = "${ret} is-debug";
     if (cfg.checked && tileParams == null) ret = "${ret} tilechecked";
-    if (cfg.form.isLocalOnly) ret = "${ret} is-local";
+    if (cfg.form.isLocalOnly || (cfg.form.isBetaOrLocal && g.isLocal)) ret = "${ret} is-local";
     if (cfg.form.isBetaOrLocal) ret = "${ret} is-beta";
     return ret;
   }
@@ -1247,9 +1269,19 @@ class AppComponent implements OnInit {
     }
   }
 
-  createThumbs() {
+  int thumbLangIdx = -1;
+  LangData thumbLangSave = null;
+  createThumbs() async {
     sendIcon = "stop";
     drawerVisible = false;
+    if (thumbLangSave == null && g.language.img != "de") {
+      thumbLangIdx = g.languageList.length;
+      thumbLangSave = g.language;
+    } else {
+      if (thumbLangSave == null) thumbLangSave = g.language;
+      thumbLangIdx++;
+      await g.setLanguage(g.languageList[thumbLangIdx]);
+    }
     createPDF(isForThumbs: true);
   }
 }

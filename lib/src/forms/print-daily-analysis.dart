@@ -7,11 +7,6 @@ import 'base-daily.dart';
 import 'base-print.dart';
 import 'print-daily-graphic.dart';
 
-class StepData {
-  double min, step;
-  StepData(this.min, this.step);
-}
-
 class PrintDailyAnalysis extends BaseDaily {
   @override
   String id = "dayanalysis";
@@ -56,10 +51,10 @@ class PrintDailyAnalysis extends BaseDaily {
   @override
   String get backsuffix => isPortraitParam ? "" : "landscape";
 
-  static String _titleGraphic = Intl.message("Tagesanalyse");
+  String get _titleGraphic => Intl.message("Tagesanalyse");
 
   @override
-  String title = Intl.message("Tagesanalyse");
+  String get title => _titleGraphic;
 
   @override
   List<String> get imgList => ["nightscout", "katheter.print", "sensor.print", "ampulle.print"];
@@ -76,13 +71,10 @@ class PrintDailyAnalysis extends BaseDaily {
   static double notesHeight = 0.3;
   static double basalHeight;
   static double basalWidth = graphWidth;
-  S(double min, double step) => StepData(min, step);
 
-  double glucX(DateTime time) {
-    return graphWidth / 1440 * (time.hour * 60 + time.minute);
-  }
+  double glucX(DateTime time) => calcX(graphWidth, time);
 
-  double glucY(double value) => graphHeight / glucMax * (glucMax - value);
+  double glucY(double value) => calcY(graphHeight, glucMax, value);
 
   double carbY(double value) => graphHeight / carbMax * (carbMax - value);
 
@@ -399,7 +391,17 @@ class PrintDailyAnalysis extends BaseDaily {
     profMax = -1000.0;
     for (ProfileEntryData entry in day.basalData.store.listBasal) profMax = math.max((entry.value ?? 0) + 0.2, profMax);
 
-    basalHeight = drawScaleIE(xo, yo, graphHeight, 0.0, profMax, [S(3, 0.5), S(1.5, 0.2), S(0, 0.1)],
+    basalHeight = drawScaleIE(
+        xo,
+        yo,
+        graphHeight,
+        graphHeight,
+        0.0,
+        profMax,
+        _colWidth,
+        _horzCvs,
+        _vertStack,
+        [S(3, 0.5), S(1.5, 0.2), S(0, 0.1)],
         (i, step, {value: null}) => "${g.fmtNumber(value ?? i * step, 1)} ${msgInsulinUnit}");
     var profileBasal = getBasalGraph(graphHeight, day, true, xo, yo);
 
@@ -442,71 +444,7 @@ class PrintDailyAnalysis extends BaseDaily {
     }
     var dayBasal = getBasalGraph(top, day, false, xo, yo);
 
-    // graphic for iob and cob
-    dynamic ptsIob = [
-      {"x": cm(glucX(DateTime(0, 1, 1, 0, 0))), "y": cm(0)}
-    ];
-    dynamic ptsCob = [
-      {"x": cm(glucX(DateTime(0, 1, 1, 0, 0))), "y": cm(0)}
-    ];
-    double lastX = null;
-    DateTime time = DateTime(day.date.year, day.date.month, day.date.day);
-    int diff = 5;
-    double maxIob = -1000.0;
-    double minIob = 0.0;
-    double maxCob = -1000.0;
-    int i = 0;
-    while (i < 1440) {
-      if (i + diff >= 1440 && i != 1439) diff = 1439 - i;
-      if (i < 1440) {
-        double x = glucX(time);
-        double y = day.iob(repData, time).iob - 1.0;
-        maxIob = math.max(maxIob, y);
-        minIob = math.min(minIob, y);
-        ptsIob.add({"x": cm(x), "y": y});
-//*
-        y = day.cob(repData, time).cob;
-        maxCob = math.max(maxCob, y);
-        ptsCob.add({"x": cm(x), "y": y});
-// */
-        lastX = x;
-        time = time.add(Duration(minutes: diff));
-      }
-      i += diff;
-    }
-    maxIob = maxIob * 1.1;
-    minIob = minIob * 1.1;
-    double iobGraphHeight = drawScaleIE(
-        xo,
-        yo,
-        3 * graphHeight,
-        minIob,
-        maxIob,
-        [S(10, 2.0), S(7, 1.0), S(3, 0.5), S(1.5, 0.2), S(0, 0.1)],
-        (i, step, {value: null}) => "${g.fmtNumber(value ?? minIob + i * step, 1)} ${msgInsulinUnit}");
-    for (int i = 0; i < ptsIob.length; i++) {
-      if (maxIob - minIob > 0)
-        ptsIob[i]["y"] = cm(iobGraphHeight / (maxIob - minIob) * (maxIob - ptsIob[i]["y"]));
-      else
-        ptsIob[i]["y"] = cm(iobGraphHeight);
-    }
-
-    double cobGraphHeight = drawScaleIE(
-        xo,
-        yo,
-        4 * graphHeight,
-        0.0,
-        maxCob,
-        [S(100, 20), S(50, 10), S(20, 5), S(0, 1)],
-        (i, step, {value: null}) => "${g.fmtNumber(value ?? i * step, 0)} g");
-    maxCob = maxCob * 1.1;
-    for (int i = 0; i < ptsCob.length; i++) {
-      if (maxCob > 0)
-        ptsCob[i]["y"] = cm(cobGraphHeight / maxCob * (maxCob - ptsCob[i]["y"]));
-      else
-        ptsCob[i]["y"] = cm(cobGraphHeight);
-    }
-
+    var pts = getIobCob(xo, yo, graphWidth, graphHeight, _horzCvs, _vertStack, day);
 /*
     for (BoluscalcData entry in listIobCob)
     {
@@ -527,24 +465,19 @@ class PrintDailyAnalysis extends BaseDaily {
     }
  */
 
-    if (lastX != null) {
-      ptsIob.add({"x": cm(lastX), "y": cm(iobGraphHeight / (maxIob - minIob) * maxIob)});
-      ptsCob.add({"x": cm(lastX), "y": cm(cobGraphHeight)});
-    }
-
     var graphIob = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo + 3 * graphHeight + graphHeight - iobGraphHeight)},
+      "relativePosition": {"x": cm(xo), "y": cm(yo + 3 * graphHeight + graphHeight - pts["iobHeight"])},
       "canvas": []
     };
     var graphCob = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo + 4 * graphHeight + graphHeight - cobGraphHeight)},
+      "relativePosition": {"x": cm(xo), "y": cm(yo + 4 * graphHeight + graphHeight - pts["cobHeight"])},
       "canvas": []
     };
     List graphIobCvs = graphIob["canvas"];
     List graphCobCvs = graphCob["canvas"];
 
-    graphIobCvs.add(graphArea(ptsIob, colIOBLine, colIOBFill));
-    graphCobCvs.add(graphArea(ptsCob, colCOBLine, colCOBFill));
+    graphIobCvs.add(graphArea(pts["iob"], colIOBLine, colIOBFill));
+    graphCobCvs.add(graphArea(pts["cob"], colCOBLine, colCOBFill));
 
     // horizontal lines between regions
     for (int i = 1; i < 6; i++) {
@@ -578,49 +511,6 @@ class PrintDailyAnalysis extends BaseDaily {
       graphCarbs,
       graphLegend,
     ]);
-  }
-
-  drawScaleIE(double xo, double yo, double top, double min, double max, List<StepData> steps, Function display) {
-    double step = 0.1;
-    for (StepData entry in steps) {
-      if (max - min > entry.min) {
-        step = entry.step;
-        break;
-      }
-    }
-
-    int gridLines = (((max - min) / step) + 1).floor();
-    double lineHeight = gridLines == 0 ? 0 : graphHeight / gridLines;
-
-//    top += 0.1 * (lineHeight / step);
-    for (var i = 1; i < gridLines; i++) {
-      double y = top + (gridLines - i) * lineHeight;
-      _horzCvs.add({
-        "type": "line",
-        "x1": cm(0),
-        "y1": cm(y) - lw / 2,
-        "x2": cm(24 * _colWidth + 0.2),
-        "y2": cm(y) - lw / 2,
-        "lineWidth": cm(lw),
-        "lineColor": i > 0 ? lc : lcFrame
-      });
-//      double value = min + (max - min) / step * i;
-//      vertCvs.add({"relativePosition": {"x": cm(xo - 0.7), "y": cm(yo + (gridLines - i) * lineHeight - 0.15)}, "text": g.fmtNumber(i / 10, 1), "fontSize": fs(8)});
-      String text = display(i, step);
-//      String text = "${g.fmtNumber(i * step, 1)} ${msgInsulinUnit}";
-      _vertStack.add({
-        "relativePosition": {"x": cm(xo - 3.0), "y": cm(y + yo - 0.15)},
-        "columns": [
-          {"width": cm(2.7), "text": text, "fontSize": fs(8), "alignment": "right"}
-        ]
-      });
-      _vertStack.add({
-        "relativePosition": {"x": cm(xo + _colWidth * 24 + 0.3), "y": cm(y + yo - 0.15)},
-        "text": text,
-        "fontSize": fs(8)
-      });
-    }
-    return (gridLines - 1) * lineHeight;
   }
 
   getBasalGraph(double top, DayData day, bool useProfile, double xo, double yo) {

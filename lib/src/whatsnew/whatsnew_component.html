@@ -10,10 +10,29 @@
       </material-button>
     </div>
     <div class="root">
-      <h2><span @i18n="version">Version</span><span @i18n="v139">1.3.9 - xx.1.2020</span></h2>
+      <h2><span @i18n="version">Version</span><span @i18n="v139">1.3.9 - xx.2.2020</span></h2>
       <ul>
+        <li class="added" @i18n="v139a1">
+          Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder
+          vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für
+          Basalratentests, um zu erkennen, wo etwas anzupassen ist.
+        </li>
+        <li class="added" @i18n="v139a2">
+          In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit
+          im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit
+          höherer Genauigkeit als im Profil eingegeben werden.
+        </li>
+        <li class="added" @i18n="v139a3">
+          In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta.
+          Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden
+          sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.
+        </li>
         <li class="fixed" @i18n="v139f1">
           Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite.
+        </li>
+        <li class="fixed" @i18n="v139f2">
+          Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik
+          korrekt ausgegeben.
         </li>
       </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v138">1.3.8 - 9.1.2020</span></h2>

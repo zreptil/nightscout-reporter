@@ -9,7 +9,7 @@ class PrintAnalysis extends BasePrint
   String id = "analysis";
 
   @override
-  String title = Intl.message("Auswertung");
+  String get title => Intl.message("Auswertung");
 
   bool isPreciseMaterial, isPreciseTarget, showStdAbw, showHypoGlucs;
   int get _precisionMaterial

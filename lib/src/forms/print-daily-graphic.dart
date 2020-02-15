@@ -54,40 +54,47 @@ class PrintDailyGraphic extends BaseDaily {
       showCGP,
       showProfileStart,
       showHTMLNotes,
-      showZeroBasal;
+      showZeroBasal,
+      showCOB,
+      showIOB,
+      roundToProfile,
+      useOwnTargetArea;
 
   @override
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: true),
-    ParamInfo(3, msgParam3, boolValue: true),
-    ParamInfo(5, msgParam4,
+    ParamInfo(4, msgParam3, boolValue: true),
+    ParamInfo(6, msgParam4,
         boolValue: true, isLoopValue: true, subParams: [ParamInfo(0, msgParam20, boolValue: false, isLoopValue: true)]),
-    ParamInfo(6, msgParam5, boolValue: true),
-    ParamInfo(7, msgParam6, boolValue: false, isDeprecated: true),
-    ParamInfo(11, BasePrint.msgGraphsPerPage, list: [
+    ParamInfo(7, msgParam5, boolValue: true),
+    ParamInfo(8, msgParam6, boolValue: false, isDeprecated: true),
+    ParamInfo(12, BasePrint.msgGraphsPerPage, list: [
       Intl.message("Eine"),
       Intl.message("Zwei"),
       Intl.message("Vier"),
       Intl.message("Acht"),
       Intl.message("Sechzehn")
     ]),
-    ParamInfo(9, msgParam8, boolValue: true),
-    ParamInfo(8, msgParam9,
+    ParamInfo(8, msgParam8, boolValue: true),
+    ParamInfo(9, msgParam9,
         boolValue: true,
         subParams: [ParamInfo(0, msgParam13, boolValue: false), ParamInfo(1, msgParam21, boolValue: false)]),
-    ParamInfo(10, msgParam10, boolValue: false),
-    ParamInfo(12, msgParam11, boolValue: true),
-    ParamInfo(13, msgParam14, boolValue: true),
-    ParamInfo(2, BaseDaily.msgDaily1,
+    ParamInfo(11, msgParam10, boolValue: false),
+    ParamInfo(13, msgParam11, boolValue: true),
+    ParamInfo(14, msgParam14, boolValue: true),
+    ParamInfo(3, BaseDaily.msgDaily1,
         boolValue: true,
         subParams: [ParamInfo(0, BaseDaily.msgDaily2, boolValue: true, isLoopValue: true)],
         isLoopValue: true),
-    ParamInfo(14, msgParam16, boolValue: false),
-    ParamInfo(15, msgParam17, boolValue: false),
-    ParamInfo(4, msgParam18, boolValue: false),
-    ParamInfo(16, msgParam19, boolValue: false),
-    ParamInfo(17, msgParam22, boolValue: false),
+    ParamInfo(15, msgParam16, boolValue: false),
+    ParamInfo(16, msgParam17, boolValue: false),
+    ParamInfo(5, msgParam18, boolValue: false),
+    ParamInfo(17, msgParam19, boolValue: false, subParams: [ParamInfo(0, BasePrint.msgOwnTargetArea, boolValue: false)]),
+    ParamInfo(18, msgParam22, boolValue: false),
+    ParamInfo(2, msgParam23, boolValue: true),
+    ParamInfo(19, msgParam24, boolValue: false),
+    ParamInfo(20, msgParam25, boolValue: false),
   ];
 
   @override
@@ -112,7 +119,11 @@ class PrintDailyGraphic extends BaseDaily {
     showExercises = params[14].boolValue;
     showCarbIE = params[15].boolValue;
     showCGP = params[16].boolValue;
+    useOwnTargetArea = params[16].subParams[0].boolValue;
     showZeroBasal = params[17].boolValue;
+    roundToProfile = params[18].boolValue;
+    showCOB = params[19].boolValue;
+    showIOB = params[20].boolValue;
 
     switch (params[6].intValue) {
       case 1:
@@ -143,10 +154,10 @@ class PrintDailyGraphic extends BaseDaily {
   @override
   String get backsuffix => showCGP ? "cgp" : "";
 
-  static String _titleGraphic = Intl.message("Tagesgrafik");
+  String get _titleGraphic => Intl.message("Tagesgrafik");
 
   @override
-  String title = _titleGraphic;
+  String get title => _titleGraphic;
 
   static String get msgParam1 => Intl.message("Symbole (Katheter etc.)");
   static String get msgParam2 => Intl.message("Insulin");
@@ -167,6 +178,9 @@ class PrintDailyGraphic extends BaseDaily {
   static String get msgParam20 => Intl.message("Tagesstartprofil anzeigen");
   static String get msgParam21 => Intl.message("HTML-Notizen anzeigen");
   static String get msgParam22 => Intl.message("Dauer der abgeschalteten Basalrate anzeigen");
+  static String get msgParam23 => Intl.message("Insulin auf maximale Stellen im Profil runden");
+  static String get msgParam24 => Intl.message("COB (Carbs On Board) anzeigen");
+  static String get msgParam25 => Intl.message("IOB (Insulin On Board) anzeigen");
   String get msgBasalSum => Intl.message("Basal ges.");
   String get msgBolusSum => Intl.message("Bolus ges.");
   String get msgBasalZero => Intl.message("Basal 0%");
@@ -246,11 +260,11 @@ class PrintDailyGraphic extends BaseDaily {
       DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
       if (day.entries.length != 0 || day.treatments.length != 0) {
         pages.add(getPage(day));
-        if (showCGP || repData.isForThumbs) pages.add(getCGPPage(day));
+        if (showCGP || repData.isForThumbs) pages.add(getCGPPage(day, useOwnTargetArea));
         if (g.showBothUnits) {
           g.glucMGDL = !g.glucMGDL;
           pages.add(getPage(day));
-          if (showCGP) pages.add(getCGPPage(day));
+          if (showCGP) pages.add(getCGPPage(day, useOwnTargetArea));
           g.glucMGDL = !g.glucMGDL;
         }
       } else {
@@ -259,6 +273,7 @@ class PrintDailyGraphic extends BaseDaily {
       if (repData.isForThumbs) i = data.days.length;
     }
     title = _titleGraphic;
+    subtitle = null;
     g.glucMGDL = saveMGDL;
   }
 
@@ -267,6 +282,8 @@ class PrintDailyGraphic extends BaseDaily {
 
   bool hasExercises;
   Page getPage(DayData day) {
+    title = _titleGraphic;
+    subtitle = null;
     footerTextAboveLine["text"] = "";
     double graphHeightSave = graphHeight;
     hasExercises =
@@ -774,7 +791,7 @@ class PrintDailyGraphic extends BaseDaily {
     for (CollectInfo info in collInsulin) {
       if (info.sum1 == 0.0) continue;
       double y = sumNarrowValues ? -0.5 : bolusY(info.max1);
-      String text = "${g.fmtBasal(info.sum1)} ${msgInsulinUnit}";
+      String text = "${g.fmtBasal(info.sum1, dontRound: !roundToProfile)} ${msgInsulinUnit}";
       if (info.count > 1) {
         text = "[$text]";
         hasCollectedValues = true;
@@ -809,7 +826,7 @@ class PrintDailyGraphic extends BaseDaily {
       y -= 0.35;
 
       if (showCarbIE && info.sum2 > 0.0) {
-        String text1 = "${g.fmtBasal(info.sum2)} ${msgInsulinUnit}";
+        String text1 = "${g.fmtBasal(info.sum2, dontRound: !roundToProfile)} ${msgInsulinUnit}";
         if (info.count > 1) text1 = "[$text1]";
         (graphCarbs["stack"][1]["stack"] as List).add({
           "relativePosition": {"x": cm(glucX(info.start) - 0.05), "y": cm(y)},
@@ -911,13 +928,16 @@ class PrintDailyGraphic extends BaseDaily {
         double sum = day.ieCorrectionSum;
         if (!showSMB) sum += day.ieSMBSum;
         if (sum > 0.0)
-          addLegendEntry(legend, colBolus, msgCorrectBolusInsulin("${g.fmtBasal(sum)} ${msgInsulinUnit}"),
+          addLegendEntry(legend, colBolus,
+              msgCorrectBolusInsulin("${g.fmtBasal(sum, dontRound: !roundToProfile)} ${msgInsulinUnit}"),
               isArea: false, lineWidth: 0.1);
         if (hasCarbBolus)
-          addLegendEntry(legend, colCarbBolus, msgCarbBolusInsulin("${g.fmtBasal(day.ieCarbSum)} ${msgInsulinUnit}"),
+          addLegendEntry(legend, colCarbBolus,
+              msgCarbBolusInsulin("${g.fmtBasal(day.ieCarbSum, dontRound: !roundToProfile)} ${msgInsulinUnit}"),
               isArea: false, lineWidth: 0.1);
         if (showSMB && day.ieSMBSum > 0.0)
-          addLegendEntry(legend, colBolus, msgSMBInsulin("${g.fmtBasal(day.ieSMBSum)} ${msgInsulinUnit}"),
+          addLegendEntry(legend, colBolus,
+              msgSMBInsulin("${g.fmtBasal(day.ieSMBSum, dontRound: !roundToProfile)} ${msgInsulinUnit}"),
               points: [
                 {"x": 0.1, "y": 0.1},
                 {"x": 0.5, "y": 0.1},
@@ -926,21 +946,22 @@ class PrintDailyGraphic extends BaseDaily {
               isArea: false,
               lineWidth: 0.1);
       } else if (hasBolus) {
-        addLegendEntry(legend, colBolus, msgBolusInsulin("${g.fmtBasal(day.ieBolusSum)} ${msgInsulinUnit}"),
+        addLegendEntry(legend, colBolus,
+            msgBolusInsulin("${g.fmtBasal(day.ieBolusSum, dontRound: !roundToProfile)} ${msgInsulinUnit}"),
             isArea: false, lineWidth: 0.1);
       }
       if (hasBolusExt) {
         addLegendEntry(legend, colBolusExt, msgBolusExtInsulin, isArea: false, lineWidth: 0.1);
       }
       if (showBasalDay) {
-        text = "${g.fmtBasal(day.ieBasalSum)} ${msgInsulinUnit}";
+        text = "${g.fmtBasal(day.ieBasalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}";
         addLegendEntry(legend, colBasalDay, msgBasalrateDay(text), isArea: true);
       }
       if (showBasalProfile) {
-        text = "${g.fmtBasal(day.basalData.store.ieBasalSum)} ${msgInsulinUnit}";
+        text = "${g.fmtBasal(day.basalData.store.ieBasalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}";
         addLegendEntry(legend, colProfileSwitch, msgBasalrateProfile(text), isArea: false);
       }
-      text = "${g.fmtBasal(tdd)} ${msgInsulinUnit}";
+      text = "${g.fmtBasal(tdd, dontRound: !roundToProfile)} ${msgInsulinUnit}";
       addLegendEntry(legend, "", msgLegendTDD(text), graphText: msgTDD);
       String v1 = glucFromData(src.status.settings.thresholds.bgTargetBottom.toDouble());
       String v2 = glucFromData(src.status.settings.thresholds.bgTargetTop.toDouble());
@@ -1018,7 +1039,7 @@ class PrintDailyGraphic extends BaseDaily {
           "columns": [
             {
               "width": cm(basalWidth),
-              "text": "${msgTDD} ${g.fmtBasal(tdd)} ${msgInsulinUnit}",
+              "text": "${msgTDD} ${g.fmtBasal(tdd, dontRound: !roundToProfile)} ${msgInsulinUnit}",
               "fontSize": fs(20),
               "alignment": "center",
               "color": colBasalDay
@@ -1067,8 +1088,45 @@ class PrintDailyGraphic extends BaseDaily {
       ]);
     }
 
+    dynamic graphArea(dynamic points, String colLine, String colFill) => {
+          "type": "polyline",
+          "lineWidth": cm(lw),
+          "closePath": true,
+          "color": colFill,
+          "lineColor": colLine,
+          "points": points
+        };
+    double cobHeight = 0;
+    dynamic graphIob = {};
+    dynamic graphCob = {};
+
+    if (showCOB || showIOB) {
+      List hc = [];
+      List vs = [];
+      var pts = getIobCob(xo, yo, graphWidth, graphHeight, hc, vs, day, ieMax * 4, carbMax);
+
+      if (showIOB) {
+        graphIob = {
+          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["iobHeight"] + pts["iobTop"])},
+          "canvas": []
+        };
+        List graphIobCvs = graphIob["canvas"];
+        graphIobCvs.add(graphArea(pts["iob"], colIOBDaily, colIOBDaily));
+      }
+      if (showCOB) {
+        graphCob = {
+          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["cobHeight"])},
+          "canvas": []
+        };
+        List graphCobCvs = graphCob["canvas"];
+        graphCobCvs.add(graphArea(pts["cob"], colCOBDaily, colCOBDaily));
+      }
+    }
+
     var ret = Page(isPortrait, [
       headerFooter(),
+      graphIob,
+      graphCob,
       glucTableCvs,
       exerciseCvs,
       vertLegend,
@@ -1146,7 +1204,7 @@ class PrintDailyGraphic extends BaseDaily {
           "columns": [
             {
               "width": cm(basalWidth),
-              "text": "${g.fmtBasal(basalSum)} ${msgInsulinUnit}",
+              "text": "${g.fmtBasal(basalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}",
               "fontSize": fs(20),
               "alignment": displayProfile ? "right" : "left",
               "color": color

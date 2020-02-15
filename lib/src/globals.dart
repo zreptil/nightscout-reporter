@@ -10,7 +10,9 @@ import 'package:angular_components/angular_components.dart';
 import 'package:googleapis/drive/v3.dart' as gd;
 import 'package:googleapis_auth/auth_browser.dart' as auth;
 import 'package:http/browser_client.dart' as http;
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:nightscout_reporter/messages/messages_all.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
@@ -89,6 +91,7 @@ class Settings {
   String _pdfOrder = "";
   String _viewType = "";
   List<FormConfig> listConfig = List<FormConfig>();
+  List<FormConfig> listConfigOrg = List<FormConfig>();
   DateFormat fmtDateForData;
   DateFormat fmtDateForDisplay;
   DatepickerPeriod period = DatepickerPeriod();
@@ -312,8 +315,7 @@ class Settings {
 //          saveStorage("mu", null);
         }
       }
-      userList.sort((a, b)
-      => a.display.compareTo(b.display));
+      userList.sort((a, b) => a.display.compareTo(b.display));
       userIdx = JsonData.toInt(cfg["userIdx"]);
     } catch (ex) {
 //      String msg = ex.toString();
@@ -397,6 +399,8 @@ class Globals extends Settings {
     int ret = math.max(v.length - v.lastIndexOf('.') - 1, 0);
     return math.min(ret, 3);
   }
+
+  int timeForCalc(DateTime time) => time.hour * 3600 + time.minute * 60 + time.second;
 
   static final Globals _globals = Globals._internal();
 
@@ -576,8 +580,27 @@ class Globals extends Settings {
     saveStorage("language", language?.code ?? "de_DE");
     if (doReload) {
       if (!checkConfigured) save();
-      reload();
+      if (isLocal) {
+        Intl.systemLocale = Intl.canonicalizedLocale(language.code);
+        await tz.initializeTimeZone();
+        await initializeMessages(language.code);
+        Intl.defaultLocale = language.code;
+        await initializeDateFormatting(language.code, null);
+      } else {
+        reload();
+      }
     }
+  }
+
+  setLanguage(LangData value) async {
+    language = value;
+    saveStorage("language", language?.code ?? "de_DE");
+    save();
+    Intl.systemLocale = Intl.canonicalizedLocale(language.code);
+    await tz.initializeTimeZone();
+    await initializeMessages(language.code);
+    Intl.defaultLocale = language.code;
+    await initializeDateFormatting(language.code, null);
   }
 
   reload() {
@@ -817,8 +840,10 @@ class Globals extends Settings {
     isConfigured = lastVersion != null && lastVersion.isNotEmpty;
   }
 
-  String fmtBasal(num value) {
-    return fmtNumber(value, basalPrecision);
+  String fmtBasal(num value, {bool dontRound: false}) {
+    int precision = basalPrecision;
+    if (dontRound) precision = math.max(Globals.decimalPlaces(value), precision);
+    return fmtNumber(value, precision, 0, "null", dontRound);
   }
 
   String fmtNumber(num value,
@@ -849,7 +874,7 @@ class Globals extends Settings {
     return ret == "NaN" ? nullText : (forceSign && value >= 0) ? "+${ret}" : ret;
   }
 
-  void save({bool updateSync: true}) {
+  void save({bool updateSync: true, bool skipReload: false}) {
     String oldLang = loadStorage("language");
     String oldGoogle = loadStorage("syncGoogle");
     String oldWebTheme = loadStorage("webtheme");
@@ -869,7 +894,7 @@ class Globals extends Settings {
     saveStorage("mu", Settings.doit("[${save.substring(1)}]"));
 
     saveStorage("userIdx", "$userIdx");
-    bool doReload = (language.code != oldLang && language.code != null);
+    bool doReload = (language.code != oldLang && language.code != null) && !skipReload;
     saveStorage("glucMGDL", glucMGDL.toString());
     saveStorage("language", language.code ?? "de_DE");
     saveStorage("pdfSameWindow", pdfSameWindow ? "true" : "false");
@@ -942,8 +967,6 @@ class UserData {
   String insulin = "";
 
   UserData(this.g);
-
-  static String get modelName => Intl.message("Max Mustermann", desc: "modelname used in images on tiles");
 
   String get display {
     return name.isEmpty ? storageApiUrl : name;
