@@ -12,7 +12,7 @@ class PrintDailyProfile extends BasePrint {
   String id = "dayprofile";
 
   @override
-  String title = Intl.message("Tagesprofil");
+  String get title => Intl.message("Tagesprofil");
 
   @override
   List<ParamInfo> params = [ParamInfo(1, msgParam1, boolValue: false)];

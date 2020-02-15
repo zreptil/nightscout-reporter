@@ -323,7 +323,7 @@
         <div>
           <material-button *ngFor="let item of g.languageList"
                            (trigger)="g.changeLanguage(item)"
-                           [class]="currLang!=null&&item.code==currLang.code?'language currLang':'language'">
+                           [class]="languageClass(item)">
             <img src="{{item.imgPath}}">
           </material-button>
         </div>

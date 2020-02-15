@@ -71,9 +71,10 @@ class PrintPercentile extends BasePrint {
   @override
   String get backsuffix => "${params[0].intValue ?? 0}";
 
-  static String _title = BasePrint.msgGPD;
+  String get _title => BasePrint.msgGPD;
+
   @override
-  String title = _title;
+  String get title => _title;
 
   @override
   bool isPortrait = false;
@@ -269,6 +270,7 @@ class PrintPercentile extends BasePrint {
   }
 
   Page getPage() {
+    title = _title;
     double xo = xorg;
     double yo = yorg;
     var data = repData.data;
