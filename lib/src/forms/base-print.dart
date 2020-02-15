@@ -1511,4 +1511,90 @@ abstract class BasePrint {
         ]
       });
   }
+
+  GridData drawGraphicGrid4Days(
+      double glucMax, double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack,
+      {double glucScale: 0.0, double graphBottom: 0.0}) {
+    GridData ret = GridData();
+    if (graphBottom == 0.0) graphBottom = graphHeight;
+    ret.glucScale = glucScale == 0.0 ? g.glucMGDL ? 50 : 18.02 * 1 : glucScale;
+    ret.gridLines = (glucMax / ret.glucScale).ceil();
+
+    ret.lineHeight = ret.gridLines == 0 ? 0 : graphHeight / ret.gridLines;
+    ret.colWidth = graphWidth / 24;
+
+    // draw vertical lines with times below graphic
+    for (int i = 0; i < 25; i++) {
+      vertCvs.add({
+        "type": "line",
+        "x1": cm(i * ret.colWidth),
+        "y1": cm(0),
+        "x2": cm(i * ret.colWidth),
+        "y2": cm(graphBottom - lw / 2),
+        "lineWidth": cm(lw),
+        "lineColor": i > 0 && i < 24 ? lc : lcFrame
+      });
+      if (i < 24)
+        horzStack.add({
+          "relativePosition": {"x": cm(xorg + i * ret.colWidth), "y": cm(yorg + graphBottom + 0.05)},
+          "text": fmtTime(i),
+          "fontSize": fs(8)
+        });
+    }
+
+    if (ret.lineHeight == 0) return ret;
+
+    double lastY = null;
+    for (int i = 0; i <= ret.gridLines; i++) {
+      double y = (ret.gridLines - i) * ret.lineHeight - lw / 2;
+      if (lastY != null && lastY - y < 0.5) continue;
+
+      lastY = y;
+      horzCvs.add({
+        "type": "line",
+        "x1": cm(i > 0 ? -0.2 : 0.0),
+        "y1": cm(y),
+        "x2": cm(24 * ret.colWidth + (i > 0 ? 0.2 : 0.0)),
+        "y2": cm(y),
+        "lineWidth": cm(lw),
+        "lineColor": i > 0 ? lc : lcFrame
+      });
+
+      if (i > 0) {
+//        String text = "${glucFromData(g.fmtNumber(i * glucScale, 0))}\n${getGlucInfo()["unit"]}";
+        String text = "${glucFromData(g.fmtNumber(i * ret.glucScale, 0))}";
+        vertStack.add({
+          "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
+          "columns": [
+            {"width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}
+          ]
+        });
+        vertStack.add({
+          "relativePosition": {
+            "x": cm(xorg + 24 * ret.colWidth + 0.3),
+            "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
+          },
+          "text": text,
+          "fontSize": fs(8)
+        });
+      } else {
+        String text = "${getGlucInfo()["unit"]}";
+        vertStack.add({
+          "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
+          "columns": [
+            {"width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}
+          ]
+        });
+        vertStack.add({
+          "relativePosition": {
+            "x": cm(xorg + 24 * ret.colWidth + 0.3),
+            "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
+          },
+          "text": text,
+          "fontSize": fs(8)
+        });
+      }
+    }
+    return ret;
+  }
 }

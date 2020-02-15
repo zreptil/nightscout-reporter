@@ -1221,10 +1221,10 @@ class COBData {
   bool isDecaying;
   int carbs_hr;
   double rawCarbImpact;
-  double cob;
+  double cob, cActivity;
   TreatmentData lastCarbs;
 
-  COBData(this.decayedBy, this.isDecaying, this.carbs_hr, this.rawCarbImpact, this.cob, this.lastCarbs);
+  COBData(this.decayedBy, this.isDecaying, this.carbs_hr, this.rawCarbImpact, this.cob, this.cActivity, this.lastCarbs);
 }
 
 class DayData {
@@ -1633,7 +1633,7 @@ class DayData {
     double carbRatio = profile.store.listCarbratio.lastWhere((e) => e.timeForCalc <= check)?.value ?? 0.0;
     var rawCarbImpact = (isDecaying ? 1 : 0) * sens / carbRatio * profile.store.carbRatioPerHour / 60;
 
-    return COBData(lastDecayedBy, isDecaying, profile.store.carbRatioPerHour, rawCarbImpact, totalCOB, lastCarbs);
+    return COBData(lastDecayedBy, isDecaying, profile.store.carbRatioPerHour, rawCarbImpact, totalCOB, 0, lastCarbs);
   }
 }
 
