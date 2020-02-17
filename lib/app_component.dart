@@ -30,6 +30,7 @@ import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
+import 'package:nightscout_reporter/src/forms/print-daily-hours.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
@@ -298,6 +299,7 @@ class AppComponent implements OnInit {
         PrintCGP(),
         PrintDailyProfile(),
         PrintDailyGluc(),
+        PrintDailyHours(),
       ];
       g.listConfig = List<FormConfig>();
       g.listConfigOrg = List<FormConfig>();
@@ -751,6 +753,7 @@ class AppComponent implements OnInit {
       } else {
         ProfileData temp = baseProfile.copy;
         temp.startDate = last.startDate.add(Duration(seconds: last.duration));
+        temp.createdAt = temp.startDate;
         temp.duration = current.startDate.difference(temp.startDate).inSeconds;
         data.profiles.insert(i, temp);
         i++;
@@ -759,13 +762,18 @@ class AppComponent implements OnInit {
       i++;
     }
 
-    ProfileData last = data.profiles.last;
-    if (data.profiles.last.duration > 0 && data.profiles.length > 1) {
-      ProfileData temp = data.profiles[data.profiles.length - 2].copy;
-      temp.startDate = last.startDate.add(Duration(seconds: last.duration));
-      temp.duration = 0;
+    if (baseProfile != null) {
+//    if (last.duration > 0 && data.profiles.length > 1) {
+      ProfileData temp = baseProfile.copy;
+      temp.startDate = data.profiles.last.startDate.add(Duration(seconds: data.profiles.last.duration));
+      temp.createdAt = temp.startDate;
       data.profiles.add(temp);
     }
+
+    int d = DateTime.now().difference(data.profiles.last.startDate).inSeconds;
+    data.profiles.last.duration = d;
+
+    data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
 /*
     String text = "";
     for (ProfileData p in data.profiles)

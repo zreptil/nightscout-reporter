@@ -56,9 +56,9 @@ class SettingsComponent implements OnInit {
   String get msgUrlNightscout => Intl.message("Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)");
   String get msgName => Intl.message("Name");
   String get msgInsulin => Intl.message("Insulin");
-  String get msgUserToken => Intl.message("User-Token");
-  String get msgUserTokenHint => Intl.message(
-      "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde");
+  String get msgAccessToken => Intl.message("Zugriffsschlüssel");
+  String get msgAccessTokenHint => Intl.message(
+      "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde");
   String msgCheckUser(String url) => Intl.message("Überprüfe Zugriff auf ${url}...", args: [url], name: "msgCheckUser");
 
   int get pdfSliderMax => Globals.PDFUNLIMITED ~/ Globals.PDFDIVIDER;

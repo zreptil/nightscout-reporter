@@ -346,6 +346,7 @@ material-drawer {
   color: white;
   flex-wrap: wrap;
   overflow-y: auto;
+  padding-right: 2em;
 
   material-button:not(.msgClose) {
     background-color: var(--primaryBack);

@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-02-07T15:31:16.701902",
+    "@@last_modified": "2020-02-17T15:55:38.766747",
     "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -182,6 +182,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Português": "Português",
+    "@Português": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Aktuelle Periode": "Aktuelle Periode",
     "@Aktuelle Periode": {
         "type": "text",
@@ -202,8 +207,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "Wenn diese URL geschützt ist muss ausserdem auch das UserToken korrekt definiert sein.",
-    "@<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
+    "<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": "<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.",
+    "@<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": {
         "type": "text",
         "placeholders": {}
     },
@@ -1221,6 +1226,21 @@
             "value": {}
         }
     },
+    "Tag (08:00 - 17:59)": "Tag (08:00 - 17:59)",
+    "@Tag (08:00 - 17:59)": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dämmerung (06:00 - 07:59, 18:00 - 20:59)": "Dämmerung (06:00 - 07:59, 18:00 - 20:59)",
+    "@Dämmerung (06:00 - 07:59, 18:00 - 20:59)": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nacht (21:00 - 05:59)": "Nacht (21:00 - 05:59)",
+    "@Nacht (21:00 - 05:59)": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgProfileSwitch": "Profilwechsel - {oldName} => {newName}",
     "@msgProfileSwitch": {
         "type": "text",
@@ -1638,6 +1658,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Tagesstunden": "Tagesstunden",
+    "@Tagesstunden": {
+        "type": "text",
+        "placeholders": {}
+    },
     "1 Minute": "1 Minute",
     "@1 Minute": {
         "type": "text",
@@ -1728,21 +1753,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tag (08:00 - 18:00)": "Tag (08:00 - 18:00)",
-    "@Tag (08:00 - 18:00)": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Dämmerung (06:00 - 08:00, 18:00 - 20:00)": "Dämmerung (06:00 - 08:00, 18:00 - 20:00)",
-    "@Dämmerung (06:00 - 08:00, 18:00 - 20:00)": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Nacht (20:00 - 08:00)": "Nacht (20:00 - 08:00)",
-    "@Nacht (20:00 - 08:00)": {
-        "type": "text",
-        "placeholders": {}
-    },
     "msgLogTempTarget": "temp. Ziel {target} für {duration} min, Grund: {reason}",
     "@msgLogTempTarget": {
         "type": "text",
@@ -1826,6 +1836,41 @@
         "type": "text",
         "placeholders": {}
     },
+    "Automatisch": "Automatisch",
+    "@Automatisch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "150": "150",
+    "@150": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "200": "200",
+    "@200": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "250": "250",
+    "@250": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "300": "300",
+    "@300": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "350": "350",
+    "@350": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Maximum für die Skalierung": "Maximum für die Skalierung",
+    "@Maximum für die Skalierung": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Spalten für 10% und 90% anzeigen": "Spalten für 10% und 90% anzeigen",
     "@Spalten für 10% und 90% anzeigen": {
         "type": "text",
@@ -1871,13 +1916,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "User-Token": "User-Token",
-    "@User-Token": {
+    "Zugriffsschlüssel": "Zugriffsschlüssel",
+    "@Zugriffsschlüssel": {
         "type": "text",
         "placeholders": {}
     },
-    "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde",
-    "@Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
+    "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde",
+    "@Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
         "type": "text",
         "placeholders": {}
     },
@@ -2200,9 +2245,21 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.": "In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.",
-    "@In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.": {
+    "In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.": "In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.",
+    "@In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.": {
         "description": "v139a3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": "Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.",
+    "@Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": {
+        "description": "v139a4",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": "Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.",
+    "@Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": {
+        "description": "v139a5",
         "type": "text",
         "placeholders": {}
     },

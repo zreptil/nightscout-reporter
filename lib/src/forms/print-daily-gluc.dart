@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
+import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
@@ -20,9 +21,6 @@ class PrintDailyGluc extends BasePrint {
   @override
   bool get isPortrait => true;
 
-  @override
-  bool get isBetaOrLocal => true;
-
   static String get msgParam1 => Intl.message("Alle Werte für den Tag anzeigen");
 
   String msgBasalInfo(String time) =>
@@ -32,6 +30,9 @@ class PrintDailyGluc extends BasePrint {
   PrintDailyProfile() {
     init();
   }
+
+  @override
+  dynamic get footerText => footerTextDayTimes;
 
   @override
   extractParams() {

@@ -141,31 +141,8 @@ class PrintDailyLog extends BaseProfile {
   double _y;
   double _bloodValue = null;
 
-  String get msgDay => Intl.message("Tag (08:00 - 18:00)");
-  String get msgDawn => Intl.message("Dämmerung (06:00 - 08:00, 18:00 - 20:00)");
-  String get msgNight => Intl.message("Nacht (20:00 - 08:00)");
-
   @override
-  dynamic get footerText => [
-        {
-          "table": {
-            "widths": [cm(6.0)],
-            "body": [
-              [
-                {"text": msgDay, "style": "timeDay", "alignment": "center"}
-              ],
-              [
-                {"text": msgDawn, "style": "timeLate", "alignment": "center"}
-              ],
-              [
-                {"text": msgNight, "style": "timeNight", "alignment": "center"}
-              ]
-            ]
-          },
-          "fontSize": fs(7),
-          "layout": "noBorders"
-        }
-      ];
+  dynamic get footerText => footerTextDayTimes;
 
   @override
   void fillPages(List<Page> pages) async {
@@ -519,7 +496,7 @@ class PrintDailyLog extends BaseProfile {
     dst.add(content);
   }
 
-  getTable(widths, body) {
+  getTable(widths, body, [double fontsize=null]) {
     dynamic ret = {
       "columns": [
         {
