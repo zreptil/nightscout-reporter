@@ -179,8 +179,9 @@ class PrintProfile extends BaseProfile {
       {"text": msgISF(getGlucInfo()["unit"]), "fontSize": fs(8), "color": "#606060", "alignment": "center"}
     ]);
 
-    icrIsfBody.add([
-      {
+    dynamic tmp = [];
+    if (bodyICR.length > 0)
+      tmp.add({
         "margin": [cm(1.0), cm(0)],
         "layout": "noBorders",
         "table": {
@@ -188,8 +189,10 @@ class PrintProfile extends BaseProfile {
           "widths": [cm(3.8), cm(1.0)],
           "body": bodyICR
         }
-      },
-      {
+      });
+
+    if (bodyISF.length > 0)
+      tmp.add({
         "margin": [cm(1.0), cm(0)],
         "layout": "noBorders",
         "table": {
@@ -197,11 +200,12 @@ class PrintProfile extends BaseProfile {
           "widths": [cm(3.9), cm(1.2)],
           "body": bodyISF
         }
-      }
-    ]);
+      });
 
-    basalTargetBody.add([
-      {
+    icrIsfBody.add(tmp);
+    tmp = [];
+    if (bodyBasal.length > 0)
+      tmp.add({
         "margin": [cm(1.0), cm(0)],
         "layout": "noBorders",
         "table": {
@@ -209,8 +213,9 @@ class PrintProfile extends BaseProfile {
           "widths": [cm(3.8), cm(1.0)],
           "body": bodyBasal
         }
-      },
-      {
+      });
+    if (bodyTarget.length > 0)
+      tmp.add({
         "margin": [cm(0.5), cm(0)],
         "layout": "noBorders",
         "table": {
@@ -218,8 +223,8 @@ class PrintProfile extends BaseProfile {
           "widths": [cm(3.7), cm(2.1)],
           "body": bodyTarget
         }
-      }
-    ]);
+      });
+    basalTargetBody.add(tmp);
 
     double colWidth = (width - 4.4) / 4;
     var ret = [

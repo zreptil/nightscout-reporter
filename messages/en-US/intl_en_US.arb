@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-02-07T15:31:16.701902",
+    "@@last_modified": "2020-02-17T15:55:38.766747",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -182,6 +182,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Português": "Português",
+    "@Português": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Aktuelle Periode": "Current period",
     "@Aktuelle Periode": {
         "type": "text",
@@ -202,8 +207,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "<br> <br> If this URL is protected, the UserToken must also be defined correctly.",
-    "@<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
+    "<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": "<br> <br> If this URL is protected, the Access Token must also be correctly defined. This can be reached via \"Admin Tools\" on the personal nightscout page.",
+    "@<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": {
         "type": "text",
         "placeholders": {}
     },
@@ -1221,6 +1226,21 @@
             "value": {}
         }
     },
+    "Tag (08:00 - 17:59)": "Day (08:00 - 17:59)",
+    "@Tag (08:00 - 17:59)": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dämmerung (06:00 - 07:59, 18:00 - 20:59)": "Twilight (06:00 - 07:59, 18:00 - 20:59)",
+    "@Dämmerung (06:00 - 07:59, 18:00 - 20:59)": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nacht (21:00 - 05:59)": "Night (21:00 - 05:59)",
+    "@Nacht (21:00 - 05:59)": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgProfileSwitch": "Profileswitch - {oldName} => {newName}",
     "@msgProfileSwitch": {
         "type": "text",
@@ -1638,6 +1658,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Tagesstunden": "Dayhours",
+    "@Tagesstunden": {
+        "type": "text",
+        "placeholders": {}
+    },
     "1 Minute": "1 Minute",
     "@1 Minute": {
         "type": "text",
@@ -1728,21 +1753,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tag (08:00 - 18:00)": "Day (08:00 - 18:00)",
-    "@Tag (08:00 - 18:00)": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Dämmerung (06:00 - 08:00, 18:00 - 20:00)": "Dawn (06:00 - 08:00, 20:00 - 18:00)",
-    "@Dämmerung (06:00 - 08:00, 18:00 - 20:00)": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Nacht (20:00 - 08:00)": "Night (20:00 - 08:00)",
-    "@Nacht (20:00 - 08:00)": {
-        "type": "text",
-        "placeholders": {}
-    },
     "msgLogTempTarget": "temp target {target} for {duration} min, reason: {reason}",
     "@msgLogTempTarget": {
         "type": "text",
@@ -1826,6 +1836,41 @@
         "type": "text",
         "placeholders": {}
     },
+    "Automatisch": "Automatic",
+    "@Automatisch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "150": "150",
+    "@150": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "200": "200",
+    "@200": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "250": "250",
+    "@250": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "300": "300",
+    "@300": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "350": "350",
+    "@350": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Maximum für die Skalierung": "Maximum value for scale",
+    "@Maximum für die Skalierung": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Spalten für 10% und 90% anzeigen": "Show columns for 10% and 90%",
     "@Spalten für 10% und 90% anzeigen": {
         "type": "text",
@@ -1871,13 +1916,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "User-Token": "User-Token",
-    "@User-Token": {
+    "Zugriffsschlüssel": "Access Token",
+    "@Zugriffsschlüssel": {
         "type": "text",
         "placeholders": {}
     },
-    "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "The user token is only required if access in Nightscout has been restricted via AUTH_DEFAULT_ROLES",
-    "@Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
+    "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "The Access Token is only required if access in Nightscout was restricted via AUTH_DEFAULT_ROLES",
+    "@Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
         "type": "text",
         "placeholders": {}
     },
@@ -2200,9 +2245,21 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.": "You can now display IOB and COB in the daily graphic. This functionality is currently very beta. The display works quite well, but if there is no meal and no insulin dose, they are not displayed for the day. I'm still working on that.",
-    "@In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.": {
+    "In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.": "In the daily graph you can now display the IOB (Insulin On Board) and COB (Carbs On Board). The IOB is shown at the top, where the bolus is shown, the COB at the bottom, where the carbohydrates are shown.",
+    "@In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.": {
         "description": "v139a3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": "Nightscout Reporter can now also be used in Portuguese.",
+    "@Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": {
+        "description": "v139a4",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": "There is a new PDF called Dayhours. This shows the average values of a day in every hourly interval and fills the cells backgroundcolor according to the glucose value. This gives you a good overview of the distribution of values in the selected period.",
+    "@Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": {
+        "description": "v139a5",
         "type": "text",
         "placeholders": {}
     },

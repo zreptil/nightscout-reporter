@@ -636,7 +636,8 @@ class ProfileData extends JsonData {
       ..startDate = startDate
       ..units = units
       ..createdAt = createdAt
-      ..maxPrecision = maxPrecision;
+      ..maxPrecision = maxPrecision
+      ..isFromNS = false;
 
     ret.store = Map<String, ProfileStoreData>();
     for (String key in store.keys) ret.store[key] = store[key].copy;
@@ -1073,8 +1074,8 @@ class TreatmentData extends JsonData {
     int check = time.hour * 3600 + time.minute * 60 + time.second;
 
     if (profile != null) {
-      dia = profile.store.dia ?? 3;
-      sens = profile.store.listSens.lastWhere((e) => e.timeForCalc <= check)?.value ?? 0.0;
+      dia = profile.store.dia ?? dia;
+      sens = profile.store?.listSens?.lastWhere((e) => e.timeForCalc <= check)?.value ?? sens;
     }
 
     double scaleFactor = 3.0 / dia;
@@ -1587,24 +1588,26 @@ class DayData {
   IOBData iob(ReportData data, DateTime time, DayData yesterday) {
     double totalIOB = 0.0;
     double totalActivity = 0.0;
-
-    if (time == null) time = DateTime(0);
-
     TreatmentData lastBolus = null;
+
+    if (time == null) return IOBData(0, 0, null); //time = DateTime(0);
+
     int check = time.millisecondsSinceEpoch;
     ProfileGlucData profile = data.profile(time);
 
-    if (yesterday != null && false) {
+    List<TreatmentData> list = List<TreatmentData>();
+    if (yesterday != null) {
       IOBData temp = yesterday.iob(
           data, DateTime(yesterday.date.year, yesterday.date.month, yesterday.date.day, 23, 59, 59), null);
-      totalIOB = temp.iob;
-      totalActivity = temp.activity;
-      lastBolus = temp.lastBolus;
+      TreatmentData t = TreatmentData();
+      t.insulin = temp.iob;
+      t.createdAt = DateTime(time.year, time.month, time.day, 0, 0, 0);
+      list.add(t);
     }
+    list.addAll(treatments);
 
-    for (TreatmentData t in treatments) {
+    for (TreatmentData t in list) {
       if (!isSameDay_(t.createdAt, time) || t.createdAt.millisecondsSinceEpoch > check) continue;
-
       var tIOB = t.calcIOB(profile, time);
       if (tIOB != null && tIOB.iob != null) {
         if (tIOB.iob != 0) lastBolus = t;
@@ -1631,22 +1634,24 @@ class DayData {
     bool isDecaying = false;
     DateTime lastDecayedBy = null;
 
-    if (yesterday != null && false) {
-      COBData prev = yesterday.cob(
-          data, DateTime(yesterday.date.year, yesterday.date.month, yesterday.date.day, 23, 59, 59), null);
-      totalCOB = prev.cob;
-      lastCarbs = prev.lastCarbs;
-      lastDecayedBy = prev.decayedBy;
-      isDecaying = prev.isDecaying;
-    }
-
     int check = time.hour * 3600 + time.minute * 60 + time.second;
     ProfileGlucData profile = data.profile(time);
 
-    for (TreatmentData t in treatments) {
-      if (!isSameDay_(t.createdAt, time) || t.timeForCalc > check) continue;
+    List<TreatmentData> list = List<TreatmentData>();
+    if (yesterday != null) {
+      COBData prev = yesterday.cob(
+          data, DateTime(yesterday.date.year, yesterday.date.month, yesterday.date.day, 23, 59, 59), null);
+      lastCarbs = prev.lastCarbs;
+      TreatmentData t = TreatmentData();
+      t._carbs = prev.cob;
+      t.isECarb = false;
+      t.createdAt = DateTime(time.year, time.month, time.day, 0, 0, 0);
+      list.add(t);
+    }
+    list.addAll(treatments);
 
-      int tCheck = t.timeForCalc;
+    for (TreatmentData t in list) {
+      if (!isSameDay_(t.createdAt, time) || t.timeForCalc > check) continue;
 
       if (t.carbs != null && t.carbs > 0) {
         dynamic temp = {"totalCOB": totalCOB, "isDecaying": isDecaying, "lastDecayedBy": lastDecayedBy};

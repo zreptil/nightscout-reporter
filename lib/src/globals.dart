@@ -165,6 +165,7 @@ class Settings {
     LangData("ja_JP", Intl.message("日本の"), "jp"),
     LangData("sk_SK", Intl.message("Slovenský"), "sk"),
     LangData("fr_FR", Intl.message("Français"), "fr"),
+    LangData("pt_PT", Intl.message("Português"), "pt"),
   ];
 
   LangData get language => _language == null ? languageList[0] : _language;
@@ -467,7 +468,8 @@ class Globals extends Settings {
   String get msgUrlFailurePrefix => Intl.message("Die angegebene URL ist nicht erreichbar. "
       "Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ");
   String get msgUrlFailureSuffix => Intl.message("<br><br>Wenn diese URL geschützt ist, "
-      "muss ausserdem das UserToken korrekt definiert sein.");
+      "muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man "
+      "über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.");
 
   String get msgUrlFailureHerokuapp =>
       Intl.message("In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools "

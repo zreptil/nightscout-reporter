@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-02-07T15:31:16.701902",
+    "@@last_modified": "2020-02-17T15:55:38.766747",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -182,6 +182,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Português": "Portugais",
+    "@Português": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Aktuelle Periode": "Période actuelle",
     "@Aktuelle Periode": {
         "type": "text",
@@ -202,8 +207,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": "<br> <br> Si cette URL est protégée, le jeton d'utilisateur doit également être défini correctement.",
-    "@<br><br>Wenn diese URL geschützt ist, muss ausserdem das UserToken korrekt definiert sein.": {
+    "<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": "<br> <br> Si cette URL est protégée, le jeton d'accès doit également être correctement défini. Ceci peut être fait via \"Outils d'administration\" sur la page personnelle de Nightscout .",
+    "@<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": {
         "type": "text",
         "placeholders": {}
     },
@@ -1149,7 +1154,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Eigenen Zielbereich verwenden": "Use own targetarea",
+    "Eigenen Zielbereich verwenden": "Utiliser sa propre zone cible",
     "@Eigenen Zielbereich verwenden": {
         "type": "text",
         "placeholders": {}
@@ -1220,6 +1225,21 @@
         "placeholders": {
             "value": {}
         }
+    },
+    "Tag (08:00 - 17:59)": "Day (08:00 - 17:59)",
+    "@Tag (08:00 - 17:59)": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dämmerung (06:00 - 07:59, 18:00 - 20:59)": "Twilight (06:00 - 07:59, 18:00 - 20:59)",
+    "@Dämmerung (06:00 - 07:59, 18:00 - 20:59)": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nacht (21:00 - 05:59)": "Night (21:00 - 05:59)",
+    "@Nacht (21:00 - 05:59)": {
+        "type": "text",
+        "placeholders": {}
     },
     "msgProfileSwitch": "Changement de profil - {oldName} => {newName}",
     "@msgProfileSwitch": {
@@ -1613,12 +1633,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "COB (Carbs On Board) anzeigen": "Show COB (Carbs On Board)",
+    "COB (Carbs On Board) anzeigen": "Afficher les glucides (glucides à bord)",
     "@COB (Carbs On Board) anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "IOB (Insulin On Board) anzeigen": "Show IOB (Insulin On Board)",
+    "IOB (Insulin On Board) anzeigen": "Afficher l'insuline active (IOB)",
     "@IOB (Insulin On Board) anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1635,6 +1655,11 @@
     },
     "Basal 0%": "Débit de base 0%",
     "@Basal 0%": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Tagesstunden": "Dayhours",
+    "@Tagesstunden": {
         "type": "text",
         "placeholders": {}
     },
@@ -1728,21 +1753,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tag (08:00 - 18:00)": "Jour (08:00 - 18:00)",
-    "@Tag (08:00 - 18:00)": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Dämmerung (06:00 - 08:00, 18:00 - 20:00)": "Aube (06:00 - 08:00, 18:00 - 20:00)",
-    "@Dämmerung (06:00 - 08:00, 18:00 - 20:00)": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Nacht (20:00 - 08:00)": "Nuit (20:00 - 08:00)",
-    "@Nacht (20:00 - 08:00)": {
-        "type": "text",
-        "placeholders": {}
-    },
     "msgLogTempTarget": "cible temporaire {target} pour {duration} min, raison: {reason}",
     "@msgLogTempTarget": {
         "type": "text",
@@ -1826,6 +1836,41 @@
         "type": "text",
         "placeholders": {}
     },
+    "Automatisch": "Automatic",
+    "@Automatisch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "150": "150",
+    "@150": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "200": "200",
+    "@200": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "250": "250",
+    "@250": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "300": "300",
+    "@300": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "350": "350",
+    "@350": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Maximum für die Skalierung": "Maximum value for scale",
+    "@Maximum für die Skalierung": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Spalten für 10% und 90% anzeigen": "Afficher les colonnes pour 10% et 90%",
     "@Spalten für 10% und 90% anzeigen": {
         "type": "text",
@@ -1871,13 +1916,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "User-Token": "Jeton utilisateur",
-    "@User-Token": {
+    "Zugriffsschlüssel": "Jeton d'accès",
+    "@Zugriffsschlüssel": {
         "type": "text",
         "placeholders": {}
     },
-    "Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "Le jeton d'utilisateur n'est requis que si l'accès dans Nightscout a été restreint via AUTH_DEFAULT_ROLES",
-    "@Das User-Token wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
+    "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "Le jeton d'accès est seulement nécessaire si l'accès à Nightscout a été restreint via AUTH_DEFAULT_ROLES",
+    "@Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
         "type": "text",
         "placeholders": {}
     },
@@ -2200,9 +2245,21 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.": "You can now display IOB and COB in the daily graphic. This functionality is currently very beta. The display works quite well, but if there is no meal and no insulin dose, they are not displayed for the day. I'm still working on that.",
-    "@In der Tagesgrafik kann man nun die IOB und COB anzeigen lassen. Diese Funktionalität ist zur Zeit sehr Beta. Die Anzeige funktioniert ganz gut, aber wenn keine Mahlzeit und keine Insulindosis vorhanden sind, werden sie für den Tag nicht angezeigt. Daran arbeite ich aber noch.": {
+    "In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.": "Dans le graphique quotidien, vous pouvez maintenant afficher l'IA (Insuline Active) et les glucides actifs (Glucides à bord). L'Insuline Active est affichée en haut, où le bolus est montré, le glucides à bord en bas, où les glucides sont affichés.",
+    "@In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.": {
         "description": "v139a3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": "Nightscout Reporter peut maintenant être utilisé en portugais.",
+    "@Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": {
+        "description": "v139a4",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": "There is a new PDF called Dayhours. This shows the average values of a day in every hourly interval and fills the cells backgroundcolor according to the glucose value. This gives you a good overview of the distribution of values in the selected period.",
+    "@Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": {
+        "description": "v139a5",
         "type": "text",
         "placeholders": {}
     },

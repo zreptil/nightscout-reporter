@@ -41,9 +41,8 @@ class PrintPercentile extends BasePrint {
   @override
   String id = "percentile";
 
-  bool showGPD;
-  bool showTable;
-  bool showCol1090;
+  bool showGPD, showTable, showCol1090;
+  double glucMaxParam;
 
   @override
   List<ParamInfo> params = [
@@ -54,8 +53,18 @@ class PrintPercentile extends BasePrint {
           BasePrint.msgAll,
         ],
         thumbValue: 2),
-    ParamInfo(1, msgCol1090, boolValue: false)
+    ParamInfo(1, msgCol1090, boolValue: false),
+    ParamInfo(2, msgParam1, list: [
+      Intl.message("Automatisch"),
+      Intl.message("150"),
+      Intl.message("200"),
+      Intl.message("250"),
+      Intl.message("300"),
+      Intl.message("350")
+    ]),
   ];
+
+  static String get msgParam1 => Intl.message("Maximum für die Skalierung");
 
   @override
   extractParams() {
@@ -63,6 +72,26 @@ class PrintPercentile extends BasePrint {
     showTable = params[0].intValue == 1 || params[0].intValue == 2;
     showCol1090 = params[1].boolValue;
     pagesPerSheet = 1;
+    switch (params[2].intValue) {
+      case 1:
+        glucMaxParam = 150.0;
+        break;
+      case 2:
+        glucMaxParam = 200.0;
+        break;
+      case 3:
+        glucMaxParam = 250.0;
+        break;
+      case 4:
+        glucMaxParam = 300.0;
+        break;
+      case 5:
+        glucMaxParam = 350.0;
+        break;
+      default:
+        glucMaxParam = null;
+        break;
+    }
   }
 
   @override
@@ -250,6 +279,8 @@ class PrintPercentile extends BasePrint {
 
     glucMax = 0.0;
     for (PercentileData data in percList) glucMax = math.max(data.percentile(90), glucMax);
+
+    if (glucMaxParam != null) glucMax = glucMaxParam;
 
     var vertLines = {
       "relativePosition": {"x": cm(xo), "y": cm(yo)},

@@ -635,6 +635,32 @@ abstract class BasePrint {
 
   dynamic get footerText => null;
 
+  static String get msgDay => Intl.message("Tag (08:00 - 17:59)");
+  static String get msgDawn => Intl.message("Dämmerung (06:00 - 07:59, 18:00 - 20:59)");
+  static String get msgNight => Intl.message("Nacht (21:00 - 05:59)");
+
+  @override
+  dynamic get footerTextDayTimes => [
+    {
+      "table": {
+        "widths": [cm(6.0)],
+        "body": [
+          [
+            {"text": msgDay, "style": "timeDay", "alignment": "center"}
+          ],
+          [
+            {"text": msgDawn, "style": "timeLate", "alignment": "center"}
+          ],
+          [
+            {"text": msgNight, "style": "timeNight", "alignment": "center"}
+          ]
+        ]
+      },
+      "fontSize": fs(7),
+      "layout": "noBorders"
+    }
+  ];
+
   Object headerFooter({skipFooter: false}) {
     bool isInput = false;
     var stack = [];
@@ -849,13 +875,14 @@ abstract class BasePrint {
     dst.add(content);
   }
 
-  getTable(widths, body) {
+  getTable(widths, body, [double fontsize = null]) {
+    if (fontsize == null) fontsize = fs(10);
     dynamic ret = {
       "columns": [
         {
           "margin": [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
           "width": cm(width),
-          "fontSize": fs(10),
+          "fontSize": fontsize,
           "table": {"widths": widths, "body": body},
         }
       ],
@@ -1672,7 +1699,7 @@ abstract class BasePrint {
       double y = 0;
       if (upperIob > 0)
         ptsIob.add({"x": cm(lastX), "y": cm(iobHeight / maxIob * (y + minIob))});
-      else if(maxIob - minIob > 0)
+      else if (maxIob - minIob > 0)
         ptsIob.add({"x": cm(lastX), "y": cm(iobHeight / (maxIob - minIob) * (maxIob - y))});
       else
         ptsIob.add({"x": cm(lastX), "y": cm(iobHeight)});
