@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
@@ -110,6 +109,8 @@ class PrintDailyGluc extends BasePrint {
       if (temp != null) trendGluc = temp.gluc;
     }
     ProfileGlucData profile = repData.profile(DateTime(day.date.year, day.date.month, day.date.day), null, false);
+    if (profile.store.listBasal.length == 0) return null;
+
     double basalMax = 0.1;
     for (ProfileEntryData entry in profile.store.listBasal) basalMax = math.max(entry.value, basalMax);
 
@@ -184,7 +185,7 @@ class PrintDailyGluc extends BasePrint {
             .lastWhere((e) => e.time(day.date).isBefore(entry.time.add(Duration(seconds: 1))), orElse: null);
         String basal = d == null ? "" : g.fmtBasal(d.value);
 //        basal = "${basal} - ${d.isCalculated?"true":"false"}";
-        double w = d.value * (widths[3] + cm(0.1)) / basalMax;
+        double w = (d?.value ?? 0) * (widths[3] + cm(0.1)) / basalMax;
         tables[idx].add([
           {"text": text, "alignment": "center", "style": styleForTime(entry.time)},
           {"text": gluc, "alignment": "center", "fillColor": colForGluc(day, entry.gluc)},
@@ -204,8 +205,7 @@ class PrintDailyGluc extends BasePrint {
         ]);
       }
 
-      if (showBolus)
-      {
+      if (showBolus) {
         text = bolusSum == null ? null : "${g.fmtNumber(bolusSum, 1)} ${msgInsulinUnit}";
         tables[idx].last.add({"text": text, "alignment": "center"});
       }

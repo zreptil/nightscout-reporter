@@ -24,13 +24,13 @@ import 'package:nightscout_reporter/src/forms/print-cgp.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-analysis.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-gluc.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
+import 'package:nightscout_reporter/src/forms/print-daily-hours.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-profile.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
-import 'package:nightscout_reporter/src/forms/print-daily-hours.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
@@ -40,10 +40,10 @@ import 'src/forms/print-analysis.dart';
 import 'src/forms/print-basalrate.dart';
 import 'src/forms/print-profile.dart';
 import 'src/impressum/impressum_component.dart';
+import 'src/printparams/printparams_component.dart';
 import 'src/settings/settings_component.dart';
 import 'src/welcome/welcome_component.dart';
 import 'src/whatsnew/whatsnew_component.dart';
-import 'src/printparams/printparams_component.dart';
 
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
@@ -956,6 +956,18 @@ class AppComponent implements OnInit {
     if (t.enteredBy.toLowerCase() == "sync") return true;
 
     return false;
+  }
+
+  void sendClick() {
+    switch (sendIcon) {
+      case "send":
+        currPage = 'printparams';
+        break;
+      case "close":
+        sendIcon = "send";
+        currPage = "normal";
+        break;
+    }
   }
 
   void shiftClick(PeriodShift shift) {
