@@ -200,7 +200,7 @@ class PrintDailyLog extends BaseProfile {
       t.eventType = "nr-${e.type}";
       t.glucoseType = "finger";
       t.glucose = e.bloodGluc;
-      t.notes = msgMBG(glucFromData(e.bloodGluc), getGlucInfo()["unit"]);
+      t.notes = msgMBG(g.glucFromData(e.bloodGluc), g.getGlucInfo()["unit"]);
       treatments.add(t);
     }
 
@@ -293,12 +293,12 @@ class PrintDailyLog extends BaseProfile {
           double gluc = glucEntry?.gluc;
           if (_bloodValue == null) {
             addRow(true, cm(1.3), row, {
-              "text": getGlucInfo()["unit"],
+              "text": g.getGlucInfo()["unit"],
               "style": "total",
               "fontSize": size,
               "alignment": "center"
             }, {
-              "text": glucFromData(gluc),
+              "text": g.glucFromData(gluc),
               "style": style,
               "fontSize": size,
               "alignment": "center",
@@ -306,15 +306,15 @@ class PrintDailyLog extends BaseProfile {
             });
           } else {
             addRow(true, cm(1.3), row, {
-              "text": getGlucInfo()["unit"],
+              "text": g.getGlucInfo()["unit"],
               "style": "total",
               "fontSize": size,
               "alignment": "center"
             }, {
               "stack": [
-                {"text": glucFromData(gluc), "style": style, "fontSize": size, "alignment": "center"},
+                {"text": g.glucFromData(gluc), "style": style, "fontSize": size, "alignment": "center"},
                 {
-                  "text": glucFromData(_bloodValue),
+                  "text": g.glucFromData(_bloodValue),
                   "style": style,
                   "fontSize": size,
                   "alignment": "center",
@@ -323,6 +323,7 @@ class PrintDailyLog extends BaseProfile {
               ],
               "fillColor": colForGluc(day, gluc)
             });
+            _y += _lineHeight;
           }
         }
         if (showChanges && showChangesColumn) {
@@ -449,9 +450,9 @@ class PrintDailyLog extends BaseProfile {
     if (showTempTargets && type == ("temporary target")) {
       String target;
       if (t.targetBottom == t.targetTop)
-        target = "${g.fmtBasal(t.targetBottom)} ${getGlucInfo()["unit"]}";
+        target = "${g.fmtBasal(t.targetBottom)} ${g.getGlucInfo()["unit"]}";
       else
-        target = "${t.targetBottom} - ${t.targetTop} ${getGlucInfo()["unit"]}";
+        target = "${t.targetBottom} - ${t.targetTop} ${g.getGlucInfo()["unit"]}";
       list.add(msgLogTempTarget(target, t.duration / 60, t.reason));
     }
     if (showChanges) {

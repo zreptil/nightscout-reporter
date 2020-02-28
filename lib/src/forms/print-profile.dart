@@ -169,14 +169,14 @@ class PrintProfile extends BaseProfile {
 
     basalTargetBody.add([
       {"text": msgBasalProfile, "fontSize": fs(8), "color": "#606060", "alignment": "center"},
-      {"text": msgTarget(getGlucInfo()["unit"]), "fontSize": fs(8), "color": "#606060", "alignment": "center"}
+      {"text": msgTarget(g.getGlucInfo()["unit"]), "fontSize": fs(8), "color": "#606060", "alignment": "center"}
     ]);
 
     _fontSize = 9;
 
     icrIsfBody.add([
       {"text": msgICR, "fontSize": fs(8), "color": "#606060", "alignment": "center"},
-      {"text": msgISF(getGlucInfo()["unit"]), "fontSize": fs(8), "color": "#606060", "alignment": "center"}
+      {"text": msgISF(g.getGlucInfo()["unit"]), "fontSize": fs(8), "color": "#606060", "alignment": "center"}
     ]);
 
     dynamic tmp = [];

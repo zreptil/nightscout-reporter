@@ -13,7 +13,6 @@ import 'package:angular_components/material_slider/material_slider.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
-import 'package:nightscout_reporter/src/globals.dart';
 
 @Component(
   selector: 'settings',
@@ -61,7 +60,7 @@ class SettingsComponent implements OnInit {
       "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde");
   String msgCheckUser(String url) => Intl.message("Überprüfe Zugriff auf ${url}...", args: [url], name: "msgCheckUser");
 
-  int get pdfSliderMax => Globals.PDFUNLIMITED ~/ Globals.PDFDIVIDER;
+  int get pdfSliderMax => globals.Globals.PDFUNLIMITED ~/ globals.Globals.PDFDIVIDER;
   String oldTheme;
 
   @override
