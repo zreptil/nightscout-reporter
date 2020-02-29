@@ -297,6 +297,7 @@ class ProfileEntryData extends JsonData {
   int timeAsSeconds;
   ProfileTimezone _timezone;
   int get localDiff => _timezone.localDiff;
+  Uploader from = Uploader.Unknown;
 
   String get hash => "${_time.hour}:${_time.minute}=${value}";
 
@@ -338,7 +339,8 @@ class ProfileEntryData extends JsonData {
     .._time = _time
     ..forceText = forceText
     ..orgValue = orgValue
-    .._timezone = _timezone;
+    .._timezone = _timezone
+    ..from = from;
 
   ProfileEntryData clone(DateTime time) {
     ProfileEntryData ret = copy;
@@ -360,7 +362,12 @@ class ProfileEntryData extends JsonData {
 
   double adjustedValue(double v) {
     if (_percentAdjust != null) return v + (v * _percentAdjust) / 100.0;
-    if (_absoluteRate != null) return _absoluteRate;
+    if (_absoluteRate != null) {
+      // spike needs a special handling, since the value seems to be the amount given over
+      // the duration, not the amount given in one hour.
+      if (from == Uploader.Spike) return _absoluteRate / (duration / 3600);
+      return _absoluteRate;
+    }
     return v;
   }
 
@@ -370,6 +377,7 @@ class ProfileEntryData extends JsonData {
       ret.percentAdjust = src._percent.toDouble();
     else if (src._rate != null) ret.absoluteRate = src._rate;
 
+    ret.from = src.from;
     if ((src.from == Uploader.Minimed600 || src.from == Uploader.Tidepool || src.from == Uploader.Spike) &&
         src._absolute != null) ret.absoluteRate = src._absolute;
     ret.duration = src.duration;
@@ -1274,6 +1282,9 @@ class DayData {
   int lowCount = 0;
   int normCount = 0;
   int highCount = 0;
+  int stdLowCount = 0;
+  int stdNormCount = 0;
+  int stdHighCount = 0;
   int entryCount = 0;
   int carbCount = 0;
   double carbs = 0;
@@ -1302,9 +1313,9 @@ class DayData {
   }
 
   double get varK => (mid ?? 0) != 0 ? stdAbw(true) / mid * 100 : 0;
-  double get lowPrz => entryCount == 0 ? 0 : lowCount / entryCount * 100;
-  double get normPrz => entryCount == 0 ? 0 : normCount / entryCount * 100;
-  double get highPrz => entryCount == 0 ? 0 : highCount / entryCount * 100;
+  double lowPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdLowCount : lowCount) / entryCount * 100;
+  double normPrz(Globals g)  => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdNormCount : normCount) / entryCount * 100;
+  double highPrz(Globals g)  => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdHighCount : highCount) / entryCount * 100;
   double get avgCarbs => carbCount > 0 ? carbs / carbCount : 0;
   bool isSameDay(DateTime time) {
     if (date.year != time.year) return false;
@@ -1515,6 +1526,9 @@ class DayData {
     normCount = 0;
     highCount = 0;
     lowCount = 0;
+    stdNormCount = 0;
+    stdHighCount = 0;
+    stdLowCount = 0;
     carbCount = 0;
     carbs = 0;
     for (EntryData entry in entries) {
@@ -1526,6 +1540,13 @@ class DayData {
           highCount++;
         else
           normCount++;
+
+        if (entry.gluc < Globals.stdLow)
+          stdLowCount++;
+        else if (entry.gluc > Globals.stdHigh)
+          stdHighCount++;
+        else
+          stdNormCount++;
 
         if (entry.gluc > 0) {
           mid += entry.gluc;

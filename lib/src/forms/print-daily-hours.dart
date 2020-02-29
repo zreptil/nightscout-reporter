@@ -9,11 +9,44 @@ class PrintDailyHours extends BasePrint {
   @override
   String id = "dayhours";
 
-  @override
-  List<ParamInfo> params = [];
+  int startHour = 0;
 
   @override
-  extractParams() {}
+  List<ParamInfo> params = [
+    ParamInfo(0, msgStartHour, list: [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23"
+    ]),
+  ];
+
+  static String msgStartHour = Intl.message("Startstunde");
+
+  @override
+  extractParams() {
+    startHour = params[0].intValue;
+  }
 
   @override
   dynamic get estimatePageCount {
@@ -41,15 +74,25 @@ class PrintDailyHours extends BasePrint {
   }
 
   fillRow(dynamic row, double f, String firstCol, DayData day, String style) {
-    addTableRow(true, cm(2.0), row, {"text": msgDate, "style": "total", "alignment": "center"},
-        {"text": firstCol, "style": "total", "alignment": "center"});
     double wid = cm((width - 4.4 - 2.1) / 24 - 0.33);
+    int hour = startHour;
+    DayData orgDay = day;
+    if (hour != 0 && day.prevDay != null) day = day.prevDay;
+
     for (int i = 0; i < 24; i++) {
-      DateTime time = DateTime(0, 1, 1, i, 0);
+      DateTime time = DateTime(0, 1, 1, hour, 0);
       double gluc = 0.0;
       int count = 0;
+
+      if (hour == 0) {
+        // erste Spalte
+        addTableRow(true, cm(2.0), row, {"text": msgDate, "style": "total", "alignment": "center"},
+          {"text": firstCol, "style": "total", "alignment": "center"});
+        day = orgDay;
+      }
+
       for (EntryData entry in day.entries) {
-        if (entry.gluc > 0 && entry.time.hour == i) {
+        if (entry.gluc > 0 && entry.time.hour == hour) {
           count++;
           gluc += entry.gluc;
         }
@@ -61,15 +104,35 @@ class PrintDailyHours extends BasePrint {
       EntryData entry = day.findNearest(day.entries, null, check, maxMinuteDiff: 15);
       double gluc = entry?.gluc ?? null;
 */
+      // Stundenspalte
       addTableRow(true, wid, row, {"text": fmtTime(time), "style": styleForTime(time), "alignment": "center"},
-          {"text": "${glucFromData(gluc)}", "style": style, "alignment": "right", "fillColor": colForGluc(day, gluc)});
+          {"text": "${g.glucFromData(gluc)}", "style": style, "alignment": "right", "fillColor": colForGluc(day, gluc)});
+      hour++;
+      if (hour == 24) hour = 0;
     }
     tableHeadFilled = true;
   }
 
   String percentileFor(double value) {
     if (value == -1) return "";
-    return glucFromData(value, 1);
+    return g.glucFromData(value, 1);
+  }
+
+  @override
+  getTable(widths, body) {
+    dynamic ret = {
+      "columns": [
+        {
+          "margin": [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
+          "width": cm(width),
+          "fontSize": fs(7),
+          "table": {"widths": widths, "body": body},
+        }
+      ],
+      "pageBreak": ""
+    };
+
+    return ret;
   }
 
   @override
@@ -115,7 +178,7 @@ class PrintDailyHours extends BasePrint {
       lineCount++;
       if (lineCount == 32) {
         page.add(headerFooter());
-        page.add(getTable(tableWidths, body, fs(7)));
+        page.add(getTable(tableWidths, body));
         lineCount = 0;
         pages.add(Page(isPortrait, page));
         page = [];
@@ -131,7 +194,7 @@ class PrintDailyHours extends BasePrint {
 
     if (prevProfile != null) {
       page.add(headerFooter());
-      page.add(getTable(tableWidths, body, fs(7)));
+      page.add(getTable(tableWidths, body));
       pages.add(Page(isPortrait, page));
     } else {
       Map test = pages.last.content.last as Map;

@@ -257,7 +257,7 @@ class PrintDailyAnalysis extends BaseDaily {
 
       if (i > 0) {
 //        String text = "${glucFromData(g.fmtNumber(i * 50, 0))}\n${getGlucInfo()["unit"]}";
-        String text = "${glucFromData(g.fmtNumber(i * glucScale, 0))}";
+        String text = "${g.glucFromData(g.fmtNumber(i * glucScale, 0))}";
         _vertStack.add({
           "relativePosition": {"x": cm(xo - 1.1), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
           "text": text,
@@ -269,7 +269,7 @@ class PrintDailyAnalysis extends BaseDaily {
           "fontSize": fs(8)
         });
       } else {
-        String text = "${getGlucInfo()["unit"]}";
+        String text = "${g.getGlucInfo()["unit"]}";
         _vertStack.add({
           "relativePosition": {"x": cm(xo - 1.5), "y": cm(yo + (gridLines - i) * lineHeight - 0.25)},
           "columns": [

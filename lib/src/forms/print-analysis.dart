@@ -282,7 +282,7 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {
             "text": msgValuesAbove(
-              "${glucFromData(repData.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
+              "${g.glucFromData(repData.status.settings.thresholds.bgTargetTop)} ${g.getGlucInfo()["unit"]}"),
             "style": "infotitle"
           },
           {
@@ -311,8 +311,8 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {
             "text": msgValuesIn(
-              "${glucFromData(repData.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}",
-              "${glucFromData(repData.status.settings.thresholds.bgTargetTop)} ${getGlucInfo()["unit"]}"),
+              "${g.glucFromData(repData.status.settings.thresholds.bgTargetBottom)} ${g.getGlucInfo()["unit"]}",
+              "${g.glucFromData(repData.status.settings.thresholds.bgTargetTop)} ${g.getGlucInfo()["unit"]}"),
             "style": "infotitle"
           },
           {
@@ -327,7 +327,7 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {
             "text": msgValuesBelow(
-              "${glucFromData(repData.status.settings.thresholds.bgTargetBottom)} ${getGlucInfo()["unit"]}"),
+              "${g.glucFromData(repData.status.settings.thresholds.bgTargetBottom)} ${g.getGlucInfo()["unit"]}"),
             "style": "infotitle"
           },
           {
@@ -346,7 +346,7 @@ class PrintAnalysis extends BasePrint
       addBodyArea(tableBody, msgStandardLimits, [
         [
           {"text": "", "style": "infotitle"},
-          {"text": msgValuesVeryHigh("${glucFromData(250)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
+          {"text": msgValuesVeryHigh("${g.glucFromData(250)} ${g.getGlucInfo()["unit"]}"), "style": "infotitle"},
           {
             "text": "${g.fmtNumber(data.stat["stdVeryHigh"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
@@ -396,7 +396,7 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {
             "text": msgValuesNormHigh(
-              "${glucFromData(180)} ${getGlucInfo()["unit"]} - ${glucFromData(250)} ${getGlucInfo()["unit"]}"),
+              "${g.glucFromData(180)} ${g.getGlucInfo()["unit"]} - ${g.glucFromData(250)} ${g.getGlucInfo()["unit"]}"),
             "style": "infotitle"
           },
           {
@@ -411,7 +411,7 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {
             "text": msgValuesNorm(
-              "${glucFromData(70)} ${getGlucInfo()["unit"]}", "${glucFromData(180)} ${getGlucInfo()["unit"]}"),
+              "${g.glucFromData(70)} ${g.getGlucInfo()["unit"]}", "${g.glucFromData(180)} ${g.getGlucInfo()["unit"]}"),
             "style": "infotitle"
           },
           {
@@ -426,7 +426,7 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {
             "text": msgValuesNormLow(
-              "${glucFromData(54)} ${getGlucInfo()["unit"]} - ${glucFromData(70)} ${getGlucInfo()["unit"]}"),
+              "${g.glucFromData(54)} ${g.getGlucInfo()["unit"]} - ${g.glucFromData(70)} ${g.getGlucInfo()["unit"]}"),
             "style": "infotitle"
           },
           {
@@ -439,7 +439,7 @@ class PrintAnalysis extends BasePrint
         ],
         [
           {"text": "", "style": "infotitle"},
-          {"text": msgValuesVeryLow("${glucFromData(54)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
+          {"text": msgValuesVeryLow("${g.glucFromData(54)} ${g.getGlucInfo()["unit"]}"), "style": "infotitle"},
           {
             "text": "${g.fmtNumber(data.stat["stdVeryLow"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
@@ -455,7 +455,7 @@ class PrintAnalysis extends BasePrint
       addBodyArea(tableBody, msgStandardLimits, [
         [
           {"text": "", "style": "infotitle"},
-          {"text": msgValuesAbove("${glucFromData(180)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
+          {"text": msgValuesAbove("${g.glucFromData(180)} ${g.getGlucInfo()["unit"]}"), "style": "infotitle"},
           {
             "text": "${g.fmtNumber(data.stat["stdHigh"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
@@ -489,7 +489,7 @@ class PrintAnalysis extends BasePrint
           {"text": "", "style": "infotitle"},
           {
             "text": msgValuesIn(
-              "${glucFromData(70)} ${getGlucInfo()["unit"]}", "${glucFromData(180)} ${getGlucInfo()["unit"]}"),
+              "${g.glucFromData(70)} ${g.getGlucInfo()["unit"]}", "${g.glucFromData(180)} ${g.getGlucInfo()["unit"]}"),
             "style": "infotitle"
           },
           {
@@ -502,7 +502,7 @@ class PrintAnalysis extends BasePrint
         ],
         [
           {"text": "", "style": "infotitle"},
-          {"text": msgValuesBelow("${glucFromData(70)} ${getGlucInfo()["unit"]}"), "style": "infotitle"},
+          {"text": msgValuesBelow("${g.glucFromData(70)} ${g.getGlucInfo()["unit"]}"), "style": "infotitle"},
           {
             "text": "${g.fmtNumber(data.stat["stdLow"].values.length / count * 100, _precisionTarget)} %",
             "style": "infodata"
@@ -529,7 +529,7 @@ class PrintAnalysis extends BasePrint
         }
       }
 
-      addBodyArea(tableBody, msgHypoTitle("${glucFromData(54)} ${getGlucInfo()["unit"]}"), [
+      addBodyArea(tableBody, msgHypoTitle("${g.glucFromData(54)} ${g.getGlucInfo()["unit"]}"), [
         [
           {"text": "", "style": "infotitle"},
           {"text": msgHypoCount, "style": "infotitle"},
@@ -553,16 +553,16 @@ class PrintAnalysis extends BasePrint
       [
         {"text": "", "style": "infotitle"},
         {"text": msgLowestValue, "style": "infotitle"},
-        {"text": "${glucFromData(data.min)}", "style": "infodata"},
-        {"text": getGlucInfo()["unit"], "style": "infounit"},
+        {"text": "${g.glucFromData(data.min)}", "style": "infodata"},
+        {"text": g.getGlucInfo()["unit"], "style": "infounit"},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
       ],
       [
         {"text": "", "style": "infotitle"},
         {"text": msgHighestValue, "style": "infotitle"},
-        {"text": "${glucFromData(data.max)}", "style": "infodata"},
-        {"text": getGlucInfo()["unit"], "style": "infounit", "colSpan": 2},
+        {"text": "${g.glucFromData(data.max)}", "style": "infodata"},
+        {"text": g.getGlucInfo()["unit"], "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
       ],
@@ -570,7 +570,7 @@ class PrintAnalysis extends BasePrint
         {"text": "", "style": "infotitle"},
         {"text": msgStandardDeviation, "style": "infotitle"},
         {"text": g.fmtNumber(totalDay.stdAbw(g.glucMGDL), 1), "style": "infodata"},
-        {"text": getGlucInfo()["unit"], "style": "infounit", "colSpan": 2},
+        {"text": g.getGlucInfo()["unit"], "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},
       ],
@@ -593,8 +593,8 @@ class PrintAnalysis extends BasePrint
       [
         {"text": "", "style": "infotitle"},
         {"text": "${msgGlucoseValue}${glucWarnText}", "style": "infotitle"},
-        {"text": glucFromData(avgGluc), "style": "infodata"},
-        {"text": "${getGlucInfo()["unit"]}", "style": "infounit", "colSpan": 2},
+        {"text": g.glucFromData(avgGluc), "style": "infodata"},
+        {"text": "${g.getGlucInfo()["unit"]}", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {
           "canvas": [

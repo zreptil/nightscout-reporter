@@ -24,13 +24,13 @@ import 'package:nightscout_reporter/src/forms/print-cgp.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-analysis.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-gluc.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
+import 'package:nightscout_reporter/src/forms/print-daily-hours.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-profile.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
-import 'package:nightscout_reporter/src/forms/print-daily-hours.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
@@ -40,6 +40,7 @@ import 'src/forms/print-analysis.dart';
 import 'src/forms/print-basalrate.dart';
 import 'src/forms/print-profile.dart';
 import 'src/impressum/impressum_component.dart';
+import 'src/printparams/printparams_component.dart';
 import 'src/settings/settings_component.dart';
 import 'src/welcome/welcome_component.dart';
 import 'src/whatsnew/whatsnew_component.dart';
@@ -75,6 +76,7 @@ class PdfData {
       SettingsComponent,
       ImpressumComponent,
       DSGVOComponent,
+      PrintParamsComponent,
       WelcomeComponent,
       WhatsnewComponent,
       MaterialInputComponent,
@@ -502,6 +504,22 @@ class AppComponent implements OnInit {
     getCurrentGluc();
   }
 
+  void printparamsResult(html.UIEvent evt) {
+    switch (evt.type) {
+      case "ok":
+        _currPage = _lastPage;
+        shiftClick(g.currPeriodShift);
+        break;
+      case "cancel":
+        _currPage = _lastPage;
+        break;
+      default:
+        _currPage = g.isConfigured ? _lastPage : "welcome";
+        break;
+    }
+    getCurrentGluc();
+  }
+
   void checkSetup() {
     progressText = msgCheckSetup;
     progressValue = progressMax + 1;
@@ -591,8 +609,8 @@ class AppComponent implements OnInit {
 
   ReportData reportData = null;
   Future<ReportData> loadData(bool isForThumbs) async {
-    Date beg = g.period.shiftStartBy(g.currPeriodShift.shift);
-    Date end = g.period.shiftEndBy(g.currPeriodShift.shift);
+    Date beg = g.period.shiftStartBy(g.currPeriodShift.months);
+    Date end = g.period.shiftEndBy(g.currPeriodShift.months);
     if (isForThumbs) {
       beg = Date(2019, 8, 26);
       end = Date(2019, 9, 1);
@@ -940,8 +958,20 @@ class AppComponent implements OnInit {
     return false;
   }
 
+  void sendClick() {
+    switch (sendIcon) {
+      case "send":
+        currPage = 'printparams';
+        break;
+      case "close":
+        sendIcon = "send";
+        currPage = "normal";
+        break;
+    }
+  }
+
   void shiftClick(PeriodShift shift) {
-    g.currShiftIdx = shift.shift;
+    g.currPeriodShift = shift;
     _sendClick();
   }
 

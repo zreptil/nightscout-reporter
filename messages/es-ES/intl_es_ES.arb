@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-02-17T15:55:38.766747",
+    "@@last_modified": "2020-02-28T12:07:28.853091",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -187,18 +187,28 @@
         "type": "text",
         "placeholders": {}
     },
-    "Aktuelle Periode": "Período actual",
-    "@Aktuelle Periode": {
+    "Ausgewählter Zeitraum": "Ausgewählter Zeitraum",
+    "@Ausgewählter Zeitraum": {
         "type": "text",
         "placeholders": {}
     },
-    "Vorherige Periode": "Período anterior",
-    "@Vorherige Periode": {
+    "Einen Monat vorher": "Einen Monat vorher",
+    "@Einen Monat vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Vorletzte Periode": "Penúltimo período",
-    "@Vorletzte Periode": {
+    "Drei Monate vorher": "Drei Monate vorher",
+    "@Drei Monate vorher": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Sechs Monate vorher": "Sechs Monate vorher",
+    "@Sechs Monate vorher": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Jahr vorher": "Ein Jahr vorher",
+    "@Ein Jahr vorher": {
         "type": "text",
         "placeholders": {}
     },
@@ -463,7 +473,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Verzögerter Bolus": "Bolo retardado",
+    "Verzögerter Bolus": "Bolo extendido",
     "@Verzögerter Bolus": {
         "type": "text",
         "placeholders": {}
@@ -550,7 +560,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "KH": "HC",
+    "KH": "CH",
     "@KH": {
         "type": "text",
         "placeholders": {}
@@ -926,7 +936,7 @@
             "value": {}
         }
     },
-    "msgStdAbw": "(dev estándar {value})",
+    "msgStdAbw": "(dev h {value})",
     "@msgStdAbw": {
         "type": "text",
         "placeholders": {
@@ -1154,11 +1164,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Eigenen Zielbereich verwenden": "Usar objetivo personal",
-    "@Eigenen Zielbereich verwenden": {
-        "type": "text",
-        "placeholders": {}
-    },
     "msgGVINone": "no disponible (menor a {min})",
     "@msgGVINone": {
         "type": "text",
@@ -1226,17 +1231,17 @@
             "value": {}
         }
     },
-    "Tag (08:00 - 17:59)": "Tag (08:00 - 17:59)",
+    "Tag (08:00 - 17:59)": "Día (08:00 - 17:59)",
     "@Tag (08:00 - 17:59)": {
         "type": "text",
         "placeholders": {}
     },
-    "Dämmerung (06:00 - 07:59, 18:00 - 20:59)": "Dämmerung (06:00 - 07:59, 18:00 - 20:59)",
+    "Dämmerung (06:00 - 07:59, 18:00 - 20:59)": "Crepúsculo (06:00 - 07:59, 18:00 - 20:59)",
     "@Dämmerung (06:00 - 07:59, 18:00 - 20:59)": {
         "type": "text",
         "placeholders": {}
     },
-    "Nacht (21:00 - 05:59)": "Nacht (21:00 - 05:59)",
+    "Nacht (21:00 - 05:59)": "Noche (21:00 - 05:59)",
     "@Nacht (21:00 - 05:59)": {
         "type": "text",
         "placeholders": {}
@@ -1501,6 +1506,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Bolusspalte anzeigen": "Mostrar columna bolo",
+    "@Bolusspalte anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgBasalInfo": "La tasa basal está activada desde {time} y no contiene cambios.",
     "@msgBasalInfo": {
         "type": "text",
@@ -1603,7 +1613,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Berechnete IE für Kohlenhydrate anzeigen": "Mostrar UI calculadas para HC",
+    "Berechnete IE für Kohlenhydrate anzeigen": "Mostrar UI calculadas para CH",
     "@Berechnete IE für Kohlenhydrate anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1658,7 +1668,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesstunden": "Tagesstunden",
+    "Startstunde": "Hora de inicio",
+    "@Startstunde": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Tagesstunden": "Horas de dia",
     "@Tagesstunden": {
         "type": "text",
         "placeholders": {}
@@ -1831,42 +1846,17 @@
         "type": "text",
         "placeholders": {}
     },
+    "Spalte TDD": "Columna TDD",
+    "@Spalte TDD": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Tagesstatistik": "Estatistica diaria",
     "@Tagesstatistik": {
         "type": "text",
         "placeholders": {}
     },
-    "Automatisch": "Automatisch",
-    "@Automatisch": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "150": "150",
-    "@150": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "200": "200",
-    "@200": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "250": "250",
-    "@250": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "300": "300",
-    "@300": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "350": "350",
-    "@350": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Maximum für die Skalierung": "Maximum für die Skalierung",
+    "Maximum für die Skalierung": "Máximo de escalamiento",
     "@Maximum für die Skalierung": {
         "type": "text",
         "placeholders": {}
@@ -1903,6 +1893,20 @@
     },
     "Tagesnamen in Grafik anzeigen": "Mostrar dias en el grafico",
     "@Tagesnamen in Grafik anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgStandardLimits": "Usar objetivo de glucemia estándar ({low} {unit} - {high} {unit})",
+    "@msgStandardLimits": {
+        "type": "text",
+        "placeholders": {
+            "low": {},
+            "high": {},
+            "unit": {}
+        }
+    },
+    "Automatisch": "Automático",
+    "@Automatisch": {
         "type": "text",
         "placeholders": {}
     },
@@ -2089,6 +2093,42 @@
         "type": "text",
         "placeholders": {}
     },
+    "Ausgabe Parameter": "Ausgabe Parameter",
+    "@Ausgabe Parameter": {
+        "description": "title for printparameter dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Allgemeines": "General",
+    "@Allgemeines": {
+        "description": "label of area for section general in printparams",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Maximaler Glukosewert in Grafiken:": "Maximaler Glukosewert in Grafiken:",
+    "@Maximaler Glukosewert in Grafiken:": {
+        "description": "label for max glucvalue in printparams",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Historische Daten": "Historische Daten",
+    "@Historische Daten": {
+        "description": "label of area for timeshift",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.",
+    "@Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": {
+        "description": "description of timeshift",
+        "type": "text",
+        "placeholders": {}
+    },
+    "PDF erzeugen": "Generar PDF",
+    "@PDF erzeugen": {
+        "description": "buttonlabel for saving data",
+        "type": "text",
+        "placeholders": {}
+    },
     "Anzeigeeinstellungen": "Configuración de pantalla",
     "@Anzeigeeinstellungen": {
         "description": "label of area for display setting",
@@ -2227,51 +2267,69 @@
         "type": "text",
         "placeholders": {}
     },
-    "1.3.9 - xx.2.2020": "1.3.9 - xx.2.2020",
-    "@1.3.9 - xx.2.2020": {
-        "description": "v139",
+    "1.4 - 28.2.2020": "1.4 - 28.2.2020",
+    "@1.4 - 28.2.2020": {
+        "description": "v14",
         "type": "text",
         "placeholders": {}
     },
     "Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist.": "Hay un nuevo PDF \"tendencia diaria\". Este muestra los valores diarios por hora y el perfil actual. Esto es un buen resumen para verificar tasas basales.",
     "@Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist.": {
-        "description": "v139a1",
+        "description": "v14a1",
         "type": "text",
         "placeholders": {}
     },
     "In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden.": "En el gráfico diario hay una nueva opción para evitar el redondeo máximo de los valores de insulina a la máxima exactitud. Esto se necesita donde no existe perfil o donde los valores insertados son más exactos que los del perfil.",
     "@In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden.": {
-        "description": "v139a2",
+        "description": "v14a2",
         "type": "text",
         "placeholders": {}
     },
     "In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.": "En el gráfico diario ahora también se muestran IOB (insulina a bordo) y COB (carbohidratos a bordo). IOB se muestran en la parte superior donde también se muestran los bolos, COB se muestran en la parte de abajo donde también se muestran los carbohidratos.",
     "@In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.": {
-        "description": "v139a3",
+        "description": "v14a3",
         "type": "text",
         "placeholders": {}
     },
-    "Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": "Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.",
+    "Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": "Nightscout Reporter ahora puede ser usado en portugués.",
     "@Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": {
-        "description": "v139a4",
+        "description": "v14a4",
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": "Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.",
+    "Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": "Hay un PDF nuevo llamado horas de día. Este muestra el medio diario por cada hora y color cada célula según el valor de la glucosa. Así se optiene un buen resumen sobre la distribución de los valores en el periodo elegido.",
     "@Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": {
-        "description": "v139a5",
+        "description": "v14a5",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Glukose Perzentil Diagramm kann man nun ein Maximum für die Skalierung festlegen. Wenn es auf \"Automatisch\" gesetzt wird, wird das Maximum wie bisher auch ermittelt. Bei einem anderen Wert wird die Obergrenze für das Diagramm auf diesen Wert festgesetzt. Damit ist es leichter möglich zwei Diagramme miteinander zu vergleichen, deren Obergrenze unterschiedlich ist.": "En el percentil de glucosa ahora se puede definir un máximo para la escala. Si seleccionas \"automático\" el máximo será mostrado como antes. Si eliges otro valor este será utilizado como máximo en el gráfico. Así es más fácil comprar diferentes gráficos con diferentes máximos.",
+    "@Beim Glukose Perzentil Diagramm kann man nun ein Maximum für die Skalierung festlegen. Wenn es auf \"Automatisch\" gesetzt wird, wird das Maximum wie bisher auch ermittelt. Bei einem anderen Wert wird die Obergrenze für das Diagramm auf diesen Wert festgesetzt. Damit ist es leichter möglich zwei Diagramme miteinander zu vergleichen, deren Obergrenze unterschiedlich ist.": {
+        "description": "v14a6",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.": "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.",
+    "@Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.": {
+        "description": "v14a7",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Buttons für die Erzeugung vergangener Zeiträume wurden entfernt. Das kann jetzt im neuen PDF-Dialog eingestellt werden.": "Los botones para crear periodos pasados han sido borrados. Esto ahora es crea en la nueva ventana.",
+    "@Die Buttons für die Erzeugung vergangener Zeiträume wurden entfernt. Das kann jetzt im neuen PDF-Dialog eingestellt werden.": {
+        "description": "v14r1",
         "type": "text",
         "placeholders": {}
     },
     "Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite.": "Si en la página del perfil existen columnas vacias ya no se producen páginas vacias.",
     "@Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite.": {
-        "description": "v139f1",
+        "description": "v14f1",
         "type": "text",
         "placeholders": {}
     },
     "Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben.": "Los valores VarK y TeR en el CGP serán mostrados correctamente en el gráfico yen la leyenda.",
     "@Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben.": {
-        "description": "v139f2",
+        "description": "v14f2",
         "type": "text",
         "placeholders": {}
     },
@@ -2371,7 +2429,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": "Hay una página para el perfil diario. Ahí se muestra una tabla con la tasa basal actual incluyendo los ajustes temporales. Lo necesitaba para trabajos de programación, pero quizás a alguien le resulta interesante. El perfil que se muestra corresponde al perfil en la página del gráfico diario. En modo del bucle cerrado pueden ser muchas páginas por que cada pocos minutos se ajusta la tasa basal. Por esto la tabla contiene como máximo tres columnas para reducir la cantidad de páginas.",
+    "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": "Hay una página para el perfil diario. Ahí se muestra una tabla con la tasa basal actual incluyendo los ajustes temporales. Lo necesitaba para trabajos de programación, pero quizás a alguien le resulta interesante. El perfil que se muestra corresponde al perfil en la página del gráfico diario. En modo del lazo cerrado pueden ser muchas páginas por que cada pocos minutos se ajusta la tasa basal. Por esto la tabla contiene como máximo tres columnas para reducir la cantidad de páginas.",
     "@Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": {
         "description": "v136a4",
         "type": "text",
@@ -2617,7 +2675,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Optionen für die PDFs, die eine eindeutige Beziehung zu einem laufenden Loop haben, werden nun in Blau dargestellt. Das vereinfacht es, PDFs zu erstellen, denen man nicht ohne Weiteres entnehmen kann, dass ein Loop vorliegt. Dazu müssen nur die Haken bei den blauen Optionen entfernt werden.": "Opciónes del PDF relacionadas con el bucle en marcha ahora son mostradas en azul. Esto simplifica crear PDFs, en los que no se nota desde el principio que se trata de un bucle cerrado. Para esto solo hay que quitar las opciones marcadas en azul.",
+    "Optionen für die PDFs, die eine eindeutige Beziehung zu einem laufenden Loop haben, werden nun in Blau dargestellt. Das vereinfacht es, PDFs zu erstellen, denen man nicht ohne Weiteres entnehmen kann, dass ein Loop vorliegt. Dazu müssen nur die Haken bei den blauen Optionen entfernt werden.": "Opciónes del PDF relacionadas con el lazo en marcha ahora son mostradas en azul. Esto simplifica crear PDFs, en los que no se nota desde el principio que se trata de un bucle cerrado. Para esto solo hay que quitar las opciones marcadas en azul.",
     "@Optionen für die PDFs, die eine eindeutige Beziehung zu einem laufenden Loop haben, werden nun in Blau dargestellt. Das vereinfacht es, PDFs zu erstellen, denen man nicht ohne Weiteres entnehmen kann, dass ein Loop vorliegt. Dazu müssen nur die Haken bei den blauen Optionen entfernt werden.": {
         "description": "v130a8",
         "type": "text",

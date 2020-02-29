@@ -1,0 +1,189 @@
+@import '../colors.sass';
+@import '../base';
+@import 'package:angular_components/material_dialog/mixins';
+@import 'package:angular_components/material_list/mixins';
+@import 'package:angular_components/material_select/mixins';
+@import 'package:angular_components/material_checkbox/mixins';
+
+:host {
+}
+
+.controls {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+
+  .label {
+    padding-right: 2em;
+  }
+
+  material-fab:not([disabled]) {
+    background-color: var(--printparamsHeaderBack);
+    color: var(--primaryFore);
+  }
+}
+
+.functions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    div:first-child {
+      margin-left: 10px;
+    }
+
+    div {
+      padding-right: 1em;
+    }
+  }
+}
+
+material-dialog[main] {
+  min-width: 80%;
+
+  ::ng-deep main::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  ::ng-deep main::-webkit-scrollbar-track {
+    background-color: var(--printparamsBodyBack);
+  }
+
+  ::ng-deep main::-webkit-scrollbar-thumb {
+    background-color: var(--printparamsScrollThumb);
+  }
+
+  ::ng-deep main {
+    scrollbar-color: var(--printparamsScrollThumb) var(--printparamsBodyBack);
+  }
+
+  @include material-dialog-header-shadow();
+  @include material-dialog-body-padding(0);
+}
+
+material-dialog.headered-dialog {
+  @include material-dialog-header-color(var(--printparamsHeaderBack));
+
+  ::ng-deep .wrapper > footer,
+  &[headered] ::ng-deep .wrapper > footer {
+    background-color: var(--printparamsHeaderBack);
+    color: var(--printparamsHeaderFore);
+    padding: 0;
+  }
+}
+
+.root {
+  padding: 1em;
+  font-size: 1.2em;
+  color: var(--printparamsBodyFore);
+  background-color: var(--printparamsBodyBack);
+}
+
+.languagePanel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.subtitle {
+  display: flex;
+  flex-direction: row;
+  color: var(--printparamsHeaderBack);
+  font-size: 1.5em;
+  padding-bottom: 0.5em;
+  align-items: center;
+  justify-content: space-between;
+}
+
+div[header] {
+  display: flex;
+  flex-direction: row;
+  color: var(--printparamsHeaderFore);
+  justify-content: space-between;
+  align-items: center;
+
+  div:nth-child(2) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+div[footer] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between !important;
+}
+
+.progress {
+  padding: 2em;
+  font-size: 1.2em;
+}
+
+material-input {
+  ::ng-deep .focused-underline {
+    background: var(--printparamsHeaderBack);
+  }
+
+  ::ng-deep .focused.label-text {
+    color: var(--printparamsHeaderBack);
+  }
+}
+
+.timeshift {
+  div {
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+  }
+}
+
+@include material-checkbox-color(var(--printparamsHeaderBack), $modifier: '.pp');
+
+.glucMaxButton {
+  background: var(--printparamsHeaderBack);
+  color: var(--printparamsHeaderFore);
+  padding: 0.2em;
+  padding-left: 0.4em;
+  border-radius: 2px;
+}
+
+.glucMaxSelect {
+  @include material-select-selected-item-color(var(--printparamsBodyFore));
+  @include material-select-selected-item-background-color(var(--printparamsBodyBack));
+
+  ::ng-deep material-list {
+    background-color: var(--printparamsHeaderBack);
+    padding: 0;
+
+    material-select-item {
+      display: flex;
+      flex-direction: column;
+      line-height: initial;
+      align-items: flex-start;
+      padding: 0.2em 0.5em;
+      color: var(--printparamsHeaderFore);
+
+      div.itemSub {
+        font-size: 75%;
+      }
+
+      .selected-accent {
+        background-color: var(--printparamsBodyBack);
+        color: var(--printparamsBodyFore);
+      }
+    }
+
+    material-select-item:hover{
+      background-color: var(--printparamsBodyBack);
+    }
+  }
+}
+
+material-button[raised] {
+  background-color: var(--printparamsHeaderBack);
+  color: var(--printparamsHeaderFore);
+}

@@ -1,13 +1,12 @@
 import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
 
 import 'base-print.dart';
 
 class PrintDailyGluc extends BasePrint {
-  bool showAllValues;
+  bool showAllValues, showBolus;
 
   @override
   String id = "daygluc";
@@ -16,12 +15,13 @@ class PrintDailyGluc extends BasePrint {
   String get title => Intl.message("Tagestrend");
 
   @override
-  List<ParamInfo> params = [ParamInfo(1, msgParam1, boolValue: false)];
+  List<ParamInfo> params = [ParamInfo(1, msgParam1, boolValue: false), ParamInfo(2, msgParam2, boolValue: false)];
 
   @override
   bool get isPortrait => true;
 
   static String get msgParam1 => Intl.message("Alle Werte für den Tag anzeigen");
+  static String get msgParam2 => Intl.message("Bolusspalte anzeigen");
 
   String msgBasalInfo(String time) =>
       Intl.message("Die angezeigte Basalrate ist seit ${time}  gültig und beinhaltet keine temporären Änderungen.",
@@ -37,6 +37,7 @@ class PrintDailyGluc extends BasePrint {
   @override
   extractParams() {
     showAllValues = params[0].boolValue;
+    showBolus = params[1].boolValue;
   }
 
   @override
@@ -54,13 +55,17 @@ class PrintDailyGluc extends BasePrint {
     int oldLength = pages.length;
     for (DayData day in data.days) {
       if (repData.isForThumbs) {
-        bool temp = showAllValues;
+        bool savSave = showAllValues;
+        bool sbSave = showBolus;
         showAllValues = false;
+        showBolus = true;
         getPage(day, pages);
         pages.removeRange(oldLength + 1, pages.length);
         showAllValues = true;
+        showBolus = true;
         getPage(day, pages);
-        showAllValues = temp;
+        showAllValues = savSave;
+        showBolus = sbSave;
         if (pages.length - oldLength > 2) pages.removeRange(oldLength + 2, pages.length);
       } else {
         getPage(day, pages);
@@ -82,15 +87,19 @@ class PrintDailyGluc extends BasePrint {
     double space = 0.4;
     int count = showAllValues ? day.entries.length : 24;
     int columns = (count ~/ 37) + 1;
-    columns = math.min(columns, 3);
+    columns = math.min(columns, 2);
 
     double wid = (width - 2 * xframe) / columns;
     wid -= space * (columns - 1) / columns;
     double fw = 3.5;
-    double sw = (showAllValues ? 3 : 4) / (1 - 1 / fw);
+    int colCount = showAllValues ? 3 : 4;
+    if (showBolus) colCount++;
+    double sw = colCount / (1 - 1 / fw);
     var widths = columns == 1
         ? [cm(wid / fw - 0.34), cm(wid / sw - 0.34), cm(wid / sw - 0.34), cm(wid / sw - 0.34), cm(wid / sw - 0.34)]
         : [cm(wid / fw - 0.34), cm(wid / sw - 0.34), cm(wid / sw - 0.34), cm(wid / sw - 0.34)];
+
+    if (showBolus) widths.add(cm(wid / sw - 0.34));
 
     int idx = 0;
     int lines = 0;
@@ -100,6 +109,8 @@ class PrintDailyGluc extends BasePrint {
       if (temp != null) trendGluc = temp.gluc;
     }
     ProfileGlucData profile = repData.profile(DateTime(day.date.year, day.date.month, day.date.day), null, false);
+    if (profile.store.listBasal.length == 0) return null;
+
     double basalMax = 0.1;
     for (ProfileEntryData entry in profile.store.listBasal) basalMax = math.max(entry.value, basalMax);
 
@@ -109,7 +120,7 @@ class PrintDailyGluc extends BasePrint {
           tables.add([
             [
               {"text": msgTime, "style": "total", "alignment": "center"},
-              {"text": getGlucInfo()["unit"], "style": "total", "alignment": "center"},
+              {"text": g.getGlucInfo()["unit"], "style": "total", "alignment": "center"},
               {"text": msgTrend, "style": "total", "alignment": "center"},
               {"text": msgKHTitle, "style": "total", "alignment": "center"}
             ]
@@ -118,27 +129,34 @@ class PrintDailyGluc extends BasePrint {
           tables.add([
             [
               {"text": msgTime, "style": "total", "alignment": "center"},
-              {"text": getGlucInfo()["unit"], "style": "total", "alignment": "center"},
+              {"text": g.getGlucInfo()["unit"], "style": "total", "alignment": "center"},
               {"text": msgTrend, "style": "total", "alignment": "center"},
               {"text": msgBasal, "style": "total", "alignment": "center"},
               {"text": msgKHTitle, "style": "total", "alignment": "center"}
             ]
           ]);
+        if (showBolus) tables.last.last.add({"text": msgBolus, "style": "total", "alignment": "center"});
       }
 
       if (!showAllValues && entry.time.minute != 0) continue;
 
       int startTime = g.timeForCalc(entry.time);
       int endTime = g.timeForCalc(entry.time) + (showAllValues ? 5 : 60) * 60;
+      double bolusSum = 0.0;
       double carbs = 0.0;
       Iterable<TreatmentData> list =
           day.treatments.where((t) => t.carbs >= 0 && t.timeForCalc >= startTime && t.timeForCalc < endTime);
-      for (TreatmentData t in list) carbs += t.carbs;
+      for (TreatmentData t in list) {
+        carbs += t.carbs;
+        bolusSum += t.bolusInsulin ?? 0;
+      }
+
+      if (bolusSum == 0) bolusSum = null;
 
       String text = "${fmtTime(entry.time, withUnit: columns < 3)}";
       String trend = "";
       String trendColor = "";
-      String gluc = "${glucFromData(entry.gluc)}";
+      String gluc = "${g.glucFromData(entry.gluc)}";
       if (entry.time.minute == 0 && trendGluc > 0) {
         double trendValue = (entry.gluc - trendGluc) / trendGluc * 100;
         trend = "${g.fmtNumber(trendValue, 0)}%";
@@ -167,7 +185,7 @@ class PrintDailyGluc extends BasePrint {
             .lastWhere((e) => e.time(day.date).isBefore(entry.time.add(Duration(seconds: 1))), orElse: null);
         String basal = d == null ? "" : g.fmtBasal(d.value);
 //        basal = "${basal} - ${d.isCalculated?"true":"false"}";
-        double w = d.value * (widths[3] + cm(0.1)) / basalMax;
+        double w = (d?.value ?? 0) * (widths[3] + cm(0.1)) / basalMax;
         tables[idx].add([
           {"text": text, "alignment": "center", "style": styleForTime(entry.time)},
           {"text": gluc, "alignment": "center", "fillColor": colForGluc(day, entry.gluc)},
@@ -186,6 +204,12 @@ class PrintDailyGluc extends BasePrint {
           {"text": carbs > 0 ? msgKH(carbs) : "", "alignment": "center"},
         ]);
       }
+
+      if (showBolus) {
+        text = bolusSum == null ? null : "${g.fmtNumber(bolusSum, 1)} ${msgInsulinUnit}";
+        tables[idx].last.add({"text": text, "alignment": "center"});
+      }
+
       lines++;
       if (lines > 37) {
         lines = 0;
