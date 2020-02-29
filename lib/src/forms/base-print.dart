@@ -493,7 +493,7 @@ abstract class BasePrint {
       "Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)");
   get msgGlucHigh => Intl.message("Glukose zu hoch");
   msgLow(value) {
-    value = "\n<${glucFromData(value)}";
+    value = "\n<${g.glucFromData(value)}";
     return Intl.message("Tief${value}", args: [value], name: "msgLow");
   }
 
@@ -510,9 +510,9 @@ abstract class BasePrint {
   static msgTimeOfDayAM(time) => Intl.message("${time} am", args: [time], name: "msgTimeOfDayAM");
   static msgTimeOfDayPM(time) => Intl.message("${time} pm", args: [time], name: "msgTimeOfDayPM");
 
-  get msgNormal => "${Intl.message("Normal")}\n${getGlucInfo()["unit"]}";
+  get msgNormal => "${Intl.message("Normal")}\n${g.getGlucInfo()["unit"]}";
   msgHigh(value) {
-    value = "\n>=${glucFromData(value)}";
+    value = "\n>=${g.glucFromData(value)}";
     return Intl.message("Hoch${value}", args: [value], name: "msgHigh");
   }
 
@@ -555,7 +555,17 @@ abstract class BasePrint {
       Intl.message("Kalibrierung (scale $scale / intercept $intercept / slope $slope)",
           args: [scale, intercept, slope], name: "msgCalibration");
   static String get msgChange => Intl.message("Wechsel");
-  static String get msgOwnTargetArea => Intl.message("Eigenen Zielbereich verwenden");
+
+  dynamic targets(ReportData repData) {
+    dynamic ret = {"low": Globals.stdLow, "high": Globals.stdHigh};
+
+    if (!g.ppStandardLimits) {
+      ret["low"] = repData.status.settings.thresholds.bgTargetBottom;
+      ret["high"] = repData.status.settings.thresholds.bgTargetTop;
+    }
+
+    return ret;
+  }
 
   msgGVINone(min) {
     min = g.fmtNumber(min, 1);
@@ -635,6 +645,32 @@ abstract class BasePrint {
 
   dynamic get footerText => null;
 
+  static String get msgDay => Intl.message("Tag (08:00 - 17:59)");
+  static String get msgDawn => Intl.message("Dämmerung (06:00 - 07:59, 18:00 - 20:59)");
+  static String get msgNight => Intl.message("Nacht (21:00 - 05:59)");
+
+  @override
+  dynamic get footerTextDayTimes => [
+        {
+          "table": {
+            "widths": [cm(6.0)],
+            "body": [
+              [
+                {"text": msgDay, "style": "timeDay", "alignment": "center"}
+              ],
+              [
+                {"text": msgDawn, "style": "timeLate", "alignment": "center"}
+              ],
+              [
+                {"text": msgNight, "style": "timeNight", "alignment": "center"}
+              ]
+            ]
+          },
+          "fontSize": fs(7),
+          "layout": "noBorders"
+        }
+      ];
+
   Object headerFooter({skipFooter: false}) {
     bool isInput = false;
     var stack = [];
@@ -704,13 +740,13 @@ abstract class BasePrint {
       });
     double y = titleInfoSub == "" ? 2.4 : 2.0;
 
-    if (g.currPeriodShift.shift != 0) {
+    if (g.currPeriodShift.months != 0) {
       stack.add({
         "relativePosition": {"x": cm(xframe), "y": cm(y - 0.5)},
         "columns": [
           {
             "width": cm(width - 4.4),
-            "text": msgHistorical(g.currPeriodShift.shift),
+            "text": msgHistorical(g.currPeriodShift.title),
             "fontSize": fs(10),
             "color": colInfo,
             "bold": true,
@@ -1243,23 +1279,7 @@ abstract class BasePrint {
     return ret;
   }
 
-  getGlucInfo() {
-    var ret = {"step": 1, "unit": g.msgUnitMGDL};
-    if (!g.glucMGDL) ret = {"step": 0.1, "unit": g.msgUnitMMOL};
-    ret["factor"] = g.glucFactor;
-    return ret;
-  }
-
   String fmtGluc(double value) => g.fmtNumber(value, g.glucMGDL ? 0 : 1);
-
-  String glucFromData(var gluc, [precision = null]) {
-    if (gluc is String) gluc = double.tryParse(gluc) ?? 0;
-    if (!(gluc is num) || gluc == 0) return "";
-
-    if (!g.glucMGDL) return g.fmtNumber(gluc / 18.02, precision == null ? 1 : precision);
-
-    return g.fmtNumber(gluc, precision == null ? 0 : precision);
-  }
 
   String styleForTime(DateTime time) {
     if (time.hour < 6 || time.hour > 20) return "timeNight";
@@ -1269,9 +1289,9 @@ abstract class BasePrint {
 
   String colForGluc(DayData day, double gluc) {
     if (gluc == null) return "";
-    if (gluc < day.basalData.targetLow)
+    if (gluc < targets(repData)["low"])
       return colLow;
-    else if (gluc > day.basalData.targetHigh) return colHigh;
+    else if (gluc > targets(repData)["high"]) return colHigh;
     return colNorm;
   }
 
@@ -1329,7 +1349,7 @@ abstract class BasePrint {
 
       if (i > 0) {
 //        String text = "${glucFromData(g.fmtNumber(i * glucScale, 0))}\n${getGlucInfo()["unit"]}";
-        String text = "${glucFromData(g.fmtNumber(i * ret.glucScale, 0))}";
+        String text = "${g.glucFromData(g.fmtNumber(i * ret.glucScale, 0))}";
         vertStack.add({
           "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
           "columns": [
@@ -1345,7 +1365,7 @@ abstract class BasePrint {
           "fontSize": fs(8)
         });
       } else {
-        String text = "${getGlucInfo()["unit"]}";
+        String text = "${g.getGlucInfo()["unit"]}";
         vertStack.add({
           "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
           "columns": [
@@ -1365,13 +1385,13 @@ abstract class BasePrint {
     return ret;
   }
 
-  Page getCGPPage(var dayList, bool useOwnTargetArea) {
+  Page getCGPPage(var dayList) {
     PrintCGP cgpPage = PrintCGP();
     cgpPage.repData = repData;
     cgpPage.scale = scale;
     title = cgpPage.title;
     subtitle = cgpPage.subtitle;
-    var cgpSrc = cgpPage.calcCGP(dayList, 1.0, 0, 0.3, useOwnTargetArea);
+    var cgpSrc = cgpPage.calcCGP(dayList, 1.0, 0, 0.3);
     PentagonData cgp = cgpSrc["cgp"];
     footerTextAboveLine = cgpPage.footerTextAboveLine;
     footerTextAboveLine["y"] = 0.9;
@@ -1672,7 +1692,7 @@ abstract class BasePrint {
       double y = 0;
       if (upperIob > 0)
         ptsIob.add({"x": cm(lastX), "y": cm(iobHeight / maxIob * (y + minIob))});
-      else if(maxIob - minIob > 0)
+      else if (maxIob - minIob > 0)
         ptsIob.add({"x": cm(lastX), "y": cm(iobHeight / (maxIob - minIob) * (maxIob - y))});
       else
         ptsIob.add({"x": cm(lastX), "y": cm(iobHeight)});

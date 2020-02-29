@@ -56,10 +56,10 @@
                           floatingLabel
                           [(ngModel)]="g.user.storageApiUrl">
           </material-input>
-          <material-input [label]="msgUserToken"
+          <material-input [label]="msgAccessToken"
                           floatingLabel
                           type="password"
-                          [hintText]="msgUserTokenHint"
+                          [hintText]="msgAccessTokenHint"
                           [(ngModel)]="g.user.token">
           </material-input>
           <div class="controls" *ngIf="g.isLocal">

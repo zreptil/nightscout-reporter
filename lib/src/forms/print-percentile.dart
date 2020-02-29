@@ -41,9 +41,7 @@ class PrintPercentile extends BasePrint {
   @override
   String id = "percentile";
 
-  bool showGPD;
-  bool showTable;
-  bool showCol1090;
+  bool showGPD, showTable, showCol1090;
 
   @override
   List<ParamInfo> params = [
@@ -54,8 +52,10 @@ class PrintPercentile extends BasePrint {
           BasePrint.msgAll,
         ],
         thumbValue: 2),
-    ParamInfo(1, msgCol1090, boolValue: false)
+    ParamInfo(1, msgCol1090, boolValue: false),
   ];
+
+  static String get msgParam1 => Intl.message("Maximum für die Skalierung");
 
   @override
   extractParams() {
@@ -144,21 +144,21 @@ class PrintPercentile extends BasePrint {
     addTableRow(true, cm(2.0), row, {"text": msgTime, "style": "total", "alignment": "center", "fontSize": f},
         {"text": firstCol, "style": "total", "alignment": "center", "fontSize": f});
     var canvas = [
-      {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz * wid), "h": cm(h)},
+      {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz(g) * wid), "h": cm(h)},
       {
         "type": "rect",
         "color": colNorm,
-        "x": cm(day.lowPrz * wid),
+        "x": cm(day.lowPrz(g) * wid),
         "y": cm(0),
-        "w": cm(day.normPrz * wid),
+        "w": cm(day.normPrz(g) * wid),
         "h": cm(h),
       },
       {
         "type": "rect",
         "color": colHigh,
-        "x": cm((day.lowPrz + day.normPrz) * wid),
+        "x": cm((day.lowPrz(g) + day.normPrz(g)) * wid),
         "y": cm(0),
-        "w": cm(day.highPrz * wid),
+        "w": cm(day.highPrz(g) * wid),
         "h": cm(h)
       }
     ];
@@ -172,25 +172,25 @@ class PrintPercentile extends BasePrint {
     addTableRow(true, cm(w), row, {"text": msgValues, "style": "total", "alignment": "center", "fontSize": f},
         {"text": "${g.fmtNumber(day.entryCount, 0)}", "style": style, "alignment": "right", "fontSize": f});
     addTableRow(true, cm(w), row, {"text": msgAverage, "style": "total", "alignment": "center", "fontSize": f},
-        {"text": "${glucFromData(day.avgGluc, 1)}", "style": style, "alignment": "right", "fontSize": f});
+        {"text": "${g.glucFromData(day.avgGluc, 1)}", "style": style, "alignment": "right", "fontSize": f});
     addTableRow(true, cm(w), row, {"text": msgMin, "style": "total", "alignment": "center", "fontSize": f},
-        {"text": "${glucFromData(day.minText, 1)}", "style": style, "alignment": "right", "fontSize": f});
+        {"text": "${g.glucFromData(day.minText, 1)}", "style": style, "alignment": "right", "fontSize": f});
 //*
     if (showCol1090)
       addTableRow(true, cm(w), row, {"text": msg10, "style": "total", "alignment": "center", "fontSize": f},
-          {"text": "${glucFromData(perc.percentile(10), 1)}", "style": style, "alignment": "right", "fontSize": f});
+          {"text": "${g.glucFromData(perc.percentile(10), 1)}", "style": style, "alignment": "right", "fontSize": f});
     addTableRow(true, cm(w), row, {"text": msg25, "style": "total", "alignment": "center", "fontSize": f},
-        {"text": "${glucFromData(perc.percentile(25), 1)}", "style": style, "alignment": "right", "fontSize": f});
+        {"text": "${g.glucFromData(perc.percentile(25), 1)}", "style": style, "alignment": "right", "fontSize": f});
     addTableRow(true, cm(w), row, {"text": msgMedian, "style": "total", "alignment": "center", "fontSize": f},
-        {"text": "${glucFromData(perc.percentile(50), 1)}", "style": style, "alignment": "right", "fontSize": f});
+        {"text": "${g.glucFromData(perc.percentile(50), 1)}", "style": style, "alignment": "right", "fontSize": f});
     addTableRow(true, cm(w), row, {"text": msg75, "style": "total", "alignment": "center", "fontSize": f},
-        {"text": "${glucFromData(perc.percentile(75), 1)}", "style": style, "alignment": "right", "fontSize": f});
+        {"text": "${g.glucFromData(perc.percentile(75), 1)}", "style": style, "alignment": "right", "fontSize": f});
     if (showCol1090)
       addTableRow(true, cm(w), row, {"text": msg90, "style": "total", "alignment": "center", "fontSize": f},
-          {"text": "${glucFromData(perc.percentile(90), 1)}", "style": style, "alignment": "right", "fontSize": f});
+          {"text": "${g.glucFromData(perc.percentile(90), 1)}", "style": style, "alignment": "right", "fontSize": f});
 // */
     addTableRow(true, cm(w), row, {"text": msgMax, "style": "total", "alignment": "center", "fontSize": f},
-        {"text": "${glucFromData(day.maxText, 1)}", "style": style, "alignment": "right", "fontSize": f});
+        {"text": "${g.glucFromData(day.maxText, 1)}", "style": style, "alignment": "right", "fontSize": f});
     addTableRow(true, cm(w), row, {"text": msgDeviation, "style": "total", "alignment": "center", "fontSize": f},
         {"text": "${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right", "fontSize": f});
     tableHeadFilled = true;
@@ -251,6 +251,8 @@ class PrintPercentile extends BasePrint {
     glucMax = 0.0;
     for (PercentileData data in percList) glucMax = math.max(data.percentile(90), glucMax);
 
+    if (g.glucMaxValue != null) glucMax = g.glucMaxValues[g.ppGlucMaxIdx];
+
     var vertLines = {
       "relativePosition": {"x": cm(xo), "y": cm(yo)},
       "canvas": []
@@ -277,8 +279,8 @@ class PrintPercentile extends BasePrint {
         }
       ]);
     glucMax = grid.gridLines * grid.glucScale;
-    double yHigh = glucY(repData.profile(Globals.now).targetHigh);
-    double yLow = glucY(repData.profile(Globals.now).targetLow);
+    double yHigh = glucY(targets(repData)["low"]);
+    double yLow = glucY(targets(repData)["high"]);
     var limitLines = {
       "relativePosition": {"x": cm(xo), "y": cm(yo)},
       "canvas": [
@@ -329,8 +331,8 @@ class PrintPercentile extends BasePrint {
     addLegendEntry(
         percLegend,
         "#00ff00",
-        msgTargetArea(glucFromData(repData.profile(Globals.now).targetLow),
-            glucFromData(repData.profile(Globals.now).targetHigh), getGlucInfo()["unit"]));
+        msgTargetArea(g.glucFromData(targets(repData)["low"]), g.glucFromData(targets(repData)["high"]),
+            g.getGlucInfo()["unit"]));
     dynamic ret = Page(false, [
       headerFooter(),
       vertLegend,

@@ -30,5 +30,10 @@
   "pdfInfoFore": "#000000b2",
   "sendMarked": "mat-light-blue-800",
   "googleSignedout": "mat-red-400",
-  "loopMarked": "mat-blue-900"
+  "loopMarked": "mat-blue-900",
+  "printparamsHeaderBack": "mat-red-900",
+  "printparamsHeaderFore": "mat-red-100",
+  "printparamsBodyBack": "mat-red-300",
+  "printparamsBodyFore": "black",
+  "printparamsScrollThumb": "mat-red-700"
 }

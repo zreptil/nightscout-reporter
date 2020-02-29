@@ -24,6 +24,7 @@ import 'package:nightscout_reporter/src/forms/print-cgp.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-analysis.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-gluc.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-graphic.dart';
+import 'package:nightscout_reporter/src/forms/print-daily-hours.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-profile.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
@@ -39,6 +40,7 @@ import 'src/forms/print-analysis.dart';
 import 'src/forms/print-basalrate.dart';
 import 'src/forms/print-profile.dart';
 import 'src/impressum/impressum_component.dart';
+import 'src/printparams/printparams_component.dart';
 import 'src/settings/settings_component.dart';
 import 'src/welcome/welcome_component.dart';
 import 'src/whatsnew/whatsnew_component.dart';
@@ -74,6 +76,7 @@ class PdfData {
       SettingsComponent,
       ImpressumComponent,
       DSGVOComponent,
+      PrintParamsComponent,
       WelcomeComponent,
       WhatsnewComponent,
       MaterialInputComponent,
@@ -298,6 +301,7 @@ class AppComponent implements OnInit {
         PrintCGP(),
         PrintDailyProfile(),
         PrintDailyGluc(),
+        PrintDailyHours(),
       ];
       g.listConfig = List<FormConfig>();
       g.listConfigOrg = List<FormConfig>();
@@ -500,6 +504,22 @@ class AppComponent implements OnInit {
     getCurrentGluc();
   }
 
+  void printparamsResult(html.UIEvent evt) {
+    switch (evt.type) {
+      case "ok":
+        _currPage = _lastPage;
+        shiftClick(g.currPeriodShift);
+        break;
+      case "cancel":
+        _currPage = _lastPage;
+        break;
+      default:
+        _currPage = g.isConfigured ? _lastPage : "welcome";
+        break;
+    }
+    getCurrentGluc();
+  }
+
   void checkSetup() {
     progressText = msgCheckSetup;
     progressValue = progressMax + 1;
@@ -589,8 +609,8 @@ class AppComponent implements OnInit {
 
   ReportData reportData = null;
   Future<ReportData> loadData(bool isForThumbs) async {
-    Date beg = g.period.shiftStartBy(g.currPeriodShift.shift);
-    Date end = g.period.shiftEndBy(g.currPeriodShift.shift);
+    Date beg = g.period.shiftStartBy(g.currPeriodShift.months);
+    Date end = g.period.shiftEndBy(g.currPeriodShift.months);
     if (isForThumbs) {
       beg = Date(2019, 8, 26);
       end = Date(2019, 9, 1);
@@ -751,6 +771,7 @@ class AppComponent implements OnInit {
       } else {
         ProfileData temp = baseProfile.copy;
         temp.startDate = last.startDate.add(Duration(seconds: last.duration));
+        temp.createdAt = temp.startDate;
         temp.duration = current.startDate.difference(temp.startDate).inSeconds;
         data.profiles.insert(i, temp);
         i++;
@@ -759,13 +780,18 @@ class AppComponent implements OnInit {
       i++;
     }
 
-    ProfileData last = data.profiles.last;
-    if (data.profiles.last.duration > 0 && data.profiles.length > 1) {
-      ProfileData temp = data.profiles[data.profiles.length - 2].copy;
-      temp.startDate = last.startDate.add(Duration(seconds: last.duration));
-      temp.duration = 0;
+    if (baseProfile != null) {
+//    if (last.duration > 0 && data.profiles.length > 1) {
+      ProfileData temp = baseProfile.copy;
+      temp.startDate = data.profiles.last.startDate.add(Duration(seconds: data.profiles.last.duration));
+      temp.createdAt = temp.startDate;
       data.profiles.add(temp);
     }
+
+    int d = DateTime.now().difference(data.profiles.last.startDate).inSeconds;
+    data.profiles.last.duration = d;
+
+    data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
 /*
     String text = "";
     for (ProfileData p in data.profiles)
@@ -932,8 +958,20 @@ class AppComponent implements OnInit {
     return false;
   }
 
+  void sendClick() {
+    switch (sendIcon) {
+      case "send":
+        currPage = 'printparams';
+        break;
+      case "close":
+        sendIcon = "send";
+        currPage = "normal";
+        break;
+    }
+  }
+
   void shiftClick(PeriodShift shift) {
-    g.currShiftIdx = shift.shift;
+    g.currPeriodShift = shift;
     _sendClick();
   }
 

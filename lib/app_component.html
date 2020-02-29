@@ -84,6 +84,7 @@
     <impressum *ngIf="currPage=='impressum'" (closeClicked)="callbackButton"></impressum>
     <whatsnew *ngIf="currPage=='whatsnew'" (closeClicked)="callbackButton"></whatsnew>
     <dsgvo *ngIf="currPage=='dsgvo'" (closeClicked)="callbackButton"></dsgvo>
+    <printparams *ngIf="currPage=='printparams'" (printparamsresult)="printparamsResult"></printparams>
     <div class="signintext" *ngIf="currPage=='signin'" @i18n="signin to google">Anmeldung bei Google...</div>
     <div class="centered" *ngIf="currPage=='pdfList' || progressText != null">
       <div [style.display]="currPage=='signin'?'':'none'" @i18n="message for signin to google">
@@ -225,32 +226,10 @@
       </div>
     </div>
     <div *ngIf="(currPage=='normal'||currPage=='pdfList')&&tileParams==null" [class]="classForView('sendPanel')">
-      <material-fab *ngIf="sendIcon=='send'&&!sendDisabled"
-                    [raised]="false"
-                    [class]="sendClass(2,'shift2')"
-                    [disabled]="sendDisabled"
-                    (trigger)="shiftClick(g.listPeriodShift[2])">
-        <div class="history">
-          {{g.period.shiftStartBy(2).format(g.fmtDateForDisplay)}}
-          <material-icon icon="history"></material-icon>
-          {{g.period.shiftEndBy(2).format(g.fmtDateForDisplay)}}
-        </div>
-      </material-fab>
-      <material-fab *ngIf="sendIcon=='send'&&!sendDisabled"
-                    [raised]="false"
-                    [class]="sendClass(1,'shift1')"
-                    [disabled]="sendDisabled"
-                    (trigger)="shiftClick(g.listPeriodShift[1])">
-        <div class="history">
-          {{g.period.shiftStartBy(1).format(g.fmtDateForDisplay)}}
-          <material-icon icon="history"></material-icon>
-          {{g.period.shiftEndBy(1).format(g.fmtDateForDisplay)}}
-        </div>
-      </material-fab>
       <material-fab [raised]="true"
                     [class]="sendClass(0,sendIcon)"
                     [disabled]="sendDisabled"
-                    (trigger)="shiftClick(g.listPeriodShift[0])">
+                    (trigger)="sendClick()">
         <material-icon [icon]="createIcon"></material-icon>
       </material-fab>
     </div>
