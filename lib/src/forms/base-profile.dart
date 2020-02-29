@@ -89,7 +89,7 @@ abstract class BaseProfile extends BasePrint {
 
       lastIdx = pageList.length;
       for (int p = 0; !done; p++) {
-        Page page = getPage(p, repData.profile(profiles[i].startDate), calc);
+        Page page = getPage(p, repData.profile(profiles[i].startDate, null, false), calc);
         done = page == null;
         if (!done) pageList.add(page);
       }

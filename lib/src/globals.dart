@@ -61,14 +61,14 @@ class LangData {
 }
 
 class PeriodShift {
-  String name;
-  int shift;
+  String title;
+  int months;
 
-  PeriodShift(this.name, this.shift);
+  PeriodShift(this.title, {this.months = 0});
 }
 
 class Settings {
-  String version = "1.3.9";
+  String version = "1.4";
   static String get msgThemeAuto => Intl.message("Automatisch", meaning: "theme selection - automatic");
   static String get msgThemeStandard => Intl.message("Standard", meaning: "theme selection - standard");
   static String get msgThemeXmas => Intl.message("Weihnachten", meaning: "theme selection - christmas");
@@ -165,6 +165,7 @@ class Settings {
     LangData("ja_JP", Intl.message("日本の"), "jp"),
     LangData("sk_SK", Intl.message("Slovenský"), "sk"),
     LangData("fr_FR", Intl.message("Français"), "fr"),
+    LangData("pt_PT", Intl.message("Português"), "pt"),
   ];
 
   LangData get language => _language == null ? languageList[0] : _language;
@@ -358,6 +359,12 @@ class Globals extends Settings {
   bool pdfSameWindow = true;
   bool pdfDownload = false;
   int _pdfCreationMaxSize = 400000;
+
+  bool ppStandardLimits = false;
+  int ppGlucMaxIdx = 0;
+  List<double> get glucMaxValues => [null, 150, 200, 250, 300, 350, 400, 450];
+  double get glucMaxValue => glucValueFromData(glucMaxValues[ppGlucMaxIdx]);
+
   int get pdfCreationMaxSize {
     if (_pdfCreationMaxSize < Globals.PDFDIVIDER) _pdfCreationMaxSize = Globals.PDFDIVIDER;
     if (_pdfCreationMaxSize > Globals.PDFUNLIMITED) _pdfCreationMaxSize = Globals.PDFUNLIMITED;
@@ -375,6 +382,9 @@ class Globals extends Settings {
     pdfSameWindow = loadStorage('pdfSameWindow') == "true";
     pdfDownload = loadStorage('pdfDownload') == "true";
     pdfCreationMaxSize = JsonData.toInt(loadStorage('pdfCreationMaxSize'));
+    ppStandardLimits = loadStorage('ppStandardLimits') == "true";
+    ppGlucMaxIdx = JsonData.toInt(loadStorage('ppGlucMaxIdx'));
+    currPeriodShift = listPeriodShift[0];
   }
 
   // The timezone is set to Europe/Berlin by mdefault, but it is evaluated in
@@ -451,14 +461,14 @@ class Globals extends Settings {
   }
 
   List<PeriodShift> get listPeriodShift => [
-        PeriodShift(Intl.message("Aktuelle Periode"), 0),
-        PeriodShift(Intl.message("Vorherige Periode"), 1),
-        PeriodShift(Intl.message("Vorletzte Periode"), 2)
+        PeriodShift(Intl.message("Ausgewählter Zeitraum")),
+        PeriodShift(Intl.message("Einen Monat vorher"), months: 1),
+        PeriodShift(Intl.message("Drei Monate vorher"), months: 3),
+        PeriodShift(Intl.message("Sechs Monate vorher"), months: 6),
+        PeriodShift(Intl.message("Ein Jahr vorher"), months: 12)
       ];
 
-  int currShiftIdx = 0;
-  PeriodShift get currPeriodShift =>
-      listPeriodShift[currShiftIdx >= 0 && currShiftIdx < listPeriodShift.length ? currShiftIdx : 0];
+  PeriodShift currPeriodShift;
 
   Date date(DateTime src) => Date(src.year, src.month, src.day);
 
@@ -467,7 +477,8 @@ class Globals extends Settings {
   String get msgUrlFailurePrefix => Intl.message("Die angegebene URL ist nicht erreichbar. "
       "Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ");
   String get msgUrlFailureSuffix => Intl.message("<br><br>Wenn diese URL geschützt ist, "
-      "muss ausserdem das UserToken korrekt definiert sein.");
+      "muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man "
+      "über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.");
 
   String get msgUrlFailureHerokuapp =>
       Intl.message("In der Variable ENABLE muss das Wort \"cors\" stehen, damit externe Tools "
@@ -521,7 +532,36 @@ class Globals extends Settings {
 
   bool get isKHBE => _khFactor == 12;
 
-  double glucFromData(double value) => glucMGDL ? value : value / 18.02;
+  static int stdLow = 70;
+  static int stdHigh = 180;
+
+  dynamic getGlucInfo() {
+    var ret = {"step": 1, "unit": msgUnitMGDL};
+    if (!glucMGDL) ret = {"step": 0.1, "unit": msgUnitMMOL};
+    ret["factor"] = glucFactor;
+    ret["stdlow"] = glucFromData(Globals.stdLow);
+    ret["stdhigh"] = glucFromData(Globals.stdHigh);
+    return ret;
+  }
+
+  double glucValueFromData(var gluc) {
+    if (gluc is String) gluc = double.tryParse(gluc) ?? 0;
+    if (!(gluc is num) || gluc == 0) return null;
+
+    if (!glucMGDL) return gluc / 18.02;
+    return gluc;
+  }
+
+  String glucFromData(var gluc, [precision = null]) {
+    if (gluc is String) gluc = double.tryParse(gluc) ?? 0;
+    if (!(gluc is num) || gluc == 0) return "";
+
+    if (!glucMGDL) return fmtNumber(gluc / 18.02, precision == null ? 1 : precision);
+
+    return fmtNumber(gluc, precision == null ? 0 : precision);
+  }
+
+//  double glucFromData(double value) => glucMGDL ? value : value / 18.02;
 
   String get pdfTarget {
     if (!pdfSameWindow) return "_blank";
@@ -900,6 +940,8 @@ class Globals extends Settings {
     saveStorage("pdfSameWindow", pdfSameWindow ? "true" : "false");
     saveStorage("pdfDownload", pdfDownload ? "true" : "false");
     saveStorage("pdfCreationMaxSize", "${pdfCreationMaxSize}");
+    saveStorage("ppStandardLimits", ppStandardLimits ? "true" : "false");
+    saveStorage("ppGlucMaxIdx", ppGlucMaxIdx?.toString() ?? 0);
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "true" : "false");
     saveStorage("showAllTileParams", showAllTileParams ? "true" : "false");
     saveStorage("hidePdfInfo", hidePdfInfo ? "true" : "false");

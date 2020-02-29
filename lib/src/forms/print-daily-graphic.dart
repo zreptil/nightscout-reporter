@@ -57,8 +57,7 @@ class PrintDailyGraphic extends BaseDaily {
       showZeroBasal,
       showCOB,
       showIOB,
-      roundToProfile,
-      useOwnTargetArea;
+      roundToProfile;
 
   @override
   List<ParamInfo> params = [
@@ -90,7 +89,7 @@ class PrintDailyGraphic extends BaseDaily {
     ParamInfo(15, msgParam16, boolValue: false),
     ParamInfo(16, msgParam17, boolValue: false),
     ParamInfo(5, msgParam18, boolValue: false),
-    ParamInfo(17, msgParam19, boolValue: false, subParams: [ParamInfo(0, BasePrint.msgOwnTargetArea, boolValue: false)]),
+    ParamInfo(17, msgParam19, boolValue: false),
     ParamInfo(18, msgParam22, boolValue: false),
     ParamInfo(2, msgParam23, boolValue: true),
     ParamInfo(19, msgParam24, boolValue: false),
@@ -119,7 +118,6 @@ class PrintDailyGraphic extends BaseDaily {
     showExercises = params[14].boolValue;
     showCarbIE = params[15].boolValue;
     showCGP = params[16].boolValue;
-    useOwnTargetArea = params[16].subParams[0].boolValue;
     showZeroBasal = params[17].boolValue;
     roundToProfile = params[18].boolValue;
     showCOB = params[19].boolValue;
@@ -260,11 +258,11 @@ class PrintDailyGraphic extends BaseDaily {
       DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
       if (day.entries.length != 0 || day.treatments.length != 0) {
         pages.add(getPage(day));
-        if (showCGP || repData.isForThumbs) pages.add(getCGPPage(day, useOwnTargetArea));
+        if (showCGP || repData.isForThumbs) pages.add(getCGPPage(day));
         if (g.showBothUnits) {
           g.glucMGDL = !g.glucMGDL;
           pages.add(getPage(day));
-          if (showCGP) pages.add(getCGPPage(day, useOwnTargetArea));
+          if (showCGP) pages.add(getCGPPage(day));
           g.glucMGDL = !g.glucMGDL;
         }
       } else {
@@ -338,6 +336,9 @@ class PrintDailyGraphic extends BaseDaily {
 */
     for (EntryData entry in day.entries) glucMax = math.max(entry.gluc, glucMax);
     for (EntryData entry in day.bloody) glucMax = math.max(entry.mbg, glucMax);
+
+    if (g.glucMaxValue != null) glucMax = g.glucMaxValues[g.ppGlucMaxIdx];
+
     profMax = -1000.0;
     if (showBasalProfile) {
       for (ProfileEntryData entry in day.basalData.store.listBasal) profMax = math.max(entry.value ?? 0, profMax);
@@ -470,10 +471,10 @@ class PrintDailyGraphic extends BaseDaily {
         double x = glucX(check) + 0.02;
         if (entry != null) {
           String col = colNorm;
-          if (entry.gluc > day.basalData.targetHigh) {
+          if (entry.gluc > targets(repData)["high"]) {
             col = colHigh;
             hasHighGluc = true;
-          } else if (entry.gluc < day.basalData.targetLow) {
+          } else if (entry.gluc < targets(repData)["low"]) {
             col = colLow;
             hasLowGluc = true;
           } else {
@@ -489,7 +490,7 @@ class PrintDailyGraphic extends BaseDaily {
           });
           (glucTable["stack"] as List).add({
             "relativePosition": {"x": cm(x), "y": cm(i % 2 == 0 ? 0 : glucTableHeight / 2)},
-            "text": glucFromData(entry.gluc),
+            "text": g.glucFromData(entry.gluc),
             "color": colGlucValues,
             "fontSize": fs(7)
           });
@@ -510,7 +511,7 @@ class PrintDailyGraphic extends BaseDaily {
           if (found is EntryData) {
             (glucTable["stack"] as List).add({
               "relativePosition": {"x": cm(x), "y": cm(i % 2 != 0 ? 0 : glucTableHeight / 2)},
-              "text": glucFromData(found.mbg),
+              "text": g.glucFromData(found.mbg),
               "color": colBloodValues,
               "fontSize": fs(7)
             });
@@ -518,7 +519,7 @@ class PrintDailyGraphic extends BaseDaily {
             double value = (g.glucMGDL ? 1 : 18.02) * found.glucose;
             (glucTable["stack"] as List).add({
               "relativePosition": {"x": cm(x), "y": cm(i % 2 != 0 ? 0 : glucTableHeight / 2)},
-              "text": glucFromData(value),
+              "text": g.glucFromData(value),
               "color": colBloodValues,
               "fontSize": fs(7)
             });
@@ -686,7 +687,7 @@ class PrintDailyGraphic extends BaseDaily {
 
       if (type == "exercise" && showExercises) {
         double x = glucX(t.createdAt);
-        double wid = glucX(DateTime(0, 0, 0, 0, t.duration));
+        double wid = glucX(DateTime(0, 0, 0, 0, 0, t.duration));
         (exerciseCvs["canvas"] as List).add({
           "type": "rect",
           "x": cm(x),
@@ -849,8 +850,8 @@ class PrintDailyGraphic extends BaseDaily {
     ProfileGlucData profile = src.profile(date, day.treatments);
     List targetValues = [];
     double lastTarget = -1;
-    double yHigh = glucY(math.min(glucMax, src.status.settings.thresholds.bgTargetTop.toDouble()));
-    double yLow = glucY(src.status.settings.thresholds.bgTargetBottom.toDouble());
+    double yHigh = glucY(math.min(glucMax, targets(repData)["high"]));
+    double yLow = glucY(targets(repData)["low"]);
     for (var i = 0; i < profile.store.listTargetLow.length; i++) {
       if (i < profile.store.listTargetHigh.length) {
         double low = profile.store.listTargetLow[i].value * g.glucFactor;
@@ -963,11 +964,11 @@ class PrintDailyGraphic extends BaseDaily {
       }
       text = "${g.fmtBasal(tdd, dontRound: !roundToProfile)} ${msgInsulinUnit}";
       addLegendEntry(legend, "", msgLegendTDD(text), graphText: msgTDD);
-      String v1 = glucFromData(src.status.settings.thresholds.bgTargetBottom.toDouble());
-      String v2 = glucFromData(src.status.settings.thresholds.bgTargetTop.toDouble());
-      addLegendEntry(legend, colTargetArea, msgTargetArea(v1, v2, getGlucInfo()["unit"]));
+      String v1 = g.glucFromData(targets(repData)["low"].toDouble());
+      String v2 = g.glucFromData(targets(repData)["high"].toDouble());
+      addLegendEntry(legend, colTargetArea, msgTargetArea(v1, v2, g.getGlucInfo()["unit"]));
       addLegendEntry(legend, colTargetValue,
-          msgTargetValue("${glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${getGlucInfo()["unit"]}"),
+          msgTargetValue("${g.glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${g.getGlucInfo()["unit"]}"),
           isArea: false);
       if (hasCollectedValues) addLegendEntry(legend, "", msgCollectedValues, graphText: "[0,0]");
       if (hasCatheterChange)
@@ -979,14 +980,14 @@ class PrintDailyGraphic extends BaseDaily {
       if (showGlucTable) {
         if (hasLowGluc)
           addLegendEntry(legend, colLow, msgGlucLow,
-              graphText: glucFromData(day.basalData.targetLow), newColumn: legend.columns.length < 3);
+              graphText: g.glucFromData(day.basalData.targetLow), newColumn: legend.columns.length < 3);
         if (hasNormGluc)
           addLegendEntry(legend, colNorm, msgGlucNorm,
-              graphText: glucFromData((day.basalData.targetLow + day.basalData.targetHigh) / 2),
+              graphText: g.glucFromData((day.basalData.targetLow + day.basalData.targetHigh) / 2),
               newColumn: !hasLowGluc && legend.columns.length < 3);
         if (hasHighGluc)
           addLegendEntry(legend, colHigh, msgGlucHigh,
-              graphText: glucFromData(day.basalData.targetHigh),
+              graphText: g.glucFromData(day.basalData.targetHigh),
               newColumn: !hasLowGluc && !hasNormGluc && legend.columns.length < 3);
       }
 

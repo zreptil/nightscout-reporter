@@ -297,6 +297,7 @@ class ProfileEntryData extends JsonData {
   int timeAsSeconds;
   ProfileTimezone _timezone;
   int get localDiff => _timezone.localDiff;
+  Uploader from = Uploader.Unknown;
 
   String get hash => "${_time.hour}:${_time.minute}=${value}";
 
@@ -338,7 +339,8 @@ class ProfileEntryData extends JsonData {
     .._time = _time
     ..forceText = forceText
     ..orgValue = orgValue
-    .._timezone = _timezone;
+    .._timezone = _timezone
+    ..from = from;
 
   ProfileEntryData clone(DateTime time) {
     ProfileEntryData ret = copy;
@@ -360,7 +362,12 @@ class ProfileEntryData extends JsonData {
 
   double adjustedValue(double v) {
     if (_percentAdjust != null) return v + (v * _percentAdjust) / 100.0;
-    if (_absoluteRate != null) return _absoluteRate;
+    if (_absoluteRate != null) {
+      // spike needs a special handling, since the value seems to be the amount given over
+      // the duration, not the amount given in one hour.
+      if (from == Uploader.Spike) return _absoluteRate / (duration / 3600);
+      return _absoluteRate;
+    }
     return v;
   }
 
@@ -370,6 +377,7 @@ class ProfileEntryData extends JsonData {
       ret.percentAdjust = src._percent.toDouble();
     else if (src._rate != null) ret.absoluteRate = src._rate;
 
+    ret.from = src.from;
     if ((src.from == Uploader.Minimed600 || src.from == Uploader.Tidepool || src.from == Uploader.Spike) &&
         src._absolute != null) ret.absoluteRate = src._absolute;
     ret.duration = src.duration;
@@ -636,7 +644,8 @@ class ProfileData extends JsonData {
       ..startDate = startDate
       ..units = units
       ..createdAt = createdAt
-      ..maxPrecision = maxPrecision;
+      ..maxPrecision = maxPrecision
+      ..isFromNS = false;
 
     ret.store = Map<String, ProfileStoreData>();
     for (String key in store.keys) ret.store[key] = store[key].copy;
@@ -1073,8 +1082,8 @@ class TreatmentData extends JsonData {
     int check = time.hour * 3600 + time.minute * 60 + time.second;
 
     if (profile != null) {
-      dia = profile.store.dia ?? 3;
-      sens = profile.store.listSens.lastWhere((e) => e.timeForCalc <= check)?.value ?? 0.0;
+      dia = profile.store.dia ?? dia;
+      sens = profile.store?.listSens?.lastWhere((e) => e.timeForCalc <= check)?.value ?? sens;
     }
 
     double scaleFactor = 3.0 / dia;
@@ -1274,6 +1283,11 @@ class DayData {
   int lowCount = 0;
   int normCount = 0;
   int highCount = 0;
+  int stdLowCount = 0;
+  int stdBottomCount = 0;
+  int stdNormCount = 0;
+  int stdHighCount = 0;
+  int stdTopCount = 0;
   int topCount = 0;
   int bottomCount = 0;
   int entryCount = 0;
@@ -1304,11 +1318,11 @@ class DayData {
   }
 
   double get varK => (mid ?? 0) != 0 ? stdAbw(true) / mid * 100 : 0;
-  double get lowPrz => entryCount == 0 ? 0 : lowCount / entryCount * 100;
-  double get bottomPrz => entryCount == 0 ? 0 : bottomCount / entryCount * 100;
-  double get normPrz => entryCount == 0 ? 0 : normCount / entryCount * 100;
-  double get highPrz => entryCount == 0 ? 0 : highCount / entryCount * 100;
-  double get topPrz => entryCount == 0 ? 0 : topCount / entryCount * 100;
+  double lowPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdLowCount : lowCount) / entryCount * 100;
+  double bottomPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdBottomCount : bottomCount) / entryCount * 100;
+  double normPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdNormCount : normCount) / entryCount * 100;
+  double highPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdHighCount : highCount) / entryCount * 100;
+  double topPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdTopCount : topCount) / entryCount * 100;
   double get avgCarbs => carbCount > 0 ? carbs / carbCount : 0;
   bool isSameDay(DateTime time)
   {
@@ -1522,6 +1536,9 @@ class DayData {
     topCount = 0;
     bottomCount = 0;
     lowCount = 0;
+    stdNormCount = 0;
+    stdHighCount = 0;
+    stdLowCount = 0;
     carbCount = 0;
     carbs = 0;
     for (EntryData entry in entries) {
@@ -1537,6 +1554,13 @@ class DayData {
           topCount++;
         else
           normCount++;
+
+        if (entry.gluc < Globals.stdLow)
+          stdLowCount++;
+        else if (entry.gluc > Globals.stdHigh)
+          stdHighCount++;
+        else
+          stdNormCount++;
 
         if (entry.gluc > 0) {
           mid += entry.gluc;
@@ -1599,24 +1623,26 @@ class DayData {
   IOBData iob(ReportData data, DateTime time, DayData yesterday) {
     double totalIOB = 0.0;
     double totalActivity = 0.0;
-
-    if (time == null) time = DateTime(0);
-
     TreatmentData lastBolus = null;
+
+    if (time == null) return IOBData(0, 0, null); //time = DateTime(0);
+
     int check = time.millisecondsSinceEpoch;
     ProfileGlucData profile = data.profile(time);
 
-    if (yesterday != null && false) {
+    List<TreatmentData> list = List<TreatmentData>();
+    if (yesterday != null) {
       IOBData temp = yesterday.iob(
           data, DateTime(yesterday.date.year, yesterday.date.month, yesterday.date.day, 23, 59, 59), null);
-      totalIOB = temp.iob;
-      totalActivity = temp.activity;
-      lastBolus = temp.lastBolus;
+      TreatmentData t = TreatmentData();
+      t.insulin = temp.iob;
+      t.createdAt = DateTime(time.year, time.month, time.day, 0, 0, 0);
+      list.add(t);
     }
+    list.addAll(treatments);
 
-    for (TreatmentData t in treatments) {
+    for (TreatmentData t in list) {
       if (!isSameDay_(t.createdAt, time) || t.createdAt.millisecondsSinceEpoch > check) continue;
-
       var tIOB = t.calcIOB(profile, time);
       if (tIOB != null && tIOB.iob != null) {
         if (tIOB.iob != 0) lastBolus = t;
@@ -1643,22 +1669,24 @@ class DayData {
     bool isDecaying = false;
     DateTime lastDecayedBy = null;
 
-    if (yesterday != null && false) {
-      COBData prev = yesterday.cob(
-          data, DateTime(yesterday.date.year, yesterday.date.month, yesterday.date.day, 23, 59, 59), null);
-      totalCOB = prev.cob;
-      lastCarbs = prev.lastCarbs;
-      lastDecayedBy = prev.decayedBy;
-      isDecaying = prev.isDecaying;
-    }
-
     int check = time.hour * 3600 + time.minute * 60 + time.second;
     ProfileGlucData profile = data.profile(time);
 
-    for (TreatmentData t in treatments) {
-      if (!isSameDay_(t.createdAt, time) || t.timeForCalc > check) continue;
+    List<TreatmentData> list = List<TreatmentData>();
+    if (yesterday != null) {
+      COBData prev = yesterday.cob(
+          data, DateTime(yesterday.date.year, yesterday.date.month, yesterday.date.day, 23, 59, 59), null);
+      lastCarbs = prev.lastCarbs;
+      TreatmentData t = TreatmentData();
+      t._carbs = prev.cob;
+      t.isECarb = false;
+      t.createdAt = DateTime(time.year, time.month, time.day, 0, 0, 0);
+      list.add(t);
+    }
+    list.addAll(treatments);
 
-      int tCheck = t.timeForCalc;
+    for (TreatmentData t in list) {
+      if (!isSameDay_(t.createdAt, time) || t.timeForCalc > check) continue;
 
       if (t.carbs != null && t.carbs > 0) {
         dynamic temp = {"totalCOB": totalCOB, "isDecaying": isDecaying, "lastDecayedBy": lastDecayedBy};

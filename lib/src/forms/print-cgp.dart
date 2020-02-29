@@ -264,12 +264,10 @@ class PrintCGP extends BasePrint {
   String get subtitle => Intl.message("Comprehensive Glucose Pentagon");
 
   bool _isPortrait = true;
-  bool useOwnTargetArea = true;
 
   @override
   List<ParamInfo> params = [
     ParamInfo(0, BasePrint.msgOrientation, list: [Intl.message("Hochformat"), Intl.message("Querformat")]),
-    ParamInfo(1, BasePrint.msgOwnTargetArea, boolValue: false),
   ];
 
   @override
@@ -296,7 +294,6 @@ class PrintCGP extends BasePrint {
         isPortraitParam = false;
         break;
     }
-    useOwnTargetArea = params[1].boolValue;
   }
 
   @override
@@ -312,9 +309,9 @@ class PrintCGP extends BasePrint {
 
   Page getPage() {
     titleInfo = titleInfoBegEnd();
-    if (!isPortrait) return getCGPPage(repData.data.days, useOwnTargetArea);
+    if (!isPortrait) return getCGPPage(repData.data.days);
 
-    var cgpSrc = calcCGP(repData.data.days, scale, width / 2 - xorg, 0, useOwnTargetArea);
+    var cgpSrc = calcCGP(repData.data.days, scale, width / 2 - xorg, 0);
     PentagonData cgp = cgpSrc["cgp"];
     var ret = [
       headerFooter(),
@@ -360,16 +357,16 @@ class PrintCGP extends BasePrint {
             {"text": PentagonData.msgCVInfo}
           ],
           [
-            {"text": PentagonData.msgHYPO(unit, g.fmtNumber(g.glucFromData(cgp["hypo"])))},
+            {"text": PentagonData.msgHYPO(unit, g.glucFromData(cgp["hypo"]))},
             {"text": PentagonData.msgHYPOInfo("${cgp["low"]} ${unit}")}
           ],
           [
-            {"text": PentagonData.msgHYPER(unit, g.fmtNumber(g.glucFromData(cgp["hyper"])))},
+            {"text": PentagonData.msgHYPER(unit, g.glucFromData(cgp["hyper"]))},
             {"text": PentagonData.msgHYPERInfo("${cgp["high"]} ${unit}")}
           ],
           [
-            {"text": PentagonData.msgMEAN(unit, g.fmtNumber(g.glucFromData(cgp["mean"])))},
-            {"text": PentagonData.msgMEANInfo(hba1c(g.glucFromData(cgp["mean"])))}
+            {"text": PentagonData.msgMEAN(unit, g.glucFromData(cgp["mean"]))},
+            {"text": PentagonData.msgMEANInfo(hba1c(double.tryParse(g.glucFromData(cgp["mean"]))))}
           ],
           [
             {
@@ -458,16 +455,16 @@ class PrintCGP extends BasePrint {
     return {"hyper": hyper, "hypo": hypo};
   }
 
-  calcCGP(var dayData, double scale, double xm, double ym, bool useOwnTargetArea) {
-    PentagonData cgp = PentagonData(g, getGlucInfo(), cm, fs, xm: xm, ym: ym, scale: scale);
+  calcCGP(var dayData, double scale, double xm, double ym) {
+    PentagonData cgp = PentagonData(g, g.getGlucInfo(), cm, fs, xm: xm, ym: ym, scale: scale);
     cgp.ym += cgp.axisLength * 1.1 * cgp.scale;
     cgp.paintPentagon(1.0, lw, colLine: colCGPLine);
     cgp.paintAxis(lw, colLine: colValue);
 
-    int low = 70;
-    int high = 180;
+    int low = Globals.stdLow;
+    int high = Globals.stdHigh;
 
-    if (useOwnTargetArea) {
+    if (!g.ppStandardLimits) {
       low = repData.status.settings.thresholds.bgTargetBottom;
       high = repData.status.settings.thresholds.bgTargetTop;
     }
