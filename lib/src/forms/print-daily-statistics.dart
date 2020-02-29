@@ -10,7 +10,7 @@ class PrintDailyStatistics extends BasePrint {
   @override
   String id = "daystats";
 
-  bool showHbA1c, showStdabw, showCount, showPercentile, showVarK, showTDD;
+  bool showHbA1c, showStdabw, showCount, showPercentile, showVarK, showTDD, showExtendedInsulinStatictics;
   double _maxTDD = 0.0;
 
   @override
@@ -20,7 +20,8 @@ class PrintDailyStatistics extends BasePrint {
     ParamInfo(2, msgParam3, boolValue: true),
     ParamInfo(3, msgParam4, boolValue: true),
     ParamInfo(4, msgParam5, boolValue: false),
-//    ParamInfo(5, msgParam6, boolValue: false),
+    ParamInfo(5, msgParam6, boolValue: false),
+    ParamInfo(6, msgParam7, boolValue: false),
   ];
 
   static String get msgParam1 => Intl.message("Spalte Messwerte");
@@ -29,6 +30,7 @@ class PrintDailyStatistics extends BasePrint {
   static String get msgParam4 => Intl.message("Spalte HbA1c");
   static String get msgParam5 => Intl.message("Spalte Variationskoeffizient");
   static String get msgParam6 => Intl.message("Spalte TDD");
+  static String get msgParam7 => Intl.message("erweiterte Insulinstatistik");
 
   @override
   extractParams() {
@@ -38,6 +40,7 @@ class PrintDailyStatistics extends BasePrint {
     showHbA1c = params[3].boolValue;
     showVarK = params[4].boolValue;
     showTDD = false;//params[5].boolValue;
+    showExtendedInsulinStatictics = params[6].boolValue;
   }
 
   @override
@@ -275,5 +278,108 @@ class PrintDailyStatistics extends BasePrint {
       test["columns"].last["table"]["body"].add(body.last);
     }
     if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
+    pages.add(getInsulinPage(repData));
+  }
+
+  Page getInsulinPage(ReportData src)
+  {
+    String t = title;
+    title = Intl.message("Insulinstatistik");
+/*    num lineWidth;
+    double graphWidth;
+    double graphHeight;
+    double glucMax = -1000.0;
+    dynamic glucLine(dynamic points) =>
+        {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": points};
+
+    double basalHeight = 3.0;
+    double glucTableTop;
+    double graphBottom;
+    double xo = xorg;
+    double yo = yorg;
+    glucMax = -1000.0;
+    graphWidth = 23.25;
+    graphHeight = 6.5;
+    graphHeight += basalHeight + 1;
+    graphHeight += 2.5;
+    graphBottom = graphHeight;
+    glucTableTop = graphHeight;
+
+    lineWidth = cm(0.03);
+
+    var vertLines = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "canvas": []
+    };
+    var horzLines = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "canvas": []
+    };
+    var horzLegend = {"stack": []};
+    var vertLegend = {"stack": []};
+    var graphGluc = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "canvas": []
+    };
+    var graphLegend = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "stack": []
+    };
+    var glucTable = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo + glucTableTop)},
+      "stack": []
+    };
+    var glucTableCvs = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo + glucTableTop)},
+      "canvas": []
+    };
+    var exerciseCvs = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight)},
+      "canvas": []
+    };
+    var pictures = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "stack": []
+    };
+
+    List vertCvs = vertLines["canvas"] as List;
+    List horzCvs = horzLines["canvas"] as List;
+    List horzStack = horzLegend["stack"];
+    List vertStack = vertLegend["stack"];
+    List graphGlucCvs = graphGluc["canvas"];
+
+    GridData grid = drawGraphicGrid4Days(glucMax, graphHeight, graphWidth, vertCvs, horzCvs, horzStack, vertStack,
+        graphBottom: graphBottom);
+    if (grid.lineHeight == 0)
+      return Page(isPortrait, [
+        headerFooter(),
+        {
+          "relativePosition": {"x": cm(xorg), "y": cm(yorg)},
+          "text": msgMissingData
+        }
+      ]);
+
+    glucMax = grid.gridLines * grid.glucScale;
+
+    dynamic points = [];
+    graphGlucCvs.add(glucLine(points));*/
+
+    var ret = Page(isPortrait, [
+      headerFooter(),
+/*      glucTableCvs,
+      exerciseCvs,
+      vertLegend,
+      vertLines,
+      horzLegend,
+      horzLines,
+      pictures,
+      graphGluc,
+      glucTable,
+      graphLegend,*/
+    ]);
+
+    title = t;
+    return ret;
   }
 }
+
