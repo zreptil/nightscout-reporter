@@ -473,7 +473,7 @@ class PrintCGP extends BasePrint {
         cgp.paintValues([0, 16.7, 0, 0, 90], lw, colLine: colCGPHealthyLine, colFill: colCGPHealthyFill, opacity: 0.4);
 
     var data = repData.data;
-    DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")));
+    DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")), repData.status);
     totalDay.entries.addAll(data.entries);
     totalDay.init();
     double avgGluc = 0.0;
