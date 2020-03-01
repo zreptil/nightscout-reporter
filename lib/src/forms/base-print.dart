@@ -1256,6 +1256,13 @@ abstract class BasePrint {
     return ret;
   }
 
+  String fmtDateShort(Date date)
+  {
+    DateTime dt = DateTime(date.year, date.month, date.day);
+    DateFormat df = DateFormat(g.language.dateShortFormat);
+    String ret = df.format(dt);
+  }
+
   String blendColor(String from, String to, num factor) {
     if (from.length == 7) from = from.substring(1);
     if (to.length == 7) to = to.substring(1);
@@ -1709,18 +1716,18 @@ abstract class BasePrint {
   }
 
   GridData drawGraphicGrid4Days(
-      double max, double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack,
-      {double scale: 0.0, double graphBottom: 0.0, int cntDays: 0}) {
+      double max, double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack, List<DayData> days,
+      {double scale: 0.0, double graphBottom: 0.0}) {
     GridData ret = GridData();
     if (graphBottom == 0.0) graphBottom = graphHeight;
     ret.glucScale = scale == 0.0 ? 1 : scale;
     ret.gridLines = (max / ret.glucScale).ceil();
 
     ret.lineHeight = ret.gridLines == 0 ? 0 : graphHeight / ret.gridLines;
-    ret.colWidth = graphWidth / cntDays;
+    ret.colWidth = graphWidth / (days.length-1);
 
     // draw vertical lines with times below graphic
-    for (int i = 0; i <= cntDays; i++) {
+    for (int i = 0; i < days.length; i++) {
       vertCvs.add({
         "type": "line",
         "x1": cm(i * ret.colWidth),
@@ -1728,14 +1735,13 @@ abstract class BasePrint {
         "x2": cm(i * ret.colWidth),
         "y2": cm(graphBottom - lw / 2),
         "lineWidth": cm(lw),
-        "lineColor": i > 0 && i < 24 ? lc : lcFrame
+        "lineColor": i > 0 ? lc : lcFrame
       });
-      if (i < cntDays)
-        horzStack.add({
-          "relativePosition": {"x": cm(xorg + i * ret.colWidth), "y": cm(yorg + graphBottom + 0.05)},
-          "text": fmtTime(i),
-          "fontSize": fs(8)
-        });
+      horzStack.add({
+        "relativePosition": {"x": cm(xorg + i * ret.colWidth - 0.5), "y": cm(yorg + graphBottom + 0.05)},
+        "text": fmtDateShort(days[i].date),
+        "fontSize": fs(8)
+      });
     }
 
     if (ret.lineHeight == 0) return ret;
@@ -1757,8 +1763,7 @@ abstract class BasePrint {
       });
 
       if (i > 0) {
-//        String text = "${glucFromData(g.fmtNumber(i * glucScale, 0))}\n${getGlucInfo()["unit"]}";
-        String text = "${g.glucFromData(g.fmtNumber(i * ret.glucScale, 0))}";
+        String text = "${g.fmtNumber(i * ret.glucScale, 0)}";
         vertStack.add({
           "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
           "columns": [
@@ -1767,23 +1772,7 @@ abstract class BasePrint {
         });
         vertStack.add({
           "relativePosition": {
-            "x": cm(xorg + 24 * ret.colWidth + 0.3),
-            "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
-          },
-          "text": text,
-          "fontSize": fs(8)
-        });
-      } else {
-        String text = "${g.getGlucInfo()["unit"]}";
-        vertStack.add({
-          "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
-          "columns": [
-            {"width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}
-          ]
-        });
-        vertStack.add({
-          "relativePosition": {
-            "x": cm(xorg + 24 * ret.colWidth + 0.3),
+            "x": cm(xorg + (days.length-1) * ret.colWidth + 0.3),
             "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
           },
           "text": text,
