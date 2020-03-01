@@ -1737,8 +1737,12 @@ abstract class BasePrint {
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
+      if ((i == 0) ||     // das erste und letzte Datum bekommt auf jeden Fall einen Ausdrudk
+          (i == days.length - 1) ||
+          (days.length < 32) ||   // wenn es weniger als 32 Datum's hat, bekommt eh jedes Datum einen Ausdruck
+          ((i % 7) == 0))         // ansonsten gibt es nur wöchentliche Ausdrucke
       horzStack.add({
-        "relativePosition": {"x": cm(xorg + i * ret.colWidth - 0.5), "y": cm(yorg + graphBottom + 0.05)},
+        "relativePosition": {"x": cm(xorg + i * ret.colWidth - 0.4), "y": cm(yorg + graphBottom + 0.05)},
         "text": fmtDateShort(days[i].date),
         "fontSize": fs(8)
       });

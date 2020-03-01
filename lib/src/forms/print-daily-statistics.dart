@@ -300,9 +300,7 @@ class PrintDailyStatistics extends BasePrint {
     double yo = yorg;
     insulinMax = -1000.0;
     graphWidth = 23.25;
-    graphHeight = 6.5;
-    graphHeight += 4;
-    graphHeight += 2.5;
+    graphHeight = 6;
     graphBottom = graphHeight;
     insulinTableTop = graphHeight;
     lineWidth = cm(0.03);
