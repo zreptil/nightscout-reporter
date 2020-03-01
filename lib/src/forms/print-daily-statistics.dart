@@ -51,8 +51,8 @@ class PrintDailyStatistics extends BasePrint {
     return {"count": count, "isEstimated": false};
   }
 
-  @override
-  String get title => Intl.message("Tagesstatistik");
+//  @override
+//  String get title => Intl.message("Tagesstatistik");
 
   @override
   bool get isPortrait => false;
@@ -188,6 +188,7 @@ class PrintDailyStatistics extends BasePrint {
     tableHeadFilled = false;
     tableHeadLine = [];
     tableWidths = [];
+    title = Intl.message("Tagesstatistik");
     titleInfo = titleInfoBegEnd();
     _settings = repData.status.settings;
     double f = 3.3;
@@ -355,8 +356,8 @@ class PrintDailyStatistics extends BasePrint {
     List vertStack = vertLegend["stack"];
     List graphInsulinCvs = graphInsulin["canvas"];
 
-    GridData grid = drawGraphicGrid4Days(insulinMax, graphHeight, graphWidth, vertCvs, horzCvs, horzStack, vertStack,
-        graphBottom: graphBottom, cntDays: data.days.length);
+    GridData grid = drawGraphicGrid4Days(insulinMax, graphHeight, graphWidth, vertCvs, horzCvs, horzStack, vertStack, data.days,
+        graphBottom: graphBottom);
     if (grid.lineHeight == 0)
       return Page(isPortrait, [
         headerFooter(),
