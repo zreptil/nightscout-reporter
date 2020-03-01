@@ -1715,19 +1715,22 @@ abstract class BasePrint {
     };
   }
 
-  GridData drawGraphicGrid4Days(
-      double max, double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack, List<DayData> days,
+  GridData drawGraphicGridGeneric(
+      double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack, List<String> xValues, List<double> values,
       {double scale: 0.0, double graphBottom: 0.0}) {
+    double maxValue = -100000000;
+    for (double l in values)
+      maxValue = max(l, maxValue);
     GridData ret = GridData();
     if (graphBottom == 0.0) graphBottom = graphHeight;
     ret.glucScale = scale == 0.0 ? 1 : scale;
-    ret.gridLines = (max / ret.glucScale).ceil();
+    ret.gridLines = (maxValue / ret.glucScale).ceil();
 
     ret.lineHeight = ret.gridLines == 0 ? 0 : graphHeight / ret.gridLines;
-    ret.colWidth = graphWidth / (days.length-1);
+    ret.colWidth = graphWidth / (xValues.length-1);
 
     // draw vertical lines with times below graphic
-    for (int i = 0; i < days.length; i++) {
+    for (int i = 0; i < xValues.length; i++) {
       vertCvs.add({
         "type": "line",
         "x1": cm(i * ret.colWidth),
@@ -1737,13 +1740,13 @@ abstract class BasePrint {
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
-      if ((i == 0) ||     // das erste und letzte Datum bekommt auf jeden Fall einen Ausdrudk
-          (i == days.length - 1) ||
-          (days.length < 32) ||   // wenn es weniger als 32 Datum's hat, bekommt eh jedes Datum einen Ausdruck
-          ((i % 7) == 0))         // ansonsten gibt es nur wöchentliche Ausdrucke
+      if ((i == 0) ||     // das erste und letzte 'x'' bekommt auf jeden Fall einen Ausdrudk
+          (i == xValues.length - 1) ||
+          (xValues.length < 32) ||   // wenn es weniger als 32 'x'e hat, bekommt eh jedes 'x' einen Ausdruck
+          ((i % 7) == 0))         // ansonsten gibt es nur alle 7 'x'e Ausdrucke
       horzStack.add({
         "relativePosition": {"x": cm(xorg + i * ret.colWidth - 0.4), "y": cm(yorg + graphBottom + 0.05)},
-        "text": fmtDateShort(days[i].date),
+        "text": xValues[i],
         "fontSize": fs(8)
       });
     }
@@ -1760,7 +1763,7 @@ abstract class BasePrint {
         "type": "line",
         "x1": cm(i > 0 ? -0.2 : 0.0),
         "y1": cm(y),
-        "x2": cm((days.length-1) * ret.colWidth + (i > 0 ? 0.2 : 0.0)),
+        "x2": cm((xValues.length-1) * ret.colWidth + (i > 0 ? 0.2 : 0.0)),
         "y2": cm(y),
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
@@ -1776,7 +1779,7 @@ abstract class BasePrint {
         });
         vertStack.add({
           "relativePosition": {
-            "x": cm(xorg + (days.length-1) * ret.colWidth + 0.3),
+            "x": cm(xorg + (xValues.length-1) * ret.colWidth + 0.3),
             "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
           },
           "text": text,

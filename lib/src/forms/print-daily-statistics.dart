@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'dart:math';
 
 import 'package:intl/intl.dart';
@@ -287,30 +286,26 @@ class PrintDailyStatistics extends BasePrint {
   {
     String t = title;
     title = Intl.message("Insulinstatistik");
-    num lineWidth;
-    double graphWidth;
-    double graphHeight;
-    double insulinMax = -1000.0;
     dynamic insulinLine(dynamic points) =>
         {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": points};
 
-    double insulinTableTop;
+    double graphWidth;
+    double graphHeight;
     double graphBottom;
     double xo = xorg;
     double yo = yorg;
-    insulinMax = -1000.0;
     graphWidth = 23.25;
     graphHeight = 6;
     graphBottom = graphHeight;
-    insulinTableTop = graphHeight;
-    lineWidth = cm(0.03);
-    var data = src.data;
+    List<double> values = [];
+    List<String> xValues = [];
 
-    for (DayData day in data.days) {
+    for (DayData day in src.data.days) {
       double sum = 0;
       for (TreatmentData t in day.treatments)
         sum += t.insulin;
-      insulinMax = math.max(sum, insulinMax);
+      values.add(sum);
+      xValues.add(fmtDateShort(day.date));
     }
 
     var vertLines = {
@@ -331,30 +326,13 @@ class PrintDailyStatistics extends BasePrint {
       "relativePosition": {"x": cm(xo), "y": cm(yo)},
       "stack": []
     };
-    var insulinTable = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo + insulinTableTop)},
-      "stack": []
-    };
-    var insulinTableCvs = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo + insulinTableTop)},
-      "canvas": []
-    };
-    var exerciseCvs = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight)},
-      "canvas": []
-    };
-    var pictures = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo)},
-      "stack": []
-    };
-
     List vertCvs = vertLines["canvas"] as List;
     List horzCvs = horzLines["canvas"] as List;
     List horzStack = horzLegend["stack"];
     List vertStack = vertLegend["stack"];
     List graphInsulinCvs = graphInsulin["canvas"];
 
-    GridData grid = drawGraphicGrid4Days(insulinMax, graphHeight, graphWidth, vertCvs, horzCvs, horzStack, vertStack, data.days,
+    GridData grid = drawGraphicGridGeneric(graphHeight, graphWidth, vertCvs, horzCvs, horzStack, vertStack, xValues, values,
         graphBottom: graphBottom);
     if (grid.lineHeight == 0)
       return Page(isPortrait, [
@@ -366,42 +344,21 @@ class PrintDailyStatistics extends BasePrint {
       ]);
 
     dynamic points = [];
-    for (int i = 0; i < data.days.length; i++) {
-      DayData day = data.days[i];
-      double sum = 0;
-      for (TreatmentData t in day.treatments)
-        sum += t.insulin;
+    for (int i = 0; i < values.length; i++) {
+      double sum = values[i];
       double x = i * grid.colWidth;
       double y = (grid.gridLines - sum) * grid.lineHeight - lw / 2;
       points.add({"x": cm(x), "y": cm(y)});
     }
-/*    EntryData last = null;
-    for (EntryData entry in day.entries) {
-      double x = glucX(entry.time);
-      double y = glucY(entry.gluc);
-      if (entry.gluc < 0) {
-        if (last != null && last.gluc >= 0) {
-          graphGlucCvs.add(glucLine(points));
-          points = [];
-        }
-      } else {
-
-      }
-      last = entry;
-    }*/
     graphInsulinCvs.add(insulinLine(points));
 
     var ret = Page(isPortrait, [
       headerFooter(),
-      insulinTableCvs,
-      exerciseCvs,
       vertLegend,
       vertLines,
       horzLegend,
       horzLines,
-      pictures,
       graphInsulin,
-      insulinTable,
       graphLegend,
     ]);
 
