@@ -1260,7 +1260,7 @@ abstract class BasePrint {
   {
     DateTime dt = DateTime(date.year, date.month, date.day);
     DateFormat df = DateFormat(g.language.dateShortFormat);
-    String ret = df.format(dt);
+    return df.format(dt);
   }
 
   String blendColor(String from, String to, num factor) {
@@ -1756,7 +1756,7 @@ abstract class BasePrint {
         "type": "line",
         "x1": cm(i > 0 ? -0.2 : 0.0),
         "y1": cm(y),
-        "x2": cm(24 * ret.colWidth + (i > 0 ? 0.2 : 0.0)),
+        "x2": cm((days.length-1) * ret.colWidth + (i > 0 ? 0.2 : 0.0)),
         "y2": cm(y),
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame

@@ -367,9 +367,30 @@ class PrintDailyStatistics extends BasePrint {
         }
       ]);
 
-    insulinMax = grid.gridLines * grid.glucScale;
-
     dynamic points = [];
+    for (int i = 0; i < data.days.length; i++) {
+      DayData day = data.days[i];
+      double sum = 0;
+      for (TreatmentData t in day.treatments)
+        sum += t.insulin;
+      double x = i * grid.colWidth;
+      double y = (grid.gridLines - sum) * grid.lineHeight - lw / 2;
+      points.add({"x": cm(x), "y": cm(y)});
+    }
+/*    EntryData last = null;
+    for (EntryData entry in day.entries) {
+      double x = glucX(entry.time);
+      double y = glucY(entry.gluc);
+      if (entry.gluc < 0) {
+        if (last != null && last.gluc >= 0) {
+          graphGlucCvs.add(glucLine(points));
+          points = [];
+        }
+      } else {
+
+      }
+      last = entry;
+    }*/
     graphInsulinCvs.add(insulinLine(points));
 
     var ret = Page(isPortrait, [
