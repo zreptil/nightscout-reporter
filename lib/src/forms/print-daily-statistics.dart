@@ -286,8 +286,6 @@ class PrintDailyStatistics extends BasePrint {
   {
     String t = title;
     title = Intl.message("Insulinstatistik");
-    dynamic insulinLine(dynamic points) =>
-        {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": points};
 
     double graphWidth;
     double graphHeight;
@@ -308,58 +306,12 @@ class PrintDailyStatistics extends BasePrint {
       xValues.add(fmtDateShort(day.date));
     }
 
-    var vertLines = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo)},
-      "canvas": []
-    };
-    var horzLines = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo)},
-      "canvas": []
-    };
-    var horzLegend = {"stack": []};
-    var vertLegend = {"stack": []};
-    var graphInsulin = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo)},
-      "canvas": []
-    };
-    var graphLegend = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo)},
-      "stack": []
-    };
-    List vertCvs = vertLines["canvas"] as List;
-    List horzCvs = horzLines["canvas"] as List;
-    List horzStack = horzLegend["stack"];
-    List vertStack = vertLegend["stack"];
-    List graphInsulinCvs = graphInsulin["canvas"];
-
-    GridData grid = drawGraphicGridGeneric(graphHeight, graphWidth, vertCvs, horzCvs, horzStack, vertStack, xValues, values,
+    List<dynamic> daily = drawGraphicGridGeneric(graphHeight, graphWidth, xo, yo, xValues, values,
         graphBottom: graphBottom);
-    if (grid.lineHeight == 0)
-      return Page(isPortrait, [
-        headerFooter(),
-        {
-          "relativePosition": {"x": cm(xorg), "y": cm(yorg)},
-          "text": msgMissingData
-        }
-      ]);
-
-    dynamic points = [];
-    for (int i = 0; i < values.length; i++) {
-      double sum = values[i];
-      double x = i * grid.colWidth;
-      double y = (grid.gridLines - sum) * grid.lineHeight - lw / 2;
-      points.add({"x": cm(x), "y": cm(y)});
-    }
-    graphInsulinCvs.add(insulinLine(points));
 
     var ret = Page(isPortrait, [
       headerFooter(),
-      vertLegend,
-      vertLines,
-      horzLegend,
-      horzLines,
-      graphInsulin,
-      graphLegend,
+      daily,
     ]);
 
     title = t;

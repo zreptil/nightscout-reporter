@@ -1715,27 +1715,69 @@ abstract class BasePrint {
     };
   }
 
-  GridData drawGraphicGridGeneric(
-      double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack, List<String> xValues, List<double> values,
+  List<dynamic> drawGraphicGridGeneric(
+      double graphHeight, double graphWidth, double xo, double yo, List<String> xValues, List<double> values,
       {double scale: 0.0, double graphBottom: 0.0}) {
+    dynamic line(dynamic points) =>
+        {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": points};
+    var vertLines = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "canvas": []
+    };
+    var horzLines = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "canvas": []
+    };
+    var horzLegend = {"stack": []};
+    var vertLegend = {"stack": []};
+    var graphInsulin = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "canvas": []
+    };
+    var graphLegend = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "stack": []
+    };
+    List vertCvs = vertLines["canvas"] as List;
+    List horzCvs = horzLines["canvas"] as List;
+    List horzStack = horzLegend["stack"];
+    List vertStack = vertLegend["stack"];
+    List graphInsulinCvs = graphInsulin["canvas"];
+
+    List<dynamic> ret = [
+      vertLegend,
+      vertLines,
+      horzLegend,
+      horzLines,
+      graphInsulin,
+      graphLegend,
+    ];
+
     double maxValue = -100000000;
     for (double l in values)
       maxValue = max(l, maxValue);
-    GridData ret = GridData();
+    GridData grid = GridData();
     if (graphBottom == 0.0) graphBottom = graphHeight;
-    ret.glucScale = scale == 0.0 ? 1 : scale;
-    ret.gridLines = (maxValue / ret.glucScale).ceil();
+    grid.glucScale = scale == 0.0 ? 1 : scale;
+    grid.gridLines = (maxValue / grid.glucScale).ceil();
 
-    ret.lineHeight = ret.gridLines == 0 ? 0 : graphHeight / ret.gridLines;
-    ret.colWidth = graphWidth / (xValues.length-1);
+    grid.lineHeight = grid.gridLines == 0 ? 0 : graphHeight / grid.gridLines;
+    grid.colWidth = graphWidth / (xValues.length-1);
+
+    if (grid.lineHeight == 0)
+      return [{
+          "relativePosition": {"x": cm(xo), "y": cm(yo)},
+          "text": msgMissingData
+        },
+      ];
 
     // draw vertical lines with times below graphic
     for (int i = 0; i < xValues.length; i++) {
       vertCvs.add({
         "type": "line",
-        "x1": cm(i * ret.colWidth),
+        "x1": cm(i * grid.colWidth),
         "y1": cm(0),
-        "x2": cm(i * ret.colWidth),
+        "x2": cm(i * grid.colWidth),
         "y2": cm(graphBottom - lw / 2),
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
@@ -1745,17 +1787,17 @@ abstract class BasePrint {
           (xValues.length < 32) ||   // wenn es weniger als 32 'x'e hat, bekommt eh jedes 'x' einen Ausdruck
           ((i % 7) == 0))         // ansonsten gibt es nur alle 7 'x'e Ausdrucke
       horzStack.add({
-        "relativePosition": {"x": cm(xorg + i * ret.colWidth - 0.4), "y": cm(yorg + graphBottom + 0.05)},
+        "relativePosition": {"x": cm(xo + i * grid.colWidth - 0.4), "y": cm(yo + graphBottom + 0.05)},
         "text": xValues[i],
         "fontSize": fs(8)
       });
     }
 
-    if (ret.lineHeight == 0) return ret;
+    if (grid.lineHeight == 0) return ret;
 
     double lastY = null;
-    for (int i = 0; i <= ret.gridLines; i++) {
-      double y = (ret.gridLines - i) * ret.lineHeight - lw / 2;
+    for (int i = 0; i <= grid.gridLines; i++) {
+      double y = (grid.gridLines - i) * grid.lineHeight - lw / 2;
       if (lastY != null && lastY - y < 0.5) continue;
 
       lastY = y;
@@ -1763,30 +1805,38 @@ abstract class BasePrint {
         "type": "line",
         "x1": cm(i > 0 ? -0.2 : 0.0),
         "y1": cm(y),
-        "x2": cm((xValues.length-1) * ret.colWidth + (i > 0 ? 0.2 : 0.0)),
+        "x2": cm((xValues.length-1) * grid.colWidth + (i > 0 ? 0.2 : 0.0)),
         "y2": cm(y),
         "lineWidth": cm(lw),
         "lineColor": i > 0 ? lc : lcFrame
       });
 
       if (i > 0) {
-        String text = "${g.fmtNumber(i * ret.glucScale, 0)}";
+        String text = "${g.fmtNumber(i * grid.glucScale, 0)}";
         vertStack.add({
-          "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
+          "relativePosition": {"x": cm(xo - 1.5), "y": cm(yo + (grid.gridLines - i) * grid.lineHeight - 0.2)},
           "columns": [
             {"width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}
           ]
         });
         vertStack.add({
           "relativePosition": {
-            "x": cm(xorg + (xValues.length-1) * ret.colWidth + 0.3),
-            "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
+            "x": cm(xo + (xValues.length-1) * grid.colWidth + 0.3),
+            "y": cm(yo + (grid.gridLines - i) * grid.lineHeight - 0.2)
           },
           "text": text,
           "fontSize": fs(8)
         });
       }
     }
+    dynamic points = [];
+    for (int i = 0; i < values.length; i++) {
+      double sum = values[i];
+      double x = i * grid.colWidth;
+      double y = (grid.gridLines - sum) * grid.lineHeight - lw / 2;
+      points.add({"x": cm(x), "y": cm(y)});
+    }
+    graphInsulinCvs.add(line(points));
     return ret;
   }
 }
