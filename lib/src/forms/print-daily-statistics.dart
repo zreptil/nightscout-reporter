@@ -309,10 +309,9 @@ class PrintDailyStatistics extends BasePrint {
     List<dynamic> daily = drawGraphicGridGeneric(graphHeight, graphWidth, xo, yo, xValues, values,
         graphBottom: graphBottom);
 
-    var ret = Page(isPortrait, [
-      headerFooter(),
-      daily,
-    ]);
+    List<dynamic> content = [ headerFooter(), ];
+    content.addAll(daily);
+    var ret = Page(isPortrait, content);
 
     title = t;
     return ret;
