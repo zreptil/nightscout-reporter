@@ -292,22 +292,47 @@ class PrintDailyStatistics extends BasePrint {
     double graphBottom = graphHeight;
     double xo = xorg;
     double yo = yorg;
-    List<double> values = [];
-    List<String> xValues = [];
-
+    Map<String, double> dailyValues = new Map();
+    Map<String, double> weeklyValues = new Map();
+    Map<String, double> monthlyValues = new Map();
+    Map<String, int> weeklyCounter = new Map();
+    Map<String, int> monthlyCounter = new Map();
+    List<double> valuesDaily = [];
+    List<double> valuesWeekly = [];
+    List<double> valuesMonthly = [];
+    List<String> xValuesDaily = [];
+    List<String> xValuesWeekly = [];
+    List<String> xValuesMonthly = [];
     for (DayData day in src.data.days) {
       double sum = 0;
       for (TreatmentData t in day.treatments)
         sum += t.insulin;
-      values.add(sum);
-      xValues.add(fmtDateShort(day.date));
+      String dayStr = fmtDateShort(day.date, "day");
+      String weekStr = fmtDateShort(day.date, "week");
+      String monthStr = fmtDateShort(day.date, "month");
+      dailyValues.update(dayStr, (double v) => v + sum, ifAbsent: () => sum);
+      weeklyValues.update(weekStr, (double v) => v + sum, ifAbsent: () => sum);
+      weeklyCounter.update(weekStr, (int v) => v + 1, ifAbsent: () => 1);
+      monthlyValues.update(monthStr, (double v) => v + sum, ifAbsent: () => sum);
+      monthlyCounter.update(monthStr, (int v) => v + 1, ifAbsent: () => 1);
     }
+    xValuesDaily = dailyValues.keys.toList();
+    xValuesWeekly = weeklyValues.keys.toList();
+    xValuesMonthly = monthlyValues.keys.toList();
+    valuesDaily = dailyValues.values.toList();
+    for (String s in xValuesWeekly)
+      valuesWeekly.add(weeklyValues[s]/weeklyCounter[s]);
+    for (String s in xValuesMonthly)
+      valuesMonthly.add(monthlyValues[s]/monthlyCounter[s]);
 
-    List<dynamic> daily = drawGraphicGridGeneric(graphHeight, graphWidth, xo, yo, xValues, values, "#000000", Intl.message("Gesamtinsulin pro Tag"),
-        graphBottom: graphBottom);
+    List<dynamic> daily = drawGraphicGridGeneric(graphHeight, graphWidth, xo, yo, xValuesDaily, valuesDaily, "#000000", Intl.message("Gesamtinsulin pro Tag"), graphBottom: graphBottom);
+    List<dynamic> weekly = drawGraphicGridGeneric(graphHeight, graphWidth / 2 - 1, xo, yo + graphHeight + 1, xValuesWeekly, valuesWeekly, "#000000", Intl.message("Gesamtinsulin pro Tag"), graphBottom: graphBottom);
+    List<dynamic> monthly = drawGraphicGridGeneric(graphHeight, graphWidth / 2 - 1, xo + graphWidth / 2 + 0.5, yo + graphHeight + 1, xValuesMonthly, valuesMonthly, "#000000", Intl.message("Gesamtinsulin pro Tag"), graphBottom: graphBottom);
 
     List<dynamic> content = [ headerFooter(), ];
     content.addAll(daily);
+    content.addAll(weekly);
+    content.addAll(monthly);
     var ret = Page(isPortrait, content);
 
     title = t;

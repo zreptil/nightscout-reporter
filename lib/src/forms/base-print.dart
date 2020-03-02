@@ -1256,11 +1256,22 @@ abstract class BasePrint {
     return ret;
   }
 
-  String fmtDateShort(Date date)
+  String fmtDateShort(Date date, String format)
   {
     DateTime dt = DateTime(date.year, date.month, date.day);
-    DateFormat df = DateFormat(g.language.dateShortFormat);
-    return df.format(dt);
+    switch (format.toLowerCase())
+    {
+      case "day":
+        return DateFormat(g.language.dateShortFormat).format(dt);
+        break;
+      case "week":
+        return "KW" + ((int.parse(DateFormat("D").format(dt)) - dt.weekday + 10) / 7).floor().toString().padLeft(2, '0');
+        break;
+      case "month":
+        return DateFormat("MMMM").format(dt);
+        break;
+    }
+    return "";
   }
 
   String blendColor(String from, String to, num factor) {
@@ -1741,7 +1752,7 @@ abstract class BasePrint {
       "stack": [{
         "relativePosition": {"x": cm(0.05), "y": cm(graphBottom + 0.5)},
         "text": valueLegend,
-        "fontSize": fs(6),
+        "fontSize": fs(10),
         "alignment": "left",
         "color": valueColor
       }]
