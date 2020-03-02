@@ -1716,10 +1716,12 @@ abstract class BasePrint {
   }
 
   List<dynamic> drawGraphicGridGeneric(
-      double graphHeight, double graphWidth, double xo, double yo, List<String> xValues, List<double> values,
+      double graphHeight, double graphWidth, double xo, double yo, List<String> xValues, List<double> values, String valueColor, String valueLegend,
       {double scale: 0.0, double graphBottom: 0.0}) {
     dynamic line(dynamic points) =>
-        {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": points};
+        {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": valueColor, "points": points};
+    if (graphBottom == 0.0) graphBottom = graphHeight;
+
     var vertLines = {
       "relativePosition": {"x": cm(xo), "y": cm(yo)},
       "canvas": []
@@ -1736,7 +1738,13 @@ abstract class BasePrint {
     };
     var graphLegend = {
       "relativePosition": {"x": cm(xo), "y": cm(yo)},
-      "stack": []
+      "stack": [{
+        "relativePosition": {"x": cm(0.05), "y": cm(graphBottom + 0.5)},
+        "text": valueLegend,
+        "fontSize": fs(6),
+        "alignment": "left",
+        "color": valueColor
+      }]
     };
     List vertCvs = vertLines["canvas"] as List;
     List horzCvs = horzLines["canvas"] as List;
@@ -1757,7 +1765,6 @@ abstract class BasePrint {
     for (double l in values)
       maxValue = max(l, maxValue);
     GridData grid = GridData();
-    if (graphBottom == 0.0) graphBottom = graphHeight;
     grid.glucScale = scale == 0.0 ? 1 : scale;
     grid.gridLines = (maxValue / grid.glucScale).ceil();
 

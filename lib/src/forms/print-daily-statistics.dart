@@ -287,14 +287,11 @@ class PrintDailyStatistics extends BasePrint {
     String t = title;
     title = Intl.message("Insulinstatistik");
 
-    double graphWidth;
-    double graphHeight;
-    double graphBottom;
+    double graphWidth = 23.25;
+    double graphHeight = 6;
+    double graphBottom = graphHeight;
     double xo = xorg;
     double yo = yorg;
-    graphWidth = 23.25;
-    graphHeight = 6;
-    graphBottom = graphHeight;
     List<double> values = [];
     List<String> xValues = [];
 
@@ -306,7 +303,7 @@ class PrintDailyStatistics extends BasePrint {
       xValues.add(fmtDateShort(day.date));
     }
 
-    List<dynamic> daily = drawGraphicGridGeneric(graphHeight, graphWidth, xo, yo, xValues, values,
+    List<dynamic> daily = drawGraphicGridGeneric(graphHeight, graphWidth, xo, yo, xValues, values, "#000000", Intl.message("Gesamtinsulin pro Tag"),
         graphBottom: graphBottom);
 
     List<dynamic> content = [ headerFooter(), ];
