@@ -1108,7 +1108,8 @@ class PrintDailyGraphic extends BaseDaily {
 
       if (showIOB) {
         graphIob = {
-          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["iobHeight"] + pts["iobTop"])},
+//          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["iobHeight"] + pts["iobTop"])},
+          "relativePosition": {"x": cm(xo), "y": cm(yo - pts["iobTop"])},
           "canvas": []
         };
         List graphIobCvs = graphIob["canvas"];

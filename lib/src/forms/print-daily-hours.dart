@@ -187,11 +187,12 @@ class PrintDailyHours extends BasePrint {
       }
     }
 
+/*
     var row = [];
     totalDay.init();
     fillRow(row, f, msgDaySum(totalDays), totalDay, "total");
     body.add(row);
-
+*/
     if (prevProfile != null) {
       page.add(headerFooter());
       page.add(getTable(tableWidths, body));

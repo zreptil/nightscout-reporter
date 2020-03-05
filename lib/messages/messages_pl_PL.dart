@@ -24,149 +24,151 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m2(time) => "The basal rate has been valid since ${time} and does not include any temporary changes.";
 
-  static m3(value) => "baza: realna (${value})";
+  static m3(unit) => "This basalrate was active on ${unit}.";
 
-  static m4(value) => "Baza: nominalna (${value})";
+  static m4(value) => "baza: realna (${value})";
 
-  static m5(value) => "Insulina z bolusów (${value})";
+  static m5(value) => "Baza: nominalna (${value})";
 
-  static m6(value) => "CV [${value}%]";
+  static m6(value) => "Insulina z bolusów (${value})";
 
-  static m7(scale, intercept, slope) => "Calibration (scale ${scale} / intercept ${intercept} / slope ${slope})";
+  static m7(value) => "CV [${value}%]";
 
-  static m8(value) => "bolus: posiłek (${value})";
+  static m8(scale, intercept, slope) => "Calibration (scale ${scale} / intercept ${intercept} / slope ${slope})";
 
-  static m9(value) => "węglowodany ${value}g";
+  static m9(value) => "bolus: posiłek (${value})";
 
-  static m10(count, txt) => "${Intl.plural(count, zero: 'brak danych', one: '(zmiana co ${txt} dn.)', other: '(zmiana co ${txt} dn.)')}";
+  static m10(value) => "węglowodany ${value}g";
 
-  static m11(name, from, to) => "${name} ${from} => ${to}";
+  static m11(count, txt) => "${Intl.plural(count, zero: 'brak danych', one: '(zmiana co ${txt} dn.)', other: '(zmiana co ${txt} dn.)')}";
 
-  static m12(url) => "Sprawdzanie dostępu do ${url}...";
+  static m12(name, from, to) => "${name} ${from} => ${to}";
 
-  static m13(value) => "bolus: korekta (${value})";
+  static m13(url) => "Sprawdzanie dostępu do ${url}...";
 
-  static m14(value) => "${Intl.plural(value, zero: 'Brak wartości', one: '1 wartość', few: '${value} Wartość', many: '${value} Wartość', other: '${value} Wartość')}";
+  static m14(value) => "bolus: korekta (${value})";
 
-  static m15(value) => "${value} dni";
+  static m15(value) => "${Intl.plural(value, zero: 'Brak wartości', one: '1 wartość', few: '${value} Wartość', many: '${value} Wartość', other: '${value} Wartość')}";
 
-  static m16(hours, minutes) => "${hours} h ${minutes} m";
+  static m16(value) => "${value} dni";
 
-  static m17(beg, end) => "${beg} - ${end}";
+  static m17(hours, minutes) => "${hours} h ${minutes} m";
 
-  static m18(max) => "zły (powyżej ${max})";
+  static m18(beg, end) => "${beg} - ${end}";
 
-  static m19(min, max) => "dobry (od ${min} do ${max})";
+  static m19(max) => "zły (powyżej ${max})";
 
-  static m20(min) => "niedostępne (poniżej ${min})";
+  static m20(min, max) => "dobry (od ${min} do ${max})";
 
-  static m21(min, max) => "bardzo dobry (od ${min} do ${max})";
+  static m21(min) => "niedostępne (poniżej ${min})";
 
-  static m22(unit, value) => "Intensywność hiperglikemii [${unit} x min²]";
+  static m22(min, max) => "bardzo dobry (od ${min} do ${max})";
 
-  static m23(unit) => "Epizody hiperglikemii na dobę (wartości większe lub równe ${unit}).";
+  static m23(unit, value) => "Intensywność hiperglikemii [${unit} x min²]";
 
-  static m24(unit, value) => "Epizody hiperglikemii\n[${unit} x min²]";
+  static m24(unit) => "Epizody hiperglikemii na dobę (wartości większe lub równe ${unit}).";
 
-  static m25(unit) => "Epizody hipoglikemii na dobę (wartości mniejsze lub równe ${unit}).";
+  static m25(unit, value) => "Epizody hiperglikemii\n[${unit} x min²]";
 
-  static m26(value) => "powyżej zakresu ${value}";
+  static m26(unit) => "Epizody hipoglikemii na dobę (wartości mniejsze lub równe ${unit}).";
 
-  static m27(value) => "Historyczny ${value}";
+  static m27(value) => "powyżej zakresu ${value}";
 
-  static m28(value) => "Hypos (< ${value})";
+  static m28(value) => "Historyczny ${value}";
 
-  static m29(unit) => "Wrażliwość na insulinę ISF \n(o ile ${unit} 1j insuliny redukuje stężenie glukozy) ";
+  static m29(value) => "Hypos (< ${value})";
 
-  static m30(value) => "${value}g";
+  static m30(unit) => "Wrażliwość na insulinę ISF \n(o ile ${unit} 1j insuliny redukuje stężenie glukozy) ";
 
-  static m31(value) => "g (średnio ${value}g/godz.)";
+  static m31(value) => "${value}g";
 
-  static m32(value) => "Dobowa Dawka Insuliny DDI (${value})";
+  static m32(value) => "g (średnio ${value}g/godz.)";
 
-  static m33(error, stacktrace) => "Błąd pobierania danych: ${error} ${stacktrace}";
+  static m33(value) => "Dobowa Dawka Insuliny DDI (${value})";
 
-  static m34(date) => "Pobierz dane dla ${date}...";
+  static m34(error, stacktrace) => "Błąd pobierania danych: ${error} ${stacktrace}";
 
-  static m35(insulin, unit) => "SMB ${insulin} ${unit}";
+  static m35(date) => "Pobierz dane dla ${date}...";
 
-  static m36(percent, duration) => "baza tymczasowa ${percent}% / ${duration} min";
+  static m36(insulin, unit) => "SMB ${insulin} ${unit}";
 
-  static m37(target, duration, reason) => "cel tymczasowy ${target} na ${duration} min, powód: ${reason}";
+  static m37(percent, duration) => "baza tymczasowa ${percent}% / ${duration} min";
 
-  static m38(value) => "poniżej zakresu ${value}";
+  static m38(target, duration, reason) => "cel tymczasowy ${target} na ${duration} min, powód: ${reason}";
 
-  static m39(gluc, unit) => "Pomiar z krwi ${gluc} ${unit}";
+  static m39(value) => "poniżej zakresu ${value}";
 
-  static m40(unit, value) => "Średnie stężenie glukozy\n[${unit}]";
+  static m40(gluc, unit) => "Pomiar z krwi ${gluc} ${unit}";
 
-  static m41(hba1c) => "Średnia wartość glikemii w określonym okresie.";
+  static m41(unit, value) => "Średnie stężenie glukozy\n[${unit}]";
 
-  static m42(min, max) => "zły (od ${min} do ${max})";
+  static m42(hba1c) => "Średnia wartość glikemii w określonym okresie.";
 
-  static m43(min, max) => "dobry (od ${min} do ${max})";
+  static m43(min, max) => "zły (od ${min} do ${max})";
 
-  static m44(max) => "bardzo zły (powyżej ${max})";
+  static m44(min, max) => "dobry (od ${min} do ${max})";
 
-  static m45(min) => "wyśmienity (poniżej ${min})";
+  static m45(max) => "bardzo zły (powyżej ${max})";
 
-  static m46(oldName, newName) => "zmiana profilu - ${oldName} => ${newName}";
+  static m46(min) => "wyśmienity (poniżej ${min})";
 
-  static m47(oldName, newName, duration) => "Zmiana profilu - ${oldName} => ${newName} na ${duration} minut";
+  static m47(oldName, newName) => "zmiana profilu - ${oldName} => ${newName}";
 
-  static m48(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak pomiarów', one: 'pomiar co 1 minutę', other: 'pomiar co ${fmt} minut')}";
+  static m48(oldName, newName, duration) => "Zmiana profilu - ${oldName} => ${newName} na ${duration} minut";
 
-  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak odczytów', one: '1 odczyt na dzień', other: '${fmt} odczytów na dzień')}";
+  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak pomiarów', one: 'pomiar co 1 minutę', other: 'pomiar co ${fmt} minut')}";
 
-  static m50(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak pomiarów', one: '1 pomiar na godzinę', other: '${fmt} pomiarów na godzinę')}";
+  static m50(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak odczytów', one: '1 odczyt na dzień', other: '${fmt} odczytów na dzień')}";
 
-  static m51(count, txt) => "${Intl.plural(count, zero: 'brak danych', one: '(${txt} dzień na zbiorniczek)', other: '(${txt} dni na zbiorniczek)')}";
+  static m51(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak pomiarów', one: '1 pomiar na godzinę', other: '${fmt} pomiarów na godzinę')}";
 
-  static m52(value) => "bolus: SMB (${value})";
+  static m52(count, txt) => "${Intl.plural(count, zero: 'brak danych', one: '(${txt} dzień na zbiorniczek)', other: '(${txt} dni na zbiorniczek)')}";
 
-  static m53(count, txt) => "${Intl.plural(count, zero: 'brak danych', one: '(${txt} dzień na sensor)', other: '(${txt} dni na sensor)')}";
+  static m53(value) => "bolus: SMB (${value})";
 
-  static m54(low, high, unit) => "Use Standard Targetarea (${low} ${unit} - ${high} ${unit})";
+  static m54(count, txt) => "${Intl.plural(count, zero: 'brak danych', one: '(${txt} dzień na sensor)', other: '(${txt} dni na sensor)')}";
 
-  static m55(value) => "(SD ${value})";
+  static m55(low, high, unit) => "Use Standard Targetarea (${low} ${unit} - ${high} ${unit})";
 
-  static m56(value) => "Czas poza zakresem \n[${value}min/d]";
+  static m56(value) => "(SD ${value})";
 
-  static m57(min, max) => "Czas dziennie w minutach, w którym wartości znajdują się poza zakresem od ${min} do ${max}.";
+  static m57(value) => "Czas poza zakresem \n[${value}min/d]";
 
-  static m58(unit) => "Zakres docelowy glikemii \n(${unit})";
+  static m58(min, max) => "Czas dziennie w minutach, w którym wartości znajdują się poza zakresem od ${min} do ${max}.";
 
-  static m59(min, max, units) => "zakres docelowy (${min} - ${max} ${units})";
+  static m59(unit) => "Zakres docelowy glikemii \n(${unit})";
 
-  static m60(value) => "wartość docelowa";
+  static m60(min, max, units) => "zakres docelowy (${min} - ${max} ${units})";
 
-  static m61(time) => "${time}";
+  static m61(value) => "wartość docelowa";
 
-  static m62(time) => "${time} przed południem";
+  static m62(time) => "${time}";
 
-  static m63(time) => "${time}";
+  static m63(time) => "${time} przed południem";
 
-  static m64(begDate) => "wprowadzony ${begDate}";
+  static m64(time) => "${time}";
 
-  static m65(begDate, endDate) => "obowiązuje od ${begDate} do ${endDate}";
+  static m65(begDate) => "wprowadzony ${begDate}";
 
-  static m66(endDate) => "obowiązuje do ${endDate}";
+  static m66(begDate, endDate) => "obowiązuje od ${begDate} do ${endDate}";
 
-  static m67(high) => "Odczyty powyżej zakresu: ${high}";
+  static m67(endDate) => "obowiązuje do ${endDate}";
 
-  static m68(low) => "Odczyty poniżej ${low}";
+  static m68(high) => "Odczyty powyżej zakresu: ${high}";
 
-  static m69(low, high) => "Odczyty w zakresie: ${low} - ${high}";
+  static m69(low) => "Odczyty poniżej ${low}";
 
-  static m70(low, high) => "W zakresie (${low} - ${high})";
+  static m70(low, high) => "Odczyty w zakresie: ${low} - ${high}";
 
-  static m71(value) => "Powyżej zakresu, poziom 1 (${value})";
+  static m71(low, high) => "W zakresie (${low} - ${high})";
 
-  static m72(value) => "Poniżej zakresu, poziom 1 (${value})";
+  static m72(value) => "Powyżej zakresu, poziom 1 (${value})";
 
-  static m73(value) => "Powyżej zakresu, poziom 2 ( > ${value})";
+  static m73(value) => "Poniżej zakresu, poziom 1 (${value})";
 
-  static m74(value) => "Poniżej zakresu, poziom 2 (< ${value})";
+  static m74(value) => "Powyżej zakresu, poziom 2 ( > ${value})";
+
+  static m75(value) => "Poniżej zakresu, poziom 2 (< ${value})";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -203,6 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "1.3.7 - 7.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.7 - 7/1/2020"),
     "1.3.8 - 9.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.8 - 9/1/2020"),
     "1.4 - 28.2.2020" : MessageLookupByLibrary.simpleMessage("1.4 - 28/2/2020"),
+    "1.4.1 - xx.3.2020" : MessageLookupByLibrary.simpleMessage("1.4.1 - xx/3/2020"),
     "10%" : MessageLookupByLibrary.simpleMessage("10%"),
     "10% - 90% der Werte" : MessageLookupByLibrary.simpleMessage("10% - 90% wartości"),
     "15 Minuten" : MessageLookupByLibrary.simpleMessage("15 Minut"),
@@ -259,6 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Basal mit zwei Nachkommastellen" : MessageLookupByLibrary.simpleMessage("Dawka podstawowa (baza) z dwoma miejscami po przecinku"),
     "Basalrate" : MessageLookupByLibrary.simpleMessage("Schemat bazy"),
     "Basalrate\nIE / Stunde" : MessageLookupByLibrary.simpleMessage("Dawka bazowa \n(j/godz.)"),
+    "Basalrate anzeigen" : MessageLookupByLibrary.simpleMessage("Show basalrate"),
     "Batteriewechsel" : MessageLookupByLibrary.simpleMessage("Batterychange"),
     "Behandlungen" : MessageLookupByLibrary.simpleMessage("statystyka: terapia"),
     "Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren." : MessageLookupByLibrary.simpleMessage("In daily graphics and weekly graphics there is now the possibility to place 1, 2, 4, 8 or 16 images on a page."),
@@ -270,6 +274,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Beim Erzeugen des PDF ist ein Fehler aufgetreten." : MessageLookupByLibrary.simpleMessage("Wystąpił błąd podczas tworzenia pliku PDF."),
     "Beim Glukose Perzentil Diagramm kann man nun ein Maximum für die Skalierung festlegen. Wenn es auf \"Automatisch\" gesetzt wird, wird das Maximum wie bisher auch ermittelt. Bei einem anderen Wert wird die Obergrenze für das Diagramm auf diesen Wert festgesetzt. Damit ist es leichter möglich zwei Diagramme miteinander zu vergleichen, deren Obergrenze unterschiedlich ist." : MessageLookupByLibrary.simpleMessage("In the Glucose Percentile Diagram you can now set a maximum for the scaling. If it is set to \"Automatic\", the maximum is determined as before. For any other value, the upper limit for the diagram is set to this value. This makes it easier to compare two diagrams with different upper limits."),
     "Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet" : MessageLookupByLibrary.simpleMessage("When loading the data, the corresponding date format is used for display of progress"),
+    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war." : MessageLookupByLibrary.simpleMessage("In the percentile diagram there is a new option with which the basalrate can be displayed below the diagram. Since the diagram normally spans a longer period, the basalrate that was active at the beginning of the period is displayed."),
     "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden" : MessageLookupByLibrary.simpleMessage("Użytkownicy mogą określić token użytkownika, aby połączyć się z chronionymi instalacjami Nightscout"),
     "Benutzer können nun gelöscht werden" : MessageLookupByLibrary.simpleMessage("Użytkownicy mogą być teraz usuwani"),
     "Benutzerdaten" : MessageLookupByLibrary.simpleMessage("Dane pacjenta"),
@@ -532,7 +537,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "Max" : MessageLookupByLibrary.simpleMessage("Max"),
     "Max Mustermann" : MessageLookupByLibrary.simpleMessage("John Smith"),
     "Maximaler Glukosewert in Grafiken:" : MessageLookupByLibrary.simpleMessage("Maximum glucose value in graphics:"),
-    "Maximum für die Skalierung" : MessageLookupByLibrary.simpleMessage("Maximum value for scale"),
     "Median" : MessageLookupByLibrary.simpleMessage("Mediana"),
     "Mehr gibt es dazu eigentlich nicht zu sagen." : MessageLookupByLibrary.simpleMessage("There is nothing more to say about it."),
     "Mess-\nwerte" : MessageLookupByLibrary.simpleMessage("Liczba pomiarów"),
@@ -706,78 +710,79 @@ class MessageLookup extends MessageLookupByLibrary {
     "mmol/L" : MessageLookupByLibrary.simpleMessage("mmol/L"),
     "moderates Risiko" : MessageLookupByLibrary.simpleMessage("- umiarkowane ryzyko"),
     "msgBasalInfo" : m2,
-    "msgBasalrateDay" : m3,
-    "msgBasalrateProfile" : m4,
-    "msgBolusInsulin" : m5,
-    "msgCV" : m6,
-    "msgCalibration" : m7,
-    "msgCarbBolusInsulin" : m8,
-    "msgCarbs" : m9,
-    "msgCatheterDays" : m10,
-    "msgChangedEntry" : m11,
-    "msgCheckUser" : m12,
-    "msgCorrectBolusInsulin" : m13,
-    "msgCount" : m14,
-    "msgDaySum" : m15,
-    "msgDuration" : m16,
-    "msgFactorEntry" : m17,
-    "msgGVIBad" : m18,
-    "msgGVIGood" : m19,
-    "msgGVINone" : m20,
-    "msgGVIVeryGood" : m21,
-    "msgHYPER" : m22,
-    "msgHYPERInfo" : m23,
-    "msgHYPO" : m24,
-    "msgHYPOInfo" : m25,
-    "msgHigh" : m26,
-    "msgHistorical" : m27,
-    "msgHypoTitle" : m28,
-    "msgISF" : m29,
-    "msgKH" : m30,
-    "msgKHBE" : m31,
-    "msgLegendTDD" : m32,
-    "msgLoadingData" : m33,
-    "msgLoadingDataFor" : m34,
-    "msgLogSMB" : m35,
-    "msgLogTempBasal" : m36,
-    "msgLogTempTarget" : m37,
-    "msgLow" : m38,
-    "msgMBG" : m39,
-    "msgMEAN" : m40,
-    "msgMEANInfo" : m41,
-    "msgPGSBad" : m42,
-    "msgPGSGood" : m43,
-    "msgPGSVeryBad" : m44,
-    "msgPGSVeryGood" : m45,
-    "msgProfileSwitch" : m46,
-    "msgProfileSwitchDuration" : m47,
-    "msgReadingsInMinutes" : m48,
-    "msgReadingsPerDay" : m49,
-    "msgReadingsPerHour" : m50,
-    "msgReservoirDays" : m51,
-    "msgSMBInsulin" : m52,
-    "msgSensorDays" : m53,
-    "msgStandardLimits" : m54,
-    "msgStdAbw" : m55,
-    "msgTOR" : m56,
-    "msgTORInfo" : m57,
-    "msgTarget" : m58,
-    "msgTargetArea" : m59,
-    "msgTargetValue" : m60,
-    "msgTimeOfDay24" : m61,
-    "msgTimeOfDayAM" : m62,
-    "msgTimeOfDayPM" : m63,
-    "msgValidFrom" : m64,
-    "msgValidRange" : m65,
-    "msgValidTo" : m66,
-    "msgValuesAbove" : m67,
-    "msgValuesBelow" : m68,
-    "msgValuesIn" : m69,
-    "msgValuesNorm" : m70,
-    "msgValuesNormHigh" : m71,
-    "msgValuesNormLow" : m72,
-    "msgValuesVeryHigh" : m73,
-    "msgValuesVeryLow" : m74,
+    "msgBasalInfo1" : m3,
+    "msgBasalrateDay" : m4,
+    "msgBasalrateProfile" : m5,
+    "msgBolusInsulin" : m6,
+    "msgCV" : m7,
+    "msgCalibration" : m8,
+    "msgCarbBolusInsulin" : m9,
+    "msgCarbs" : m10,
+    "msgCatheterDays" : m11,
+    "msgChangedEntry" : m12,
+    "msgCheckUser" : m13,
+    "msgCorrectBolusInsulin" : m14,
+    "msgCount" : m15,
+    "msgDaySum" : m16,
+    "msgDuration" : m17,
+    "msgFactorEntry" : m18,
+    "msgGVIBad" : m19,
+    "msgGVIGood" : m20,
+    "msgGVINone" : m21,
+    "msgGVIVeryGood" : m22,
+    "msgHYPER" : m23,
+    "msgHYPERInfo" : m24,
+    "msgHYPO" : m25,
+    "msgHYPOInfo" : m26,
+    "msgHigh" : m27,
+    "msgHistorical" : m28,
+    "msgHypoTitle" : m29,
+    "msgISF" : m30,
+    "msgKH" : m31,
+    "msgKHBE" : m32,
+    "msgLegendTDD" : m33,
+    "msgLoadingData" : m34,
+    "msgLoadingDataFor" : m35,
+    "msgLogSMB" : m36,
+    "msgLogTempBasal" : m37,
+    "msgLogTempTarget" : m38,
+    "msgLow" : m39,
+    "msgMBG" : m40,
+    "msgMEAN" : m41,
+    "msgMEANInfo" : m42,
+    "msgPGSBad" : m43,
+    "msgPGSGood" : m44,
+    "msgPGSVeryBad" : m45,
+    "msgPGSVeryGood" : m46,
+    "msgProfileSwitch" : m47,
+    "msgProfileSwitchDuration" : m48,
+    "msgReadingsInMinutes" : m49,
+    "msgReadingsPerDay" : m50,
+    "msgReadingsPerHour" : m51,
+    "msgReservoirDays" : m52,
+    "msgSMBInsulin" : m53,
+    "msgSensorDays" : m54,
+    "msgStandardLimits" : m55,
+    "msgStdAbw" : m56,
+    "msgTOR" : m57,
+    "msgTORInfo" : m58,
+    "msgTarget" : m59,
+    "msgTargetArea" : m60,
+    "msgTargetValue" : m61,
+    "msgTimeOfDay24" : m62,
+    "msgTimeOfDayAM" : m63,
+    "msgTimeOfDayPM" : m64,
+    "msgValidFrom" : m65,
+    "msgValidRange" : m66,
+    "msgValidTo" : m67,
+    "msgValuesAbove" : m68,
+    "msgValuesBelow" : m69,
+    "msgValuesIn" : m70,
+    "msgValuesNorm" : m71,
+    "msgValuesNormHigh" : m72,
+    "msgValuesNormLow" : m73,
+    "msgValuesVeryHigh" : m74,
+    "msgValuesVeryLow" : m75,
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),
     "sehr geringes Risiko" : MessageLookupByLibrary.simpleMessage("- bardzo niskie ryzyko"),
     "tl;dr" : MessageLookupByLibrary.simpleMessage("tl;dr"),

@@ -804,11 +804,11 @@ class AppComponent implements OnInit {
     TreatmentData lastTempBasal = null;
     // add the previous day of the period to have the daydata available in forms that need this information
     begDate = begDate.add(days: -1);
+    data.dayCount = -1;
     while (begDate <= endDate) {
       bool hasData = false;
       if (g.period.isDowActive(begDate.weekday - 1)) {
         DateTime beg = DateTime(begDate.year, begDate.month, begDate.day, 0, 0, 0, 0).toUtc();
-
         DateTime end = DateTime(begDate.year, begDate.month, begDate.day, 23, 59, 59, 999).toUtc();
 
         ProfileGlucData profile = data.profile(beg);
@@ -1063,6 +1063,12 @@ class AppComponent implements OnInit {
             case "dayanalysis":
               cfg = FormConfig(PrintDailyAnalysis(), false);
               cfg.form.params[2].thumbValue = 1;
+              listConfig.add(cfg);
+              break;
+            case "percentile":
+              cfg = FormConfig(PrintPercentile(), false);
+              cfg.form.params[0].thumbValue = 0;
+              cfg.form.params[2].thumbValue = true;
               listConfig.add(cfg);
               break;
           }

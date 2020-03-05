@@ -1314,8 +1314,8 @@ class DayData {
 
   double get varK => (mid ?? 0) != 0 ? stdAbw(true) / mid * 100 : 0;
   double lowPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdLowCount : lowCount) / entryCount * 100;
-  double normPrz(Globals g)  => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdNormCount : normCount) / entryCount * 100;
-  double highPrz(Globals g)  => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdHighCount : highCount) / entryCount * 100;
+  double normPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdNormCount : normCount) / entryCount * 100;
+  double highPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdHighCount : highCount) / entryCount * 100;
   double get avgCarbs => carbCount > 0 ? carbs / carbCount : 0;
   bool isSameDay(DateTime time) {
     if (date.year != time.year) return false;
@@ -1801,6 +1801,8 @@ class ListData {
     // https://github.com/nightscout/cgm-remote-monitor/blob/master/lib/report_plugins/glucosedistribution.js#L150
     double glucTotal = 0.0;
     double rmsTotal = 0.0;
+    double firstGluc = null;
+    double lastGluc = null;
     int usedRecords = 0;
 //    double deltaTotal = 0.0;
 //    double total = 0.0;
@@ -1841,28 +1843,39 @@ class ListData {
         }
       }
 
-      if (last == null) {
-        glucTotal += entry.gluc;
-      } else {
-        int timeDelta = entry.time.difference(last.time).inMilliseconds;
+      if (data.isInPeriod(entry.time))
+      {
+        if(firstGluc == null)firstGluc = entry.gluc;
+        lastGluc = entry.gluc;
+        if (last == null)
+        {
+          glucTotal += entry.gluc;
+        }
+        else
+        {
+          int timeDelta = entry.time
+            .difference(last.time)
+            .inMilliseconds;
 
-        if (timeDelta <= 6 * 60000 && entry.gluc > 0 && last.gluc > 0) {
-          usedRecords++;
-          double delta = entry.gluc - last.gluc;
+          if (timeDelta <= 6 * 60000 && entry.gluc > 0 && last.gluc > 0)
+          {
+            usedRecords++;
+            double delta = entry.gluc - last.gluc;
 //          deltaTotal += delta;
 //          total += delta;
 //          if (delta >= t1)t1Count++;
 //          if (delta >= t2)t2Count++;
-          gviTotal += math.sqrt(25 + math.pow(delta, 2));
-          glucTotal += entry.gluc;
-          if (entry.gluc < glucData.targetLow) rmsTotal += math.pow(glucData.targetLow - entry.gluc, 2);
-          if (entry.gluc > glucData.targetHigh) rmsTotal += math.pow(entry.gluc - glucData.targetHigh, 2);
+            gviTotal += math.sqrt(25 + math.pow(delta, 2));
+            glucTotal += entry.gluc;
+            if (entry.gluc < glucData.targetLow) rmsTotal += math.pow(glucData.targetLow - entry.gluc, 2);
+            if (entry.gluc > glucData.targetHigh) rmsTotal += math.pow(entry.gluc - glucData.targetHigh, 2);
+          }
         }
       }
       last = entry;
     }
 
-    double gviDelta = allEntries.last.gluc - allEntries.first.gluc;
+    double gviDelta = lastGluc - firstGluc;
     gviIdeal = math.sqrt(math.pow(usedRecords * 5, 2) + math.pow(gviDelta, 2));
     gvi = gviIdeal != 0 ? gviTotal / gviIdeal : 0.0;
     rms = math.sqrt(rmsTotal / usedRecords);
@@ -1953,12 +1966,14 @@ class ListData {
       int idx = days.indexWhere((d) => d.isSameDay(t.createdAt.toLocal()));
       if (idx >= 0) days[idx].treatments.add(t);
 
+      if(!data.isInPeriod(t.createdAt))continue;
+
       khCount += t.carbs;
       ieBolusSum += t.bolusInsulin;
       ieMicroBolusSum += t.microbolus / 60 * t.duration;
     }
     ieBasalSum = 0.0;
-    for (int i = 0; i < days.length; i++) {
+    for (int i = 1; i < days.length; i++) {
       DayData day = days[i];
       day.prevDay = i > 0 ? days[i - 1] : null;
       day.init(i < days.length - 1 ? days[i + 1] : null);
@@ -1973,7 +1988,7 @@ class ReportData {
   Error error = null;
   Date begDate;
   Date endDate;
-  int dayCount = 0;
+  int dayCount = -1;
   List<ProfileData> profiles = List<ProfileData>();
   UserData user = null;
   ListData ns = ListData();
@@ -1982,6 +1997,11 @@ class ReportData {
   StatusData status;
   Globals globals;
   bool isForThumbs = false;
+
+  bool isInPeriod(DateTime check) {
+    if (check.isBefore(DateTime(begDate.year, begDate.month, begDate.day))) return false;
+    return check.isBefore(DateTime(endDate.year, endDate.month, endDate.day + 1));
+  }
 
   // get profile for a specific time
   ProfileGlucData profile(DateTime time, [List<TreatmentData> treatments = null, bool doMix = true]) {

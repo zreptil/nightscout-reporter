@@ -24,149 +24,151 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m2(time) => "The basal rate has been valid since ${time} and does not include any temporary changes.";
 
-  static m3(value) => "基礎単位：日(${value})";
+  static m3(unit) => "This basalrate was active on ${unit}.";
 
-  static m4(value) => "基礎単位：プロファイル設定(${value})";
+  static m4(value) => "基礎単位：日(${value})";
 
-  static m5(value) => "ボーラス　インスリン(${value})";
+  static m5(value) => "基礎単位：プロファイル設定(${value})";
 
-  static m6(value) => "血糖変動係数${value}%]";
+  static m6(value) => "ボーラス　インスリン(${value})";
 
-  static m7(scale, intercept, slope) => "Calibration (scale ${scale} / intercept ${intercept} / slope ${slope})";
+  static m7(value) => "血糖変動係数${value}%]";
 
-  static m8(value) => "食事ボーラス(${value})";
+  static m8(scale, intercept, slope) => "Calibration (scale ${scale} / intercept ${intercept} / slope ${slope})";
 
-  static m9(value) => "炭水化物(${value}g)";
+  static m9(value) => "食事ボーラス(${value})";
 
-  static m10(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/カニューレ)', other: '(${txt} 日間/カニューレ)')}";
+  static m10(value) => "炭水化物(${value}g)";
 
-  static m11(name, from, to) => "${name} ${from} => ${to}";
+  static m11(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/カニューレ)', other: '(${txt} 日間/カニューレ)')}";
 
-  static m12(url) => "${url} へのアクセスを確認しています…";
+  static m12(name, from, to) => "${name} ${from} => ${to}";
 
-  static m13(value) => "補正ボーラス(${value})";
+  static m13(url) => "${url} へのアクセスを確認しています…";
 
-  static m14(value) => "${Intl.plural(value, zero: '値無し', one: '1個', other: '${value} 個')}";
+  static m14(value) => "補正ボーラス(${value})";
 
-  static m15(value) => "${value} 日";
+  static m15(value) => "${Intl.plural(value, zero: '値無し', one: '1個', other: '${value} 個')}";
 
-  static m16(hours, minutes) => "${hours} h ${minutes} m";
+  static m16(value) => "${value} 日";
 
-  static m17(beg, end) => "${beg} - ${end}";
+  static m17(hours, minutes) => "${hours} h ${minutes} m";
 
-  static m18(max) => "不良(${max} 超)";
+  static m18(beg, end) => "${beg} - ${end}";
 
-  static m19(min, max) => "良 (${min} to ${max})";
+  static m19(max) => "不良(${max} 超)";
 
-  static m20(min) => "利用不可(${min} 分未満)";
+  static m20(min, max) => "良 (${min} to ${max})";
 
-  static m21(min, max) => "良好(${min}～${max})";
+  static m21(min) => "利用不可(${min} 分未満)";
 
-  static m22(unit, value) => "重度の高血糖\n[${unit} x min²]";
+  static m22(min, max) => "良好(${min}～${max})";
 
-  static m23(unit) => "重度の高血糖/日(${unit} 以上)";
+  static m23(unit, value) => "重度の高血糖\n[${unit} x min²]";
 
-  static m24(unit, value) => "重度の低血糖\n[${unit} x min²]";
+  static m24(unit) => "重度の高血糖/日(${unit} 以上)";
 
-  static m25(unit) => "重度の低血糖/日(${unit} 以下)";
+  static m25(unit, value) => "重度の低血糖\n[${unit} x min²]";
 
-  static m26(value) => "高血糖${value}";
+  static m26(unit) => "重度の低血糖/日(${unit} 以下)";
 
-  static m27(value) => "履歴${value}";
+  static m27(value) => "高血糖${value}";
 
-  static m28(value) => "Hypos (< ${value})";
+  static m28(value) => "履歴${value}";
 
-  static m29(unit) => "インスリン効果値(ISF) 1 IUでX ${unit} の血糖値が下がる";
+  static m29(value) => "Hypos (< ${value})";
 
-  static m30(value) => "${value}g";
+  static m30(unit) => "インスリン効果値(ISF) 1 IUでX ${unit} の血糖値が下がる";
 
-  static m31(value) => "g CH (${value} BU)";
+  static m31(value) => "${value}g";
 
-  static m32(value) => "総インスリン量(${value})";
+  static m32(value) => "g CH (${value} BU)";
 
-  static m33(error, stacktrace) => "データ取得エラー:${error}${stacktrace}";
+  static m33(value) => "総インスリン量(${value})";
 
-  static m34(date) => "データを${date} より取得しています…";
+  static m34(error, stacktrace) => "データ取得エラー:${error}${stacktrace}";
 
-  static m35(insulin, unit) => "SMB${insulin}${unit}";
+  static m35(date) => "データを${date} より取得しています…";
 
-  static m36(percent, duration) => "一時基礎料${percent}%/${duration} 分";
+  static m36(insulin, unit) => "SMB${insulin}${unit}";
 
-  static m37(target, duration, reason) => "目標範囲${target}、${duration} 分、理由：${reason}";
+  static m37(percent, duration) => "一時基礎料${percent}%/${duration} 分";
 
-  static m38(value) => "低血糖${value}";
+  static m38(target, duration, reason) => "目標範囲${target}、${duration} 分、理由：${reason}";
 
-  static m39(gluc, unit) => "血糖値${gluc}${unit}";
+  static m39(value) => "低血糖${value}";
 
-  static m40(unit, value) => "平均血糖値[${unit}]";
+  static m40(gluc, unit) => "血糖値${gluc}${unit}";
 
-  static m41(hba1c) => "指定期間の平均血糖値";
+  static m41(unit, value) => "平均血糖値[${unit}]";
 
-  static m42(min, max) => "不良 (${min} to ${max})";
+  static m42(hba1c) => "指定期間の平均血糖値";
 
-  static m43(min, max) => "良好 (${min} to ${max})";
+  static m43(min, max) => "不良 (${min} to ${max})";
 
-  static m44(max) => "とても悪い ( ${max} 超)";
+  static m44(min, max) => "良好 (${min} to ${max})";
 
-  static m45(min) => "優秀(${min} 未満)";
+  static m45(max) => "とても悪い ( ${max} 超)";
 
-  static m46(oldName, newName) => "プロフィール変更 - ${oldName} => ${newName}";
+  static m46(min) => "優秀(${min} 未満)";
 
-  static m47(oldName, newName, duration) => "プロフィール変更 - ${oldName} => ${newName} から ${duration} 分";
+  static m47(oldName, newName) => "プロフィール変更 - ${oldName} => ${newName}";
 
-  static m48(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/分', other: '${fmt}分毎にデータ')}";
+  static m48(oldName, newName, duration) => "プロフィール変更 - ${oldName} => ${newName} から ${duration} 分";
 
-  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: '値がありません', one: '1日あたり１データ', other: '1日あたり${fmt}データ')}";
+  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/分', other: '${fmt}分毎にデータ')}";
 
-  static m50(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/時間', other: '${fmt} 件のデータ/時間')}";
+  static m50(howMany, fmt) => "${Intl.plural(howMany, zero: '値がありません', one: '1日あたり１データ', other: '1日あたり${fmt}データ')}";
 
-  static m51(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/リザーバー)', other: '(${txt} 日間/リザーバー)')}";
+  static m51(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/時間', other: '${fmt} 件のデータ/時間')}";
 
-  static m52(value) => "SMB(${value})";
+  static m52(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/リザーバー)', other: '(${txt} 日間/リザーバー)')}";
 
-  static m53(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/センサー)', other: '(${txt} 日間/センサー)')}";
+  static m53(value) => "SMB(${value})";
 
-  static m54(low, high, unit) => "Use Standard Targetarea (${low} ${unit} - ${high} ${unit})";
+  static m54(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/センサー)', other: '(${txt} 日間/センサー)')}";
 
-  static m55(value) => "(標準偏差 ${value})";
+  static m55(low, high, unit) => "Use Standard Targetarea (${low} ${unit} - ${high} ${unit})";
 
-  static m56(value) => "ToR [${value}min/d]";
+  static m56(value) => "(標準偏差 ${value})";
 
-  static m57(min, max) => "1日あたりの目標範囲外の時間${min} から${max}。";
+  static m57(value) => "ToR [${value}min/d]";
 
-  static m58(unit) => "血糖値目標範囲${unit}";
+  static m58(min, max) => "1日あたりの目標範囲外の時間${min} から${max}。";
 
-  static m59(min, max, units) => "目標範囲(${min} - ${max} ${units})";
+  static m59(unit) => "血糖値目標範囲${unit}";
 
-  static m60(value) => "目標値";
+  static m60(min, max, units) => "目標範囲(${min} - ${max} ${units})";
 
-  static m61(time) => "${time}";
+  static m61(value) => "目標値";
 
-  static m62(time) => "午前${time}";
+  static m62(time) => "${time}";
 
-  static m63(time) => "午後${time}";
+  static m63(time) => "午前${time}";
 
-  static m64(begDate) => "${begDate} から有効";
+  static m64(time) => "午後${time}";
 
-  static m65(begDate, endDate) => "${begDate} から${endDate} まで有効";
+  static m65(begDate) => "${begDate} から有効";
 
-  static m66(endDate) => "${endDate} まで有効";
+  static m66(begDate, endDate) => "${begDate} から${endDate} まで有効";
 
-  static m67(high) => "${high} を超えた値";
+  static m67(endDate) => "${endDate} まで有効";
 
-  static m68(low) => "${low} 未満の値";
+  static m68(high) => "${high} を超えた値";
 
-  static m69(low, high) => "${low} から${high} の値";
+  static m69(low) => "${low} 未満の値";
 
-  static m70(low, high) => "目標範囲 (${low} - ${high})";
+  static m70(low, high) => "${low} から${high} の値";
 
-  static m71(value) => "高い値 (${value})";
+  static m71(low, high) => "目標範囲 (${low} - ${high})";
 
-  static m72(value) => "低い値 (${value})";
+  static m72(value) => "高い値 (${value})";
 
-  static m73(value) => "非常に高い ( > ${value})";
+  static m73(value) => "低い値 (${value})";
 
-  static m74(value) => "非常に低い値 (< ${value})";
+  static m74(value) => "非常に高い ( > ${value})";
+
+  static m75(value) => "非常に低い値 (< ${value})";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -203,6 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "1.3.7 - 7.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.7 - 7/1/2020"),
     "1.3.8 - 9.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.8 - 9/1/2020"),
     "1.4 - 28.2.2020" : MessageLookupByLibrary.simpleMessage("1.4 - 28/2/2020"),
+    "1.4.1 - xx.3.2020" : MessageLookupByLibrary.simpleMessage("1.4.1 - xx/3/2020"),
     "10%" : MessageLookupByLibrary.simpleMessage("10%"),
     "10% - 90% der Werte" : MessageLookupByLibrary.simpleMessage("値の10% - 90%"),
     "15 Minuten" : MessageLookupByLibrary.simpleMessage("15 分"),
@@ -259,6 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Basal mit zwei Nachkommastellen" : MessageLookupByLibrary.simpleMessage("ベーサルレート：小数点以下表示"),
     "Basalrate" : MessageLookupByLibrary.simpleMessage("基礎単位"),
     "Basalrate\nIE / Stunde" : MessageLookupByLibrary.simpleMessage("ベーサル U / 時"),
+    "Basalrate anzeigen" : MessageLookupByLibrary.simpleMessage("Show basalrate"),
     "Batteriewechsel" : MessageLookupByLibrary.simpleMessage("電池交換"),
     "Behandlungen" : MessageLookupByLibrary.simpleMessage("トリートメント"),
     "Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren." : MessageLookupByLibrary.simpleMessage("デイリーグラフとウィークリーグラフで1枚のPDFに複数の画像を表示できるようになりました。（1枚・2枚・4枚・8枚・16枚）"),
@@ -270,6 +274,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Beim Erzeugen des PDF ist ein Fehler aufgetreten." : MessageLookupByLibrary.simpleMessage("PDF作成中にエラーが発生しました。"),
     "Beim Glukose Perzentil Diagramm kann man nun ein Maximum für die Skalierung festlegen. Wenn es auf \"Automatisch\" gesetzt wird, wird das Maximum wie bisher auch ermittelt. Bei einem anderen Wert wird die Obergrenze für das Diagramm auf diesen Wert festgesetzt. Damit ist es leichter möglich zwei Diagramme miteinander zu vergleichen, deren Obergrenze unterschiedlich ist." : MessageLookupByLibrary.simpleMessage("In the Glucose Percentile Diagram you can now set a maximum for the scaling. If it is set to \"Automatic\", the maximum is determined as before. For any other value, the upper limit for the diagram is set to this value. This makes it easier to compare two diagrams with different upper limits."),
     "Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet" : MessageLookupByLibrary.simpleMessage("データのロード中は、対応する日付フォーマットが進行状況の表示に使用されます。"),
+    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war." : MessageLookupByLibrary.simpleMessage("In the percentile diagram there is a new option with which the basalrate can be displayed below the diagram. Since the diagram normally spans a longer period, the basalrate that was active at the beginning of the period is displayed."),
     "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden" : MessageLookupByLibrary.simpleMessage("保護されたNightscoutに接続する為に、ユーザートークンを設定できます"),
     "Benutzer können nun gelöscht werden" : MessageLookupByLibrary.simpleMessage("ユーザー情報を削除で出来るようになりました。"),
     "Benutzerdaten" : MessageLookupByLibrary.simpleMessage("ユーザーデータ"),
@@ -532,7 +537,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "Max" : MessageLookupByLibrary.simpleMessage("最大"),
     "Max Mustermann" : MessageLookupByLibrary.simpleMessage("John Smith"),
     "Maximaler Glukosewert in Grafiken:" : MessageLookupByLibrary.simpleMessage("Maximum glucose value in graphics:"),
-    "Maximum für die Skalierung" : MessageLookupByLibrary.simpleMessage("Maximum value for scale"),
     "Median" : MessageLookupByLibrary.simpleMessage("中央値"),
     "Mehr gibt es dazu eigentlich nicht zu sagen." : MessageLookupByLibrary.simpleMessage("何もありません。"),
     "Mess-\nwerte" : MessageLookupByLibrary.simpleMessage("値"),
@@ -706,78 +710,79 @@ class MessageLookup extends MessageLookupByLibrary {
     "mmol/L" : MessageLookupByLibrary.simpleMessage("mmol/L"),
     "moderates Risiko" : MessageLookupByLibrary.simpleMessage("リスクがある"),
     "msgBasalInfo" : m2,
-    "msgBasalrateDay" : m3,
-    "msgBasalrateProfile" : m4,
-    "msgBolusInsulin" : m5,
-    "msgCV" : m6,
-    "msgCalibration" : m7,
-    "msgCarbBolusInsulin" : m8,
-    "msgCarbs" : m9,
-    "msgCatheterDays" : m10,
-    "msgChangedEntry" : m11,
-    "msgCheckUser" : m12,
-    "msgCorrectBolusInsulin" : m13,
-    "msgCount" : m14,
-    "msgDaySum" : m15,
-    "msgDuration" : m16,
-    "msgFactorEntry" : m17,
-    "msgGVIBad" : m18,
-    "msgGVIGood" : m19,
-    "msgGVINone" : m20,
-    "msgGVIVeryGood" : m21,
-    "msgHYPER" : m22,
-    "msgHYPERInfo" : m23,
-    "msgHYPO" : m24,
-    "msgHYPOInfo" : m25,
-    "msgHigh" : m26,
-    "msgHistorical" : m27,
-    "msgHypoTitle" : m28,
-    "msgISF" : m29,
-    "msgKH" : m30,
-    "msgKHBE" : m31,
-    "msgLegendTDD" : m32,
-    "msgLoadingData" : m33,
-    "msgLoadingDataFor" : m34,
-    "msgLogSMB" : m35,
-    "msgLogTempBasal" : m36,
-    "msgLogTempTarget" : m37,
-    "msgLow" : m38,
-    "msgMBG" : m39,
-    "msgMEAN" : m40,
-    "msgMEANInfo" : m41,
-    "msgPGSBad" : m42,
-    "msgPGSGood" : m43,
-    "msgPGSVeryBad" : m44,
-    "msgPGSVeryGood" : m45,
-    "msgProfileSwitch" : m46,
-    "msgProfileSwitchDuration" : m47,
-    "msgReadingsInMinutes" : m48,
-    "msgReadingsPerDay" : m49,
-    "msgReadingsPerHour" : m50,
-    "msgReservoirDays" : m51,
-    "msgSMBInsulin" : m52,
-    "msgSensorDays" : m53,
-    "msgStandardLimits" : m54,
-    "msgStdAbw" : m55,
-    "msgTOR" : m56,
-    "msgTORInfo" : m57,
-    "msgTarget" : m58,
-    "msgTargetArea" : m59,
-    "msgTargetValue" : m60,
-    "msgTimeOfDay24" : m61,
-    "msgTimeOfDayAM" : m62,
-    "msgTimeOfDayPM" : m63,
-    "msgValidFrom" : m64,
-    "msgValidRange" : m65,
-    "msgValidTo" : m66,
-    "msgValuesAbove" : m67,
-    "msgValuesBelow" : m68,
-    "msgValuesIn" : m69,
-    "msgValuesNorm" : m70,
-    "msgValuesNormHigh" : m71,
-    "msgValuesNormLow" : m72,
-    "msgValuesVeryHigh" : m73,
-    "msgValuesVeryLow" : m74,
+    "msgBasalInfo1" : m3,
+    "msgBasalrateDay" : m4,
+    "msgBasalrateProfile" : m5,
+    "msgBolusInsulin" : m6,
+    "msgCV" : m7,
+    "msgCalibration" : m8,
+    "msgCarbBolusInsulin" : m9,
+    "msgCarbs" : m10,
+    "msgCatheterDays" : m11,
+    "msgChangedEntry" : m12,
+    "msgCheckUser" : m13,
+    "msgCorrectBolusInsulin" : m14,
+    "msgCount" : m15,
+    "msgDaySum" : m16,
+    "msgDuration" : m17,
+    "msgFactorEntry" : m18,
+    "msgGVIBad" : m19,
+    "msgGVIGood" : m20,
+    "msgGVINone" : m21,
+    "msgGVIVeryGood" : m22,
+    "msgHYPER" : m23,
+    "msgHYPERInfo" : m24,
+    "msgHYPO" : m25,
+    "msgHYPOInfo" : m26,
+    "msgHigh" : m27,
+    "msgHistorical" : m28,
+    "msgHypoTitle" : m29,
+    "msgISF" : m30,
+    "msgKH" : m31,
+    "msgKHBE" : m32,
+    "msgLegendTDD" : m33,
+    "msgLoadingData" : m34,
+    "msgLoadingDataFor" : m35,
+    "msgLogSMB" : m36,
+    "msgLogTempBasal" : m37,
+    "msgLogTempTarget" : m38,
+    "msgLow" : m39,
+    "msgMBG" : m40,
+    "msgMEAN" : m41,
+    "msgMEANInfo" : m42,
+    "msgPGSBad" : m43,
+    "msgPGSGood" : m44,
+    "msgPGSVeryBad" : m45,
+    "msgPGSVeryGood" : m46,
+    "msgProfileSwitch" : m47,
+    "msgProfileSwitchDuration" : m48,
+    "msgReadingsInMinutes" : m49,
+    "msgReadingsPerDay" : m50,
+    "msgReadingsPerHour" : m51,
+    "msgReservoirDays" : m52,
+    "msgSMBInsulin" : m53,
+    "msgSensorDays" : m54,
+    "msgStandardLimits" : m55,
+    "msgStdAbw" : m56,
+    "msgTOR" : m57,
+    "msgTORInfo" : m58,
+    "msgTarget" : m59,
+    "msgTargetArea" : m60,
+    "msgTargetValue" : m61,
+    "msgTimeOfDay24" : m62,
+    "msgTimeOfDayAM" : m63,
+    "msgTimeOfDayPM" : m64,
+    "msgValidFrom" : m65,
+    "msgValidRange" : m66,
+    "msgValidTo" : m67,
+    "msgValuesAbove" : m68,
+    "msgValuesBelow" : m69,
+    "msgValuesIn" : m70,
+    "msgValuesNorm" : m71,
+    "msgValuesNormHigh" : m72,
+    "msgValuesNormLow" : m73,
+    "msgValuesVeryHigh" : m74,
+    "msgValuesVeryLow" : m75,
     "ok" : MessageLookupByLibrary.simpleMessage("ok"),
     "sehr geringes Risiko" : MessageLookupByLibrary.simpleMessage("とてもリスクが少ない"),
     "tl;dr" : MessageLookupByLibrary.simpleMessage("tl;dr"),

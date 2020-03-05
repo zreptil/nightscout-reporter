@@ -24,149 +24,151 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m2(time) => "Die angezeigte Basalrate ist seit ${time}  gültig und beinhaltet keine temporären Änderungen.";
 
-  static m3(value) => "Bazálna sadzba za deň ( ${value} )";
+  static m3(unit) => "Diese Basalrate war am ${unit} aktiv.";
 
-  static m4(value) => "Bazálna dávka z profilu ( ${value} )";
+  static m4(value) => "Bazálna sadzba za deň ( ${value} )";
 
-  static m5(value) => "Bolusový inzulín ( ${value} )";
+  static m5(value) => "Bazálna dávka z profilu ( ${value} )";
 
-  static m6(value) => "VarK [${value}%]";
+  static m6(value) => "Bolusový inzulín ( ${value} )";
 
-  static m7(scale, intercept, slope) => "Kalibrácia (scale ${scale} / intercept ${intercept} / slope ${slope})";
+  static m7(value) => "VarK [${value}%]";
 
-  static m8(value) => "Bolus jedla ( ${value} )";
+  static m8(scale, intercept, slope) => "Kalibrácia (scale ${scale} / intercept ${intercept} / slope ${slope})";
 
-  static m9(value) => "Sacharidy ( ${value} g)";
+  static m9(value) => "Bolus jedla ( ${value} )";
 
-  static m10(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na katéter)', other: '( ${txt} dní na katéter)')}";
+  static m10(value) => "Sacharidy ( ${value} g)";
 
-  static m11(name, from, to) => "${name} ${from} => ${to}";
+  static m11(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na katéter)', other: '( ${txt} dní na katéter)')}";
 
-  static m12(url) => "Skontrolujte prístup na ${url} ...";
+  static m12(name, from, to) => "${name} ${from} => ${to}";
 
-  static m13(value) => "Korekčný bolus ( ${value} )";
+  static m13(url) => "Skontrolujte prístup na ${url} ...";
 
-  static m14(value) => "${Intl.plural(value, zero: 'Žiadna hodnota', one: '1 hodnota', other: '${value} hodnoty')}";
+  static m14(value) => "Korekčný bolus ( ${value} )";
 
-  static m15(value) => "${value} dní";
+  static m15(value) => "${Intl.plural(value, zero: 'Žiadna hodnota', one: '1 hodnota', other: '${value} hodnoty')}";
 
-  static m16(hours, minutes) => "${hours} hod ${minutes} min";
+  static m16(value) => "${value} dní";
 
-  static m17(beg, end) => "${beg} - ${end}";
+  static m17(hours, minutes) => "${hours} hod ${minutes} min";
 
-  static m18(max) => "zlé (viac ako ${max} )";
+  static m18(beg, end) => "${beg} - ${end}";
 
-  static m19(min, max) => "dobré ( ${min} až ${max} )";
+  static m19(max) => "zlé (viac ako ${max} )";
 
-  static m20(min) => "nie je k dispozícii (malý ${min} )";
+  static m20(min, max) => "dobré ( ${min} až ${max} )";
 
-  static m21(min, max) => "veľmi dobré ( ${min} až ${max} )";
+  static m21(min) => "nie je k dispozícii (malý ${min} )";
 
-  static m22(unit, value) => "Intenzita HYPER\n[${unit} x min²]";
+  static m22(min, max) => "veľmi dobré ( ${min} až ${max} )";
 
-  static m23(unit) => "Intenzita hyperglykémie za deň (hodnoty väčšie alebo rovné ${unit}).";
+  static m23(unit, value) => "Intenzita HYPER\n[${unit} x min²]";
 
-  static m24(unit, value) => "Intenzita HYPO\n[${unit} x min²]";
+  static m24(unit) => "Intenzita hyperglykémie za deň (hodnoty väčšie alebo rovné ${unit}).";
 
-  static m25(unit) => "Intenzita hypoglykémie za deň (hodnoty menšie alebo rovné ${unit}).";
+  static m25(unit, value) => "Intenzita HYPO\n[${unit} x min²]";
 
-  static m26(value) => "Vysoko ${value}";
+  static m26(unit) => "Intenzita hypoglykémie za deň (hodnoty menšie alebo rovné ${unit}).";
 
-  static m27(value) => "Historicky ${value}";
+  static m27(value) => "Vysoko ${value}";
 
-  static m28(value) => "Hypoglykémie (< ${value})";
+  static m28(value) => "Historicky ${value}";
 
-  static m29(unit) => "Faktory citlivosti na inzulín (ISF) 1 IU znižujú BG o X ${unit}";
+  static m29(value) => "Hypoglykémie (< ${value})";
 
-  static m30(value) => "${value}g";
+  static m30(unit) => "Faktory citlivosti na inzulín (ISF) 1 IU znižujú BG o X ${unit}";
 
-  static m31(value) => "g sach. ( ${value} BE)";
+  static m31(value) => "${value}g";
 
-  static m32(value) => "Celkový inzulín ( ${value} )";
+  static m32(value) => "g sach. ( ${value} BE)";
 
-  static m33(error, stacktrace) => "Chyba pri načítaní údajov: ${error} ${stacktrace}";
+  static m33(value) => "Celkový inzulín ( ${value} )";
 
-  static m34(date) => "Načítavajú sa údaje za ${date} ...";
+  static m34(error, stacktrace) => "Chyba pri načítaní údajov: ${error} ${stacktrace}";
 
-  static m35(insulin, unit) => "SMB ${insulin} ${unit}";
+  static m35(date) => "Načítavajú sa údaje za ${date} ...";
 
-  static m36(percent, duration) => "temp. Bazál ${percent}% / ${duration} min";
+  static m36(insulin, unit) => "SMB ${insulin} ${unit}";
 
-  static m37(target, duration, reason) => "temp. ${target} cieľ na ${duration} min, dôvod: ${reason}";
+  static m37(percent, duration) => "temp. Bazál ${percent}% / ${duration} min";
 
-  static m38(value) => "Nízko${value}";
+  static m38(target, duration, reason) => "temp. ${target} cieľ na ${duration} min, dôvod: ${reason}";
 
-  static m39(gluc, unit) => "Meranie z krvi ${gluc} ${unit}";
+  static m39(value) => "Nízko${value}";
 
-  static m40(unit, value) => "Stredná glykémia\n[${unit}]";
+  static m40(gluc, unit) => "Meranie z krvi ${gluc} ${unit}";
 
-  static m41(hba1c) => "Glykemický priemer v uvažovanom období.";
+  static m41(unit, value) => "Stredná glykémia\n[${unit}]";
 
-  static m42(min, max) => "zlé ( ${min} až ${max} )";
+  static m42(hba1c) => "Glykemický priemer v uvažovanom období.";
 
-  static m43(min, max) => "dobré ( ${min} až ${max} )";
+  static m43(min, max) => "zlé ( ${min} až ${max} )";
 
-  static m44(max) => "veľmi zlé (viac ako ${max} )";
+  static m44(min, max) => "dobré ( ${min} až ${max} )";
 
-  static m45(min) => "vynikajúci (menej ako ${min} )";
+  static m45(max) => "veľmi zlé (viac ako ${max} )";
 
-  static m46(oldName, newName) => "Zmena profilu z ${oldName} => ${newName}";
+  static m46(min) => "vynikajúci (menej ako ${min} )";
 
-  static m47(oldName, newName, duration) => "Zmena profilu z ${oldName} => ${newName} po ${duration} minút";
+  static m47(oldName, newName) => "Zmena profilu z ${oldName} => ${newName}";
 
-  static m48(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za minútu', other: 'Meranie každých ${fmt} minút')}";
+  static m48(oldName, newName, duration) => "Zmena profilu z ${oldName} => ${newName} po ${duration} minút";
 
-  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie denne', other: '${fmt} meraní denne')}";
+  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za minútu', other: 'Meranie každých ${fmt} minút')}";
 
-  static m50(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za hodinu', other: '${fmt} meraní za hodinu')}";
+  static m50(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie denne', other: '${fmt} meraní denne')}";
 
-  static m51(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na ampulku)', other: '( ${txt} dní na ampulku)')}";
+  static m51(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za hodinu', other: '${fmt} meraní za hodinu')}";
 
-  static m52(value) => "SMB ( ${value} )";
+  static m52(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na ampulku)', other: '( ${txt} dní na ampulku)')}";
 
-  static m53(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na snímač)', other: '( ${txt} dní na snímač)')}";
+  static m53(value) => "SMB ( ${value} )";
 
-  static m54(low, high, unit) => "Standard Zielbereich verwenden (${low} ${unit} - ${high} ${unit})";
+  static m54(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na snímač)', other: '( ${txt} dní na snímač)')}";
 
-  static m55(value) => "(StdDev ${value})";
+  static m55(low, high, unit) => "Standard Zielbereich verwenden (${low} ${unit} - ${high} ${unit})";
 
-  static m56(value) => "ToR [${value}min/d]";
+  static m56(value) => "(StdDev ${value})";
 
-  static m57(min, max) => "Počet minút v dni, počas ktorých sú hodnoty mimo rozsahu ${min} až ${max} .";
+  static m57(value) => "ToR [${value}min/d]";
 
-  static m58(unit) => "Cieľová oblasť glukózy ${unit}";
+  static m58(min, max) => "Počet minút v dni, počas ktorých sú hodnoty mimo rozsahu ${min} až ${max} .";
 
-  static m59(min, max, units) => "Cieľový rozsah ( ${min} - ${max} ${units} )";
+  static m59(unit) => "Cieľová oblasť glukózy ${unit}";
 
-  static m60(value) => "cieľová hodnota";
+  static m60(min, max, units) => "Cieľový rozsah ( ${min} - ${max} ${units} )";
 
-  static m61(time) => "${time} hod";
+  static m61(value) => "cieľová hodnota";
 
-  static m62(time) => "${time} am";
+  static m62(time) => "${time} hod";
 
-  static m63(time) => "${time} pm";
+  static m63(time) => "${time} am";
 
-  static m64(begDate) => "platné od ${begDate}";
+  static m64(time) => "${time} pm";
 
-  static m65(begDate, endDate) => "platné od ${begDate} do ${endDate}";
+  static m65(begDate) => "platné od ${begDate}";
 
-  static m66(endDate) => "platí do ${endDate}";
+  static m66(begDate, endDate) => "platné od ${begDate} do ${endDate}";
 
-  static m67(high) => "Hodnoty nad ${high}";
+  static m67(endDate) => "platí do ${endDate}";
 
-  static m68(low) => "Hodnoty pod ${low}";
+  static m68(high) => "Hodnoty nad ${high}";
 
-  static m69(low, high) => "Hodnoty medzi ${low} a ${high}";
+  static m69(low) => "Hodnoty pod ${low}";
 
-  static m70(low, high) => "Cieľová oblasť ( ${low} - ${high} )";
+  static m70(low, high) => "Hodnoty medzi ${low} a ${high}";
 
-  static m71(value) => "Vysoké hodnoty ( ${value} )";
+  static m71(low, high) => "Cieľová oblasť ( ${low} - ${high} )";
 
-  static m72(value) => "Nízke hodnoty ( ${value} )";
+  static m72(value) => "Vysoké hodnoty ( ${value} )";
 
-  static m73(value) => "Veľmi vysoké hodnoty (> ${value} )";
+  static m73(value) => "Nízke hodnoty ( ${value} )";
 
-  static m74(value) => "Veľmi nízke hodnoty (< ${value} )";
+  static m74(value) => "Veľmi vysoké hodnoty (> ${value} )";
+
+  static m75(value) => "Veľmi nízke hodnoty (< ${value} )";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -203,6 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "1.3.7 - 7.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.7 - 7.1.2020"),
     "1.3.8 - 9.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.8 - 9.1.2020"),
     "1.4 - 28.2.2020" : MessageLookupByLibrary.simpleMessage("1.4 - 28.2.2020"),
+    "1.4.1 - xx.3.2020" : MessageLookupByLibrary.simpleMessage("1.4.1 - xx.3.2020"),
     "10%" : MessageLookupByLibrary.simpleMessage("10%"),
     "10% - 90% der Werte" : MessageLookupByLibrary.simpleMessage("10% - 90% hodnôt"),
     "15 Minuten" : MessageLookupByLibrary.simpleMessage("15 minút"),
@@ -259,6 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Basal mit zwei Nachkommastellen" : MessageLookupByLibrary.simpleMessage("Basal s dvoma desatinnými miestami"),
     "Basalrate" : MessageLookupByLibrary.simpleMessage("Bazálna rýchlosť"),
     "Basalrate\nIE / Stunde" : MessageLookupByLibrary.simpleMessage("Bazálna dávka U / hodina"),
+    "Basalrate anzeigen" : MessageLookupByLibrary.simpleMessage("Basalrate anzeigen"),
     "Batteriewechsel" : MessageLookupByLibrary.simpleMessage("Výmena batérie"),
     "Behandlungen" : MessageLookupByLibrary.simpleMessage("Ošetrenia"),
     "Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren." : MessageLookupByLibrary.simpleMessage("Denná grafika a týždenná grafika majú teraz možnosť umiestniť 1, 2, 4, 8 alebo 16 grafiky na stránku."),
@@ -270,6 +274,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Beim Erzeugen des PDF ist ein Fehler aufgetreten." : MessageLookupByLibrary.simpleMessage("Pri vytváraní súboru PDF sa vyskytla chyba."),
     "Beim Glukose Perzentil Diagramm kann man nun ein Maximum für die Skalierung festlegen. Wenn es auf \"Automatisch\" gesetzt wird, wird das Maximum wie bisher auch ermittelt. Bei einem anderen Wert wird die Obergrenze für das Diagramm auf diesen Wert festgesetzt. Damit ist es leichter möglich zwei Diagramme miteinander zu vergleichen, deren Obergrenze unterschiedlich ist." : MessageLookupByLibrary.simpleMessage("Beim Glukose Perzentil Diagramm kann man nun ein Maximum für die Skalierung festlegen. Wenn es auf \"Automatisch\" gesetzt wird, wird das Maximum wie bisher auch ermittelt. Bei einem anderen Wert wird die Obergrenze für das Diagramm auf diesen Wert festgesetzt. Damit ist es leichter möglich zwei Diagramme miteinander zu vergleichen, deren Obergrenze unterschiedlich ist."),
     "Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet" : MessageLookupByLibrary.simpleMessage("Pri načítaní údajov sa na zobrazenie použije zodpovedajúci formát dátumu"),
+    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war." : MessageLookupByLibrary.simpleMessage("Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war."),
     "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden" : MessageLookupByLibrary.simpleMessage("Používatelia môžu určiť token používateľa na pripojenie k chráneným nočným farbám"),
     "Benutzer können nun gelöscht werden" : MessageLookupByLibrary.simpleMessage("Používatelia môžu byť teraz odstránení"),
     "Benutzerdaten" : MessageLookupByLibrary.simpleMessage("Informácie o pacientovi"),
@@ -532,7 +537,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "Max" : MessageLookupByLibrary.simpleMessage("Max"),
     "Max Mustermann" : MessageLookupByLibrary.simpleMessage("Janko Mrkvička"),
     "Maximaler Glukosewert in Grafiken:" : MessageLookupByLibrary.simpleMessage("Maximaler Glukosewert in Grafiken:"),
-    "Maximum für die Skalierung" : MessageLookupByLibrary.simpleMessage("Maximum für die Skalierung"),
     "Median" : MessageLookupByLibrary.simpleMessage("Medián"),
     "Mehr gibt es dazu eigentlich nicht zu sagen." : MessageLookupByLibrary.simpleMessage("O tom nie je viac čo povedať."),
     "Mess-\nwerte" : MessageLookupByLibrary.simpleMessage("Hod-\nnoty"),
@@ -706,78 +710,79 @@ class MessageLookup extends MessageLookupByLibrary {
     "mmol/L" : MessageLookupByLibrary.simpleMessage("mmol/L"),
     "moderates Risiko" : MessageLookupByLibrary.simpleMessage("mierne riziko"),
     "msgBasalInfo" : m2,
-    "msgBasalrateDay" : m3,
-    "msgBasalrateProfile" : m4,
-    "msgBolusInsulin" : m5,
-    "msgCV" : m6,
-    "msgCalibration" : m7,
-    "msgCarbBolusInsulin" : m8,
-    "msgCarbs" : m9,
-    "msgCatheterDays" : m10,
-    "msgChangedEntry" : m11,
-    "msgCheckUser" : m12,
-    "msgCorrectBolusInsulin" : m13,
-    "msgCount" : m14,
-    "msgDaySum" : m15,
-    "msgDuration" : m16,
-    "msgFactorEntry" : m17,
-    "msgGVIBad" : m18,
-    "msgGVIGood" : m19,
-    "msgGVINone" : m20,
-    "msgGVIVeryGood" : m21,
-    "msgHYPER" : m22,
-    "msgHYPERInfo" : m23,
-    "msgHYPO" : m24,
-    "msgHYPOInfo" : m25,
-    "msgHigh" : m26,
-    "msgHistorical" : m27,
-    "msgHypoTitle" : m28,
-    "msgISF" : m29,
-    "msgKH" : m30,
-    "msgKHBE" : m31,
-    "msgLegendTDD" : m32,
-    "msgLoadingData" : m33,
-    "msgLoadingDataFor" : m34,
-    "msgLogSMB" : m35,
-    "msgLogTempBasal" : m36,
-    "msgLogTempTarget" : m37,
-    "msgLow" : m38,
-    "msgMBG" : m39,
-    "msgMEAN" : m40,
-    "msgMEANInfo" : m41,
-    "msgPGSBad" : m42,
-    "msgPGSGood" : m43,
-    "msgPGSVeryBad" : m44,
-    "msgPGSVeryGood" : m45,
-    "msgProfileSwitch" : m46,
-    "msgProfileSwitchDuration" : m47,
-    "msgReadingsInMinutes" : m48,
-    "msgReadingsPerDay" : m49,
-    "msgReadingsPerHour" : m50,
-    "msgReservoirDays" : m51,
-    "msgSMBInsulin" : m52,
-    "msgSensorDays" : m53,
-    "msgStandardLimits" : m54,
-    "msgStdAbw" : m55,
-    "msgTOR" : m56,
-    "msgTORInfo" : m57,
-    "msgTarget" : m58,
-    "msgTargetArea" : m59,
-    "msgTargetValue" : m60,
-    "msgTimeOfDay24" : m61,
-    "msgTimeOfDayAM" : m62,
-    "msgTimeOfDayPM" : m63,
-    "msgValidFrom" : m64,
-    "msgValidRange" : m65,
-    "msgValidTo" : m66,
-    "msgValuesAbove" : m67,
-    "msgValuesBelow" : m68,
-    "msgValuesIn" : m69,
-    "msgValuesNorm" : m70,
-    "msgValuesNormHigh" : m71,
-    "msgValuesNormLow" : m72,
-    "msgValuesVeryHigh" : m73,
-    "msgValuesVeryLow" : m74,
+    "msgBasalInfo1" : m3,
+    "msgBasalrateDay" : m4,
+    "msgBasalrateProfile" : m5,
+    "msgBolusInsulin" : m6,
+    "msgCV" : m7,
+    "msgCalibration" : m8,
+    "msgCarbBolusInsulin" : m9,
+    "msgCarbs" : m10,
+    "msgCatheterDays" : m11,
+    "msgChangedEntry" : m12,
+    "msgCheckUser" : m13,
+    "msgCorrectBolusInsulin" : m14,
+    "msgCount" : m15,
+    "msgDaySum" : m16,
+    "msgDuration" : m17,
+    "msgFactorEntry" : m18,
+    "msgGVIBad" : m19,
+    "msgGVIGood" : m20,
+    "msgGVINone" : m21,
+    "msgGVIVeryGood" : m22,
+    "msgHYPER" : m23,
+    "msgHYPERInfo" : m24,
+    "msgHYPO" : m25,
+    "msgHYPOInfo" : m26,
+    "msgHigh" : m27,
+    "msgHistorical" : m28,
+    "msgHypoTitle" : m29,
+    "msgISF" : m30,
+    "msgKH" : m31,
+    "msgKHBE" : m32,
+    "msgLegendTDD" : m33,
+    "msgLoadingData" : m34,
+    "msgLoadingDataFor" : m35,
+    "msgLogSMB" : m36,
+    "msgLogTempBasal" : m37,
+    "msgLogTempTarget" : m38,
+    "msgLow" : m39,
+    "msgMBG" : m40,
+    "msgMEAN" : m41,
+    "msgMEANInfo" : m42,
+    "msgPGSBad" : m43,
+    "msgPGSGood" : m44,
+    "msgPGSVeryBad" : m45,
+    "msgPGSVeryGood" : m46,
+    "msgProfileSwitch" : m47,
+    "msgProfileSwitchDuration" : m48,
+    "msgReadingsInMinutes" : m49,
+    "msgReadingsPerDay" : m50,
+    "msgReadingsPerHour" : m51,
+    "msgReservoirDays" : m52,
+    "msgSMBInsulin" : m53,
+    "msgSensorDays" : m54,
+    "msgStandardLimits" : m55,
+    "msgStdAbw" : m56,
+    "msgTOR" : m57,
+    "msgTORInfo" : m58,
+    "msgTarget" : m59,
+    "msgTargetArea" : m60,
+    "msgTargetValue" : m61,
+    "msgTimeOfDay24" : m62,
+    "msgTimeOfDayAM" : m63,
+    "msgTimeOfDayPM" : m64,
+    "msgValidFrom" : m65,
+    "msgValidRange" : m66,
+    "msgValidTo" : m67,
+    "msgValuesAbove" : m68,
+    "msgValuesBelow" : m69,
+    "msgValuesIn" : m70,
+    "msgValuesNorm" : m71,
+    "msgValuesNormHigh" : m72,
+    "msgValuesNormLow" : m73,
+    "msgValuesVeryHigh" : m74,
+    "msgValuesVeryLow" : m75,
     "ok" : MessageLookupByLibrary.simpleMessage("ok"),
     "sehr geringes Risiko" : MessageLookupByLibrary.simpleMessage("veľmi nízke riziko"),
     "tl;dr" : MessageLookupByLibrary.simpleMessage("tl; dr"),

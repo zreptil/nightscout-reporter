@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-02-28T12:07:28.853091",
+    "@@last_modified": "2020-03-05T15:15:01.477808",
     "Überprüfe Zugriff auf Nightscout ...": "Skontrolujte prístup do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1856,10 +1856,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Maximum für die Skalierung": "Maximum für die Skalierung",
-    "@Maximum für die Skalierung": {
+    "Basalrate anzeigen": "Basalrate anzeigen",
+    "@Basalrate anzeigen": {
         "type": "text",
         "placeholders": {}
+    },
+    "msgBasalInfo1": "Diese Basalrate war am {unit} aktiv.",
+    "@msgBasalInfo1": {
+        "type": "text",
+        "placeholders": {
+            "unit": {}
+        }
     },
     "Spalten für 10% und 90% anzeigen": "Zobraziť stĺpce pre 10% a 90%",
     "@Spalten für 10% und 90% anzeigen": {
@@ -2264,6 +2271,18 @@
     "Version": "verzia",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.1 - xx.3.2020": "1.4.1 - xx.3.2020",
+    "@1.4.1 - xx.3.2020": {
+        "description": "v141",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.",
+    "@Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": {
+        "description": "va41a1",
         "type": "text",
         "placeholders": {}
     },

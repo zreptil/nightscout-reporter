@@ -1299,9 +1299,15 @@ abstract class BasePrint {
     return g.fmtNumber(carb, precision);
   }
 
+  /// draws a graphic grid
+  ///
+  /// it uses [horzfs] as the fontsize of the horizontal scale and [vertfs] as the fontsize for the vertical
+  /// scale.
   GridData drawGraphicGrid(
       double glucMax, double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack,
-      {double glucScale: 0.0, double graphBottom: 0.0}) {
+      {double glucScale: 0.0, double graphBottom: 0.0, double horzfs: null, double vertfs: null}) {
+    if(horzfs == null)horzfs = fs(8);
+    if(vertfs == null)vertfs = fs(8);
     GridData ret = GridData();
     if (graphBottom == 0.0) graphBottom = graphHeight;
     ret.glucScale = glucScale == 0.0 ? g.glucMGDL ? 50 : 18.02 * 1 : glucScale;
@@ -1325,7 +1331,7 @@ abstract class BasePrint {
         horzStack.add({
           "relativePosition": {"x": cm(xorg + i * ret.colWidth), "y": cm(yorg + graphBottom + 0.05)},
           "text": fmtTime(i),
-          "fontSize": fs(8)
+          "fontSize": horzfs
         });
     }
 
@@ -1362,14 +1368,14 @@ abstract class BasePrint {
             "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
           },
           "text": text,
-          "fontSize": fs(8)
+          "fontSize": vertfs
         });
       } else {
         String text = "${g.getGlucInfo()["unit"]}";
         vertStack.add({
           "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
           "columns": [
-            {"width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}
+            {"width": cm(1.2), "text": text, "fontSize": vertfs, "alignment": "right"}
           ]
         });
         vertStack.add({
@@ -1378,7 +1384,7 @@ abstract class BasePrint {
             "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
           },
           "text": text,
-          "fontSize": fs(8)
+          "fontSize": vertfs
         });
       }
     }
@@ -1572,7 +1578,7 @@ abstract class BasePrint {
       double y = top + (gridLines - i) * lineHeight;
       horzCvs.add({
         "type": "line",
-        "x1": cm(0),
+        "x1": cm(-0.2),
         "y1": cm(y) - lw / 2,
         "x2": cm(24 * colWidth + 0.2),
         "y2": cm(y) - lw / 2,

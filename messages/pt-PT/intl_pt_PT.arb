@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-02-28T12:07:28.853091",
+    "@@last_modified": "2020-03-05T15:15:01.477808",
     "Überprüfe Zugriff auf Nightscout ...": "A verificar acesso ao Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -187,27 +187,27 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgewählter Zeitraum": "Selected Period",
+    "Ausgewählter Zeitraum": "Período selecionado",
     "@Ausgewählter Zeitraum": {
         "type": "text",
         "placeholders": {}
     },
-    "Einen Monat vorher": "One month before",
+    "Einen Monat vorher": "Um mês antes",
     "@Einen Monat vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Drei Monate vorher": "Three months before",
+    "Drei Monate vorher": "Três meses antes",
     "@Drei Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Sechs Monate vorher": "Six months before",
+    "Sechs Monate vorher": "Seis meses antes",
     "@Sechs Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Ein Jahr vorher": "One year before",
+    "Ein Jahr vorher": "Um ano antes",
     "@Ein Jahr vorher": {
         "type": "text",
         "placeholders": {}
@@ -1856,10 +1856,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Maximum für die Skalierung": "Valor máximo da escala",
-    "@Maximum für die Skalierung": {
+    "Basalrate anzeigen": "Show basalrate",
+    "@Basalrate anzeigen": {
         "type": "text",
         "placeholders": {}
+    },
+    "msgBasalInfo1": "This basalrate was active on {unit}.",
+    "@msgBasalInfo1": {
+        "type": "text",
+        "placeholders": {
+            "unit": {}
+        }
     },
     "Spalten für 10% und 90% anzeigen": "Mostrar colunas para 10% e 90%",
     "@Spalten für 10% und 90% anzeigen": {
@@ -2093,7 +2100,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgabe Parameter": "Output Parameters",
+    "Ausgabe Parameter": "Parâmetros",
     "@Ausgabe Parameter": {
         "description": "title for printparameter dialog",
         "type": "text",
@@ -2105,19 +2112,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Maximaler Glukosewert in Grafiken:": "Maximum glucose value in graphics:",
+    "Maximaler Glukosewert in Grafiken:": "Valor máximo de Glicose em gráficos:",
     "@Maximaler Glukosewert in Grafiken:": {
         "description": "label for max glucvalue in printparams",
         "type": "text",
         "placeholders": {}
     },
-    "Historische Daten": "Historical Data",
+    "Historische Daten": "Histórico",
     "@Historische Daten": {
         "description": "label of area for timeshift",
         "type": "text",
         "placeholders": {}
     },
-    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "This determines how much the period of the PDF should be shifted in order to obtain comparative values.",
+    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "Isto determina quanto o período do PDF deve ser deslocado para obter valores comparativos.",
     "@Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": {
         "description": "description of timeshift",
         "type": "text",
@@ -2267,6 +2274,18 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.4.1 - xx.3.2020": "1.4.1 - xx/3/2020",
+    "@1.4.1 - xx.3.2020": {
+        "description": "v141",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": "In the percentile diagram there is a new option with which the basalrate can be displayed below the diagram. Since the diagram normally spans a longer period, the basalrate that was active at the beginning of the period is displayed.",
+    "@Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": {
+        "description": "va41a1",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.4 - 28.2.2020": "1.4 - 28/2/2020",
     "@1.4 - 28.2.2020": {
         "description": "v14",
@@ -2309,7 +2328,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.": "Before a PDF is created, a dialog is displayed in which you can enter parameters for all PDFs created. You can set the target area to the standard area that doctors like to see. This has an impact on all representations of the target area, as well as on the distribution of the values inside and outside the target area. You can also set the maximum value for glucose in graphics there. This value is used in the daily graphics, the percentile diagram and the weekly graphics. If it is set to \"Automatic\", the maximum value is determined from the existing data as before. You can also specify here whether you want to generate the current period or a comparison period. This is useful to show the doctor a comparison of past and now values.",
+    "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.": "Antes de criar um PDF, é exibido uma caixa de parâmetros no qual pode inserir parâmetros para todos os PDFs criados. Pode definir o intervalo-alvo para o valor padrão que os médicos gostam de ver. Isto tem um impacto em todas as representações do intervalo alvo, bem como na distribuição dos valores dentro e fora do intervalo alvo. Você também pode definir o valor máximo para a glicose nos gráficos. Esse valor é usado nos gráficos diários, no diagrama percentual e nos gráficos semanais. Se estiver definido como \"Automático\", o valor máximo é determinado a partir dos dados existentes, como antes. Você também pode especificar aqui se deseja gerar o período atual ou um período de comparação. Isto é útil para mostrar ao médico uma comparação do passado e dos valores actuais.",
     "@Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.": {
         "description": "v14a7",
         "type": "text",

@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-02-28T12:07:28.853091",
+    "@@last_modified": "2020-03-05T15:15:01.477808",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -187,27 +187,27 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgewählter Zeitraum": "Ausgewählter Zeitraum",
+    "Ausgewählter Zeitraum": "Período seleccionado",
     "@Ausgewählter Zeitraum": {
         "type": "text",
         "placeholders": {}
     },
-    "Einen Monat vorher": "Einen Monat vorher",
+    "Einen Monat vorher": "Un mes antes",
     "@Einen Monat vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Drei Monate vorher": "Drei Monate vorher",
+    "Drei Monate vorher": "Tres meses antes",
     "@Drei Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Sechs Monate vorher": "Sechs Monate vorher",
+    "Sechs Monate vorher": "Seis meses antes",
     "@Sechs Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Ein Jahr vorher": "Ein Jahr vorher",
+    "Ein Jahr vorher": "Un año antes",
     "@Ein Jahr vorher": {
         "type": "text",
         "placeholders": {}
@@ -1856,10 +1856,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Maximum für die Skalierung": "Máximo de escalamiento",
-    "@Maximum für die Skalierung": {
+    "Basalrate anzeigen": "Basalrate anzeigen",
+    "@Basalrate anzeigen": {
         "type": "text",
         "placeholders": {}
+    },
+    "msgBasalInfo1": "Diese Basalrate war am {unit} aktiv.",
+    "@msgBasalInfo1": {
+        "type": "text",
+        "placeholders": {
+            "unit": {}
+        }
     },
     "Spalten für 10% und 90% anzeigen": "Mostrar columnas para 10% y 90%",
     "@Spalten für 10% und 90% anzeigen": {
@@ -2093,7 +2100,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgabe Parameter": "Ausgabe Parameter",
+    "Ausgabe Parameter": "Edición parámetros",
     "@Ausgabe Parameter": {
         "description": "title for printparameter dialog",
         "type": "text",
@@ -2111,13 +2118,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Historische Daten": "Historische Daten",
+    "Historische Daten": "Datos históricos",
     "@Historische Daten": {
         "description": "label of area for timeshift",
         "type": "text",
         "placeholders": {}
     },
-    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.",
+    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "Aquí defines por cuanto tiempo se postpone el PDF para comparar valores y datos.",
     "@Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": {
         "description": "description of timeshift",
         "type": "text",
@@ -2264,6 +2271,18 @@
     "Version": "Versión",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.1 - xx.3.2020": "1.4.1 - xx.3.2020",
+    "@1.4.1 - xx.3.2020": {
+        "description": "v141",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.",
+    "@Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": {
+        "description": "va41a1",
         "type": "text",
         "placeholders": {}
     },

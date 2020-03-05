@@ -68,7 +68,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = "1.4";
+  String version = "1.4.1";
   static String get msgThemeAuto => Intl.message("Automatisch", meaning: "theme selection - automatic");
   static String get msgThemeStandard => Intl.message("Standard", meaning: "theme selection - standard");
   static String get msgThemeXmas => Intl.message("Weihnachten", meaning: "theme selection - christmas");
@@ -461,7 +461,7 @@ class Globals extends Settings {
   }
 
   List<PeriodShift> get listPeriodShift => [
-        PeriodShift(Intl.message("Ausgewählter Zeitraum")),
+        PeriodShift(Intl.message("Ausgewählter Zeitraum"), months: 0),
         PeriodShift(Intl.message("Einen Monat vorher"), months: 1),
         PeriodShift(Intl.message("Drei Monate vorher"), months: 3),
         PeriodShift(Intl.message("Sechs Monate vorher"), months: 6),
