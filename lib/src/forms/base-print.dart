@@ -1727,10 +1727,10 @@ abstract class BasePrint {
   }
 
   List<dynamic> drawGraphicGridGeneric(
-      double graphHeight, double graphWidth, double xo, double yo, List<String> xValues, List<double> values, String valueColor, String valueLegend,
+      double graphHeight, double graphWidth, double xo, double yo, List<String> xValues, List<List<double>> values, List<String> valueColor, List<String> valueLegend,
       {double scale: 0.0, double graphBottom: 0.0}) {
-    dynamic line(dynamic points) =>
-        {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": valueColor, "points": points};
+    dynamic line(dynamic points, String vC) =>
+        {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": vC, "points": points};
     if (graphBottom == 0.0) graphBottom = graphHeight;
 
     var vertLines = {
@@ -1749,14 +1749,18 @@ abstract class BasePrint {
     };
     var graphLegend = {
       "relativePosition": {"x": cm(xo), "y": cm(yo)},
-      "stack": [{
-        "relativePosition": {"x": cm(0.05), "y": cm(graphBottom + 0.5)},
-        "text": valueLegend,
+      "stack": []
+    };
+    List graphLegendStack = graphLegend["stack"];
+    for (int i = 0; i < min(valueColor.length, valueLegend.length); i++) {
+      graphLegendStack.add({
+        "relativePosition": {"x": cm(0.05), "y": cm(graphBottom + 0.5 + i*0.5)},
+        "text": valueLegend[i],
         "fontSize": fs(10),
         "alignment": "left",
-        "color": valueColor
-      }]
-    };
+        "color": valueColor[i]
+      });
+    }
     List vertCvs = vertLines["canvas"] as List;
     List horzCvs = horzLines["canvas"] as List;
     List horzStack = horzLegend["stack"];
@@ -1773,8 +1777,9 @@ abstract class BasePrint {
     ];
 
     double maxValue = -100000000;
-    for (double l in values)
-      maxValue = max(l, maxValue);
+    for (List<double> l in values.length as List)
+      for (double ll in l)
+        maxValue = max(ll, maxValue);
     GridData grid = GridData();
     grid.glucScale = scale == 0.0 ? 1 : scale;
     grid.gridLines = (maxValue / grid.glucScale).ceil();
@@ -1847,14 +1852,17 @@ abstract class BasePrint {
         });
       }
     }
-    dynamic points = [];
-    for (int i = 0; i < values.length; i++) {
-      double sum = values[i];
-      double x = i * grid.colWidth;
-      double y = (grid.gridLines - sum) * grid.lineHeight - lw / 2;
-      points.add({"x": cm(x), "y": cm(y)});
+    for (int g = 0; g < values.length; g++) {
+      dynamic points = [];
+      List<double> v = values[g];
+      for (int i = 0; i < v.length; i++) {
+        double sum = v[i];
+        double x = i * grid.colWidth;
+        double y = (grid.gridLines - sum) * grid.lineHeight - lw / 2;
+        points.add({"x": cm(x), "y": cm(y)});
+      }
+      graphInsulinCvs.add(line(points, valueColor[g]));
     }
-    graphInsulinCvs.add(line(points));
     return ret;
   }
 }

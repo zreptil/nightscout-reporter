@@ -10,6 +10,11 @@ class PrintDailyStatistics extends BasePrint {
   @override
   String id = "daystats";
 
+  String get _titleGraphic => Intl.message("Tagesstatistik");
+
+  @override
+  String get title => _titleGraphic;
+
   bool showHbA1c, showStdabw, showCount, showPercentile, showVarK, showTDD, showExtendedInsulinStatictics;
   double _maxTDD = 0.0;
 
@@ -287,26 +292,33 @@ class PrintDailyStatistics extends BasePrint {
     String t = title;
     title = Intl.message("Insulinstatistik");
 
-    double contentWidth = new Page(false, null).width - 2*xorg; // 23.25 --> 29.7
+    double contentWidth = new Page(false, null).width - 1.5*xorg; // 23.25 --> 29.7
     double contentHeight = new Page(false, null).height - 1.5*yorg; // 13 --> 21
-    double weekly_monthly_distance = 1;
-    double legendHeight = 3;
+    double weekly_monthly_distance = 1.5;
+    double legendHeight = 1;
     double dailyWidth = contentWidth;
     double weeklyWidth = (contentWidth - weekly_monthly_distance)/2;
     double allGraphHeight = contentHeight / 2 - legendHeight;
-    double xo = xorg; // 3.35
+    double xo = xorg*0.75; // 3.35
     double yo = yorg; // 3.9
-    Map<String, double> dailyValues = new Map();
-    Map<String, double> weeklyValues = new Map();
-    Map<String, double> monthlyValues = new Map();
-    Map<String, int> weeklyCounter = new Map();
-    Map<String, int> monthlyCounter = new Map();
-    List<double> valuesDaily = [];
-    List<double> valuesWeekly = [];
-    List<double> valuesMonthly = [];
-    List<String> xValuesDaily = [];
-    List<String> xValuesWeekly = [];
-    List<String> xValuesMonthly = [];
+
+    List<String> xValuesDaily = null;
+    List<String> xValuesWeekly = null;
+    List<String> xValuesMonthly = null;
+    List<List<double>> valuesDaily = [];
+    List<List<double>> valuesWeekly = [];
+    List<List<double>> valuesMonthly = [];
+    List<String> valueColor = [];
+    List<String> valueLegend = [];
+
+    Map<String, double> dV = new Map();
+    Map<String, double> wV = new Map();
+    Map<String, double> mV = new Map();
+    Map<String, int> wC = new Map();
+    Map<String, int> mC = new Map();
+    List<double> vD = [];
+    List<double> vW = [];
+    List<double> vM = [];
     for (DayData day in src.data.days) {
       double sum = 0;
       for (TreatmentData t in day.treatments)
@@ -314,30 +326,39 @@ class PrintDailyStatistics extends BasePrint {
       String dayStr = fmtDateShort(day.date, "day");
       String weekStr = fmtDateShort(day.date, "week");
       String monthStr = fmtDateShort(day.date, "month");
-      dailyValues.update(dayStr, (double v) => v + sum, ifAbsent: () => sum);
-      weeklyValues.update(weekStr, (double v) => v + sum, ifAbsent: () => sum);
-      weeklyCounter.update(weekStr, (int v) => v + 1, ifAbsent: () => 1);
-      monthlyValues.update(monthStr, (double v) => v + sum, ifAbsent: () => sum);
-      monthlyCounter.update(monthStr, (int v) => v + 1, ifAbsent: () => 1);
+      dV.update(dayStr, (double v) => v + sum, ifAbsent: () => sum);
+      wV.update(weekStr, (double v) => v + sum, ifAbsent: () => sum);
+      wC.update(weekStr, (int v) => v + 1, ifAbsent: () => 1);
+      mV.update(monthStr, (double v) => v + sum, ifAbsent: () => sum);
+      mC.update(monthStr, (int v) => v + 1, ifAbsent: () => 1);
     }
-    xValuesDaily = dailyValues.keys.toList();
-    xValuesWeekly = weeklyValues.keys.toList();
-    xValuesMonthly = monthlyValues.keys.toList();
-    valuesDaily = dailyValues.values.toList();
+    if (xValuesDaily == null)
+      xValuesDaily = dV.keys.toList();
+    if (xValuesWeekly == null)
+      xValuesWeekly = wV.keys.toList();
+    if (xValuesMonthly == null)
+      xValuesMonthly = mV.keys.toList();
+    vD = dV.values.toList();
     for (String s in xValuesWeekly)
-      valuesWeekly.add(weeklyValues[s]/weeklyCounter[s]);
+      vW.add(wV[s]/wC[s]);
     for (String s in xValuesMonthly)
-      valuesMonthly.add(monthlyValues[s]/monthlyCounter[s]);
+      vM.add(mV[s]/mC[s]);
+
+    valuesDaily.add(vD);
+    valuesWeekly.add(vW);
+    valuesMonthly.add(vM);
+    valueColor.add("#000000");
+    valueLegend.add(Intl.message("Gesamtinsulin pro Tag"));
 
     List<dynamic> daily = drawGraphicGridGeneric(allGraphHeight, dailyWidth,
         xo, yo,
-        xValuesDaily, valuesDaily, "#000000", Intl.message("Gesamtinsulin pro Tag"), graphBottom: allGraphHeight);
+        xValuesDaily, valuesDaily, valueColor, valueLegend, graphBottom: allGraphHeight);
     List<dynamic> weekly = drawGraphicGridGeneric(allGraphHeight, weeklyWidth,
         xo, yo + allGraphHeight + legendHeight,
-        xValuesWeekly, valuesWeekly, "#000000", Intl.message("Gesamtinsulin pro Tag"), graphBottom: allGraphHeight);
+        xValuesWeekly, valuesWeekly, valueColor, valueLegend, graphBottom: allGraphHeight);
     List<dynamic> monthly = drawGraphicGridGeneric(allGraphHeight, weeklyWidth,
         xo + weeklyWidth + weekly_monthly_distance, yo + allGraphHeight + legendHeight,
-        xValuesMonthly, valuesMonthly, "#000000", Intl.message("Gesamtinsulin pro Tag"), graphBottom: allGraphHeight);
+        xValuesMonthly, valuesMonthly, valueColor, valueLegend, graphBottom: allGraphHeight);
 
     List<dynamic> content = [ headerFooter(), ];
     content.addAll(daily);
