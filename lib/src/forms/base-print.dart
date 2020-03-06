@@ -1777,7 +1777,7 @@ abstract class BasePrint {
     ];
 
     double maxValue = -100000000;
-    for (List<double> l in values.length as List)
+    for (List<double> l in values)
       for (double ll in l)
         maxValue = max(ll, maxValue);
     GridData grid = GridData();

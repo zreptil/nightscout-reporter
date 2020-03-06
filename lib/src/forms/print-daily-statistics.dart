@@ -10,7 +10,7 @@ class PrintDailyStatistics extends BasePrint {
   @override
   String id = "daystats";
 
-  String get _titleGraphic => Intl.message("Tagesstatistik");
+  String _titleGraphic = Intl.message("Tagesstatistik");
 
   @override
   String get title => _titleGraphic;
@@ -284,18 +284,19 @@ class PrintDailyStatistics extends BasePrint {
       test["columns"].last["table"]["body"].add(body.last);
     }
     if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
-    pages.add(getInsulinPage(repData));
+    if (showExtendedInsulinStatictics)
+      pages.add(getInsulinPage(repData));
   }
 
   Page getInsulinPage(ReportData src)
   {
-    String t = title;
-    title = Intl.message("Insulinstatistik");
+    String t = _titleGraphic;
+    _titleGraphic = Intl.message("Insulinstatistik");
 
     double contentWidth = new Page(false, null).width - 1.5*xorg; // 23.25 --> 29.7
     double contentHeight = new Page(false, null).height - 1.5*yorg; // 13 --> 21
     double weekly_monthly_distance = 1.5;
-    double legendHeight = 1;
+    double legendHeight = 1.5;
     double dailyWidth = contentWidth;
     double weeklyWidth = (contentWidth - weekly_monthly_distance)/2;
     double allGraphHeight = contentHeight / 2 - legendHeight;
@@ -350,23 +351,23 @@ class PrintDailyStatistics extends BasePrint {
     valueColor.add("#000000");
     valueLegend.add(Intl.message("Gesamtinsulin pro Tag"));
 
-    List<dynamic> daily = drawGraphicGridGeneric(allGraphHeight, dailyWidth,
-        xo, yo,
-        xValuesDaily, valuesDaily, valueColor, valueLegend, graphBottom: allGraphHeight);
-    List<dynamic> weekly = drawGraphicGridGeneric(allGraphHeight, weeklyWidth,
-        xo, yo + allGraphHeight + legendHeight,
-        xValuesWeekly, valuesWeekly, valueColor, valueLegend, graphBottom: allGraphHeight);
-    List<dynamic> monthly = drawGraphicGridGeneric(allGraphHeight, weeklyWidth,
-        xo + weeklyWidth + weekly_monthly_distance, yo + allGraphHeight + legendHeight,
-        xValuesMonthly, valuesMonthly, valueColor, valueLegend, graphBottom: allGraphHeight);
-
     List<dynamic> content = [ headerFooter(), ];
-    content.addAll(daily);
-    content.addAll(weekly);
-    content.addAll(monthly);
+    if (xValuesDaily.length > 1)
+      content.addAll(drawGraphicGridGeneric(allGraphHeight, dailyWidth,
+          xo, yo,
+          xValuesDaily, valuesDaily, valueColor, valueLegend, graphBottom: allGraphHeight));
+    if (xValuesWeekly.length > 1)
+      content.addAll(drawGraphicGridGeneric(allGraphHeight, weeklyWidth,
+          xo, yo + allGraphHeight + legendHeight,
+          xValuesWeekly, valuesWeekly, valueColor, valueLegend, graphBottom: allGraphHeight));
+    if (xValuesMonthly.length > 1)
+      content.addAll(drawGraphicGridGeneric(allGraphHeight, weeklyWidth,
+          xo + weeklyWidth + weekly_monthly_distance, yo + allGraphHeight + legendHeight,
+          xValuesMonthly, valuesMonthly, valueColor, valueLegend, graphBottom: allGraphHeight));
+
     var ret = Page(isPortrait, content);
 
-    title = t;
+    _titleGraphic = t;
     return ret;
   }
 }
