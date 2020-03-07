@@ -293,16 +293,6 @@ class PrintDailyStatistics extends BasePrint {
     String t = _titleGraphic;
     _titleGraphic = Intl.message("Insulinstatistik");
 
-    double contentWidth = new Page(false, null).width - 1.5*xorg; // 23.25 --> 29.7
-    double contentHeight = new Page(false, null).height - 1.5*yorg; // 13 --> 21
-    double weekly_monthly_distance = 1.5;
-    double legendHeight = 1.5;
-    double dailyWidth = contentWidth;
-    double weeklyWidth = (contentWidth - weekly_monthly_distance)/2;
-    double allGraphHeight = contentHeight / 2 - legendHeight;
-    double xo = xorg*0.75; // 3.35
-    double yo = yorg; // 3.9
-
     List<String> xValuesDaily = null;
     List<String> xValuesWeekly = null;
     List<String> xValuesMonthly = null;
@@ -350,6 +340,16 @@ class PrintDailyStatistics extends BasePrint {
     valuesMonthly.add(vM);
     valueColor.add("#000000");
     valueLegend.add(Intl.message("Gesamtinsulin pro Tag"));
+
+    double contentWidth = new Page(false, null).width - 1.5*xorg; // 23.25 --> 29.7
+    double contentHeight = new Page(false, null).height - 1.5*yorg; // 13 --> 21
+    double weekly_monthly_distance = 1.5;
+    double legendHeight = 1 + valueLegend.length * 0.5;
+    double dailyWidth = contentWidth;
+    double weeklyWidth = (contentWidth - weekly_monthly_distance)/2;
+    double allGraphHeight = contentHeight / 2 - legendHeight;
+    double xo = xorg*0.75; // 3.35
+    double yo = yorg; // 3.9
 
     List<dynamic> content = [ headerFooter(), ];
     if (xValuesDaily.length > 1)
