@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m2(time) => "Le débit basal est valide depuis ${time} et n\'inclut aucune modification temporaire.";
 
-  static m3(unit) => "This basalrate was active on ${unit}.";
+  static m3(unit) => "Ce débit de basal a été actif le ${unit}.";
 
   static m4(value) => "Débit basal pour la journée (${value})";
 
@@ -205,7 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "1.3.7 - 7.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.7 - 7/1/2020"),
     "1.3.8 - 9.1.2020" : MessageLookupByLibrary.simpleMessage("1.3.8 - 9/1/2020"),
     "1.4 - 28.2.2020" : MessageLookupByLibrary.simpleMessage("1.4 - 28/2/2020"),
-    "1.4.1 - xx.3.2020" : MessageLookupByLibrary.simpleMessage("1.4.1 - xx/3/2020"),
+    "1.4.1 - 13.3.2020" : MessageLookupByLibrary.simpleMessage("1.4.1 - 13/3/2020"),
     "10%" : MessageLookupByLibrary.simpleMessage("10%"),
     "10% - 90% der Werte" : MessageLookupByLibrary.simpleMessage("10% - 90% des valeurs"),
     "15 Minuten" : MessageLookupByLibrary.simpleMessage("15 minutes"),
@@ -237,7 +237,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Anzahl Unterzuckerungen" : MessageLookupByLibrary.simpleMessage("Nombre d\'hypoglycémies"),
     "Anzahl der Sensoren zur Analyse hinzugefügt" : MessageLookupByLibrary.simpleMessage("Nombre de capteurs ajouté à l\"analyse"),
     "Anzeigeeinstellungen" : MessageLookupByLibrary.simpleMessage("Paramètres d\'affichage"),
-    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen." : MessageLookupByLibrary.simpleMessage("Sur 10be, les paramètres par défaut du serveur doivent activer la case à cocher \"cors\" afin que les outils externes comme celui-ci puissent accéder aux données."),
+    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist." : MessageLookupByLibrary.simpleMessage("Sur 10be, les paramètres par défaut du serveur doivent activer la case à cocher \"cors\" pour que les outils externes comme celui-ci puissent accéder aux données. Si \"cors\" a été activé, le redéploiement devra être fait sur le serveur avant d\'être réellement disponible."),
     "Auf Kacheln Bilder statt Namen anzeigen" : MessageLookupByLibrary.simpleMessage("Afficher les images au lieu des noms sur les tuiles"),
     "Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog." : MessageLookupByLibrary.simpleMessage("Les images peuvent maintenant être affichées sur les tuiles au lieu des noms. Les images affichent ensuite l\'apparence approximative de la page correspondante. Elles ne correspondent pas aux données réelles, mais ce ne sont que des représentations visuelles qui peuvent faciliter la sélection rapide des pages désirées. L\'activation des images peut se faire en utilisant la boîte de dialogue des paramètres."),
     "Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt." : MessageLookupByLibrary.simpleMessage("Sur les pages de profil et de débit de base, la barre de titre montre à nouveau la date de début de ce profil."),
@@ -262,7 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Basal mit zwei Nachkommastellen" : MessageLookupByLibrary.simpleMessage("Débit de base avec deux décimales"),
     "Basalrate" : MessageLookupByLibrary.simpleMessage("Débit basal"),
     "Basalrate\nIE / Stunde" : MessageLookupByLibrary.simpleMessage("Débit de base en Unité/heure"),
-    "Basalrate anzeigen" : MessageLookupByLibrary.simpleMessage("Show basalrate"),
+    "Basalrate anzeigen" : MessageLookupByLibrary.simpleMessage("Afficher le débit basal"),
     "Batteriewechsel" : MessageLookupByLibrary.simpleMessage("Changement de batterie"),
     "Behandlungen" : MessageLookupByLibrary.simpleMessage("Traitements"),
     "Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren." : MessageLookupByLibrary.simpleMessage("Dans les graphiques quotidiens et hebdomadaires, il est maintenant possible de placer 1, 2, 4, 8 ou 16 images sur une page."),
@@ -274,7 +274,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Beim Erzeugen des PDF ist ein Fehler aufgetreten." : MessageLookupByLibrary.simpleMessage("Une erreur s’est produite lors de la création du PDF."),
     "Beim Glukose Perzentil Diagramm kann man nun ein Maximum für die Skalierung festlegen. Wenn es auf \"Automatisch\" gesetzt wird, wird das Maximum wie bisher auch ermittelt. Bei einem anderen Wert wird die Obergrenze für das Diagramm auf diesen Wert festgesetzt. Damit ist es leichter möglich zwei Diagramme miteinander zu vergleichen, deren Obergrenze unterschiedlich ist." : MessageLookupByLibrary.simpleMessage("Dans le diagramme Percentile de glucose, vous pouvez maintenant définir un maximum pour la mise à l\'échelle. S\'il est réglé sur \"Automatique\", le maximum est déterminé comme avant. Pour toute autre valeur, la limite supérieure du diagramme est définie à cette valeur. Cela facilite la comparaison de deux diagrammes avec des limites supérieures différentes."),
     "Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet" : MessageLookupByLibrary.simpleMessage("Lors du chargement des données, le format de date correspondant est utilisé pour l\'affichage de la progression"),
-    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war." : MessageLookupByLibrary.simpleMessage("In the percentile diagram there is a new option with which the basalrate can be displayed below the diagram. Since the diagram normally spans a longer period, the basalrate that was active at the beginning of the period is displayed."),
+    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war." : MessageLookupByLibrary.simpleMessage("Dans le diagramme percentile, il y a une nouvelle option avec laquelle le débit de basal peut être affiché sous le diagramme. Comme le diagramme s\'étend normalement sur une période plus longue, le débit de basal qui était actif au début de la période s\'affiche."),
     "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden" : MessageLookupByLibrary.simpleMessage("Les utilisateurs peuvent spécifier un jeton utilisateur pour se connecter aux instances protégées de Nightscout"),
     "Benutzer können nun gelöscht werden" : MessageLookupByLibrary.simpleMessage("Les utilisateurs peuvent maintenant être supprimés"),
     "Benutzerdaten" : MessageLookupByLibrary.simpleMessage("Données d\'utilisateur"),
@@ -372,6 +372,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Die Tagesstatistik zeigt mmol/l-Werte nun korrekt an" : MessageLookupByLibrary.simpleMessage("Les statistiques journalières affichent maintenant correctement les valeurs en mmol/l"),
     "Die URL wurde noch nicht festgelegt" : MessageLookupByLibrary.simpleMessage("L\'URL n\'a pas encore été configurée"),
     "Die URL wurde noch nicht festgelegt." : MessageLookupByLibrary.simpleMessage("L\'URL n\'a pas encore été configurée."),
+    "Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich." : MessageLookupByLibrary.simpleMessage("The Url to the Nightscout API must start with https, since Nightscout Reporter also runs on https. Access to unsafe http resources is not possible."),
     "Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B. die Auswahl von CGP bei Tagesgrafiken)." : MessageLookupByLibrary.simpleMessage("Les images de prévisualisation sur les tuiles s\'ajusteront partiellement en fonction des options sélectionnées (par exemple, choisir CGP pour les graphes quotidiens)."),
     "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz." : MessageLookupByLibrary.simpleMessage("Le site utilise principalement Javascript pour faire son travail. Lors de la création de documents PDF, Javascript et PHP sont utilisés."),
     "Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben." : MessageLookupByLibrary.simpleMessage("Les valeurs VarK et ToR dans la CGP sont correctement affichées pour les graphiques de jour et de semaine dans la légende et dans le graphique."),
@@ -428,6 +429,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Es werden jetzt auch blutige Werte erkannt, die von Loop auf dem IPhone eingetragen werden." : MessageLookupByLibrary.simpleMessage("Les glycémies capillaires qui sont entrées par Boucle sur l\'iPhone sont maintenant également reconnues."),
     "Español" : MessageLookupByLibrary.simpleMessage("Espagnol"),
     "Facebook Seite" : MessageLookupByLibrary.simpleMessage("Page Facebook"),
+    "Fehler behoben, der bei der Kachelansicht teilweise verhindert hat, dass die Parameter für die Kacheln aufgerufen werden konnten." : MessageLookupByLibrary.simpleMessage("Fixed a bug that sometimes prevented the parameters for the tiles from being called in the tile view."),
     "Fehler beim Laden der Daten" : MessageLookupByLibrary.simpleMessage("Erreur de chargement des données"),
     "Fehler werden besser abgefangen und mit sinnvollem Text ersetzt." : MessageLookupByLibrary.simpleMessage("Les erreurs sont mieux interceptées et remplacées par un texte plus significatif."),
     "Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert." : MessageLookupByLibrary.simpleMessage("Réparation incorrecte des niveaux de glycémie dans le graphe quotidien."),

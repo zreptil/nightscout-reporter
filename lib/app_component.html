@@ -208,12 +208,12 @@
                *ngIf="isFormVisible(cfg.form)"
                (click)="expansionPanelClicked($event,cfg)">
             <img *ngIf="g.tileShowImage" [src]="cfg.form.backimage">
-            <div numberimg *ngIf="g.tileShowImage && cfg.checked">{{checkedIndex(cfg)}}</div>
-            <div number *ngIf="!g.tileShowImage && cfg.checked">{{checkedIndex(cfg)}}</div>
             <div params *ngIf="cfg.form.sortedParams.length>0 && cfg.checked"
                  (click)="tileParams=cfg;$event.stopPropagation();">
               <material-icon icon="more_vert"></material-icon>
             </div>
+            <div numberimg *ngIf="g.tileShowImage && cfg.checked">{{checkedIndex(cfg)}}</div>
+            <div number *ngIf="!g.tileShowImage && cfg.checked">{{checkedIndex(cfg)}}</div>
             <div *ngIf="!g.tileShowImage" title>{{cfg.form.display}}</div>
             <div pages *ngIf="cfg.checked && (!g.tileShowImage || !cfg.form.isPortraitParam)">
               {{cfg.form.pageCountDisplay(reportData==null)}}
@@ -279,7 +279,7 @@
         <signin [isVisible]="true" [autoStart]="g.loadStorage('syncGoogle')=='yes'" [showMenuButton]="true"
                 [raised]="true" [(isAuthorized)]="g.syncGoogle"
                 [clientId]="g.googleClientId"
-                (trigger)="signinEvent($event)"
+                (onEvent)="signinEvent($event)"
                 (signinResult)="g.client=$event;"></signin>
         <material-button class="iconButton material-drawer-button" (trigger)="currPage='whatsnew';">
           <material-icon icon="new_releases"></material-icon>

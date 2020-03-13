@@ -485,8 +485,14 @@ class Globals extends Settings {
           "wie dieses hier auf die Daten zugreifen dürfen.");
 
   String get msgUrlFailure10be => Intl.message("Auf 10be muss beim Server in den Standardeinstellungen der Haken bei "
-      "\"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.");
+      "\"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" "
+      "aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.");
+
+  String get msgUrlNotSafe => Intl.message("Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter "
+      "auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.");
+
   String msgUrlFailure(String url) {
+    if (url.startsWith("http:") && html.window.location.protocol.startsWith("https")) return msgUrlNotSafe;
     if (url.contains("ns.10be")) return "${msgUrlFailurePrefix}${msgUrlFailure10be}${msgUrlFailureSuffix}";
     return "${msgUrlFailurePrefix}${msgUrlFailureHerokuapp}${msgUrlFailureSuffix}";
   }
