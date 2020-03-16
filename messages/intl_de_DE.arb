@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-03-13T13:07:18.484903",
+  "@@last_modified": "2020-03-16T12:03:45.648204",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -45,6 +45,11 @@
   "Erzeuge PDF...": "Erzeuge PDF...",
   "@Erzeuge PDF...": {
     "description": "text when pdf is being created",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Lade die Basisdaten...": "Lade die Basisdaten...",
+  "@Lade die Basisdaten...": {
     "type": "text",
     "placeholders": {}
   },
@@ -2276,6 +2281,24 @@
   "Version": "Version",
   "@Version": {
     "description": "version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.4.2 - 16.3.2020": "1.4.2 - 16.3.2020",
+  "@1.4.2 - 16.3.2020": {
+    "description": "v142",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": "Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.",
+  "@Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": {
+    "description": "v142c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": "Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.",
+  "@Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": {
+    "description": "v142f1",
     "type": "text",
     "placeholders": {}
   },

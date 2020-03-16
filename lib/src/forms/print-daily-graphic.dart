@@ -297,7 +297,7 @@ class PrintDailyGraphic extends BaseDaily {
   carbsForIE(ReportData src, TreatmentData t) {
     if (t.boluscalc != null) return t.boluscalc.insulinCarbs;
 
-    int check = t.createdAt.hour * 60 + t.createdAt.minute;
+    int check = (t.createdAt.hour * 60 + t.createdAt.minute) * 60;
     double ret = 0.0;
     for (ProfileEntryData entry in src.profile(t.createdAt).store.listCarbratio) {
       if (entry.timeForCalc < check) ret = entry.value != 0 ? t.carbs / entry.value : 0.0;
@@ -821,7 +821,7 @@ class PrintDailyGraphic extends BaseDaily {
       double y = carbY(info.max1);
       String text = "${msgKH(g.fmtNumber(info.sum1))}";
       if (info.count > 1) {
-        text = "[$text]";
+        text = "[$text]"; // ${info.count} ${info.start.hour}:${info.start.minute} - ${info.end.hour}:${info.end.minute}";
         hasCollectedValues = true;
       }
       y -= 0.35;

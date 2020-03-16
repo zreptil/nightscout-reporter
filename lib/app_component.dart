@@ -149,6 +149,7 @@ class AppComponent implements OnInit {
   String get msgPreparingData => Intl.message("Bereite Daten vor...",
       desc: "text when data was received and is being prepared to be used in the report");
   String get msgCreatingPDF => Intl.message("Erzeuge PDF...", desc: "text when pdf is being created");
+  String get msgPreparingPDF => Intl.message("Lade die Basisdaten...");
   String get msgImpressum => Intl.message("Impressum");
   String get msgDSGVO => Intl.message("Datenschutzerklärung");
   String get msgApply => Intl.message("ok");
@@ -674,7 +675,11 @@ class AppComponent implements OnInit {
       g.basalPrecision = 0;
       List<dynamic> src = json.decode(content);
       for (dynamic entry in src) {
-        data.profiles.add(ProfileData.fromJson(entry, isFromNS: true));
+        // don't add profiles that cannot be read
+        try {
+          ProfileData profile = ProfileData.fromJson(entry, isFromNS: true);
+          data.profiles.add(profile);
+        } catch (ex) {}
         g.basalPrecision = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
       }
       data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
@@ -859,16 +864,18 @@ class AppComponent implements OnInit {
         for (dynamic treatment in src) {
           hasData = true;
           TreatmentData t = TreatmentData.fromJson(treatment);
-          data.ns.treatments.add(t);
-          if (t.eventType.toLowerCase() == "bg check") {
-            EntryData entry = EntryData();
-            entry.id = t.id;
-            entry.time = t.createdAt;
-            entry.device = t.enteredBy;
-            entry.type = "mbg";
-            entry.mbg = t.glucose * (g.glucMGDL ? 1 : 18.02);
-            entry.rawbg = t.glucose;
-            data.ns.bloody.add(entry);
+          if (data.ns.treatments.length == 0 || !t.equals(data.ns.treatments.last)) {
+            data.ns.treatments.add(t);
+            if (t.eventType.toLowerCase() == "bg check") {
+              EntryData entry = EntryData();
+              entry.id = t.id;
+              entry.time = t.createdAt;
+              entry.device = t.enteredBy;
+              entry.type = "mbg";
+              entry.mbg = t.glucose * (g.glucMGDL ? 1 : 18.02);
+              entry.rawbg = t.glucose;
+              data.ns.bloody.add(entry);
+            }
           }
         }
       }
@@ -1033,6 +1040,9 @@ class AppComponent implements OnInit {
     g.save(skipReload: isForThumbs);
     display("");
     pdfList.clear();
+    progressMax = 1;
+    progressValue = 0;
+    progressText = msgPreparingPDF;
     loadData(isForThumbs).then((ReportData src) async {
       progressText = msgCreatingPDF;
       if (src.error != null) {

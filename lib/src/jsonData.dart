@@ -1028,6 +1028,12 @@ class TreatmentData extends JsonData {
     ..isECarb = isECarb
     ..raw = raw;
 
+  bool equals(TreatmentData t) {
+    return createdAt.millisecondsSinceEpoch == t.createdAt.millisecondsSinceEpoch &&
+        eventType == t.eventType &&
+        duration == t.duration;
+  }
+
   factory TreatmentData.fromJson(Map<String, dynamic> json) {
     TreatmentData ret = TreatmentData();
     if (json == null) return ret;
@@ -1843,22 +1849,15 @@ class ListData {
         }
       }
 
-      if (data.isInPeriod(entry.time))
-      {
-        if(firstGluc == null)firstGluc = entry.gluc;
+      if (data.isInPeriod(entry.time)) {
+        if (firstGluc == null) firstGluc = entry.gluc;
         lastGluc = entry.gluc;
-        if (last == null)
-        {
+        if (last == null) {
           glucTotal += entry.gluc;
-        }
-        else
-        {
-          int timeDelta = entry.time
-            .difference(last.time)
-            .inMilliseconds;
+        } else {
+          int timeDelta = entry.time.difference(last.time).inMilliseconds;
 
-          if (timeDelta <= 6 * 60000 && entry.gluc > 0 && last.gluc > 0)
-          {
+          if (timeDelta <= 6 * 60000 && entry.gluc > 0 && last.gluc > 0) {
             usedRecords++;
             double delta = entry.gluc - last.gluc;
 //          deltaTotal += delta;
@@ -1966,7 +1965,7 @@ class ListData {
       int idx = days.indexWhere((d) => d.isSameDay(t.createdAt.toLocal()));
       if (idx >= 0) days[idx].treatments.add(t);
 
-      if(!data.isInPeriod(t.createdAt))continue;
+      if (!data.isInPeriod(t.createdAt)) continue;
 
       khCount += t.carbs;
       ieBolusSum += t.bolusInsulin;
