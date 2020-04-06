@@ -196,12 +196,12 @@ class PrintPercentile extends BasePrint
         "h": cm(h)
       }
     ];
-    if (day.entryCount == 0) canvas = [];
+    if (day.entryCountValid == 0) canvas = [];
     addTableRow(
       true, cm(wid * 100), row, {"text": msgDistribution, "style": "total", "alignment": "center", "fontSize": f},
       {"style": style, "canvas": canvas});
     addTableRow(true, cm(w), row, {"text": msgValues, "style": "total", "alignment": "center", "fontSize": f},
-      {"text": "${g.fmtNumber(day.entryCount, 0)}", "style": style, "alignment": "right", "fontSize": f});
+      {"text": "${g.fmtNumber(day.entryCountValid, 0)}", "style": style, "alignment": "right", "fontSize": f});
     addTableRow(true, cm(w), row, {"text": msgAverage, "style": "total", "alignment": "center", "fontSize": f},
       {"text": "${g.glucFromData(day.avgGluc, 1)}", "style": style, "alignment": "right", "fontSize": f});
     addTableRow(true, cm(w), row, {"text": msgMin, "style": "total", "alignment": "center", "fontSize": f},
@@ -524,7 +524,7 @@ class PrintPercentile extends BasePrint
     for (ProfileEntryData entry in data)
       temp.add(entry);
 
-    if (useProfile)
+    if (useProfile && temp.length > 0)
     {
       temp.sort((a, b)
       => a.time(day.date, useProfile).compareTo(b.time(day.date, useProfile)));

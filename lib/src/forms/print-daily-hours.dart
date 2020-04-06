@@ -156,7 +156,7 @@ class PrintDailyHours extends BasePrint {
     int oldLength = pages.length;
     for (DayData day in repData.data.days) {
       day.init();
-      if (day.entryCount == 0) continue;
+      if (day.entryCountValid == 0) continue;
       totalDays++;
       totalDay.entries.addAll(day.entries);
       totalDay.bloody.addAll(day.bloody);

@@ -345,12 +345,12 @@ class PrintCGP extends BasePrint {
             {}
           ],
           [
-            {"text": PentagonData.msgYellow, "colSpan": 2},
+            {"text": PentagonData.msgYellow, "colSpan": 1},
             {}
           ],
           [
             {"text": PentagonData.msgTOR(g.fmtNumber(cgp["tor"]))},
-            {"text": PentagonData.msgTORInfo("${cgp["low"]} ${unit}", "${cgp["high"]} ${unit}")}
+            {"text": PentagonData.msgTORInfo("${cgp["low"]} ${unit}", "${cgp["high"]} ${unit}")},
           ],
           [
             {"text": PentagonData.msgCV(g.fmtNumber(cgp["vark"]))},
@@ -478,14 +478,18 @@ class PrintCGP extends BasePrint {
     totalDay.init();
     double avgGluc = 0.0;
     double varK = 0.0;
-    int fullCount = data.count;
-    int count = data.entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc >= 70 && entry.gluc <= 180).length;
+    int countValid = data.countValid;
+    int countInvalid = data.countInvalid;
+    int countTiR = data.entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc >= low && entry.gluc <= high).length;
+    int countAll = data.entries.length;
 
     if (dayData is DayData) {
       avgGluc = dayData.avgGluc;
       varK = dayData.varK;
-      fullCount = dayData.entries.length;
-      count = dayData.entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc >= 70 && entry.gluc <= 180).length;
+      countValid = dayData.entryCountValid;
+      countInvalid = dayData.entryCountInvalid;
+      countTiR = dayData.entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc >= low && entry.gluc <= high).length;
+      countAll = dayData.entries.length;
     } else if (dayData is List<DayData>) {
       for (DayData day in dayData) {
         avgGluc += day.avgGluc;
@@ -495,7 +499,7 @@ class PrintCGP extends BasePrint {
       varK /= dayData.length;
     }
 
-    double tor = 1440 - count / fullCount * 1440;
+    double tor = 1440 - countTiR / countValid * 1440;
     var auc = _calcAUC(dayData, low, high);
     double hyperAUC = auc["hyper"];
     double hypoAUC = auc["hypo"];

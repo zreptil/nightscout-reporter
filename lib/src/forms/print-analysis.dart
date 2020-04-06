@@ -172,7 +172,7 @@ class PrintAnalysis extends BasePrint
     }
 
 */
-    var cntp = repData.dayCount > 0 ? (data.count / repData.dayCount) : 0;
+    var cntp = repData.dayCount > 0 ? (data.countValid / repData.dayCount) : 0;
     String countPeriod = msgReadingsPerDay(cntp.toInt(), g.fmtNumber(cntp));
     if (cntp > 24)
     {

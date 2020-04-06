@@ -861,22 +861,53 @@ class AppComponent implements OnInit {
         tmp = await g.request(url);
         src = json.decode(tmp);
         displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
+        bool hasExercise = false;
         for (dynamic treatment in src) {
           hasData = true;
           TreatmentData t = TreatmentData.fromJson(treatment);
           if (data.ns.treatments.length == 0 || !t.equals(data.ns.treatments.last)) {
             data.ns.treatments.add(t);
-            if (t.eventType.toLowerCase() == "bg check") {
-              EntryData entry = EntryData();
-              entry.id = t.id;
-              entry.time = t.createdAt;
-              entry.device = t.enteredBy;
-              entry.type = "mbg";
-              entry.mbg = t.glucose * (g.glucMGDL ? 1 : 18.02);
-              entry.rawbg = t.glucose;
-              data.ns.bloody.add(entry);
+            switch (t.eventType.toLowerCase()) {
+              case "exercise":
+                hasExercise = true;
+                break;
+              case "bg check":
+                EntryData entry = EntryData();
+                entry.id = t.id;
+                entry.time = t.createdAt;
+                entry.device = t.enteredBy;
+                entry.type = "mbg";
+                entry.mbg = t.glucose * (g.glucMGDL ? 1 : 18.02);
+                entry.rawbg = t.glucose;
+                data.ns.bloody.add(entry);
+                break;
             }
           }
+        }
+
+        if (g.isLocal && !hasExercise) {
+          TreatmentData t = TreatmentData();
+          t.createdAt = DateTime(begDate.year, begDate.month, begDate.day, 10, 0, 0);
+          t.duration = 60 * 60;
+          t.eventType = "exercise";
+          t.notes = "Bewegung (Testeintrag)";
+          t.enteredBy = "NR-Test";
+          t.microbolus = 0;
+          t.insulin = 0;
+          t.microbolus = 0;
+          t.isSMB = false;
+          data.ns.treatments.add(t);
+        }
+
+        url =
+            "${data.user.apiUrl}devicestatus.json?find[created_at][\$gte]=${profileBeg.toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000";
+        tmp = await g.request(url);
+        src = json.decode(tmp);
+        displayLink("ds${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
+        for (dynamic devicestatus in src) {
+          hasData = true;
+          DeviceStatusData ds = DeviceStatusData.fromJson(devicestatus);
+          data.ns.devicestatusList.add(ds);
         }
       }
       begDate = begDate.add(days: 1);
@@ -893,6 +924,7 @@ class AppComponent implements OnInit {
       data.ns.bloody.sort((a, b) => a.time.compareTo(b.time));
       data.ns.remaining.sort((a, b) => a.time.compareTo(b.time));
       data.ns.treatments.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+      data.ns.devicestatusList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
       int diffTime = 5;
       // gaps between entries that span more than the given minutes
@@ -952,6 +984,7 @@ class AppComponent implements OnInit {
 
       data.ns.treatments.removeWhere((t) => filterTreatment(t));
       data.calc.treatments = data.ns.treatments;
+      data.calc.devicestatusList = data.ns.devicestatusList;
 
       data.calc.extractData(data, lastTempBasal);
       data.ns.extractData(data, lastTempBasal);

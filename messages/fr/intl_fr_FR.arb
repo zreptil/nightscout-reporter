@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-03-16T12:03:45.648204",
+    "@@last_modified": "2020-04-06T12:40:44.703448",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -48,7 +48,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Lade die Basisdaten...": "Loading basedata...",
+    "Lade die Basisdaten...": "Chargement des données de base...",
     "@Lade die Basisdaten...": {
         "type": "text",
         "placeholders": {}
@@ -1618,8 +1618,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Training anzeigen": "Montrer les activités",
-    "@Training anzeigen": {
+    "Bewegung anzeigen": "Show Exercises",
+    "@Bewegung anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1675,6 +1675,11 @@
     },
     "Basal 0%": "Débit de base 0%",
     "@Basal 0%": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bewegung": "Exercises",
+    "@Bewegung": {
         "type": "text",
         "placeholders": {}
     },
@@ -2284,19 +2289,55 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.4.4 - 6.4.2020": "1.4.4 - 6/4/2020",
+    "@1.4.4 - 6.4.2020": {
+        "description": "v144",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": "The legend of the daily graphic has been expanded to include the entry for exercises.",
+    "@Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": {
+        "description": "v144a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": "In the daily graphic in the german version \"Training\" was replaced by \"Bewegung\" since this matches the wording in AAPS better.",
+    "@In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": {
+        "description": "v144c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": "The color for exercises in the daily graphic changed.",
+    "@Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": {
+        "description": "v144c2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.3 - 26.3.2020": "1.4.3 - 26/3/2020",
+    "@1.4.3 - 26.3.2020": {
+        "description": "v143",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "Les valeurs d'analyse n'étaient pas correctement déterminées, ce qui a été corrigé et les données statistiques évaluées au cours de la période devraient maintenant être correctes.",
+    "@Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": {
+        "description": "v143f1",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.4.2 - 16.3.2020": "1.4.2 - 16/3/2020",
     "@1.4.2 - 16.3.2020": {
         "description": "v142",
         "type": "text",
         "placeholders": {}
     },
-    "Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": "When the treatment data is loaded, duplicate data records are filtered out.",
+    "Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": "Lorsque les données de traitement sont chargées, les enregistrements de données en double sont filtrés.",
     "@Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": {
         "description": "v142c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": "The calculated IE for carbohydrates in the daily graph were partly determined with wrong factors. The bug has been fixed.",
+    "Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": "L'IE calculée pour les glucides dans le graphique quotidien a été partiellement déterminée par des facteurs erronés. Le bug a été corrigé.",
     "@Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": {
         "description": "v142f1",
         "type": "text",

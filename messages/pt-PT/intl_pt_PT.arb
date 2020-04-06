@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-03-16T12:03:45.648204",
+    "@@last_modified": "2020-04-06T12:40:44.703448",
     "Überprüfe Zugriff auf Nightscout ...": "A verificar acesso ao Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1618,8 +1618,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Training anzeigen": "Mostrar exercícios",
-    "@Training anzeigen": {
+    "Bewegung anzeigen": "Show Exercises",
+    "@Bewegung anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1675,6 +1675,11 @@
     },
     "Basal 0%": "Basal 0%",
     "@Basal 0%": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bewegung": "Exercises",
+    "@Bewegung": {
         "type": "text",
         "placeholders": {}
     },
@@ -2281,6 +2286,42 @@
     "Version": "Versão",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.4 - 6.4.2020": "1.4.4 - 6/4/2020",
+    "@1.4.4 - 6.4.2020": {
+        "description": "v144",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": "The legend of the daily graphic has been expanded to include the entry for exercises.",
+    "@Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": {
+        "description": "v144a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": "In the daily graphic in the german version \"Training\" was replaced by \"Bewegung\" since this matches the wording in AAPS better.",
+    "@In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": {
+        "description": "v144c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": "The color for exercises in the daily graphic changed.",
+    "@Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": {
+        "description": "v144c2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.3 - 26.3.2020": "1.4.3 - 26/3/2020",
+    "@1.4.3 - 26.3.2020": {
+        "description": "v143",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "The analysis values were not determined correctly. This has been corrected and the statistical data evaluated over the period should now be correct.",
+    "@Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": {
+        "description": "v143f1",
         "type": "text",
         "placeholders": {}
     },

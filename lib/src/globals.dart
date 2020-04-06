@@ -68,7 +68,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = "1.4.2";
+  String version = "1.4.4";
   static String get msgThemeAuto => Intl.message("Automatisch", meaning: "theme selection - automatic");
   static String get msgThemeStandard => Intl.message("Standard", meaning: "theme selection - standard");
   static String get msgThemeXmas => Intl.message("Weihnachten", meaning: "theme selection - christmas");
@@ -827,7 +827,7 @@ class Globals extends Settings {
     }
 
     syncGoogle = loadStorage("syncGoogle") == "yes";
-    if (syncGoogle) _loadFromGoogle();
+    if (syncGoogle) await _loadFromGoogle();
     _loadFromStorage();
     _initAfterLoad();
   }
