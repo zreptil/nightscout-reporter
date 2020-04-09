@@ -1201,6 +1201,7 @@ class EntryData extends JsonData {
   bool isCopy = false;
   bool get isInvalid => false; //type != "mbg" && direction != null && direction.toLowerCase() == "none";
   bool get isInvalidOrGluc0 => isInvalid || gluc == null || gluc == 0;
+  bool get isGlucInvalid => gluc == null || gluc <= 0;
   double get gluc {
     return isGap ? -1 : (type == "sgv" ? sgv : rawbg) ?? 0;
   }
@@ -1552,7 +1553,7 @@ class DayData {
     double ret = 0.0;
     int count = 0;
     for (var entry in entries) {
-      if (entry.gluc > 0) {
+      if (!entry.isGlucInvalid) {
         ret += entry.gluc;
         count++;
       }
@@ -1785,7 +1786,7 @@ class DayData {
     carbCount = 0;
     carbs = 0;
     for (EntryData entry in entries) {
-      if (!entry.isInvalidOrGluc0 && entry.gluc > 0) {
+      if (!entry.isGlucInvalid) {
         entryCountValid++;
         if (entry.gluc < basalData.targetLow)
           lowCount++;
@@ -1811,7 +1812,7 @@ class DayData {
     mid = entryCountValid == 0 ? 0 : mid / entryCountValid;
     varianz = 0.0;
     for (EntryData entry in entries) {
-      if (!entry.isInvalidOrGluc0 && entry.gluc > 0) varianz += math.pow(entry.gluc - mid, 2);
+      if (!entry.isGlucInvalid) varianz += math.pow(entry.gluc - mid, 2);
     }
     varianz /= entryCountValid;
 
@@ -2017,18 +2018,18 @@ class ListData {
   double get ieMicroBolusPrz => ieBolusSum + ieBasalSum + ieMicroBolusSum > 0
       ? ieMicroBolusSum / (ieBolusSum + ieBasalSum + ieMicroBolusSum) * 100
       : 0.0;
-  int get countValid => entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc > 0).length;
-  int get countInvalid => entries.where((entry) => entry.isInvalidOrGluc0 || entry.gluc <= 0).length;
+  int get countValid => entries.where((entry) => !entry.isGlucInvalid).length;
+  int get countInvalid => entries.where((entry) => entry.isGlucInvalid).length;
   int entriesIn(int min, int max) =>
-      entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc >= min && entry.gluc <= max).length;
+      entries.where((entry) => !entry.isGlucInvalid && entry.gluc >= min && entry.gluc <= max).length;
   int entriesBelow(int min) =>
-      entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc < min && entry.gluc > 0).length;
-  int entriesAbove(int min) => entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc > min).length;
+      entries.where((entry) => !entry.isGlucInvalid && entry.gluc < min).length;
+  int entriesAbove(int min) => entries.where((entry) => !entry.isGlucInvalid && entry.gluc > min).length;
   double get avgGluc {
     double ret = 0.0;
     int count = 0;
     for (var entry in entries) {
-      if (entry.gluc > 0) {
+      if (!entry.isGlucInvalid) {
         ret += entry.gluc;
         count++;
       }
@@ -2038,7 +2039,7 @@ class ListData {
 
   double min;
   double max;
-  int fullCount;
+  int validCount;
   List<TreatmentData> addList = List<TreatmentData>();
   void extractData(ReportData data, TreatmentData lastTempBasal) {
     stat["norm"].values.clear();
@@ -2071,7 +2072,7 @@ class ListData {
 //    double t2 = 11;
 //    int t1Count = 0;
 //    int t2Count = 0;
-    fullCount = 0;
+    validCount = 0;
     if (allEntries.length == 0) return;
 
     for (var entry in allEntries) {
@@ -2098,7 +2099,7 @@ class ListData {
             for (String key in stat.keys) {
               if (gluc >= stat[key].min && gluc < stat[key].max) stat[key].add(entry, gluc);
             }
-            fullCount++;
+            validCount++;
             if (gluc < min) min = entry.gluc;
             if (gluc > max) max = entry.gluc;
           }
@@ -2139,7 +2140,7 @@ class ListData {
     gviIdeal = math.sqrt(math.pow(usedRecords * 5, 2) + math.pow(gviDelta, 2));
     gvi = gviIdeal != 0 ? gviTotal / gviIdeal : 0.0;
     rms = math.sqrt(rmsTotal / usedRecords);
-    double tirMultiplier = fullCount == 0 ? 0.0 : stat["norm"].values.length / fullCount;
+    double tirMultiplier = validCount == 0 ? 0.0 : stat["stdNorm"].values.length / validCount;
     pgs = gvi * (glucTotal / usedRecords) * (1.0 - tirMultiplier);
 
     for (String key in stat.keys) {
