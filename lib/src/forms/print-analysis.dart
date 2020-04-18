@@ -172,7 +172,7 @@ class PrintAnalysis extends BasePrint
     }
 
 */
-    var cntp = repData.dayCount > 0 ? (data.count / repData.dayCount) : 0;
+    var cntp = repData.dayCount > 0 ? (data.countValid / repData.dayCount) : 0;
     String countPeriod = msgReadingsPerDay(cntp.toInt(), g.fmtNumber(cntp));
     if (cntp > 24)
     {
@@ -192,7 +192,7 @@ class PrintAnalysis extends BasePrint
     totalDay.entries.addAll(data.entries);
     totalDay.init();
 
-    int count = data.fullCount;
+    int count = data.validCount;
 
     double tgHigh = data.stat["high"].values.length / count * f;
     double tgNorm = data.stat["norm"].values.length / count * f;

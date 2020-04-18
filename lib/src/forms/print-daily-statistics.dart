@@ -152,7 +152,7 @@ class PrintDailyStatistics extends BasePrint {
       {"text": "${carbFromData(day.avgCarbs)}", "style": style, "alignment": "right"});
 // */
     addTableRow(showCount, "auto", row, {"text": msgValues, "style": "total", "alignment": "center"},
-        {"text": "${g.fmtNumber(day.entryCount, 0)}", "style": style, "alignment": "right"});
+        {"text": "${g.fmtNumber(day.entryCountValid, 0)}", "style": style, "alignment": "right"});
     addTableRow(true, "auto", row, {"text": msgMin, "style": "total", "alignment": "center"},
         {"text": "${g.glucFromData(day.min)}", "style": style, "alignment": "right"});
     addTableRow(true, "auto", row, {"text": msgMax, "style": "total", "alignment": "center"},
@@ -225,12 +225,12 @@ class PrintDailyStatistics extends BasePrint {
     for (DayData day in repData.data.days)
     {
       day.init();
-      if (day.entryCount == 0) continue;
+      if (day.entryCountValid == 0) continue;
       _maxTDD = max(_maxTDD, day.ieBasalSum + day.ieBolusSum);
     }
 
     for (DayData day in repData.data.days) {
-      if (day.entryCount == 0) continue;
+      if (day.entryCountValid == 0) continue;
       totalDays++;
       totalDay.entries.addAll(day.entries);
       totalDay.bloody.addAll(day.bloody);

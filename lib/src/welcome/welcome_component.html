@@ -54,7 +54,7 @@
           <signin [isVisible]="true"
                   [raised]="true" [(isAuthorized)]="g.syncGoogle"
                   [clientId]="g.googleClientId"
-                  (trigger)="signinEvent($event)"
+                  (onEvent)="signinEvent($event)"
                   (signinResult)="g.client=$event;" @i18n:msgDisconnected="synchronize with google drive"
                   msgDisconnected="Mit Google Drive synchronisieren"></signin>
         </div>

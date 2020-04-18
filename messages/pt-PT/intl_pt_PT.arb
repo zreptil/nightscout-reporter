@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-02-28T12:07:28.853091",
+    "@@last_modified": "2020-04-06T12:40:44.703448",
     "Überprüfe Zugriff auf Nightscout ...": "A verificar acesso ao Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -45,6 +45,11 @@
     "Erzeuge PDF...": "A criar PDF...",
     "@Erzeuge PDF...": {
         "description": "text when pdf is being created",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Lade die Basisdaten...": "Loading basedata...",
+    "@Lade die Basisdaten...": {
         "type": "text",
         "placeholders": {}
     },
@@ -187,27 +192,27 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgewählter Zeitraum": "Selected Period",
+    "Ausgewählter Zeitraum": "Período selecionado",
     "@Ausgewählter Zeitraum": {
         "type": "text",
         "placeholders": {}
     },
-    "Einen Monat vorher": "One month before",
+    "Einen Monat vorher": "Um mês antes",
     "@Einen Monat vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Drei Monate vorher": "Three months before",
+    "Drei Monate vorher": "Três meses antes",
     "@Drei Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Sechs Monate vorher": "Six months before",
+    "Sechs Monate vorher": "Seis meses antes",
     "@Sechs Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Ein Jahr vorher": "One year before",
+    "Ein Jahr vorher": "Um ano antes",
     "@Ein Jahr vorher": {
         "type": "text",
         "placeholders": {}
@@ -227,8 +232,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "Em 10be, nas configurações padrão do servidor devem ativar a caixa de seleção \"cors\" para que ferramentas externas como esta possam aceder os dados.",
-    "@Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": {
+    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.": "No servidor 10be, a seleção \"cors\" no servidor deve estar ativada para que ferramentas externas como esta possam aceder os dados. Se o \"cors\" for ativado, deve executar o ReDeploy para que a alteração produza efeito.",
+    "@Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.": "O Endereço para a API Nightscout deve iniciar com https, uma vez que o Nightscout Reporter também é executado em https. Não é possível o acesso a recursos http inseguros.",
+    "@Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.": {
         "type": "text",
         "placeholders": {}
     },
@@ -1608,8 +1618,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Training anzeigen": "Mostrar exercícios",
-    "@Training anzeigen": {
+    "Bewegung anzeigen": "Show Exercises",
+    "@Bewegung anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1665,6 +1675,11 @@
     },
     "Basal 0%": "Basal 0%",
     "@Basal 0%": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bewegung": "Exercises",
+    "@Bewegung": {
         "type": "text",
         "placeholders": {}
     },
@@ -1856,10 +1871,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Maximum für die Skalierung": "Valor máximo da escala",
-    "@Maximum für die Skalierung": {
+    "Basalrate anzeigen": "Mostrar basalrate",
+    "@Basalrate anzeigen": {
         "type": "text",
         "placeholders": {}
+    },
+    "msgBasalInfo1": "Este basalrate estava ativo em {unit}.",
+    "@msgBasalInfo1": {
+        "type": "text",
+        "placeholders": {
+            "unit": {}
+        }
     },
     "Spalten für 10% und 90% anzeigen": "Mostrar colunas para 10% e 90%",
     "@Spalten für 10% und 90% anzeigen": {
@@ -2093,7 +2115,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgabe Parameter": "Output Parameters",
+    "Ausgabe Parameter": "Parâmetros",
     "@Ausgabe Parameter": {
         "description": "title for printparameter dialog",
         "type": "text",
@@ -2105,19 +2127,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Maximaler Glukosewert in Grafiken:": "Maximum glucose value in graphics:",
+    "Maximaler Glukosewert in Grafiken:": "Valor máximo de Glicose em gráficos:",
     "@Maximaler Glukosewert in Grafiken:": {
         "description": "label for max glucvalue in printparams",
         "type": "text",
         "placeholders": {}
     },
-    "Historische Daten": "Historical Data",
+    "Historische Daten": "Histórico",
     "@Historische Daten": {
         "description": "label of area for timeshift",
         "type": "text",
         "placeholders": {}
     },
-    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "This determines how much the period of the PDF should be shifted in order to obtain comparative values.",
+    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "Isto determina quanto o período do PDF deve ser deslocado para obter valores comparativos.",
     "@Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": {
         "description": "description of timeshift",
         "type": "text",
@@ -2267,6 +2289,78 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.4.4 - 6.4.2020": "1.4.4 - 6/4/2020",
+    "@1.4.4 - 6.4.2020": {
+        "description": "v144",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": "The legend of the daily graphic has been expanded to include the entry for exercises.",
+    "@Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": {
+        "description": "v144a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": "In the daily graphic in the german version \"Training\" was replaced by \"Bewegung\" since this matches the wording in AAPS better.",
+    "@In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": {
+        "description": "v144c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": "The color for exercises in the daily graphic changed.",
+    "@Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": {
+        "description": "v144c2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.3 - 26.3.2020": "1.4.3 - 26/3/2020",
+    "@1.4.3 - 26.3.2020": {
+        "description": "v143",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "The analysis values were not determined correctly. This has been corrected and the statistical data evaluated over the period should now be correct.",
+    "@Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": {
+        "description": "v143f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.2 - 16.3.2020": "1.4.2 - 16/3/2020",
+    "@1.4.2 - 16.3.2020": {
+        "description": "v142",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": "When the treatment data is loaded, duplicate data records are filtered out.",
+    "@Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": {
+        "description": "v142c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": "The calculated IE for carbohydrates in the daily graph were partly determined with wrong factors. The bug has been fixed.",
+    "@Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": {
+        "description": "v142f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.1 - 13.3.2020": "1.4.1 - 13/3/2020",
+    "@1.4.1 - 13.3.2020": {
+        "description": "v141",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": "No diagrama percentil há uma nova opção para exibir a taxa basal abaixo do diagrama. Como o diagrama normalmente abrange um período mais longo, é exibida a taxa basal que estava ativa no início do período.",
+    "@Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": {
+        "description": "v141a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Fehler behoben, der bei der Kachelansicht teilweise verhindert hat, dass die Parameter für die Kacheln aufgerufen werden konnten.": "Corrigido um erro que por vezes impedia os parâmetros dos blocos de serem chamados na visualização dos mosaicos.",
+    "@Fehler behoben, der bei der Kachelansicht teilweise verhindert hat, dass die Parameter für die Kacheln aufgerufen werden konnten.": {
+        "description": "v141f1",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.4 - 28.2.2020": "1.4 - 28/2/2020",
     "@1.4 - 28.2.2020": {
         "description": "v14",
@@ -2309,7 +2403,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.": "Before a PDF is created, a dialog is displayed in which you can enter parameters for all PDFs created. You can set the target area to the standard area that doctors like to see. This has an impact on all representations of the target area, as well as on the distribution of the values inside and outside the target area. You can also set the maximum value for glucose in graphics there. This value is used in the daily graphics, the percentile diagram and the weekly graphics. If it is set to \"Automatic\", the maximum value is determined from the existing data as before. You can also specify here whether you want to generate the current period or a comparison period. This is useful to show the doctor a comparison of past and now values.",
+    "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.": "Antes de criar um PDF, é exibido uma caixa de parâmetros no qual pode inserir parâmetros para todos os PDFs criados. Pode definir o intervalo-alvo para o valor padrão que os médicos gostam de ver. Isto tem um impacto em todas as representações do intervalo alvo, bem como na distribuição dos valores dentro e fora do intervalo alvo. Você também pode definir o valor máximo para a glicose nos gráficos. Esse valor é usado nos gráficos diários, no diagrama percentual e nos gráficos semanais. Se estiver definido como \"Automático\", o valor máximo é determinado a partir dos dados existentes, como antes. Você também pode especificar aqui se deseja gerar o período atual ou um período de comparação. Isto é útil para mostrar ao médico uma comparação do passado e dos valores actuais.",
     "@Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.": {
         "description": "v14a7",
         "type": "text",
