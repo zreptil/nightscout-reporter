@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-04-06T12:40:44.703448",
+    "@@last_modified": "2020-04-20T11:40:02.455505",
     "Überprüfe Zugriff auf Nightscout ...": "A verificar acesso ao Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -48,7 +48,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Lade die Basisdaten...": "Loading basedata...",
+    "Lade die Basisdaten...": "Carregando base de dados...",
     "@Lade die Basisdaten...": {
         "type": "text",
         "placeholders": {}
@@ -1618,7 +1618,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bewegung anzeigen": "Show Exercises",
+    "Bewegung anzeigen": "Mostrar exercícios",
     "@Bewegung anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1678,7 +1678,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bewegung": "Exercises",
+    "Bewegung": "Exercícios",
     "@Bewegung": {
         "type": "text",
         "placeholders": {}
@@ -1791,6 +1791,11 @@
             "duration": {},
             "reason": {}
         }
+    },
+    "Aufhebung von temp. Ziel": "Cancel temp target",
+    "@Aufhebung von temp. Ziel": {
+        "type": "text",
+        "placeholders": {}
     },
     "msgLogTempBasal": "basal temporária {percent}% / {duration} min",
     "@msgLogTempBasal": {
@@ -1929,6 +1934,11 @@
     },
     "Automatisch": "Automático",
     "@Automatisch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Aus den Profilen ermitteln": "Extract from profiles",
+    "@Aus den Profilen ermitteln": {
         "type": "text",
         "placeholders": {}
     },
@@ -2133,6 +2143,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Genauigkeit der Basalangaben:": "Precision of basalvalues:",
+    "@Genauigkeit der Basalangaben:": {
+        "description": "label for max basalprecision in printparams",
+        "type": "text",
+        "placeholders": {}
+    },
     "Historische Daten": "Histórico",
     "@Historische Daten": {
         "description": "label of area for timeshift",
@@ -2289,25 +2305,55 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.4.5 - 20.4.2020": "1.4.5 - 20/4/2020",
+    "@1.4.5 - 20.4.2020": {
+        "description": "v144",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In dem Dialog mit den Ausgabe Parametern wurd die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": "In the dialog with the output parameters, an option was added to specify the precision of the output of basal information. This is usually determined from the information on the basal rate in the profiles. This is still the case when the first entry in the list is selected. Otherwise, all basal information is output with the precision selected for this option.",
+    "@In dem Dialog mit den Ausgabe Parametern wurd die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": {
+        "description": "v145a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": "The precision of ISF in profile was corrected.",
+    "@Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": {
+        "description": "v144f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": "In the log, the information that sets a temporary target of 0 U for 0 minutes is output as \"Cancel temp target\".",
+    "@Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": {
+        "description": "v144f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": "Various calculations were corrected in the CGP, which were mainly shown in differences in ToR and average values.",
+    "@Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": {
+        "description": "v144f3",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.4.4 - 6.4.2020": "1.4.4 - 6/4/2020",
     "@1.4.4 - 6.4.2020": {
         "description": "v144",
         "type": "text",
         "placeholders": {}
     },
-    "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": "The legend of the daily graphic has been expanded to include the entry for exercises.",
+    "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": "A legenda do gráfico diário foi aumentada para incluir a entrada para exercícios.",
     "@Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": {
         "description": "v144a1",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": "In the daily graphic in the german version \"Training\" was replaced by \"Bewegung\" since this matches the wording in AAPS better.",
+    "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": "No gráfico diário na versão do german \"Treino\" foi substituído por \"Bewegung\" já que isso corresponde melhor ao texto no AAPS.",
     "@In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": {
         "description": "v144c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": "The color for exercises in the daily graphic changed.",
+    "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": "Alteração da cor para exercícios no gráfico diário.",
     "@Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": {
         "description": "v144c2",
         "type": "text",
@@ -2319,7 +2365,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "The analysis values were not determined correctly. This has been corrected and the statistical data evaluated over the period should now be correct.",
+    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "Os valores da análise não foram determinados correctamente, foi corrigido e os dados estatísticos avaliados ao longo do período devem agora estar correctos.",
     "@Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": {
         "description": "v143f1",
         "type": "text",
@@ -2331,13 +2377,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": "When the treatment data is loaded, duplicate data records are filtered out.",
+    "Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": "Quando os dados de tratamento são carregados, registos de dados duplicados são filtrados.",
     "@Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": {
         "description": "v142c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": "The calculated IE for carbohydrates in the daily graph were partly determined with wrong factors. The bug has been fixed.",
+    "Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": "O IE calculado para hidratos de carbono no gráfico diário foi parcialmente determinado com fatores errados. O bug foi corrigido.",
     "@Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": {
         "description": "v142f1",
         "type": "text",

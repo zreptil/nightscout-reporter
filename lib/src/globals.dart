@@ -68,7 +68,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = "1.4.4";
+  String version = "1.4.5";
   static String get msgThemeAuto => Intl.message("Automatisch", meaning: "theme selection - automatic");
   static String get msgThemeStandard => Intl.message("Standard", meaning: "theme selection - standard");
   static String get msgThemeXmas => Intl.message("Weihnachten", meaning: "theme selection - christmas");
@@ -364,6 +364,8 @@ class Globals extends Settings {
   int ppGlucMaxIdx = 0;
   List<double> get glucMaxValues => [null, 150, 200, 250, 300, 350, 400, 450];
   double get glucMaxValue => glucValueFromData(glucMaxValues[ppGlucMaxIdx]);
+  int ppBasalPrecisionIdx = 0;
+  List<int> get basalPrecisionValues => [null, 0, 1, 2, 3];
 
   int get pdfCreationMaxSize {
     if (_pdfCreationMaxSize < Globals.PDFDIVIDER) _pdfCreationMaxSize = Globals.PDFDIVIDER;
@@ -384,6 +386,7 @@ class Globals extends Settings {
     pdfCreationMaxSize = JsonData.toInt(loadStorage('pdfCreationMaxSize'));
     ppStandardLimits = loadStorage('ppStandardLimits') == "true";
     ppGlucMaxIdx = JsonData.toInt(loadStorage('ppGlucMaxIdx'));
+    ppBasalPrecisionIdx = JsonData.toInt(loadStorage('ppBasalPrecisionIdx'));
     currPeriodShift = listPeriodShift[0];
   }
 
@@ -401,7 +404,9 @@ class Globals extends Settings {
     pdfCreationMaxSize = value * Globals.PDFDIVIDER;
   }
 
-  int basalPrecision = 1;
+  int basalPrecisionAuto = 1;
+
+  int get basalPrecision => ppBasalPrecisionIdx > 0 ? basalPrecisionValues[ppBasalPrecisionIdx] : basalPrecisionAuto;
 
   static int decimalPlaces(num value) {
     String v = value.toString();
@@ -948,6 +953,7 @@ class Globals extends Settings {
     saveStorage("pdfCreationMaxSize", "${pdfCreationMaxSize}");
     saveStorage("ppStandardLimits", ppStandardLimits ? "true" : "false");
     saveStorage("ppGlucMaxIdx", ppGlucMaxIdx?.toString() ?? 0);
+    saveStorage("ppBasalPrecisionIdx", ppBasalPrecisionIdx?.toString() ?? 0);
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "true" : "false");
     saveStorage("showAllTileParams", showAllTileParams ? "true" : "false");
     saveStorage("hidePdfInfo", hidePdfInfo ? "true" : "false");

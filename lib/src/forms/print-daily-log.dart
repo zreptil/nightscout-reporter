@@ -414,6 +414,7 @@ class PrintDailyLog extends BaseProfile {
   String msgLogTempTarget(target, duration, reason) =>
       Intl.message("temp. Ziel ${target} für ${duration} min, Grund: ${reason}",
           args: [target, duration, reason], name: "msgLogTempTarget");
+  String get msgLogTempTargetReset => Intl.message("Aufhebung von temp. Ziel");
   String msgLogTempBasal(percent, duration) =>
       Intl.message("temp. Basal ${percent}% / ${duration} min", args: [percent, duration], name: "msgLogTempBasal");
   String msgLogSMB(insulin, unit) => Intl.message("SMB ${insulin} ${unit}", args: [insulin, unit], name: "msgLogSMB");
@@ -462,7 +463,10 @@ class PrintDailyLog extends BaseProfile {
         target = "${g.fmtBasal(t.targetBottom)} ${g.getGlucInfo()["unit"]}";
       else
         target = "${t.targetBottom} - ${t.targetTop} ${g.getGlucInfo()["unit"]}";
-      list.add(msgLogTempTarget(target, t.duration / 60, t.reason));
+      if(t.duration == 0 && t.targetBottom == 0)
+        list.add(msgLogTempTargetReset);
+      else
+        list.add(msgLogTempTarget(target, t.duration / 60, t.reason));
     }
     if (showChanges) {
       if (type == "site change") {

@@ -148,7 +148,7 @@ class PrintProfile extends BaseProfile {
       listISF.last.forceText = fmtGluc(entry.value);
     }
     dynamic bodyISF = getFactorBody(page, date, listISF, msgFactorEntry,
-        precision: 0, sum: profile.store.isfSum / 24.0, sumTitle: msgISFSum);
+        precision: g.glucMGDL ? 0 : 1, sum: profile.store.isfSum / 24.0, sumTitle: msgISFSum);
 
     dynamic basalTargetBody = [];
     dynamic bodyBasal = getFactorBody(page, date, profile.store.listBasal, msgFactorEntry,

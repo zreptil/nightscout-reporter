@@ -672,7 +672,7 @@ class AppComponent implements OnInit {
 
     ProfileData baseProfile = null;
     try {
-      g.basalPrecision = 0;
+      g.basalPrecisionAuto = 0;
       List<dynamic> src = json.decode(content);
       for (dynamic entry in src) {
         // don't add profiles that cannot be read
@@ -680,7 +680,7 @@ class AppComponent implements OnInit {
           ProfileData profile = ProfileData.fromJson(entry, isFromNS: true);
           data.profiles.add(profile);
         } catch (ex) {}
-        g.basalPrecision = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
+        g.basalPrecisionAuto = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
       }
       data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
       baseProfile = data.profiles.first;
