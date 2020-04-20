@@ -146,6 +146,15 @@ class PrintDailyLog extends BaseProfile {
 
   @override
   void fillPages(List<Page> pages) async {
+    fillPagesInternal(pages);
+    if (g.showBothUnits) {
+      g.glucMGDL = !g.glucMGDL;
+      fillPagesInternal(pages);
+      g.glucMGDL = !g.glucMGDL;
+    }
+  }
+
+  void fillPagesInternal(List<Page> pages) {
     var data = repData.data;
     titleInfo = titleInfoBegEnd();
 

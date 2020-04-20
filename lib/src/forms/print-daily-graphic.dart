@@ -338,8 +338,6 @@ class PrintDailyGraphic extends BaseDaily {
     for (EntryData entry in day.entries) glucMax = math.max(entry.gluc, glucMax);
     for (EntryData entry in day.bloody) glucMax = math.max(entry.mbg, glucMax);
 
-    if (g.glucMaxValue != null) glucMax = g.glucMaxValues[g.ppGlucMaxIdx];
-
     profMax = -1000.0;
     if (showBasalProfile) {
       for (ProfileEntryData entry in day.basalData.store.listBasal) profMax = math.max(entry.value ?? 0, profMax);
@@ -351,6 +349,8 @@ class PrintDailyGraphic extends BaseDaily {
       if (entry.isBloody) glucMax = math.max(g.glucFactor * entry.glucose, glucMax);
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
+
+    if (g.glucMaxValue != null) glucMax = g.glucMaxValues[g.ppGlucMaxIdx];
 
     ieMax = math.max(ieMax, 3.0);
 

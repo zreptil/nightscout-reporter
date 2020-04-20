@@ -851,7 +851,7 @@ class AppComponent implements OnInit {
           tmp = await g.request(url);
           src = json.decode(tmp);
           List<TreatmentData> list = List<TreatmentData>();
-          for (dynamic treatment in src) list.add(TreatmentData.fromJson(treatment));
+          for (dynamic treatment in src) list.add(TreatmentData.fromJson(g, treatment));
           list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
           if (list.length > 0) lastTempBasal = list.last;
         }
@@ -864,7 +864,7 @@ class AppComponent implements OnInit {
         bool hasExercise = false;
         for (dynamic treatment in src) {
           hasData = true;
-          TreatmentData t = TreatmentData.fromJson(treatment);
+          TreatmentData t = TreatmentData.fromJson(g, treatment);
           if (data.ns.treatments.length == 0 || !t.equals(data.ns.treatments.last)) {
             data.ns.treatments.add(t);
             switch (t.eventType.toLowerCase()) {

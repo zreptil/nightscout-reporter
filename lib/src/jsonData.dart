@@ -1034,7 +1034,7 @@ class TreatmentData extends JsonData {
         duration == t.duration;
   }
 
-  factory TreatmentData.fromJson(Map<String, dynamic> json) {
+  factory TreatmentData.fromJson(Globals g, Map<String, dynamic> json) {
     TreatmentData ret = TreatmentData();
     if (json == null) return ret;
     ret.raw = json;
@@ -1055,7 +1055,6 @@ class TreatmentData extends JsonData {
     ret.splitNow = JsonData.toInt(json["splitNow"]);
     ret.isSMB = JsonData.toBool(json["isSMB"]);
     ret.pumpId = JsonData.toText(json["pumpId"]);
-    ret.glucose = JsonData.toDouble(json["glucose"]);
     ret.glucoseType = JsonData.toText(json["glucoseType"]);
     if (json["boluscalc"] != null) ret.boluscalc = BoluscalcData.fromJson(json["boluscalc"]);
     ret.notes = JsonData.toText(json["notes"]);
@@ -1063,6 +1062,15 @@ class TreatmentData extends JsonData {
     ret.targetTop = JsonData.toDouble(json["targetTop"]);
     ret.targetBottom = JsonData.toDouble(json["targetBottom"]);
     ret.microbolus = 0.0;
+
+    ret.glucose = JsonData.toDouble(json["glucose"]);
+    if(json["units"] != null)
+    {
+      if(json["units"].toLowerCase() == g.msgUnitMGDL.toLowerCase() && g.getGlucInfo()["unit"] == g.msgUnitMMOL)
+        ret.glucose = ret.glucose / 18.02;
+      else if(json["units"].toLowerCase() == g.msgUnitMMOL.toLowerCase() && g.getGlucInfo()["unit"] == g.msgUnitMGDL)
+        ret.glucose = ret.glucose * 18.02;
+    }
 
     // Specialhandling for Uploader for Minimed 600-series
     if (json["key600"] != null) {
