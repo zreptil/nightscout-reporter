@@ -183,6 +183,7 @@ class PrintDailyGraphic extends BaseDaily {
   String get msgBolusSum => Intl.message("Bolus ges.");
   String get msgBasalZero => Intl.message("Basal 0%");
   String get msgExercises => Intl.message("Bewegung");
+  String get msgBloody => Intl.message("Blutige Messung");
 
   @override
   List<String> get imgList => ["nightscout", "katheter.print", "sensor.print", "ampulle.print"];
@@ -431,17 +432,22 @@ class PrintDailyGraphic extends BaseDaily {
       ]);
 
     glucMax = grid.gridLines * grid.glucScale;
+
+    bool hasBloody = false;
     for (EntryData entry in day.bloody) {
       double x = glucX(entry.time);
       double y = glucY(entry.mbg);
       y = glucY(entry.mbg);
       graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": colBloodValues});
+      hasBloody = true;
     }
+
     for (TreatmentData t in day.treatments) {
       if (t.isBloody) {
         double x = glucX(t.createdAt);
         double y = glucY((g.glucMGDL ? 1 : 18.02) * t.glucose);
         graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": colBloodValues});
+        hasBloody = true;
       }
     }
 
@@ -923,6 +929,15 @@ class PrintDailyGraphic extends BaseDaily {
 
     if (showLegend) {
       addLegendEntry(legend, colValue, msgGlucosekurve, isArea: false);
+      if (hasBloody)
+        addLegendEntry(legend, colBloodValues, msgBloody,
+            points: [
+              {"x": 0.3, "y": 0.2},
+              {"x": 0.4, "y": 0.2},
+              {"x": 0.4, "y": 0.3},
+              {"x": 0.3, "y": 0.3}
+            ],
+            isArea: false);
       String text;
       if (hasCarbs) {
         text = "${g.fmtNumber(day.carbs, 0)}";

@@ -2239,7 +2239,7 @@ class ListData {
 
       khCount += t.carbs;
       ieBolusSum += t.bolusInsulin;
-      ieMicroBolusSum += t.microbolus / 60 * t.duration;
+      ieMicroBolusSum += t.microbolus / 3600 * t.duration;
     }
     ieBasalSum = 0.0;
     for (int i = 1; i < days.length; i++) {
