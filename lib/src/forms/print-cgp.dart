@@ -237,6 +237,8 @@ class PentagonData {
   _point(int idx, double factor) {
     double x = xm + math.sin(idx * deg) * axisLength * scale * factor;
     double y = ym - math.cos(idx * deg) * axisLength * scale * factor;
+    if (x.isNaN) x = 0;
+    if (y.isNaN) y = 0;
     return {"x": cm(x), "y": cm(y)};
   }
 
@@ -345,8 +347,9 @@ class PrintCGP extends BasePrint {
             {}
           ],
           [
-            {"text": PentagonData.msgYellow, "colSpan": 1},
-            {"text": "${cgp["countValid"]}"}
+            {"text": PentagonData.msgYellow, "colSpan": 2},
+            {}
+//            {"text": "${cgp["countValid"]}"}
           ],
           [
             {"text": PentagonData.msgTOR(g.fmtNumber(cgp["tor"]))},
@@ -481,7 +484,7 @@ class PrintCGP extends BasePrint {
     int countValid = data.countValid;
     int countInvalid = data.countInvalid;
     int countTiR =
-        data.entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc >= low && entry.gluc <= high).length;
+        data.entries.where((entry) => !entry.isGlucInvalid && entry.gluc >= low && entry.gluc <= high).length;
     int countAll = data.entries.length;
 
     if (dayData is DayData) {
@@ -490,60 +493,78 @@ class PrintCGP extends BasePrint {
       countValid = dayData.entryCountValid;
       countInvalid = dayData.entryCountInvalid;
       countTiR =
-          dayData.entries.where((entry) => !entry.isInvalidOrGluc0 && entry.gluc >= low && entry.gluc <= high).length;
+          dayData.entries.where((entry) => !entry.isGlucInvalid && entry.gluc >= low && entry.gluc <= high).length;
       countAll = dayData.entries.length;
     } else if (dayData is List<DayData>) {
       countValid = 0;
+      countTiR = 0;
       for (DayData day in dayData) {
+        countTiR +=
+          day.entries.where((entry) => !entry.isGlucInvalid && entry.gluc >= low && entry.gluc <= high).length;
         for (EntryData entry in day.entries) {
-          if (!entry.isInvalidOrGluc0 && entry.gluc > 0) {
+          if (!entry.isGlucInvalid) {
             avgGluc += entry.gluc;
             countValid++;
           }
         }
       }
-      avgGluc /= countValid;
-      double varianz = 0.0;
-      for (DayData day in dayData) {
-        for (EntryData entry in day.entries) {
-          if (!entry.isGlucInvalid) varianz += math.pow(entry.gluc - avgGluc, 2);
+      if (countValid > 0) {
+        avgGluc /= countValid;
+        double varianz = 0.0;
+        for (DayData day in dayData) {
+          for (EntryData entry in day.entries) {
+            if (!entry.isGlucInvalid) varianz += math.pow(entry.gluc - avgGluc, 2);
+          }
         }
+        varianz /= countValid;
+        if (avgGluc > 0) varK = math.sqrt(varianz) / avgGluc * 100;
       }
-      varianz /= countValid;
-      varK = math.sqrt(varianz) / avgGluc * 100;
     }
 
-    double tor = 1440 - countTiR / countValid * 1440;
-    var auc = _calcAUC(dayData, low, high);
-    double hyperAUC = auc["hyper"];
-    double hypoAUC = auc["hypo"];
+    if (countValid > 0 && areaHealthy > 0) {
+      double tor = 1440 - countTiR / countValid * 1440;
+      var auc = _calcAUC(dayData, low, high);
+      double hyperAUC = auc["hyper"];
+      double hypoAUC = auc["hypo"];
 //*
-    double areaPatient = cgp.paintValues([tor, varK, hypoAUC, hyperAUC, avgGluc], lw,
-        colLine: colCGPPatientLine, colFill: colCGPPatientFill, opacity: 0.4);
+      double areaPatient = cgp.paintValues([tor, varK, hypoAUC, hyperAUC, avgGluc], lw,
+          colLine: colCGPPatientLine, colFill: colCGPPatientFill, opacity: 0.4);
 // */
 //    double areaPatient = 1.0;
-    double pgr = areaPatient / areaHealthy;
+      double pgr = areaPatient / areaHealthy;
 
-    cgp.outputText.add({
-      "relativePosition": {"x": cm(cgp.xm - 2.5), "y": cm(cgp.ym + cgp.axisLength * cgp.scale * 0.9)},
-      "columns": [
-        {
-          "width": cm(5.0),
-          "text": "${PentagonData.msgPGR} = ${g.fmtNumber(pgr, 1)}",
-          "color": colCGPPatientLine,
-          "fontSize": fs(12 * cgp.scale),
-          "alignment": "center"
-        }
-      ]
-    });
-
+      cgp.outputText.add({
+        "relativePosition": {"x": cm(cgp.xm - 2.5), "y": cm(cgp.ym + cgp.axisLength * cgp.scale * 0.9)},
+        "columns": [
+          {
+            "width": cm(5.0),
+            "text": "${PentagonData.msgPGR} = ${g.fmtNumber(pgr, 1)}",
+            "color": colCGPPatientLine,
+            "fontSize": fs(12 * cgp.scale),
+            "alignment": "center"
+          }
+        ]
+      });
+      return {
+        "cgp": cgp,
+        "pgr": pgr,
+        "mean": avgGluc,
+        "hypo": hypoAUC,
+        "hyper": hyperAUC,
+        "tor": tor,
+        "vark": varK,
+        "low": low,
+        "high": high,
+        "countValid": countValid
+      };
+    }
     return {
       "cgp": cgp,
-      "pgr": pgr,
+      "pgr": null,
       "mean": avgGluc,
-      "hypo": hypoAUC,
-      "hyper": hyperAUC,
-      "tor": tor,
+      "hypo": null,
+      "hyper": null,
+      "tor": null,
       "vark": varK,
       "low": low,
       "high": high,

@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-04-06T12:40:44.703448",
+    "@@last_modified": "2020-04-20T12:31:22.313205",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1618,7 +1618,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bewegung anzeigen": "Bewegung anzeigen",
+    "Bewegung anzeigen": "Mostrar actividad",
     "@Bewegung anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1678,7 +1678,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bewegung": "Bewegung",
+    "Bewegung": "Actividad",
     "@Bewegung": {
         "type": "text",
         "placeholders": {}
@@ -1791,6 +1791,11 @@
             "duration": {},
             "reason": {}
         }
+    },
+    "Aufhebung von temp. Ziel": "Aufhebung von temp. Ziel",
+    "@Aufhebung von temp. Ziel": {
+        "type": "text",
+        "placeholders": {}
     },
     "msgLogTempBasal": "basal temporal {percent}% / {duration} min",
     "@msgLogTempBasal": {
@@ -1929,6 +1934,11 @@
     },
     "Automatisch": "Automático",
     "@Automatisch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Aus den Profilen ermitteln": "Aus den Profilen ermitteln",
+    "@Aus den Profilen ermitteln": {
         "type": "text",
         "placeholders": {}
     },
@@ -2133,6 +2143,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Genauigkeit der Basalangaben:": "Genauigkeit der Basalangaben:",
+    "@Genauigkeit der Basalangaben:": {
+        "description": "label for max basalprecision in printparams",
+        "type": "text",
+        "placeholders": {}
+    },
     "Historische Daten": "Datos históricos",
     "@Historische Daten": {
         "description": "label of area for timeshift",
@@ -2289,25 +2305,55 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.4.5 - 20.4.2020": "1.4.5 - 20.4.2020",
+    "@1.4.5 - 20.4.2020": {
+        "description": "v145",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": "In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.",
+    "@In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": {
+        "description": "v145a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.",
+    "@Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": {
+        "description": "v145f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.",
+    "@Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": {
+        "description": "v145f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.",
+    "@Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": {
+        "description": "v145f3",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.4.4 - 6.4.2020": "1.4.4 - 6.4.2020",
     "@1.4.4 - 6.4.2020": {
         "description": "v144",
         "type": "text",
         "placeholders": {}
     },
-    "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.",
+    "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": "En la leyenda del gráfico diario se ha añadido la información sobre actividad.",
     "@Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": {
         "description": "v144a1",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.",
+    "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": "En el gráfico diario se ha cambiado \"entrenamiento\" por \"actividad\". Esto va mejor con los datos en AAPS.",
     "@In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": {
         "description": "v144c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.",
+    "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": "El color para mostrar las actividades en el gráfico diario ha sido cambiado.",
     "@Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": {
         "description": "v144c2",
         "type": "text",

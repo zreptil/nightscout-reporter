@@ -10,6 +10,26 @@
       </material-button>
     </div>
     <div class="root">
+      <h2><span @i18n="version">Version</span><span @i18n="v145">1.4.5 - 20.4.2020</span></h2>
+      <ul>
+        <li class="added" @i18n="v145a1">
+          In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von
+          Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen
+          ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten
+          werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.
+        </li>
+        <li class="fixed" @i18n="v145f1">
+          Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.
+        </li>
+        <li class="fixed" @i18n="v145f2">
+          Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als
+          "Aufhebung von temp. Ziel" ausgegeben.
+        </li>
+        <li class="fixed" @i18n="v145f3">
+          Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und
+          Mittelwerten zeigten.
+        </li>
+      </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v144">1.4.4 - 6.4.2020</span></h2>
       <ul>
         <li class="added" @i18n="v144a1">

@@ -672,7 +672,7 @@ class AppComponent implements OnInit {
 
     ProfileData baseProfile = null;
     try {
-      g.basalPrecision = 0;
+      g.basalPrecisionAuto = 0;
       List<dynamic> src = json.decode(content);
       for (dynamic entry in src) {
         // don't add profiles that cannot be read
@@ -680,7 +680,7 @@ class AppComponent implements OnInit {
           ProfileData profile = ProfileData.fromJson(entry, isFromNS: true);
           data.profiles.add(profile);
         } catch (ex) {}
-        g.basalPrecision = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
+        g.basalPrecisionAuto = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
       }
       data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
       baseProfile = data.profiles.first;
@@ -851,7 +851,7 @@ class AppComponent implements OnInit {
           tmp = await g.request(url);
           src = json.decode(tmp);
           List<TreatmentData> list = List<TreatmentData>();
-          for (dynamic treatment in src) list.add(TreatmentData.fromJson(treatment));
+          for (dynamic treatment in src) list.add(TreatmentData.fromJson(g, treatment));
           list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
           if (list.length > 0) lastTempBasal = list.last;
         }
@@ -864,7 +864,7 @@ class AppComponent implements OnInit {
         bool hasExercise = false;
         for (dynamic treatment in src) {
           hasData = true;
-          TreatmentData t = TreatmentData.fromJson(treatment);
+          TreatmentData t = TreatmentData.fromJson(g, treatment);
           if (data.ns.treatments.length == 0 || !t.equals(data.ns.treatments.last)) {
             data.ns.treatments.add(t);
             switch (t.eventType.toLowerCase()) {
