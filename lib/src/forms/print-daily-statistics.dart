@@ -10,7 +10,12 @@ class PrintDailyStatistics extends BasePrint {
   @override
   String id = "daystats";
 
-  bool showHbA1c, showStdabw, showCount, showPercentile, showVarK, showTDD;
+  String _titleGraphic = Intl.message("Tagesstatistik");
+
+  @override
+  String get title => _titleGraphic;
+
+  bool showHbA1c, showStdabw, showCount, showPercentile, showVarK, showTDD, showExtendedInsulinStatictics;
   double _maxTDD = 0.0;
 
   @override
@@ -20,7 +25,8 @@ class PrintDailyStatistics extends BasePrint {
     ParamInfo(2, msgParam3, boolValue: true),
     ParamInfo(3, msgParam4, boolValue: true),
     ParamInfo(4, msgParam5, boolValue: false),
-//    ParamInfo(5, msgParam6, boolValue: false),
+    ParamInfo(5, msgParam6, boolValue: false),
+    ParamInfo(6, msgParam7, boolValue: false),
   ];
 
   static String get msgParam1 => Intl.message("Spalte Messwerte");
@@ -29,6 +35,7 @@ class PrintDailyStatistics extends BasePrint {
   static String get msgParam4 => Intl.message("Spalte HbA1c");
   static String get msgParam5 => Intl.message("Spalte Variationskoeffizient");
   static String get msgParam6 => Intl.message("Spalte TDD");
+  static String get msgParam7 => Intl.message("erweiterte Insulinstatistik");
 
   @override
   extractParams() {
@@ -38,6 +45,7 @@ class PrintDailyStatistics extends BasePrint {
     showHbA1c = params[3].boolValue;
     showVarK = params[4].boolValue;
     showTDD = false;//params[5].boolValue;
+    showExtendedInsulinStatictics = params[6].boolValue;
   }
 
   @override
@@ -47,8 +55,8 @@ class PrintDailyStatistics extends BasePrint {
     return {"count": count, "isEstimated": false};
   }
 
-  @override
-  String get title => Intl.message("Tagesstatistik");
+//  @override
+//  String get title => Intl.message("Tagesstatistik");
 
   @override
   bool get isPortrait => false;
@@ -184,6 +192,7 @@ class PrintDailyStatistics extends BasePrint {
     tableHeadFilled = false;
     tableHeadLine = [];
     tableWidths = [];
+    title = Intl.message("Tagesstatistik");
     titleInfo = titleInfoBegEnd();
     _settings = repData.status.settings;
     double f = 3.3;
@@ -275,5 +284,90 @@ class PrintDailyStatistics extends BasePrint {
       test["columns"].last["table"]["body"].add(body.last);
     }
     if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
+    if (showExtendedInsulinStatictics)
+      pages.add(getInsulinPage(repData));
+  }
+
+  Page getInsulinPage(ReportData src)
+  {
+    String t = _titleGraphic;
+    _titleGraphic = Intl.message("Insulinstatistik");
+
+    List<String> xValuesDaily = null;
+    List<String> xValuesWeekly = null;
+    List<String> xValuesMonthly = null;
+    List<List<double>> valuesDaily = [];
+    List<List<double>> valuesWeekly = [];
+    List<List<double>> valuesMonthly = [];
+    List<String> valueColor = [];
+    List<String> valueLegend = [];
+
+    Map<String, double> dV = new Map();
+    Map<String, double> wV = new Map();
+    Map<String, double> mV = new Map();
+    Map<String, int> wC = new Map();
+    Map<String, int> mC = new Map();
+    List<double> vD = [];
+    List<double> vW = [];
+    List<double> vM = [];
+    for (DayData day in src.data.days) {
+      double sum = 0;
+      for (TreatmentData t in day.treatments)
+        sum += t.insulin;
+      String dayStr = fmtDateShort(day.date, "day");
+      String weekStr = fmtDateShort(day.date, "week");
+      String monthStr = fmtDateShort(day.date, "month");
+      dV.update(dayStr, (double v) => v + sum, ifAbsent: () => sum);
+      wV.update(weekStr, (double v) => v + sum, ifAbsent: () => sum);
+      wC.update(weekStr, (int v) => v + 1, ifAbsent: () => 1);
+      mV.update(monthStr, (double v) => v + sum, ifAbsent: () => sum);
+      mC.update(monthStr, (int v) => v + 1, ifAbsent: () => 1);
+    }
+    if (xValuesDaily == null)
+      xValuesDaily = dV.keys.toList();
+    if (xValuesWeekly == null)
+      xValuesWeekly = wV.keys.toList();
+    if (xValuesMonthly == null)
+      xValuesMonthly = mV.keys.toList();
+    vD = dV.values.toList();
+    for (String s in xValuesWeekly)
+      vW.add(wV[s]/wC[s]);
+    for (String s in xValuesMonthly)
+      vM.add(mV[s]/mC[s]);
+
+    valuesDaily.add(vD);
+    valuesWeekly.add(vW);
+    valuesMonthly.add(vM);
+    valueColor.add("#000000");
+    valueLegend.add(Intl.message("Gesamtinsulin pro Tag"));
+
+    double contentWidth = new Page(false, null).width - 1.5*xorg; // 23.25 --> 29.7
+    double contentHeight = new Page(false, null).height - 1.5*yorg; // 13 --> 21
+    double weekly_monthly_distance = 1.5;
+    double legendHeight = 1 + valueLegend.length * 0.5;
+    double dailyWidth = contentWidth;
+    double weeklyWidth = (contentWidth - weekly_monthly_distance)/2;
+    double allGraphHeight = contentHeight / 2 - legendHeight;
+    double xo = xorg*0.75; // 3.35
+    double yo = yorg; // 3.9
+
+    List<dynamic> content = [ headerFooter(), ];
+    if (xValuesDaily.length > 1)
+      content.addAll(drawGraphicGridGeneric(allGraphHeight, dailyWidth,
+          xo, yo,
+          xValuesDaily, valuesDaily, valueColor, valueLegend, graphBottom: allGraphHeight));
+    if (xValuesWeekly.length > 1)
+      content.addAll(drawGraphicGridGeneric(allGraphHeight, weeklyWidth,
+          xo, yo + allGraphHeight + legendHeight,
+          xValuesWeekly, valuesWeekly, valueColor, valueLegend, graphBottom: allGraphHeight));
+    if (xValuesMonthly.length > 1)
+      content.addAll(drawGraphicGridGeneric(allGraphHeight, weeklyWidth,
+          xo + weeklyWidth + weekly_monthly_distance, yo + allGraphHeight + legendHeight,
+          xValuesMonthly, valuesMonthly, valueColor, valueLegend, graphBottom: allGraphHeight));
+
+    var ret = Page(isPortrait, content);
+
+    _titleGraphic = t;
+    return ret;
   }
 }
