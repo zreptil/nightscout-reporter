@@ -19,11 +19,14 @@ class DatepickerEntry {
   }
 
   shift(Date date, int shift) {
+    return date.add(months: -shift);
+/*
     while (shift > 0) {
-      date = _shift(date).add(months: -1);
+      date = _shift(date).add(months: -shift);
       shift--;
     }
     return date;
+ */
   }
 
   DatepickerEntry(this.key, this.title, this._fill, this._shift);

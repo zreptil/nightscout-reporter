@@ -296,7 +296,7 @@ abstract class BasePrint {
   String colHbA1c = "#505050";
   List<String> colWeekDays = ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d"];
   List<String> colWeekDaysText = ["#ffffff", "#ffffff", "#000000", "#ffffff", "#ffffff", "#000000", "#ffffff"];
-  String colExercises = "#ffa060";
+  String colExercises = "#c0c0c0";
   String colExerciseText = "#000000";
   String colCGPLine = "#a0a0a0";
   String colCGPHealthyLine = "#008000";
@@ -986,7 +986,7 @@ abstract class BasePrint {
   }
 
   hasData(ReportData src) {
-    return src.dayCount > 0 && src.data.count > 0;
+    return src.dayCount > 0 && src.data.countValid > 0;
   }
 
   Page getEmptyForm(bool isPortrait) {
@@ -1317,9 +1317,15 @@ abstract class BasePrint {
     return g.fmtNumber(carb, precision);
   }
 
+  /// draws a graphic grid
+  ///
+  /// it uses [horzfs] as the fontsize of the horizontal scale and [vertfs] as the fontsize for the vertical
+  /// scale.
   GridData drawGraphicGrid(
       double glucMax, double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack,
-      {double glucScale: 0.0, double graphBottom: 0.0}) {
+      {double glucScale: 0.0, double graphBottom: 0.0, double horzfs: null, double vertfs: null}) {
+    if (horzfs == null) horzfs = fs(8);
+    if (vertfs == null) vertfs = fs(8);
     GridData ret = GridData();
     if (graphBottom == 0.0) graphBottom = graphHeight;
     ret.glucScale = glucScale == 0.0 ? g.glucMGDL ? 50 : 18.02 * 1 : glucScale;
@@ -1343,7 +1349,7 @@ abstract class BasePrint {
         horzStack.add({
           "relativePosition": {"x": cm(xorg + i * ret.colWidth), "y": cm(yorg + graphBottom + 0.05)},
           "text": fmtTime(i),
-          "fontSize": fs(8)
+          "fontSize": horzfs
         });
     }
 
@@ -1380,14 +1386,14 @@ abstract class BasePrint {
             "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
           },
           "text": text,
-          "fontSize": fs(8)
+          "fontSize": vertfs
         });
       } else {
         String text = "${g.getGlucInfo()["unit"]}";
         vertStack.add({
           "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
           "columns": [
-            {"width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}
+            {"width": cm(1.2), "text": text, "fontSize": vertfs, "alignment": "right"}
           ]
         });
         vertStack.add({
@@ -1396,7 +1402,7 @@ abstract class BasePrint {
             "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
           },
           "text": text,
-          "fontSize": fs(8)
+          "fontSize": vertfs
         });
       }
     }
@@ -1590,7 +1596,7 @@ abstract class BasePrint {
       double y = top + (gridLines - i) * lineHeight;
       horzCvs.add({
         "type": "line",
-        "x1": cm(0),
+        "x1": cm(-0.2),
         "y1": cm(y) - lw / 2,
         "x2": cm(24 * colWidth + 0.2),
         "y2": cm(y) - lw / 2,
@@ -1634,7 +1640,12 @@ abstract class BasePrint {
     double maxCob = -1000.0;
     double lastX = 0;
     int i = 0;
+    int currentDay = day.date.day;
     while (i < 1440) {
+      if (currentDay != time.day) {
+        i += diff;
+        continue;
+      }
       if (i + diff >= 1440 && i != 1439) diff = 1439 - i;
       if (i < 1440) {
         double x = calcX(graphWidth, time);

@@ -23,14 +23,31 @@
           <material-dropdown-select [buttonText]="listGlucMaxValues[glucMaxIdx??0]"
                                     raised
                                     [showButtonBorder]="false"
-                                    popupClass="glucMaxSelect"
-                                    class="glucMaxButton"
+                                    popupClass="selectSelect"
+                                    class="selectButton"
                                     slide="y"
                                     listAutoFocus>
             <material-select-item *ngFor="let item of listGlucMaxValues; let idx=index"
                                   (trigger)="glucMaxIdx=idx"
                                   class="selectItem"
                                   [selected]="idx==glucMaxIdx">
+              <div class="itemTitle">{{item}}</div>
+            </material-select-item>
+          </material-dropdown-select>
+        </div>
+        <div>
+          <div @i18n="label for max basalprecision in printparams">Genauigkeit der Basalangaben:</div>
+          <material-dropdown-select [buttonText]="listBasalPrecision[basalPrecisionIdx??0]"
+                                    raised
+                                    [showButtonBorder]="false"
+                                    popupClass="selectSelect"
+                                    class="selectButton"
+                                    slide="y"
+                                    listAutoFocus>
+            <material-select-item *ngFor="let item of listBasalPrecision; let idx=index"
+                                  (trigger)="basalPrecisionIdx=idx"
+                                  class="selectItem"
+                                  [selected]="idx==basalPrecisionIdx">
               <div class="itemTitle">{{item}}</div>
             </material-select-item>
           </material-dropdown-select>

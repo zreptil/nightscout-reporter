@@ -149,6 +149,7 @@ class AppComponent implements OnInit {
   String get msgPreparingData => Intl.message("Bereite Daten vor...",
       desc: "text when data was received and is being prepared to be used in the report");
   String get msgCreatingPDF => Intl.message("Erzeuge PDF...", desc: "text when pdf is being created");
+  String get msgPreparingPDF => Intl.message("Lade die Basisdaten...");
   String get msgImpressum => Intl.message("Impressum");
   String get msgDSGVO => Intl.message("Datenschutzerklärung");
   String get msgApply => Intl.message("ok");
@@ -671,11 +672,15 @@ class AppComponent implements OnInit {
 
     ProfileData baseProfile = null;
     try {
-      g.basalPrecision = 0;
+      g.basalPrecisionAuto = 0;
       List<dynamic> src = json.decode(content);
       for (dynamic entry in src) {
-        data.profiles.add(ProfileData.fromJson(entry, isFromNS: true));
-        g.basalPrecision = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
+        // don't add profiles that cannot be read
+        try {
+          ProfileData profile = ProfileData.fromJson(entry, isFromNS: true);
+          data.profiles.add(profile);
+        } catch (ex) {}
+        g.basalPrecisionAuto = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
       }
       data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
       baseProfile = data.profiles.first;
@@ -804,11 +809,11 @@ class AppComponent implements OnInit {
     TreatmentData lastTempBasal = null;
     // add the previous day of the period to have the daydata available in forms that need this information
     begDate = begDate.add(days: -1);
+    data.dayCount = -1;
     while (begDate <= endDate) {
       bool hasData = false;
       if (g.period.isDowActive(begDate.weekday - 1)) {
         DateTime beg = DateTime(begDate.year, begDate.month, begDate.day, 0, 0, 0, 0).toUtc();
-
         DateTime end = DateTime(begDate.year, begDate.month, begDate.day, 23, 59, 59, 999).toUtc();
 
         ProfileGlucData profile = data.profile(beg);
@@ -846,7 +851,7 @@ class AppComponent implements OnInit {
           tmp = await g.request(url);
           src = json.decode(tmp);
           List<TreatmentData> list = List<TreatmentData>();
-          for (dynamic treatment in src) list.add(TreatmentData.fromJson(treatment));
+          for (dynamic treatment in src) list.add(TreatmentData.fromJson(g, treatment));
           list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
           if (list.length > 0) lastTempBasal = list.last;
         }
@@ -856,20 +861,53 @@ class AppComponent implements OnInit {
         tmp = await g.request(url);
         src = json.decode(tmp);
         displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
+        bool hasExercise = false;
         for (dynamic treatment in src) {
           hasData = true;
-          TreatmentData t = TreatmentData.fromJson(treatment);
-          data.ns.treatments.add(t);
-          if (t.eventType.toLowerCase() == "bg check") {
-            EntryData entry = EntryData();
-            entry.id = t.id;
-            entry.time = t.createdAt;
-            entry.device = t.enteredBy;
-            entry.type = "mbg";
-            entry.mbg = t.glucose * (g.glucMGDL ? 1 : 18.02);
-            entry.rawbg = t.glucose;
-            data.ns.bloody.add(entry);
+          TreatmentData t = TreatmentData.fromJson(g, treatment);
+          if (data.ns.treatments.length == 0 || !t.equals(data.ns.treatments.last)) {
+            data.ns.treatments.add(t);
+            switch (t.eventType.toLowerCase()) {
+              case "exercise":
+                hasExercise = true;
+                break;
+              case "bg check":
+                EntryData entry = EntryData();
+                entry.id = t.id;
+                entry.time = t.createdAt;
+                entry.device = t.enteredBy;
+                entry.type = "mbg";
+                entry.mbg = t.glucose * (g.glucMGDL ? 1 : 18.02);
+                entry.rawbg = t.glucose;
+                data.ns.bloody.add(entry);
+                break;
+            }
           }
+        }
+
+        if (g.isLocal && !hasExercise) {
+          TreatmentData t = TreatmentData();
+          t.createdAt = DateTime(begDate.year, begDate.month, begDate.day, 10, 0, 0);
+          t.duration = 60 * 60;
+          t.eventType = "exercise";
+          t.notes = "Bewegung (Testeintrag)";
+          t.enteredBy = "NR-Test";
+          t.microbolus = 0;
+          t.insulin = 0;
+          t.microbolus = 0;
+          t.isSMB = false;
+          data.ns.treatments.add(t);
+        }
+
+        url =
+            "${data.user.apiUrl}devicestatus.json?find[created_at][\$gte]=${profileBeg.toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000";
+        tmp = await g.request(url);
+        src = json.decode(tmp);
+        displayLink("ds${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
+        for (dynamic devicestatus in src) {
+          hasData = true;
+          DeviceStatusData ds = DeviceStatusData.fromJson(devicestatus);
+          data.ns.devicestatusList.add(ds);
         }
       }
       begDate = begDate.add(days: 1);
@@ -886,6 +924,7 @@ class AppComponent implements OnInit {
       data.ns.bloody.sort((a, b) => a.time.compareTo(b.time));
       data.ns.remaining.sort((a, b) => a.time.compareTo(b.time));
       data.ns.treatments.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+      data.ns.devicestatusList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
       int diffTime = 5;
       // gaps between entries that span more than the given minutes
@@ -945,6 +984,7 @@ class AppComponent implements OnInit {
 
       data.ns.treatments.removeWhere((t) => filterTreatment(t));
       data.calc.treatments = data.ns.treatments;
+      data.calc.devicestatusList = data.ns.devicestatusList;
 
       data.calc.extractData(data, lastTempBasal);
       data.ns.extractData(data, lastTempBasal);
@@ -1033,6 +1073,9 @@ class AppComponent implements OnInit {
     g.save(skipReload: isForThumbs);
     display("");
     pdfList.clear();
+    progressMax = 1;
+    progressValue = 0;
+    progressText = msgPreparingPDF;
     loadData(isForThumbs).then((ReportData src) async {
       progressText = msgCreatingPDF;
       if (src.error != null) {
@@ -1063,6 +1106,12 @@ class AppComponent implements OnInit {
             case "dayanalysis":
               cfg = FormConfig(PrintDailyAnalysis(), false);
               cfg.form.params[2].thumbValue = 1;
+              listConfig.add(cfg);
+              break;
+            case "percentile":
+              cfg = FormConfig(PrintPercentile(), false);
+              cfg.form.params[0].thumbValue = 0;
+              cfg.form.params[2].thumbValue = true;
               listConfig.add(cfg);
               break;
           }

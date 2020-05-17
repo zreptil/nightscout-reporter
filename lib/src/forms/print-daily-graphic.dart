@@ -170,7 +170,7 @@ class PrintDailyGraphic extends BaseDaily {
   static String get msgParam13 => Intl.message("Notiz-Linien bis zur Kurve zeichnen");
   static String get msgParam14 => Intl.message("Nahe zusammen liegende Werte aufsummieren");
   static String get msgParam16 => Intl.message("Bolusarten anzeigen");
-  static String get msgParam17 => Intl.message("Training anzeigen");
+  static String get msgParam17 => Intl.message("Bewegung anzeigen");
   static String get msgParam18 => Intl.message("Berechnete IE für Kohlenhydrate anzeigen");
   static String get msgParam19 => Intl.message("Glukose Pentagon erzeugen");
   static String get msgParam20 => Intl.message("Tagesstartprofil anzeigen");
@@ -182,6 +182,8 @@ class PrintDailyGraphic extends BaseDaily {
   String get msgBasalSum => Intl.message("Basal ges.");
   String get msgBolusSum => Intl.message("Bolus ges.");
   String get msgBasalZero => Intl.message("Basal 0%");
+  String get msgExercises => Intl.message("Bewegung");
+  String get msgBloody => Intl.message("Blutige Messung");
 
   @override
   List<String> get imgList => ["nightscout", "katheter.print", "sensor.print", "ampulle.print"];
@@ -297,7 +299,7 @@ class PrintDailyGraphic extends BaseDaily {
   carbsForIE(ReportData src, TreatmentData t) {
     if (t.boluscalc != null) return t.boluscalc.insulinCarbs;
 
-    int check = t.createdAt.hour * 60 + t.createdAt.minute;
+    int check = (t.createdAt.hour * 60 + t.createdAt.minute) * 60;
     double ret = 0.0;
     for (ProfileEntryData entry in src.profile(t.createdAt).store.listCarbratio) {
       if (entry.timeForCalc < check) ret = entry.value != 0 ? t.carbs / entry.value : 0.0;
@@ -337,8 +339,6 @@ class PrintDailyGraphic extends BaseDaily {
     for (EntryData entry in day.entries) glucMax = math.max(entry.gluc, glucMax);
     for (EntryData entry in day.bloody) glucMax = math.max(entry.mbg, glucMax);
 
-    if (g.glucMaxValue != null) glucMax = g.glucMaxValues[g.ppGlucMaxIdx];
-
     profMax = -1000.0;
     if (showBasalProfile) {
       for (ProfileEntryData entry in day.basalData.store.listBasal) profMax = math.max(entry.value ?? 0, profMax);
@@ -350,6 +350,10 @@ class PrintDailyGraphic extends BaseDaily {
       if (entry.isBloody) glucMax = math.max(g.glucFactor * entry.glucose, glucMax);
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
+
+    if (g.glucMaxValue != null) glucMax = g.glucMaxValues[g.ppGlucMaxIdx];
+
+    ieMax = math.max(ieMax, 3.0);
 
     var vertLines = {
       "relativePosition": {"x": cm(xo), "y": cm(yo)},
@@ -428,17 +432,22 @@ class PrintDailyGraphic extends BaseDaily {
       ]);
 
     glucMax = grid.gridLines * grid.glucScale;
+
+    bool hasBloody = false;
     for (EntryData entry in day.bloody) {
       double x = glucX(entry.time);
       double y = glucY(entry.mbg);
       y = glucY(entry.mbg);
       graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": colBloodValues});
+      hasBloody = true;
     }
+
     for (TreatmentData t in day.treatments) {
       if (t.isBloody) {
         double x = glucX(t.createdAt);
         double y = glucY((g.glucMGDL ? 1 : 18.02) * t.glucose);
         graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": colBloodValues});
+        hasBloody = true;
       }
     }
 
@@ -821,7 +830,8 @@ class PrintDailyGraphic extends BaseDaily {
       double y = carbY(info.max1);
       String text = "${msgKH(g.fmtNumber(info.sum1))}";
       if (info.count > 1) {
-        text = "[$text]";
+        text =
+            "[$text]"; // ${info.count} ${info.start.hour}:${info.start.minute} - ${info.end.hour}:${info.end.minute}";
         hasCollectedValues = true;
       }
       y -= 0.35;
@@ -919,6 +929,15 @@ class PrintDailyGraphic extends BaseDaily {
 
     if (showLegend) {
       addLegendEntry(legend, colValue, msgGlucosekurve, isArea: false);
+      if (hasBloody)
+        addLegendEntry(legend, colBloodValues, msgBloody,
+            points: [
+              {"x": 0.3, "y": 0.2},
+              {"x": 0.4, "y": 0.2},
+              {"x": 0.4, "y": 0.3},
+              {"x": 0.3, "y": 0.3}
+            ],
+            isArea: false);
       String text;
       if (hasCarbs) {
         text = "${g.fmtNumber(day.carbs, 0)}";
@@ -954,6 +973,8 @@ class PrintDailyGraphic extends BaseDaily {
       if (hasBolusExt) {
         addLegendEntry(legend, colBolusExt, msgBolusExtInsulin, isArea: false, lineWidth: 0.1);
       }
+      if (showExercises && hasExercises)
+        addLegendEntry(legend, colExercises, msgExercises, isArea: false, lineWidth: 0.3);
       if (showBasalDay) {
         text = "${g.fmtBasal(day.ieBasalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}";
         addLegendEntry(legend, colBasalDay, msgBasalrateDay(text), isArea: true);
@@ -1108,8 +1129,8 @@ class PrintDailyGraphic extends BaseDaily {
 
       if (showIOB) {
         graphIob = {
-          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["iobHeight"] + pts["iobTop"])},
-          "canvas": []
+//          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["iobHeight"] + pts["iobTop"])},
+          "relativePosition": {"x": cm(xo), "y": cm(yo - pts["iobTop"])}, "canvas": []
         };
         List graphIobCvs = graphIob["canvas"];
         graphIobCvs.add(graphArea(pts["iob"], colIOBDaily, colIOBDaily));

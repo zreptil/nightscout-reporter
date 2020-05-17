@@ -165,13 +165,13 @@ class SigninComponent
     });
   }
 
-  final _trigger = StreamController<SigninEvent>.broadcast(sync: true);
-  @Output("trigger")
-  Stream<SigninEvent> get trigger
-  => _trigger.stream;
+  final _onevent = StreamController<SigninEvent>.broadcast(sync: true);
+  @Output("onEvent")
+  Stream<SigninEvent> get onevent
+  => _onevent.stream;
 
   void fire(SigninStatus status, [String message = null])
   async {
-    _trigger.add(SigninEvent(status, message));
+    _onevent.add(SigninEvent(status, message));
   }
 }

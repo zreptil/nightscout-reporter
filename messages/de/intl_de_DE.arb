@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-02-28T12:07:28.853091",
+    "@@last_modified": "2020-04-20T12:31:22.313205",
     "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -45,6 +45,11 @@
     "Erzeuge PDF...": "Erzeuge PDF...",
     "@Erzeuge PDF...": {
         "description": "text when pdf is being created",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Lade die Basisdaten...": "Lade die Basisdaten...",
+    "@Lade die Basisdaten...": {
         "type": "text",
         "placeholders": {}
     },
@@ -227,8 +232,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.",
-    "@Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.": {
+    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.": "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.",
+    "@Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.": "Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.",
+    "@Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.": {
         "type": "text",
         "placeholders": {}
     },
@@ -1608,8 +1618,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Training anzeigen": "Training anzeigen",
-    "@Training anzeigen": {
+    "Bewegung anzeigen": "Bewegung anzeigen",
+    "@Bewegung anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1665,6 +1675,11 @@
     },
     "Basal 0%": "Basal 0%",
     "@Basal 0%": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bewegung": "Bewegung",
+    "@Bewegung": {
         "type": "text",
         "placeholders": {}
     },
@@ -1777,6 +1792,11 @@
             "reason": {}
         }
     },
+    "Aufhebung von temp. Ziel": "Aufhebung von temp. Ziel",
+    "@Aufhebung von temp. Ziel": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgLogTempBasal": "temp. Basal {percent}% / {duration} min",
     "@msgLogTempBasal": {
         "type": "text",
@@ -1856,10 +1876,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Maximum für die Skalierung": "Maximum für die Skalierung",
-    "@Maximum für die Skalierung": {
+    "Basalrate anzeigen": "Basalrate anzeigen",
+    "@Basalrate anzeigen": {
         "type": "text",
         "placeholders": {}
+    },
+    "msgBasalInfo1": "Diese Basalrate war am {unit} aktiv.",
+    "@msgBasalInfo1": {
+        "type": "text",
+        "placeholders": {
+            "unit": {}
+        }
     },
     "Spalten für 10% und 90% anzeigen": "Spalten für 10% und 90% anzeigen",
     "@Spalten für 10% und 90% anzeigen": {
@@ -1907,6 +1934,11 @@
     },
     "Automatisch": "Automatisch",
     "@Automatisch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Aus den Profilen ermitteln": "Aus den Profilen ermitteln",
+    "@Aus den Profilen ermitteln": {
         "type": "text",
         "placeholders": {}
     },
@@ -2111,6 +2143,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Genauigkeit der Basalangaben:": "Genauigkeit der Basalangaben:",
+    "@Genauigkeit der Basalangaben:": {
+        "description": "label for max basalprecision in printparams",
+        "type": "text",
+        "placeholders": {}
+    },
     "Historische Daten": "Historische Daten",
     "@Historische Daten": {
         "description": "label of area for timeshift",
@@ -2264,6 +2302,108 @@
     "Version": "Version",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.5 - 20.4.2020": "1.4.5 - 20.4.2020",
+    "@1.4.5 - 20.4.2020": {
+        "description": "v145",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": "In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.",
+    "@In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": {
+        "description": "v145a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.",
+    "@Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": {
+        "description": "v145f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.",
+    "@Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": {
+        "description": "v145f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.",
+    "@Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": {
+        "description": "v145f3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.4 - 6.4.2020": "1.4.4 - 6.4.2020",
+    "@1.4.4 - 6.4.2020": {
+        "description": "v144",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.",
+    "@Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": {
+        "description": "v144a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.",
+    "@In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": {
+        "description": "v144c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.",
+    "@Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": {
+        "description": "v144c2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.3 - 26.3.2020": "1.4.3 - 26.3.2020",
+    "@1.4.3 - 26.3.2020": {
+        "description": "v143",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.",
+    "@Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": {
+        "description": "v143f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.2 - 16.3.2020": "1.4.2 - 16.3.2020",
+    "@1.4.2 - 16.3.2020": {
+        "description": "v142",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": "Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.",
+    "@Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": {
+        "description": "v142c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": "Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.",
+    "@Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": {
+        "description": "v142f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.1 - 13.3.2020": "1.4.1 - 13.3.2020",
+    "@1.4.1 - 13.3.2020": {
+        "description": "v141",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.",
+    "@Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": {
+        "description": "v141a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Fehler behoben, der bei der Kachelansicht teilweise verhindert hat, dass die Parameter für die Kacheln aufgerufen werden konnten.": "Fehler behoben, der bei der Kachelansicht teilweise verhindert hat, dass die Parameter für die Kacheln aufgerufen werden konnten.",
+    "@Fehler behoben, der bei der Kachelansicht teilweise verhindert hat, dass die Parameter für die Kacheln aufgerufen werden konnten.": {
+        "description": "v141f1",
         "type": "text",
         "placeholders": {}
     },
