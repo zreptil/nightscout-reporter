@@ -15,7 +15,6 @@ import 'messages_en_US.dart' deferred as messages_en_us;
 import 'messages_en_GB.dart' deferred as messages_en_gb;
 import 'messages_pl_PL.dart' deferred as messages_pl_pl;
 import 'messages_ja_JP.dart' deferred as messages_ja_jp;
-import 'messages_sk_SK.dart' deferred as messages_sk_sk;
 import 'messages_fr_FR.dart' deferred as messages_fr_fr;
 import 'messages_pt_PT.dart' deferred as messages_pt_pt;
 
@@ -27,7 +26,6 @@ Map<String, LibraryLoader> _deferredLibraries = {
   'en_GB': () => messages_en_gb.loadLibrary(),
   'pl_PL': () => messages_pl_pl.loadLibrary(),
   'ja_JP': () => messages_ja_jp.loadLibrary(),
-  'sk_SK': () => messages_sk_sk.loadLibrary(),
   'fr_FR': () => messages_fr_fr.loadLibrary(),
   'pt_PT': () => messages_pt_pt.loadLibrary(),
 };
@@ -46,8 +44,6 @@ MessageLookupByLibrary _findExact(localeName) {
       return messages_pl_pl.messages;
     case 'ja_JP':
       return messages_ja_jp.messages;
-    case 'sk_SK':
-      return messages_sk_sk.messages;
     case 'fr_FR':
       return messages_fr_fr.messages;
     case 'pt_PT':
