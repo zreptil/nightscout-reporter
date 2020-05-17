@@ -1548,7 +1548,7 @@ class DayData {
   int stdTopCount = 0;
   int topCount = 0;
   int bottomCount = 0;
-  int entryCount = 0;
+//  int entryCount = 0;
   int carbCount = 0;
   double carbs = 0;
   double min;
@@ -1576,11 +1576,11 @@ class DayData {
   }
 
   double get varK => (mid ?? 0) != 0 ? stdAbw(true) / mid * 100 : 0;
-  double lowPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdLowCount : lowCount) / entryCountValid * 100;
-  double bottomPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdBottomCount : bottomCount) / entryCountValid * 100;
-  double normPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdNormCount : normCount) / entryCountValid * 100;
-  double highPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdHighCount : highCount) / entryCountValid * 100;
-  double topPrz(Globals g) => entryCount == 0 ? 0 : (g.ppStandardLimits ? stdTopCount : topCount) / entryCountValid * 100;
+  double lowPrz(Globals g) => entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdLowCount : lowCount) / entryCountValid * 100;
+  double bottomPrz(Globals g) => entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdBottomCount : bottomCount) / entryCountValid * 100;
+  double normPrz(Globals g) => entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdNormCount : normCount) / entryCountValid * 100;
+  double highPrz(Globals g) => entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdHighCount : highCount) / entryCountValid * 100;
+  double topPrz(Globals g) => entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdTopCount : topCount) / entryCountValid * 100;
   double get avgCarbs => carbCount > 0 ? carbs / carbCount : 0;
   bool isSameDay(DateTime time)
   {
