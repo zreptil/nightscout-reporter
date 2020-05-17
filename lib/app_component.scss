@@ -963,9 +963,9 @@ datepicker {
 
   [number], [numberimg] {
     position: absolute;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     opacity: 0.1;
-    width: 100%;
     align-items: center;
     justify-content: center;
     font-size: 5em;
@@ -1032,7 +1032,7 @@ datepicker {
   align-items: center;
   justify-content: center;
   flex: 1;
-  min-width: 15%;
+  min-width: 20%;
   max-height: 80%;
 }
 

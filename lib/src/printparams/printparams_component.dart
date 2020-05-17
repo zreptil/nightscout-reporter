@@ -48,8 +48,16 @@ class PrintParamsComponent implements OnInit {
   bool isVisible = true;
   globals.PeriodShift periodShift;
   int glucMaxIdx;
+  int basalPrecisionIdx;
   static String get msgAutomatic => Intl.message("Automatisch");
+  String basalPrecisionText(value) {
+    return "${g.fmtNumber(1, value)} ${g.getGlucInfo()["unit"]}";
+  }
+
+  static String get msgBasalPrecisionFromProfile => Intl.message("Aus den Profilen ermitteln");
+
   List<String> listGlucMaxValues = [msgAutomatic];
+  List<String> listBasalPrecision = [msgBasalPrecisionFromProfile];
   PrintParamsComponent();
 
   @override
@@ -64,6 +72,10 @@ class PrintParamsComponent implements OnInit {
     for (int i = 1; i < g.glucMaxValues.length; i++)
       listGlucMaxValues.add("${g.glucFromData(g.glucMaxValues[i])} ${g.getGlucInfo()["unit"]}");
     glucMaxIdx = g.ppGlucMaxIdx;
+    listBasalPrecision = [msgBasalPrecisionFromProfile];
+    for (int i = 1; i < g.basalPrecisionValues.length; i++)
+      listBasalPrecision.add("${basalPrecisionText(g.basalPrecisionValues[i])}");
+    basalPrecisionIdx = g.ppBasalPrecisionIdx;
   }
 
   void fire(String type) {
@@ -72,6 +84,7 @@ class PrintParamsComponent implements OnInit {
       case "ok":
         g.currPeriodShift = periodShift;
         g.ppGlucMaxIdx = glucMaxIdx;
+        g.ppBasalPrecisionIdx = basalPrecisionIdx;
         break;
     }
     _trigger.add(UIEvent(type, detail: detail));

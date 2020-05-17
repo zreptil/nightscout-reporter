@@ -68,7 +68,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = "1.4";
+  String version = "1.4.5";
   static String get msgThemeAuto => Intl.message("Automatisch", meaning: "theme selection - automatic");
   static String get msgThemeStandard => Intl.message("Standard", meaning: "theme selection - standard");
   static String get msgThemeXmas => Intl.message("Weihnachten", meaning: "theme selection - christmas");
@@ -364,6 +364,8 @@ class Globals extends Settings {
   int ppGlucMaxIdx = 0;
   List<double> get glucMaxValues => [null, 150, 200, 250, 300, 350, 400, 450];
   double get glucMaxValue => glucValueFromData(glucMaxValues[ppGlucMaxIdx]);
+  int ppBasalPrecisionIdx = 0;
+  List<int> get basalPrecisionValues => [null, 0, 1, 2, 3];
 
   int get pdfCreationMaxSize {
     if (_pdfCreationMaxSize < Globals.PDFDIVIDER) _pdfCreationMaxSize = Globals.PDFDIVIDER;
@@ -384,6 +386,7 @@ class Globals extends Settings {
     pdfCreationMaxSize = JsonData.toInt(loadStorage('pdfCreationMaxSize'));
     ppStandardLimits = loadStorage('ppStandardLimits') == "true";
     ppGlucMaxIdx = JsonData.toInt(loadStorage('ppGlucMaxIdx'));
+    ppBasalPrecisionIdx = JsonData.toInt(loadStorage('ppBasalPrecisionIdx'));
     currPeriodShift = listPeriodShift[0];
   }
 
@@ -401,7 +404,9 @@ class Globals extends Settings {
     pdfCreationMaxSize = value * Globals.PDFDIVIDER;
   }
 
-  int basalPrecision = 1;
+  int basalPrecisionAuto = 1;
+
+  int get basalPrecision => ppBasalPrecisionIdx > 0 ? basalPrecisionValues[ppBasalPrecisionIdx] : basalPrecisionAuto;
 
   static int decimalPlaces(num value) {
     String v = value.toString();
@@ -461,7 +466,7 @@ class Globals extends Settings {
   }
 
   List<PeriodShift> get listPeriodShift => [
-        PeriodShift(Intl.message("Ausgewählter Zeitraum")),
+        PeriodShift(Intl.message("Ausgewählter Zeitraum"), months: 0),
         PeriodShift(Intl.message("Einen Monat vorher"), months: 1),
         PeriodShift(Intl.message("Drei Monate vorher"), months: 3),
         PeriodShift(Intl.message("Sechs Monate vorher"), months: 6),
@@ -485,8 +490,14 @@ class Globals extends Settings {
           "wie dieses hier auf die Daten zugreifen dürfen.");
 
   String get msgUrlFailure10be => Intl.message("Auf 10be muss beim Server in den Standardeinstellungen der Haken bei "
-      "\"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen.");
+      "\"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" "
+      "aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.");
+
+  String get msgUrlNotSafe => Intl.message("Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter "
+      "auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.");
+
   String msgUrlFailure(String url) {
+    if (url.startsWith("http:") && html.window.location.protocol.startsWith("https")) return msgUrlNotSafe;
     if (url.contains("ns.10be")) return "${msgUrlFailurePrefix}${msgUrlFailure10be}${msgUrlFailureSuffix}";
     return "${msgUrlFailurePrefix}${msgUrlFailureHerokuapp}${msgUrlFailureSuffix}";
   }
@@ -821,7 +832,7 @@ class Globals extends Settings {
     }
 
     syncGoogle = loadStorage("syncGoogle") == "yes";
-    if (syncGoogle) _loadFromGoogle();
+    if (syncGoogle) await _loadFromGoogle();
     _loadFromStorage();
     _initAfterLoad();
   }
@@ -942,6 +953,7 @@ class Globals extends Settings {
     saveStorage("pdfCreationMaxSize", "${pdfCreationMaxSize}");
     saveStorage("ppStandardLimits", ppStandardLimits ? "true" : "false");
     saveStorage("ppGlucMaxIdx", ppGlucMaxIdx?.toString() ?? 0);
+    saveStorage("ppBasalPrecisionIdx", ppBasalPrecisionIdx?.toString() ?? 0);
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "true" : "false");
     saveStorage("showAllTileParams", showAllTileParams ? "true" : "false");
     saveStorage("hidePdfInfo", hidePdfInfo ? "true" : "false");
