@@ -68,7 +68,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = "1.4.5";
+  String version = "1.4.7";
   static String get msgThemeAuto => Intl.message("Automatisch", meaning: "theme selection - automatic");
   static String get msgThemeStandard => Intl.message("Standard", meaning: "theme selection - standard");
   static String get msgThemeXmas => Intl.message("Weihnachten", meaning: "theme selection - christmas");
@@ -366,6 +366,7 @@ class Globals extends Settings {
   double get glucMaxValue => glucValueFromData(glucMaxValues[ppGlucMaxIdx]);
   int ppBasalPrecisionIdx = 0;
   List<int> get basalPrecisionValues => [null, 0, 1, 2, 3];
+  bool ppLatestFirst = false;
 
   int get pdfCreationMaxSize {
     if (_pdfCreationMaxSize < Globals.PDFDIVIDER) _pdfCreationMaxSize = Globals.PDFDIVIDER;
@@ -385,6 +386,7 @@ class Globals extends Settings {
     pdfDownload = loadStorage('pdfDownload') == "true";
     pdfCreationMaxSize = JsonData.toInt(loadStorage('pdfCreationMaxSize'));
     ppStandardLimits = loadStorage('ppStandardLimits') == "true";
+    ppLatestFirst = loadStorage('ppLatestFirst') == "true";
     ppGlucMaxIdx = JsonData.toInt(loadStorage('ppGlucMaxIdx'));
     ppBasalPrecisionIdx = JsonData.toInt(loadStorage('ppBasalPrecisionIdx'));
     currPeriodShift = listPeriodShift[0];
@@ -952,6 +954,7 @@ class Globals extends Settings {
     saveStorage("pdfDownload", pdfDownload ? "true" : "false");
     saveStorage("pdfCreationMaxSize", "${pdfCreationMaxSize}");
     saveStorage("ppStandardLimits", ppStandardLimits ? "true" : "false");
+    saveStorage("ppLatestFirst", ppLatestFirst ? "true" : "false");
     saveStorage("ppGlucMaxIdx", ppGlucMaxIdx?.toString() ?? 0);
     saveStorage("ppBasalPrecisionIdx", ppBasalPrecisionIdx?.toString() ?? 0);
     saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "true" : "false");

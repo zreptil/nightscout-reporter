@@ -90,85 +90,89 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m35(date) => "A carregando dados para ${date}...";
 
-  static m36(insulin, unit) => "SMB ${insulin} ${unit}";
+  static m36(insulin, unit) => "Microbolus ${insulin} ${unit}";
 
-  static m37(percent, duration) => "basal temporária ${percent}% / ${duration} min";
+  static m37(insulin, unit) => "SMB ${insulin} ${unit}";
 
-  static m38(target, duration, reason) => "alvo temporário ${target} por ${duration} min, motivo: ${reason}";
+  static m38(percent, duration) => "basal temporária ${percent}% / ${duration} min";
 
-  static m39(value) => "Baixo${value}";
+  static m39(value, duration) => "temp. Basal ${value} / ${duration} min";
 
-  static m40(gluc, unit) => "Valor do sangue ${gluc} ${unit}";
+  static m40(target, duration, reason) => "alvo temporário ${target} por ${duration} min, motivo: ${reason}";
 
-  static m41(unit, value) => "Glicose média\n[${unit}]";
+  static m41(value) => "Baixo${value}";
 
-  static m42(hba1c) => "O valor da glicémia médio no período especificado.";
+  static m42(gluc, unit) => "Valor do sangue ${gluc} ${unit}";
 
-  static m43(min, max) => "mau (${min} para ${max})";
+  static m43(unit, value) => "Glicose média\n[${unit}]";
 
-  static m44(min, max) => "bom (${min} para ${max})";
+  static m44(hba1c) => "O valor da glicémia médio no período especificado.";
 
-  static m45(max) => "muito mau (maior que ${max})";
+  static m45(min, max) => "mau (${min} para ${max})";
 
-  static m46(min) => "excelente (menor que ${min})";
+  static m46(min, max) => "bom (${min} para ${max})";
 
-  static m47(oldName, newName) => "TrocaPerfil - ${oldName} => ${newName}";
+  static m47(max) => "muito mau (maior que ${max})";
 
-  static m48(oldName, newName, duration) => "Profileswitch - ${oldName} => ${newName} por ${duration} Minutos";
+  static m48(min) => "excelente (menor que ${min})";
 
-  static m49(howMany, fmt) => "${Intl.plural(howMany, zero: 'Sem valores disponiveis', one: '1 valor por minuto', other: 'valor a cada ${fmt} minutos')}";
+  static m49(oldName, newName) => "TrocaPerfil - ${oldName} => ${newName}";
 
-  static m50(howMany, fmt) => "${Intl.plural(howMany, zero: 'Sem dados disponiveis', one: '1 valor por dia', other: '${fmt} valores por dia')}";
+  static m50(oldName, newName, duration) => "Profileswitch - ${oldName} => ${newName} por ${duration} Minutos";
 
-  static m51(howMany, fmt) => "${Intl.plural(howMany, zero: 'Sem valores disponiveis', one: '1 valor por hora', other: '${fmt} valores por horas')}";
+  static m51(howMany, fmt) => "${Intl.plural(howMany, zero: 'Sem valores disponiveis', one: '1 valor por minuto', other: 'valor a cada ${fmt} minutos')}";
 
-  static m52(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} dia por reservatório)', other: '(${txt} dias por reservatório)')}";
+  static m52(howMany, fmt) => "${Intl.plural(howMany, zero: 'Sem dados disponiveis', one: '1 valor por dia', other: '${fmt} valores por dia')}";
 
-  static m53(value) => "SMB (${value})";
+  static m53(howMany, fmt) => "${Intl.plural(howMany, zero: 'Sem valores disponiveis', one: '1 valor por hora', other: '${fmt} valores por horas')}";
 
-  static m54(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} dia por sensor)', other: '(${txt} dias por sensor)')}";
+  static m54(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} dia por reservatório)', other: '(${txt} dias por reservatório)')}";
 
-  static m55(low, high, unit) => "Usar intervalo padrão (${low} ${unit} - ${high} ${unit})";
+  static m55(value) => "SMB (${value})";
 
-  static m56(value) => "(DesvP ${value})";
+  static m56(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} dia por sensor)', other: '(${txt} dias por sensor)')}";
 
-  static m57(value) => "ToR [${value}min/d]";
+  static m57(low, high, unit) => "Usar intervalo padrão (${low} ${unit} - ${high} ${unit})";
 
-  static m58(min, max) => "O tempo por dia em minutos em que os valores estão fora do intervalo de ${min} a ${max}.";
+  static m58(value) => "(DesvP ${value})";
 
-  static m59(unit) => "Intervalo alvo da glicose ${unit}";
+  static m59(value) => "ToR [${value}min/d]";
 
-  static m60(min, max, units) => "Intervalo Alvo(${min} - ${max} ${units})";
+  static m60(min, max) => "O tempo por dia em minutos em que os valores estão fora do intervalo de ${min} a ${max}.";
 
-  static m61(value) => "Valor de Alvo";
+  static m61(unit) => "Intervalo alvo da glicose ${unit}";
 
-  static m62(time) => "${time}";
+  static m62(min, max, units) => "Intervalo Alvo(${min} - ${max} ${units})";
 
-  static m63(time) => "${time} am";
+  static m63(value) => "Valor de Alvo";
 
-  static m64(time) => "${time} pm";
+  static m64(time) => "${time}";
 
-  static m65(begDate) => "válido desde ${begDate}";
+  static m65(time) => "${time} am";
 
-  static m66(begDate, endDate) => "válido de ${begDate} para ${endDate}";
+  static m66(time) => "${time} pm";
 
-  static m67(endDate) => "válido até ${endDate}";
+  static m67(begDate) => "válido desde ${begDate}";
 
-  static m68(high) => "Valores acima de ${high}";
+  static m68(begDate, endDate) => "válido de ${begDate} para ${endDate}";
 
-  static m69(low) => "Valores abaixo ${low}";
+  static m69(endDate) => "válido até ${endDate}";
 
-  static m70(low, high) => "Valor entre ${low} e ${high}";
+  static m70(high) => "Valores acima de ${high}";
 
-  static m71(low, high) => "Intervalo alvo (${low} - ${high})";
+  static m71(low) => "Valores abaixo ${low}";
 
-  static m72(value) => "Valores altos (${value})";
+  static m72(low, high) => "Valor entre ${low} e ${high}";
 
-  static m73(value) => "Valores baixos (${value})";
+  static m73(low, high) => "Intervalo alvo (${low} - ${high})";
 
-  static m74(value) => "Valores muito altos ( > ${value})";
+  static m74(value) => "Valores altos (${value})";
 
-  static m75(value) => "Valores muito baixos (< ${value})";
+  static m75(value) => "Valores baixos (${value})";
+
+  static m76(value) => "Valores muito altos ( > ${value})";
+
+  static m77(value) => "Valores muito baixos (< ${value})";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -210,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "1.4.3 - 26.3.2020" : MessageLookupByLibrary.simpleMessage("1.4.3 - 26/3/2020"),
     "1.4.4 - 6.4.2020" : MessageLookupByLibrary.simpleMessage("1.4.4 - 6/4/2020"),
     "1.4.5 - 20.4.2020" : MessageLookupByLibrary.simpleMessage("1.4.5 - 20/4/2020"),
+    "1.4.6 - 26.5.2020" : MessageLookupByLibrary.simpleMessage("1.4.6 - 26/5/2020"),
     "10%" : MessageLookupByLibrary.simpleMessage("10%"),
     "10% - 90% der Werte" : MessageLookupByLibrary.simpleMessage("10% - 90% dos valores"),
     "15 Minuten" : MessageLookupByLibrary.simpleMessage("15 Minutos"),
@@ -296,6 +301,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt" : MessageLookupByLibrary.simpleMessage("Adicionados totais ausentes nas estatísticas diárias"),
     "Bitte einen Zeitraum wählen." : MessageLookupByLibrary.simpleMessage("Por favor, selecione um período."),
     "Bitte überprüfe die Aktivierung der Wochentage unter dem Monat" : MessageLookupByLibrary.simpleMessage("Por favor, verifique a activação dos dias da semana abaixo do mês"),
+    "Blutige Messung" : MessageLookupByLibrary.simpleMessage("Bloody values"),
     "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden." : MessageLookupByLibrary.simpleMessage("Valores do sangue agora também devem ser exibidos corretamente no gráfico diário de dados mmol."),
     "Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt." : MessageLookupByLibrary.simpleMessage("Os valores de sangue agora são exibidos corretamente em mmol/L nos gráficos."),
     "Bolus" : MessageLookupByLibrary.simpleMessage("Bolus"),
@@ -366,9 +372,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "Die Icons auf einigen Buttons waren zu nahe am Text" : MessageLookupByLibrary.simpleMessage("Os ícones em alguns botões estavam muito próximos do texto"),
     "Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben." : MessageLookupByLibrary.simpleMessage("A informação de Hidratos de carbono no gráfico diário agora é mostrado sem o sufixo KH."),
     "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert." : MessageLookupByLibrary.simpleMessage("A legenda do gráfico diário foi aumentada para incluir a entrada para exercícios."),
+    "Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert." : MessageLookupByLibrary.simpleMessage("The legend of the daily graphic now includes the entry for bloody values."),
     "Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde." : MessageLookupByLibrary.simpleMessage("O link do menu para o Nightscout e relatórios do Nightscout agora também funcionam corretamente quando um token for fornecido."),
     "Die Listenansicht ist jetzt wieder scrollbar." : MessageLookupByLibrary.simpleMessage("A vista de listagem é deslizavél novamente."),
     "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind." : MessageLookupByLibrary.simpleMessage("O microbolus do Minimed 600 Uploader agora também é identificado e mostrado na análise, se eles existirem."),
+    "Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt." : MessageLookupByLibrary.simpleMessage("The microboli from the Minimed 600 Uploader have been removed from the output, because they are just temporary basal rates."),
     "Die Mischung von zwei Seiten auf einer PDF-Seite, die manchmal vorkam, wurde behoben." : MessageLookupByLibrary.simpleMessage("A mistura de duas páginas em uma página PDF, que às vezes ocorreu foi corrigida."),
     "Die Möglichkeit für Beta-Funktionen wurde entfernt; die Betaversion ist nun hier zu finden:" : MessageLookupByLibrary.simpleMessage("A possibilidade de funções beta foi removida; a versão beta agora está disponível em:"),
     "Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird" : MessageLookupByLibrary.simpleMessage("A capacidade de exibir a URL na barra de título foi removida, uma vez que o usuário atual ou o URL dele agora são exibidos diretamente"),
@@ -418,6 +426,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde." : MessageLookupByLibrary.simpleMessage("Um erro foi provavelmente corrigido, faz com que alguns perfis lhe faltem o valor do DIA."),
     "Ein Jahr vorher" : MessageLookupByLibrary.simpleMessage("Um ano antes"),
     "Ein Link zur Facebookseite von Nightscout Reporter wurde im Menü hinzugefügt." : MessageLookupByLibrary.simpleMessage("Um link para a página do Facebook do Nightscout Reporter foi adicionado ao menu."),
+    "Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert." : MessageLookupByLibrary.simpleMessage("A possible crash in the output of the CGP in the daily graphic has been fixed."),
     "Eine" : MessageLookupByLibrary.simpleMessage("Um"),
     "Einen Monat vorher" : MessageLookupByLibrary.simpleMessage("Um mês antes"),
     "Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt." : MessageLookupByLibrary.simpleMessage("Alguns browsers não podem exibir ficheiros PDF que excedam um determinado tamanho. Uma vez que isso depende de vários fatores que não podem ser facilmente determinados automaticamente, existe a possibilidade de gerar vários ficheiros PDF mais pequenos que o browser pode exibir, ao invés de um ficheiro PDF grande que não pode ser exibido. Este tamanho pode ser especificado nas definições e aqui. Esta página só será exibida se o PDF tiver que ser dividido. Se apenas um PDF foi criado, ele será exibido diretamente."),
@@ -764,46 +773,48 @@ class MessageLookup extends MessageLookupByLibrary {
     "msgLegendTDD" : m33,
     "msgLoadingData" : m34,
     "msgLoadingDataFor" : m35,
-    "msgLogSMB" : m36,
-    "msgLogTempBasal" : m37,
-    "msgLogTempTarget" : m38,
-    "msgLow" : m39,
-    "msgMBG" : m40,
-    "msgMEAN" : m41,
-    "msgMEANInfo" : m42,
-    "msgPGSBad" : m43,
-    "msgPGSGood" : m44,
-    "msgPGSVeryBad" : m45,
-    "msgPGSVeryGood" : m46,
-    "msgProfileSwitch" : m47,
-    "msgProfileSwitchDuration" : m48,
-    "msgReadingsInMinutes" : m49,
-    "msgReadingsPerDay" : m50,
-    "msgReadingsPerHour" : m51,
-    "msgReservoirDays" : m52,
-    "msgSMBInsulin" : m53,
-    "msgSensorDays" : m54,
-    "msgStandardLimits" : m55,
-    "msgStdAbw" : m56,
-    "msgTOR" : m57,
-    "msgTORInfo" : m58,
-    "msgTarget" : m59,
-    "msgTargetArea" : m60,
-    "msgTargetValue" : m61,
-    "msgTimeOfDay24" : m62,
-    "msgTimeOfDayAM" : m63,
-    "msgTimeOfDayPM" : m64,
-    "msgValidFrom" : m65,
-    "msgValidRange" : m66,
-    "msgValidTo" : m67,
-    "msgValuesAbove" : m68,
-    "msgValuesBelow" : m69,
-    "msgValuesIn" : m70,
-    "msgValuesNorm" : m71,
-    "msgValuesNormHigh" : m72,
-    "msgValuesNormLow" : m73,
-    "msgValuesVeryHigh" : m74,
-    "msgValuesVeryLow" : m75,
+    "msgLogMicroBolus" : m36,
+    "msgLogSMB" : m37,
+    "msgLogTempBasal" : m38,
+    "msgLogTempBasalAbsolute" : m39,
+    "msgLogTempTarget" : m40,
+    "msgLow" : m41,
+    "msgMBG" : m42,
+    "msgMEAN" : m43,
+    "msgMEANInfo" : m44,
+    "msgPGSBad" : m45,
+    "msgPGSGood" : m46,
+    "msgPGSVeryBad" : m47,
+    "msgPGSVeryGood" : m48,
+    "msgProfileSwitch" : m49,
+    "msgProfileSwitchDuration" : m50,
+    "msgReadingsInMinutes" : m51,
+    "msgReadingsPerDay" : m52,
+    "msgReadingsPerHour" : m53,
+    "msgReservoirDays" : m54,
+    "msgSMBInsulin" : m55,
+    "msgSensorDays" : m56,
+    "msgStandardLimits" : m57,
+    "msgStdAbw" : m58,
+    "msgTOR" : m59,
+    "msgTORInfo" : m60,
+    "msgTarget" : m61,
+    "msgTargetArea" : m62,
+    "msgTargetValue" : m63,
+    "msgTimeOfDay24" : m64,
+    "msgTimeOfDayAM" : m65,
+    "msgTimeOfDayPM" : m66,
+    "msgValidFrom" : m67,
+    "msgValidRange" : m68,
+    "msgValidTo" : m69,
+    "msgValuesAbove" : m70,
+    "msgValuesBelow" : m71,
+    "msgValuesIn" : m72,
+    "msgValuesNorm" : m73,
+    "msgValuesNormHigh" : m74,
+    "msgValuesNormLow" : m75,
+    "msgValuesVeryHigh" : m76,
+    "msgValuesVeryLow" : m77,
     "ok" : MessageLookupByLibrary.simpleMessage("ok"),
     "sehr geringes Risiko" : MessageLookupByLibrary.simpleMessage("risco muito baixo"),
     "tl;dr" : MessageLookupByLibrary.simpleMessage("tl;dr"),

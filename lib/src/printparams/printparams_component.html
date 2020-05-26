@@ -53,6 +53,9 @@
           </material-dropdown-select>
         </div>
       </div>
+      <material-checkbox [(checked)]="g.ppLatestFirst" class="pp">
+        {{msgLatestFirst}}
+      </material-checkbox>
       <div class="subtitle" @i18n="label of area for timeshift">Historische Daten</div>
       <div class="timeshift">
         <div @i18n="description of timeshift">

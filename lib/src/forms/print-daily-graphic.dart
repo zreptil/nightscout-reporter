@@ -559,6 +559,18 @@ class PrintDailyGraphic extends BaseDaily {
     for (TreatmentData t in day.treatments) {
       double x, y;
       String type = t.eventType.toLowerCase();
+/*
+      if (showSMB && t.microbolus > 0) {
+        EntryData entry = day.findNearest(day.entries, null, t.createdAt);
+        x = glucX(t.createdAt);
+        if (entry != null && showSMBAtGluc) {
+          y = glucY(entry.gluc);
+        } else {
+          y = glucY(src.targetValue(t.createdAt)) + lw / 2;
+        }
+        paintSMB(t.microbolus, x, y, graphInsulin["stack"][0]["canvas"] as List);
+      }
+*/
       if (type == "temp basal") continue;
       if ((t.carbs > 0 || t.eCarbs > 0) && showCarbs) {
         x = glucX(t.createdAt);

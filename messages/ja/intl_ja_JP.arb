@@ -1,11 +1,11 @@
 {
-    "@@last_modified": "2020-04-20T12:31:22.313205",
-    "Überprüfe Zugriff auf Nightscout ...": "ナイトスカウトの接続を確認しています…",
+    "@@last_modified": "2020-05-25T15:43:28.239737",
+    "Überprüfe Zugriff auf Nightscout ...": "ナイトスカウトの接続を確認中…",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
         "placeholders": {}
     },
-    "msgLoadingData": "データ取得エラー:{error}{stacktrace}",
+    "msgLoadingData": "データ読込エラー:{error}{stacktrace}",
     "@msgLoadingData": {
         "type": "text",
         "placeholders": {
@@ -13,7 +13,7 @@
             "stacktrace": {}
         }
     },
-    "Fehler beim Laden der Daten": "データ取得エラー",
+    "Fehler beim Laden der Daten": "データ読込エラー",
     "@Fehler beim Laden der Daten": {
         "type": "text",
         "placeholders": {}
@@ -31,12 +31,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bitte einen Zeitraum wählen.": "期間を選択して下さい",
+    "Bitte einen Zeitraum wählen.": "期間を選択してください",
     "@Bitte einen Zeitraum wählen.": {
         "type": "text",
         "placeholders": {}
     },
-    "Bereite Daten vor...": "データを準備しています…",
+    "Bereite Daten vor...": "データを準備中…",
     "@Bereite Daten vor...": {
         "description": "text when data was received and is being prepared to be used in the report",
         "type": "text",
@@ -48,7 +48,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Lade die Basisdaten...": "Loading basedata...",
+    "Lade die Basisdaten...": "基礎データの読込中...",
     "@Lade die Basisdaten...": {
         "type": "text",
         "placeholders": {}
@@ -59,13 +59,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Datenschutzerklärung": "著作権",
+    "Datenschutzerklärung": "情報保護",
     "@Datenschutzerklärung": {
         "description": "label for dataprotection button",
         "type": "text",
         "placeholders": {}
     },
-    "ok": "ok",
+    "ok": "OK",
     "@ok": {
         "type": "text",
         "placeholders": {}
@@ -96,7 +96,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Problem auf GitHub melden": "GitHubに問題を報告する",
+    "Problem auf GitHub melden": "GitHub に問題を報告",
     "@Problem auf GitHub melden": {
         "type": "text",
         "placeholders": {}
@@ -106,12 +106,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Vergleich": "比較する",
+    "Vergleich": "比較",
     "@Vergleich": {
         "type": "text",
         "placeholders": {}
     },
-    "Max Mustermann": "John Smith",
+    "Max Mustermann": "ジョン・スミス",
     "@Max Mustermann": {
         "description": "modelname used in images on tiles",
         "type": "text",
@@ -122,17 +122,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Automatisch_theme selection - automatic": "Automatic",
+    "Automatisch_theme selection - automatic": "自動",
     "@Automatisch_theme selection - automatic": {
         "type": "text",
         "placeholders": {}
     },
-    "Standard_theme selection - standard": "Standard",
+    "Standard_theme selection - standard": "標準",
     "@Standard_theme selection - standard": {
         "type": "text",
         "placeholders": {}
     },
-    "Weihnachten_theme selection - christmas": "Christmas",
+    "Weihnachten_theme selection - christmas": "クリスマス",
     "@Weihnachten_theme selection - christmas": {
         "type": "text",
         "placeholders": {}
@@ -147,32 +147,32 @@
         "type": "text",
         "placeholders": {}
     },
-    "Deutsch": "ドイツ語",
+    "Deutsch": "Deutsch",
     "@Deutsch": {
         "type": "text",
         "placeholders": {}
     },
-    "English (USA)": "英語(アメリカ)",
+    "English (USA)": "英語 (アメリカ)",
     "@English (USA)": {
         "type": "text",
         "placeholders": {}
     },
-    "English (GB)": "英語(イギリス)",
+    "English (GB)": "英語 (イギリス)",
     "@English (GB)": {
         "type": "text",
         "placeholders": {}
     },
-    "Español": "スペイン語",
+    "Español": "Español",
     "@Español": {
         "type": "text",
         "placeholders": {}
     },
-    "Polski": "ポーランド語",
+    "Polski": "Polski",
     "@Polski": {
         "type": "text",
         "placeholders": {}
     },
-    "日本の": "日本の",
+    "日本の": "日本語",
     "@日本の": {
         "type": "text",
         "placeholders": {}
@@ -192,37 +192,37 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgewählter Zeitraum": "Selected Period",
+    "Ausgewählter Zeitraum": "期間を選択",
     "@Ausgewählter Zeitraum": {
         "type": "text",
         "placeholders": {}
     },
-    "Einen Monat vorher": "One month before",
+    "Einen Monat vorher": "1か月前",
     "@Einen Monat vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Drei Monate vorher": "Three months before",
+    "Drei Monate vorher": "3か月前",
     "@Drei Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Sechs Monate vorher": "Six months before",
+    "Sechs Monate vorher": "6か月前",
     "@Sechs Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Ein Jahr vorher": "One year before",
+    "Ein Jahr vorher": "1年前",
     "@Ein Jahr vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": "指定されたURLにアクセスできません。URLが正しい場合はNightscoutセッティングを確認してください。 ",
+    "Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": "ご指定の URL にアクセスできません。URL が正しい場合はナイトスカウトの設定を確認してください。 ",
     "@Die angegebene URL ist nicht erreichbar. Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ": {
         "type": "text",
         "placeholders": {}
     },
-    "<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": "<br> <br> If this URL is protected, the Access Token must also be correctly defined. This can be reached via \"Admin Tools\" on the personal nightscout page.",
+    "<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": "<br> <br> この URL が保護されているなら、アクセス・トークンも正しく定義されている必要があります。これは自分のナイトスカウトのページの「管理ツール」(Admin Tools)から行えます。",
     "@<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": {
         "type": "text",
         "placeholders": {}
@@ -232,17 +232,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.": "On 10be, the default settings for the server must enable the \"cors\" checkbox so that external tools like this one can access the data. If \"cors\" has been activated, ReDeploy may have to be done on the server before it is really available.",
+    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.": "10be では、このような外部ツールがデータにアクセスできるよう、サーバ用の初期設定で cors のチェックボックスを有効にしておく必要があります。cors が有効であれば、実際の利用前にサーバー上で ReDeploy を実行する必要があることがあります。",
     "@Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.": {
         "type": "text",
         "placeholders": {}
     },
-    "Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.": "The Url to the Nightscout API must start with https, since Nightscout Reporter also runs on https. Access to unsafe http resources is not possible.",
+    "Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.": "ナイトスカウト API の URL は https から始まる必要があります。安全でない http リソースへのアクセスはできません。",
     "@Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.": {
         "type": "text",
         "placeholders": {}
     },
-    "Die URL wurde noch nicht festgelegt.": "URLが設定されていません",
+    "Die URL wurde noch nicht festgelegt.": "URL はまだ設定されていません",
     "@Die URL wurde noch nicht festgelegt.": {
         "type": "text",
         "placeholders": {}
@@ -262,7 +262,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Letzte Woche": "１週間",
+    "Letzte Woche": "1週間",
     "@Letzte Woche": {
         "type": "text",
         "placeholders": {}
@@ -277,17 +277,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Letzter Monat": "1カ月",
+    "Letzter Monat": "1か月",
     "@Letzter Monat": {
         "type": "text",
         "placeholders": {}
     },
-    "Letzte 3 Monate": "3カ月",
+    "Letzte 3 Monate": "3か月",
     "@Letzte 3 Monate": {
         "type": "text",
         "placeholders": {}
     },
-    "Die URL wurde noch nicht festgelegt": "URLが設定されていません。",
+    "Die URL wurde noch nicht festgelegt": "URL がまだ設定されていません",
     "@Die URL wurde noch nicht festgelegt": {
         "type": "text",
         "placeholders": {}
@@ -328,7 +328,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Zeitraum festlegen": "期間を設定してください",
+    "Zeitraum festlegen": "期間を設定",
     "@Zeitraum festlegen": {
         "type": "text",
         "placeholders": {}
@@ -343,17 +343,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Verbinde zu Google...": "グーグルに接続しています…",
+    "Verbinde zu Google...": "グーグルに接続中…",
     "@Verbinde zu Google...": {
         "type": "text",
         "placeholders": {}
     },
-    "Verbindung zu Google Drive trennen": "Googleドライブから切断する",
+    "Verbindung zu Google Drive trennen": "Googleドライブから切断",
     "@Verbindung zu Google Drive trennen": {
         "type": "text",
         "placeholders": {}
     },
-    "Verbindung zu Google Drive herstellen": "Googleドライブに接続する",
+    "Verbindung zu Google Drive herstellen": "Googleドライブに接続",
     "@Verbindung zu Google Drive herstellen": {
         "type": "text",
         "placeholders": {}
@@ -363,30 +363,30 @@
         "type": "text",
         "placeholders": {}
     },
-    "Mit Google Drive synchronisieren": "GoogleDriveと同期する",
+    "Mit Google Drive synchronisieren": "Google ドライブと同期",
     "@Mit Google Drive synchronisieren": {
         "description": "synchronize with google drive",
         "type": "text",
         "placeholders": {}
     },
-    "SMB Werte anzeigen": "SMBを表示する",
+    "SMB Werte anzeigen": "SMB 値を表示",
     "@SMB Werte anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "SMB an der Kurve platzieren": "曲線上にSMBを表示する",
+    "SMB an der Kurve platzieren": "曲線上に SMB を表示",
     "@SMB an der Kurve platzieren": {
         "type": "text",
         "placeholders": {}
     },
-    "_msgPageCountEst": "{count,plural, one {} =0{}=1{1 page or more}other{{count} pages or more}}",
+    "_msgPageCountEst": "{count,plural, =0{}=1{1 ページ以上}other{{count} ページ以上}}",
     "@_msgPageCountEst": {
         "type": "text",
         "placeholders": {
             "count": {}
         }
     },
-    "_msgPageCount": "{count,plural, one {} =0{}=1{1 page}other{{count} pages}}",
+    "_msgPageCount": "{count,plural, =0{}=1{1 ページ}other{{count} ページ}}",
     "@_msgPageCount": {
         "type": "text",
         "placeholders": {
@@ -430,7 +430,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgDuration": "{hours} h {minutes} m",
+    "msgDuration": "{hours} 時間 {minutes} 分",
     "@msgDuration": {
         "type": "text",
         "placeholders": {
@@ -438,7 +438,7 @@
             "minutes": {}
         }
     },
-    "msgTargetArea": "目標範囲({min} - {max} {units})",
+    "msgTargetArea": "目標範囲 ({min} - {max} {units})",
     "@msgTargetArea": {
         "type": "text",
         "placeholders": {
@@ -459,31 +459,31 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgCarbs": "炭水化物({value}g)",
+    "msgCarbs": "炭水化物 ({value}g)",
     "@msgCarbs": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgBolusInsulin": "ボーラス　インスリン({value})",
+    "msgBolusInsulin": "ボーラス インスリン({value})",
     "@msgBolusInsulin": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "Mahlzeitenbolus_bolus to handle a meal": "Meal Bolus",
+    "Mahlzeitenbolus_bolus to handle a meal": "食事用ボーラス",
     "@Mahlzeitenbolus_bolus to handle a meal": {
         "type": "text",
         "placeholders": {}
     },
-    "Bolus Rechner_bolus calculated by the bolus wizard": "Bolus Wizard",
+    "Bolus Rechner_bolus calculated by the bolus wizard": "ボーラス用ウィザード",
     "@Bolus Rechner_bolus calculated by the bolus wizard": {
         "type": "text",
         "placeholders": {}
     },
-    "Verzögerter Bolus": "Delayed Bolus",
+    "Verzögerter Bolus": "遅延ボーラス",
     "@Verzögerter Bolus": {
         "type": "text",
         "placeholders": {}
@@ -528,7 +528,7 @@
             "value": {}
         }
     },
-    "msgLegendTDD": "総インスリン量({value})",
+    "msgLegendTDD": "1日の総インスリン投与量 ({value})",
     "@msgLegendTDD": {
         "type": "text",
         "placeholders": {
@@ -570,7 +570,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "KH": "Carbs",
+    "KH": "炭水化物",
     "@KH": {
         "type": "text",
         "placeholders": {}
@@ -582,7 +582,7 @@
             "value": {}
         }
     },
-    "msgReadingsPerDay": "{howMany,plural, =0{値がありません}=1{1日あたり１データ}other{1日あたり{fmt}データ}}",
+    "msgReadingsPerDay": "{howMany,plural, =0{値がありません}=1{1日あたり1データ}other{1日あたり{fmt}データ}}",
     "@msgReadingsPerDay": {
         "type": "text",
         "placeholders": {
@@ -606,7 +606,7 @@
             "fmt": {}
         }
     },
-    "msgValuesIn": "{low} から{high} の値",
+    "msgValuesIn": "{low} から {high} の値",
     "@msgValuesIn": {
         "type": "text",
         "placeholders": {
@@ -621,7 +621,7 @@
             "low": {}
         }
     },
-    "msgValuesAbove": "{high} を超えた値",
+    "msgValuesAbove": "{high} 以上の値",
     "@msgValuesAbove": {
         "type": "text",
         "placeholders": {
@@ -737,7 +737,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "gesch. HbA1c": "推定A1C",
+    "gesch. HbA1c": "推定 A1C",
     "@gesch. HbA1c": {
         "type": "text",
         "placeholders": {}
@@ -767,37 +767,37 @@
         "type": "text",
         "placeholders": {}
     },
-    "Patient Glykämischer Status (PGS)": "血糖状態(PGS)",
+    "Patient Glykämischer Status (PGS)": "血糖状態 (PGS)",
     "@Patient Glykämischer Status (PGS)": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø KH pro Tag": "平均摂取炭水化物（日）",
+    "Ø KH pro Tag": "平均摂取炭水化物 (日)",
     "@Ø KH pro Tag": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø Insulin pro Tag": "平均投与インスリン量（日）",
+    "Ø Insulin pro Tag": "平均投与インスリン量 (日)",
     "@Ø Insulin pro Tag": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø Bolus pro Tag": "平均ボーラス投与量（日）",
+    "Ø Bolus pro Tag": "平均ボーラス投与量 (日)",
     "@Ø Bolus pro Tag": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø Basal pro Tag": "平均基礎投与量（日）",
+    "Ø Basal pro Tag": "平均基礎投与量 (日)",
     "@Ø Basal pro Tag": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø Microbolus pro Tag": "平均マイクロボーラス（日）",
+    "Ø Microbolus pro Tag": "平均マイクロボーラス (日)",
     "@Ø Microbolus pro Tag": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø Insulinverhältnis": "平均　インスリン比",
+    "Ø Insulinverhältnis": "平均インスリン比",
     "@Ø Insulinverhältnis": {
         "type": "text",
         "placeholders": {}
@@ -807,17 +807,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Basal": "ベーサル",
+    "Basal": "基礎",
     "@Basal": {
         "type": "text",
         "placeholders": {}
     },
-    "Basalrate\nIE / Stunde": "ベーサル U / 時",
+    "Basalrate\nIE / Stunde": "基礎単位 U / 時",
     "@Basalrate\nIE / Stunde": {
         "type": "text",
         "placeholders": {}
     },
-    "Keine": "無し",
+    "Keine": "なし",
     "@Keine": {
         "type": "text",
         "placeholders": {}
@@ -832,12 +832,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Behandlungen": "トリートメント",
+    "Behandlungen": "処置",
     "@Behandlungen": {
         "type": "text",
         "placeholders": {}
     },
-    "Ges.": "合計",
+    "Ges.": "計",
     "@Ges.": {
         "type": "text",
         "placeholders": {}
@@ -852,37 +852,37 @@
         "type": "text",
         "placeholders": {}
     },
-    "IE/std": "U/hr",
+    "IE/std": "U/時",
     "@IE/std": {
         "type": "text",
         "placeholders": {}
     },
-    "Summe": "Sum",
+    "Summe": "計",
     "@Summe": {
         "type": "text",
         "placeholders": {}
     },
-    "Trend": "Trend",
+    "Trend": "傾向",
     "@Trend": {
         "type": "text",
         "placeholders": {}
     },
-    "Ausgabe": "Output",
+    "Ausgabe": "出力",
     "@Ausgabe": {
         "type": "text",
         "placeholders": {}
     },
-    "Grafik": "Graphic",
+    "Grafik": "図",
     "@Grafik": {
         "type": "text",
         "placeholders": {}
     },
-    "Tabelle": "Table",
+    "Tabelle": "表",
     "@Tabelle": {
         "type": "text",
         "placeholders": {}
     },
-    "Alles": "All",
+    "Alles": "すべて",
     "@Alles": {
         "type": "text",
         "placeholders": {}
@@ -892,12 +892,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Stündliche Statistik": "Hourly Statistics",
+    "Stündliche Statistik": "毎時統計",
     "@Stündliche Statistik": {
         "type": "text",
         "placeholders": {}
     },
-    "Notiz": "ノート",
+    "Notiz": "メモ",
     "@Notiz": {
         "type": "text",
         "placeholders": {}
@@ -907,12 +907,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Glukose zu niedrig": "低血糖",
+    "Glukose zu niedrig": "血糖値が非常に低い",
     "@Glukose zu niedrig": {
         "type": "text",
         "placeholders": {}
     },
-    "Grafiken pro Seite": "１ページのグラフ数",
+    "Grafiken pro Seite": "1ページのグラフ数",
     "@Grafiken pro Seite": {
         "type": "text",
         "placeholders": {}
@@ -927,19 +927,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Glukose zu hoch": "高血糖",
+    "Glukose zu hoch": "血糖値が非常に高い",
     "@Glukose zu hoch": {
         "type": "text",
         "placeholders": {}
     },
-    "msgLow": "低血糖{value}",
+    "msgLow": "血糖値低 {value}",
     "@msgLow": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgCount": "{value,plural, one {} =0{値無し}=1{1個}other{{value} 個}}",
+    "msgCount": "{value,plural, one {} =0{値なし}=1{1個}other{{value} 個}}",
     "@msgCount": {
         "type": "text",
         "placeholders": {
@@ -979,7 +979,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgHigh": "高血糖{value}",
+    "msgHigh": "血糖値高{value}",
     "@msgHigh": {
         "type": "text",
         "placeholders": {
@@ -996,7 +996,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Insulin Kohlenhydrate Verhältnis (ICR)": "インスリンカーボ比(ICR)",
+    "Insulin Kohlenhydrate Verhältnis (ICR)": "インスリン炭水化物比(ICR)",
     "@Insulin Kohlenhydrate Verhältnis (ICR)": {
         "type": "text",
         "placeholders": {}
@@ -1016,17 +1016,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ø ICR/Stunde": "平均インスリンカーボ比/時間",
+    "Ø ICR/Stunde": "平均 インスリンカーボ比/時間",
     "@Ø ICR/Stunde": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø ISF/Stunde": "平均　インスリン効果値/時間",
+    "Ø ISF/Stunde": "平均 インスリン効果値/時間",
     "@Ø ISF/Stunde": {
         "type": "text",
         "placeholders": {}
     },
-    "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "インスリンカーボ比(ICR)　１Uあたり炭水化物 X g",
+    "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": "インスリンカーボ比(ICR) 1Uあたり炭水化物 X g",
     "@Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE": {
         "type": "text",
         "placeholders": {}
@@ -1160,7 +1160,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgCalibration": "Calibration (scale {scale} / intercept {intercept} / slope {slope})",
+    "msgCalibration": "キャリブレーション (scale {scale} / intercept {intercept} / slope {slope})",
     "@msgCalibration": {
         "type": "text",
         "placeholders": {
@@ -1169,7 +1169,7 @@
             "slope": {}
         }
     },
-    "Wechsel": "Change",
+    "Wechsel": "変更",
     "@Wechsel": {
         "type": "text",
         "placeholders": {}
@@ -1181,7 +1181,7 @@
             "min": {}
         }
     },
-    "msgGVIVeryGood": "良好({min}～{max})",
+    "msgGVIVeryGood": "良好 ({min}～{max})",
     "@msgGVIVeryGood": {
         "type": "text",
         "placeholders": {
@@ -1197,14 +1197,14 @@
             "max": {}
         }
     },
-    "msgGVIBad": "不良({max} 超)",
+    "msgGVIBad": "不良 ({max} 超)",
     "@msgGVIBad": {
         "type": "text",
         "placeholders": {
             "max": {}
         }
     },
-    "msgPGSVeryGood": "優秀({min} 未満)",
+    "msgPGSVeryGood": "優秀 ({min} 未満)",
     "@msgPGSVeryGood": {
         "type": "text",
         "placeholders": {
@@ -1234,24 +1234,24 @@
             "max": {}
         }
     },
-    "msgHistorical": "履歴{value}",
+    "msgHistorical": "履歴 {value}",
     "@msgHistorical": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "Tag (08:00 - 17:59)": "Day (08:00 - 17:59)",
+    "Tag (08:00 - 17:59)": "日中 (08:00 - 17:59)",
     "@Tag (08:00 - 17:59)": {
         "type": "text",
         "placeholders": {}
     },
-    "Dämmerung (06:00 - 07:59, 18:00 - 20:59)": "Twilight (06:00 - 07:59, 18:00 - 20:59)",
+    "Dämmerung (06:00 - 07:59, 18:00 - 20:59)": "暗い時間 (06:00 - 07:59, 18:00 - 20:59)",
     "@Dämmerung (06:00 - 07:59, 18:00 - 20:59)": {
         "type": "text",
         "placeholders": {}
     },
-    "Nacht (21:00 - 05:59)": "Night (21:00 - 05:59)",
+    "Nacht (21:00 - 05:59)": "夜間 (21:00 - 05:59)",
     "@Nacht (21:00 - 05:59)": {
         "type": "text",
         "placeholders": {}
@@ -1282,7 +1282,7 @@
             "to": {}
         }
     },
-    "Keine Änderung": "変更無し",
+    "Keine Änderung": "変更なし",
     "@Keine Änderung": {
         "type": "text",
         "placeholders": {}
@@ -1302,44 +1302,44 @@
         "type": "text",
         "placeholders": {}
     },
-    "Standardabweichung statt Anzahl": "値のカウント数の代わりに標準偏差を表示する",
+    "Standardabweichung statt Anzahl": "値のカウント数の代わりに標準偏差を表示",
     "@Standardabweichung statt Anzahl": {
         "type": "text",
         "placeholders": {}
     },
-    "Standardbereich mit feinerer Abstufung": "標準範囲を精細グラデーションで表示する",
+    "Standardbereich mit feinerer Abstufung": "標準範囲を精細グラデーションで表示",
     "@Standardbereich mit feinerer Abstufung": {
         "type": "text",
         "placeholders": {}
     },
-    "Unterzuckerungen anzeigen": "Show hypoglycemia",
+    "Unterzuckerungen anzeigen": "低血糖を表示",
     "@Unterzuckerungen anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "msgHypoTitle": "Hypos (< {value})",
+    "msgHypoTitle": "低血糖 (< {value})",
     "@msgHypoTitle": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "Anzahl Unterzuckerungen": "Number of Hypos",
+    "Anzahl Unterzuckerungen": "低血糖の回数",
     "@Anzahl Unterzuckerungen": {
         "type": "text",
         "placeholders": {}
     },
-    "Letzte Unterzuckerung": "Last Hypo",
+    "Letzte Unterzuckerung": "最後の低血糖",
     "@Letzte Unterzuckerung": {
         "type": "text",
         "placeholders": {}
     },
-    "Nur letzte Basalrate ausgeben": "Show only last basalrate",
+    "Nur letzte Basalrate ausgeben": "直近の基礎単位のみ表示",
     "@Nur letzte Basalrate ausgeben": {
         "type": "text",
         "placeholders": {}
     },
-    "msgTOR": "ToR [{value}min/d]",
+    "msgTOR": "ToR [{value}分/時]",
     "@msgTOR": {
         "type": "text",
         "placeholders": {
@@ -1353,7 +1353,7 @@
             "value": {}
         }
     },
-    "msgHYPO": "重度の低血糖\n[{unit} x min²]",
+    "msgHYPO": "強い低血糖\n[{unit} x min²]",
     "@msgHYPO": {
         "type": "text",
         "placeholders": {
@@ -1361,7 +1361,7 @@
             "value": {}
         }
     },
-    "msgHYPER": "重度の高血糖\n[{unit} x min²]",
+    "msgHYPER": "強い高血糖\n[{unit} x min²]",
     "@msgHYPER": {
         "type": "text",
         "placeholders": {
@@ -1382,7 +1382,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.": "緑色の五角形の範囲は、糖尿病では無い人の値を表しています",
+    "Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.": "緑色の五角形の範囲は、糖尿病ではない人の値を表しています",
     "@Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.": {
         "type": "text",
         "placeholders": {}
@@ -1405,14 +1405,14 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgHYPOInfo": "重度の低血糖/日({unit} 以下)",
+    "msgHYPOInfo": "低血糖の強さ/日({unit} 以下)",
     "@msgHYPOInfo": {
         "type": "text",
         "placeholders": {
             "unit": {}
         }
     },
-    "msgHYPERInfo": "重度の高血糖/日({unit} 以上)",
+    "msgHYPERInfo": "高血糖の強さ/日({unit} 以上)",
     "@msgHYPERInfo": {
         "type": "text",
         "placeholders": {
@@ -1426,7 +1426,7 @@
             "hba1c": {}
         }
     },
-    "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": "予後血糖リスクパラメーターは、長期の合併症リスクを表します(現在までの研究では証明されていません)。",
+    "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": "予後血糖リスクパラメーターは、長期的な合併症のリスクを表します (これまでの研究で証明されてはいません)。",
     "@Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": {
         "type": "text",
         "placeholders": {}
@@ -1436,7 +1436,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "sehr geringes Risiko": "とてもリスクが少ない",
+    "sehr geringes Risiko": "リスクがとても少ない",
     "@sehr geringes Risiko": {
         "type": "text",
         "placeholders": {}
@@ -1456,7 +1456,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "moderates Risiko": "リスクがある",
+    "moderates Risiko": "通常程度のリスク",
     "@moderates Risiko": {
         "type": "text",
         "placeholders": {}
@@ -1506,22 +1506,22 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagestrend": "Daily Trend",
+    "Tagestrend": "1日の傾向",
     "@Tagestrend": {
         "type": "text",
         "placeholders": {}
     },
-    "Alle Werte für den Tag anzeigen": "Show all values for the day",
+    "Alle Werte für den Tag anzeigen": "1日のすべての値を表示",
     "@Alle Werte für den Tag anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Bolusspalte anzeigen": "Show bolus column",
+    "Bolusspalte anzeigen": "ボーラスの列を表示",
     "@Bolusspalte anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "msgBasalInfo": "The basal rate has been valid since {time} and does not include any temporary changes.",
+    "msgBasalInfo": "基礎単位は {time} から有効で、一時的な変更はありません。",
     "@msgBasalInfo": {
         "type": "text",
         "placeholders": {
@@ -1553,12 +1553,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesgrafik": "デイリーグラフ",
+    "Tagesgrafik": "1日のグラフ",
     "@Tagesgrafik": {
         "type": "text",
         "placeholders": {}
     },
-    "Symbole (Katheter etc.)": "記号(カニューレ等)",
+    "Symbole (Katheter etc.)": "記号 (カニューレなど)",
     "@Symbole (Katheter etc.)": {
         "type": "text",
         "placeholders": {}
@@ -1568,17 +1568,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tages-Basalrate": "ベーサルレート",
+    "Tages-Basalrate": "1日の基礎単位",
     "@Tages-Basalrate": {
         "type": "text",
         "placeholders": {}
     },
-    "Profil-Basalrate": "ベーサルレート（プロファイル）",
+    "Profil-Basalrate": "基礎単位（プロファイル）",
     "@Profil-Basalrate": {
         "type": "text",
         "placeholders": {}
     },
-    "Basal mit zwei Nachkommastellen": "ベーサルレート：小数点以下表示",
+    "Basal mit zwei Nachkommastellen": "基礎単位：小数点以下表示",
     "@Basal mit zwei Nachkommastellen": {
         "type": "text",
         "placeholders": {}
@@ -1598,7 +1598,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tabelle mit Glukosewerten": "表に炭水化物を表示する",
+    "Tabelle mit Glukosewerten": "表に炭水化物を表示",
     "@Tabelle mit Glukosewerten": {
         "type": "text",
         "placeholders": {}
@@ -1608,27 +1608,27 @@
         "type": "text",
         "placeholders": {}
     },
-    "Nahe zusammen liegende Werte aufsummieren": "近い時間帯のトリートメントをまとめて表示する",
+    "Nahe zusammen liegende Werte aufsummieren": "近い時間帯の処置をまとめて表示する",
     "@Nahe zusammen liegende Werte aufsummieren": {
         "type": "text",
         "placeholders": {}
     },
-    "Bolusarten anzeigen": "ボーラスタイプを表示する",
+    "Bolusarten anzeigen": "ボーラスの種類を表示",
     "@Bolusarten anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Bewegung anzeigen": "Show Exercises",
+    "Bewegung anzeigen": "運動を表示",
     "@Bewegung anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Berechnete IE für Kohlenhydrate anzeigen": "炭水化物量から算出したインスリン量を表示する",
+    "Berechnete IE für Kohlenhydrate anzeigen": "炭水化物量から算出したインスリン量を表示",
     "@Berechnete IE für Kohlenhydrate anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Glukose Pentagon erzeugen": "グルコース総合グラフを表示する",
+    "Glukose Pentagon erzeugen": "グルコース総合グラフを表示",
     "@Glukose Pentagon erzeugen": {
         "type": "text",
         "placeholders": {}
@@ -1638,48 +1638,53 @@
         "type": "text",
         "placeholders": {}
     },
-    "HTML-Notizen anzeigen": "Display HTML-notes",
+    "HTML-Notizen anzeigen": "HTMLメモを表示",
     "@HTML-Notizen anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Dauer der abgeschalteten Basalrate anzeigen": "Show the duration of the disabled basal rate",
+    "Dauer der abgeschalteten Basalrate anzeigen": "無効化された基礎単位の期間を表示",
     "@Dauer der abgeschalteten Basalrate anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Insulin auf maximale Stellen im Profil runden": "Round insulin to maximum precision in profile",
+    "Insulin auf maximale Stellen im Profil runden": "インスリンをプロファイル中の最大精度で四捨五入",
     "@Insulin auf maximale Stellen im Profil runden": {
         "type": "text",
         "placeholders": {}
     },
-    "COB (Carbs On Board) anzeigen": "Show COB (Carbs On Board)",
+    "COB (Carbs On Board) anzeigen": "COB (炭水化物 On Board) を表示",
     "@COB (Carbs On Board) anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "IOB (Insulin On Board) anzeigen": "Show IOB (Insulin On Board)",
+    "IOB (Insulin On Board) anzeigen": "IOB (インスリン On Board) を表示",
     "@IOB (Insulin On Board) anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Basal ges.": "Basal total",
+    "Basal ges.": "総基礎",
     "@Basal ges.": {
         "type": "text",
         "placeholders": {}
     },
-    "Bolus ges.": "Bolus total",
+    "Bolus ges.": "合計ボーラス",
     "@Bolus ges.": {
         "type": "text",
         "placeholders": {}
     },
-    "Basal 0%": "Basal 0%",
+    "Basal 0%": "基礎 0%",
     "@Basal 0%": {
         "type": "text",
         "placeholders": {}
     },
-    "Bewegung": "Exercises",
+    "Bewegung": "運動",
     "@Bewegung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Blutige Messung": "Bloody values",
+    "@Blutige Messung": {
         "type": "text",
         "placeholders": {}
     },
@@ -1688,12 +1693,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesstunden": "Dayhours",
+    "Tagesstunden": "日別毎時間",
     "@Tagesstunden": {
         "type": "text",
         "placeholders": {}
     },
-    "1 Minute": "１分間",
+    "1 Minute": "1 分",
     "@1 Minute": {
         "type": "text",
         "placeholders": {}
@@ -1723,7 +1728,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Basalraten": "一時基礎レート",
+    "Temporäre Basalraten": "一時基礎単位",
     "@Temporäre Basalraten": {
         "type": "text",
         "placeholders": {}
@@ -1758,12 +1763,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Wechsel (Katheter etc.)": "交換(カニューレ等)",
+    "Wechsel (Katheter etc.)": "交換 (カニューレなど)",
     "@Wechsel (Katheter etc.)": {
         "type": "text",
         "placeholders": {}
     },
-    "Zusätzliche Spalte anzeigen": "追加した列を表示する",
+    "Zusätzliche Spalte anzeigen": "追加した列を表示",
     "@Zusätzliche Spalte anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1778,7 +1783,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dauer mit Minutenbruchteil": "Precise duration",
+    "Dauer mit Minutenbruchteil": "正確な期間",
     "@Dauer mit Minutenbruchteil": {
         "type": "text",
         "placeholders": {}
@@ -1797,7 +1802,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgLogTempBasal": "一時基礎料{percent}%/{duration} 分",
+    "msgLogTempBasal": "一時基礎量 {percent}%/{duration} 分",
     "@msgLogTempBasal": {
         "type": "text",
         "placeholders": {
@@ -1805,8 +1810,24 @@
             "duration": {}
         }
     },
+    "msgLogTempBasalAbsolute": "temp. Basal {value} / {duration} min",
+    "@msgLogTempBasalAbsolute": {
+        "type": "text",
+        "placeholders": {
+            "value": {},
+            "duration": {}
+        }
+    },
     "msgLogSMB": "SMB{insulin}{unit}",
     "@msgLogSMB": {
+        "type": "text",
+        "placeholders": {
+            "insulin": {},
+            "unit": {}
+        }
+    },
+    "msgLogMicroBolus": "Microbolus {insulin} {unit}",
+    "@msgLogMicroBolus": {
         "type": "text",
         "placeholders": {
             "insulin": {},
@@ -1823,7 +1844,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgMBG": "血糖値{gluc}{unit}",
+    "msgMBG": "血糖値 {gluc}{unit}",
     "@msgMBG": {
         "type": "text",
         "placeholders": {
@@ -1831,42 +1852,42 @@
             "unit": {}
         }
     },
-    "Tagesprofil": "Daily Profile",
+    "Tagesprofil": "1日のプロファイル",
     "@Tagesprofil": {
         "type": "text",
         "placeholders": {}
     },
-    "Sekunden anzeigen": "Show seconds",
+    "Sekunden anzeigen": "秒を表示",
     "@Sekunden anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Spalte Messwerte": "値のカウント",
+    "Spalte Messwerte": "値数の列",
     "@Spalte Messwerte": {
         "type": "text",
         "placeholders": {}
     },
-    "Spalte Standardabweichung": "標準偏差",
+    "Spalte Standardabweichung": "標準偏差の列",
     "@Spalte Standardabweichung": {
         "type": "text",
         "placeholders": {}
     },
-    "Spalten Perzentile": "パーセント",
+    "Spalten Perzentile": "パーセントの列",
     "@Spalten Perzentile": {
         "type": "text",
         "placeholders": {}
     },
-    "Spalte HbA1c": "A1C",
+    "Spalte HbA1c": "A1C の列",
     "@Spalte HbA1c": {
         "type": "text",
         "placeholders": {}
     },
-    "Spalte Variationskoeffizient": "血糖変動係数",
+    "Spalte Variationskoeffizient": "血糖変動係数の列",
     "@Spalte Variationskoeffizient": {
         "type": "text",
         "placeholders": {}
     },
-    "Spalte TDD": "Column TDD",
+    "Spalte TDD": "TDD の列",
     "@Spalte TDD": {
         "type": "text",
         "placeholders": {}
@@ -1876,7 +1897,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Basalrate anzeigen": "Show basalrate",
+    "Basalrate anzeigen": "基礎単位を表示",
     "@Basalrate anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1888,7 +1909,7 @@
             "unit": {}
         }
     },
-    "Spalten für 10% und 90% anzeigen": "Show columns for 10% and 90%",
+    "Spalten für 10% und 90% anzeigen": "10% と 90% の列を表示",
     "@Spalten für 10% und 90% anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1898,32 +1919,32 @@
         "type": "text",
         "placeholders": {}
     },
-    "Zeilen mit gleichen Werten zusammenfassen": "同じ値の設定はまとめて表示する",
+    "Zeilen mit gleichen Werten zusammenfassen": "同じ値の設定はまとめて表示",
     "@Zeilen mit gleichen Werten zusammenfassen": {
         "type": "text",
         "placeholders": {}
     },
-    "Nur letztes Profil ausgeben": "Show only last profile",
+    "Nur letztes Profil ausgeben": "最後のプロフィールのみ表示",
     "@Nur letztes Profil ausgeben": {
         "type": "text",
         "placeholders": {}
     },
-    "Wochengrafik": "ウィークリーグラフ",
+    "Wochengrafik": "週間グラフ",
     "@Wochengrafik": {
         "type": "text",
         "placeholders": {}
     },
-    "Neueste Woche zuerst": "新しい週を最初に表示する",
+    "Neueste Woche zuerst": "新しい週を最初に表示",
     "@Neueste Woche zuerst": {
         "type": "text",
         "placeholders": {}
     },
-    "Tagesnamen in Grafik anzeigen": "グラフに日付を表示する",
+    "Tagesnamen in Grafik anzeigen": "グラフに日付を表示",
     "@Tagesnamen in Grafik anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "msgStandardLimits": "Use Standard Targetarea ({low} {unit} - {high} {unit})",
+    "msgStandardLimits": "標準の目標範囲を使用 ({low} {unit} - {high} {unit})",
     "@msgStandardLimits": {
         "type": "text",
         "placeholders": {
@@ -1932,17 +1953,17 @@
             "unit": {}
         }
     },
-    "Automatisch": "Automatic",
+    "Automatisch": "自動",
     "@Automatisch": {
         "type": "text",
         "placeholders": {}
     },
-    "Aus den Profilen ermitteln": "Extract from profiles",
+    "Aus den Profilen ermitteln": "プロファイルから抽出",
     "@Aus den Profilen ermitteln": {
         "type": "text",
         "placeholders": {}
     },
-    "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "NightscoutのURL(例：https://xxx.herokuapp.com)",
+    "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "ナイトスカウトの URL (例: https://xxx.herokuapp.com)",
     "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
         "type": "text",
         "placeholders": {}
@@ -1952,24 +1973,24 @@
         "type": "text",
         "placeholders": {}
     },
-    "Zugriffsschlüssel": "Access Token",
+    "Zugriffsschlüssel": "アクセス・トークン",
     "@Zugriffsschlüssel": {
         "type": "text",
         "placeholders": {}
     },
-    "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "The Access Token is only required if access in Nightscout was restricted via AUTH_DEFAULT_ROLES",
+    "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "AUTH_DEFAULT_ROLES でナイトスカウトのアクセスが制限されている場合のみアクセス・トークンが必要です。",
     "@Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
         "type": "text",
         "placeholders": {}
     },
-    "msgCheckUser": "{url} へのアクセスを確認しています…",
+    "msgCheckUser": "{url} へのアクセスを確認中…",
     "@msgCheckUser": {
         "type": "text",
         "placeholders": {
             "url": {}
         }
     },
-    "Willkommen": "おいでやす",
+    "Willkommen": "ようこそ",
     "@Willkommen": {
         "description": "title of welcome screen",
         "type": "text",
@@ -1999,25 +2020,25 @@
         "type": "text",
         "placeholders": {}
     },
-    "Anmeldung bei Google...": "Googleにサインインしています。",
+    "Anmeldung bei Google...": "Google にサインイン中...",
     "@Anmeldung bei Google...": {
         "description": "signin to google",
         "type": "text",
         "placeholders": {}
     },
-    "Verbinde zu Google Drive...": "Googleドライブに接続しています…",
+    "Verbinde zu Google Drive...": "Googleドライブに接続中…",
     "@Verbinde zu Google Drive...": {
         "description": "message for signin to google",
         "type": "text",
         "placeholders": {}
     },
-    "Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?": "PDFが単一ページで取得出来ずに、複数のボタンで表示されるのですか。",
+    "Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?": "なぜひとつの PDF を取得するのではなく、複数のボタンで表示されるのですか？",
     "@Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?": {
         "description": "btnPdfInfo",
         "type": "text",
         "placeholders": {}
     },
-    "Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": "ブラウザによっては特定のサイズを超えるPDFを表示できません。表示できない大きなサイズのPDFを分割し、小さなサイズのPDFを複数作成する場合があります。又、このページはPDFを分割する必要がある場合にのみ表示されます。PDFを分割する必要が無い場合は直接表示されます。",
+    "Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": "ブラウザによっては特定のサイズを超える PDF を表示できません。このサイズは様々なの要因によるため自動で決定できないため、表示できない大きなサイズのPDFを分割し、小さなサイズのPDFを複数作成する場合があります。このサイズは設定とここで指定できます。このページはPDFを分割する必要がある場合にのみ表示されます。PDFを分割する必要がない場合は直接表示されます。",
     "@Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": {
         "description": "msgPdfInfo",
         "type": "text",
@@ -2029,7 +2050,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "PDF erneut erzeugen": "もう一度PDFを作る",
+    "PDF erneut erzeugen": "もう一度PDFを作成",
     "@PDF erneut erzeugen": {
         "description": "pdfCreateAgain",
         "type": "text",
@@ -2065,7 +2086,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Nightscout Berichte": "ナイトスカウト レポート",
+    "Nightscout Berichte": "ナイトスカウト報告",
     "@Nightscout Berichte": {
         "description": "title of nightscout reports",
         "type": "text",
@@ -2101,13 +2122,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "tl;dr": "tl;dr",
+    "tl;dr": "まとめ",
     "@tl;dr": {
         "description": "headline for shorttext for dataprotection",
         "type": "text",
         "placeholders": {}
     },
-    "Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert.": "このウェブサイトはサーバー上にデータを保存しません。Nightscoutのサイトから必要なデータを取得しPDFとして出力されます。ウェブサイトが必要なデータはブラウザのLocalStrage領域に保存しサーバーには送信しません。Googleドライブの同期がオンになっている場合は、Googleドライブにも保存されます。",
+    "Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert.": "このウェブサイトはサーバー上にデータを保存しません。入力された URL からナイトスカウトの実行プログラムに必要なデータを取得し、またPDFとして出力します。ウェブサイトに必要なデータはブラウザのロ=カルストレージ領域に保存されサーバーには送信されません。Googleドライブの同期がオンになっている場合は、Googleドライブにも保存されます。",
     "@Diese Webseite speichert keine Daten auf Servern. Die benötigten Daten werden von der eingegebenen URL zur Nightscout-Instanz geholt und als PDF aufbereitet. Die Daten, die zur Funktion der Webseite benötigt werden, werden im localStorage des Browsers gespeichert und nicht an den Server übermittelt. Wenn die Synchronisierung mit Google Drive aktiviert wird, dann werden diese Daten zusätzlich in den Anwendungsdaten auf dem Google Drive des verbundenen Kontos gespeichert.": {
         "description": "shorttext for dataprotection",
         "type": "text",
@@ -2119,31 +2140,31 @@
         "type": "text",
         "placeholders": {}
     },
-    "Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:": "以下の文章はヨーロッパDSGVOに順守しています。又、このテキストはドイツ語のみで利用可能です。：",
+    "Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:": "以下の文章はヨーロッパの DSGVO に適合しています。またこのテキストはドイツ語のみで利用可能です:",
     "@Da wir seit einiger Zeit in Europa eine DSGVO haben, werden im Folgenden noch die Vorschriften dafür erfüllt. Der folgende Text ist nur auf Deutsch verfügbar:": {
         "description": "info for dsgvo in dataprotection",
         "type": "text",
         "placeholders": {}
     },
-    "Ausgabe Parameter": "Output Parameters",
+    "Ausgabe Parameter": "出力パラメータ",
     "@Ausgabe Parameter": {
         "description": "title for printparameter dialog",
         "type": "text",
         "placeholders": {}
     },
-    "Allgemeines": "General",
+    "Allgemeines": "全般",
     "@Allgemeines": {
         "description": "label of area for section general in printparams",
         "type": "text",
         "placeholders": {}
     },
-    "Maximaler Glukosewert in Grafiken:": "Maximum glucose value in graphics:",
+    "Maximaler Glukosewert in Grafiken:": "グラフ中の最大血糖値:",
     "@Maximaler Glukosewert in Grafiken:": {
         "description": "label for max glucvalue in printparams",
         "type": "text",
         "placeholders": {}
     },
-    "Genauigkeit der Basalangaben:": "Precision of basalvalues:",
+    "Genauigkeit der Basalangaben:": "正確な値の精度:",
     "@Genauigkeit der Basalangaben:": {
         "description": "label for max basalprecision in printparams",
         "type": "text",
@@ -2155,13 +2176,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "This determines how much the period of the PDF should be shifted in order to obtain comparative values.",
+    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "これは、比較用の値を得るために PDF の期間をどれだけ推移すべきかを決定します。",
     "@Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": {
         "description": "description of timeshift",
         "type": "text",
         "placeholders": {}
     },
-    "PDF erzeugen": "Create PDF",
+    "PDF erzeugen": "PDF 作成",
     "@PDF erzeugen": {
         "description": "buttonlabel for saving data",
         "type": "text",
@@ -2173,7 +2194,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Auf Kacheln Bilder statt Namen anzeigen": "タイルに名称ではなくイメージを表示する。",
+    "Auf Kacheln Bilder statt Namen anzeigen": "タイルに名称ではなくイメージを表示",
     "@Auf Kacheln Bilder statt Namen anzeigen": {
         "description": "label for checkbox to show images on tiles",
         "type": "text",
@@ -2191,19 +2212,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "PDF herunterladen (bei einigen Browsern benötigt)": "PDFをダウンロードする(一部のブラウザで必要)",
+    "PDF herunterladen (bei einigen Browsern benötigt)": "PDFをダウンロードする (一部のブラウザで必要)",
     "@PDF herunterladen (bei einigen Browsern benötigt)": {
         "description": "label for checkbox to download PDF",
         "type": "text",
         "placeholders": {}
     },
-    "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "PDFのヘッダとフッターにナイトスカウトの情報を表示しない",
+    "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "PDF のヘッダとフッターにナイトスカウトの情報を表示しない",
     "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
         "description": "label for checkbox to hide nightscout in footer",
         "type": "text",
         "placeholders": {}
     },
-    "Letzten Messwert in der Titelzeile anzeigen": "タイトルバーに最新の血糖値を表示する",
+    "Letzten Messwert in der Titelzeile anzeigen": "タイトルバーに最新の血糖値を表示",
     "@Letzten Messwert in der Titelzeile anzeigen": {
         "description": "label for checkbox to show current glucoselevel",
         "type": "text",
@@ -2215,13 +2236,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Benutzerdaten": "ユーザーデータ",
+    "Benutzerdaten": "利用者の情報",
     "@Benutzerdaten": {
         "description": "label for settings-area with user data",
         "type": "text",
         "placeholders": {}
     },
-    "Einstellungen von Release-Version übernehmen": "リリースバージョンから設定を移行する",
+    "Einstellungen von Release-Version übernehmen": "リリースバージョンから設定を移行",
     "@Einstellungen von Release-Version übernehmen": {
         "description": "buttonlabel for copy of settings to beta version",
         "type": "text",
@@ -2239,7 +2260,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Soll der Benutzer mit der URL": "ナイトスカウトのURLが必要です",
+    "Soll der Benutzer mit der URL": "ナイトスカウトの URL が必要です",
     "@Soll der Benutzer mit der URL": {
         "description": "should the user with url",
         "type": "text",
@@ -2263,31 +2284,31 @@
         "type": "text",
         "placeholders": {}
     },
-    "Willkommen bei Nightscout Reporter!": "ナイトスカウト レポーターへおいでやす！",
+    "Willkommen bei Nightscout Reporter!": "ナイトスカウトレポーターへようこそ！",
     "@Willkommen bei Nightscout Reporter!": {
         "description": "welcome title",
         "type": "text",
         "placeholders": {}
     },
-    "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": "このページはNightscoutのデータを利用してPDFを作成します。最初に Nightscoutにアクセスできるように設定を保存する必要があります。 設定を保存し有効にしなければ利用できません。",
+    "Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": "このページはナイトスカウトのデータを利用してPDFを作成します。最初にこのデータにアクセスできるように設定を保存する必要があります。 設定を保存し有効にしなければ利用できません。",
     "@Diese Seite dient der Erzeugung von PDF-Dokumenten mit den bei Nightscout gespeicherten Daten. Dafür ist es notwendig, auf diese Daten zugreifen zu können, weshalb zunächst ein paar Einstellungen gespeichert werden müssen. Solange diese nicht vorhanden und gültig sind, kann die Seite nichts für Dich tun.": {
         "description": "welcome section 1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "このページに入力したデータは、当ページからのみ読み込みが可能でブラウザのローカルストレージに保存されます。データはサーバーに保存されずクッキーも使用しません。Nightscoutへ接続しデータを読み込みPDFを作成します。PDFを利用して糖尿病カウンセラーや医療関係者に提出出来る場合があります。（※医療関係者に提出する場合は、関係機関にご相談ください。）",
+    "Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": "このページに入力したデータは、当ページからのみ読み込みが可能でブラウザのローカルストレージに保存されます。ここにはサイトでしか読み込めないデータが含まれます。データはサーバーに保存されずクッキーも使用しません。指定したナイトスカウトのプログラムのみが接続されデータを読み込みPDFを作成します。PDFを利用して糖尿病に対する助言者や医療関係者に提出できる場合があります。（※医療関係者に提出する場合は、関係機関にご相談ください）",
     "@Die Daten, die Du hier eingibst, werden normalerweise im localStorage des Browsers gespeichert. Dieser beinhaltet webseitenbezogene Daten, die nur von dieser Webseite ausgelesen werden können. In diesem Fall werden keine Cookies verwendet und es werden keine Daten auf Servern gespeichert. Es wird lediglich eine Verbindung zur angegebenen Nightscout-Instanz aufgebaut und die dort vorhandenen Daten ausgelesen, um daraus ein PDF-Dokument zu erzeugen. Dieses kann dann dem Diabetesberater oder sonstigen Interessenten vorgelegt werden.": {
         "description": "welcome section 2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": "当ウェブサイトはJavascriptを利用しています。PDFを作成する時はJavascriptとPHPを使用します。",
+    "Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": "当ウェブサイトは Javascript を利用しています。PDF の作成時には Javascript と PHP が使用されます。",
     "@Die Webseite verwendet hauptsächlich Javascript zur Erledigung ihrer Aufgaben. Bei der Erzeugung des PDF-Dokuments kommen Javascript und PHP zum Einsatz.": {
         "description": "welcome section 4",
         "type": "text",
         "placeholders": {}
     },
-    "Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur Verfügung, der mit dem angegebenen Google Konto verbunden ist.": "グーグルアカウントに接続すると設定がブラウザのローカルストレージに保存されずに、グーグルドライブのAPPストレージに保存されます。この場合、データが一元管理されグーグルアカウントに接続しているブラウザで利用できるようになります。",
+    "Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur Verfügung, der mit dem angegebenen Google Konto verbunden ist.": "Google アカウントに接続すると設定がブラウザのローカルストレージに保存されずに、Google ドライブのAPPストレージに保存されます。この場合、データが一元管理され Google アカウントに接続しているブラウザで利用できるようになります。",
     "@Wenn in den Einstellungen eine Verbindung zum Google-Konto hergestellt wird, werden die Cookies von Google verwendet und die Daten nicht mehr im localStorage des Browsers gespeichert, sondern im AppStorage auf Google Drive. Auf diese Art kann man die Daten zentralisiert verwalten und hat diese in jedem Browser zur Verfügung, der mit dem angegebenen Google Konto verbunden ist.": {
         "description": "welcome section 3",
         "type": "text",
@@ -2305,31 +2326,55 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.4.6 - 26.5.2020": "1.4.6 - 26/5/2020",
+    "@1.4.6 - 26.5.2020": {
+        "description": "v146",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": "The legend of the daily graphic now includes the entry for bloody values.",
+    "@Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": {
+        "description": "v146a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": "The microboli from the Minimed 600 Uploader have been removed from the output, because they are just temporary basal rates.",
+    "@Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": {
+        "description": "v146f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert.": "A possible crash in the output of the CGP in the daily graphic has been fixed.",
+    "@Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert.": {
+        "description": "v146f2",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.4.5 - 20.4.2020": "1.4.5 - 20/4/2020",
     "@1.4.5 - 20.4.2020": {
         "description": "v145",
         "type": "text",
         "placeholders": {}
     },
-    "In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": "In the dialog with the output parameters, an option was added to specify the precision of the output of basal information. This is usually determined from the information on the basal rate in the profiles. This is still the case when the first entry in the list is selected. Otherwise, all basal information is output with the precision selected for this option.",
+    "In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": "出力パラメータのダイアログで、基礎情報の出力精度を指定するオプションが追加されました。これは通常、プロファイルの基礎単位の情報から決定されます。これは、リストの最初の項目が選択されている場合も This is still the case (未訳) です。それ以外の場合は、このオプションで選択された精度ですべての基礎情報が出力されます。",
     "@In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": {
         "description": "v145a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": "The precision of ISF in profile was corrected.",
+    "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": "プロファイルの ISF の精度を修正しました。",
     "@Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": {
         "description": "v145f1",
         "type": "text",
         "placeholders": {}
     },
-    "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": "In the log, the information that sets a temporary target of 0 U for 0 minutes is output as \"Cancel temp target\".",
+    "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": "ログ中で、0分 0U 一時目標に設定した情報を「一時目標をキャンセル」として出力しています。",
     "@Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": {
         "description": "v145f2",
         "type": "text",
         "placeholders": {}
     },
-    "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": "Various calculations were corrected in the CGP, which were mainly shown in differences in ToR and average values.",
+    "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": "CGP では各種計算を修正しました。主に ToR と平均値の差で示されていました。",
     "@Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": {
         "description": "v145f3",
         "type": "text",
@@ -2341,19 +2386,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": "The legend of the daily graphic has been expanded to include the entry for exercises.",
+    "Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": "1日グラフのレジェンド要素が拡張され、運動の項目が追加されました。",
     "@Die Legende der Tagesgrafik wurde um den Eintrag für Bewegung erweitert.": {
         "description": "v144a1",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": "In the daily graphic in the german version \"Training\" was replaced by \"Bewegung\" since this matches the wording in AAPS better.",
+    "In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": "ドイツ語の1日グラフで、「トレーニング」が Bewegung に置き換えられました。",
     "@In der Tagesgrafik wurde \"Training\" in \"Bewegung\" umbenannt. Das passt besser zu den Einträgen in AAPS.": {
         "description": "v144c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": "The color for exercises in the daily graphic changed.",
+    "Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": "1日グラフの運動の色を変更。",
     "@Die Farbe für Bewegung in der Tagesgrafik wurde geändert.": {
         "description": "v144c2",
         "type": "text",
@@ -2365,7 +2410,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "The analysis values were not determined correctly. This has been corrected and the statistical data evaluated over the period should now be correct.",
+    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "分析値が正しく決定されていませんでした。これが修正され、指定期間中に評価される統計データは正されるでしょう。",
     "@Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": {
         "description": "v143f1",
         "type": "text",
@@ -2377,13 +2422,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": "When the treatment data is loaded, duplicate data records are filtered out.",
+    "Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": "処置データが読み込まれると、重複するデータレコードはフィルタリングされます。",
     "@Beim Laden der Behandlungsdaten werden doppelte Datensätze herausgefiltert.": {
         "description": "v142c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": "The calculated IE for carbohydrates in the daily graph were partly determined with wrong factors. The bug has been fixed.",
+    "Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": "1日グラフ中の炭水化物用に計算された IE が一部誤った因数で決定されていました。このバグを修正しました。",
     "@Die berechneten IE für Kohlenhydrate in der Tagesgrafik wurden teilweise mit falschen Faktoren ermittelt. Der Fehler wurde behoben.": {
         "description": "v142f1",
         "type": "text",
@@ -2395,13 +2440,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": "In the percentile diagram there is a new option with which the basalrate can be displayed below the diagram. Since the diagram normally spans a longer period, the basalrate that was active at the beginning of the period is displayed.",
+    "Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": "パーセンタイルの図表中の新しいオプションでは、基礎単位をその図表下に表示できます。この図表は通常より長い期間が表示されるため、その期間の最初にアクティブだった基礎単位が表示されます。",
     "@Beim Perzentil Diagramm gibt es eine neue Option, mit der man die Basalrate unter dem Diagramm anzeigen lassen kann. Da das Diagramm normalerweise einen grösseren Zeitraum umspannt, wird dort die Basalrate angezeigt, die zu Beginn des Zeitraums aktiv war.": {
         "description": "v141a1",
         "type": "text",
         "placeholders": {}
     },
-    "Fehler behoben, der bei der Kachelansicht teilweise verhindert hat, dass die Parameter für die Kacheln aufgerufen werden konnten.": "Fixed a bug that sometimes prevented the parameters for the tiles from being called in the tile view.",
+    "Fehler behoben, der bei der Kachelansicht teilweise verhindert hat, dass die Parameter für die Kacheln aufgerufen werden konnten.": "タイルビューでタイル用のパラメータが呼び出しが阻止されていたバグを修正しました。",
     "@Fehler behoben, der bei der Kachelansicht teilweise verhindert hat, dass die Parameter für die Kacheln aufgerufen werden konnten.": {
         "description": "v141f1",
         "type": "text",
@@ -2413,61 +2458,61 @@
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist.": "There is a new PDF called Daily Trend. This shows the values of a day together with the trend on the hour and the basal rate set in the profile. This is a good overview for basal rate tests to see where something needs to be adjusted.",
+    "Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist.": "1日の傾向と名付けられた新しいPDFが用意されました。これは1日の値を時間ごとの傾向とプロファイルに設定された基礎単位と共に表示します。これは、基礎単位テストで調整が必要な箇所を確認するための良い概要となります。",
     "@Es gibt ein neues PDF namens Tagestrend. Dieses zeigt die Werte eines Tages zusammen mit dem Trend zu jeder vollen Stunde, sowie der eingestellten Basalrate aus dem Profil. Das ist eine gute Übersicht für Basalratentests, um zu erkennen, wo etwas anzupassen ist.": {
         "description": "v14a1",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden.": "There is a new option in the daily graph to prevent the rounding of the insulin values to the maximum precision in the profile. This makes sense when either there is no profile or when values are entered with greater precision than in the profile.",
+    "In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden.": "1日グラフの新しいオプションでは、インスリン値がそのプロファイルの最大精度で四捨五入されるのを抑制できます。これはプロファイルがない場合や、プロファイルよりも精度の高い値を入力した場合に意味があります。",
     "@In der Tagesgrafik gibt es eine neue Option, um die Rundung der Insulinwerte auf die maximale Genauigkeit im Profil zu unterbinden. Das macht da Sinn, wo entweder kein Profil vorhanden ist, oder wo Werte mit höherer Genauigkeit als im Profil eingegeben werden.": {
         "description": "v14a2",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.": "In the daily graph you can now display the IOB (Insulin On Board) and COB (Carbs On Board). The IOB is shown at the top, where the bolus is shown, the COB at the bottom, where the carbohydrates are shown.",
+    "In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.": "1日グラフに IOB (インスリン On Board) と COB (炭水化物 On Board) を表示できます。ボーラスの表示されている上部に IOB、COB が表示されている下部に COB が表示されます。",
     "@In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden.": {
         "description": "v14a3",
         "type": "text",
         "placeholders": {}
     },
-    "Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": "Nightscout Reporter can now also be used in Portuguese.",
+    "Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": "ナイトスカウトレポーターはポルトガル語でも利用可能になりました。",
     "@Nightscout Reporter kann nun auch auf Portugiesisch verwendet werden.": {
         "description": "v14a4",
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": "There is a new PDF called Dayhours. This shows the average values of a day in every hourly interval and fills the cells backgroundcolor according to the glucose value. This gives you a good overview of the distribution of values in the selected period.",
+    "Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": "日別毎時間 (Dayhours) と命名された新しい PDF が追加されました。時間単位の間隔で1日の平均値を表示し、ブドウ糖値に応じてマスの背景色を変えます。選択期間中の値の分かりやすい概要が提供されます。",
     "@Es gibt ein neues PDF namens Tagesstunden. Dieses zeigt die Durchschnittswerte eines Tages in jedem Stundenintervall an und färbt die Zellen entsprechend des Glukosewertes ein. So hat man eine gut Übersicht über die Werteverteilung im ausgewählten Zeitraum.": {
         "description": "v14a5",
         "type": "text",
         "placeholders": {}
     },
-    "Beim Glukose Perzentil Diagramm kann man nun ein Maximum für die Skalierung festlegen. Wenn es auf \"Automatisch\" gesetzt wird, wird das Maximum wie bisher auch ermittelt. Bei einem anderen Wert wird die Obergrenze für das Diagramm auf diesen Wert festgesetzt. Damit ist es leichter möglich zwei Diagramme miteinander zu vergleichen, deren Obergrenze unterschiedlich ist.": "In the Glucose Percentile Diagram you can now set a maximum for the scaling. If it is set to \"Automatic\", the maximum is determined as before. For any other value, the upper limit for the diagram is set to this value. This makes it easier to compare two diagrams with different upper limits.",
+    "Beim Glukose Perzentil Diagramm kann man nun ein Maximum für die Skalierung festlegen. Wenn es auf \"Automatisch\" gesetzt wird, wird das Maximum wie bisher auch ermittelt. Bei einem anderen Wert wird die Obergrenze für das Diagramm auf diesen Wert festgesetzt. Damit ist es leichter möglich zwei Diagramme miteinander zu vergleichen, deren Obergrenze unterschiedlich ist.": "ブドウ糖パーセンタイル図表で、縮尺の最大値が設定できます。「自動」に設定されていれば、以前と同様に最大値が決定されます。それ以外の値では、図表の上限がこの値に設定されます。これにより、上限値の異なる2つの図表が比較しやすくなりました。",
     "@Beim Glukose Perzentil Diagramm kann man nun ein Maximum für die Skalierung festlegen. Wenn es auf \"Automatisch\" gesetzt wird, wird das Maximum wie bisher auch ermittelt. Bei einem anderen Wert wird die Obergrenze für das Diagramm auf diesen Wert festgesetzt. Damit ist es leichter möglich zwei Diagramme miteinander zu vergleichen, deren Obergrenze unterschiedlich ist.": {
         "description": "v14a6",
         "type": "text",
         "placeholders": {}
     },
-    "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.": "Before a PDF is created, a dialog is displayed in which you can enter parameters for all PDFs created. You can set the target area to the standard area that doctors like to see. This has an impact on all representations of the target area, as well as on the distribution of the values inside and outside the target area. You can also set the maximum value for glucose in graphics there. This value is used in the daily graphics, the percentile diagram and the weekly graphics. If it is set to \"Automatic\", the maximum value is determined from the existing data as before. You can also specify here whether you want to generate the current period or a comparison period. This is useful to show the doctor a comparison of past and now values.",
+    "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.": "PDF 作成前にダイアログを表示し、作成されたすべての PDF のパラメーターを入力できます。目標範囲を、医師が確認したい標準範囲へと設定できます。これは目標範囲のすべての表示に影響があり、目標範囲の内外の値の分布にも影響します。またグラフ中でブドウ糖の最大値もせってできます。この値は、1日グラフ、パーセンタイル図、週間グラフで使用されます。「自動」に設定されている場合、これまでと同様に既存のデータから最大値が決定されます。またここで、現在の期間または比較期間のどちらを生成するのか指定できます。過去と現在の値の比較を医師に示すのに役立ちます。",
     "@Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen.": {
         "description": "v14a7",
         "type": "text",
         "placeholders": {}
     },
-    "Die Buttons für die Erzeugung vergangener Zeiträume wurden entfernt. Das kann jetzt im neuen PDF-Dialog eingestellt werden.": "The buttons for creating previous periods have been removed. This can now be set in the new PDF dialog.",
+    "Die Buttons für die Erzeugung vergangener Zeiträume wurden entfernt. Das kann jetzt im neuen PDF-Dialog eingestellt werden.": "以前の期間を作成ボタンが削除されました。これからは、これは新しい PDF ダイアログ内でで設定可能です。",
     "@Die Buttons für die Erzeugung vergangener Zeiträume wurden entfernt. Das kann jetzt im neuen PDF-Dialog eingestellt werden.": {
         "description": "v14r1",
         "type": "text",
         "placeholders": {}
     },
-    "Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite.": "If there are empty columns on the profile page, this no longer leads to an empty page.",
+    "Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite.": "プロファイルページの空の列がある場合も、空のページになりません。",
     "@Wenn auf der Profilseite leere Spalten vorkommen, führt das nicht mehr zu einer leeren Seite.": {
         "description": "v14f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben.": "The values VarK and ToR in the CGP are correctly output for day and week graphics in the legend and in the graphic.",
+    "Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben.": "CGP 内の VarK と ToR の値が、日付と週のグラフで正しく出力  in the legend and in the graphic. (仮翻訳)\n",
     "@Die Werte VarK und ToR im CGP werden bei Tages- und Wochengrafiken in der Legende und in der Grafik korrekt ausgegeben.": {
         "description": "v14f2",
         "type": "text",
@@ -2479,25 +2524,25 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet.": "The images on the tiles are now labeled in the respective language.",
+    "Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet.": "タイルの画像が各言語でラベル付けされます。",
     "@Die Bilder auf den Kacheln sind nun in der jeweiligen Sprache beschriftet.": {
         "description": "v138a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt.": "The values in the CGP are now also correctly displayed for mmol data.",
+    "Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt.": "mmol データに対し CGP 内の値が正しく表示されます。",
     "@Die Werte im CGP werden jetzt bei mmol-Angaben auch korrekt angezeigt.": {
         "description": "v138f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben.": "The glycemic variability is now correctly displayed in the CGP even with daily and weekly graphics.",
+    "Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben.": "1日・週間グラフでも、CGP 中の血糖値の変動が正しく表示されます。",
     "@Die glykämische Variabilität wird jetzt im CGP auch bei Tages- und Wochengrafiken korrekt ausgegeben.": {
         "description": "v138f2",
         "type": "text",
         "placeholders": {}
     },
-    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": "Bloody values should now also be displayed correctly in the daily graph for mmol data.",
+    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": "1日グラフの mmol  データの Bloody values が正しく表示されるようになりました。",
     "@Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": {
         "description": "v138f3",
         "type": "text",
@@ -2509,37 +2554,37 @@
         "type": "text",
         "placeholders": {}
     },
-    "Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.": "There is a new option on the page \"Hourly Statistics\" to also show columns with 10% and 90%.",
+    "Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.": "「毎時統計」ページに新しいオプションが追加され、10％ と 90％ の列も表示できます。",
     "@Auf der Seite \"Stündliche Statistik\" gibt es eine neue Option, um auch Spalten mit 10% und 90% anzeigen zu lassen.": {
         "description": "v137a1",
         "type": "text",
         "placeholders": {}
     },
-    "Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.": "The validity is now displayed with the time on the \"Profile\" page.",
+    "Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.": "プロファイルページで、validity (未訳) が時間と共に表示されます。",
     "@Auf der Seite \"Profil\" wird die Gültigkeit jetzt mit Uhrzeit angezeigt.": {
         "description": "v137c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.": "The entries in the log for temporary targets are now displayed correctly even with mmol data.",
+    "Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.": "mmol データでも一時的対象のログの項目が正しく表示されます。",
     "@Die Einträge im Protokoll für temporäre Ziele werden jetzt auch bei mmol-Angaben richtig angezeigt.": {
         "description": "v137f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.": "The heading above the middle column in the daily profile has been corrected.",
+    "Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.": "1日プロファイルの中間列の上の見出しを修正しました。",
     "@Die Überschrift über der mittleren Spalte im Tagesprofil wurde korrigiert.": {
         "description": "v137f2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Balken in der Analyse werden jetzt korrekt skaliert.": "The bars in the analysis are now scaled correctly.",
+    "Die Balken in der Analyse werden jetzt korrekt skaliert.": "分析のバーが正しく縮尺されます。",
     "@Die Balken in der Analyse werden jetzt korrekt skaliert.": {
         "description": "v137f3",
         "type": "text",
         "placeholders": {}
     },
-    "Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.": "Most of the columns on the page \"Hourly Statistics\" are left blank if there is no data.",
+    "Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.": "「毎時統計」ページのほとんどの列は、データがなければ空のままです。",
     "@Die meisten Spalten auf der Seite \"Stündliche Statistik\" werden bei nicht vorhandenen Daten leer gelassen.": {
         "description": "v137f4",
         "type": "text",
@@ -2551,91 +2596,91 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen komplette HTML-Seiten rein, was im PDF extrem schlecht darstellbar ist. Deswegen kann man diese mit Setzen der Option ausblenden.": "In the daily graphics, there is the option to suppress HTML notes. Some uploaders write complete HTML pages in the notes, which is extremely difficult to render in the PDF. That's why you can hide them by setting this option.",
+    "In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen komplette HTML-Seiten rein, was im PDF extrem schlecht darstellbar ist. Deswegen kann man diese mit Setzen der Option ausblenden.": "1日グラフに、HTMLメモを抑制するオプションが用意されました。一部のアップロード者は、メモ中に完全なHTMLページを書く人がいますが、これは PDF として描画することが非常に難しいです。このオプションを設定することで、それらを非表示できます。",
     "@In der Tagesgrafik gibt es die Option, HTML-Notizen zu unterdrücken. Manche Uploader schreiben in die Notizen komplette HTML-Seiten rein, was im PDF extrem schlecht darstellbar ist. Deswegen kann man diese mit Setzen der Option ausblenden.": {
         "description": "v136a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": "The Glucose Percentile Graph has been expanded to include the Hourly Statistics table. This tabulates the values of the period for each hour of the day. You can either create just the graphic, just the table or both together.",
+    "Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": "ブドウ糖のパーセンタイル図に、毎時統計の表が追加されました。その日のそれぞれの1時間の値を集計します。図だけ、表だけ、または両方を作成することができます。",
     "@Die Glucose Perzentil Grafik wurde um die Tabelle \"Stündliche Statistik\" erweitert. Diese listet tabellarisch die Werte des Zeitraums für jede Stunde des Tages auf. Man kann entweder nur die Grafik, nur die Tabelle oder beides zusammen erzeugen lassen.": {
         "description": "v136a2",
         "type": "text",
         "placeholders": {}
     },
-    "In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.": "Slovak is now also available In the language selection.",
+    "In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.": "スロバキア語が言語から利用できます。",
     "@In der Sprachauswahl ist jetzt auch Slowakisch verfügbar.": {
         "description": "v136a3",
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": "There is a new PDF page for the daily profiles. It contains a table showing the actual basal rate for the day, including all temporary adjustments. I needed that for debugging, but maybe the some users find it interesting too. The profile displayed there corresponds to the day profile on the page Daily Graphics. Loops can produce many pages, as the basalrate is usually adjusted every few minutes. Therefore, depending on the amount of data, the table is displayed in a maximum of three columns to reduce the number of pages.",
+    "Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": "1日プロファイル用の新しい PDF が追加されました。すべての一時的な調整を含む、1日の実際の基礎単位の表\nが含まれています。デバッグのためにこれが必要でしたが、一部の利用者にも興味深いものでしょう。そこに表示されるプロファイルは、1日グラフのページの1日プロファイルに対応します。基礎単位は通常数分ごとに調整され、Loop は多くのページを生成します。そのため、データの量に応じてページ数を減らすために、最大3列で表が表示されます。",
     "@Es gibt eine neue PDF-Seite für die Tagesprofile. Darauf ist eine Tabelle zu sehen, die die tatsächliche Basalrate für den Tag zeigt, inklusive aller temporären Anpassungen. Ich brauchte das für Debugzwecke, aber vielleicht findet das der eine oder andere Benutzer auch interessant. Das Profil, das dort angezeigt wird entspricht dem Tagesprofil auf der Seite Tagesgrafik. Beim Loopen können das sehr viele Seiten werden, da dort normalerweise alle paar Minuten Anpassungen an der Basalrate vorgenommen werden. Deswegen wird die Tabelle auch abhängig von der Datenmenge in maximal drei Spalten dargestellt, um die Anzahl an Seiten zu reduzieren.": {
         "description": "v136a4",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.": "Delayed boli are now displayed in the daily graph.",
+    "In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.": "遅延ボーラスが1日グラフで表示されます。",
     "@In der Tagesgrafik werden nun auch verzögerte Boli angezeigt.": {
         "description": "v136a5",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.": "The daily graph now shows the duration of the basal rate at 0%.",
+    "In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.": "1日グラフで基礎単位0％の期間を表示できます。",
     "@In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief.": {
         "description": "v136a6",
         "type": "text",
         "placeholders": {}
     },
-    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik.": "The UI can now assume different representations. These show themselves at the moment by different colours and an adapted icon in the Browser tab and with the loading of the side. This does not affect the generated PDF files. It's the preparation for a partially customizable surface. The theme of the UI is set by default by the system, which currently means that a Christmas theme will be displayed in December. But this can be changed by clicking on the icon, which can be seen at the bottom left. When clicking the icon, an area with the available themes is displayed to the right of the icon. The first icon (the little wizard) means that the theme is determined by the system. At the moment this means the Christmas presentation in December. However, there may be other criteria in the future that will be used to adjust the theme. However, the direct definition of a theme with one of the other icons always takes precedence over the system logic.",
+    "Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik.": "UI において異なる表示を想定するようにしました。現在、異なる色と対応したアイコンで表示されています (仮翻訳)  in the Browser tab and with the loading of the side. これは生成された PDF ファイルには影響しません。これは部分的にカスタマイズできる表示のための準備です。UI のテーマはシステムによってデフォルトで設定されています。12月現在はクリスマスのテーマが表示されるということです。しかし、左下のアイコンをクリックすることで、これを変更可能です。このクリックにより、アイコンの右側に使用できるテーマが表示されます。最初のアイコン (the little wizard) は、システムがテーマを決めているという意味です。12月現在ではクリスマスの presentation ということです。しかし、テーマを調整するための他の基準が、将来的に存在するかもしれません。ただし、one of the (未訳)  他のアイコンのあるテーマの直接的な定義は、システムの論理よりも常に優先されます。",
     "@Die Oberfläche kann jetzt verschiedene Darstellungen annehmen. Diese zeigen sich zur Zeit durch geänderte Farben und ein angepasstes Icon im Browsertab und beim Laden der Seite. Das hat keine Auswirkungen auf die erzeugten PDF-Dateien. Es ist die Vorbereitung für eine teilweise anpassbare Oberfläche. Das Thema der Darstellung wird standardmässig vom System festgelegt, was zur Zeit heisst, dass im Dezember ein weihnachtliches Thema angezeigt wird. Das kann aber durch Anklicken des Icons, das ab jetzt links unten zu sehen ist, geändert werden. Beim Anklicken wird rechts neben dem Icon ein Bereich mit den verfügbaren Darstellungen eingeblendet. Das erste Icon (der kleine Zauberer) bedeutet dabei, dass die Darstellung vom System ermittelt wird. Zur Zeit bedeutet das die weihnachtliche Darstellung im Dezember. Es kann in Zukunft aber auch weitere Kriterien geben, anhand derer das Thema angepasst wird. Die direkte Festlegung eines Themas mit einem der anderen icons hat aber immer Vorrang vor der systemeigenen Logik.": {
         "description": "v136a7",
         "type": "text",
         "placeholders": {}
     },
-    "Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.": "With the basalrate and the profile, there is now an option to have only the last one printed in the corresponding period. This reduces the number of pages with frequent profile changes.",
+    "Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.": "基礎単位とプロファイルにおいて、対応期間中の最後のものだけを印刷するオプションが利用できます。これにより頻繁にプロファイルが更新されるページを減らせます。",
     "@Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel.": {
         "description": "v136a8",
         "type": "text",
         "placeholders": {}
     },
-    "Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden.": "In the analysis, an area can now be displayed, showing the number of hypos in the selected period and the time of the last hypo.",
+    "Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden.": "解析で、選択期間中の低血糖の数と最後の低血糖の時間が表示できます。",
     "@Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden.": {
         "description": "v136a9",
         "type": "text",
         "placeholders": {}
     },
-    "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": "In the settings dialog, the lines with the user details and the URL were exchanged for a more meaningful administration.",
+    "Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": "設定ダイアログで利用者の詳細と URL の行が入れ替わり、より分かりやすく管理できます。",
     "@Im Einstellungsdialog wurden die Zeilen mit den Benutzerangaben und der URL gegeneinander ausgetauscht, um eine sinnvollere Verwaltung zu ermöglichen.": {
         "description": "v136c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": "The page numbers on the tiles have been moved further to the bottom so they are always easy to read.",
+    "Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": "タイルのページ番号をより下に移動し、いつでも読みやすくなりました。",
     "@Die Seitenzahlen auf den Kacheln wurden weiter an den unteren Rand verschoben, damit sie immer gut lesbar sind.": {
         "description": "v136c2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": "The profiles for the period were partially incorrectly identified. That should be fixed.",
+    "Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": "期間用のプロファイルが部分的に誤って認識されていました。修正の必要があります。",
     "@Die Profile für den Zeitraum wurden teilweise nicht korrekt identifiziert. Das sollte behoben sein.": {
         "description": "v136f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": "The determination of the effective daily basal rate has been restructured and should now give more accurate values.",
+    "Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": "1日の基礎単位の決定が再構成され、より正確な値を得ることができます。",
     "@Die Ermittlung der effektiven täglichen Basalrate wurde umstrukturiert und sollte nun genauere Werte ergeben.": {
         "description": "v136f2",
         "type": "text",
         "placeholders": {}
     },
-    "Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.": "The error with the multiplication of the carbohydrates with the repeated output of the PDFs was corrected.",
+    "Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.": "PDF の繰り返しの出力での炭水化物の乗算に関するエラーが修正されました。",
     "@Der Fehler mit der Vervielfachung der Kohlenhydrate bei wiederholter Ausgabe der PDFs wurde korrigiert.": {
         "description": "v136f3",
         "type": "text",
         "placeholders": {}
     },
-    "Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.": "The problem that certain days could not be created has been fixed.",
+    "Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.": "特定の日が作成できなかった問題が修正されました。",
     "@Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben.": {
         "description": "v136f4",
         "type": "text",
@@ -2653,7 +2698,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": "The temporary basal rate at the beginning of the day has been set incorrectly if it was set in the previous day. This has been fixed.",
+    "Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": "前日の設定がある場合、その日の最初の一時基礎単位が誤っていました。修正されました。",
     "@Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": {
         "description": "v135f2",
         "type": "text",
@@ -2665,19 +2710,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Im Protokoll können jetzt auch Batteriewechsel der Pumpe angezeigt werden.": "The protocol can now also show battery changes of the pump.",
+    "Im Protokoll können jetzt auch Batteriewechsel der Pumpe angezeigt werden.": "プロトコルで、ポンプの電池交換も表示できるようになりました。",
     "@Im Protokoll können jetzt auch Batteriewechsel der Pumpe angezeigt werden.": {
         "description": "v134a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die einzelne Seite CGP kann jetzt auch im Querformat ausgegeben werden.": "The single page CGP can now also be output in landscape format.",
+    "Die einzelne Seite CGP kann jetzt auch im Querformat ausgegeben werden.": "単一ページの CGP も横書きで出力できるようになりました。",
     "@Die einzelne Seite CGP kann jetzt auch im Querformat ausgegeben werden.": {
         "description": "v134a2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Aufsummierung der Werte in der Analyse wurde korrigiert.": "The accumulation of the values in the analysis has been corrected.",
+    "Die Aufsummierung der Werte in der Analyse wurde korrigiert.": "解析内の値の蓄積を修正しました。",
     "@Die Aufsummierung der Werte in der Analyse wurde korrigiert.": {
         "description": "v134f1",
         "type": "text",
@@ -2689,19 +2734,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Kachelansicht können die Parameter aller ausgewählten Seiten zusammen in einer Liste eingestellt werden. Dazu gibt es im Titelbereich der Parameterliste neben dem Schliessen-Button einen zusätzlichen Button, mit dem man zwischen den beiden Möglichkeiten umschalten kann.": "In the tile view, the parameters of all selected pages can be set together in a list. For this purpose, there is an additional button in the title area of the parameter list next to the close button, with which you can switch between the two options.",
+    "In der Kachelansicht können die Parameter aller ausgewählten Seiten zusammen in einer Liste eingestellt werden. Dazu gibt es im Titelbereich der Parameterliste neben dem Schliessen-Button einen zusätzlichen Button, mit dem man zwischen den beiden Möglichkeiten umschalten kann.": "タイルビューでは、すべての選択したページのパラメータを一覧からまとめて設定できます。このために、パラメータ一覧のタイトル部分に、閉じるボタンの次に追加のボタンがあり、2つのオプションを切り替えできます。",
     "@In der Kachelansicht können die Parameter aller ausgewählten Seiten zusammen in einer Liste eingestellt werden. Dazu gibt es im Titelbereich der Parameterliste neben dem Schliessen-Button einen zusätzlichen Button, mit dem man zwischen den beiden Möglichkeiten umschalten kann.": {
         "description": "v133a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Einstellungen für das Herunterladen des PDFs, das Öffnen im gleichen Fenster und die Maximalgrösse der PDFs wurden von der Synchronisierung mit Google Drive ausgenommen, weil sie speziell für den verwendeten Browser oder das verwendete Gerät benötigt werden. Sie werden nach wie vor gespeichert, aber sie werden nicht zwischen verschiedenen Browsern synchronisiert.": "The settings for downloading the PDF, opening the PDF in the same window, and the maximum size of the PDFs were excluded from syncing with Google Drive because they are specific to the browser or device you are using. They are still saved, but they are not synchronized between different browsers.",
+    "Die Einstellungen für das Herunterladen des PDFs, das Öffnen im gleichen Fenster und die Maximalgrösse der PDFs wurden von der Synchronisierung mit Google Drive ausgenommen, weil sie speziell für den verwendeten Browser oder das verwendete Gerät benötigt werden. Sie werden nach wie vor gespeichert, aber sie werden nicht zwischen verschiedenen Browsern synchronisiert.": "PDF のダウンロード、同じウィンドウで PDF を開く、また、 PDF の最大サイズの設定は、使用しているブラウザや端末固有の設定であるため、Google ドライブとの同期から除外されました。これはまだ保存されていますが、異なるブラウザ間では同期されません。",
     "@Die Einstellungen für das Herunterladen des PDFs, das Öffnen im gleichen Fenster und die Maximalgrösse der PDFs wurden von der Synchronisierung mit Google Drive ausgenommen, weil sie speziell für den verwendeten Browser oder das verwendete Gerät benötigt werden. Sie werden nach wie vor gespeichert, aber sie werden nicht zwischen verschiedenen Browsern synchronisiert.": {
         "description": "v133c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B. die Auswahl von CGP bei Tagesgrafiken).": "The preview images on the tiles will partially adjust depending on the options selected (for example, choosing CGP for day graphics).",
+    "Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B. die Auswahl von CGP bei Tagesgrafiken).": "タイル上のプレビュー画像は、選択したオプションに応じて部分的に調整されます (例、1日グラフに CGP を選択時)。",
     "@Die Vorschaubilder auf den Kacheln passen sich abhängig von den ausgewählten Optionen teilweise an (z.B. die Auswahl von CGP bei Tagesgrafiken).": {
         "description": "v133c1",
         "type": "text",
@@ -2713,25 +2758,25 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beim CGP werden die aktuellen Werte jetzt in der Legende angezeigt.": "The CGP now displays the current values in the legend.",
+    "Beim CGP werden die aktuellen Werte jetzt in der Legende angezeigt.": "CGP では、現在の値が凡例に表示されるようになりました。",
     "@Beim CGP werden die aktuellen Werte jetzt in der Legende angezeigt.": {
         "description": "v132a1",
         "type": "text",
         "placeholders": {}
     },
-    "Es ist jetzt möglich, die Einstellungen auf Google Drive zu speichern. Das hat den Vorteil, dass man die Einstellungen nicht nur im aktuellen Browser hat, sondern bei jedem Browser, mit dem man sich bei Google anmeldet. Die Einstellungen werden nach wie vor im Browser gespeichert. Bei einer Verbindung zu Google Drive werden sie aber zusätzlich auf Google Drive gespeichert. Beim Laden der Seite wird überprüft, ob eine Synchronisierung gewünscht ist. Wenn das der Fall ist, dann werden die Daten von Google Drive heruntergeladen. Wenn die Daten darin neuer sind als die Daten im Browser, werden sie verwendet. Nach dem Speichern der Daten werden bei aktivierter Synchronisierung diese Daten mit dem aktuellen Zeitstempel auf Google Drive gespeichert. Die Synchronisierung wird im Menü auf der linken Seite aktiviert und deaktiviert. Sie kann auch beim erstmaligen Aufruf der Seite in einem neuen Browser direkt im Willkommensbildschirm aktiviert werden. Nightscout Reporter verlangt nur die Berechtigung die eigenen App-Daten zu speichern und zu laden und benötigt keinen Zugriff auf andere Daten auf Google Drive.": "It is now possible to save the settings to Google Drive. This has the advantage that you have the settings not only in the current browser, but in any browser, which is connected to your Google account. The settings are still stored in the browser. When connected to Google Drive, they will also be stored on Google Drive. When loading the page, it checks if synchronization is desired. If that's the case then the data will be downloaded from Google Drive. If the downloaded data is newer than the data in the browser, it will be used. Once the data is saved, syncing will save that data with the current timestamp to Google Drive. The synchronization is activated and deactivated in the menu on the left side. It can also be activated when calling the page fpr the first time in a new browser directly in the welcome screen. Nightscout Reporter only requires permission to save and load your own app data and does not require access to other data on Google Drive.",
+    "Es ist jetzt möglich, die Einstellungen auf Google Drive zu speichern. Das hat den Vorteil, dass man die Einstellungen nicht nur im aktuellen Browser hat, sondern bei jedem Browser, mit dem man sich bei Google anmeldet. Die Einstellungen werden nach wie vor im Browser gespeichert. Bei einer Verbindung zu Google Drive werden sie aber zusätzlich auf Google Drive gespeichert. Beim Laden der Seite wird überprüft, ob eine Synchronisierung gewünscht ist. Wenn das der Fall ist, dann werden die Daten von Google Drive heruntergeladen. Wenn die Daten darin neuer sind als die Daten im Browser, werden sie verwendet. Nach dem Speichern der Daten werden bei aktivierter Synchronisierung diese Daten mit dem aktuellen Zeitstempel auf Google Drive gespeichert. Die Synchronisierung wird im Menü auf der linken Seite aktiviert und deaktiviert. Sie kann auch beim erstmaligen Aufruf der Seite in einem neuen Browser direkt im Willkommensbildschirm aktiviert werden. Nightscout Reporter verlangt nur die Berechtigung die eigenen App-Daten zu speichern und zu laden und benötigt keinen Zugriff auf andere Daten auf Google Drive.": "設定を Google ドライブに保存可能になりました。この利点は、現在のブラウザだけでなく、あなたの Google アカウントに接続されているどのブラウザでも設定を保持できるということです。設定はまだブラウザにも保存されたままです。Google ドライブに接続している場合、Google ドライブにも保存されます。ページを読み込み時に同期が必要かどうかを確認します。必要であれば、データが Google ドライブからダウンロードされます。ダウンロードしたデータがブラウザのデータよりも新しい場合、それが使用されます。データが保存されると、同期はそのデータを現在の日時でGoogle ドライブに保存します。同期の有効・無効化は、左側のメニューから可能です。また、新しいブラウザで初めてページを呼び出すときにも、ようこそ画面から有効にすることができます。ナイトスカウトレポーターには、自らのアプリ用データを保存して読み込む許可が必要なだけで、Google ドライブ上の他のデータにアクセスする要求はありません。",
     "@Es ist jetzt möglich, die Einstellungen auf Google Drive zu speichern. Das hat den Vorteil, dass man die Einstellungen nicht nur im aktuellen Browser hat, sondern bei jedem Browser, mit dem man sich bei Google anmeldet. Die Einstellungen werden nach wie vor im Browser gespeichert. Bei einer Verbindung zu Google Drive werden sie aber zusätzlich auf Google Drive gespeichert. Beim Laden der Seite wird überprüft, ob eine Synchronisierung gewünscht ist. Wenn das der Fall ist, dann werden die Daten von Google Drive heruntergeladen. Wenn die Daten darin neuer sind als die Daten im Browser, werden sie verwendet. Nach dem Speichern der Daten werden bei aktivierter Synchronisierung diese Daten mit dem aktuellen Zeitstempel auf Google Drive gespeichert. Die Synchronisierung wird im Menü auf der linken Seite aktiviert und deaktiviert. Sie kann auch beim erstmaligen Aufruf der Seite in einem neuen Browser direkt im Willkommensbildschirm aktiviert werden. Nightscout Reporter verlangt nur die Berechtigung die eigenen App-Daten zu speichern und zu laden und benötigt keinen Zugriff auf andere Daten auf Google Drive.": {
         "description": "v132a2",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": "デイリーグラフを表示する際に、その日最初にアクティブだったプロフィール名を表示できるようになりまた。このプロファイルは午前０時より変更したとして表示されます。",
+    "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": "1日の基礎単位を選択する際に、その日の最初に利用されていたプロファイル名を表示できるようになりました。午前0時のプロファイルの変更として表示されます。",
     "@In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr.": {
         "description": "v132a3",
         "type": "text",
         "placeholders": {}
     },
-    "Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.": "Images can now be displayed on tiles instead of names. The pictures then show the approximate appearance of the corresponding page. They do not correspond to the actual data, but are just a visual representation that may make it easier for some users to quickly select the pages they want. The activation of the images can be done using the settings dialog.",
+    "Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.": "名前の代わりにタイル上に画像を表示できるようになりました。画像は、対応するページのおおまかな表示です。実際のデータではありませんが、視覚的な表示であるため、一部の利用者は望むページを手短に選択しやすくなるでしょう。画像の有効化は設定ダイアログから行えます。",
     "@Auf den Kacheln können nun Bilder statt der Namen angezeigt werden. Die Bilder zeigen dann das ungefähre Aussehen der entsprechenden Seite an. Sie entsprechen nicht den tatsächlichen Daten, sondern sind nur eine visuelle Darstellung, die es manchem Benutzer vielleicht einfacher machen, die gewünschten Seiten schneller auszuwählen. Die Aktivierung der Bilder erfolgt im Einstellungsdialog.": {
         "description": "v132a4",
         "type": "text",
@@ -2749,19 +2794,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt.": "プロフィールの開始日が、プロフィールページと基礎レートページのタイトルバーに表示されます。",
+    "Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt.": "プロファイルの開始日が、プロフィールページと基礎単位ページのタイトルバーに表示されます。",
     "@Auf den Seiten Profil und Basalrate wird in der Titelzeile jetzt wieder das Datum angezeigt, ab dem das Profil gilt.": {
         "description": "v131c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Listenansicht ist jetzt wieder scrollbar.": "リストビューが再度スクロール可能になります。",
+    "Die Listenansicht ist jetzt wieder scrollbar.": "リストビューで再びスクロール可能になりました。",
     "@Die Listenansicht ist jetzt wieder scrollbar.": {
         "description": "v131f1",
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.": "一時的にプロフィールを変更した場合でも、正しく認識され表示されるようになりました。",
+    "Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.": "一時的にプロファイル変更が、1日グラフ中で正しく認識され表示されるようになりました。",
     "@Temporäre Profilwechsel werden jetzt erkannt und in der Tagesgrafik korrekt angezeigt.": {
         "description": "v131f2",
         "type": "text",
@@ -2773,19 +2818,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.": "「グルコース総合グラフ」をデイリーチャートとウィークリーチャートに別ページとして追加しました。このグラフは５つの要素を表しており、各要素を比較して治療の質を決定できます。印刷出力では出力している各レポートの追加ページとして出力されます。",
+    "Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.": "「グルコース総合グラフ」を、別の PDF として分割し、また 1日チャートと週間チャートとして別ページに追加しました。このグラフは 5つの指標を表しており、治療の質を決定するのを助けたり、各指標を比較できます。印刷出力では出力している各レポートの追加ページとして出力されます。",
     "@Das \"Comprehensive Glucose Pentagon\" (Umfassendes Glukose Fünfeck) wurde als eigenes PDF und als Zusatzseite zur Tagesgrafik und Wochengrafik hinzugefügt. Es handelt sich hierbei um eine Darstellung von fünf Messgrössen, mit deren Hilfe sich die Qualität der Therapie ermitteln und mit anderen vergleichen lässt. Auf den Ausdrucken wird ein Verweis auf die zugrunde liegende Abhandlung ausgegeben.": {
         "description": "v130a1",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.": "デイリーグラフには取得炭水化物より計算したインスリン量を表示するオプションがあります。炭水化物の下に表示される数値は、その時点で摂取炭水化物に対して投与するべきボーラスの量です。この数値は、IOBと他の要因を考慮して計算される為、実際に投与したインスリン量を下回る場合があります。",
+    "In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.": "1日グラフには摂取した炭水化物より計算したインスリン量 IE を表示するオプションがあります。炭水化物の下に表示される数値は、その時点で摂取炭水化物に対して投与するべきボーラスの量です。この数値は、IOBと他の要因を考慮して計算されるため、実際に投与したインスリン量を下回る場合があります。",
     "@In der Tagesgrafik gibt es eine Option, die berechneten IE für aufgenommene Kohlenhydrate anzeigen zu lassen. Der Wert, der unmittelbar unter den Kohlenhydraten angezeigt wird, entspricht dem Bolus, der zu diesem Zeitpunkt für diese Kohlenhydratmenge abgegeben werden sollte. Dieser Wert kann niedriger als der tatsächlich abgegebene Wert ausfallen, weil für die Insulinabgabe noch IOB und andere Faktoren berücksichtigt werden.": {
         "description": "v130a2",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.": "デイリーグラフの表示で、目標血糖値を表示する際に一時目標も表示されるようになりました。",
+    "In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.": "1日グラフの表示で、目標血糖値を表示する際に一時目標も表示されるようになりました。",
     "@In der Tagesgrafik werden nun auch bei Anzeige des Zielwertes die temporären Ziele berücksichtigt.": {
         "description": "v130a3",
         "type": "text",
@@ -2815,13 +2860,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Optionen für die PDFs, die eine eindeutige Beziehung zu einem laufenden Loop haben, werden nun in Blau dargestellt. Das vereinfacht es, PDFs zu erstellen, denen man nicht ohne Weiteres entnehmen kann, dass ein Loop vorliegt. Dazu müssen nur die Haken bei den blauen Optionen entfernt werden.": "Options for the PDFs that have a unique relationship to a running loop are now displayed in blue. This makes it easy to create PDFs where you can not easily deduce that there is a loop running. All you have to do is to uncheck the blue options.",
+    "Optionen für die PDFs, die eine eindeutige Beziehung zu einem laufenden Loop haben, werden nun in Blau dargestellt. Das vereinfacht es, PDFs zu erstellen, denen man nicht ohne Weiteres entnehmen kann, dass ein Loop vorliegt. Dazu müssen nur die Haken bei den blauen Optionen entfernt werden.": "実行中のループで、固有の関係のある PDF のオプションが青色で表示されます。これは、ループ実行中だと容易に推測できない PDF の作成を簡単にします。青色のオプションを外すだけです。",
     "@Optionen für die PDFs, die eine eindeutige Beziehung zu einem laufenden Loop haben, werden nun in Blau dargestellt. Das vereinfacht es, PDFs zu erstellen, denen man nicht ohne Weiteres entnehmen kann, dass ein Loop vorliegt. Dazu müssen nur die Haken bei den blauen Optionen entfernt werden.": {
         "description": "v130a8",
         "type": "text",
         "placeholders": {}
     },
-    "Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte Basalratenanpassung anzeigen.": "ベーサルレートも治療データによりプロフィールが変更されます。プロフィールされた場合は、新しいプロファイルを表示します。",
+    "Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte Basalratenanpassung anzeigen.": "その日の基礎単位プロファイルも処置データに基づき決定されるようになりました。プロファイルの変更は1日グラフに表示され、変化した瞬間に調整され正しい基礎単位が表示されます。",
     "@Die Basalratenprofile für den Tag werden nun auch anhand der Behandlungsdaten ermittelt. Profilwechsel werden in der Tagesgrafik angezeigt und sollten ab dem Zeitpunkt des Wechsels auch eine korrekte Basalratenanpassung anzeigen.": {
         "description": "v130c1",
         "type": "text",
@@ -2833,13 +2878,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde.": "選択期間及びPDF作成がされてい場合は、過去の期間ボタンは表示されません。",
+    "Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde.": "期間や PDF が選択されていない場合、過去の期間ボタンは表示されません。",
     "@Die Buttons für die vergangenen Perioden werden nicht angezeigt, wenn kein Zeitraum oder kein PDF ausgewählt wurde.": {
         "description": "v130c3",
         "type": "text",
         "placeholders": {}
     },
-    "Einige der Optionen für die PDFs wurden hierarchisch angeordnet. Es macht z.B. keinen Sinn, die SMB Werte in der Tagesgrafik an der Kurve platzieren zu lassen, wenn die SMB Werte gar nicht angezeigt werden. Deswegen werden Optionen, die von einer anderen Option abhängen nur dann angezeigt, wenn die entsprechende Option markiert ist. Dadurch ändert sich leider auch die Speicherung der Optionen, weshalb sich die aktuelle Auswahl der Optionen bei manchen PDFs verändert. Da müssen die Optionen dann neu gesetzt werden.": "Some of the options for the PDFs have been arranged hierarchically. There is no point in having the SMB values placed in the daily graph at the curve if the SMB values are not displayed at all. Therefore, options that depend on another option are only displayed if the corresponding option is selected. This unfortunately also changes the storage of options, which is why the current selection of options for some PDFs changed. These options have to be set again.",
+    "Einige der Optionen für die PDFs wurden hierarchisch angeordnet. Es macht z.B. keinen Sinn, die SMB Werte in der Tagesgrafik an der Kurve platzieren zu lassen, wenn die SMB Werte gar nicht angezeigt werden. Deswegen werden Optionen, die von einer anderen Option abhängen nur dann angezeigt, wenn die entsprechende Option markiert ist. Dadurch ändert sich leider auch die Speicherung der Optionen, weshalb sich die aktuelle Auswahl der Optionen bei manchen PDFs verändert. Da müssen die Optionen dann neu gesetzt werden.": "PDF のオプションの一部が階層で配置されました。SMB 値がまったく表示されていない場合には、1日グラフに配置されている意味がありません。そのため、別のオプションに依存するオプションは、対応するオプションを選択した場合にのみ表示されるようにしました。これは残念ながらオプションの保存方法も変えてしまい、現在の一部の PDF のオプションの選択方法が変更されました。これらのオプションは、再び設定する必要があります。",
     "@Einige der Optionen für die PDFs wurden hierarchisch angeordnet. Es macht z.B. keinen Sinn, die SMB Werte in der Tagesgrafik an der Kurve platzieren zu lassen, wenn die SMB Werte gar nicht angezeigt werden. Deswegen werden Optionen, die von einer anderen Option abhängen nur dann angezeigt, wenn die entsprechende Option markiert ist. Dadurch ändert sich leider auch die Speicherung der Optionen, weshalb sich die aktuelle Auswahl der Optionen bei manchen PDFs verändert. Da müssen die Optionen dann neu gesetzt werden.": {
         "description": "v130c4",
         "type": "text",
@@ -2851,31 +2896,31 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Ermittlung der Einheit (mg/dl oder mmol/l) wird nun flexibler gehandhabt, so dass auch Leerzeichen in der entsprechenden Einstellung nicht mehr zu einer Fehlinterpretation führen.": "単位(mg/dl or mmol/l) の決定が柔軟に対応できるようになりました。設定にスペースが入っている場合でも間違える事がなくなりました。",
+    "Die Ermittlung der Einheit (mg/dl oder mmol/l) wird nun flexibler gehandhabt, so dass auch Leerzeichen in der entsprechenden Einstellung nicht mehr zu einer Fehlinterpretation führen.": "単位 (mg/dl や mmol/l) の決定が柔軟に対応できるようになりました。設定にスペースが入っている場合でも間違える事がなくなりました。",
     "@Die Ermittlung der Einheit (mg/dl oder mmol/l) wird nun flexibler gehandhabt, so dass auch Leerzeichen in der entsprechenden Einstellung nicht mehr zu einer Fehlinterpretation führen.": {
         "description": "v130f1",
         "type": "text",
         "placeholders": {}
     },
-    "Ein Fehler wurde behoben, der in der Tagesgrafik dazu führte, dass Texte in der Legende andere Texte überschrieben haben.": "デイリーグラフが凡例に被るバグを修正しました。",
+    "Ein Fehler wurde behoben, der in der Tagesgrafik dazu führte, dass Texte in der Legende andere Texte überschrieben haben.": "1日グラフが凡例に被るバグを修正しました。",
     "@Ein Fehler wurde behoben, der in der Tagesgrafik dazu führte, dass Texte in der Legende andere Texte überschrieben haben.": {
         "description": "v130f2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Berechnung der PDF-Grössen wurde korrigiert, so dass nun weniger PDFs erstellt werden, wenn sie aufgrund der Grösse aufgeteilt werden.": "ＰＤＦサイズの計算を修正しました。サイズにより分割する際のＰＤＦ数が少なくなりました。",
+    "Die Berechnung der PDF-Grössen wurde korrigiert, so dass nun weniger PDFs erstellt werden, wenn sie aufgrund der Grösse aufgeteilt werden.": "PDF のサイズ計算を修正しました。サイズにより分割する際の PDF の数が少なくなりました。",
     "@Die Berechnung der PDF-Grössen wurde korrigiert, so dass nun weniger PDFs erstellt werden, wenn sie aufgrund der Grösse aufgeteilt werden.": {
         "description": "v130f3",
         "type": "text",
         "placeholders": {}
     },
-    "Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind.": "値がすべてのPDFで同一になるように、同じデータベースを使用して、分析、日別統計、デイリーグラフを算出しました。",
+    "Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind.": "値がすべての PDF で同一になるように、同じデータベースを使用して、分析、日別統計、1日グラフを算出しました。",
     "@Zur Berechnung der Analyse, Tagesstatistik und Tagesgrafik wird nun die gleiche Datenbasis verwendet, so dass die Werte auf allen PDFs gleich sind.": {
         "description": "v130f4",
         "type": "text",
         "placeholders": {}
     },
-    "Es werden jetzt auch blutige Werte erkannt, die von Loop auf dem IPhone eingetragen werden.": "IphoneのLoopで血糖値を入力した場合も認識するようになりました。",
+    "Es werden jetzt auch blutige Werte erkannt, die von Loop auf dem IPhone eingetragen werden.": "iPhone の Loop で血糖値を入力した場合も認識するようになりました。",
     "@Es werden jetzt auch blutige Werte erkannt, die von Loop auf dem IPhone eingetragen werden.": {
         "description": "v130f5",
         "type": "text",
@@ -2887,13 +2932,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt jetzt die Möglichkeit, PDFs vergangener Zeiträume zu erzeugen, ohne den Zeitraum anpassen zu müssen. Oberhalb des Buttons zur PDF-Erzeugung gibt es zwei Buttons, welche die PDFs für eine frühere Periode erzeugen. Der untere der beiden Buttons erzeugt die Vorperiode, der obere die vorletzte Periode. Auf den Buttons wird das Startdatum und das Enddatum angezeigt. Wenn z.B. als Zeitraum \"Letzte 2 Wochen\" gewählt wurde, dann wird mit dem unteren Button der Zeitraum von zwei Wochen beginnend vor vier Wochen erzeugt und mit dem oberen Button der Zeitraum von zwei Wochen beginnend vor sechs Wochen. Auf diese Art kann man recht einfach Vergleichsberichte erzeugen, um die Entwicklung der Werte zu erkennen. Auf den Seiten wird für diese Ausdrucke in der Kopfzeile das Wort \"Historisch 1\", bzw. \"Historisch 2\" oberhalb des Zeitraums ausgegeben. So kann man beim Vergleich der Werte die Daten voneinander unterscheiden.": "期間を新たに設定しなくても、過去に表示した期間のPDFを作成できるようになりました。PDFを作成するボタンの上に、前の期間を選択するボタンがふたつあります。ふたつのボタンの内、下側が直近に選択した期間で上側が最後から2番目の期間となります。ボタンには開始日と終了日が表示されます。又、期間「過去２週間」を選択すると、下側のボタンは4週前から始まる2週間の期間と上側のボタンでは4週間前から始まる2週間の期間が作成されます。\nこのように数値の変化を比較する為のレポートを容易に作成できます。又、ヘッダーに印刷されるページでは、上部に「履歴１」「履歴２」と表示されます。",
+    "Es gibt jetzt die Möglichkeit, PDFs vergangener Zeiträume zu erzeugen, ohne den Zeitraum anpassen zu müssen. Oberhalb des Buttons zur PDF-Erzeugung gibt es zwei Buttons, welche die PDFs für eine frühere Periode erzeugen. Der untere der beiden Buttons erzeugt die Vorperiode, der obere die vorletzte Periode. Auf den Buttons wird das Startdatum und das Enddatum angezeigt. Wenn z.B. als Zeitraum \"Letzte 2 Wochen\" gewählt wurde, dann wird mit dem unteren Button der Zeitraum von zwei Wochen beginnend vor vier Wochen erzeugt und mit dem oberen Button der Zeitraum von zwei Wochen beginnend vor sechs Wochen. Auf diese Art kann man recht einfach Vergleichsberichte erzeugen, um die Entwicklung der Werte zu erkennen. Auf den Seiten wird für diese Ausdrucke in der Kopfzeile das Wort \"Historisch 1\", bzw. \"Historisch 2\" oberhalb des Zeitraums ausgegeben. So kann man beim Vergleich der Werte die Daten voneinander unterscheiden.": "期間を新たに設定しなくても、過去に表示した期間の PDF を作成できるようになりました。PDF を作成するボタンの上に、前の期間を選択するボタンがふたつあります。ふたつのボタンの内、下側が直近に選択した期間で上側が最後から2番目の期間となります。ボタンには開始日と終了日が表示されます。また期間「過去1週間」を選択すると、下側のボタンは4週前から始まる2週間の期間と上側のボタンでは4週間前から始まる2週間の期間が作成されます。\nこのように数値の変化を比較する為のレポートを容易に作成できます。またヘッダーに印刷されるページでは、上部に「履歴1」「履歴2」と表示されます。",
     "@Es gibt jetzt die Möglichkeit, PDFs vergangener Zeiträume zu erzeugen, ohne den Zeitraum anpassen zu müssen. Oberhalb des Buttons zur PDF-Erzeugung gibt es zwei Buttons, welche die PDFs für eine frühere Periode erzeugen. Der untere der beiden Buttons erzeugt die Vorperiode, der obere die vorletzte Periode. Auf den Buttons wird das Startdatum und das Enddatum angezeigt. Wenn z.B. als Zeitraum \"Letzte 2 Wochen\" gewählt wurde, dann wird mit dem unteren Button der Zeitraum von zwei Wochen beginnend vor vier Wochen erzeugt und mit dem oberen Button der Zeitraum von zwei Wochen beginnend vor sechs Wochen. Auf diese Art kann man recht einfach Vergleichsberichte erzeugen, um die Entwicklung der Werte zu erkennen. Auf den Seiten wird für diese Ausdrucke in der Kopfzeile das Wort \"Historisch 1\", bzw. \"Historisch 2\" oberhalb des Zeitraums ausgegeben. So kann man beim Vergleich der Werte die Daten voneinander unterscheiden.": {
         "description": "v1211a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die teilweise falsch zugewiesenen Grenzwerte für die Bereiche (niedrig, normal, hoch) wurden korrigiert.": "一部間違って割り当てていたエリア(低血糖、普通、高血糖) は修正されました。",
+    "Die teilweise falsch zugewiesenen Grenzwerte für die Bereiche (niedrig, normal, hoch) wurden korrigiert.": "一部間違って割り当てていた箇所 (低血糖、普通、高血糖) は修正されました。",
     "@Die teilweise falsch zugewiesenen Grenzwerte für die Bereiche (niedrig, normal, hoch) wurden korrigiert.": {
         "description": "v1211f1",
         "type": "text",
@@ -2905,19 +2950,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Auf der Profilseite wurde die Spalte für die Werte von ICR verbreitert.": "プロフィールページのICRの列幅を広げました",
+    "Auf der Profilseite wurde die Spalte für die Werte von ICR verbreitert.": "プロファイルページの ICR の列幅を広げました",
     "@Auf der Profilseite wurde die Spalte für die Werte von ICR verbreitert.": {
         "description": "v1210f1",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate eine Genauigkeit von mehr als 2 Nachkommastellen hat.": "ベーサルレートを小数点2桁表示にした場合、デイリーグラフでのインスリン量は小さく表示されます。",
+    "In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate eine Genauigkeit von mehr als 2 Nachkommastellen hat.": "基礎単位を小数点2桁表示にした場合、1日グラフでのインスリン量は小さく表示されます。",
     "@In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate eine Genauigkeit von mehr als 2 Nachkommastellen hat.": {
         "description": "v1210f2",
         "type": "text",
         "placeholders": {}
     },
-    "Die mittlerweile überflüssige Option zur Darstellung der Basalrate mit zwei Nachkommastellen wurde aus der Tagesgrafik entfernt.": "デイリーグラフからベーサルレート少数点の古いオプションを削除しました。",
+    "Die mittlerweile überflüssige Option zur Darstellung der Basalrate mit zwei Nachkommastellen wurde aus der Tagesgrafik entfernt.": "1日グラフから基礎単位少数点の古いオプションを削除しました。",
     "@Die mittlerweile überflüssige Option zur Darstellung der Basalrate mit zwei Nachkommastellen wurde aus der Tagesgrafik entfernt.": {
         "description": "v1210f3",
         "type": "text",
@@ -2929,13 +2974,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ein Link zur Facebookseite von Nightscout Reporter wurde im Menü hinzugefügt.": "ナイトスカウト レポーターのFacebookページへのリンクをメニューに追加しました。",
+    "Ein Link zur Facebookseite von Nightscout Reporter wurde im Menü hinzugefügt.": "ナイトスカウトレポーターの Facebook ページへのリンクをメニューに追加しました。",
     "@Ein Link zur Facebookseite von Nightscout Reporter wurde im Menü hinzugefügt.": {
         "description": "v129a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Mischung von zwei Seiten auf einer PDF-Seite, die manchmal vorkam, wurde behoben.": "1つのPDFページに2ページ混在することがありましたが修正しました。",
+    "Die Mischung von zwei Seiten auf einer PDF-Seite, die manchmal vorkam, wurde behoben.": "1つの PDF ページに2ページ混在することがありましたが修正しました。",
     "@Die Mischung von zwei Seiten auf einer PDF-Seite, die manchmal vorkam, wurde behoben.": {
         "description": "v129f1",
         "type": "text",
@@ -2947,31 +2992,31 @@
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt in den Einstellungen eine neue Option, um den letzten in Nightscout gespeicherten Glukosewert in der Titelzeile anzeigen zu lassen. Wenn diese Option aktiviert ist, wird der aktuelle Wert, das Alter des Wertes, der Trendpfeil und die Differenz zum vorherigen Wert rechts in der Titelzeile angezeigt. Diese Anzeige wird jede Minute aktualisiert, solange das Browserfenster den Eingabefokus besitzt. Wenn es diesen nicht hat, wird die Aktualisierung angehalten und der Wert ausgeblendet, um nicht unnötig Systemresourcen zu belasten.": "この設定にはNightscoutに保存されている最新の血糖値をタイトルバーに表示する新しいオプションがあります。有効にすると、現在の血糖値・経過時間・トレンド矢印及び以前の血糖値との差がタイトルバーの右側に表示されます。\nこの表示はブラウザに入力カーソルがある時は、毎分更新されます。入力カーソルが無い場合はシステムの負荷を避ける為、値は非表示になります。",
+    "Es gibt in den Einstellungen eine neue Option, um den letzten in Nightscout gespeicherten Glukosewert in der Titelzeile anzeigen zu lassen. Wenn diese Option aktiviert ist, wird der aktuelle Wert, das Alter des Wertes, der Trendpfeil und die Differenz zum vorherigen Wert rechts in der Titelzeile angezeigt. Diese Anzeige wird jede Minute aktualisiert, solange das Browserfenster den Eingabefokus besitzt. Wenn es diesen nicht hat, wird die Aktualisierung angehalten und der Wert ausgeblendet, um nicht unnötig Systemresourcen zu belasten.": "この設定には基礎単位に保存されている最新の血糖値をタイトルバーに表示する新しいオプションがあります。有効にすると、現在の血糖値・経過時間・トレンド矢印及び以前の血糖値との差がタイトルバーの右側に表示されます。\nこの表示はブラウザに入力カーソルがある時は、毎分更新されます。入力カーソルがない場合はシステムの負荷を避けるため、値は非表示になります。",
     "@Es gibt in den Einstellungen eine neue Option, um den letzten in Nightscout gespeicherten Glukosewert in der Titelzeile anzeigen zu lassen. Wenn diese Option aktiviert ist, wird der aktuelle Wert, das Alter des Wertes, der Trendpfeil und die Differenz zum vorherigen Wert rechts in der Titelzeile angezeigt. Diese Anzeige wird jede Minute aktualisiert, solange das Browserfenster den Eingabefokus besitzt. Wenn es diesen nicht hat, wird die Aktualisierung angehalten und der Wert ausgeblendet, um nicht unnötig Systemresourcen zu belasten.": {
         "description": "v128a1",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik gibt es eine Option, mit der man sich die erfassten Trainingsdaten anzeigen lassen kann. Diese werden dann am unteren Rand über der Tabelle der Glukosewerte eingefügt.": "デイリーグラフには、グラフにエクササイズのデータを表示するオプションがあります。グラフの最下部の血糖値の上に表示されます。",
+    "In der Tagesgrafik gibt es eine Option, mit der man sich die erfassten Trainingsdaten anzeigen lassen kann. Diese werden dann am unteren Rand über der Tabelle der Glukosewerte eingefügt.": "1日グラフには、グラフにエクササイズのデータを表示するオプションがあります。グラフの最下部の血糖値の上に表示されます。",
     "@In der Tagesgrafik gibt es eine Option, mit der man sich die erfassten Trainingsdaten anzeigen lassen kann. Diese werden dann am unteren Rand über der Tabelle der Glukosewerte eingefügt.": {
         "description": "v128a2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Spalten auf der Profilseite wurden korrigiert, damit auch längere Zeitnamen (z.B. in spanisch) Platz finden.": "ページの列表示が修正され、より長い時間名を表示できるようになりました(例：スペイン語等)",
+    "Die Spalten auf der Profilseite wurden korrigiert, damit auch längere Zeitnamen (z.B. in spanisch) Platz finden.": "ページの列表示が修正され、より長い時間名を表示できるようになりました (例：スペイン語など)",
     "@Die Spalten auf der Profilseite wurden korrigiert, damit auch längere Zeitnamen (z.B. in spanisch) Platz finden.": {
         "description": "v128c1",
         "type": "text",
         "placeholders": {}
     },
-    "Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren.": "デイリーグラフとウィークリーグラフで1枚のPDFに複数の画像を表示できるようになりました。（1枚・2枚・4枚・8枚・16枚）",
+    "Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren.": "1日グラフと週間グラフで、1枚の PDF に複数の画像を表示できるようになりました。1枚・2枚・4枚・8枚・16枚です。",
     "@Bei Tagesgrafiken und Wochengrafiken gibt es jetzt die Möglichkeit 1, 2, 4, 8 oder 16 Grafiken auf einer Seite zu platzieren.": {
         "description": "v128c2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Aufteilung auf mehrere PDF-Dateien funktioniert jetzt besser.": "PDFファイルの複数分割が改善されました。",
+    "Die Aufteilung auf mehrere PDF-Dateien funktioniert jetzt besser.": "PDF ファイルの複数分割が改善されました。",
     "@Die Aufteilung auf mehrere PDF-Dateien funktioniert jetzt besser.": {
         "description": "v128f1",
         "type": "text",
@@ -2983,7 +3028,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Wenn der Zeitraum leer ist, wird der Button für die Auswahl deutlich markiert und in dem Dialog zur Auswahl wird in der Titelzeile ein Hinweis darauf angezeigt.": "期間選択がされていない場合は、ハイライト表示されタイトルバーに期間を選択する為のボタンが表示されます。",
+    "Wenn der Zeitraum leer ist, wird der Button für die Auswahl deutlich markiert und in dem Dialog zur Auswahl wird in der Titelzeile ein Hinweis darauf angezeigt.": "期間選択がされていない場合は、ハイライト表示されタイトルバーに期間を選択するためのボタンが表示されます。",
     "@Wenn der Zeitraum leer ist, wird der Button für die Auswahl deutlich markiert und in dem Dialog zur Auswahl wird in der Titelzeile ein Hinweis darauf angezeigt.": {
         "description": "v127a1",
         "type": "text",
@@ -3001,7 +3046,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Skalen an den Grafiken wurden überarbeitet. Sie zeigen jetzt für mmol/L ganzzahlige Werte an und die Einheiten wurden entfernt. Diese stehen nur noch unten an der Grafik. Das betrifft die täglichen Grafiken, wöchentlichen Grafiken und das Glukose Percentil Diagramm.": "グラフの縮尺が変更されました。これにより単位が削除され血糖値の数値のみが表示されます。単位はグラフの下部に表示されます。（デイリーグラフ・ウィークリーグラフ・血糖値パーセントチャート）",
+    "Die Skalen an den Grafiken wurden überarbeitet. Sie zeigen jetzt für mmol/L ganzzahlige Werte an und die Einheiten wurden entfernt. Diese stehen nur noch unten an der Grafik. Das betrifft die täglichen Grafiken, wöchentlichen Grafiken und das Glukose Percentil Diagramm.": "グラフの縮尺が変更されました。これにより単位が削除され血糖値の数値のみが表示されます。単位はグラフの下部に表示されます。（1日グラフ・週間グラフ・血糖値比率チャート）",
     "@Die Skalen an den Grafiken wurden überarbeitet. Sie zeigen jetzt für mmol/L ganzzahlige Werte an und die Einheiten wurden entfernt. Diese stehen nur noch unten an der Grafik. Das betrifft die täglichen Grafiken, wöchentlichen Grafiken und das Glukose Percentil Diagramm.": {
         "description": "v126c1",
         "type": "text",
@@ -3013,7 +3058,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.": "作成したPDFのサイズが大きい場合は、複数のPDFファイルに分割されます。この場合、直接PDFは開かず番号付きのボタンリストが表示されます。このボタンをクリックするとPDFが開いてチェックマークが表示されます。又、新しウィンドウで開くと現在のブラウザウィンドウが背面に移動する為、PDFを簡単に開く事ができます。",
+    "Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.": "作成した PDF のサイズが大きい場合は、複数のPDFファイルに分割されます。この場合、直接 PDF は開かず番号付きのボタンリストが表示されます。このボタンをクリックすると PDF が開いてチェックマークが表示されます。また新しウィンドウで開くと現在のブラウザウィンドウが背面に移動するため、PDF を簡単に開くことができます。",
     "@Wenn das erzeugte PDF zu gross wird, wird es nun auf mehrere PDF-Dateien aufgeteilt. In diesem Fall wird es nicht direkt geöffnet, sondern es wird eine Liste mit durchnummerierten Buttons angezeigt. Diese Buttons öffnen bei Betätigung das entsprechende PDF und erhalten einen Haken, um anzuzeigen, dass es geöffnet wurde. Das sollte es erleichtern, die PDFs nacheinander zu öffnen, weil normalerweise der Browser im Hintergrund verschwindet, wenn ein neues Fenster aufgemacht wird.": {
         "description": "v125a1",
         "type": "text",
@@ -3025,19 +3070,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.": "デイリーグラフのSMBは非表示にできます。",
+    "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.": "1日グラフの SMB は非表示にできます。",
     "@In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden.": {
         "description": "v125a3",
         "type": "text",
         "placeholders": {}
     },
-    "Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach das Handle auf der linken Seite des Buttons für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.": "作成するPDFの順序を変更できるようになりました。作成する項目を選択する画面で、項目の左側をクリックしたまま上下のドラッグして任意の場所に移動してください。",
+    "Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach das Handle auf der linken Seite des Buttons für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.": "作成する PDF の順序を変更できるようになりました。作成する項目を選択する画面で、項目の左側をクリックしたまま上下のドラッグして任意の場所に移動してください。",
     "@Die Reihenfolge der Formulare kann nun verändert werden. Dazu einfach das Handle auf der linken Seite des Buttons für das Formular anklicken, festhalten und an die Stelle ziehen, vor der es ausgedruckt werden soll.": {
         "description": "v125a4",
         "type": "text",
         "placeholders": {}
     },
-    "Auf der Analyseseite werden nun auch GVI und PGS ausgegeben.": "分析ページにGVIとPGSを追加しました。",
+    "Auf der Analyseseite werden nun auch GVI und PGS ausgegeben.": "分析ページに GVI と PGS を追加しました。",
     "@Auf der Analyseseite werden nun auch GVI und PGS ausgegeben.": {
         "description": "v125a5",
         "type": "text",
@@ -3055,13 +3100,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik gibt es eine Option, mit dem man die verschiedenen Arten der Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Bolus zur Korrektur. In der Legende werden dann Korrektur-, Mahlzeiten-Boli und SMB getrennt angezeigt.": "デイリーグラフに違う種類のボーラスを区別することが出来るオプションがあります。\n食事時と補正のボーラスは別色でマークされます。又、凡例には食事ボーラス・補正ボーラス・スーパーマイクロボーラス（SMB）の値も表示されます。",
+    "In der Tagesgrafik gibt es eine Option, mit dem man die verschiedenen Arten der Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Bolus zur Korrektur. In der Legende werden dann Korrektur-, Mahlzeiten-Boli und SMB getrennt angezeigt.": "1日グラフに違う種類のボーラスを区別することが出来るオプションがあります。\n食事時と補正のボーラスは別色でマークされます。また凡例には食事ボーラス・補正ボーラス・スーパーマイクロボーラス（SMB）の値も表示されます。",
     "@In der Tagesgrafik gibt es eine Option, mit dem man die verschiedenen Arten der Boli kenntlich machen lassen kann. Wenn diese Option gesetzt ist, wird ein Bolus, der zu einer Mahlzeit abgegeben wurde mit einer anderen Farbe markiert, als ein Bolus zur Korrektur. In der Legende werden dann Korrektur-, Mahlzeiten-Boli und SMB getrennt angezeigt.": {
         "description": "v125a8",
         "type": "text",
         "placeholders": {}
     },
-    "Nightscout Reporter ist nun auch grösstenteils in Spanisch und Polnisch verfügbar. Entsprechende Buttons wurden dem Hauptmenü hinzugefügt. Danke an die fleissigen Übersetzer :).": "Nightscout Reporterの大部分がスペイン語とポーランド語に翻訳されました。 メインメニューに選択ボタンが追加されました。 勤勉な翻訳者のおか​​げです :)",
+    "Nightscout Reporter ist nun auch grösstenteils in Spanisch und Polnisch verfügbar. Entsprechende Buttons wurden dem Hauptmenü hinzugefügt. Danke an die fleissigen Übersetzer :).": "ナイトスカウトレポーターの大部分がスペイン語とポーランド語に翻訳されました。 メインメニューに選択ボタンが追加されました。 勤勉な翻訳者のおか​​げです :)",
     "@Nightscout Reporter ist nun auch grösstenteils in Spanisch und Polnisch verfügbar. Entsprechende Buttons wurden dem Hauptmenü hinzugefügt. Danke an die fleissigen Übersetzer :).": {
         "description": "v125a9",
         "type": "text",
@@ -3073,7 +3118,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.": "正確なインスリン投与量はプロフィールより決定されます。正確な値はベーサルレートの小数点以下の桁数を決定します。",
+    "Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.": "正確なインスリン投与量はプロフィールより決定されます。正確な値は基礎単位の小数点以下の桁数を決定します。",
     "@Die Genauigkeit der Insulindosierung wird aus dem Profil ermittelt. Der Wert mit der höchsten Genauigkeit legt fest, mit wieviel Nachkommastellen Basalratenwerte angezeigt werden.": {
         "description": "v125c2",
         "type": "text",
@@ -3097,37 +3142,37 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Berechnung der tatsächlichen Basalrate wurde korrigiert.": "実際のベーサルレートの計算式を修正しました。",
+    "Die Berechnung der tatsächlichen Basalrate wurde korrigiert.": "実際の基礎単位の計算式を修正しました。",
     "@Die Berechnung der tatsächlichen Basalrate wurde korrigiert.": {
         "description": "v125f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.": "プロフィールページでは24時間のエントリーが1ページに収まるように調整されています。",
+    "Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.": "プロファイルのページでは 24 時間の項目が 1ページに収まるように調整されています。",
     "@Die Profilseite wurde angepasst, damit Einträge für 24 Stunden auf eine Seite passen.": {
         "description": "v125f2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.": "NightscoutとNightscoutレポートのリンクがユーザートークンを設定すると動作するようになりました。",
+    "Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.": "ナイトスカウトとナイトスカウトレポートのリンクがユーザー・トークンを設定すると動作するようになりました。",
     "@Die Links zu Nightscout und den Reports von Nightscout im Menü funktionieren jetzt auch richtig, wenn ein Usertoken angegeben wurde.": {
         "description": "v125f3",
         "type": "text",
         "placeholders": {}
     },
-    "In Firefox ist es jetzt auch möglich, die Hauptseite zu scrollen, wenn sie länger ist, als das Browserfenster.": "メインページをFirefoxで表示している際に、ブラウザ画面より長い場合はスクロールできるようになりました。",
+    "In Firefox ist es jetzt auch möglich, die Hauptseite zu scrollen, wenn sie länger ist, als das Browserfenster.": "メインページを Firefox で表示している際に、ブラウザ画面より長い場合はスクロールできるようになりました。",
     "@In Firefox ist es jetzt auch möglich, die Hauptseite zu scrollen, wenn sie länger ist, als das Browserfenster.": {
         "description": "v125f4",
         "type": "text",
         "placeholders": {}
     },
-    "Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt.": "血糖値がmmol/lでグラフに正しく表示できるようになりました。",
+    "Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt.": "血糖値が mmol/l でグラフに正しく表示できるようになりました。",
     "@Blutwerte werden jetzt auch bei mmol/L in den Grafiken korrekt angezeigt.": {
         "description": "v125f5",
         "type": "text",
         "placeholders": {}
     },
-    "Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.": "標準偏差は、mmol / Lを選択しても正しく表示されるようになりました。",
+    "Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.": "標準偏差は、mmol / L を選択しても正しく表示されるようになりました。",
     "@Die Standardabweichung wird jetzt auch bei mmol/L korrekt angezeigt.": {
         "description": "v125f6",
         "type": "text",
@@ -3145,25 +3190,25 @@
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt jetzt auch die Möglichkeit, Nightscout Reporter in europäischem Englisch darzustellen. Der Unterschied zum amerikanischen Englisch besteht derzeit lediglich im Datumsformat (gb: dd/MM/yyyy, us: MM/dd/yyyy).": "Nightscout　Reporterをイギリス英語で使用できるようになりました。アメリカ英語との違いは日付表示のみです。(例：dd/MM/yyyy, us: MM/dd/yyyy)",
+    "Es gibt jetzt auch die Möglichkeit, Nightscout Reporter in europäischem Englisch darzustellen. Der Unterschied zum amerikanischen Englisch besteht derzeit lediglich im Datumsformat (gb: dd/MM/yyyy, us: MM/dd/yyyy).": "ナイトスカウトレポーターをイギリス英語で使用できるようになりました。アメリカ英語との違いは日付表示のみです。(例：dd/MM/yyyy, us: MM/dd/yyyy)",
     "@Es gibt jetzt auch die Möglichkeit, Nightscout Reporter in europäischem Englisch darzustellen. Der Unterschied zum amerikanischen Englisch besteht derzeit lediglich im Datumsformat (gb: dd/MM/yyyy, us: MM/dd/yyyy).": {
         "description": "v124a1",
         "type": "text",
         "placeholders": {}
     },
-    "In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.": "デイリーグラフの凡例にある炭水化物には合計値が表示されます。",
+    "In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.": "1日グラフの凡例にある炭水化物には合計値が表示されます。",
     "@In der Legende unter der Tagesgrafik wird die Summe der Kohlenhydrate für den Tag angezeigt.": {
         "description": "v124a2",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik werden nun auch Reservoirwechsel angezeigt.": "リザーバー交換がデイリーグラフに表示されます。",
+    "In der Tagesgrafik werden nun auch Reservoirwechsel angezeigt.": "リザーバー交換が1日グラフに表示されます。",
     "@In der Tagesgrafik werden nun auch Reservoirwechsel angezeigt.": {
         "description": "v124a3",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert sein muss, damit die Werte angezeigt werden.": "日別の推定A1C、ボーラスインスリンおよび基礎インスリンの割合は、デイリーグラフの下の凡例に表示されます。これらを表示するには凡例表示を有効にする必要があります。",
+    "In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert sein muss, damit die Werte angezeigt werden.": "日別の推定 A1C、ボーラスインスリンおよび基礎インスリンの割合は、1日グラフの下の凡例に表示されます。これらを表示するには凡例表示を有効にする必要があります。",
     "@In der Tagesgrafik werden nun der geschätzte HbA1C und die prozentuale Menge an Bolusinsulin und Basalinsulin für den Tag angezeigt. Diese Anzeige erfolgt innerhalb der Legende, weshalb diese aktiviert sein muss, damit die Werte angezeigt werden.": {
         "description": "v124a4",
         "type": "text",
@@ -3175,19 +3220,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Für die Tagesgrafik gibt es jetzt eine Option, um die Aufsummierung nahe beieinander liegender Werte umzuschalten.": "デイリーグラフに、時間帯が近い数値をまとめるオプションが追加されました。",
+    "Für die Tagesgrafik gibt es jetzt eine Option, um die Aufsummierung nahe beieinander liegender Werte umzuschalten.": "1日グラフに、時間帯が近い数値をまとめるオプションが追加されました。",
     "@Für die Tagesgrafik gibt es jetzt eine Option, um die Aufsummierung nahe beieinander liegender Werte umzuschalten.": {
         "description": "v124c2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.": "デイリーグラフ上のカーボに接頭語KHなしで表示されるようになりました。",
+    "Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.": "1日グラフ上の炭水化物に接頭語 KH なしで表示されるようになりました。",
     "@Die Kohlenhydratangaben auf der Tagesgrafik werden jetzt ohne den Zusatz KH ausgegeben.": {
         "description": "v124c3",
         "type": "text",
         "placeholders": {}
     },
-    "Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin an dem Tag skaliert.": "デイリーグラフのボーラスバーは、その日の最大ボーラスによって縮尺が決定されます。",
+    "Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin an dem Tag skaliert.": "1日グラフのボーラスバーは、その日の最大ボーラスによって縮尺が決定されます。",
     "@Die Balken für das Bolusinsulin in der Tagesgrafik werden nun entsprechend dem Maximalwert an Bolusinsulin an dem Tag skaliert.": {
         "description": "v124c4",
         "type": "text",
@@ -3205,19 +3250,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": "デイリーグラフでは、インスリンと炭水化物の値が1時間に複数個ある場合は合計が表示されます。各バーは値ごとに表示されます。又、この表示により文字が重なる事が解消されました。角括弧で表示された値は合計された値です。",
+    "In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": "1日グラフでは、インスリンと炭水化物の値が1時間に複数個ある場合は合計が表示されます。各バーは値ごとに表示されます。またこの表示により文字が重なることが解消されました。角括弧で表示された値は合計された値です。",
     "@In der Tagesgraphic werden jetzt Insulinwerte und Kohlenhydratwerte zusammengefasst, wenn es mehrere innerhalb einer Stunde gibt. Die Balken werden nach wie vor für jeden Wert einzeln ausgegeben. Auf diese Art sollte es keine überlappende Ausgabe der Werte mehr geben. Die zusammengefassten Werte werden in eckigen Klammern ausgegeben, um anzuzeigen, dass hier Werte aufsummiert wurden.": {
         "description": "v123c1",
         "type": "text",
         "placeholders": {}
     },
-    "Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden, wurde behoben.": "プロフィールのISFと目標範囲の値が正確に変換されないバグを修正しました。",
+    "Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden, wurde behoben.": "プロフィールの ISF と目標範囲の値が正確に変換されないバグを修正しました。",
     "@Der Fehler im Profil, der dazu führte, dass die Werte für ISF und Zielbereich falsch umgerechnet werden, wurde behoben.": {
         "description": "v123f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.": "デイリーグラフの血糖値をmmol/L標記にした場合も正しい位置に表示されるようになりました。",
+    "Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.": "1日グラフの血糖値を mmol/L 表記にした場合も、正しい位置に表示されるようになりました。",
     "@Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.": {
         "description": "v123f2",
         "type": "text",
@@ -3229,7 +3274,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).": "プロフィールで正しい単位が利用できるようになりました。(mg/dL か mmol/l)",
+    "Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).": "プロファイルで正しい単位が利用できるようになりました。(mg/dL か mmol/l)",
     "@Im Profil werden jetzt die richtigen Einheiten verwendet (mg/dL oder mmol/l).": {
         "description": "v122f1",
         "type": "text",
@@ -3241,13 +3286,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.": "プロフィールで同じ値を持つ項目の時刻を統合する新しいオプションです。",
+    "Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.": "プロファイルで同じ値を持つ項目の時刻を統合する新しいオプションです。",
     "@Neue Option im Profil, um fortlaufende Zeiten mit gleichen Werten zu einem Eintrag zusammen zu fassen.": {
         "description": "v121a1",
         "type": "text",
         "placeholders": {}
     },
-    "Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.": "プロフィールに記載された項目が1ページに収まらない場合、次のページに重なって表示されていましたが次のページを作成して重ならなくなりました。",
+    "Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.": "プロファイルに記載された項目が1ページに収まらない場合、次のページに重なって表示されていましたが次のページを作成して重ならなくなりました。",
     "@Wenn in einem Profil mehr Zeiten erfasst wurden, als auf eine Seite passen, wurden diese fortlaufend in die nächste Seite hineingeschrieben. Jetzt wird an geeigneter Stelle eine neue Seite ausgegeben.": {
         "description": "v121f1",
         "type": "text",
@@ -3259,31 +3304,31 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": "日別統計及びデイリーグラフに曜日が表示されるようになりました。",
+    "In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": "日別統計と1日グラフに曜日が表示されるようになりました。",
     "@In der Tagesstatistik und in den täglichen Grafiken werden jetzt zum Datum die Wochentage mit angezeigt.": {
         "description": "v120a1",
         "type": "text",
         "placeholders": {}
     },
-    "Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": "1週間の血糖値曲線が一度に表示されるウィークリーグラフのPDFページが追加されました。",
+    "Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": "1週間の血糖値曲線が一度に表示される週間グラフのPDFページが追加されました。",
     "@Neues PDF für eine Wochengrafik hinzugefügt, auf der die Glukosekurven der Woche übereinander gelegt werden.": {
         "description": "v120a2",
         "type": "text",
         "placeholders": {}
     },
-    "Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": "デイリーグラフパラメーターはデイリーグラフにポンプ履歴から血糖値曲線まで線を描画するかを決定する。",
+    "Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": "1日グラフのパラメーターは1日グラフにポンプ履歴から血糖値曲線まで線を描画するかを決定する。",
     "@Neuer Parameter für die Tagesgrafik, der festlegt, ob die Linien für die Notizen unter der Grafik bis zur Glukosekurve gezeichnet werden sollen oder nicht.": {
         "description": "v120a3",
         "type": "text",
         "placeholders": {}
     },
-    "In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": "分析ページでは、消耗品(カニューレ・センサー・リザーバー) の情報を小数点以下の桁数で表示できます。",
+    "In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": "分析ページでは、消耗品 (カニューレ・センサー・リザーバー) の情報を小数点以下の桁数で表示できます。",
     "@In der Auswertung können die Angaben für Material (Katheter, Sensor, Ampulle) mit Nachkommastellen angezeigt werden.": {
         "description": "v120c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": "SMBが1日のインスリン量にも考慮されるようになりました。",
+    "Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": "SMB が1日のインスリン量にも考慮されるようになりました。",
     "@Die Berechnung des täglichen Insulins berücksichtigt nun auch die SMB.": {
         "description": "v120f1",
         "type": "text",
@@ -3295,25 +3340,25 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": "デイリーチャートに血糖値が表示されるようになりました。値が赤の四角で表示されます。又、下の表のグラフも赤で表示されます。",
+    "In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": "1日チャートに血糖値が表示されるようになりました。値が赤の四角で表示されます。又、下の表のグラフも赤で表示されます。",
     "@In der Tagesgrafik werden jetzt auch Blutzuckermessungen angezeigt. Sie werden als rote Quadrate dargestellt und die zugehörigen Werte in der Tabelle unterhalb der Grafik werden ebenfalls mit roter Schrift angezeigt.": {
         "description": "v112a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": "解析には、Minimed600シリーズアップローダーのマイクロボーラスも表示されます。",
+    "Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": "解析には、Minimed600 シリーズアップローダーのマイクロボーラスも表示されます。",
     "@Die Microboli des Minimed 600 Uploaders werden jetzt auch ermittelt und in der Analyse ausgegeben, wenn sie vorhanden sind.": {
         "description": "v112a2",
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": "Edgeブラウザ等の為に、設定ページにPDFをブラウザで表示せずにダウンロードするオプションがあります。",
+    "Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": "Edgeブラウザなどのブラウザ用に、PDFをブラウザで表示せずにダウンロードするオプションが設定にあります。",
     "@Es gibt in den Einstellungen eine Option, das PDF herunterladen zu lassen, statt es im Browser direkt anzeigen zu lassen. Das wird für Browser wie Edge benötigt.": {
         "description": "v112a3",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": "デイリーグラフにカーボが表示されるようになりました。",
+    "In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": "1日グラフに炭水化物が表示されるようになりました。",
     "@In der Tagesgrafik werden nun auch Kohlenhydratkorrekturen angezeigt.": {
         "description": "v112a4",
         "type": "text",
@@ -3325,67 +3370,67 @@
         "type": "text",
         "placeholders": {}
     },
-    "Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": "範囲選択のカレンダーコントロールで現在以降の日付が選択できなくなりました。",
+    "Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": "範囲選択のカレンダー管理で現在以降の日付が選択できなくなりました。",
     "@Im Kalender-Control kann kein Datum nach dem aktuellen Tag mehr ausgewählt werden.": {
         "description": "v112c2",
         "type": "text",
         "placeholders": {}
     },
-    "Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": "開始日または終了日のフィールドに日付を入力した場合、カレンダーコントロールが対応する月に移動するようになりました。",
+    "Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": "開始日または終了日のフィールドに日付を入力した場合、カレンダー管理が対応する月に移動するようになりました。",
     "@Im Kalender-Control wird jetzt der Monat des entsprechenden Datums angezeigt, wenn eines der Felder Von oder bis den Fokus erhält.": {
         "description": "v112c3",
         "type": "text",
         "placeholders": {}
     },
-    "Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": "入力に15分以上ギャップがあると、デイリーチャートにもギャップが生じます。",
+    "Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": "入力に15分以上のずれがあると、1日チャートにもずれが生じます。",
     "@Wenn in den Einträgen Lücken von 15 Minuten oder mehr sind, führen diese zu einer Unterbrechung der Linie in der Tagesgrafik.": {
         "description": "v112c4",
         "type": "text",
         "placeholders": {}
     },
-    "Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": "デイリーグラフのポンプ履歴の表示位置は、時間近くに表示されるように修正しました。短くグラフの下部に表示し、値と重なりません。",
+    "Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": "1日グラフのポンプ履歴の表示位置は、時間近くに表示されるように修正しました。短くグラフの下部に表示し、値と重なりません。",
     "@Die Positionierung der Notizen in der Tagesgrafik wurde korrigiert, so dass sie näher an der Uhrzeit stehen. Die Striche wurden so verkürzt, dass sie nur noch bis zum unteren Rand der Grafik gehen und nicht mehr durch die Wertetabelle.": {
         "description": "v112f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.": "分析ページにmmol/Lを使用時のリミット設定が正しく計算されるようになりました。",
+    "Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.": "分析ページで mmol/L を使用時の独自制限が正しく計算されるようになりました。",
     "@Die eigenen Grenzwerte auf der Analyseseite in mmol/L werden nun korrekt berechnet.": {
         "description": "v112f2",
         "type": "text",
         "placeholders": {}
     },
-    "Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": "カレンダーコントロールの特定月の最後日数が表示されないバグを修正しました。",
+    "Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": "カレンダー管理の特定月の最後日数が表示されないバグを修正しました。",
     "@Ein Fehler wurde behoben, der dafür sorgte, dass die letzten Tage bestimmter Monate nicht im Kalender-Control angezeigt wurden.": {
         "description": "v112f3",
         "type": "text",
         "placeholders": {}
     },
-    "Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": "一部のプロフィールで誤ってDIAの数値が欠落するバグが修正されました。",
+    "Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": "一部のプロファイルで誤って DIA の数値が欠落するバグが修正されました。",
     "@Ein Fehler wurde wahrscheinlich behoben, der dazu führt, dass bei manchen Profilen der Wert für DIA nicht korrekt ausgelesen wurde.": {
         "description": "v112f4",
         "type": "text",
         "placeholders": {}
     },
-    "Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": "カレンダーコントロールで、定義期間(今日、先週等) が正しく現在の日付を参照するようになりました。",
+    "Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": "カレンダー管理で、定義した期間 (今日、先週など) が正しく現在の日付を参照するようになりました。",
     "@Im Kalender-Control wird ein eingestellter Bereich (Heute, Letzte Woche, etc.) jetzt korrekt auf den aktuellen Tag bezogen.": {
         "description": "v112f5",
         "type": "text",
         "placeholders": {}
     },
-    "Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": "デイリーグラフの誤った血糖値出力が修正されました。",
+    "Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": "1日グラフの誤った血糖値出力が修正されました。",
     "@Fehlerhafte Ausgabe der Blutzuckerwerte in der täglichen Grafik korrigiert.": {
         "description": "v112f6",
         "type": "text",
         "placeholders": {}
     },
-    "Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können.": "パラメータのエントリーが多いプロファイルでもPDFが横長で出力され表示できるようになりました。",
+    "Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können.": "パラメータのエントリーが多いプロファイルでも PDF が横長で出力され表示できるようになりました。",
     "@Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können.": {
         "description": "v112f7",
         "type": "text",
         "placeholders": {}
     },
-    "Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden.": "データ中に特殊文字がある場合(ポンプ履歴にスマイルマーク等)、PDFの作成中にクラッシュが発生していました。出力時に特殊文字を削除するように修正しました。",
+    "Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden.": "データ中に特殊文字がある場合 (ポンプ履歴にスマイルマークなど)、PDFの作成中にクラッシュが発生していました。出力時に特殊文字を削除するように修正しました。",
     "@Wenn Sonderzeichen in den Daten vorhanden sind (z.B. Smileys in den Notizen), führte das zu einem Absturz während der PDF-Erstellung. Das wurde behoben, indem diese Sonderzeichen aus der Ausgabe entfernt werden.": {
         "description": "v112f8",
         "type": "text",
@@ -3397,43 +3442,43 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesgrafikparameter zur Anzeige der Legende": "ポンプ履歴を表示する為のデイリーグラフパラメーター",
+    "Tagesgrafikparameter zur Anzeige der Legende": "ポンプ履歴を表示するための1日グラフ用パラメーター",
     "@Tagesgrafikparameter zur Anzeige der Legende": {
         "description": "v111a1",
         "type": "text",
         "placeholders": {}
     },
-    "Tagesgrafikparameter zur Anzeige von Notizen": "ポンプ履歴を表示する為のデイリーグラフパラメーター",
+    "Tagesgrafikparameter zur Anzeige von Notizen": "ポンプ履歴を表示するための1日グラフ用パラメーター",
     "@Tagesgrafikparameter zur Anzeige von Notizen": {
         "description": "v111a2",
         "type": "text",
         "placeholders": {}
     },
-    "PDF für Profildaten": "プロフィールデータ用PDF",
+    "PDF für Profildaten": "プロファイルデータ用PDF",
     "@PDF für Profildaten": {
         "description": "v111a3",
         "type": "text",
         "placeholders": {}
     },
-    "Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.": "デイリーグラフを逆順に並べ替えるパラメータを追加しました。デイリーグラフは、最も古い日付から作成されます。",
+    "Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.": "1日グラフを逆順に並べ替えるパラメータを追加しました。1日グラフは、最も古い日付から作成されます。",
     "@Tagesgrafikparameter zur umgekehrten Sortierung hinzugefügt. Die Tage werden damit beginnend mit dem höchsten Datum ausgegeben.": {
         "description": "v111a4",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.": "デイリーグラフに30分単位で血糖値グラフが表示されるようになりました。これはパラメーターを使用してオフにできます。",
+    "In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.": "1日グラフに30分単位で血糖値グラフが表示されるようになりました。これはパラメーターを使用してオフにできます。",
     "@In der Tagesgrafik wird jetzt eine Tabelle mit halbstündigen Glukosewerten eingeblendet angezeigt. Diese kann über einen Parameter ausgeschaltet werden.": {
         "description": "v111a5",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": "日別統計にCoefficient of variation (CV) の項目を追加しました。",
+    "In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": "日別統計に Coefficient of variation (CV) の項目を追加しました。",
     "@In der Tagesstatistik wurde die Spalte Varianzkoeffizient hinzugefügt (VarK).": {
         "description": "v111a6",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.": "インスリンを表示するに設定した場合、SMBがデイリーグラフに表示されるようになりました。SMBを血糖値曲線か目標値に表示するかを選択できます。",
+    "In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.": "インスリンを表示するに設定した場合、SMB が1日グラフに表示されるようになりました。SMB を血糖値曲線か目標値に表示するかを選択できます。",
     "@In der Tagesgrafik werden nun SMBs auch angezeigt, wenn die Option für die Darstellung von Insulin akitivert wurde. Man kann festlegen, ob die SMBs an der Glukosekurve oder am Zielwert angezeigt werden.": {
         "description": "v111a7",
         "type": "text",
@@ -3457,7 +3502,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": "デイリーグラフに、1日の総インスリン単位、プロフィールで設定したベーサルレートを追加しました。",
+    "Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": "1日グラフに、1日の総インスリン単位、プロファイルで設定した基礎単位を追加しました。",
     "@Summen für Bolus Insulin, Basalrate für den Tag und Basalrate aus dem Profil zur Tagesgrafik hinzugefügt": {
         "description": "v110a2",
         "type": "text",
@@ -3493,13 +3538,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": "PDFのタイトルの日付情報が統一されました。",
+    "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": "PDF のタイトルの日付情報が統一されました。",
     "@Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht": {
         "description": "v110f2",
         "type": "text",
         "placeholders": {}
     },
-    "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": "プロフィールが一定時間内に一致しない場合、クラッシュしていた問題が修正されました。",
+    "Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": "プロファイルが一定時間内に一致しない場合、クラッシュしていた問題が修正されました。",
     "@Absturz behoben, der auftrat, wenn kein passendes Profil für einen Zeitpunkt gefunden werden konnte": {
         "description": "v110f3",
         "type": "text",
@@ -3511,25 +3556,25 @@
         "type": "text",
         "placeholders": {}
     },
-    "Benutzer können nun gelöscht werden": "ユーザー情報を削除で出来るようになりました。",
+    "Benutzer können nun gelöscht werden": "利用者を削除可能になりました。",
     "@Benutzer können nun gelöscht werden": {
         "description": "v104a1",
         "type": "text",
         "placeholders": {}
     },
-    "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": "保護されたNightscoutに接続する為に、ユーザートークンを設定できます",
+    "Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": "保護されたナイトスカウトのプログラムに接続するためにユーザー・トークンを設定できます",
     "@Benutzer können ein User-Token angeben, um sich mit geschützten Nightscout-Instanzen zu verbinden": {
         "description": "v104a2",
         "type": "text",
         "placeholders": {}
     },
-    "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": "日別のグラフにカーボとボーラスインスリンが表示できるようになりました。",
+    "Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": "1日グラフに炭水化物とボーラスインスリンが表示できるようになりました。",
     "@Kohlenhydrate und Bolusinsulin werden jetzt in den täglichen Grafiken angezeigt": {
         "description": "v104a3",
         "type": "text",
         "placeholders": {}
     },
-    "Spalte HbA1c zu Tagesstatistik hinzugefügt": "日別統計にA1Cを追加",
+    "Spalte HbA1c zu Tagesstatistik hinzugefügt": "日別統計に A1C を追加",
     "@Spalte HbA1c zu Tagesstatistik hinzugefügt": {
         "description": "v104a4",
         "type": "text",
@@ -3553,7 +3598,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": "一時ベーサルと通常ベーサルレートが正しく表示されるようになりました。",
+    "Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": "絶対値の一時基礎単位が正しく表示されるようになりました。",
     "@Temporäre Basalraten mit absoluten Werten werden korrekt dargestellt": {
         "description": "v104f3",
         "type": "text",
@@ -3571,7 +3616,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Benutzerdaten werden nun verschlüsselt im Browser gespeichert": "ユーザーデータは、ブラウザに暗号化されて保存されるようになりました。",
+    "Benutzerdaten werden nun verschlüsselt im Browser gespeichert": "利用者の情報は、ブラウザに暗号化されて保存されるようになりました。",
     "@Benutzerdaten werden nun verschlüsselt im Browser gespeichert": {
         "description": "v103c1",
         "type": "text",
@@ -3583,7 +3628,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet": "Nightscoutのしきい値(BG_TARGET_BOTTOM and BG_TARGET_TOP) が70と180の場合、デフォルトのターゲット範囲は分析ページに表示されません。",
+    "Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet": "ナイトスカウトのしきい値 (BG_TARGET_BOTTOM とBG_TARGET_TOP) が 70 と 180 の場合、デフォルトの目標範囲は分析ページに表示されません。",
     "@Wenn die Grenzwerte in Nightscout (BG_TARGET_BOTTOM und BG_TARGET_TOP) den Werten 70 und 180 entsprechen, wird auf der Analyse-Seite der Bereich für die Standardzielwerte ausgeblendet": {
         "description": "v103c3",
         "type": "text",
@@ -3595,25 +3640,25 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt": "分析ページのデフォルトのターゲット範囲の値が正しく計算されるようになりました。",
+    "Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt": "分析ページのデフォルトの目標範囲の値が正しく計算されるようになりました。",
     "@Die Werte für den Standardzielbereich auf der Analyse-Seite werden nun korrekt ermittelt": {
         "description": "v103f2",
         "type": "text",
         "placeholders": {}
     },
-    "Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert": "PDF内の日付のフォーマットは選択した言語によります",
+    "Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert": "PDF 内の日付の形式は選択した言語に合わされます",
     "@Im PDF werden Zahlen und Datumsangaben entsprechend der ausgewählten Sprache formatiert": {
         "description": "v103f3",
         "type": "text",
         "placeholders": {}
     },
-    "Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet": "データのロード中は、対応する日付フォーマットが進行状況の表示に使用されます。",
+    "Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet": "データのロード中は、対応する日付形式が進行状況の表示に使用されます。",
     "@Beim Laden der Daten wird das entsprechende Datumsformat zur Anzeige verwendet": {
         "description": "v103f4",
         "type": "text",
         "placeholders": {}
     },
-    "Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden an dem Wert \"NONE\" im Datenfeld \"direction\" erkannt": "間違った値はグラフの表示で評価されなくなりました。データフィールドの「矢印」や「無し」によって認識されます。",
+    "Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden an dem Wert \"NONE\" im Datenfeld \"direction\" erkannt": "間違った値はグラフの表示で評価されなくなりました。データフィールドの「矢印」や「なし」によって認識されます。",
     "@Fehlerhafte Messwerte werden in der Auswertung der Grafiken nicht mehr brücksichtigt; diese werden an dem Wert \"NONE\" im Datenfeld \"direction\" erkannt": {
         "description": "v103f5",
         "type": "text",
@@ -3631,7 +3676,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird": "ユーザー名とユーザーのURLが直接表示されるようになった為、タイトルバーにURLを表示する機能は削除されました。",
+    "Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird": "現在のユーザー名とその URL が直接表示されるようになったため、タイトルバーに URL を表示する機能は削除されました。",
     "@Die Möglichkeit, die URL in der Titelzeile anzeigen zu lassen wurde entfernt, da jetzt der aktuelle Benutzer oder dessen URL direkt angezeigt wird": {
         "description": "v103d1",
         "type": "text",
@@ -3649,7 +3694,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": "PDFのページの順番を変更しました。グルコース変動パターンは、分析の後に出ます。",
+    "Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": "PDF のページの順番を変更しました。グルコース変動パターンは分析の後に出ます。",
     "@Reihenfolge der PDF Seiten geändert - Perzentil Diagramm kommt jetzt nach der Analyse.": {
         "description": "v102c1",
         "type": "text",
@@ -3661,7 +3706,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Hohe Basalraten werden jetzt besser dargestellt.": "高いベーサルレートも正しく表示されます。",
+    "Hohe Basalraten werden jetzt besser dargestellt.": "高い基礎単位も正しく表示されます。",
     "@Hohe Basalraten werden jetzt besser dargestellt.": {
         "description": "v102f2",
         "type": "text",
@@ -3673,7 +3718,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": "このページを追加しました。リリースの最新バージョンで表示されていない場合はNightscout　Reporterの起動時に表示されます。又、メニューからも再度表示できます。",
+    "Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": "このページを追加しました。リリースの最新バージョンで表示されていない場合はナイトスカウトレポーターの起動時に表示されます。またメニューから再び表示することもできます。",
     "@Diese Seite hinzugefügt. Sie wird jedesmal beim Start von Nightscout Reporter angezeigt, wenn sie in der aktuellen Version noch nicht angezeigt wurde. Ausserdem kann sie im Hamburgermenü wieder aufgerufen werden.": {
         "description": "v101a1",
         "type": "text",
@@ -3685,7 +3730,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": "エラーを適切に処理し、意味の解るテキストに置き換えられます。",
+    "Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": "エラーを適切に処理し、意味が分かる文に置き換えられます。",
     "@Fehler werden besser abgefangen und mit sinnvollem Text ersetzt.": {
         "description": "v101c1",
         "type": "text",
@@ -3697,19 +3742,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": "名前、生年月日、インスリン、糖尿病発症日が空欄でもPDFの表示ができるようになりました。",
+    "Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": "名前、生年月日、インスリン、糖尿病発症日が空欄でも PDF の表示ができるようになりました。",
     "@Name, Geburtstag, Insulin und das Startdatum des Diabetes können nun leer gelassen werden, ohne dass das negative Auswirkungen auf die Darstellung im PDF hat.": {
         "description": "v101c3",
         "type": "text",
         "placeholders": {}
     },
-    "Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": "開始日を入力せずプロフィールを読み込んだ時に出ていたエラーメッセージを削除しました。",
+    "Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": "開始日の入力のないプロファイルを読み込んだ際のエラーメッセージを削除しました。",
     "@Fehlermeldung beim Laden von Profilen ohne Startdatum entfernt.": {
         "description": "v101f1",
         "type": "text",
         "placeholders": {}
     },
-    "Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": "利用可能なデータが選択されていない場合は、ヒントと共に空白ページが作成されます。",
+    "Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": "利用可能なデータが選択されていない場合は、ヒントと共に空白ページが生成されます。",
     "@Wenn keine Daten verfügbar sind, werden leere Seiten mit einem entsprechenden Hinweis erzeugt.": {
         "description": "v101f2",
         "type": "text",
@@ -3721,7 +3766,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": "ベーサルレートPDFは、毎時間の値が無い場合は正しく表示できませんでした。",
+    "Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": "基礎単位の PDF は、毎時間の値がない場合は正しく表示できませんでした。",
     "@Das PDF für die Basalrate war nicht korrekt, wenn nicht für jede Stunde ein Wert vorlag.": {
         "description": "v101f4",
         "type": "text",
@@ -3733,7 +3778,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Initiale Version, alles ist neu!": "初期バージョン。すべてがおニューです！",
+    "Initiale Version, alles ist neu!": "初期バージョン。すべてが新しい！",
     "@Initiale Version, alles ist neu!": {
         "description": "v100a1",
         "type": "text",

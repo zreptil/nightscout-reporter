@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-04-20T12:31:22.313205",
+    "@@last_modified": "2020-05-25T15:43:28.239737",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1683,6 +1683,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Blutige Messung": "Valeur de glycémie",
+    "@Blutige Messung": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Startstunde": "Heure de départ",
     "@Startstunde": {
         "type": "text",
@@ -1792,7 +1797,7 @@
             "reason": {}
         }
     },
-    "Aufhebung von temp. Ziel": "Cancel temp target",
+    "Aufhebung von temp. Ziel": "Annuler le basal temporaire",
     "@Aufhebung von temp. Ziel": {
         "type": "text",
         "placeholders": {}
@@ -1805,8 +1810,24 @@
             "duration": {}
         }
     },
+    "msgLogTempBasalAbsolute": "Basale temporaire {value} / {duration} min",
+    "@msgLogTempBasalAbsolute": {
+        "type": "text",
+        "placeholders": {
+            "value": {},
+            "duration": {}
+        }
+    },
     "msgLogSMB": "SMB {insulin} {unit}",
     "@msgLogSMB": {
+        "type": "text",
+        "placeholders": {
+            "insulin": {},
+            "unit": {}
+        }
+    },
+    "msgLogMicroBolus": "Microbolus {insulin} {unit}",
+    "@msgLogMicroBolus": {
         "type": "text",
         "placeholders": {
             "insulin": {},
@@ -1937,7 +1958,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Aus den Profilen ermitteln": "Extract from profiles",
+    "Aus den Profilen ermitteln": "Extraire depuis les sources",
     "@Aus den Profilen ermitteln": {
         "type": "text",
         "placeholders": {}
@@ -2143,7 +2164,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Genauigkeit der Basalangaben:": "Precision of basalvalues:",
+    "Genauigkeit der Basalangaben:": "Précision des valeurs de débit basal:",
     "@Genauigkeit der Basalangaben:": {
         "description": "label for max basalprecision in printparams",
         "type": "text",
@@ -2305,31 +2326,55 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.4.6 - 26.5.2020": "1.4.6 - 26/5/2020",
+    "@1.4.6 - 26.5.2020": {
+        "description": "v146",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": "The legend of the daily graphic now includes the entry for bloody values.",
+    "@Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": {
+        "description": "v146a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": "The microboli from the Minimed 600 Uploader have been removed from the output, because they are just temporary basal rates.",
+    "@Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": {
+        "description": "v146f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert.": "Un plantage possible de l'affichage du CGP dans le graphique quotidien a été corrigé.",
+    "@Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert.": {
+        "description": "v146f2",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.4.5 - 20.4.2020": "1.4.5 - 20/4/2020",
     "@1.4.5 - 20.4.2020": {
         "description": "v145",
         "type": "text",
         "placeholders": {}
     },
-    "In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": "In the dialog with the output parameters, an option was added to specify the precision of the output of basal information. This is usually determined from the information on the basal rate in the profiles. This is still the case when the first entry in the list is selected. Otherwise, all basal information is output with the precision selected for this option.",
+    "In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": "Dans la boîte de dialogue avec les paramètres de sortie, une option a été ajoutée pour spécifier la précision de l'affichage des informations de débit basal. Ceci est généralement déterminé à partir des informations sur le débit basal dans les profils. C'est toujours le cas lorsque la première entrée de la liste est sélectionnée. Sinon, toutes les informations de débit basal sont affichées avec la précision sélectionnée pour cette option.",
     "@In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": {
         "description": "v145a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": "The precision of ISF in profile was corrected.",
+    "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": "La précision de l'ISF (Facteur de sensibilité à l'insuline) dans le profil a été corrigée.",
     "@Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": {
         "description": "v145f1",
         "type": "text",
         "placeholders": {}
     },
-    "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": "In the log, the information that sets a temporary target of 0 U for 0 minutes is output as \"Cancel temp target\".",
+    "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": "Dans les logs, les informations qui définissent une cible temporaire de 0 U pour 0 minutes sont affichées comme \"Annuler la cible temporaire\".",
     "@Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": {
         "description": "v145f2",
         "type": "text",
         "placeholders": {}
     },
-    "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": "Various calculations were corrected in the CGP, which were mainly shown in differences in ToR and average values.",
+    "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": "Divers calculs ont été corrigés dans le CGP, qui étaient principalement montrés dans les différences entre les ToR (Temps dans la cible) et les valeurs moyennes.",
     "@Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": {
         "description": "v145f3",
         "type": "text",

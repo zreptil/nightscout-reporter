@@ -417,7 +417,11 @@ class PrintDailyLog extends BaseProfile {
   String get msgLogTempTargetReset => Intl.message("Aufhebung von temp. Ziel");
   String msgLogTempBasal(percent, duration) =>
       Intl.message("temp. Basal ${percent}% / ${duration} min", args: [percent, duration], name: "msgLogTempBasal");
+  String msgLogTempBasalAbsolute(value, duration) =>
+      Intl.message("temp. Basal ${value} / ${duration} min", args: [value, duration], name: "msgLogTempBasalAbsolute");
   String msgLogSMB(insulin, unit) => Intl.message("SMB ${insulin} ${unit}", args: [insulin, unit], name: "msgLogSMB");
+  String msgLogMicroBolus(insulin, unit) =>
+      Intl.message("Microbolus ${insulin} ${unit}", args: [insulin, unit], name: "msgLogMicroBolus");
   String get msgChangeSite => Intl.message("Katheterwechsel");
   String get msgChangeSensor => Intl.message("Sensorwechsel");
   String get msgChangeInsulin => Intl.message("Ampullenwechsel");
@@ -446,12 +450,23 @@ class PrintDailyLog extends BaseProfile {
         list.add("${t.insulin} ${msgInsulinUnit}");
       }
     }
-    if (showSMB && t.insulin != null && t.insulin != 0 && t.isSMB) list.add(msgLogSMB(t.insulin, msgInsulinUnit));
+    if (showSMB) {
+      if (t.insulin != null && t.insulin != 0 && t.isSMB)
+        list.add(msgLogSMB(t.insulin, msgInsulinUnit));
+      else if (t.microbolus != null && t.microbolus > 0)
+        list.add(msgLogMicroBolus(g.fmtNumber(t.microbolus, g.basalPrecision), msgInsulinUnit));
+    }
     if (showTempBasal && type == "temp basal") {
       ProfileEntryData entry = basalFor(day, t.createdAt);
-      if (entry != null)
+      if (entry != null && entry.tempAdjusted > 0) {
         list.add(msgLogTempBasal(g.fmtNumber(entry.tempAdjusted * 100, 0, 0, "null", false, true),
             g.fmtNumber(entry.duration / 60, showTempDigit ? 1 : 0)));
+      } else {
+        entry = ProfileEntryData.fromTreatment(null, t);
+        if (entry != null)
+          list.add(msgLogTempBasalAbsolute(g.fmtNumber(t.absoluteTempBasal, g.basalPrecision, 0, "null", false),
+              g.fmtNumber(t.duration / 60, showTempDigit ? 1 : 0)));
+      }
     }
     if (showProfileSwitch && type == "profile switch") {
       list.add(getProfileSwitch(src, day, t, showProfileSwitchDetails));
@@ -463,7 +478,7 @@ class PrintDailyLog extends BaseProfile {
         target = "${g.fmtBasal(t.targetBottom)} ${g.getGlucInfo()["unit"]}";
       else
         target = "${t.targetBottom} - ${t.targetTop} ${g.getGlucInfo()["unit"]}";
-      if(t.duration == 0 && t.targetBottom == 0)
+      if (t.duration == 0 && t.targetBottom == 0)
         list.add(msgLogTempTargetReset);
       else
         list.add(msgLogTempTarget(target, t.duration / 60, t.reason));
@@ -510,7 +525,7 @@ class PrintDailyLog extends BaseProfile {
     dst.add(content);
   }
 
-  getTable(widths, body, [double fontsize=null]) {
+  getTable(widths, body, [double fontsize = null]) {
     dynamic ret = {
       "columns": [
         {

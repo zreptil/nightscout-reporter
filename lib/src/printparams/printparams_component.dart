@@ -50,6 +50,8 @@ class PrintParamsComponent implements OnInit {
   int glucMaxIdx;
   int basalPrecisionIdx;
   static String get msgAutomatic => Intl.message("Automatisch");
+  static String get msgLatestFirst => Intl.message("Neuester Tag zuerst");
+
   String basalPrecisionText(value) {
     return "${g.fmtNumber(1, value)} ${g.getGlucInfo()["unit"]}";
   }
