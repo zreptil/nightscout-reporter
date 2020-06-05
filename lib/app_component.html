@@ -27,7 +27,7 @@
       <div [class]="classForView('basePanel')">
         <div *ngIf="g.userList.length == 1" class="userName">{{g.user.display}}</div>
         <div [class]="classForView('userPanel')" *ngIf="g.userList.length > 1">
-          <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect" slide="y"
+          <material-dropdown-select label="Benutzer" [buttonText]="g.userDisplay" popupClass="userSelect" slide="y"
                                     listAutoFocus>
             <material-select-item *ngFor="let item of g.userList; let idx = index"
                                   (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');getCurrentGluc();"
@@ -95,7 +95,7 @@
           <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
                 [action]="pdfUrl">
             <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja_JP'"/>
-            <input name="filename" type="hidden" value="{{g.pdfDownload?pdfFilename(idx):''}}"/>
+            <input name="filename" type="hidden" value="{{g.ppPdfDownload?pdfFilename(idx):''}}"/>
             <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
             <material-button class="pdfButton"
                              (trigger)="openPDF(idx)">
@@ -354,6 +354,6 @@
 </div>
 <form id="postForm" [target]="g.pdfTarget" method="post" action="{{pdfUrl}}">
   <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja_JP'"/>
-  <input name="filename" type="hidden" [value]="g.pdfDownload?pdfFilename(0):''"/>
+  <input name="filename" type="hidden" [value]="g.ppPdfDownload?pdfFilename(0):''"/>
   <input name="data" type="hidden" value="{{pdfData}}"/>{{pdfFilename(0)}}
 </form>

@@ -459,7 +459,7 @@ class AppComponent implements OnInit {
   void openPDF(int idx) {
     if (idx >= pdfList.length) return;
 
-    if (g.pdfSameWindow) {
+    if (g.ppPdfSameWindow) {
       for (int i = 0; i < pdfList.length; i++) {
         pdfList[i].isPrinted = true;
         Future.delayed(Duration(milliseconds: 10), () {

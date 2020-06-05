@@ -231,3 +231,13 @@ material-input {
     color: var(--settingsHeaderBack);
   }
 }
+
+material-fab.is-local, div.is-local {
+  background: var(--localBack) !important;
+}
+
+.navControls {
+  display: flex;
+  align-items: center;
+  font-size: 0.7em;
+}

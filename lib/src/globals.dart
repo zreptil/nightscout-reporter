@@ -80,7 +80,6 @@ class Settings {
   String betaPrefix = "@";
   String lastVersion;
   bool glucMGDL = true;
-  bool hideNightscoutInPDF = true;
   bool showAllTileParams = false;
   bool hidePdfInfo = false;
   bool showCurrentGluc = false;
@@ -190,6 +189,7 @@ class Settings {
   }
 
   List<UserData> userList = List<UserData>();
+  String get userDisplay => user.display;
   int _userIdx = 0;
   int get userIdx => _userIdx;
   set userIdx(value) {
@@ -241,7 +241,6 @@ class Settings {
         ',"userIdx":"${userIdx}"'
         ',"glucMGDL":"${glucMGDL}"'
         ',"language":"${language.code ?? 'de_DE'}"'
-        ',"hideNightscoutInPDF":"${hideNightscoutInPDF ? 'yes' : 'no'}"'
         ',"hidePdfInfo":"${hidePdfInfo ? 'yes' : 'no'}"'
         ',"showCurrentGluc":"${showCurrentGluc ? 'yes' : 'no'}"'
         ',"period":"${period?.toString() ?? null}"'
@@ -261,7 +260,6 @@ class Settings {
         ',"glucMGDL":"${loadStorage('glucMGDL')}"'
         ',"language":"${loadStorage('language')}"'
         ',"pdfCreationMaxSize":"${loadStorage('pdfCreationMaxSize')}"'
-        ',"hideNightscoutInPDF":"${loadStorage('hideNightscoutInPDF')}"'
         ',"hidePdfInfo":"${loadStorage('hidePdfInfo')}"'
         ',"showCurrentGluc":"${loadStorage('showCurrentGluc')}"'
         ',"period":"${loadStorage('period')}"'
@@ -290,7 +288,6 @@ class Settings {
       String langId = JsonData.toText(cfg["language"]);
       int idx = languageList.indexWhere((v) => v.code == langId);
       language = languageList[idx >= 0 ? idx : 0];
-      hideNightscoutInPDF = JsonData.toBool(cfg["hideNightscoutInPDF"]);
       showAllTileParams = JsonData.toBool(cfg["showAllTileParams"]);
       hidePdfInfo = JsonData.toBool(cfg["hidePdfInfo"]);
       showCurrentGluc = JsonData.toBool(cfg["showCurrentGluc"]);
@@ -356,8 +353,6 @@ class Settings {
 }
 
 class Globals extends Settings {
-  bool pdfSameWindow = true;
-  bool pdfDownload = false;
   int _pdfCreationMaxSize = 400000;
 
   bool ppStandardLimits = false;
@@ -367,6 +362,9 @@ class Globals extends Settings {
   int ppBasalPrecisionIdx = 0;
   List<int> get basalPrecisionValues => [null, 0, 1, 2, 3];
   bool ppLatestFirst = false;
+  bool ppPdfSameWindow = true;
+  bool ppPdfDownload = false;
+  bool ppHideNightscoutInPDF = true;
 
   int get pdfCreationMaxSize {
     if (_pdfCreationMaxSize < Globals.PDFDIVIDER) _pdfCreationMaxSize = Globals.PDFDIVIDER;
@@ -382,8 +380,9 @@ class Globals extends Settings {
 
   @override
   void loadFromStorage() {
-    pdfSameWindow = loadStorage('pdfSameWindow') == "true";
-    pdfDownload = loadStorage('pdfDownload') == "true";
+    ppPdfSameWindow = loadStorage('ppPdfSameWindow') == "true";
+    ppPdfDownload = loadStorage('ppPdfDownload') == "true";
+    ppHideNightscoutInPDF = loadStorage('ppHideNightscoutInPDF') == "true";
     pdfCreationMaxSize = JsonData.toInt(loadStorage('pdfCreationMaxSize'));
     ppStandardLimits = loadStorage('ppStandardLimits') == "true";
     ppLatestFirst = loadStorage('ppLatestFirst') == "true";
@@ -577,7 +576,7 @@ class Globals extends Settings {
 //  double glucFromData(double value) => glucMGDL ? value : value / 18.02;
 
   String get pdfTarget {
-    if (!pdfSameWindow) return "_blank";
+    if (!ppPdfSameWindow) return "_blank";
     return "";
   }
 
@@ -950,14 +949,14 @@ class Globals extends Settings {
     bool doReload = (language.code != oldLang && language.code != null) && !skipReload;
     saveStorage("glucMGDL", glucMGDL.toString());
     saveStorage("language", language.code ?? "de_DE");
-    saveStorage("pdfSameWindow", pdfSameWindow ? "true" : "false");
-    saveStorage("pdfDownload", pdfDownload ? "true" : "false");
+    saveStorage("ppPdfSameWindow", ppPdfSameWindow ? "true" : "false");
+    saveStorage("ppPdfDownload", ppPdfDownload ? "true" : "false");
+    saveStorage("ppHideNightscoutInPDF", ppHideNightscoutInPDF ? "true" : "false");
     saveStorage("pdfCreationMaxSize", "${pdfCreationMaxSize}");
     saveStorage("ppStandardLimits", ppStandardLimits ? "true" : "false");
     saveStorage("ppLatestFirst", ppLatestFirst ? "true" : "false");
     saveStorage("ppGlucMaxIdx", ppGlucMaxIdx?.toString() ?? 0);
     saveStorage("ppBasalPrecisionIdx", ppBasalPrecisionIdx?.toString() ?? 0);
-    saveStorage("hideNightscoutInPDF", hideNightscoutInPDF ? "true" : "false");
     saveStorage("showAllTileParams", showAllTileParams ? "true" : "false");
     saveStorage("hidePdfInfo", hidePdfInfo ? "true" : "false");
     saveStorage("showCurrentGluc", showCurrentGluc ? "true" : "false");

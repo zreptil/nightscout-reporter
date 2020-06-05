@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-05-25T15:43:28.239737",
+    "@@last_modified": "2020-06-05T12:46:31.788142",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1593,11 +1593,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Neuester Tag zuerst": "Plus récent en premier",
-    "@Neuester Tag zuerst": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Tabelle mit Glukosewerten": "Tableau avec valeurs de glycémies",
     "@Tabelle mit Glukosewerten": {
         "type": "text",
@@ -1934,11 +1929,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Neueste Woche zuerst": "Plus récent en premier",
-    "@Neueste Woche zuerst": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Tagesnamen in Grafik anzeigen": "Afficher les noms des jours sur les graphes",
     "@Tagesnamen in Grafik anzeigen": {
         "type": "text",
@@ -1955,6 +1945,11 @@
     },
     "Automatisch": "Automatique",
     "@Automatisch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Neuester Tag zuerst": "Plus récent en premier",
+    "@Neuester Tag zuerst": {
         "type": "text",
         "placeholders": {}
     },
@@ -2170,6 +2165,24 @@
         "type": "text",
         "placeholders": {}
     },
+    "PDF im selben Fenster öffnen": "Ouvrir le PDF dans la même fenêtre",
+    "@PDF im selben Fenster öffnen": {
+        "description": "label for checkbox to open PDF in same window",
+        "type": "text",
+        "placeholders": {}
+    },
+    "PDF herunterladen (bei einigen Browsern benötigt)": "Télécharger le PDF (nécessaire pour certains navigateurs)",
+    "@PDF herunterladen (bei einigen Browsern benötigt)": {
+        "description": "label for checkbox to download PDF",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Masquer les textes à propos de Nightscout dans l'en-tête et le pied de page du PDF",
+    "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
+        "description": "label for checkbox to hide nightscout in footer",
+        "type": "text",
+        "placeholders": {}
+    },
     "Historische Daten": "Données historiques",
     "@Historische Daten": {
         "description": "label of area for timeshift",
@@ -2203,24 +2216,6 @@
     "Zusatzfunktionen": "Fonctions supplémentaires",
     "@Zusatzfunktionen": {
         "description": "label of area for additional functions",
-        "type": "text",
-        "placeholders": {}
-    },
-    "PDF im selben Fenster öffnen": "Ouvrir le PDF dans la même fenêtre",
-    "@PDF im selben Fenster öffnen": {
-        "description": "label for checkbox to open PDF in same window",
-        "type": "text",
-        "placeholders": {}
-    },
-    "PDF herunterladen (bei einigen Browsern benötigt)": "Télécharger le PDF (nécessaire pour certains navigateurs)",
-    "@PDF herunterladen (bei einigen Browsern benötigt)": {
-        "description": "label for checkbox to download PDF",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Masquer les textes à propos de Nightscout dans l'en-tête et le pied de page du PDF",
-    "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
-        "description": "label for checkbox to hide nightscout in footer",
         "type": "text",
         "placeholders": {}
     },
@@ -2326,19 +2321,43 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.4.7 - 5.6.2020": "1.4.7 - 5/6/2020",
+    "@1.4.7 - 5.6.2020": {
+        "description": "v147",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.": "Vous pouvez maintenant spécifier dans les paramètres de sortie si le jour le plus récent est toujours affiché en premier. Ceci a un impact sur le graphique quotidien, les statistiques quotidiennes et le graphique hebdomadaire. L'option correspondante a été retirée des options de formulaire.",
+    "@In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.": {
+        "description": "v147c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.": "Le paramètre d'ouverture du PDF dans la même fenêtre, Le téléchargement du PDF et le masquage du texte sur Nightscout dans le PDF ont été déplacés des paramètres vers les paramètres de sortie. Cela vous permet de définir et de modifier rapidement cela pour chaque sortie.",
+    "@Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.": {
+        "description": "v147c2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Überschrift über der Tabelle vom Glucode Perzentil Diagramm wurde korrigiert.": "Le titre au-dessus de la table du diagramme de glucose percentile a été corrigé.",
+    "@Die Überschrift über der Tabelle vom Glucode Perzentil Diagramm wurde korrigiert.": {
+        "description": "v147f1",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.4.6 - 26.5.2020": "1.4.6 - 26/5/2020",
     "@1.4.6 - 26.5.2020": {
         "description": "v146",
         "type": "text",
         "placeholders": {}
     },
-    "Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": "The legend of the daily graphic now includes the entry for bloody values.",
+    "Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": "La légende du graphique quotidien comprend maintenant la valeur de glycémies.",
     "@Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": {
         "description": "v146a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": "The microboli from the Minimed 600 Uploader have been removed from the output, because they are just temporary basal rates.",
+    "Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": "Le microbolus du Minimed 600 Uploader a été retiré du rapport, car il s'agit juste des débits de base temporaires.",
     "@Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": {
         "description": "v146f1",
         "type": "text",

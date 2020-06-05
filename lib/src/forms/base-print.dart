@@ -731,7 +731,7 @@ abstract class BasePrint {
         }
       ]
     });
-    if (!g.hideNightscoutInPDF)
+    if (!g.ppHideNightscoutInPDF)
       stack.add({
         "relativePosition": {"x": cm(xframe), "y": cm(2.5)},
         "text": "nightscout reporter ${g.version}",
@@ -839,8 +839,8 @@ abstract class BasePrint {
                 }
               ]
             },
-      g.hideNightscoutInPDF ? null : _getFooterImage("nightscout", x: xframe, y: height - 1.7, width: 0.7),
-      g.hideNightscoutInPDF
+      g.ppHideNightscoutInPDF ? null : _getFooterImage("nightscout", x: xframe, y: height - 1.7, width: 0.7),
+      g.ppHideNightscoutInPDF
           ? null
           : {
               "relativePosition": {"x": cm(3.1), "y": cm(height - 1.7)},
@@ -851,7 +851,7 @@ abstract class BasePrint {
       footerText == null
           ? null
           : {
-              "relativePosition": {"x": cm(g.hideNightscoutInPDF ? xframe : 7.5), "y": cm(height - 1.7)},
+              "relativePosition": {"x": cm(g.ppHideNightscoutInPDF ? xframe : 7.5), "y": cm(height - 1.7)},
               "stack": footerText,
               "fontSize": fs(10)
             },

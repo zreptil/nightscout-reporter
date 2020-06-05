@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-05-25T15:43:28.239737",
+    "@@last_modified": "2020-06-05T12:46:31.788142",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1593,11 +1593,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Neuester Tag zuerst": "Newest day first",
-    "@Neuester Tag zuerst": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Tabelle mit Glukosewerten": "Table with glucose values",
     "@Tabelle mit Glukosewerten": {
         "type": "text",
@@ -1768,7 +1763,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Zusätzliche Spalte anzeigen": "Sho additional column",
+    "Zusätzliche Spalte anzeigen": "Show additional column",
     "@Zusätzliche Spalte anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1934,11 +1929,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Neueste Woche zuerst": "Newest week first",
-    "@Neueste Woche zuerst": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Tagesnamen in Grafik anzeigen": "Show day names in graphic",
     "@Tagesnamen in Grafik anzeigen": {
         "type": "text",
@@ -1955,6 +1945,11 @@
     },
     "Automatisch": "Automatic",
     "@Automatisch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Neuester Tag zuerst": "Newest day first",
+    "@Neuester Tag zuerst": {
         "type": "text",
         "placeholders": {}
     },
@@ -2170,6 +2165,24 @@
         "type": "text",
         "placeholders": {}
     },
+    "PDF im selben Fenster öffnen": "Open PDF in the same window",
+    "@PDF im selben Fenster öffnen": {
+        "description": "label for checkbox to open PDF in same window",
+        "type": "text",
+        "placeholders": {}
+    },
+    "PDF herunterladen (bei einigen Browsern benötigt)": "Download PDF (needed for some browsers)",
+    "@PDF herunterladen (bei einigen Browsern benötigt)": {
+        "description": "label for checkbox to download PDF",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Hide text about Nightscout in the header and footer of the PDF",
+    "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
+        "description": "label for checkbox to hide nightscout in footer",
+        "type": "text",
+        "placeholders": {}
+    },
     "Historische Daten": "Historical Data",
     "@Historische Daten": {
         "description": "label of area for timeshift",
@@ -2203,24 +2216,6 @@
     "Zusatzfunktionen": "Additional functions",
     "@Zusatzfunktionen": {
         "description": "label of area for additional functions",
-        "type": "text",
-        "placeholders": {}
-    },
-    "PDF im selben Fenster öffnen": "Open PDF in the same window",
-    "@PDF im selben Fenster öffnen": {
-        "description": "label for checkbox to open PDF in same window",
-        "type": "text",
-        "placeholders": {}
-    },
-    "PDF herunterladen (bei einigen Browsern benötigt)": "Download PDF (needed for some browsers)",
-    "@PDF herunterladen (bei einigen Browsern benötigt)": {
-        "description": "label for checkbox to download PDF",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Hide text about Nightscout in the header and footer of the PDF",
-    "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
-        "description": "label for checkbox to hide nightscout in footer",
         "type": "text",
         "placeholders": {}
     },
@@ -2323,6 +2318,30 @@
     "Version": "Version",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.7 - 5.6.2020": "1.4.7 - 5/6/2020",
+    "@1.4.7 - 5.6.2020": {
+        "description": "v147",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.": "You can now specify in the output parameters whether the newest day is always displayed first. This has an impact on the daily graph, the daily statistics and the weekly graph. The corresponding option has been removed from the form options.",
+    "@In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.": {
+        "description": "v147c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.": "The setting for opening the PDF in the same window, downloading the PDF and hiding text about Nightscout in the PDF has been moved from the settings to the output parameters. This allows you to quickly set and change that for each output.",
+    "@Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.": {
+        "description": "v147c2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Überschrift über der Tabelle vom Glucode Perzentil Diagramm wurde korrigiert.": "The title above the table of glucose percentile diagram has been corrected.",
+    "@Die Überschrift über der Tabelle vom Glucode Perzentil Diagramm wurde korrigiert.": {
+        "description": "v147f1",
         "type": "text",
         "placeholders": {}
     },

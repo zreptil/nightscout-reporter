@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-05-25T15:43:28.239737",
+    "@@last_modified": "2020-06-05T12:46:31.788142",
     "Überprüfe Zugriff auf Nightscout ...": "Skontrolujte prístup do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1593,11 +1593,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Neuester Tag zuerst": "Najnovší deň ako prvý",
-    "@Neuester Tag zuerst": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Tabelle mit Glukosewerten": "Tabuľka s hodnotami glukózy",
     "@Tabelle mit Glukosewerten": {
         "type": "text",
@@ -1934,11 +1929,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Neueste Woche zuerst": "Najnovší týždeň ako prvý",
-    "@Neueste Woche zuerst": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Tagesnamen in Grafik anzeigen": "Zobraziť názvy dní v grafike",
     "@Tagesnamen in Grafik anzeigen": {
         "type": "text",
@@ -1955,6 +1945,11 @@
     },
     "Automatisch": "Automatisch",
     "@Automatisch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Neuester Tag zuerst": "Najnovší deň ako prvý",
+    "@Neuester Tag zuerst": {
         "type": "text",
         "placeholders": {}
     },
@@ -2170,6 +2165,24 @@
         "type": "text",
         "placeholders": {}
     },
+    "PDF im selben Fenster öffnen": "Otvorte PDF v rovnakom okne",
+    "@PDF im selben Fenster öffnen": {
+        "description": "label for checkbox to open PDF in same window",
+        "type": "text",
+        "placeholders": {}
+    },
+    "PDF herunterladen (bei einigen Browsern benötigt)": "Stiahnite si PDF (potrebné v niektorých prehliadačoch)",
+    "@PDF herunterladen (bei einigen Browsern benötigt)": {
+        "description": "label for checkbox to download PDF",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Skryť rady týkajúce sa Nightscout v hlavičke a päte PDF",
+    "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
+        "description": "label for checkbox to hide nightscout in footer",
+        "type": "text",
+        "placeholders": {}
+    },
     "Historische Daten": "Historische Daten",
     "@Historische Daten": {
         "description": "label of area for timeshift",
@@ -2203,24 +2216,6 @@
     "Zusatzfunktionen": "Doplnkové nastavenia",
     "@Zusatzfunktionen": {
         "description": "label of area for additional functions",
-        "type": "text",
-        "placeholders": {}
-    },
-    "PDF im selben Fenster öffnen": "Otvorte PDF v rovnakom okne",
-    "@PDF im selben Fenster öffnen": {
-        "description": "label for checkbox to open PDF in same window",
-        "type": "text",
-        "placeholders": {}
-    },
-    "PDF herunterladen (bei einigen Browsern benötigt)": "Stiahnite si PDF (potrebné v niektorých prehliadačoch)",
-    "@PDF herunterladen (bei einigen Browsern benötigt)": {
-        "description": "label for checkbox to download PDF",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Skryť rady týkajúce sa Nightscout v hlavičke a päte PDF",
-    "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
-        "description": "label for checkbox to hide nightscout in footer",
         "type": "text",
         "placeholders": {}
     },
@@ -2323,6 +2318,30 @@
     "Version": "verzia",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.7 - 5.6.2020": "1.4.7 - 5.6.2020",
+    "@1.4.7 - 5.6.2020": {
+        "description": "v147",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.": "In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.",
+    "@In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.": {
+        "description": "v147c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.": "Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.",
+    "@Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.": {
+        "description": "v147c2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Überschrift über der Tabelle vom Glucode Perzentil Diagramm wurde korrigiert.": "Die Überschrift über der Tabelle vom Glucode Perzentil Diagramm wurde korrigiert.",
+    "@Die Überschrift über der Tabelle vom Glucode Perzentil Diagramm wurde korrigiert.": {
+        "description": "v147f1",
         "type": "text",
         "placeholders": {}
     },

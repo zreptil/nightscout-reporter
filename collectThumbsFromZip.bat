@@ -1,6 +1,6 @@
 @echo off
 cls
-set srcDir=%userprofile%\Desktop
+set srcDir=%userprofile%\Desktop\NRImages
 set dstDir=%userprofile%\Dropbox\Development\AngularDart\nightscout-reporter\lib\assets\img\thumbs
 rem set dstDir=%srcDir%
 set rar="%ProgramFiles%\WinRAR\WinRAR.exe"
