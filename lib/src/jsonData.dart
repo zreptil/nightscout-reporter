@@ -379,7 +379,10 @@ class ProfileEntryData extends JsonData {
     else if (src._rate != null) ret.absoluteRate = src._rate;
 
     ret.from = src.from;
-    if ((src.from == Uploader.Minimed600 || src.from == Uploader.Tidepool || src.from == Uploader.Spike) &&
+    if ((src.from == Uploader.Minimed600 ||
+            src.from == Uploader.Tidepool ||
+            src.from == Uploader.Spike ||
+            src.from == Uploader.Unknown) &&
         src._absolute != null) ret.absoluteRate = src._absolute;
     ret.duration = src.duration;
 
@@ -1081,9 +1084,8 @@ class TreatmentData extends JsonData {
       ret._key600 = JsonData.toText(json["key600"]);
       RegExp reg = RegExp(r"microbolus (.*)U");
       Match m = reg.firstMatch(ret.notes);
-      if (m != null && m.groupCount == 1)
-      {
-        if((ret._absolute ?? 0) > 0)
+      if (m != null && m.groupCount == 1) {
+        if ((ret._absolute ?? 0) > 0)
           ret.microbolus = ret._absolute / 3600 * ret.duration;
         else
           ret.microbolus = double.tryParse(m.group(1)) ?? 0.0;
@@ -2038,15 +2040,9 @@ class ListData {
   double rms = 0.0;
   double pgs = 0.0;
   double get TDD => ieBolusSum + ieBasalSum; // + ieMicroBolusSum;
-  double get ieBolusPrz => ieBolusSum + ieBasalSum > 0
-      ? ieBolusSum / (ieBolusSum + ieBasalSum) * 100
-      : 0.0;
-  double get ieBasalPrz => ieBolusSum + ieBasalSum > 0
-      ? ieBasalSum / (ieBolusSum + ieBasalSum) * 100
-      : 0.0;
-  double get ieMicroBolusPrz => ieBolusSum + ieBasalSum > 0
-      ? ieMicroBolusSum / (ieBolusSum + ieBasalSum) * 100
-      : 0.0;
+  double get ieBolusPrz => ieBolusSum + ieBasalSum > 0 ? ieBolusSum / (ieBolusSum + ieBasalSum) * 100 : 0.0;
+  double get ieBasalPrz => ieBolusSum + ieBasalSum > 0 ? ieBasalSum / (ieBolusSum + ieBasalSum) * 100 : 0.0;
+  double get ieMicroBolusPrz => ieBolusSum + ieBasalSum > 0 ? ieMicroBolusSum / (ieBolusSum + ieBasalSum) * 100 : 0.0;
   int get countValid => entries.where((entry) => !entry.isGlucInvalid).length;
   int get countInvalid => entries.where((entry) => entry.isGlucInvalid).length;
   int entriesIn(int min, int max) =>
