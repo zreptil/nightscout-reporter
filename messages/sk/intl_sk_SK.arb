@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-06-05T12:46:31.788142",
+    "@@last_modified": "2020-06-08T08:57:55.861037",
     "Überprüfe Zugriff auf Nightscout ...": "Skontrolujte prístup do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -2339,8 +2339,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Überschrift über der Tabelle vom Glucode Perzentil Diagramm wurde korrigiert.": "Die Überschrift über der Tabelle vom Glucode Perzentil Diagramm wurde korrigiert.",
-    "@Die Überschrift über der Tabelle vom Glucode Perzentil Diagramm wurde korrigiert.": {
+    "Die Überschrift über der Tabelle vom Glucose Perzentil Diagramm wurde korrigiert.": "Die Überschrift über der Tabelle vom Glucose Perzentil Diagramm wurde korrigiert.",
+    "@Die Überschrift über der Tabelle vom Glucose Perzentil Diagramm wurde korrigiert.": {
         "description": "v147f1",
         "type": "text",
         "placeholders": {}
