@@ -1150,3 +1150,11 @@ datepicker {
     background-color: var(--debugFirst);
   }
 }
+
+.loop {
+  color: var(--loopMarked);
+
+  ::ng-deep .icon.filled {
+    color: var(--loopMarked) !important;
+  }
+}

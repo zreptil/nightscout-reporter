@@ -263,8 +263,9 @@ class PrintAnalysis extends BasePrint {
 
     double cvsLeft = -0.5;
     double cvsWidth = 0.8;
-    if (repData.status.settings.thresholds.bgTargetBottom != 70 ||
-        repData.status.settings.thresholds.bgTargetTop != 180) {
+    if ((repData.status.settings.thresholds.bgTargetBottom != 70 ||
+            repData.status.settings.thresholds.bgTargetTop != 180) &&
+        !g.ppComparable) {
       addBodyArea(tableBody, msgOwnLimits, [
         [
           {"text": "", "style": "infotitle"},
@@ -612,10 +613,7 @@ class PrintAnalysis extends BasePrint {
       [
         {"text": "", "style": "infotitle"},
         {"text": msgInsulinPerDay, "style": "infotitle"},
-        {
-          "text": "${g.fmtNumber(data.TDD / repData.dayCount, 1)}",
-          "style": "infodata"
-        },
+        {"text": "${g.fmtNumber(data.TDD / repData.dayCount, 1)}", "style": "infodata"},
         {"text": "${msgInsulinUnit}", "style": "infounit", "colSpan": 2},
         {"text": "", "style": "infotitle"},
         {"text": "", "style": "infounit"},

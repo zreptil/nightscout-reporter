@@ -68,7 +68,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = "1.4.7";
+  String version = "1.4.8";
   static String get msgThemeAuto => Intl.message("Automatisch", meaning: "theme selection - automatic");
   static String get msgThemeStandard => Intl.message("Standard", meaning: "theme selection - standard");
   static String get msgThemeXmas => Intl.message("Weihnachten", meaning: "theme selection - christmas");
@@ -355,7 +355,13 @@ class Settings {
 class Globals extends Settings {
   int _pdfCreationMaxSize = 400000;
 
-  bool ppStandardLimits = false;
+  bool _ppStandardLimits = false;
+  bool get ppStandardLimits => _ppStandardLimits || ppComparable;
+  set ppStandardLimits(bool value) {
+    if (!ppComparable) _ppStandardLimits = value;
+  }
+
+  bool ppComparable = false;
   int ppGlucMaxIdx = 0;
   List<double> get glucMaxValues => [null, 150, 200, 250, 300, 350, 400, 450];
   double get glucMaxValue => glucValueFromData(glucMaxValues[ppGlucMaxIdx]);
@@ -365,6 +371,7 @@ class Globals extends Settings {
   bool ppPdfSameWindow = true;
   bool ppPdfDownload = false;
   bool ppHideNightscoutInPDF = true;
+  bool ppHideLoopData = false;
 
   int get pdfCreationMaxSize {
     if (_pdfCreationMaxSize < Globals.PDFDIVIDER) _pdfCreationMaxSize = Globals.PDFDIVIDER;
@@ -383,8 +390,10 @@ class Globals extends Settings {
     ppPdfSameWindow = loadStorage('ppPdfSameWindow') == "true";
     ppPdfDownload = loadStorage('ppPdfDownload') == "true";
     ppHideNightscoutInPDF = loadStorage('ppHideNightscoutInPDF') == "true";
+    ppHideLoopData = loadStorage('ppHideLoopData') == "true";
     pdfCreationMaxSize = JsonData.toInt(loadStorage('pdfCreationMaxSize'));
     ppStandardLimits = loadStorage('ppStandardLimits') == "true";
+    ppComparable = loadStorage('ppComparable') == "true";
     ppLatestFirst = loadStorage('ppLatestFirst') == "true";
     ppGlucMaxIdx = JsonData.toInt(loadStorage('ppGlucMaxIdx'));
     ppBasalPrecisionIdx = JsonData.toInt(loadStorage('ppBasalPrecisionIdx'));
@@ -952,8 +961,10 @@ class Globals extends Settings {
     saveStorage("ppPdfSameWindow", ppPdfSameWindow ? "true" : "false");
     saveStorage("ppPdfDownload", ppPdfDownload ? "true" : "false");
     saveStorage("ppHideNightscoutInPDF", ppHideNightscoutInPDF ? "true" : "false");
+    saveStorage("ppHideLoopData", ppHideLoopData ? "true" : "false");
     saveStorage("pdfCreationMaxSize", "${pdfCreationMaxSize}");
-    saveStorage("ppStandardLimits", ppStandardLimits ? "true" : "false");
+    saveStorage("ppStandardLimits", _ppStandardLimits ? "true" : "false");
+    saveStorage("ppComparable", ppComparable ? "true" : "false");
     saveStorage("ppLatestFirst", ppLatestFirst ? "true" : "false");
     saveStorage("ppGlucMaxIdx", ppGlucMaxIdx?.toString() ?? 0);
     saveStorage("ppBasalPrecisionIdx", ppBasalPrecisionIdx?.toString() ?? 0);

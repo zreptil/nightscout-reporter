@@ -456,6 +456,8 @@ class AppComponent implements OnInit {
     }
   }
 
+  bool indy = true;
+
   void openPDF(int idx) {
     if (idx >= pdfList.length) return;
 

@@ -13,9 +13,16 @@
     </div>
 
     <div class="root">
-      <div class="subtitle" @i18n="label of area for section general in printparams">Allgemeines</div>
+      <div class="subtitle">
+        <div @i18n="label of area for section general in printparams">Allgemeines</div>
+        <div class="comparable">
+          <material-toggle [(checked)]="g.ppComparable"
+                           label="zu Vergleichszwecken (z.B. Arzt)"
+                           @i18n:label="label for comparative purposes"></material-toggle>
+        </div>
+      </div>
       <div class="functions">
-        <material-checkbox [(checked)]="g.ppStandardLimits" class="pp">
+        <material-checkbox [(checked)]="g.ppStandardLimits" [disabled]="g.ppComparable" class="pp">
           {{msgStandardLimits(g.getGlucInfo()["stdlow"],g.getGlucInfo()["stdhigh"],g.getGlucInfo()["unit"])}}
         </material-checkbox>
         <div>
@@ -68,6 +75,9 @@
       </div>
       <material-checkbox [(checked)]="g.ppHideNightscoutInPDF" class="pp" @i18n="label for checkbox to hide nightscout in footer">
         Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden
+      </material-checkbox>
+      <material-checkbox *ngIf="g.isLocal" [(checked)]="g.ppHideLoopData" class="pp loop" @i18n="label for checkbox to hide loop data">
+        Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)
       </material-checkbox>
       <div class="subtitle" @i18n="label of area for timeshift">Historische Daten</div>
       <div class="timeshift">

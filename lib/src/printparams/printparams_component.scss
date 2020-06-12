@@ -4,6 +4,7 @@
 @import 'package:angular_components/material_list/mixins';
 @import 'package:angular_components/material_select/mixins';
 @import 'package:angular_components/material_checkbox/mixins';
+@import 'package:angular_components/material_toggle/mixins';
 
 :host {
 }
@@ -98,6 +99,17 @@ material-dialog.headered-dialog {
   padding-bottom: 0.5em;
   align-items: center;
   justify-content: space-between;
+
+  ::ng-deep div {
+    display: flex;
+  }
+
+  ::ng-deep .comparable {
+    flex: 1;
+    font-size: 0.7em;
+    justify-content: flex-end;
+    @include material-toggle-theme($primary-color: var(--printparamsHeaderBack));
+  }
 }
 
 div[header] {
@@ -177,7 +189,7 @@ material-input {
       }
     }
 
-    material-select-item:hover{
+    material-select-item:hover {
       background-color: var(--printparamsBodyBack);
     }
   }
@@ -187,3 +199,12 @@ material-button[raised] {
   background-color: var(--printparamsHeaderBack);
   color: var(--printparamsHeaderFore);
 }
+
+.loop {
+  color: var(--loopMarked);
+
+  ::ng-deep .icon.filled {
+    color: var(--loopMarked) !important;
+  }
+}
+
