@@ -787,7 +787,7 @@ class AppComponent implements OnInit {
       i++;
     }
 
-    if (baseProfile != null) {
+    if (baseProfile != null && data.profiles.last.duration > 0) {
 //    if (last.duration > 0 && data.profiles.length > 1) {
       ProfileData temp = baseProfile.copy;
       temp.startDate = data.profiles.last.startDate.add(Duration(seconds: data.profiles.last.duration));
