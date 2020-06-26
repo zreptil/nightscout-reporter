@@ -905,6 +905,25 @@ class BoluscalcData extends JsonData {
   }
 }
 
+class InsulinInjectionData extends JsonData {
+  String insulin;
+  double units;
+
+  InsulinInjectionData();
+
+  InsulinInjectionData get copy => InsulinInjectionData()
+    ..insulin = insulin
+    ..units = units;
+
+  factory InsulinInjectionData.fromJson(Globals g, Map<String, dynamic> json) {
+    InsulinInjectionData ret = InsulinInjectionData();
+    if (json == null) return ret;
+    ret.insulin = JsonData.toText(json["insulin"]);
+    ret.units = JsonData.toDouble(json["units"]);
+    return ret;
+  }
+}
+
 class TreatmentData extends JsonData {
   dynamic raw;
   String id;
@@ -920,10 +939,12 @@ class TreatmentData extends JsonData {
   double _carbs;
   double insulin;
   double microbolus;
+  List<InsulinInjectionData> insulinInjections = List<InsulinInjectionData>();
 
   int splitExt;
   int splitNow;
   bool isSMB;
+  int duplicates = 1;
   String pumpId;
   double glucose;
   String glucoseType;
@@ -1005,40 +1026,46 @@ class TreatmentData extends JsonData {
 
   TreatmentData();
 
-  TreatmentData get copy => TreatmentData()
-    ..id = id
-    ..eventType = eventType
-    ..duration = duration
-    ..timeshift = timeshift
-    .._percent = _percent
-    .._absolute = _absolute
-    .._rate = _rate
-    ..createdAt = createdAt.add(Duration(minutes: 0))
-    ..enteredBy = enteredBy
-    ..NSClientId = NSClientId
-    .._carbs = _carbs
-    ..insulin = insulin
-    ..splitExt = splitExt
-    ..splitNow = splitNow
-    ..microbolus = microbolus
-    ..isSMB = isSMB
-    ..pumpId = pumpId
-    ..glucose = glucose
-    ..glucoseType = glucoseType
-    ..boluscalc = boluscalc == null ? null : boluscalc.copy
-    ..notes = notes
-    ..reason = reason
-    ..targetTop = targetTop
-    ..targetBottom = targetBottom
-    .._from = _from
-    .._key600 = _key600
-    ..isECarb = isECarb
-    ..raw = raw;
+  TreatmentData get copy {
+    TreatmentData ret = TreatmentData()
+      ..id = id
+      ..eventType = eventType
+      ..duration = duration
+      ..timeshift = timeshift
+      .._percent = _percent
+      .._absolute = _absolute
+      .._rate = _rate
+      ..createdAt = createdAt.add(Duration(minutes: 0))
+      ..enteredBy = enteredBy
+      ..NSClientId = NSClientId
+      .._carbs = _carbs
+      ..insulin = insulin
+      ..splitExt = splitExt
+      ..splitNow = splitNow
+      ..microbolus = microbolus
+      ..isSMB = isSMB
+      ..pumpId = pumpId
+      ..glucose = glucose
+      ..glucoseType = glucoseType
+      ..boluscalc = boluscalc == null ? null : boluscalc.copy
+      ..notes = notes
+      ..reason = reason
+      ..targetTop = targetTop
+      ..targetBottom = targetBottom
+      .._from = _from
+      .._key600 = _key600
+      ..isECarb = isECarb
+      ..raw = raw;
+    ret.insulinInjections = List<InsulinInjectionData>();
+    for (InsulinInjectionData entry in insulinInjections) ret.insulinInjections.add(entry.copy);
+    return ret;
+  }
 
   bool equals(TreatmentData t) {
     return createdAt.millisecondsSinceEpoch == t.createdAt.millisecondsSinceEpoch &&
         eventType == t.eventType &&
-        duration == t.duration;
+        duration == t.duration &&
+        notes == t.notes;
   }
 
   factory TreatmentData.fromJson(Globals g, Map<String, dynamic> json) {
@@ -1069,6 +1096,12 @@ class TreatmentData extends JsonData {
     ret.targetTop = JsonData.toDouble(json["targetTop"]);
     ret.targetBottom = JsonData.toDouble(json["targetBottom"]);
     ret.microbolus = 0.0;
+    String temp = JsonData.toText(json["insulinInjections"]);
+    List<dynamic> list = [];
+    try {
+      list = convert.json.decode(temp);
+    } catch (ex) {}
+    for (dynamic entry in list) ret.insulinInjections.add(InsulinInjectionData.fromJson(g, entry));
 
     ret.glucose = JsonData.toDouble(json["glucose"]);
     if (json["units"] != null) {
@@ -1124,7 +1157,7 @@ class TreatmentData extends JsonData {
       if (minAgo < peak) {
         var x1 = minAgo / 5 + 1;
         ret.iob = insulin * (1 - 0.001852 * x1 * x1 + 0.001852 * x1);
-        // units: BG (mg/dL)  = (BG/U) *    U insulin     * scalar
+        // units: BG (mg/dl)  = (BG/U) *    U insulin     * scalar
         ret.activity = sens * insulin * (2 / dia / 60 / peak) * minAgo;
       } else if (minAgo < 180) {
         var x2 = (minAgo - peak) / 5;
@@ -1918,7 +1951,7 @@ class DayData {
         totalIOB += tIOB.iob;
       }
 
-      // units: BG (mg/dL or mmol/L)
+      // units: BG (mg/dl or mmol/l)
       if (tIOB != null && tIOB.activity != null) totalActivity += tIOB.activity;
     }
 

@@ -467,7 +467,7 @@ class PrintCGP extends BasePrint {
     int low = Globals.stdLow;
     int high = Globals.stdHigh;
 
-    if (!g.ppStandardLimits) {
+    if (!g.ppStandardLimits && !g.ppCGPAlwaysStandardLimits) {
       low = repData.status.settings.thresholds.bgTargetBottom;
       high = repData.status.settings.thresholds.bgTargetTop;
     }

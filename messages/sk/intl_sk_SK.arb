@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-06-12T11:12:34.375480",
+    "@@last_modified": "2020-06-26T14:31:12.612698",
     "Überprüfe Zugriff auf Nightscout ...": "Skontrolujte prístup do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -48,7 +48,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Lade die Basisdaten...": "Lade die Basisdaten...",
+    "Lade die Basisdaten...": "Načítať základné údaje...",
     "@Lade die Basisdaten...": {
         "type": "text",
         "placeholders": {}
@@ -108,6 +108,16 @@
     },
     "Vergleich": "Porovnanie",
     "@Vergleich": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bezeichnung": "Bezeichnung",
+    "@Bezeichnung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Hinzufügen": "Hinzufügen",
+    "@Hinzufügen": {
         "type": "text",
         "placeholders": {}
     },
@@ -187,32 +197,32 @@
         "type": "text",
         "placeholders": {}
     },
-    "Português": "Português",
+    "Português": "Portugalsky",
     "@Português": {
         "type": "text",
         "placeholders": {}
     },
-    "Ausgewählter Zeitraum": "Ausgewählter Zeitraum",
+    "Ausgewählter Zeitraum": "Vybrané obdobie",
     "@Ausgewählter Zeitraum": {
         "type": "text",
         "placeholders": {}
     },
-    "Einen Monat vorher": "Einen Monat vorher",
+    "Einen Monat vorher": "O mesiac skôr",
     "@Einen Monat vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Drei Monate vorher": "Drei Monate vorher",
+    "Drei Monate vorher": "Tri mesiace vopred",
     "@Drei Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Sechs Monate vorher": "Sechs Monate vorher",
+    "Sechs Monate vorher": "Šesť mesiacov vopred",
     "@Sechs Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Ein Jahr vorher": "Ein Jahr vorher",
+    "Ein Jahr vorher": "O rok skôr",
     "@Ein Jahr vorher": {
         "type": "text",
         "placeholders": {}
@@ -222,7 +232,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": "<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.",
+    "<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": "<br><br>Ak je táto adresa URL chránená, prístupový kľúč musí byť tiež správne definovaný. To je možné dosiahnuť pomocou „Nástroje správcu“ na stránke Nightscout.",
     "@<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": {
         "type": "text",
         "placeholders": {}
@@ -232,12 +242,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.": "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.",
+    "Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.": "Na 10be musí byť začiarknuté políčko „cors“ v predvolených nastaveniach servera, aby k údajom mali prístup aj externé nástroje, ako je tento. Ak je aktivovaná funkcia „cors“, bude pravdepodobne potrebné vykonať ju na serveri skôr, ako bude skutočne k dispozícii.",
     "@Auf 10be muss beim Server in den Standardeinstellungen der Haken bei \"cors\" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn \"cors\" aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.": {
         "type": "text",
         "placeholders": {}
     },
-    "Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.": "Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.",
+    "Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.": "Rozhranie API adresy URL pre program Nightscout musí začínať reťazcom https, pretože program Nightscout Reporter funguje aj na protokole https. Prístup k nebezpečným zdrojom http nie je možný.",
     "@Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.": {
         "type": "text",
         "placeholders": {}
@@ -312,6 +322,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Zeitraum festlegen": "Nastaviť obdobie",
+    "@Zeitraum festlegen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Der Zeitraum enthält keine auswertbaren Tage": "Obdobie neobsahuje žiadne hodnotiteľné dni",
     "@Der Zeitraum enthält keine auswertbaren Tage": {
         "description": "title for datepicker dialog when period empty",
@@ -325,11 +340,6 @@
     },
     "Das Enddatum ist nicht korrekt": "Dátum konca je nesprávny",
     "@Das Enddatum ist nicht korrekt": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zeitraum festlegen": "Nastaviť obdobie",
-    "@Zeitraum festlegen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1506,22 +1516,22 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagestrend": "Tagestrend",
+    "Tagestrend": "Denný trend",
     "@Tagestrend": {
         "type": "text",
         "placeholders": {}
     },
-    "Alle Werte für den Tag anzeigen": "Alle Werte für den Tag anzeigen",
+    "Alle Werte für den Tag anzeigen": "Zobraziť všetky hodnoty pre daný deň",
     "@Alle Werte für den Tag anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Bolusspalte anzeigen": "Bolusspalte anzeigen",
+    "Bolusspalte anzeigen": "Zobraziť stĺpec bolusu",
     "@Bolusspalte anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "msgBasalInfo": "Die angezeigte Basalrate ist seit {time}  gültig und beinhaltet keine temporären Änderungen.",
+    "msgBasalInfo": "Zobrazená bazálna dávka je platná od {time} a nezahŕňa žiadne dočasné zmeny.",
     "@msgBasalInfo": {
         "type": "text",
         "placeholders": {
@@ -1613,7 +1623,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bewegung anzeigen": "Bewegung anzeigen",
+    "Bewegung anzeigen": "Zobraziť pohyb",
     "@Bewegung anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1643,7 +1653,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Insulin auf maximale Stellen im Profil runden": "Insulin auf maximale Stellen im Profil runden",
+    "Insulin auf maximale Stellen im Profil runden": "Zaokrúhlite inzulín na maximum v profile",
     "@Insulin auf maximale Stellen im Profil runden": {
         "type": "text",
         "placeholders": {}
@@ -1683,12 +1693,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Startstunde": "Startstunde",
+    "Startstunde": "Začiatočná hodina",
     "@Startstunde": {
         "type": "text",
         "placeholders": {}
     },
-    "Tagesstunden": "Tagesstunden",
+    "Tagesstunden": "Hodiny dňa",
     "@Tagesstunden": {
         "type": "text",
         "placeholders": {}
@@ -1780,6 +1790,16 @@
     },
     "Dauer mit Minutenbruchteil": "Trvanie v zlomkoch minúty",
     "@Dauer mit Minutenbruchteil": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Mehrfache Datensätze kennzeichnen": "Mehrfache Datensätze kennzeichnen",
+    "@Mehrfache Datensätze kennzeichnen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nur mehrfache Datensätze anzeigen": "Nur mehrfache Datensätze anzeigen",
+    "@Nur mehrfache Datensätze anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1924,6 +1944,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Es sind keine Daten vorhanden.": "Es sind keine Daten vorhanden.",
+    "@Es sind keine Daten vorhanden.": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Wochengrafik": "Týždenný graf",
     "@Wochengrafik": {
         "type": "text",
@@ -1943,7 +1968,12 @@
             "unit": {}
         }
     },
-    "Automatisch": "Automatisch",
+    "CGP immer mit Standard Zielbereich": "CGP immer mit Standard Zielbereich",
+    "@CGP immer mit Standard Zielbereich": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Automatisch": "Automaticky",
     "@Automatisch": {
         "type": "text",
         "placeholders": {}
@@ -1983,6 +2013,23 @@
         "type": "text",
         "placeholders": {
             "url": {}
+        }
+    },
+    "Shortcut anlegen": "Shortcut anlegen",
+    "@Shortcut anlegen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Shortcut ändern": "Shortcut ändern",
+    "@Shortcut ändern": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgFormsText": "{count,plural, =0{}=1{1 Formular}other{{count} Formulare}}",
+    "@msgFormsText": {
+        "type": "text",
+        "placeholders": {
+            "count": {}
         }
     },
     "Willkommen": "Vitajte",
@@ -2075,6 +2122,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Google Assistant": "Google Assistant",
+    "@Google Assistant": {
+        "description": "title of nightscout status",
+        "type": "text",
+        "placeholders": {}
+    },
     "Nightscout Seite": "Stránka Nightscout",
     "@Nightscout Seite": {
         "description": "title of nightscout page",
@@ -2153,7 +2206,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "zu Vergleichszwecken (z.B. Arzt)": "zu Vergleichszwecken (z.B. Arzt)",
+    "zu Vergleichszwecken (z.B. Arzt)": "na účely porovnania (napr. lekár)",
     "@zu Vergleichszwecken (z.B. Arzt)": {
         "description": "label for comparative purposes",
         "type": "text",
@@ -2165,7 +2218,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Genauigkeit der Basalangaben:": "Genauigkeit der Basalangaben:",
+    "Genauigkeit der Basalangaben:": "Presnosť základných informácií:",
     "@Genauigkeit der Basalangaben:": {
         "description": "label for max basalprecision in printparams",
         "type": "text",
@@ -2189,25 +2242,25 @@
         "type": "text",
         "placeholders": {}
     },
-    "Historische Daten": "Historische Daten",
+    "Historische Daten": "Historické dáta",
     "@Historische Daten": {
         "description": "label of area for timeshift",
         "type": "text",
         "placeholders": {}
     },
-    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.",
+    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "Toto definuje, ako dlho by sa malo obdobie PDF posunúť, aby sa získali porovnávacie hodnoty.",
     "@Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": {
         "description": "description of timeshift",
         "type": "text",
         "placeholders": {}
     },
-    "PDF erzeugen": "PDF erzeugen",
+    "PDF erzeugen": "Vytvorte PDF",
     "@PDF erzeugen": {
         "description": "buttonlabel for saving data",
         "type": "text",
         "placeholders": {}
     },
-    "Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": "Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)",
+    "Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": "Skryť údaje odhaľujúce slučku (ignorovať označenie rôznych farebných možností)",
     "@Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": {
         "description": "label for checkbox to hide loop data",
         "type": "text",
@@ -2291,6 +2344,48 @@
         "type": "text",
         "placeholders": {}
     },
+    "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.",
+    "@Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": {
+        "description": "info text for shortcuts",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Löschen": "Löschen",
+    "@Löschen": {
+        "description": "buttonlabel for deleting data",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll der Shortcut mit der Bezeichnung": "Soll der Shortcut mit der Bezeichnung",
+    "@Soll der Shortcut mit der Bezeichnung": {
+        "description": "should the shortcut with name",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll der Zeitraum": "Soll der Zeitraum",
+    "@Soll der Zeitraum": {
+        "description": "should the period",
+        "type": "text",
+        "placeholders": {}
+    },
+    "mit dem Zeitraum": "mit dem Zeitraum",
+    "@mit dem Zeitraum": {
+        "description": "with period",
+        "type": "text",
+        "placeholders": {}
+    },
+    "ersetzt werden?": "ersetzt werden?",
+    "@ersetzt werden?": {
+        "description": "be replaced",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?",
+    "@Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": {
+        "description": "should the forms be replaced with current forms",
+        "type": "text",
+        "placeholders": {}
+    },
     "Willkommen bei Nightscout Reporter!": "Vitajte v Nightscout Reporter!",
     "@Willkommen bei Nightscout Reporter!": {
         "description": "welcome title",
@@ -2333,13 +2428,49 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.5.0 - xx.6.2020": "1.5.0 - xx.6.2020",
+    "@1.5.0 - xx.6.2020": {
+        "description": "v150",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.",
+    "@Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": {
+        "description": "v150a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.",
+    "@Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": {
+        "description": "v150a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.9 - 16.6.2020": "1.4.9 - 16.6.2020",
+    "@1.4.9 - 16.6.2020": {
+        "description": "v149",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.": "Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.",
+    "@Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.": {
+        "description": "v149a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.": "Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.",
+    "@Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.": {
+        "description": "v149f1",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.4.8 - 12.6.2020": "1.4.8 - 12.6.2020",
     "@1.4.8 - 12.6.2020": {
         "description": "v148",
         "type": "text",
         "placeholders": {}
     },
-    "Im Dialog der Ausgabe Parameter wurde rechts oben der Schieberegler \"zu Vergleichszwecken\" hinzugefügt. Wenn dieser aktiviert ist, dann wird überall der Standard Zielbereich verwendet. Intern wird das auch noch für andere Anpassungen verwendet. Diese Option ist dafür gedacht, dass man seine Ausdrucke mit anderen Diabetikern vergleichen kann. Das ist zum Beispiel zur Vorlage bei Ärzten und Diabetesberatern sinnvoll.": "Im Dialog der Ausgabe Parameter wurde rechts oben der Schieberegler \"zu Vergleichszwecken\" hinzugefügt. Wenn dieser aktiviert ist, dann wird überall der Standard Zielbereich verwendet. Intern wird das auch noch für andere Anpassungen verwendet. Diese Option ist dafür gedacht, dass man seine Ausdrucke mit anderen Diabetikern vergleichen kann. Das ist zum Beispiel zur Vorlage bei Ärzten und Diabetesberatern sinnvoll.",
+    "Im Dialog der Ausgabe Parameter wurde rechts oben der Schieberegler \"zu Vergleichszwecken\" hinzugefügt. Wenn dieser aktiviert ist, dann wird überall der Standard Zielbereich verwendet. Intern wird das auch noch für andere Anpassungen verwendet. Diese Option ist dafür gedacht, dass man seine Ausdrucke mit anderen Diabetikern vergleichen kann. Das ist zum Beispiel zur Vorlage bei Ärzten und Diabetesberatern sinnvoll.": "V dialógovom okne výstupných parametrov bol v pravom hornom rohu pridaný posúvač „na účely porovnania“. Ak je aktivovaná, všade sa používa štandardná cieľová oblasť. Interne sa používa aj na ďalšie úpravy. Táto voľba je navrhnutá tak, aby ste mohli svoje výtlačky porovnávať s inými diabetikmi. Je to užitočné napríklad pri podávaní lekárom a diabetologickým konzultantom.",
     "@Im Dialog der Ausgabe Parameter wurde rechts oben der Schieberegler \"zu Vergleichszwecken\" hinzugefügt. Wenn dieser aktiviert ist, dann wird überall der Standard Zielbereich verwendet. Intern wird das auch noch für andere Anpassungen verwendet. Diese Option ist dafür gedacht, dass man seine Ausdrucke mit anderen Diabetikern vergleichen kann. Das ist zum Beispiel zur Vorlage bei Ärzten und Diabetesberatern sinnvoll.": {
         "description": "v148a1",
         "type": "text",
@@ -2351,19 +2482,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.": "In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.",
+    "In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.": "Teraz môžete vo výstupných parametroch určiť, či sa vždy zobrazí vždy prvý deň. To má vplyv na denný graf, denné štatistiky a týždenný graf. Zodpovedajúca voľba bola odstránená z možností formulára.",
     "@In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.": {
         "description": "v147c1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.": "Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.",
+    "Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.": "Nastavenie otvorenia PDF v rovnakom okne, stiahnutia PDF a odkazovania na Nightscout v PDF bolo presunuté z nastavení na výstupné parametre. To vám umožní rýchlo nastaviť a zmeniť to pre každý výtlačok.",
     "@Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.": {
         "description": "v147c2",
         "type": "text",
         "placeholders": {}
     },
-    "Die Überschrift über der Tabelle vom Glucose Perzentil Diagramm wurde korrigiert.": "Die Überschrift über der Tabelle vom Glucose Perzentil Diagramm wurde korrigiert.",
+    "Die Überschrift über der Tabelle vom Glucose Perzentil Diagramm wurde korrigiert.": "Nadpis nad tabuľkou z diagramu percentilu glukózy bol opravený.",
     "@Die Überschrift über der Tabelle vom Glucose Perzentil Diagramm wurde korrigiert.": {
         "description": "v147f1",
         "type": "text",
@@ -2381,13 +2512,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": "Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.",
+    "Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": "Mikroboly z aplikácie Uploaded Minimed 600 boli z edície odstránené, pretože ide iba o dočasné bazálne dávky.",
     "@Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": {
         "description": "v146f1",
         "type": "text",
         "placeholders": {}
     },
-    "Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert.": "Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert.",
+    "Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert.": "Bola opravená možná havária vo výstupe CGP v dennom grafe.",
     "@Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert.": {
         "description": "v146f2",
         "type": "text",
@@ -2399,25 +2530,25 @@
         "type": "text",
         "placeholders": {}
     },
-    "In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": "In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.",
+    "In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": "V dialógovom okne s výstupnými parametrami bola pridaná možnosť určiť presnosť výstupu bazálnych informácií. Zvyčajne sa určuje z informácií o základnej dávke v profiloch. Bude to tak aj naďalej, ak je vybratý prvý záznam v zozname. Inak budú všetky základné informácie na výstupe s presnosťou vybranou pre túto možnosť.",
     "@In dem Dialog mit den Ausgabe Parametern wurde die Option hinzugefügt, die Genauigkeit der Ausgabe von Basalangaben festzulegen. Diese wird normalerweise aus den Angaben zur Basalrate in den Profilen ermittelt. Das wird auch weiterhin getan, wenn der erste Eintrag in der Liste ausgewählt wird. Ansonsten werden alle Basalangaben mit der Genauigkeit ausgegeben, die bei dieser Option ausgewählt wurde.": {
         "description": "v145a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.",
+    "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": "Presnosť informácií ISF v profile bola opravená.",
     "@Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": {
         "description": "v145f1",
         "type": "text",
         "placeholders": {}
     },
-    "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.",
+    "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": "V protokole sa informácia, ktorá nastavuje dočasný cieľ 0 IU na 0 minút, vydáva ako „Zrušenie dočasného cieľa“.",
     "@Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": {
         "description": "v145f2",
         "type": "text",
         "placeholders": {}
     },
-    "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.",
+    "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": "V CGP boli opravené rôzne výpočty, ktoré boli zjavné najmä v rozdieloch v ToR a priemerných hodnotách.",
     "@Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": {
         "description": "v145f3",
         "type": "text",

@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-06-12T11:12:34.375480",
+  "@@last_modified": "2020-06-26T14:31:12.612698",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -108,6 +108,16 @@
   },
   "Vergleich": "Vergleich",
   "@Vergleich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bezeichnung": "Bezeichnung",
+  "@Bezeichnung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Hinzufügen": "Hinzufügen",
+  "@Hinzufügen": {
     "type": "text",
     "placeholders": {}
   },
@@ -312,6 +322,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Zeitraum festlegen": "Zeitraum festlegen",
+  "@Zeitraum festlegen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Der Zeitraum enthält keine auswertbaren Tage": "Der Zeitraum enthält keine auswertbaren Tage",
   "@Der Zeitraum enthält keine auswertbaren Tage": {
     "description": "title for datepicker dialog when period empty",
@@ -325,11 +340,6 @@
   },
   "Das Enddatum ist nicht korrekt": "Das Enddatum ist nicht korrekt",
   "@Das Enddatum ist nicht korrekt": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zeitraum festlegen": "Zeitraum festlegen",
-  "@Zeitraum festlegen": {
     "type": "text",
     "placeholders": {}
   },
@@ -1783,6 +1793,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "Mehrfache Datensätze kennzeichnen": "Mehrfache Datensätze kennzeichnen",
+  "@Mehrfache Datensätze kennzeichnen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nur mehrfache Datensätze anzeigen": "Nur mehrfache Datensätze anzeigen",
+  "@Nur mehrfache Datensätze anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
   "msgLogTempTarget": "temp. Ziel {target} für {duration} min, Grund: {reason}",
   "@msgLogTempTarget": {
     "type": "text",
@@ -1924,6 +1944,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Es sind keine Daten vorhanden.": "Es sind keine Daten vorhanden.",
+  "@Es sind keine Daten vorhanden.": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Wochengrafik": "Wochengrafik",
   "@Wochengrafik": {
     "type": "text",
@@ -1942,6 +1967,11 @@
       "high": {},
       "unit": {}
     }
+  },
+  "CGP immer mit Standard Zielbereich": "CGP immer mit Standard Zielbereich",
+  "@CGP immer mit Standard Zielbereich": {
+    "type": "text",
+    "placeholders": {}
   },
   "Automatisch": "Automatisch",
   "@Automatisch": {
@@ -1983,6 +2013,23 @@
     "type": "text",
     "placeholders": {
       "url": {}
+    }
+  },
+  "Shortcut anlegen": "Shortcut anlegen",
+  "@Shortcut anlegen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Shortcut ändern": "Shortcut ändern",
+  "@Shortcut ändern": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgFormsText": "{count,plural, =0{}=1{1 Formular}other{{count} Formulare}}",
+  "@msgFormsText": {
+    "type": "text",
+    "placeholders": {
+      "count": {}
     }
   },
   "Willkommen": "Willkommen",
@@ -2072,6 +2119,12 @@
   "Zur Kachelansicht": "Zur Kachelansicht",
   "@Zur Kachelansicht": {
     "description": "title of tileview",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Google Assistant": "Google Assistant",
+  "@Google Assistant": {
+    "description": "title of nightscout status",
     "type": "text",
     "placeholders": {}
   },
@@ -2291,6 +2344,48 @@
     "type": "text",
     "placeholders": {}
   },
+  "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.",
+  "@Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": {
+    "description": "info text for shortcuts",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Löschen": "Löschen",
+  "@Löschen": {
+    "description": "buttonlabel for deleting data",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Soll der Shortcut mit der Bezeichnung": "Soll der Shortcut mit der Bezeichnung",
+  "@Soll der Shortcut mit der Bezeichnung": {
+    "description": "should the shortcut with name",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Soll der Zeitraum": "Soll der Zeitraum",
+  "@Soll der Zeitraum": {
+    "description": "should the period",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mit dem Zeitraum": "mit dem Zeitraum",
+  "@mit dem Zeitraum": {
+    "description": "with period",
+    "type": "text",
+    "placeholders": {}
+  },
+  "ersetzt werden?": "ersetzt werden?",
+  "@ersetzt werden?": {
+    "description": "be replaced",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?",
+  "@Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": {
+    "description": "should the forms be replaced with current forms",
+    "type": "text",
+    "placeholders": {}
+  },
   "Willkommen bei Nightscout Reporter!": "Willkommen bei Nightscout Reporter!",
   "@Willkommen bei Nightscout Reporter!": {
     "description": "welcome title",
@@ -2330,6 +2425,42 @@
   "Version": "Version",
   "@Version": {
     "description": "version",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.5.0 - xx.6.2020": "1.5.0 - xx.6.2020",
+  "@1.5.0 - xx.6.2020": {
+    "description": "v150",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.",
+  "@Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": {
+    "description": "v150a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.",
+  "@Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": {
+    "description": "v150a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "1.4.9 - 16.6.2020": "1.4.9 - 16.6.2020",
+  "@1.4.9 - 16.6.2020": {
+    "description": "v149",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.": "Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.",
+  "@Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.": {
+    "description": "v149a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.": "Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.",
+  "@Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.": {
+    "description": "v149f1",
     "type": "text",
     "placeholders": {}
   },

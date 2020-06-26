@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-06-12T11:12:34.375480",
+    "@@last_modified": "2020-06-26T14:31:12.612698",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -108,6 +108,16 @@
     },
     "Vergleich": "Comparison",
     "@Vergleich": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bezeichnung": "Title",
+    "@Bezeichnung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Hinzufügen": "Add",
+    "@Hinzufügen": {
         "type": "text",
         "placeholders": {}
     },
@@ -312,6 +322,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Zeitraum festlegen": "Set the period",
+    "@Zeitraum festlegen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Der Zeitraum enthält keine auswertbaren Tage": "The period contains no evaluable days",
     "@Der Zeitraum enthält keine auswertbaren Tage": {
         "description": "title for datepicker dialog when period empty",
@@ -325,11 +340,6 @@
     },
     "Das Enddatum ist nicht korrekt": "The end date is not correct",
     "@Das Enddatum ist nicht korrekt": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zeitraum festlegen": "Set the period",
-    "@Zeitraum festlegen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1678,7 +1688,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Blutige Messung": "Bloody values",
+    "Blutige Messung": "Blood values",
     "@Blutige Messung": {
         "type": "text",
         "placeholders": {}
@@ -1780,6 +1790,16 @@
     },
     "Dauer mit Minutenbruchteil": "Precise duration",
     "@Dauer mit Minutenbruchteil": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Mehrfache Datensätze kennzeichnen": "Denote repeated datasets",
+    "@Mehrfache Datensätze kennzeichnen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nur mehrfache Datensätze anzeigen": "Show only repeated datasets",
+    "@Nur mehrfache Datensätze anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1924,6 +1944,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Es sind keine Daten vorhanden.": "No data available.",
+    "@Es sind keine Daten vorhanden.": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Wochengrafik": "Weekly Graphics",
     "@Wochengrafik": {
         "type": "text",
@@ -1942,6 +1967,11 @@
             "high": {},
             "unit": {}
         }
+    },
+    "CGP immer mit Standard Zielbereich": "CGP always with Standard Targetarea",
+    "@CGP immer mit Standard Zielbereich": {
+        "type": "text",
+        "placeholders": {}
     },
     "Automatisch": "Automatic",
     "@Automatisch": {
@@ -1983,6 +2013,23 @@
         "type": "text",
         "placeholders": {
             "url": {}
+        }
+    },
+    "Shortcut anlegen": "Add shortcut",
+    "@Shortcut anlegen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Shortcut ändern": "Edit shortcut",
+    "@Shortcut ändern": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgFormsText": "{count,plural, one {} =0{}=1{1 Form}other{{count} Forms}}",
+    "@msgFormsText": {
+        "type": "text",
+        "placeholders": {
+            "count": {}
         }
     },
     "Willkommen": "Welcome",
@@ -2072,6 +2119,12 @@
     "Zur Kachelansicht": "To the tile view",
     "@Zur Kachelansicht": {
         "description": "title of tileview",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Google Assistant": "Google Assistant",
+    "@Google Assistant": {
+        "description": "title of nightscout status",
         "type": "text",
         "placeholders": {}
     },
@@ -2291,6 +2344,48 @@
         "type": "text",
         "placeholders": {}
     },
+    "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": "A shortcut contains the period and the selected forms with the options set. When a shortcut is activated, the settings saved in it are loaded and activated.",
+    "@Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": {
+        "description": "info text for shortcuts",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Löschen": "Delete",
+    "@Löschen": {
+        "description": "buttonlabel for deleting data",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll der Shortcut mit der Bezeichnung": "`Should the shortcut with the title",
+    "@Soll der Shortcut mit der Bezeichnung": {
+        "description": "should the shortcut with name",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll der Zeitraum": "Should the period",
+    "@Soll der Zeitraum": {
+        "description": "should the period",
+        "type": "text",
+        "placeholders": {}
+    },
+    "mit dem Zeitraum": "be replaced with the period",
+    "@mit dem Zeitraum": {
+        "description": "with period",
+        "type": "text",
+        "placeholders": {}
+    },
+    "ersetzt werden?": "?",
+    "@ersetzt werden?": {
+        "description": "be replaced",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": "Should the form selection be replaced with the current selection?",
+    "@Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": {
+        "description": "should the forms be replaced with current forms",
+        "type": "text",
+        "placeholders": {}
+    },
     "Willkommen bei Nightscout Reporter!": "Welcome to Nightscout Reporter!",
     "@Willkommen bei Nightscout Reporter!": {
         "description": "welcome title",
@@ -2330,6 +2425,42 @@
     "Version": "Version",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.5.0 - xx.6.2020": "1.5.0 - xx/6/2020",
+    "@1.5.0 - xx.6.2020": {
+        "description": "v150",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": "Insulin deliveries are now also displayed on the Protocol page, e.g. if they were entered via xdrip.",
+    "@Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": {
+        "description": "v150a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": "There are now shortcuts with which you can save the current selection of forms, their parameters and the selected period. When activating a shortcut, everything is set back to what it was when the shortcut was saved.",
+    "@Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": {
+        "description": "v150a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.9 - 16.6.2020": "1.4.9 - 16/6/2020",
+    "@1.4.9 - 16.6.2020": {
+        "description": "v149",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.": "In the dialog of the output parameters there is now the possibility to always generate the CGP with the standard target area. This option is initially activated because the CGP is a standardized form that is often used for comparison purposes. But you can turn it off for your own purposes. This setting is retained.",
+    "@Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.": {
+        "description": "v149a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.": "The last profile change was sometimes ignored when determining the profile. That is now fixed.",
+    "@Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.": {
+        "description": "v149f1",
         "type": "text",
         "placeholders": {}
     },
@@ -2375,7 +2506,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": "The legend of the daily graphic now includes the entry for bloody values.",
+    "Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": "The legend of the daily graphic now includes the entry for blood values.",
     "@Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": {
         "description": "v146a1",
         "type": "text",
@@ -2585,7 +2716,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": "Bloody values should now also be displayed correctly in the daily graph for mmol data.",
+    "Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": "Blood values should now also be displayed correctly in the daily graph for mmol data.",
     "@Blutige Werte sollten jetzt auch bei mmol-Daten korrekt in der Tagesgrafik angezeigt werden.": {
         "description": "v138f3",
         "type": "text",
@@ -3305,7 +3436,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.": "Fixed the erroneous placement of the bloody values in the daily graph when using mmol/L.",
+    "Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.": "Fixed the erroneous placement of the blood values in the daily graph when using mmol/L.",
     "@Die fehlerhafte Platzierug der blutigen Werte bei mmol/L in der Tagesgrafik wurde korrigiert.": {
         "description": "v123f2",
         "type": "text",

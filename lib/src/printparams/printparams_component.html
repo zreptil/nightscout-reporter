@@ -25,6 +25,9 @@
         <material-checkbox [(checked)]="g.ppStandardLimits" [disabled]="g.ppComparable" class="pp">
           {{msgStandardLimits(g.getGlucInfo()["stdlow"],g.getGlucInfo()["stdhigh"],g.getGlucInfo()["unit"])}}
         </material-checkbox>
+        <material-checkbox *ngIf="!g.ppComparable && !g.ppStandardLimits" [(checked)]="g.ppCGPAlwaysStandardLimits" class="pp indent">
+          {{msgStandardCGP}}
+        </material-checkbox>
         <div>
           <div @i18n="label for max glucvalue in printparams">Maximaler Glukosewert in Grafiken:</div>
           <material-dropdown-select [buttonText]="listGlucMaxValues[glucMaxIdx??0]"

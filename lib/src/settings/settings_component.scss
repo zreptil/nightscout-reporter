@@ -188,6 +188,9 @@ div[footer] {
 }
 
 material-dialog[confirm] {
+  background-color: var(--settingsBodyBack);
+  color: var(--settingsBodyFore);
+
   .content {
     font-size: 120%;
     padding: 2em;

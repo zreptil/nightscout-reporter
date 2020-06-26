@@ -443,31 +443,63 @@ material-fab.debug-trigger {
 }
 
 @keyframes showthemes {
-  0% {width: 0em;}
-  10% {width: 0em;}
-  90% {width: 10.5em;}
-  100% {width: 9.5em;}
+  0% {
+    width: 0em;
+  }
+  10% {
+    width: 0em;
+  }
+  90% {
+    width: 10.5em;
+  }
+  100% {
+    width: 9.5em;
+  }
 }
 
 @keyframes hidethemes {
-  0% {width: 9.5em;}
-  10% {width: 10.5em;}
-  90% {width: 0em;}
-  100% {width: 0em;}
+  0% {
+    width: 9.5em;
+  }
+  10% {
+    width: 10.5em;
+  }
+  90% {
+    width: 0em;
+  }
+  100% {
+    width: 0em;
+  }
 }
 
 @keyframes showthemeslogo {
-  0% {transform: rotate(0deg);}
-  10% {transform: rotate(-30deg);}
-  90% {transform: rotate(390deg);}
-  100% {transform: rotate(360deg);}
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(-30deg);
+  }
+  90% {
+    transform: rotate(390deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes hidethemeslogo {
-  0% {transform: rotate(360deg);}
-  10% {transform: rotate(390deg);}
-  90% {transform: rotate(-30deg);}
-  100% {transform: rotate(0deg);}
+  0% {
+    transform: rotate(360deg);
+  }
+  10% {
+    transform: rotate(390deg);
+  }
+  90% {
+    transform: rotate(-30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .owllogo {
@@ -477,6 +509,137 @@ material-fab.debug-trigger {
 
   img {
     height: 90%;
+  }
+}
+
+@keyframes showshortcuts {
+  0% {
+    top: -100%;
+  }
+  90% {
+    top: 74px;
+  }
+  100% {
+    top: 64px;
+  }
+}
+
+@keyframes hideshortcuts {
+  0% {
+    top: 64px;
+  }
+  10% {
+    top: 74px;
+  }
+  100% {
+    top: -100%;
+  }
+}
+
+@keyframes showshortcutsicon {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(-30deg);
+  }
+  90% {
+    transform: rotate(390deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes hideshortcutsicon {
+  0% {
+    transform: rotate(360deg);
+  }
+  10% {
+    transform: rotate(390deg);
+  }
+  90% {
+    transform: rotate(-30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.shortcutIcon {
+  color: var(--shortcutBodyBack);
+  -material-icon {
+    height: 90%;
+  }
+}
+
+.shortcutPanel {
+  display: flex;
+  overflow: hidden;
+  background: transparent;
+  -z-index: 100000;
+  align-self: center;
+  position: absolute;
+  -left: 50%;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: var(--shortcutBodyBack);
+    color: var(--shortcutBodyFore);
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    border-radius: 0.5em;
+    padding: 0.5em;
+    margin: 0.5em;
+
+    material-button.add {
+      border-radius: 20px;
+    }
+
+    .shortcut:not(:hover) {
+      border: 1px solid transparent;
+    }
+
+    .shortcut:hover {
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 20px;
+    }
+
+    .shortcut {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+
+      material-button {
+        display: flex;
+        min-width: initial;
+        margin: 0;
+      }
+
+      material-button:first-child {
+        flex: 1;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+      }
+
+      material-button:not(:first-child) {
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+      }
+    }
+  }
+
+  material-fab {
+    white-space: nowrap;
+  }
+
+  material-button {
+    text-transform: none;
+  }
+
+  material-button:first-child material-icon {
+    margin-right: 0.5em;
   }
 }
 
@@ -563,6 +726,11 @@ nav a {
       .selected-accent {
         background-color: var(--primaryBack);
       }
+    }
+
+    material-select-item.unreachable {
+      color: var(--primaryBack);
+      background-color: silver;
     }
   }
 }

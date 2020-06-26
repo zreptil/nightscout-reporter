@@ -47,6 +47,8 @@ class PrintParamsComponent implements OnInit {
         args: [low, high, unit], name: "msgStandardLimits");
   }
 
+  String get msgStandardCGP => Intl.message("CGP immer mit Standard Zielbereich");
+
   bool isVisible = true;
   globals.PeriodShift periodShift;
   int glucMaxIdx;

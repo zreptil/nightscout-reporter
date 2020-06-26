@@ -28,7 +28,9 @@ class PrintDailyLog extends BaseProfile {
       showChangesColumn,
       showCalibration,
       showProfileSwitchDetails,
-      showTempDigit;
+      showTempDigit,
+      showDupes,
+      showOnlyDupes;
   int groupMinutes = 0;
 
   @override
@@ -55,6 +57,7 @@ class PrintDailyLog extends BaseProfile {
     ParamInfo(1, msgParam10, boolValue: true),
     ParamInfo(6, msgParam11, boolValue: true, subParams: [ParamInfo(0, msgParam12, boolValue: true)]),
     ParamInfo(7, msgParam13, boolValue: true),
+    ParamInfo(11, msgParam16, boolValue: false, subParams: [ParamInfo(0, msgParam17, boolValue: false)]),
   ];
 
   @override
@@ -95,6 +98,8 @@ class PrintDailyLog extends BaseProfile {
     showChanges = params[9].boolValue;
     showChangesColumn = params[9].subParams[0].boolValue;
     showCalibration = params[10].boolValue;
+    showDupes = params[11].boolValue;
+    showOnlyDupes = params[11].subParams[0].boolValue;
   }
 
   @override
@@ -118,6 +123,8 @@ class PrintDailyLog extends BaseProfile {
   static String get msgParam13 => Intl.message("Kalibrierung und blutige Messungen");
   static String get msgParam14 => Intl.message("Details des Profilwechsels");
   static String get msgParam15 => Intl.message("Dauer mit Minutenbruchteil");
+  static String get msgParam16 => Intl.message("Mehrfache Datensätze kennzeichnen");
+  static String get msgParam17 => Intl.message("Nur mehrfache Datensätze anzeigen");
 
   @override
   List<String> get imgList => ["nightscout", "katheter.print", "sensor.print", "ampulle.print", "battery.print"];
@@ -175,6 +182,14 @@ class PrintDailyLog extends BaseProfile {
     if (_hasData) {
       _page.add(headerFooter());
       _page.add(getTable(tableWidths, _body));
+      pages.add(Page(isPortrait, _page));
+    } else {
+      _page.add(headerFooter());
+      if (showDupes && showOnlyDupes)
+        _page.add({
+          "relativePosition": {"x": cm(2.2), "y": cm(yorg)},
+          "text": "Es gibt keine mehrfachen Datensätze."
+        });
       pages.add(Page(isPortrait, _page));
     }
     if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
@@ -275,6 +290,8 @@ class PrintDailyLog extends BaseProfile {
         String line = list[i];
         if (text.endsWith("]"))
           text = "${text} ${line}";
+        else if (text.endsWith("@"))
+          text = "${text.substring(0, text.length - 1)} ${line}";
         else
           text = "${text}, ${line}";
       }
@@ -430,6 +447,8 @@ class PrintDailyLog extends BaseProfile {
 
   fillList(bool showTime, ReportData src, DayData day, TreatmentData t, List<String> list, Flags flags) {
     int lastIdx = list.length;
+    if (showDupes && showOnlyDupes && t.duplicates < 2) return;
+
     String type = t.eventType.toLowerCase();
     if (showNotes && t.notes != null && t.notes.isNotEmpty && !type.startsWith("nr-"))
       list.add("${t.notes.replaceAll("<br>", "\n")}");
@@ -444,8 +463,15 @@ class PrintDailyLog extends BaseProfile {
           case "Bolus Wizard":
             text = msgBolusWizard;
             break;
+          default:
+            if (t.insulinInjections.length > 0) {
+              text = null;
+              for (InsulinInjectionData entry in t.insulinInjections)
+                list.add("${entry.insulin} ${entry.units} ${msgInsulinUnit}");
+            }
+            break;
         }
-        list.add("${text} ${t.insulin} ${msgInsulinUnit}");
+        if (text != null) list.add("${text} ${t.insulin} ${msgInsulinUnit}");
       } else {
         list.add("${t.insulin} ${msgInsulinUnit}");
       }
@@ -510,9 +536,12 @@ class PrintDailyLog extends BaseProfile {
 
     if (t.isBloody) _bloodValue = t.glucose;
 
-    if (list.length != lastIdx && showTime && groupMinutes > 1) {
-      String time = "[${fmtTime(t.createdAt)}]";
-      if (lastIdx < 2 || list[lastIdx - 2] != time) list.insert(lastIdx, time);
+    if (list.length != lastIdx) {
+      if (showDupes && t.duplicates > 1) list.insert(lastIdx, "${t.duplicates} x @");
+      if (list.length != lastIdx && showTime && groupMinutes > 1) {
+        String time = "[${fmtTime(t.createdAt)}]";
+        if (lastIdx < 2 || list[lastIdx - 2] != time) list.insert(lastIdx, time);
+      }
     }
   }
 

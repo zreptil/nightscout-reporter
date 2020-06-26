@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-06-12T11:12:34.375480",
+    "@@last_modified": "2020-06-26T14:31:12.612698",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -108,6 +108,16 @@
     },
     "Vergleich": "Comparación",
     "@Vergleich": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bezeichnung": "Bezeichnung",
+    "@Bezeichnung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Hinzufügen": "Hinzufügen",
+    "@Hinzufügen": {
         "type": "text",
         "placeholders": {}
     },
@@ -312,6 +322,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Zeitraum festlegen": "Determinar periodo",
+    "@Zeitraum festlegen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Der Zeitraum enthält keine auswertbaren Tage": "El período no contiene días evaluables",
     "@Der Zeitraum enthält keine auswertbaren Tage": {
         "description": "title for datepicker dialog when period empty",
@@ -325,11 +340,6 @@
     },
     "Das Enddatum ist nicht korrekt": "La fecha final no es correcta",
     "@Das Enddatum ist nicht korrekt": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zeitraum festlegen": "Determinar periodo",
-    "@Zeitraum festlegen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1783,6 +1793,16 @@
         "type": "text",
         "placeholders": {}
     },
+    "Mehrfache Datensätze kennzeichnen": "Mehrfache Datensätze kennzeichnen",
+    "@Mehrfache Datensätze kennzeichnen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nur mehrfache Datensätze anzeigen": "Nur mehrfache Datensätze anzeigen",
+    "@Nur mehrfache Datensätze anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgLogTempTarget": "objetivo temporal {target} para {duration} min, razon: {reason}",
     "@msgLogTempTarget": {
         "type": "text",
@@ -1924,6 +1944,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Es sind keine Daten vorhanden.": "Es sind keine Daten vorhanden.",
+    "@Es sind keine Daten vorhanden.": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Wochengrafik": "Grafico semanal",
     "@Wochengrafik": {
         "type": "text",
@@ -1942,6 +1967,11 @@
             "high": {},
             "unit": {}
         }
+    },
+    "CGP immer mit Standard Zielbereich": "CGP siempre con objetivos de glucosa estándar",
+    "@CGP immer mit Standard Zielbereich": {
+        "type": "text",
+        "placeholders": {}
     },
     "Automatisch": "Automático",
     "@Automatisch": {
@@ -1983,6 +2013,23 @@
         "type": "text",
         "placeholders": {
             "url": {}
+        }
+    },
+    "Shortcut anlegen": "Shortcut anlegen",
+    "@Shortcut anlegen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Shortcut ändern": "Shortcut ändern",
+    "@Shortcut ändern": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgFormsText": "{count,plural, =0{}=1{1 Formular}other{{count} Formulare}}",
+    "@msgFormsText": {
+        "type": "text",
+        "placeholders": {
+            "count": {}
         }
     },
     "Willkommen": "Bienvenido",
@@ -2075,6 +2122,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Google Assistant": "Google Assistant",
+    "@Google Assistant": {
+        "description": "title of nightscout status",
+        "type": "text",
+        "placeholders": {}
+    },
     "Nightscout Seite": "Página Nightscout",
     "@Nightscout Seite": {
         "description": "title of nightscout page",
@@ -2153,7 +2206,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "zu Vergleichszwecken (z.B. Arzt)": "zu Vergleichszwecken (z.B. Arzt)",
+    "zu Vergleichszwecken (z.B. Arzt)": "para comparaciónes (p.e. médicos)",
     "@zu Vergleichszwecken (z.B. Arzt)": {
         "description": "label for comparative purposes",
         "type": "text",
@@ -2207,7 +2260,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": "Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)",
+    "Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": "Esconder datos que revelan el bucle cerrado (ignorar señal de las opciones en otro color)",
     "@Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": {
         "description": "label for checkbox to hide loop data",
         "type": "text",
@@ -2291,6 +2344,48 @@
         "type": "text",
         "placeholders": {}
     },
+    "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.",
+    "@Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": {
+        "description": "info text for shortcuts",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Löschen": "Löschen",
+    "@Löschen": {
+        "description": "buttonlabel for deleting data",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll der Shortcut mit der Bezeichnung": "Soll der Shortcut mit der Bezeichnung",
+    "@Soll der Shortcut mit der Bezeichnung": {
+        "description": "should the shortcut with name",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll der Zeitraum": "Soll der Zeitraum",
+    "@Soll der Zeitraum": {
+        "description": "should the period",
+        "type": "text",
+        "placeholders": {}
+    },
+    "mit dem Zeitraum": "mit dem Zeitraum",
+    "@mit dem Zeitraum": {
+        "description": "with period",
+        "type": "text",
+        "placeholders": {}
+    },
+    "ersetzt werden?": "ersetzt werden?",
+    "@ersetzt werden?": {
+        "description": "be replaced",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?",
+    "@Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": {
+        "description": "should the forms be replaced with current forms",
+        "type": "text",
+        "placeholders": {}
+    },
     "Willkommen bei Nightscout Reporter!": "Bienvenido a Nightscout Reporter!",
     "@Willkommen bei Nightscout Reporter!": {
         "description": "welcome title",
@@ -2333,13 +2428,49 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.5.0 - xx.6.2020": "1.5.0 - xx.6.2020",
+    "@1.5.0 - xx.6.2020": {
+        "description": "v150",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.",
+    "@Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": {
+        "description": "v150a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.",
+    "@Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": {
+        "description": "v150a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.9 - 16.6.2020": "1.4.9 - 16.6.2020",
+    "@1.4.9 - 16.6.2020": {
+        "description": "v149",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.": "En el diálogo de parámetros de visualización ahora existe la posibilidad de crear el CGP con valores de objetivos de glucosa estándar. Esta opción está seleccionada desde el principio, por que se trata de un documento estándar que permite comparaciónes. Puedes desactivarlo para tu propio fin. Esta opción quedará seleccionada.",
+    "@Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.": {
+        "description": "v149a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.": "Al recompilar los perfiles alguna vez se ha ignorado el último perfil. Esto ha sido corregido.",
+    "@Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.": {
+        "description": "v149f1",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.4.8 - 12.6.2020": "1.4.8 - 12.6.2020",
     "@1.4.8 - 12.6.2020": {
         "description": "v148",
         "type": "text",
         "placeholders": {}
     },
-    "Im Dialog der Ausgabe Parameter wurde rechts oben der Schieberegler \"zu Vergleichszwecken\" hinzugefügt. Wenn dieser aktiviert ist, dann wird überall der Standard Zielbereich verwendet. Intern wird das auch noch für andere Anpassungen verwendet. Diese Option ist dafür gedacht, dass man seine Ausdrucke mit anderen Diabetikern vergleichen kann. Das ist zum Beispiel zur Vorlage bei Ärzten und Diabetesberatern sinnvoll.": "Im Dialog der Ausgabe Parameter wurde rechts oben der Schieberegler \"zu Vergleichszwecken\" hinzugefügt. Wenn dieser aktiviert ist, dann wird überall der Standard Zielbereich verwendet. Intern wird das auch noch für andere Anpassungen verwendet. Diese Option ist dafür gedacht, dass man seine Ausdrucke mit anderen Diabetikern vergleichen kann. Das ist zum Beispiel zur Vorlage bei Ärzten und Diabetesberatern sinnvoll.",
+    "Im Dialog der Ausgabe Parameter wurde rechts oben der Schieberegler \"zu Vergleichszwecken\" hinzugefügt. Wenn dieser aktiviert ist, dann wird überall der Standard Zielbereich verwendet. Intern wird das auch noch für andere Anpassungen verwendet. Diese Option ist dafür gedacht, dass man seine Ausdrucke mit anderen Diabetikern vergleichen kann. Das ist zum Beispiel zur Vorlage bei Ärzten und Diabetesberatern sinnvoll.": "En el diálogo de expedición se ha añadido a la derecha el botón \"para comparación\". Acitivandolo se usan en todos los informes los valores estándar para los objetivos de glucosa. También se usa para ajustes internos. Esta opción quiere ayudar a comparar los datos con otros diabeticos. Esto es útil para médicos y sus consejeros.",
     "@Im Dialog der Ausgabe Parameter wurde rechts oben der Schieberegler \"zu Vergleichszwecken\" hinzugefügt. Wenn dieser aktiviert ist, dann wird überall der Standard Zielbereich verwendet. Intern wird das auch noch für andere Anpassungen verwendet. Diese Option ist dafür gedacht, dass man seine Ausdrucke mit anderen Diabetikern vergleichen kann. Das ist zum Beispiel zur Vorlage bei Ärzten und Diabetesberatern sinnvoll.": {
         "description": "v148a1",
         "type": "text",

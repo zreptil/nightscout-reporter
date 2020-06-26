@@ -155,6 +155,10 @@ material-input {
 
 @include material-checkbox-color(var(--printparamsHeaderBack), $modifier: '.pp');
 
+.indent {
+  margin-left: 2em;
+}
+
 .selectButton {
   background: var(--printparamsHeaderBack);
   color: var(--printparamsHeaderFore);

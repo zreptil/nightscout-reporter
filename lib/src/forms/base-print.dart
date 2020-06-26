@@ -226,6 +226,7 @@ abstract class BasePrint {
   String id;
   String title;
   String subtitle = null;
+  bool needsUserData = false;
   String get display {
     String ret = title; //g.canDebug && pageCount > 0 ? "$title [ $pageCount ]" : title;
     if (isLocalOnly) ret = "$ret (local)";
@@ -986,7 +987,7 @@ abstract class BasePrint {
   }
 
   hasData(ReportData src) {
-    return src.dayCount > 0 && src.data.countValid > 0;
+    return (src.dayCount > 0 && src.data.countValid > 0) || needsUserData;
   }
 
   Page getEmptyForm(bool isPortrait) {

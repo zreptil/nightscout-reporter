@@ -68,7 +68,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = "1.4.8";
+  String version = "1.5.0";
   static String get msgThemeAuto => Intl.message("Automatisch", meaning: "theme selection - automatic");
   static String get msgThemeStandard => Intl.message("Standard", meaning: "theme selection - standard");
   static String get msgThemeXmas => Intl.message("Weihnachten", meaning: "theme selection - christmas");
@@ -188,6 +188,7 @@ class Settings {
     savePdfOrder();
   }
 
+  List<ShortcutData> shortcutList = List<ShortcutData>();
   List<UserData> userList = List<UserData>();
   String get userDisplay => user.display;
   int _userIdx = 0;
@@ -233,11 +234,14 @@ class Settings {
   }
 
   String get asJson {
-    String save = "";
-    for (int i = 0; i < userList.length; i++) save = "${save},${userList[i].asJson}";
+    String users = "";
+    for (int i = 0; i < userList.length; i++) users = "${users},${userList[i].asJson}";
+    String shortcuts = "";
+    for (int i = 0; i < shortcutList.length; i++) shortcuts = "${shortcuts},${shortcutList[i].asJson}";
     return '{'
         '"version":"$version"'
-        ',"mu":"${Settings.doit('[${save.substring(1)}]')}"'
+        ',"mu":"${Settings.doit('[${users.substring(1)}]')}"'
+        ',"sc":"${Settings.doit('[${shortcuts.substring(1)}]')}"'
         ',"userIdx":"${userIdx}"'
         ',"glucMGDL":"${glucMGDL}"'
         ',"language":"${language.code ?? 'de_DE'}"'
@@ -257,6 +261,7 @@ class Settings {
         '"version":"${loadStorage('version')}"'
         ',"userIdx":"${loadStorage('userIdx')}"'
         ',"mu":"${loadStorage('mu')}"'
+        ',"sc":"${loadStorage('sc')}"'
         ',"glucMGDL":"${loadStorage('glucMGDL')}"'
         ',"language":"${loadStorage('language')}"'
         ',"pdfCreationMaxSize":"${loadStorage('pdfCreationMaxSize')}"'
@@ -304,6 +309,8 @@ class Settings {
         var text = tiod(users);
         if (text != null && text.isNotEmpty) {
           try {
+//            String tmp = text;
+//            tmp = tmp.replaceAll("}\"r\":", "},\"r\":");
             var list = convert.json.decode(text);
             for (var entry in list) userList.add(UserData.fromData(this, entry));
           } catch (e) {
@@ -315,6 +322,20 @@ class Settings {
       }
       userList.sort((a, b) => a.display.compareTo(b.display));
       userIdx = JsonData.toInt(cfg["userIdx"]);
+      String shortcuts = cfg["sc"];
+      shortcutList.clear();
+      // get user list from mu if available
+      if (shortcuts != null) {
+        var text = tiod(shortcuts);
+        if (text != null && text.isNotEmpty) {
+          try {
+            var list = convert.json.decode(text);
+            for (var entry in list) shortcutList.add(ShortcutData.fromData(this, entry));
+          } catch (e) {
+            String t = e.toString();
+          }
+        } else {}
+      }
     } catch (ex) {
 //      String msg = ex.toString();
     }
@@ -353,6 +374,8 @@ class Settings {
 }
 
 class Globals extends Settings {
+  int currShortcutIdx = -1;
+  ShortcutData currShortcut = null;
   int _pdfCreationMaxSize = 400000;
 
   bool _ppStandardLimits = false;
@@ -360,6 +383,8 @@ class Globals extends Settings {
   set ppStandardLimits(bool value) {
     if (!ppComparable) _ppStandardLimits = value;
   }
+
+  bool ppCGPAlwaysStandardLimits = true;
 
   bool ppComparable = false;
   int ppGlucMaxIdx = 0;
@@ -393,6 +418,7 @@ class Globals extends Settings {
     ppHideLoopData = loadStorage('ppHideLoopData') == "true";
     pdfCreationMaxSize = JsonData.toInt(loadStorage('pdfCreationMaxSize'));
     ppStandardLimits = loadStorage('ppStandardLimits') == "true";
+    ppCGPAlwaysStandardLimits = loadStorage('ppCGPAlwaysStandardLimits') == "true";
     ppComparable = loadStorage('ppComparable') == "true";
     ppLatestFirst = loadStorage('ppLatestFirst') == "true";
     ppGlucMaxIdx = JsonData.toInt(loadStorage('ppGlucMaxIdx'));
@@ -612,13 +638,16 @@ class Globals extends Settings {
     return url;
   }
 
-  Future<String> request(String url, {String method = "GET"}) async {
+  Future<String> request(String url, {String method = "GET", bool showError = true}) async {
     http.BrowserClient client = http.BrowserClient();
     return client.get(adjustUrl(url)).then((response) {
       return response.body;
     }).catchError((error) {
-      showDebug(error.toString());
-      return error.toString();
+      if (showError) {
+        showDebug(error.toString());
+        return error.toString();
+      }
+      return null;
     });
   }
 
@@ -847,8 +876,18 @@ class Globals extends Settings {
     _initAfterLoad();
   }
 
+  void refresh() {
+    _initAfterLoad();
+  }
+
   void _initAfterLoad() {
     changeLanguage(language, doReload: false);
+    updatePeriod(period);
+    isConfigured = lastVersion != null && lastVersion.isNotEmpty;
+  }
+
+  updatePeriod(DatepickerPeriod period) {
+    period.maxDate = Date.today();
     period.list.clear();
     period.list.add(DatepickerEntry("today", msgToday, (DatepickerPeriod data) {
       data.start = Date.today();
@@ -898,7 +937,6 @@ class Globals extends Settings {
     }, (Date date) {
       return date.add(months: -3);
     }));
-    isConfigured = lastVersion != null && lastVersion.isNotEmpty;
   }
 
   String fmtBasal(num value, {bool dontRound: false}) {
@@ -953,7 +991,9 @@ class Globals extends Settings {
     String save = "";
     for (int i = 0; i < userList.length; i++) save = "${save},${userList[i].asJson}";
     saveStorage("mu", Settings.doit("[${save.substring(1)}]"));
-
+    save = "";
+    for (int i = 0; i < shortcutList.length; i++) save = "${save},${shortcutList[i].asJson}";
+    saveStorage("sc", Settings.doit("[${save.substring(1)}]"));
     saveStorage("userIdx", "$userIdx");
     bool doReload = (language.code != oldLang && language.code != null) && !skipReload;
     saveStorage("glucMGDL", glucMGDL.toString());
@@ -964,6 +1004,7 @@ class Globals extends Settings {
     saveStorage("ppHideLoopData", ppHideLoopData ? "true" : "false");
     saveStorage("pdfCreationMaxSize", "${pdfCreationMaxSize}");
     saveStorage("ppStandardLimits", _ppStandardLimits ? "true" : "false");
+    saveStorage("ppCGPAlwaysStandardLimits", ppCGPAlwaysStandardLimits ? "true" : "false");
     saveStorage("ppComparable", ppComparable ? "true" : "false");
     saveStorage("ppLatestFirst", ppLatestFirst ? "true" : "false");
     saveStorage("ppGlucMaxIdx", ppGlucMaxIdx?.toString() ?? 0);
@@ -1012,6 +1053,16 @@ class Globals extends Settings {
     } catch (ex) {}
     return false;
   }
+
+  void saveShortcuts() {
+    if (currShortcutIdx < 0 && currShortcut != null)
+      shortcutList.add(currShortcut);
+    else
+      shortcutList[currShortcutIdx] = currShortcut.copy;
+    currShortcut = null;
+    currShortcutIdx = -1;
+    save();
+  }
 }
 
 class UrlData {
@@ -1032,6 +1083,8 @@ class UserData {
   dynamic formParams = {};
   String diaStartDate = "";
   String insulin = "";
+  StatusData status = null;
+  bool isReachable = true;
 
   UserData(this.g);
 
@@ -1056,7 +1109,8 @@ class UserData {
         '"dd":"${diaStartDate ?? ''}",'
         '"i":"${insulin ?? ''}",'
         '"c":${convert.json.encode(customData)},'
-        '"f":${convert.json.encode(forms)}'
+        '"f":${convert.json.encode(forms)},'
+        '"r":${isReachable ? 'true' : 'false'}'
         '}';
   }
 
@@ -1071,6 +1125,10 @@ class UserData {
       ret.token = data["ut"];
       ret.customData = data["c"];
       ret.formParams = data["f"];
+      if (data["r"] != null)
+        ret.isReachable = data["r"];
+      else
+        ret.isReachable = true;
       if (ret.formParams != null && ret.formParams["analysis"] is bool) ret.formParams = {};
     } catch (ex) {}
     return ret;
@@ -1115,6 +1173,62 @@ class UserData {
     }).catchError((err) {
       ret = g.msgUrlFailure(check);
     });
+    return ret;
+  }
+}
+
+class ShortcutData {
+  Globals g;
+  String name;
+  String periodData;
+  String periodText;
+  String icon = "attach_file";
+  Map<String, dynamic> forms = Map<String, dynamic>();
+  String get formData => convert.json.encode(forms);
+
+  get copy {
+    ShortcutData ret = ShortcutData(g)
+      ..name = name
+      ..periodData = periodData
+      ..periodText = periodText
+      ..icon = icon;
+
+    ret.forms = Map<String, dynamic>();
+    for (int i = 0; i < forms.keys.length; i++) ret.forms[forms.keys.elementAt(i)] = forms[forms.keys.elementAt(i)];
+    return ret;
+  }
+
+  loadCurrentForms() {
+    forms = Map<String, dynamic>();
+    for (FormConfig cfg in g.listConfig) {
+      if (cfg.checked) forms[cfg.form.id] = cfg.asJson;
+    }
+  }
+
+  ShortcutData(this.g) {
+    periodData = g.period.toString();
+    periodText = g.period.display;
+    loadCurrentForms();
+  }
+
+  String get asJson {
+    return '{'
+        '"n":"$name",'
+        '"p":"$periodData",'
+        '"f":$formData'
+        '}';
+  }
+
+  static ShortcutData fromData(Globals g, var data) {
+    ShortcutData ret = ShortcutData(g);
+    try {
+      ret.name = data["n"];
+      ret.periodData = data["p"];
+      ret.forms = data["f"];
+      DatepickerPeriod period = DatepickerPeriod(src: ret.periodData);
+      g.updatePeriod(period);
+      ret.periodText = period.display;
+    } catch (ex) {}
     return ret;
   }
 }
