@@ -353,7 +353,7 @@ class PrintCGP extends BasePrint {
           ],
           [
             {"text": PentagonData.msgTOR(g.fmtNumber(cgp["tor"]))},
-            {"text": PentagonData.msgTORInfo("${cgp["low"]} ${unit}", "${cgp["high"]} ${unit}")},
+            {"text": PentagonData.msgTORInfo("${g.glucFromData(cgp["low"])} ${unit}", "${g.glucFromData(cgp["high"])} ${unit}")},
           ],
           [
             {"text": PentagonData.msgCV(g.fmtNumber(cgp["vark"]))},
@@ -361,11 +361,11 @@ class PrintCGP extends BasePrint {
           ],
           [
             {"text": PentagonData.msgHYPO(unit, g.glucFromData(cgp["hypo"]))},
-            {"text": PentagonData.msgHYPOInfo("${cgp["low"]} ${unit}")}
+            {"text": PentagonData.msgHYPOInfo("${g.glucFromData(cgp["low"])} ${unit}")}
           ],
           [
             {"text": PentagonData.msgHYPER(unit, g.glucFromData(cgp["hyper"]))},
-            {"text": PentagonData.msgHYPERInfo("${cgp["high"]} ${unit}")}
+            {"text": PentagonData.msgHYPERInfo("${g.glucFromData(cgp["high"])} ${unit}")}
           ],
           [
             {"text": PentagonData.msgMEAN(unit, g.glucFromData(cgp["mean"]))},
