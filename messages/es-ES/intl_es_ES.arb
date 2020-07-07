@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-04-20T12:31:22.313205",
+    "@@last_modified": "2020-06-26T14:31:12.612698",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -108,6 +108,16 @@
     },
     "Vergleich": "Comparación",
     "@Vergleich": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bezeichnung": "Bezeichnung",
+    "@Bezeichnung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Hinzufügen": "Hinzufügen",
+    "@Hinzufügen": {
         "type": "text",
         "placeholders": {}
     },
@@ -312,6 +322,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Zeitraum festlegen": "Determinar periodo",
+    "@Zeitraum festlegen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Der Zeitraum enthält keine auswertbaren Tage": "El período no contiene días evaluables",
     "@Der Zeitraum enthält keine auswertbaren Tage": {
         "description": "title for datepicker dialog when period empty",
@@ -325,11 +340,6 @@
     },
     "Das Enddatum ist nicht korrekt": "La fecha final no es correcta",
     "@Das Enddatum ist nicht korrekt": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zeitraum festlegen": "Determinar periodo",
-    "@Zeitraum festlegen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1593,11 +1603,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Neuester Tag zuerst": "Empezando con el dia reciente",
-    "@Neuester Tag zuerst": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Tabelle mit Glukosewerten": "Tabla con valores glucosa",
     "@Tabelle mit Glukosewerten": {
         "type": "text",
@@ -1680,6 +1685,11 @@
     },
     "Bewegung": "Actividad",
     "@Bewegung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Blutige Messung": "Prueba de glucosa en sangre",
+    "@Blutige Messung": {
         "type": "text",
         "placeholders": {}
     },
@@ -1783,6 +1793,16 @@
         "type": "text",
         "placeholders": {}
     },
+    "Mehrfache Datensätze kennzeichnen": "Mehrfache Datensätze kennzeichnen",
+    "@Mehrfache Datensätze kennzeichnen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nur mehrfache Datensätze anzeigen": "Nur mehrfache Datensätze anzeigen",
+    "@Nur mehrfache Datensätze anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgLogTempTarget": "objetivo temporal {target} para {duration} min, razon: {reason}",
     "@msgLogTempTarget": {
         "type": "text",
@@ -1792,7 +1812,7 @@
             "reason": {}
         }
     },
-    "Aufhebung von temp. Ziel": "Aufhebung von temp. Ziel",
+    "Aufhebung von temp. Ziel": "Anulación de objetivos temp",
     "@Aufhebung von temp. Ziel": {
         "type": "text",
         "placeholders": {}
@@ -1805,8 +1825,24 @@
             "duration": {}
         }
     },
+    "msgLogTempBasalAbsolute": "basal temp. {value} / {duration} min",
+    "@msgLogTempBasalAbsolute": {
+        "type": "text",
+        "placeholders": {
+            "value": {},
+            "duration": {}
+        }
+    },
     "msgLogSMB": "SMB {insulin} {unit}",
     "@msgLogSMB": {
+        "type": "text",
+        "placeholders": {
+            "insulin": {},
+            "unit": {}
+        }
+    },
+    "msgLogMicroBolus": "Micro bolo {insulin} {unit}",
+    "@msgLogMicroBolus": {
         "type": "text",
         "placeholders": {
             "insulin": {},
@@ -1908,13 +1944,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Wochengrafik": "Grafico semanal",
-    "@Wochengrafik": {
+    "Es sind keine Daten vorhanden.": "Es sind keine Daten vorhanden.",
+    "@Es sind keine Daten vorhanden.": {
         "type": "text",
         "placeholders": {}
     },
-    "Neueste Woche zuerst": "Empezar con semana reciente",
-    "@Neueste Woche zuerst": {
+    "Wochengrafik": "Grafico semanal",
+    "@Wochengrafik": {
         "type": "text",
         "placeholders": {}
     },
@@ -1932,12 +1968,22 @@
             "unit": {}
         }
     },
+    "CGP immer mit Standard Zielbereich": "CGP siempre con objetivos de glucosa estándar",
+    "@CGP immer mit Standard Zielbereich": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Automatisch": "Automático",
     "@Automatisch": {
         "type": "text",
         "placeholders": {}
     },
-    "Aus den Profilen ermitteln": "Aus den Profilen ermitteln",
+    "Neuester Tag zuerst": "Empezando con el dia reciente",
+    "@Neuester Tag zuerst": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Aus den Profilen ermitteln": "Calculado por los perfiles",
     "@Aus den Profilen ermitteln": {
         "type": "text",
         "placeholders": {}
@@ -1967,6 +2013,23 @@
         "type": "text",
         "placeholders": {
             "url": {}
+        }
+    },
+    "Shortcut anlegen": "Shortcut anlegen",
+    "@Shortcut anlegen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Shortcut ändern": "Shortcut ändern",
+    "@Shortcut ändern": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgFormsText": "{count,plural, =0{}=1{1 Formular}other{{count} Formulare}}",
+    "@msgFormsText": {
+        "type": "text",
+        "placeholders": {
+            "count": {}
         }
     },
     "Willkommen": "Bienvenido",
@@ -2059,6 +2122,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Google Assistant": "Google Assistant",
+    "@Google Assistant": {
+        "description": "title of nightscout status",
+        "type": "text",
+        "placeholders": {}
+    },
     "Nightscout Seite": "Página Nightscout",
     "@Nightscout Seite": {
         "description": "title of nightscout page",
@@ -2137,15 +2206,39 @@
         "type": "text",
         "placeholders": {}
     },
+    "zu Vergleichszwecken (z.B. Arzt)": "para comparaciónes (p.e. médicos)",
+    "@zu Vergleichszwecken (z.B. Arzt)": {
+        "description": "label for comparative purposes",
+        "type": "text",
+        "placeholders": {}
+    },
     "Maximaler Glukosewert in Grafiken:": "Valor máximo de glucosa en gráfico:",
     "@Maximaler Glukosewert in Grafiken:": {
         "description": "label for max glucvalue in printparams",
         "type": "text",
         "placeholders": {}
     },
-    "Genauigkeit der Basalangaben:": "Genauigkeit der Basalangaben:",
+    "Genauigkeit der Basalangaben:": "Exactitud de los datos del perfil basal:",
     "@Genauigkeit der Basalangaben:": {
         "description": "label for max basalprecision in printparams",
+        "type": "text",
+        "placeholders": {}
+    },
+    "PDF im selben Fenster öffnen": "Abrir PDF en la misma ventana",
+    "@PDF im selben Fenster öffnen": {
+        "description": "label for checkbox to open PDF in same window",
+        "type": "text",
+        "placeholders": {}
+    },
+    "PDF herunterladen (bei einigen Browsern benötigt)": "Descargar PDF (necesario para algunos navegadores)",
+    "@PDF herunterladen (bei einigen Browsern benötigt)": {
+        "description": "label for checkbox to download PDF",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Esconder notas sobre Nightscout en el encabezado y el pie del PDF",
+    "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
+        "description": "label for checkbox to hide nightscout in footer",
         "type": "text",
         "placeholders": {}
     },
@@ -2167,6 +2260,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": "Esconder datos que revelan el bucle cerrado (ignorar señal de las opciones en otro color)",
+    "@Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": {
+        "description": "label for checkbox to hide loop data",
+        "type": "text",
+        "placeholders": {}
+    },
     "Anzeigeeinstellungen": "Configuración de pantalla",
     "@Anzeigeeinstellungen": {
         "description": "label of area for display setting",
@@ -2182,24 +2281,6 @@
     "Zusatzfunktionen": "Funciones adicionales",
     "@Zusatzfunktionen": {
         "description": "label of area for additional functions",
-        "type": "text",
-        "placeholders": {}
-    },
-    "PDF im selben Fenster öffnen": "Abrir PDF en la misma ventana",
-    "@PDF im selben Fenster öffnen": {
-        "description": "label for checkbox to open PDF in same window",
-        "type": "text",
-        "placeholders": {}
-    },
-    "PDF herunterladen (bei einigen Browsern benötigt)": "Descargar PDF (necesario para algunos navegadores)",
-    "@PDF herunterladen (bei einigen Browsern benötigt)": {
-        "description": "label for checkbox to download PDF",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Esconder notas sobre Nightscout en el encabezado y el pie del PDF",
-    "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
-        "description": "label for checkbox to hide nightscout in footer",
         "type": "text",
         "placeholders": {}
     },
@@ -2263,6 +2344,48 @@
         "type": "text",
         "placeholders": {}
     },
+    "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.",
+    "@Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": {
+        "description": "info text for shortcuts",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Löschen": "Löschen",
+    "@Löschen": {
+        "description": "buttonlabel for deleting data",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll der Shortcut mit der Bezeichnung": "Soll der Shortcut mit der Bezeichnung",
+    "@Soll der Shortcut mit der Bezeichnung": {
+        "description": "should the shortcut with name",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll der Zeitraum": "Soll der Zeitraum",
+    "@Soll der Zeitraum": {
+        "description": "should the period",
+        "type": "text",
+        "placeholders": {}
+    },
+    "mit dem Zeitraum": "mit dem Zeitraum",
+    "@mit dem Zeitraum": {
+        "description": "with period",
+        "type": "text",
+        "placeholders": {}
+    },
+    "ersetzt werden?": "ersetzt werden?",
+    "@ersetzt werden?": {
+        "description": "be replaced",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?",
+    "@Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": {
+        "description": "should the forms be replaced with current forms",
+        "type": "text",
+        "placeholders": {}
+    },
     "Willkommen bei Nightscout Reporter!": "Bienvenido a Nightscout Reporter!",
     "@Willkommen bei Nightscout Reporter!": {
         "description": "welcome title",
@@ -2305,6 +2428,102 @@
         "type": "text",
         "placeholders": {}
     },
+    "1.5.0 - xx.6.2020": "1.5.0 - xx.6.2020",
+    "@1.5.0 - xx.6.2020": {
+        "description": "v150",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.",
+    "@Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": {
+        "description": "v150a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.",
+    "@Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": {
+        "description": "v150a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.9 - 16.6.2020": "1.4.9 - 16.6.2020",
+    "@1.4.9 - 16.6.2020": {
+        "description": "v149",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.": "En el diálogo de parámetros de visualización ahora existe la posibilidad de crear el CGP con valores de objetivos de glucosa estándar. Esta opción está seleccionada desde el principio, por que se trata de un documento estándar que permite comparaciónes. Puedes desactivarlo para tu propio fin. Esta opción quedará seleccionada.",
+    "@Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese Einstellung wird dann auch beibehalten.": {
+        "description": "v149a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.": "Al recompilar los perfiles alguna vez se ha ignorado el último perfil. Esto ha sido corregido.",
+    "@Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.": {
+        "description": "v149f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.8 - 12.6.2020": "1.4.8 - 12.6.2020",
+    "@1.4.8 - 12.6.2020": {
+        "description": "v148",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Dialog der Ausgabe Parameter wurde rechts oben der Schieberegler \"zu Vergleichszwecken\" hinzugefügt. Wenn dieser aktiviert ist, dann wird überall der Standard Zielbereich verwendet. Intern wird das auch noch für andere Anpassungen verwendet. Diese Option ist dafür gedacht, dass man seine Ausdrucke mit anderen Diabetikern vergleichen kann. Das ist zum Beispiel zur Vorlage bei Ärzten und Diabetesberatern sinnvoll.": "En el diálogo de expedición se ha añadido a la derecha el botón \"para comparación\". Acitivandolo se usan en todos los informes los valores estándar para los objetivos de glucosa. También se usa para ajustes internos. Esta opción quiere ayudar a comparar los datos con otros diabeticos. Esto es útil para médicos y sus consejeros.",
+    "@Im Dialog der Ausgabe Parameter wurde rechts oben der Schieberegler \"zu Vergleichszwecken\" hinzugefügt. Wenn dieser aktiviert ist, dann wird überall der Standard Zielbereich verwendet. Intern wird das auch noch für andere Anpassungen verwendet. Diese Option ist dafür gedacht, dass man seine Ausdrucke mit anderen Diabetikern vergleichen kann. Das ist zum Beispiel zur Vorlage bei Ärzten und Diabetesberatern sinnvoll.": {
+        "description": "v148a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.7 - 5.6.2020": "1.4.7 - 5.6.2020",
+    "@1.4.7 - 5.6.2020": {
+        "description": "v147",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.": "En los parámetros de edición ahora se puede definir si siempre se muestra el actual día como primero. Esto efectúa el gráfico diario, los informes diarios y los informes semanales. En las opciones del formulario se han borrado las opciones correspondientes.",
+    "@In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.": {
+        "description": "v147c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.": "Las opiniones para abrir el PDF en la misma ventana, para guardar el PDF y la referencia a Nightscout en el PDF hab sido integrados en los parámetros de edición. Así es posible cambiarlo rápidamente con cada impreso.",
+    "@Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.": {
+        "description": "v147c2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Überschrift über der Tabelle vom Glucose Perzentil Diagramm wurde korrigiert.": "El título de la tabla del percentil de glucosa ha sido corregido.",
+    "@Die Überschrift über der Tabelle vom Glucose Perzentil Diagramm wurde korrigiert.": {
+        "description": "v147f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "1.4.6 - 26.5.2020": "1.4.6 - 26.5.2020",
+    "@1.4.6 - 26.5.2020": {
+        "description": "v146",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": "En la leyenda del gráfico diario se ha añadido la información sobre medidas de glucosa en sangre.",
+    "@Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.": {
+        "description": "v146a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": "Los micro bolos del Minimed 600 Uploader se han borrado de la emisión, pou que se trata sólo de bases basales temporales.",
+    "@Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich dabei nur um Temporäre Basalraten handelt.": {
+        "description": "v146f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert.": "Un posible error al crear el CGP en el gráfico diario se ha corregido.",
+    "@Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert.": {
+        "description": "v146f2",
+        "type": "text",
+        "placeholders": {}
+    },
     "1.4.5 - 20.4.2020": "1.4.5 - 20.4.2020",
     "@1.4.5 - 20.4.2020": {
         "description": "v145",
@@ -2317,19 +2536,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.",
+    "Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": "La exactitud de los datos ISF en el perfil ha sido corregido.",
     "@Die Genauigkeit der ISF Angaben im Profil wurde korrigiert.": {
         "description": "v145f1",
         "type": "text",
         "placeholders": {}
     },
-    "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.",
+    "Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": "En el protocolo un perfil temporal de 0 UI por 0 minutos se declararán como \"cancelación de perfil temporal\".",
     "@Im Protokoll werden die Angaben, die ein temporäres Ziel von 0 IE für 0 Minuten setzen als \"Aufhebung von temp. Ziel\" ausgegeben.": {
         "description": "v145f2",
         "type": "text",
         "placeholders": {}
     },
-    "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.",
+    "Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": "En el CGP se han corregido varias cálculos que se han mostrado sobre todo en diferencias en ToR y en promedios.",
     "@Im CGP wurden verschiedene Berechnungen korrigiert, die sich vor allem in Differenzen bei ToR und Mittelwerten zeigten.": {
         "description": "v145f3",
         "type": "text",

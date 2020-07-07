@@ -291,7 +291,8 @@ class ProfileEntryData extends JsonData {
   double _absoluteRate = null;
   set percentAdjust(double value) => _percentAdjust = value;
   set absoluteRate(double value) => _absoluteRate = value;
-  double get tempAdjusted => orgValue == null || orgValue == 0 ? 0 : (value - orgValue) / orgValue;
+  double get tempAdjusted =>
+      _absoluteRate != null ? 0 : (orgValue == null || orgValue == 0 ? 0 : (value - orgValue) / orgValue);
   int duration = 3600; // duration in seconds
   double orgValue;
   int timeAsSeconds;
@@ -378,7 +379,10 @@ class ProfileEntryData extends JsonData {
     else if (src._rate != null) ret.absoluteRate = src._rate;
 
     ret.from = src.from;
-    if ((src.from == Uploader.Minimed600 || src.from == Uploader.Tidepool || src.from == Uploader.Spike) &&
+    if ((src.from == Uploader.Minimed600 ||
+            src.from == Uploader.Tidepool ||
+            src.from == Uploader.Spike ||
+            src.from == Uploader.Unknown) &&
         src._absolute != null) ret.absoluteRate = src._absolute;
     ret.duration = src.duration;
 
@@ -901,6 +905,25 @@ class BoluscalcData extends JsonData {
   }
 }
 
+class InsulinInjectionData extends JsonData {
+  String insulin;
+  double units;
+
+  InsulinInjectionData();
+
+  InsulinInjectionData get copy => InsulinInjectionData()
+    ..insulin = insulin
+    ..units = units;
+
+  factory InsulinInjectionData.fromJson(Globals g, Map<String, dynamic> json) {
+    InsulinInjectionData ret = InsulinInjectionData();
+    if (json == null) return ret;
+    ret.insulin = JsonData.toText(json["insulin"]);
+    ret.units = JsonData.toDouble(json["units"]);
+    return ret;
+  }
+}
+
 class TreatmentData extends JsonData {
   dynamic raw;
   String id;
@@ -916,9 +939,12 @@ class TreatmentData extends JsonData {
   double _carbs;
   double insulin;
   double microbolus;
+  List<InsulinInjectionData> insulinInjections = List<InsulinInjectionData>();
+
   int splitExt;
   int splitNow;
   bool isSMB;
+  int duplicates = 1;
   String pumpId;
   double glucose;
   String glucoseType;
@@ -949,6 +975,8 @@ class TreatmentData extends JsonData {
   }
 
   bool isECarb = false;
+
+  double get absoluteTempBasal => _absolute;
 
   double adjustedValue(double v) {
     if (_percent != null) return v + (v * _percent) / 100.0;
@@ -998,40 +1026,46 @@ class TreatmentData extends JsonData {
 
   TreatmentData();
 
-  TreatmentData get copy => TreatmentData()
-    ..id = id
-    ..eventType = eventType
-    ..duration = duration
-    ..timeshift = timeshift
-    .._percent = _percent
-    .._absolute = _absolute
-    .._rate = _rate
-    ..createdAt = createdAt.add(Duration(minutes: 0))
-    ..enteredBy = enteredBy
-    ..NSClientId = NSClientId
-    .._carbs = _carbs
-    ..insulin = insulin
-    ..splitExt = splitExt
-    ..splitNow = splitNow
-    ..microbolus = microbolus
-    ..isSMB = isSMB
-    ..pumpId = pumpId
-    ..glucose = glucose
-    ..glucoseType = glucoseType
-    ..boluscalc = boluscalc == null ? null : boluscalc.copy
-    ..notes = notes
-    ..reason = reason
-    ..targetTop = targetTop
-    ..targetBottom = targetBottom
-    .._from = _from
-    .._key600 = _key600
-    ..isECarb = isECarb
-    ..raw = raw;
+  TreatmentData get copy {
+    TreatmentData ret = TreatmentData()
+      ..id = id
+      ..eventType = eventType
+      ..duration = duration
+      ..timeshift = timeshift
+      .._percent = _percent
+      .._absolute = _absolute
+      .._rate = _rate
+      ..createdAt = createdAt.add(Duration(minutes: 0))
+      ..enteredBy = enteredBy
+      ..NSClientId = NSClientId
+      .._carbs = _carbs
+      ..insulin = insulin
+      ..splitExt = splitExt
+      ..splitNow = splitNow
+      ..microbolus = microbolus
+      ..isSMB = isSMB
+      ..pumpId = pumpId
+      ..glucose = glucose
+      ..glucoseType = glucoseType
+      ..boluscalc = boluscalc == null ? null : boluscalc.copy
+      ..notes = notes
+      ..reason = reason
+      ..targetTop = targetTop
+      ..targetBottom = targetBottom
+      .._from = _from
+      .._key600 = _key600
+      ..isECarb = isECarb
+      ..raw = raw;
+    ret.insulinInjections = List<InsulinInjectionData>();
+    for (InsulinInjectionData entry in insulinInjections) ret.insulinInjections.add(entry.copy);
+    return ret;
+  }
 
   bool equals(TreatmentData t) {
     return createdAt.millisecondsSinceEpoch == t.createdAt.millisecondsSinceEpoch &&
         eventType == t.eventType &&
-        duration == t.duration;
+        duration == t.duration &&
+        notes == t.notes;
   }
 
   factory TreatmentData.fromJson(Globals g, Map<String, dynamic> json) {
@@ -1062,23 +1096,35 @@ class TreatmentData extends JsonData {
     ret.targetTop = JsonData.toDouble(json["targetTop"]);
     ret.targetBottom = JsonData.toDouble(json["targetBottom"]);
     ret.microbolus = 0.0;
+    String temp = JsonData.toText(json["insulinInjections"]);
+    List<dynamic> list = [];
+    try {
+      list = convert.json.decode(temp);
+    } catch (ex) {}
+    for (dynamic entry in list) ret.insulinInjections.add(InsulinInjectionData.fromJson(g, entry));
 
     ret.glucose = JsonData.toDouble(json["glucose"]);
-    if(json["units"] != null)
-    {
-      if(json["units"].toLowerCase() == g.msgUnitMGDL.toLowerCase() && g.getGlucInfo()["unit"] == g.msgUnitMMOL)
+    if (json["units"] != null) {
+      if (json["units"].toLowerCase() == g.msgUnitMGDL.toLowerCase() && g.getGlucInfo()["unit"] == g.msgUnitMMOL)
         ret.glucose = ret.glucose / 18.02;
-      else if(json["units"].toLowerCase() == g.msgUnitMMOL.toLowerCase() && g.getGlucInfo()["unit"] == g.msgUnitMGDL)
+      else if (json["units"].toLowerCase() == g.msgUnitMMOL.toLowerCase() && g.getGlucInfo()["unit"] == g.msgUnitMGDL)
         ret.glucose = ret.glucose * 18.02;
     }
 
-    // Specialhandling for Uploader for Minimed 600-series
+    // Specialhandling for strange datamanagement of Uploader for Minimed 600-series
     if (json["key600"] != null) {
       ret._from = Uploader.Minimed600;
       ret._key600 = JsonData.toText(json["key600"]);
       RegExp reg = RegExp(r"microbolus (.*)U");
       Match m = reg.firstMatch(ret.notes);
-      if (m != null && m.groupCount == 1) ret.microbolus = double.tryParse(m.group(1)) ?? 0.0;
+      if (m != null && m.groupCount == 1) {
+        if ((ret._absolute ?? 0) > 0)
+          ret.microbolus = ret._absolute / 3600 * ret.duration;
+        else
+          ret.microbolus = double.tryParse(m.group(1)) ?? 0.0;
+//        if(ret.microbolus > 0 && ret.eventType.toLowerCase() == "temp basal")
+//          ret.eventType = "microbolus";
+      }
     }
 
     return ret;
@@ -1111,7 +1157,7 @@ class TreatmentData extends JsonData {
       if (minAgo < peak) {
         var x1 = minAgo / 5 + 1;
         ret.iob = insulin * (1 - 0.001852 * x1 * x1 + 0.001852 * x1);
-        // units: BG (mg/dL)  = (BG/U) *    U insulin     * scalar
+        // units: BG (mg/dl)  = (BG/U) *    U insulin     * scalar
         ret.activity = sens * insulin * (2 / dia / 60 / peak) * minAgo;
       } else if (minAgo < 180) {
         var x2 = (minAgo - peak) / 5;
@@ -1157,8 +1203,10 @@ class TreatmentData extends JsonData {
   calcTotalCOB(ReportData data, DayData yesterday, dynamic ret, ProfileGlucData profile, DateTime time, var iob) {
     // TODO: figure out the liverSensRatio that gives the most accurate purple line predictions
     double liverSensRatio = 8.0;
-    double sens = profile.store.listSens.lastWhere((e) => e.timeForCalc <= timeForCalc, orElse: () => null)?.value ?? 0.0;
-    double carbRatio = profile.store.listCarbratio.lastWhere((e) => e.timeForCalc <= timeForCalc, orElse: () => null)?.value ?? 0.0;
+    double sens =
+        profile.store.listSens.lastWhere((e) => e.timeForCalc <= timeForCalc, orElse: () => null)?.value ?? 0.0;
+    double carbRatio =
+        profile.store.listCarbratio.lastWhere((e) => e.timeForCalc <= timeForCalc, orElse: () => null)?.value ?? 0.0;
     var cCalc = calcCOB(profile, time, ret["lastDecayedBy"]?.millisecondsSinceEpoch ?? 0);
     if (cCalc != null) {
       double decaysin_hr = (cCalc["decayedBy"].millisecondsSinceEpoch - time.millisecondsSinceEpoch) / 1000 / 60 / 60;
@@ -1599,7 +1647,10 @@ class DayData {
 
   double get ieSMBSum {
     double ret = 0.0;
-    for (TreatmentData entry in treatments) if (entry.isSMB) ret += entry.bolusInsulin;
+    for (TreatmentData entry in treatments) {
+      if (entry.isSMB) ret += entry.bolusInsulin;
+//      if (entry.microbolus > 0) ret += entry.microbolus;
+    }
     return ret;
   }
 
@@ -1613,7 +1664,10 @@ class DayData {
 
   double get ieBolusSum {
     double ret = 0.0;
-    for (TreatmentData entry in treatments) ret += (entry.bolusInsulin ?? 0);
+    for (TreatmentData entry in treatments) {
+      ret += (entry.bolusInsulin ?? 0);
+//      ret += (entry.microbolus ?? 0);
+    }
     return ret;
   }
 
@@ -1897,7 +1951,7 @@ class DayData {
         totalIOB += tIOB.iob;
       }
 
-      // units: BG (mg/dL or mmol/L)
+      // units: BG (mg/dl or mmol/l)
       if (tIOB != null && tIOB.activity != null) totalActivity += tIOB.activity;
     }
 
@@ -1959,7 +2013,8 @@ class DayData {
     lastDecayedBy = temp["lastDecayedBy"];
 
     double sens = profile.store.listSens.lastWhere((e) => e.timeForCalc <= check, orElse: () => null)?.value ?? 0.0;
-    double carbRatio = profile.store.listCarbratio.lastWhere((e) => e.timeForCalc <= check, orElse: () => null)?.value ?? 0.0;
+    double carbRatio =
+        profile.store.listCarbratio.lastWhere((e) => e.timeForCalc <= check, orElse: () => null)?.value ?? 0.0;
     var rawCarbImpact = (isDecaying ? 1 : 0) * sens / carbRatio * profile.store.carbRatioPerHour / 60;
 
     return CalcCOBData(lastDecayedBy, isDecaying, profile.store.carbRatioPerHour, rawCarbImpact, totalCOB, lastCarbs);
@@ -2017,21 +2072,15 @@ class ListData {
   double gviTotal = 0.0;
   double rms = 0.0;
   double pgs = 0.0;
-  double get ieBolusPrz => ieBolusSum + ieBasalSum + ieMicroBolusSum > 0
-      ? ieBolusSum / (ieBolusSum + ieBasalSum + ieMicroBolusSum) * 100
-      : 0.0;
-  double get ieBasalPrz => ieBolusSum + ieBasalSum + ieMicroBolusSum > 0
-      ? ieBasalSum / (ieBolusSum + ieBasalSum + ieMicroBolusSum) * 100
-      : 0.0;
-  double get ieMicroBolusPrz => ieBolusSum + ieBasalSum + ieMicroBolusSum > 0
-      ? ieMicroBolusSum / (ieBolusSum + ieBasalSum + ieMicroBolusSum) * 100
-      : 0.0;
+  double get TDD => ieBolusSum + ieBasalSum; // + ieMicroBolusSum;
+  double get ieBolusPrz => ieBolusSum + ieBasalSum > 0 ? ieBolusSum / (ieBolusSum + ieBasalSum) * 100 : 0.0;
+  double get ieBasalPrz => ieBolusSum + ieBasalSum > 0 ? ieBasalSum / (ieBolusSum + ieBasalSum) * 100 : 0.0;
+  double get ieMicroBolusPrz => ieBolusSum + ieBasalSum > 0 ? ieMicroBolusSum / (ieBolusSum + ieBasalSum) * 100 : 0.0;
   int get countValid => entries.where((entry) => !entry.isGlucInvalid).length;
   int get countInvalid => entries.where((entry) => entry.isGlucInvalid).length;
   int entriesIn(int min, int max) =>
       entries.where((entry) => !entry.isGlucInvalid && entry.gluc >= min && entry.gluc <= max).length;
-  int entriesBelow(int min) =>
-      entries.where((entry) => !entry.isGlucInvalid && entry.gluc < min).length;
+  int entriesBelow(int min) => entries.where((entry) => !entry.isGlucInvalid && entry.gluc < min).length;
   int entriesAbove(int min) => entries.where((entry) => !entry.isGlucInvalid && entry.gluc > min).length;
   double get avgGluc {
     double ret = 0.0;
@@ -2239,7 +2288,7 @@ class ListData {
 
       khCount += t.carbs;
       ieBolusSum += t.bolusInsulin;
-      ieMicroBolusSum += t.microbolus / 3600 * t.duration;
+      ieMicroBolusSum += t.microbolus; // / 3600 * t.duration;
     }
     ieBasalSum = 0.0;
     for (int i = 1; i < days.length; i++) {

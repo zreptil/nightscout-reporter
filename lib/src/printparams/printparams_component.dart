@@ -8,6 +8,7 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_select_item.dart';
+import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 
@@ -26,6 +27,7 @@ import '../jsonData.dart';
     MaterialSelectItemComponent,
     MaterialButtonComponent,
     MaterialIconComponent,
+    MaterialToggleComponent,
     materialInputDirectives,
     NgFor,
     NgIf,
@@ -45,11 +47,15 @@ class PrintParamsComponent implements OnInit {
         args: [low, high, unit], name: "msgStandardLimits");
   }
 
+  String get msgStandardCGP => Intl.message("CGP immer mit Standard Zielbereich");
+
   bool isVisible = true;
   globals.PeriodShift periodShift;
   int glucMaxIdx;
   int basalPrecisionIdx;
   static String get msgAutomatic => Intl.message("Automatisch");
+  static String get msgLatestFirst => Intl.message("Neuester Tag zuerst");
+
   String basalPrecisionText(value) {
     return "${g.fmtNumber(1, value)} ${g.getGlucInfo()["unit"]}";
   }

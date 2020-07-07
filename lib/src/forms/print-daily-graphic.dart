@@ -44,7 +44,6 @@ class PrintDailyGraphic extends BaseDaily {
       showLegend,
       isPrecise,
       showNotes,
-      sortReverse,
       showGlucTable,
       showNoteLinesAtGluc,
       sumNarrowValues,
@@ -57,7 +56,8 @@ class PrintDailyGraphic extends BaseDaily {
       showZeroBasal,
       showCOB,
       showIOB,
-      roundToProfile;
+      roundToProfile,
+      spareBool1;
 
   @override
   List<ParamInfo> params = [
@@ -79,7 +79,7 @@ class PrintDailyGraphic extends BaseDaily {
     ParamInfo(9, msgParam9,
         boolValue: true,
         subParams: [ParamInfo(0, msgParam13, boolValue: false), ParamInfo(1, msgParam21, boolValue: false)]),
-    ParamInfo(11, msgParam10, boolValue: false),
+    ParamInfo(11, "", boolValue: false, isDeprecated: true),
     ParamInfo(13, msgParam11, boolValue: true),
     ParamInfo(14, msgParam14, boolValue: true),
     ParamInfo(3, BaseDaily.msgDaily1,
@@ -109,7 +109,7 @@ class PrintDailyGraphic extends BaseDaily {
     showNotes = params[8].boolValue;
     showNoteLinesAtGluc = params[8].subParams[0].boolValue;
     showHTMLNotes = params[8].subParams[1].boolValue;
-    sortReverse = params[9].boolValue;
+    spareBool1 = params[9].boolValue;
     showGlucTable = params[10].boolValue;
     sumNarrowValues = params[11].boolValue;
     showSMB = params[12].boolValue;
@@ -165,7 +165,7 @@ class PrintDailyGraphic extends BaseDaily {
   static String get msgParam6 => Intl.message("Basal mit zwei Nachkommastellen");
   static String get msgParam8 => Intl.message("Legende");
   static String get msgParam9 => Intl.message("Notizen");
-  static String get msgParam10 => Intl.message("Neuester Tag zuerst");
+//  static String get msgParam10 => Intl.message("Neuester Tag zuerst");
   static String get msgParam11 => Intl.message("Tabelle mit Glukosewerten");
   static String get msgParam13 => Intl.message("Notiz-Linien bis zur Kurve zeichnen");
   static String get msgParam14 => Intl.message("Nahe zusammen liegende Werte aufsummieren");
@@ -257,7 +257,7 @@ class PrintDailyGraphic extends BaseDaily {
     lineWidth = cm(0.03);
     bool saveMGDL = g.glucMGDL;
     for (int i = 0; i < data.days.length; i++) {
-      DayData day = data.days[sortReverse ? data.days.length - 1 - i : i];
+      DayData day = data.days[g.ppLatestFirst ? data.days.length - 1 - i : i];
       if (day.entries.length != 0 || day.treatments.length != 0) {
         pages.add(getPage(day));
         if (showCGP || repData.isForThumbs) pages.add(getCGPPage(day));
@@ -559,6 +559,18 @@ class PrintDailyGraphic extends BaseDaily {
     for (TreatmentData t in day.treatments) {
       double x, y;
       String type = t.eventType.toLowerCase();
+/*
+      if (showSMB && t.microbolus > 0) {
+        EntryData entry = day.findNearest(day.entries, null, t.createdAt);
+        x = glucX(t.createdAt);
+        if (entry != null && showSMBAtGluc) {
+          y = glucY(entry.gluc);
+        } else {
+          y = glucY(src.targetValue(t.createdAt)) + lw / 2;
+        }
+        paintSMB(t.microbolus, x, y, graphInsulin["stack"][0]["canvas"] as List);
+      }
+*/
       if (type == "temp basal") continue;
       if ((t.carbs > 0 || t.eCarbs > 0) && showCarbs) {
         x = glucX(t.createdAt);

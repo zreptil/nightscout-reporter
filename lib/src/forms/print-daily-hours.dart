@@ -199,7 +199,8 @@ class PrintDailyHours extends BasePrint {
       pages.add(Page(isPortrait, page));
     } else {
       Map test = pages.last.content.last as Map;
-      test["columns"].last["table"]["body"].add(body.last);
+      if(body.length > 0)
+        test["columns"].last["table"]["body"].add(body.last);
     }
     if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
   }

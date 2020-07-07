@@ -19,6 +19,8 @@ class _Day
   int get day
   => date.day;
 
+//  DatepickerPeriod get myPeriod => _period;
+
   bool get isRaised
   => _period.start != null && _period.end != null && date.isOnOrAfter(_period.start) && date.isOnOrBefore(_period.end);
   bool get isEnabled
