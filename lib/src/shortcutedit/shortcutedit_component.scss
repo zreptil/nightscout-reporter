@@ -1,0 +1,142 @@
+@import '../colors.sass';
+@import '../base';
+@import 'package:angular_components/material_dialog/mixins';
+@import 'package:angular_components/material_list/mixins';
+@import 'package:angular_components/material_select/mixins';
+@import 'package:angular_components/material_checkbox/mixins';
+@import 'package:angular_components/material_toggle/mixins';
+
+:host {
+}
+
+.controls {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+
+  .label {
+    padding-right: 2em;
+  }
+
+  material-fab:not([disabled]) {
+    background-color: var(--shortcutHeaderBack);
+    color: var(--shortcutHeaderFore);
+  }
+}
+
+material-dialog[main] {
+  min-width: 30%;
+
+  ::ng-deep main::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  ::ng-deep main::-webkit-scrollbar-track {
+    background-color: var(--shortcutBodyBack);
+  }
+
+  ::ng-deep main::-webkit-scrollbar-thumb {
+    background-color: var(--shortcutScrollThumb);
+  }
+
+  ::ng-deep main {
+    scrollbar-color: var(--shortcutScrollThumb) var(--shortcutBodyBack);
+  }
+
+  @include material-dialog-header-shadow();
+  @include material-dialog-body-padding(0);
+}
+
+material-dialog.headered-dialog {
+  @include material-dialog-header-color(var(--shortcutHeaderBack));
+
+  ::ng-deep .wrapper > footer,
+  &[headered] ::ng-deep .wrapper > footer {
+    background-color: var(--shortcutHeaderBack);
+    color: var(--shortcutHeaderFore);
+    padding: 0;
+  }
+}
+
+.root {
+  padding: 1em;
+  font-size: 1.2em;
+  color: var(--shortcutBodyFore);
+  background-color: var(--shortcutBodyBack);
+}
+
+div[header] {
+  display: flex;
+  flex-direction: row;
+  color: var(--shortcutHeaderFore);
+  justify-content: space-between;
+  align-items: center;
+
+  div:nth-child(2) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+material-dialog[confirm] {
+  background-color: var(--shortcutBodyBack);
+  color: var(--shortcutBodyFore);
+
+  .content {
+    font-size: 120%;
+    padding: 2em;
+
+    .marked {
+      padding: 1em 0;
+      font-weight: bold;
+    }
+  }
+}
+
+div[footer] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between !important;
+
+  div:first-child {
+    margin-left: 1em;
+  }
+}
+
+.info {
+  margin-bottom: 1em;
+}
+
+.icondef {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+material-input {
+  width: initial;
+  display: flex;
+  flex: 1;
+
+  ::ng-deep .focused-underline {
+    background: var(--shortcutHeaderBack);
+  }
+
+  ::ng-deep .focused.label-text {
+    color: var(--shortcutHeaderBack);
+  }
+}
+
+.indent {
+  margin-left: 2em;
+}
+
+.data {
+  text-transform: none;
+}
+
+material-button[raised] {
+  background-color: var(--shortcutHeaderBack);
+  color: var(--shortcutHeaderFore);
+}
+

@@ -188,6 +188,9 @@ div[footer] {
 }
 
 material-dialog[confirm] {
+  background-color: var(--settingsBodyBack);
+  color: var(--settingsBodyFore);
+
   .content {
     font-size: 120%;
     padding: 2em;
@@ -230,4 +233,14 @@ material-input {
   ::ng-deep .focused.label-text {
     color: var(--settingsHeaderBack);
   }
+}
+
+material-fab.is-local, div.is-local {
+  background: var(--localBack) !important;
+}
+
+.navControls {
+  display: flex;
+  align-items: center;
+  font-size: 0.7em;
 }

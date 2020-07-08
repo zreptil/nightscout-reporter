@@ -10,6 +10,67 @@
       </material-button>
     </div>
     <div class="root">
+      <h2><span @i18n="version">Version</span><span @i18n="v150">1.5.0 - xx.6.2020</span></h2>
+      <ul>
+        <li class="added" @i18n="v150a1">
+          Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.
+        </li>
+        <li class="added" @i18n="v150a1">
+          Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum
+          speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut
+          gespeichert wurde.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v149">1.4.9 - 16.6.2020</span></h2>
+      <ul>
+        <li class="added" @i18n="v149a1">
+          Im Dialog der Ausgabe Parameter gibt es nun die Möglichkeit, das CGP immer mit dem Standard Zielbereich zu
+          erzeugen. Diese Option ist anfangs eingeschaltet, da das CGP ein standardisiertes Formular ist, das gerne
+          zu Vergleichszwecken herangezogen wird. Man kann es aber für seine eigenen Zwecke ausschalten. Diese
+          Einstellung wird dann auch beibehalten.
+        </li>
+        <li class="fixed" @i18n="v149f1">
+          Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v148">1.4.8 - 12.6.2020</span></h2>
+      <ul>
+        <li class="added" @i18n="v148a1">
+          Im Dialog der Ausgabe Parameter wurde rechts oben der Schieberegler "zu Vergleichszwecken" hinzugefügt. Wenn dieser
+          aktiviert ist, dann wird überall der Standard Zielbereich verwendet. Intern wird das auch noch für andere Anpassungen
+          verwendet. Diese Option ist dafür gedacht, dass man seine Ausdrucke mit anderen Diabetikern vergleichen kann. Das ist
+          zum Beispiel zur Vorlage bei Ärzten und Diabetesberatern sinnvoll.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v147">1.4.7 - 5.6.2020</span></h2>
+      <ul>
+        <li class="changed" @i18n="v147c1">
+          In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst
+          angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die
+          Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt.
+        </li>
+        <li class="changed" @i18n="v147c2">
+          Die Einstellung für das Öffnen des PDF im gleichen Fenster, das Herunterladen des PDFs und
+          den Hinweis auf Nightscout im PDF wurde aus den Einstellungen in die Ausgabe Parameter
+          verschoben. Dadurch kann man das bei jedem Ausdruck schnell festlegen und ändern.
+        </li>
+        <li class="fixed" @i18n="v147f1">
+          Die Überschrift über der Tabelle vom Glucose Perzentil Diagramm wurde korrigiert.
+        </li>
+      </ul>
+      <h2><span @i18n="version">Version</span><span @i18n="v146">1.4.6 - 26.5.2020</span></h2>
+      <ul>
+        <li class="added" @i18n="v146a1">
+          Die Legende der Tagesgrafik wurde um den Eintrag für blutige Messungen erweitert.
+        </li>
+        <li class="fixed" @i18n="v146f1">
+          Die Microboli vom Minimed 600 Uploader wurden aus der Ausgabe entfernt, da es sich
+          dabei nur um Temporäre Basalraten handelt.
+        </li>
+        <li class="fixed" @i18n="v146f2">
+          Ein möglicher Absturz bei der Ausgabe des CGP bei der Tagesgrafik wurde korrigiert.
+        </li>
+      </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v145">1.4.5 - 20.4.2020</span></h2>
       <ul>
         <li class="added" @i18n="v145a1">

@@ -382,24 +382,24 @@ class PrintCGP extends BasePrint {
             }
           ],
           [
-            {"text": PentagonData.msgPGR02, "bold": pgr < 2.1},
-            {"text": PentagonData.msgPGR02Info, "bold": pgr < 2.1}
+            {"text": PentagonData.msgPGR02, "bold": pgr != null && pgr < 2.1},
+            {"text": PentagonData.msgPGR02Info, "bold": pgr != null && pgr < 2.1}
           ],
           [
-            {"text": PentagonData.msgPGR23, "bold": pgr >= 2.1 && pgr < 3.1},
-            {"text": PentagonData.msgPGR23Info, "bold": pgr >= 2.1 && pgr < 3.1}
+            {"text": PentagonData.msgPGR23, "bold": pgr != null && pgr >= 2.1 && pgr < 3.1},
+            {"text": PentagonData.msgPGR23Info, "bold": pgr != null && pgr >= 2.1 && pgr < 3.1}
           ],
           [
-            {"text": PentagonData.msgPGR34, "bold": pgr >= 3.1 && pgr < 4.1},
-            {"text": PentagonData.msgPGR34Info, "bold": pgr >= 3.1 && pgr < 4.1}
+            {"text": PentagonData.msgPGR34, "bold": pgr != null && pgr >= 3.1 && pgr < 4.1},
+            {"text": PentagonData.msgPGR34Info, "bold": pgr != null && pgr >= 3.1 && pgr < 4.1}
           ],
           [
-            {"text": PentagonData.msgPGR45, "bold": pgr >= 4.1 && pgr < 4.6},
-            {"text": PentagonData.msgPGR45Info, "bold": pgr >= 4.1 && pgr < 4.6}
+            {"text": PentagonData.msgPGR45, "bold": pgr != null && pgr >= 4.1 && pgr < 4.6},
+            {"text": PentagonData.msgPGR45Info, "bold": pgr != null && pgr >= 4.1 && pgr < 4.6}
           ],
           [
-            {"text": PentagonData.msgPGR5, "bold": pgr >= 4.6},
-            {"text": PentagonData.msgPGR5Info, "bold": pgr >= 4.6}
+            {"text": PentagonData.msgPGR5, "bold": pgr != null && pgr >= 4.6},
+            {"text": PentagonData.msgPGR5Info, "bold": pgr != null && pgr >= 4.6}
           ],
         ]
       }
@@ -467,7 +467,7 @@ class PrintCGP extends BasePrint {
     int low = Globals.stdLow;
     int high = Globals.stdHigh;
 
-    if (!g.ppStandardLimits) {
+    if (!g.ppStandardLimits && !g.ppCGPAlwaysStandardLimits) {
       low = repData.status.settings.thresholds.bgTargetBottom;
       high = repData.status.settings.thresholds.bgTargetTop;
     }

@@ -83,6 +83,15 @@ class DatepickerPeriod {
     _dowActiveText = null;
   }
 
+  get msgPeriodEmpty => Intl.message("Zeitraum festlegen");
+
+  String get display {
+    if (entryKey != null) return entryTitle;
+    if (start == null || end == null) return msgPeriodEmpty;
+    if (start.compareTo(end) == 0) return start.format(dateFormat);
+    return "${start.format(dateFormat)} - ${end.format(dateFormat)}";
+  }
+
   String get dowActiveText {
     if (_dowActiveText == null) {
       List<String> ret = List<String>();
@@ -277,8 +286,6 @@ class DatepickerComponent {
   @Input()
   String msgPeriod = Intl.message("Zeitraum");
 
-  get msgPeriodEmpty => Intl.message("Zeitraum festlegen");
-
   String get periodFloatingLabel {
     if (period.start == null || period.end == null) return "";
     return msgPeriod;
@@ -286,10 +293,7 @@ class DatepickerComponent {
 
   String get periodLabelMain {
     if (period == null) return "";
-    if (period.entryKey != null) return period.entryTitle;
-    if (period.start == null || period.end == null) return msgPeriodEmpty;
-    if (period.start.compareTo(period.end) == 0) return period.start.format(period.dateFormat);
-    return "${period.start.format(period.dateFormat)} - ${period.end.format(period.dateFormat)}";
+    return period.display;
   }
 
   String get periodLabelSub {

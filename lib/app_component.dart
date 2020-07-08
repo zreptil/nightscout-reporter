@@ -31,6 +31,7 @@ import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
+import 'package:nightscout_reporter/src/forms/print-user-data.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/jsonData.dart';
@@ -44,6 +45,7 @@ import 'src/printparams/printparams_component.dart';
 import 'src/settings/settings_component.dart';
 import 'src/welcome/welcome_component.dart';
 import 'src/whatsnew/whatsnew_component.dart';
+import 'src/shortcutedit/shortcutedit_component.dart';
 
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
@@ -79,6 +81,7 @@ class PdfData {
       PrintParamsComponent,
       WelcomeComponent,
       WhatsnewComponent,
+      ShortcutEditComponent,
       MaterialInputComponent,
       MaterialProgressComponent,
       MaterialToggleComponent,
@@ -162,6 +165,8 @@ class AppComponent implements OnInit {
   String get msgGitHubIssue => Intl.message("Problem auf GitHub melden");
   String get msgShowPDF => Intl.message("PDF anzeigen");
   String get msgPeriodCompare => Intl.message("Vergleich");
+  String get msgShortcutName => Intl.message("Bezeichnung");
+  String get msgAddText => Intl.message("Hinzufügen");
 
   bool isFormVisible(BasePrint form) {
     if (form.isDebugOnly && !isDebug) return false;
@@ -303,6 +308,7 @@ class AppComponent implements OnInit {
         PrintDailyProfile(),
         PrintDailyGluc(),
         PrintDailyHours(),
+        PrintUserData()
       ];
       g.listConfig = List<FormConfig>();
       g.listConfigOrg = List<FormConfig>();
@@ -318,7 +324,6 @@ class AppComponent implements OnInit {
       if (html.window.location.href.endsWith("?settings")) currPage = "settings";
       checkPrint();
 
-      g.period.maxDate = Date.today();
       try {
         g.period.minDate = Date.parseLoose(g.user.birthDate, g.fmtDateForDisplay);
       } catch (ex) {
@@ -385,6 +390,10 @@ class AppComponent implements OnInit {
 
   void callNightscoutReports() {
     navigate(g.user.reportUrl);
+  }
+
+  void callNightscoutStatus() {
+    navigate("https://nielsmaerten.github.io/nightscout-assistant/#/${g.language.img}/home");
   }
 
   formId(int idx) => "postForm${idx}";
@@ -456,10 +465,12 @@ class AppComponent implements OnInit {
     }
   }
 
+  bool indy = true;
+
   void openPDF(int idx) {
     if (idx >= pdfList.length) return;
 
-    if (g.pdfSameWindow) {
+    if (g.ppPdfSameWindow) {
       for (int i = 0; i < pdfList.length; i++) {
         pdfList[i].isPrinted = true;
         Future.delayed(Duration(milliseconds: 10), () {
@@ -644,11 +655,45 @@ class AppComponent implements OnInit {
       g, g.dateRange.range.start, g.dateRange.range.end);
 */
     reportData = data;
+
+    bool loadUserData = false;
+    bool loadCurrentUser = false;
+
+    for (FormConfig cfg in g.listConfigOrg) {
+      if (!cfg.checked) continue;
+      if (cfg.form.needsUserData)
+        loadUserData = true;
+      else
+        loadCurrentUser = true;
+    }
+
+    if (loadUserData) {
+      progressMax = g.userList.length + 1;
+      progressValue = 0;
+      for (UserData user in g.userList) {
+        if (!user.isReachable) continue;
+        progressText = msgLoadingDataFor(user.name);
+        try {
+          String url = "${user.apiUrl}status.json";
+          displayLink("status", url, type: "debug");
+          String content = await g.request(url, showError: false);
+          user.status = StatusData.fromJson(json.decode(content));
+          user.isReachable = true;
+        } catch (ex) {
+          user.status = null;
+          user.isReachable = false;
+        }
+      }
+      g.save(skipReload: true);
+    }
+
+    if (!loadCurrentUser) return data;
+
     DateTime bd = DateTime(data.begDate.year, data.begDate.month, data.begDate.day);
     DateTime ed = DateTime(data.endDate.year, data.endDate.month, data.endDate.day);
 
-    progressMax = ed.difference(bd).inDays;
     progressValue = 0;
+    progressMax = ed.difference(bd).inDays;
 
     Date begDate = data.begDate;
     Date endDate = data.endDate;
@@ -785,7 +830,7 @@ class AppComponent implements OnInit {
       i++;
     }
 
-    if (baseProfile != null) {
+    if (baseProfile != null && data.profiles.last.duration > 0) {
 //    if (last.duration > 0 && data.profiles.length > 1) {
       ProfileData temp = baseProfile.copy;
       temp.startDate = data.profiles.last.startDate.add(Duration(seconds: data.profiles.last.duration));
@@ -865,7 +910,10 @@ class AppComponent implements OnInit {
         for (dynamic treatment in src) {
           hasData = true;
           TreatmentData t = TreatmentData.fromJson(g, treatment);
-          if (data.ns.treatments.length == 0 || !t.equals(data.ns.treatments.last)) {
+          // duplicate Treatments are removed
+          if (data.ns.treatments.length > 0 && t.equals(data.ns.treatments.last)) {
+            data.ns.treatments.last.duplicates++;
+          } else {
             data.ns.treatments.add(t);
             switch (t.eventType.toLowerCase()) {
               case "exercise":
@@ -1038,6 +1086,12 @@ class AppComponent implements OnInit {
     }
 
     return def;
+  }
+
+  String userClass(UserData user) {
+    String ret = "selectItem";
+    if (!user.isReachable) ret = "$ret unreachable";
+    return ret;
   }
 
   int checkedIndex(cfg) {
@@ -1322,6 +1376,80 @@ class AppComponent implements OnInit {
       }
     });
     themePanelShown = !themePanelShown;
+  }
+
+  String shortcutStyle = "height:0em;";
+  String shortcutIconStyle = "";
+  bool shortcutPanelShown = false;
+
+  toggleShortcutPanel(bool isEdit, [int shortcutIdx = null]) {
+    String qs = "";
+    String qis = "";
+    double duration = 1;
+    if (shortcutPanelShown) {
+      duration = !isEdit && shortcutIdx == null ? 1 : 0.1;
+      shortcutStyle = "animation:hideshortcuts ${duration}s ease-in-out normal forwards;";
+      shortcutIconStyle = "animation:hideshortcutsicon ${duration}s ease-in-out normal forwards;";
+      qs = "animation-iteration-count:0;top:-100%;";
+      qis = "animation-iteration-count:0;transform: rotate(0deg);";
+    } else {
+      duration = 1;
+      shortcutStyle = "animation:showshortcuts ${duration}s ease-in-out normal forwards;";
+      shortcutIconStyle = "animation:showshortcutsicon ${duration}s ease-in-out normal forwards;";
+      qs = "animation-iteration-count:0;top:64px;";
+      qis = "animation-iteration-count:0;transform: rotate(360deg);";
+    }
+    Future.delayed(Duration(milliseconds: (duration * 1100).toInt()), () {
+      shortcutStyle = qs;
+      shortcutIconStyle = qis;
+
+      if (isEdit) {
+        g.currShortcutIdx = shortcutIdx;
+        if (shortcutIdx >= 0 && shortcutIdx < g.shortcutList.length)
+          g.currShortcut = g.shortcutList[shortcutIdx].copy;
+        else
+          g.currShortcut = ShortcutData(g);
+        currPage = 'shortcutedit';
+      } else if (shortcutIdx != null) {
+        ShortcutData data = g.shortcutList[shortcutIdx];
+        g.period = DatepickerPeriod(src: data.periodData);
+        for (FormConfig cfg in g.listConfig) {
+          cfg.checked = data.forms.keys.contains(cfg.form.id);
+          if (cfg.checked) {
+            cfg.fillFromJson(data.forms[cfg.form.id]);
+          }
+        }
+        g.refresh();
+      }
+    });
+    shortcutPanelShown = !shortcutPanelShown;
+  }
+
+  void shortcuteditResult(html.UIEvent evt) {
+    switch (evt.type) {
+      case "ok":
+        _currPage = _lastPage;
+        g.saveShortcuts();
+        break;
+      case "remove":
+        _currPage = _lastPage;
+        if (g.currShortcutIdx >= 0 && g.currShortcutIdx < g.shortcutList.length)
+        {
+          g.shortcutList.removeAt(g.currShortcutIdx);
+          g.currShortcutIdx = null;
+          g.currShortcut = null;
+          g.saveShortcuts();
+        }
+        break;
+      case "cancel":
+        _currPage = _lastPage;
+        g.currShortcut = null;
+        break;
+      default:
+        _currPage = g.isConfigured ? _lastPage : "welcome";
+        break;
+    }
+    getCurrentGluc();
   }
 
   expansionPanelClicked(evt, FormConfig cfg) {
