@@ -92,10 +92,6 @@ class PrintPercentile extends BasePrint
   => BasePrint.msgGPD;
 
   @override
-  String get title
-  => _title;
-
-  @override
   bool isPortrait = false;
 
   num lineWidth;
@@ -125,6 +121,7 @@ class PrintPercentile extends BasePrint
   PrintPercentile()
   {
     init();
+    title = _title;
   }
 
   @override
@@ -256,10 +253,12 @@ class PrintPercentile extends BasePrint
     yorg += 0.5;
 
     title = BasePrint.msgHourlyStats;
-    dynamic content = [headerFooter(), getTable(tableWidths, body)];
+    subtitle = "";
+    var hf = headerFooter();
+    dynamic content = [hf, getTable(tableWidths, body)];
     dynamic ret = Page(isPortrait, content);
-    isPortrait = false;
     title = _title;
+    isPortrait = false;
     return ret;
   }
 
@@ -272,6 +271,7 @@ class PrintPercentile extends BasePrint
     _gridHeight = isPortrait ? (width - 7) / (height - 7) * (width - 11) : height - 11.0;
 
     title = _title;
+    subtitle = "";
     double xo = xorg;
     double yo = yorg;
     var data = repData.data;

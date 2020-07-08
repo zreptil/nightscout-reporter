@@ -231,14 +231,15 @@ class PrintDailyStatistics extends BasePrint {
     int oldLength = pages.length;
     _maxTDD = 0.0;
 
-    for (DayData day in repData.data.days)
-    {
+    for (int i = 0; i < repData.data.days.length; i++) {
+      DayData day = repData.data.days[g.ppLatestFirst ? repData.data.days.length - 1 - i : i];
       day.init();
       if (day.entryCountValid == 0) continue;
       _maxTDD = max(_maxTDD, day.ieBasalSum + day.ieBolusSum);
     }
 
-    for (DayData day in repData.data.days) {
+    for (int i = 0; i < repData.data.days.length; i++) {
+      DayData day = repData.data.days[g.ppLatestFirst ? repData.data.days.length - 1 - i : i];
       if (day.entryCountValid == 0) continue;
       totalDays++;
       totalDay.entries.addAll(day.entries);

@@ -21,10 +21,11 @@
       <div *ngIf="progressText==null">
         <div class="subtitle">
           <ng-container @i18n="label for settings-area with user data">Benutzerdaten</ng-container>
-          <div>
+          <div class="navControls">
             <material-button icon [disabled]="g.userIdx==0" (trigger)="g.userIdx=g.userIdx-1">
               <material-icon icon="chevron_left"></material-icon>
             </material-button>
+            {{g.userIdx+1}} / {{g.userList.length}}
             <material-button icon [disabled]="g.userIdx>=(g.userList?.length ?? 0)-1" (trigger)="g.userIdx=g.userIdx+1">
               <material-icon icon="chevron_right"></material-icon>
             </material-button>
@@ -64,10 +65,10 @@
           </material-input>
           <div class="controls" *ngIf="g.isLocal">
             <material-fab mini
-                          (trigger)="addUrl()">
+                          (trigger)="addUrl()" class="is-local">
               <material-icon icon="add"></material-icon>
             </material-fab>
-            <material-fab mini (trigger)="showConfirmation=true">
+            <material-fab mini (trigger)="showConfirmation=true" class="is-local">
               <material-icon icon="delete"></material-icon>
             </material-fab>
           </div>
@@ -81,15 +82,6 @@
       </div>
       <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
       <div class="functions">
-        <material-checkbox [(checked)]="g.pdfSameWindow" @i18n="label for checkbox to open PDF in same window">PDF im
-          selben Fenster öffnen
-        </material-checkbox>
-        <material-checkbox [(checked)]="g.pdfDownload" @i18n="label for checkbox to download PDF">
-          PDF herunterladen (bei einigen Browsern benötigt)
-        </material-checkbox>
-        <material-checkbox [(checked)]="g.hideNightscoutInPDF" @i18n="label for checkbox to hide nightscout in footer">
-          Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden
-        </material-checkbox>
         <material-checkbox [(checked)]="g.showCurrentGluc" @i18n="label for checkbox to show current glucoselevel">
           Letzten Messwert in der Titelzeile anzeigen
         </material-checkbox>

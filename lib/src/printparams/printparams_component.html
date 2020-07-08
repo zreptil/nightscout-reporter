@@ -13,10 +13,20 @@
     </div>
 
     <div class="root">
-      <div class="subtitle" @i18n="label of area for section general in printparams">Allgemeines</div>
+      <div class="subtitle">
+        <div @i18n="label of area for section general in printparams">Allgemeines</div>
+        <div class="comparable">
+          <material-toggle [(checked)]="g.ppComparable"
+                           label="zu Vergleichszwecken (z.B. Arzt)"
+                           @i18n:label="label for comparative purposes"></material-toggle>
+        </div>
+      </div>
       <div class="functions">
-        <material-checkbox [(checked)]="g.ppStandardLimits" class="pp">
+        <material-checkbox [(checked)]="g.ppStandardLimits" [disabled]="g.ppComparable" class="pp">
           {{msgStandardLimits(g.getGlucInfo()["stdlow"],g.getGlucInfo()["stdhigh"],g.getGlucInfo()["unit"])}}
+        </material-checkbox>
+        <material-checkbox *ngIf="!g.ppComparable && !g.ppStandardLimits" [(checked)]="g.ppCGPAlwaysStandardLimits" class="pp indent">
+          {{msgStandardCGP}}
         </material-checkbox>
         <div>
           <div @i18n="label for max glucvalue in printparams">Maximaler Glukosewert in Grafiken:</div>
@@ -53,6 +63,25 @@
           </material-dropdown-select>
         </div>
       </div>
+      <div>
+        <material-checkbox [(checked)]="g.ppLatestFirst" class="pp">
+          {{msgLatestFirst}}
+        </material-checkbox>
+      </div>
+      <div>
+        <material-checkbox [(checked)]="g.ppPdfSameWindow" class="pp" @i18n="label for checkbox to open PDF in same window">PDF im
+          selben Fenster öffnen
+        </material-checkbox>
+        <material-checkbox [(checked)]="g.ppPdfDownload" class="pp" @i18n="label for checkbox to download PDF">
+          PDF herunterladen (bei einigen Browsern benötigt)
+        </material-checkbox>
+      </div>
+      <material-checkbox [(checked)]="g.ppHideNightscoutInPDF" class="pp" @i18n="label for checkbox to hide nightscout in footer">
+        Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden
+      </material-checkbox>
+      <material-checkbox *ngIf="g.isLocal" [(checked)]="g.ppHideLoopData" class="pp loop" @i18n="label for checkbox to hide loop data">
+        Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)
+      </material-checkbox>
       <div class="subtitle" @i18n="label of area for timeshift">Historische Daten</div>
       <div class="timeshift">
         <div @i18n="description of timeshift">

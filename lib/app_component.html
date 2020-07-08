@@ -27,17 +27,20 @@
       <div [class]="classForView('basePanel')">
         <div *ngIf="g.userList.length == 1" class="userName">{{g.user.display}}</div>
         <div [class]="classForView('userPanel')" *ngIf="g.userList.length > 1">
-          <material-dropdown-select label="Benutzer" [buttonText]="g.user.display" popupClass="userSelect" slide="y"
+          <material-dropdown-select label="Benutzer" [buttonText]="g.userDisplay" popupClass="userSelect" slide="y"
                                     listAutoFocus>
             <material-select-item *ngFor="let item of g.userList; let idx = index"
                                   (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');getCurrentGluc();"
-                                  class="selectItem"
+                                  [class]="userClass(item)"
                                   [selected]="idx==g.userIdx">
               <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>
               <div class="itemSub">{{item.storageApiUrl}}</div>
             </material-select-item>
           </material-dropdown-select>
         </div>
+        <material-fab mini class="shortcutIcon" (trigger)="toggleShortcutPanel(false)" [style]="shortcutIconStyle">
+          <material-icon icon="inbox"></material-icon>
+        </material-fab>
         <datepicker [period]="g.period" (periodChange)="changePeriod($event)" [isLocal]="g.isLocal"
                     [showInfo]="g.showInfo" [showLabel]="false"></datepicker>
       </div>
@@ -68,7 +71,7 @@
           <material-icon icon="help_outline"></material-icon>
         </material-button>
         <material-fab mini class="debug-trigger" *ngIf="g.canDebug && currPage=='normal'"
-                      (trigger)="reportData=null;isDebug=!isDebug;checkPrint();">
+                      (trigger)="reportData=null;isDebug=!isDebug;checkPrint();message.dismiss(message.clear);">
           <material-icon icon="bug_report"></material-icon>
         </material-fab>
         <material-button icon class="is-local" *ngIf="g.isLocal && currPage=='normal' && tileParams==null"
@@ -85,6 +88,7 @@
     <whatsnew *ngIf="currPage=='whatsnew'" (closeClicked)="callbackButton"></whatsnew>
     <dsgvo *ngIf="currPage=='dsgvo'" (closeClicked)="callbackButton"></dsgvo>
     <printparams *ngIf="currPage=='printparams'" (printparamsresult)="printparamsResult"></printparams>
+    <shortcutedit *ngIf="currPage=='shortcutedit'" (shortcuteditresult)="shortcuteditResult"></shortcutedit>
     <div class="signintext" *ngIf="currPage=='signin'" @i18n="signin to google">Anmeldung bei Google...</div>
     <div class="centered" *ngIf="currPage=='pdfList' || progressText != null">
       <div [style.display]="currPage=='signin'?'':'none'" @i18n="message for signin to google">
@@ -95,7 +99,7 @@
           <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
                 [action]="pdfUrl">
             <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja_JP'"/>
-            <input name="filename" type="hidden" value="{{g.pdfDownload?pdfFilename(idx):''}}"/>
+            <input name="filename" type="hidden" value="{{g.ppPdfDownload?pdfFilename(idx):''}}"/>
             <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
             <material-button class="pdfButton"
                              (trigger)="openPDF(idx)">
@@ -281,6 +285,12 @@
                 [clientId]="g.googleClientId"
                 (onEvent)="signinEvent($event)"
                 (signinResult)="g.client=$event;"></signin>
+        <material-button *ngIf="g.syncGoogle && g.isLocal" class="iconButton material-drawer-button"
+                         (trigger)="drawer.toggle();callNightscoutStatus();">
+          <material-icon icon="assistant" size="big"></material-icon>
+          <ng-container @i18n="title of nightscout status">Google Assistant</ng-container>
+          <material-icon icon="open_in_new" size="medium"></material-icon>
+        </material-button>
         <material-button class="iconButton material-drawer-button" (trigger)="currPage='whatsnew';">
           <material-icon icon="new_releases"></material-icon>
           <ng-container @i18n="title of whatsnew screen">Was bisher geschah...</ng-container>
@@ -335,6 +345,25 @@
       </div>
     </div>
   </material-drawer>
+  <div class="shortcutPanel" [style]="shortcutStyle" *ngIf="currPage=='normal'">
+    <div class="content">
+      <div *ngFor="let item of g.shortcutList; let idx = index" class="shortcut">
+        <material-button mini class="" (trigger)="toggleShortcutPanel(false, idx);">
+          <material-icon icon="{{item.icon}}"></material-icon>
+          {{item.name}}
+        </material-button>
+        <material-button class="" (trigger)="toggleShortcutPanel(true, idx);">
+          <material-icon size="small" icon="edit"></material-icon>
+        </material-button>
+      </div>
+      <div class="shortcut">
+        <material-button class="add" (trigger)="toggleShortcutPanel(true, -1)">
+          <material-icon icon="add"></material-icon>
+          {{msgAddText}}
+        </material-button>
+      </div>
+    </div>
+  </div>
 </div>
 <div id="debugMessage" *ngIf="message.dbgText != null" (click)="message.clear();">
   <p [innerHTML]="message.dbgText"></p>
@@ -354,6 +383,6 @@
 </div>
 <form id="postForm" [target]="g.pdfTarget" method="post" action="{{pdfUrl}}">
   <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja_JP'"/>
-  <input name="filename" type="hidden" [value]="g.pdfDownload?pdfFilename(0):''"/>
+  <input name="filename" type="hidden" [value]="g.ppPdfDownload?pdfFilename(0):''"/>
   <input name="data" type="hidden" value="{{pdfData}}"/>{{pdfFilename(0)}}
 </form>
