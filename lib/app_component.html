@@ -5,8 +5,8 @@
         <material-button *ngIf="g.isConfigured"
                          icon id="btnMenu"
                          [disabled]="currPage=='pdfList'"
-                         class="material-drawer-button" (trigger)="drawer.toggle()">
-          <material-icon icon="menu"></material-icon>
+                         [class]="drawerClass" (trigger)="drawer.toggle()">
+          <material-icon [icon]="drawerVisible?'menu_open':'menu'"></material-icon>
         </material-button>
         <div class="title">
           {{g.title}}
@@ -25,22 +25,19 @@
         </div>
       </div>
       <div [class]="classForView('basePanel')">
-        <div *ngIf="g.userList.length == 1" class="userName">{{g.user.display}}</div>
+        <div class="userName" *ngIf="g.userListLoaded && g.userList.length == 1">{{g.user.display}}</div>
         <div [class]="classForView('userPanel')" *ngIf="g.userList.length > 1">
           <material-dropdown-select label="Benutzer" [buttonText]="g.userDisplay" popupClass="userSelect" slide="y"
                                     listAutoFocus>
             <material-select-item *ngFor="let item of g.userList; let idx = index"
-                                  (trigger)="g.userIdx=idx;reportData=null;g.saveStorage('userIdx','${g.userIdx} - test');getCurrentGluc();"
+                                  (trigger)="g.userIdx=idx;reportData=null;g.save();getCurrentGluc();"
                                   [class]="userClass(item)"
                                   [selected]="idx==g.userIdx">
-              <div class="itemTitle">{{item.name.isEmpty?item.apiUrl:item.name}}</div>
-              <div class="itemSub">{{item.storageApiUrl}}</div>
+              <div class="itemTitle">{{item.name.isEmpty?item.apiUrl(null, "", noApi: true):item.name}}</div>
+              <div class="itemSub">{{item.apiUrl(null, "", noApi: true)}}</div>
             </material-select-item>
           </material-dropdown-select>
         </div>
-        <material-fab mini class="shortcutIcon" (trigger)="toggleShortcutPanel(false)" [style]="shortcutIconStyle">
-          <material-icon icon="inbox"></material-icon>
-        </material-fab>
         <datepicker [period]="g.period" (periodChange)="changePeriod($event)" [isLocal]="g.isLocal"
                     [showInfo]="g.showInfo" [showLabel]="false"></datepicker>
       </div>
@@ -112,11 +109,11 @@
             </div>
           </form>
         </div>
-        <material-button *ngIf="!g.hidePdfInfo && !pdfInfoVisible" class="pdfInfo" @i18n="btnPdfInfo"
+        <material-button *ngIf="!pdfInfoVisible" class="pdfInfo" @i18n="btnPdfInfo"
                          (trigger)="pdfInfoVisible=true">
           Warum werde ich mit mehreren Buttons genervt, statt eine einzelne PDF angezeigt zu kriegen?
         </material-button>
-        <div *ngIf="!g.hidePdfInfo && pdfInfoVisible" class="pdfInfoPanel">
+        <div *ngIf="pdfInfoVisible" class="pdfInfoPanel">
           <div @i18n="msgPdfInfo">
             Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da
             das
@@ -213,7 +210,7 @@
                (click)="expansionPanelClicked($event,cfg)">
             <img *ngIf="g.tileShowImage" [src]="cfg.form.backimage">
             <div params *ngIf="cfg.form.sortedParams.length>0 && cfg.checked"
-                 (click)="tileParams=cfg;$event.stopPropagation();">
+                 (click)="drawer.toggle();tileParams=cfg;$event.stopPropagation();">
               <material-icon icon="more_vert"></material-icon>
             </div>
             <div numberimg *ngIf="g.tileShowImage && cfg.checked">{{checkedIndex(cfg)}}</div>
@@ -249,7 +246,30 @@
     </material-fab>
   </material-content>
   <material-drawer scrollable persistent #drawer="drawer" [(visible)]="drawerVisible" [attr.overlay]="">
-    <div class="drawer-root">
+    <div class="tabs">
+      <material-button class="menu" [raised]="menuIdx!=0" (trigger)="menuIdx=0" @i18n="tab title for menu">Menü</material-button>
+      <material-button class="shortcuts" [raised]="menuIdx!=1" (trigger)="menuIdx=1" @i18n="tab title for shortcuts">Shortcuts</material-button>
+    </div>
+    <div class="shortcut-root" *ngIf="menuIdx==1">
+      <div class="content">
+        <div *ngFor="let item of g.shortcutList; let idx = index" [class]="shortcutClass(item)">
+          <material-button mini class="" (trigger)="activateShortcut(idx);">
+            <material-icon icon="{{item.icon}}"></material-icon>
+            {{item.name}}
+          </material-button>
+          <material-button class="" (trigger)="editShortcut(idx);">
+            <material-icon size="small" icon="edit"></material-icon>
+          </material-button>
+        </div>
+        <div class="shortcut">
+          <material-button class="add" (trigger)="editShortcut(-1)">
+            <material-icon icon="add"></material-icon>
+            {{msgAddText}}
+          </material-button>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-root" *ngIf="menuIdx==0">
       <div class="menuControls">
         <material-button class="iconButton material-drawer-button" (trigger)="currPage='welcome';">
           <material-icon icon="home"></material-icon>
@@ -270,7 +290,7 @@
           <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
         <material-button class="iconButton material-drawer-button"
-                         (trigger)="currPage='settings';drawer.toggle();">
+                         (trigger)="g.save();currPage='settings';drawer.toggle();">
           <material-icon icon="settings"></material-icon>
           <ng-container @i18n="title of settings">Einstellungen</ng-container>
         </material-button>
@@ -285,19 +305,19 @@
                 [clientId]="g.googleClientId"
                 (onEvent)="signinEvent($event)"
                 (signinResult)="g.client=$event;"></signin>
-        <material-button *ngIf="g.syncGoogle && g.isLocal" class="iconButton material-drawer-button"
+        <material-button *ngIf="g.isLocal" class="iconButton is-local material-drawer-button"
                          (trigger)="drawer.toggle();callNightscoutStatus();">
           <material-icon icon="assistant" size="big"></material-icon>
           <ng-container @i18n="title of nightscout status">Google Assistant</ng-container>
           <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
-        <material-button class="iconButton material-drawer-button" (trigger)="currPage='whatsnew';">
+        <material-button class="iconButton material-drawer-button" (trigger)="drawer.toggle();currPage='whatsnew';">
           <material-icon icon="new_releases"></material-icon>
           <ng-container @i18n="title of whatsnew screen">Was bisher geschah...</ng-container>
         </material-button>
       </div>
       <div class="menuLinks">
-        <material-button *ngIf="g.user.apiUrl != null" class="iconButton material-drawer-button"
+        <material-button *ngIf="g.user!=null && g.user.apiUrl(null, '', noApi: true)!=null" class="iconButton material-drawer-button"
                          (trigger)="drawer.toggle();callNightscout();">
           <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
           <ng-container @i18n="title of nightscout page">Nightscout Seite</ng-container>
@@ -345,25 +365,6 @@
       </div>
     </div>
   </material-drawer>
-  <div class="shortcutPanel" [style]="shortcutStyle" *ngIf="currPage=='normal'">
-    <div class="content">
-      <div *ngFor="let item of g.shortcutList; let idx = index" class="shortcut">
-        <material-button mini class="" (trigger)="toggleShortcutPanel(false, idx);">
-          <material-icon icon="{{item.icon}}"></material-icon>
-          {{item.name}}
-        </material-button>
-        <material-button class="" (trigger)="toggleShortcutPanel(true, idx);">
-          <material-icon size="small" icon="edit"></material-icon>
-        </material-button>
-      </div>
-      <div class="shortcut">
-        <material-button class="add" (trigger)="toggleShortcutPanel(true, -1)">
-          <material-icon icon="add"></material-icon>
-          {{msgAddText}}
-        </material-button>
-      </div>
-    </div>
-  </div>
 </div>
 <div id="debugMessage" *ngIf="message.dbgText != null" (click)="message.clear();">
   <p [innerHTML]="message.dbgText"></p>
