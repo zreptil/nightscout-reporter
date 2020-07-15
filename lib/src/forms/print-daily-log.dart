@@ -490,7 +490,7 @@ class PrintDailyLog extends BaseProfile {
       } else {
         entry = ProfileEntryData.fromTreatment(null, t);
         if (entry != null)
-          list.add(msgLogTempBasalAbsolute(g.fmtNumber(t.absoluteTempBasal, g.basalPrecision, 0, "null", false),
+          list.add(msgLogTempBasalAbsolute(g.fmtNumber(t.absoluteTempBasal, g.basalPrecision, 0, "0", false),
               g.fmtNumber(t.duration / 60, showTempDigit ? 1 : 0)));
       }
     }

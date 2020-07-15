@@ -227,16 +227,19 @@ class StatusData extends JsonData {
   factory StatusData.fromJson(Map<String, dynamic> json) {
     StatusData ret = StatusData();
     ret.raw = json;
+    ret.settings = SettingsData();
+    ret.extendedSettings = ExtendedSettingsData();
     if (json == null) return ret;
-    ret.status = json["status"];
-    ret.name = json["name"];
-    ret.version = json["version"];
+    ret.status = JsonData.toText(json["status"]);
+    if (ret.status == "401") return ret;
+    ret.name = JsonData.toText(json["name"]);
+    ret.version = JsonData.toText(json["version"]);
     ret.serverTime = JsonData.toDate(json["serverTime"]);
     ret.serverTimeEpoch = JsonData.toInt(json["serverTimeEpoch"]);
     ret.apiEnabled = JsonData.toBool("apiEnabled");
     ret.careportalEnabled = JsonData.toBool("careportalEnabled");
     ret.boluscalcEnabled = JsonData.toBool("boluscalcEnabled");
-    ret.head = json["head"];
+    ret.head = JsonData.toText(json["head"]);
     if (json["settings"] != null) ret.settings = SettingsData.fromJson(json["settings"]);
     if (json["extendedSettings"] != null)
       ret.extendedSettings = ExtendedSettingsData.fromJson(json["extendedSettings"]);
@@ -1062,10 +1065,13 @@ class TreatmentData extends JsonData {
   }
 
   bool equals(TreatmentData t) {
+    return NSClientId == t.NSClientId;
+/*
     return createdAt.millisecondsSinceEpoch == t.createdAt.millisecondsSinceEpoch &&
         eventType == t.eventType &&
         duration == t.duration &&
         notes == t.notes;
+ */
   }
 
   factory TreatmentData.fromJson(Globals g, Map<String, dynamic> json) {
@@ -2300,7 +2306,7 @@ class ListData {
       day.devicestatusList.addAll(devicestatusList.where((ds) => day.isSameDay(ds.createdAt.toLocal())));
     }
     // the last day before the period was added at the beginning. Now it has to be removed.
-    if (days.length > 0) days.removeAt(0);
+    if (days.length > 0 && days[0].date.isBefore(data.begDate)) days.removeAt(0);
   }
 }
 

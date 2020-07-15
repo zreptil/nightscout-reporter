@@ -424,7 +424,7 @@ class PrintDailyGraphic extends BaseDaily {
         graphBottom: graphBottom);
     if (grid.lineHeight == 0)
       return Page(isPortrait, [
-        headerFooter(),
+        headerFooter(date: day.date),
         {
           "relativePosition": {"x": cm(xorg), "y": cm(yorg)},
           "text": msgMissingData
@@ -1113,7 +1113,7 @@ class PrintDailyGraphic extends BaseDaily {
 */
     if (error != null) {
       return Page(isPortrait, [
-        headerFooter(),
+        headerFooter(date: day.date),
         {
           "relativePosition": {"x": cm(xo), "y": cm(yo)},
           "text": "Fehler bei $error",
@@ -1158,7 +1158,7 @@ class PrintDailyGraphic extends BaseDaily {
     }
 
     var ret = Page(isPortrait, [
-      headerFooter(),
+      headerFooter(date: day.date),
       graphIob,
       graphCob,
       glucTableCvs,

@@ -66,6 +66,14 @@ header.material-header .material-header-row {
   flex-direction: column;
 }
 
+.icon-menu{
+
+}
+
+.icon-shortcut{
+  color: var(--shortcutBodyBack);
+}
+
 material-content.main {
   min-height: unset !important;
   display: flex !important;
@@ -173,18 +181,6 @@ material-button svg {
 
 .iconButton img, .iconButton svg, ::ng-deep .iconButton material-icon {
   margin-right: 1em;
-}
-
-material-drawer {
-}
-
-.drawer-root {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  background-color: var(--primaryBack);
-  justify-content: space-between;
-  color: var(--primaryFore);
 }
 
 .formlist {
@@ -336,6 +332,14 @@ material-drawer {
   z-index: 10001;
   width: 100%;
   display: flex;
+
+  ::-webkit-scrollbar-track {
+    background-color: $mat-black;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $mat-gray-700;
+  }
 }
 
 #message {
@@ -512,86 +516,71 @@ material-fab.debug-trigger {
   }
 }
 
-@keyframes showshortcuts {
-  0% {
-    top: -100%;
-  }
-  90% {
-    top: 74px;
-  }
-  100% {
-    top: 64px;
+material-drawer {
+  .tabs{
+    display: flex;
+    flex-direction: row;
+    material-button{
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      margin: 0;
+      border-radius: 0;
+    }
+
+    material-button.menu{
+      background-color: var(--primaryBack);
+      color: var(--primaryFore);
+    }
+    material-button.shortcuts{
+      background-color: var(--shortcutHeaderBack);
+      color: var(--shortcutHeaderFore);
+    }
+
   }
 }
 
-@keyframes hideshortcuts {
-  0% {
-    top: 64px;
-  }
-  10% {
-    top: 74px;
-  }
-  100% {
-    top: -100%;
-  }
+.drawer-root {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: var(--primaryBack);
+  justify-content: space-between;
+  color: var(--primaryFore);
+  overflow-y: auto;
 }
 
-@keyframes showshortcutsicon {
-  0% {
-    transform: rotate(0deg);
-  }
-  10% {
-    transform: rotate(-30deg);
-  }
-  90% {
-    transform: rotate(390deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes hideshortcutsicon {
-  0% {
-    transform: rotate(360deg);
-  }
-  10% {
-    transform: rotate(390deg);
-  }
-  90% {
-    transform: rotate(-30deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-.shortcutIcon {
-  color: var(--shortcutBodyBack);
-  -material-icon {
-    height: 90%;
-  }
-}
-
-.shortcutPanel {
+.shortcut-root {
   display: flex;
   overflow: hidden;
-  background: transparent;
-  -z-index: 100000;
-  align-self: center;
-  position: absolute;
-  -left: 50%;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: var(--shortcutHeaderBack);
+  color: var(--shortcutHeaderFore);
+
+  .header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em;
+  }
 
   .content {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background: var(--shortcutBodyBack);
-    color: var(--shortcutBodyFore);
-    border: 2px solid rgba(0, 0, 0, 0.12);
-    border-radius: 0.5em;
     padding: 0.5em;
-    margin: 0.5em;
+    overflow-y: auto;
+    height: 100%;
+
+    ::-webkit-scrollbar-track {
+      background-color: var(--secondaryBack);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--primaryBack);
+    }
 
     material-button.add {
       border-radius: 20px;
@@ -606,6 +595,11 @@ material-fab.debug-trigger {
       border-radius: 20px;
     }
 
+    .active > material-button{
+      background: var(--shortcutHeaderFore) !important;
+      color: var(--shortcutHeaderBack) !important;
+    }
+
     .shortcut {
       display: flex;
       flex-direction: row;
@@ -615,6 +609,9 @@ material-fab.debug-trigger {
         display: flex;
         min-width: initial;
         margin: 0;
+        background: var(--shortcutBodyBack);
+        color: var(--shortcutBodyFore);
+        border-radius: 0;
       }
 
       material-button:first-child {
@@ -626,6 +623,10 @@ material-fab.debug-trigger {
       material-button:not(:first-child) {
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
+      }
+
+      material-button.add {
+        border-radius: 20px;
       }
     }
   }
@@ -878,7 +879,8 @@ material-expansionpanel.checked {
 }
 
 material-button.is-local, div.is-local {
-  background: var(--localBack);
+  color: var(--localFore);
+  background-color: var(--localBack);
 }
 
 material-expansionpanel.is-local.checked {

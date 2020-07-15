@@ -15,7 +15,21 @@ material-slider {
   margin-right: 2em;
 }
 
-@include slider-thumb-color("material-slider.maxsize", $settings_header_back);
+// this mixin is neccessary since the original uses transparantize, which doesn't work with variables
+@mixin nr-slider-thumb-color($selector, $fore, $back) {
+  ::ng-deep #{$selector} .knob-real,
+  ::ng-deep #{$selector} .is-dragging.knob-drag-shadow {
+    background-color: $fore;
+  }
+
+  ::ng-deep #{$selector} .knob:focus,
+  ::ng-deep #{$selector} .knob:hover {
+    .knob-hover-shadow {
+      background-color: $back;
+    }
+  }
+}
+@include nr-slider-thumb-color("material-slider.maxsize", var(--settingsHeaderBack), var(--settingsHeaderFore));
 @include slider-track-color("material-slider.maxsize", var(--settingsHeaderBack) !important, var(--settingsHeaderFore) !important);
 @include material-checkbox-color(var(--settingsHeaderBack), $modifier: '');
 @include material-select-selected-item-color(var(--settingsHeaderBack));
@@ -67,12 +81,18 @@ material-slider {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
+
+  material-input {
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
 }
 
 .controls {
   display: flex;
   flex: 1;
   justify-content: flex-end;
+  min-width: 7em;
 
   .label {
     padding-right: 2em;
@@ -92,6 +112,10 @@ material-slider {
   material-input {
     flex-shrink: 0;
     flex-grow: 1;
+  }
+
+  material-button:not([disabled]) .urlIcon {
+    color: var(--settingsHeaderBack);
   }
 }
 
@@ -132,6 +156,11 @@ material-dialog.headered-dialog {
     background-color: var(--settingsHeaderBack);
     color: var(--settingsHeaderFore);
     padding: 0;
+  }
+
+  &[headered] ::ng-deep .wrapper ::ng-deep h1 {
+    background-color: var(--settingsHeaderBack);
+    color: var(--settingsHeaderFore);
   }
 }
 
@@ -187,6 +216,11 @@ div[footer] {
   font-size: 1.2em;
 }
 
+.date {
+  width: 14em;
+  flex-grow: 0 !important;
+}
+
 material-dialog[confirm] {
   background-color: var(--settingsBodyBack);
   color: var(--settingsBodyFore);
@@ -235,12 +269,21 @@ material-input {
   }
 }
 
-material-fab.is-local, div.is-local {
+material-fab.is-local, div.is-local, material-button.is-local {
   background: var(--localBack) !important;
+  color: var(--localFore) !important;
 }
 
 .navControls {
   display: flex;
   align-items: center;
   font-size: 0.7em;
+}
+
+#exportForm {
+  display: none;
+}
+
+#importData {
+  display: none;
 }

@@ -29,7 +29,7 @@ import '../jsonData.dart';
   ],
   providers: [],
 )
-class ShortcutEditComponent implements OnInit {
+class ShortcutEditComponent implements OnInit, AfterViewInit {
   globals.Globals g = globals.Globals();
 
   @Output("shortcuteditresult")
@@ -47,7 +47,16 @@ class ShortcutEditComponent implements OnInit {
   ShortcutEditComponent();
 
   @override
-  Future<Null> ngOnInit() async {}
+  Future<Null> ngOnInit() async {
+  }
+
+  @override
+  void ngAfterViewInit() {
+    Future.delayed(Duration(milliseconds: 100), ()
+    {
+      querySelector("#name").focus();
+    });
+  }
 
   void fire(String type) {
     int detail = 0;

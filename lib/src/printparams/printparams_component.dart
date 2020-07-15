@@ -70,7 +70,7 @@ class PrintParamsComponent implements OnInit {
   Future<Null> ngOnInit() async {
     listPeriodShift.addAll(g.listPeriodShift.reversed);
     periodShift = listPeriodShift.firstWhere((e) => e.months == g.currPeriodShift.months);
-    String url = "${g.user.apiUrl}status.json";
+    String url = g.user.apiUrl(null, "status.json");
     String content = await g.request(url);
     StatusData status = StatusData.fromJson(json.decode(content));
     g.setGlucMGDL(status);

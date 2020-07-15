@@ -1,4 +1,5 @@
 import 'dart:html' as html;
+import 'dart:convert' as convert;
 
 import 'package:angular/angular.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -9,9 +10,15 @@ import "package:intl/intl.dart";
 
 void main()
 async {
-  String language = html.window.localStorage["${html.window.location.href.contains("/beta/")?"@":""}language"];
-  if((language == null || language.length != 5))
-    language = "de_DE";
+  String prefix = html.window.location.href.contains("/beta/") ? "@" : "";
+  String language = html.window.localStorage["${prefix}language"];
+  try
+  {
+    dynamic json = convert.json.decode(html.window.localStorage["${prefix}webData"]);
+    language = json["w1"];
+  }catch(ex){
+  }
+  if ((language == null || language.length != 5))language = "de_DE";
   Intl.systemLocale = Intl.canonicalizedLocale(language);
   await initializeTimeZone();
   await initializeMessages(language);
