@@ -1,6 +1,7 @@
 library diamant.jsonData;
 
 import 'dart:convert' as convert;
+import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:angular_components/angular_components.dart';
@@ -908,7 +909,7 @@ class BoluscalcData extends JsonData {
   }
 }
 
-class InsulinInjectionData extends JsonData {
+/*class InsulinInjectionData extends JsonData {
   String insulin;
   double units;
 
@@ -923,6 +924,41 @@ class InsulinInjectionData extends JsonData {
     if (json == null) return ret;
     ret.insulin = JsonData.toText(json["insulin"]);
     ret.units = JsonData.toDouble(json["units"]);
+    return ret;
+  }
+}*/
+class InsulinInjectionList {
+  Map<String, double> injections = Map();
+
+  InsulinInjectionList get copy => InsulinInjectionList()
+    ..injections = new Map.from(injections);
+
+  fromJsonString(String json)
+  {
+    injections = Map();
+    List<dynamic> decoded = JsonCodec().decode(json);
+    double sum = 0;
+    for (dynamic inj in decoded) {
+      double u = JsonData.toDouble(inj["units"]);
+      sum += u;
+      injections.update(JsonData.toText(inj["insulin"]), (double v) => v + u, ifAbsent: () => u);
+    }
+    injections.update("sum", (double v) => v + sum, ifAbsent: () => sum);
+  }
+  fromSumValue(double sum)
+  {
+    injections = Map();
+    injections.update("sum", (double v) => v + sum, ifAbsent: () => sum);
+  }
+
+  InsulinInjectionList add2List(InsulinInjectionList l)
+  {
+    InsulinInjectionList ret = this.copy;
+    for (String insulin in l.injections.keys)
+    {
+      double sum = l.injections[insulin];
+      ret.injections.update(insulin, (double v) => v + sum, ifAbsent: () => sum);
+    }
     return ret;
   }
 }
@@ -941,8 +977,9 @@ class TreatmentData extends JsonData {
   String NSClientId;
   double _carbs;
   double insulin;
+  InsulinInjectionList multipleInsulin;
   double microbolus;
-  List<InsulinInjectionData> insulinInjections = List<InsulinInjectionData>();
+//  List<InsulinInjectionData> insulinInjections = List<InsulinInjectionData>();
 
   int splitExt;
   int splitNow;
@@ -1043,6 +1080,7 @@ class TreatmentData extends JsonData {
       ..NSClientId = NSClientId
       .._carbs = _carbs
       ..insulin = insulin
+      ..multipleInsulin = multipleInsulin.copy
       ..splitExt = splitExt
       ..splitNow = splitNow
       ..microbolus = microbolus
@@ -1059,8 +1097,8 @@ class TreatmentData extends JsonData {
       .._key600 = _key600
       ..isECarb = isECarb
       ..raw = raw;
-    ret.insulinInjections = List<InsulinInjectionData>();
-    for (InsulinInjectionData entry in insulinInjections) ret.insulinInjections.add(entry.copy);
+//    ret.insulinInjections = List<InsulinInjectionData>();
+//    for (InsulinInjectionData entry in insulinInjections) ret.insulinInjections.add(entry.copy);
     return ret;
   }
 
@@ -1089,7 +1127,10 @@ class TreatmentData extends JsonData {
     ret.enteredBy = JsonData.toText(json["enteredBy"]);
     ret.NSClientId = JsonData.toText(json["NSCLIENT_ID"]);
     ret._carbs = JsonData.toDouble(json["carbs"]);
-    ret.insulin = JsonData.toDouble(json["insulin"]);
+    ret.multipleInsulin = InsulinInjectionList();
+    if (json.containsKey("insulinInjections"))
+      ret.multipleInsulin.fromJsonString(json["insulinInjections"]);
+    else ret.multipleInsulin.fromSumValue(ret.insulin);   // falls wir an dem Tag keine insulinInjections haben
     if (ret.insulin == 0.0) ret.insulin = JsonData.toDouble(json["enteredinsulin"]);
     ret.splitExt = JsonData.toInt(json["splitExt"]);
     ret.splitNow = JsonData.toInt(json["splitNow"]);
@@ -1102,12 +1143,12 @@ class TreatmentData extends JsonData {
     ret.targetTop = JsonData.toDouble(json["targetTop"]);
     ret.targetBottom = JsonData.toDouble(json["targetBottom"]);
     ret.microbolus = 0.0;
-    String temp = JsonData.toText(json["insulinInjections"]);
+/*    String temp = JsonData.toText(json["insulinInjections"]);
     List<dynamic> list = [];
     try {
       list = convert.json.decode(temp);
     } catch (ex) {}
-    for (dynamic entry in list) ret.insulinInjections.add(InsulinInjectionData.fromJson(g, entry));
+    for (dynamic entry in list) ret.insulinInjections.add(InsulinInjectionData.fromJson(g, entry));*/
 
     ret.glucose = JsonData.toDouble(json["glucose"]);
     if (json["units"] != null) {

@@ -464,10 +464,10 @@ class PrintDailyLog extends BaseProfile {
             text = msgBolusWizard;
             break;
           default:
-            if (t.insulinInjections.length > 0) {
+            if (t.multipleInsulin.injections.length > 0) {
               text = null;
-              for (InsulinInjectionData entry in t.insulinInjections)
-                list.add("${entry.insulin} ${entry.units} ${msgInsulinUnit}");
+              for (String entry in t.multipleInsulin.injections.keys)
+                list.add("${entry} ${t.multipleInsulin.injections[entry]} ${msgInsulinUnit}");
             }
             break;
         }
