@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-06-26T14:31:12.612698",
+    "@@last_modified": "2020-07-15T07:41:34.148223",
     "Überprüfe Zugriff auf Nightscout ...": "Skontrolujte prístup do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -111,12 +111,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bezeichnung": "Bezeichnung",
+    "Bezeichnung": "Označenie",
     "@Bezeichnung": {
         "type": "text",
         "placeholders": {}
     },
-    "Hinzufügen": "Hinzufügen",
+    "Hinzufügen": "Pridať",
     "@Hinzufügen": {
         "type": "text",
         "placeholders": {}
@@ -202,6 +202,46 @@
         "type": "text",
         "placeholders": {}
     },
+    "Heute": "dnes",
+    "@Heute": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte 2 Tage": "Posledné 2 dni",
+    "@Letzte 2 Tage": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte 3 Tage": "Posledné 3 dni",
+    "@Letzte 3 Tage": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte Woche": "Minulý týždeň",
+    "@Letzte Woche": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte 2 Wochen": "Posledné 2 týždne",
+    "@Letzte 2 Wochen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte 3 Wochen": "Posledné 3 týždne",
+    "@Letzte 3 Wochen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzter Monat": "Minulý mesiac",
+    "@Letzter Monat": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte 3 Monate": "Posledné 3 mesiace",
+    "@Letzte 3 Monate": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Ausgewählter Zeitraum": "Vybrané obdobie",
     "@Ausgewählter Zeitraum": {
         "type": "text",
@@ -254,46 +294,6 @@
     },
     "Die URL wurde noch nicht festgelegt.": "URL ešte nie je nastavená.",
     "@Die URL wurde noch nicht festgelegt.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Heute": "dnes",
-    "@Heute": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte 2 Tage": "Posledné 2 dni",
-    "@Letzte 2 Tage": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte 3 Tage": "Posledné 3 dni",
-    "@Letzte 3 Tage": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte Woche": "Minulý týždeň",
-    "@Letzte Woche": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte 2 Wochen": "Posledné 2 týždne",
-    "@Letzte 2 Wochen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte 3 Wochen": "Posledné 3 týždne",
-    "@Letzte 3 Wochen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzter Monat": "Minulý mesiac",
-    "@Letzter Monat": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte 3 Monate": "Posledné 3 mesiace",
-    "@Letzte 3 Monate": {
         "type": "text",
         "placeholders": {}
     },
@@ -1251,7 +1251,7 @@
             "value": {}
         }
     },
-    "Tag (08:00 - 17:59)": "Tag (08:00 - 17:59)",
+    "Tag (08:00 - 17:59)": "Deň (08:00 - 17:59)",
     "@Tag (08:00 - 17:59)": {
         "type": "text",
         "placeholders": {}
@@ -1261,7 +1261,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Nacht (21:00 - 05:59)": "Nacht (21:00 - 05:59)",
+    "Nacht (21:00 - 05:59)": "Noc (21:00 - 05:59)",
     "@Nacht (21:00 - 05:59)": {
         "type": "text",
         "placeholders": {}
@@ -1399,6 +1399,11 @@
     },
     "Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.": "Žltý päťuholník predstavuje rozsah hodnôt hodnoteného obdobia.",
     "@Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Gelbe Kreise zeigen an, dass der entsprechende Wert die Skala überschreitet.": "Gelbe Kreise zeigen an, dass der entsprechende Wert die Skala überschreitet.",
+    "@Gelbe Kreise zeigen an, dass der entsprechende Wert die Skala überschreitet.": {
         "type": "text",
         "placeholders": {}
     },
@@ -1683,7 +1688,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bewegung": "Bewegung",
+    "Bewegung": "Sťahovať",
     "@Bewegung": {
         "type": "text",
         "placeholders": {}
@@ -1793,7 +1798,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Mehrfache Datensätze kennzeichnen": "Mehrfache Datensätze kennzeichnen",
+    "Mehrfache Datensätze kennzeichnen": "Označte viac záznamov",
     "@Mehrfache Datensätze kennzeichnen": {
         "type": "text",
         "placeholders": {}
@@ -2003,10 +2008,26 @@
         "type": "text",
         "placeholders": {}
     },
-    "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde",
-    "@Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
+    "msgAccessTokenHint": "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde",
+    "@msgAccessTokenHint": {
         "type": "text",
-        "placeholders": {}
+        "placeholders": {
+            "isVisible": {}
+        }
+    },
+    "msgStartDateHint": "Das Datum des ersten Tages mit Daten",
+    "@msgStartDateHint": {
+        "type": "text",
+        "placeholders": {
+            "isVisible": {}
+        }
+    },
+    "msgEndDateHint": "Das Datum des letzten kompletten Tages mit Daten",
+    "@msgEndDateHint": {
+        "type": "text",
+        "placeholders": {
+            "isVisible": {}
+        }
     },
     "msgCheckUser": "Skontrolujte prístup na {url} ...",
     "@msgCheckUser": {
@@ -2014,6 +2035,38 @@
         "placeholders": {
             "url": {}
         }
+    },
+    "Daten von": "Daten von",
+    "@Daten von": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Daten bis": "Daten bis",
+    "@Daten bis": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ermittle ersten Tag mit Daten": "Ermittle ersten Tag mit Daten",
+    "@Ermittle ersten Tag mit Daten": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ermittle letzten Tag mit Daten": "Ermittle letzten Tag mit Daten",
+    "@Ermittle letzten Tag mit Daten": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgCalculatingDay": "Überprüfe {date} ...",
+    "@msgCalculatingDay": {
+        "type": "text",
+        "placeholders": {
+            "date": {}
+        }
+    },
+    "Bitte den Dateinamen für die Speicherung auswählen": "Bitte den Dateinamen für die Speicherung auswählen",
+    "@Bitte den Dateinamen für die Speicherung auswählen": {
+        "type": "text",
+        "placeholders": {}
     },
     "Shortcut anlegen": "Shortcut anlegen",
     "@Shortcut anlegen": {
@@ -2032,27 +2085,15 @@
             "count": {}
         }
     },
-    "Willkommen": "Vitajte",
-    "@Willkommen": {
-        "description": "title of welcome screen",
+    "Menü": "Menü",
+    "@Menü": {
+        "description": "tab title for menu",
         "type": "text",
         "placeholders": {}
     },
-    "Facebook Seite": "Stránka na Facebooku",
-    "@Facebook Seite": {
-        "description": "title of facebook link",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Einstellungen": "Nastavenia",
-    "@Einstellungen": {
-        "description": "title for settings dialog",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Was bisher geschah...": "Čo sa doteraz podarilo ...",
-    "@Was bisher geschah...": {
-        "description": "title of whatsnew",
+    "Shortcuts": "Shortcuts",
+    "@Shortcuts": {
+        "description": "tab title for shortcuts",
         "type": "text",
         "placeholders": {}
     },
@@ -2110,6 +2151,30 @@
         "type": "text",
         "placeholders": {}
     },
+    "Willkommen": "Vitajte",
+    "@Willkommen": {
+        "description": "title of welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Facebook Seite": "Stránka na Facebooku",
+    "@Facebook Seite": {
+        "description": "title of facebook link",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einstellungen": "Nastavenia",
+    "@Einstellungen": {
+        "description": "title for settings dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Was bisher geschah...": "Čo sa doteraz podarilo ...",
+    "@Was bisher geschah...": {
+        "description": "title of whatsnew",
+        "type": "text",
+        "placeholders": {}
+    },
     "Zur Listenansicht": "Na zobrazenie zoznamu",
     "@Zur Listenansicht": {
         "description": "title of listview",
@@ -2122,7 +2187,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Google Assistant": "Google Assistant",
+    "Google Assistant": "Asistent Google",
     "@Google Assistant": {
         "description": "title of nightscout status",
         "type": "text",
@@ -2242,6 +2307,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Nightscout Url in der Fusszeile des PDFs anzeigen": "Nightscout Url in der Fusszeile des PDFs anzeigen",
+    "@Nightscout Url in der Fusszeile des PDFs anzeigen": {
+        "description": "label for checkbox to show nightscout url in footer",
+        "type": "text",
+        "placeholders": {}
+    },
     "Historische Daten": "Historické dáta",
     "@Historische Daten": {
         "description": "label of area for timeshift",
@@ -2308,6 +2379,18 @@
         "type": "text",
         "placeholders": {}
     },
+    "Exportieren": "Exportieren",
+    "@Exportieren": {
+        "description": "buttonlabel for exporting data",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Importieren": "Importieren",
+    "@Importieren": {
+        "description": "buttonlabel for importing data",
+        "type": "text",
+        "placeholders": {}
+    },
     "Speichern": "uložiť",
     "@Speichern": {
         "description": "buttonlabel for saving data",
@@ -2332,6 +2415,18 @@
         "type": "text",
         "placeholders": {}
     },
+    "Soll die URL": "Soll die URL",
+    "@Soll die URL": {
+        "description": "should the url of the user",
+        "type": "text",
+        "placeholders": {}
+    },
+    "vom Benutzer wirklich gelöscht werden?": "vom Benutzer wirklich gelöscht werden?",
+    "@vom Benutzer wirklich gelöscht werden?": {
+        "description": "of the user really be deleted",
+        "type": "text",
+        "placeholders": {}
+    },
     "Ja": "áno",
     "@Ja": {
         "description": "buttonlabel for confirmation yes",
@@ -2344,9 +2439,27 @@
         "type": "text",
         "placeholders": {}
     },
+    "Abbruch": "Abbruch",
+    "@Abbruch": {
+        "description": "buttonlabel for cancel",
+        "type": "text",
+        "placeholders": {}
+    },
     "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.",
     "@Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": {
         "description": "info text for shortcuts",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Anzahl:": "Anzahl:",
+    "@Anzahl:": {
+        "description": "number of forms for shortcut",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zeitraum:": "Zeitraum:",
+    "@Zeitraum:": {
+        "description": "period for shortcuts",
         "type": "text",
         "placeholders": {}
     },
@@ -2428,21 +2541,69 @@
         "type": "text",
         "placeholders": {}
     },
-    "1.5.0 - xx.6.2020": "1.5.0 - xx.6.2020",
-    "@1.5.0 - xx.6.2020": {
-        "description": "v150",
+    "2.0.0 - 15.7.2020": "2.0.0 - 15.7.2020",
+    "@2.0.0 - 15.7.2020": {
+        "description": "v200",
         "type": "text",
         "placeholders": {}
     },
     "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.",
     "@Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": {
-        "description": "v150a1",
+        "description": "v200a1",
         "type": "text",
         "placeholders": {}
     },
     "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.",
     "@Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": {
-        "description": "v150a1",
+        "description": "v200a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei Herokuapp und anderen Anbietern kostenloser Datenbankinstanzen ist der Speicherplatz der Instanz beschränkt, weshalb sie irgendwann voll ist. Dann kann man zwar eine neue Instanz anlegen, Nightscout Reporter benötigt aber für eine lückenlose Darstellung aller Tage Zugriff auf alle Instanzen, für die man eine Auswertung erhalten will. Deshalb können nun mehrere URLs für die Nightscout Instanzen eingegeben werden. Zusätzlich muss noch eingegeben werden, welches der erste und der letzte Tag mit Daten ist. Mit diesen Informationen ist es Nightscout Reporter dann möglich die benötigten Daten lückenlos auch über mehrere Instanzen hinweg auszuwerten.": "Bei Herokuapp und anderen Anbietern kostenloser Datenbankinstanzen ist der Speicherplatz der Instanz beschränkt, weshalb sie irgendwann voll ist. Dann kann man zwar eine neue Instanz anlegen, Nightscout Reporter benötigt aber für eine lückenlose Darstellung aller Tage Zugriff auf alle Instanzen, für die man eine Auswertung erhalten will. Deshalb können nun mehrere URLs für die Nightscout Instanzen eingegeben werden. Zusätzlich muss noch eingegeben werden, welches der erste und der letzte Tag mit Daten ist. Mit diesen Informationen ist es Nightscout Reporter dann möglich die benötigten Daten lückenlos auch über mehrere Instanzen hinweg auszuwerten.",
+    "@Bei Herokuapp und anderen Anbietern kostenloser Datenbankinstanzen ist der Speicherplatz der Instanz beschränkt, weshalb sie irgendwann voll ist. Dann kann man zwar eine neue Instanz anlegen, Nightscout Reporter benötigt aber für eine lückenlose Darstellung aller Tage Zugriff auf alle Instanzen, für die man eine Auswertung erhalten will. Deshalb können nun mehrere URLs für die Nightscout Instanzen eingegeben werden. Zusätzlich muss noch eingegeben werden, welches der erste und der letzte Tag mit Daten ist. Mit diesen Informationen ist es Nightscout Reporter dann möglich die benötigten Daten lückenlos auch über mehrere Instanzen hinweg auszuwerten.": {
+        "description": "v200a3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wenn im CGP ein Wert den Maximalwert der Skala überschreitet, wird die entsprechende Ecke mit einem gelben Kreis markiert.": "Wenn im CGP ein Wert den Maximalwert der Skala überschreitet, wird die entsprechende Ecke mit einem gelben Kreis markiert.",
+    "@Wenn im CGP ein Wert den Maximalwert der Skala überschreitet, wird die entsprechende Ecke mit einem gelben Kreis markiert.": {
+        "description": "v200a4",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Auf dem Einstellungen-Dialog gibt es neben den URL-Eingabefeldern jeweils einen Button, um die URL in einem neuen Browser-Fenster zu öffnen.": "Auf dem Einstellungen-Dialog gibt es neben den URL-Eingabefeldern jeweils einen Button, um die URL in einem neuen Browser-Fenster zu öffnen.",
+    "@Auf dem Einstellungen-Dialog gibt es neben den URL-Eingabefeldern jeweils einen Button, um die URL in einem neuen Browser-Fenster zu öffnen.": {
+        "description": "v200a5",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Eingabe des Zugriffsschlüssels auf dem Einstellungen-Dialog kann jetzt mit einem Button neben dem Eingabefeld lesbar gemacht werden.": "Die Eingabe des Zugriffsschlüssels auf dem Einstellungen-Dialog kann jetzt mit einem Button neben dem Eingabefeld lesbar gemacht werden.",
+    "@Die Eingabe des Zugriffsschlüssels auf dem Einstellungen-Dialog kann jetzt mit einem Button neben dem Eingabefeld lesbar gemacht werden.": {
+        "description": "v200a6",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Einstellungen Dialog gibt es jetzt die Möglichkeit, die Einstellungen zu exportieren und zu importieren. Beim Export wird eine Datei mit den allgemeinen Einstellungen geschrieben, beim Import wird so eine Datei wieder eingelesen. Damit kann man auch ohne Google Drive Zugriff die Einstellungen über verschiedene Browser hinweg manuell synchronisieren.": "Im Einstellungen Dialog gibt es jetzt die Möglichkeit, die Einstellungen zu exportieren und zu importieren. Beim Export wird eine Datei mit den allgemeinen Einstellungen geschrieben, beim Import wird so eine Datei wieder eingelesen. Damit kann man auch ohne Google Drive Zugriff die Einstellungen über verschiedene Browser hinweg manuell synchronisieren.",
+    "@Im Einstellungen Dialog gibt es jetzt die Möglichkeit, die Einstellungen zu exportieren und zu importieren. Beim Export wird eine Datei mit den allgemeinen Einstellungen geschrieben, beim Import wird so eine Datei wieder eingelesen. Damit kann man auch ohne Google Drive Zugriff die Einstellungen über verschiedene Browser hinweg manuell synchronisieren.": {
+        "description": "v200a7",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.": "Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.",
+    "@Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.": {
+        "description": "v200a8",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das CGP wird jetzt auch bei extremen Werten korrekt erzeugt.": "Das CGP wird jetzt auch bei extremen Werten korrekt erzeugt.",
+    "@Das CGP wird jetzt auch bei extremen Werten korrekt erzeugt.": {
+        "description": "v200f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im CGP wurden die Skalenbeschriftungen korrigiert.": "Im CGP wurden die Skalenbeschriftungen korrigiert.",
+    "@Im CGP wurden die Skalenbeschriftungen korrigiert.": {
+        "description": "v200f2",
         "type": "text",
         "placeholders": {}
     },

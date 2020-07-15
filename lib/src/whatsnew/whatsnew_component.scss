@@ -31,7 +31,7 @@ material-dialog {
 material-dialog.headered-dialog {
   @include material-dialog-header-color(var(--whatsnewHeaderBack));
 
-  ::ng-deep h1{
+  ::ng-deep h1 {
     color: var(--whatsnewHeaderFore) !important;
   }
 }
@@ -96,4 +96,3 @@ li:before {
 .fixed:before {
   content: "#";
 }
-

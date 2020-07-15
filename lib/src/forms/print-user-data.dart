@@ -60,7 +60,7 @@ class PrintUserData extends BasePrint {
       subtitle = title.substring(pos + 1, title.length - 1);
       title = title.substring(0, pos - 1);
     }
-    titleInfo = user.storageApiUrl;
+    titleInfo = user.apiUrl(null, "", noApi: true);
     var table = [];
 
     double x = xframe;

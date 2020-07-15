@@ -195,14 +195,18 @@ class AppComponent implements OnInit {
 
     if (!g.showCurrentGluc || glucRunning) return "";
     glucRunning = true;
-    String url = "${g.user.apiUrl}status.json";
+    String url = g.user.apiUrl(null, "status.json");
     if (!g.hasMGDL) {
       String content = await g.request(url);
-      StatusData status = StatusData.fromJson(json.decode(content));
-      g.setGlucMGDL(status);
+      if (content != null && content.startsWith("{")) {
+        StatusData status = StatusData.fromJson(json.decode(content));
+        g.setGlucMGDL(status);
+      }
     }
-    url = "${g.user.apiUrl}entries.json?count=2";
-    List<dynamic> src = json.decode(await g.request(url));
+    url = g.user.apiUrl(null, "entries.json", params: "count=2");
+    String temp = await g.request(url);
+    if (temp == null || !temp.startsWith("[")) return "??";
+    List<dynamic> src = json.decode(temp);
     if (src.length != 2) {
       currentGluc = "Keine Daten";
       currentGlucDiff = "";
@@ -243,6 +247,19 @@ class AppComponent implements OnInit {
     return currentGluc;
   }
 
+  String get drawerClass {
+    String ret = "material-drawer-button ";
+    switch (menuIdx) {
+      case 0:
+        ret += "icon-menu";
+        break;
+      case 1:
+        ret += "icon-shortcut";
+        break;
+    }
+    return ret;
+  }
+
   String appTitle = "";
   bool currentGlucVisible = true;
 
@@ -256,12 +273,13 @@ class AppComponent implements OnInit {
       if (materialColors.containsKey(value)) value = materialColors[value].hexString;
       html.document.body.style.setProperty("--$key", value);
     }
-    g.saveStorage("webtheme", name);
+    g.saveWebData(); //saveStorage("webtheme", name);
   }
 
   @override
   Future<Null> ngOnInit() async {
-    g.theme = g.loadStorage("theme");
+    g.loadWebData();
+//    g.theme = g.loadStorage("theme");
     await setTheme(g.theme);
 
     appTitle = html.document.querySelector("head>title").text;
@@ -315,7 +333,7 @@ class AppComponent implements OnInit {
       for (BasePrint form in srcList) g.listConfig.add(FormConfig(form, false));
       g.listConfigOrg.addAll(g.listConfig);
       g.sortConfigs();
-      g.userIdx = g.userIdx;
+      for (FormConfig entry in g.listConfig) g.user.formParams[entry.id] = entry.asString;
 
       if (html.window.location.href.endsWith("?dsgvo")) currPage = "dsgvo";
       if (html.window.location.href.endsWith("?impressum")) currPage = "impressum";
@@ -330,7 +348,7 @@ class AppComponent implements OnInit {
         g.period.minDate = null;
       }
       getCurrentGluc();
-      if (_currPage == "whatsnew") g.saveStorage("version", g.version);
+      if (_currPage == "whatsnew") g.saveWebData();
     });
 // */
 /*
@@ -363,13 +381,14 @@ class AppComponent implements OnInit {
 
     if (clear) message.links = [];
 
-    message.links.add(
-        {"url": g.adjustUrl(url), "title": title, "class": btnClass, "icon": isDebug && icon == null ? "code" : icon});
+    message.links.add({"url": url, "title": title, "class": btnClass, "icon": isDebug && icon == null ? "code" : icon});
     message.okText = msgClose;
     if (type != null) message.type = type;
   }
 
-  void showDebug(String msg) {
+  void showDebug() {
+    String msg = g.debugCache.join("<br />");
+    g.debugCache.clear();
     message.dbgText = msg;
   }
 
@@ -381,11 +400,7 @@ class AppComponent implements OnInit {
   }
 
   void callNightscout() {
-    String url = g.user.apiUrl;
-    int pos = url.indexOf("/api");
-    if (pos >= 0) url = url.substring(0, pos);
-    if (g.user.token != null && g.user.token != "") url = "${url}?token=${g.user.token}";
-    navigate(url);
+    navigate(g.user.apiUrl(null, "", noApi: true));
   }
 
   void callNightscoutReports() {
@@ -500,16 +515,12 @@ class AppComponent implements OnInit {
   void settingsResult(html.UIEvent evt) {
     switch (evt.type) {
       case "ok":
-        g.save();
+        g.save(skipReload: true);
         reportData = null;
         _currPage = g.isConfigured ? "normal" : "welcome";
         break;
-      case "theme":
-        g.saveStorage("theme", g.themeKey);
-        setTheme(g.theme);
-        break;
       default:
-        g.loadSettings();
+        g.loadSettings(skipSyncGoogle: true);
         _currPage = g.isConfigured ? _lastPage : "welcome";
         break;
     }
@@ -640,8 +651,9 @@ class AppComponent implements OnInit {
       data.user.birthDate = "13.2.1965";
       data.user.diaStartDate = "1.1.1996";
       data.user.insulin = "Novorapid";
-      data.user.storageApiUrl = "https://diamant-ns.herokuapp.com";
-      data.user.token = null;
+      data.user.listApiUrl = List<UrlData>();
+      data.user.listApiUrl.add(UrlData.fromJson(
+          g, {"u": "https://diamant-ns.herokuapp.com", "t": "anditoken-a12e3472efe42759", "sd": null, "ed": null}));
       data.user.customData = {};
       data.user.formParams = {};
     } else {
@@ -671,10 +683,10 @@ class AppComponent implements OnInit {
       progressMax = g.userList.length + 1;
       progressValue = 0;
       for (UserData user in g.userList) {
-        if (!user.isReachable) continue;
+//        if (!user.isReachable) continue;
         progressText = msgLoadingDataFor(user.name);
         try {
-          String url = "${user.apiUrl}status.json";
+          String url = user.apiUrl(null, "status.json");
           displayLink("status", url, type: "debug");
           String content = await g.request(url, showError: false);
           user.status = StatusData.fromJson(json.decode(content));
@@ -701,42 +713,45 @@ class AppComponent implements OnInit {
     message.links = [];
     message.type = "msg toggle-debug";
 
-    String url = "${data.user.apiUrl}status.json";
+    String url = data.user.apiUrl(endDate, "status.json");
     displayLink("status", url, type: "debug");
     String content = await g.request(url);
     data.status = StatusData.fromJson(json.decode(content));
     g.setGlucMGDL(data.status);
-    url = "${data.user.apiUrl}profile.json";
-    displayLink("profile", url, type: "debug");
-    content = await g.request(url);
-//      if (g.dateRange.range.start == null || g.dateRange.range.end == null)
     if (g.period.start == null || g.period.end == null) {
       data.error = StateError(msgEmptyRange);
       return data;
     }
 
     ProfileData baseProfile = null;
-    try {
-      g.basalPrecisionAuto = 0;
-      List<dynamic> src = json.decode(content);
-      for (dynamic entry in src) {
-        // don't add profiles that cannot be read
-        try {
-          ProfileData profile = ProfileData.fromJson(entry, isFromNS: true);
-          data.profiles.add(profile);
-        } catch (ex) {}
-        g.basalPrecisionAuto = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
-      }
-      data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
-      baseProfile = data.profiles.first;
+
+    List<UrlData> list = g.findUrlDataFor(begDate, endDate);
+    for (UrlData urlData in list) {
+      url = urlData.fullUrl("profile.json");
+      displayLink("profile", url, type: "debug");
+      content = await g.request(url);
+
+      try {
+        g.basalPrecisionAuto = 0;
+        List<dynamic> src = json.decode(content);
+        for (dynamic entry in src) {
+          // don't add profiles that cannot be read
+          try {
+            ProfileData profile = ProfileData.fromJson(entry, isFromNS: true);
+            data.profiles.add(profile);
+          } catch (ex) {}
+          g.basalPrecisionAuto = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
+        }
+        data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
+        baseProfile = data.profiles.first;
 //        display("${ret.begDate.toString()} - ${ret.endDate.toString()}");
-    } catch (ex) {
-      if (isDebug) {
-        if (ex is Error)
-          display("${ex.toString()}\n${ex.stackTrace}");
-        else
-          display(ex.toString());
-      } else {
+      } catch (ex) {
+        if (isDebug) {
+          if (ex is Error)
+            display("${ex.toString()}\n${ex.stackTrace}");
+          else
+            display(ex.toString());
+        } else {
 /*
           display(msgProfileError, links: [ {
             "url": "https://github.com/zreptil/nightscout-reporter/issues/new?title=problem in profile-data&body=${msgProfileError}",
@@ -744,17 +759,17 @@ class AppComponent implements OnInit {
           }
           ]);
 // */
-        display(msgProfileError);
+          display(msgProfileError);
+        }
       }
-    }
 
-    // find profileswitches in treatments, create profiledata and mix it in the profiles
-    url =
-        "${data.user.apiUrl}treatments.json?find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch";
-    displayLink("profileswitch", url, type: "debug");
-    content = await g.request(url);
-    try {
-      List<dynamic> src = json.decode(content);
+      // find profileswitches in treatments, create profiledata and mix it in the profiles
+      url = urlData.fullUrl("treatments.json",
+          params: "find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch");
+      displayLink("profileswitch", url, type: "debug");
+      content = await g.request(url);
+      try {
+        List<dynamic> src = json.decode(content);
 /*
         if (g.isLocal)src.add({
           "_id": "fake",
@@ -770,44 +785,44 @@ class AppComponent implements OnInit {
           "insulin": null
         });
  // */
-      for (dynamic entry in src) {
-        DateTime check = JsonData.toDate(entry["created_at"]);
-        if (data.profiles.firstWhere((p) => p.createdAt == check, orElse: () => null) != null ||
-            entry["profile"] == null) continue;
-        List<String> parts = List<String>();
-        parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
-        // some uploaders (e.g. Minimed 600-series) don't save profileJson, so we need
-        // to find it here
-        ProfileStoreData store = null;
-        if (entry["profileJson"] == null) {
-          String key = entry["profile"];
-          ProfileData prof = data.profiles
-              .lastWhere((p) => p.startDate.isBefore(check) && p.store.containsKey(key), orElse: () => null);
-          if (prof != null) {
-            store = prof.store[key];
+        for (dynamic entry in src) {
+          DateTime check = JsonData.toDate(entry["created_at"]);
+          if (data.profiles.firstWhere((p) => p.createdAt == check, orElse: () => null) != null ||
+              entry["profile"] == null) continue;
+          List<String> parts = List<String>();
+          parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
+          // some uploaders (e.g. Minimed 600-series) don't save profileJson, so we need
+          // to find it here
+          ProfileStoreData store = null;
+          if (entry["profileJson"] == null) {
+            String key = entry["profile"];
+            ProfileData prof = data.profiles
+                .lastWhere((p) => p.startDate.isBefore(check) && p.store.containsKey(key), orElse: () => null);
+            if (prof != null) {
+              store = prof.store[key];
+            }
           }
-        }
-        parts.add('"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
-        parts.add('"mills":"0","units":"mg/dl"');
-        parts.add('"percentage":"${entry["percentage"]}"');
-        parts.add('"duration":"${entry["duration"]}"');
-        parts.add('"timeshift":"${entry["timeshift"]}"');
-        parts.add('"created_at":"${entry["created_at"]}"}');
+          parts.add('"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
+          parts.add('"mills":"0","units":"mg/dl"');
+          parts.add('"percentage":"${entry["percentage"]}"');
+          parts.add('"duration":"${entry["duration"]}"');
+          parts.add('"timeshift":"${entry["timeshift"]}"');
+          parts.add('"created_at":"${entry["created_at"]}"}');
 
-        data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
-        if (store != null) data.profiles.last.store[entry["profile"]] = store;
-      }
-    } catch (ex) {
-      if (isDebug) {
-        if (ex is Error)
-          display("${ex.toString()}\n${ex.stackTrace}");
-        else
-          display(ex.toString());
-      } else {
-        display(msgProfileError);
+          data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
+          if (store != null) data.profiles.last.store[entry["profile"]] = store;
+        }
+      } catch (ex) {
+        if (isDebug) {
+          if (ex is Error)
+            display("${ex.toString()}\n${ex.stackTrace}");
+          else
+            display(ex.toString());
+        } else {
+          display(msgProfileError);
+        }
       }
     }
-
     data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
 
     // calculate the duration of the profiles
@@ -866,7 +881,9 @@ class AppComponent implements OnInit {
         DateTime profileEnd = end.add(Duration(hours: -profile.store.timezone.localDiff));
 
         progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
-        String url = data.user.urlForData(beg, end);
+        String url = g.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), "entries.json",
+            params:
+                "find[date][\$gte]=${beg.millisecondsSinceEpoch}&find[date][\$lte]=${end.millisecondsSinceEpoch}&count=100000");
         List<dynamic> src = json.decode(await g.request(url));
         displayLink("e${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
         for (dynamic entry in src) {
@@ -891,8 +908,9 @@ class AppComponent implements OnInit {
         String tmp;
         if (lastTempBasal == null) {
           // find last temp basal of treatments of day before current day.
-          url =
-              "${data.user.apiUrl}treatments.json?find[created_at][\$lt]=${profileBeg.toIso8601String()}&find[created_at][\$gt]=${profileBeg.add(Duration(days: -1)).toIso8601String()}&count=100&find[eventType][\$eq]=Temp%20Basal";
+          url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), "treatments.json",
+              params:
+                  "find[created_at][\$lt]=${profileBeg.toIso8601String()}&find[created_at][\$gt]=${profileBeg.add(Duration(days: -1)).toIso8601String()}&count=100&find[eventType][\$eq]=Temp%20Basal");
           tmp = await g.request(url);
           src = json.decode(tmp);
           List<TreatmentData> list = List<TreatmentData>();
@@ -901,8 +919,9 @@ class AppComponent implements OnInit {
           if (list.length > 0) lastTempBasal = list.last;
         }
 
-        url =
-            "${data.user.apiUrl}treatments.json?find[created_at][\$gte]=${profileBeg.toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000";
+        url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), "treatments.json",
+            params:
+                "find[created_at][\$gte]=${profileBeg.toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000");
         tmp = await g.request(url);
         src = json.decode(tmp);
         displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
@@ -947,8 +966,9 @@ class AppComponent implements OnInit {
           data.ns.treatments.add(t);
         }
 
-        url =
-            "${data.user.apiUrl}devicestatus.json?find[created_at][\$gte]=${profileBeg.toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000";
+        url = data.user.apiUrl(Date(profileBeg.year, profileBeg.month, profileBeg.day), "devicestatus.json",
+            params:
+                "find[created_at][\$gte]=${profileBeg.toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000");
         tmp = await g.request(url);
         src = json.decode(tmp);
         displayLink("ds${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
@@ -1047,6 +1067,7 @@ class AppComponent implements OnInit {
   }
 
   void sendClick() {
+    drawerVisible = false;
     switch (sendIcon) {
       case "send":
         currPage = 'printparams';
@@ -1378,51 +1399,36 @@ class AppComponent implements OnInit {
     themePanelShown = !themePanelShown;
   }
 
-  String shortcutStyle = "height:0em;";
-  String shortcutIconStyle = "";
-  bool shortcutPanelShown = false;
+  int menuIdx = 0;
+  String shortcutClass(ShortcutData data) {
+    String ret = "shortcut";
+    if (data.formData == convert.json.encode(g.currentFormsAsMap) && data.periodData == g.period.toString())
+      ret += " active";
+    return ret;
+  }
 
-  toggleShortcutPanel(bool isEdit, [int shortcutIdx = null]) {
-    String qs = "";
-    String qis = "";
-    double duration = 1;
-    if (shortcutPanelShown) {
-      duration = !isEdit && shortcutIdx == null ? 1 : 0.1;
-      shortcutStyle = "animation:hideshortcuts ${duration}s ease-in-out normal forwards;";
-      shortcutIconStyle = "animation:hideshortcutsicon ${duration}s ease-in-out normal forwards;";
-      qs = "animation-iteration-count:0;top:-100%;";
-      qis = "animation-iteration-count:0;transform: rotate(0deg);";
-    } else {
-      duration = 1;
-      shortcutStyle = "animation:showshortcuts ${duration}s ease-in-out normal forwards;";
-      shortcutIconStyle = "animation:showshortcutsicon ${duration}s ease-in-out normal forwards;";
-      qs = "animation-iteration-count:0;top:64px;";
-      qis = "animation-iteration-count:0;transform: rotate(360deg);";
-    }
-    Future.delayed(Duration(milliseconds: (duration * 1100).toInt()), () {
-      shortcutStyle = qs;
-      shortcutIconStyle = qis;
+  editShortcut(int shortcutIdx) {
+    g.currShortcutIdx = shortcutIdx;
+    if (shortcutIdx >= 0 && shortcutIdx < g.shortcutList.length)
+      g.currShortcut = g.shortcutList[shortcutIdx].copy;
+    else
+      g.currShortcut = ShortcutData(g);
+    currPage = 'shortcutedit';
+  }
 
-      if (isEdit) {
-        g.currShortcutIdx = shortcutIdx;
-        if (shortcutIdx >= 0 && shortcutIdx < g.shortcutList.length)
-          g.currShortcut = g.shortcutList[shortcutIdx].copy;
-        else
-          g.currShortcut = ShortcutData(g);
-        currPage = 'shortcutedit';
-      } else if (shortcutIdx != null) {
-        ShortcutData data = g.shortcutList[shortcutIdx];
-        g.period = DatepickerPeriod(src: data.periodData);
-        for (FormConfig cfg in g.listConfig) {
-          cfg.checked = data.forms.keys.contains(cfg.form.id);
-          if (cfg.checked) {
-            cfg.fillFromJson(data.forms[cfg.form.id]);
-          }
+  activateShortcut([int shortcutIdx = null]) {
+    if (shortcutIdx != null) {
+      ShortcutData data = g.shortcutList[shortcutIdx];
+      g.period = DatepickerPeriod(src: data.periodData);
+      for (FormConfig cfg in g.listConfig) {
+        cfg.checked = data.forms.keys.contains(cfg.form.id);
+        if (cfg.checked) {
+          cfg.fillFromJson(data.forms[cfg.form.id]);
         }
-        g.refresh();
       }
-    });
-    shortcutPanelShown = !shortcutPanelShown;
+      checkPrint();
+      g.refresh();
+    }
   }
 
   void shortcuteditResult(html.UIEvent evt) {
@@ -1433,8 +1439,7 @@ class AppComponent implements OnInit {
         break;
       case "remove":
         _currPage = _lastPage;
-        if (g.currShortcutIdx >= 0 && g.currShortcutIdx < g.shortcutList.length)
-        {
+        if (g.currShortcutIdx >= 0 && g.currShortcutIdx < g.shortcutList.length) {
           g.shortcutList.removeAt(g.currShortcutIdx);
           g.currShortcutIdx = null;
           g.currShortcut = null;

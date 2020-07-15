@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-06-26T14:31:12.612698",
+    "@@last_modified": "2020-07-15T07:41:34.148223",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -111,12 +111,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bezeichnung": "Bezeichnung",
+    "Bezeichnung": "Título",
     "@Bezeichnung": {
         "type": "text",
         "placeholders": {}
     },
-    "Hinzufügen": "Hinzufügen",
+    "Hinzufügen": "Añadir",
     "@Hinzufügen": {
         "type": "text",
         "placeholders": {}
@@ -202,6 +202,46 @@
         "type": "text",
         "placeholders": {}
     },
+    "Heute": "Hoy",
+    "@Heute": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte 2 Tage": "Ultimos 2 dias",
+    "@Letzte 2 Tage": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte 3 Tage": "Ultimos 3 dias",
+    "@Letzte 3 Tage": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte Woche": "Semana anterior",
+    "@Letzte Woche": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte 2 Wochen": "Las 2 semanas anteriores",
+    "@Letzte 2 Wochen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte 3 Wochen": "Las 3 semanas anteriores",
+    "@Letzte 3 Wochen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzter Monat": "El mes anterior",
+    "@Letzter Monat": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzte 3 Monate": "Los 3 meses anteriores",
+    "@Letzte 3 Monate": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Ausgewählter Zeitraum": "Período seleccionado",
     "@Ausgewählter Zeitraum": {
         "type": "text",
@@ -254,46 +294,6 @@
     },
     "Die URL wurde noch nicht festgelegt.": "La URL aún no ha sido determinada.",
     "@Die URL wurde noch nicht festgelegt.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Heute": "Hoy",
-    "@Heute": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte 2 Tage": "Ultimos 2 dias",
-    "@Letzte 2 Tage": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte 3 Tage": "Ultimos 3 dias",
-    "@Letzte 3 Tage": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte Woche": "Semana anterior",
-    "@Letzte Woche": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte 2 Wochen": "Las 2 semanas anteriores",
-    "@Letzte 2 Wochen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte 3 Wochen": "Las 3 semanas anteriores",
-    "@Letzte 3 Wochen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzter Monat": "El mes anterior",
-    "@Letzter Monat": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Letzte 3 Monate": "Los 3 meses anteriores",
-    "@Letzte 3 Monate": {
         "type": "text",
         "placeholders": {}
     },
@@ -1402,6 +1402,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Gelbe Kreise zeigen an, dass der entsprechende Wert die Skala überschreitet.": "Circulos amarillos indican que el valor correspondiente sobresale la escala.",
+    "@Gelbe Kreise zeigen an, dass der entsprechende Wert die Skala überschreitet.": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgTORInfo": "El tiempo en minutos en el que los valores se encuentran fuera del margen {min} a {max}.",
     "@msgTORInfo": {
         "type": "text",
@@ -1793,12 +1798,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Mehrfache Datensätze kennzeichnen": "Mehrfache Datensätze kennzeichnen",
+    "Mehrfache Datensätze kennzeichnen": "Marcar múltiples registros",
     "@Mehrfache Datensätze kennzeichnen": {
         "type": "text",
         "placeholders": {}
     },
-    "Nur mehrfache Datensätze anzeigen": "Nur mehrfache Datensätze anzeigen",
+    "Nur mehrfache Datensätze anzeigen": "Solo mostrar multiples registros",
     "@Nur mehrfache Datensätze anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1944,7 +1949,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Es sind keine Daten vorhanden.": "Es sind keine Daten vorhanden.",
+    "Es sind keine Daten vorhanden.": "No hay datos disponibles.",
     "@Es sind keine Daten vorhanden.": {
         "type": "text",
         "placeholders": {}
@@ -2003,10 +2008,26 @@
         "type": "text",
         "placeholders": {}
     },
-    "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": "Solo se necesita la clave de acceso si se ha restringido el acceso a nightscout por AUTH_DEFAULT_ROLES",
-    "@Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde": {
+    "msgAccessTokenHint": "Solo se necesita la clave de acceso si se ha restringido el acceso a nightscout por AUTH_DEFAULT_ROLES",
+    "@msgAccessTokenHint": {
         "type": "text",
-        "placeholders": {}
+        "placeholders": {
+            "isVisible": {}
+        }
+    },
+    "msgStartDateHint": "La fecha del primer día con datos",
+    "@msgStartDateHint": {
+        "type": "text",
+        "placeholders": {
+            "isVisible": {}
+        }
+    },
+    "msgEndDateHint": "La fecha del último día con datos completos",
+    "@msgEndDateHint": {
+        "type": "text",
+        "placeholders": {
+            "isVisible": {}
+        }
     },
     "msgCheckUser": "Compruebe el acceso a {url}...",
     "@msgCheckUser": {
@@ -2015,44 +2036,64 @@
             "url": {}
         }
     },
-    "Shortcut anlegen": "Shortcut anlegen",
+    "Daten von": "Datos de",
+    "@Daten von": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Daten bis": "Datos hasta",
+    "@Daten bis": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ermittle ersten Tag mit Daten": "Averigua el primer día con datos",
+    "@Ermittle ersten Tag mit Daten": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ermittle letzten Tag mit Daten": "Averigua el último día con datos",
+    "@Ermittle letzten Tag mit Daten": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgCalculatingDay": "Verifico {date} ...",
+    "@msgCalculatingDay": {
+        "type": "text",
+        "placeholders": {
+            "date": {}
+        }
+    },
+    "Bitte den Dateinamen für die Speicherung auswählen": "Por favor elige nombre de archivo para guardar",
+    "@Bitte den Dateinamen für die Speicherung auswählen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Shortcut anlegen": "Crear atajo",
     "@Shortcut anlegen": {
         "type": "text",
         "placeholders": {}
     },
-    "Shortcut ändern": "Shortcut ändern",
+    "Shortcut ändern": "Cambiar atajo",
     "@Shortcut ändern": {
         "type": "text",
         "placeholders": {}
     },
-    "msgFormsText": "{count,plural, =0{}=1{1 Formular}other{{count} Formulare}}",
+    "msgFormsText": "{count,plural, one {} =0{}=1{1 Formulario}other{{count} Formularios}}",
     "@msgFormsText": {
         "type": "text",
         "placeholders": {
             "count": {}
         }
     },
-    "Willkommen": "Bienvenido",
-    "@Willkommen": {
-        "description": "title of welcome screen",
+    "Menü": "Menú",
+    "@Menü": {
+        "description": "tab title for menu",
         "type": "text",
         "placeholders": {}
     },
-    "Facebook Seite": "Página de Facebook",
-    "@Facebook Seite": {
-        "description": "title of facebook link",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Einstellungen": "Ajustes",
-    "@Einstellungen": {
-        "description": "title for settings dialog",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Was bisher geschah...": "Lo que sucedió hasta ahora...",
-    "@Was bisher geschah...": {
-        "description": "title of whatsnew",
+    "Shortcuts": "Shortcuts",
+    "@Shortcuts": {
+        "description": "tab title for shortcuts",
         "type": "text",
         "placeholders": {}
     },
@@ -2110,6 +2151,30 @@
         "type": "text",
         "placeholders": {}
     },
+    "Willkommen": "Bienvenido",
+    "@Willkommen": {
+        "description": "title of welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Facebook Seite": "Página de Facebook",
+    "@Facebook Seite": {
+        "description": "title of facebook link",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einstellungen": "Ajustes",
+    "@Einstellungen": {
+        "description": "title for settings dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Was bisher geschah...": "Lo que sucedió hasta ahora...",
+    "@Was bisher geschah...": {
+        "description": "title of whatsnew",
+        "type": "text",
+        "placeholders": {}
+    },
     "Zur Listenansicht": "Ir a vista de lista",
     "@Zur Listenansicht": {
         "description": "title of listview",
@@ -2122,7 +2187,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Google Assistant": "Google Assistant",
+    "Google Assistant": "Asistente Google",
     "@Google Assistant": {
         "description": "title of nightscout status",
         "type": "text",
@@ -2242,6 +2307,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Nightscout Url in der Fusszeile des PDFs anzeigen": "Mostral Nightscout Url en el pie de la página PDF",
+    "@Nightscout Url in der Fusszeile des PDFs anzeigen": {
+        "description": "label for checkbox to show nightscout url in footer",
+        "type": "text",
+        "placeholders": {}
+    },
     "Historische Daten": "Datos históricos",
     "@Historische Daten": {
         "description": "label of area for timeshift",
@@ -2308,6 +2379,18 @@
         "type": "text",
         "placeholders": {}
     },
+    "Exportieren": "Exportar",
+    "@Exportieren": {
+        "description": "buttonlabel for exporting data",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Importieren": "Importar",
+    "@Importieren": {
+        "description": "buttonlabel for importing data",
+        "type": "text",
+        "placeholders": {}
+    },
     "Speichern": "Guardar",
     "@Speichern": {
         "description": "buttonlabel for saving data",
@@ -2332,6 +2415,18 @@
         "type": "text",
         "placeholders": {}
     },
+    "Soll die URL": "URL debe",
+    "@Soll die URL": {
+        "description": "should the url of the user",
+        "type": "text",
+        "placeholders": {}
+    },
+    "vom Benutzer wirklich gelöscht werden?": "ser borrada por el usuario?",
+    "@vom Benutzer wirklich gelöscht werden?": {
+        "description": "of the user really be deleted",
+        "type": "text",
+        "placeholders": {}
+    },
     "Ja": "Sí",
     "@Ja": {
         "description": "buttonlabel for confirmation yes",
@@ -2344,43 +2439,61 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.",
+    "Abbruch": "Descartar",
+    "@Abbruch": {
+        "description": "buttonlabel for cancel",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": "Un atajo contiene el periodo y los formularios elegidos con las opciones seleccionadas. Si se activa un atajo, se cargarán y activarán los criterios elegidos.\ntexto informativo sobre atajos.",
     "@Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.": {
         "description": "info text for shortcuts",
         "type": "text",
         "placeholders": {}
     },
-    "Löschen": "Löschen",
+    "Anzahl:": "Anzahl:",
+    "@Anzahl:": {
+        "description": "number of forms for shortcut",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zeitraum:": "Zeitraum:",
+    "@Zeitraum:": {
+        "description": "period for shortcuts",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Löschen": "Borrar",
     "@Löschen": {
         "description": "buttonlabel for deleting data",
         "type": "text",
         "placeholders": {}
     },
-    "Soll der Shortcut mit der Bezeichnung": "Soll der Shortcut mit der Bezeichnung",
+    "Soll der Shortcut mit der Bezeichnung": "El atajo con el nombre se debe",
     "@Soll der Shortcut mit der Bezeichnung": {
         "description": "should the shortcut with name",
         "type": "text",
         "placeholders": {}
     },
-    "Soll der Zeitraum": "Soll der Zeitraum",
+    "Soll der Zeitraum": "El periodo se debe",
     "@Soll der Zeitraum": {
         "description": "should the period",
         "type": "text",
         "placeholders": {}
     },
-    "mit dem Zeitraum": "mit dem Zeitraum",
+    "mit dem Zeitraum": "con el periodo",
     "@mit dem Zeitraum": {
         "description": "with period",
         "type": "text",
         "placeholders": {}
     },
-    "ersetzt werden?": "ersetzt werden?",
+    "ersetzt werden?": "ser sustituido?",
     "@ersetzt werden?": {
         "description": "be replaced",
         "type": "text",
         "placeholders": {}
     },
-    "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?",
+    "Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": "Quieres sustituir la selección de formularios con la selección actual?",
     "@Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?": {
         "description": "should the forms be replaced with current forms",
         "type": "text",
@@ -2428,21 +2541,69 @@
         "type": "text",
         "placeholders": {}
     },
-    "1.5.0 - xx.6.2020": "1.5.0 - xx.6.2020",
-    "@1.5.0 - xx.6.2020": {
-        "description": "v150",
+    "2.0.0 - 15.7.2020": "2.0.0 - 15.7.2020",
+    "@2.0.0 - 15.7.2020": {
+        "description": "v200",
         "type": "text",
         "placeholders": {}
     },
-    "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.",
+    "Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": "En la página del protocolo ahora también se muestran informaciónes sobre insulina que se inserten por ejemplo por xdrip.",
     "@Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.": {
-        "description": "v150a1",
+        "description": "v200a1",
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.",
+    "Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": "Ahora existen atajos con los que puedes guardar la selección actual de formularios, los parámetros y el periodo seleccionado. Al activar un atajo, todo se repone como seleccionado al guardar el atajo.",
     "@Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut gespeichert wurde.": {
-        "description": "v150a1",
+        "description": "v200a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei Herokuapp und anderen Anbietern kostenloser Datenbankinstanzen ist der Speicherplatz der Instanz beschränkt, weshalb sie irgendwann voll ist. Dann kann man zwar eine neue Instanz anlegen, Nightscout Reporter benötigt aber für eine lückenlose Darstellung aller Tage Zugriff auf alle Instanzen, für die man eine Auswertung erhalten will. Deshalb können nun mehrere URLs für die Nightscout Instanzen eingegeben werden. Zusätzlich muss noch eingegeben werden, welches der erste und der letzte Tag mit Daten ist. Mit diesen Informationen ist es Nightscout Reporter dann möglich die benötigten Daten lückenlos auch über mehrere Instanzen hinweg auszuwerten.": "En Herokoapp y otros Servidores de Bases de Datos el espacio de almacenamiento esta restrigido, asi que a lo largo del tiempo se llena. Se puede crear una base nueva pero Nightscout Reporter necesita acceso a todas bases para poder mostrar los datos de todos los dias seguidos sin falta de datos. Por eso ahora se pueden usar varias URL para las bases de nightscout. Adicionalmente se debe indicar cual es el primer y cual es el último día con datos. Con estas informaciones Nightscout Reporter puede evaluar los datos completamente usando varias bases de datos.",
+    "@Bei Herokuapp und anderen Anbietern kostenloser Datenbankinstanzen ist der Speicherplatz der Instanz beschränkt, weshalb sie irgendwann voll ist. Dann kann man zwar eine neue Instanz anlegen, Nightscout Reporter benötigt aber für eine lückenlose Darstellung aller Tage Zugriff auf alle Instanzen, für die man eine Auswertung erhalten will. Deshalb können nun mehrere URLs für die Nightscout Instanzen eingegeben werden. Zusätzlich muss noch eingegeben werden, welches der erste und der letzte Tag mit Daten ist. Mit diesen Informationen ist es Nightscout Reporter dann möglich die benötigten Daten lückenlos auch über mehrere Instanzen hinweg auszuwerten.": {
+        "description": "v200a3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wenn im CGP ein Wert den Maximalwert der Skala überschreitet, wird die entsprechende Ecke mit einem gelben Kreis markiert.": "Si se sale un valor en el CGP del máximo de la escala, la punta se indicará con un circulo amarillo.",
+    "@Wenn im CGP ein Wert den Maximalwert der Skala überschreitet, wird die entsprechende Ecke mit einem gelben Kreis markiert.": {
+        "description": "v200a4",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Auf dem Einstellungen-Dialog gibt es neben den URL-Eingabefeldern jeweils einen Button, um die URL in einem neuen Browser-Fenster zu öffnen.": "En los ajustes ahora hay un botón para abrir URL en una nueva ventana.",
+    "@Auf dem Einstellungen-Dialog gibt es neben den URL-Eingabefeldern jeweils einen Button, um die URL in einem neuen Browser-Fenster zu öffnen.": {
+        "description": "v200a5",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Eingabe des Zugriffsschlüssels auf dem Einstellungen-Dialog kann jetzt mit einem Button neben dem Eingabefeld lesbar gemacht werden.": "El código de acceso a los ajustes ahora se puede hacer visible con el botón al lado de la casilla.",
+    "@Die Eingabe des Zugriffsschlüssels auf dem Einstellungen-Dialog kann jetzt mit einem Button neben dem Eingabefeld lesbar gemacht werden.": {
+        "description": "v200a6",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Einstellungen Dialog gibt es jetzt die Möglichkeit, die Einstellungen zu exportieren und zu importieren. Beim Export wird eine Datei mit den allgemeinen Einstellungen geschrieben, beim Import wird so eine Datei wieder eingelesen. Damit kann man auch ohne Google Drive Zugriff die Einstellungen über verschiedene Browser hinweg manuell synchronisieren.": "En el dialogo de los ajustes ahora existe la opción de exportar e importar los ajustes. Al exportar se crea un archivo con los ajustes basicos y al importar se leé este archivo. Asi se pueden sincronizar los ajustes sin necesidad de tener Google Drive.",
+    "@Im Einstellungen Dialog gibt es jetzt die Möglichkeit, die Einstellungen zu exportieren und zu importieren. Beim Export wird eine Datei mit den allgemeinen Einstellungen geschrieben, beim Import wird so eine Datei wieder eingelesen. Damit kann man auch ohne Google Drive Zugriff die Einstellungen über verschiedene Browser hinweg manuell synchronisieren.": {
+        "description": "v200a7",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.": "Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.",
+    "@Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.": {
+        "description": "v200a8",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das CGP wird jetzt auch bei extremen Werten korrekt erzeugt.": "El CGP ahora tambien se muestra correctamente con valores extremos.",
+    "@Das CGP wird jetzt auch bei extremen Werten korrekt erzeugt.": {
+        "description": "v200f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im CGP wurden die Skalenbeschriftungen korrigiert.": "Se ha corregido el etiquetado de la escala del CGP.",
+    "@Im CGP wurden die Skalenbeschriftungen korrigiert.": {
+        "description": "v200f2",
         "type": "text",
         "placeholders": {}
     },

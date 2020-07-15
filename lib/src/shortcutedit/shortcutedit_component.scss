@@ -56,6 +56,11 @@ material-dialog.headered-dialog {
     color: var(--shortcutHeaderFore);
     padding: 0;
   }
+
+  &[headered] ::ng-deep .wrapper ::ng-deep h1 {
+    background-color: var(--shortcutHeaderBack);
+    color: var(--shortcutHeaderFore);
+  }
 }
 
 .root {

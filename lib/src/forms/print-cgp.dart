@@ -64,6 +64,8 @@ class PentagonData {
       Intl.message("Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.");
   static String get msgYellow =>
       Intl.message("Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.");
+  static String get msgYellowCircle =>
+      Intl.message("Gelbe Kreise zeigen an, dass der entsprechende Wert die Skala überschreitet.");
 
   static String msgTORInfo(min, max) {
     return Intl.message(
@@ -112,6 +114,7 @@ class PentagonData {
   var outputCvs = [];
   var outputText = [];
   Globals g;
+  bool hasLimitBreakers = false;
 
   PentagonData(this.g, this.glucInfo, this.cm, this.fs, {this.xm, this.ym, this.scale, this.fontsize = -1}) {
     axis = [
@@ -196,6 +199,8 @@ class PentagonData {
       pt = _point(i, 1.0);
       double dx = pt["x"] - cm(xm);
       double dy = pt["y"] - cm(ym);
+      String lastNumber = "";
+      double lastValue = 0;
       for (double value in axis[i].values) {
         pt = _point(i, axis[i].scaleMethod(value)); // * axis[i].legendFactor
         double x = pt["x"];
@@ -207,24 +212,49 @@ class PentagonData {
         double y2 = y + 0.5 * dx * f;
         outputCvs.add({"type": "line", "x1": x1, "y1": y1, "x2": x2, "y2": y2, "lineWidth": cm(lw)});
         if (colLine != null) outputCvs.last["lineColor"] = colLine;
+        int precision = axis[i].legendFactor == 1 ? 0 : 1;
+        String number = g.fmtNumber(value / axis[i].legendFactor, precision);
+        while (number == lastNumber) {
+          number = g.fmtNumber(value / axis[i].legendFactor, ++precision);
+          lastNumber = g.fmtNumber(lastValue / axis[i].legendFactor, precision, 0, "null", true);
+        }
+        if (i > 0) outputText.last["text"] = lastNumber;
         outputText.add({
           "relativePosition": {
             "x": x + cm(axis[i].valueX * fontsize / defFontSize),
             "y": y + cm(axis[i].valueY * fontsize / defFontSize)
           },
-          "text": g.fmtNumber(value / axis[i].legendFactor, axis[i].legendFactor == 1 ? 0 : 1),
+          "text": number,
           "fontSize": fs(fontsize * 0.7)
         });
+        lastNumber = number;
+        lastValue = value;
       }
     }
   }
 
   double paintValues(List<double> values, double lw,
-      {String colLine = null, String colFill = null, double opacity: 1.0}) {
+      {String colLine = null, String colFill = null, double opacity: 1.0, bool showLimitBreaks: true}) {
     lw *= scale;
     var points = [];
+    hasLimitBreakers = false;
     for (int i = 0; i < values.length && i < axis.length; i++) {
-      points.add(_point(i, axis[i].scaleMethod(values[i])));
+      double y = g.limitValue(values[i], axis[i].values.first, axis[i].values.last);
+      points.add(_point(i, axis[i].scaleMethod(y)));
+      if (values[i] > axis[i].values.last && showLimitBreaks) {
+        dynamic pt = _point(i, 1.1);
+        hasLimitBreakers = true;
+        outputCvs.add({
+          "type": "ellipse",
+          "x": pt["x"],
+          "y": pt["y"],
+          "r1": cm(0.3),
+          "r2": cm(0.3),
+          "color": colFill,
+//          "lineColor": colLine,
+          "fillOpacity": 0.75
+        });
+      }
     }
     outputCvs
         .add({"type": "polyline", "lineWidth": cm(lw), "closePath": true, "points": points, "fillOpacity": opacity});
@@ -347,13 +377,18 @@ class PrintCGP extends BasePrint {
             {}
           ],
           [
-            {"text": PentagonData.msgYellow, "colSpan": 2},
-            {}
+            {"text": PentagonData.msgYellow, "colSpan": 2}, {}
 //            {"text": "${cgp["countValid"]}"}
           ],
           [
+            {"text": cgp["cgp"].hasLimitBreakers ? PentagonData.msgYellowCircle : null, "colSpan": 2}
+          ],
+          [
             {"text": PentagonData.msgTOR(g.fmtNumber(cgp["tor"]))},
-            {"text": PentagonData.msgTORInfo("${cgp["low"]} ${unit}", "${cgp["high"]} ${unit}")},
+            {
+              "text": PentagonData.msgTORInfo(
+                  "${g.glucFromData(cgp["low"])} ${unit}", "${g.glucFromData(cgp["high"])} ${unit}")
+            },
           ],
           [
             {"text": PentagonData.msgCV(g.fmtNumber(cgp["vark"]))},
@@ -361,11 +396,11 @@ class PrintCGP extends BasePrint {
           ],
           [
             {"text": PentagonData.msgHYPO(unit, g.glucFromData(cgp["hypo"]))},
-            {"text": PentagonData.msgHYPOInfo("${cgp["low"]} ${unit}")}
+            {"text": PentagonData.msgHYPOInfo("${g.glucFromData(cgp["low"])} ${unit}")}
           ],
           [
             {"text": PentagonData.msgHYPER(unit, g.glucFromData(cgp["hyper"]))},
-            {"text": PentagonData.msgHYPERInfo("${cgp["high"]} ${unit}")}
+            {"text": PentagonData.msgHYPERInfo("${g.glucFromData(cgp["high"])} ${unit}")}
           ],
           [
             {"text": PentagonData.msgMEAN(unit, g.glucFromData(cgp["mean"]))},
@@ -458,7 +493,7 @@ class PrintCGP extends BasePrint {
     return {"hyper": hyper, "hypo": hypo};
   }
 
-  calcCGP(var dayData, double scale, double xm, double ym) {
+  dynamic calcCGP(var dayData, double scale, double xm, double ym) {
     PentagonData cgp = PentagonData(g, g.getGlucInfo(), cm, fs, xm: xm, ym: ym, scale: scale);
     cgp.ym += cgp.axisLength * 1.1 * cgp.scale;
     cgp.paintPentagon(1.0, lw, colLine: colCGPLine);
@@ -472,8 +507,8 @@ class PrintCGP extends BasePrint {
       high = repData.status.settings.thresholds.bgTargetTop;
     }
 
-    double areaHealthy =
-        cgp.paintValues([0, 16.7, 0, 0, 90], lw, colLine: colCGPHealthyLine, colFill: colCGPHealthyFill, opacity: 0.4);
+    double areaHealthy = cgp.paintValues([0, 16.7, 0, 0, 90], lw,
+        colLine: colCGPHealthyLine, colFill: colCGPHealthyFill, opacity: 0.4, showLimitBreaks: false);
 
     var data = repData.data;
     DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")));
@@ -500,7 +535,7 @@ class PrintCGP extends BasePrint {
       countTiR = 0;
       for (DayData day in dayData) {
         countTiR +=
-          day.entries.where((entry) => !entry.isGlucInvalid && entry.gluc >= low && entry.gluc <= high).length;
+            day.entries.where((entry) => !entry.isGlucInvalid && entry.gluc >= low && entry.gluc <= high).length;
         for (EntryData entry in day.entries) {
           if (!entry.isGlucInvalid) {
             avgGluc += entry.gluc;

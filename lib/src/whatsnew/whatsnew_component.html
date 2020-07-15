@@ -10,15 +10,51 @@
       </material-button>
     </div>
     <div class="root">
-      <h2><span @i18n="version">Version</span><span @i18n="v150">1.5.0 - xx.6.2020</span></h2>
+      <h2><span @i18n="version">Version</span><span @i18n="v200">2.0.0 - 15.7.2020</span></h2>
       <ul>
-        <li class="added" @i18n="v150a1">
+        <li class="added" @i18n="v200a1">
           Auf der Seite Protokoll werden jetzt auch Insulinabgaben angezeigt, die z.B. über xdrip eingegeben wurden.
         </li>
-        <li class="added" @i18n="v150a1">
+        <li class="added" @i18n="v200a2">
           Es gibt jetzt Shortcuts, mit denen man die aktuelle Auswahl der Formulare, deren Parameter und den ausgewählten Zeitraum
           speichern kann. Beim Aktivieren eines Shortcuts wird das alles wieder so eingestellt, wie es war, als der Shortcut
           gespeichert wurde.
+        </li>
+        <li class="added" @i18n="v200a3">
+          Bei Herokuapp und anderen Anbietern kostenloser Datenbankinstanzen ist der Speicherplatz der Instanz beschränkt, weshalb
+          sie irgendwann voll ist. Dann kann man zwar eine neue Instanz anlegen, Nightscout Reporter benötigt aber für eine lückenlose
+          Darstellung aller Tage Zugriff auf alle Instanzen, für die man eine Auswertung erhalten will. Deshalb können nun mehrere
+          URLs für die Nightscout Instanzen eingegeben werden. Zusätzlich muss noch eingegeben werden, welches der erste und der
+          letzte Tag mit Daten ist. Mit diesen Informationen ist es Nightscout Reporter dann möglich die benötigten Daten lückenlos
+          auch über mehrere Instanzen hinweg auszuwerten.
+        </li>
+        <li class="added" @i18n="v200a4">
+          Wenn im CGP ein Wert den Maximalwert der Skala überschreitet, wird die entsprechende Ecke mit einem gelben Kreis markiert.
+        </li>
+        <li class="added" @i18n="v200a5">
+          Auf dem Einstellungen-Dialog gibt es neben den URL-Eingabefeldern jeweils einen Button, um die URL in einem neuen
+          Browser-Fenster zu öffnen.
+        </li>
+        <li class="added" @i18n="v200a6">
+          Die Eingabe des Zugriffsschlüssels auf dem Einstellungen-Dialog kann jetzt mit einem Button neben dem Eingabefeld lesbar
+          gemacht werden.
+        </li>
+        <li class="added" @i18n="v200a7">
+          Im Einstellungen Dialog gibt es jetzt die Möglichkeit, die Einstellungen zu exportieren und zu importieren. Beim Export wird
+          eine Datei mit den allgemeinen Einstellungen geschrieben, beim Import wird so eine Datei wieder eingelesen. Damit kann man
+          auch ohne Google Drive Zugriff die Einstellungen über verschiedene Browser hinweg manuell synchronisieren.
+        </li>
+        <li class="added" @i18n="v200a8">
+          Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter
+          zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch
+          angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout
+          Reporter und anderen Reporting Tools herausfinden.
+        </li>
+        <li class="fixed" @i18n="v200f1">
+          Das CGP wird jetzt auch bei extremen Werten korrekt erzeugt.
+        </li>
+        <li class="fixed" @i18n="v200f2">
+          Im CGP wurden die Skalenbeschriftungen korrigiert.
         </li>
       </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v149">1.4.9 - 16.6.2020</span></h2>

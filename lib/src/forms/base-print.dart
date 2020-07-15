@@ -27,7 +27,9 @@ class LegendData {
   int maxLines;
 
   List current(bool forceNew) {
-    if (columns.length == 0 || (columns.last["stack"] as List).length >= maxLines || forceNew) {
+    if (columns.length == 0 ||
+        (columns.last["stack"] as List).length >= maxLines ||
+        forceNew) {
       x += columns.length > 0 ? colWidth : 0.0;
       columns.add({
         "relativePosition": {"x": x, "y": y},
@@ -44,6 +46,7 @@ class LegendData {
 
 class StepData {
   double min, step;
+
   StepData(this.min, this.step);
 }
 
@@ -57,25 +60,35 @@ class ParamInfo {
   int _intValue;
   List<String> _list;
   bool isForThumbs = false;
+
   bool get boolValue => isForThumbs ? thumbValue : _boolValue;
+
   String get stringValue => isForThumbs ? thumbValue : _stringValue;
+
   int get intValue => isForThumbs ? thumbValue : _intValue;
+
   set boolValue(value) => _boolValue = value;
+
   set intValue(value) => _intValue = value;
+
   set stringValue(value) => _stringValue = value;
   var thumbValue;
   bool isDeprecated;
   bool isLoopValue;
+
   int get sliderValue => intValue >= min && intValue <= max ? intValue : min;
+
   set sliderValue(int value) {
     _intValue = value;
   }
 
   List<String> list;
   List<ParamInfo> subParams;
+
   String get listValue {
     if (list == null || list.length == 0) return "";
-    if (intValue == null || intValue < 0 || intValue >= list.length) return list[0];
+    if (intValue == null || intValue < 0 || intValue >= list.length)
+      return list[0];
     return list[intValue];
   }
 
@@ -160,6 +173,7 @@ class FormConfig {
   bool checked = true;
   bool opened = false;
   BasePrint form = null;
+
   FormConfig(this.form, this.checked) {
     id = form.id;
   }
@@ -188,13 +202,19 @@ class FormConfig {
   fillFromJson(dynamic value) {
     try {
       checked = value["c"];
-      for (int i = 0; i < value["p"].length && i < form.params.length; i++) form.params[i].fillFromJson(value["p"][i]);
+      for (int i = 0; i < value["p"].length && i < form.params.length; i++)
+        form.params[i].fillFromJson(value["p"][i]);
     } catch (ex) {}
     form.extractParams();
   }
 
-  fillFromString(String value) {
-    if (value != null) fillFromJson(json.decode(value));
+  fillFromString(var value) {
+    if (value != null) {
+      if (value is String)
+        fillFromJson(json.decode(value));
+      else
+        fillFromJson(value);
+    }
   }
 }
 
@@ -202,12 +222,14 @@ class Page {
   bool isPortrait = false;
 
   double get width => isPortrait ? 21.0 : 29.7;
+
   double get height => isPortrait ? 29.7 : 21.0;
 
   double x = 0;
   double y = 0;
 
   List<dynamic> content = List<dynamic>();
+
   void offset(double x, double y) {
     this.x = x;
     this.y = y;
@@ -227,8 +249,10 @@ abstract class BasePrint {
   String title;
   String subtitle = null;
   bool needsUserData = false;
+
   String get display {
-    String ret = title; //g.canDebug && pageCount > 0 ? "$title [ $pageCount ]" : title;
+    String ret =
+        title; //g.canDebug && pageCount > 0 ? "$title [ $pageCount ]" : title;
     if (isLocalOnly) ret = "$ret (local)";
     return ret;
   }
@@ -245,6 +269,7 @@ abstract class BasePrint {
   var footerTextAboveLine = {"x": 0, "y": 0, "fs": 12, "text": ""};
   int pagesPerSheet = 1;
   List<ParamInfo> params = List<ParamInfo>();
+
   List<ParamInfo> get sortedParams {
     List<ParamInfo> ret = List<ParamInfo>();
     ret.addAll(params.where((p) => !p.isDeprecated));
@@ -261,9 +286,11 @@ abstract class BasePrint {
   //String _hba1c(double avgGluc)
   //=> g.fmtNumber((avgGluc + 86) / 33.3, 1, false);
 
-  String hba1c(double avgGluc) => avgGluc == null ? "" : g.fmtNumber(hba1cValue(avgGluc), 1);
+  String hba1c(double avgGluc) =>
+      avgGluc == null ? "" : g.fmtNumber(hba1cValue(avgGluc), 1);
 
-  double hba1cValue(double avgGluc) => avgGluc == null ? null : (avgGluc + 46.7) / 28.7;
+  double hba1cValue(double avgGluc) =>
+      avgGluc == null ? null : (avgGluc + 46.7) / 28.7;
 
   //(avgGluc / 18.02 + 2.645) / 1.649;
 
@@ -273,6 +300,7 @@ abstract class BasePrint {
   String colLine = "#606060";
   String colValue = "#000000";
   String colBasalProfile = "#0097a7";
+
   String get colBasalDay => blendColor(colBasalProfile, "#ffffff", 0.5);
   String colBasalFont = "#fff";
   String colProfileSwitch = "#8080c0";
@@ -295,8 +323,24 @@ abstract class BasePrint {
   String colGlucValues = "#000000";
   String colBloodValues = "#ff0000";
   String colHbA1c = "#505050";
-  List<String> colWeekDays = ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d"];
-  List<String> colWeekDaysText = ["#ffffff", "#ffffff", "#000000", "#ffffff", "#ffffff", "#000000", "#ffffff"];
+  List<String> colWeekDays = [
+    "#1b9e77",
+    "#d95f02",
+    "#7570b3",
+    "#e7298a",
+    "#66a61e",
+    "#e6ab02",
+    "#a6761d"
+  ];
+  List<String> colWeekDaysText = [
+    "#ffffff",
+    "#ffffff",
+    "#000000",
+    "#ffffff",
+    "#ffffff",
+    "#000000",
+    "#ffffff"
+  ];
   String colExercises = "#c0c0c0";
   String colExerciseText = "#000000";
   String colCGPLine = "#a0a0a0";
@@ -322,9 +366,11 @@ abstract class BasePrint {
   String lcFrame = "#000000";
 
   bool isPortraitParam = true;
+
   bool get isPortrait => true;
 
   double get width => isPortrait ? 21.0 : 29.7;
+
   double get height => isPortrait ? 29.7 : 21.0;
 
   List<Page> _pages = List<Page>();
@@ -347,24 +393,46 @@ abstract class BasePrint {
   }
 
   _msgPageCountEst(count) => Intl.plural(count,
-      zero: "", one: "1 Seite oder mehr", other: "$count Seiten oder mehr", args: [count], name: "_msgPageCountEst");
-  _msgPageCount(count) =>
-      Intl.plural(count, zero: "", one: "1 Seite", other: "$count Seiten", args: [count], name: "_msgPageCount");
+      zero: "",
+      one: "1 Seite oder mehr",
+      other: "$count Seiten oder mehr",
+      args: [count],
+      name: "_msgPageCountEst");
 
-  msgPageCount(count, isEstimated) => isEstimated ? _msgPageCountEst(count) : _msgPageCount(count);
+  _msgPageCount(count) => Intl.plural(count,
+      zero: "",
+      one: "1 Seite",
+      other: "$count Seiten",
+      args: [count],
+      name: "_msgPageCount");
+
+  msgPageCount(count, isEstimated) =>
+      isEstimated ? _msgPageCountEst(count) : _msgPageCount(count);
+
   msgValidRange(begDate, endDate) =>
-      Intl.message("gültig von $begDate bis $endDate", args: [begDate, endDate], name: "msgValidRange");
-  msgValidFrom(begDate) => Intl.message("gültig ab $begDate", args: [begDate], name: "msgValidFrom");
-  msgValidTo(endDate) => Intl.message("gültig bis $endDate", args: [endDate], name: "msgValidTo");
+      Intl.message("gültig von $begDate bis $endDate",
+          args: [begDate, endDate], name: "msgValidRange");
+
+  msgValidFrom(begDate) =>
+      Intl.message("gültig ab $begDate", args: [begDate], name: "msgValidFrom");
+
+  msgValidTo(endDate) =>
+      Intl.message("gültig bis $endDate", args: [endDate], name: "msgValidTo");
+
   get msgInsulinUnit => Intl.message("IE");
+
   get msgMedian => Intl.message("Median");
+
   get msgUntil => Intl.message("bis");
+
   String msgDuration(int hours, int minutes) {
-    return Intl.message("$hours Std $minutes Min", args: [hours, minutes], name: "msgDuration");
+    return Intl.message("$hours Std $minutes Min",
+        args: [hours, minutes], name: "msgDuration");
   }
 
   String msgTargetArea(String min, String max, String units) {
-    return Intl.message("Zielbereich ($min - $max $units)", args: [min, max, units], name: "msgTargetArea");
+    return Intl.message("Zielbereich ($min - $max $units)",
+        args: [min, max, units], name: "msgTargetArea");
   }
 
   String msgTargetValue(String value) {
@@ -372,134 +440,244 @@ abstract class BasePrint {
   }
 
   String get msgGlucosekurve => Intl.message("Glukosekurve");
-  String msgCarbs(String value) => Intl.message("Kohlenhydrate (${value}g)", args: [value], name: "msgCarbs");
-  String msgBolusInsulin(String value) =>
-      Intl.message("Bolus Insulin ($value)", args: [value], name: "msgBolusInsulin");
-  String get msgMealBolus => Intl.message("Mahlzeitenbolus", meaning: "bolus to handle a meal");
-  String get msgBolusWizard => Intl.message("Bolus Rechner", meaning: "bolus calculated by the bolus wizard");
+
+  String msgCarbs(String value) => Intl.message("Kohlenhydrate (${value}g)",
+      args: [value], name: "msgCarbs");
+
+  String msgBolusInsulin(String value) => Intl.message("Bolus Insulin ($value)",
+      args: [value], name: "msgBolusInsulin");
+
+  String get msgMealBolus =>
+      Intl.message("Mahlzeitenbolus", meaning: "bolus to handle a meal");
+
+  String get msgBolusWizard => Intl.message("Bolus Rechner",
+      meaning: "bolus calculated by the bolus wizard");
+
   String get msgBolusExtInsulin => Intl.message("Verzögerter Bolus");
+
   String msgCorrectBolusInsulin(String value) =>
-      Intl.message("Korrektur Bolus ($value)", args: [value], name: "msgCorrectBolusInsulin");
+      Intl.message("Korrektur Bolus ($value)",
+          args: [value], name: "msgCorrectBolusInsulin");
+
   String msgCarbBolusInsulin(String value) =>
-      Intl.message("Mahlzeiten Bolus ($value)", args: [value], name: "msgCarbBolusInsulin");
-  String msgSMBInsulin(String value) => Intl.message("SMB ($value)", args: [value], name: "msgSMBInsulin");
+      Intl.message("Mahlzeiten Bolus ($value)",
+          args: [value], name: "msgCarbBolusInsulin");
+
+  String msgSMBInsulin(String value) =>
+      Intl.message("SMB ($value)", args: [value], name: "msgSMBInsulin");
+
   String get msgBasalrate => Intl.message("Basalrate");
+
   String msgBasalrateDay(String value) =>
-      Intl.message("Basalrate für den Tag ($value)", args: [value], name: "msgBasalrateDay");
+      Intl.message("Basalrate für den Tag ($value)",
+          args: [value], name: "msgBasalrateDay");
+
   String msgBasalrateProfile(String value) =>
-      Intl.message("Basalrate aus dem Profil ($value)", args: [value], name: "msgBasalrateProfile");
-  String msgLegendTDD(String value) => Intl.message("Gesamtinsulin ($value)", args: [value], name: "msgLegendTDD");
+      Intl.message("Basalrate aus dem Profil ($value)",
+          args: [value], name: "msgBasalrateProfile");
+
+  String msgLegendTDD(String value) => Intl.message("Gesamtinsulin ($value)",
+      args: [value], name: "msgLegendTDD");
+
   String get msgTDD => Intl.message("TDD");
-  String get msgMissingData => Intl.message("Es sind keine Daten für den Ausdruck vorhanden");
+
+  String get msgMissingData =>
+      Intl.message("Es sind keine Daten für den Ausdruck vorhanden");
+
   String get msgCatheterChange => Intl.message("Katheterwechsel");
+
   String get msgSensorChange => Intl.message("Sensorwechsel");
+
   String get msgAmpulleChange => Intl.message("Reservoirwechsel");
+
   String get msgCollectedValues => Intl.message("Aufsummierte Werte");
+
   String get msgCarbIE => Intl.message("Berechnete IE für Kohlenhydrate");
+
   String get msgKHTitle => Intl.message("KH");
+
   msgKH(value) => Intl.message("${value}g", args: [value], name: "msgKH");
+
   msgReadingsPerDay(howMany, fmt) => Intl.plural(howMany,
       zero: "Keine Messwerte vorhanden",
       one: "1 Messung am Tag",
       other: "$fmt Messungen am Tag",
       args: [howMany, fmt],
       name: "msgReadingsPerDay");
+
   msgReadingsPerHour(howMany, fmt) => Intl.plural(howMany,
       zero: "Keine Messwerte vorhanden",
       one: "1 Messung pro Stunde",
       other: "$fmt Messungen pro Stunde",
       args: [howMany, fmt],
       name: "msgReadingsPerHour");
+
   msgReadingsInMinutes(howMany, fmt) => Intl.plural(howMany,
       zero: "Keine Messwerte vorhanden",
       one: "1 Messung pro Minute",
       other: "Messung alle $fmt Minuten",
       args: [howMany, fmt],
       name: "msgReadingsInMinutes");
-  msgValuesIn(low, high) => Intl.message("Werte zwischen ${low} und ${high}", args: [low, high], name: "msgValuesIn");
-  msgValuesBelow(low) => Intl.message("Werte unter ${low}", args: [low], name: "msgValuesBelow");
-  msgValuesAbove(high) => Intl.message("Werte über ${high}", args: [high], name: "msgValuesAbove");
-  msgValuesVeryHigh(value) => Intl.message("Sehr hohe Werte ( > ${value})", args: [value], name: "msgValuesVeryHigh");
-  msgValuesNormHigh(value) => Intl.message("Hohe Werte (${value})", args: [value], name: "msgValuesNormHigh");
-  msgValuesNorm(low, high) => Intl.message("Zielbereich (${low} - ${high})", args: [low, high], name: "msgValuesNorm");
-  msgValuesNormLow(value) => Intl.message("Niedrige Werte (${value})", args: [value], name: "msgValuesNormLow");
-  msgValuesVeryLow(value) => Intl.message("Sehr niedrige Werte (< ${value})", args: [value], name: "msgValuesVeryLow");
+
+  msgValuesIn(low, high) => Intl.message("Werte zwischen ${low} und ${high}",
+      args: [low, high], name: "msgValuesIn");
+
+  msgValuesBelow(low) =>
+      Intl.message("Werte unter ${low}", args: [low], name: "msgValuesBelow");
+
+  msgValuesAbove(high) =>
+      Intl.message("Werte über ${high}", args: [high], name: "msgValuesAbove");
+
+  msgValuesVeryHigh(value) => Intl.message("Sehr hohe Werte ( > ${value})",
+      args: [value], name: "msgValuesVeryHigh");
+
+  msgValuesNormHigh(value) => Intl.message("Hohe Werte (${value})",
+      args: [value], name: "msgValuesNormHigh");
+
+  msgValuesNorm(low, high) => Intl.message("Zielbereich (${low} - ${high})",
+      args: [low, high], name: "msgValuesNorm");
+
+  msgValuesNormLow(value) => Intl.message("Niedrige Werte (${value})",
+      args: [value], name: "msgValuesNormLow");
+
+  msgValuesVeryLow(value) => Intl.message("Sehr niedrige Werte (< ${value})",
+      args: [value], name: "msgValuesVeryLow");
+
   msgKHBE(value) => Intl.message("g KH ($value BE)",
-      args: [value], name: "msgKHBE", meaning: "gram Carbohydrates displayed at analysis page");
+      args: [value],
+      name: "msgKHBE",
+      meaning: "gram Carbohydrates displayed at analysis page");
+
   msgReservoirDays(count, txt) => Intl.plural(count,
       one: "($txt Tag pro Ampulle)",
       zero: "",
       other: "($txt Tage pro Ampulle)",
       args: [count, txt],
       name: "msgReservoirDays");
+
   msgCatheterDays(count, txt) => Intl.plural(count,
       one: "($txt Tag pro Katheter)",
       zero: "",
       other: "($txt Tage pro Katheter)",
       args: [count, txt],
       name: "msgCatheterDays");
+
   msgSensorDays(count, txt) => Intl.plural(count,
       one: "($txt Tag pro Sensor)",
       zero: "",
       other: "($txt Tage pro Sensor)",
       args: [count, txt],
       name: "msgSensorDays");
+
   get msgBirthday => Intl.message("Geburtstag");
+
   get msgDiabSince => Intl.message("Diabetes seit");
+
   get msgInsulin => Intl.message("Insulin");
+
   get msgDays => Intl.message("Ausgewertete Tage");
+
   get msgReadingsCount => Intl.message("Anzahl Messungen");
+
   get msgReservoirCount => Intl.message("Anzahl Ampullenwechsel");
+
   get msgCatheterCount => Intl.message("Anzahl Katheterwechsel");
+
   get msgSensorCount => Intl.message("Anzahl Sensorenwechsel");
+
   String get msgHbA1C => Intl.message("gesch. HbA1c");
+
   get msgHbA1CLong => Intl.message("Geschätzter HbA1c");
+
   get msgLowestValue => Intl.message("Niedrigster Wert im Zeitraum");
+
   get msgHighestValue => Intl.message("Höchster Wert im Zeitraum");
+
   get msgGlucoseValue => Intl.message("Ø Zuckerwert");
+
   get msgGVIFull => Intl.message("Glykämischer Variabilitäts Index (GVI)");
+
   get msgPGSFull => Intl.message("Patient Glykämischer Status (PGS)");
+
   get msgKHPerDay => Intl.message("Ø KH pro Tag");
+
   get msgInsulinPerDay => Intl.message("Ø Insulin pro Tag");
+
   get msgBolusPerDay => Intl.message("Ø Bolus pro Tag");
+
   get msgBasalPerDay => Intl.message("Ø Basal pro Tag");
+
   get msgMicroBolusPerDay => Intl.message("Ø Microbolus pro Tag");
+
   get msgInsulinRatio => Intl.message("Ø Insulinverhältnis");
+
   get msgBolus => Intl.message("Bolus");
+
   get msgBasal => Intl.message("Basal");
+
   get msgBasalProfile => Intl.message("Basalrate\nIE / Stunde");
+
   get msgNone => Intl.message("Keine");
+
   get msgOwnLimits => Intl.message("Eigene Grenzwerte");
+
   get msgStandardLimits => Intl.message("Standardgrenzwerte");
+
   get msgTreatments => Intl.message("Behandlungen");
+
   get msgPeriod => Intl.message("Zeitraum");
+
   get msgTotal => Intl.message("Ges.");
+
   get msgTimeShort => Intl.message("Uhr-\nzeit");
+
   get msgTime => Intl.message("Uhrzeit");
+
   get msgIEHr => Intl.message("IE/std");
+
   get msgSum => Intl.message("Summe");
+
   get msgTrend => Intl.message("Trend");
+
   static String get msgOutput => Intl.message("Ausgabe");
+
   static String get msgGraphic => Intl.message("Grafik");
+
   static String get msgTable => Intl.message("Tabelle");
+
   static String get msgAll => Intl.message("Alles");
+
   static String get msgGPD => Intl.message("Glukose Perzentil Diagramm");
+
   static get msgHourlyStats => Intl.message("Stündliche Statistik");
+
   get msgNote => Intl.message("Notiz");
+
   get msgAdjustment => Intl.message("Anpas-\nsung");
+
   get msgGlucLow => Intl.message("Glukose zu niedrig");
+
   static String get msgGraphsPerPage => Intl.message("Grafiken pro Seite");
+
   get msgGlucNorm => Intl.message("Glukose im Zielbereich");
+
   get msgSource => Intl.message(
       "Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)");
+
   get msgGlucHigh => Intl.message("Glukose zu hoch");
+
   msgLow(value) {
     value = "\n<${g.glucFromData(value)}";
     return Intl.message("Tief${value}", args: [value], name: "msgLow");
   }
 
   msgCount(int value) {
-    return Intl.plural(value, zero: "Kein Wert", one: "1 Wert", other: "$value Werte", args: [value], name: "msgCount");
+    return Intl.plural(value,
+        zero: "Kein Wert",
+        one: "1 Wert",
+        other: "$value Werte",
+        args: [value],
+        name: "msgCount");
   }
 
   msgStdAbw(value) {
@@ -507,54 +685,102 @@ abstract class BasePrint {
     return Intl.message("(StdAbw ${value})", args: [value], name: "msgStdAbw");
   }
 
-  static msgTimeOfDay24(time) => Intl.message("${time} Uhr", args: [time], name: "msgTimeOfDay24");
-  static msgTimeOfDayAM(time) => Intl.message("${time} am", args: [time], name: "msgTimeOfDayAM");
-  static msgTimeOfDayPM(time) => Intl.message("${time} pm", args: [time], name: "msgTimeOfDayPM");
+  static msgTimeOfDay24(time) =>
+      Intl.message("${time} Uhr", args: [time], name: "msgTimeOfDay24");
+
+  static msgTimeOfDayAM(time) =>
+      Intl.message("${time} am", args: [time], name: "msgTimeOfDayAM");
+
+  static msgTimeOfDayPM(time) =>
+      Intl.message("${time} pm", args: [time], name: "msgTimeOfDayPM");
 
   get msgNormal => "${Intl.message("Normal")}\n${g.getGlucInfo()["unit"]}";
+
   msgHigh(value) {
     value = "\n>=${g.glucFromData(value)}";
     return Intl.message("Hoch${value}", args: [value], name: "msgHigh");
   }
 
   get msgPercentile1090 => Intl.message("10% - 90% der Werte");
+
   get msgPercentile2575 => Intl.message("25% - 75% der Werte");
+
   get msgICRTitle => Intl.message("Insulin Kohlenhydrate Verhältnis (ICR)");
+
   get msgISFTitle => Intl.message("Insulin Sensitivitäts Faktoren (ISF)");
+
   get msgBasalTitle => Intl.message("Basalrate");
+
   get msgBasalSum => Intl.message("Gesamt");
+
   get msgTargetTitle => Intl.message("Zielbereich");
+
   get msgICRSum => Intl.message("Ø ICR/Stunde");
+
   get msgISFSum => Intl.message("Ø ISF/Stunde");
-  get msgICR => Intl.message("Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE");
-  msgISF(String unit) =>
-      Intl.message("Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X ${unit}", args: [unit], name: "msgISF");
-  msgTarget(String unit) => Intl.message("Glukose-Zielbereich\n${unit}", args: [unit], name: "msgTarget");
-  msgFactorEntry(String beg, String end) => Intl.message("${beg} - ${end}", args: [beg, end], name: "msgFactorEntry");
+
+  get msgICR => Intl.message(
+      "Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE");
+
+  msgISF(String unit) => Intl.message(
+      "Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X ${unit}",
+      args: [unit],
+      name: "msgISF");
+
+  msgTarget(String unit) => Intl.message("Glukose-Zielbereich\n${unit}",
+      args: [unit], name: "msgTarget");
+
+  msgFactorEntry(String beg, String end) =>
+      Intl.message("${beg} - ${end}", args: [beg, end], name: "msgFactorEntry");
+
   static get msgOrientation => Intl.message("Ausrichtung");
+
   get msgProfile => Intl.message("Profileinstellungen");
+
   get msgDIA => Intl.message("Dauer der Insulinaktivität (DIA)");
+
   get msgDIAUnit => Intl.message("Stunden");
+
   get msgKHA => Intl.message("Dauer der Kohlenhydrataktivität");
+
   get msgTimezone => Intl.message("Zeitzone");
+
   get msgKHAUnit => Intl.message("g / Stunde");
+
   get msgDate => Intl.message("Datum");
+
   get msgDistribution => Intl.message("Verteilung");
+
   get msgValues => Intl.message("Mess-\nwerte");
+
   get msgMin => Intl.message("Min");
+
   get msgMax => Intl.message("Max");
+
   get msgAverage => Intl.message("Mittel-\nwert");
+
   get msgDeviation => Intl.message("Std.\nAbw.");
+
   get msgVarK => Intl.message("VarK\nin %");
+
   get msg10 => Intl.message("10%");
+
   get msg25 => Intl.message("25%");
+
   get msg75 => Intl.message("75%");
+
   get msg90 => Intl.message("90%");
-  String msgDaySum(int value) => Intl.message("$value Tage", args: [value], name: "msgDaySum");
+
+  String msgDaySum(int value) =>
+      Intl.message("$value Tage", args: [value], name: "msgDaySum");
+
   get msgStandardDeviation => Intl.message("Standardabweichung");
-  static String msgCalibration(scale, intercept, slope) =>
-      Intl.message("Kalibrierung (scale $scale / intercept $intercept / slope $slope)",
-          args: [scale, intercept, slope], name: "msgCalibration");
+
+  static String msgCalibration(scale, intercept, slope) => Intl.message(
+      "Kalibrierung (scale $scale / intercept $intercept / slope $slope)",
+      args: [scale, intercept, slope],
+      name: "msgCalibration");
+
   static String get msgChange => Intl.message("Wechsel");
 
   dynamic targets(ReportData repData) {
@@ -570,24 +796,28 @@ abstract class BasePrint {
 
   msgGVINone(min) {
     min = g.fmtNumber(min, 1);
-    return Intl.message("nicht vorhanden (kleiner ${min})", args: [min], name: "msgGVINone");
+    return Intl.message("nicht vorhanden (kleiner ${min})",
+        args: [min], name: "msgGVINone");
   }
 
   msgGVIVeryGood(min, max) {
     min = g.fmtNumber(min, 1);
     max = g.fmtNumber(max, 1);
-    return Intl.message("sehr gut (${min} bis ${max})", args: [min, max], name: "msgGVIVeryGood");
+    return Intl.message("sehr gut (${min} bis ${max})",
+        args: [min, max], name: "msgGVIVeryGood");
   }
 
   msgGVIGood(min, max) {
     min = g.fmtNumber(min, 1);
     max = g.fmtNumber(max, 1);
-    return Intl.message("gut (${min} bis ${max})", args: [min, max], name: "msgGVIGood");
+    return Intl.message("gut (${min} bis ${max})",
+        args: [min, max], name: "msgGVIGood");
   }
 
   msgGVIBad(max) {
     max = g.fmtNumber(max, 1);
-    return Intl.message("schlecht (grösser ${max})", args: [max], name: "msgGVIBad");
+    return Intl.message("schlecht (grösser ${max})",
+        args: [max], name: "msgGVIBad");
   }
 
   String gviQuality(gvi) {
@@ -602,24 +832,28 @@ abstract class BasePrint {
 
   msgPGSVeryGood(min) {
     min = g.fmtNumber(min);
-    return Intl.message("exzellent (kleiner ${min})", args: [min], name: "msgPGSVeryGood");
+    return Intl.message("exzellent (kleiner ${min})",
+        args: [min], name: "msgPGSVeryGood");
   }
 
   msgPGSGood(min, max) {
     min = g.fmtNumber(min);
     max = g.fmtNumber(max);
-    return Intl.message("gut (${min} bis ${max})", args: [min, max], name: "msgPGSGood");
+    return Intl.message("gut (${min} bis ${max})",
+        args: [min, max], name: "msgPGSGood");
   }
 
   msgPGSBad(min, max) {
     min = g.fmtNumber(min);
     max = g.fmtNumber(max);
-    return Intl.message("schlecht (${min} bis ${max})", args: [min, max], name: "msgPGSBad");
+    return Intl.message("schlecht (${min} bis ${max})",
+        args: [min, max], name: "msgPGSBad");
   }
 
   msgPGSVeryBad(max) {
     max = g.fmtNumber(max);
-    return Intl.message("sehr schlecht (grösser ${max})", args: [max], name: "msgPGSVeryBad");
+    return Intl.message("sehr schlecht (grösser ${max})",
+        args: [max], name: "msgPGSVeryBad");
   }
 
   String pgsQuality(pgs) {
@@ -631,7 +865,8 @@ abstract class BasePrint {
     return msgPGSVeryBad(150);
   }
 
-  msgHistorical(value) => Intl.message("Historisch ${value}", args: [value], name: "msgHistorical");
+  msgHistorical(value) =>
+      Intl.message("Historisch ${value}", args: [value], name: "msgHistorical");
 
   String titleInfoForDates(DateTime startDate, DateTime endDate) {
     String ret;
@@ -647,7 +882,10 @@ abstract class BasePrint {
   dynamic get footerText => null;
 
   static String get msgDay => Intl.message("Tag (08:00 - 17:59)");
-  static String get msgDawn => Intl.message("Dämmerung (06:00 - 07:59, 18:00 - 20:59)");
+
+  static String get msgDawn =>
+      Intl.message("Dämmerung (06:00 - 07:59, 18:00 - 20:59)");
+
   static String get msgNight => Intl.message("Nacht (21:00 - 05:59)");
 
   @override
@@ -672,7 +910,7 @@ abstract class BasePrint {
         }
       ];
 
-  Object headerFooter({skipFooter: false}) {
+  Object headerFooter({skipFooter: false, date: null}) {
     bool isInput = false;
     var stack = [];
     var ret = {"stack": stack, "pageBreak": ""};
@@ -682,18 +920,102 @@ abstract class BasePrint {
         stack.add({
           "relativePosition": {"x": cm(0), "y": cm(0)},
           "canvas": [
-            {"type": "rect", "x": cm(0.0), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#d69a2e"},
-            {"type": "rect", "x": cm(1.6), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#2e4736"},
-            {"type": "rect", "x": cm(3.2), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#662c40"},
-            {"type": "rect", "x": cm(4.8), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#343a49"},
-            {"type": "rect", "x": cm(6.4), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#528c8e"},
-            {"type": "rect", "x": cm(8.0), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#362946"},
-            {"type": "rect", "x": cm(9.6), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#6b8133"},
-            {"type": "rect", "x": cm(11.2), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#2a3b56"},
-            {"type": "rect", "x": cm(12.8), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#862d2e"},
-            {"type": "rect", "x": cm(14.4), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#607f6e"},
-            {"type": "rect", "x": cm(16.0), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#273d3f"},
-            {"type": "rect", "x": cm(17.6), "y": cm(0), "w": cm(1.6), "h": cm(0.55), "color": "#a5916d"}
+            {
+              "type": "rect",
+              "x": cm(0.0),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#d69a2e"
+            },
+            {
+              "type": "rect",
+              "x": cm(1.6),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#2e4736"
+            },
+            {
+              "type": "rect",
+              "x": cm(3.2),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#662c40"
+            },
+            {
+              "type": "rect",
+              "x": cm(4.8),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#343a49"
+            },
+            {
+              "type": "rect",
+              "x": cm(6.4),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#528c8e"
+            },
+            {
+              "type": "rect",
+              "x": cm(8.0),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#362946"
+            },
+            {
+              "type": "rect",
+              "x": cm(9.6),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#6b8133"
+            },
+            {
+              "type": "rect",
+              "x": cm(11.2),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#2a3b56"
+            },
+            {
+              "type": "rect",
+              "x": cm(12.8),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#862d2e"
+            },
+            {
+              "type": "rect",
+              "x": cm(14.4),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#607f6e"
+            },
+            {
+              "type": "rect",
+              "x": cm(16.0),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#273d3f"
+            },
+            {
+              "type": "rect",
+              "x": cm(17.6),
+              "y": cm(0),
+              "w": cm(1.6),
+              "h": cm(0.55),
+              "color": "#a5916d"
+            }
           ]
         });
       }
@@ -702,18 +1024,102 @@ abstract class BasePrint {
         stack.add({
           "relativePosition": {"x": cm(0), "y": cm(0)},
           "canvas": [
-            {"type": "rect", "x": cm(0.0), "y": cm(0), "w": cm(2.2), "h": cm(0.55), "color": "#d69a2e"},
-            {"type": "rect", "x": cm(2.2), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#2e4736"},
-            {"type": "rect", "x": cm(4.5), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#662c40"},
-            {"type": "rect", "x": cm(6.8), "y": cm(0), "w": cm(2.25), "h": cm(0.55), "color": "#343a49"},
-            {"type": "rect", "x": cm(9.05), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#528c8e"},
-            {"type": "rect", "x": cm(11.35), "y": cm(0), "w": cm(2.25), "h": cm(0.55), "color": "#362946"},
-            {"type": "rect", "x": cm(13.6), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#6b8133"},
-            {"type": "rect", "x": cm(15.9), "y": cm(0), "w": cm(2.25), "h": cm(0.55), "color": "#2a3b56"},
-            {"type": "rect", "x": cm(18.15), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#862d2e"},
-            {"type": "rect", "x": cm(20.45), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#607f6e"},
-            {"type": "rect", "x": cm(22.75), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#273d3f"},
-            {"type": "rect", "x": cm(25.05), "y": cm(0), "w": cm(2.3), "h": cm(0.55), "color": "#a5916d"},
+            {
+              "type": "rect",
+              "x": cm(0.0),
+              "y": cm(0),
+              "w": cm(2.2),
+              "h": cm(0.55),
+              "color": "#d69a2e"
+            },
+            {
+              "type": "rect",
+              "x": cm(2.2),
+              "y": cm(0),
+              "w": cm(2.3),
+              "h": cm(0.55),
+              "color": "#2e4736"
+            },
+            {
+              "type": "rect",
+              "x": cm(4.5),
+              "y": cm(0),
+              "w": cm(2.3),
+              "h": cm(0.55),
+              "color": "#662c40"
+            },
+            {
+              "type": "rect",
+              "x": cm(6.8),
+              "y": cm(0),
+              "w": cm(2.25),
+              "h": cm(0.55),
+              "color": "#343a49"
+            },
+            {
+              "type": "rect",
+              "x": cm(9.05),
+              "y": cm(0),
+              "w": cm(2.3),
+              "h": cm(0.55),
+              "color": "#528c8e"
+            },
+            {
+              "type": "rect",
+              "x": cm(11.35),
+              "y": cm(0),
+              "w": cm(2.25),
+              "h": cm(0.55),
+              "color": "#362946"
+            },
+            {
+              "type": "rect",
+              "x": cm(13.6),
+              "y": cm(0),
+              "w": cm(2.3),
+              "h": cm(0.55),
+              "color": "#6b8133"
+            },
+            {
+              "type": "rect",
+              "x": cm(15.9),
+              "y": cm(0),
+              "w": cm(2.25),
+              "h": cm(0.55),
+              "color": "#2a3b56"
+            },
+            {
+              "type": "rect",
+              "x": cm(18.15),
+              "y": cm(0),
+              "w": cm(2.3),
+              "h": cm(0.55),
+              "color": "#862d2e"
+            },
+            {
+              "type": "rect",
+              "x": cm(20.45),
+              "y": cm(0),
+              "w": cm(2.3),
+              "h": cm(0.55),
+              "color": "#607f6e"
+            },
+            {
+              "type": "rect",
+              "x": cm(22.75),
+              "y": cm(0),
+              "w": cm(2.3),
+              "h": cm(0.55),
+              "color": "#273d3f"
+            },
+            {
+              "type": "rect",
+              "x": cm(25.05),
+              "y": cm(0),
+              "w": cm(2.3),
+              "h": cm(0.55),
+              "color": "#a5916d"
+            },
           ],
         });
       }
@@ -721,7 +1127,13 @@ abstract class BasePrint {
     stack.add({
       "relativePosition": {"x": cm(xframe), "y": cm(1.0)},
       "columns": [
-        {"width": "auto", "text": title, "fontSize": fs(36), "color": colText, "bold": true},
+        {
+          "width": "auto",
+          "text": title,
+          "fontSize": fs(36),
+          "color": colText,
+          "bold": true
+        },
         {
           "width": "auto",
           "text": subtitle,
@@ -802,7 +1214,8 @@ abstract class BasePrint {
     if (skipFooter) return ret;
     String rightText = "";
     if (repData.user.name.isEmpty) {
-      if (!repData.user.birthDate.isEmpty) rightText = "*${repData.user.birthDate}";
+      if (!repData.user.birthDate.isEmpty)
+        rightText = "*${repData.user.birthDate}";
     } else {
       if (!repData.user.birthDate.isEmpty)
         rightText = "${repData.user.name}, *${repData.user.birthDate}";
@@ -840,7 +1253,10 @@ abstract class BasePrint {
                 }
               ]
             },
-      g.ppHideNightscoutInPDF ? null : _getFooterImage("nightscout", x: xframe, y: height - 1.7, width: 0.7),
+      g.ppHideNightscoutInPDF
+          ? null
+          : _getFooterImage("nightscout",
+              x: xframe, y: height - 1.7, width: 0.7),
       g.ppHideNightscoutInPDF
           ? null
           : {
@@ -852,20 +1268,33 @@ abstract class BasePrint {
       footerText == null
           ? null
           : {
-              "relativePosition": {"x": cm(g.ppHideNightscoutInPDF ? xframe : 7.5), "y": cm(height - 1.7)},
+              "relativePosition": {
+                "x": cm(g.ppHideNightscoutInPDF ? xframe : 7.5),
+                "y": cm(height - 1.7)
+              },
               "stack": footerText,
               "fontSize": fs(10)
             },
-      isInput ? _getFooterImage("input", x: width - 5.6, y: height - 3.3, width: 4.0) : {},
+      isInput
+          ? _getFooterImage("input",
+              x: width - 5.6, y: height - 3.3, width: 4.0)
+          : {},
       {
         "relativePosition": {"x": cm(xframe), "y": cm(height - 1.7)},
         "columns": [
           {
             "width": cm(width - 2 * xframe),
-            "text": rightText,
-            "color": colInfo,
-            "alignment": "right",
-            "fontSize": fs(10)
+            "stack": [
+              {"text": rightText, "color": colInfo, "fontSize": fs(10)},
+              !g.ppShowUrlInPDF
+                  ? null
+                  : {
+                      "text": g.user.urlDataFor(date).url,
+                      "color": colInfo,
+                      "fontSize": fs(8)
+                    }
+            ],
+            "alignment": "right"
           }
         ]
       }
@@ -877,7 +1306,9 @@ abstract class BasePrint {
   bool tableHeadFilled = false;
   dynamic tableHeadLine = [];
   dynamic tableWidths = [];
-  addTableRow(bool check, var width, dynamic dst, dynamic head, dynamic content) {
+
+  addTableRow(
+      bool check, var width, dynamic dst, dynamic head, dynamic content) {
     if (!check) return;
     if (!tableHeadFilled) {
       tableHeadLine.add(head);
@@ -905,6 +1336,7 @@ abstract class BasePrint {
   dynamic m0 = [];
 
   Map<String, String> images = Map<String, String>();
+
   List<String> get imgList => [
         "nightscout-pale",
         "nightscout",
@@ -915,10 +1347,12 @@ abstract class BasePrint {
   }
 
   Future<String> getBase64Image(String id) async {
-    var response =
-        await HttpRequest.request("packages/nightscout_reporter/assets/img/$id.png", responseType: "arraybuffer");
+    var response = await HttpRequest.request(
+        "packages/nightscout_reporter/assets/img/$id.png",
+        responseType: "arraybuffer");
     if (response.response is ByteBuffer) {
-      String ret = base64.encode((response.response as ByteBuffer).asUint8List());
+      String ret =
+          base64.encode((response.response as ByteBuffer).asUint8List());
       return "data:image/png;base64,${ret}";
     }
 
@@ -946,7 +1380,8 @@ abstract class BasePrint {
 
   extractParams() {}
 
-  _getFooterImage(String id, {double x, double y, double width, double height = 0.0}) {
+  _getFooterImage(String id,
+      {double x, double y, double width, double height = 0.0}) {
     var ret = {
       "relativePosition": {"x": cm(x), "y": cm(y)},
       "image": id
@@ -1018,7 +1453,8 @@ abstract class BasePrint {
     // int cnt = countObjects(page);
     String text = json.encode(page.content);
     _fileSize += text.length;
-    if (g.pdfCreationMaxSize != Globals.PDFUNLIMITED && _fileSize > g.pdfCreationMaxSize) {
+    if (g.pdfCreationMaxSize != Globals.PDFUNLIMITED &&
+        _fileSize > g.pdfCreationMaxSize) {
       page.content.last["pageBreak"] = "newFile";
       _fileSize = 0;
     }
@@ -1177,7 +1613,11 @@ abstract class BasePrint {
 
   double fs(double size) => size * scale;
 
-  String fmtTime(var date, {String def: null, bool withUnit: false, bool withMinutes: true, bool withSeconds: false}) {
+  String fmtTime(var date,
+      {String def: null,
+      bool withUnit: false,
+      bool withMinutes: true,
+      bool withSeconds: false}) {
     if (def == null) def = "";
     if (date == null) return def;
 
@@ -1186,8 +1626,10 @@ abstract class BasePrint {
     if (date is DateTime) {
       int hour = date.hour;
       if (!g.language.is24HourFormat) hour = hour > 12 ? hour - 12 : hour;
-      String m = withMinutes ? ":${(date.minute < 10 ? "0" : "")}${date.minute}" : "";
-      if (withSeconds) m = "${m}:${(date.second < 10 ? "0" : "")}${date.second}";
+      String m =
+          withMinutes ? ":${(date.minute < 10 ? "0" : "")}${date.minute}" : "";
+      if (withSeconds)
+        m = "${m}:${(date.second < 10 ? "0" : "")}${date.second}";
       String ret = "${(hour < 10 ? "0" : "")}${hour}$m";
       if (withUnit) {
         if (g.language.is24HourFormat)
@@ -1222,14 +1664,18 @@ abstract class BasePrint {
     if (date is DateTime) {
       String ret =
           "${(date.day < 10 ? "0" : "")}${date.day}.${(date.month < 10 ? "0" : "")}${date.month}.${date.year}, ${(date.hour < 10 ? "0" : "")}${date.hour}:${(date.minute < 10 ? "0" : "")}${date.minute}";
-      if (withSeconds) ret = "${ret}:${(date.second < 10 ? "0" : "")}${date.second}";
+      if (withSeconds)
+        ret = "${ret}:${(date.second < 10 ? "0" : "")}${date.second}";
       return msgTimeOfDay24(ret);
     }
 
     return date;
   }
 
-  String fmtDate(var date, [var def = null, bool withShortWeekday = false, bool withLongWeekday = false]) {
+  String fmtDate(var date,
+      [var def = null,
+      bool withShortWeekday = false,
+      bool withLongWeekday = false]) {
     if (def == null) def = "";
     if (date == null) return def;
 
@@ -1252,8 +1698,12 @@ abstract class BasePrint {
 
     DateFormat df = DateFormat(g.language.dateformat);
     String ret = df.format(dt);
-    if (withShortWeekday) ret = "${DatepickerPeriod.dowShortName(Date(dt.year, dt.month, dt.day))}, $ret";
-    if (withLongWeekday) ret = "${DatepickerPeriod.dowName(Date(dt.year, dt.month, dt.day))}, $ret";
+    if (withShortWeekday)
+      ret =
+          "${DatepickerPeriod.dowShortName(Date(dt.year, dt.month, dt.day))}, $ret";
+    if (withLongWeekday)
+      ret =
+          "${DatepickerPeriod.dowName(Date(dt.year, dt.month, dt.day))}, $ret";
     return ret;
   }
 
@@ -1323,8 +1773,17 @@ abstract class BasePrint {
   /// it uses [horzfs] as the fontsize of the horizontal scale and [vertfs] as the fontsize for the vertical
   /// scale.
   GridData drawGraphicGrid(
-      double glucMax, double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack,
-      {double glucScale: 0.0, double graphBottom: 0.0, double horzfs: null, double vertfs: null}) {
+      double glucMax,
+      double graphHeight,
+      double graphWidth,
+      List vertCvs,
+      List horzCvs,
+      List horzStack,
+      List vertStack,
+      {double glucScale: 0.0,
+      double graphBottom: 0.0,
+      double horzfs: null,
+      double vertfs: null}) {
     if (horzfs == null) horzfs = fs(8);
     if (vertfs == null) vertfs = fs(8);
     GridData ret = GridData();
@@ -1348,7 +1807,10 @@ abstract class BasePrint {
       });
       if (i < 24)
         horzStack.add({
-          "relativePosition": {"x": cm(xorg + i * ret.colWidth), "y": cm(yorg + graphBottom + 0.05)},
+          "relativePosition": {
+            "x": cm(xorg + i * ret.colWidth),
+            "y": cm(yorg + graphBottom + 0.05)
+          },
           "text": fmtTime(i),
           "fontSize": horzfs
         });
@@ -1376,9 +1838,17 @@ abstract class BasePrint {
 //        String text = "${glucFromData(g.fmtNumber(i * glucScale, 0))}\n${getGlucInfo()["unit"]}";
         String text = "${g.glucFromData(g.fmtNumber(i * ret.glucScale, 0))}";
         vertStack.add({
-          "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
+          "relativePosition": {
+            "x": cm(xorg - 1.5),
+            "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
+          },
           "columns": [
-            {"width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}
+            {
+              "width": cm(1.2),
+              "text": text,
+              "fontSize": fs(8),
+              "alignment": "right"
+            }
           ]
         });
         vertStack.add({
@@ -1392,9 +1862,17 @@ abstract class BasePrint {
       } else {
         String text = "${g.getGlucInfo()["unit"]}";
         vertStack.add({
-          "relativePosition": {"x": cm(xorg - 1.5), "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)},
+          "relativePosition": {
+            "x": cm(xorg - 1.5),
+            "y": cm(yorg + (ret.gridLines - i) * ret.lineHeight - 0.2)
+          },
           "columns": [
-            {"width": cm(1.2), "text": text, "fontSize": vertfs, "alignment": "right"}
+            {
+              "width": cm(1.2),
+              "text": text,
+              "fontSize": vertfs,
+              "alignment": "right"
+            }
           ]
         });
         vertStack.add({
@@ -1425,14 +1903,21 @@ abstract class BasePrint {
     var ret = [
       headerFooter(),
       {
-        "relativePosition": {"x": cm(xorg) + cm(cgp.axisLength / cgp.scale), "y": cm(y)},
+        "relativePosition": {
+          "x": cm(xorg) + cm(cgp.axisLength / cgp.scale),
+          "y": cm(y)
+        },
         "canvas": cgp.outputCvs
       },
       {
-        "relativePosition": {"x": cm(xorg) + cm(cgp.axisLength / cgp.scale), "y": cm(y)},
+        "relativePosition": {
+          "x": cm(xorg) + cm(cgp.axisLength / cgp.scale),
+          "y": cm(y)
+        },
         "stack": cgp.outputText
       },
-      cgpPage.infoTable(cgpSrc, cgp.glucInfo["unit"], x, y, 2.5, width - x - xorg - 2.5)
+      cgpPage.infoTable(
+          cgpSrc, cgp.glucInfo["unit"], x, y, 2.5, width - x - xorg - 2.5)
     ];
     return Page(isPortrait, ret);
   }
@@ -1481,7 +1966,12 @@ abstract class BasePrint {
             "width": cm(0.8),
             "stack": [
               {
-                "margin": [cm(0.4 - imgWidth / 2), cm(imgOffsetY), cm(0), cm(0)],
+                "margin": [
+                  cm(0.4 - imgWidth / 2),
+                  cm(imgOffsetY),
+                  cm(0),
+                  cm(0)
+                ],
                 "image": image,
                 "width": cm(imgWidth)
               }
@@ -1530,7 +2020,15 @@ abstract class BasePrint {
                 "color": color,
                 "fillOpacity": 0.3
               },
-              {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": colGraphText, "fillOpacity": 1},
+              {
+                "type": "rect",
+                "x": 0,
+                "y": 0,
+                "w": 0,
+                "h": 0,
+                "color": colGraphText,
+                "fillOpacity": 1
+              },
               {
                 "type": "line",
                 "x1": cm(0),
@@ -1576,12 +2074,26 @@ abstract class BasePrint {
       });
   }
 
-  double calcX(double width, DateTime time) => width / 1440 * (time.hour * 60 + time.minute);
-  double calcY(double height, double max, double value) => height / max * (max - value);
+  double calcX(double width, DateTime time) =>
+      width / 1440 * (time.hour * 60 + time.minute);
+
+  double calcY(double height, double max, double value) =>
+      height / max * (max - value);
+
   S(double min, double step) => StepData(min, step);
 
-  drawScaleIE(double xo, double yo, double graphHeight, double top, double min, double max, double colWidth,
-      dynamic horzCvs, dynamic vertStack, List<StepData> steps, Function display) {
+  drawScaleIE(
+      double xo,
+      double yo,
+      double graphHeight,
+      double top,
+      double min,
+      double max,
+      double colWidth,
+      dynamic horzCvs,
+      dynamic vertStack,
+      List<StepData> steps,
+      Function display) {
     double step = 0.1;
     for (StepData entry in steps) {
       if (max - min > entry.min) {
@@ -1611,11 +2123,19 @@ abstract class BasePrint {
       vertStack.add({
         "relativePosition": {"x": cm(xo - 3.0), "y": cm(y + yo - 0.15)},
         "columns": [
-          {"width": cm(2.7), "text": text, "fontSize": fs(8), "alignment": "right"}
+          {
+            "width": cm(2.7),
+            "text": text,
+            "fontSize": fs(8),
+            "alignment": "right"
+          }
         ]
       });
       vertStack.add({
-        "relativePosition": {"x": cm(xo + colWidth * 24 + 0.3), "y": cm(y + yo - 0.15)},
+        "relativePosition": {
+          "x": cm(xo + colWidth * 24 + 0.3),
+          "y": cm(y + yo - 0.15)
+        },
         "text": text,
         "fontSize": fs(8)
       });
@@ -1623,8 +2143,8 @@ abstract class BasePrint {
     return (gridLines - 1) * lineHeight;
   }
 
-  dynamic getIobCob(
-      double xo, double yo, double graphWidth, double graphHeight, dynamic horzCvs, dynamic vertStack, DayData day,
+  dynamic getIobCob(double xo, double yo, double graphWidth, double graphHeight,
+      dynamic horzCvs, dynamic vertStack, DayData day,
       [double upperIob = 0, double upperCob = 0]) {
     double colWidth = graphWidth / 24;
     // graphic for iob and cob
@@ -1681,7 +2201,8 @@ abstract class BasePrint {
         horzCvs,
         vertStack,
         [S(10, 2.0), S(7, 1.0), S(3, 0.5), S(1.5, 0.2), S(0, 0.1)],
-        (i, step, {value: null}) => "${g.fmtNumber(value ?? minIob + i * step, 1)} ${msgInsulinUnit}");
+        (i, step, {value: null}) =>
+            "${g.fmtNumber(value ?? minIob + i * step, 1)} ${msgInsulinUnit}");
     for (int i = 0; i < ptsIob.length; i++) {
       if (maxIob - minIob > 0) {
         double y = ptsIob[i]["y"];
@@ -1721,9 +2242,13 @@ abstract class BasePrint {
     if (lastX != null) {
       double y = 0;
       if (upperIob > 0)
-        ptsIob.add({"x": cm(lastX), "y": cm(iobHeight / maxIob * (y + minIob))});
+        ptsIob
+            .add({"x": cm(lastX), "y": cm(iobHeight / maxIob * (y + minIob))});
       else if (maxIob - minIob > 0)
-        ptsIob.add({"x": cm(lastX), "y": cm(iobHeight / (maxIob - minIob) * (maxIob - y))});
+        ptsIob.add({
+          "x": cm(lastX),
+          "y": cm(iobHeight / (maxIob - minIob) * (maxIob - y))
+        });
       else
         ptsIob.add({"x": cm(lastX), "y": cm(iobHeight)});
       ptsCob.add({"x": cm(lastX), "y": cm(cobHeight)});

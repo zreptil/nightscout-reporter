@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" id="themestyle" href="packages/nightscout_reporter/assets/themes/standard/index.css">
   <link rel="icon" id="favicon" type="image/png" href="packages/nightscout_reporter/assets/themes/standard/favicon.png">
-  <script defer src="main.dart.js"></script>
+  <script defer src="main.dart.js?q={{digest ../lib/src/globals.dart}}"></script>
 </head>
 <body>
 <div id="test"></div>
@@ -26,9 +26,14 @@
 </my-app>
 <script>
   var d = new Date();
-  var id = "webtheme";
-  if(location.href.indexOf("/beta/") >= 0)id = "@" + id;
-  var theme = window.localStorage[id];
+  var id = "webData";
+  if (location.href.indexOf("/beta/") >= 0) id = "@" + id;
+  var theme = null;
+  try {
+    var data = JSON.parse(window.localStorage[id]);
+    theme = data["w2"];
+  } catch (ex) {
+  }
   if (theme == null || theme == "")
     theme = "standard";
   document.getElementById("owl").setAttribute("src", "packages/nightscout_reporter/assets/themes/" + theme + "/owl.png");
