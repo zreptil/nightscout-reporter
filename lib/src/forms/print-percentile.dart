@@ -81,7 +81,7 @@ class PrintPercentile extends BasePrint
   @override
   String get backsuffix
   {
-    int ret = params[0].intValue;
+    int ret = params[0].intValue ?? 0;
     if(showBasal && ret == 0) ret = 3;
     if(showBasal && ret == 2) ret = 4;
 

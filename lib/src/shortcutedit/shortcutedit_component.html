@@ -21,22 +21,27 @@
         <material-button>
           <material-icon icon="{{g.currShortcut.icon}}"></material-icon>
         </material-button>
-        <material-input [label]="msgName"
-                        autoFocus
+        <material-input id="name" [label]="msgName"
                         floatingLabel
                         [(ngModel)]="g.currShortcut.name">
         </material-input>
+      </div>
+      <div>
+        <ngContainer @i18n="number of forms for shortcut">Anzahl:</ngContainer>
+        <material-button class="data" (trigger)="confirmationIdx=2">
+          {{msgFormsText(g.currShortcut.forms.length)}}
+        </material-button>
+      </div>
+      <div>
+        <ngContainer @i18n="period for shortcuts">Zeitraum:</ngContainer>
+        <material-button class="data" (trigger)="confirmationIdx=1">
+          {{g.currShortcut.periodText}}
+        </material-button>
       </div>
     </div>
 
     <div footer>
       <div>
-        <material-button class="data" (trigger)="confirmationIdx=2">
-          {{msgFormsText(g.currShortcut.forms.length)}}
-        </material-button>
-        <material-button class="data" (trigger)="confirmationIdx=1">
-          {{g.currShortcut.periodText}}
-        </material-button>
       </div>
       <div>
         <material-button *ngIf="g.currShortcutIdx>=0" class="iconButton" clear-size (trigger)="confirmationIdx=0">

@@ -36,9 +36,9 @@
   "printparamsBodyBack": "mat-red-300",
   "printparamsBodyFore": "black",
   "printparamsScrollThumb": "mat-red-700",
-  "shortcutHeaderBack": "mat-indigo-900",
-  "shortcutHeaderFore": "mat-indigo-100",
-  "shortcutBodyBack": "mat-indigo-300",
+  "shortcutHeaderBack": "mat-light-blue-900",
+  "shortcutHeaderFore": "mat-light-blue-100",
+  "shortcutBodyBack": "mat-light-blue-300",
   "shortcutBodyFore": "black",
-  "shortcutScrollThumb": "mat-indigo-700"
+  "shortcutScrollThumb": "mat-light-blue-700"
 }

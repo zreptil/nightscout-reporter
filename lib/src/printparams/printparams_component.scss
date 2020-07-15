@@ -76,6 +76,11 @@ material-dialog.headered-dialog {
     color: var(--printparamsHeaderFore);
     padding: 0;
   }
+
+  &[headered] ::ng-deep .wrapper ::ng-deep h1 {
+    background-color: var(--printparamsHeaderBack);
+    color: var(--printparamsHeaderFore);
+  }
 }
 
 .root {
