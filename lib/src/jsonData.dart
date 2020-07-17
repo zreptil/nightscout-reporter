@@ -1065,13 +1065,13 @@ class TreatmentData extends JsonData {
   }
 
   bool equals(TreatmentData t) {
-    return NSClientId == t.NSClientId;
-/*
+//    return NSClientId == t.NSClientId;
+//*
     return createdAt.millisecondsSinceEpoch == t.createdAt.millisecondsSinceEpoch &&
         eventType == t.eventType &&
         duration == t.duration &&
         notes == t.notes;
- */
+ // */
   }
 
   factory TreatmentData.fromJson(Globals g, Map<String, dynamic> json) {
