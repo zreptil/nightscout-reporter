@@ -468,6 +468,8 @@ class PrintDailyLog extends BaseProfile {
               text = null;
               for (InsulinInjectionData entry in t.insulinInjections)
                 list.add("${entry.insulin} ${entry.units} ${msgInsulinUnit}");
+            } else if (type == "<none>") {
+              text = msgInsulin;
             }
             break;
         }
