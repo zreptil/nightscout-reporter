@@ -303,26 +303,25 @@ class PrintDailyStatistics extends BasePrint {
     List<String> valueColor = [];
     List<String> valueLegend = [];
 
-    Map<String, double> dV = new Map();
-    Map<String, double> wV = new Map();
-    Map<String, double> mV = new Map();
+    Map<String, InsulinInjectionList> dV = new Map();
+    Map<String, InsulinInjectionList> wV = new Map();
     Map<String, int> wC = new Map();
+    Map<String, InsulinInjectionList> mV = new Map();
     Map<String, int> mC = new Map();
-    List<double> vD = [];
-    List<double> vW = [];
-    List<double> vM = [];
+    Set<String> insulinProfiles = new Set();
     for (DayData day in src.data.days) {
-      double sum = 0;
+      InsulinInjectionList sum = InsulinInjectionList();
       for (TreatmentData t in day.treatments)
-        sum += t.insulin;
+        sum = sum.add2List(t.multipleInsulin);
       String dayStr = fmtDateShort(day.date, "day");
       String weekStr = fmtDateShort(day.date, "week");
       String monthStr = fmtDateShort(day.date, "month");
-      dV.update(dayStr, (double v) => v + sum, ifAbsent: () => sum);
-      wV.update(weekStr, (double v) => v + sum, ifAbsent: () => sum);
+      dV.update(dayStr, (InsulinInjectionList v) => v.add2List(sum), ifAbsent: () => sum.copy);
+      wV.update(weekStr, (InsulinInjectionList v) => v.add2List(sum), ifAbsent: () => sum.copy);
       wC.update(weekStr, (int v) => v + 1, ifAbsent: () => 1);
-      mV.update(monthStr, (double v) => v + sum, ifAbsent: () => sum);
+      mV.update(monthStr, (InsulinInjectionList v) => v.add2List(sum), ifAbsent: () => sum.copy);
       mC.update(monthStr, (int v) => v + 1, ifAbsent: () => 1);
+      insulinProfiles.addAll(sum.injections.keys);
     }
     if (xValuesDaily == null)
       xValuesDaily = dV.keys.toList();
@@ -330,17 +329,45 @@ class PrintDailyStatistics extends BasePrint {
       xValuesWeekly = wV.keys.toList();
     if (xValuesMonthly == null)
       xValuesMonthly = mV.keys.toList();
-    vD = dV.values.toList();
-    for (String s in xValuesWeekly)
-      vW.add(wV[s]/wC[s]);
-    for (String s in xValuesMonthly)
-      vM.add(mV[s]/mC[s]);
-
-    valuesDaily.add(vD);
-    valuesWeekly.add(vW);
-    valuesMonthly.add(vM);
-    valueColor.add("#000000");
-    valueLegend.add(Intl.message("Gesamtinsulin pro Tag"));
+    for (String insulin in insulinProfiles)
+    {
+      if (insulin == "sum") {
+        valueColor.add("#000000");
+        valueLegend.add(Intl.message("Gesamtinsulin pro Tag"));
+      } else
+      {
+        valueLegend.add(insulin + Intl.message(" pro Tag"));
+        if (insulin.toLowerCase() == "novorapid")
+          valueColor.add("#FF0000");
+        else if (insulin.toLowerCase() == "actrapid")
+          valueColor.add("#00FF00");
+        else if (insulin.toLowerCase() == "insulatard")
+          valueColor.add("#0000FF");
+      }
+      List<double> daily = [];
+      List<double> weekly = [];
+      List<double> monthly = [];
+      for (String s in xValuesDaily) {
+        if (dV[s].injections.containsKey(insulin))
+          daily.add(dV[s].injections[insulin]);
+        else daily.add(0);
+      }
+      for (String s in xValuesWeekly) {
+        if (wV[s].injections.containsKey(insulin))
+          weekly.add(wV[s].injections[insulin] / wC[s]);
+        else
+          weekly.add(0);
+      }
+      for (String s in xValuesMonthly) {
+        if (mV[s].injections.containsKey(insulin))
+          monthly.add(mV[s].injections[insulin] / mC[s]);
+        else
+          monthly.add(0);
+      }
+      valuesDaily.add(daily);
+      valuesWeekly.add(weekly);
+      valuesMonthly.add(monthly);
+    }
 
     double contentWidth = new Page(false, null).width - 1.5*xorg; // 23.25 --> 29.7
     double contentHeight = new Page(false, null).height - 1.5*yorg; // 13 --> 21
