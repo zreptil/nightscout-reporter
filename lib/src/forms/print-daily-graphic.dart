@@ -14,21 +14,25 @@ class CollectInfo {
   double max1 = -1.0;
   double max2 = -1.0;
   int count = 0;
+  List<TreatmentData> treatments = [];
 
-  CollectInfo(this.start, [double this.sum1 = 0.0, double this.sum2 = 0.0]) {
+  CollectInfo(this.start, [TreatmentData t = null, double this.sum1 = 0.0, double this.sum2 = 0.0]) {
     end = DateTime(start.year, start.month, start.day, start.hour, start.minute, start.second);
     count = sum1 > 0.0 ? 1 : 0;
     max1 = sum1;
     max2 = sum2;
+    if (t != null)
+      treatments.add(t);
   }
 
-  void fill(DateTime date, double value1, double value2) {
+  void fill(DateTime date, TreatmentData t, double value1, double value2) {
     end = DateTime(date.year, date.month, date.day, date.hour, date.minute, date.second);
     sum1 += value1;
     sum2 += value2;
     max1 = math.max(value1, max1);
     max2 = math.max(value2, max2);
     count++;
+    treatments.add(t);
   }
 }
 
@@ -349,9 +353,11 @@ class PrintDailyGraphic extends BaseDaily {
     if (showBasalDay) {
       for (ProfileEntryData entry in day.profile) profMax = math.max(entry.value ?? 0, profMax);
     }
+    InsulinInjectionList insulinInjections = InsulinInjectionList();
     for (TreatmentData entry in day.treatments) {
       if (entry.isBloody) glucMax = math.max(g.glucFactor * entry.glucose, glucMax);
       ieMax = math.max(entry.bolusInsulin, ieMax);
+      insulinInjections = insulinInjections.add2List(entry.multipleInsulin);
     }
 
     if (g.glucMaxValue != null) glucMax = g.glucMaxValues[g.ppGlucMaxIdx];
@@ -592,9 +598,9 @@ class PrintDailyGraphic extends BaseDaily {
           });
           double carbsIE = carbsForIE(src, t);
           if (t.createdAt.difference(collCarbs.last.start).inMinutes < collMinutes)
-            collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
+            collCarbs.last.fill(t.createdAt, t, t.carbs, carbsIE);
           else
-            collCarbs.add(CollectInfo(t.createdAt, t.carbs, carbsIE));
+            collCarbs.add(CollectInfo(t.createdAt, t, t.carbs, carbsIE));
         }
         hasCarbs = true;
       }
@@ -636,9 +642,9 @@ class PrintDailyGraphic extends BaseDaily {
           }
 
           if (t.createdAt.difference(collInsulin.last.start).inMinutes < collMinutes)
-            collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
+            collInsulin.last.fill(t.createdAt, t, t.bolusInsulin, 0.0);
           else
-            collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
+            collInsulin.add(CollectInfo(t.createdAt, t, t.bolusInsulin));
 
           if (splitBolus && t.isCarbBolus)
             hasCarbBolus = true;
@@ -818,7 +824,15 @@ class PrintDailyGraphic extends BaseDaily {
       if (info.sum1 == 0.0) continue;
       double y = sumNarrowValues ? -0.5 : bolusY(info.max1);
       String text = "${g.fmtBasal(info.sum1, dontRound: !roundToProfile)} ${msgInsulinUnit}";
-      if (info.count > 1) {
+      InsulinInjectionList sum = InsulinInjectionList();
+      for (TreatmentData t in info.treatments)
+        sum = sum.add2List(t.multipleInsulin);
+      if (sum.injections.length > 1) {
+        text = "";
+        for (String insulin in sum.injections.keys)
+          if (insulin.toLowerCase() != "sum")
+            text = text + "${g.fmtBasal(sum.injections[insulin], dontRound: !roundToProfile)} ${msgInsulinUnit} ${insulin}\n";
+      } else if (info.count > 1) {
         text = "[$text]";
         hasCollectedValues = true;
       }
@@ -833,7 +847,7 @@ class PrintDailyGraphic extends BaseDaily {
       (graphInsulin["stack"][1]["stack"] as List).add({
         "relativePosition": {
           "x": cm(glucX(info.start) - 0.05),
-          "y": cm(y),
+          "y": cm(y - sum.injections.length*0.25 + 0.5),
         },
         "text": text,
         "fontSize": fs(g.basalPrecision > 2 ? 7 : 8),

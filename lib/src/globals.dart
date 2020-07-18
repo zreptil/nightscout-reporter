@@ -55,6 +55,7 @@ class LangData {
   }
 
   String get dateformat => Intl.message("dd.MM.yyyy");
+  String get dateShortFormat => Intl.message("dd.MM.");
   String get imgPath => "packages/nightscout_reporter/assets/img/lang-${img}.png";
 
   LangData(this.code, this.name, this.img);
@@ -887,8 +888,8 @@ class Globals extends Settings {
     saveWebData();
   }
 
-  String urlPdf = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
-  String urlPlayground = "http://pdf.zreptil.de/playground.php";
+  String urlPdf = "https://devubuntu.home.local/NightScoutReporter/pdfmake/pdfmake.php";
+  String urlPlayground = "https://devubuntu.home.local/NightScoutReporter/pdfmake/playground.php";
   String googleClientId = "939975570793-i9kj0rp6kgv470t45j1pf1hg3j9fqmbh";
 
   String infoClass(String cls) => showInfo ? "$cls infoarea showinfo" : "$cls infoarea";
