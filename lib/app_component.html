@@ -210,7 +210,7 @@
                (click)="expansionPanelClicked($event,cfg)">
             <img *ngIf="g.tileShowImage" [src]="cfg.form.backimage">
             <div params *ngIf="cfg.form.sortedParams.length>0 && cfg.checked"
-                 (click)="drawer.toggle();tileParams=cfg;$event.stopPropagation();">
+                 (click)="drawerVisible=false;tileParams=cfg;$event.stopPropagation();">
               <material-icon icon="more_vert"></material-icon>
             </div>
             <div numberimg *ngIf="g.tileShowImage && cfg.checked">{{checkedIndex(cfg)}}</div>
@@ -250,7 +250,7 @@
       <material-button class="menu" [raised]="menuIdx!=0" (trigger)="menuIdx=0" @i18n="tab title for menu">Menü</material-button>
       <material-button class="shortcuts" [raised]="menuIdx!=1" (trigger)="menuIdx=1" @i18n="tab title for shortcuts">Shortcuts</material-button>
     </div>
-    <div class="shortcut-root" *ngIf="menuIdx==1">
+    <div [class]="getDrawerClass(1)">
       <div class="content">
         <div *ngFor="let item of g.shortcutList; let idx = index" [class]="shortcutClass(item)">
           <material-button mini class="" (trigger)="activateShortcut(idx);">
@@ -269,7 +269,7 @@
         </div>
       </div>
     </div>
-    <div class="drawer-root" *ngIf="menuIdx==0">
+    <div [class]="getDrawerClass(0)">
       <div class="menuControls">
         <material-button class="iconButton material-drawer-button" (trigger)="currPage='welcome';">
           <material-icon icon="home"></material-icon>

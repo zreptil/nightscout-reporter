@@ -247,6 +247,22 @@ class AppComponent implements OnInit {
     return currentGluc;
   }
 
+  String getDrawerClass(int menu) {
+    String ret = "";
+    switch (menu) {
+      case 0:
+        ret = "drawer-root ";
+        break;
+      case 1:
+        ret = "shortcut-root ";
+        break;
+    }
+
+    if (menu != menuIdx) ret += "hidden";
+
+    return ret;
+  }
+
   String get drawerClass {
     String ret = "material-drawer-button ";
     switch (menuIdx) {
@@ -273,6 +289,7 @@ class AppComponent implements OnInit {
       if (materialColors.containsKey(value)) value = materialColors[value].hexString;
       html.document.body.style.setProperty("--$key", value);
     }
+    g.theme = name;
     g.saveWebData(); //saveStorage("webtheme", name);
   }
 
@@ -934,20 +951,17 @@ class AppComponent implements OnInit {
             data.ns.treatments.last.duplicates++;
           } else {
             data.ns.treatments.add(t);
-            switch (t.eventType.toLowerCase()) {
-              case "exercise":
-                hasExercise = true;
-                break;
-              case "bg check":
-                EntryData entry = EntryData();
-                entry.id = t.id;
-                entry.time = t.createdAt;
-                entry.device = t.enteredBy;
-                entry.type = "mbg";
-                entry.mbg = t.glucose * (g.glucMGDL ? 1 : 18.02);
-                entry.rawbg = t.glucose;
-                data.ns.bloody.add(entry);
-                break;
+            if (t.isExercise) {
+              hasExercise = true;
+            } else if (t.isBGCheck) {
+              EntryData entry = EntryData();
+              entry.id = t.id;
+              entry.time = t.createdAt;
+              entry.device = t.enteredBy;
+              entry.type = "mbg";
+              entry.mbg = t.glucose * (g.glucMGDL ? 1 : 18.02);
+              entry.rawbg = t.glucose;
+              data.ns.bloody.add(entry);
             }
           }
         }
@@ -1399,10 +1413,19 @@ class AppComponent implements OnInit {
     themePanelShown = !themePanelShown;
   }
 
+  bool isSamePeriod(String a, String b) {
+    List<String> sa = a.split("|");
+    List<String> sb = b.split("|");
+    if (sa.length < 5 || sb.length < 5 || sa[4] != sb[4]) return false;
+    if (sa[2] == sb[2] && sa[2] != "") return true;
+    if (sa[0] == sb[0] && sa[1] == sb[1]) return true;
+    return false;
+  }
+
   int menuIdx = 0;
   String shortcutClass(ShortcutData data) {
     String ret = "shortcut";
-    if (data.formData == convert.json.encode(g.currentFormsAsMap) && data.periodData == g.period.toString())
+    if (data.formData == convert.json.encode(g.currentFormsAsMap) && isSamePeriod(data.periodData, g.period.toString()))
       ret += " active";
     return ret;
   }

@@ -12,6 +12,9 @@ class PrintBasalrate extends BaseProfile {
   String id = "basal";
 
   @override
+  String idx = "09";
+
+  @override
   String get title => msgBasalrate;
 
   List<ParamInfo> params = [

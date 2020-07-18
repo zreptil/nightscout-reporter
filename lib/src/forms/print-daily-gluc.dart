@@ -12,6 +12,9 @@ class PrintDailyGluc extends BasePrint {
   String id = "daygluc";
 
   @override
+  String idx = "12";
+
+  @override
   String get title => Intl.message("Tagestrend");
 
   @override

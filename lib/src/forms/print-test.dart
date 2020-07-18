@@ -9,6 +9,9 @@ class PrintTest extends BasePrint {
   @override
   String id = "test";
 
+  @override
+  String idx = "00";
+
   bool showEntries = false;
   bool showTreatments = true;
   bool showRawStatus = false;
