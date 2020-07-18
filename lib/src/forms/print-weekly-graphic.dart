@@ -13,6 +13,9 @@ class PrintWeeklyGraphic extends BasePrint {
   @override
   String id = "weekgraph";
 
+  @override
+  String idx = "08";
+
   bool spareBool1, showDaysInGraphic = true, showCGP;
 
   @override

@@ -66,11 +66,11 @@ header.material-header .material-header-row {
   flex-direction: column;
 }
 
-.icon-menu{
+.icon-menu {
 
 }
 
-.icon-shortcut{
+.icon-shortcut {
   color: var(--shortcutBodyBack);
 }
 
@@ -517,10 +517,11 @@ material-fab.debug-trigger {
 }
 
 material-drawer {
-  .tabs{
+  .tabs {
     display: flex;
     flex-direction: row;
-    material-button{
+
+    material-button {
       display: flex;
       flex: 1;
       justify-content: center;
@@ -528,11 +529,12 @@ material-drawer {
       border-radius: 0;
     }
 
-    material-button.menu{
+    material-button.menu {
       background-color: var(--primaryBack);
       color: var(--primaryFore);
     }
-    material-button.shortcuts{
+
+    material-button.shortcuts {
       background-color: var(--shortcutHeaderBack);
       color: var(--shortcutHeaderFore);
     }
@@ -559,7 +561,7 @@ material-drawer {
   background: var(--shortcutHeaderBack);
   color: var(--shortcutHeaderFore);
 
-  .header{
+  .header {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -595,7 +597,7 @@ material-drawer {
       border-radius: 20px;
     }
 
-    .active > material-button{
+    .active > material-button {
       background: var(--shortcutHeaderFore) !important;
       color: var(--shortcutHeaderBack) !important;
     }
@@ -1327,4 +1329,8 @@ datepicker {
   ::ng-deep .icon.filled {
     color: var(--loopMarked) !important;
   }
+}
+
+.hidden {
+  display: none;
 }

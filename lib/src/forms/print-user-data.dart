@@ -16,6 +16,9 @@ class PrintUserData extends BasePrint {
   @override
   String id = "userdata";
 
+  @override
+  String idx = "14";
+
 //  @override
 //  String get title => Intl.message("Benutzerdaten");
 
