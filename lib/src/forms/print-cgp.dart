@@ -290,6 +290,9 @@ class PrintCGP extends BasePrint {
   String id = "cgp";
 
   @override
+  String idx = "10";
+
+  @override
   String get title => Intl.message("CGP");
 
   @override

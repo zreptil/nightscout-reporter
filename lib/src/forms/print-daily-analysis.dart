@@ -11,6 +11,9 @@ class PrintDailyAnalysis extends BaseDaily {
   @override
   String id = "dayanalysis";
 
+  @override
+  String idx = "06";
+
   bool spareBool1;
   bool _isPortrait = true;
 

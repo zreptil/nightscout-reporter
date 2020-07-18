@@ -9,6 +9,9 @@ class PrintDailyHours extends BasePrint {
   @override
   String id = "dayhours";
 
+  @override
+  String idx = "13";
+
   int startHour = 0;
 
   @override

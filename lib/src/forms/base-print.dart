@@ -169,13 +169,13 @@ class ParamInfo {
 }
 
 class FormConfig {
-  String id;
+  String get id => form.id;
+  String get idx => form.idx;
   bool checked = true;
   bool opened = false;
   BasePrint form = null;
 
   FormConfig(this.form, this.checked) {
-    id = form.id;
   }
 
   dynamic get asJson {
@@ -246,6 +246,7 @@ class Page {
 abstract class BasePrint {
   Globals g = Globals();
   String id;
+  String idx;
   String title;
   String subtitle = null;
   bool needsUserData = false;

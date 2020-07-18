@@ -10,6 +10,9 @@ class PrintDailyStatistics extends BasePrint {
   @override
   String id = "daystats";
 
+  @override
+  String idx = "04";
+
   bool showHbA1c, showStdabw, showCount, showPercentile, showVarK, showTDD;
   double _maxTDD = 0.0;
 
