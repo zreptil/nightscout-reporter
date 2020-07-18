@@ -12,6 +12,9 @@ class PrintDailyProfile extends BasePrint {
   String id = "dayprofile";
 
   @override
+  String idx = "11";
+
+  @override
   String get title => Intl.message("Tagesprofil");
 
   @override

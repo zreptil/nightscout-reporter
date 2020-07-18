@@ -697,7 +697,7 @@ class ProfileData extends JsonData {
   }
 
   void includeTreatment(TreatmentData t) {
-    if (t.eventType.toLowerCase() == ("temporary target")) {
+    if (t.isTempTarget) {
       int time = (t.createdAt.hour + t.timeshift) * 60 + t.createdAt.minute;
       for (ProfileStoreData data in store.values) {
         _mixStore(data.listTargetHigh, data.timezone, time, t.duration, t.targetTop);
@@ -1015,6 +1015,21 @@ class TreatmentData extends JsonData {
     return _from;
   }
 
+  String get _t => eventType.toLowerCase();
+
+  bool get hasNoType => _t == "<none>" || _t == "";
+  bool get isSiteChange => _t == "site change";
+  bool get isInsulinChange => _t == "insulin change";
+  bool get isSensorChange => _t == "sensor change" || _t == "sensor start";
+  bool get isPumpBatteryChange => _t == "pump battery change";
+  bool get isProfileSwitch => _t == "profile switch";
+  bool get isTempTarget => _t == "temporary target";
+  bool get isTempBasal => _t == "temp basal";
+  bool get isExercise => _t == "exercise";
+  bool get isBGCheck => _t == "bg check";
+  bool get isMealBolus => _t == "meal bolus";
+  bool get isBolusWizard => _t == "bolus wizard";
+
   bool isECarb = false;
 
   double get absoluteTempBasal => _absolute;
@@ -1049,9 +1064,8 @@ class TreatmentData extends JsonData {
   }
 
   bool get isCarbBolus {
-    String type = eventType.toLowerCase();
-    if (type == "meal bolus") return true;
-    if (type == "bolus wizard" && carbs > 0) return true;
+    if (isMealBolus) return true;
+    if (isBolusWizard && carbs > 0) return true;
 
     return false;
   }
@@ -1110,7 +1124,7 @@ class TreatmentData extends JsonData {
         eventType == t.eventType &&
         duration == t.duration &&
         notes == t.notes;
- // */
+    // */
   }
 
   factory TreatmentData.fromJson(Globals g, Map<String, dynamic> json) {
@@ -1776,7 +1790,7 @@ class DayData {
     DateTime lastTime = last.time(date);
     // fill profile with treatments of type "temp basal" to get the actual basalrate
     for (TreatmentData t in treatments) {
-      if (t.eventType.toLowerCase() != "temp basal") continue;
+      if (t.isTempBasal) continue;
       bool doAdd = true;
       if (t.duration <= 0) {
         if (t.key600.toLowerCase().startsWith("resume")) {
@@ -2269,7 +2283,7 @@ class ListData {
       int lastIdx = -1;
       for (int i = 0; i < treatments.length; i++) {
         TreatmentData t1 = treatments[i];
-        if (t1.eventType.toLowerCase() != "temp basal") continue;
+        if (t1.isTempBasal) continue;
         TreatmentData t = lastIdx == -1 ? lastTempBasal : treatments[lastIdx];
         if (t == null) continue;
         lastIdx = i;
@@ -2304,9 +2318,9 @@ class ListData {
     for (int i = 0; i < treatments.length; i++) {
       TreatmentData t = treatments[i];
       String type = t.eventType.toLowerCase();
-      if (type == "site change") catheterCount++;
-      if (type == "insulin change") ampulleCount++;
-      if (type == "sensor change") sensorCount++;
+      if (t.isSiteChange) catheterCount++;
+      if (t.isInsulinChange) ampulleCount++;
+      if (t.isSensorChange) sensorCount++;
       if (type == "note" && t.notes.toLowerCase().startsWith("ecarb")) {
         RegExp rex = RegExp(r"[^0-9\-]*(-*\d*)[^0-9\-]*(-*\d*)[^0-9\-]*(-*\d*).*");
         Match match = rex.firstMatch(t.notes);
@@ -2316,7 +2330,7 @@ class ListData {
           if (delay < 0) {
             for (int j = i - 1; j >= 0 && eCarbs > 0.0; j--) {
               TreatmentData t1 = treatments[j];
-              if (t1.eventType.toLowerCase() == "meal bolus" && t1.carbs < 10.0) {
+              if (t1.isMealBolus && t1.carbs < 10.0) {
                 eCarbs -= t1.carbs;
                 t1.isECarb = true;
               }
@@ -2325,7 +2339,7 @@ class ListData {
         }
       }
 
-      if (type == "meal bolus" && eCarbs != null && eCarbs > 0.0 && t.carbs < 10.0) {
+      if (t.isMealBolus && eCarbs != null && eCarbs > 0.0 && t.carbs < 10.0) {
         eCarbs -= t.carbs;
         t.isECarb = true;
       }

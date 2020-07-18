@@ -40,6 +40,9 @@ class PrintDailyGraphic extends BaseDaily {
   @override
   String id = "daygraph";
 
+  @override
+  String idx = "05";
+
   bool showPictures,
       showInsulin,
       showCarbs,
@@ -577,7 +580,7 @@ class PrintDailyGraphic extends BaseDaily {
         paintSMB(t.microbolus, x, y, graphInsulin["stack"][0]["canvas"] as List);
       }
 */
-      if (type == "temp basal") continue;
+      if (t.isTempBasal) continue;
       if ((t.carbs > 0 || t.eCarbs > 0) && showCarbs) {
         x = glucX(t.createdAt);
         if (t.isECarb) {
@@ -659,7 +662,8 @@ class PrintDailyGraphic extends BaseDaily {
           paintSMB(t.insulin, x, y, graphInsulin["stack"][0]["canvas"] as List);
         }
       }
-      if (type == "site change" && showPictures) {
+
+      if (t.isSiteChange && showPictures) {
         double x = glucX(t.createdAt) - 0.3;
         double y = graphHeight - 0.6;
         (pictures["stack"] as List).add({
@@ -674,7 +678,7 @@ class PrintDailyGraphic extends BaseDaily {
           "color": "white"
         });
         hasCatheterChange = true;
-      } else if (type == "sensor change" && showPictures) {
+      } else if (t.isSensorChange && showPictures) {
         double x = glucX(t.createdAt) - 0.3;
         double y = graphHeight - 0.6;
         (pictures["stack"] as List).add({
@@ -695,7 +699,7 @@ class PrintDailyGraphic extends BaseDaily {
           ]
         });
         hasSensorChange = true;
-      } else if (type == "insulin change" && showPictures) {
+      } else if (t.isInsulinChange && showPictures) {
         double x = glucX(t.createdAt) - 0.3;
         double y = graphHeight - 0.6;
         (pictures["stack"] as List).add({
@@ -712,7 +716,7 @@ class PrintDailyGraphic extends BaseDaily {
         hasAmpulleChange = true;
       }
 
-      if (type == "exercise" && showExercises) {
+      if (t.isExercise && showExercises) {
         double x = glucX(t.createdAt);
         double wid = glucX(DateTime(0, 0, 0, 0, 0, t.duration));
         (exerciseCvs["canvas"] as List).add({

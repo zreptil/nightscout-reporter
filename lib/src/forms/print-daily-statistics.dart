@@ -10,6 +10,9 @@ class PrintDailyStatistics extends BasePrint {
   @override
   String id = "daystats";
 
+  @override
+  String idx = "04";
+
   String _titleGraphic = Intl.message("Tagesstatistik");
 
   @override

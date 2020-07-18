@@ -70,6 +70,7 @@ class PeriodShift {
 
 class Settings {
   String version = "2.0.0";
+
   // subversion is used nowhere. It is just there to trigger an other signature for the cache.
   String subVersion = "1";
   static String get msgThemeAuto => Intl.message("Automatisch", meaning: "theme selection - automatic");
@@ -245,12 +246,26 @@ class Settings {
   }
 
   sortConfigs() {
-    if (_pdfOrder == "") return;
+    if (_pdfOrder == "" || listConfig.length == 0) return;
+    // TODO: 17.7.2020 - can be removed in future versions
+    if (_pdfOrder.contains(",")) {
+      var idList = _pdfOrder.split(",");
+      _pdfOrder = "";
+      for (int i = 0; i < idList.length; i++) {
+        FormConfig cfg = listConfig.firstWhere((cfg) => cfg.id == idList[i], orElse: () => null);
+        if (cfg != null) {
+          _pdfOrder += cfg.idx;
+        }
+      }
+    }
+    // 17.7.2020: end
     var srcList = listConfig.sublist(0);
     listConfig.clear();
-    var idList = _pdfOrder.split(",");
-    for (int i = 0; i < idList.length; i++) {
-      FormConfig cfg = srcList.firstWhere((cfg) => cfg.id == idList[i], orElse: () => null);
+    List<String> idxList = List<String>();
+    for (int i = 0; i < _pdfOrder.length; i += 2) idxList.add(_pdfOrder.substring(i, i + 2));
+//    var idList = _pdfOrder.split(",");
+    for (int i = 0; i < idxList.length; i++) {
+      FormConfig cfg = srcList.firstWhere((cfg) => cfg.idx == idxList[i], orElse: () => null);
       if (cfg != null) {
         srcList.remove(cfg);
         listConfig.add(cfg);
@@ -292,8 +307,8 @@ class Settings {
   savePdfOrder() {
     if (listConfig.length == 0) return;
     var idList = [];
-    for (FormConfig cfg in listConfig) idList.add(cfg.id);
-    _pdfOrder = idList.join(",");
+    for (FormConfig cfg in listConfig) idList.add(cfg.idx);
+    _pdfOrder = idList.join("");
     for (FormConfig entry in listConfig) entry.fillFromString(user.formParams[entry.id]);
     save();
   }
@@ -364,7 +379,9 @@ class Settings {
       if (users != null) {
         try {
           for (var entry in users) userList.add(UserData.fromJson(this, entry));
-        } catch (e) {
+        } catch (ex) {
+          String msg = ex.toString();
+          showDebug("Fehler bei Settings.fromSharedJson: ${msg}");
 //            saveStorage("mu", null);
         }
       } else {
@@ -1019,9 +1036,11 @@ class Globals extends Settings {
 
   copyFromOtherStorage() {
     isBeta = !isBeta;
-    loadSettings();
-    isBeta = !isBeta;
-    save();
+
+    loadSettings().then((_) {
+      isBeta = !isBeta;
+      save();
+    });
   }
 
   void _uploadToGoogle() {
@@ -1073,7 +1092,7 @@ class Globals extends Settings {
         Stream strm = media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
         strm.join().then((s) {
           // get settings in temporary structure to compare timestamps
-          Settings set = Settings()..fromSharedString(s);
+          Settings set = Globals()..fromSharedString(s);
 //          DateTime time = DateTime.fromMillisecondsSinceEpoch(set.timestamp);
           if (set.timestamp > timestamp) {
             fromSharedString(s);
@@ -1241,7 +1260,7 @@ class Globals extends Settings {
   // loads all settings from localStorage
   void loadFromStorage() {
     isLoading = true;
-    // 5.7.2020: can be removed in future versions
+    // TODO: 5.7.2020 - can be removed in future versions
     fromSharedString('{$storageString}');
     // 5.7.2020: end
     String shared = Settings.tiod(loadStorage("sharedData"));
@@ -1287,7 +1306,7 @@ class Globals extends Settings {
     if (doReload) reload();
   }
 
-  // 5.7.2020: can be removed in future versions
+  // TODO: 5.7.2020 - can be removed in future versions
   void saveOld({bool updateSync: true, bool skipReload: false}) {
     String oldLang = loadStorage("language");
     String oldGoogle = loadStorage("syncGoogle");
@@ -1523,7 +1542,7 @@ class UserData {
     List<dynamic> urls = List<dynamic>();
     for (UrlData url in listApiUrl) urls.add(url.asJson);
 
-    // 3.7.2020: token and storageApiUrl can be removed in future versions
+    // TODO: 3.7.2020 - token and storageApiUrl can be removed in future versions
     //           still there to keep old localStorages working
     String token = listApiUrl.last.token;
     String storageApiUrl = listApiUrl.last.url;
@@ -1531,8 +1550,8 @@ class UserData {
 
     return '{"n":"$name",'
         '"bd":"${birthDate ?? ''}",'
-        // 3.7.2020: ut and u can be removed in future versions
-        //           still there to keep old localStorages working
+        // TODO: 3.7.2020 - ut and u can be removed in future versions
+        //                  still there to keep old localStorages working
         '"ut":"${token ?? ''}",'
         '"u":"${storageApiUrl ?? ''}",'
         // 3.7.2020: end
@@ -1553,8 +1572,8 @@ class UserData {
       ret.birthDate = json["bd"];
       ret.diaStartDate = json["dd"];
       ret.insulin = json["i"];
-      // 3.7.2020: this code can be removed in future versions
-      //           still there to transfer old structure to new structure
+      // TODO: 3.7.2020 - this code can be removed in future versions
+      //                  still there to transfer old structure to new structure
       if (json["s"] == null) {
         String src = json["u"]?.trim();
         UrlData url = UrlData(g);

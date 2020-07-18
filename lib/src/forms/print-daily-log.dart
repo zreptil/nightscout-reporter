@@ -15,6 +15,9 @@ class PrintDailyLog extends BaseProfile {
   @override
   String id = "daylog";
 
+  @override
+  String idx = "07";
+
   bool showNotes,
       showCarbs,
       showIE,
@@ -456,22 +459,18 @@ class PrintDailyLog extends BaseProfile {
     if (showIE && t.insulin != null && t.insulin != 0 && !t.isSMB) {
       if (showIESource) {
         String text = t.eventType;
-        switch (text) {
-          case "Meal Bolus":
-            text = msgMealBolus;
-            break;
-          case "Bolus Wizard":
-            text = msgBolusWizard;
-            break;
-          default:
-            if (t.insulinInjections.length > 0) {
-              text = null;
-              for (InsulinInjectionData entry in t.insulinInjections)
-                list.add("${entry.insulin} ${entry.units} ${msgInsulinUnit}");
-            } else if (type == "<none>") {
-              text = msgInsulin;
-            }
-            break;
+        if (t.isMealBolus) {
+          text = msgMealBolus;
+        } else if (t.isBolusWizard) {
+          text = msgBolusWizard;
+        } else {
+          if (t.insulinInjections.length > 0) {
+            text = null;
+            for (InsulinInjectionData entry in t.insulinInjections)
+              list.add("${entry.insulin} ${entry.units} ${msgInsulinUnit}");
+          } else if (t.hasNoType) {
+            text = msgInsulin;
+          }
         }
         if (text != null) list.add("${text} ${t.insulin} ${msgInsulinUnit}");
       } else {
@@ -484,7 +483,7 @@ class PrintDailyLog extends BaseProfile {
       else if (t.microbolus != null && t.microbolus > 0)
         list.add(msgLogMicroBolus(g.fmtNumber(t.microbolus, g.basalPrecision), msgInsulinUnit));
     }
-    if (showTempBasal && type == "temp basal") {
+    if (showTempBasal && t.isTempBasal) {
       ProfileEntryData entry = basalFor(day, t.createdAt);
       if (entry != null && entry.tempAdjusted > 0) {
         list.add(msgLogTempBasal(g.fmtNumber(entry.tempAdjusted * 100, 0, 0, "null", false, true),
@@ -496,11 +495,11 @@ class PrintDailyLog extends BaseProfile {
               g.fmtNumber(t.duration / 60, showTempDigit ? 1 : 0)));
       }
     }
-    if (showProfileSwitch && type == "profile switch") {
+    if (showProfileSwitch && t.isProfileSwitch) {
       list.add(getProfileSwitch(src, day, t, showProfileSwitchDetails));
     }
 
-    if (showTempTargets && type == ("temporary target")) {
+    if (showTempTargets && t.isTempTarget) {
       String target;
       if (t.targetBottom == t.targetTop)
         target = "${g.fmtBasal(t.targetBottom)} ${g.getGlucInfo()["unit"]}";
@@ -512,19 +511,19 @@ class PrintDailyLog extends BaseProfile {
         list.add(msgLogTempTarget(target, t.duration / 60, t.reason));
     }
     if (showChanges) {
-      if (type == "site change") {
+      if (t.isSiteChange) {
         list.add(msgChangeSite);
         flags.hasKatheter = true;
       }
-      if (type == "sensor change") {
+      if (t.isSensorChange) {
         list.add(msgChangeSensor);
         flags.hasSensor = true;
       }
-      if (type == "insulin change") {
+      if (t.isInsulinChange) {
         list.add(msgChangeInsulin);
         flags.hasAmpulle = true;
       }
-      if (type == "pump battery change") {
+      if (t.isPumpBatteryChange) {
         list.add(msgChangeBattery);
         flags.hasBattery = true;
       }
@@ -573,7 +572,6 @@ class PrintDailyLog extends BaseProfile {
 
   @override
   getPage(int page, ProfileGlucData profile, CalcData calc) {
-    // TODO: implement getPage
     return null;
   }
 }

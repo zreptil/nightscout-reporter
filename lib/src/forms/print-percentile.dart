@@ -49,6 +49,9 @@ class PrintPercentile extends BasePrint
   @override
   String id = "percentile";
 
+  @override
+  String idx = "03";
+
   bool showGPD, showTable, showCol1090, showBasal;
 
   @override
