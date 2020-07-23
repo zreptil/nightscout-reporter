@@ -159,6 +159,7 @@ class SettingsComponent implements OnInit {
       progressText = msgCheckUser(g.user.apiUrl(null, "", noApi: true));
       String ret = await g.user.isValid;
       progressText = null;
+      errUserInvalid = ret;
       // set isConfigured to true, if url is reachable
       // never set isConfigured to false, since this
       // will trigger the welcome dialog
