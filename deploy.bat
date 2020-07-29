@@ -12,7 +12,7 @@ set dstdir=Z:\nightscout-reporter
 :gotit
 set rar="C:\Program Files\WinRAR\winrar.exe"
 set unrar="C:\Program Files\WinRAR\unrar.exe"
-set log_file=deploy.log
+set log_file=..\nr-deploy.log
 set rarparams=a -m5 -r -ep1 -idp -afzip
 set rarfile=build\nightscout-reporter_local.zip
 del %log_file% 1>nul 2>nul

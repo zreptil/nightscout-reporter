@@ -1790,7 +1790,7 @@ class DayData {
     DateTime lastTime = last.time(date);
     // fill profile with treatments of type "temp basal" to get the actual basalrate
     for (TreatmentData t in treatments) {
-      if (t.isTempBasal) continue;
+      if (!t.isTempBasal) continue;
       bool doAdd = true;
       if (t.duration <= 0) {
         if (t.key600.toLowerCase().startsWith("resume")) {
@@ -2283,7 +2283,7 @@ class ListData {
       int lastIdx = -1;
       for (int i = 0; i < treatments.length; i++) {
         TreatmentData t1 = treatments[i];
-        if (t1.isTempBasal) continue;
+        if (!t1.isTempBasal) continue;
         TreatmentData t = lastIdx == -1 ? lastTempBasal : treatments[lastIdx];
         if (t == null) continue;
         lastIdx = i;

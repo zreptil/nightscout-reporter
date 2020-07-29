@@ -294,7 +294,7 @@ class PrintDailyGraphic extends BaseDaily {
     footerTextAboveLine["text"] = "";
     double graphHeightSave = graphHeight;
     hasExercises =
-        day.treatments.firstWhere((t) => t.eventType.toLowerCase() == "exercise", orElse: () => null) != null;
+        day.treatments.firstWhere((t) => t.isExercise, orElse: () => null) != null;
 
     if (showExercises && hasExercises) graphHeight -= glucExerciseHeight;
     glucExerciseTop = graphHeight;
@@ -808,7 +808,9 @@ class PrintDailyGraphic extends BaseDaily {
 */
     }
 
-    if (hasExercises) {
+    // this code can be removed, as soon as i know, what i smoked, when i added it.
+//*
+    if (showExercises && hasExercises) {
       (exerciseCvs["canvas"] as List).add({
         "type": "line",
         "x1": cm(0),
@@ -819,7 +821,7 @@ class PrintDailyGraphic extends BaseDaily {
         "lineColor": lcFrame
       });
     }
-
+// */
     for (CollectInfo info in collInsulin) {
       if (info.sum1 == 0.0) continue;
       double y = sumNarrowValues ? -0.5 : bolusY(info.max1);
