@@ -1442,13 +1442,7 @@ class AppComponent implements OnInit {
   activateShortcut([int shortcutIdx = null]) {
     if (shortcutIdx != null) {
       ShortcutData data = g.shortcutList[shortcutIdx];
-      g.period = DatepickerPeriod(src: data.periodData);
-      for (FormConfig cfg in g.listConfig) {
-        cfg.checked = data.forms.keys.contains(cfg.form.id);
-        if (cfg.checked) {
-          cfg.fillFromJson(data.forms[cfg.form.id]);
-        }
-      }
+      g.fillFormsFromShortcut(data);
       checkPrint();
       g.refresh();
     }

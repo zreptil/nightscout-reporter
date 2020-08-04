@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-07-15T07:41:34.148223",
+    "@@last_modified": "2020-08-04T20:55:39.359945",
     "Überprüfe Zugriff auf Nightscout ...": "A verificar acesso ao Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -899,6 +899,11 @@
     },
     "Glukose Perzentil Diagramm": "Diagrama do Percentil da Glicose",
     "@Glukose Perzentil Diagramm": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "GPD": "GPD",
+    "@GPD": {
         "type": "text",
         "placeholders": {}
     },
@@ -2097,6 +2102,30 @@
         "type": "text",
         "placeholders": {}
     },
+    "Willkommen": "Bem-vindo",
+    "@Willkommen": {
+        "description": "title of welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Facebook Seite": "Página do Facebook",
+    "@Facebook Seite": {
+        "description": "title of facebook link",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einstellungen": "Definições",
+    "@Einstellungen": {
+        "description": "title for settings dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Was bisher geschah...": "O que aconteceu até agora...",
+    "@Was bisher geschah...": {
+        "description": "title of whatsnew",
+        "type": "text",
+        "placeholders": {}
+    },
     "Pausiert": "Em pausa",
     "@Pausiert": {
         "description": "message for current glucose if not active",
@@ -2148,30 +2177,6 @@
     "Unbegrenzt": "Ilimitado",
     "@Unbegrenzt": {
         "description": "big",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Willkommen": "Bem-vindo",
-    "@Willkommen": {
-        "description": "title of welcome screen",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Facebook Seite": "Página do Facebook",
-    "@Facebook Seite": {
-        "description": "title of facebook link",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Einstellungen": "Definições",
-    "@Einstellungen": {
-        "description": "title for settings dialog",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Was bisher geschah...": "O que aconteceu até agora...",
-    "@Was bisher geschah...": {
-        "description": "title of whatsnew",
         "type": "text",
         "placeholders": {}
     },

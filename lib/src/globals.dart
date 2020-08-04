@@ -71,7 +71,7 @@ class Settings {
   String version = "2.0.0";
 
   // subversion is used nowhere. It is just there to trigger an other signature for the cache.
-  String subVersion = "2";
+  String subVersion = "3";
   static String get msgThemeAuto => Intl.message("Automatisch", meaning: "theme selection - automatic");
   static String get msgThemeStandard => Intl.message("Standard", meaning: "theme selection - standard");
   static String get msgThemeXmas => Intl.message("Weihnachten", meaning: "theme selection - christmas");
@@ -271,6 +271,7 @@ class Settings {
       }
     }
     for (FormConfig cfg in srcList) listConfig.add(cfg);
+    for (FormConfig entry in listConfig) user.formParams[entry.id] = entry.asString;
     savePdfOrder();
   }
 
@@ -1431,6 +1432,18 @@ class Globals extends Settings {
     }
     return ret;
   }
+
+  void fillFormsFromShortcut(ShortcutData data) {
+    period = DatepickerPeriod(src: data.periodData);
+    for (FormConfig cfg in listConfig) {
+      cfg.checked = data.forms.keys.contains(cfg.form.id);
+      if (cfg.checked) {
+        cfg.fillFromJson(data.forms[cfg.form.id]);
+      }
+    }
+    _pdfOrder = data.pdfOrder;
+    sortConfigs();
+  }
 }
 
 class UrlData {
@@ -1643,6 +1656,7 @@ class UserData {
 class ShortcutData {
   Globals g;
   String name;
+  String pdfOrder;
   String periodData;
   String periodText;
   String icon = "attach_file";
@@ -1654,7 +1668,8 @@ class ShortcutData {
       ..name = name
       ..periodData = periodData
       ..periodText = periodText
-      ..icon = icon;
+      ..icon = icon
+      ..pdfOrder = pdfOrder;
 
     ret.forms = Map<String, dynamic>();
     for (int i = 0; i < forms.keys.length; i++) ret.forms[forms.keys.elementAt(i)] = forms[forms.keys.elementAt(i)];
@@ -1664,6 +1679,7 @@ class ShortcutData {
   // fills member forms with the forms that are currently selected
   loadCurrentForms() {
     forms = g.currentFormsAsMap;
+    pdfOrder = g._pdfOrder;
   }
 
   ShortcutData(this.g) {
@@ -1677,6 +1693,7 @@ class ShortcutData {
     return '{'
         '"n":"$name",'
         '"p":"$periodData",'
+        '"o":"$pdfOrder",'
         '"f":$formData'
         '}';
   }
@@ -1692,6 +1709,7 @@ class ShortcutData {
       DatepickerPeriod period = DatepickerPeriod(src: ret.periodData);
       Settings.updatePeriod(period);
       ret.periodText = period.display;
+      ret.pdfOrder = json["o"];
     } catch (ex) {
       String msg = ex.toString();
       g.showDebug("Fehler bei ShortcutData.fromJson: ${msg}");

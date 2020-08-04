@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-07-15T07:41:34.148223",
+    "@@last_modified": "2020-08-04T20:55:39.359945",
     "Überprüfe Zugriff auf Nightscout ...": "Skontrolujte prístup do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -899,6 +899,11 @@
     },
     "Glukose Perzentil Diagramm": "Percentilný diagram glykémie",
     "@Glukose Perzentil Diagramm": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "GPD": "GPD",
+    "@GPD": {
         "type": "text",
         "placeholders": {}
     },
@@ -2097,6 +2102,30 @@
         "type": "text",
         "placeholders": {}
     },
+    "Willkommen": "Vitajte",
+    "@Willkommen": {
+        "description": "title of welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Facebook Seite": "Stránka na Facebooku",
+    "@Facebook Seite": {
+        "description": "title of facebook link",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einstellungen": "Nastavenia",
+    "@Einstellungen": {
+        "description": "title for settings dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Was bisher geschah...": "Čo sa doteraz podarilo ...",
+    "@Was bisher geschah...": {
+        "description": "title of whatsnew",
+        "type": "text",
+        "placeholders": {}
+    },
     "Pausiert": "Pozastavené",
     "@Pausiert": {
         "description": "message for current glucose if not active",
@@ -2148,30 +2177,6 @@
     "Unbegrenzt": "neobmedzený",
     "@Unbegrenzt": {
         "description": "big",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Willkommen": "Vitajte",
-    "@Willkommen": {
-        "description": "title of welcome screen",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Facebook Seite": "Stránka na Facebooku",
-    "@Facebook Seite": {
-        "description": "title of facebook link",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Einstellungen": "Nastavenia",
-    "@Einstellungen": {
-        "description": "title for settings dialog",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Was bisher geschah...": "Čo sa doteraz podarilo ...",
-    "@Was bisher geschah...": {
-        "description": "title of whatsnew",
         "type": "text",
         "placeholders": {}
     },

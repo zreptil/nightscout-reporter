@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-07-15T07:41:34.148223",
+  "@@last_modified": "2020-08-04T20:55:39.359945",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -899,6 +899,11 @@
   },
   "Glukose Perzentil Diagramm": "Glukose Perzentil Diagramm",
   "@Glukose Perzentil Diagramm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "GPD": "GPD",
+  "@GPD": {
     "type": "text",
     "placeholders": {}
   },
@@ -2097,6 +2102,30 @@
     "type": "text",
     "placeholders": {}
   },
+  "Willkommen": "Willkommen",
+  "@Willkommen": {
+    "description": "title of welcome screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Facebook Seite": "Facebook Seite",
+  "@Facebook Seite": {
+    "description": "title of facebook link",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einstellungen": "Einstellungen",
+  "@Einstellungen": {
+    "description": "title for settings dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Was bisher geschah...": "Was bisher geschah...",
+  "@Was bisher geschah...": {
+    "description": "title of whatsnew",
+    "type": "text",
+    "placeholders": {}
+  },
   "Pausiert": "Pausiert",
   "@Pausiert": {
     "description": "message for current glucose if not active",
@@ -2148,30 +2177,6 @@
   "Unbegrenzt": "Unbegrenzt",
   "@Unbegrenzt": {
     "description": "big",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Willkommen": "Willkommen",
-  "@Willkommen": {
-    "description": "title of welcome screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Facebook Seite": "Facebook Seite",
-  "@Facebook Seite": {
-    "description": "title of facebook link",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Einstellungen": "Einstellungen",
-  "@Einstellungen": {
-    "description": "title for settings dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Was bisher geschah...": "Was bisher geschah...",
-  "@Was bisher geschah...": {
-    "description": "title of whatsnew",
     "type": "text",
     "placeholders": {}
   },

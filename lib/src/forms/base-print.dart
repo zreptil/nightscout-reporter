@@ -648,7 +648,9 @@ abstract class BasePrint {
 
   static String get msgAll => Intl.message("Alles");
 
-  static String get msgGPD => Intl.message("Glukose Perzentil Diagramm");
+  static String get titleGPD => Intl.message("Glukose Perzentil Diagramm");
+
+  static String get titleGPDShort => Intl.message("GPD");
 
   static get msgHourlyStats => Intl.message("Stündliche Statistik");
 

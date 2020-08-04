@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-07-15T07:41:34.148223",
+    "@@last_modified": "2020-08-04T20:55:39.359945",
     "Überprüfe Zugriff auf Nightscout ...": "ナイトスカウトの接続を確認中…",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -899,6 +899,11 @@
     },
     "Glukose Perzentil Diagramm": "血糖値変動パターン",
     "@Glukose Perzentil Diagramm": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "GPD": "GPD",
+    "@GPD": {
         "type": "text",
         "placeholders": {}
     },
@@ -2097,6 +2102,30 @@
         "type": "text",
         "placeholders": {}
     },
+    "Willkommen": "ようこそ",
+    "@Willkommen": {
+        "description": "title of welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Facebook Seite": "Facebook",
+    "@Facebook Seite": {
+        "description": "title of facebook link",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einstellungen": "設定",
+    "@Einstellungen": {
+        "description": "title for settings dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Was bisher geschah...": "変更履歴…",
+    "@Was bisher geschah...": {
+        "description": "title of whatsnew",
+        "type": "text",
+        "placeholders": {}
+    },
     "Pausiert": "一時停止",
     "@Pausiert": {
         "description": "message for current glucose if not active",
@@ -2148,30 +2177,6 @@
     "Unbegrenzt": "無制限",
     "@Unbegrenzt": {
         "description": "big",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Willkommen": "ようこそ",
-    "@Willkommen": {
-        "description": "title of welcome screen",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Facebook Seite": "Facebook",
-    "@Facebook Seite": {
-        "description": "title of facebook link",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Einstellungen": "設定",
-    "@Einstellungen": {
-        "description": "title for settings dialog",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Was bisher geschah...": "変更履歴…",
-    "@Was bisher geschah...": {
-        "description": "title of whatsnew",
         "type": "text",
         "placeholders": {}
     },

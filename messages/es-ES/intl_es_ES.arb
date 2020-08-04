@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-07-15T07:41:34.148223",
+    "@@last_modified": "2020-08-04T20:55:39.359945",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -899,6 +899,11 @@
     },
     "Glukose Perzentil Diagramm": "Tabla de percentil de glucosa",
     "@Glukose Perzentil Diagramm": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "GPD": "GPD",
+    "@GPD": {
         "type": "text",
         "placeholders": {}
     },
@@ -2097,6 +2102,30 @@
         "type": "text",
         "placeholders": {}
     },
+    "Willkommen": "Bienvenido",
+    "@Willkommen": {
+        "description": "title of welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Facebook Seite": "Página de Facebook",
+    "@Facebook Seite": {
+        "description": "title of facebook link",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einstellungen": "Ajustes",
+    "@Einstellungen": {
+        "description": "title for settings dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Was bisher geschah...": "Lo que sucedió hasta ahora...",
+    "@Was bisher geschah...": {
+        "description": "title of whatsnew",
+        "type": "text",
+        "placeholders": {}
+    },
     "Pausiert": "Pausado",
     "@Pausiert": {
         "description": "message for current glucose if not active",
@@ -2148,30 +2177,6 @@
     "Unbegrenzt": "Sin límite",
     "@Unbegrenzt": {
         "description": "big",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Willkommen": "Bienvenido",
-    "@Willkommen": {
-        "description": "title of welcome screen",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Facebook Seite": "Página de Facebook",
-    "@Facebook Seite": {
-        "description": "title of facebook link",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Einstellungen": "Ajustes",
-    "@Einstellungen": {
-        "description": "title for settings dialog",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Was bisher geschah...": "Lo que sucedió hasta ahora...",
-    "@Was bisher geschah...": {
-        "description": "title of whatsnew",
         "type": "text",
         "placeholders": {}
     },
@@ -2589,7 +2594,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.": "Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.",
+    "Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.": "Ahora existe la opción de marcar entradas dobles. Nightscout Reportar las puede filtrar, pero tambien puede mostrar cuantas veces se han encontrado duplicados. Hay la opción de solo mostrar datos duplicados. Así se pueden detectar diferencias entre Nightscout Reporter y otras aplicaciones.",
     "@Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.": {
         "description": "v200a8",
         "type": "text",
