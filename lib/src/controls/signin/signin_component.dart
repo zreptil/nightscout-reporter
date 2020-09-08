@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:html' as html;
+import 'dart:convert';
 
 import 'package:angular/angular.dart';
 import 'package:angular/core.dart';
@@ -11,33 +11,24 @@ import 'package:googleapis/drive/v3.dart' as gd;
 import 'package:googleapis_auth/auth_browser.dart' as auth;
 import 'package:intl/intl.dart';
 
-enum SigninStatus
-{
-  requestAuthorization, signinOk, signedOut, error, message
-}
+import '../../globals.dart';
 
-class SigninEvent
-{
+enum SigninStatus { requestAuthorization, signinOk, signedOut, error, message }
+
+class SigninEvent {
   String message;
   SigninStatus status;
 
   SigninEvent(this.status, this.message);
 }
 
-@Component(selector: 'signin',
-  styleUrls: const ['signin_component.css'],
-  templateUrl: 'signin_component.html',
-  directives: const [
-    MaterialButtonComponent,
-    MaterialIconComponent,
-    MaterialFabComponent,
-    DeferredContentDirective,
-    NgIf
-  ],
-  providers: const <dynamic>[materialProviders])
-class SigninComponent
-  implements AfterViewInit
-{
+@Component(
+    selector: 'signin',
+    styleUrls: ['signin_component.css'],
+    templateUrl: 'signin_component.html',
+    directives: [MaterialButtonComponent, MaterialIconComponent, MaterialFabComponent, DeferredContentDirective, NgIf],
+    providers: <dynamic>[materialProviders])
+class SigninComponent implements AfterViewInit {
   bool isBusy = false;
   @Input()
   bool isVisible = true;
@@ -50,128 +41,138 @@ class SigninComponent
   @Input()
   bool showMenuButton = false;
   @Input()
-  String clientId = "";
+  String clientId = '';
   @Input()
-  String msgConnected = Intl.message("Anmeldung erfolgreich");
+  String msgConnected = Intl.message('Anmeldung erfolgreich');
   @Input()
-  String msgDisconnected = Intl.message("Anmelden");
+  String msgDisconnected = Intl.message('Anmelden');
   @Input()
-  String msgBusy = Intl.message("Verbinde zu Google...");
+  String msgBusy = Intl.message('Verbinde zu Google...');
   @Input()
-  String msgTitleAuthorized = Intl.message("Verbindung zu Google Drive trennen");
+  String msgTitleAuthorized = Intl.message('Verbindung zu Google Drive trennen');
   @Input()
-  String msgTitleNotAuthorized = Intl.message("Verbindung zu Google Drive herstellen");
+  String msgTitleNotAuthorized = Intl.message('Verbindung zu Google Drive herstellen');
   @Input()
-  String msgMenuConnected = Intl.message("Synchronisierung aufheben");
+  String msgMenuConnected = Intl.message('Synchronisierung aufheben');
   @Input()
-  String msgMenuNotConnected = Intl.message("Mit Google Drive synchronisieren");
+  String msgMenuNotConnected = Intl.message('Mit Google Drive synchronisieren');
 
   @Input()
   bool isAuthorized = false;
-  authorize(value)
-  {
+
+  void authorize(value) {
     isAuthorized = value;
     _isAuthorizedChange.add(value);
   }
 
   final _isAuthorizedChange = StreamController<bool>();
-  @Output()
-  Stream<bool> get isAuthorizedChange
-  => _isAuthorizedChange.stream;
 
-  auth.ClientId _identifier = null;
-  auth.ClientId get identifier
-  => _identifier ?? auth.ClientId("${clientId}.apps.googleusercontent.com", null);
+  @Output()
+  Stream<bool> get isAuthorizedChange => _isAuthorizedChange.stream;
+
+  auth.ClientId _identifier;
+
+  auth.ClientId get identifier => _identifier ?? auth.ClientId('${clientId}.apps.googleusercontent.com', null);
   dynamic scopes = [gd.DriveApi.DriveAppdataScope, gd.DriveApi.DriveFileScope];
-  auth.AutoRefreshingAuthClient client = null;
+  auth.AutoRefreshingAuthClient client;
 
   final _signinResult = StreamController<auth.AuthClient>();
-  @Output("signinResult")
-  Stream<auth.AuthClient> get signinResult
-  => _signinResult.stream;
 
-  static SigninComponent create(String clientId)
-  {
-    SigninComponent ret = SigninComponent();
+  @Output('signinResult')
+  Stream<auth.AuthClient> get signinResult => _signinResult.stream;
+
+  static SigninComponent create(String clientId) {
+    var ret = SigninComponent();
     ret.clientId = clientId;
     return ret;
   }
 
-  void doLogout()
-  {
-    Future.delayed(Duration(milliseconds: 1), ()
-    {
-      var form = html.querySelector("#revokeForm") as html.FormElement;
+  void doLogout() {
+    Future.delayed(Duration(milliseconds: 1), () {
+      if (client?.credentials?.accessToken?.data != null) {
+        Globals()
+            .request('https://accounts.google.com/o/oauth2/revoke',
+                method: 'post', body: '{"token": "${client.credentials.accessToken.data}"}')
+            .then((content) {
+          var response = json.decode(content);
+          if (response['error'] == null) {
+            authorize(false);
+            fire(SigninStatus.signedOut);
+          } else {
+            Globals().show(response['error']);
+          }
+        });
+      } else {
+        authorize(false);
+        fire(SigninStatus.signedOut);
+      }
+    });
+  }
+
+/*
+  void doLogout() {
+    Future.delayed(Duration(milliseconds: 1), () {
+      var form = html.querySelector("#revokeForm${formId}") as html.FormElement;
       form.submit();
       authorize(false);
       fire(SigninStatus.signedOut);
     });
   }
-
-  void btnLoginClick()
-  {
-    if (isAuthorized)authorize(false);
-    else
+*/
+  void btnLoginClick() {
+    if (isAuthorized) {
+      doLogout();
+    } else {
       doLogin();
+    }
   }
 
-  Future<void> doLogin()
-  async {
+  Future<void> doLogin() async {
     authorize(false);
     isBusy = true;
     fire(SigninStatus.requestAuthorization);
-    authorizedClient(identifier, scopes).then((client)
-    {
+    // ignore: unawaited_futures
+    authorizedClient(identifier, scopes).then((client) {
       authorize(true);
       this.client = client;
       _signinResult.add(client);
       isBusy = false;
       fire(SigninStatus.signinOk);
-    }).catchError((error)
-    {
+    }).catchError((error) {
       isBusy = false;
-      if (error is auth.UserConsentException)
-      {
+      if (error is auth.UserConsentException) {
         _signinResult.add(null);
         authorize(false);
-        fire(SigninStatus.error, "UserConsentException");
-        return new Future.error(error);
-      }
-      else
-      {
+        fire(SigninStatus.error, 'UserConsentException');
+        return Future.error(error);
+      } else {
         _signinResult.add(null);
         fire(SigninStatus.error, error.toString());
-        return new Future.error(error);
+        return Future.error(error);
       }
     });
   }
 
   @override
-  void ngAfterViewInit()
-  {
-    if (autoStart || isAuthorized)Future.delayed(Duration(milliseconds: 10), doLogin);
+  void ngAfterViewInit() {
+    if (autoStart || isAuthorized) Future.delayed(Duration(milliseconds: 10), doLogin);
   }
 
-  Future<auth.AutoRefreshingAuthClient> authorizedClient(auth.ClientId id, scopes)
-  async {
+  Future<auth.AutoRefreshingAuthClient> authorizedClient(auth.ClientId id, scopes) async {
     isAuthorized = false;
-    return auth.createImplicitBrowserFlow(id, scopes).then((auth.BrowserOAuth2Flow flow)
-    {
-      return flow.clientViaUserConsent(immediate: true).catchError((_)
-      {
+    return auth.createImplicitBrowserFlow(id, scopes).then((auth.BrowserOAuth2Flow flow) {
+      return flow.clientViaUserConsent(immediate: true).catchError((_) {
         return flow.clientViaUserConsent(immediate: false);
-      }, test: (error)
-      => true); // error is auth.UserConsentException
+      }, test: (error) => true); // error is auth.UserConsentException
     });
   }
 
   final _onevent = StreamController<SigninEvent>.broadcast(sync: true);
-  @Output("onEvent")
-  Stream<SigninEvent> get onevent
-  => _onevent.stream;
 
-  void fire(SigninStatus status, [String message = null])
-  async {
+  @Output('onEvent')
+  Stream<SigninEvent> get onevent => _onevent.stream;
+
+  void fire(SigninStatus status, [String message]) async {
     _onevent.add(SigninEvent(status, message));
   }
 }

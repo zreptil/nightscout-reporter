@@ -1,46 +1,46 @@
 import 'dart:math';
 
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'base-print.dart';
 
 class PrintDailyHours extends BasePrint {
   @override
-  String id = "dayhours";
+  String id = 'dayhours';
 
   @override
-  String idx = "13";
+  String idx = '13';
 
   int startHour = 0;
 
   @override
   List<ParamInfo> params = [
     ParamInfo(0, msgStartHour, list: [
-      "0",
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "10",
-      "11",
-      "12",
-      "13",
-      "14",
-      "15",
-      "16",
-      "17",
-      "18",
-      "19",
-      "20",
-      "21",
-      "22",
-      "23"
+      '0',
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12',
+      '13',
+      '14',
+      '15',
+      '16',
+      '17',
+      '18',
+      '19',
+      '20',
+      '21',
+      '22',
+      '23'
     ]),
   ];
 
@@ -76,25 +76,25 @@ class PrintDailyHours extends BasePrint {
     init();
   }
 
-  fillRow(dynamic row, double f, String firstCol, DayData day, String style) {
-    double wid = cm((width - 4.4 - 2.1) / 24 - 0.33);
-    int hour = startHour;
-    DayData orgDay = day;
+  void fillRow(dynamic row, double f, String firstCol, DayData day, String style) {
+    var wid = cm((width - 4.4 - 2.1) / 24 - 0.33);
+    var hour = startHour ?? 0;
+    var orgDay = day;
     if (hour != 0 && day.prevDay != null) day = day.prevDay;
 
     for (int i = 0; i < 24; i++) {
-      DateTime time = DateTime(0, 1, 1, hour, 0);
-      double gluc = 0.0;
-      int count = 0;
+      var time = DateTime(0, 1, 1, hour, 0);
+      var gluc = 0.0;
+      var count = 0;
 
       if (hour == 0) {
         // erste Spalte
-        addTableRow(true, cm(2.0), row, {"text": msgDate, "style": "total", "alignment": "center"},
-          {"text": firstCol, "style": "total", "alignment": "center"});
+        addTableRow(true, cm(2.0), row, {'text': msgDate, 'style': 'total', 'alignment': 'center'},
+            {'text': firstCol, 'style': 'total', 'alignment': 'center'});
         day = orgDay;
       }
 
-      for (EntryData entry in day.entries) {
+      for (var entry in day.entries) {
         if (entry.gluc > 0 && entry.time.hour == hour) {
           count++;
           gluc += entry.gluc;
@@ -108,8 +108,16 @@ class PrintDailyHours extends BasePrint {
       double gluc = entry?.gluc ?? null;
 */
       // Stundenspalte
-      addTableRow(true, wid, row, {"text": fmtTime(time), "style": styleForTime(time), "alignment": "center"},
-          {"text": "${g.glucFromData(gluc)}", "style": style, "alignment": "right", "fillColor": colForGluc(day, gluc)});
+      addTableRow(true, wid, row, {
+        "text": fmtTime(time),
+        "style": styleForTime(time),
+        "alignment": "center"
+      }, {
+        "text": "${g.glucFromData(gluc)}",
+        "style": style,
+        "alignment": "right",
+        "fillColor": colForGluc(day, gluc)
+      });
       hour++;
       if (hour == 24) hour = 0;
     }
@@ -202,8 +210,7 @@ class PrintDailyHours extends BasePrint {
       pages.add(Page(isPortrait, page));
     } else {
       Map test = pages.last.content.last as Map;
-      if(body.length > 0)
-        test["columns"].last["table"]["body"].add(body.last);
+      if (body.length > 0) test["columns"].last["table"]["body"].add(body.last);
     }
     if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
   }

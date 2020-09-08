@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-08-04T20:55:39.359945",
+    "@@last_modified": "2020-09-07T14:34:04.608568",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1813,6 +1813,16 @@
         "type": "text",
         "placeholders": {}
     },
+    "Temporäre Overrides": "Substitutions temporaires",
+    "@Temporäre Overrides": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt keine mehrfachen Datensätze.": "Il n'y a pas de jeux de données multiples.",
+    "@Es gibt keine mehrfachen Datensätze.": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgLogTempTarget": "cible temporaire {target} pour {duration} min, raison: {reason}",
     "@msgLogTempTarget": {
         "type": "text",
@@ -1877,13 +1887,48 @@
             "unit": {}
         }
     },
+    "msgLogOverride": "temp. Remplacer pour {duration} min, Raison: {reason}, Plage cible: {range}, Échelle : {scale}%",
+    "@msgLogOverride": {
+        "type": "text",
+        "placeholders": {
+            "range": {},
+            "duration": {},
+            "reason": {},
+            "scale": {}
+        }
+    },
     "Tagesprofil": "Profil quotidien",
     "@Tagesprofil": {
         "type": "text",
         "placeholders": {}
     },
+    "Prozent": "%",
+    "@Prozent": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wert": "Valeur",
+    "@Wert": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wert & Prozent": "Valeur & Pourcentage",
+    "@Wert & Prozent": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Sekunden anzeigen": "Afficher les secondes",
     "@Sekunden anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Basal aus Profil anzeigen": "Afficher le basal depuis le profil",
+    "@Basal aus Profil anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "IE-Anzeige": "Affichage",
+    "@IE-Anzeige": {
         "type": "text",
         "placeholders": {}
     },
@@ -1954,8 +1999,19 @@
         "type": "text",
         "placeholders": {}
     },
+    "Benutzerdaten": "Données d'utilisateur",
+    "@Benutzerdaten": {
+        "description": "label for settings-area with user data",
+        "type": "text",
+        "placeholders": {}
+    },
     "Es sind keine Daten vorhanden.": "Aucune donnée disponible.",
     "@Es sind keine Daten vorhanden.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Alle Benutzer ausgeben": "Afficher tous les utilisateurs",
+    "@Alle Benutzer ausgeben": {
         "type": "text",
         "placeholders": {}
     },
@@ -2372,12 +2428,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Benutzerdaten": "Données d'utilisateur",
-    "@Benutzerdaten": {
-        "description": "label for settings-area with user data",
-        "type": "text",
-        "placeholders": {}
-    },
     "Einstellungen von Release-Version übernehmen": "Appliquer les paramètres de la release version",
     "@Einstellungen von Release-Version übernehmen": {
         "description": "buttonlabel for copy of settings to beta version",
@@ -2543,6 +2593,48 @@
     "Version": "Version",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.1 - 8.9.2020": "2.0.1 - 8/9/2020",
+    "@2.0.1 - 8.9.2020": {
+        "description": "v201",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Protokoll werden nun auch temporäre Overrides ausgegeben, die von iOSLoop in die Behandlungsdaten eingetragen werden.": "Les substitutions temporaires qui sont entrées dans les données de traitement par iOSLoop sont maintenant également affichées dans le journal journalier.",
+    "@Im Protokoll werden nun auch temporäre Overrides ausgegeben, die von iOSLoop in die Behandlungsdaten eingetragen werden.": {
+        "description": "v201a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Tagesprofil kann nun angegeben werden, ob nur der Wert, die prozentuale Anpassung des Profils oder beides angezeigt werden soll. Ausserdem kann eine Linie eingefügt werden, die den im Basalprofil zum jeweiligen Zeitpunkt eingestellten Wert darstellt.": "Dans le profil quotidien, vous pouvez maintenant spécifier si seulement la valeur, le pourcentage d'ajustement du profil ou les deux doivent être affichés. En outre, une ligne peut être insérée qui montre la valeur définie dans le profil basal à chaque point du moment.",
+    "@Im Tagesprofil kann nun angegeben werden, ob nur der Wert, die prozentuale Anpassung des Profils oder beides angezeigt werden soll. Ausserdem kann eine Linie eingefügt werden, die den im Basalprofil zum jeweiligen Zeitpunkt eingestellten Wert darstellt.": {
+        "description": "v201a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik werden Profilwechsel nicht mehr angezeigt, wenn sich das Profil beim Wechsel nicht geändert hat. iOSLoop fügt in die Nightscoutdatensätze sehr häufig neue Profile ein, die keine Änderung beinhalten, weil dort zusätzlich andere Konfigurationseinstellungen gespeichert werden.": "Les modifications de profil ne sont plus affichées dans le graphique quotidien si le profil n'a pas changé. iOSLoop insère très souvent de nouveaux profils dans les enregistrements de données Nightscout qui ne contiennent aucune modification, car d'autres paramètres de configuration y sont également enregistrés.",
+    "@In der Tagesgrafik werden Profilwechsel nicht mehr angezeigt, wenn sich das Profil beim Wechsel nicht geändert hat. iOSLoop fügt in die Nightscoutdatensätze sehr häufig neue Profile ein, die keine Änderung beinhalten, weil dort zusätzlich andere Konfigurationseinstellungen gespeichert werden.": {
+        "description": "v201c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler beim Laden der ausgewählten Formulare wurde korrigiert.": "Une erreur lors du chargement des formulaires sélectionnés a été corrigée.",
+    "@Ein Fehler beim Laden der ausgewählten Formulare wurde korrigiert.": {
+        "description": "v201f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wenn die Synchronisierung mit Google Drive aufgehoben wird, wird die Berechtigung nun korrekt zurückgesetzt. Wenn man sich danach wieder synchronisieren will, werden nochmal die Berechtigungen abgefragt.": "Lorsque la synchronisation avec Google Drive est annulée, l'autorisation est maintenant réinitialisée correctement. Si vous voulez synchroniser à nouveau par la suite, les autorisations sont demandées à nouveau.",
+    "@Wenn die Synchronisierung mit Google Drive aufgehoben wird, wird die Berechtigung nun korrekt zurückgesetzt. Wenn man sich danach wieder synchronisieren will, werden nochmal die Berechtigungen abgefragt.": {
+        "description": "v201f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dafür sorgte, dass temporäre Ziele in der Tagesgrafik mit zeitlicher Verschiebung angezeigt wurden.": "A bug has been fixed that caused temporary targets to be displayed in the daily graph with a time shift.",
+    "@Ein Fehler wurde behoben, der dafür sorgte, dass temporäre Ziele in der Tagesgrafik mit zeitlicher Verschiebung angezeigt wurden.": {
+        "description": "v201f3",
         "type": "text",
         "placeholders": {}
     },
