@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart';
-import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'base-print.dart';
 
@@ -92,7 +92,7 @@ class PrintPercentile extends BasePrint
   }
 
   String get _title
-  => BasePrint.msgGPD;
+  => isPortrait ? BasePrint.titleGPDShort : BasePrint.titleGPD;
 
   @override
   bool isPortrait = false;
@@ -274,7 +274,7 @@ class PrintPercentile extends BasePrint
     _gridHeight = isPortrait ? (width - 7) / (height - 7) * (width - 11) : height - 11.0;
 
     title = _title;
-    subtitle = "";
+    subtitle = isPortrait ? BasePrint.titleGPD : "";
     double xo = xorg;
     double yo = yorg;
     var data = repData.data;

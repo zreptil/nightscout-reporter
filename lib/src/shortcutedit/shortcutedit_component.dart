@@ -11,7 +11,7 @@ import 'package:angular_components/model/menu/menu.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 
-import '../jsonData.dart';
+import '../json_data.dart';
 
 @Component(
   selector: 'shortcutedit',

@@ -34,7 +34,7 @@ import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
 import 'package:nightscout_reporter/src/forms/print-user-data.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/globals.dart';
-import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'src/dsgvo/dsgvo_component.dart';
 import 'src/forms/print-analysis.dart';
@@ -93,7 +93,7 @@ class PdfData {
       NgIf,
       NgModel,
     ],
-    providers: const <dynamic>[
+    providers: <dynamic>[
       overlayBindings,
       materialProviders,
     ])
@@ -103,89 +103,122 @@ class AppComponent implements OnInit {
   globals.Globals g = globals.Globals();
   bool drawerVisible = false;
   bool pdfInfoVisible = false;
-  String _currPage;
-  String _lastPage = "welcome";
-  String get currPage => progressText == null || progressText.isNotEmpty ? _currPage : "progress";
+  String __currPage;
+
+  String get _currPage => __currPage;
+
+  set _currPage(value) {
+    __currPage = value;
+  }
+
+  String _lastPage = 'welcome';
+
+  String get currPage => progressText == null || progressText.isNotEmpty ? _currPage : 'progress';
+
   set currPage(String value) {
-    if (currPage != "welcome") _lastPage = currPage;
+    if (currPage != 'welcome') _lastPage = currPage;
     _currPage = value;
   }
 
-  static String startPage = "normal";
+  static String startPage = 'normal';
   Date today = Date.today();
   Map<String, bool> appTheme = <String, bool>{};
-  List<DatepickerPreset> dateRanges = List<DatepickerPreset>();
+  List<DatepickerPreset> dateRanges = <DatepickerPreset>[];
   DateRangePickerConfiguration drConfig = DateRangePickerConfiguration.basic;
   bool sendDisabled = true;
-  String pdfData = "";
-  List<PdfData> pdfList = List<PdfData>();
-  String pdfDoc = null;
-  FormConfig tileParams = null;
+  String pdfData = '';
+  List<PdfData> pdfList = <PdfData>[];
+  String pdfDoc;
+  FormConfig tileParams;
 
   int get pdfSliderMax => Globals.PDFUNLIMITED ~/ Globals.PDFDIVIDER;
 
-  String progressText = null;
+  String progressText;
   int progressMax = 100;
   int progressValue = 0;
-  String sendIcon = "send";
+  String sendIcon = 'send';
+
   String sendClass(int shift, String ret) {
-    if (ret != "stop" &&
+    if (ret != 'stop' &&
         reportData != null &&
         g.period.shiftStartBy(shift) == reportData.begDate &&
-        g.period.shiftEndBy(shift) == reportData.endDate) ret = "${ret} sendMarked";
+        g.period.shiftEndBy(shift) == reportData.endDate) ret = '${ret} sendMarked';
     return ret;
   }
 
-  String get createIcon => isDebug && sendIcon == "send" ? "vertical_align_bottom" : sendIcon;
-  String pdfUrl = "";
-  bool isDebug = false;
-  globals.Msg message = globals.Msg();
-  String pdfFilename(idx) => "Nightscout-Reporter-${idx}.pdf";
-  String get msgCheckSetup => Intl.message("Überprüfe Zugriff auf Nightscout ...");
-  String msgLoadingData(error, stacktrace) => Intl.message("Fehler beim Laden der Daten:\n$error\n$stacktrace",
-      args: [error, stacktrace], name: "msgLoadingData");
-  String get msgLoadingDataError => Intl.message("Fehler beim Laden der Daten");
-  String msgLoadingDataFor(date) => Intl.message("Lade Daten für $date...",
-      args: [date], name: "msgLoadingDataFor", desc: "displayed when data of a day is loading");
-  String get msgClose => Intl.message("Schliessen");
-  String get msgEmptyRange => Intl.message("Bitte einen Zeitraum wählen.");
-  String get msgPreparingData => Intl.message("Bereite Daten vor...",
-      desc: "text when data was received and is being prepared to be used in the report");
-  String get msgCreatingPDF => Intl.message("Erzeuge PDF...", desc: "text when pdf is being created");
-  String get msgPreparingPDF => Intl.message("Lade die Basisdaten...");
-  String get msgImpressum => Intl.message("Impressum");
-  String get msgDSGVO => Intl.message("Datenschutzerklärung");
-  String get msgApply => Intl.message("ok");
-  String get msgCancel => Intl.message("verwerfen");
-  String get msgPDFCreated => Intl.message(
-      "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.");
-  String get msgPeriod => Intl.message("Zeitraum");
-  String get msgProfileError => Intl.message("Beim Auslesen des Profils ist ein Fehler aufgetreten.");
-  String get msgPDFCreationError => Intl.message("Beim Erzeugen des PDF ist ein Fehler aufgetreten.");
-  String get msgGitHubIssue => Intl.message("Problem auf GitHub melden");
-  String get msgShowPDF => Intl.message("PDF anzeigen");
-  String get msgPeriodCompare => Intl.message("Vergleich");
-  String get msgShortcutName => Intl.message("Bezeichnung");
-  String get msgAddText => Intl.message("Hinzufügen");
+  String get createIcon => g.isDebug && sendIcon == 'send' ? 'vertical_align_bottom' : sendIcon;
+  String pdfUrl = '';
+
+  String pdfFilename(idx) => 'Nightscout-Reporter-${idx}.pdf';
+
+  String get msgCheckSetup => Intl.message('Überprüfe Zugriff auf Nightscout ...');
+
+  String msgLoadingData(error, stacktrace) => Intl.message('Fehler beim Laden der Daten:\n$error\n$stacktrace',
+      args: [error, stacktrace], name: 'msgLoadingData');
+
+  String get msgLoadingDataError => Intl.message('Fehler beim Laden der Daten');
+
+  String msgLoadingDataFor(date) => Intl.message('Lade Daten für $date...',
+      args: [date], name: 'msgLoadingDataFor', desc: 'displayed when data of a day is loading');
+
+  String get msgClose => Intl.message('Schliessen');
+
+  String get msgEmptyRange => Intl.message('Bitte einen Zeitraum wählen.');
+
+  String get msgPreparingData => Intl.message('Bereite Daten vor...',
+      desc: 'text when data was received and is being prepared to be used in the report');
+
+  String get msgCreatingPDF => Intl.message('Erzeuge PDF...', desc: 'text when pdf is being created');
+
+  String get msgPreparingPDF => Intl.message('Lade die Basisdaten...');
+
+  String get msgImpressum => Intl.message('Impressum');
+
+  String get msgDSGVO => Intl.message('Datenschutzerklärung');
+
+  String get msgApply => Intl.message('ok');
+
+  String get msgCancel => Intl.message('verwerfen');
+
+  String get msgPDFCreated => Intl.message('Das PDF wurde erstellt. Wenn es nicht angezeigt wird, '
+      'dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.');
+
+  String get msgPeriod => Intl.message('Zeitraum');
+
+  String get msgProfileError => Intl.message('Beim Auslesen des Profils ist ein Fehler aufgetreten.');
+
+  String get msgPDFCreationError => Intl.message('Beim Erzeugen des PDF ist ein Fehler aufgetreten.');
+
+  String get msgGitHubIssue => Intl.message('Problem auf GitHub melden');
+
+  String get msgShowPDF => Intl.message('PDF anzeigen');
+
+  String get msgPeriodCompare => Intl.message('Vergleich');
+
+  String get msgShortcutName => Intl.message('Bezeichnung');
+
+  String get msgAddText => Intl.message('Hinzufügen');
 
   bool isFormVisible(BasePrint form) {
-    if (form.isDebugOnly && !isDebug) return false;
+    if (form.isDebugOnly && !g.isDebug) return false;
     if (form.isLocalOnly && !g.isLocal) return false;
     if (form.isBetaOrLocal && !(g.isBeta || g.isLocal)) return false;
 
     return true;
   }
 
-  String currentGluc = null;
-  String currentGlucDiff = null;
-  String currentGlucTime = null;
+  String currentGluc;
+  String currentGlucDiff;
+  String currentGlucTime;
   int glucDir = 360;
-  String get currentGlucDir => glucDir < 360 ? "translate(0,2px)rotate(${glucDir}deg)" : null;
-  Timer glucTimer = null;
+
+  String get currentGlucDir => glucDir < 360 ? 'translate(0,2px)rotate(${glucDir}deg)' : null;
+  Timer glucTimer;
   bool glucRunning = false;
 
   int currentGlucCounter = 0;
-  getCurrentGluc() async {
+
+  Future<String> getCurrentGluc() async {
     if (glucTimer != null) {
       glucTimer.cancel();
       glucTimer = null;
@@ -193,50 +226,55 @@ class AppComponent implements OnInit {
 
     currentGlucCounter++;
 
-    if (!g.showCurrentGluc || glucRunning) return "";
+    if (!g.showCurrentGluc || glucRunning) return '';
     glucRunning = true;
-    String url = g.user.apiUrl(null, "status.json");
+    var url = g.user.apiUrl(null, 'status.json');
     if (!g.hasMGDL) {
-      String content = await g.request(url);
-      if (content != null && content.startsWith("{")) {
-        StatusData status = StatusData.fromJson(json.decode(content));
+      var content = await g.request(url);
+      if (content != null && content.startsWith('{')) {
+        var status = StatusData.fromJson(json.decode(content));
         g.setGlucMGDL(status);
       }
     }
-    url = g.user.apiUrl(null, "entries.json", params: "count=2");
-    String temp = await g.request(url);
-    if (temp == null || !temp.startsWith("[")) return "??";
+    url = g.user.apiUrl(null, 'entries.json', params: 'count=2');
+    var temp = await g.request(url);
+    if (temp == null || !temp.startsWith('[')) {
+      return '??';
+    }
     List<dynamic> src = json.decode(temp);
     if (src.length != 2) {
-      currentGluc = "Keine Daten";
-      currentGlucDiff = "";
+      currentGluc = 'Keine Daten';
+      currentGlucDiff = '';
       glucDir = 360;
     } else {
       try {
-        EntryData eNow = EntryData.fromJson(src[0]);
-        EntryData ePrev = EntryData.fromJson(src[1]);
-        int span = eNow.time.difference(ePrev.time).inMinutes;
+        var eNow = EntryData.fromJson(src[0]);
+        var ePrev = EntryData.fromJson(src[1]);
+        var span = eNow.time.difference(ePrev.time).inMinutes;
         glucDir = 360;
-        currentGlucDiff = "";
-        currentGlucTime = "";
-        if (span > 15) return currentGluc;
-        int time = DateTime.now().difference(eNow.time).inMinutes;
-        currentGlucTime = "${time} min";
+        currentGlucDiff = '';
+        currentGlucTime = '';
+        if (span > 15) {
+          return currentGluc;
+        }
+        var time = DateTime.now().difference(eNow.time).inMinutes;
+        currentGlucTime = '${time} min';
 
         currentGluc = g.fmtNumber(eNow.gluc / g.glucFactor, g.glucPrecision);
-        currentGlucDiff =
-            "${eNow.gluc > ePrev.gluc ? '+' : ''}${g.fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / g.glucFactor, g.glucPrecision)}";
-        double diff = eNow.gluc - ePrev.gluc;
-        int limit = 10 * span ~/ 5;
-        if (diff > limit)
+        currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
+            '${g.fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / g.glucFactor, g.glucPrecision)}';
+        var diff = eNow.gluc - ePrev.gluc;
+        var limit = 10 * span ~/ 5;
+        if (diff > limit) {
           glucDir = -90;
-        else if (diff < -limit)
+        } else if (diff < -limit) {
           glucDir = 90;
-        else
+        } else {
           glucDir = 90 - ((diff + limit) / limit * 90).toInt();
+        }
       } catch (ex) {
-        currentGluc = "?";
-        currentGlucDiff = "";
+        currentGluc = '?';
+        currentGlucDiff = '';
         glucDir = 360;
       }
     }
@@ -248,46 +286,46 @@ class AppComponent implements OnInit {
   }
 
   String getDrawerClass(int menu) {
-    String ret = "";
+    var ret = '';
     switch (menu) {
       case 0:
-        ret = "drawer-root ";
+        ret = 'drawer-root ';
         break;
       case 1:
-        ret = "shortcut-root ";
+        ret = 'shortcut-root ';
         break;
     }
 
-    if (menu != menuIdx) ret += "hidden";
+    if (menu != menuIdx) ret += 'hidden';
 
     return ret;
   }
 
   String get drawerClass {
-    String ret = "material-drawer-button ";
+    var ret = 'material-drawer-button ';
     switch (menuIdx) {
       case 0:
-        ret += "icon-menu";
+        ret += 'icon-menu';
         break;
       case 1:
-        ret += "icon-shortcut";
+        ret += 'icon-shortcut';
         break;
     }
     return ret;
   }
 
-  String appTitle = "";
+  String appTitle = '';
   bool currentGlucVisible = true;
 
   Future<void> setTheme(String name) async {
-    String content = await g.request("packages/nightscout_reporter/assets/themes/${name}/colors.json");
+    var content = await g.request('packages/nightscout_reporter/assets/themes/${name}/colors.json');
     dynamic theme = json.decode(content);
 //    dynamic theme = themes[name];
     if (theme == null) return;
     for (String key in theme.keys) {
       String value = theme[key];
       if (materialColors.containsKey(value)) value = materialColors[value].hexString;
-      html.document.body.style.setProperty("--$key", value);
+      html.document.body.style.setProperty('--$key', value);
     }
     g.theme = name;
     g.saveWebData(); //saveStorage("webtheme", name);
@@ -302,7 +340,7 @@ class AppComponent implements OnInit {
     appTitle = html.document.querySelector("head>title").text;
 
     html.window.onBlur.listen((e) async {
-      if (!g.showCurrentGluc || isDebug) return;
+      if (!g.showCurrentGluc || g.isDebug) return;
       currentGlucVisible = false;
       if (glucTimer != null) {
         glucTimer.cancel();
@@ -310,21 +348,20 @@ class AppComponent implements OnInit {
       }
     });
     html.window.onFocus.listen((e) async {
-      if (!g.showCurrentGluc || isDebug) return;
+      if (!g.showCurrentGluc || g.isDebug) return;
       currentGlucVisible = true;
       Future.delayed(Duration(milliseconds: 250), () => getCurrentGluc());
     });
 
     display(null);
-    _currPage = "signin";
+    _currPage = 'signin';
 
-//    Future.delayed(Duration(milliseconds: 10), ()
-//    {});
-//*
     g.doShowDebug = showDebug;
+    g.onAfterLoad = checkPrint;
+    // ignore: unawaited_futures
     g.loadSettings().then((_) {
-      String page = g.version == g.lastVersion ? "normal" : "whatsnew";
-      _currPage = g.isConfigured ? page : "welcome";
+      var page = g.version == g.lastVersion ? 'normal' : 'whatsnew';
+      _currPage = g.isConfigured ? page : 'welcome';
       _lastPage = _currPage;
 
       /// fill list with forms
@@ -345,19 +382,22 @@ class AppComponent implements OnInit {
         PrintDailyHours(),
         PrintUserData()
       ];
-      g.listConfig = List<FormConfig>();
-      g.listConfigOrg = List<FormConfig>();
-      for (BasePrint form in srcList) g.listConfig.add(FormConfig(form, false));
+      g.listConfig = <FormConfig>[];
+      g.listConfigOrg = <FormConfig>[];
+      for (var form in srcList) {
+        g.listConfig.add(FormConfig(form, false));
+      }
       g.listConfigOrg.addAll(g.listConfig);
       g.sortConfigs();
-      for (FormConfig entry in g.listConfig) g.user.formParams[entry.id] = entry.asString;
+      for (var entry in g.listConfig) {
+        g.user.formParams[entry.id] = entry.asString;
+      }
 
-      if (html.window.location.href.endsWith("?dsgvo")) currPage = "dsgvo";
-      if (html.window.location.href.endsWith("?impressum")) currPage = "impressum";
-      if (html.window.location.href.endsWith("?whatsnew")) currPage = "whatsnew";
-      if (html.window.location.href.endsWith("?welcome")) currPage = "welcome";
-      if (html.window.location.href.endsWith("?settings")) currPage = "settings";
-      checkPrint();
+      if (html.window.location.href.endsWith('?dsgvo')) currPage = 'dsgvo';
+      if (html.window.location.href.endsWith('?impressum')) currPage = 'impressum';
+      if (html.window.location.href.endsWith('?whatsnew')) currPage = 'whatsnew';
+      if (html.window.location.href.endsWith('?welcome')) currPage = 'welcome';
+      if (html.window.location.href.endsWith('?settings')) currPage = 'settings';
 
       try {
         g.period.minDate = Date.parseLoose(g.user.birthDate, g.fmtDateForDisplay);
@@ -365,9 +405,9 @@ class AppComponent implements OnInit {
         g.period.minDate = null;
       }
       getCurrentGluc();
-      if (_currPage == "whatsnew") g.saveWebData();
+      if (_currPage == 'whatsnew') g.saveWebData();
+      checkPrint();
     });
-// */
 /*
     progressText = msgCheckSetup;
     progressValue = progressMax + 1;
@@ -382,8 +422,10 @@ class AppComponent implements OnInit {
 */
   }
 
-  extractAllParams() {
-    for (FormConfig cfg in g.listConfig) cfg.form.extractParams();
+  void extractAllParams() {
+    for (var cfg in g.listConfig) {
+      cfg.form.extractParams();
+    }
   }
 
   void toggleHelp() {}
@@ -394,30 +436,30 @@ class AppComponent implements OnInit {
 
   void displayLink(String title, String url,
       {bool clear: false, String type: null, String btnClass: "", String icon: null}) {
-    if (!isDebug && type == "debug") return;
+    if (!g.isDebug && type == "debug") return;
 
-    if (clear) message.links = [];
+    if (clear) g.msg.links = [];
 
-    message.links.add({"url": url, "title": title, "class": btnClass, "icon": isDebug && icon == null ? "code" : icon});
-    message.okText = msgClose;
-    if (type != null) message.type = type;
+    g.msg.links.add({"url": url, "title": title, "class": btnClass, "icon": g.isDebug && icon == null ? "code" : icon});
+    g.msg.okText = msgClose;
+    if (type != null) g.msg.type = type;
   }
 
   void showDebug() {
-    String msg = g.debugCache.join("<br />");
+    String msg = g.debugCache.join('<br />');
     g.debugCache.clear();
-    message.dbgText = msg;
+    g.msg.dbgText = msg;
   }
 
   void display(String msg, {bool append: false, List links = null}) {
-    if (append) msg = "${message.isEmpty ? '' : '${message.text}<br />'}$msg";
-    if (links != null) message.links = links;
-    message.text = msg;
-    message.type = "msg";
+    if (append) msg = '${g.msg.isEmpty ? '' : '${g.msg.text}<br />'}$msg';
+    if (links != null) g.msg.links = links;
+    g.msg.text = msg;
+    g.msg.type = 'msg';
   }
 
   void callNightscout() {
-    navigate(g.user.apiUrl(null, "", noApi: true));
+    navigate(g.user.apiUrl(null, '', noApi: true));
   }
 
   void callNightscoutReports() {
@@ -425,10 +467,10 @@ class AppComponent implements OnInit {
   }
 
   void callNightscoutStatus() {
-    navigate("https://nielsmaerten.github.io/nightscout-assistant/#/${g.language.img}/home");
+    navigate('https://nielsmaerten.github.io/nightscout-assistant/#/${g.language.img}/home');
   }
 
-  formId(int idx) => "postForm${idx}";
+  formId(int idx) => 'postForm${idx}';
 
   String pdfString(String doc) {
     if (doc != null) {
@@ -521,24 +563,24 @@ class AppComponent implements OnInit {
   }
 
   void callbackButton(html.UIEvent evt) {
-    String page = evt.type;
-    if (page.startsWith("@")) {
+    var page = evt.type;
+    if (page.startsWith('@')) {
       page = page.substring(1);
-      if (!g.isConfigured) page = "welcome";
+      if (!g.isConfigured) page = 'welcome';
     }
     currPage = page;
   }
 
   void settingsResult(html.UIEvent evt) {
     switch (evt.type) {
-      case "ok":
+      case 'ok':
         g.save(skipReload: true);
         reportData = null;
-        _currPage = g.isConfigured ? "normal" : "welcome";
+        _currPage = g.isConfigured ? 'normal' : 'welcome';
         break;
       default:
         g.loadSettings(skipSyncGoogle: true);
-        _currPage = g.isConfigured ? _lastPage : "welcome";
+        _currPage = g.isConfigured ? _lastPage : 'welcome';
         break;
     }
     getCurrentGluc();
@@ -546,15 +588,15 @@ class AppComponent implements OnInit {
 
   void printparamsResult(html.UIEvent evt) {
     switch (evt.type) {
-      case "ok":
+      case 'ok':
         _currPage = _lastPage;
         shiftClick(g.currPeriodShift);
         break;
-      case "cancel":
+      case 'cancel':
         _currPage = _lastPage;
         break;
       default:
-        _currPage = g.isConfigured ? _lastPage : "welcome";
+        _currPage = g.isConfigured ? _lastPage : 'welcome';
         break;
     }
     getCurrentGluc();
@@ -583,10 +625,12 @@ class AppComponent implements OnInit {
     sendDisabled = true;
     if (g.period.isEmpty) return;
 
-    for (FormConfig cfg in g.listConfig) {
+    for (var cfg in g.listConfig) {
       if (cfg.checked) {
         if (cfg.form.isDebugOnly) {
-          if (isDebug) sendDisabled = false;
+          if (g.isDebug) sendDisabled = false;
+        } else if (cfg.form.isLocalOnly) {
+          if (g.isLocal) sendDisabled = false;
         } else {
           sendDisabled = false;
         }
@@ -601,34 +645,35 @@ class AppComponent implements OnInit {
       }
 
       _drag = Draggable(html.querySelectorAll('.sortable'),
-          avatarHandler: g.viewType == "tile" ? TileAvatarHandler() : AvatarHandler.clone(),
-          draggingClass: "dragging",
-          handle: g.viewType == "tile" ? null : "[name]>material-icon",
-          verticalOnly: g.viewType == "list");
+          avatarHandler: g.viewType == 'tile' ? TileAvatarHandler() : AvatarHandler.clone(),
+          draggingClass: 'dragging',
+          handle: g.viewType == 'tile' ? null : '[name]>material-icon',
+          verticalOnly: g.viewType == 'list');
       _drag.onDragStart.listen((DraggableEvent event) {});
       _drag.onDragEnd.listen((DraggableEvent event) {
         event.draggableElement.animate([
-          {"transform": "rotate(180)"}
+          {'transform': 'rotate(180)'}
         ], 500);
       });
       if (_drop != null) _drop.onDrop.listen(null);
-      _drop = Dropzone(html.querySelectorAll(".sortable"), overClass: "dragover");
+      _drop = Dropzone(html.querySelectorAll('.sortable'), overClass: 'dragover');
       _drop.onDrop.listen((DropzoneEvent event) {
-        if (!dropElement(event.draggableElement, event.dropzoneElement))
-          event.dropzoneElement.attributes["dontclick"] = "true";
+        if (!dropElement(event.draggableElement, event.dropzoneElement)) {
+          event.dropzoneElement.attributes['dontclick'] = 'true';
+        }
       });
     });
   }
 
   bool dropElement(html.Element drag, html.Element drop) {
-    String dragId = drag.getAttribute("id").substring(5);
-    String dropId = drop.getAttribute("id").substring(5);
+    var dragId = drag.getAttribute('id').substring(5);
+    var dropId = drop.getAttribute('id').substring(5);
     if (dragId == dropId) return false;
 
     FormConfig dragCfg = null;
-    int dragIdx = -1;
-    int dropIdx = -1;
-    for (int i = 0; i < g.listConfig.length; i++) {
+    var dragIdx = -1;
+    var dropIdx = -1;
+    for (var i = 0; i < g.listConfig.length; i++) {
       if (g.listConfig[i].id == dragId) {
         dragCfg = g.listConfig[i];
         dragIdx = i;
@@ -643,34 +688,39 @@ class AppComponent implements OnInit {
     return true;
   }
 
-  Draggable _drag = null;
-  Dropzone _drop = null;
-  String msgModelName = Intl.message("Max Mustermann", desc: "modelname used in images on tiles");
+  Draggable _drag;
+  Dropzone _drop;
+  String msgModelName = Intl.message('Max Mustermann', desc: 'modelname used in images on tiles');
 
-  ReportData reportData = null;
+  ReportData reportData;
+
+  bool checkCfg(var cfg) => cfg.checked && (!cfg.form.isDebugOnly || g.isDebug) && (!cfg.form.isLocalOnly || g.isLocal);
+
   Future<ReportData> loadData(bool isForThumbs) async {
-    Date beg = g.period.shiftStartBy(g.currPeriodShift.months);
-    Date end = g.period.shiftEndBy(g.currPeriodShift.months);
+    var beg = g.period.shiftStartBy(g.currPeriodShift.months);
+    var end = g.period.shiftEndBy(g.currPeriodShift.months);
     if (isForThumbs) {
       beg = Date(2019, 8, 26);
       end = Date(2019, 9, 1);
       reportData = null;
     }
 
-    if (reportData != null && reportData.begDate == beg && reportData.endDate == end) return reportData;
+    if (reportData != null && reportData.begDate == beg && reportData.endDate == end) {
+      return reportData;
+    }
 
-    ReportData data = ReportData(g, beg, end);
+    var data = ReportData(g, beg, end);
     data.isForThumbs = isForThumbs;
 
     if (isForThumbs) {
       data.user = UserData(g);
       data.user.name = msgModelName;
-      data.user.birthDate = "13.2.1965";
-      data.user.diaStartDate = "1.1.1996";
-      data.user.insulin = "Novorapid";
+      data.user.birthDate = '13.2.1965';
+      data.user.diaStartDate = '1.1.1996';
+      data.user.insulin = 'Novorapid';
       data.user.listApiUrl = List<UrlData>();
       data.user.listApiUrl.add(UrlData.fromJson(
-          g, {"u": "https://diamant-ns.herokuapp.com", "t": "anditoken-a12e3472efe42759", "sd": null, "ed": null}));
+          g, {'u': 'https://diamant-ns.herokuapp.com', 't': 'anditoken-a12e3472efe42759', 'sd': null, 'ed': null}));
       data.user.customData = {};
       data.user.formParams = {};
     } else {
@@ -685,67 +735,73 @@ class AppComponent implements OnInit {
 */
     reportData = data;
 
-    bool loadUserData = false;
-    bool loadCurrentUser = false;
+    var needed = DataNeeded(statusCurr: false, statusAny: false, dataCurr: false, dataAny: false);
 
-    for (FormConfig cfg in g.listConfigOrg) {
-      if (!cfg.checked) continue;
-      if (cfg.form.needsUserData)
-        loadUserData = true;
-      else
-        loadCurrentUser = true;
+    for (var cfg in g.listConfigOrg) {
+      if (checkCfg(cfg)) {
+        needed.mix(cfg.form.needed);
+      }
     }
 
-    if (loadUserData) {
+    if (needed.needsStatus) {
       progressMax = g.userList.length + 1;
       progressValue = 0;
-      for (UserData user in g.userList) {
+      for (var user in g.userList) {
 //        if (!user.isReachable) continue;
-        progressText = msgLoadingDataFor(user.name);
-        try {
-          String url = user.apiUrl(null, "status.json");
-          displayLink("status", url, type: "debug");
-          String content = await g.request(url, showError: false);
-          user.status = StatusData.fromJson(json.decode(content));
-          user.isReachable = true;
-        } catch (ex) {
-          user.status = null;
-          user.isReachable = false;
+        if (needed.status.anybody || user == g.user) {
+          progressText = msgLoadingDataFor(user.name);
+          try {
+            var url = user.apiUrl(null, 'status.json');
+            displayLink('status', url, type: 'debug');
+            var content = await g.request(url, showError: false);
+            user.status = StatusData.fromJson(json.decode(content));
+            user.isReachable = true;
+          } catch (ex) {
+            user.status = null;
+            user.isReachable = false;
+          }
         }
+        if (sendIcon != 'stop') return data;
       }
       g.save(skipReload: true);
     }
 
-    if (!loadCurrentUser) return data;
+    if (!needed.needsData || !g.user.isReachable) {
+      return data;
+    }
 
-    DateTime bd = DateTime(data.begDate.year, data.begDate.month, data.begDate.day);
-    DateTime ed = DateTime(data.endDate.year, data.endDate.month, data.endDate.day);
+    var bd = DateTime(data.begDate.year, data.begDate.month, data.begDate.day);
+    var ed = DateTime(data.endDate.year, data.endDate.month, data.endDate.day);
 
     progressValue = 0;
     progressMax = ed.difference(bd).inDays;
 
-    Date begDate = data.begDate;
-    Date endDate = data.endDate;
+    var begDate = data.begDate;
+    var endDate = data.endDate;
 
-    message.links = [];
-    message.type = "msg toggle-debug";
+    g.msg.links = [];
+    g.msg.type = 'msg toggle-debug';
 
-    String url = data.user.apiUrl(endDate, "status.json");
-    displayLink("status", url, type: "debug");
-    String content = await g.request(url);
+    var url = data.user.apiUrl(endDate, 'status.json');
+    displayLink('status', url, type: 'debug');
+    var content = await g.request(url);
     data.status = StatusData.fromJson(json.decode(content));
+    if (data.status.status == '401') {
+      data.user.isReachable = false;
+      return data;
+    }
     g.setGlucMGDL(data.status);
     if (g.period.start == null || g.period.end == null) {
       data.error = StateError(msgEmptyRange);
       return data;
     }
 
-    ProfileData baseProfile = null;
+    ProfileData baseProfile;
 
-    List<UrlData> list = g.findUrlDataFor(begDate, endDate);
-    for (UrlData urlData in list) {
-      url = urlData.fullUrl("profile.json");
-      displayLink("profile", url, type: "debug");
+    var list = g.findUrlDataFor(begDate, endDate);
+    for (var urlData in list) {
+      url = urlData.fullUrl('profile.json');
+      displayLink('profile', url, type: 'debug');
       content = await g.request(url);
 
       try {
@@ -754,7 +810,7 @@ class AppComponent implements OnInit {
         for (dynamic entry in src) {
           // don't add profiles that cannot be read
           try {
-            ProfileData profile = ProfileData.fromJson(entry, isFromNS: true);
+            var profile = ProfileData.fromJson(entry, isFromNS: true);
             data.profiles.add(profile);
           } catch (ex) {}
           g.basalPrecisionAuto = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
@@ -763,16 +819,18 @@ class AppComponent implements OnInit {
         baseProfile = data.profiles.first;
 //        display("${ret.begDate.toString()} - ${ret.endDate.toString()}");
       } catch (ex) {
-        if (isDebug) {
-          if (ex is Error)
-            display("${ex.toString()}\n${ex.stackTrace}");
-          else
+        if (g.isDebug) {
+          if (ex is Error) {
+            display('${ex.toString()}\n${ex.stackTrace}');
+          } else {
             display(ex.toString());
+          }
         } else {
 /*
           display(msgProfileError, links: [ {
-            "url": "https://github.com/zreptil/nightscout-reporter/issues/new?title=problem in profile-data&body=${msgProfileError}",
-            "title": msgGitHubIssue
+            'url': 'https://github.com/zreptil/nightscout-reporter/issues/new?'
+            'title=problem in profile-data&body=${msgProfileError}',
+            'title': msgGitHubIssue
           }
           ]);
 // */
@@ -781,9 +839,9 @@ class AppComponent implements OnInit {
       }
 
       // find profileswitches in treatments, create profiledata and mix it in the profiles
-      url = urlData.fullUrl("treatments.json",
-          params: "find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch");
-      displayLink("profileswitch", url, type: "debug");
+      url = urlData.fullUrl('treatments.json',
+          params: 'find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch');
+      displayLink('profileswitch', url, type: 'debug');
       content = await g.request(url);
       try {
         List<dynamic> src = json.decode(content);
@@ -793,7 +851,49 @@ class AppComponent implements OnInit {
           "eventType": "Profile Switch",
           "duration": 86400,
           "profile": "Fake",
-          "profileJson": '{"dia": "5","carbratio": [{"time": "00:00", "value": "0.1", "timeAsSeconds": "0"},{"time": "01:30", "value": "0.2", "timeAsSeconds": "5400"},{"time": "06:00", "value": "0.3", "timeAsSeconds": "21600"},{"time": "11:00", "value": "0.4", "timeAsSeconds": "39600"},{"time": "15:30", "value": "0.5", "timeAsSeconds": "55800"},{"time": "19:00", "value": "0.6", "timeAsSeconds": "68400"},{"time": "21:00", "value": "0.7", "timeAsSeconds": "75600"}],"carbs_hr": "0","delay": "20","sens": [{"time": "00:00", "value": "60", "timeAsSeconds": "0"},{"time": "01:30", "value": "40", "timeAsSeconds": "5400"},{"time": "06:00", "value": "30", "timeAsSeconds": "21600"},{"time": "11:00", "value": "40", "timeAsSeconds": "39600"},{"time": "15:30", "value": "50", "timeAsSeconds": "55800"},{"time": "19:00", "value": "60", "timeAsSeconds": "68400"},{"time": "21:00", "value": "90", "timeAsSeconds": "75600"}],"timezone": "Europe\\/Berlin","basal": [{"time": "00:00", "value": "0.1", "timeAsSeconds": "0"},{"time": "01:00", "value": "0.2", "timeAsSeconds": "3600"},{"time": "02:00", "value": "0.3", "timeAsSeconds": "7200"},{"time": "03:00", "value": "0.4", "timeAsSeconds": "10800"},{"time": "04:00", "value": "0.5", "timeAsSeconds": "14410"},{"time": "05:00", "value": "0.6", "timeAsSeconds": "18000"},{"time": "06:00", "value": "0.7", "timeAsSeconds": "21600"},{"time": "07:00", "value": "0.8", "timeAsSeconds": "25200"},{"time": "08:00", "value": "0.9", "timeAsSeconds": "28800"},{"time": "09:00", "value": "1.0", "timeAsSeconds": "32400"},{"time": "10:00", "value": "1.1", "timeAsSeconds": "36000"},{"time": "11:00", "value": "1.2", "timeAsSeconds": "39600"},{"time": "12:00", "value": "1.3", "timeAsSeconds": "43200"},{"time": "13:00", "value": "1.4", "timeAsSeconds": "46800"},{"time": "14:00", "value": "1.5", "timeAsSeconds": "50400"},{"time": "15:00", "value": "1.6", "timeAsSeconds": "54000"},{"time": "16:00", "value": "1.7", "timeAsSeconds": "57600"},{"time": "17:00", "value": "1.8", "timeAsSeconds": "61200"},{"time": "18:00", "value": "1.9", "timeAsSeconds": "64800"},{"time": "19:00", "value": "2.0", "timeAsSeconds": "68400"},{"time": "20:00", "value": "2.1", "timeAsSeconds": "72000"},{"time": "21:00", "value": "2.2", "timeAsSeconds": "75600"},{"time": "22:00", "value": "2.3", "timeAsSeconds": "79200"},{"time": "23:00", "value": "2.4", "timeAsSeconds": "82800"}],"target_low": [{"time": "00:00", "value": "100", "timeAsSeconds": "0"},{"time": "06:00", "value": "110"},{"time": "20:00", "value": "100"}],"target_high": [{"time": "00:00", "value": "100", "timeAsSeconds": "0"},{"time": "06:00", "value": "110"},{"time": "20:00", "value": "100"}],"startDate": "1970-01-01T00:00:00.000Z","units": "mg/dl"}',
+          "profileJson": '{"dia": "5","carbratio": [{"time": "00:00", "value": "0.1", "timeAsSeconds": "0"},'
+          '{"time": "01:30", "value": "0.2", "timeAsSeconds": "5400"},'
+          '{"time": "06:00", "value": "0.3", "timeAsSeconds": "21600"},'
+          '{"time": "11:00", "value": "0.4", "timeAsSeconds": "39600"},'
+          '{"time": "15:30", "value": "0.5", "timeAsSeconds": "55800"},'
+          '{"time": "19:00", "value": "0.6", "timeAsSeconds": "68400"},'
+          '{"time": "21:00", "value": "0.7", "timeAsSeconds": "75600"}],'
+          '"carbs_hr": "0","delay": "20","sens": [{"time": "00:00", "value": "60", "timeAsSeconds": "0"},'
+          '{"time": "01:30", "value": "40", "timeAsSeconds": "5400"},'
+          '{"time": "06:00", "value": "30", "timeAsSeconds": "21600"},'
+          '{"time": "11:00", "value": "40", "timeAsSeconds": "39600"},'
+          '{"time": "15:30", "value": "50", "timeAsSeconds": "55800"},'
+          '{"time": "19:00", "value": "60", "timeAsSeconds": "68400"},'
+          '{"time": "21:00", "value": "90", "timeAsSeconds": "75600"}],'
+          '"timezone": "Europe\\/Berlin","basal": [{"time": "00:00", "value": "0.1", "timeAsSeconds": "0"},'
+          '{"time": "01:00", "value": "0.2", "timeAsSeconds": "3600"},'
+          '{"time": "02:00", "value": "0.3", "timeAsSeconds": "7200"},'
+          '{"time": "03:00", "value": "0.4", "timeAsSeconds": "10800"},'
+          '{"time": "04:00", "value": "0.5", "timeAsSeconds": "14410"},'
+          '{"time": "05:00", "value": "0.6", "timeAsSeconds": "18000"},'
+          '{"time": "06:00", "value": "0.7", "timeAsSeconds": "21600"},'
+          '{"time": "07:00", "value": "0.8", "timeAsSeconds": "25200"},'
+          '{"time": "08:00", "value": "0.9", "timeAsSeconds": "28800"},'
+          '{"time": "09:00", "value": "1.0", "timeAsSeconds": "32400"},'
+          '{"time": "10:00", "value": "1.1", "timeAsSeconds": "36000"},'
+          '{"time": "11:00", "value": "1.2", "timeAsSeconds": "39600"},'
+          '{"time": "12:00", "value": "1.3", "timeAsSeconds": "43200"},'
+          '{"time": "13:00", "value": "1.4", "timeAsSeconds": "46800"},'
+          '{"time": "14:00", "value": "1.5", "timeAsSeconds": "50400"},'
+          '{"time": "15:00", "value": "1.6", "timeAsSeconds": "54000"},'
+          '{"time": "16:00", "value": "1.7", "timeAsSeconds": "57600"},'
+          '{"time": "17:00", "value": "1.8", "timeAsSeconds": "61200"},'
+          '{"time": "18:00", "value": "1.9", "timeAsSeconds": "64800"},'
+          '{"time": "19:00", "value": "2.0", "timeAsSeconds": "68400"},'
+          '{"time": "20:00", "value": "2.1", "timeAsSeconds": "72000"},'
+          '{"time": "21:00", "value": "2.2", "timeAsSeconds": "75600"},'
+          '{"time": "22:00", "value": "2.3", "timeAsSeconds": "79200"},'
+          '{"time": "23:00", "value": "2.4", "timeAsSeconds": "82800"}],'
+          '"target_low": [{"time": "00:00", "value": "100", "timeAsSeconds": "0"},'
+          '{"time": "06:00", "value": "110"},{"time": "20:00", "value": "100"}],'
+          '"target_high": [{"time": "00:00", "value": "100", "timeAsSeconds": "0"},'
+          '{"time": "06:00", "value": "110"},{"time": "20:00", "value": "100"}],'
+          '"startDate": "1970-01-01T00:00:00.000Z","units": "mg/dl"}',
           "profilePlugin": "info.nightscout.androidaps.plugins.ProfileNS.NSProfilePlugin",
           "created_at": "2019-03-04T10:00:00Z",
           "enteredBy": "Nightscout Reporter",
@@ -803,17 +903,17 @@ class AppComponent implements OnInit {
         });
  // */
         for (dynamic entry in src) {
-          DateTime check = JsonData.toDate(entry["created_at"]);
+          var check = JsonData.toDate(entry['created_at']);
           if (data.profiles.firstWhere((p) => p.createdAt == check, orElse: () => null) != null ||
-              entry["profile"] == null) continue;
-          List<String> parts = List<String>();
+              entry['profile'] == null) continue;
+          var parts = <String>[];
           parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
           // some uploaders (e.g. Minimed 600-series) don't save profileJson, so we need
           // to find it here
           ProfileStoreData store = null;
           if (entry["profileJson"] == null) {
             String key = entry["profile"];
-            ProfileData prof = data.profiles
+            var prof = data.profiles
                 .lastWhere((p) => p.startDate.isBefore(check) && p.store.containsKey(key), orElse: () => null);
             if (prof != null) {
               store = prof.store[key];
@@ -827,14 +927,15 @@ class AppComponent implements OnInit {
           parts.add('"created_at":"${entry["created_at"]}"}');
 
           data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
-          if (store != null) data.profiles.last.store[entry["profile"]] = store;
+          if (store != null) data.profiles.last.store[entry['profile']] = store;
         }
       } catch (ex) {
-        if (isDebug) {
-          if (ex is Error)
-            display("${ex.toString()}\n${ex.stackTrace}");
-          else
+        if (g.isDebug) {
+          if (ex is Error) {
+            display('${ex.toString()}\n${ex.stackTrace}');
+          } else {
             display(ex.toString());
+          }
         } else {
           display(msgProfileError);
         }
@@ -843,15 +944,15 @@ class AppComponent implements OnInit {
     data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
 
     // calculate the duration of the profiles
-    int i = 1;
+    var i = 1;
     while (i < data.profiles.length) {
-      ProfileData last = data.profiles[i - 1];
-      ProfileData current = data.profiles[i];
-      int duration = current.startDate.difference(last.startDate).inSeconds;
+      var last = data.profiles[i - 1];
+      var current = data.profiles[i];
+      var duration = current.startDate.difference(last.startDate).inSeconds;
       if (last.duration >= duration || last.duration == 0) {
         last.duration = duration;
       } else {
-        ProfileData temp = baseProfile.copy;
+        var temp = baseProfile.copy;
         temp.startDate = last.startDate.add(Duration(seconds: last.duration));
         temp.createdAt = temp.startDate;
         temp.duration = current.startDate.difference(temp.startDate).inSeconds;
@@ -864,13 +965,17 @@ class AppComponent implements OnInit {
 
     if (baseProfile != null && data.profiles.last.duration > 0) {
 //    if (last.duration > 0 && data.profiles.length > 1) {
-      ProfileData temp = baseProfile.copy;
+      var temp = baseProfile.copy;
       temp.startDate = data.profiles.last.startDate.add(Duration(seconds: data.profiles.last.duration));
       temp.createdAt = temp.startDate;
       data.profiles.add(temp);
     }
 
-    int d = DateTime.now().difference(data.profiles.last.startDate).inSeconds;
+    if (data.profiles.isEmpty) {
+      data.profiles.add(ProfileData());
+    }
+
+    var d = DateTime.now().difference(data.profiles.last.startDate ?? DateTime.now()).inSeconds;
     data.profiles.last.duration = d;
 
     data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
@@ -883,29 +988,29 @@ class AppComponent implements OnInit {
     // remove all profiles with a length of 0
     data.profiles.removeWhere((p) => p.duration < 2 && p != data.profiles.last);
 
-    TreatmentData lastTempBasal = null;
+    TreatmentData lastTempBasal;
     // add the previous day of the period to have the daydata available in forms that need this information
     begDate = begDate.add(days: -1);
     data.dayCount = -1;
     while (begDate <= endDate) {
-      bool hasData = false;
+      var hasData = false;
       if (g.period.isDowActive(begDate.weekday - 1)) {
-        DateTime beg = DateTime(begDate.year, begDate.month, begDate.day, 0, 0, 0, 0).toUtc();
-        DateTime end = DateTime(begDate.year, begDate.month, begDate.day, 23, 59, 59, 999).toUtc();
+        var beg = DateTime(begDate.year, begDate.month, begDate.day, 0, 0, 0, 0).toUtc();
+        var end = DateTime(begDate.year, begDate.month, begDate.day, 23, 59, 59, 999).toUtc();
 
-        ProfileGlucData profile = data.profile(beg);
-        DateTime profileBeg = beg.add(Duration(hours: -profile.store.timezone.localDiff));
-        DateTime profileEnd = end.add(Duration(hours: -profile.store.timezone.localDiff));
+        var profile = data.profile(beg);
+        var profileBeg = beg.add(Duration(hours: -profile.store.timezone.localDiff));
+        var profileEnd = end.add(Duration(hours: -profile.store.timezone.localDiff));
 
         progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
-        String url = g.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), "entries.json",
-            params:
-                "find[date][\$gte]=${beg.millisecondsSinceEpoch}&find[date][\$lte]=${end.millisecondsSinceEpoch}&count=100000");
+        var url = g.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), 'entries.json',
+            params: 'find[date][\$gte]=${beg.millisecondsSinceEpoch}&'
+                'find[date][\$lte]=${end.millisecondsSinceEpoch}&count=100000');
         List<dynamic> src = json.decode(await g.request(url));
-        displayLink("e${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
+        displayLink('e${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
         for (dynamic entry in src) {
           try {
-            EntryData e = EntryData.fromJson(entry);
+            var e = EntryData.fromJson(entry);
             if (e.gluc > 0) {
               hasData = true;
               data.ns.entries.add(e);
@@ -918,7 +1023,7 @@ class AppComponent implements OnInit {
               data.ns.remaining.add(e);
             }
           } catch (ex) {
-            if (isDebug) display("Fehler im Entry-Datensatz: ${entry.toString()}");
+            if (g.isDebug) display("Fehler im Entry-Datensatz: ${entry.toString()}");
             break;
           }
         }
@@ -926,8 +1031,9 @@ class AppComponent implements OnInit {
         if (lastTempBasal == null) {
           // find last temp basal of treatments of day before current day.
           url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), "treatments.json",
-              params:
-                  "find[created_at][\$lt]=${profileBeg.toIso8601String()}&find[created_at][\$gt]=${profileBeg.add(Duration(days: -1)).toIso8601String()}&count=100&find[eventType][\$eq]=Temp%20Basal");
+              params: 'find[created_at][\$lt]=${profileBeg.toIso8601String()}&'
+                  'find[created_at][\$gt]=${profileBeg.add(Duration(days: -1)).toIso8601String()}&'
+                  'count=100&find[eventType][\$eq]=Temp%20Basal');
           tmp = await g.request(url);
           src = json.decode(tmp);
           List<TreatmentData> list = List<TreatmentData>();
@@ -937,8 +1043,8 @@ class AppComponent implements OnInit {
         }
 
         url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), "treatments.json",
-            params:
-                "find[created_at][\$gte]=${profileBeg.toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000");
+            params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
+                'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
         tmp = await g.request(url);
         src = json.decode(tmp);
         displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
@@ -981,24 +1087,24 @@ class AppComponent implements OnInit {
         }
 
         url = data.user.apiUrl(Date(profileBeg.year, profileBeg.month, profileBeg.day), "devicestatus.json",
-            params:
-                "find[created_at][\$gte]=${profileBeg.toIso8601String()}&find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000");
+            params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
+                'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
         tmp = await g.request(url);
         src = json.decode(tmp);
         displayLink("ds${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
         for (dynamic devicestatus in src) {
           hasData = true;
-          DeviceStatusData ds = DeviceStatusData.fromJson(devicestatus);
+          var ds = DeviceStatusData.fromJson(devicestatus);
           data.ns.devicestatusList.add(ds);
         }
       }
       begDate = begDate.add(days: 1);
       if (hasData) data.dayCount++;
       progressValue++;
-      if (sendIcon != "stop") return data;
+      if (sendIcon != 'stop') return data;
     }
 
-    if (sendIcon == "stop") {
+    if (sendIcon == 'stop') {
       progressText = msgPreparingData;
       progressValue = progressMax + 1;
 
@@ -1008,10 +1114,10 @@ class AppComponent implements OnInit {
       data.ns.treatments.sort((a, b) => a.createdAt.compareTo(b.createdAt));
       data.ns.devicestatusList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
-      int diffTime = 5;
+      var diffTime = 5;
       // gaps between entries that span more than the given minutes
       // are not filled with entries
-      int minGapKeep = 16;
+      var minGapKeep = 16;
 //*
       // Create an array with EntryData every [diffTime] minutes
       List<EntryData> entryList = List<EntryData>();
@@ -1100,23 +1206,23 @@ class AppComponent implements OnInit {
 
   void _sendClick() {
     tileParams = null;
-    if (sendIcon == "send") {
-      sendIcon = "stop";
+    if (sendIcon == 'send') {
+      sendIcon = 'stop';
       drawerVisible = false;
       createPDF();
-    } else if (sendIcon == "close") {
-      sendIcon = "send";
-      currPage = "normal";
+    } else if (sendIcon == 'close') {
+      sendIcon = 'send';
+      currPage = 'normal';
     } else {
-      sendIcon = "send";
+      sendIcon = 'send';
     }
   }
 
   String classForView(String def) {
-    if (def == "sendPanel" && progressText != null) return def;
+    if (def == 'sendPanel' && progressText != null) return def;
     switch (g.viewType) {
-      case "tile":
-        def = "${def} is-tileview";
+      case 'tile':
+        def = '${def} is-tileview';
         break;
     }
 
@@ -1124,27 +1230,28 @@ class AppComponent implements OnInit {
   }
 
   String userClass(UserData user) {
-    String ret = "selectItem";
-    if (!user.isReachable) ret = "$ret unreachable";
+    var ret = 'selectItem';
+    if (!user.isReachable) ret = '$ret unreachable';
     return ret;
   }
 
   int checkedIndex(cfg) {
-    int ret = 0;
-    for (FormConfig check in g.listConfig) {
-      if (check.form.isDebugOnly && !isDebug) continue;
+    var ret = 0;
+    for (var check in g.listConfig) {
+      if (check.form.isDebugOnly && !g.isDebug) continue;
+      if (check.form.isLocalOnly && !g.isLocal) continue;
       if (check.checked) ret++;
       if (check == cfg) return ret;
     }
     return ret;
   }
 
-  showTileParams(cfg, evt) {
+  void showTileParams(cfg, evt) {
     evt.preventDefault();
     tileParams == null ? tileParams = cfg : tileParams = null;
   }
 
-  changeView() {
+  void changeView() {
     switch (g.viewType) {
       case 'list':
         g.viewType = 'tile';
@@ -1168,7 +1275,7 @@ class AppComponent implements OnInit {
     loadData(isForThumbs).then((ReportData src) async {
       progressText = msgCreatingPDF;
       if (src.error != null) {
-        if (isDebug) display(msgLoadingData(src.error.toString(), src.error.stackTrace.toString()));
+        if (g.isDebug) display(msgLoadingData(src.error.toString(), src.error.stackTrace.toString()));
         display(msgLoadingDataError);
         return;
       }
@@ -1178,26 +1285,26 @@ class AppComponent implements OnInit {
         return;
       }
       progressValue = progressMax + 1;
-      var doc = null;
-      List<dynamic> docList = List<dynamic>();
-      int docLen = 0;
-      Page prevPage = null;
-      List<FormConfig> listConfig = List<FormConfig>();
+      var doc;
+      var docList = <dynamic>[];
+      var docLen = 0;
+      Page prevPage;
+      var listConfig = <FormConfig>[];
       if (isForThumbs) {
-        for (FormConfig cfg in g.listConfigOrg) {
+        for (var cfg in g.listConfigOrg) {
           listConfig.add(cfg);
           switch (cfg.id) {
-            case "cgp":
+            case 'cgp':
               cfg = FormConfig(PrintCGP(), false);
               cfg.form.params[0].thumbValue = 1;
               listConfig.add(cfg);
               break;
-            case "dayanalysis":
+            case 'dayanalysis':
               cfg = FormConfig(PrintDailyAnalysis(), false);
               cfg.form.params[2].thumbValue = 1;
               listConfig.add(cfg);
               break;
-            case "percentile":
+            case 'percentile':
               cfg = FormConfig(PrintPercentile(), false);
               cfg.form.params[0].thumbValue = 0;
               cfg.form.params[2].thumbValue = true;
@@ -1208,16 +1315,16 @@ class AppComponent implements OnInit {
       } else {
         listConfig = g.listConfig;
       }
-      for (FormConfig cfg in listConfig) {
-        BasePrint form = cfg.form;
-        if ((cfg.checked && (!form.isDebugOnly || isDebug)) || isForThumbs) {
+      for (var cfg in listConfig) {
+        var form = cfg.form;
+        if (checkCfg(cfg) || isForThumbs) {
           docLen = json.encode(doc).length;
-          List<Page> formPages = await form.getFormPages(src, docLen);
-          List<List<Page>> fileList = [List<Page>()];
+          var formPages = await form.getFormPages(src, docLen);
+          var fileList = <List<Page>>[<Page>[]];
           for (Page page in formPages) {
             dynamic entry = page.content.last;
-            if (entry["pageBreak"] == "newFile" && fileList.last.length > 0) {
-              entry.remove("pageBreak");
+            if (entry['pageBreak'] == 'newFile' && fileList.last.isNotEmpty) {
+              entry.remove('pageBreak');
               fileList.last.add(page);
               fileList.add(List<Page>());
             } else {
@@ -1307,28 +1414,28 @@ class AppComponent implements OnInit {
         pdfDoc = null;
 
         for (var doc in docList) {
-          String dst = convert.jsonEncode(doc);
-          if (isDebug) {
-            pdfUrl = "http://pdf.zreptil.de/playground.php";
-            dst = dst.replaceAll("],", "],\n");
-            dst = dst.replaceAll(",\"", ",\n\"");
-            dst = dst.replaceAll(":[", ":\n[");
+          var dst = convert.jsonEncode(doc);
+          if (g.isDebug) {
+            pdfUrl = 'http://pdf.zreptil.de/playground.php';
+            dst = dst.replaceAll('],', '],\n');
+            dst = dst.replaceAll(',\"', ',\n\"');
+            dst = dst.replaceAll(':[', ':\n[');
           } else {
-            pdfUrl = "https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php";
+            pdfUrl = 'https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php';
           }
           pdfList.add(PdfData(pdfString(dst)));
         }
 
-        currPage = "pdfList";
-        sendIcon = "close";
+        currPage = 'pdfList';
+        sendIcon = 'close';
         progressText = null;
         return;
       } else {
         pdfDoc = convert.jsonEncode(docList[0]);
       }
 
-      if (!isDebug) {
-        if (message.text.isEmpty) if (isForThumbs)
+      if (!g.isDebug) {
+        if (g.msg.text.isEmpty) if (isForThumbs)
           navigate("makePdfImages");
         else
           navigate("showPdf");
@@ -1342,7 +1449,7 @@ class AppComponent implements OnInit {
       sendIcon = "send";
       progressText = null;
     }).catchError((error) {
-      if (isDebug) {
+      if (g.isDebug) {
         if (error is Error)
           display("${error.toString()}\n${error.stackTrace}");
         else
@@ -1358,7 +1465,7 @@ class AppComponent implements OnInit {
 
   String tileClass(FormConfig cfg) {
     String ret = "tile sortable";
-    if (cfg.form.isDebugOnly && isDebug) ret = "${ret} is-debug";
+    if (cfg.form.isDebugOnly && g.isDebug) ret = "${ret} is-debug";
     if (cfg.checked && tileParams == null) ret = "${ret} tilechecked";
     if (cfg.form.isLocalOnly || (cfg.form.isBetaOrLocal && g.isLocal)) ret = "${ret} is-local";
     if (cfg.form.isBetaOrLocal) ret = "${ret} is-beta";
@@ -1367,7 +1474,7 @@ class AppComponent implements OnInit {
 
   String expansionClass(FormConfig cfg) {
     String ret = "paramPanel";
-    if (cfg.form.isDebugOnly && isDebug) ret = "${ret} is-debug";
+    if (cfg.form.isDebugOnly && g.isDebug) ret = "${ret} is-debug";
     if (cfg.checked) ret = "${ret} checked";
     if (cfg.form.isLocalOnly) ret = "${ret} is-local";
     if (cfg.form.isBetaOrLocal) ret = "${ret} is-beta";
@@ -1423,14 +1530,15 @@ class AppComponent implements OnInit {
   }
 
   int menuIdx = 0;
+
   String shortcutClass(ShortcutData data) {
     String ret = "shortcut";
-    if (data.formData == convert.json.encode(g.currentFormsAsMap) && isSamePeriod(data.periodData, g.period.toString()))
-      ret += " active";
+    String check = convert.json.encode(g.currentFormsAsMap);
+    if (data.formData == check && isSamePeriod(data.periodData, g.period.toString())) ret += " active";
     return ret;
   }
 
-  editShortcut(int shortcutIdx) {
+  void editShortcut(int shortcutIdx) {
     g.currShortcutIdx = shortcutIdx;
     if (shortcutIdx >= 0 && shortcutIdx < g.shortcutList.length)
       g.currShortcut = g.shortcutList[shortcutIdx].copy;
@@ -1439,16 +1547,19 @@ class AppComponent implements OnInit {
     currPage = 'shortcutedit';
   }
 
-  activateShortcut([int shortcutIdx = null]) {
+  void activateUser(int idx) {
+    g.userIdx = idx;
+    reportData = null;
+    g.save();
+    getCurrentGluc();
+    checkPrint();
+    g.refresh();
+  }
+
+  void activateShortcut([int shortcutIdx = null]) {
     if (shortcutIdx != null) {
-      ShortcutData data = g.shortcutList[shortcutIdx];
-      g.period = DatepickerPeriod(src: data.periodData);
-      for (FormConfig cfg in g.listConfig) {
-        cfg.checked = data.forms.keys.contains(cfg.form.id);
-        if (cfg.checked) {
-          cfg.fillFromJson(data.forms[cfg.form.id]);
-        }
-      }
+      var data = g.shortcutList[shortcutIdx];
+      g.fillFormsFromShortcut(data);
       checkPrint();
       g.refresh();
     }
@@ -1456,11 +1567,11 @@ class AppComponent implements OnInit {
 
   void shortcuteditResult(html.UIEvent evt) {
     switch (evt.type) {
-      case "ok":
+      case 'ok':
         _currPage = _lastPage;
         g.saveShortcuts();
         break;
-      case "remove":
+      case 'remove':
         _currPage = _lastPage;
         if (g.currShortcutIdx >= 0 && g.currShortcutIdx < g.shortcutList.length) {
           g.shortcutList.removeAt(g.currShortcutIdx);
@@ -1469,18 +1580,18 @@ class AppComponent implements OnInit {
           g.saveShortcuts();
         }
         break;
-      case "cancel":
+      case 'cancel':
         _currPage = _lastPage;
         g.currShortcut = null;
         break;
       default:
-        _currPage = g.isConfigured ? _lastPage : "welcome";
+        _currPage = g.isConfigured ? _lastPage : 'welcome';
         break;
     }
     getCurrentGluc();
   }
 
-  expansionPanelClicked(evt, FormConfig cfg) {
+  void expansionPanelClicked(evt, FormConfig cfg) {
     if (!cfg.opened) {
       if (evt.currentTarget.attributes["dontclick"] == "true") {
         evt.currentTarget.removeAttribute("dontclick");
@@ -1491,7 +1602,7 @@ class AppComponent implements OnInit {
     }
   }
 
-  signinEvent(SigninEvent e) {
+  void signinEvent(SigninEvent e) {
     switch (e.status) {
       case SigninStatus.requestAuthorization:
 //        _currPage = "signin";
@@ -1507,13 +1618,14 @@ class AppComponent implements OnInit {
 //        _currPage = "normal";
         break;
       default:
-        message.text = "${message.text} - ${e.message}";
+        g.msg.text = "${g.msg.text} - ${e.message}";
         break;
     }
   }
 
   int thumbLangIdx = -1;
   LangData thumbLangSave = null;
+
   createThumbs() async {
     sendIcon = "stop";
     drawerVisible = false;
@@ -1548,12 +1660,12 @@ class TileAvatarHandler extends AvatarHandler {
       ..left = "${pt.x}px"
       ..top = "${pt.y}px";
 
-    html.document.body.querySelector("my-app").style.overflow = "hidden";
+    html.document.body.querySelector('my-app').style.overflow = 'hidden';
 
     setLeftTop(pt);
 
-    avatar.style.position = "absolute";
-    html.document.body.querySelector("my-app").append(avatar);
+    avatar.style.position = 'absolute';
+    html.document.body.querySelector('my-app').append(avatar);
   }
 
   @override

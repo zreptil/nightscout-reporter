@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'base-print.dart';
 
@@ -84,7 +84,9 @@ abstract class BaseProfile extends BasePrint {
       }
 
       String hash = repData.profiles[i].current.hash;
-      if (_alreadyDone.contains(hash)) continue;
+      if (_alreadyDone.contains(hash)) {
+        continue;
+      }
       _alreadyDone.add(hash);
 
       lastIdx = pageList.length;
@@ -95,8 +97,7 @@ abstract class BaseProfile extends BasePrint {
       }
     }
 
-    if ((onlyLast || repData.isForThumbs) && pageList.length > 0)
-      pageList.removeRange(0, lastIdx);
+    if ((onlyLast || repData.isForThumbs) && pageList.length > 0) pageList.removeRange(0, lastIdx);
 
     pages.addAll(pageList);
   }
@@ -156,11 +157,11 @@ abstract class BaseProfile extends BasePrint {
         if (highChanged && idx >= 0) oldHigh = before.store.listTargetHigh[idx].value;
         if (lowChanged || highChanged) {
           if (oldLow == null || oldHigh == null)
-            temp.add(
-                "ab ${fmtTime(highTime, withUnit: true)} neuer Bereich ${g.fmtBasal(currLow.value)} - ${g.fmtBasal(currHigh.value)}");
+            temp.add('ab ${fmtTime(highTime, withUnit: true)} neuer Bereich ${g.fmtBasal(currLow.value)} - '
+                '${g.fmtBasal(currHigh.value)}');
           else
-            temp.add(
-                "ab ${fmtTime(highTime, withUnit: true)} ${oldLow} - ${g.fmtBasal(oldHigh)} => ${currLow.value} - ${g.fmtBasal(currHigh.value)}");
+            temp.add('ab ${fmtTime(highTime, withUnit: true)} ${oldLow} - ${g.fmtBasal(oldHigh)} => '
+                '${currLow.value} - ${g.fmtBasal(currHigh.value)}');
         }
       }
       if (temp.length > 1) ret.addAll(temp);

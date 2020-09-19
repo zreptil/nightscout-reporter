@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'dart:math' as math;
 
-import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'base-print.dart';
 
 class PrintTest extends BasePrint {
   @override
-  String id = "test";
+  String id = 'test';
 
   @override
-  String idx = "00";
+  String idx = '00';
 
   bool showEntries = false;
   bool showTreatments = true;
@@ -23,14 +23,14 @@ class PrintTest extends BasePrint {
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(0, "Einträge", boolValue: false),
-    ParamInfo(1, "Behandlungen", boolValue: false),
-    ParamInfo(2, "Rohdaten Status", boolValue: true, thumbValue: false),
-    ParamInfo(3, "Rohdaten Einträge", boolValue: false),
-    ParamInfo(4, "Rohdaten Behandlungen", boolValue: false, thumbValue: true),
-    ParamInfo(5, "Rohdaten Profile", boolValue: false),
-    ParamInfo(7, "Rohdaten Spalten", intValue: 2, min: 1, max: 3),
-    ParamInfo(6, "Tagesprofil", boolValue: false),
+    ParamInfo(0, 'Einträge', boolValue: false),
+    ParamInfo(1, 'Behandlungen', boolValue: false),
+    ParamInfo(2, 'Rohdaten Status', boolValue: true, thumbValue: false),
+    ParamInfo(3, 'Rohdaten Einträge', boolValue: false),
+    ParamInfo(4, 'Rohdaten Behandlungen', boolValue: false, thumbValue: true),
+    ParamInfo(5, 'Rohdaten Profile', boolValue: false),
+    ParamInfo(7, 'Rohdaten Spalten', intValue: 2, min: 1, max: 3),
+    ParamInfo(6, 'Tagesprofil', boolValue: false),
   ];
 
   @override
@@ -46,13 +46,13 @@ class PrintTest extends BasePrint {
   }
 
   @override
-  dynamic get estimatePageCount => {"count": 0, "isEstimated": true};
+  dynamic get estimatePageCount => {'count': 0, 'isEstimated': true};
 
   @override
   bool get isDebugOnly => true;
 
   @override
-  String get title => "Datensätze";
+  String get title => 'Datensätze';
 
   PrintTest() {
     init();
@@ -64,42 +64,42 @@ class PrintTest extends BasePrint {
   String _lastRootTitle = null;
   String _lastRootType = null;
   dynamic createRoot(type, {String title: null}) {
-    String color = "#eee";
+    String color = '#eee';
     if (type == null) type = _lastRootType;
     _lastRootType = type;
     if (title == null) title = _lastRootTitle;
     _lastRootTitle = title;
 
     switch (type) {
-      case "entries":
+      case 'entries':
         _body.add([
-          {"text": "Uhrzeit", "fillColor": color},
-          {"text": "Art", "fillColor": color},
-          {"text": "sgv", "fillColor": color},
-          {"text": "gluc", "fillColor": color},
+          {'text': 'Uhrzeit', 'fillColor': color},
+          {'text': 'Art', 'fillColor': color},
+          {'text': 'sgv', 'fillColor': color},
+          {'text': 'gluc', 'fillColor': color},
         ]);
         break;
-      case "treatments":
+      case 'treatments':
         _body.add([
-          {"text": "Uhrzeit", "fillColor": color},
-          {"text": "Art", "fillColor": color},
-          {"text": "Anpassung", "fillColor": color},
-          {"text": "Dauer", "fillColor": color},
-          {"text": "KH", "fillColor": color},
-          {"text": "IE", "fillColor": color},
+          {'text': 'Uhrzeit', 'fillColor': color},
+          {'text': 'Art', 'fillColor': color},
+          {'text': 'Anpassung', 'fillColor': color},
+          {'text': 'Dauer', 'fillColor': color},
+          {'text': 'KH', 'fillColor': color},
+          {'text': 'IE', 'fillColor': color},
         ]);
         break;
-      case "profiles":
+      case 'profiles':
         _body.add([
-          {"text": title, "fillColor": color}
+          {'text': title, 'fillColor': color}
         ]);
         break;
-      case "raw":
+      case 'raw':
         _rawLineCount += 6;
         _body.add([
-          {"text": title, "fontSize": fs(12), "colSpan": rawCols}
+          {'text': title, 'fontSize': fs(12), 'colSpan': rawCols}
         ]);
-        for (int i = 0; i < rawCols - 1; i++) _body[0].add({"text": ""});
+        for (int i = 0; i < rawCols - 1; i++) _body[0].add({'text': ''});
         _body.add([]);
         break;
     }
@@ -107,9 +107,9 @@ class PrintTest extends BasePrint {
     var widths = [];
     for (int i = 0; i < _body[0].length; i++) widths.add(cm((width - 4.0) / _body[0].length));
     var ret = {
-      "margin": [cm(2.0), cm(_isFirst ? yorg : 0.5), cm(2.0), cm(0.5)],
-      "layout": type == "raw" ? "" : "noBorders",
-      "table": {"headerRows": 1, "widths": widths, "body": _body}
+      'margin': [cm(2.0), cm(_isFirst ? yorg : 0.5), cm(2.0), cm(0.5)],
+      'layout': type == 'raw' ? '' : 'noBorders',
+      'table': {'headerRows': 1, 'widths': widths, 'body': _body}
     };
     _isFirst = false;
     return ret;
@@ -130,19 +130,19 @@ class PrintTest extends BasePrint {
     _isFirst = true;
     int oldLength = pages.length;
     if (showEntries) {
-      _root = createRoot("entries");
+      _root = createRoot('entries');
       for (int i = 0; i < repData.ns.entries.length; i++) {
         EntryData entry = repData.ns.entries[i];
         var row = [
-          {"text": fmtDateTime(entry.time, '??.??.???? ??:?? Uhr'), "colspan": 4},
-          {"text": entry.type},
-          {"text": g.fmtNumber(entry.sgv)},
-          {"text": g.fmtNumber(entry.gluc)},
+          {'text': fmtDateTime(entry.time, '??.??.???? ??:?? Uhr'), 'colspan': 4},
+          {'text': entry.type},
+          {'text': g.fmtNumber(entry.sgv)},
+          {'text': g.fmtNumber(entry.gluc)},
         ];
-/*      if(entry.direction != null && entry.direction.toLowerCase() == "none")
+/*      if(entry.direction != null && entry.direction.toLowerCase() == 'none')
       {
         for(dynamic c in row)
-          c["color"] = "#f00";
+          c['color'] = '#f00';
       }*/
 
         _body.add(row);
@@ -154,32 +154,32 @@ class PrintTest extends BasePrint {
 
     if (showTreatments) {
       _body = [];
-      _root = createRoot("treatments");
+      _root = createRoot('treatments');
       var data = repData.ns.treatments;
       int lines = _body.length;
       for (int i = 0; i < data.length; i++) {
         TreatmentData entry = data[i];
         lines += 2;
         var row = [
-          {"text": fmtDateTime(entry.createdAt, '??.??.???? ??:?? Uhr')}
+          {'text': fmtDateTime(entry.createdAt, '??.??.???? ??:?? Uhr')}
         ];
-        row.add({"text": entry.eventType});
-        row.add({"text": "${g.fmtNumber(entry.adjustedValue(1), 0, 0, "")}", "alignment": "right"});
-        row.add({"text": entry.duration > 0 ? g.fmtNumber(entry.duration, 0, 0, " ") : " ", "alignment": "right"});
+        row.add({'text': entry.eventType});
+        row.add({'text': '${g.fmtNumber(entry.adjustedValue(1), 0, 0, '')}', 'alignment': 'right'});
+        row.add({'text': entry.duration > 0 ? g.fmtNumber(entry.duration, 0, 0, ' ') : ' ', 'alignment': 'right'});
         double carbs = entry.isECarb ? entry.eCarbs : entry.carbs;
-        String text = carbs > 0.0 ? g.fmtNumber(carbs, 0, 0, " ") : " ";
-        if (entry.isECarb) text = "e${text}";
-        row.add({"text": text, "alignment": "right"});
-        text = entry.insulin > 0.0 ? g.fmtNumber(entry.insulin, 1, 0, " ") : " ";
-        row.add({"text": text, "alignment": "right"});
+        String text = carbs > 0.0 ? g.fmtNumber(carbs, 0, 0, ' ') : ' ';
+        if (entry.isECarb) text = 'e${text}';
+        row.add({'text': text, 'alignment': 'right'});
+        text = entry.insulin > 0.0 ? g.fmtNumber(entry.insulin, 1, 0, ' ') : ' ';
+        row.add({'text': text, 'alignment': 'right'});
         switch (entry.eventType.toLowerCase()) {
-          case "temp basal":
-            row[1]["color"] = "#f00";
+          case 'temp basal':
+            row[1]['color'] = '#f00';
             break;
-          case "announcement":
-          case "note":
-            row[1]["text"] = "${row[1]["text"]}\n${entry.notes}";
-            lines += entry.notes != null ? (entry.notes.split("\n").length - 1) : 0;
+          case 'announcement':
+          case 'note':
+            row[1]['text'] = '${row[1]['text']}\n${entry.notes}';
+            lines += entry.notes != null ? (entry.notes.split('\n').length - 1) : 0;
             break;
         }
         _body.add(row);
@@ -194,49 +194,49 @@ class PrintTest extends BasePrint {
 
     if (showRawStatus) {
       _body = [];
-      _root = createRoot("raw", title: "Status");
+      _root = createRoot('raw', title: 'Status');
       addRawData(repData.status.raw);
       finalizeRawData();
     }
     if (showRawEntries) {
       _body = [];
-      _root = createRoot("raw", title: "Entries (sgv)");
+      _root = createRoot('raw', title: 'Entries (sgv)');
       for (EntryData entry in repData.ns.entries) addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
       finalizeRawData();
       _body = [];
-      _root = createRoot("raw", title: "Entries (mbg)");
+      _root = createRoot('raw', title: 'Entries (mbg)');
       for (EntryData entry in repData.ns.bloody) addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
       finalizeRawData();
       _body = [];
-      _root = createRoot("raw", title: "Entries (remaining)");
+      _root = createRoot('raw', title: 'Entries (remaining)');
       for (EntryData entry in repData.ns.remaining) addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
       finalizeRawData();
     }
     if (showRawTreatments) {
       _body = [];
-      _root = createRoot("raw", title: "Treatments");
+      _root = createRoot('raw', title: 'Treatments');
       for (TreatmentData entry in repData.ns.treatments)
         addRawData(entry.raw, fmtDateTime(entry.createdAt.toLocal(), null, true));
       finalizeRawData();
     }
     if (showRawProfiles) {
       _body = [];
-      _root = createRoot("raw", title: "Profiles");
+      _root = createRoot('raw', title: 'Profiles');
       for (ProfileData entry in repData.profiles) addRawData(entry.raw, fmtDateTime(entry.createdAt.toLocal()));
       finalizeRawData();
 // */
     }
     if (showDayProfile) {
-      for (DayData day in repData.data.days) {
+      for (var day in repData.data.days) {
         _body = [];
-        _root = createRoot("profiles", title: "Tagesprofil für ${fmtDate(day.date)}");
-        String text = "";
-        for (ProfileEntryData entry in day.profile) {
-          text =
-              "${text}${fmtTime(entry.time(day.date), withSeconds: true)} ${g.fmtNumber(entry.tempAdjusted * 100, 0, 3, "null", false, true)} / ${entry.duration} min\n";
+        _root = createRoot('profiles', title: 'Tagesprofil für ${fmtDate(day.date)}');
+        var text = '';
+        for (var entry in day.profile) {
+          text = '${text}${fmtTime(entry.time(day.date), withSeconds: true)} '
+              '${g.fmtNumber(entry.tempAdjusted * 100, 0, 3, 'null', false, true)} / ${entry.duration} min\n';
         }
         var row = [
-          {"text": text, "fontSize": fs(8)}
+          {'text': text, 'fontSize': fs(8)}
         ];
         _body.add(row);
         _page.content.add(_root);
@@ -247,15 +247,15 @@ class PrintTest extends BasePrint {
     if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
   }
 
-  addRawData(dynamic raw, [String title = null]) {
-    String text = json.encode(raw);
+  void addRawData(dynamic raw, [String title]) {
+    var text = json.encode(raw);
     text = text.substring(1, text.length - 1);
-    text = text.replaceAll(",\"", ",\n\"");
-    text = text.replaceAll("},", "},\n");
-    if (title != null) text = "${title}\n${text}";
-    _rawCurrLines = math.max(_rawCurrLines, text.split("\n").length + 1);
+    text = text.replaceAll(',\'', ',\n\'');
+    text = text.replaceAll('},', '},\n');
+    if (title != null) text = '${title}\n${text}';
+    _rawCurrLines = math.max(_rawCurrLines, text.split('\n').length + 1);
 
-    _body.last.add({"text": text, "fontSize": fs(8)});
+    _body.last.add({'text': text, 'fontSize': fs(8)});
     if (_body.last.length >= rawCols) {
       _rawLineCount += _rawCurrLines;
       if (_rawLineCount > 66) {
@@ -264,8 +264,8 @@ class PrintTest extends BasePrint {
           var newRow = [];
           int lineCount = 0;
           for (var cell in _body.last) {
-            newRow.add({"text": "", "fontSize": fs(8)});
-            List<String> lines = cell["text"].split("\n");
+            newRow.add({'text': '', 'fontSize': fs(8)});
+            List<String> lines = cell['text'].split('\n');
             List<String> oldText = List<String>();
             List<String> newText = List<String>();
             if (lines.length > maxLines && maxLines > 0) {
@@ -274,9 +274,9 @@ class PrintTest extends BasePrint {
             } else {
               oldText = lines;
             }
-            String text = oldText.join("\n");
-            cell["text"] = text;
-            newRow.last["text"] = newText.join("\n");
+            String text = oldText.join('\n');
+            cell['text'] = text;
+            newRow.last['text'] = newText.join('\n');
             lineCount = math.max(lineCount, newText.length + 1);
           }
           addPage();
@@ -296,7 +296,7 @@ class PrintTest extends BasePrint {
       pages.add(page);
       ret = [headerFooter(skipFooter: true)];
       body = [];
-      root = createRoot("raw");
+      root = createRoot('raw');
     }*/
   }
 
@@ -312,8 +312,8 @@ class PrintTest extends BasePrint {
   }
 
   finalizeRawData() {
-//    if (body.last.length < rawCols)body.last.last["colSpan"] = rawCols - body.last.length + 1;
-    while (_body.last.length < rawCols) _body.last.add({"text": ""});
+//    if (body.last.length < rawCols)body.last.last['colSpan'] = rawCols - body.last.length + 1;
+    while (_body.last.length < rawCols) _body.last.add({'text': ''});
     _page.content.add(_root);
 //    pages.add(body);
   }

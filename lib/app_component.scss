@@ -53,6 +53,10 @@ header.material-header .material-header-title {
   height: initial;
   align-items: center;
 
+  .title {
+    display: flex;
+    align-items: center;
+  }
 }
 
 header.material-header .material-header-row {
@@ -1308,7 +1312,7 @@ datepicker {
   cursor: pointer;
   overflow-y: auto;
   transform: translate(-50%, -50%);
-  z-index: 1000;
+  z-index: 10000;
   max-height: 80%;
   border: 2px solid var(--debugFore);
 

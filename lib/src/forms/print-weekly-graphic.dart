@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:angular_components/model/date/date.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
-import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'base-print.dart';
 import 'print-daily-graphic.dart';

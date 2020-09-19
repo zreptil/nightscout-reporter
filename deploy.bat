@@ -1,5 +1,10 @@
 @echo off
 cls
+echo Hiermit wird Nightscout Reporter erstellt. Davor muss die Synchronisation 
+echo von Dropbox angehalten und eventuell laufende Server Instanzen beendet werden.
+echo.
+echo Bitte eine Taste druecken zum Fortsetzen oder Batchdatei abbrechen
+pause >nul
 rem goto skipbuild
 call "C:\Program Files\Dart\dart-sdk\bin\pub.bat" get
 call "C:\Program Files\Dart\dart-sdk\bin\pub.bat" global activate webdev

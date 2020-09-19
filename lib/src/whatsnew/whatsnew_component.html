@@ -10,6 +10,32 @@
       </material-button>
     </div>
     <div class="root">
+      <h2><span @i18n="version">Version</span><span @i18n="v201">2.0.1 - 8.9.2020</span></h2>
+      <ul>
+        <li class="added" @i18n="v201a1">
+          Im Protokoll werden nun auch temporäre Overrides ausgegeben, die von iOSLoop in die Behandlungsdaten eingetragen werden.
+        </li>
+        <li class="added" @i18n="v201a2">
+          Im Tagesprofil kann nun angegeben werden, ob nur der Wert, die prozentuale Anpassung des Profils oder beides angezeigt
+          werden soll. Ausserdem kann eine Linie eingefügt werden, die den im Basalprofil zum jeweiligen Zeitpunkt eingestellten
+          Wert darstellt.
+        </li>
+        <li class="changed" @i18n="v201c1">
+          In der Tagesgrafik werden Profilwechsel nicht mehr angezeigt, wenn sich das Profil beim Wechsel nicht geändert hat. iOSLoop
+          fügt in die Nightscoutdatensätze sehr häufig neue Profile ein, die keine Änderung beinhalten, weil dort zusätzlich andere
+          Konfigurationseinstellungen gespeichert werden.
+        </li>
+        <li class="fixed" @i18n="v201f1">
+          Ein Fehler beim Laden der ausgewählten Formulare wurde korrigiert.
+        </li>
+        <li class="fixed" @i18n="v201f2">
+          Wenn die Synchronisierung mit Google Drive aufgehoben wird, wird die Berechtigung nun korrekt zurückgesetzt. Wenn man
+          sich danach wieder synchronisieren will, werden nochmal die Berechtigungen abgefragt.
+        </li>
+        <li class="fixed" @i18n="v201f3">
+          Ein Fehler wurde behoben, der dafür sorgte, dass temporäre Ziele in der Tagesgrafik mit zeitlicher Verschiebung angezeigt wurden.
+        </li>
+      </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v200">2.0.0 - 15.7.2020</span></h2>
       <ul>
         <li class="added" @i18n="v200a1">

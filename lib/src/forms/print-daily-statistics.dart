@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart';
-import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'base-print.dart';
 
