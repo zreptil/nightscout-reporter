@@ -1,5 +1,5 @@
 <div id="app-content" [ngClass]="appTheme">
-  <header [class]="isDebug?'material-header debug shadow':'material-header shadow'">
+  <header [class]="g.isDebug?'material-header debug shadow':'material-header shadow'">
     <div class="material-header-row">
       <div class="material-header-title">
         <material-button *ngIf="g.isConfigured"
@@ -11,7 +11,7 @@
         <div class="title">
           {{g.title}}
           <span class="betaTitle" *ngIf="g.isBeta">BETA</span>
-          <material-button class="localTitle" *ngIf="g.runsLocal" (trigger)="g.isLocal = !g.isLocal">
+          <material-button class="localTitle" *ngIf="g.runsLocal" (trigger)="g.isLocal=!g.isLocal;checkPrint()">
             <div *ngIf="g.isLocal">Lokal</div>
             <div *ngIf="!g.isLocal">Vorschau</div>
           </material-button>
@@ -30,7 +30,7 @@
           <material-dropdown-select label="Benutzer" [buttonText]="g.userDisplay" popupClass="userSelect" slide="y"
                                     listAutoFocus>
             <material-select-item *ngFor="let item of g.userList; let idx = index"
-                                  (trigger)="g.userIdx=idx;reportData=null;g.save();getCurrentGluc();"
+                                  (trigger)="activateUser(idx)"
                                   [class]="userClass(item)"
                                   [selected]="idx==g.userIdx">
               <div class="itemTitle">{{item.name.isEmpty?item.apiUrl(null, "", noApi: true):item.name}}</div>
@@ -68,7 +68,7 @@
           <material-icon icon="help_outline"></material-icon>
         </material-button>
         <material-fab mini class="debug-trigger" *ngIf="g.canDebug && currPage=='normal'"
-                      (trigger)="reportData=null;isDebug=!isDebug;checkPrint();message.dismiss(message.clear);">
+                      (trigger)="reportData=null;g.isDebug=!g.isDebug;checkPrint();g.msg.dismiss(g.msg.clear);">
           <material-icon icon="bug_report"></material-icon>
         </material-fab>
         <material-button icon class="is-local" *ngIf="g.isLocal && currPage=='normal' && tileParams==null"
@@ -347,7 +347,7 @@
           </material-button>
         </div>
         <div class="menuFabs" [style.display]="g.canDebug?'flex':'none'">
-          <div *ngIf="isDebug" class="toggle-debug">
+          <div *ngIf="g.isDebug" class="toggle-debug">
             <material-button icon mini class="material-drawer-button"
                              (trigger)="drawer.toggle();navigate('https://jsonformatter.org/json-parser');">
               <material-icon icon="code"></material-icon>
@@ -366,18 +366,18 @@
     </div>
   </material-drawer>
 </div>
-<div id="debugMessage" *ngIf="message.dbgText != null" (click)="message.clear();">
-  <p [innerHTML]="message.dbgText"></p>
+<div id="debugMessage" *ngIf="g.msg.dbgText != null" (click)="g.msg.clear();">
+  <p [innerHTML]="g.msg.dbgText"></p>
 </div>
-<div id="messagePanel" *ngIf="message.links.length > 0 || !message.isEmpty">
-  <div id="message" *ngIf="!message.isEmpty || message.links.length > 0" [class]="message.type">
-    <p [innerHTML]="message.text"></p>
-    <material-button *ngFor="let entry of message.links" (trigger)="navigate(entry['url'])"
+<div id="messagePanel" *ngIf="g.msg.links.length > 0 || !g.msg.isEmpty">
+  <div id="message" *ngIf="!g.msg.isEmpty || g.msg.links.length > 0" [class]="g.msg.type">
+    <p [innerHTML]="g.msg.text"></p>
+    <material-button *ngFor="let entry of g.msg.links" (trigger)="navigate(entry['url'])"
                      [class]="entry['class']">
       <material-icon *ngIf="entry['icon']!=null" [icon]="entry['icon']"></material-icon>
       {{entry['title']}}
     </material-button>
-    <material-button icon class="msgClose" (trigger)="message.dismiss(message.clear)">
+    <material-button icon class="msgClose" (trigger)="g.msg.dismiss(g.msg.clear)">
       <material-icon icon="close"></material-icon>
     </material-button>
   </div>

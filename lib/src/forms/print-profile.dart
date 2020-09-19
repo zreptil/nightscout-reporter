@@ -1,6 +1,6 @@
 import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'base-print.dart';
 import 'base-profile.dart';

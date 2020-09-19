@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'base-print.dart';
 import 'base-profile.dart';
@@ -33,7 +33,8 @@ class PrintDailyLog extends BaseProfile {
       showProfileSwitchDetails,
       showTempDigit,
       showDupes,
-      showOnlyDupes;
+      showOnlyDupes,
+      showTempOverrides;
   int groupMinutes = 0;
 
   @override
@@ -44,9 +45,9 @@ class PrintDailyLog extends BaseProfile {
     ParamInfo(2, msgParam1, boolValue: true),
     ParamInfo(3, msgParam2, boolValue: true),
     ParamInfo(4, msgParam3, boolValue: true, subParams: [ParamInfo(0, msgParam7, boolValue: true)]),
-    ParamInfo(10, msgParam4,
+    ParamInfo(11, msgParam4,
         boolValue: true, isLoopValue: true, subParams: [ParamInfo(0, msgParam15, boolValue: false, isLoopValue: true)]),
-    ParamInfo(9, msgParam5, boolValue: true, isLoopValue: true),
+    ParamInfo(10, msgParam5, boolValue: true, isLoopValue: true),
     ParamInfo(5, msgParam6, boolValue: true, subParams: [ParamInfo(0, msgParam14, boolValue: true)]),
     ParamInfo(8, msgParam8, boolValue: true, isLoopValue: true),
     ParamInfo(0, msgParam9, list: [
@@ -60,7 +61,8 @@ class PrintDailyLog extends BaseProfile {
     ParamInfo(1, msgParam10, boolValue: true),
     ParamInfo(6, msgParam11, boolValue: true, subParams: [ParamInfo(0, msgParam12, boolValue: true)]),
     ParamInfo(7, msgParam13, boolValue: true),
-    ParamInfo(11, msgParam16, boolValue: false, subParams: [ParamInfo(0, msgParam17, boolValue: false)]),
+    ParamInfo(12, msgParam16, boolValue: false, subParams: [ParamInfo(0, msgParam17, boolValue: false)]),
+    ParamInfo(9, msgParam18, boolValue: true, isLoopValue: true),
   ];
 
   @override
@@ -103,6 +105,7 @@ class PrintDailyLog extends BaseProfile {
     showCalibration = params[10].boolValue;
     showDupes = params[11].boolValue;
     showOnlyDupes = params[11].subParams[0].boolValue;
+    showTempOverrides = params[12].boolValue;
   }
 
   @override
@@ -128,6 +131,9 @@ class PrintDailyLog extends BaseProfile {
   static String get msgParam15 => Intl.message("Dauer mit Minutenbruchteil");
   static String get msgParam16 => Intl.message("Mehrfache Datensätze kennzeichnen");
   static String get msgParam17 => Intl.message("Nur mehrfache Datensätze anzeigen");
+  static String get msgParam18 => Intl.message("Temporäre Overrides");
+
+  static String get msgMultipleNotFound => Intl.message("Es gibt keine mehrfachen Datensätze.");
 
   @override
   List<String> get imgList => ["nightscout", "katheter.print", "sensor.print", "ampulle.print", "battery.print"];
@@ -191,7 +197,7 @@ class PrintDailyLog extends BaseProfile {
       if (showDupes && showOnlyDupes)
         _page.add({
           "relativePosition": {"x": cm(2.2), "y": cm(yorg)},
-          "text": "Es gibt keine mehrfachen Datensätze."
+          "text": msgMultipleNotFound
         });
       pages.add(Page(isPortrait, _page));
     }
@@ -213,48 +219,50 @@ class PrintDailyLog extends BaseProfile {
     _isFirstLine = true;
 
 //    int groupMinutes = g.isLocal ? 60 : 0;
-    DateTime nextTime = DateTime(day.date.year, day.date.month, day.date.day, 0, groupMinutes);
+    var nextTime = DateTime(day.date.year, day.date.month, day.date.day, 0, groupMinutes);
 
-    List<String> list = List<String>();
-    Flags flags = Flags();
-    List<TreatmentData> treatments = List<TreatmentData>();
+    var list = <String>[];
+    var flags = Flags();
+    var treatments = <TreatmentData>[];
 
-    for (TreatmentData t in day.treatments) treatments.add(t);
+    for (var t in day.treatments) {
+      treatments.add(t);
+    }
 
-    for (EntryData e in day.bloody) {
-      TreatmentData t = TreatmentData();
+    for (var e in day.bloody) {
+      var t = TreatmentData();
       t.createdAt = e.time;
-      t.eventType = "nr-${e.type}";
-      t.glucoseType = "finger";
+      t.eventType = 'nr-${e.type}';
+      t.glucoseType = 'finger';
       t.glucose = e.bloodGluc;
       t.notes = msgMBG(g.glucFromData(e.bloodGluc), g.getGlucInfo()["unit"]);
       treatments.add(t);
     }
 
-    for (EntryData e in day.entries) {
-      if (e.type == "cal") {
-        TreatmentData t = TreatmentData();
+    for (var e in day.entries) {
+      if (e.type == 'cal') {
+        var t = TreatmentData();
         t.createdAt = e.time;
-        t.eventType = "nr-${e.type}";
+        t.eventType = 'nr-${e.type}';
         t.notes =
-            "${BasePrint.msgCalibration(g.fmtNumber(e.scale, 2), g.fmtNumber(e.intercept, 0), g.fmtNumber(e.slope, 2))}";
+            '${BasePrint.msgCalibration(g.fmtNumber(e.scale, 2), g.fmtNumber(e.intercept, 0), g.fmtNumber(e.slope, 2))}';
         treatments.add(t);
       }
     }
     treatments.sort((t1, t2) => t1.createdAt.compareTo(t2.createdAt));
 
-    for (int i = 0; i < treatments.length; i++) {
-      TreatmentData t = treatments[i];
+    for (var i = 0; i < treatments.length; i++) {
+      var t = treatments[i];
       var row = [];
 
-      bool wasAdded = false;
+      var wasAdded = false;
       if (groupMinutes == 0 || t.createdAt.isBefore(nextTime)) {
         wasAdded = true;
         fillList(groupMinutes != 0, repData, day, t, list, flags);
       }
 
       if (groupMinutes == 0 || !t.createdAt.isBefore(nextTime)) {
-        DateTime time = t.createdAt;
+        var time = t.createdAt;
         if (groupMinutes != 0) time = nextTime.add(Duration(minutes: -groupMinutes));
         while (list.length > 0) {
           _hasData = true;
@@ -432,14 +440,14 @@ class PrintDailyLog extends BaseProfile {
   }
 
   String msgLogTempTarget(target, duration, reason) =>
-      Intl.message("temp. Ziel ${target} für ${duration} min, Grund: ${reason}",
-          args: [target, duration, reason], name: "msgLogTempTarget");
-  String get msgLogTempTargetReset => Intl.message("Aufhebung von temp. Ziel");
+      Intl.message('temp. Ziel ${target} für ${duration} min, Grund: ${reason}',
+          args: [target, duration, reason], name: 'msgLogTempTarget');
+  String get msgLogTempTargetReset => Intl.message('Aufhebung von temp. Ziel');
   String msgLogTempBasal(percent, duration) =>
-      Intl.message("temp. Basal ${percent}% / ${duration} min", args: [percent, duration], name: "msgLogTempBasal");
+      Intl.message('temp. Basal ${percent}% / ${duration} min', args: [percent, duration], name: 'msgLogTempBasal');
   String msgLogTempBasalAbsolute(value, duration) =>
-      Intl.message("temp. Basal ${value} / ${duration} min", args: [value, duration], name: "msgLogTempBasalAbsolute");
-  String msgLogSMB(insulin, unit) => Intl.message("SMB ${insulin} ${unit}", args: [insulin, unit], name: "msgLogSMB");
+      Intl.message('temp. Basal ${value} / ${duration} min', args: [value, duration], name: 'msgLogTempBasalAbsolute');
+  String msgLogSMB(insulin, unit) => Intl.message('SMB ${insulin} ${unit}', args: [insulin, unit], name: 'msgLogSMB');
   String msgLogMicroBolus(insulin, unit) =>
       Intl.message("Microbolus ${insulin} ${unit}", args: [insulin, unit], name: "msgLogMicroBolus");
   String get msgChangeSite => Intl.message("Katheterwechsel");
@@ -447,7 +455,13 @@ class PrintDailyLog extends BaseProfile {
   String get msgChangeInsulin => Intl.message("Ampullenwechsel");
   String get msgChangeBattery => Intl.message("Batteriewechsel");
   String msgMBG(gluc, unit) => Intl.message("Blutige Messung ${gluc} ${unit}", args: [gluc, unit], name: "msgMBG");
+  String msgLogOverride(range, duration, reason, scale) =>
+      Intl.message('temp. Override für ${duration} min, Grund: ${reason}, Zielbereich: ${range}, Anpassung: ${scale}%',
+          args: [range, duration, reason, scale], name: 'msgLogOverride');
 
+  //{"_id":"2D5C42BE-CBE7-4139-BF03-95751ABE2C3C","correctionRange":[95,100],"reason":"😰 120%","timestamp":"2020-08-23T19:56:14Z",
+  // "created_at":"2020-08-23T19:56:14.000Z","eventType":"Temporary Override","insulinNeedsScaleFactor":1.2,
+  // "duration":0.022495784362157187,"enteredBy":"Loop","utcOffset":0,"carbs":null,"insulin":null}
   fillList(bool showTime, ReportData src, DayData day, TreatmentData t, List<String> list, Flags flags) {
     int lastIdx = list.length;
     if (showDupes && showOnlyDupes && t.duplicates < 2) return;
@@ -490,9 +504,10 @@ class PrintDailyLog extends BaseProfile {
             g.fmtNumber(entry.duration / 60, showTempDigit ? 1 : 0)));
       } else {
         entry = ProfileEntryData.fromTreatment(null, t);
-        if (entry != null)
-          list.add(msgLogTempBasalAbsolute(g.fmtNumber(t.absoluteTempBasal, g.basalPrecision, 0, "0", false),
+        if (entry != null) {
+          list.add(msgLogTempBasalAbsolute(g.fmtNumber(t.absoluteTempBasal, g.basalPrecision, 0, '0', false),
               g.fmtNumber(t.duration / 60, showTempDigit ? 1 : 0)));
+        }
       }
     }
     if (showProfileSwitch && t.isProfileSwitch) {
@@ -501,14 +516,16 @@ class PrintDailyLog extends BaseProfile {
 
     if (showTempTargets && t.isTempTarget) {
       String target;
-      if (t.targetBottom == t.targetTop)
-        target = "${g.fmtBasal(t.targetBottom)} ${g.getGlucInfo()["unit"]}";
-      else
-        target = "${t.targetBottom} - ${t.targetTop} ${g.getGlucInfo()["unit"]}";
-      if (t.duration == 0 && t.targetBottom == 0)
+      if (t.targetBottom == t.targetTop) {
+        target = '${g.fmtBasal(t.targetBottom)} ${g.getGlucInfo()['unit']}';
+      } else {
+        target = '${t.targetBottom} - ${t.targetTop} ${g.getGlucInfo()['unit']}';
+      }
+      if (t.duration == 0 && t.targetBottom == 0) {
         list.add(msgLogTempTargetReset);
-      else
+      } else {
         list.add(msgLogTempTarget(target, t.duration / 60, t.reason));
+      }
     }
     if (showChanges) {
       if (t.isSiteChange) {
@@ -529,13 +546,18 @@ class PrintDailyLog extends BaseProfile {
       }
     }
 
-    if (type.startsWith("nr-")) {
+    if (type.startsWith('nr-')) {
       if (showCalibration) {
-        if (type == "nr-cal" || type == "nr-mbg") list.add("${t.notes}");
+        if (type == 'nr-cal' || type == 'nr-mbg') list.add('${t.notes}');
       }
     }
 
     if (t.isBloody) _bloodValue = t.glucose;
+
+    if (showTempOverrides && type == 'temporary override') {
+      list.add(msgLogOverride(JsonData.toText(t.raw['correctionRange']), t.duration / 60, t.reason,
+          JsonData.toDouble(t.raw['insulinNeedsScaleFactor']) * 100));
+    }
 
     if (list.length != lastIdx) {
       if (showDupes && t.duplicates > 1) list.insert(lastIdx, "${t.duplicates} x @");
