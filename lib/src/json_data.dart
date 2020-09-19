@@ -1825,7 +1825,7 @@ class DayData {
   DayData(date, this.basalData, this.statusData) {
     if (date == null)
       this.date = Date(0);
-    } else {
+    else {
       this.date = Date(date.year, date.month, date.day);
     }
 
@@ -2003,7 +2003,6 @@ class DayData {
           topCount++;
         else
           normCount++;
-        }
 
         if (entry.gluc < Globals.stdLow) {
           stdLowCount++;
