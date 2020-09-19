@@ -160,7 +160,7 @@ class PrintDailyHours extends BasePrint {
     ProfileGlucData prevProfile = null;
     int lineCount = 0;
     var page = [];
-    DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")));
+    DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")), repData.status);
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
     int totalDays = 0;

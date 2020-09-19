@@ -68,26 +68,17 @@ class PrintDailyStatistics extends BasePrint {
   fillRow(dynamic row, double f, String firstCol, DayData day, String style) {
     addTableRow(true, cm(2.9), row, {"text": msgDate, "style": "total", "alignment": "center"},
         {"text": firstCol, "style": "total", "alignment": "center"});
-    addTableRow(true, cm(f * 100), row, {
-      "text": msgDistribution,
-      "style": "total",
-      "alignment": "center"
-    }, {
+    addTableRow(true, cm(f * 100), row, {"text": msgDistribution, "style": "total", "alignment": "center"}, {
       "style": style,
       "canvas": [
         {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz(g) * f), "h": cm(0.5)},
-        {
-          "type": "rect",
-          "color": colNorm,
-          "x": cm(day.lowPrz(g) * f),
-          "y": cm(0),
-          "w": cm(day.normPrz(g) * f),
-          "h": cm(0.5)
-        },
+        {"type": "rect", "color": colNormLow, "x": cm(day.lowPrz(g) * f), "y": cm(0), "w": cm(day.bottomPrz(g) * f), "h": cm(0.5)},
+        {"type": "rect", "color": colNorm, "x": cm((day.lowPrz(g) + day.bottomPrz(g)) * f), "y": cm(0), "w": cm(day.normPrz(g) * f), "h": cm(0.5)},
+        {"type": "rect", "color": colNormHigh, "x": cm((day.lowPrz(g) + day.bottomPrz(g) + day.normPrz(g)) * f), "y": cm(0), "w": cm(day.topPrz(g) * f), "h": cm(0.5)},
         {
           "type": "rect",
           "color": colHigh,
-          "x": cm((day.lowPrz(g) + day.normPrz(g)) * f),
+          "x": cm((day.lowPrz(g) + day.bottomPrz(g) + day.normPrz(g) + day.topPrz(g)) * f),
           "y": cm(0),
           "w": cm(day.highPrz(g) * f),
           "h": cm(0.5)
@@ -114,7 +105,7 @@ class PrintDailyStatistics extends BasePrint {
     });
 
     addTableRow(true, "*", row, {
-      "text": msgLow(targets(repData)["low"]),
+      "text": msgVeryLow(_settings.thresholds.bgLow),
       "style": "total",
       "alignment": "center",
       "fillColor": colLow
@@ -125,18 +116,35 @@ class PrintDailyStatistics extends BasePrint {
       "fillColor": style == "total" ? colLow : null
     });
     addTableRow(true, "*", row, {
-      "text": msgNormal,
+      "text": msgLow(_settings.thresholds.bgLow, _settings.thresholds.bgTargetBottom),
       "style": "total",
       "alignment": "center",
-      "fillColor": colNorm
+      "fillColor": colNormLow
     }, {
+      "text": "${g.fmtNumber(day.bottomPrz(g), 0)} %",
+      "style": style,
+      "alignment": "right",
+      "fillColor": style == "total" ? colNormLow : null
+    });
+    addTableRow(true, "*", row, {"text": msgNormal, "style": "total", "alignment": "center", "fillColor": colNorm}, {
       "text": "${g.fmtNumber(day.normPrz(g), 0)} %",
       "style": style,
       "alignment": "right",
       "fillColor": style == "total" ? colNorm : null
     });
     addTableRow(true, "*", row, {
-      "text": msgHigh(targets(repData)["high"]),
+      "text": msgHigh(_settings.thresholds.bgTargetTop, _settings.thresholds.bgHigh),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colNormHigh
+    }, {
+      "text": "${g.fmtNumber(day.topPrz(g), 0)} %",
+      "style": style,
+      "alignment": "right",
+      "fillColor": style == "total" ? colNormHigh : null
+    });
+    addTableRow(true, "*", row, {
+      "text": msgVeryHigh(_settings.thresholds.bgHigh),
       "style": "total",
       "alignment": "center",
       "fillColor": colHigh
@@ -166,13 +174,13 @@ class PrintDailyStatistics extends BasePrint {
         {"text": "${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right"});
     addTableRow(showVarK, "auto", row, {"text": msgVarK, "style": "total", "alignment": "center"},
         {"text": "${g.fmtNumber(day.varK, 1)}", "style": style, "alignment": "right"});
-    addTableRow(showPercentile, cm(1.5), row, {"text": msg25, "style": "total", "alignment": "center"},
+    addTableRow(showPercentile, "auto", row, {"text": msg25, "style": "total", "alignment": "center"},
         {"text": "${percentileFor(Globals.percentile(day.entries, 25))}", "style": style, "alignment": "right"});
-    addTableRow(showPercentile, cm(1.5), row, {"text": msgMedian, "style": "total", "alignment": "center"},
+    addTableRow(showPercentile, "auto", row, {"text": msgMedian, "style": "total", "alignment": "center"},
         {"text": "${percentileFor(Globals.percentile(day.entries, 50))}", "style": style, "alignment": "right"});
-    addTableRow(showPercentile, cm(1.5), row, {"text": msg75, "style": "total", "alignment": "center"},
+    addTableRow(showPercentile, "auto", row, {"text": msg75, "style": "total", "alignment": "center"},
         {"text": "${percentileFor(Globals.percentile(day.entries, 75))}", "style": style, "alignment": "right"});
-    addTableRow(showHbA1c, cm(1.5), row, {"text": msgHbA1C, "style": "total", "alignment": "center", "color": colHbA1c},
+    addTableRow(showHbA1c, "auto", row, {"text": msgHbA1C, "style": "total", "alignment": "center", "color": colHbA1c},
         {"text": "${hba1c(day.mid)} %", "style": style, "alignment": "right", "color": colHbA1c});
     tableHeadFilled = true;
   }
@@ -218,7 +226,7 @@ class PrintDailyStatistics extends BasePrint {
     ProfileGlucData prevProfile = null;
     int lineCount = 0;
     var page = [];
-    DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")));
+    DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")), repData.status);
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
     int totalDays = 0;
