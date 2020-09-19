@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-07-15T07:41:34.148223",
+    "@@last_modified": "2020-09-07T14:34:04.608568",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -899,6 +899,11 @@
     },
     "Glukose Perzentil Diagramm": "Glucose Percentile Diagram",
     "@Glukose Perzentil Diagramm": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "GPD": "GPD",
+    "@GPD": {
         "type": "text",
         "placeholders": {}
     },
@@ -1808,6 +1813,16 @@
         "type": "text",
         "placeholders": {}
     },
+    "Temporäre Overrides": "Temporary Overrides",
+    "@Temporäre Overrides": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt keine mehrfachen Datensätze.": "There are no multiple datasets.",
+    "@Es gibt keine mehrfachen Datensätze.": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgLogTempTarget": "temp target {target} for {duration} min, reason: {reason}",
     "@msgLogTempTarget": {
         "type": "text",
@@ -1872,13 +1887,48 @@
             "unit": {}
         }
     },
+    "msgLogOverride": "temp. Override for {duration} min, Reason: {reason}, Targetrange: {range}, Scale: {scale}%",
+    "@msgLogOverride": {
+        "type": "text",
+        "placeholders": {
+            "range": {},
+            "duration": {},
+            "reason": {},
+            "scale": {}
+        }
+    },
     "Tagesprofil": "Daily Profile",
     "@Tagesprofil": {
         "type": "text",
         "placeholders": {}
     },
+    "Prozent": "Percent",
+    "@Prozent": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wert": "Value",
+    "@Wert": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wert & Prozent": "Value & Percent",
+    "@Wert & Prozent": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Sekunden anzeigen": "Show seconds",
     "@Sekunden anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Basal aus Profil anzeigen": "Show basal from profile",
+    "@Basal aus Profil anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "IE-Anzeige": "IE-Display",
+    "@IE-Anzeige": {
         "type": "text",
         "placeholders": {}
     },
@@ -1949,8 +1999,19 @@
         "type": "text",
         "placeholders": {}
     },
+    "Benutzerdaten": "User data",
+    "@Benutzerdaten": {
+        "description": "label for settings-area with user data",
+        "type": "text",
+        "placeholders": {}
+    },
     "Es sind keine Daten vorhanden.": "No data available.",
     "@Es sind keine Daten vorhanden.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Alle Benutzer ausgeben": "Show all users",
+    "@Alle Benutzer ausgeben": {
         "type": "text",
         "placeholders": {}
     },
@@ -2097,6 +2158,30 @@
         "type": "text",
         "placeholders": {}
     },
+    "Willkommen": "Welcome",
+    "@Willkommen": {
+        "description": "title of welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Facebook Seite": "Facebook page",
+    "@Facebook Seite": {
+        "description": "title of facebook link",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einstellungen": "Settings",
+    "@Einstellungen": {
+        "description": "title for settings dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Was bisher geschah...": "What happened up to now...",
+    "@Was bisher geschah...": {
+        "description": "title of whatsnew",
+        "type": "text",
+        "placeholders": {}
+    },
     "Pausiert": "Paused",
     "@Pausiert": {
         "description": "message for current glucose if not active",
@@ -2148,30 +2233,6 @@
     "Unbegrenzt": "Unlimited",
     "@Unbegrenzt": {
         "description": "big",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Willkommen": "Welcome",
-    "@Willkommen": {
-        "description": "title of welcome screen",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Facebook Seite": "Facebook page",
-    "@Facebook Seite": {
-        "description": "title of facebook link",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Einstellungen": "Settings",
-    "@Einstellungen": {
-        "description": "title for settings dialog",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Was bisher geschah...": "What happened up to now...",
-    "@Was bisher geschah...": {
-        "description": "title of whatsnew",
         "type": "text",
         "placeholders": {}
     },
@@ -2367,12 +2428,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Benutzerdaten": "User data",
-    "@Benutzerdaten": {
-        "description": "label for settings-area with user data",
-        "type": "text",
-        "placeholders": {}
-    },
     "Einstellungen von Release-Version übernehmen": "Apply settings from release version",
     "@Einstellungen von Release-Version übernehmen": {
         "description": "buttonlabel for copy of settings to beta version",
@@ -2538,6 +2593,48 @@
     "Version": "Version",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.1 - 8.9.2020": "2.0.1 - 8/9/2020",
+    "@2.0.1 - 8.9.2020": {
+        "description": "v201",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Protokoll werden nun auch temporäre Overrides ausgegeben, die von iOSLoop in die Behandlungsdaten eingetragen werden.": "Temporary overrides which are entered in the treatment data by iOSLoop are now also shown in the daily log.",
+    "@Im Protokoll werden nun auch temporäre Overrides ausgegeben, die von iOSLoop in die Behandlungsdaten eingetragen werden.": {
+        "description": "v201a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Tagesprofil kann nun angegeben werden, ob nur der Wert, die prozentuale Anpassung des Profils oder beides angezeigt werden soll. Ausserdem kann eine Linie eingefügt werden, die den im Basalprofil zum jeweiligen Zeitpunkt eingestellten Wert darstellt.": "In the daily profile you can now specify whether only the value, the percentage adjustment of the profile or both should be displayed. In addition, a line can be inserted that shows the value set in the basal profile at the respective point in time.",
+    "@Im Tagesprofil kann nun angegeben werden, ob nur der Wert, die prozentuale Anpassung des Profils oder beides angezeigt werden soll. Ausserdem kann eine Linie eingefügt werden, die den im Basalprofil zum jeweiligen Zeitpunkt eingestellten Wert darstellt.": {
+        "description": "v201a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik werden Profilwechsel nicht mehr angezeigt, wenn sich das Profil beim Wechsel nicht geändert hat. iOSLoop fügt in die Nightscoutdatensätze sehr häufig neue Profile ein, die keine Änderung beinhalten, weil dort zusätzlich andere Konfigurationseinstellungen gespeichert werden.": "Profile changes are no longer displayed in the daily graphic if the profile has not changed. iOSLoop very often inserts new profiles into the nightscout data records that do not contain any changes because other configuration settings are also saved there.",
+    "@In der Tagesgrafik werden Profilwechsel nicht mehr angezeigt, wenn sich das Profil beim Wechsel nicht geändert hat. iOSLoop fügt in die Nightscoutdatensätze sehr häufig neue Profile ein, die keine Änderung beinhalten, weil dort zusätzlich andere Konfigurationseinstellungen gespeichert werden.": {
+        "description": "v201c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler beim Laden der ausgewählten Formulare wurde korrigiert.": "An error when loading the selected forms has been fixed.",
+    "@Ein Fehler beim Laden der ausgewählten Formulare wurde korrigiert.": {
+        "description": "v201f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wenn die Synchronisierung mit Google Drive aufgehoben wird, wird die Berechtigung nun korrekt zurückgesetzt. Wenn man sich danach wieder synchronisieren will, werden nochmal die Berechtigungen abgefragt.": "When syncing with Google Drive is canceled, the authorization is now reset properly. If you want to synchronize again afterwards, the authorizations are requested again.",
+    "@Wenn die Synchronisierung mit Google Drive aufgehoben wird, wird die Berechtigung nun korrekt zurückgesetzt. Wenn man sich danach wieder synchronisieren will, werden nochmal die Berechtigungen abgefragt.": {
+        "description": "v201f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dafür sorgte, dass temporäre Ziele in der Tagesgrafik mit zeitlicher Verschiebung angezeigt wurden.": "A bug has been fixed that caused temporary targets to be displayed in the daily graph with a time shift.",
+    "@Ein Fehler wurde behoben, der dafür sorgte, dass temporäre Ziele in der Tagesgrafik mit zeitlicher Verschiebung angezeigt wurden.": {
+        "description": "v201f3",
         "type": "text",
         "placeholders": {}
     },

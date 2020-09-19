@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-07-15T07:41:34.148223",
+    "@@last_modified": "2020-09-07T14:34:04.608568",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -902,6 +902,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "GPD": "GPD",
+    "@GPD": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Stündliche Statistik": "Statistiques horaires",
     "@Stündliche Statistik": {
         "type": "text",
@@ -1402,7 +1407,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Gelbe Kreise zeigen an, dass der entsprechende Wert die Skala überschreitet.": "Yellow circles indicate that the corresponding value exceeds the scale.",
+    "Gelbe Kreise zeigen an, dass der entsprechende Wert die Skala überschreitet.": "Les cercles jaunes indiquent que la valeur correspondante dépasse l'échelle.",
     "@Gelbe Kreise zeigen an, dass der entsprechende Wert die Skala überschreitet.": {
         "type": "text",
         "placeholders": {}
@@ -1808,6 +1813,16 @@
         "type": "text",
         "placeholders": {}
     },
+    "Temporäre Overrides": "Substitutions temporaires",
+    "@Temporäre Overrides": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt keine mehrfachen Datensätze.": "Il n'y a pas de jeux de données multiples.",
+    "@Es gibt keine mehrfachen Datensätze.": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgLogTempTarget": "cible temporaire {target} pour {duration} min, raison: {reason}",
     "@msgLogTempTarget": {
         "type": "text",
@@ -1872,13 +1887,48 @@
             "unit": {}
         }
     },
+    "msgLogOverride": "temp. Remplacer pour {duration} min, Raison: {reason}, Plage cible: {range}, Échelle : {scale}%",
+    "@msgLogOverride": {
+        "type": "text",
+        "placeholders": {
+            "range": {},
+            "duration": {},
+            "reason": {},
+            "scale": {}
+        }
+    },
     "Tagesprofil": "Profil quotidien",
     "@Tagesprofil": {
         "type": "text",
         "placeholders": {}
     },
+    "Prozent": "%",
+    "@Prozent": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wert": "Valeur",
+    "@Wert": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wert & Prozent": "Valeur & Pourcentage",
+    "@Wert & Prozent": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Sekunden anzeigen": "Afficher les secondes",
     "@Sekunden anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Basal aus Profil anzeigen": "Afficher le basal depuis le profil",
+    "@Basal aus Profil anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "IE-Anzeige": "Affichage",
+    "@IE-Anzeige": {
         "type": "text",
         "placeholders": {}
     },
@@ -1949,8 +1999,19 @@
         "type": "text",
         "placeholders": {}
     },
+    "Benutzerdaten": "Données d'utilisateur",
+    "@Benutzerdaten": {
+        "description": "label for settings-area with user data",
+        "type": "text",
+        "placeholders": {}
+    },
     "Es sind keine Daten vorhanden.": "Aucune donnée disponible.",
     "@Es sind keine Daten vorhanden.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Alle Benutzer ausgeben": "Afficher tous les utilisateurs",
+    "@Alle Benutzer ausgeben": {
         "type": "text",
         "placeholders": {}
     },
@@ -2008,21 +2069,21 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgAccessTokenHint": "The Access Token is only required if access in Nightscout was restricted via AUTH_DEFAULT_ROLES",
+    "msgAccessTokenHint": "Le jeton d'accès est seulement nécessaire si l'accès à Nightscout a été restreint via AUTH_DEFAULT_ROLES",
     "@msgAccessTokenHint": {
         "type": "text",
         "placeholders": {
             "isVisible": {}
         }
     },
-    "msgStartDateHint": "The date of the first day with data",
+    "msgStartDateHint": "La date du premier jour avec les données",
     "@msgStartDateHint": {
         "type": "text",
         "placeholders": {
             "isVisible": {}
         }
     },
-    "msgEndDateHint": "The date of the last complete day with data",
+    "msgEndDateHint": "La date du dernier jour complet avec les données",
     "@msgEndDateHint": {
         "type": "text",
         "placeholders": {
@@ -2036,34 +2097,34 @@
             "url": {}
         }
     },
-    "Daten von": "Data from",
+    "Daten von": "Les données à partir de",
     "@Daten von": {
         "type": "text",
         "placeholders": {}
     },
-    "Daten bis": "Data to",
+    "Daten bis": "Données jusqu'à",
     "@Daten bis": {
         "type": "text",
         "placeholders": {}
     },
-    "Ermittle ersten Tag mit Daten": "Searching first day with data",
+    "Ermittle ersten Tag mit Daten": "Recherche du premier jour avec des données",
     "@Ermittle ersten Tag mit Daten": {
         "type": "text",
         "placeholders": {}
     },
-    "Ermittle letzten Tag mit Daten": "Searching last day with data",
+    "Ermittle letzten Tag mit Daten": "Recherche du dernier jour avec des données",
     "@Ermittle letzten Tag mit Daten": {
         "type": "text",
         "placeholders": {}
     },
-    "msgCalculatingDay": "Checking {date} ...",
+    "msgCalculatingDay": "Vérification de {date}...",
     "@msgCalculatingDay": {
         "type": "text",
         "placeholders": {
             "date": {}
         }
     },
-    "Bitte den Dateinamen für die Speicherung auswählen": "Please select the filename for saving",
+    "Bitte den Dateinamen für die Speicherung auswählen": "Veuillez sélectionner le nom du fichier à enregistrer",
     "@Bitte den Dateinamen für die Speicherung auswählen": {
         "type": "text",
         "placeholders": {}
@@ -2091,9 +2152,33 @@
         "type": "text",
         "placeholders": {}
     },
-    "Shortcuts": "Shortcuts",
+    "Shortcuts": "Raccourcis",
     "@Shortcuts": {
         "description": "tab title for shortcuts",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Willkommen": "Bienvenue",
+    "@Willkommen": {
+        "description": "title of welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Facebook Seite": "Page Facebook",
+    "@Facebook Seite": {
+        "description": "title of facebook link",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einstellungen": "Paramètres",
+    "@Einstellungen": {
+        "description": "title for settings dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Was bisher geschah...": "Ce qu'il s'est passé jusqu'à présent...",
+    "@Was bisher geschah...": {
+        "description": "title of whatsnew",
         "type": "text",
         "placeholders": {}
     },
@@ -2148,30 +2233,6 @@
     "Unbegrenzt": "Illimité",
     "@Unbegrenzt": {
         "description": "big",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Willkommen": "Bienvenue",
-    "@Willkommen": {
-        "description": "title of welcome screen",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Facebook Seite": "Page Facebook",
-    "@Facebook Seite": {
-        "description": "title of facebook link",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Einstellungen": "Paramètres",
-    "@Einstellungen": {
-        "description": "title for settings dialog",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Was bisher geschah...": "Ce qu'il s'est passé jusqu'à présent...",
-    "@Was bisher geschah...": {
-        "description": "title of whatsnew",
         "type": "text",
         "placeholders": {}
     },
@@ -2307,7 +2368,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Nightscout Url in der Fusszeile des PDFs anzeigen": "Show Nightscout Url in the footer of the PDFs",
+    "Nightscout Url in der Fusszeile des PDFs anzeigen": "Afficher l'URL Nightscout dans le pied de page des PDF",
     "@Nightscout Url in der Fusszeile des PDFs anzeigen": {
         "description": "label for checkbox to show nightscout url in footer",
         "type": "text",
@@ -2367,25 +2428,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Benutzerdaten": "Données d'utilisateur",
-    "@Benutzerdaten": {
-        "description": "label for settings-area with user data",
-        "type": "text",
-        "placeholders": {}
-    },
     "Einstellungen von Release-Version übernehmen": "Appliquer les paramètres de la release version",
     "@Einstellungen von Release-Version übernehmen": {
         "description": "buttonlabel for copy of settings to beta version",
         "type": "text",
         "placeholders": {}
     },
-    "Exportieren": "Export",
+    "Exportieren": "Exporter",
     "@Exportieren": {
         "description": "buttonlabel for exporting data",
         "type": "text",
         "placeholders": {}
     },
-    "Importieren": "Import",
+    "Importieren": "Importer",
     "@Importieren": {
         "description": "buttonlabel for importing data",
         "type": "text",
@@ -2415,13 +2470,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Soll die URL": "Deleting Url",
+    "Soll die URL": "Suppression de l'Url",
     "@Soll die URL": {
         "description": "should the url of the user",
         "type": "text",
         "placeholders": {}
     },
-    "vom Benutzer wirklich gelöscht werden?": "Are you sure?",
+    "vom Benutzer wirklich gelöscht werden?": "Êtes-vous sûr(e) ?",
     "@vom Benutzer wirklich gelöscht werden?": {
         "description": "of the user really be deleted",
         "type": "text",
@@ -2439,7 +2494,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Abbruch": "Cancel",
+    "Abbruch": "Annuler",
     "@Abbruch": {
         "description": "buttonlabel for cancel",
         "type": "text",
@@ -2451,13 +2506,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Anzahl:": "Count:",
+    "Anzahl:": "Compteur:",
     "@Anzahl:": {
         "description": "number of forms for shortcut",
         "type": "text",
         "placeholders": {}
     },
-    "Zeitraum:": "Period:",
+    "Zeitraum:": "Période:",
     "@Zeitraum:": {
         "description": "period for shortcuts",
         "type": "text",
@@ -2541,6 +2596,48 @@
         "type": "text",
         "placeholders": {}
     },
+    "2.0.1 - 8.9.2020": "2.0.1 - 8/9/2020",
+    "@2.0.1 - 8.9.2020": {
+        "description": "v201",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Protokoll werden nun auch temporäre Overrides ausgegeben, die von iOSLoop in die Behandlungsdaten eingetragen werden.": "Les substitutions temporaires qui sont entrées dans les données de traitement par iOSLoop sont maintenant également affichées dans le journal journalier.",
+    "@Im Protokoll werden nun auch temporäre Overrides ausgegeben, die von iOSLoop in die Behandlungsdaten eingetragen werden.": {
+        "description": "v201a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Im Tagesprofil kann nun angegeben werden, ob nur der Wert, die prozentuale Anpassung des Profils oder beides angezeigt werden soll. Ausserdem kann eine Linie eingefügt werden, die den im Basalprofil zum jeweiligen Zeitpunkt eingestellten Wert darstellt.": "Dans le profil quotidien, vous pouvez maintenant spécifier si seulement la valeur, le pourcentage d'ajustement du profil ou les deux doivent être affichés. En outre, une ligne peut être insérée qui montre la valeur définie dans le profil basal à chaque point du moment.",
+    "@Im Tagesprofil kann nun angegeben werden, ob nur der Wert, die prozentuale Anpassung des Profils oder beides angezeigt werden soll. Ausserdem kann eine Linie eingefügt werden, die den im Basalprofil zum jeweiligen Zeitpunkt eingestellten Wert darstellt.": {
+        "description": "v201a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik werden Profilwechsel nicht mehr angezeigt, wenn sich das Profil beim Wechsel nicht geändert hat. iOSLoop fügt in die Nightscoutdatensätze sehr häufig neue Profile ein, die keine Änderung beinhalten, weil dort zusätzlich andere Konfigurationseinstellungen gespeichert werden.": "Les modifications de profil ne sont plus affichées dans le graphique quotidien si le profil n'a pas changé. iOSLoop insère très souvent de nouveaux profils dans les enregistrements de données Nightscout qui ne contiennent aucune modification, car d'autres paramètres de configuration y sont également enregistrés.",
+    "@In der Tagesgrafik werden Profilwechsel nicht mehr angezeigt, wenn sich das Profil beim Wechsel nicht geändert hat. iOSLoop fügt in die Nightscoutdatensätze sehr häufig neue Profile ein, die keine Änderung beinhalten, weil dort zusätzlich andere Konfigurationseinstellungen gespeichert werden.": {
+        "description": "v201c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler beim Laden der ausgewählten Formulare wurde korrigiert.": "Une erreur lors du chargement des formulaires sélectionnés a été corrigée.",
+    "@Ein Fehler beim Laden der ausgewählten Formulare wurde korrigiert.": {
+        "description": "v201f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wenn die Synchronisierung mit Google Drive aufgehoben wird, wird die Berechtigung nun korrekt zurückgesetzt. Wenn man sich danach wieder synchronisieren will, werden nochmal die Berechtigungen abgefragt.": "Lorsque la synchronisation avec Google Drive est annulée, l'autorisation est maintenant réinitialisée correctement. Si vous voulez synchroniser à nouveau par la suite, les autorisations sont demandées à nouveau.",
+    "@Wenn die Synchronisierung mit Google Drive aufgehoben wird, wird die Berechtigung nun korrekt zurückgesetzt. Wenn man sich danach wieder synchronisieren will, werden nochmal die Berechtigungen abgefragt.": {
+        "description": "v201f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dafür sorgte, dass temporäre Ziele in der Tagesgrafik mit zeitlicher Verschiebung angezeigt wurden.": "A bug has been fixed that caused temporary targets to be displayed in the daily graph with a time shift.",
+    "@Ein Fehler wurde behoben, der dafür sorgte, dass temporäre Ziele in der Tagesgrafik mit zeitlicher Verschiebung angezeigt wurden.": {
+        "description": "v201f3",
+        "type": "text",
+        "placeholders": {}
+    },
     "2.0.0 - 15.7.2020": "2.0.0 - 15/7/2020",
     "@2.0.0 - 15.7.2020": {
         "description": "v200",
@@ -2559,49 +2656,49 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bei Herokuapp und anderen Anbietern kostenloser Datenbankinstanzen ist der Speicherplatz der Instanz beschränkt, weshalb sie irgendwann voll ist. Dann kann man zwar eine neue Instanz anlegen, Nightscout Reporter benötigt aber für eine lückenlose Darstellung aller Tage Zugriff auf alle Instanzen, für die man eine Auswertung erhalten will. Deshalb können nun mehrere URLs für die Nightscout Instanzen eingegeben werden. Zusätzlich muss noch eingegeben werden, welches der erste und der letzte Tag mit Daten ist. Mit diesen Informationen ist es Nightscout Reporter dann möglich die benötigten Daten lückenlos auch über mehrere Instanzen hinweg auszuwerten.": "With herokuapp and other providers of free database instances, the instance's storage space is limited, which is why it becomes full at some point. Then you can create a new instance, but Nightscout Reporter needs access to all instances for which you want to receive a PDF in order to be able to display it seamlessly every day. Therefore, multiple URLs can now be entered for the Nightscout instances. In addition, you have to enter which is the first and the last day with data. With this information, Nightscout Reporter can then seamlessly evaluate the required data across multiple instances.",
+    "Bei Herokuapp und anderen Anbietern kostenloser Datenbankinstanzen ist der Speicherplatz der Instanz beschränkt, weshalb sie irgendwann voll ist. Dann kann man zwar eine neue Instanz anlegen, Nightscout Reporter benötigt aber für eine lückenlose Darstellung aller Tage Zugriff auf alle Instanzen, für die man eine Auswertung erhalten will. Deshalb können nun mehrere URLs für die Nightscout Instanzen eingegeben werden. Zusätzlich muss noch eingegeben werden, welches der erste und der letzte Tag mit Daten ist. Mit diesen Informationen ist es Nightscout Reporter dann möglich die benötigten Daten lückenlos auch über mehrere Instanzen hinweg auszuwerten.": "Avec herokuapp et d'autres fournisseurs d'instances de base de données gratuites, l'espace de stockage de l'instance est limité, c'est pourquoi il devient complet à un moment donné. Ensuite, vous pouvez créer une nouvelle instance, mais Nightscout Reporter a besoin d'accéder à toutes les instances pour lesquelles vous voulez recevoir un PDF afin de pouvoir l'afficher de façon transparente tous les jours. Par conséquent, plusieurs URL peuvent maintenant être saisies pour les instances Nightscout. En outre, vous devez entrer qui est le premier et le dernier jour avec des données. Avec cette information, Nightscout Reporter peut ensuite évaluer de façon transparente les données requises à travers plusieurs instances.",
     "@Bei Herokuapp und anderen Anbietern kostenloser Datenbankinstanzen ist der Speicherplatz der Instanz beschränkt, weshalb sie irgendwann voll ist. Dann kann man zwar eine neue Instanz anlegen, Nightscout Reporter benötigt aber für eine lückenlose Darstellung aller Tage Zugriff auf alle Instanzen, für die man eine Auswertung erhalten will. Deshalb können nun mehrere URLs für die Nightscout Instanzen eingegeben werden. Zusätzlich muss noch eingegeben werden, welches der erste und der letzte Tag mit Daten ist. Mit diesen Informationen ist es Nightscout Reporter dann möglich die benötigten Daten lückenlos auch über mehrere Instanzen hinweg auszuwerten.": {
         "description": "v200a3",
         "type": "text",
         "placeholders": {}
     },
-    "Wenn im CGP ein Wert den Maximalwert der Skala überschreitet, wird die entsprechende Ecke mit einem gelben Kreis markiert.": "If a value in the CGP exceeds the maximum value of the scale, the corresponding corner is marked with a yellow circle.",
+    "Wenn im CGP ein Wert den Maximalwert der Skala überschreitet, wird die entsprechende Ecke mit einem gelben Kreis markiert.": "Si une valeur dans la CGP dépasse la valeur maximale de l'échelle, le coin correspondant est marqué par un cercle jaune.",
     "@Wenn im CGP ein Wert den Maximalwert der Skala überschreitet, wird die entsprechende Ecke mit einem gelben Kreis markiert.": {
         "description": "v200a4",
         "type": "text",
         "placeholders": {}
     },
-    "Auf dem Einstellungen-Dialog gibt es neben den URL-Eingabefeldern jeweils einen Button, um die URL in einem neuen Browser-Fenster zu öffnen.": "In addition to the URL input fields, there is a button on the Settings dialog to open the URL in a new browser window.",
+    "Auf dem Einstellungen-Dialog gibt es neben den URL-Eingabefeldern jeweils einen Button, um die URL in einem neuen Browser-Fenster zu öffnen.": "En plus des champs de saisie d'URL, il y a un bouton dans la boîte de dialogue Paramètres pour ouvrir l'URL dans une nouvelle fenêtre du navigateur.",
     "@Auf dem Einstellungen-Dialog gibt es neben den URL-Eingabefeldern jeweils einen Button, um die URL in einem neuen Browser-Fenster zu öffnen.": {
         "description": "v200a5",
         "type": "text",
         "placeholders": {}
     },
-    "Die Eingabe des Zugriffsschlüssels auf dem Einstellungen-Dialog kann jetzt mit einem Button neben dem Eingabefeld lesbar gemacht werden.": "The entry of the access key in the settings dialog can now be made readable with a button next to the input field.",
+    "Die Eingabe des Zugriffsschlüssels auf dem Einstellungen-Dialog kann jetzt mit einem Button neben dem Eingabefeld lesbar gemacht werden.": "L'entrée de la clé d'accès dans la boîte de dialogue des paramètres peut maintenant être lisible avec un bouton à côté du champ de saisie.",
     "@Die Eingabe des Zugriffsschlüssels auf dem Einstellungen-Dialog kann jetzt mit einem Button neben dem Eingabefeld lesbar gemacht werden.": {
         "description": "v200a6",
         "type": "text",
         "placeholders": {}
     },
-    "Im Einstellungen Dialog gibt es jetzt die Möglichkeit, die Einstellungen zu exportieren und zu importieren. Beim Export wird eine Datei mit den allgemeinen Einstellungen geschrieben, beim Import wird so eine Datei wieder eingelesen. Damit kann man auch ohne Google Drive Zugriff die Einstellungen über verschiedene Browser hinweg manuell synchronisieren.": "In the Settings dialog there is now the possibility to export and import the settings. When exporting, a file is written with the general settings; when importing, such a file is read in again. This allows you to manually synchronize the settings across different browsers even without Google Drive access.",
+    "Im Einstellungen Dialog gibt es jetzt die Möglichkeit, die Einstellungen zu exportieren und zu importieren. Beim Export wird eine Datei mit den allgemeinen Einstellungen geschrieben, beim Import wird so eine Datei wieder eingelesen. Damit kann man auch ohne Google Drive Zugriff die Einstellungen über verschiedene Browser hinweg manuell synchronisieren.": "Dans la boîte de dialogue Paramètres, il y a maintenant la possibilité d'exporter et d'importer les paramètres. Lors de l'exportation, un fichier est écrit avec les paramètres généraux; lors de l'importation, un tel fichier est lu à nouveau. Cela vous permet de synchroniser manuellement les paramètres entre différents navigateurs, même sans accès à Google Drive.",
     "@Im Einstellungen Dialog gibt es jetzt die Möglichkeit, die Einstellungen zu exportieren und zu importieren. Beim Export wird eine Datei mit den allgemeinen Einstellungen geschrieben, beim Import wird so eine Datei wieder eingelesen. Damit kann man auch ohne Google Drive Zugriff die Einstellungen über verschiedene Browser hinweg manuell synchronisieren.": {
         "description": "v200a7",
         "type": "text",
         "placeholders": {}
     },
-    "Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.": "In the daily log there is now the possibility to have duplicate records marked. Nightscout Reporter filters them out, but it can show how often a particular record was found in the data. You can also specify that it should only output data records that exist more than once. This way you can find out possible differences between Nightscout Reporter and other reporting tools.",
+    "Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.": "Dans la log quotidienne, il y a maintenant la possibilité d'avoir des enregistrements en double marqués. Nightscout Reporter les filtre à l'extérieur, mais il peut montrer à quelle fréquence un enregistrement particulier a été trouvé dans les données. Vous pouvez également spécifier qu'il ne devrait afficher que les enregistrements de données qui existent plus d'une fois. De cette façon, vous pourrez découvrir les différences possibles entre Nightscout Reporter et d'autres outils de rapports.",
     "@Im Protokoll gibt es jetzt die Möglichkeit, sich doppelte Datensätze markieren zu lassen. Sie werden von Nightscout Reporter zwar rausgefiltert, aber er kann anzeigen, wie oft ein bestimmter Datensatz in den Daten gefunden wurde. Man kann dort auch angeben, dass er nur mehrfach vorhandene Datensätze ausgeben soll. So kann man mögliche Diskrepanzen zwischen Nightscout Reporter und anderen Reporting Tools herausfinden.": {
         "description": "v200a8",
         "type": "text",
         "placeholders": {}
     },
-    "Das CGP wird jetzt auch bei extremen Werten korrekt erzeugt.": "The CGP is now generated correctly even with extreme values.",
+    "Das CGP wird jetzt auch bei extremen Werten korrekt erzeugt.": "La CGP est maintenant générée correctement, même avec des valeurs extrêmes.",
     "@Das CGP wird jetzt auch bei extremen Werten korrekt erzeugt.": {
         "description": "v200f1",
         "type": "text",
         "placeholders": {}
     },
-    "Im CGP wurden die Skalenbeschriftungen korrigiert.": "The scale labels have been corrected in the CGP.",
+    "Im CGP wurden die Skalenbeschriftungen korrigiert.": "Les étiquettes d'échelle ont été corrigées dans la CGP.",
     "@Im CGP wurden die Skalenbeschriftungen korrigiert.": {
         "description": "v200f2",
         "type": "text",

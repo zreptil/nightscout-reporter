@@ -19,12 +19,12 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
     NgFor,
     NgIf,
   ],
-  providers: const <dynamic>[materialProviders,])
+  providers: <dynamic>[materialProviders,])
 class WelcomeComponent
 {
   globals.Globals g = globals.Globals();
 
-  @Output("closeClicked")
+  @Output('closeClicked')
   Stream<UIEvent> get trigger
   => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
@@ -32,17 +32,18 @@ class WelcomeComponent
   bool isVisible = true;
   WelcomeComponent();
 
-  fire(String key)
+  void fire(String key)
   {
     _trigger.add(UIEvent(key, detail: 0));
   }
 
-  signinEvent(SigninEvent e)
+  void signinEvent(SigninEvent e)
   {
     switch (e.status)
     {
       case SigninStatus.signinOk:
-        fire("normal");
+        g.loadSettings();
+        fire('@normal');
         break;
       default:
         break;

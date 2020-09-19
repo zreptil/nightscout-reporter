@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/jsonData.dart';
+import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'base-daily.dart';
 import 'base-print.dart';
@@ -103,28 +103,28 @@ class PrintDailyAnalysis extends BaseDaily {
     graphHeight = (height - 7.0) / 5;
     lineWidth = cm(0.03);
 
-    for (int i = 0; i < data.days.length; i++) {
-      DayData day = data.days[g.ppLatestFirst ? data.days.length - 1 - i : i];
-      if (day.entries.length != 0 || day.treatments.length != 0) {
+    for (var i = 0; i < data.days.length; i++) {
+      var day = data.days[g.ppLatestFirst ? data.days.length - 1 - i : i];
+      if (day.entries.isNotEmpty || day.treatments.isNotEmpty) {
         pages.add(getPage(day));
         if (repData.isForThumbs) i = data.days.length;
       } else {
-        pages.add(getEmptyForm(_isPortrait));
+        pages.add(getEmptyForm(_isPortrait, repData.status.status));
       }
     }
     title = _titleGraphic;
   }
 
   dynamic glucLine(dynamic points) =>
-      {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": colValue, "points": points};
+      {'type': 'polyline', 'lineWidth': cm(lw), 'closePath': false, 'lineColor': colValue, 'points': points};
 
   dynamic graphArea(dynamic points, String colLine, String colFill) => {
-        "type": "polyline",
-        "lineWidth": cm(lw),
-        "closePath": true,
-        "color": colFill,
-        "lineColor": colLine,
-        "points": points
+        'type': 'polyline',
+        'lineWidth': cm(lw),
+        'closePath': true,
+        'color': colFill,
+        'lineColor': colLine,
+        'points': points
       };
 
   var _vertLines, _horzLines, _graphLines;
@@ -135,27 +135,27 @@ class PrintDailyAnalysis extends BaseDaily {
   Page getPage(DayData day) {
     title = _titleGraphic;
     basalHeight = graphHeight;
-    double xo = xorg;
-    double yo = yorg;
+    var xo = xorg;
+    var yo = yorg;
     titleInfo = fmtDate(day.date, null, false, true);
     glucMax = -1000.0;
     ieMax = 0.0;
-    for (EntryData entry in day.entries) glucMax = math.max(entry.gluc, glucMax);
-    for (EntryData entry in day.bloody) glucMax = math.max(entry.mbg, glucMax);
-    for (TreatmentData entry in day.treatments) {
+    for (var entry in day.entries) glucMax = math.max(entry.gluc, glucMax);
+    for (var entry in day.bloody) glucMax = math.max(entry.mbg, glucMax);
+    for (var entry in day.treatments) {
       if (entry.isBloody) glucMax = math.max((g.glucMGDL ? 1 : 18.02) * entry.glucose, glucMax);
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
 
-    double glucScale = g.glucMGDL ? 50 : 18.02 * 1;
-    int gridLines = (glucMax / glucScale).ceil();
+    var glucScale = g.glucMGDL ? 50 : 18.02 * 1;
+    var gridLines = (glucMax / glucScale).ceil();
 
 //    int gridLines = (glucMax / 50).ceil();
-    double lineHeight = gridLines == 0 ? 0 : graphHeight / gridLines;
+    var lineHeight = gridLines == 0 ? 0 : graphHeight / gridLines;
     _colWidth = graphWidth / 24;
     _vertLines = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo)},
-      "canvas": []
+      'relativePosition': {'x': cm(xo), 'y': cm(yo)},
+      'canvas': []
     };
     _horzLines = {
       "relativePosition": {"x": cm(xo - 0.2), "y": cm(yo)},

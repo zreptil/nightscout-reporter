@@ -17,6 +17,3 @@
   <material-icon [icon]="isAuthorized?'sync':'sync_disabled'"></material-icon>
   {{isBusy ? msgBusy : isAuthorized ? msgMenuConnected : msgMenuNotConnected}}
 </material-button>
-<form method="post" id="revokeForm" target="_blank" action="https://accounts.google.com/o/oauth2/revoke">
-  <input type="hidden" name="token" value="{{client?.credentials?.accessToken?.data}}">
-</form>
