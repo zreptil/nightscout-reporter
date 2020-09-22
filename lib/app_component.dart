@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'dart:convert' as convert;
 import 'dart:convert';
+import 'dart:core';
 import 'dart:html' as html;
 import 'dart:math' as math;
 
 import 'package:angular/angular.dart';
+import 'package:angular/security.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_components/material_button/material_button.dart';
@@ -32,8 +33,9 @@ import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
 import 'package:nightscout_reporter/src/forms/print-user-data.dart';
-import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/globals.dart';
+import 'package:nightscout_reporter/src/helpview/helpview_component.dart';
+import 'package:nightscout_reporter/src/infoview/infoview_component.dart';
 import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'src/dsgvo/dsgvo_component.dart';
@@ -88,6 +90,9 @@ class PdfData {
       MaterialDropdownSelectComponent,
       MaterialSelectItemComponent,
       SigninComponent,
+      HelpViewComponent,
+      InfoViewComponent,
+      SafeInnerHtmlDirective,
       NgClass,
       NgFor,
       NgIf,
@@ -98,9 +103,13 @@ class PdfData {
       materialProviders,
     ])
 class AppComponent implements OnInit {
-  String get timezone => globals.Globals.refTimezone;
+  AppComponent(DomSanitizationService sanitizer) {
+    g.sanitizer = sanitizer;
+  }
+
+  String get timezone => Globals.refTimezone;
   bool paramboolValue = false;
-  globals.Globals g = globals.Globals();
+  Globals g = Globals();
   bool drawerVisible = false;
   bool pdfInfoVisible = false;
   String __currPage;
@@ -130,6 +139,7 @@ class AppComponent implements OnInit {
   List<PdfData> pdfList = <PdfData>[];
   String pdfDoc;
   FormConfig tileParams;
+  List<FormConfig> tileHelp = <FormConfig>[];
 
   int get pdfSliderMax => Globals.PDFUNLIMITED ~/ Globals.PDFDIVIDER;
 
@@ -185,7 +195,9 @@ class AppComponent implements OnInit {
 
   String get msgPeriod => Intl.message('Zeitraum');
 
-  String get msgProfileError => Intl.message('Beim Auslesen des Profils ist ein Fehler aufgetreten.');
+  String get msgProfileError => Intl.message('Beim Auslesen der Profile ist ein Fehler aufgetreten. '
+      'Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). '
+      'Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.');
 
   String get msgPDFCreationError => Intl.message('Beim Erzeugen des PDF ist ein Fehler aufgetreten.');
 
@@ -198,6 +210,28 @@ class AppComponent implements OnInit {
   String get msgShortcutName => Intl.message('Bezeichnung');
 
   String get msgAddText => Intl.message('Hinzufügen');
+
+  String msgTooMuchProfilesPrefix(int maxCount) => Intl.message(
+      'Es konnten nicht alle Profile geladen werden, da im ausgewählten Zeitraum mehr als ${maxCount} '
+      'gespeichert sind. ',
+      args: [maxCount],
+      name: 'msgTooMuchProfilesPrefix');
+
+  String msgTooMuchProfiles(int maxCount, int count, String text) =>
+      msgTooMuchProfilesPrefix(maxCount) +
+      Intl.plural(count,
+          zero: '',
+          one: 'Der Uploader "${text}" hat die Datensätze angelegt.',
+          other: 'Folgende Uploader haben die Datensätze angelegt: ${text}',
+          args: [maxCount, count, text],
+          name: 'msgTooMuchProfiles');
+
+/*
+    return Intl.message(
+        '''Es konnten nicht alle Profile geladen werden, da im ausgewählten Zeitraum mehr als ${maxCount}
+          gespeichert sind. Folgende Uploader haben diese Datensätze angelegt: ${text}.''',
+        args: [maxCount, text], name: 'msgTooMuchProfiles');
+*/
 
   bool isFormVisible(BasePrint form) {
     if (form.isDebugOnly && !g.isDebug) return false;
@@ -337,7 +371,7 @@ class AppComponent implements OnInit {
 //    g.theme = g.loadStorage("theme");
     await setTheme(g.theme);
 
-    appTitle = html.document.querySelector("head>title").text;
+    appTitle = html.document.querySelector('head>title').text;
 
     html.window.onBlur.listen((e) async {
       if (!g.showCurrentGluc || g.isDebug) return;
@@ -431,27 +465,26 @@ class AppComponent implements OnInit {
   void toggleHelp() {}
 
   void togglePage(String id) {
-    currPage = currPage == id ? "normal" : id;
+    currPage = currPage == id ? 'normal' : id;
   }
 
-  void displayLink(String title, String url,
-      {bool clear: false, String type: null, String btnClass: "", String icon: null}) {
-    if (!g.isDebug && type == "debug") return;
+  void displayLink(String title, String url, {bool clear = false, String type, String btnClass = '', String icon}) {
+    if (!g.isDebug && type == 'debug') return;
 
     if (clear) g.msg.links = [];
 
-    g.msg.links.add({"url": url, "title": title, "class": btnClass, "icon": g.isDebug && icon == null ? "code" : icon});
+    g.msg.links.add({'url': url, 'title': title, 'class': btnClass, 'icon': g.isDebug && icon == null ? 'code' : icon});
     g.msg.okText = msgClose;
     if (type != null) g.msg.type = type;
   }
 
   void showDebug() {
-    String msg = g.debugCache.join('<br />');
+    var msg = g.debugCache.join('<br />');
     g.debugCache.clear();
     g.msg.dbgText = msg;
   }
 
-  void display(String msg, {bool append: false, List links = null}) {
+  void display(String msg, {bool append = false, List links}) {
     if (append) msg = '${g.msg.isEmpty ? '' : '${g.msg.text}<br />'}$msg';
     if (links != null) g.msg.links = links;
     g.msg.text = msg;
@@ -470,45 +503,46 @@ class AppComponent implements OnInit {
     navigate('https://nielsmaerten.github.io/nightscout-assistant/#/${g.language.img}/home');
   }
 
-  formId(int idx) => 'postForm${idx}';
+  String formId(int idx) => 'postForm${idx}';
 
   String pdfString(String doc) {
     if (doc != null) {
       // remove special chars from output (e.g. smiley placed in notes)
-      String temp = doc;
-      doc = "";
-      for (int i = 0; i < temp.length; i++)
-        if (g.language.code == 'ja_JP' || temp.codeUnitAt(i) <= 4095) doc = "${doc}${temp[i]}";
+      var temp = doc;
+      doc = '';
+      for (var i = 0; i < temp.length; i++) {
+        if (g.language.code == 'ja_JP' || temp.codeUnitAt(i) <= 4095) doc = '${doc}${temp[i]}';
+      }
     }
-    return convert.base64.encode(convert.utf8.encode(doc));
+    return base64.encode(utf8.encode(doc));
   }
 
   String languageClass(item) => g.language != null && item.code == g.language.code ? 'language currLang' : 'language';
 
   void navigate(String url) {
-    if (url.startsWith("showPlayground") || url.startsWith("showPdf") || url.startsWith("makePdfImages")) {
-      String doc = pdfDoc;
-      if (url == "showPlayground") {
+    if (url.startsWith('showPlayground') || url.startsWith('showPdf') || url.startsWith('makePdfImages')) {
+      var doc = pdfDoc;
+      if (url == 'showPlayground') {
         pdfUrl = g.urlPlayground;
         if (doc != null) {
-          doc = doc.replaceAll("],", "],\n");
-          doc = doc.replaceAll(",\"", ",\n\"");
-          doc = doc.replaceAll(":[", ":\n[");
+          doc = doc.replaceAll('],', '],\n');
+          doc = doc.replaceAll(',\"', ',\n\"');
+          doc = doc.replaceAll(':[', ':\n[');
         }
-      } else if (url == "showPdf") {
+      } else if (url == 'showPdf') {
         pdfUrl = g.urlPdf;
-      } else if (url == "makePdfImages") {
-        pdfUrl = "${g.urlPdf}?images=${g.language.img}";
+      } else if (url == 'makePdfImages') {
+        pdfUrl = '${g.urlPdf}?images=${g.language.img}';
       }
 
-      if (pdfDoc != null && pdfList.length == 0) {
+      if (pdfDoc != null && pdfList.isEmpty) {
         pdfData = pdfString(doc);
         Future.delayed(Duration(milliseconds: 1), () {
-          var form = html.querySelector("#postForm") as html.FormElement;
+          var form = html.querySelector('#postForm') as html.FormElement;
           form.submit();
 //        display(msgPDFCreated);
         });
-        if (url == "makePdfImages") {
+        if (url == 'makePdfImages') {
           if (thumbLangIdx < g.languageList.length - 1) {
             Future.delayed(Duration(milliseconds: 500), () {
               createThumbs();
@@ -519,7 +553,7 @@ class AppComponent implements OnInit {
             thumbLangSave = null;
           }
         }
-      } else if (pdfList.length > 0) {
+      } else if (pdfList.isNotEmpty) {
 /*
         Future.delayed(Duration(milliseconds: 1000), ()
         {
@@ -535,7 +569,7 @@ class AppComponent implements OnInit {
 // */
       }
     } else {
-      html.window.open(url, "_blank");
+      html.window.open(url, '_blank');
     }
   }
 
@@ -545,10 +579,10 @@ class AppComponent implements OnInit {
     if (idx >= pdfList.length) return;
 
     if (g.ppPdfSameWindow) {
-      for (int i = 0; i < pdfList.length; i++) {
+      for (var i = 0; i < pdfList.length; i++) {
         pdfList[i].isPrinted = true;
         Future.delayed(Duration(milliseconds: 10), () {
-          var form = html.querySelector("#${formId(i)}") as html.FormElement;
+          var form = html.querySelector('#${formId(i)}') as html.FormElement;
           form.submit();
         });
       }
@@ -557,10 +591,12 @@ class AppComponent implements OnInit {
 
     pdfList[idx].isPrinted = true;
     Future.delayed(Duration(milliseconds: 10), () {
-      var form = html.querySelector("#${formId(idx)}") as html.FormElement;
+      var form = html.querySelector('#${formId(idx)}') as html.FormElement;
       form.submit();
     });
   }
+
+  void tileHelpButtonClicked(html.UIEvent evt) {}
 
   void callbackButton(html.UIEvent evt) {
     var page = evt.type;
@@ -608,14 +644,14 @@ class AppComponent implements OnInit {
     display(null);
     g.checkSetup().then((String error) {
       g.isConfigured = error == null || error.isEmpty;
-      _currPage = g.isConfigured ? _lastPage : "welcome";
+      _currPage = g.isConfigured ? _lastPage : 'welcome';
 
-      if (!g.isConfigured) display(error);
+      if (!g.isConfigured) g.info.addError(error);
     });
     progressText = null;
   }
 
-  changePeriod(DatepickerPeriod period) {
+  void changePeriod(DatepickerPeriod period) {
     g.period = period;
     reportData = null;
     checkPrint();
@@ -670,7 +706,7 @@ class AppComponent implements OnInit {
     var dropId = drop.getAttribute('id').substring(5);
     if (dragId == dropId) return false;
 
-    FormConfig dragCfg = null;
+    FormConfig dragCfg;
     var dragIdx = -1;
     var dropIdx = -1;
     for (var i = 0; i < g.listConfig.length; i++) {
@@ -718,7 +754,7 @@ class AppComponent implements OnInit {
       data.user.birthDate = '13.2.1965';
       data.user.diaStartDate = '1.1.1996';
       data.user.insulin = 'Novorapid';
-      data.user.listApiUrl = List<UrlData>();
+      data.user.listApiUrl = <UrlData>[];
       data.user.listApiUrl.add(UrlData.fromJson(
           g, {'u': 'https://diamant-ns.herokuapp.com', 't': 'anditoken-a12e3472efe42759', 'sd': null, 'ed': null}));
       data.user.customData = {};
@@ -764,6 +800,16 @@ class AppComponent implements OnInit {
         if (sendIcon != 'stop') return data;
       }
       g.save(skipReload: true);
+    } else {
+      try {
+        var url = g.user.apiUrl(null, 'status.json');
+        var content = await g.request(url, showError: false);
+        g.user.status = StatusData.fromJson(json.decode(content));
+        g.user.isReachable = true;
+      } catch (ex) {
+        g.user.status = null;
+        g.user.isReachable = false;
+      }
     }
 
     if (!needed.needsData || !g.user.isReachable) {
@@ -790,7 +836,7 @@ class AppComponent implements OnInit {
       data.user.isReachable = false;
       return data;
     }
-    g.setGlucMGDL(data.status);
+    // TODO: checken ob das benötigt wird: g.setGlucMGDL(data.status);
     if (g.period.start == null || g.period.end == null) {
       data.error = StateError(msgEmptyRange);
       return data;
@@ -799,33 +845,41 @@ class AppComponent implements OnInit {
     ProfileData baseProfile;
 
     var list = g.findUrlDataFor(begDate, endDate);
+    var maxCount = g.profileMaxCounts[data.user.profileMaxIdx ?? 0];
     for (var urlData in list) {
-      url = urlData.fullUrl('profile.json');
+      url = urlData.fullUrl('profile.json', params: 'count=${maxCount}');
+//              'find[startDate][\$gte]=${begDate.year}-${begDate.month}-${begDate.day}T00:00:00.000Z'
+//              '&find[startDate][\$lte]=${endDate.year}-${endDate.month}-${endDate.day}T23:59:59.999Z'
+//          params: 'find[millis][\$gte]=${beg1.millisecondsSinceEpoch}&'
+//              'find[millis][\$lte]=${end1.millisecondsSinceEpoch}'
       displayLink('profile', url, type: 'debug');
       content = await g.request(url);
 
       try {
         g.basalPrecisionAuto = 0;
         List<dynamic> src = json.decode(content);
+        var uploaders = [];
         for (dynamic entry in src) {
           // don't add profiles that cannot be read
           try {
             var profile = ProfileData.fromJson(entry, isFromNS: true);
             data.profiles.add(profile);
+            if (!uploaders.contains(profile.enteredBy)) uploaders.add(profile.enteredBy);
+            // ignore: empty_catches
           } catch (ex) {}
           g.basalPrecisionAuto = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
         }
         data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
+
+        var check = DateTime(begDate.year, begDate.month, begDate.day, 23, 59, 59, 999).toUtc().add(Duration(days: -1));
+        if (src.length == maxCount && data.profiles.first.startDate.isAfter(check)) {
+          g.info.addWarning(msgTooMuchProfiles(maxCount, uploaders.length, uploaders.join(', ')));
+        }
+
         baseProfile = data.profiles.first;
 //        display("${ret.begDate.toString()} - ${ret.endDate.toString()}");
       } catch (ex) {
-        if (g.isDebug) {
-          if (ex is Error) {
-            display('${ex.toString()}\n${ex.stackTrace}');
-          } else {
-            display(ex.toString());
-          }
-        } else {
+        g.info.addDevError(ex, msgProfileError);
 /*
           display(msgProfileError, links: [ {
             'url': 'https://github.com/zreptil/nightscout-reporter/issues/new?'
@@ -834,8 +888,6 @@ class AppComponent implements OnInit {
           }
           ]);
 // */
-          display(msgProfileError);
-        }
       }
 
       // find profileswitches in treatments, create profiledata and mix it in the profiles
@@ -910,9 +962,9 @@ class AppComponent implements OnInit {
           parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
           // some uploaders (e.g. Minimed 600-series) don't save profileJson, so we need
           // to find it here
-          ProfileStoreData store = null;
-          if (entry["profileJson"] == null) {
-            String key = entry["profile"];
+          ProfileStoreData store;
+          if (entry['profileJson'] == null) {
+            String key = entry['profile'];
             var prof = data.profiles
                 .lastWhere((p) => p.startDate.isBefore(check) && p.store.containsKey(key), orElse: () => null);
             if (prof != null) {
@@ -930,15 +982,7 @@ class AppComponent implements OnInit {
           if (store != null) data.profiles.last.store[entry['profile']] = store;
         }
       } catch (ex) {
-        if (g.isDebug) {
-          if (ex is Error) {
-            display('${ex.toString()}\n${ex.stackTrace}');
-          } else {
-            display(ex.toString());
-          }
-        } else {
-          display(msgProfileError);
-        }
+        g.info.addDevError(ex, msgProfileError);
       }
     }
     data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
@@ -1023,49 +1067,51 @@ class AppComponent implements OnInit {
               data.ns.remaining.add(e);
             }
           } catch (ex) {
-            if (g.isDebug) display("Fehler im Entry-Datensatz: ${entry.toString()}");
+            if (g.isDebug) g.info.addDevError(ex, 'Fehler im Entry-Datensatz: ${entry.toString()}');
             break;
           }
         }
         String tmp;
         if (lastTempBasal == null) {
           // find last temp basal of treatments of day before current day.
-          url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), "treatments.json",
+          url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), 'treatments.json',
               params: 'find[created_at][\$lt]=${profileBeg.toIso8601String()}&'
                   'find[created_at][\$gt]=${profileBeg.add(Duration(days: -1)).toIso8601String()}&'
                   'count=100&find[eventType][\$eq]=Temp%20Basal');
           tmp = await g.request(url);
           src = json.decode(tmp);
-          List<TreatmentData> list = List<TreatmentData>();
-          for (dynamic treatment in src) list.add(TreatmentData.fromJson(g, treatment));
+          var list = <TreatmentData>[];
+          for (dynamic treatment in src) {
+            list.add(TreatmentData.fromJson(g, treatment));
+          }
           list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-          if (list.length > 0) lastTempBasal = list.last;
+          if (list.isNotEmpty) lastTempBasal = list.last;
         }
 
-        url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), "treatments.json",
+        url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), 'treatments.json',
             params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
                 'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
         tmp = await g.request(url);
         src = json.decode(tmp);
-        displayLink("t${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
-        bool hasExercise = false;
+        displayLink('t${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
+        var hasExercise = false;
         for (dynamic treatment in src) {
           hasData = true;
-          TreatmentData t = TreatmentData.fromJson(g, treatment);
+          var t = TreatmentData.fromJson(g, treatment);
           // duplicate Treatments are removed
-          if (data.ns.treatments.length > 0 && t.equals(data.ns.treatments.last)) {
+          if (data.ns.treatments.isNotEmpty && t.equals(data.ns.treatments.last)) {
             data.ns.treatments.last.duplicates++;
           } else {
             data.ns.treatments.add(t);
             if (t.isExercise) {
               hasExercise = true;
             } else if (t.isBGCheck) {
-              EntryData entry = EntryData();
+              var entry = EntryData();
               entry.id = t.id;
               entry.time = t.createdAt;
               entry.device = t.enteredBy;
-              entry.type = "mbg";
-              entry.mbg = t.glucose * (g.glucMGDL ? 1 : 18.02);
+              entry.type = 'mbg';
+              entry.mbg = t.glucose * g.glucFactor;
               entry.rawbg = t.glucose;
               data.ns.bloody.add(entry);
             }
@@ -1073,12 +1119,12 @@ class AppComponent implements OnInit {
         }
 
         if (g.isLocal && !hasExercise) {
-          TreatmentData t = TreatmentData();
+          var t = TreatmentData();
           t.createdAt = DateTime(begDate.year, begDate.month, begDate.day, 10, 0, 0);
           t.duration = 60 * 60;
-          t.eventType = "exercise";
-          t.notes = "Bewegung (Testeintrag)";
-          t.enteredBy = "NR-Test";
+          t.eventType = 'exercise';
+          t.notes = 'Bewegung (Testeintrag)';
+          t.enteredBy = 'NR-Test';
           t.microbolus = 0;
           t.insulin = 0;
           t.microbolus = 0;
@@ -1086,12 +1132,12 @@ class AppComponent implements OnInit {
           data.ns.treatments.add(t);
         }
 
-        url = data.user.apiUrl(Date(profileBeg.year, profileBeg.month, profileBeg.day), "devicestatus.json",
+        url = data.user.apiUrl(Date(profileBeg.year, profileBeg.month, profileBeg.day), 'devicestatus.json',
             params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
                 'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
         tmp = await g.request(url);
         src = json.decode(tmp);
-        displayLink("ds${begDate.format(g.fmtDateForDisplay)} (${src.length})", url, type: "debug");
+        displayLink('ds${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
         for (dynamic devicestatus in src) {
           hasData = true;
           var ds = DeviceStatusData.fromJson(devicestatus);
@@ -1120,21 +1166,20 @@ class AppComponent implements OnInit {
       var minGapKeep = 16;
 //*
       // Create an array with EntryData every [diffTime] minutes
-      List<EntryData> entryList = List<EntryData>();
-      if (data.ns.entries.length != 0) {
-        DateTime target =
+      var entryList = <EntryData>[];
+      if (data.ns.entries.isNotEmpty) {
+        var target =
             DateTime(data.ns.entries.first.time.year, data.ns.entries.first.time.month, data.ns.entries.first.time.day);
-        EntryData prev = data.ns.entries.first;
-        DateTime t = DateTime(prev.time.year, prev.time.month, prev.time.day);
+        var prev = data.ns.entries.first;
+        var t = DateTime(prev.time.year, prev.time.month, prev.time.day);
         prev = EntryData();
         prev.time = t;
-        EntryData next = EntryData();
+        var next = EntryData();
         next.time = target;
         // distribute entries
-        for (EntryData entry in data.ns.entries) {
+        for (var entry in data.ns.entries) {
           if (entry.isInvalid) continue;
-          DateTime current =
-              DateTime(entry.time.year, entry.time.month, entry.time.day, entry.time.hour, entry.time.minute);
+          var current = DateTime(entry.time.year, entry.time.month, entry.time.day, entry.time.hour, entry.time.minute);
           if (current.isAtSameMomentAs(target)) {
             prev = entry;
             prev.time = current;
@@ -1145,9 +1190,9 @@ class AppComponent implements OnInit {
             next.slice(entry, next, 0.5);
           } else {
             next = entry.copy;
-            int max = current.difference(prev.time).inMinutes;
+            var max = current.difference(prev.time).inMinutes;
             while (current.isAfter(target) || current.isAtSameMomentAs(target)) {
-              double factor = max == 0 ? 0 : target.difference(prev.time).inMinutes / max;
+              var factor = max == 0 ? 0 : target.difference(prev.time).inMinutes / max;
               next = next.copy;
               if (max >= minGapKeep) next.isGap = true;
               next.time = target;
@@ -1181,7 +1226,7 @@ class AppComponent implements OnInit {
   }
 
   bool filterTreatment(TreatmentData t) {
-    if (t.enteredBy.toLowerCase() == "sync") return true;
+    if (t.enteredBy.toLowerCase() == 'sync') return true;
 
     return false;
   }
@@ -1189,12 +1234,12 @@ class AppComponent implements OnInit {
   void sendClick() {
     drawerVisible = false;
     switch (sendIcon) {
-      case "send":
+      case 'send':
         currPage = 'printparams';
         break;
-      case "close":
-        sendIcon = "send";
-        currPage = "normal";
+      case 'close':
+        sendIcon = 'send';
+        currPage = 'normal';
         break;
     }
   }
@@ -1265,9 +1310,9 @@ class AppComponent implements OnInit {
     checkPrint();
   }
 
-  void createPDF({bool isForThumbs: false}) {
+  void createPDF({bool isForThumbs = false}) {
     g.save(skipReload: isForThumbs);
-    display("");
+    display('');
     pdfList.clear();
     progressMax = 1;
     progressValue = 0;
@@ -1275,11 +1320,14 @@ class AppComponent implements OnInit {
     loadData(isForThumbs).then((ReportData src) async {
       progressText = msgCreatingPDF;
       if (src.error != null) {
-        if (g.isDebug) display(msgLoadingData(src.error.toString(), src.error.stackTrace.toString()));
-        display(msgLoadingDataError);
+        if (g.isDebug) {
+          g.info.addError(msgLoadingData(src.error.toString(), src.error.stackTrace.toString()));
+        } else {
+          g.info.addError(msgLoadingDataError);
+        }
         return;
       }
-      if (sendIcon == "send") {
+      if (sendIcon == 'send') {
         progressText = null;
         reportData = null;
         return;
@@ -1321,14 +1369,14 @@ class AppComponent implements OnInit {
           docLen = json.encode(doc).length;
           var formPages = await form.getFormPages(src, docLen);
           var fileList = <List<Page>>[<Page>[]];
-          for (Page page in formPages) {
+          for (var page in formPages) {
             dynamic entry = page.content.last;
             if (entry['pageBreak'] == 'newFile' && fileList.last.isNotEmpty) {
               entry.remove('pageBreak');
               fileList.last.add(page);
-              fileList.add(List<Page>());
+              fileList.add(<Page>[]);
             } else {
-              if (entry["pageBreak"] == "newFile") entry.remove("pageBreak"); //entry["pageBreak"] = "after";
+              if (entry['pageBreak'] == 'newFile') entry.remove('pageBreak'); //entry["pageBreak"] = "after";
               fileList.last.add(page);
             }
           }
@@ -1338,15 +1386,15 @@ class AppComponent implements OnInit {
             if (fileList[0].length > 1) fileList[0].removeRange(1, fileList[0].length - 1);
           }
 
-          for (List<Page> pageList in fileList) {
+          for (var pageList in fileList) {
             dynamic content = [];
 
-            for (Page page in pageList) {
+            for (var page in pageList) {
               if (prevPage != null) {
-                var pagebreak = {"text": "", "pageBreak": "after"};
+                var pagebreak = {'text': '', 'pageBreak': 'after'};
                 if (page.isPortrait != prevPage.isPortrait) {
-                  pagebreak["pageSize"] = "a4";
-                  pagebreak["pageOrientation"] = page.isPortrait ? "portrait" : "landscape";
+                  pagebreak['pageSize'] = 'a4';
+                  pagebreak['pageOrientation'] = page.isPortrait ? 'portrait' : 'landscape';
                 }
                 content.add(pagebreak);
               }
@@ -1355,34 +1403,36 @@ class AppComponent implements OnInit {
             }
             if (doc == null) {
               doc = {
-                "pageSize": "a4",
-                "pageOrientation": pageList.length == 0 || pageList[0].isPortrait ? "portrait" : "landscape",
-                "pageMargins": [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
-                "content": content,
-                "images": form.images,
-                "styles": {
-                  "infoline": {
-                    "margin": [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]
+                'pageSize': 'a4',
+                'pageOrientation': pageList.isEmpty || pageList[0].isPortrait ? 'portrait' : 'landscape',
+                'pageMargins': [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
+                'content': content,
+                'images': form.images,
+                'styles': {
+                  'infoline': {
+                    'margin': [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]
                   },
-                  "perstitle": {"alignment": "right"},
-                  "persdata": {"color": "#0000ff"},
-                  "infotitle": {"alignment": "left"},
-                  "infodata": {"alignment": "right", "color": "#0000ff"},
-                  "infounit": {
-                    "margin": [form.cm(0), form.cm(0), form.cm(0), form.cm(0)],
-                    "color": "#0000ff"
+                  'perstitle': {'alignment': 'right'},
+                  'persdata': {'color': '#0000ff'},
+                  'infotitle': {'alignment': 'left'},
+                  'infodata': {'alignment': 'right', 'color': '#0000ff'},
+                  'infounit': {
+                    'margin': [form.cm(0), form.cm(0), form.cm(0), form.cm(0)],
+                    'color': '#0000ff'
                   },
-                  "hba1c": {"color": "#5050ff"},
-                  "total": {"bold": true, "fillColor": "#d0d0d0", "margin": form.m0},
-                  "timeDay": {"bold": true, "fillColor": "#d0d0d0", "margin": form.m0},
-                  "timeNight": {"bold": true, "fillColor": "#303030", "color": "white", "margin": form.m0},
-                  "timeLate": {"bold": true, "fillColor": "#a0a0a0", "margin": form.m0},
-                  "row": {}
+                  'hba1c': {'color': '#5050ff'},
+                  'total': {'bold': true, 'fillColor': '#d0d0d0', 'margin': form.m0},
+                  'timeDay': {'bold': true, 'fillColor': '#d0d0d0', 'margin': form.m0},
+                  'timeNight': {'bold': true, 'fillColor': '#303030', 'color': 'white', 'margin': form.m0},
+                  'timeLate': {'bold': true, 'fillColor': '#a0a0a0', 'margin': form.m0},
+                  'row': {}
                 }
               };
             } else {
-              doc["content"].add(content);
-              for (String key in form.images.keys) (doc["images"] as Map<String, String>)[key] = form.images[key];
+              doc['content'].add(content);
+              for (var key in form.images.keys) {
+                (doc['images'] as Map<String, String>)[key] = form.images[key];
+              }
             }
 
             if (pageList != fileList.last) {
@@ -1414,7 +1464,7 @@ class AppComponent implements OnInit {
         pdfDoc = null;
 
         for (var doc in docList) {
-          var dst = convert.jsonEncode(doc);
+          var dst = jsonEncode(doc);
           if (g.isDebug) {
             pdfUrl = 'http://pdf.zreptil.de/playground.php';
             dst = dst.replaceAll('],', '],\n');
@@ -1431,88 +1481,84 @@ class AppComponent implements OnInit {
         progressText = null;
         return;
       } else {
-        pdfDoc = convert.jsonEncode(docList[0]);
+        pdfDoc = jsonEncode(docList[0]);
       }
 
       if (!g.isDebug) {
-        if (g.msg.text.isEmpty) if (isForThumbs)
-          navigate("makePdfImages");
-        else
-          navigate("showPdf");
-        else
-          displayLink(msgShowPDF, "showPdf", btnClass: "action", icon: "description");
+        if (g.msg.text.isEmpty) {
+          if (isForThumbs) {
+            navigate('makePdfImages');
+          } else {
+            navigate('showPdf');
+          }
+        } else {
+          displayLink(msgShowPDF, 'showPdf', btnClass: 'action', icon: 'description');
+        }
       } else {
-        displayLink("playground", "showPlayground", btnClass: "action", icon: "description");
-        displayLink("pdf", "showPdf", btnClass: "action", icon: "description");
+        displayLink('playground', 'showPlayground', btnClass: 'action', icon: 'description');
+        displayLink('pdf', 'showPdf', btnClass: 'action', icon: 'description');
       }
 // */
-      sendIcon = "send";
+      sendIcon = 'send';
       progressText = null;
     }).catchError((error) {
-      if (g.isDebug) {
-        if (error is Error)
-          display("${error.toString()}\n${error.stackTrace}");
-        else
-          display(error.toString());
-      } else {
-        display(msgPDFCreationError);
-      }
-      sendIcon = "send";
+      g.info.addDevError(error, msgPDFCreationError);
+      sendIcon = 'send';
       progressText = null;
       return -1;
     });
   }
 
   String tileClass(FormConfig cfg) {
-    String ret = "tile sortable";
-    if (cfg.form.isDebugOnly && g.isDebug) ret = "${ret} is-debug";
-    if (cfg.checked && tileParams == null) ret = "${ret} tilechecked";
-    if (cfg.form.isLocalOnly || (cfg.form.isBetaOrLocal && g.isLocal)) ret = "${ret} is-local";
-    if (cfg.form.isBetaOrLocal) ret = "${ret} is-beta";
+    var ret = 'tile sortable';
+    if (cfg.form.isDebugOnly && g.isDebug) ret = '${ret} is-debug';
+    if (cfg.checked && tileParams == null) ret = '${ret} tilechecked';
+    if (cfg.form.isLocalOnly || (cfg.form.isBetaOrLocal && g.isLocal)) ret = '${ret} is-local';
+    if (cfg.form.isBetaOrLocal) ret = '${ret} is-beta';
     return ret;
   }
 
   String expansionClass(FormConfig cfg) {
-    String ret = "paramPanel";
-    if (cfg.form.isDebugOnly && g.isDebug) ret = "${ret} is-debug";
-    if (cfg.checked) ret = "${ret} checked";
-    if (cfg.form.isLocalOnly) ret = "${ret} is-local";
-    if (cfg.form.isBetaOrLocal) ret = "${ret} is-beta";
+    var ret = 'paramPanel';
+    if (cfg.form.isDebugOnly && g.isDebug) ret = '${ret} is-debug';
+    if (cfg.checked) ret = '${ret} checked';
+    if (cfg.form.isLocalOnly) ret = '${ret} is-local';
+    if (cfg.form.isBetaOrLocal) ret = '${ret} is-beta';
     return ret;
   }
 
-  expansionPanelOpen(evt, FormConfig cfg) {
+  void expansionPanelOpen(evt, FormConfig cfg) {
     cfg.opened = true;
   }
 
-  expansionPanelClose(evt, FormConfig cfg) {
+  void expansionPanelClose(evt, FormConfig cfg) {
     cfg.checked = !cfg.checked;
     cfg.opened = false;
   }
 
-  String themeStyle = "width:0em;";
-  String logoStyle = "";
+  String themeStyle = 'width:0em;';
+  String logoStyle = '';
   bool themePanelShown = false;
 
-  toggleThemePanel(String themeKey) {
-    String ts = "";
-    String ls = "";
-    double duration = 1;
+  void toggleThemePanel(String themeKey) {
+    var ts = '';
+    var ls = '';
+    var duration = 1;
     if (themePanelShown) {
-      themeStyle = "animation:hidethemes ${duration}s ease-in-out normal forwards;";
-      logoStyle = "animation:hidethemeslogo ${duration}s ease-in-out normal forwards;";
-      ts = "animation-iteration-count:0;width:0em;";
-      ls = "animation-iteration-count:0;transform: rotate(0deg);";
+      themeStyle = 'animation:hidethemes ${duration}s ease-in-out normal forwards;';
+      logoStyle = 'animation:hidethemeslogo ${duration}s ease-in-out normal forwards;';
+      ts = 'animation-iteration-count:0;width:0em;';
+      ls = 'animation-iteration-count:0;transform: rotate(0deg);';
     } else {
-      themeStyle = "animation:showthemes ${duration}s ease-in-out normal forwards;";
-      logoStyle = "animation:showthemeslogo ${duration}s ease-in-out normal forwards;";
-      ts = "animation-iteration-count:0;width:9.5em;";
-      ls = "animation-iteration-count:0;transform: rotate(360deg);";
+      themeStyle = 'animation:showthemes ${duration}s ease-in-out normal forwards;';
+      logoStyle = 'animation:showthemeslogo ${duration}s ease-in-out normal forwards;';
+      ts = 'animation-iteration-count:0;width:9.5em;';
+      ls = 'animation-iteration-count:0;transform: rotate(360deg);';
     }
     Future.delayed(Duration(milliseconds: (duration * 1100).toInt()), () {
       themeStyle = ts;
       logoStyle = ls;
-      if (themeKey != "") {
+      if (themeKey != '') {
         g.theme = themeKey;
         setTheme(g.theme);
       }
@@ -1520,30 +1566,21 @@ class AppComponent implements OnInit {
     themePanelShown = !themePanelShown;
   }
 
-  bool isSamePeriod(String a, String b) {
-    List<String> sa = a.split("|");
-    List<String> sb = b.split("|");
-    if (sa.length < 5 || sb.length < 5 || sa[4] != sb[4]) return false;
-    if (sa[2] == sb[2] && sa[2] != "") return true;
-    if (sa[0] == sb[0] && sa[1] == sb[1]) return true;
-    return false;
-  }
-
   int menuIdx = 0;
 
   String shortcutClass(ShortcutData data) {
-    String ret = "shortcut";
-    String check = convert.json.encode(g.currentFormsAsMap);
-    if (data.formData == check && isSamePeriod(data.periodData, g.period.toString())) ret += " active";
+    var ret = 'shortcut';
+    if (data.isActive) ret += ' active';
     return ret;
   }
 
   void editShortcut(int shortcutIdx) {
     g.currShortcutIdx = shortcutIdx;
-    if (shortcutIdx >= 0 && shortcutIdx < g.shortcutList.length)
+    if (shortcutIdx >= 0 && shortcutIdx < g.shortcutList.length) {
       g.currShortcut = g.shortcutList[shortcutIdx].copy;
-    else
+    } else {
       g.currShortcut = ShortcutData(g);
+    }
     currPage = 'shortcutedit';
   }
 
@@ -1556,7 +1593,7 @@ class AppComponent implements OnInit {
     g.refresh();
   }
 
-  void activateShortcut([int shortcutIdx = null]) {
+  void activateShortcut([int shortcutIdx]) {
     if (shortcutIdx != null) {
       var data = g.shortcutList[shortcutIdx];
       g.fillFormsFromShortcut(data);
@@ -1593,8 +1630,8 @@ class AppComponent implements OnInit {
 
   void expansionPanelClicked(evt, FormConfig cfg) {
     if (!cfg.opened) {
-      if (evt.currentTarget.attributes["dontclick"] == "true") {
-        evt.currentTarget.removeAttribute("dontclick");
+      if (evt.currentTarget.attributes['dontclick'] == 'true') {
+        evt.currentTarget.removeAttribute('dontclick');
         return;
       }
       cfg.checked = !cfg.checked;
@@ -1614,26 +1651,26 @@ class AppComponent implements OnInit {
 //        _currPage = "normal";
         break;
       case SigninStatus.error:
-        display(e.message);
+        g.info.addError(e.message);
 //        _currPage = "normal";
         break;
       default:
-        g.msg.text = "${g.msg.text} - ${e.message}";
+        g.msg.text = '${g.msg.text} - ${e.message}';
         break;
     }
   }
 
   int thumbLangIdx = -1;
-  LangData thumbLangSave = null;
+  LangData thumbLangSave;
 
-  createThumbs() async {
-    sendIcon = "stop";
+  void createThumbs() async {
+    sendIcon = 'stop';
     drawerVisible = false;
-    if (thumbLangSave == null && g.language.img != "de") {
+    if (thumbLangSave == null && g.language.img != 'de') {
       thumbLangIdx = g.languageList.length;
       thumbLangSave = g.language;
     } else {
-      if (thumbLangSave == null) thumbLangSave = g.language;
+      thumbLangSave ??= g.language;
       thumbLangIdx++;
       await g.setLanguage(g.languageList[thumbLangIdx]);
     }
@@ -1642,23 +1679,23 @@ class AppComponent implements OnInit {
 }
 
 class TileAvatarHandler extends AvatarHandler {
-  TileAvatarHandler() {}
+  TileAvatarHandler();
 
   @override
   void dragStart(html.Element draggable, html.Point startPosition) {
     avatar = draggable.clone(true);
-    avatar.className = "${avatar.className} dragtile";
-    html.Point pt = html.Point(draggable.offsetLeft, draggable.offsetTop);
-    html.Element parent = draggable.offsetParent;
+    avatar.className = '${avatar.className} dragtile';
+    var pt = html.Point(draggable.offsetLeft, draggable.offsetTop);
+    var parent = draggable.offsetParent;
     while (parent != null) {
       pt = html.Point(pt.x + parent.offsetLeft, pt.y + parent.offsetTop);
       parent = parent.offsetParent;
     }
     avatar.style
-      ..width = "${draggable.clientWidth}px"
-      ..height = "${draggable.clientHeight}px"
-      ..left = "${pt.x}px"
-      ..top = "${pt.y}px";
+      ..width = '${draggable.clientWidth}px'
+      ..height = '${draggable.clientHeight}px'
+      ..left = '${pt.x}px'
+      ..top = '${pt.y}px';
 
     html.document.body.querySelector('my-app').style.overflow = 'hidden';
 

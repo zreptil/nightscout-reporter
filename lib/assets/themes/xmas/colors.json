@@ -40,5 +40,10 @@
   "shortcutHeaderFore": "mat-green-900",
   "shortcutBodyBack": "mat-green-A200",
   "shortcutBodyFore": "black",
-  "shortcutScrollThumb": "mat-grey-700"
+  "shortcutScrollThumb": "mat-grey-700",
+  "helpHeaderBack": "mat-purple-900",
+  "helpHeaderFore": "mat-purple-100",
+  "helpBodyBack": "mat-purple-300",
+  "helpBodyFore": "black",
+  "helpScrollThumb": "mat-purple-700"
 }

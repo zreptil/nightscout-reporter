@@ -243,6 +243,13 @@ login {
 .pdfSliderHead {
   display: flex;
   width: 90%;
+  padding: 1em;
+}
+
+.sub {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  text-align: justify;
 }
 
 .pdfSlider {

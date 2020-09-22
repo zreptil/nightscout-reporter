@@ -38,6 +38,12 @@
           {{g.currShortcut.periodText}}
         </material-button>
       </div>
+      <div>
+        {{g.lblGlucUnits}}:
+        <material-button class="data" (trigger)="confirmationIdx=3">
+          {{g.listGlucUnits[g.currShortcut.glucMGDLIdx??g.glucMGDLIdx]}}
+        </material-button>
+      </div>
     </div>
 
     <div footer>
@@ -71,6 +77,13 @@
     </div>
     <div class="content" *ngIf="confirmationIdx==2">
       <ng-container @i18n="should the forms be replaced with current forms">Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?</ng-container>
+    </div>
+    <div class="content" *ngIf="confirmationIdx==3">
+      <ng-container @i18n="should the period">Soll die Einheit zur Glukosemessung</ng-container>
+      <div class="marked">{{g.listGlucUnits[g.currShortcut.glucMGDLIdx ?? 0]}}</div>
+      <ng-container @i18n="with period">mit der Einheit</ng-container>
+      <div class="marked">{{g.listGlucUnits[g.glucMGDLIdx]}}</div>
+      <ng-container @i18n="be replaced">ersetzt werden?</ng-container>
     </div>
     <div footer>
       <material-button class="iconButton" (trigger)="fire('confirm')">

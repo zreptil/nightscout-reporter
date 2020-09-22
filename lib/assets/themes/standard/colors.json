@@ -40,5 +40,18 @@
   "shortcutHeaderFore": "mat-light-blue-100",
   "shortcutBodyBack": "mat-light-blue-300",
   "shortcutBodyFore": "black",
-  "shortcutScrollThumb": "mat-light-blue-700"
+  "shortcutScrollThumb": "mat-light-blue-700",
+  "helpHeaderBack": "mat-light-green-900",
+  "helpHeaderFore": "mat-light-green-100",
+  "helpBodyBack": "mat-light-green-300",
+  "helpBodyFore": "black",
+  "helpScrollThumb": "mat-light-green-700",
+  "infoHeaderBack": "mat-red-900",
+  "infoHeaderFore": "mat-red-100",
+  "infoBodyBack": "mat-red-300",
+  "infoBodyFore": "black",
+  "infoWarningColor": "mat-yellow-400",
+  "infoErrorColor": "mat-red-400",
+  "infoInfoColor": "mat-blue-400",
+  "infoScrollThumb": "mat-red-700"
 }

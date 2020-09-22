@@ -10,6 +10,30 @@
       </material-button>
     </div>
     <div class="root">
+      <h2><span @i18n="version">Version</span><span @i18n="v202">2.0.2 - 22.9.2020</span></h2>
+      <ul>
+        <li class="added" @i18n="v202a1">
+          Es gibt jetzt kleine Hilfebuttons bei den Formularen. In der Listenansicht ersetzen sie die Icons zum Ziehen der
+          Formulare, in der Kachelansicht werden sie links oben auf den Kacheln dargestellt. Die jeweilige Ansicht kann man im
+          Hamburgermenü auswählen. Beim Anklicken eines solchen Buttons wird ein Text angezeigt, der beschreibt, was das
+          entsprechende Formular darstellt.
+        </li>
+        <li class="added" @i18n="v202a2">
+          Bei den Ausgabeparametern kann jetzt festgelegt werden, in welcher Einheit die Glukosemessungen ausgegeben werden sollen.
+          Diese wird zu Beginn aus den in Nightscout gespeicherten Daten ermittelt und entsprechend vorbelegt. Es ist aber auch
+          möglich, diese Einheit zu ändern oder beide Einheiten ausgeben zu lassen. Wenn beide ausgegeben werden, dann wird jedes
+          Formular auf dem Glukoseangaben vorhanden sind zunächst mit mg/dL und danach nochmal mit mmol/l ausgegeben. Diese Einheit
+          wird auch in den Shortcuts gespeichert.
+        </li>
+        <li class="changed" @i18n="v202c1">
+          Die Profilbasalrate im Formular Tagesprofil wird jetzt ebenfalls mit Balken dargestellt.
+        </li>
+        <li class="changed" @i18n="v202c2">
+          iOS Loop missbraucht die Profiltabelle dazu, seine eigenen Settings zu speichern, was bei Benutzern dieser Software
+          dazu führte, dass die Tabelle Profil nicht korrekt geladen werden kann. Deshalb gibt es jetzt in den Einstellungen
+          die Möglichkeit, die Anzahl der Datensätze, die aus der Profiltabelle geladen werden einzuschränken.
+        </li>
+      </ul>
       <h2><span @i18n="version">Version</span><span @i18n="v201">2.0.1 - 8.9.2020</span></h2>
       <ul>
         <li class="added" @i18n="v201a1">
