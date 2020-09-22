@@ -1048,6 +1048,7 @@ class TreatmentData extends JsonData {
   double microbolus;
   List<InsulinInjectionData> insulinInjections = List<InsulinInjectionData>();
   InsulinInjectionList multipleInsulin;
+  List<InsulinData> insulinProfiles;
 
   int splitExt;
   int splitNow;
@@ -1198,6 +1199,7 @@ class TreatmentData extends JsonData {
     for (var entry in insulinInjections) {
       ret.insulinInjections.add(entry.copy);
     }
+    ret.insulinProfiles = insulinProfiles;
     return ret;
   }
 
@@ -1211,7 +1213,7 @@ class TreatmentData extends JsonData {
     // */
   }
 
-  factory TreatmentData.fromJson(Globals g, Map<String, dynamic> json) {
+  factory TreatmentData.fromJson(Globals g, Map<String, dynamic> json, List<InsulinData> insulinProfiles) {
     var ret = TreatmentData();
     if (json == null) return ret;
     ret.raw = json;
@@ -1231,6 +1233,7 @@ class TreatmentData extends JsonData {
     if (json.containsKey("insulinInjections"))
       ret.multipleInsulin.fromJsonString(json["insulinInjections"]);
     else ret.multipleInsulin.fromSumValue(ret.insulin);   // falls wir an dem Tag keine insulinInjections haben
+    ret.insulinProfiles = insulinProfiles;
     if (ret.insulin == 0.0) ret.insulin = JsonData.toDouble(json["enteredinsulin"]);
     ret.splitExt = JsonData.toInt(json["splitExt"]);
     ret.splitNow = JsonData.toInt(json["splitNow"]);
@@ -1289,6 +1292,23 @@ class TreatmentData extends JsonData {
     if (boluscalc != null) boluscalc.slice(src.boluscalc, dst.boluscalc, f);
   }
 
+  double calcIOB1Min(InsulinData insulin, double time)
+  {
+    if (time < 0) {
+      return 1;
+    }
+    var index = time.toInt();
+    var remaining = time - index;
+    if (index >= insulin.IOB1Min.length) {
+      return insulin.IOB1Min[insulin.IOB1Min.length-1];
+    }
+    var valueIndex = insulin.IOB1Min[index];
+    var valueNextIndex = insulin.IOB1Min[index + 1];
+    var ret = valueIndex;
+    ret += (valueNextIndex - valueIndex) * remaining;
+    return ret;
+  }
+
   CalcIOBData calcIOB(ProfileGlucData profile, DateTime time) {
     var dia = 3.0;
     var sens = 0.0;
@@ -1307,15 +1327,36 @@ class TreatmentData extends JsonData {
       var bolusTime = createdAt.millisecondsSinceEpoch;
       var minAgo = scaleFactor * (time.millisecondsSinceEpoch - bolusTime) / 1000 / 60;
 
-      if (minAgo < peak) {
-        var x1 = minAgo / 5 + 1;
-        ret.iob = insulin * (1 - 0.001852 * x1 * x1 + 0.001852 * x1);
-        // units: BG (mg/dl)  = (BG/U) *    U insulin     * scalar
-        ret.activity = sens * insulin * (2 / dia / 60 / peak) * minAgo;
-      } else if (minAgo < 180) {
-        var x2 = (minAgo - peak) / 5;
-        ret.iob = insulin * (0.001323 * x2 * x2 - 0.054233 * x2 + 0.55556);
-        ret.activity = sens * insulin * (2 / dia / 60 - (minAgo - peak) * 2 / dia / 60 / (60 * 3 - peak));
+      if (insulinProfiles != null)
+      {
+        for (String injected in multipleInsulin.injections.keys) {
+          InsulinData insulin = null;
+          for (var entry in insulinProfiles) {
+            if (entry.name.toLowerCase() == injected.toLowerCase()) {
+              insulin = entry;
+            }
+          }
+          if (insulin == null)
+          {
+            throw Exception("kann Insulin mit Name " + injected + " nicht finden!");
+          }
+          ret.iob += multipleInsulin.injections[injected] * calcIOB1Min(insulin, minAgo);
+          var iob1 = multipleInsulin.injections[injected] * calcIOB1Min(insulin, minAgo -  1);
+          var iob2 = multipleInsulin.injections[injected] * calcIOB1Min(insulin, minAgo +  1);
+          ret.activity += sens * (iob2 - iob1) / 2.0;
+        }
+      } else {
+        if (minAgo < peak) {
+          var x1 = minAgo / 5 + 1;
+          ret.iob = insulin * (1 - 0.001852 * x1 * x1 + 0.001852 * x1);
+          // units: BG (mg/dl)  = (BG/U) *    U insulin     * scalar
+          ret.activity = sens * insulin * (2 / dia / 60 / peak) * minAgo;
+        } else if (minAgo < 180) {
+          var x2 = (minAgo - peak) / 5;
+          ret.iob = insulin * (0.001323 * x2 * x2 - 0.054233 * x2 + 0.55556);
+          ret.activity = sens * insulin *
+              (2 / dia / 60 - (minAgo - peak) * 2 / dia / 60 / (60 * 3 - peak));
+        }
       }
     }
 
@@ -2515,6 +2556,7 @@ class ReportData {
   UserData user;
   ListData ns = ListData();
   ListData calc = ListData();
+  List<InsulinData> insulinProfiles = null;
 
   ListData get data => globals == null ? calc : globals.isDataSmoothing ? calc : ns;
   StatusData status;
@@ -2602,4 +2644,37 @@ class ReportData {
   }
 
   ReportData(this.globals, this.begDate, this.endDate);
+}
+
+class InsulinData extends JsonData {
+  dynamic raw;
+  String _id;
+  String displayName;
+  String name;
+  List<String> pharmacyProductNumber;
+  bool enabled;
+  String type;
+  List<double> IOB1Min;
+
+  InsulinData();
+
+  factory InsulinData.fromJson(Map<String, dynamic> json) {
+    var ret = InsulinData();
+    ret.raw = json;
+    if (json == null) return ret;
+    ret._id = JsonData.toText(json['_id']);
+    ret.name = JsonData.toText(json['name']);
+    ret.displayName = JsonData.toText(json['displayName']);
+    ret.enabled = (JsonData.toText(json['enabled']) == "true" ? true : false);
+    ret.type = JsonData.toText(json['type']);
+    ret.pharmacyProductNumber = List<String>();
+    for (dynamic entry in json['pharmacyProductNumber']) {
+      ret.pharmacyProductNumber.add(JsonData.toText(entry));
+    }
+    ret.IOB1Min = List<double>();
+    for (dynamic entry in json['IOB1Min']) {
+      ret.IOB1Min.add(JsonData.toDouble(entry));
+    }
+    return ret;
+  }
 }

@@ -187,6 +187,8 @@ class AppComponent implements OnInit {
 
   String get msgProfileError => Intl.message('Beim Auslesen des Profils ist ein Fehler aufgetreten.');
 
+  String get msgInsulinError => Intl.message('Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.');
+
   String get msgPDFCreationError => Intl.message('Beim Erzeugen des PDF ist ein Fehler aufgetreten.');
 
   String get msgGitHubIssue => Intl.message('Problem auf GitHub melden');
@@ -838,6 +840,33 @@ class AppComponent implements OnInit {
         }
       }
 
+      url = urlData.fullUrl('insulin');
+      displayLink('insulin', url, type: 'debug');
+      content = await g.request(url);
+      try {
+        List<dynamic> src = json.decode(content);
+        data.insulinProfiles = new List<InsulinData>();
+        for (dynamic entry in src) {
+          // don't add profiles that cannot be read
+          try {
+            var insulin = InsulinData.fromJson(entry);
+            data.insulinProfiles.add(insulin);
+          } catch (ex) {
+            data.insulinProfiles = null;
+          }
+        }
+      } catch (ex) {
+        if (g.isDebug) {
+          if (ex is Error) {
+            display('${ex.toString()}\n${ex.stackTrace}');
+          } else {
+            display(ex.toString());
+          }
+        } else {
+          display(msgInsulinError);
+        }
+      }
+
       // find profileswitches in treatments, create profiledata and mix it in the profiles
       url = urlData.fullUrl('treatments.json',
           params: 'find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch');
@@ -1037,7 +1066,7 @@ class AppComponent implements OnInit {
           tmp = await g.request(url);
           src = json.decode(tmp);
           List<TreatmentData> list = List<TreatmentData>();
-          for (dynamic treatment in src) list.add(TreatmentData.fromJson(g, treatment));
+          for (dynamic treatment in src) list.add(TreatmentData.fromJson(g, treatment, data.insulinProfiles));
           list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
           if (list.length > 0) lastTempBasal = list.last;
         }
@@ -1051,7 +1080,7 @@ class AppComponent implements OnInit {
         bool hasExercise = false;
         for (dynamic treatment in src) {
           hasData = true;
-          TreatmentData t = TreatmentData.fromJson(g, treatment);
+          TreatmentData t = TreatmentData.fromJson(g, treatment, data.insulinProfiles);
           // duplicate Treatments are removed
           if (data.ns.treatments.length > 0 && t.equals(data.ns.treatments.last)) {
             data.ns.treatments.last.duplicates++;
