@@ -393,7 +393,8 @@ class PrintDailyGraphic extends BaseDaily {
     for (TreatmentData entry in day.treatments) {
       if (entry.isBloody) glucMax = math.max(g.glucFactor * entry.glucose, glucMax);
       ieMax = math.max(entry.bolusInsulin, ieMax);
-      insulinInjections = insulinInjections.add2List(entry.multipleInsulin);
+      if (entry.multipleInsulin != null)
+        insulinInjections = insulinInjections.add2List(entry.multipleInsulin);
     }
 
     if (g.glucMaxValue != null) glucMax = g.glucMaxValues[g.ppGlucMaxIdx];
