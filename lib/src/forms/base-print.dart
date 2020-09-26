@@ -1884,11 +1884,20 @@ abstract class BasePrint {
     dynamic ptsCob = [
       {"x": cm(calcX(graphWidth, DateTime(0, 1, 1, 0, 0))), "y": cm(0)}
     ];
+    dynamic ptsIAct = [
+      {"x": cm(calcX(graphWidth, DateTime(0, 1, 1, 0, 0))), "y": cm(0)}
+    ];
+    dynamic ptsCAct = [
+      {"x": cm(calcX(graphWidth, DateTime(0, 1, 1, 0, 0))), "y": cm(0)}
+    ];
     DateTime time = DateTime(day.date.year, day.date.month, day.date.day);
     int diff = 5;
     double maxIob = -1000.0;
     double minIob = 0.0;
     double maxCob = -1000.0;
+    double maxIAct = -1000.0;
+    double minIAct = 0.0;
+    double maxCAct = -1000.0;
     double lastX = 0;
     int i = 0;
     int currentDay = day.date.day;
@@ -1902,16 +1911,27 @@ abstract class BasePrint {
         double x = calcX(graphWidth, time);
         double y = day
             .iob(repData, time, day.prevDay)
-            .iob - 1.0;
+            .iob;
         maxIob = max(maxIob, y);
         minIob = min(minIob, y);
         ptsIob.add({"x": cm(x), "y": y});
+        y = day
+            .iob(repData, time, day.prevDay)
+            .activity;
+        maxIAct = max(maxIAct, y);
+        minIAct = min(minIAct, y);
+        ptsIAct.add({"x": cm(x), "y": y});
 //*
         y = day
             .cob(repData, time, day.prevDay)
             .cob;
         maxCob = max(maxCob, y);
         ptsCob.add({"x": cm(x), "y": y});
+        y = day
+            .cob(repData, time, day.prevDay)
+            .cActivity;
+        maxCAct = max(maxCAct, y);
+        ptsCAct.add({"x": cm(x), "y": y});
 // */
         lastX = x;
         time = time.add(Duration(minutes: diff));
@@ -1948,6 +1968,30 @@ abstract class BasePrint {
       }
     }
 
+    double iActHeight = drawScaleIE(
+        xo,
+        yo,
+        graphHeight,
+        3 * graphHeight,
+        minIAct,
+        maxIAct,
+        colWidth,
+        horzCvs,
+        vertStack,
+        [S(10, 2.0), S(7, 1.0), S(3, 0.5), S(1.5, 0.2), S(0, 0.1)],
+            (i, step, {value: null}) => "${g.fmtNumber(value ?? minIAct + i * step, 1)} ${msgInsulinUnit}");
+    for (int i = 0; i < ptsIAct.length; i++) {
+      if (maxIob - minIAct > 0) {
+        double y = ptsIAct[i]["y"];
+        if (upperIob > 0)
+          ptsIAct[i]["y"] = cm(iActHeight / maxIAct * (y + minIAct));
+        else
+          ptsIAct[i]["y"] = cm(iActHeight / (maxIAct - minIAct) * (maxIAct - y));
+      } else {
+        ptsIAct[i]["y"] = cm(iActHeight);
+      }
+    }
+
     double cobHeight = drawScaleIE(
         xo,
         yo,
@@ -1972,6 +2016,29 @@ abstract class BasePrint {
         ptsCob[i]["y"] = cm(cobHeight);
     }
 
+    double cActHeight = drawScaleIE(
+        xo,
+        yo,
+        graphHeight,
+        4 * graphHeight,
+        0.0,
+        maxCAct,
+        colWidth,
+        horzCvs,
+        vertStack,
+        [S(100, 20), S(50, 10), S(20, 5), S(0, 1)],
+            (i, step, {value: null}) => "${g.fmtNumber(value ?? i * step, 0)} g");
+    if (upperCob == 0)
+      maxCAct = maxCAct * 1.1;
+    else
+      maxCAct = upperCob;
+    for (int i = 0; i < ptsCAct.length; i++) {
+      if (maxCAct > 0)
+        ptsCAct[i]["y"] = cm(cActHeight / maxCAct * (maxCAct - ptsCob[i]["y"]));
+      else
+        ptsCAct[i]["y"] = cm(cActHeight);
+    }
+
     if (lastX != null) {
       double y = 0;
       if (upperIob > 0)
@@ -1980,15 +2047,27 @@ abstract class BasePrint {
         ptsIob.add({"x": cm(lastX), "y": cm(iobHeight / (maxIob - minIob) * (maxIob - y))});
       else
         ptsIob.add({"x": cm(lastX), "y": cm(iobHeight)});
+      if (upperIob > 0)
+        ptsIAct.add({"x": cm(lastX), "y": cm(iActHeight / maxIAct * (y + minIAct))});
+      else if (maxIob - minIob > 0)
+        ptsIAct.add({"x": cm(lastX), "y": cm(iActHeight / (maxIAct - minIAct) * (maxIAct - y))});
+      else
+        ptsIAct.add({"x": cm(lastX), "y": cm(iActHeight)});
       ptsCob.add({"x": cm(lastX), "y": cm(cobHeight)});
+      ptsCAct.add({"x": cm(lastX), "y": cm(cActHeight)});
     }
 
     return {
       "iob": ptsIob,
+      "iact": ptsIAct,
       "cob": ptsCob,
+      "cact": ptsCAct,
       "iobHeight": iobHeight,
+      "iActHeight": iActHeight,
       "cobHeight": cobHeight,
-      "iobTop": iobHeight / maxIob * minIob
+      "cActHeight": cActHeight,
+      "iobTop": iobHeight / maxIob * minIob,
+      "iActTop": iActHeight / maxIAct * minIAct
     };
   }
 

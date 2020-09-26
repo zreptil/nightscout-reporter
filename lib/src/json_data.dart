@@ -1299,7 +1299,7 @@ class TreatmentData extends JsonData {
     }
     var index = time.toInt();
     var remaining = time - index;
-    if (index >= insulin.IOB1Min.length) {
+    if (index+1 >= insulin.IOB1Min.length) {
       return insulin.IOB1Min[insulin.IOB1Min.length-1];
     }
     var valueIndex = insulin.IOB1Min[index];
@@ -1330,20 +1330,26 @@ class TreatmentData extends JsonData {
       if (insulinProfiles != null)
       {
         for (String injected in multipleInsulin.injections.keys) {
-          InsulinData insulin = null;
-          for (var entry in insulinProfiles) {
-            if (entry.name.toLowerCase() == injected.toLowerCase()) {
-              insulin = entry;
+          if (injected.toLowerCase() != 'sum') {
+            InsulinData insulin = null;
+            for (var entry in insulinProfiles) {
+              if (entry.name.toLowerCase() == injected.toLowerCase()) {
+                insulin = entry;
+              }
             }
+            if (insulin == null) {
+              throw Exception(
+                  "kann Insulin mit Name " + injected + " nicht finden!");
+            }
+            ret.iob += multipleInsulin.injections[injected] *
+                calcIOB1Min(insulin, minAgo);
+            var iob1 = multipleInsulin.injections[injected] *
+                calcIOB1Min(insulin, minAgo - 1);
+            var iob2 = multipleInsulin.injections[injected] *
+                calcIOB1Min(insulin, minAgo + 1);
+            if (iob1 > iob2)
+              ret.activity += sens * (iob1 - iob2) / 2.0;
           }
-          if (insulin == null)
-          {
-            throw Exception("kann Insulin mit Name " + injected + " nicht finden!");
-          }
-          ret.iob += multipleInsulin.injections[injected] * calcIOB1Min(insulin, minAgo);
-          var iob1 = multipleInsulin.injections[injected] * calcIOB1Min(insulin, minAgo -  1);
-          var iob2 = multipleInsulin.injections[injected] * calcIOB1Min(insulin, minAgo +  1);
-          ret.activity += sens * (iob2 - iob1) / 2.0;
         }
       } else {
         if (minAgo < peak) {

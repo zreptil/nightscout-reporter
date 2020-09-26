@@ -312,8 +312,8 @@ class PrintDailyGraphic extends BaseDaily {
     g.glucMGDL = saveMGDL;
   }
 
-  dynamic glucLine(dynamic points) =>
-      {'type': 'polyline', 'lineWidth': cm(lw), 'closePath': false, 'lineColor': colValue, 'points': points};
+  dynamic glucLine(dynamic points, String color) =>
+      {'type': 'polyline', 'lineWidth': cm(lw), 'closePath': false, 'lineColor': color, 'points': points};
 
   bool hasExercises;
 
@@ -505,7 +505,7 @@ class PrintDailyGraphic extends BaseDaily {
       var y = glucY(entry.gluc);
       if (entry.gluc < 0) {
         if (last != null && last.gluc >= 0) {
-          graphGlucCvs.add(glucLine(points));
+          graphGlucCvs.add(glucLine(points, colValue));
           points = [];
         }
       } else {
@@ -513,7 +513,7 @@ class PrintDailyGraphic extends BaseDaily {
       }
       last = entry;
     }
-    graphGlucCvs.add(glucLine(points));
+    graphGlucCvs.add(glucLine(points, colValue));
 
     var hasLowGluc = false;
     var hasNormGluc = false;
@@ -1194,7 +1194,9 @@ class PrintDailyGraphic extends BaseDaily {
         };
 //    double cobHeight = 0;
     dynamic graphIob = {};
+    dynamic graphIAct = {};
     dynamic graphCob = {};
+    dynamic graphCAct = {};
 
     if (showCOB || showIOB) {
       List hc = [];
@@ -1209,6 +1211,13 @@ class PrintDailyGraphic extends BaseDaily {
         };
         List graphIobCvs = graphIob["canvas"];
         graphIobCvs.add(graphArea(pts["iob"], colIOBDaily, colIOBDaily));
+        graphIAct = {
+//          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["iActHeight"] + pts["iActTop"])},
+          "relativePosition": {"x": cm(xo), "y": cm(yo - pts["iActTop"])},
+          "canvas": []
+        };
+        List graphIActCvs = graphIAct["canvas"];
+        graphIActCvs.add(glucLine(pts["iact"], colValue));
       }
       if (showCOB) {
         graphCob = {
@@ -1217,13 +1226,21 @@ class PrintDailyGraphic extends BaseDaily {
         };
         List graphCobCvs = graphCob["canvas"];
         graphCobCvs.add(graphArea(pts["cob"], colCOBDaily, colCOBDaily));
+        graphCAct = {
+          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["cActHeight"])},
+          "canvas": []
+        };
+        List graphCActCvs = graphCAct["canvas"];
+        graphCActCvs.add(glucLine(pts["cact"], colValue));
       }
     }
 
     var ret = Page(isPortrait, [
       headerFooter(date: day.date),
       graphIob,
+      graphIAct,
       graphCob,
+      graphCAct,
       glucTableCvs,
       exerciseCvs,
       vertLegend,
