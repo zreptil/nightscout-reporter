@@ -13,10 +13,17 @@ class Flags {
 
 class PrintDailyLog extends BaseProfile {
   @override
-  String id = "daylog";
+  String help = Intl.message('''Dieses Formular zeigt die Daten in tabellarischer Form an. Es kann abhängig von den
+ausgewählten Optionen sehr viele Seiten umfassen. Es ist vor allem dafür sinnvoll, um bestimmte Daten aufzufinden.
+Zum Beispiel kann man damit ermitteln, wann Katheterwechsel vorgenommen wurden, wieviele Datensätze als doppelt 
+erkannt wurden oder wo Notizen erfasst wurden.
+''', desc: 'help for daylog');
 
   @override
-  String idx = "07";
+  String id = 'daylog';
+
+  @override
+  String idx = '07';
 
   bool showNotes,
       showCarbs,
@@ -51,12 +58,12 @@ class PrintDailyLog extends BaseProfile {
     ParamInfo(5, msgParam6, boolValue: true, subParams: [ParamInfo(0, msgParam14, boolValue: true)]),
     ParamInfo(8, msgParam8, boolValue: true, isLoopValue: true),
     ParamInfo(0, msgParam9, list: [
-      Intl.message("Keine"),
-      Intl.message("1 Minute"),
-      Intl.message("5 Minuten"),
-      Intl.message("15 Minuten"),
-      Intl.message("30 Minuten"),
-      Intl.message("1 Stunde")
+      Intl.message('Keine'),
+      Intl.message('1 Minute'),
+      Intl.message('5 Minuten'),
+      Intl.message('15 Minuten'),
+      Intl.message('30 Minuten'),
+      Intl.message('1 Stunde')
     ]),
     ParamInfo(1, msgParam10, boolValue: true),
     ParamInfo(6, msgParam11, boolValue: true, subParams: [ParamInfo(0, msgParam12, boolValue: true)]),
@@ -66,7 +73,7 @@ class PrintDailyLog extends BaseProfile {
   ];
 
   @override
-  extractParams() {
+  void extractParams() {
     showNotes = params[0].boolValue;
     showCarbs = params[1].boolValue;
     showIE = params[2].boolValue;
@@ -109,34 +116,34 @@ class PrintDailyLog extends BaseProfile {
   }
 
   @override
-  dynamic get estimatePageCount => {"count": 0, "isEstimated": true};
+  dynamic get estimatePageCount => {'count': 0, 'isEstimated': true};
 
   @override
-  String get title => Intl.message("Protokoll");
+  String get title => Intl.message('Protokoll');
 
-  static String get msgParam1 => Intl.message("Notizen");
-  static String get msgParam2 => Intl.message("Kohlenhydrate");
-  static String get msgParam3 => Intl.message("Insulin");
-  static String get msgParam4 => Intl.message("Temporäre Basalraten");
-  static String get msgParam5 => Intl.message("SMB");
-  static String get msgParam6 => Intl.message("Profilwechsel");
-  static String get msgParam7 => Intl.message("Insulin-Quelle");
-  static String get msgParam8 => Intl.message("Temporäre Ziele");
-  static String get msgParam9 => Intl.message("Gruppierung der Zeiten");
-  static String get msgParam10 => Intl.message("Glukosewert");
-  static String get msgParam11 => Intl.message("Wechsel (Katheter etc.)");
-  static String get msgParam12 => Intl.message("Zusätzliche Spalte anzeigen");
-  static String get msgParam13 => Intl.message("Kalibrierung und blutige Messungen");
-  static String get msgParam14 => Intl.message("Details des Profilwechsels");
-  static String get msgParam15 => Intl.message("Dauer mit Minutenbruchteil");
-  static String get msgParam16 => Intl.message("Mehrfache Datensätze kennzeichnen");
-  static String get msgParam17 => Intl.message("Nur mehrfache Datensätze anzeigen");
-  static String get msgParam18 => Intl.message("Temporäre Overrides");
+  static String get msgParam1 => Intl.message('Notizen');
+  static String get msgParam2 => Intl.message('Kohlenhydrate');
+  static String get msgParam3 => Intl.message('Insulin');
+  static String get msgParam4 => Intl.message('Temporäre Basalraten');
+  static String get msgParam5 => Intl.message('SMB');
+  static String get msgParam6 => Intl.message('Profilwechsel');
+  static String get msgParam7 => Intl.message('Insulin-Quelle');
+  static String get msgParam8 => Intl.message('Temporäre Ziele');
+  static String get msgParam9 => Intl.message('Gruppierung der Zeiten');
+  static String get msgParam10 => Intl.message('Glukosewert');
+  static String get msgParam11 => Intl.message('Wechsel (Katheter etc.)');
+  static String get msgParam12 => Intl.message('Zusätzliche Spalte anzeigen');
+  static String get msgParam13 => Intl.message('Kalibrierung und blutige Messungen');
+  static String get msgParam14 => Intl.message('Details des Profilwechsels');
+  static String get msgParam15 => Intl.message('Dauer mit Minutenbruchteil');
+  static String get msgParam16 => Intl.message('Mehrfache Datensätze kennzeichnen');
+  static String get msgParam17 => Intl.message('Nur mehrfache Datensätze anzeigen');
+  static String get msgParam18 => Intl.message('Temporäre Overrides');
 
-  static String get msgMultipleNotFound => Intl.message("Es gibt keine mehrfachen Datensätze.");
+  static String get msgMultipleNotFound => Intl.message('Es gibt keine mehrfachen Datensätze.');
 
   @override
-  List<String> get imgList => ["nightscout", "katheter.print", "sensor.print", "ampulle.print", "battery.print"];
+  List<String> get imgList => ['nightscout', 'katheter.print', 'sensor.print', 'ampulle.print', 'battery.print'];
 
   @override
   bool get isPortrait => true;
@@ -149,13 +156,16 @@ class PrintDailyLog extends BaseProfile {
 
   bool _isFirstLine = true;
   bool _hasData = false;
+  @override
   bool tableHeadFilled = false;
+  @override
   dynamic tableHeadLine = [];
+  @override
   dynamic tableWidths = [];
   var _body = [];
   var _page = [];
   double _y;
-  double _bloodValue = null;
+  double _bloodValue;
 
   @override
   dynamic get footerText => footerTextDayTimes;
@@ -164,9 +174,9 @@ class PrintDailyLog extends BaseProfile {
   void fillPages(List<Page> pages) async {
     fillPagesInternal(pages);
     if (g.showBothUnits) {
-      g.glucMGDL = !g.glucMGDL;
+      g.glucMGDLIdx = 1;
       fillPagesInternal(pages);
-      g.glucMGDL = !g.glucMGDL;
+      g.glucMGDLIdx = 2;
     }
   }
 
@@ -181,9 +191,9 @@ class PrintDailyLog extends BaseProfile {
     tableWidths = [];
     _hasData = false;
 
-    int oldLength = pages.length;
-    for (int i = 0; i < data.days.length; i++) {
-      DayData day = data.days[i];
+    var oldLength = pages.length;
+    for (var i = 0; i < data.days.length; i++) {
+      var day = data.days[i];
       fillTable(day, pages);
       if (repData.isForThumbs) i = data.days.length;
     }
@@ -194,11 +204,12 @@ class PrintDailyLog extends BaseProfile {
       pages.add(Page(isPortrait, _page));
     } else {
       _page.add(headerFooter());
-      if (showDupes && showOnlyDupes)
+      if (showDupes && showOnlyDupes) {
         _page.add({
-          "relativePosition": {"x": cm(2.2), "y": cm(yorg)},
-          "text": msgMultipleNotFound
+          'relativePosition': {'x': cm(2.2), 'y': cm(yorg)},
+          'text': msgMultipleNotFound
         });
+      }
       pages.add(Page(isPortrait, _page));
     }
     if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
@@ -206,13 +217,13 @@ class PrintDailyLog extends BaseProfile {
 
 //  double _cellSpace = 0.11;
 //  double _lineHeight = 0.34;
-  double _lineHeight = 0.4;
-  double _cellSpace = 0.12; //((23.59 / 70) - 0.3) / 2;
+  final double _lineHeight = 0.4;
+  final double _cellSpace = 0.12; //((23.59 / 70) - 0.3) / 2;
   double _maxY;
 
   double lineHeight(int lineCount) => 2 * _cellSpace + lineCount * (_lineHeight + _cellSpace);
 
-  fillTable(DayData day, List<Page> pages) {
+  void fillTable(DayData day, List<Page> pages) {
     _maxY = height - 2.8;
     tableHeadFilled = false;
     tableHeadLine = [];
@@ -235,7 +246,7 @@ class PrintDailyLog extends BaseProfile {
       t.eventType = 'nr-${e.type}';
       t.glucoseType = 'finger';
       t.glucose = e.bloodGluc;
-      t.notes = msgMBG(g.glucFromData(e.bloodGluc), g.getGlucInfo()["unit"]);
+      t.notes = msgMBG(g.glucFromData(e.bloodGluc), g.getGlucInfo()['unit']);
       treatments.add(t);
     }
 
@@ -245,7 +256,8 @@ class PrintDailyLog extends BaseProfile {
         t.createdAt = e.time;
         t.eventType = 'nr-${e.type}';
         t.notes =
-            '${BasePrint.msgCalibration(g.fmtNumber(e.scale, 2), g.fmtNumber(e.intercept, 0), g.fmtNumber(e.slope, 2))}';
+            '${BasePrint.msgCalibration(g.fmtNumber(e.scale, 2), 
+                g.fmtNumber(e.intercept, 0), g.fmtNumber(e.slope, 2))}';
         treatments.add(t);
       }
     }
@@ -264,16 +276,16 @@ class PrintDailyLog extends BaseProfile {
       if (groupMinutes == 0 || !t.createdAt.isBefore(nextTime)) {
         var time = t.createdAt;
         if (groupMinutes != 0) time = nextTime.add(Duration(minutes: -groupMinutes));
-        while (list.length > 0) {
+        while (list.isNotEmpty) {
           _hasData = true;
           if (_isFirstLine) {
             _body.add(tableHeadLine);
             _y += lineHeight(1);
             _isFirstLine = false;
           }
-          list = fillRow(time, repData, day, row, day.findNearest(day.entries, null, time), list, flags, "row");
+          list = fillRow(time, repData, day, row, day.findNearest(day.entries, null, time), list, flags, 'row');
           row = [];
-          if (list.length > 0 || _y + _lineHeight >= _maxY) {
+          if (list.isNotEmpty || _y + _lineHeight >= _maxY) {
             _page.add(headerFooter());
             _page.add(getTable(tableWidths, _body));
             pages.add(Page(isPortrait, _page));
@@ -281,8 +293,9 @@ class PrintDailyLog extends BaseProfile {
             _body = [tableHeadLine];
             _y = yorg - 0.3 + lineHeight(2);
             _isFirstLine = false;
-          } else
+          } else {
             flags = Flags();
+          }
         }
         nextTime = nextTime.add(Duration(minutes: groupMinutes));
       }
@@ -293,130 +306,138 @@ class PrintDailyLog extends BaseProfile {
 
   List<String> fillRow(DateTime time, ReportData src, DayData day, dynamic row, EntryData glucEntry, List<String> list,
       Flags flags, String style) {
-    if (list.length > 0) {
-      double oldY = _y;
-      double size = fs(10);
-      String text = list[0];
-      for (int i = 1; i < list.length; i++) {
-        String line = list[i];
-        if (text.endsWith("]"))
-          text = "${text} ${line}";
-        else if (text.endsWith("@"))
-          text = "${text.substring(0, text.length - 1)} ${line}";
-        else
-          text = "${text}, ${line}";
+    if (list.isNotEmpty) {
+      var oldY = _y;
+      var size = fs(10);
+      var text = list[0];
+      for (var i = 1; i < list.length; i++) {
+        var line = list[i];
+        if (text.endsWith(']')) {
+          text = '${text} ${line}';
+        } else if (text.endsWith('@')) {
+          text = '${text.substring(0, text.length - 1)} ${line}';
+        } else {
+          text = '${text}, ${line}';
+        }
       }
-      List<String> lines = text.split("\n");
-      double y = _y;
-      int idx = 0;
-      if (lines.length > 1) y += 2 * _cellSpace;
-      List<String> output = List<String>();
-      double wid = width - 1.8 - 5.1;
+      var lines = text.split('\n');
+      var y = _y;
+      var idx = 0;
+      if (lines.length > 1) {
+        y += 2 * _cellSpace;
+      }
+      var output = <String>[];
+      var wid = width - 1.8 - 5.1;
       if (showGluc) wid -= 1.6;
       if (showChanges && showChangesColumn) wid -= 1.7;
-      int charsPerLine = wid ~/ 0.165;
+      var charsPerLine = wid ~/ 0.165;
       while (idx < lines.length && y + _lineHeight * (lines[idx].length ~/ charsPerLine + 1) < _maxY) {
         y += _lineHeight * (lines[idx].length ~/ charsPerLine + 1);
-        output.add(getText(y, "${lines[idx]}"));
+        output.add(getText(y, '${lines[idx]}'));
         idx++;
       }
       _y = y;
-      text = output.join("\n");
-      if (text != "") {
+      text = output.join('\n');
+      if (text != '') {
         _y += 2 * _cellSpace;
-        addRow(true, cm(1.8), row, {"text": msgTime, "style": "total", "fontSize": size, "alignment": "center"},
-            {"text": fmtTime(time), "style": styleForTime(time), "fontSize": size, "alignment": "center"});
+        addRow(true, cm(1.8), row, {'text': msgTime, 'style': 'total', 'fontSize': size, 'alignment': 'center'},
+            {'text': fmtTime(time), 'style': styleForTime(time), 'fontSize': size, 'alignment': 'center'});
         if (showGluc) {
-          double gluc = glucEntry?.gluc;
+          var gluc = glucEntry?.gluc;
           if (_bloodValue == null) {
             addRow(true, cm(1.3), row, {
-              "text": g.getGlucInfo()["unit"],
-              "style": "total",
-              "fontSize": size,
-              "alignment": "center"
+              'text': g.getGlucInfo()['unit'],
+              'style': 'total',
+              'fontSize': size,
+              'alignment': 'center'
             }, {
-              "text": g.glucFromData(gluc),
-              "style": style,
-              "fontSize": size,
-              "alignment": "center",
-              "fillColor": colForGluc(day, gluc)
+              'text': g.glucFromData(gluc),
+              'style': style,
+              'fontSize': size,
+              'alignment': 'center',
+              'fillColor': colForGluc(day, gluc)
             });
           } else {
             addRow(true, cm(1.3), row, {
-              "text": g.getGlucInfo()["unit"],
-              "style": "total",
-              "fontSize": size,
-              "alignment": "center"
+              'text': g.getGlucInfo()['unit'],
+              'style': 'total',
+              'fontSize': size,
+              'alignment': 'center'
             }, {
-              "stack": [
-                {"text": g.glucFromData(gluc), "style": style, "fontSize": size, "alignment": "center"},
+              'stack': [
+                {'text': g.glucFromData(gluc), 'style': style, 'fontSize': size, 'alignment': 'center'},
                 {
-                  "text": g.glucFromData(_bloodValue),
-                  "style": style,
-                  "fontSize": size,
-                  "alignment": "center",
-                  "color": colBloodValues
+                  'text': g.glucFromData(_bloodValue),
+                  'style': style,
+                  'fontSize': size,
+                  'alignment': 'center',
+                  'color': colBloodValues
                 },
               ],
-              "fillColor": colForGluc(day, gluc)
+              'fillColor': colForGluc(day, gluc)
             });
             _y += _lineHeight;
           }
         }
         if (showChanges && showChangesColumn) {
           dynamic stack = [];
-          double x = -0.5;
-          if (flags.hasKatheter)
+          var x = -0.5;
+          if (flags.hasKatheter) {
             stack.add({
-              "relativePosition": {"x": cm(x += 0.5), "y": cm(0.1)},
-              "image": "katheter.print",
-              "width": cm(0.4)
+              'relativePosition': {'x': cm(x += 0.5), 'y': cm(0.1)},
+              'image': 'katheter.print',
+              'width': cm(0.4)
             });
-          if (flags.hasSensor)
+          }
+          if (flags.hasSensor) {
             stack.add({
-              "relativePosition": {"x": cm(x += 0.5), "y": cm(0)},
-              "image": "sensor.print",
-              "width": cm(0.4)
+              'relativePosition': {'x': cm(x += 0.5), 'y': cm(0)},
+              'image': 'sensor.print',
+              'width': cm(0.4)
             });
-          if (flags.hasAmpulle)
+          }
+          if (flags.hasAmpulle) {
             stack.add({
-              "relativePosition": {"x": cm(x += 0.5), "y": cm(0.1)},
-              "image": "ampulle.print",
-              "width": cm(0.4)
+              'relativePosition': {'x': cm(x += 0.5), 'y': cm(0.1)},
+              'image': 'ampulle.print',
+              'width': cm(0.4)
             });
-          if (flags.hasBattery)
+          }
+          if (flags.hasBattery) {
             stack.add({
-              "relativePosition": {"x": cm(x += 0.5), "y": cm(0.1)},
-              "image": "battery.print",
-              "width": cm(0.4)
+              'relativePosition': {'x': cm(x += 0.5), 'y': cm(0.1)},
+              'image': 'battery.print',
+              'width': cm(0.4)
             });
+          }
           addRow(
               true,
               cm(1.4),
               row,
-              {"text": BasePrint.msgChange, "style": "total", "fontSize": size, "alignment": "center"},
-              {"stack": stack});
+              {'text': BasePrint.msgChange, 'style': 'total', 'fontSize': size, 'alignment': 'center'},
+              {'stack': stack});
         }
         addRow(true, cm(wid), row, {
-          "text": getText(oldY, "${fmtDate(time, null, false, true)}"),
-          "style": "total",
-          "fontSize": size,
-          "alignment": "left"
+          'text': getText(oldY, '${fmtDate(time, null, false, true)}'),
+          'style': 'total',
+          'fontSize': size,
+          'alignment': 'left'
         }, {
-          "text": text,
-          "style": style,
-          "fontSize": size,
-          "alignment": "left"
+          'text': text,
+          'style': style,
+          'fontSize': size,
+          'alignment': 'left'
         });
         _body.add(row);
         tableHeadFilled = true;
       }
 
       lines.removeRange(0, idx);
-      if (lines.length > 0 && lines[0] != "")
-        list = lines.join("\n").split(", ");
-      else
-        list = List<String>();
+      if (lines.isNotEmpty && lines[0] != '') {
+        list = lines.join('\n').split(', ');
+      } else {
+        list = <String>[];
+      }
     }
     _bloodValue = null;
     return list;
@@ -428,10 +449,10 @@ class PrintDailyLog extends BaseProfile {
   }
 
   ProfileEntryData basalFor(DayData day, DateTime time) {
-    ProfileEntryData ret = null;
-    for (int i = 0; i < day.profile.length; i++) {
+    ProfileEntryData ret;
+    for (var i = 0; i < day.profile.length; i++) {
       ret = day.profile[i];
-      DateTime check = ret.time(day.date, true);
+      var check = ret.time(day.date, true);
       if ((check.hour == time.hour && time.minute == check.minute && time.second == check.second) ||
           (check.isBefore(time) && time.add(Duration(seconds: ret.duration)).isBefore(check))) return ret;
     }
@@ -449,58 +470,62 @@ class PrintDailyLog extends BaseProfile {
       Intl.message('temp. Basal ${value} / ${duration} min', args: [value, duration], name: 'msgLogTempBasalAbsolute');
   String msgLogSMB(insulin, unit) => Intl.message('SMB ${insulin} ${unit}', args: [insulin, unit], name: 'msgLogSMB');
   String msgLogMicroBolus(insulin, unit) =>
-      Intl.message("Microbolus ${insulin} ${unit}", args: [insulin, unit], name: "msgLogMicroBolus");
-  String get msgChangeSite => Intl.message("Katheterwechsel");
-  String get msgChangeSensor => Intl.message("Sensorwechsel");
-  String get msgChangeInsulin => Intl.message("Ampullenwechsel");
-  String get msgChangeBattery => Intl.message("Batteriewechsel");
-  String msgMBG(gluc, unit) => Intl.message("Blutige Messung ${gluc} ${unit}", args: [gluc, unit], name: "msgMBG");
+      Intl.message('Microbolus ${insulin} ${unit}', args: [insulin, unit], name: 'msgLogMicroBolus');
+  String get msgChangeSite => Intl.message('Katheterwechsel');
+  String get msgChangeSensor => Intl.message('Sensorwechsel');
+  String get msgChangeInsulin => Intl.message('Ampullenwechsel');
+  String get msgChangeBattery => Intl.message('Batteriewechsel');
+  String msgMBG(gluc, unit) => Intl.message('Blutige Messung ${gluc} ${unit}', args: [gluc, unit], name: 'msgMBG');
   String msgLogOverride(range, duration, reason, scale) =>
       Intl.message('temp. Override für ${duration} min, Grund: ${reason}, Zielbereich: ${range}, Anpassung: ${scale}%',
           args: [range, duration, reason, scale], name: 'msgLogOverride');
 
-  //{"_id":"2D5C42BE-CBE7-4139-BF03-95751ABE2C3C","correctionRange":[95,100],"reason":"😰 120%","timestamp":"2020-08-23T19:56:14Z",
+  //{"_id":"2D5C42BE-CBE7-4139-BF03-95751ABE2C3C","correctionRange":[95,100],"reason":"😰 120%",
+  // "timestamp": "2020-08-23T19:56:14Z",
   // "created_at":"2020-08-23T19:56:14.000Z","eventType":"Temporary Override","insulinNeedsScaleFactor":1.2,
   // "duration":0.022495784362157187,"enteredBy":"Loop","utcOffset":0,"carbs":null,"insulin":null}
-  fillList(bool showTime, ReportData src, DayData day, TreatmentData t, List<String> list, Flags flags) {
-    int lastIdx = list.length;
+  void fillList(bool showTime, ReportData src, DayData day, TreatmentData t, List<String> list, Flags flags) {
+    var lastIdx = list.length;
     if (showDupes && showOnlyDupes && t.duplicates < 2) return;
 
-    String type = t.eventType.toLowerCase();
-    if (showNotes && t.notes != null && t.notes.isNotEmpty && !type.startsWith("nr-"))
-      list.add("${t.notes.replaceAll("<br>", "\n")}");
-    if (showCarbs && t.carbs != null && t.carbs != 0) list.add("${msgCarbs(t.carbs.toString())}");
+    var type = t.eventType.toLowerCase();
+    if (showNotes && t.notes != null && t.notes.isNotEmpty && !type.startsWith('nr-')) {
+      list.add('${t.notes.replaceAll('<br>', '\n')}');
+    }
+    if (showCarbs && t.carbs != null && t.carbs != 0) list.add('${msgCarbs(t.carbs.toString())}');
     if (showIE && t.insulin != null && t.insulin != 0 && !t.isSMB) {
       if (showIESource) {
-        String text = t.eventType;
+        var text = t.eventType;
         if (t.isMealBolus) {
           text = msgMealBolus;
         } else if (t.isBolusWizard) {
           text = msgBolusWizard;
         } else {
-          if (t.insulinInjections.length > 0) {
+          if (t.insulinInjections.isNotEmpty) {
             text = null;
-            for (InsulinInjectionData entry in t.insulinInjections)
-              list.add("${entry.insulin} ${entry.units} ${msgInsulinUnit}");
+            for (var entry in t.insulinInjections) {
+              list.add('${entry.insulin} ${entry.units} ${msgInsulinUnit}');
+            }
           } else if (t.hasNoType) {
             text = msgInsulin;
           }
         }
-        if (text != null) list.add("${text} ${t.insulin} ${msgInsulinUnit}");
+        if (text != null) list.add('${text} ${t.insulin} ${msgInsulinUnit}');
       } else {
-        list.add("${t.insulin} ${msgInsulinUnit}");
+        list.add('${t.insulin} ${msgInsulinUnit}');
       }
     }
     if (showSMB) {
-      if (t.insulin != null && t.insulin != 0 && t.isSMB)
+      if (t.insulin != null && t.insulin != 0 && t.isSMB) {
         list.add(msgLogSMB(t.insulin, msgInsulinUnit));
-      else if (t.microbolus != null && t.microbolus > 0)
+      } else if (t.microbolus != null && t.microbolus > 0) {
         list.add(msgLogMicroBolus(g.fmtNumber(t.microbolus, g.basalPrecision), msgInsulinUnit));
+      }
     }
     if (showTempBasal && t.isTempBasal) {
-      ProfileEntryData entry = basalFor(day, t.createdAt);
+      var entry = basalFor(day, t.createdAt);
       if (entry != null && entry.tempAdjusted > 0) {
-        list.add(msgLogTempBasal(g.fmtNumber(entry.tempAdjusted * 100, 0, 0, "null", false, true),
+        list.add(msgLogTempBasal(g.fmtNumber(entry.tempAdjusted * 100, 0, 0, 'null', false, true),
             g.fmtNumber(entry.duration / 60, showTempDigit ? 1 : 0)));
       } else {
         entry = ProfileEntryData.fromTreatment(null, t);
@@ -560,15 +585,15 @@ class PrintDailyLog extends BaseProfile {
     }
 
     if (list.length != lastIdx) {
-      if (showDupes && t.duplicates > 1) list.insert(lastIdx, "${t.duplicates} x @");
+      if (showDupes && t.duplicates > 1) list.insert(lastIdx, '${t.duplicates} x @');
       if (list.length != lastIdx && showTime && groupMinutes > 1) {
-        String time = "[${fmtTime(t.createdAt)}]";
+        var time = '[${fmtTime(t.createdAt)}]';
         if (lastIdx < 2 || list[lastIdx - 2] != time) list.insert(lastIdx, time);
       }
     }
   }
 
-  addRow(bool check, var width, dynamic dst, dynamic head, dynamic content) {
+  void addRow(bool check, var width, dynamic dst, dynamic head, dynamic content) {
     if (!check) return;
     if (!tableHeadFilled) {
       tableHeadLine.add(head);
@@ -577,23 +602,24 @@ class PrintDailyLog extends BaseProfile {
     dst.add(content);
   }
 
-  getTable(widths, body, [double fontsize = null]) {
+  @override
+  dynamic getTable(widths, body, [double fontsize]) {
     dynamic ret = {
-      "columns": [
+      'columns': [
         {
-          "margin": [cm(2.2), cmy(yorg - 0.3), cm(2.2), cmy(0.0)],
-          "width": cm(width),
-          "table": {"widths": widths, "body": body}
+          'margin': [cm(2.2), cmy(yorg - 0.3), cm(2.2), cmy(0.0)],
+          'width': cm(width),
+          'table': {'widths': widths, 'body': body}
         }
       ],
-      "pageBreak": ""
+      'pageBreak': ''
     };
 
     return ret;
   }
 
   @override
-  getPage(int page, ProfileGlucData profile, CalcData calc) {
+  Page getPage(int page, ProfileGlucData profile, CalcData calc) {
     return null;
   }
 }

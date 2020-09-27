@@ -1,0 +1,78 @@
+@import '../colors.sass';
+@import '../base';
+@import 'package:angular_components/material_dialog/mixins';
+
+:host {
+}
+
+material-dialog {
+  max-width: 50%;
+
+  ::ng-deep main::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  ::ng-deep main::-webkit-scrollbar-track {
+    background-color: var(--helpBodyBack);
+  }
+
+  ::ng-deep main::-webkit-scrollbar-thumb {
+    background-color: var(--helpScrollThumb);
+  }
+
+  ::ng-deep main {
+    scrollbar-color: var(--helpScrollThumb) var(--helpBodyBack);
+  }
+
+  @include material-dialog-header-color(var(--helpHeaderBack));
+  @include material-dialog-header-shadow();
+  @include material-dialog-body-padding(0);
+}
+
+material-dialog.headered-dialog {
+  @include material-dialog-header-color(var(--helpHeaderBack));
+
+  ::ng-deep h1 {
+    color: var(--helpHeaderFore) !important;
+  }
+}
+
+div[header] {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: var(--helpHeaderFore);
+  align-items: center;
+}
+
+.root {
+  flex: 1;
+  padding: 1em;
+  font-size: 1.2em;
+  color: var(--helpBodyFore);
+  background-color: var(--helpBodyBack);
+  text-align: justify;
+}
+
+h1 {
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+}
+
+a, a:visited, a:active {
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--helpHeaderBack);
+}
+
+material-button {
+  text-transform: none;
+  font-weight: bold;
+}
+
+.btn {
+  font-weight: bold;
+  cursor: pointer;
+}

@@ -73,7 +73,7 @@ class PrintUserData extends BasePrint {
     titleInfo = user.apiUrl(null, '', noApi: true);
 
     if (!user.isReachable || (user.status?.status ?? '401') == '401') {
-      pages.add(getEmptyForm(isPortrait, user.status?.status ?? '401'));
+      pages.add(getEmptyForm(isPortrait, user.status?.status ?? '401', skipFooter: true));
       return;
     }
 
@@ -109,9 +109,10 @@ class PrintUserData extends BasePrint {
       {'text': 'Version', 'fontSize': fs(12)},
       {'text': '${user.status.version}', 'fontSize': fs(10)}
     ]);
+    var units = g.isMGDL(user.status) ? Settings.msgUnitMGDL : Settings.msgUnitMMOL;
     table.add([
       {'text': 'Einheiten', 'fontSize': fs(12)},
-      {'text': '${user.status.settings.units}', 'fontSize': fs(10)}
+      {'text': units, 'fontSize': fs(10)}
     ]);
     table.add([
       {'text': 'Enabled', 'fontSize': fs(12)},
@@ -120,14 +121,20 @@ class PrintUserData extends BasePrint {
     table.add([
       {'text': 'Eigene Grenzwerte', 'fontSize': fs(12)},
       {
-        'text':
-            '${g.glucFromData(user.status.settings.thresholds?.bgTargetBottom ?? 0)} ${user.status.settings.units} - '
-                '${g.glucFromData(user.status.settings.thresholds?.bgTargetTop ?? 0)} ${user.status.settings.units}',
+        'text': '${glucFromData(user, user.status.settings.thresholds?.bgTargetBottom ?? 0)} ${units} - '
+            '${glucFromData(user, user.status.settings.thresholds?.bgTargetTop ?? 0)} ${units}',
         'fontSize': fs(10),
         'margin': [cm(0), cm(0.3), cm(0), cm(0)]
       }
     ]);
 
     pages.add(Page(isPortrait, ret));
+  }
+
+  String glucFromData(UserData user, double value) {
+    if (!g.isMGDL(user.status)) {
+      return g.fmtNumber(value / 18.02, 1);
+    }
+    return g.fmtNumber(value, 0);
   }
 }
