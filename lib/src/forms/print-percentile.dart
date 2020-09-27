@@ -177,67 +177,6 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''', desc: 'help 
     }
     average /= count;
  */
-<<<<<<< HEAD
-
-    var wid = 2.0 / 100.0;
-    var colcount = showCol1090 ? 10 : 8;
-    var f = fs(showCol1090 ? 7 : 10);
-    var w = (width - 4.0 - 2.0 - wid * 100) / colcount - 0.45;
-    var h = showCol1090 ? 0.35 : 0.5;
-    addTableRow(true, cm(2.0), row, {'text': msgTime, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'text': firstCol, 'style': 'total', 'alignment': 'center', 'fontSize': f});
-    var canvas = [
-      {'type': 'rect', 'color': colLow, 'x': cm(0), 'y': cm(0), 'w': cm(day.lowPrz(g) * wid), 'h': cm(h)},
-      {
-        'type': 'rect',
-        'color': colNorm,
-        'x': cm(day.lowPrz(g) * wid),
-        'y': cm(0),
-        'w': cm(day.normPrz(g) * wid),
-        'h': cm(h),
-      },
-      {
-        'type': 'rect',
-        'color': colHigh,
-        'x': cm((day.lowPrz(g) + day.normPrz(g)) * wid),
-        'y': cm(0),
-        'w': cm(day.highPrz(g) * wid),
-        'h': cm(h)
-      }
-    ];
-    if (day.entryCountValid == 0) canvas = [];
-    addTableRow(
-      true, cm(wid * 100), row, {'text': msgDistribution, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'style': style, 'canvas': canvas});
-    addTableRow(true, cm(w), row, {'text': msgValues, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'text': '${g.fmtNumber(day.entryCountValid, 0)}', 'style': style, 'alignment': 'right', 'fontSize': f});
-    addTableRow(true, cm(w), row, {'text': msgAverage, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'text': '${g.glucFromData(day.avgGluc, 1)}', 'style': style, 'alignment': 'right', 'fontSize': f});
-    addTableRow(true, cm(w), row, {'text': msgMin, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'text': '${g.glucFromData(day.minText, 1)}', 'style': style, 'alignment': 'right', 'fontSize': f});
-//*
-    if (showCol1090) {
-      addTableRow(
-      true, cm(w), row, {'text': msg10, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'text': '${g.glucFromData(perc.percentile(10), 1)}', 'style': style, 'alignment': 'right', 'fontSize': f});
-    }
-    addTableRow(true, cm(w), row, {'text': msg25, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'text': '${g.glucFromData(perc.percentile(25), 1)}', 'style': style, 'alignment': 'right', 'fontSize': f});
-    addTableRow(true, cm(w), row, {'text': msgMedian, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'text': '${g.glucFromData(perc.percentile(50), 1)}', 'style': style, 'alignment': 'right', 'fontSize': f});
-    addTableRow(true, cm(w), row, {'text': msg75, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'text': '${g.glucFromData(perc.percentile(75), 1)}', 'style': style, 'alignment': 'right', 'fontSize': f});
-    if (showCol1090) {
-      addTableRow(
-      true, cm(w), row, {'text': msg90, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'text': '${g.glucFromData(perc.percentile(90), 1)}', 'style': style, 'alignment': 'right', 'fontSize': f});
-    }
-// */
-    addTableRow(true, cm(w), row, {'text': msgMax, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'text': '${g.glucFromData(day.maxText, 1)}', 'style': style, 'alignment': 'right', 'fontSize': f});
-    addTableRow(true, cm(w), row, {'text': msgDeviation, 'style': 'total', 'alignment': 'center', 'fontSize': f},
-      {'text': '${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}', 'style': style, 'alignment': 'right', 'fontSize': f});
-=======
     double f = fs(showCol1090 ? 9 : 10);
     double wid = 3.0 / 100.0;
 //    double w = (width - 4.0 - 2.0 - wid * 100) / 8 - 0.45;
@@ -289,7 +228,6 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''', desc: 'help 
         true, "auto", row, {"text": msg90, "style": "total", "alignment": "center", "fontSize": f},
         {"text": "${g.glucFromData(perc.percentile(90), 1)}", "style": style, "alignment": "right", "fontSize": f});
 // */
->>>>>>> Feature-ClarityLikeReports
     tableHeadFilled = true;
   }
 
