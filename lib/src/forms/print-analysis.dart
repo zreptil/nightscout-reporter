@@ -197,7 +197,7 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
     var f = 1.5;
     var f1 = 2.5;
 
-    var totalDay = DayData(null, ProfileGlucData(ProfileStoreData('Intern')));
+    var totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")), repData.status);
     totalDay.entries.addAll(data.entries);
     totalDay.init();
 

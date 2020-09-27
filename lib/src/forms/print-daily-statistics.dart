@@ -75,32 +75,23 @@ schwächerer Schrift angezeigt wird.
     init();
   }
 
-  void fillRow(dynamic row, double f, String firstCol, DayData day, String style) {
-    addTableRow(true, cm(2.9), row, {'text': msgDate, 'style': 'total', 'alignment': 'center'},
-        {'text': firstCol, 'style': 'total', 'alignment': 'center'});
-    addTableRow(true, cm(f * 100), row, {
-      'text': msgDistribution,
-      'style': 'total',
-      'alignment': 'center'
-    }, {
-      'style': style,
-      'canvas': [
-        {'type': 'rect', 'color': colLow, 'x': cm(0), 'y': cm(0), 'w': cm(day.lowPrz(g) * f), 'h': cm(0.5)},
+  fillRow(dynamic row, double f, String firstCol, DayData day, String style) {
+    addTableRow(true, cm(2.9), row, {"text": msgDate, "style": "total", "alignment": "center"},
+        {"text": firstCol, "style": "total", "alignment": "center"});
+    addTableRow(true, cm(f * 100), row, {"text": msgDistribution, "style": "total", "alignment": "center"}, {
+      "style": style,
+      "canvas": [
+        {"type": "rect", "color": colLow, "x": cm(0), "y": cm(0), "w": cm(day.lowPrz(g) * f), "h": cm(0.5)},
+        {"type": "rect", "color": colNormLow, "x": cm(day.lowPrz(g) * f), "y": cm(0), "w": cm(day.bottomPrz(g) * f), "h": cm(0.5)},
+        {"type": "rect", "color": colNorm, "x": cm((day.lowPrz(g) + day.bottomPrz(g)) * f), "y": cm(0), "w": cm(day.normPrz(g) * f), "h": cm(0.5)},
+        {"type": "rect", "color": colNormHigh, "x": cm((day.lowPrz(g) + day.bottomPrz(g) + day.normPrz(g)) * f), "y": cm(0), "w": cm(day.topPrz(g) * f), "h": cm(0.5)},
         {
-          'type': 'rect',
-          'color': colNorm,
-          'x': cm(day.lowPrz(g) * f),
-          'y': cm(0),
-          'w': cm(day.normPrz(g) * f),
-          'h': cm(0.5)
-        },
-        {
-          'type': 'rect',
-          'color': colHigh,
-          'x': cm((day.lowPrz(g) + day.normPrz(g)) * f),
-          'y': cm(0),
-          'w': cm(day.highPrz(g) * f),
-          'h': cm(0.5)
+          "type": "rect",
+          "color": colHigh,
+          "x": cm((day.lowPrz(g) + day.bottomPrz(g) + day.normPrz(g) + day.topPrz(g)) * f),
+          "y": cm(0),
+          "w": cm(day.highPrz(g) * f),
+          "h": cm(0.5)
         }
       ]
     });
@@ -130,33 +121,50 @@ schwächerer Schrift angezeigt wird.
       ]
     });
 
-    addTableRow(true, '*', row, {
-      'text': msgLow(targets(repData)['low']),
-      'style': 'total',
-      'alignment': 'center',
-      'fillColor': colLow
+    addTableRow(true, "*", row, {
+      "text": msgVeryLow(_settings.thresholds.bgLow),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colLow
     }, {
       'text': '${g.fmtNumber(day.lowPrz(g), 0)} %',
       'style': style,
       'alignment': 'right',
       'fillColor': style == 'total' ? colLow : null
     });
-    addTableRow(true, '*', row, {
-      'text': msgNormal,
-      'style': 'total',
-      'alignment': 'center',
-      'fillColor': colNorm
+    addTableRow(true, "*", row, {
+      "text": msgLow(_settings.thresholds.bgLow, _settings.thresholds.bgTargetBottom),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colNormLow
     }, {
-      'text': '${g.fmtNumber(day.normPrz(g), 0)} %',
-      'style': style,
-      'alignment': 'right',
-      'fillColor': style == 'total' ? colNorm : null
+      "text": "${g.fmtNumber(day.bottomPrz(g), 0)} %",
+      "style": style,
+      "alignment": "right",
+      "fillColor": style == "total" ? colNormLow : null
     });
-    addTableRow(true, '*', row, {
-      'text': msgHigh(targets(repData)['high']),
-      'style': 'total',
-      'alignment': 'center',
-      'fillColor': colHigh
+    addTableRow(true, "*", row, {"text": msgNormal, "style": "total", "alignment": "center", "fillColor": colNorm}, {
+      "text": "${g.fmtNumber(day.normPrz(g), 0)} %",
+      "style": style,
+      "alignment": "right",
+      "fillColor": style == "total" ? colNorm : null
+    });
+    addTableRow(true, "*", row, {
+      "text": msgHigh(_settings.thresholds.bgTargetTop, _settings.thresholds.bgHigh),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colNormHigh
+    }, {
+      "text": "${g.fmtNumber(day.topPrz(g), 0)} %",
+      "style": style,
+      "alignment": "right",
+      "fillColor": style == "total" ? colNormHigh : null
+    });
+    addTableRow(true, "*", row, {
+      "text": msgVeryHigh(_settings.thresholds.bgHigh),
+      "style": "total",
+      "alignment": "center",
+      "fillColor": colHigh
     }, {
       'text': '${g.fmtNumber(day.highPrz(g), 0)} %',
       'style': style,
@@ -171,26 +179,26 @@ schwächerer Schrift angezeigt wird.
     addRow(true, 'auto', row, {'text': msgKHPerDay, 'style': 'total', 'alignment': 'center'},
       {'text': '${carbFromData(day.avgCarbs)}', 'style': style, 'alignment': 'right'});
 // */
-    addTableRow(showCount, 'auto', row, {'text': msgValues, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.fmtNumber(day.entryCountValid, 0)}', 'style': style, 'alignment': 'right'});
-    addTableRow(true, 'auto', row, {'text': msgMin, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.glucFromData(day.min)}', 'style': style, 'alignment': 'right'});
-    addTableRow(true, 'auto', row, {'text': msgMax, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.glucFromData(day.max)}', 'style': style, 'alignment': 'right'});
-    addTableRow(true, 'auto', row, {'text': msgAverage, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.glucFromData(day.mid, 1)}', 'style': style, 'alignment': 'right'});
-    addTableRow(showStdabw, 'auto', row, {'text': msgDeviation, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}', 'style': style, 'alignment': 'right'});
-    addTableRow(showVarK, 'auto', row, {'text': msgVarK, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.fmtNumber(day.varK, 1)}', 'style': style, 'alignment': 'right'});
-    addTableRow(showPercentile, cm(1.5), row, {'text': msg25, 'style': 'total', 'alignment': 'center'},
-        {'text': '${percentileFor(Globals.percentile(day.entries, 25))}', 'style': style, 'alignment': 'right'});
-    addTableRow(showPercentile, cm(1.5), row, {'text': msgMedian, 'style': 'total', 'alignment': 'center'},
-        {'text': '${percentileFor(Globals.percentile(day.entries, 50))}', 'style': style, 'alignment': 'right'});
-    addTableRow(showPercentile, cm(1.5), row, {'text': msg75, 'style': 'total', 'alignment': 'center'},
-        {'text': '${percentileFor(Globals.percentile(day.entries, 75))}', 'style': style, 'alignment': 'right'});
-    addTableRow(showHbA1c, cm(1.5), row, {'text': msgHbA1C, 'style': 'total', 'alignment': 'center', 'color': colHbA1c},
-        {'text': '${hba1c(day.mid)} %', 'style': style, 'alignment': 'right', 'color': colHbA1c});
+    addTableRow(showCount, "auto", row, {"text": msgValues, "style": "total", "alignment": "center"},
+        {"text": "${g.fmtNumber(day.entryCountValid, 0)}", "style": style, "alignment": "right"});
+    addTableRow(true, "auto", row, {"text": msgMin, "style": "total", "alignment": "center"},
+        {"text": "${g.glucFromData(day.min)}", "style": style, "alignment": "right"});
+    addTableRow(true, "auto", row, {"text": msgMax, "style": "total", "alignment": "center"},
+        {"text": "${g.glucFromData(day.max)}", "style": style, "alignment": "right"});
+    addTableRow(true, "auto", row, {"text": msgAverage, "style": "total", "alignment": "center"},
+        {"text": "${g.glucFromData(day.mid, 1)}", "style": style, "alignment": "right"});
+    addTableRow(showStdabw, "auto", row, {"text": msgDeviation, "style": "total", "alignment": "center"},
+        {"text": "${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}", "style": style, "alignment": "right"});
+    addTableRow(showVarK, "auto", row, {"text": msgVarK, "style": "total", "alignment": "center"},
+        {"text": "${g.fmtNumber(day.varK, 1)}", "style": style, "alignment": "right"});
+    addTableRow(showPercentile, "auto", row, {"text": msg25, "style": "total", "alignment": "center"},
+        {"text": "${percentileFor(Globals.percentile(day.entries, 25))}", "style": style, "alignment": "right"});
+    addTableRow(showPercentile, "auto", row, {"text": msgMedian, "style": "total", "alignment": "center"},
+        {"text": "${percentileFor(Globals.percentile(day.entries, 50))}", "style": style, "alignment": "right"});
+    addTableRow(showPercentile, "auto", row, {"text": msg75, "style": "total", "alignment": "center"},
+        {"text": "${percentileFor(Globals.percentile(day.entries, 75))}", "style": style, "alignment": "right"});
+    addTableRow(showHbA1c, "auto", row, {"text": msgHbA1C, "style": "total", "alignment": "center", "color": colHbA1c},
+        {"text": "${hba1c(day.mid)} %", "style": style, "alignment": "right", "color": colHbA1c});
     tableHeadFilled = true;
   }
 
@@ -244,7 +252,7 @@ schwächerer Schrift angezeigt wird.
     ProfileGlucData prevProfile;
     var lineCount = 0;
     var page = [];
-    var totalDay = DayData(null, ProfileGlucData(ProfileStoreData('Intern')));
+    var totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")), repData.status);
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
     var totalDays = 0;

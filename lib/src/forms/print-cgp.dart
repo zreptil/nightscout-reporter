@@ -541,7 +541,7 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
         colLine: colCGPHealthyLine, colFill: colCGPHealthyFill, opacity: 0.4, showLimitBreaks: false);
 
     var data = repData.data;
-    var totalDay = DayData(null, ProfileGlucData(ProfileStoreData('Intern')));
+    var totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")), repData.status);
     totalDay.entries.addAll(data.entries);
     totalDay.init();
     var avgGluc = 0.0;
