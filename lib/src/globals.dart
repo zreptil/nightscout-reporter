@@ -6,6 +6,7 @@ import 'dart:html' as html;
 import 'dart:math' as math;
 
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart' as commons;
+import 'package:angular/security.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:googleapis/drive/v3.dart' as gd;
 import 'package:googleapis_auth/auth_browser.dart' as auth;
@@ -17,6 +18,50 @@ import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/json_data.dart';
 import 'package:timezone/browser.dart' as tz;
+
+class Informator {
+  final List<String> _errors = [];
+  final List<String> _warnings = [];
+  final List<String> _infos = [];
+
+  bool get hasContent => _errors.isNotEmpty || _warnings.isNotEmpty || _infos.isNotEmpty;
+
+  String _output(var list) => list.join('\n');
+
+  void _addText(var list, var text) {
+    if (!list.contains(text)) list.add(text);
+  }
+
+  void clear() {
+    _errors.clear();
+    _warnings.clear();
+    _infos.clear();
+  }
+
+  void addError(text) => _addText(_errors, text);
+
+  void addWarning(text) => _addText(_warnings, text);
+
+  void addInfo(text) => _addText(_infos, text);
+
+  void addDevError(var ex, String text) {
+    if (Globals().isDebug) {
+      if (ex is Error) {
+        addError('${ex.toString()}\n${ex.stackTrace}');
+      } else {
+        addError(ex.toString());
+      }
+    } else {
+      addError(text);
+    }
+  }
+
+  String get errors => _output(_errors);
+
+  String get warnings => _output(_warnings);
+
+  String get infos => _output(_infos);
+}
 
 class Msg {
   String okText = Intl.message('Schliessen');
@@ -71,10 +116,10 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = '2.0.1';
+  String version = '2.0.2';
 
   // subversion is used nowhere. It is just there to trigger an other signature for the cache.
-  String subVersion = '3';
+  String subVersion = '1';
 
   static String get msgThemeAuto => Intl.message('Automatisch', meaning: 'theme selection - automatic');
 
@@ -82,16 +127,57 @@ class Settings {
 
   static String get msgThemeXmas => Intl.message('Weihnachten', meaning: 'theme selection - christmas');
 
-  String get msgUnitMGDL => Intl.message('mg/dL');
+  static String get msgUnitMGDL => Intl.message('mg/dL');
 
-  String get msgUnitMMOL => Intl.message('mmol/L');
+  static String get msgUnitMMOL => Intl.message('mmol/L');
+
+  static String get msgUnitBoth => Intl.message('Beide');
+
+  String get msgUnlimited => Intl.message('Unbegrenzt');
+
+  String get lblGlucUnits => Intl.message('Einheit der Glukosemessung');
 
   int timestamp = 0;
 
   static bool get hastiod => html.window.localStorage['debug'] != 'yes';
   String betaPrefix = '@';
   String lastVersion;
-  bool glucMGDL = true;
+
+  List<String> listGlucUnits = [msgUnitMGDL, msgUnitMMOL, msgUnitBoth];
+
+  int glucMGDLIdx;
+
+  bool _glucMGDLFromStatus = true;
+
+  bool get glucMGDL => [true, false, true][glucMGDLIdx ?? 0];
+
+  bool get showBothUnits => glucMGDLIdx == 2;
+
+  bool hasMGDL = false;
+
+  double get glucFactor => glucMGDL ? 1 : 18.02;
+
+  double get glucPrecision => glucMGDL ? 0 : 2;
+
+  // calculate a value that is saved in a unit depending
+  // on the setting in the status
+  double glucForSavedUnitValue(double value) {
+    if (glucMGDL == _glucMGDLFromStatus) return value;
+    if (glucMGDL) return value * 18.02;
+    return value / 18.02;
+  }
+
+//  set glucMGDL(value) {    _glucMGDL = value;  }
+
+  bool isMGDL(StatusData status) {
+    var check = status.settings.units?.trim()?.toLowerCase() ?? '';
+    return check.startsWith('mg') && check.endsWith('dl');
+  }
+
+  void setGlucMGDL(StatusData status) {
+    _glucMGDLFromStatus = isMGDL(status);
+  }
+
   bool showAllTileParams = false;
   bool showCurrentGluc = false;
   bool showInfo = false;
@@ -120,9 +206,15 @@ class Settings {
   bool _isLocal = html.window.location.href.contains('/localhost:');
 
   bool get isLocal => _isLocal;
-  bool _showBothUnits = false;
 
+/*
+  bool _showBothUnits = false;
   bool get showBothUnits => _showBothUnits;
+  set showBothUnits(value) {
+    _showBothUnits = value;
+  }
+// */
+
   var onAfterLoad;
   Map<String, String> themeList =
       Map<String, String>.unmodifiable({null: msgThemeAuto, 'standard': msgThemeStandard, 'xmas': msgThemeXmas});
@@ -150,10 +242,6 @@ class Settings {
 
   set isLocal(value) {
     _isLocal = value;
-  }
-
-  set showBothUnits(value) {
-    _showBothUnits = value;
   }
 
   var doShowDebug;
@@ -390,7 +478,7 @@ class Settings {
     return '{'
         '"s1":"$version"'
         ',"s4":${userIdx}'
-        ',"s5":${glucMGDL}'
+        ',"s5":${glucMGDLIdx}'
         ',"s6":"${language.code ?? 'de_DE'}"'
         ',"s7":"${showCurrentGluc ? 'yes' : 'no'}"'
         ',"s8":"${period?.toString()}"'
@@ -410,7 +498,7 @@ class Settings {
       lastVersion = JsonData.toText(json['s1']);
       dynamic users = json['s2'];
       dynamic shortcuts = json['s3'];
-      glucMGDL = JsonData.toBool(json['s5']);
+      glucMGDLIdx = JsonData.toInt(json['s5']);
       var langId = JsonData.toText(json['s6']);
       var idx = languageList.indexWhere((v) => v.code == langId);
       if (idx >= 0) language = languageList[idx];
@@ -430,8 +518,7 @@ class Settings {
             userList.add(UserData.fromJson(this, entry));
           }
         } catch (ex) {
-          var msg = ex.toString();
-          showDebug('Fehler beim laden der User in Settings.fromSharedJson: ${msg}');
+          Globals().info.addDevError(ex, 'Fehler beim laden der User in Settings.fromSharedJson: ${ex.toString()}');
 //            saveStorage("mu", null);
         }
       } else {
@@ -477,7 +564,7 @@ class Settings {
   String get asDeviceString => '';
 
   // retrieve the current settings as a json-encoded-string
-  String get asJsonString => '{$jsonString}';
+  // String get asJsonString => '{$jsonString}';
 
   // retrieve the current settings as a string that can be used in json
   String get jsonString {
@@ -568,7 +655,7 @@ class Settings {
   void fromJson(dynamic json) {
     try {
       lastVersion = JsonData.toText(json['version']);
-      glucMGDL = JsonData.toBool(json['glucMGDL']);
+      glucMGDLIdx = JsonData.toInt(json['glucMGDL']);
       var langId = JsonData.toText(json['language']);
       var idx = languageList.indexWhere((v) => v.code == langId);
       if (idx >= 0) language = languageList[idx];
@@ -672,6 +759,7 @@ class Settings {
 }
 
 class Globals extends Settings {
+  DomSanitizationService sanitizer;
   int currShortcutIdx = -1;
   ShortcutData currShortcut;
 
@@ -690,7 +778,9 @@ class Globals extends Settings {
 
   List<double> get glucMaxValues => [null, 150, 200, 250, 300, 350, 400, 450];
 
-  double get glucMaxValue => glucValueFromData(glucMaxValues[ppGlucMaxIdx]);
+  List<int> get profileMaxCounts => [100000, 2000, 1000, 500, 250, 100];
+
+  double get glucMaxValue => glucValueFromData(glucMaxValues[ppGlucMaxIdx ?? 0]);
   int ppBasalPrecisionIdx = 0;
 
   List<int> get basalPrecisionValues => [null, 0, 1, 2, 3];
@@ -725,6 +815,7 @@ class Globals extends Settings {
   }
 
   Msg msg = Msg();
+  Informator info = Informator();
 
   void show(String text, {bool append = false, String skipStart}) {
     Future.delayed(Duration(milliseconds: 500), () {
@@ -827,7 +918,8 @@ class Globals extends Settings {
         ',"ppComparable":"${loadStorage('ppComparable')}"'
         ',"ppLatestFirst":"${loadStorage('ppLatestFirst')}"'
         ',"ppGlucMaxIdx":"${loadStorage('ppGlucMaxIdx')}"'
-        ',"ppBasalPrecisionIdx":"${loadStorage('ppBasalPrecisionIdx')}"';
+        ',"ppBasalPrecisionIdx":"${loadStorage('ppBasalPrecisionIdx')}"'
+        ',"ppProfileMaxCount":"${loadStorage('ppProfileMaxCount')}"';
   }
 
   // loads the settings that are not synchronized to google
@@ -860,7 +952,8 @@ class Globals extends Settings {
 
   int basalPrecisionAuto = 1;
 
-  int get basalPrecision => ppBasalPrecisionIdx > 0 ? basalPrecisionValues[ppBasalPrecisionIdx] : basalPrecisionAuto;
+  int get basalPrecision =>
+      (ppBasalPrecisionIdx ?? 0) > 0 ? basalPrecisionValues[ppBasalPrecisionIdx] : basalPrecisionAuto;
 
   static int decimalPlaces(num value) {
     var v = value.toString();
@@ -965,13 +1058,7 @@ class Globals extends Settings {
 
   String title = 'Nightscout Reporter';
 
-  bool hasMGDL = false;
-
-  double get glucFactor => glucMGDL ? 1 : 18.02;
-
-  double get glucPrecision => glucMGDL ? 0 : 2;
-
-  String get settingsFilename => 'nr-settings-temp';
+  String get settingsFilename => 'nr-settings';
   gd.File settingsFile;
 
   bool _syncGoogle = false;
@@ -999,12 +1086,12 @@ class Globals extends Settings {
 
   bool get isKHBE => _khFactor == 12;
 
-  static int stdLow = 70;
-  static int stdHigh = 180;
+  static final int stdLow = 70;
+  static final int stdHigh = 180;
 
   dynamic getGlucInfo() {
-    var ret = {'step': 1, 'unit': msgUnitMGDL};
-    if (!glucMGDL) ret = {'step': 0.1, 'unit': msgUnitMMOL};
+    var ret = {'step': 1, 'unit': Settings.msgUnitMGDL};
+    if (!glucMGDL) ret = {'step': 0.1, 'unit': Settings.msgUnitMMOL};
     ret['factor'] = glucFactor;
     ret['stdlow'] = glucFromData(Globals.stdLow);
     ret['stdhigh'] = glucFromData(Globals.stdHigh);
@@ -1044,11 +1131,6 @@ class Globals extends Settings {
       }
     }
     return b;
-  }
-
-  void setGlucMGDL(StatusData status) {
-    var check = status.settings.units?.trim()?.toLowerCase() ?? '';
-    glucMGDL = check.startsWith('mg') && check.endsWith('dl');
   }
 
 /*
@@ -1104,17 +1186,7 @@ class Globals extends Settings {
     language = value;
     if (checkConfigured && !isConfigured) clearStorage();
     if (doReload) {
-      if (true || !checkConfigured) {
-        save();
-      } else if (false && isLocal) {
-        Intl.systemLocale = Intl.canonicalizedLocale(language.code);
-        await tz.initializeTimeZone();
-        await initializeMessages(language.code);
-        Intl.defaultLocale = language.code;
-        await initializeDateFormatting(language.code, null);
-      } else {
-        reload();
-      }
+      save();
     }
   }
 
@@ -1575,6 +1647,7 @@ class Globals extends Settings {
       user.formParams[entry.id] = entry.asString;
     }
     _pdfOrder = data.pdfOrder;
+    glucMGDLIdx = data.glucMGDLIdx;
     sortConfigs();
   }
 }
@@ -1672,6 +1745,7 @@ class UserData {
   String diaStartDate = '';
   String insulin = '';
   StatusData status;
+  int profileMaxIdx;
   bool isReachable = true;
 
   UserData(this.g) {
@@ -1718,7 +1792,7 @@ class UserData {
     return '{"n":"$name",'
         '"bd":"${birthDate ?? ''}",'
         // TODO: 3.7.2020 - ut and u can be removed in future versions
-        //                  still there to keep old localStorages working
+        // still there to keep old localStorages working
         '"ut":"${token ?? ''}",'
         '"u":"${storageApiUrl ?? ''}",'
         // 3.7.2020: end
@@ -1727,7 +1801,8 @@ class UserData {
         '"i":"${insulin ?? ''}",'
         '"c":${convert.json.encode(customData)},'
         '"f":${convert.json.encode(formParams)},'
-        '"r":${isReachable ? 'true' : 'false'}'
+        '"r":${isReachable ? 'true' : 'false'},'
+        '"pmi":${profileMaxIdx}'
         '}';
   }
 
@@ -1758,6 +1833,7 @@ class UserData {
       ret.listApiUrl.sort((a, b) => a.startDate.compareTo(b.startDate));
       ret.customData = json['c'];
       ret.isReachable = json['r'] ?? true;
+      ret.profileMaxIdx = JsonData.toInt(json['pmi'], null);
       ret.formParams = json['f'];
       if (ret.formParams != null && ret.formParams['analysis'] is bool) {
         ret.formParams = {};
@@ -1815,10 +1891,28 @@ class ShortcutData {
   String pdfOrder;
   String periodData;
   String periodText;
+  int glucMGDLIdx;
   String icon = 'attach_file';
   Map<String, dynamic> forms = <String, dynamic>{};
 
   String get formData => convert.json.encode(forms);
+
+  bool _isSamePeriod(String a, String b) {
+    var sa = a.split('|');
+    var sb = b.split('|');
+    if (sa.length < 5 || sb.length < 5 || sa[4] != sb[4]) return false;
+    if (sa[2] == sb[2] && sa[2] != '') return true;
+    if (sa[0] == sb[0] && sa[1] == sb[1]) return true;
+    return false;
+  }
+
+  bool get isActive {
+    var check = convert.json.encode(g.currentFormsAsMap);
+    if (formData != check) return false;
+    if (!_isSamePeriod(periodData, g.period.toString())) return false;
+    if ((glucMGDLIdx ?? g.glucMGDLIdx) != g.glucMGDLIdx) return false;
+    return true;
+  }
 
   ShortcutData get copy {
     var ret = ShortcutData(g)
@@ -1826,7 +1920,8 @@ class ShortcutData {
       ..periodData = periodData
       ..periodText = periodText
       ..icon = icon
-      ..pdfOrder = pdfOrder;
+      ..pdfOrder = pdfOrder
+      ..glucMGDLIdx = glucMGDLIdx;
 
     ret.forms = <String, dynamic>{};
     for (var i = 0; i < forms.keys.length; i++) {
@@ -1844,6 +1939,7 @@ class ShortcutData {
   ShortcutData(this.g) {
     periodData = g.period.toString();
     periodText = g.period.display;
+    glucMGDLIdx = g.glucMGDLIdx;
     loadCurrentForms();
   }
 
@@ -1853,7 +1949,8 @@ class ShortcutData {
         '"n":"$name",'
         '"p":"$periodData",'
         '"o":"$pdfOrder",'
-        '"f":$formData'
+        '"f":$formData,'
+        '"u":$glucMGDLIdx'
         '}';
   }
 
@@ -1869,6 +1966,7 @@ class ShortcutData {
       Settings.updatePeriod(period);
       ret.periodText = period.display;
       ret.pdfOrder = json['o'];
+      ret.glucMGDLIdx = JsonData.toInt(json['u'], g.glucMGDLIdx);
     } catch (ex) {
       var msg = ex.toString();
       g.showDebug('Fehler bei ShortcutData.fromJson: ${msg}');

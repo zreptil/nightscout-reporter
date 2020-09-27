@@ -9,17 +9,15 @@
           <material-icon [icon]="drawerVisible?'menu_open':'menu'"></material-icon>
         </material-button>
         <div class="title">
-          {{g.title}}
-          <span class="betaTitle" *ngIf="g.isBeta">BETA</span>
-          <material-button class="localTitle" *ngIf="g.runsLocal" (trigger)="g.isLocal=!g.isLocal;checkPrint()">
-            <div *ngIf="g.isLocal">Lokal</div>
-            <div *ngIf="!g.isLocal">Vorschau</div>
-          </material-button>
-          <material-button class="localTitle" *ngIf="g.isLocal" (trigger)="g.showBothUnits = !g.showBothUnits">
-            <div *ngIf="!g.showBothUnits">{{g.glucMGDL?g.msgUnitMGDL:g.msgUnitMMOL}}</div>
-            <div *ngIf="g.showBothUnits">{{g.msgUnitMGDL}}<br/>{{g.msgUnitMMOL}}</div>
-          </material-button>
-          <div class="versionText">{{g.version}}</div>
+          <div>
+            {{g.title}}
+            <span class="betaTitle" *ngIf="g.isBeta">BETA</span>
+            <material-button class="localTitle" *ngIf="g.runsLocal" (trigger)="g.isLocal=!g.isLocal;checkPrint()">
+              <div *ngIf="g.isLocal">Lokal</div>
+              <div *ngIf="!g.isLocal">Vorschau</div>
+            </material-button>
+          </div>
+          <material-button class="versionText" (trigger)="currPage='whatsnew'">{{g.version}}</material-button>
           <div class="subtitle" *ngIf="currPage=='impressum'">{{msgImpressum}}</div>
           <div class="subtitle" *ngIf="currPage=='dsgvo'">{{msgDSGVO}}</div>
         </div>
@@ -83,6 +81,8 @@
     <settings *ngIf="currPage=='settings'" (settingsresult)="settingsResult"></settings>
     <impressum *ngIf="currPage=='impressum'" (closeClicked)="callbackButton"></impressum>
     <whatsnew *ngIf="currPage=='whatsnew'" (closeClicked)="callbackButton"></whatsnew>
+    <helpview *ngIf="tileHelp.isNotEmpty" [tileHelp]="tileHelp" (buttonClicked)="tileHelpButtonClicked"></helpview>
+    <infoview *ngIf="g.info.hasContent && currPage=='normal' && progressText==null"></infoview>
     <dsgvo *ngIf="currPage=='dsgvo'" (closeClicked)="callbackButton"></dsgvo>
     <printparams *ngIf="currPage=='printparams'" (printparamsresult)="printparamsResult"></printparams>
     <shortcutedit *ngIf="currPage=='shortcutedit'" (shortcuteditresult)="shortcuteditResult"></shortcutedit>
@@ -192,9 +192,10 @@
                 name=""
                 [disableHeaderExpansion]="true"
                 secondaryText="" [showSaveCancel]="false" [hideExpandedHeader]="false"
-                [alwaysHideExpandIcon]="cfg.form.sortedParams.length==0 || !cfg.checked">
+                [alwaysHideExpandIcon]="cfg.form.sortedParams.isEmpty || !cfg.checked">
                 <div name>
-                  <material-icon icon="drag_handle"></material-icon>
+                  <material-icon *ngIf="cfg.form.help!=null" icon="help_outline" (click)="drawerVisible=false;tileHelp.add(cfg);$event.stopPropagation();"></material-icon>
+                  <material-icon *ngIf="cfg.form.help==null" icon="drag_handle"></material-icon>
                   <div>{{cfg.form.display}}</div>
                 </div>
                 <formparams [paramList]="cfg.form.sortedParams"></formparams>
@@ -212,6 +213,9 @@
             <div params *ngIf="cfg.form.sortedParams.length>0 && cfg.checked"
                  (click)="drawerVisible=false;tileParams=cfg;$event.stopPropagation();">
               <material-icon icon="more_vert"></material-icon>
+            </div>
+            <div help *ngIf="cfg.form.help!=null" (click)="drawerVisible=false;tileHelp.add(cfg);$event.stopPropagation();">
+              <material-icon icon="help_outline"></material-icon>
             </div>
             <div numberimg *ngIf="g.tileShowImage && cfg.checked">{{checkedIndex(cfg)}}</div>
             <div number *ngIf="!g.tileShowImage && cfg.checked">{{checkedIndex(cfg)}}</div>
@@ -253,7 +257,7 @@
     <div [class]="getDrawerClass(1)">
       <div class="content">
         <div *ngFor="let item of g.shortcutList; let idx = index" [class]="shortcutClass(item)">
-          <material-button mini class="" (trigger)="activateShortcut(idx);">
+          <material-button mini (trigger)="activateShortcut(idx);">
             <material-icon icon="{{item.icon}}"></material-icon>
             {{item.name}}
           </material-button>

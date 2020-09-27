@@ -22,6 +22,23 @@
         </div>
       </div>
       <div class="functions">
+        <div>
+          <div>{{g.lblGlucUnits}}:</div>
+          <material-dropdown-select [buttonText]="g.listGlucUnits[g.glucMGDLIdx??0]"
+                                    raised
+                                    [showButtonBorder]="false"
+                                    popupClass="selectSelect"
+                                    class="selectButton"
+                                    slide="y"
+                                    listAutoFocus>
+            <material-select-item *ngFor="let item of g.listGlucUnits; let idx=index"
+                                  (trigger)="g.glucMGDLIdx=idx;fillComboBoxes()"
+                                  class="selectItem"
+                                  [selected]="idx==g.glucMGDLIdx">
+              <div class="itemTitle">{{item}}</div>
+            </material-select-item>
+          </material-dropdown-select>
+        </div>
         <material-checkbox [(checked)]="g.ppStandardLimits" [disabled]="g.ppComparable" class="pp">
           {{msgStandardLimits(g.getGlucInfo()["stdlow"],g.getGlucInfo()["stdhigh"],g.getGlucInfo()["unit"])}}
         </material-checkbox>

@@ -55,8 +55,27 @@ header.material-header .material-header-title {
 
   .title {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
+
+    > div {
+      flex-direction: row;
+    }
+
+    .versionText {
+      font-size: 50%;
+      color: white;
+      opacity: 0.5;
+      margin-left: -10px;
+      margin-top: 3px;
+      min-width: 0 !important;
+
+      ::ng-deep .content {
+        padding: 0 1em !important;
+      }
+    }
   }
+
 }
 
 header.material-header .material-header-row {
@@ -794,15 +813,6 @@ material-dropdown-select {
   flex-direction: row;
 }
 
-.versionText {
-  font-size: 50%;
-  color: white;
-  opacity: 0.5;
-  position: absolute;
-  left: 5em;
-  bottom: 0.5em;
-}
-
 @media(max-width: 50em) {
   .title {
     display: none;
@@ -1171,6 +1181,12 @@ datepicker {
   [pagesportrait] {
   }
 
+  [help] {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+  }
+
   [params] {
     position: absolute;
     top: 0.5em;
@@ -1337,4 +1353,28 @@ datepicker {
 
 .hidden {
   display: none;
+}
+
+.pdfinfo {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  left: 50%;
+  top: 50%;
+  margin-left: -30%;
+  margin-top: -30%;
+  flex-direction: column;
+  [header] {
+    height: 64px;
+    background: black;
+  }
+  [content] {
+    overflow-y: auto;
+    flex: 1;
+    background: red;
+  }
+  [footer] {
+    height: 64px;
+    background: gold;
+  }
 }

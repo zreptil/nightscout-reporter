@@ -1,0 +1,24 @@
+<modal [visible]="isVisible">
+  <material-dialog headered class="headered-dialog" hideFooter>
+    <div header>
+      <div>
+        <h1>
+          <material-button *ngIf="tileHelp.length>1" icon (trigger)="fire('close')">
+            <material-icon icon="chevron_left"></material-icon>
+          </material-button>
+          {{tileHelp.last.form.title}}
+        </h1>
+        <p></p>
+      </div>
+      <material-button icon (trigger)="fire('closeAll')">
+        <material-icon icon="close"></material-icon>
+      </material-button>
+    </div>
+    <div class="root">
+      <ng-container *ngFor="let item of tileHelp.last.form.helpStrings;let idx=index">
+        <span *ngIf="item.type=='text'" [innerHtml]="item.text"></span>
+        <span *ngIf="item.type=='btn'" class="btn" (click)="fire('btn',idx)">{{item.cfg.form.title}}</span>
+      </ng-container>
+    </div>
+  </material-dialog>
+</modal>

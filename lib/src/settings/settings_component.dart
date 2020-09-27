@@ -106,13 +106,22 @@ class SettingsComponent implements OnInit {
 
   String get msgCalcDayLastTitle => Intl.message('Ermittle letzten Tag mit Daten');
 
+  String get lblProfileMax => Intl.message('Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten '
+      'Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern '
+      'und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über '
+      'die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an '
+      'Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie '
+      'iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:');
+
   String msgCalculatingDay(date) => Intl.message('Überprüfe ${date} ...', args: [date], name: 'msgCalculatingDay');
   String msgCalcDayTitle = '';
 
   int get pdfSliderMax => globals.Globals.PDFUNLIMITED ~/ globals.Globals.PDFDIVIDER;
 
   @override
-  Future<Null> ngOnInit() async {}
+  Future<Null> ngOnInit() async {
+    fillComboBoxes();
+  }
 
   void confirmOk() {
     switch (confirmIdx) {
@@ -130,6 +139,15 @@ class SettingsComponent implements OnInit {
         break;
     }
     confirmIdx = 0;
+  }
+
+  List<String> listProfileMaxCount;
+
+  void fillComboBoxes() {
+    listProfileMaxCount = [g.msgUnlimited];
+    for (int i = 1; i < g.profileMaxCounts.length; i++) {
+      listProfileMaxCount.add('${g.profileMaxCounts[i]}');
+    }
   }
 
   void addUser() {
