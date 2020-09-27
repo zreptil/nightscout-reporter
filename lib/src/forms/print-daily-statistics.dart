@@ -122,7 +122,7 @@ schwächerer Schrift angezeigt wird.
     });
 
     addTableRow(true, "*", row, {
-      "text": msgVeryLow(_settings.thresholds.bgLow),
+      "text": msgVeryLow(targets(repData)['verylow']),
       "style": "total",
       "alignment": "center",
       "fillColor": colLow
@@ -133,7 +133,7 @@ schwächerer Schrift angezeigt wird.
       'fillColor': style == 'total' ? colLow : null
     });
     addTableRow(true, "*", row, {
-      "text": msgLow(_settings.thresholds.bgLow, _settings.thresholds.bgTargetBottom),
+      "text": msgLow(targets(repData)['verylow'], targets(repData)['low']),
       "style": "total",
       "alignment": "center",
       "fillColor": colNormLow
@@ -150,7 +150,7 @@ schwächerer Schrift angezeigt wird.
       "fillColor": style == "total" ? colNorm : null
     });
     addTableRow(true, "*", row, {
-      "text": msgHigh(_settings.thresholds.bgTargetTop, _settings.thresholds.bgHigh),
+      "text": msgHigh(targets(repData)['high'], targets(repData)['veryhigh']),
       "style": "total",
       "alignment": "center",
       "fillColor": colNormHigh
@@ -161,7 +161,7 @@ schwächerer Schrift angezeigt wird.
       "fillColor": style == "total" ? colNormHigh : null
     });
     addTableRow(true, "*", row, {
-      "text": msgVeryHigh(_settings.thresholds.bgHigh),
+      "text": msgVeryHigh(targets(repData)['veryhigh']),
       "style": "total",
       "alignment": "center",
       "fillColor": colHigh

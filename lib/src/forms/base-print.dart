@@ -753,7 +753,7 @@ abstract class BasePrint {
   String get msgNormal => "${Intl.message("Normal")}\n${g.getGlucInfo()["unit"]}";
   
   String msgHigh(valueFrom, valueTo) {
-    value = "\n>=${g.glucFromData(valueFrom)} <${g.glucFromData(valueTo)}";
+    String value = "\n>=${g.glucFromData(valueFrom)} <${g.glucFromData(valueTo)}";
     return Intl.message("Hoch${value}", args: [value], name: "msgHigh");
   }
   msgVeryHigh(value) {
@@ -838,11 +838,13 @@ abstract class BasePrint {
   static String get msgChange => Intl.message('Wechsel');
 
   dynamic targets(ReportData repData) {
-    dynamic ret = {'low': Globals.stdLow, 'high': Globals.stdHigh};
+    dynamic ret = {'verylow': Globals.stdVeryLow, 'low': Globals.stdLow, 'high': Globals.stdHigh, 'veryhigh': Globals.stdVeryHigh};
 
     if (!g.ppStandardLimits) {
+      ret['verylow'] = repData.status.settings.thresholds.bgLow;
       ret['low'] = repData.status.settings.thresholds.bgTargetBottom;
       ret['high'] = repData.status.settings.thresholds.bgTargetTop;
+      ret['veryhigh'] = repData.status.settings.thresholds.bgHigh;
     }
 
     return ret;
