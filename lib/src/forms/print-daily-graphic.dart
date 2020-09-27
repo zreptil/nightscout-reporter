@@ -1217,7 +1217,7 @@ class PrintDailyGraphic extends BaseDaily {
           "canvas": []
         };
         List graphIActCvs = graphIAct["canvas"];
-        graphIActCvs.add(glucLine(pts["iact"], colValue));
+        graphIActCvs.add(glucLine(pts["iact"], colBolus));
       }
       if (showCOB) {
         graphCob = {

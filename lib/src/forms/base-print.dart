@@ -1941,8 +1941,11 @@ abstract class BasePrint {
     if (upperIob == 0) {
       minIob = minIob * 1.1;
       maxIob = maxIob * 1.1;
+      minIAct = minIAct * 1.1;
+      maxIAct = maxIAct * 1.1;
     } else {
       maxIob = upperIob;
+      maxIAct = upperIob;
     }
     double iobHeight = drawScaleIE(
         xo,
