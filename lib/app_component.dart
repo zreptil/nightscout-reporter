@@ -199,6 +199,8 @@ class AppComponent implements OnInit {
       'Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). '
       'Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.');
 
+  String get msgInsulinError => Intl.message('Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.');
+
   String get msgPDFCreationError => Intl.message('Beim Erzeugen des PDF ist ein Fehler aufgetreten.');
 
   String get msgGitHubIssue => Intl.message('Problem auf GitHub melden');
@@ -890,6 +892,33 @@ class AppComponent implements OnInit {
 // */
       }
 
+      url = urlData.fullUrl('insulin');
+      displayLink('insulin', url, type: 'debug');
+      content = await g.request(url);
+      try {
+        List<dynamic> src = json.decode(content);
+        data.insulinProfiles = new List<InsulinData>();
+        for (dynamic entry in src) {
+          // don't add profiles that cannot be read
+          try {
+            var insulin = InsulinData.fromJson(entry);
+            data.insulinProfiles.add(insulin);
+          } catch (ex) {
+            data.insulinProfiles = null;
+          }
+        }
+      } catch (ex) {
+        if (g.isDebug) {
+          if (ex is Error) {
+            display('${ex.toString()}\n${ex.stackTrace}');
+          } else {
+            display(ex.toString());
+          }
+        } else {
+          display(msgInsulinError);
+        }
+      }
+
       // find profileswitches in treatments, create profiledata and mix it in the profiles
       url = urlData.fullUrl('treatments.json',
           params: 'find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch');
@@ -1080,9 +1109,9 @@ class AppComponent implements OnInit {
                   'count=100&find[eventType][\$eq]=Temp%20Basal');
           tmp = await g.request(url);
           src = json.decode(tmp);
-          var list = <TreatmentData>[];
+          var list = List<TreatmentData>();
           for (dynamic treatment in src) {
-            list.add(TreatmentData.fromJson(g, treatment));
+            list.add(TreatmentData.fromJson(g, treatment, data.insulinProfiles));
           }
           list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
           if (list.isNotEmpty) lastTempBasal = list.last;
@@ -1097,7 +1126,7 @@ class AppComponent implements OnInit {
         var hasExercise = false;
         for (dynamic treatment in src) {
           hasData = true;
-          var t = TreatmentData.fromJson(g, treatment);
+          var t = TreatmentData.fromJson(g, treatment, data.insulinProfiles);
           // duplicate Treatments are removed
           if (data.ns.treatments.isNotEmpty && t.equals(data.ns.treatments.last)) {
             data.ns.treatments.last.duplicates++;
