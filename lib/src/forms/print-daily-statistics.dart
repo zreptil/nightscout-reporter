@@ -252,6 +252,7 @@ schwächerer Schrift angezeigt wird.
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
     var totalDays = 0;
+    var oldLength = pages.length;
     _maxTDD = 0.0;
 
     for (var i = 0; i < repData.data.days.length; i++) {
