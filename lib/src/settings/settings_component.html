@@ -101,6 +101,23 @@
           </div>
         </div>
       </div>
+      <div class="sub">
+        <div>{{lblProfileMax}}</div>
+        <material-dropdown-select [buttonText]="listProfileMaxCount[g.user.profileMaxIdx??0]"
+                                  raised
+                                  [showButtonBorder]="false"
+                                  popupClass="selectSelect"
+                                  class="selectButton"
+                                  slide="y"
+                                  listAutoFocus>
+          <material-select-item *ngFor="let item of listProfileMaxCount; let idx=index"
+                                (trigger)="g.user.profileMaxIdx=idx"
+                                class="selectItem"
+                                [selected]="idx==g.user.profileMaxIdx">
+            <div class="itemTitle">{{item}}</div>
+          </material-select-item>
+        </material-dropdown-select>
+      </div>
       <div class="subtitle" @i18n="label of area for display setting">Anzeigeeinstellungen</div>
       <div class="functions">
         <material-checkbox [(checked)]="g.tileShowImage" @i18n="label for checkbox to show images on tiles">
@@ -123,7 +140,7 @@
           <material-slider class="maxsize" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
                            [max]="pdfSliderMax"></material-slider>
           <div *ngIf="g.pdfControlMaxSize < pdfSliderMax" @i18n="big">Gross</div>
-          <div *ngIf="g.pdfControlMaxSize >= pdfSliderMax" @i18n="big">Unbegrenzt</div>
+          <div *ngIf="g.pdfControlMaxSize >= pdfSliderMax">{{g.msgUnlimited}}</div>
         </div>
         <material-button *ngIf="g.isBeta" class="iconButton" raised (trigger)="g.copyFromOtherStorage()">
           <material-icon icon="file_copy"></material-icon>

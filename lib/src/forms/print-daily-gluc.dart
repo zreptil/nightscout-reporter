@@ -9,13 +9,25 @@ class PrintDailyGluc extends BasePrint {
   bool showAllValues, showBolus;
 
   @override
-  String id = "daygluc";
+  String help = Intl.message(
+      '''Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg an. Dabei wird in der Spalte Trend immer
+angezeigt, um wieviel Prozent sich der Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend
+ist ganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der Glukosewert nur anhand der
+Basalrate entwickelt. Es kann auch eine Spalte für die Boluswerte und die Kohlenhydrate angezeigt werden.
+Diese sollten aber bei einem Basalratentest natürlich leer sein. Ebenso muss ein eventuell vorhandener Loop 
+im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur um den Diabetiker und seine Basalrate.\n
+Es wird auch eine Spalte mit der Basalrate angezeigt, wenn die Option "Alle Werte für einen Tag anzeigen"
+nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz (und auch der Sinn), diese
+darzustellen.''', desc: 'help for daygluc');
 
   @override
-  String idx = "12";
+  String id = 'daygluc';
 
   @override
-  String get title => Intl.message("Tagestrend");
+  String idx = '12';
+
+  @override
+  String get title => Intl.message('Tagestrend');
 
   @override
   List<ParamInfo> params = [ParamInfo(1, msgParam1, boolValue: false), ParamInfo(2, msgParam2, boolValue: false)];
@@ -24,6 +36,7 @@ class PrintDailyGluc extends BasePrint {
   bool get isPortrait => true;
 
   static String get msgParam1 => Intl.message("Alle Werte für den Tag anzeigen");
+
   static String get msgParam2 => Intl.message("Bolusspalte anzeigen");
 
   String msgBasalInfo(String time) =>
@@ -73,9 +86,9 @@ class PrintDailyGluc extends BasePrint {
       } else {
         getPage(day, pages);
         if (g.showBothUnits) {
-          g.glucMGDL = !g.glucMGDL;
+          g.glucMGDLIdx = 1;
           getPage(day, pages);
-          g.glucMGDL = !g.glucMGDL;
+          g.glucMGDLIdx = 2;
         }
       }
       if (repData.isForThumbs) break;

@@ -64,6 +64,7 @@ class JsonData {
     if (value is int) return value;
     if (value is double) return value.toInt();
     if (value is String) return int.tryParse(value) ?? def;
+    if (value is bool) return value ? def : 1 - def;
     return def;
   }
 }
@@ -696,6 +697,7 @@ class ProfileData extends JsonData {
   dynamic raw;
   String id;
   String defaultProfile;
+  String enteredBy;
   int duration; // duration in seconds
   Map<String, ProfileStoreData> store = <String, ProfileStoreData>{};
   DateTime startDate;
@@ -716,7 +718,8 @@ class ProfileData extends JsonData {
       ..units = units
       ..createdAt = createdAt
       ..maxPrecision = maxPrecision
-      ..isFromNS = false;
+      ..isFromNS = false
+      ..enteredBy = enteredBy;
 
     ret.store = <String, ProfileStoreData>{};
     for (var key in store.keys) {
@@ -738,6 +741,7 @@ class ProfileData extends JsonData {
     ret.isFromNS = isFromNS;
     if (json == null) return ret;
     ret.id = json['int'];
+    ret.enteredBy = JsonData.toText(json['enteredBy']);
     ret.defaultProfile = json['defaultProfile'];
     ret.startDate = JsonData.toDate(json['startDate']);
     var timeshift = JsonData.toInt(json['timeshift']);
@@ -1258,10 +1262,11 @@ class TreatmentData extends JsonData {
 
     ret.glucose = JsonData.toDouble(json['glucose']);
     if (json['units'] != null) {
-      if (json['units'].toLowerCase() == g.msgUnitMGDL.toLowerCase() && g.getGlucInfo()['unit'] == g.msgUnitMMOL) {
+      if (json['units'].toLowerCase() == Settings.msgUnitMGDL.toLowerCase() &&
+          g.getGlucInfo()['unit'] == Settings.msgUnitMMOL) {
         ret.glucose = ret.glucose / 18.02;
-      } else if (json['units'].toLowerCase() == g.msgUnitMMOL.toLowerCase() &&
-          g.getGlucInfo()['unit'] == g.msgUnitMGDL) {
+      } else if (json['units'].toLowerCase() == Settings.msgUnitMMOL.toLowerCase() &&
+          g.getGlucInfo()['unit'] == Settings.msgUnitMGDL) {
         ret.glucose = ret.glucose * 18.02;
       }
     }

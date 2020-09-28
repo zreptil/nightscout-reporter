@@ -14,7 +14,7 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
 class ImpressumComponent
 {
   globals.Globals g = globals.Globals();
-  @Output("closeClicked")
+  @Output('closeClicked')
   Stream<UIEvent> get trigger
   => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);

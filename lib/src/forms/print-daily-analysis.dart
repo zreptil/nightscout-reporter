@@ -140,10 +140,14 @@ class PrintDailyAnalysis extends BaseDaily {
     titleInfo = fmtDate(day.date, null, false, true);
     glucMax = -1000.0;
     ieMax = 0.0;
-    for (var entry in day.entries) glucMax = math.max(entry.gluc, glucMax);
-    for (var entry in day.bloody) glucMax = math.max(entry.mbg, glucMax);
+    for (var entry in day.entries) {
+      glucMax = math.max(entry.gluc, glucMax);
+    }
+    for (var entry in day.bloody) {
+      glucMax = math.max(entry.mbg, glucMax);
+    }
     for (var entry in day.treatments) {
-      if (entry.isBloody) glucMax = math.max((g.glucMGDL ? 1 : 18.02) * entry.glucose, glucMax);
+      if (entry.isBloody) glucMax = math.max(g.glucFactor * entry.glucose, glucMax);
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
 
@@ -297,7 +301,7 @@ class PrintDailyAnalysis extends BaseDaily {
     for (TreatmentData t in day.treatments) {
       if (t.isBloody) {
         double x = glucX(t.createdAt);
-        double y = glucY((g.glucMGDL ? 1 : 18.02) * t.glucose);
+        double y = glucY((g.glucFactor) * t.glucose);
         graphGlucCvs.add({"type": "rect", "x": cm(x), "y": cm(y), "w": cm(0.1), "h": cm(0.1), "color": colBloodValues});
       }
     }

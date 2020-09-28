@@ -38,6 +38,23 @@ class CollectInfo {
 
 class PrintDailyGraphic extends BaseDaily {
   @override
+  String help =
+  Intl.message('''Dieses Formular zeigt den Verlauf der Glukosekurve für einen Tag. Pro Tag im ausgewählten
+Zeitraum wird eine Seite erzeugt. Es gibt sehr viele Optionen, mit denen dieses Formular angepasst werden kann.
+Die Optionen, die auf einen Loop hinweisen sind andersfarbig markiert, um sie schneller identifizieren zu 
+können. Die Optionen COB und IOB verlangsamen die Ausgabe teilweise erheblich, weshalb man diese nur dann
+verwenden sollte, wenn sie wirklich von Interesse sind.
+
+Unter der Grafik kann die Basalrate angezeigt werden. Ein laufender Loop wird diese immer wieder hoch und runter
+setzen. Deshalb kann man sowohl die tatsächliche Basalrate als auch die im Profil eingestellte Basalrate 
+anzeigen lassen. Für die Basalrate gibt es noch die Formulare @09@, @11@ und @02@, auf denen man sie genauer 
+analysieren kann. Man kann auch das @10@ für den Tag erzeugen lassen. Das wird dann auf einer neuen Seite ausgegeben.
+
+Dieses Formular ist eines der seitenintensivsten Formulare in Nightscout Reporter. Deshalb gibt es hier 
+die Möglichkeit, mehrere Tagesgrafiken auf einer Seite ausgeben zu lassen. Darunter leidet natürlich die Lesbarkeit,
+aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: 'help for daygraph');
+
+  @override
   String id = 'daygraph';
 
   @override
@@ -288,7 +305,6 @@ class PrintDailyGraphic extends BaseDaily {
     glucTableTop = graphHeight;
 
     lineWidth = cm(0.03);
-    var saveMGDL = g.glucMGDL;
     for (var i = 0; i < data.days.length; i++) {
       var day = data.days[g.ppLatestFirst ? data.days.length - 1 - i : i];
       if (g.period.isDowActive(day.date.weekday - 1)) {
@@ -296,10 +312,10 @@ class PrintDailyGraphic extends BaseDaily {
           pages.add(getPage(day));
           if (showCGP || repData.isForThumbs) pages.add(getCGPPage(day));
           if (g.showBothUnits) {
-            g.glucMGDL = !g.glucMGDL;
+            g.glucMGDLIdx = 1;
             pages.add(getPage(day));
             if (showCGP) pages.add(getCGPPage(day));
-            g.glucMGDL = !g.glucMGDL;
+            g.glucMGDLIdx = 2;
           }
         } else {
           pages.add(getEmptyForm(isPortrait, repData.status.status));
@@ -309,7 +325,6 @@ class PrintDailyGraphic extends BaseDaily {
     }
     title = _titleGraphic;
     subtitle = null;
-    g.glucMGDL = saveMGDL;
   }
 
   dynamic glucLine(dynamic points, String color) =>
@@ -492,7 +507,7 @@ class PrintDailyGraphic extends BaseDaily {
     for (var t in day.treatments) {
       if (t.isBloody) {
         var x = glucX(t.createdAt);
-        var y = glucY((g.glucMGDL ? 1 : 18.02) * t.glucose);
+        var y = glucY(g.glucFactor * t.glucose);
         graphGlucCvs.add({'type': 'rect', 'x': cm(x), 'y': cm(y), 'w': cm(0.1), 'h': cm(0.1), 'color': colBloodValues});
         hasBloody = true;
       }
@@ -572,7 +587,7 @@ class PrintDailyGraphic extends BaseDaily {
               'fontSize': fs(7)
             });
           } else if (found is TreatmentData) {
-            double value = (g.glucMGDL ? 1 : 18.02) * found.glucose;
+            var value = g.glucFactor * found.glucose;
             (glucTable['stack'] as List).add({
               'relativePosition': {'x': cm(x), 'y': cm(i % 2 != 0 ? 0 : glucTableHeight / 2)},
               'text': g.glucFromData(value),

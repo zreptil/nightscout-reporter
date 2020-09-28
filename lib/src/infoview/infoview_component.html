@@ -1,0 +1,32 @@
+<modal [visible]="isVisible">
+  <material-dialog headered class="headered-dialog">
+    <div header>
+      <div>
+        <h1>
+          <material-icon id="type" [icon]="type" [class]="type"></material-icon>
+          {{msgTitle}}
+        </h1>
+        <p></p>
+      </div>
+      <material-button icon (trigger)="fire('close')">
+        <material-icon icon="close"></material-icon>
+      </material-button>
+    </div>
+    <div class="root">
+      <div *ngIf="g.info.errors!=''">
+        {{g.info.errors}}
+      </div>
+      <div *ngIf="g.info.warnings!=''">
+        {{g.info.warnings}}
+      </div>
+      <div *ngIf="g.info.infos!=''">
+        {{g.info.infos}}
+      </div>
+    </div>
+    <div footer>
+      <material-button (trigger)="fire('close')">
+        Schliessen
+      </material-button>
+    </div>
+  </material-dialog>
+</modal>

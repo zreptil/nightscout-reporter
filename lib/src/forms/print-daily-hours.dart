@@ -7,6 +7,13 @@ import 'base-print.dart';
 
 class PrintDailyHours extends BasePrint {
   @override
+  String help = Intl.message('''Dieses Formular zeigt eine Übersicht über die Stunden der Tage des ausgewählten 
+Zeitraums an. Die angezeigten Werte sind die Mittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte.
+Sie werden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen kann man die Startstunde festlegen.
+Die Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer Tag beginnt.''',
+      desc: 'help for dayhours');
+
+  @override
   String id = 'dayhours';
 
   @override
@@ -44,22 +51,22 @@ class PrintDailyHours extends BasePrint {
     ]),
   ];
 
-  static String msgStartHour = Intl.message("Startstunde");
+  static String msgStartHour = Intl.message('Startstunde');
 
   @override
-  extractParams() {
+  void extractParams() {
     startHour = params[0].intValue;
   }
 
   @override
   dynamic get estimatePageCount {
-    int count = g?.period?.dayCount ?? 0;
+    var count = g?.period?.dayCount ?? 0;
     count = (count / 30).ceil();
-    return {"count": count, "isEstimated": false};
+    return {'count': count, 'isEstimated': false};
   }
 
   @override
-  String get title => Intl.message("Tagesstunden");
+  String get title => Intl.message('Tagesstunden');
 
   @override
   bool get isPortrait => false;
@@ -69,8 +76,6 @@ class PrintDailyHours extends BasePrint {
 
   @override
   dynamic get footerText => footerTextDayTimes;
-
-  SettingsData _settings;
 
   PrintDailyHours() {
     init();
@@ -82,7 +87,7 @@ class PrintDailyHours extends BasePrint {
     var orgDay = day;
     if (hour != 0 && day.prevDay != null) day = day.prevDay;
 
-    for (int i = 0; i < 24; i++) {
+    for (var i = 0; i < 24; i++) {
       var time = DateTime(0, 1, 1, hour, 0);
       var gluc = 0.0;
       var count = 0;
@@ -109,14 +114,14 @@ class PrintDailyHours extends BasePrint {
 */
       // Stundenspalte
       addTableRow(true, wid, row, {
-        "text": fmtTime(time),
-        "style": styleForTime(time),
-        "alignment": "center"
+        'text': fmtTime(time),
+        'style': styleForTime(time),
+        'alignment': 'center'
       }, {
-        "text": "${g.glucFromData(gluc)}",
-        "style": style,
-        "alignment": "right",
-        "fillColor": colForGluc(day, gluc)
+        'text': '${g.glucFromData(gluc)}',
+        'style': style,
+        'alignment': 'right',
+        'fillColor': colForGluc(day, gluc)
       });
       hour++;
       if (hour == 24) hour = 0;
@@ -125,22 +130,22 @@ class PrintDailyHours extends BasePrint {
   }
 
   String percentileFor(double value) {
-    if (value == -1) return "";
+    if (value == -1) return '';
     return g.glucFromData(value, 1);
   }
 
   @override
-  getTable(widths, body) {
+  dynamic getTable(widths, body) {
     dynamic ret = {
-      "columns": [
+      'columns': [
         {
-          "margin": [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
-          "width": cm(width),
-          "fontSize": fs(7),
-          "table": {"widths": widths, "body": body},
+          'margin': [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
+          'width': cm(width),
+          'fontSize': fs(7),
+          'table': {'widths': widths, 'body': body},
         }
       ],
-      "pageBreak": ""
+      'pageBreak': ''
     };
 
     return ret;
@@ -148,24 +153,34 @@ class PrintDailyHours extends BasePrint {
 
   @override
   void fillPages(List<Page> pages) {
+    var oldLength = pages.length;
+    _fillPages(pages);
+    if (g.showBothUnits) {
+      g.glucMGDLIdx = 1;
+      _fillPages(pages);
+      g.glucMGDLIdx = 2;
+    }
+    if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
+  }
+
+  void _fillPages(List<Page> pages) {
     tableHeadFilled = false;
     tableHeadLine = [];
     tableWidths = [];
     titleInfo = titleInfoBegEnd();
-    _settings = repData.status.settings;
-    double f = 3.3;
+    var f = 3.3;
     var body = [];
     f /= 100;
 
-    ProfileGlucData prevProfile = null;
-    int lineCount = 0;
+    ProfileGlucData prevProfile;
+    var lineCount = 0;
     var page = [];
-    DayData totalDay = DayData(null, ProfileGlucData(ProfileStoreData("Intern")));
+    var totalDay = DayData(null, ProfileGlucData(ProfileStoreData('Intern')));
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
-    int totalDays = 0;
-    int oldLength = pages.length;
-    for (DayData day in repData.data.days) {
+    // ignore: unused_local_variable
+    var totalDays = 0;
+    for (var day in repData.data.days) {
       day.init();
       if (day.entryCountValid == 0) continue;
       totalDays++;
@@ -175,8 +190,8 @@ class PrintDailyHours extends BasePrint {
       totalDay.basalData.targetHigh = max(totalDay.basalData.targetHigh, day.basalData.targetHigh);
       totalDay.basalData.targetLow = min(totalDay.basalData.targetLow, day.basalData.targetLow);
       var row = [];
-      fillRow(row, f, fmtDate(day.date, null, true), day, "row");
-      ProfileGlucData profile = repData.profile(DateTime(day.date.year, day.date.month, day.date.day));
+      fillRow(row, f, fmtDate(day.date, null, true), day, 'row');
+      var profile = repData.profile(DateTime(day.date.year, day.date.month, day.date.day));
       if (prevProfile == null ||
           profile.targetLow != prevProfile.targetLow ||
           profile.targetHigh != prevProfile.targetHigh) {
@@ -201,7 +216,7 @@ class PrintDailyHours extends BasePrint {
 /*
     var row = [];
     totalDay.init();
-    fillRow(row, f, msgDaySum(totalDays), totalDay, "total");
+    fillRow(row, f, msgDaySum(totalDays), totalDay, 'total');
     body.add(row);
 */
     if (prevProfile != null) {
@@ -209,9 +224,8 @@ class PrintDailyHours extends BasePrint {
       page.add(getTable(tableWidths, body));
       pages.add(Page(isPortrait, page));
     } else {
-      Map test = pages.last.content.last as Map;
-      if (body.length > 0) test["columns"].last["table"]["body"].add(body.last);
+      var test = pages.last.content.last as Map;
+      if (body.isNotEmpty) test['columns'].last['table']['body'].add(body.last);
     }
-    if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
   }
 }
