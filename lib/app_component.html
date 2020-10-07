@@ -143,7 +143,7 @@
     </div>
     <div class="tileparams" *ngIf="tileParams!=null && progressText == null && !g.showAllTileParams">
       <div title>
-        {{tileParams.form.display}}
+        <material-checkbox class="is-local" [(checked)]="allParams" *ngIf="g.isLocal" (trigger)="checkAllParams()"></material-checkbox>{{tileParams.form.display}}
         <div>
           <material-button (trigger)="g.showAllTileParams=!g.showAllTileParams;$event.stopPropagation();">
             <material-icon icon="list"></material-icon>
@@ -159,7 +159,7 @@
     </div>
     <div class="tileparams" *ngIf="tileParams!=null && progressText == null && g.showAllTileParams">
       <div title>
-        Optionen
+        <ng-container @i18n="title for parameters">Optionen</ng-container>
         <div>
           <material-button (trigger)="g.showAllTileParams=!g.showAllTileParams;$event.stopPropagation();">
             <material-icon icon="description"></material-icon>

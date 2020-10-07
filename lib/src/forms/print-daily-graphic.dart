@@ -1000,8 +1000,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
     }
 
     var legend = LegendData(cm(xo), cm(y), cm(7.0), 6);
-    var tdd = day.ieBasalSum + day.ieBolusSum;
-    if (!showBasalDay) tdd = day.basalData.store.ieBasalSum + day.ieBolusSum;
+    var tdd = day.ieBasalSum(!showBasalDay) + day.ieBolusSum;
     dynamic infoTable = {};
 
     if (showLegend) {
@@ -1058,7 +1057,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
         addLegendEntry(legend, colExercises, msgExercises, isArea: false, lineWidth: 0.3);
       }
       if (showBasalDay) {
-        text = '${g.fmtBasal(day.ieBasalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}';
+        text = '${g.fmtBasal(day.ieBasalSum(!showBasalDay), dontRound: !roundToProfile)} ${msgInsulinUnit}';
         addLegendEntry(legend, colBasalDay, msgBasalrateDay(text), isArea: true);
       }
       if (showBasalProfile) {
@@ -1115,12 +1114,12 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
         {'text': msgHbA1C, 'fontSize': fs(10)},
         {'text': '${hba1c(day.mid)} %', 'color': colHbA1c, 'fontSize': fs(10), 'alignment': 'right'}
       ]);
-      var prz = day.ieBasalSum / (day.ieBasalSum + day.ieBolusSum) * 100;
+      var prz = day.ieBasalSum(!showBasalDay) / (day.ieBasalSum(!showBasalDay) + day.ieBolusSum) * 100;
       infoBody.add([
         {'text': msgBasalSum, 'fontSize': fs(10)},
         {'text': '${g.fmtNumber(prz, 1)} %', 'color': colBasalDay, 'fontSize': fs(10), 'alignment': 'right'}
       ]);
-      prz = day.ieBolusSum / (day.ieBasalSum + day.ieBolusSum) * 100;
+      prz = day.ieBolusSum / (day.ieBasalSum(!showBasalDay) + day.ieBolusSum) * 100;
       infoBody.add([
         {'text': msgBolusSum, 'fontSize': fs(10)},
         {'text': '${g.fmtNumber(prz, 1)} %', 'color': colBolus, 'fontSize': fs(10), 'alignment': 'right'}
@@ -1299,13 +1298,13 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
 
     if (useProfile) {
       data = day.basalData.store.listBasal;
-      basalSum = day.basalData.store.ieBasalSum;
       color = colProfileSwitch; //colBasalProfile;
     } else {
       data = day.profile;
-      basalSum = day.ieBasalSum;
       color = colBasalDay;
     }
+
+    basalSum = day.ieBasalSum(!useProfile);
     var basalCvs = [];
     var ret = {
       'stack': [
