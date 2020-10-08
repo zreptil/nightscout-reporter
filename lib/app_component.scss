@@ -20,6 +20,7 @@
   width: 100vw;
   height: 100vh;
   @include material-checkbox-color(var(--primaryBack), $modifier: '');
+  @include material-checkbox-color(var(--localBack), $modifier: '.is-local');
   @include slider-thumb-color('material-slider.slider', $primary_back);
   @include slider-track-color('material-slider.slider', $primary_back, $mat-gray-400);
   @include material-progress-theme(var(--primaryBack), var(--primaryBack), var(--primaryFore));

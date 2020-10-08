@@ -15,7 +15,7 @@ class CollectInfo {
   double max2 = -1.0;
   int count = 0;
 
-  CollectInfo(this.start, [double this.sum1 = 0.0, double this.sum2 = 0.0]) {
+  CollectInfo(this.start, [this.sum1 = 0.0, this.sum2 = 0.0]) {
     end = DateTime(start.year, start.month, start.day, start.hour, start.minute, start.second);
     count = sum1 > 0.0 ? 1 : 0;
     max1 = sum1;
@@ -99,7 +99,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
     ParamInfo(9, msgParam9,
         boolValue: true,
         subParams: [ParamInfo(0, msgParam13, boolValue: false), ParamInfo(1, msgParam21, boolValue: false)]),
-    ParamInfo(11, "", boolValue: false, isDeprecated: true),
+    ParamInfo(11, '', boolValue: false, isDeprecated: true),
     ParamInfo(13, msgParam11, boolValue: true),
     ParamInfo(14, msgParam14, boolValue: true),
     ParamInfo(3, BaseDaily.msgDaily1,
@@ -220,6 +220,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
 
   static String get msgParam25 => Intl.message('IOB (Insulin On Board) anzeigen');
 
+  @override
   String get msgBasalSum => Intl.message('Basal ges.');
 
   String get msgBolusSum => Intl.message('Bolus ges.');
@@ -624,37 +625,38 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
           y = glucY(src.targetValue(t.createdAt)) + lw / 2;
         }
         paintSMB(t.microbolus, x, y,
-        graphInsulin["stack"][0]["canvas"] as List);
+        graphInsulin['stack'][0]['canvas'] as List);
       }
 */
       if (t.isTempBasal) continue;
       if ((t.carbs > 0 || t.eCarbs > 0) && showCarbs) {
         x = glucX(t.createdAt);
         if (t.isECarb) {
-          paintECarbs(t.eCarbs, x, graphHeight - lw, graphCarbs["stack"][0]["canvas"] as List);
+          paintECarbs(t.eCarbs, x, graphHeight - lw, graphCarbs['stack'][0]['canvas'] as List);
         } else {
           y = carbY(t.carbs);
-          (graphCarbs["stack"][0]["canvas"] as List).add({
-            "type": "line",
-            "x1": cm(x),
-            "y1": cm(y),
-            "x2": cm(x),
-            "y2": cm(graphHeight - lw),
-            "lineColor": colCarbs,
-            "lineWidth": cm(0.1),
+          (graphCarbs['stack'][0]['canvas'] as List).add({
+            'type': 'line',
+            'x1': cm(x),
+            'y1': cm(y),
+            'x2': cm(x),
+            'y2': cm(graphHeight - lw),
+            'lineColor': colCarbs,
+            'lineWidth': cm(0.1),
           });
-          double carbsIE = carbsForIE(src, t);
-          if (t.createdAt.difference(collCarbs.last.start).inMinutes < collMinutes)
+          var carbsIE = carbsForIE(src, t);
+          if (t.createdAt.difference(collCarbs.last.start).inMinutes < collMinutes) {
             collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
-          else
+          } else {
             collCarbs.add(CollectInfo(t.createdAt, t.carbs, carbsIE));
+          }
         }
         hasCarbs = true;
       }
       if (showInsulin) {
         if (t.bolusInsulin > 0 && !t.isSMB) {
-          double insulin = t.bolusInsulin;
-          double insulinExt = 0.0;
+          var insulin = t.bolusInsulin;
+          var insulinExt = 0.0;
           if (t.splitExt > 0 || t.splitNow > 0) {
             insulinExt = t.splitExt * insulin / 100.0;
             insulin = t.splitNow * insulin / 100.0;
@@ -663,40 +665,42 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
           x = glucX(t.createdAt);
           y = bolusY(insulin);
           if (insulin > 0) {
-            (graphInsulin["stack"][0]["canvas"] as List).add({
-              "type": "line",
-              "x1": cm(x),
-              "y1": cm(0),
-              "x2": cm(x),
-              "y2": cm(y),
-              "lineColor": splitBolus && t.isCarbBolus ? colCarbBolus : colBolus,
-              "lineWidth": cm(0.1),
+            (graphInsulin['stack'][0]['canvas'] as List).add({
+              'type': 'line',
+              'x1': cm(x),
+              'y1': cm(0),
+              'x2': cm(x),
+              'y2': cm(y),
+              'lineColor': splitBolus && t.isCarbBolus ? colCarbBolus : colBolus,
+              'lineWidth': cm(0.1),
             });
           }
           if (insulinExt > 0) {
-            double w = glucX(t.createdAt.add(Duration(seconds: t.duration))) - x;
+            var w = glucX(t.createdAt.add(Duration(seconds: t.duration))) - x;
             if (w < 0) w = graphWidth - x;
-            double h = bolusY(insulinExt);
-            (graphInsulin["stack"][0]["canvas"] as List).add({
-              "type": "rect",
-              "x": cm(x),
-              "y": cm(0),
-              "w": cm(w),
-              "h": cm(h),
-              "color": colBolusExt,
+            var h = bolusY(insulinExt);
+            (graphInsulin['stack'][0]['canvas'] as List).add({
+              'type': 'rect',
+              'x': cm(x),
+              'y': cm(0),
+              'w': cm(w),
+              'h': cm(h),
+              'color': colBolusExt,
             });
             hasBolusExt = true;
           }
 
-          if (t.createdAt.difference(collInsulin.last.start).inMinutes < collMinutes)
+          if (t.createdAt.difference(collInsulin.last.start).inMinutes < collMinutes) {
             collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
-          else
+          } else {
             collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
+          }
 
-          if (splitBolus && t.isCarbBolus)
+          if (splitBolus && t.isCarbBolus) {
             hasCarbBolus = true;
-          else
+          } else {
             hasBolus = true;
+          }
         }
         if (showSMB && t.isSMB && t.insulin > 0) {
           EntryData entry = day.findNearest(day.entries, null, t.createdAt);
@@ -706,96 +710,96 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
           } else {
             y = glucY(src.targetValue(t.createdAt)) + lw / 2;
           }
-          paintSMB(t.insulin, x, y, graphInsulin["stack"][0]["canvas"] as List);
+          paintSMB(t.insulin, x, y, graphInsulin['stack'][0]['canvas'] as List);
         }
       }
 
       if (t.isSiteChange && showPictures) {
-        double x = glucX(t.createdAt) - 0.3;
-        double y = graphHeight - 0.6;
-        (pictures["stack"] as List).add({
-          "relativePosition": {"x": cm(x), "y": cm(y)},
-          "image": "katheter.print",
-          "width": cm(0.8)
+        var x = glucX(t.createdAt) - 0.3;
+        var y = graphHeight - 0.6;
+        (pictures['stack'] as List).add({
+          'relativePosition': {'x': cm(x), 'y': cm(y)},
+          'image': 'katheter.print',
+          'width': cm(0.8)
         });
-        (pictures["stack"] as List).add({
-          "relativePosition": {"x": cm(x + 0.33), "y": cm(y + 0.04)},
-          "text": "${fmtTime(t.createdAt)}",
-          "fontSize": fs(5),
-          "color": "white"
+        (pictures['stack'] as List).add({
+          'relativePosition': {'x': cm(x + 0.33), 'y': cm(y + 0.04)},
+          'text': '${fmtTime(t.createdAt)}',
+          'fontSize': fs(5),
+          'color': 'white'
         });
         hasCatheterChange = true;
       } else if (t.isSensorChange && showPictures) {
-        double x = glucX(t.createdAt) - 0.3;
-        double y = graphHeight - 0.6;
-        (pictures["stack"] as List).add({
-          "relativePosition": {"x": cm(x), "y": cm(y)},
-          "image": "sensor.print",
-          "width": cm(0.6)
+        var x = glucX(t.createdAt) - 0.3;
+        var y = graphHeight - 0.6;
+        (pictures['stack'] as List).add({
+          'relativePosition': {'x': cm(x), 'y': cm(y)},
+          'image': 'sensor.print',
+          'width': cm(0.6)
         });
-        (pictures["stack"] as List).add({
-          "relativePosition": {"x": cm(x + 0.0), "y": cm(y + 0.34)},
-          "columns": [
+        (pictures['stack'] as List).add({
+          'relativePosition': {'x': cm(x + 0.0), 'y': cm(y + 0.34)},
+          'columns': [
             {
-              "width": cm(0.6),
-              "text": "${fmtTime(t.createdAt)}",
-              "fontSize": fs(5),
-              "color": "white",
-              "alignment": "center"
+              'width': cm(0.6),
+              'text': '${fmtTime(t.createdAt)}',
+              'fontSize': fs(5),
+              'color': 'white',
+              'alignment': 'center'
             }
           ]
         });
         hasSensorChange = true;
       } else if (t.isInsulinChange && showPictures) {
-        double x = glucX(t.createdAt) - 0.3;
-        double y = graphHeight - 0.6;
-        (pictures["stack"] as List).add({
-          "relativePosition": {"x": cm(x), "y": cm(y)},
-          "image": "ampulle.print",
-          "width": cm(0.8)
+        var x = glucX(t.createdAt) - 0.3;
+        var y = graphHeight - 0.6;
+        (pictures['stack'] as List).add({
+          'relativePosition': {'x': cm(x), 'y': cm(y)},
+          'image': 'ampulle.print',
+          'width': cm(0.8)
         });
-        (pictures["stack"] as List).add({
-          "relativePosition": {"x": cm(x + 0.33), "y": cm(y + 0.1)},
-          "text": "${fmtTime(t.createdAt)}",
-          "fontSize": fs(5),
-          "color": "white"
+        (pictures['stack'] as List).add({
+          'relativePosition': {'x': cm(x + 0.33), 'y': cm(y + 0.1)},
+          'text': '${fmtTime(t.createdAt)}',
+          'fontSize': fs(5),
+          'color': 'white'
         });
         hasAmpulleChange = true;
       }
 
       if (t.isExercise && showExercises) {
-        double x = glucX(t.createdAt);
-        double wid = glucX(DateTime(0, 0, 0, 0, 0, t.duration));
-        (exerciseCvs["canvas"] as List).add({
-          "type": "rect",
-          "x": cm(x),
-          "y": cm(0.05),
-          "w": cm(wid),
-          "h": cm(glucExerciseHeight - 0.1),
-          "color": colExercises
+        var x = glucX(t.createdAt);
+        var wid = glucX(DateTime(0, 0, 0, 0, 0, t.duration));
+        (exerciseCvs['canvas'] as List).add({
+          'type': 'rect',
+          'x': cm(x),
+          'y': cm(0.05),
+          'w': cm(wid),
+          'h': cm(glucExerciseHeight - 0.1),
+          'color': colExercises
         });
-        if ((t.notes ?? "").isNotEmpty) {
-          (graphLegend["stack"] as List).add({
-            "relativePosition": {"x": cm(x + 0.05), "y": cm(glucExerciseTop + glucExerciseHeight / 2 - 0.13)},
-            "text": t.notes,
-            "fontSize": fs(6),
-            "alignment": "left",
-            "color": colExerciseText
+        if ((t.notes ?? '').isNotEmpty) {
+          (graphLegend['stack'] as List).add({
+            'relativePosition': {'x': cm(x + 0.05), 'y': cm(glucExerciseTop + glucExerciseHeight / 2 - 0.13)},
+            'text': t.notes,
+            'fontSize': fs(6),
+            'alignment': 'left',
+            'color': colExerciseText
           });
         }
-      } else if (showNotes && (t.notes ?? "").isNotEmpty && !t.isECarb) {
-        String notes = t.notes;
+      } else if (showNotes && (t.notes ?? '').isNotEmpty && !t.isECarb) {
+        var notes = t.notes;
         if (!showHTMLNotes) {
-          notes = t.notes.replaceAll(RegExp(r"<.*>"), "");
+          notes = t.notes.replaceAll(RegExp(r'<.*>'), '');
         }
-        double x = glucX(t.createdAt);
+        var x = glucX(t.createdAt);
 // *** line length estimation ***
 // the following code is used to estimate the length of the note-lines for
 // trying to avoid overlapping.
-        int idx = noteLines.indexWhere((v) => v < x);
-        bool isMultiline = notes.indexOf("\n") > 0;
-        int len = notes.indexOf("\n") > 0 ? notes.indexOf("\n") : notes.length;
-        double pos = x + len * 0.15;
+        var idx = noteLines.indexWhere((v) => v < x);
+        var isMultiline = notes.indexOf('\n') > 0;
+        var len = notes.indexOf('\n') > 0 ? notes.indexOf('\n') : notes.length;
+        var pos = x + len * 0.15;
         if (idx < 0) {
           noteLines.add(pos);
           idx = noteLines.length - 1;
@@ -804,8 +808,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
         }
 
         if (isMultiline) {
-          List<String> lines = notes.split("\n");
-          for (int i = 0; i < lines.length; i++) {
+          var lines = notes.split('\n');
+          for (var i = 0; i < lines.length; i++) {
             pos = x + lines[i].length * 0.15;
             if (idx + i >= noteLines.length) noteLines.add(0);
             noteLines[idx + i] = math.max(noteLines[idx + i], pos);
@@ -813,45 +817,45 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
         }
 // *** end of linelength estimation ***
         if (idx < (isMultiline ? 1 : 3)) {
-          double y = graphBottom + notesTop + idx * notesHeight;
-          double top = graphBottom;
+          var y = graphBottom + notesTop + idx * notesHeight;
+          var top = graphBottom;
           if (showNoteLinesAtGluc) {
             EntryData e = day.findNearest(day.entries, null, t.createdAt);
             if (e != null) top = glucY(e.gluc);
           }
           graphGlucCvs.add({
-            "type": "line",
-            "x1": cm(x),
-            "y1": cm(top),
-            "x2": cm(x),
-            "y2": cm(y + notesHeight),
-            "lineWidth": cm(lw),
-            "lineColor": t.duration > 0 ? colDurationNotesLine : colNotesLine
+            'type': 'line',
+            'x1': cm(x),
+            'y1': cm(top),
+            'x2': cm(x),
+            'y2': cm(y + notesHeight),
+            'lineWidth': cm(lw),
+            'lineColor': t.duration > 0 ? colDurationNotesLine : colNotesLine
           });
-          (graphLegend["stack"] as List).add({
-            "relativePosition": {"x": cm(x + 0.05), "y": cm(y + notesHeight - 0.25)},
-            "text": notes,
-            "fontSize": fs(8),
-            "alignment": "left",
-            "color": t.duration > 0 ? colDurationNotes : colNotes
+          (graphLegend['stack'] as List).add({
+            'relativePosition': {'x': cm(x + 0.05), 'y': cm(y + notesHeight - 0.25)},
+            'text': notes,
+            'fontSize': fs(8),
+            'alignment': 'left',
+            'color': t.duration > 0 ? colDurationNotes : colNotes
           });
           if (t.duration > 0) {
             x = glucX(t.createdAt.add(Duration(seconds: t.duration)));
             graphGlucCvs.add({
-              "type": "line",
-              "x1": cm(x),
-              "y1": cm(graphBottom + 0.35),
-              "x2": cm(x),
-              "y2": cm(y + 0.1),
-              "lineWidth": cm(lw),
-              "lineColor": colDurationNotesLine
+              'type': 'line',
+              'x1': cm(x),
+              'y1': cm(graphBottom + 0.35),
+              'x2': cm(x),
+              'y2': cm(y + 0.1),
+              'lineWidth': cm(lw),
+              'lineColor': colDurationNotesLine
             });
           }
         }
       }
 /*
-      if (cobPoints.length > 0)cobPoints.add({"x": cobPoints.last["x"],
-      "y": cobPoints.first["y"]});
+      if (cobPoints.length > 0)cobPoints.add({'x': cobPoints.last['x'],
+      'y': cobPoints.first['y']});
       graphCvs.add(cob);
 */
     }
@@ -880,11 +884,11 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
         hasCollectedValues = true;
       }
 /*
-      (graphInsulin["stack"][1]["stack"] as List).add({
-        "relativePosition": {"x": cm(x - 0.3), "y": cm(y + 0.05),},
-        "text": text,
-        "fontSize": fs(8),
-        "color": colBolus
+      (graphInsulin['stack'][1]['stack'] as List).add({
+        'relativePosition': {'x': cm(x - 0.3), 'y': cm(y + 0.05),},
+        'text': text,
+        'fontSize': fs(8),
+        'color': colBolus
       });
 // */
       (graphInsulin['stack'][1]['stack'] as List).add({
@@ -909,215 +913,226 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
       y -= 0.35;
 
       if (showCarbIE && info.sum2 > 0.0) {
-        String text1 = "${g.fmtBasal(info.sum2, dontRound: !roundToProfile)} ${msgInsulinUnit}";
-        if (info.count > 1) text1 = "[$text1]";
-        (graphCarbs["stack"][1]["stack"] as List).add({
-          "relativePosition": {"x": cm(glucX(info.start) - 0.05), "y": cm(y)},
-          "text": text1,
-          "fontSize": fs(7),
-          "color": colCarbsText
+        var text1 = '${g.fmtBasal(info.sum2, dontRound: !roundToProfile)} ${msgInsulinUnit}';
+        if (info.count > 1) text1 = '[$text1]';
+        (graphCarbs['stack'][1]['stack'] as List).add({
+          'relativePosition': {'x': cm(glucX(info.start) - 0.05), 'y': cm(y)},
+          'text': text1,
+          'fontSize': fs(7),
+          'color': colCarbsText
         });
         hasCarbIE = true;
         y -= 0.35;
       }
 
-      (graphCarbs["stack"][1]["stack"] as List).add({
-        "relativePosition": {"x": cm(glucX(info.start) - 0.05), "y": cm(y)},
-        "text": text,
-        "fontSize": fs(8)
+      (graphCarbs['stack'][1]['stack'] as List).add({
+        'relativePosition': {'x': cm(glucX(info.start) - 0.05), 'y': cm(y)},
+        'text': text,
+        'fontSize': fs(8)
       });
     }
 
-    DateTime date = DateTime(day.date.year, day.date.month, day.date.day);
-    ProfileGlucData profile = src.profile(date, day.treatments);
-    List targetValues = [];
-    double lastTarget = -1;
-    double yHigh = glucY(math.min(glucMax, targets(repData)["high"]));
-    double yLow = glucY(targets(repData)["low"]);
+    var date = DateTime(day.date.year, day.date.month, day.date.day);
+    var profile = src.profile(date, day.treatments);
+    var targetValues = [];
+    var lastTarget = -1.0;
+    var yHigh = glucY(math.min(glucMax, targets(repData)['high']));
+    var yLow = glucY(targets(repData)['low']);
     for (var i = 0; i < profile.store.listTargetLow.length; i++) {
       if (i < profile.store.listTargetHigh.length) {
-        double low = profile.store.listTargetLow[i].value * g.glucFactor;
-        double high = profile.store.listTargetHigh[i].value * g.glucFactor;
-        double x = glucX(profile.store.listTargetLow[i].time(day.date));
-        double y = glucY((low + high) / 2);
-        if (lastTarget >= 0) targetValues.add({"x": cm(x), "y": cm(lastTarget)});
-        targetValues.add({"x": cm(x), "y": cm(y)});
+        var low = profile.store.listTargetLow[i].value * g.glucFactor;
+        var high = profile.store.listTargetHigh[i].value * g.glucFactor;
+        var x = glucX(profile.store.listTargetLow[i].time(day.date));
+        var y = glucY((low + high) / 2);
+        if (lastTarget >= 0) targetValues.add({'x': cm(x), 'y': cm(lastTarget)});
+        targetValues.add({'x': cm(x), 'y': cm(y)});
         lastTarget = y;
       }
     }
 
-    targetValues.add({"x": cm(glucX(DateTime(0, 1, 1, 23, 59, 59, 999))), "y": cm(lastTarget)});
+    targetValues.add({'x': cm(glucX(DateTime(0, 1, 1, 23, 59, 59, 999))), 'y': cm(lastTarget)});
 
     var limitLines = {
-      "relativePosition": {"x": cm(xo), "y": cm(yo)},
-      "canvas": [
+      'relativePosition': {'x': cm(xo), 'y': cm(yo)},
+      'canvas': [
         {
-          "type": "rect",
-          "x": cm(0.0),
-          "y": cm(yHigh),
-          "w": cm(24 * grid.colWidth),
-          "h": cm(yLow - yHigh),
-          "color": colTargetArea,
-          "fillOpacity": 0.3
+          'type': 'rect',
+          'x': cm(0.0),
+          'y': cm(yHigh),
+          'w': cm(24 * grid.colWidth),
+          'h': cm(yLow - yHigh),
+          'color': colTargetArea,
+          'fillOpacity': 0.3
         },
         {
-          "type": "line",
-          "x1": cm(0.0),
-          "y1": cm(yHigh),
-          "x2": cm(24 * grid.colWidth),
-          "y2": cm(yHigh),
-          "lineWidth": cm(lw),
-          "lineColor": colTargetArea
+          'type': 'line',
+          'x1': cm(0.0),
+          'y1': cm(yHigh),
+          'x2': cm(24 * grid.colWidth),
+          'y2': cm(yHigh),
+          'lineWidth': cm(lw),
+          'lineColor': colTargetArea
         },
         {
-          "type": "polyline",
-          "lineWidth": cm(lw * 2),
-          "closePath": false,
-          "lineColor": colTargetValue,
-          "points": targetValues
+          'type': 'polyline',
+          'lineWidth': cm(lw * 2),
+          'closePath': false,
+          'lineColor': colTargetValue,
+          'points': targetValues
         },
         {
-          "type": "line",
-          "x1": cm(0.0),
-          "y1": cm(yLow),
-          "x2": cm(24 * grid.colWidth),
-          "y2": cm(yLow),
-          "lineWidth": cm(lw),
-          "lineColor": colTargetArea
+          'type': 'line',
+          'x1': cm(0.0),
+          'y1': cm(yLow),
+          'x2': cm(24 * grid.colWidth),
+          'y2': cm(yLow),
+          'lineWidth': cm(lw),
+          'lineColor': colTargetArea
         },
-        {"type": "rect", "x": 0, "y": 0, "w": 0, "h": 0, "color": "#000", "fillOpacity": 1}
+        {'type': 'rect', 'x': 0, 'y': 0, 'w': 0, 'h': 0, 'color': '#000', 'fillOpacity': 1}
       ]
     };
     var y = yo + grid.lineHeight * grid.gridLines;
-    if (showBasalProfile || showBasalDay)
+    if (showBasalProfile || showBasalDay) {
       y += 1.2 + basalHeight + basalTop;
-    else
+    } else {
       y += basalTop;
+    }
 
-    LegendData legend = LegendData(cm(xo), cm(y), cm(7.0), 6);
-    double tdd = day.ieBasalSum + day.ieBolusSum;
-    if (!showBasalDay) tdd = day.basalData.store.ieBasalSum + day.ieBolusSum;
+    var legend = LegendData(cm(xo), cm(y), cm(7.0), 6);
+    var tdd = day.ieBasalSum(!showBasalDay) + day.ieBolusSum;
     dynamic infoTable = {};
 
     if (showLegend) {
       addLegendEntry(legend, colValue, msgGlucosekurve, isArea: false);
-      if (hasBloody)
+      if (hasBloody) {
         addLegendEntry(legend, colBloodValues, msgBloody,
             points: [
-              {"x": 0.3, "y": 0.2},
-              {"x": 0.4, "y": 0.2},
-              {"x": 0.4, "y": 0.3},
-              {"x": 0.3, "y": 0.3}
+              {'x': 0.3, 'y': 0.2},
+              {'x': 0.4, 'y': 0.2},
+              {'x': 0.4, 'y': 0.3},
+              {'x': 0.3, 'y': 0.3}
             ],
             isArea: false);
+      }
       String text;
       if (hasCarbs) {
-        text = "${g.fmtNumber(day.carbs, 0)}";
+        text = '${g.fmtNumber(day.carbs, 0)}';
         addLegendEntry(legend, colCarbs, msgCarbs(text), isArea: false, lineWidth: 0.1);
       }
-      if (hasCarbIE) addLegendEntry(legend, "", msgCarbIE, graphText: "1,0 IE", colGraphText: colCarbsText);
+      if (hasCarbIE) addLegendEntry(legend, '', msgCarbIE, graphText: '1,0 IE', colGraphText: colCarbsText);
       if (splitBolus) {
-        double sum = day.ieCorrectionSum;
+        var sum = day.ieCorrectionSum;
         if (!showSMB) sum += day.ieSMBSum;
-        if (sum > 0.0)
+        if (sum > 0.0) {
           addLegendEntry(legend, colBolus,
-              msgCorrectBolusInsulin("${g.fmtBasal(sum, dontRound: !roundToProfile)} ${msgInsulinUnit}"),
+              msgCorrectBolusInsulin('${g.fmtBasal(sum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
               isArea: false, lineWidth: 0.1);
-        if (hasCarbBolus)
+        }
+        if (hasCarbBolus) {
           addLegendEntry(legend, colCarbBolus,
-              msgCarbBolusInsulin("${g.fmtBasal(day.ieCarbSum, dontRound: !roundToProfile)} ${msgInsulinUnit}"),
+              msgCarbBolusInsulin('${g.fmtBasal(day.ieCarbSum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
               isArea: false, lineWidth: 0.1);
-        if (showSMB && day.ieSMBSum > 0.0)
+        }
+        if (showSMB && day.ieSMBSum > 0.0) {
           addLegendEntry(legend, colBolus,
-              msgSMBInsulin("${g.fmtBasal(day.ieSMBSum, dontRound: !roundToProfile)} ${msgInsulinUnit}"),
+              msgSMBInsulin('${g.fmtBasal(day.ieSMBSum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
               points: [
-                {"x": 0.1, "y": 0.1},
-                {"x": 0.5, "y": 0.1},
-                {"x": 0.3, "y": 0.4}
+                {'x': 0.1, 'y': 0.1},
+                {'x': 0.5, 'y': 0.1},
+                {'x': 0.3, 'y': 0.4}
               ],
               isArea: false,
               lineWidth: 0.1);
+        }
       } else if (hasBolus) {
         addLegendEntry(legend, colBolus,
-            msgBolusInsulin("${g.fmtBasal(day.ieBolusSum, dontRound: !roundToProfile)} ${msgInsulinUnit}"),
+            msgBolusInsulin('${g.fmtBasal(day.ieBolusSum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
             isArea: false, lineWidth: 0.1);
       }
       if (hasBolusExt) {
         addLegendEntry(legend, colBolusExt, msgBolusExtInsulin, isArea: false, lineWidth: 0.1);
       }
-      if (showExercises && hasExercises)
+      if (showExercises && hasExercises) {
         addLegendEntry(legend, colExercises, msgExercises, isArea: false, lineWidth: 0.3);
+      }
       if (showBasalDay) {
-        text = "${g.fmtBasal(day.ieBasalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}";
+        text = '${g.fmtBasal(day.ieBasalSum(!showBasalDay), dontRound: !roundToProfile)} ${msgInsulinUnit}';
         addLegendEntry(legend, colBasalDay, msgBasalrateDay(text), isArea: true);
       }
       if (showBasalProfile) {
-        text = "${g.fmtBasal(day.basalData.store.ieBasalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}";
+        text = '${g.fmtBasal(day.basalData.store.ieBasalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}';
         addLegendEntry(legend, colProfileSwitch, msgBasalrateProfile(text), isArea: false);
       }
-      text = "${g.fmtBasal(tdd, dontRound: !roundToProfile)} ${msgInsulinUnit}";
-      addLegendEntry(legend, "", msgLegendTDD(text), graphText: msgTDD);
-      String v1 = g.glucFromData(targets(repData)["low"].toDouble());
-      String v2 = g.glucFromData(targets(repData)["high"].toDouble());
-      addLegendEntry(legend, colTargetArea, msgTargetArea(v1, v2, g.getGlucInfo()["unit"]));
+      text = '${g.fmtBasal(tdd, dontRound: !roundToProfile)} ${msgInsulinUnit}';
+      addLegendEntry(legend, '', msgLegendTDD(text), graphText: msgTDD);
+      var v1 = g.glucFromData(targets(repData)['low'].toDouble());
+      var v2 = g.glucFromData(targets(repData)['high'].toDouble());
+      addLegendEntry(legend, colTargetArea, msgTargetArea(v1, v2, g.getGlucInfo()['unit']));
       addLegendEntry(legend, colTargetValue,
-          msgTargetValue("${g.glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${g.getGlucInfo()["unit"]}"),
+          msgTargetValue('${g.glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${g.getGlucInfo()['unit']}'),
           isArea: false);
-      if (hasCollectedValues) addLegendEntry(legend, "", msgCollectedValues, graphText: "[0,0]");
-      if (hasCatheterChange)
-        addLegendEntry(legend, "", msgCatheterChange, image: "katheter.print", imgWidth: 0.5, imgOffsetY: 0.15);
-      if (hasSensorChange)
-        addLegendEntry(legend, "", msgSensorChange, image: "sensor.print", imgWidth: 0.5, imgOffsetY: -0.05);
-      if (hasAmpulleChange)
-        addLegendEntry(legend, "", msgAmpulleChange, image: "ampulle.print", imgWidth: 0.4, imgOffsetY: 0.1);
+      if (hasCollectedValues) addLegendEntry(legend, '', msgCollectedValues, graphText: '[0,0]');
+      if (hasCatheterChange) {
+        addLegendEntry(legend, '', msgCatheterChange, image: 'katheter.print', imgWidth: 0.5, imgOffsetY: 0.15);
+      }
+      if (hasSensorChange) {
+        addLegendEntry(legend, '', msgSensorChange, image: 'sensor.print', imgWidth: 0.5, imgOffsetY: -0.05);
+      }
+      if (hasAmpulleChange) {
+        addLegendEntry(legend, '', msgAmpulleChange, image: 'ampulle.print', imgWidth: 0.4, imgOffsetY: 0.1);
+      }
       if (showGlucTable) {
-        if (hasLowGluc)
+        if (hasLowGluc) {
           addLegendEntry(legend, colLow, msgGlucLow,
               graphText: g.glucFromData(day.basalData.targetLow), newColumn: legend.columns.length < 3);
-        if (hasNormGluc)
+        }
+        if (hasNormGluc) {
           addLegendEntry(legend, colNorm, msgGlucNorm,
               graphText: g.glucFromData((day.basalData.targetLow + day.basalData.targetHigh) / 2),
               newColumn: !hasLowGluc && legend.columns.length < 3);
-        if (hasHighGluc)
+        }
+        if (hasHighGluc) {
           addLegendEntry(legend, colHigh, msgGlucHigh,
               graphText: g.glucFromData(day.basalData.targetHigh),
               newColumn: !hasLowGluc && !hasNormGluc && legend.columns.length < 3);
+        }
       }
 
       var infoBody = [];
       infoTable = {
-        "relativePosition": {"x": cm(xo + graphWidth - 4.5), "y": cm(y - 0.1)},
-        "table": {
-          "margins": [0, 0, 0, 0],
-          "widths": [cm(2.3), cm(2.2)],
-          "body": infoBody
+        'relativePosition': {'x': cm(xo + graphWidth - 4.5), 'y': cm(y - 0.1)},
+        'table': {
+          'margins': [0, 0, 0, 0],
+          'widths': [cm(2.3), cm(2.2)],
+          'body': infoBody
         },
-        "layout": "noBorders"
+        'layout': 'noBorders'
       };
 
       infoBody.add([
-        {"text": msgHbA1C, "fontSize": fs(10)},
-        {"text": "${hba1c(day.mid)} %", "color": colHbA1c, "fontSize": fs(10), "alignment": "right"}
+        {'text': msgHbA1C, 'fontSize': fs(10)},
+        {'text': '${hba1c(day.mid)} %', 'color': colHbA1c, 'fontSize': fs(10), 'alignment': 'right'}
       ]);
-      double prz = day.ieBasalSum / (day.ieBasalSum + day.ieBolusSum) * 100;
+      var prz = day.ieBasalSum(!showBasalDay) / (day.ieBasalSum(!showBasalDay) + day.ieBolusSum) * 100;
       infoBody.add([
-        {"text": msgBasalSum, "fontSize": fs(10)},
-        {"text": "${g.fmtNumber(prz, 1)} %", "color": colBasalDay, "fontSize": fs(10), "alignment": "right"}
+        {'text': msgBasalSum, 'fontSize': fs(10)},
+        {'text': '${g.fmtNumber(prz, 1)} %', 'color': colBasalDay, 'fontSize': fs(10), 'alignment': 'right'}
       ]);
-      prz = day.ieBolusSum / (day.ieBasalSum + day.ieBolusSum) * 100;
+      prz = day.ieBolusSum / (day.ieBasalSum(!showBasalDay) + day.ieBolusSum) * 100;
       infoBody.add([
-        {"text": msgBolusSum, "fontSize": fs(10)},
-        {"text": "${g.fmtNumber(prz, 1)} %", "color": colBolus, "fontSize": fs(10), "alignment": "right"}
+        {'text': msgBolusSum, 'fontSize': fs(10)},
+        {'text': '${g.fmtNumber(prz, 1)} %', 'color': colBolus, 'fontSize': fs(10), 'alignment': 'right'}
       ]);
       if (showZeroBasal) {
-        Duration duration = Duration(seconds: day.basalZeroDuration);
+        var duration = Duration(seconds: day.basalZeroDuration);
         infoBody.add([
-          {"text": msgBasalZero, "fontSize": fs(10)},
+          {'text': msgBasalZero, 'fontSize': fs(10)},
           {
-            "text": "${msgDuration(duration.inHours, duration.inMinutes - duration.inHours * 60)}",
-            "color": colBasalDay,
-            "fontSize": fs(10),
-            "alignment": "right"
+            'text': '${msgDuration(duration.inHours, duration.inMinutes - duration.inHours * 60)}',
+            'color': colBasalDay,
+            'fontSize': fs(10),
+            'alignment': 'right'
           }
         ]);
       }
@@ -1127,96 +1142,99 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
     var dayBasal = showBasalDay ? getBasalGraph(day, false, false, xo, yo) : null;
 
     if (showBasalProfile) {
-      profileBasal["stack"].add(
+      profileBasal['stack'].add(
         {
-          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight + basalHeight + basalTop + 0.2)},
-          "columns": [
+          'relativePosition': {'x': cm(xo), 'y': cm(yo + graphHeight + basalHeight + basalTop + 0.2)},
+          'columns': [
             {
-              "width": cm(basalWidth),
-              "text": "${msgTDD} ${g.fmtBasal(tdd, dontRound: !roundToProfile)} ${msgInsulinUnit}",
-              "fontSize": fs(20),
-              "alignment": "center",
-              "color": colBasalDay
+              'width': cm(basalWidth),
+              'text': '${msgTDD} ${g.fmtBasal(tdd, dontRound: !roundToProfile)} ${msgInsulinUnit}',
+              'fontSize': fs(20),
+              'alignment': 'center',
+              'color': colBasalDay
             }
           ]
         },
       );
     }
 
-    List stack = null;
-    if (showBasalProfile)
-      stack = profileBasal["stack"];
-    else if (showBasalDay) stack = dayBasal["stack"];
+    List stack;
+    if (showBasalProfile) {
+      stack = profileBasal['stack'];
+    } else if (showBasalDay) {
+      stack = dayBasal['stack'];
+    }
 
     if (stack != null) {
-      DateTime startDate = DateTime(day.date.year, day.date.month, day.date.day);
+      var startDate = DateTime(day.date.year, day.date.month, day.date.day);
       startDate = startDate.add(Duration(minutes: -1));
-      ProfileData startProfile = null;
-      ProfileData lastProfile = null;
-      for (ProfileData p in src.profiles) {
+      ProfileData startProfile;
+      ProfileData lastProfile;
+      for (var p in src.profiles) {
         if (p.startDate.isBefore(startDate)) startProfile = p;
         if (p.startDate.isAfter(startDate) && day.isSameDay(p.startDate)) {
           showProfileSwitch(src, p, lastProfile, stack, xo, yo);
           lastProfile = p;
         }
       }
-      if (startProfile != null && showProfileStart)
+      if (startProfile != null && showProfileStart) {
         showProfileSwitch(src, startProfile, lastProfile, stack, xo, yo, glucX(DateTime(0)));
+      }
     }
 
-    String error = null;
+    String error;
 
 /*
-    if (!g.checkJSON(glucTableCvs))error = "glucTableCvs";
-    if (!g.checkJSON(vertLegend))error = "vertLegend";
-    if (!g.checkJSON(vertLines))error = "vertLines";
-    if (!g.checkJSON(horzLegend))error = "horzLegend";
-    if (!g.checkJSON(horzLines))error = "horzLines";
+    if (!g.checkJSON(glucTableCvs))error = 'glucTableCvs';
+    if (!g.checkJSON(vertLegend))error = 'vertLegend';
+    if (!g.checkJSON(vertLines))error = 'vertLines';
+    if (!g.checkJSON(horzLegend))error = 'horzLegend';
+    if (!g.checkJSON(horzLines))error = 'horzLines';
 */
     if (error != null) {
       return Page(isPortrait, [
         headerFooter(date: day.date),
         {
-          "relativePosition": {"x": cm(xo), "y": cm(yo)},
-          "text": "Fehler bei $error",
-          "color": "red"
+          'relativePosition': {'x': cm(xo), 'y': cm(yo)},
+          'text': 'Fehler bei $error',
+          'color': 'red'
         }
       ]);
     }
 
     dynamic graphArea(dynamic points, String colLine, String colFill) => {
-          "type": "polyline",
-          "lineWidth": cm(lw),
-          "closePath": true,
-          "color": colFill,
-          "lineColor": colLine,
-          "points": points
+          'type': 'polyline',
+          'lineWidth': cm(lw),
+          'closePath': true,
+          'color': colFill,
+          'lineColor': colLine,
+          'points': points
         };
 //    double cobHeight = 0;
     dynamic graphIob = {};
     dynamic graphCob = {};
 
     if (showCOB || showIOB) {
-      List hc = [];
-      List vs = [];
+      var hc = [];
+      var vs = [];
       var pts = getIobCob(xo, yo, graphWidth, graphHeight, hc, vs, day, ieMax * 4, carbMax);
 
       if (showIOB) {
         graphIob = {
-//          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["iobHeight"] + pts["iobTop"])},
-          "relativePosition": {"x": cm(xo), "y": cm(yo - pts["iobTop"])},
-          "canvas": []
+//          'relativePosition': {'x': cm(xo), 'y': cm(yo + graphHeight - pts['iobHeight'] + pts['iobTop'])},
+          'relativePosition': {'x': cm(xo), 'y': cm(yo - pts['iobTop'])},
+          'canvas': []
         };
-        List graphIobCvs = graphIob["canvas"];
-        graphIobCvs.add(graphArea(pts["iob"], colIOBDaily, colIOBDaily));
+        List graphIobCvs = graphIob['canvas'];
+        graphIobCvs.add(graphArea(pts['iob'], colIOBDaily, colIOBDaily));
       }
       if (showCOB) {
         graphCob = {
-          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["cobHeight"])},
-          "canvas": []
+          'relativePosition': {'x': cm(xo), 'y': cm(yo + graphHeight - pts['cobHeight'])},
+          'canvas': []
         };
-        List graphCobCvs = graphCob["canvas"];
-        graphCobCvs.add(graphArea(pts["cob"], colCOBDaily, colCOBDaily));
+        List graphCobCvs = graphCob['canvas'];
+        graphCobCvs.add(graphArea(pts['cob'], colCOBDaily, colCOBDaily));
       }
     }
 
@@ -1280,13 +1298,13 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
 
     if (useProfile) {
       data = day.basalData.store.listBasal;
-      basalSum = day.basalData.store.ieBasalSum;
       color = colProfileSwitch; //colBasalProfile;
     } else {
       data = day.profile;
-      basalSum = day.ieBasalSum;
       color = colBasalDay;
     }
+
+    basalSum = day.ieBasalSum(!useProfile);
     var basalCvs = [];
     var ret = {
       'stack': [
@@ -1339,7 +1357,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
       }
     }
 
-    if (!displayProfile) areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 0, 0))), "y": cm(basalY(0.0))});
+    if (!displayProfile) areaPoints.add({'x': cm(basalX(DateTime(0, 1, 1, 0, 0))), 'y': cm(basalY(0.0))});
     for (var entry in temp) {
       var x = basalX(entry.time(day.date, useProfile));
       var y = basalY(entry.value); //basalY(entry.adjustedValue(entry.value));
@@ -1347,8 +1365,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
       areaPoints.add({'x': cm(x), 'y': cm(y)});
       lastY = y;
     }
-    if (lastY >= 0) areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(lastY)});
-    if (!displayProfile) areaPoints.add({"x": cm(basalX(DateTime(0, 1, 1, 23, 59))), "y": cm(basalY(0.0))});
+    if (lastY >= 0) areaPoints.add({'x': cm(basalX(DateTime(0, 1, 1, 23, 59))), 'y': cm(lastY)});
+    if (!displayProfile) areaPoints.add({'x': cm(basalX(DateTime(0, 1, 1, 23, 59))), 'y': cm(basalY(0.0))});
     basalCvs.add(area);
 //    basalCvs.add({"type": "rect", "x": 0, "y": 0, "w": 1, "h": 1, "fillOpacity": 1});
     return ret;

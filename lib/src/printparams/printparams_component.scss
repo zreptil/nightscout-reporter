@@ -210,14 +210,16 @@ material-button[raised] {
 }
 
 .loop {
-  color: var(--loopMarked);
-
-  ::ng-deep .icon.filled {
-    color: var(--loopMarked) !important;
+  ::ng-deep .icon {
+    border-radius: 50%;
+    border: 2px solid var(--loopMarked);
+    background-color: var(--loopMarked);
   }
 }
 
 material-dropdown-select {
   margin-bottom: 0.2em;
 }
+
+
 

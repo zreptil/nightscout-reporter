@@ -4,7 +4,6 @@ import 'dart:html';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:angular/security.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
@@ -59,7 +58,7 @@ class ParamInfo {
   int _intValue;
   bool isForThumbs = false;
 
-  bool get boolValue => isForThumbs ? thumbValue : _boolValue;
+  bool get boolValue => isForThumbs ? thumbValue : (isLoopValue && Globals().hideLoopData ? false : _boolValue);
 
   String get stringValue => isForThumbs ? thumbValue : _stringValue;
 
@@ -562,138 +561,142 @@ abstract class BasePrint {
 
   String get msgKHTitle => Intl.message('KH');
 
-  msgKH(value) => Intl.message('${value}g', args: [value], name: 'msgKH');
+  String msgKH(value) => Intl.message('${value}g', args: [value], name: 'msgKH');
 
-  msgReadingsPerDay(howMany, fmt) => Intl.plural(howMany,
+  String msgReadingsPerDay(howMany, fmt) => Intl.plural(howMany,
       zero: 'Keine Messwerte vorhanden',
       one: '1 Messung am Tag',
       other: '$fmt Messungen am Tag',
       args: [howMany, fmt],
       name: 'msgReadingsPerDay');
 
-  msgReadingsPerHour(howMany, fmt) => Intl.plural(howMany,
+  String msgReadingsPerHour(howMany, fmt) => Intl.plural(howMany,
       zero: 'Keine Messwerte vorhanden',
       one: '1 Messung pro Stunde',
       other: '$fmt Messungen pro Stunde',
       args: [howMany, fmt],
       name: 'msgReadingsPerHour');
 
-  msgReadingsInMinutes(howMany, fmt) => Intl.plural(howMany,
+  String msgReadingsInMinutes(howMany, fmt) => Intl.plural(howMany,
       zero: 'Keine Messwerte vorhanden',
       one: '1 Messung pro Minute',
       other: 'Messung alle $fmt Minuten',
       args: [howMany, fmt],
       name: 'msgReadingsInMinutes');
 
-  msgValuesIn(low, high) => Intl.message('Werte zwischen ${low} und ${high}', args: [low, high], name: 'msgValuesIn');
+  String msgValuesIn(low, high) =>
+      Intl.message('Werte zwischen ${low} und ${high}', args: [low, high], name: 'msgValuesIn');
 
-  msgValuesBelow(low) => Intl.message('Werte unter ${low}', args: [low], name: 'msgValuesBelow');
+  String msgValuesBelow(low) => Intl.message('Werte unter ${low}', args: [low], name: 'msgValuesBelow');
 
-  msgValuesAbove(high) => Intl.message('Werte über ${high}', args: [high], name: 'msgValuesAbove');
+  String msgValuesAbove(high) => Intl.message('Werte über ${high}', args: [high], name: 'msgValuesAbove');
 
-  msgValuesVeryHigh(value) => Intl.message('Sehr hohe Werte ( > ${value})', args: [value], name: 'msgValuesVeryHigh');
+  String msgValuesVeryHigh(value) =>
+      Intl.message('Sehr hohe Werte ( > ${value})', args: [value], name: 'msgValuesVeryHigh');
 
-  msgValuesNormHigh(value) => Intl.message('Hohe Werte (${value})', args: [value], name: 'msgValuesNormHigh');
+  String msgValuesNormHigh(value) => Intl.message('Hohe Werte (${value})', args: [value], name: 'msgValuesNormHigh');
 
-  msgValuesNorm(low, high) => Intl.message('Zielbereich (${low} - ${high})', args: [low, high], name: 'msgValuesNorm');
+  String msgValuesNorm(low, high) =>
+      Intl.message('Zielbereich (${low} - ${high})', args: [low, high], name: 'msgValuesNorm');
 
-  msgValuesNormLow(value) => Intl.message('Niedrige Werte (${value})', args: [value], name: 'msgValuesNormLow');
+  String msgValuesNormLow(value) => Intl.message('Niedrige Werte (${value})', args: [value], name: 'msgValuesNormLow');
 
-  msgValuesVeryLow(value) => Intl.message('Sehr niedrige Werte (< ${value})', args: [value], name: 'msgValuesVeryLow');
+  String msgValuesVeryLow(value) =>
+      Intl.message('Sehr niedrige Werte (< ${value})', args: [value], name: 'msgValuesVeryLow');
 
-  msgKHBE(value) => Intl.message('g KH ($value BE)',
+  String msgKHBE(value) => Intl.message('g KH ($value BE)',
       args: [value], name: 'msgKHBE', meaning: 'gram Carbohydrates displayed at analysis page');
 
-  msgReservoirDays(count, txt) => Intl.plural(count,
+  String msgReservoirDays(count, txt) => Intl.plural(count,
       one: '($txt Tag pro Ampulle)',
       zero: '',
       other: '($txt Tage pro Ampulle)',
       args: [count, txt],
       name: 'msgReservoirDays');
 
-  msgCatheterDays(count, txt) => Intl.plural(count,
+  String msgCatheterDays(count, txt) => Intl.plural(count,
       one: '($txt Tag pro Katheter)',
       zero: '',
       other: '($txt Tage pro Katheter)',
       args: [count, txt],
       name: 'msgCatheterDays');
 
-  msgSensorDays(count, txt) => Intl.plural(count,
+  String msgSensorDays(count, txt) => Intl.plural(count,
       one: '($txt Tag pro Sensor)',
       zero: '',
       other: '($txt Tage pro Sensor)',
       args: [count, txt],
       name: 'msgSensorDays');
 
-  get msgBirthday => Intl.message('Geburtstag');
+  String get msgBirthday => Intl.message('Geburtstag');
 
-  get msgDiabSince => Intl.message('Diabetes seit');
+  String get msgDiabSince => Intl.message('Diabetes seit');
 
-  get msgInsulin => Intl.message('Insulin');
+  String get msgInsulin => Intl.message('Insulin');
 
-  get msgDays => Intl.message('Ausgewertete Tage');
+  String get msgDays => Intl.message('Ausgewertete Tage');
 
-  get msgReadingsCount => Intl.message('Anzahl Messungen');
+  String get msgReadingsCount => Intl.message('Anzahl Messungen');
 
-  get msgReservoirCount => Intl.message('Anzahl Ampullenwechsel');
+  String get msgReservoirCount => Intl.message('Anzahl Ampullenwechsel');
 
-  get msgCatheterCount => Intl.message('Anzahl Katheterwechsel');
+  String get msgCatheterCount => Intl.message('Anzahl Katheterwechsel');
 
-  get msgSensorCount => Intl.message('Anzahl Sensorenwechsel');
+  String get msgSensorCount => Intl.message('Anzahl Sensorenwechsel');
 
   String get msgHbA1C => Intl.message('gesch. HbA1c');
 
-  get msgHbA1CLong => Intl.message('Geschätzter HbA1c');
+  String get msgHbA1CLong => Intl.message('Geschätzter HbA1c');
 
-  get msgLowestValue => Intl.message('Niedrigster Wert im Zeitraum');
+  String get msgLowestValue => Intl.message('Niedrigster Wert im Zeitraum');
 
-  get msgHighestValue => Intl.message('Höchster Wert im Zeitraum');
+  String get msgHighestValue => Intl.message('Höchster Wert im Zeitraum');
 
-  get msgGlucoseValue => Intl.message('Ø Zuckerwert');
+  String get msgGlucoseValue => Intl.message('Ø Zuckerwert');
 
-  get msgGVIFull => Intl.message('Glykämischer Variabilitäts Index (GVI)');
+  String get msgGVIFull => Intl.message('Glykämischer Variabilitäts Index (GVI)');
 
-  get msgPGSFull => Intl.message('Patient Glykämischer Status (PGS)');
+  String get msgPGSFull => Intl.message('Patient Glykämischer Status (PGS)');
 
-  get msgKHPerDay => Intl.message('Ø KH pro Tag');
+  String get msgKHPerDay => Intl.message('Ø KH pro Tag');
 
-  get msgInsulinPerDay => Intl.message('Ø Insulin pro Tag');
+  String get msgInsulinPerDay => Intl.message('Ø Insulin pro Tag');
 
-  get msgBolusPerDay => Intl.message('Ø Bolus pro Tag');
+  String get msgBolusPerDay => Intl.message('Ø Bolus pro Tag');
 
-  get msgBasalPerDay => Intl.message('Ø Basal pro Tag');
+  String get msgBasalPerDay => Intl.message('Ø Basal pro Tag');
 
-  get msgMicroBolusPerDay => Intl.message('Ø Microbolus pro Tag');
+  String get msgMicroBolusPerDay => Intl.message('Ø Microbolus pro Tag');
 
-  get msgInsulinRatio => Intl.message('Ø Insulinverhältnis');
+  String get msgInsulinRatio => Intl.message('Ø Insulinverhältnis');
 
-  get msgBolus => Intl.message('Bolus');
+  String get msgBolus => Intl.message('Bolus');
 
-  get msgBasal => Intl.message('Basal');
+  String get msgBasal => Intl.message('Basal');
 
-  get msgBasalProfile => Intl.message('Basalrate\nIE / Stunde');
+  String get msgBasalProfile => Intl.message('Basalrate\nIE / Stunde');
 
-  get msgNone => Intl.message('Keine');
+  String get msgNone => Intl.message('Keine');
 
-  get msgOwnLimits => Intl.message('Eigene Grenzwerte');
+  String get msgOwnLimits => Intl.message('Eigene Grenzwerte');
 
-  get msgStandardLimits => Intl.message('Standardgrenzwerte');
+  String get msgStandardLimits => Intl.message('Standardgrenzwerte');
 
-  get msgTreatments => Intl.message('Behandlungen');
+  String get msgTreatments => Intl.message('Behandlungen');
 
-  get msgPeriod => Intl.message('Zeitraum');
+  String get msgPeriod => Intl.message('Zeitraum');
 
-  get msgTotal => Intl.message('Ges.');
+  String get msgTotal => Intl.message('Ges.');
 
-  get msgTimeShort => Intl.message('Uhr-\nzeit');
+  String get msgTimeShort => Intl.message('Uhr-\nzeit');
 
-  get msgTime => Intl.message('Uhrzeit');
+  String get msgTime => Intl.message('Uhrzeit');
 
-  get msgIEHr => Intl.message('IE/std');
+  String get msgIEHr => Intl.message('IE/std');
 
-  get msgSum => Intl.message('Summe');
+  String get msgSum => Intl.message('Summe');
 
-  get msgTrend => Intl.message('Trend');
+  String get msgTrend => Intl.message('Trend');
 
   static String get msgOutput => Intl.message('Ausgabe');
 
@@ -707,19 +710,21 @@ abstract class BasePrint {
 
   static String get titleGPDShort => Intl.message('GPD');
 
-  static get msgHourlyStats => Intl.message('Stündliche Statistik');
+  static String get msgHourlyStats => Intl.message('Stündliche Statistik');
 
-  get msgNote => Intl.message('Notiz');
+  static String get msgUseDailyBasalrate => Intl.message('Tagesbasalrate verwenden');
 
-  get msgAdjustment => Intl.message('Anpas-\nsung');
+  String get msgNote => Intl.message('Notiz');
 
-  get msgGlucLow => Intl.message('Glukose zu niedrig');
+  String get msgAdjustment => Intl.message('Anpas-\nsung');
+
+  String get msgGlucLow => Intl.message('Glukose zu niedrig');
 
   static String get msgGraphsPerPage => Intl.message('Grafiken pro Seite');
 
-  get msgGlucNorm => Intl.message('Glukose im Zielbereich');
+  String get msgGlucNorm => Intl.message('Glukose im Zielbereich');
 
-  get msgSource =>
+  String get msgSource =>
       Intl.message('Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). '
           'The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic '
           'Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. '
@@ -789,7 +794,7 @@ abstract class BasePrint {
   String msgFactorEntry(String beg, String end) =>
       Intl.message('${beg} - ${end}', args: [beg, end], name: 'msgFactorEntry');
 
-  static get msgOrientation => Intl.message('Ausrichtung');
+  static String get msgOrientation => Intl.message('Ausrichtung');
 
   String get msgProfile => Intl.message('Profileinstellungen');
 
