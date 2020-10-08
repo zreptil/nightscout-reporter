@@ -1562,6 +1562,24 @@ abstract class BasePrint {
     return ret;
   }
 
+  String fmtDateShort(Date date, String format)
+  {
+    DateTime dt = DateTime(date.year, date.month, date.day);
+    switch (format.toLowerCase())
+    {
+      case "day":
+        return DateFormat(g.language.dateShortFormat).format(dt);
+        break;
+      case "week":
+        return "KW" + ((int.parse(DateFormat("D").format(dt)) - dt.weekday + 10) / 7).floor().toString().padLeft(2, '0');
+        break;
+      case "month":
+        return DateFormat("MMMM").format(dt);
+        break;
+    }
+    return "";
+  }
+
   String blendColor(String from, String to, num factor) {
     if (from.length == 7) from = from.substring(1);
     if (to.length == 7) to = to.substring(1);
@@ -1924,11 +1942,20 @@ abstract class BasePrint {
     dynamic ptsCob = [
       {'x': cm(calcX(graphWidth, DateTime(0, 1, 1, 0, 0))), 'y': cm(0)}
     ];
+    dynamic ptsIAct = [
+      {"x": cm(calcX(graphWidth, DateTime(0, 1, 1, 0, 0))), "y": cm(0)}
+    ];
+    dynamic ptsCAct = [
+      {"x": cm(calcX(graphWidth, DateTime(0, 1, 1, 0, 0))), "y": cm(0)}
+    ];
     DateTime time = DateTime(day.date.year, day.date.month, day.date.day);
     int diff = 5;
     double maxIob = -1000.0;
     double minIob = 0.0;
     double maxCob = -1000.0;
+    double maxIAct = -1000.0;
+    double minIAct = 0.0;
+    double maxCAct = -1000.0;
     double lastX = 0;
     int i = 0;
     int currentDay = day.date.day;
@@ -1940,14 +1967,23 @@ abstract class BasePrint {
       if (i + diff >= 1440 && i != 1439) diff = 1439 - i;
       if (i < 1440) {
         double x = calcX(graphWidth, time);
-        double y = day.iob(repData, time, day.prevDay).iob - 1.0;
+        double y = day.iob(repData, time, day.prevDay).iob;
         maxIob = max(maxIob, y);
         minIob = min(minIob, y);
-        ptsIob.add({'x': cm(x), 'y': y});
+        ptsIob.add({"x": cm(x), "y": y});
+        y = day.iob(repData, time, day.prevDay).activity;
+        maxIAct = max(maxIAct, y);
+        minIAct = min(minIAct, y);
+        ptsIAct.add({"x": cm(x), "y": y});
 //*
         y = day.cob(repData, time, day.prevDay).cob;
         maxCob = max(maxCob, y);
-        ptsCob.add({'x': cm(x), 'y': y});
+        ptsCob.add({"x": cm(x), "y": y});
+        y = day
+            .cob(repData, time, day.prevDay)
+            .cActivity;
+        maxCAct = max(maxCAct, y);
+        ptsCAct.add({"x": cm(x), "y": y});
 // */
         lastX = x;
         time = time.add(Duration(minutes: diff));
@@ -1957,8 +1993,11 @@ abstract class BasePrint {
     if (upperIob == 0) {
       minIob = minIob * 1.1;
       maxIob = maxIob * 1.1;
+      minIAct = minIAct * 1.1;
+      maxIAct = maxIAct * 1.1;
     } else {
       maxIob = upperIob;
+      maxIAct = upperIob;
     }
     double iobHeight = drawScaleIE(
         xo,
@@ -1981,6 +2020,30 @@ abstract class BasePrint {
           ptsIob[i]['y'] = cm(iobHeight / (maxIob - minIob) * (maxIob - y));
       } else {
         ptsIob[i]['y'] = cm(iobHeight);
+      }
+    }
+
+    double iActHeight = drawScaleIE(
+        xo,
+        yo,
+        graphHeight,
+        3 * graphHeight,
+        minIAct,
+        maxIAct,
+        colWidth,
+        horzCvs,
+        vertStack,
+        [S(10, 2.0), S(7, 1.0), S(3, 0.5), S(1.5, 0.2), S(0, 0.1)],
+            (i, step, {value: null}) => "${g.fmtNumber(value ?? minIAct + i * step, 1)} ${msgInsulinUnit}");
+    for (int i = 0; i < ptsIAct.length; i++) {
+      if (maxIob - minIAct > 0) {
+        double y = ptsIAct[i]["y"];
+        if (upperIob > 0)
+          ptsIAct[i]["y"] = cm(iActHeight / maxIAct * (y + minIAct));
+        else
+          ptsIAct[i]["y"] = cm(iActHeight / (maxIAct - minIAct) * (maxIAct - y));
+      } else {
+        ptsIAct[i]["y"] = cm(iActHeight);
       }
     }
 
@@ -2008,6 +2071,29 @@ abstract class BasePrint {
         ptsCob[i]['y'] = cm(cobHeight);
     }
 
+    double cActHeight = drawScaleIE(
+        xo,
+        yo,
+        graphHeight,
+        4 * graphHeight,
+        0.0,
+        maxCAct,
+        colWidth,
+        horzCvs,
+        vertStack,
+        [S(100, 20), S(50, 10), S(20, 5), S(0, 1)],
+            (i, step, {value: null}) => "${g.fmtNumber(value ?? i * step, 0)} g");
+    if (upperCob == 0)
+      maxCAct = maxCAct * 1.1;
+    else
+      maxCAct = upperCob;
+    for (int i = 0; i < ptsCAct.length; i++) {
+      if (maxCAct > 0)
+        ptsCAct[i]["y"] = cm(cActHeight / maxCAct * (maxCAct - ptsCob[i]["y"]));
+      else
+        ptsCAct[i]["y"] = cm(cActHeight);
+    }
+
     if (lastX != null) {
       double y = 0;
       if (upperIob > 0)
@@ -2015,16 +2101,168 @@ abstract class BasePrint {
       else if (maxIob - minIob > 0)
         ptsIob.add({'x': cm(lastX), 'y': cm(iobHeight / (maxIob - minIob) * (maxIob - y))});
       else
-        ptsIob.add({'x': cm(lastX), 'y': cm(iobHeight)});
-      ptsCob.add({'x': cm(lastX), 'y': cm(cobHeight)});
+        ptsIob.add({"x": cm(lastX), "y": cm(iobHeight)});
+      if (upperIob > 0)
+        ptsIAct.add({"x": cm(lastX), "y": cm(iActHeight / maxIAct * (y + minIAct))});
+      else if (maxIob - minIob > 0)
+        ptsIAct.add({"x": cm(lastX), "y": cm(iActHeight / (maxIAct - minIAct) * (maxIAct - y))});
+      else
+        ptsIAct.add({"x": cm(lastX), "y": cm(iActHeight)});
+      ptsCob.add({"x": cm(lastX), "y": cm(cobHeight)});
+      ptsCAct.add({"x": cm(lastX), "y": cm(cActHeight)});
     }
 
     return {
-      'iob': ptsIob,
-      'cob': ptsCob,
-      'iobHeight': iobHeight,
-      'cobHeight': cobHeight,
-      'iobTop': iobHeight / maxIob * minIob
+      "iob": ptsIob,
+      "iact": ptsIAct,
+      "cob": ptsCob,
+      "cact": ptsCAct,
+      "iobHeight": iobHeight,
+      "iActHeight": iActHeight,
+      "cobHeight": cobHeight,
+      "cActHeight": cActHeight,
+      "iobTop": iobHeight / maxIob * minIob,
+      "iActTop": iActHeight / maxIAct * minIAct
     };
+  }
+
+  List<dynamic> drawGraphicGridGeneric(
+      double graphHeight, double graphWidth, double xo, double yo, List<String> xValues, List<List<double>> values, List<String> valueColor, List<String> valueLegend,
+      {double scale: 0.0, double graphBottom: 0.0}) {
+    dynamic line(dynamic points, String vC) =>
+        {"type": "polyline", "lineWidth": cm(lw), "closePath": false, "lineColor": vC, "points": points};
+    if (graphBottom == 0.0) graphBottom = graphHeight;
+
+    var vertLines = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "canvas": []
+    };
+    var horzLines = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "canvas": []
+    };
+    var horzLegend = {"stack": []};
+    var vertLegend = {"stack": []};
+    var graphInsulin = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "canvas": []
+    };
+    var graphLegend = {
+      "relativePosition": {"x": cm(xo), "y": cm(yo)},
+      "stack": []
+    };
+    List graphLegendStack = graphLegend["stack"];
+    for (int i = 0; i < min(valueColor.length, valueLegend.length); i++) {
+      graphLegendStack.add({
+        "relativePosition": {"x": cm(0.05), "y": cm(graphBottom + 0.5 + i*0.5)},
+        "text": valueLegend[i],
+        "fontSize": fs(10),
+        "alignment": "left",
+        "color": valueColor[i]
+      });
+    }
+    List vertCvs = vertLines["canvas"] as List;
+    List horzCvs = horzLines["canvas"] as List;
+    List horzStack = horzLegend["stack"];
+    List vertStack = vertLegend["stack"];
+    List graphInsulinCvs = graphInsulin["canvas"];
+
+    List<dynamic> ret = [
+      vertLegend,
+      vertLines,
+      horzLegend,
+      horzLines,
+      graphInsulin,
+      graphLegend,
+    ];
+
+    double maxValue = -100000000;
+    for (List<double> l in values)
+      for (double ll in l)
+        maxValue = max(ll, maxValue);
+    GridData grid = GridData();
+    grid.glucScale = scale == 0.0 ? 1 : scale;
+    grid.gridLines = (maxValue / grid.glucScale).ceil();
+
+    grid.lineHeight = grid.gridLines == 0 ? 0 : graphHeight / grid.gridLines;
+    grid.colWidth = graphWidth / (xValues.length-1);
+
+    if (grid.lineHeight == 0)
+      return [{
+          "relativePosition": {"x": cm(xo), "y": cm(yo)},
+          "text": msgMissingData
+        },
+      ];
+
+    // draw vertical lines with times below graphic
+    for (int i = 0; i < xValues.length; i++) {
+      vertCvs.add({
+        "type": "line",
+        "x1": cm(i * grid.colWidth),
+        "y1": cm(0),
+        "x2": cm(i * grid.colWidth),
+        "y2": cm(graphBottom - lw / 2),
+        "lineWidth": cm(lw),
+        "lineColor": i > 0 ? lc : lcFrame
+      });
+      if ((i == 0) ||     // das erste und letzte 'x'' bekommt auf jeden Fall einen Ausdrudk
+          (i == xValues.length - 1) ||
+          (xValues.length < 32) ||   // wenn es weniger als 32 'x'e hat, bekommt eh jedes 'x' einen Ausdruck
+          ((i % 7) == 0))         // ansonsten gibt es nur alle 7 'x'e Ausdrucke
+      horzStack.add({
+        "relativePosition": {"x": cm(xo + i * grid.colWidth - 0.4), "y": cm(yo + graphBottom + 0.05)},
+        "text": xValues[i],
+        "fontSize": fs(8)
+      });
+    }
+
+    if (grid.lineHeight == 0) return ret;
+
+    double lastY = null;
+    for (int i = 0; i <= grid.gridLines; i++) {
+      double y = (grid.gridLines - i) * grid.lineHeight - lw / 2;
+      if (lastY != null && lastY - y < 0.5) continue;
+
+      lastY = y;
+      horzCvs.add({
+        "type": "line",
+        "x1": cm(i > 0 ? -0.2 : 0.0),
+        "y1": cm(y),
+        "x2": cm((xValues.length-1) * grid.colWidth + (i > 0 ? 0.2 : 0.0)),
+        "y2": cm(y),
+        "lineWidth": cm(lw),
+        "lineColor": i > 0 ? lc : lcFrame
+      });
+
+      if (i > 0) {
+        String text = "${g.fmtNumber(i * grid.glucScale, 0)}";
+        vertStack.add({
+          "relativePosition": {"x": cm(xo - 1.5), "y": cm(yo + (grid.gridLines - i) * grid.lineHeight - 0.2)},
+          "columns": [
+            {"width": cm(1.2), "text": text, "fontSize": fs(8), "alignment": "right"}
+          ]
+        });
+        vertStack.add({
+          "relativePosition": {
+            "x": cm(xo + (xValues.length-1) * grid.colWidth + 0.3),
+            "y": cm(yo + (grid.gridLines - i) * grid.lineHeight - 0.2)
+          },
+          "text": text,
+          "fontSize": fs(8)
+        });
+      }
+    }
+    for (int g = 0; g < values.length; g++) {
+      dynamic points = [];
+      List<double> v = values[g];
+      for (int i = 0; i < v.length; i++) {
+        double sum = v[i];
+        double x = i * grid.colWidth;
+        double y = (grid.gridLines - sum) * grid.lineHeight - lw / 2;
+        points.add({"x": cm(x), "y": cm(y)});
+      }
+      graphInsulinCvs.add(line(points, valueColor[g]));
+    }
+    return ret;
   }
 }

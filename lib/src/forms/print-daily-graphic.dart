@@ -14,21 +14,25 @@ class CollectInfo {
   double max1 = -1.0;
   double max2 = -1.0;
   int count = 0;
+  List<TreatmentData> treatments = [];
 
-  CollectInfo(this.start, [this.sum1 = 0.0, this.sum2 = 0.0]) {
+  CollectInfo(this.start, [TreatmentData t = null, this.sum1 = 0.0, this.sum2 = 0.0]) {
     end = DateTime(start.year, start.month, start.day, start.hour, start.minute, start.second);
     count = sum1 > 0.0 ? 1 : 0;
     max1 = sum1;
     max2 = sum2;
+    if (t != null)
+      treatments.add(t);
   }
 
-  void fill(DateTime date, double value1, double value2) {
+  void fill(DateTime date, TreatmentData t, double value1, double value2) {
     end = DateTime(date.year, date.month, date.day, date.hour, date.minute, date.second);
     sum1 += value1;
     sum2 += value2;
     max1 = math.max(value1, max1);
     max2 = math.max(value2, max2);
     count++;
+    treatments.add(t);
   }
 }
 
@@ -324,8 +328,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
     subtitle = null;
   }
 
-  dynamic glucLine(dynamic points) =>
-      {'type': 'polyline', 'lineWidth': cm(lw), 'closePath': false, 'lineColor': colValue, 'points': points};
+  dynamic glucLine(dynamic points, String color) =>
+      {'type': 'polyline', 'lineWidth': cm(lw), 'closePath': false, 'lineColor': color, 'points': points};
 
   bool hasExercises;
 
@@ -401,9 +405,12 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
         profMax = math.max(entry.value ?? 0, profMax);
       }
     }
-    for (var entry in day.treatments) {
+    InsulinInjectionList insulinInjections = InsulinInjectionList();
+    for (TreatmentData entry in day.treatments) {
       if (entry.isBloody) glucMax = math.max(g.glucFactor * entry.glucose, glucMax);
       ieMax = math.max(entry.bolusInsulin, ieMax);
+      if (entry.multipleInsulin != null)
+        insulinInjections = insulinInjections.add2List(entry.multipleInsulin);
     }
 
     if (g.glucMaxValue != null) glucMax = g.glucMaxValues[g.ppGlucMaxIdx];
@@ -514,7 +521,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
       var y = glucY(entry.gluc);
       if (entry.gluc < 0) {
         if (last != null && last.gluc >= 0) {
-          graphGlucCvs.add(glucLine(points));
+          graphGlucCvs.add(glucLine(points, colValue));
           points = [];
         }
       } else {
@@ -522,7 +529,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
       }
       last = entry;
     }
-    graphGlucCvs.add(glucLine(points));
+    graphGlucCvs.add(glucLine(points, colValue));
 
     var hasLowGluc = false;
     var hasNormGluc = false;
@@ -644,12 +651,11 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
             'lineColor': colCarbs,
             'lineWidth': cm(0.1),
           });
-          var carbsIE = carbsForIE(src, t);
-          if (t.createdAt.difference(collCarbs.last.start).inMinutes < collMinutes) {
-            collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
-          } else {
-            collCarbs.add(CollectInfo(t.createdAt, t.carbs, carbsIE));
-          }
+          double carbsIE = carbsForIE(src, t);
+          if (t.createdAt.difference(collCarbs.last.start).inMinutes < collMinutes)
+            collCarbs.last.fill(t.createdAt, t, t.carbs, carbsIE);
+          else
+            collCarbs.add(CollectInfo(t.createdAt, t, t.carbs, carbsIE));
         }
         hasCarbs = true;
       }
@@ -690,11 +696,10 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
             hasBolusExt = true;
           }
 
-          if (t.createdAt.difference(collInsulin.last.start).inMinutes < collMinutes) {
-            collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
-          } else {
-            collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
-          }
+          if (t.createdAt.difference(collInsulin.last.start).inMinutes < collMinutes)
+            collInsulin.last.fill(t.createdAt, t, t.bolusInsulin, 0.0);
+          else
+            collInsulin.add(CollectInfo(t.createdAt, t, t.bolusInsulin));
 
           if (splitBolus && t.isCarbBolus) {
             hasCarbBolus = true;
@@ -877,10 +882,18 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
 // */
     for (var info in collInsulin) {
       if (info.sum1 == 0.0) continue;
-      var y = sumNarrowValues ? -0.5 : bolusY(info.max1);
-      var text = '${g.fmtBasal(info.sum1, dontRound: !roundToProfile)} ${msgInsulinUnit}';
-      if (info.count > 1) {
-        text = '[$text]';
+      double y = sumNarrowValues ? -0.5 : bolusY(info.max1);
+      String text = "${g.fmtBasal(info.sum1, dontRound: !roundToProfile)} ${msgInsulinUnit}";
+      InsulinInjectionList sum = InsulinInjectionList();
+      for (TreatmentData t in info.treatments)
+        sum = sum.add2List(t.multipleInsulin);
+      if (sum.injections.length > 1) {
+        text = "";
+        for (String insulin in sum.injections.keys)
+          if (insulin.toLowerCase() != "sum")
+            text = text + "${g.fmtBasal(sum.injections[insulin], dontRound: !roundToProfile)} ${msgInsulinUnit} ${insulin}\n";
+      } else if (info.count > 1) {
+        text = "[$text]";
         hasCollectedValues = true;
       }
 /*
@@ -891,10 +904,10 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
         'color': colBolus
       });
 // */
-      (graphInsulin['stack'][1]['stack'] as List).add({
-        'relativePosition': {
-          'x': cm(glucX(info.start) - 0.05),
-          'y': cm(y),
+      (graphInsulin["stack"][1]["stack"] as List).add({
+        "relativePosition": {
+          "x": cm(glucX(info.start) - 0.05),
+          "y": cm(y - sum.injections.length*0.25 + 0.5),
         },
         'text': text,
         'fontSize': fs(g.basalPrecision > 2 ? 7 : 8),
@@ -1212,7 +1225,9 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
         };
 //    double cobHeight = 0;
     dynamic graphIob = {};
+    dynamic graphIAct = {};
     dynamic graphCob = {};
+    dynamic graphCAct = {};
 
     if (showCOB || showIOB) {
       var hc = [];
@@ -1225,23 +1240,38 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
           'relativePosition': {'x': cm(xo), 'y': cm(yo - pts['iobTop'])},
           'canvas': []
         };
-        List graphIobCvs = graphIob['canvas'];
-        graphIobCvs.add(graphArea(pts['iob'], colIOBDaily, colIOBDaily));
+        List graphIobCvs = graphIob["canvas"];
+        graphIobCvs.add(graphArea(pts["iob"], colIOBDaily, colIOBDaily));
+        graphIAct = {
+//          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["iActHeight"] + pts["iActTop"])},
+          "relativePosition": {"x": cm(xo), "y": cm(yo - pts["iActTop"])},
+          "canvas": []
+        };
+        List graphIActCvs = graphIAct["canvas"];
+        graphIActCvs.add(glucLine(pts["iact"], colBolus));
       }
       if (showCOB) {
         graphCob = {
           'relativePosition': {'x': cm(xo), 'y': cm(yo + graphHeight - pts['cobHeight'])},
           'canvas': []
         };
-        List graphCobCvs = graphCob['canvas'];
-        graphCobCvs.add(graphArea(pts['cob'], colCOBDaily, colCOBDaily));
+        List graphCobCvs = graphCob["canvas"];
+        graphCobCvs.add(graphArea(pts["cob"], colCOBDaily, colCOBDaily));
+        graphCAct = {
+          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["cActHeight"])},
+          "canvas": []
+        };
+        List graphCActCvs = graphCAct["canvas"];
+        graphCActCvs.add(glucLine(pts["cact"], colValue));
       }
     }
 
     var ret = Page(isPortrait, [
       headerFooter(date: day.date),
       graphIob,
+      graphIAct,
       graphCob,
+      graphCAct,
       glucTableCvs,
       exerciseCvs,
       vertLegend,

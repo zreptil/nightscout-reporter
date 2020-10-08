@@ -627,7 +627,12 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
       ],
     ]);
 
-    addBodyArea(tableBody, msgTreatments, [
+    InsulinInjectionList sum = InsulinInjectionList();
+    for (DayData day in data.days)
+      for (TreatmentData t in day.treatments)
+        sum = sum.add2List(t.multipleInsulin);
+
+    List<dynamic> treatmentsBody = [
       [
         {'text': '', 'style': 'infotitle'},
         {'text': msgKHPerDay, 'style': 'infotitle'},
@@ -639,37 +644,70 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
       [
         {'text': '', 'style': 'infotitle'},
         {'text': msgInsulinPerDay, 'style': 'infotitle'},
-        {'text': '${g.fmtNumber(data.TDD(!useDailyBasalrate) / repData.dayCount, 1)}', 'style': 'infodata'},
+        {'text': '${g.fmtNumber(sum.injections["sum"] / repData.dayCount, 1)}', 'style': 'infodata'},
         {'text': '${msgInsulinUnit}', 'style': 'infounit', 'colSpan': 2},
         {'text': '', 'style': 'infotitle'},
         {'text': '', 'style': 'infounit'},
-      ],
-      [
-        {'text': '', 'style': 'infotitle'},
-        {'text': msgBolusPerDay, 'style': 'infotitle'},
-        {'text': '${g.fmtNumber(data.ieBolusSum / repData.dayCount, 1)}', 'style': 'infodata'},
-        {'text': 'bolus (${g.fmtNumber(data.ieBolusPrz(!useDailyBasalrate), 1)} %)', 'style': 'infounit', 'colSpan': 2},
-        {'text': '', 'style': 'infotitle'},
-        {'text': '', 'style': 'infounit'},
-      ],
-      [
-        {'text': '', 'style': 'infotitle'},
-        {'text': msgBasalPerDay, 'style': 'infotitle'},
-        {'text': '${g.fmtNumber(data.ieBasalSum(!useDailyBasalrate) / repData.dayCount, 1)}', 'style': 'infodata'},
-        {'text': 'basal (${g.fmtNumber(data.ieBasalPrz(!useDailyBasalrate), 1)} %)', 'style': 'infounit', 'colSpan': 2},
-        {'text': '', 'style': 'infotitle'},
-        {'text': '', 'style': 'infounit'},
-      ],
-      [
-        {'@': data.ieMicroBolusSum > 0.0 && false},
-        {'text': '', 'style': 'infotitle'},
-        {'text': msgMicroBolusPerDay, 'style': 'infotitle'},
-        {'text': '${g.fmtNumber(data.ieMicroBolusSum / repData.dayCount, 1)}', 'style': 'infodata'},
-        {'text': 'bolus (${g.fmtNumber(data.ieMicroBolusPrz(!useDailyBasalrate), 1)} %)', 'style': 'infounit', 'colSpan': 2},
-        {'text': '', 'style': 'infotitle'},
-        {'text': '', 'style': 'infounit'},
-      ],
-    ]);
+      ]
+    ];
+
+    if (sum.injections.keys.toList().length > 1) // sum ist ja immer drin, also gehts darum ob insulinInjections gefüllt sind oder nicht
+    {
+      for (String insulin in sum.injections.keys)
+        if (insulin.toLowerCase() != "sum") {
+          treatmentsBody.add(
+              [ {"text": "", "style": "infotitle"},
+                {
+                  "text": "Ø " + insulin + Intl.message(" pro Tag"),
+                  "style": "infotitle"
+                },
+                {
+                  "text": "${g.fmtNumber(
+                      sum.injections[insulin] / repData.dayCount, 1)} ",
+                  "style": "infodata"
+                },
+                {
+                  "text": "${msgInsulinUnit}",
+                  "style": "infounit",
+                  "colSpan": 2
+                },
+                {"text": "", "style": "infotitle"},
+                {"text": "", "style": "infounit"},
+              ]);
+        }
+    } else
+    {   // "alte" Inhalte wenn keine insulinInjections
+      treatmentsBody.add(
+        [
+          {'text': '', 'style': 'infotitle'},
+          {'text': msgBolusPerDay, 'style': 'infotitle'},
+          {'text': '${g.fmtNumber(data.ieBolusSum / repData.dayCount, 1)}', 'style': 'infodata'},
+          {'text': 'bolus (${g.fmtNumber(data.ieBolusPrz, 1)} %)', 'style': 'infounit', 'colSpan': 2},
+          {'text': '', 'style': 'infotitle'},
+          {'text': '', 'style': 'infounit'},
+        ]);
+      treatmentsBody.add(
+        [
+          {'text': '', 'style': 'infotitle'},
+          {'text': msgBasalPerDay, 'style': 'infotitle'},
+          {'text': '${g.fmtNumber(data.ieBasalSum / repData.dayCount, 1)}', 'style': 'infodata'},
+          {'text': 'basal (${g.fmtNumber(data.ieBasalPrz, 1)} %)', 'style': 'infounit', 'colSpan': 2},
+          {'text': '', 'style': 'infotitle'},
+          {'text': '', 'style': 'infounit'},
+        ]);
+      treatmentsBody.add(
+        [
+          {'@": data.ieMicroBolusSum > 0.0 && false},
+          {'text': '', 'style': 'infotitle'},
+          {'text': msgMicroBolusPerDay, 'style': 'infotitle'},
+          {'text': '${g.fmtNumber(data.ieMicroBolusSum / repData.dayCount, 1)}', 'style': 'infodata'},
+          {'text': 'bolus (${g.fmtNumber(data.ieMicroBolusPrz, 1)} %)', 'style': 'infounit', 'colSpan': 2},
+          {'text': '', 'style': 'infotitle'},
+          {'text': '', 'style': 'infounit'},
+        ]);
+    }
+    addBodyArea(tableBody, msgTreatments, treatmentsBody);
+
     var ret = [
       headerFooter(),
       {
