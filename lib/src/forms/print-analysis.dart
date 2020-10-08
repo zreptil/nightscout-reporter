@@ -29,7 +29,7 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
   @override
   String get title => Intl.message('Auswertung');
 
-  bool isPreciseMaterial, isPreciseTarget, showStdAbw, showHypoGlucs;
+  bool isPreciseMaterial, isPreciseTarget, showStdAbw, showHypoGlucs, useDailyBasalrate;
 
   int get _precisionMaterial => isPreciseMaterial ? 2 : 0;
 
@@ -44,6 +44,7 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
     ParamInfo(2, msgParam3, boolValue: false),
     ParamInfo(3, msgParam4, boolValue: false),
     ParamInfo(4, msgParam5, boolValue: false),
+    ParamInfo(5, BasePrint.msgUseDailyBasalrate, boolValue: true, isLoopValue: true),
   ];
 
   @override
@@ -60,6 +61,7 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
     showStdAbw = params[2].boolValue;
     useFineLimits = params[3].boolValue;
     showHypoGlucs = params[4].boolValue;
+    useDailyBasalrate = params[5].boolValue;
   }
 
   @override
@@ -637,7 +639,7 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
       [
         {'text': '', 'style': 'infotitle'},
         {'text': msgInsulinPerDay, 'style': 'infotitle'},
-        {'text': '${g.fmtNumber(data.TDD / repData.dayCount, 1)}', 'style': 'infodata'},
+        {'text': '${g.fmtNumber(data.TDD(!useDailyBasalrate) / repData.dayCount, 1)}', 'style': 'infodata'},
         {'text': '${msgInsulinUnit}', 'style': 'infounit', 'colSpan': 2},
         {'text': '', 'style': 'infotitle'},
         {'text': '', 'style': 'infounit'},
@@ -646,15 +648,15 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
         {'text': '', 'style': 'infotitle'},
         {'text': msgBolusPerDay, 'style': 'infotitle'},
         {'text': '${g.fmtNumber(data.ieBolusSum / repData.dayCount, 1)}', 'style': 'infodata'},
-        {'text': 'bolus (${g.fmtNumber(data.ieBolusPrz, 1)} %)', 'style': 'infounit', 'colSpan': 2},
+        {'text': 'bolus (${g.fmtNumber(data.ieBolusPrz(!useDailyBasalrate), 1)} %)', 'style': 'infounit', 'colSpan': 2},
         {'text': '', 'style': 'infotitle'},
         {'text': '', 'style': 'infounit'},
       ],
       [
         {'text': '', 'style': 'infotitle'},
         {'text': msgBasalPerDay, 'style': 'infotitle'},
-        {'text': '${g.fmtNumber(data.ieBasalSum / repData.dayCount, 1)}', 'style': 'infodata'},
-        {'text': 'basal (${g.fmtNumber(data.ieBasalPrz, 1)} %)', 'style': 'infounit', 'colSpan': 2},
+        {'text': '${g.fmtNumber(data.ieBasalSum(!useDailyBasalrate) / repData.dayCount, 1)}', 'style': 'infodata'},
+        {'text': 'basal (${g.fmtNumber(data.ieBasalPrz(!useDailyBasalrate), 1)} %)', 'style': 'infounit', 'colSpan': 2},
         {'text': '', 'style': 'infotitle'},
         {'text': '', 'style': 'infounit'},
       ],
@@ -663,7 +665,7 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
         {'text': '', 'style': 'infotitle'},
         {'text': msgMicroBolusPerDay, 'style': 'infotitle'},
         {'text': '${g.fmtNumber(data.ieMicroBolusSum / repData.dayCount, 1)}', 'style': 'infodata'},
-        {'text': 'bolus (${g.fmtNumber(data.ieMicroBolusPrz, 1)} %)', 'style': 'infounit', 'colSpan': 2},
+        {'text': 'bolus (${g.fmtNumber(data.ieMicroBolusPrz(!useDailyBasalrate), 1)} %)', 'style': 'infounit', 'colSpan': 2},
         {'text': '', 'style': 'infotitle'},
         {'text': '', 'style': 'infounit'},
       ],

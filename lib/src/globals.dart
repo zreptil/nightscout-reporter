@@ -116,7 +116,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = '2.0.2';
+  String version = '2.0.3';
 
   // subversion is used nowhere. It is just there to trigger an other signature for the cache.
   String subVersion = '1';
@@ -790,6 +790,8 @@ class Globals extends Settings {
   bool ppHideNightscoutInPDF = true;
   bool ppShowUrlInPDF = false;
   bool ppHideLoopData = false;
+  bool isCreatingPDF = false;
+  bool get hideLoopData => ppHideLoopData && isCreatingPDF;
 
   static const int PDFUNLIMITED = 4000000;
   static const int PDFDIVIDER = 100000;

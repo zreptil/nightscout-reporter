@@ -20,8 +20,9 @@ schwächerer Schrift angezeigt wird.
   @override
   String idx = '04';
 
-  bool showHbA1c, showStdabw, showCount, showPercentile, showVarK, showTDD;
+  bool showHbA1c, showStdabw, showCount, showPercentile, showVarK, showTDD, useDailyBasalrate;
   double _maxTDD = 0.0;
+  double _basalSum = 0.0;
 
   @override
   List<ParamInfo> params = [
@@ -30,7 +31,11 @@ schwächerer Schrift angezeigt wird.
     ParamInfo(2, msgParam3, boolValue: true),
     ParamInfo(3, msgParam4, boolValue: true),
     ParamInfo(4, msgParam5, boolValue: false),
-//    ParamInfo(5, msgParam6, boolValue: false),
+/*
+    ParamInfo(5, msgParam6,
+        boolValue: false,
+        subParams: [ParamInfo(0, BasePrint.msgUseDailyBasalrate, boolValue: true, isLoopValue: true)]),
+*/
   ];
 
   static String get msgParam1 => Intl.message('Spalte Messwerte');
@@ -43,7 +48,7 @@ schwächerer Schrift angezeigt wird.
 
   static String get msgParam5 => Intl.message('Spalte Variationskoeffizient');
 
-  static String get msgParam6 => Intl.message('Spalte TDD');
+  static String get msgParam6 => Intl.message('TDD anzeigen');
 
   @override
   void extractParams() {
@@ -52,7 +57,10 @@ schwächerer Schrift angezeigt wird.
     showPercentile = params[2].boolValue;
     showHbA1c = params[3].boolValue;
     showVarK = params[4].boolValue;
-    showTDD = false; //params[5].boolValue;
+    showTDD = false;
+    useDailyBasalrate = true;
+//    showTDD = params[5].boolValue;
+//    useDailyBasalrate = params[5].subParams[0].boolValue;
   }
 
   @override
@@ -78,21 +86,31 @@ schwächerer Schrift angezeigt wird.
   void fillRow(dynamic row, double f, String firstCol, DayData day, String style) {
     addTableRow(true, cm(2.9), row, {'text': msgDate, 'style': 'total', 'alignment': 'center'},
         {'text': firstCol, 'style': 'total', 'alignment': 'center'});
+    var text = msgDistribution;
+    if (showTDD) text += '\n' + msgTDD;
+    double tdd = day.ieBasalSum(!useDailyBasalrate) + day.ieBolusSum;
     addTableRow(true, cm(f * 100), row, {
-      'text': msgDistribution,
+      'text': text,
       'style': 'total',
       'alignment': 'center'
     }, {
       'style': style,
       'canvas': [
-        {'type': 'rect', 'color': colLow, 'x': cm(0), 'y': cm(0), 'w': cm(day.lowPrz(g) * f), 'h': cm(0.5)},
+        {
+          'type': 'rect',
+          'color': colLow,
+          'x': cm(0),
+          'y': cm(0),
+          'w': cm(day.lowPrz(g) * f),
+          'h': cm(showTDD ? 0.25 : 0.5)
+        },
         {
           'type': 'rect',
           'color': colNorm,
           'x': cm(day.lowPrz(g) * f),
           'y': cm(0),
           'w': cm(day.normPrz(g) * f),
-          'h': cm(0.5)
+          'h': cm(showTDD ? 0.25 : 0.5)
         },
         {
           'type': 'rect',
@@ -100,36 +118,30 @@ schwächerer Schrift angezeigt wird.
           'x': cm((day.lowPrz(g) + day.normPrz(g)) * f),
           'y': cm(0),
           'w': cm(day.highPrz(g) * f),
-          'h': cm(0.5)
-        }
+          'h': cm(showTDD ? 0.25 : 0.5)
+        },
+        showTDD
+            ? {
+                'type': 'rect',
+                'color': colBasalDay,
+                'x': cm(0),
+                'y': cm(0.3),
+                'w': cm((style=='total'?_basalSum:day.ieBasalSum(!useDailyBasalrate)) * f * 100 / tdd),
+                'h': cm(0.25)
+              }
+            : {},
+        showTDD
+            ? {
+                'type': 'rect',
+                'color': colBolus,
+                'x': cm((style=='total'?_basalSum:day.ieBasalSum(!useDailyBasalrate)) * f * 100 / tdd),
+                'y': cm(0.3),
+                'w': cm(day.ieBolusSum * f * 100 / tdd),
+                'h': cm(0.25)
+              }
+            : {},
       ]
     });
-    addTableRow(showTDD, cm(f * 100), row, {
-      'text': msgTDD,
-      'style': 'total',
-      'alignment': 'center'
-    }, {
-      'style': style,
-      'canvas': [
-        {
-          'type': 'rect',
-          'color': colBasalDay,
-          'x': cm(0),
-          'y': cm(0),
-          'w': cm(day.ieBasalSum * f * 100 / _maxTDD),
-          'h': cm(0.5)
-        },
-        {
-          'type': 'rect',
-          'color': colBolus,
-          'x': cm(day.ieBasalSum * f * 100 / _maxTDD),
-          'y': cm(0),
-          'w': cm(day.ieBolusSum * f * 100 / _maxTDD),
-          'h': cm(0.5)
-        },
-      ]
-    });
-
     addTableRow(true, '*', row, {
       'text': msgLow(targets(repData)['low']),
       'style': 'total',
@@ -217,7 +229,6 @@ schwächerer Schrift angezeigt wird.
     tableWidths = [];
     titleInfo = titleInfoBegEnd();
     var f = 3.3;
-    if (showTDD) f = f / 2 - 0.3;
     var body = [];
     // maybe later the margins will work properly, up to now it
     // doesn't work beacause of hardcoded margins in the tablecells
@@ -249,12 +260,14 @@ schwächerer Schrift angezeigt wird.
     totalDay.basalData.targetLow = 1000;
     var totalDays = 0;
     _maxTDD = 0.0;
+    _basalSum = 0.0;
 
     for (var i = 0; i < repData.data.days.length; i++) {
       var day = repData.data.days[g.ppLatestFirst ? repData.data.days.length - 1 - i : i];
       day.init();
       if (day.entryCountValid == 0) continue;
-      _maxTDD = max(_maxTDD, day.ieBasalSum + day.ieBolusSum);
+      _basalSum += day.ieBasalSum(!useDailyBasalrate);
+      _maxTDD = max(_maxTDD, day.ieBasalSum(!useDailyBasalrate) + day.ieBolusSum);
     }
 
     for (var i = 0; i < repData.data.days.length; i++) {

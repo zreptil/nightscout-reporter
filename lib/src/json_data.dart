@@ -5,7 +5,6 @@ import 'dart:math' as math;
 
 import 'package:angular_components/angular_components.dart';
 import 'package:crypto/crypto.dart' as crypto;
-import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:timezone/browser.dart' as tz;
 
@@ -1810,7 +1809,10 @@ class DayData {
     return ret;
   }
 
-  double get ieBasalSum {
+  double ieBasalSum(bool useStore) {
+    if(useStore) {
+      return basalData.store.ieBasalSum;
+    }
     var ret = 0.0;
     for (var entry in profile) {
       ret += (entry.value ?? 0) * (entry.duration ?? 0) / 3600.0;
@@ -2217,7 +2219,8 @@ class ListData {
     'stdVeryLow': StatisticData(0, 54),
   };
   double ieBolusSum = 0.0;
-  double ieBasalSum = 0.0;
+  double ieBasalSumDaily = 0.0;
+  double ieBasalSumStore = 0.0;
   double ieMicroBolusSum = 0.0;
   double gvi = 0.0;
   double gviIdeal = 0.0;
@@ -2225,12 +2228,15 @@ class ListData {
   double rms = 0.0;
   double pgs = 0.0;
 
-  double get TDD => ieBolusSum + ieBasalSum; // + ieMicroBolusSum;
-  double get ieBolusPrz => ieBolusSum + ieBasalSum > 0 ? ieBolusSum / (ieBolusSum + ieBasalSum) * 100 : 0.0;
+  double ieBasalSum(bool fromStore) => fromStore ? ieBasalSumStore : ieBasalSumDaily;
 
-  double get ieBasalPrz => ieBolusSum + ieBasalSum > 0 ? ieBasalSum / (ieBolusSum + ieBasalSum) * 100 : 0.0;
+  double TDD(bool fromStore) => ieBolusSum + ieBasalSum(fromStore);
 
-  double get ieMicroBolusPrz => ieBolusSum + ieBasalSum > 0 ? ieMicroBolusSum / (ieBolusSum + ieBasalSum) * 100 : 0.0;
+  double ieBolusPrz(bool fromStore) => TDD(fromStore) > 0 ? ieBolusSum / TDD(fromStore) * 100 : 0.0;
+
+  double ieBasalPrz(bool fromStore) => TDD(fromStore) > 0 ? ieBasalSum(fromStore) / TDD(fromStore) * 100 : 0.0;
+
+  double ieMicroBolusPrz(bool fromStore) => TDD(fromStore) > 0 ? ieMicroBolusSum / TDD(fromStore) * 100 : 0.0;
 
   int get countValid => entries.where((entry) => !entry.isGlucInvalid).length;
 
@@ -2454,12 +2460,15 @@ class ListData {
       ieBolusSum += t.bolusInsulin;
       ieMicroBolusSum += t.microbolus; // / 3600 * t.duration;
     }
-    ieBasalSum = 0.0;
+    ieBasalSumDaily = 0.0;
+    ieBasalSumStore = 0.0;
     for (var i = 1; i < days.length; i++) {
       var day = days[i];
       day.prevDay = i > 0 ? days[i - 1] : null;
       day.init(i < days.length - 1 ? days[i + 1] : null);
-      ieBasalSum += day.ieBasalSum;
+
+      ieBasalSumStore += day.ieBasalSum(true);
+      ieBasalSumDaily += day.ieBasalSum(false);
       day.devicestatusList.clear();
       day.devicestatusList.addAll(devicestatusList.where((ds) => day.isSameDay(ds.createdAt.toLocal())));
     }

@@ -1117,7 +1117,8 @@ class AppComponent implements OnInit {
             }
           }
         }
-
+        // the following code inserts an exercise in the data if there is none present
+/*
         if (g.isLocal && !hasExercise) {
           var t = TreatmentData();
           t.createdAt = DateTime(begDate.year, begDate.month, begDate.day, 10, 0, 0);
@@ -1131,17 +1132,19 @@ class AppComponent implements OnInit {
           t.isSMB = false;
           data.ns.treatments.add(t);
         }
-
+*/
         url = data.user.apiUrl(Date(profileBeg.year, profileBeg.month, profileBeg.day), 'devicestatus.json',
             params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
                 'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
         tmp = await g.request(url);
-        src = json.decode(tmp);
-        displayLink('ds${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
-        for (dynamic devicestatus in src) {
-          hasData = true;
-          var ds = DeviceStatusData.fromJson(devicestatus);
-          data.ns.devicestatusList.add(ds);
+        if(tmp != null && tmp != '') {
+          src = json.decode(tmp);
+          displayLink('ds${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
+          for (dynamic devicestatus in src) {
+            hasData = true;
+            var ds = DeviceStatusData.fromJson(devicestatus);
+            data.ns.devicestatusList.add(ds);
+          }
         }
       }
       begDate = begDate.add(days: 1);
@@ -1318,133 +1321,137 @@ class AppComponent implements OnInit {
     progressValue = 0;
     progressText = msgPreparingPDF;
     loadData(isForThumbs).then((ReportData src) async {
-      progressText = msgCreatingPDF;
-      if (src.error != null) {
-        if (g.isDebug) {
-          g.info.addError(msgLoadingData(src.error.toString(), src.error.stackTrace.toString()));
+      g.isCreatingPDF = true;
+      try {
+        progressText = msgCreatingPDF;
+        if (src.error != null) {
+          if (g.isDebug) {
+            g.info.addError(msgLoadingData(src.error.toString(), src.error.stackTrace.toString()));
+          } else {
+            g.info.addError(msgLoadingDataError);
+          }
+          g.isCreatingPDF = false;
+          return;
+        }
+        if (sendIcon == 'send') {
+          progressText = null;
+          reportData = null;
+          g.isCreatingPDF = false;
+          return;
+        }
+        progressValue = progressMax + 1;
+        var doc;
+        var docList = <dynamic>[];
+        var docLen = 0;
+        Page prevPage;
+        var listConfig = <FormConfig>[];
+        if (isForThumbs) {
+          for (var cfg in g.listConfigOrg) {
+            listConfig.add(cfg);
+            switch (cfg.id) {
+              case 'cgp':
+                cfg = FormConfig(PrintCGP(), false);
+                cfg.form.params[0].thumbValue = 1;
+                listConfig.add(cfg);
+                break;
+              case 'dayanalysis':
+                cfg = FormConfig(PrintDailyAnalysis(), false);
+                cfg.form.params[2].thumbValue = 1;
+                listConfig.add(cfg);
+                break;
+              case 'percentile':
+                cfg = FormConfig(PrintPercentile(), false);
+                cfg.form.params[0].thumbValue = 0;
+                cfg.form.params[2].thumbValue = true;
+                listConfig.add(cfg);
+                break;
+            }
+          }
         } else {
-          g.info.addError(msgLoadingDataError);
+          listConfig = g.listConfig;
         }
-        return;
-      }
-      if (sendIcon == 'send') {
-        progressText = null;
-        reportData = null;
-        return;
-      }
-      progressValue = progressMax + 1;
-      var doc;
-      var docList = <dynamic>[];
-      var docLen = 0;
-      Page prevPage;
-      var listConfig = <FormConfig>[];
-      if (isForThumbs) {
-        for (var cfg in g.listConfigOrg) {
-          listConfig.add(cfg);
-          switch (cfg.id) {
-            case 'cgp':
-              cfg = FormConfig(PrintCGP(), false);
-              cfg.form.params[0].thumbValue = 1;
-              listConfig.add(cfg);
-              break;
-            case 'dayanalysis':
-              cfg = FormConfig(PrintDailyAnalysis(), false);
-              cfg.form.params[2].thumbValue = 1;
-              listConfig.add(cfg);
-              break;
-            case 'percentile':
-              cfg = FormConfig(PrintPercentile(), false);
-              cfg.form.params[0].thumbValue = 0;
-              cfg.form.params[2].thumbValue = true;
-              listConfig.add(cfg);
-              break;
-          }
-        }
-      } else {
-        listConfig = g.listConfig;
-      }
-      for (var cfg in listConfig) {
-        var form = cfg.form;
-        if (checkCfg(cfg) || isForThumbs) {
-          docLen = json.encode(doc).length;
-          var formPages = await form.getFormPages(src, docLen);
-          var fileList = <List<Page>>[<Page>[]];
-          for (var page in formPages) {
-            dynamic entry = page.content.last;
-            if (entry['pageBreak'] == 'newFile' && fileList.last.isNotEmpty) {
-              entry.remove('pageBreak');
-              fileList.last.add(page);
-              fileList.add(<Page>[]);
-            } else {
-              if (entry['pageBreak'] == 'newFile') entry.remove('pageBreak'); //entry["pageBreak"] = "after";
-              fileList.last.add(page);
-            }
-          }
-
-          if (isForThumbs && fileList.length > 1) {
-            fileList.removeRange(1, fileList.length - 1);
-            if (fileList[0].length > 1) fileList[0].removeRange(1, fileList[0].length - 1);
-          }
-
-          for (var pageList in fileList) {
-            dynamic content = [];
-
-            for (var page in pageList) {
-              if (prevPage != null) {
-                var pagebreak = {'text': '', 'pageBreak': 'after'};
-                if (page.isPortrait != prevPage.isPortrait) {
-                  pagebreak['pageSize'] = 'a4';
-                  pagebreak['pageOrientation'] = page.isPortrait ? 'portrait' : 'landscape';
-                }
-                content.add(pagebreak);
-              }
-              content.add(page.asElement);
-              prevPage = page;
-            }
-            if (doc == null) {
-              doc = {
-                'pageSize': 'a4',
-                'pageOrientation': pageList.isEmpty || pageList[0].isPortrait ? 'portrait' : 'landscape',
-                'pageMargins': [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
-                'content': content,
-                'images': form.images,
-                'styles': {
-                  'infoline': {
-                    'margin': [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]
-                  },
-                  'perstitle': {'alignment': 'right'},
-                  'persdata': {'color': '#0000ff'},
-                  'infotitle': {'alignment': 'left'},
-                  'infodata': {'alignment': 'right', 'color': '#0000ff'},
-                  'infounit': {
-                    'margin': [form.cm(0), form.cm(0), form.cm(0), form.cm(0)],
-                    'color': '#0000ff'
-                  },
-                  'hba1c': {'color': '#5050ff'},
-                  'total': {'bold': true, 'fillColor': '#d0d0d0', 'margin': form.m0},
-                  'timeDay': {'bold': true, 'fillColor': '#d0d0d0', 'margin': form.m0},
-                  'timeNight': {'bold': true, 'fillColor': '#303030', 'color': 'white', 'margin': form.m0},
-                  'timeLate': {'bold': true, 'fillColor': '#a0a0a0', 'margin': form.m0},
-                  'row': {}
-                }
-              };
-            } else {
-              doc['content'].add(content);
-              for (var key in form.images.keys) {
-                (doc['images'] as Map<String, String>)[key] = form.images[key];
+        for (var cfg in listConfig) {
+          var form = cfg.form;
+          if (checkCfg(cfg) || isForThumbs) {
+            docLen = json.encode(doc).length;
+            var formPages = await form.getFormPages(src, docLen);
+            var fileList = <List<Page>>[<Page>[]];
+            for (var page in formPages) {
+              dynamic entry = page.content.last;
+              if (entry['pageBreak'] == 'newFile' && fileList.last.isNotEmpty) {
+                entry.remove('pageBreak');
+                fileList.last.add(page);
+                fileList.add(<Page>[]);
+              } else {
+                if (entry['pageBreak'] == 'newFile') entry.remove('pageBreak'); //entry["pageBreak"] = "after";
+                fileList.last.add(page);
               }
             }
 
-            if (pageList != fileList.last) {
-              docList.add(doc);
-              doc = null;
-              prevPage = null;
+            if (isForThumbs && fileList.length > 1) {
+              fileList.removeRange(1, fileList.length - 1);
+              if (fileList[0].length > 1) fileList[0].removeRange(1, fileList[0].length - 1);
+            }
+
+            for (var pageList in fileList) {
+              dynamic content = [];
+
+              for (var page in pageList) {
+                if (prevPage != null) {
+                  var pagebreak = {'text': '', 'pageBreak': 'after'};
+                  if (page.isPortrait != prevPage.isPortrait) {
+                    pagebreak['pageSize'] = 'a4';
+                    pagebreak['pageOrientation'] = page.isPortrait ? 'portrait' : 'landscape';
+                  }
+                  content.add(pagebreak);
+                }
+                content.add(page.asElement);
+                prevPage = page;
+              }
+              if (doc == null) {
+                doc = {
+                  'pageSize': 'a4',
+                  'pageOrientation': pageList.isEmpty || pageList[0].isPortrait ? 'portrait' : 'landscape',
+                  'pageMargins': [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
+                  'content': content,
+                  'images': form.images,
+                  'styles': {
+                    'infoline': {
+                      'margin': [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]
+                    },
+                    'perstitle': {'alignment': 'right'},
+                    'persdata': {'color': '#0000ff'},
+                    'infotitle': {'alignment': 'left'},
+                    'infodata': {'alignment': 'right', 'color': '#0000ff'},
+                    'infounit': {
+                      'margin': [form.cm(0), form.cm(0), form.cm(0), form.cm(0)],
+                      'color': '#0000ff'
+                    },
+                    'hba1c': {'color': '#5050ff'},
+                    'total': {'bold': true, 'fillColor': '#d0d0d0', 'margin': form.m0},
+                    'timeDay': {'bold': true, 'fillColor': '#d0d0d0', 'margin': form.m0},
+                    'timeNight': {'bold': true, 'fillColor': '#303030', 'color': 'white', 'margin': form.m0},
+                    'timeLate': {'bold': true, 'fillColor': '#a0a0a0', 'margin': form.m0},
+                    'row': {}
+                  }
+                };
+              } else {
+                doc['content'].add(content);
+                for (var key in form.images.keys) {
+                  (doc['images'] as Map<String, String>)[key] = form.images[key];
+                }
+              }
+
+              if (pageList != fileList.last) {
+                docList.add(doc);
+                doc = null;
+                prevPage = null;
+              }
             }
           }
-        }
 //        if (g.isLocal && data != fileList.last)doc = null;
 //        prevForm = form;
-      }
+        }
 /*
       pdfMake.Styles styles = pdfMake.Styles();
       pdfMake.PDFContent pdf = pdfMake.PDFContent(content: [doc], styles: styles);
@@ -1457,50 +1464,53 @@ class AppComponent implements OnInit {
           });
 */
 //*
-      if (doc != null) docList.add(doc);
+        if (doc != null) docList.add(doc);
 
-      if (docList.length > 1) {
-        pdfList.clear();
-        pdfDoc = null;
+        if (docList.length > 1) {
+          pdfList.clear();
+          pdfDoc = null;
 
-        for (var doc in docList) {
-          var dst = jsonEncode(doc);
-          if (g.isDebug) {
-            pdfUrl = 'http://pdf.zreptil.de/playground.php';
-            dst = dst.replaceAll('],', '],\n');
-            dst = dst.replaceAll(',\"', ',\n\"');
-            dst = dst.replaceAll(':[', ':\n[');
-          } else {
-            pdfUrl = 'https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php';
+          for (var doc in docList) {
+            var dst = jsonEncode(doc);
+            if (g.isDebug) {
+              pdfUrl = 'http://pdf.zreptil.de/playground.php';
+              dst = dst.replaceAll('],', '],\n');
+              dst = dst.replaceAll(',\"', ',\n\"');
+              dst = dst.replaceAll(':[', ':\n[');
+            } else {
+              pdfUrl = 'https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php';
+            }
+            pdfList.add(PdfData(pdfString(dst)));
           }
-          pdfList.add(PdfData(pdfString(dst)));
+
+          currPage = 'pdfList';
+          sendIcon = 'close';
+          progressText = null;
+          return;
+        } else {
+          pdfDoc = jsonEncode(docList[0]);
         }
 
-        currPage = 'pdfList';
-        sendIcon = 'close';
-        progressText = null;
-        return;
-      } else {
-        pdfDoc = jsonEncode(docList[0]);
-      }
-
-      if (!g.isDebug) {
-        if (g.msg.text.isEmpty) {
-          if (isForThumbs) {
-            navigate('makePdfImages');
+        if (!g.isDebug) {
+          if (g.msg.text.isEmpty) {
+            if (isForThumbs) {
+              navigate('makePdfImages');
+            } else {
+              navigate('showPdf');
+            }
           } else {
-            navigate('showPdf');
+            displayLink(msgShowPDF, 'showPdf', btnClass: 'action', icon: 'description');
           }
         } else {
-          displayLink(msgShowPDF, 'showPdf', btnClass: 'action', icon: 'description');
+          displayLink('playground', 'showPlayground', btnClass: 'action', icon: 'description');
+          displayLink('pdf', 'showPdf', btnClass: 'action', icon: 'description');
         }
-      } else {
-        displayLink('playground', 'showPlayground', btnClass: 'action', icon: 'description');
-        displayLink('pdf', 'showPdf', btnClass: 'action', icon: 'description');
-      }
 // */
-      sendIcon = 'send';
-      progressText = null;
+        sendIcon = 'send';
+        progressText = null;
+      } finally {
+        g.isCreatingPDF = false;
+      }
     }).catchError((error) {
       g.info.addDevError(error, msgPDFCreationError);
       sendIcon = 'send';
@@ -1675,6 +1685,14 @@ class AppComponent implements OnInit {
       await g.setLanguage(g.languageList[thumbLangIdx]);
     }
     createPDF(isForThumbs: true);
+  }
+
+  bool allParams = false;
+
+  void checkAllParams() {
+    for (var param in tileParams.form.params) {
+      param.boolValue = allParams;
+    }
   }
 }
 
