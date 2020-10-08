@@ -730,11 +730,14 @@ abstract class BasePrint {
           'Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. '
           '(https://doi.org/10.1177/1932296817718561)');
 
-  String get msgGlucHigh => Intl.message('Glukose zu hoch');
-
-  String msgLow(value) {
-    value = '\n<${g.glucFromData(value)}';
-    return Intl.message('Tief${value}', args: [value], name: 'msgLow');
+  get msgGlucHigh => Intl.message("Glukose zu hoch");
+  String msgLow(valueFrom, valueTo) {
+    String value = "\n>=${g.glucFromData(valueFrom)} <${g.glucFromData(valueTo)}";
+    return Intl.message("Tief${value}", args: [value], name: "msgLow");
+  }
+  msgVeryLow(value) {
+    value = "\n<${g.glucFromData(value)}";
+    return Intl.message("sehr Tief${value}", args: [value], name: "msgVeryLow");
   }
 
   String msgCount(int value) {
@@ -752,11 +755,15 @@ abstract class BasePrint {
 
   static String msgTimeOfDayPM(time) => Intl.message('${time} pm', args: [time], name: 'msgTimeOfDayPM');
 
-  String get msgNormal => '${Intl.message('Normal')}\n${g.getGlucInfo()['unit']}';
-
-  String msgHigh(value) {
-    value = '\n>=${g.glucFromData(value)}';
-    return Intl.message('Hoch${value}', args: [value], name: 'msgHigh');
+  String get msgNormal => "${Intl.message("Normal")}\n${g.getGlucInfo()["unit"]}";
+  
+  String msgHigh(valueFrom, valueTo) {
+    String value = "\n>=${g.glucFromData(valueFrom)} <${g.glucFromData(valueTo)}";
+    return Intl.message("Hoch${value}", args: [value], name: "msgHigh");
+  }
+  msgVeryHigh(value) {
+    value = "\n>=${g.glucFromData(value)}";
+    return Intl.message("sehr Hoch${value}", args: [value], name: "msgVeryHigh");
   }
 
   String get msgPercentile1090 => Intl.message('10% - 90% der Werte');
@@ -836,11 +843,13 @@ abstract class BasePrint {
   static String get msgChange => Intl.message('Wechsel');
 
   dynamic targets(ReportData repData) {
-    dynamic ret = {'low': Globals.stdLow, 'high': Globals.stdHigh};
+    dynamic ret = {'verylow': Globals.stdVeryLow, 'low': Globals.stdLow, 'high': Globals.stdHigh, 'veryhigh': Globals.stdVeryHigh};
 
     if (!g.ppStandardLimits) {
+      ret['verylow'] = repData.status.settings.thresholds.bgLow;
       ret['low'] = repData.status.settings.thresholds.bgTargetBottom;
       ret['high'] = repData.status.settings.thresholds.bgTargetTop;
+      ret['veryhigh'] = repData.status.settings.thresholds.bgHigh;
     }
 
     return ret;

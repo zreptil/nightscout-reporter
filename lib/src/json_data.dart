@@ -1705,14 +1705,20 @@ class DayData {
   var prevDay;
   Date date;
   ProfileGlucData basalData;
+  StatusData statusData;
   int lowCount = 0;
   int normCount = 0;
   int highCount = 0;
   int stdLowCount = 0;
+  int stdBottomCount = 0;
   int stdNormCount = 0;
   int stdHighCount = 0;
   int entryCountValid = 0;
   int entryCountInvalid = 0;
+  int stdTopCount = 0;
+  int topCount = 0;
+  int bottomCount = 0;
+//  int entryCount = 0;
   int carbCount = 0;
   double carbs = 0;
   double min;
@@ -1743,21 +1749,16 @@ class DayData {
   }
 
   double get varK => (mid ?? 0) != 0 ? stdAbw(true) / mid * 100 : 0;
-
-  double lowPrz(Globals g) =>
-      entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdLowCount : lowCount) / entryCountValid * 100;
-
-  double normPrz(Globals g) =>
-      entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdNormCount : normCount) / entryCountValid * 100;
-
-  double highPrz(Globals g) =>
-      entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdHighCount : highCount) / entryCountValid * 100;
-
+  double lowPrz(Globals g) => entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdLowCount : lowCount) / entryCountValid * 100;
+  double bottomPrz(Globals g) => entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdBottomCount : bottomCount) / entryCountValid * 100;
+  double normPrz(Globals g) => entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdNormCount : normCount) / entryCountValid * 100;
+  double highPrz(Globals g) => entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdHighCount : highCount) / entryCountValid * 100;
+  double topPrz(Globals g) => entryCountValid == 0 ? 0 : (g.ppStandardLimits ? stdTopCount : topCount) / entryCountValid * 100;
   double get avgCarbs => carbCount > 0 ? carbs / carbCount : 0;
-
-  bool isSameDay(DateTime time) {
-    if (date.year != time.year) return false;
-    if (date.month != time.month) return false;
+  bool isSameDay(DateTime time)
+  {
+    if (date.year != time.year)return false;
+    if (date.month != time.month)return false;
     return date.day == time.day;
   }
 
@@ -1828,10 +1829,10 @@ class DayData {
     return ret;
   }
 
-  DayData(date, this.basalData) {
-    if (date == null) {
+  DayData(date, this.basalData, this.statusData) {
+    if (date == null)
       this.date = Date(0);
-    } else {
+    else {
       this.date = Date(date.year, date.month, date.day);
     }
 
@@ -1988,6 +1989,8 @@ class DayData {
     entryCountInvalid = 0;
     normCount = 0;
     highCount = 0;
+    topCount = 0;
+    bottomCount = 0;
     lowCount = 0;
     stdNormCount = 0;
     stdHighCount = 0;
@@ -1997,13 +2000,16 @@ class DayData {
     for (var entry in entries) {
       if (!entry.isGlucInvalid) {
         entryCountValid++;
-        if (entry.gluc < basalData.targetLow) {
+        if (entry.gluc < statusData.settings.thresholds.bgLow)
           lowCount++;
-        } else if (entry.gluc > basalData.targetHigh) {
+        else if (entry.gluc < statusData.settings.thresholds.bgTargetBottom)
+          bottomCount++;
+        else if (entry.gluc >= statusData.settings.thresholds.bgHigh)
           highCount++;
-        } else {
+        else if (entry.gluc >= statusData.settings.thresholds.bgTargetTop)
+          topCount++;
+        else
           normCount++;
-        }
 
         if (entry.gluc < Globals.stdLow) {
           stdLowCount++;
@@ -2310,7 +2316,7 @@ class ListData {
       stat['high'].min = glucData.targetHigh;
       stat['high'].max = 9999.9999;
       if (lastDay == null || entry.time.day != lastDay.day) {
-        days.add(DayData(entry.time, glucData));
+        days.add(DayData(entry.time, glucData, data.status));
         lastDay = entry.time;
       }
       if (entry.type == 'mbg') {

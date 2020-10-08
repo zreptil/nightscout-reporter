@@ -1072,9 +1072,9 @@ class Globals extends Settings {
     saveWebData();
   }
 
-  String urlPdf = 'https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php';
-  String urlPlayground = 'http://pdf.zreptil.de/playground.php';
-  String googleClientId = '939975570793-i9kj0rp6kgv470t45j1pf1hg3j9fqmbh';
+  String urlPdf = "https://devubuntu.home.local/NightScoutReporter/pdfmake/pdfmake.php";
+  String urlPlayground = "https://devubuntu.home.local/NightScoutReporter/pdfmake/playground.php";
+  String googleClientId = "939975570793-i9kj0rp6kgv470t45j1pf1hg3j9fqmbh";
 
   String infoClass(String cls) => showInfo ? '$cls infoarea showinfo' : '$cls infoarea';
   bool isConfigured = false;
@@ -1088,8 +1088,10 @@ class Globals extends Settings {
 
   bool get isKHBE => _khFactor == 12;
 
+  static final int stdVeryLow = 52;
   static final int stdLow = 70;
   static final int stdHigh = 180;
+  static final int stdVeryHigh = 216;
 
   dynamic getGlucInfo() {
     var ret = {'step': 1, 'unit': Settings.msgUnitMGDL};
