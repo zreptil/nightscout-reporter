@@ -39,8 +39,8 @@ class JsonData {
     return '${value}';
   }
 
-  static bool toBool(value, {bool ifEmpty}) {
-    if (value == null) return false;
+  static bool toBool(value, {bool ifEmpty = false}) {
+    if (value == null) return ifEmpty;
     if (value is bool) return value;
     if (value is String) {
       if (ifEmpty != null && value == '') {
@@ -1810,7 +1810,7 @@ class DayData {
   }
 
   double ieBasalSum(bool useStore) {
-    if(useStore) {
+    if (useStore) {
       return basalData.store.ieBasalSum;
     }
     var ret = 0.0;
@@ -2487,7 +2487,11 @@ class ReportData {
   ListData ns = ListData();
   ListData calc = ListData();
 
-  ListData get data => globals == null ? calc : globals.isDataSmoothing ? calc : ns;
+  ListData get data => globals == null
+      ? calc
+      : globals.isDataSmoothing
+          ? calc
+          : ns;
   StatusData status;
   Globals globals;
   bool isForThumbs = false;
