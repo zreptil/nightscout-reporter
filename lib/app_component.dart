@@ -847,12 +847,16 @@ class AppComponent implements OnInit {
     var list = g.findUrlDataFor(begDate, endDate);
     var maxCount = g.profileMaxCounts[data.user.profileMaxIdx ?? 0];
     for (var urlData in list) {
+      // Mit dieser Abfrage kann man Daten filtern (nirgends dokumentiert, funktioniert auch nicht immer)
+      // https://xxx/api/v1/profiles.json?find[startDate][$gt]=2018-01-01T11:30:17.694Z
       url = urlData.fullUrl('profile.json', params: 'count=${maxCount}');
-//              'find[startDate][\$gte]=${begDate.year}-${begDate.month}-${begDate.day}T00:00:00.000Z'
-//              '&find[startDate][\$lte]=${endDate.year}-${endDate.month}-${endDate.day}T23:59:59.999Z'
-//          params: 'find[millis][\$gte]=${beg1.millisecondsSinceEpoch}&'
-//              'find[millis][\$lte]=${end1.millisecondsSinceEpoch}'
-      displayLink('profile', url, type: 'debug');
+/*
+      url = urlData.fullUrl('profiles.json',
+          params: 'find[startDate][\$gte]=${begDate.year}-${begDate.month}-${begDate.day}T00:00:00.000Z'
+              '&find[startDate][\$lte]=${endDate.year}-${endDate.month}-${endDate.day}T23:59:59.999Z'
+              '&count=${maxCount}');
+*/
+      displayLink('profiles', url, type: 'debug');
       content = await g.request(url);
 
       try {
@@ -1137,7 +1141,7 @@ class AppComponent implements OnInit {
             params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
                 'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
         tmp = await g.request(url);
-        if(tmp != null && tmp != '') {
+        if (tmp != null && tmp != '') {
           src = json.decode(tmp);
           displayLink('ds${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
           for (dynamic devicestatus in src) {

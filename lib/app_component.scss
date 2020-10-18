@@ -816,7 +816,7 @@ material-dropdown-select {
 
 @media(max-width: 50em) {
   .title {
-    display: none;
+    display: none !important;
   }
 }
 

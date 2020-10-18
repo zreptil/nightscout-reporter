@@ -2079,23 +2079,34 @@ class DayData {
 
     if (time == null) return CalcIOBData(0, 0, null); //time = DateTime(0);
 
-    var check = time.millisecondsSinceEpoch;
+//    var check = time.millisecondsSinceEpoch;
+    var maxInsulinEffectInMS = 3 * 60 * 60 * 1000;
+    var check = time.millisecondsSinceEpoch - maxInsulinEffectInMS;
     var profile = data.profile(time);
 
     var list = <TreatmentData>[];
     if (yesterday != null) {
+      list.addAll(yesterday.treatments);
+/*
       var temp = yesterday.iob(
           data, DateTime(yesterday.date.year, yesterday.date.month, yesterday.date.day, 23, 59, 59), null);
       var t = TreatmentData();
       t.insulin = temp.iob;
       t.createdAt = DateTime(time.year, time.month, time.day, 0, 0, 0);
       list.add(t);
+*/
     }
     list.addAll(treatments);
 
     var totalSave = totalIOB;
     for (var t in list) {
-      if (!isSameDay_(t.createdAt, time) || t.createdAt.millisecondsSinceEpoch > check) continue;
+//      if (!isSameDay_(t.createdAt, time) || t.createdAt.millisecondsSinceEpoch > check) continue;
+      if (t.createdAt.millisecondsSinceEpoch < check) {
+        continue;
+      } // die Treatments, deren Wirksamkeit auf jeden Fall zum Zeitpunkt "time" abgelaufen ist, ignorieren
+      if (t.createdAt.millisecondsSinceEpoch > time.millisecondsSinceEpoch) {
+        continue;
+      } // die Treatments, die zum Zeitpunkt "time" noch gar nicht drin sind, ignorieren
       var tIOB = t.calcIOB(profile, time);
       if (tIOB != null && tIOB.iob != null) {
         if (tIOB.iob != 0) lastBolus = t;
