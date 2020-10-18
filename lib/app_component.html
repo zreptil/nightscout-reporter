@@ -12,7 +12,7 @@
           <div>
             {{g.title}}
             <span class="betaTitle" *ngIf="g.isBeta">BETA</span>
-            <material-button class="localTitle" *ngIf="g.runsLocal" (trigger)="g.isLocal=!g.isLocal;checkPrint()">
+            <material-button class="localTitle" *ngIf="g.runsLocal" (trigger)="clickLocalTitle()">
               <div *ngIf="g.isLocal">Lokal</div>
               <div *ngIf="!g.isLocal">Vorschau</div>
             </material-button>
@@ -66,11 +66,11 @@
           <material-icon icon="help_outline"></material-icon>
         </material-button>
         <material-fab mini class="debug-trigger" *ngIf="g.canDebug && currPage=='normal'"
-                      (trigger)="reportData=null;g.isDebug=!g.isDebug;checkPrint();g.msg.dismiss(g.msg.clear);">
+                      (trigger)="clickDebugTrigger()">
           <material-icon icon="bug_report"></material-icon>
         </material-fab>
         <material-button icon class="is-local" *ngIf="g.isLocal && currPage=='normal' && tileParams==null"
-                         (trigger)="createThumbs();">
+                         (trigger)="createThumbs()">
           <material-icon icon="burst_mode"></material-icon>
         </material-button>
       </nav>
@@ -130,7 +130,7 @@
             <div *ngIf="g.pdfControlMaxSize < pdfSliderMax" @i18n="big">Gross</div>
             <div *ngIf="g.pdfControlMaxSize >= pdfSliderMax" @i18n="big">Unbegrenzt</div>
           </div>
-          <material-button (trigger)="currPage='normal';createPDF()" class="pdfButton">
+          <material-button (trigger)="clickPdfButton()" class="pdfButton">
             <div class="pdfButtonText" @i18n="pdfCreateAgain">PDF erneut erzeugen</div>
           </material-button>
         </div>
@@ -145,10 +145,10 @@
       <div title>
         <material-checkbox class="is-local" [(checked)]="allParams" *ngIf="g.isLocal" (trigger)="checkAllParams()"></material-checkbox>{{tileParams.form.display}}
         <div>
-          <material-button (trigger)="g.showAllTileParams=!g.showAllTileParams;$event.stopPropagation();">
+          <material-button (trigger)="clickTileParamListToggle($event)">
             <material-icon icon="list"></material-icon>
           </material-button>
-          <material-button (trigger)="tileParams.form.extractParams();tileParams=null;$event.stopPropagation();">
+          <material-button (trigger)="clickTileParamClose($event)">
             <material-icon icon="close"></material-icon>
           </material-button>
         </div>
@@ -161,10 +161,10 @@
       <div title>
         <ng-container @i18n="title for parameters">Optionen</ng-container>
         <div>
-          <material-button (trigger)="g.showAllTileParams=!g.showAllTileParams;$event.stopPropagation();">
+          <material-button (trigger)="clickTileParamListToggle($event)">
             <material-icon icon="description"></material-icon>
           </material-button>
-          <material-button (trigger)="extractAllParams();tileParams=null;$event.stopPropagation();">
+          <material-button (trigger)="clickTileParamSingleClose($event)">
             <material-icon icon="close"></material-icon>
           </material-button>
         </div>
@@ -194,7 +194,7 @@
                 secondaryText="" [showSaveCancel]="false" [hideExpandedHeader]="false"
                 [alwaysHideExpandIcon]="cfg.form.sortedParams.isEmpty || !cfg.checked">
                 <div name>
-                  <material-icon *ngIf="cfg.form.help!=null" icon="help_outline" (click)="drawerVisible=false;tileHelp.add(cfg);$event.stopPropagation();"></material-icon>
+                  <material-icon *ngIf="cfg.form.help!=null" icon="help_outline" (click)="clickTileHelp($event,cfg)"></material-icon>
                   <material-icon *ngIf="cfg.form.help==null" icon="drag_handle"></material-icon>
                   <div>{{cfg.form.display}}</div>
                 </div>
@@ -211,10 +211,10 @@
                (click)="expansionPanelClicked($event,cfg)">
             <img *ngIf="g.tileShowImage" [src]="cfg.form.backimage">
             <div params *ngIf="cfg.form.sortedParams.length>0 && cfg.checked"
-                 (click)="drawerVisible=false;tileParams=cfg;$event.stopPropagation();">
+                 (click)="clickTileMenu($event,cfg)">
               <material-icon icon="more_vert"></material-icon>
             </div>
-            <div help *ngIf="cfg.form.help!=null" (click)="drawerVisible=false;tileHelp.add(cfg);$event.stopPropagation();">
+            <div help *ngIf="cfg.form.help!=null" (click)="clickTileHelp($event,cfg)">
               <material-icon icon="help_outline"></material-icon>
             </div>
             <div numberimg *ngIf="g.tileShowImage && cfg.checked">{{checkedIndex(cfg)}}</div>
@@ -240,7 +240,7 @@
     </div>
     <div class="themePanel" [style]="themeStyle" *ngIf="currPage=='normal'">
       <material-fab mini class="" *ngFor="let item of g.themeList.keys; let idx = index"
-                    (trigger)="toggleThemePanel(item);">
+                    (trigger)="toggleThemePanel(item)">
         <img class="logo" src="packages/nightscout_reporter/assets/themes/wizard.png" *ngIf="item==null">
         <img class="logo" src="packages/nightscout_reporter/assets/themes/{{item}}/owl.png" *ngIf="item!=null">
       </material-fab>
@@ -257,11 +257,11 @@
     <div [class]="getDrawerClass(1)">
       <div class="content">
         <div *ngFor="let item of g.shortcutList; let idx = index" [class]="shortcutClass(item)">
-          <material-button mini (trigger)="activateShortcut(idx);">
+          <material-button mini (trigger)="activateShortcut(idx)">
             <material-icon icon="{{item.icon}}"></material-icon>
             {{item.name}}
           </material-button>
-          <material-button class="" (trigger)="editShortcut(idx);">
+          <material-button class="" (trigger)="editShortcut(idx)">
             <material-icon size="small" icon="edit"></material-icon>
           </material-button>
         </div>
@@ -275,12 +275,12 @@
     </div>
     <div [class]="getDrawerClass(0)">
       <div class="menuControls">
-        <material-button class="iconButton material-drawer-button" (trigger)="currPage='welcome';">
+        <material-button class="iconButton material-drawer-button" (trigger)="currPage='welcome'">
           <material-icon icon="home"></material-icon>
           <ng-container @i18n="title of welcome screen">Willkommen</ng-container>
         </material-button>
         <material-button class="iconButton material-drawer-button"
-                         (trigger)="drawer.toggle();navigate('https://www.facebook.com/nightrep');">
+                         (trigger)="clickMenuButton('facebook')">
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                width="1.5em" height="1.5em" viewBox="0 0 266.893 266.895"
                enable-background="new 0 0 266.893 266.895"
@@ -294,11 +294,11 @@
           <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
         <material-button class="iconButton material-drawer-button"
-                         (trigger)="g.save();currPage='settings';drawer.toggle();">
+                         (trigger)="clickMenuButton('settings')">
           <material-icon icon="settings"></material-icon>
           <ng-container @i18n="title of settings">Einstellungen</ng-container>
         </material-button>
-        <material-button class="iconButton material-drawer-button" (trigger)="drawer.toggle();changeView();">
+        <material-button class="iconButton material-drawer-button" (trigger)="clickMenuButton('menu')">
           <material-icon *ngIf="g.viewType=='list'" icon="dashboard"></material-icon>
           <material-icon *ngIf="g.viewType=='tile'" icon="list"></material-icon>
           <ng-container @i18n="title of listview" *ngIf="g.viewType=='tile'">Zur Listenansicht</ng-container>
@@ -308,27 +308,27 @@
                 [raised]="true" [(isAuthorized)]="g.syncGoogle"
                 [clientId]="g.googleClientId"
                 (onEvent)="signinEvent($event)"
-                (signinResult)="g.client=$event;"></signin>
+                (signinResult)="g.client=$event"></signin>
         <material-button *ngIf="g.isLocal" class="iconButton is-local material-drawer-button"
-                         (trigger)="drawer.toggle();callNightscoutStatus();">
+                         (trigger)="clickMenuButton('nightscoutstatus')">
           <material-icon icon="assistant" size="big"></material-icon>
           <ng-container @i18n="title of nightscout status">Google Assistant</ng-container>
           <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
-        <material-button class="iconButton material-drawer-button" (trigger)="drawer.toggle();currPage='whatsnew';">
+        <material-button class="iconButton material-drawer-button" (trigger)="clickMenuButton('whatsnew')">
           <material-icon icon="new_releases"></material-icon>
           <ng-container @i18n="title of whatsnew screen">Was bisher geschah...</ng-container>
         </material-button>
       </div>
       <div class="menuLinks">
         <material-button *ngIf="g.user!=null && g.user.apiUrl(null, '', noApi: true)!=null" class="iconButton material-drawer-button"
-                         (trigger)="drawer.toggle();callNightscout();">
+                         (trigger)="clickMenuButton('nightscout')">
           <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
           <ng-container @i18n="title of nightscout page">Nightscout Seite</ng-container>
           <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
         <material-button *ngIf="g.user.reportUrl != null" class="iconButton material-drawer-button"
-                         (trigger)="drawer.toggle();callNightscoutReports();">
+                         (trigger)="clickMenuButton('nsreports')">
           <img src="packages/nightscout_reporter/assets/img/nightscout-white.png">
           <ng-container @i18n="title of nightscout reports">Nightscout Berichte</ng-container>
           <material-icon icon="open_in_new" size="medium"></material-icon>
@@ -342,26 +342,26 @@
         </div>
         <div>
           <material-button class="legal"
-                           (trigger)="togglePage('impressum');">
+                           (trigger)="togglePage('impressum')">
             {{msgImpressum}}
           </material-button>
           <material-button class="legal"
-                           (trigger)="togglePage('dsgvo');">
+                           (trigger)="togglePage('dsgvo')">
             {{msgDSGVO}}
           </material-button>
         </div>
         <div class="menuFabs" [style.display]="g.canDebug?'flex':'none'">
           <div *ngIf="g.isDebug" class="toggle-debug">
             <material-button icon mini class="material-drawer-button"
-                             (trigger)="drawer.toggle();navigate('https://jsonformatter.org/json-parser');">
+                             (trigger)="clickMenuButton('jsonparser')">
               <material-icon icon="code"></material-icon>
             </material-button>
             <material-button icon mini class="material-drawer-button"
-                             (trigger)="drawer.toggle();navigate('https://translate.google.com/toolkit/');">
+                             (trigger)="clickMenuButton('translate')">
               <material-icon icon="g_translate"></material-icon>
             </material-button>
             <material-button icon mini class="material-drawer-button"
-                             (trigger)="drawer.toggle();navigate('https://autotuneweb.azurewebsites.net/');">
+                             (trigger)="clickMenuButton('autotune')">
               <material-icon icon="tune"></material-icon>
             </material-button>
           </div>
@@ -370,7 +370,7 @@
     </div>
   </material-drawer>
 </div>
-<div id="debugMessage" *ngIf="g.msg.dbgText != null" (click)="g.msg.clear();">
+<div id="debugMessage" *ngIf="g.msg.dbgText != null" (click)="g.msg.clear()">
   <p [innerHTML]="g.msg.dbgText"></p>
 </div>
 <div id="messagePanel" *ngIf="g.msg.links.length > 0 || !g.msg.isEmpty">

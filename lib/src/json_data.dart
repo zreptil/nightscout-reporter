@@ -1717,12 +1717,13 @@ class DayData {
   double carbs = 0;
   double min;
   double max;
+  double mid;
+  double varianz = 0.0;
+  int maxInsulinEffectInMS = 3 * 60 * 60 * 1000;
 
   String get minText => min == 10000 ? '' : '$min';
 
   String get maxText => max == -10000 ? '' : '$max';
-  double mid;
-  double varianz = 0.0;
 
   double stdAbw(bool isMGDL) {
     var ret = math.sqrt(varianz);
@@ -2080,7 +2081,6 @@ class DayData {
     if (time == null) return CalcIOBData(0, 0, null); //time = DateTime(0);
 
 //    var check = time.millisecondsSinceEpoch;
-    var maxInsulinEffectInMS = 3 * 60 * 60 * 1000;
     var check = time.millisecondsSinceEpoch - maxInsulinEffectInMS;
     var profile = data.profile(time);
 

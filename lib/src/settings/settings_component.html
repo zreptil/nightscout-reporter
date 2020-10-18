@@ -55,7 +55,6 @@
         </div>
         <div class="urlPanel" *ngFor="let item of g.user.listApiUrl; let idx = index">
           <material-input [label]="msgUrlNightscout"
-                          [autoFocus]="idx==g.user.listApiUrl.length-1"
                           [floatingLabel]="idx==0"
                           [displayBottomPanel]="idx==g.user.listApiUrl.length-1"
                           [(ngModel)]="item.url">
@@ -95,7 +94,7 @@
                           (trigger)="addUrl()" class="">
               <material-icon icon="add"></material-icon>
             </material-fab>
-            <material-fab mini *ngIf="idx>0" (trigger)="currApiUrlIdx=idx;confirmIdx=2" class="">
+            <material-fab mini *ngIf="idx>0" (trigger)="clickDelete(idx)" class="">
               <material-icon icon="delete"></material-icon>
             </material-fab>
           </div>
@@ -153,7 +152,7 @@
 
     <div footer>
       <div>
-        <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="export();">
+        <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="export()">
           <material-icon icon="cloud_download"></material-icon>
           <ng-container @i18n="buttonlabel for exporting data">Exportieren</ng-container>
         </material-button>
@@ -168,7 +167,7 @@
         </form>
       </div>
       <div>
-        <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="fire('check');">
+        <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="fire('check')">
           <material-icon icon="save"></material-icon>
           <ng-container @i18n="buttonlabel for saving data">Speichern</ng-container>
         </material-button>

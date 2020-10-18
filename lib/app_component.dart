@@ -732,6 +732,89 @@ class AppComponent implements OnInit {
 
   bool checkCfg(var cfg) => cfg.checked && (!cfg.form.isDebugOnly || g.isDebug) && (!cfg.form.isLocalOnly || g.isLocal);
 
+  void clickMenuButton(String type) {
+    drawerVisible = false;
+    switch (type) {
+      case 'facebook':
+        navigate('https://www.facebook.com/nightrep');
+        break;
+      case 'autotune':
+        navigate('https://autotuneweb.azurewebsites.net/');
+        break;
+      case 'translate':
+        navigate('https://translate.google.com/toolkit/');
+        break;
+      case 'jsonparser':
+        navigate('https://jsonformatter.org/json-parser');
+        break;
+      case 'nsreports':
+        callNightscoutReports();
+        break;
+      case 'nightscout':
+        callNightscout();
+        break;
+      case 'whatsnew':
+        currPage = 'whatsnew';
+        break;
+      case 'nightscoutstatus':
+        callNightscoutStatus();
+        break;
+      case 'menu':
+        changeView();
+        break;
+      case 'settings':
+        g.save();
+        currPage = 'settings';
+        break;
+    }
+  }
+
+  void clickTileHelp($event, cfg) {
+    drawerVisible = false;
+    tileHelp.add(cfg);
+    $event.stopPropagation();
+  }
+
+  void clickTileMenu($event, cfg) {
+    drawerVisible = false;
+    tileParams = cfg;
+    $event.stopPropagation();
+  }
+
+  void clickTileParamSingleClose($event) {
+    extractAllParams();
+    tileParams = null;
+    $event.stopPropagation();
+  }
+
+  void clickTileParamClose($event) {
+    tileParams.form.extractParams();
+    tileParams = null;
+    $event.stopPropagation();
+  }
+
+  void clickTileParamListToggle($event) {
+    g.showAllTileParams = !g.showAllTileParams;
+    $event.stopPropagation();
+  }
+
+  void clickPdfButton() {
+    currPage = 'normal';
+    createPDF();
+  }
+
+  void clickDebugTrigger() {
+    reportData = null;
+    g.isDebug = !g.isDebug;
+    checkPrint();
+    g.msg.dismiss(g.msg.clear);
+  }
+
+  void clickLocalTitle() {
+    g.isLocal = !g.isLocal;
+    checkPrint();
+  }
+
   Future<ReportData> loadData(bool isForThumbs) async {
     var beg = g.period.shiftStartBy(g.currPeriodShift.months);
     var end = g.period.shiftEndBy(g.currPeriodShift.months);

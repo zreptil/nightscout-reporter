@@ -208,6 +208,11 @@ class SettingsComponent implements OnInit {
     if (ret == null && event != null) fire(event);
   }
 
+  void clickDelete(idx) {
+    currApiUrlIdx = idx;
+    confirmIdx = 2;
+  }
+
   void navigate(String url) {
     html.window.open(url, '_blank');
   }
