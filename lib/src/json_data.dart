@@ -1719,7 +1719,6 @@ class DayData {
   double max;
   double mid;
   double varianz = 0.0;
-  int maxInsulinEffectInMS = 3 * 60 * 60 * 1000;
 
   String get minText => min == 10000 ? '' : '$min';
 
@@ -2081,7 +2080,7 @@ class DayData {
     if (time == null) return CalcIOBData(0, 0, null); //time = DateTime(0);
 
 //    var check = time.millisecondsSinceEpoch;
-    var check = time.millisecondsSinceEpoch - maxInsulinEffectInMS;
+    var check = time.millisecondsSinceEpoch - data.globals.ppMaxInsulinEffectInMS;
     var profile = data.profile(time);
 
     var list = <TreatmentData>[];
