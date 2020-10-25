@@ -13,7 +13,7 @@
   <material-icon [icon]="isAuthorized?'sync':'sync_disabled'"></material-icon>
 </material-fab>
 <material-button *ngIf="showMenuButton" class="iconButton material-drawer-button"
-                 (trigger)="btnLoginClick();">
+                 (trigger)="btnLoginClick()">
   <material-icon [icon]="isAuthorized?'sync':'sync_disabled'"></material-icon>
   {{isBusy ? msgBusy : isAuthorized ? msgMenuConnected : msgMenuNotConnected}}
 </material-button>

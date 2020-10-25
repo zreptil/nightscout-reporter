@@ -816,7 +816,7 @@ material-dropdown-select {
 
 @media(max-width: 50em) {
   .title {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -1302,6 +1302,9 @@ datepicker {
 
 @media(max-width: 33em) {
   .userPanel.is-tileview {
+    display: none;
+  }
+  .userName {
     display: none;
   }
 }

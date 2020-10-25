@@ -32,7 +32,7 @@
                                     slide="y"
                                     listAutoFocus>
             <material-select-item *ngFor="let item of g.listGlucUnits; let idx=index"
-                                  (trigger)="g.glucMGDLIdx=idx;fillComboBoxes()"
+                                  (trigger)="changeGlucUnits(idx)"
                                   class="selectItem"
                                   [selected]="idx==g.glucMGDLIdx">
               <div class="itemTitle">{{item}}</div>
@@ -97,8 +97,8 @@
         <material-checkbox [(checked)]="g.ppHideNightscoutInPDF" class="pp" @i18n="label for checkbox to hide nightscout in footer">
           Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden
         </material-checkbox>
-        <material-checkbox *ngIf="g.isLocal" [(checked)]="g.ppHideLoopData" class="pp loop" @i18n="label for checkbox to hide loop data">
-          Loopdaten verbergen (die Markierung der andersfarbigen Optionen ignorieren)
+        <material-checkbox [(checked)]="g.ppHideLoopData" class="pp loop" @i18n="label for checkbox to hide loop data">
+          Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)
         </material-checkbox>
       </div>
       <material-checkbox [(checked)]="g.ppShowUrlInPDF" class="pp" @i18n="label for checkbox to show nightscout url in footer">
@@ -120,7 +120,7 @@
 
     <div footer>
       <div></div>
-      <material-button class="iconButton" clear-size (trigger)="fire('ok');">
+      <material-button class="iconButton" clear-size (trigger)="fire('ok')">
         <material-icon icon="picture_as_pdf"></material-icon>
         <ng-container @i18n="buttonlabel for saving data">PDF erzeugen</ng-container>
       </material-button>

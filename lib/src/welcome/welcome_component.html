@@ -9,13 +9,13 @@
         <div class="langPanel">
           <template ngFor let-lang [ngForOf]="g.languageList" let-idx="index">
             <material-button *ngIf="lang.code!=g.language.code" [raised]="false"
-                             (trigger)="g.changeLanguage(lang, checkConfigured: true);">
+                             (trigger)="g.changeLanguage(lang, checkConfigured: true)">
               <img src="{{lang.imgPath}}">
             </material-button>
           </template>
         </div>
         <material-fab mini class="debug-trigger" *ngIf="g.canDebug"
-                      (trigger)="g.isDebug=!g.isDebug;g.msg.dismiss(g.msg.clear);">
+                      (trigger)="clickDebug()">
           <material-icon icon="bug_report"></material-icon>
         </material-fab>
         <material-button *ngIf="g.isConfigured" icon (trigger)="fire('normal')">
@@ -59,17 +59,17 @@
                   [raised]="true" [(isAuthorized)]="g.syncGoogle"
                   [clientId]="g.googleClientId"
                   (onEvent)="signinEvent($event)"
-                  (signinResult)="g.client=$event;" @i18n:msgDisconnected="synchronize with google drive"
+                  (signinResult)="g.client=$event" @i18n:msgDisconnected="synchronize with google drive"
                   msgDisconnected="Mit Google Drive synchronisieren"></signin>
         </div>
         <div class="right">
           <material-button class="legal"
-                           (trigger)="fire('impressum');"
+                           (trigger)="fire('impressum')"
                            @i18n="label for inprint button">
             Impressum
           </material-button>
           <material-button class="legal"
-                           (trigger)="fire('dsgvo');"
+                           (trigger)="fire('dsgvo')"
                            @i18n="label for dataprotection button">
             Datenschutzerklärung
           </material-button>
