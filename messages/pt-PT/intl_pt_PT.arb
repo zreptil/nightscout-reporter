@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-09-22T15:34:37.821025",
+    "@@last_modified": "2020-10-18T06:51:49.600399",
     "Überprüfe Zugriff auf Nightscout ...": "A verificar acesso ao Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -941,6 +941,11 @@
     },
     "Stündliche Statistik": "Estatísticas por hora",
     "@Stündliche Statistik": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Tagesbasalrate verwenden": "Use daily basalrate",
+    "@Tagesbasalrate verwenden": {
         "type": "text",
         "placeholders": {}
     },
@@ -2048,8 +2053,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Spalte TDD": "Coluna TDD",
-    "@Spalte TDD": {
+    "TDD anzeigen": "Show TDD",
+    "@TDD anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2359,6 +2364,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Optionen": "Options",
+    "@Optionen": {
+        "description": "title for parameters",
+        "type": "text",
+        "placeholders": {}
+    },
     "Zur Listenansicht": "Para a visualização em lista",
     "@Zur Listenansicht": {
         "description": "title of listview",
@@ -2515,8 +2526,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": "Hide loop revealing data (ignore the marking of the different colored options)",
-    "@Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": {
+    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Hide loop data (ignore the options marked in this way)",
+    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
         "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
@@ -2731,8 +2742,32 @@
         "type": "text",
         "placeholders": {}
     },
-    "2.0.2 - xx.9.2020": "2.0.2 - 9/xx/2020",
-    "@2.0.2 - xx.9.2020": {
+    "2.0.3 - 18.10.2020": "2.0.3 - 18/10/2020",
+    "@2.0.3 - 18.10.2020": {
+        "description": "v203",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind.": "In the output parameters there is a checkbox with which you can ensure that all options that would indicate a loop are deactivated for this output. These are the options that are marked with a circle (= loop).",
+    "@In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind.": {
+        "description": "v203a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim erstmaligen Start von Nightscout Reporter wurde er schon bei Sprachänderung normal angezeigt. Jetzt bleibt er wie vorgesehen auf dem Willkommen Dialog.": "When Nightscout Reporter was started for the first time, it was displayed normally when the language changed. Now it stays on the welcome dialog as intended.",
+    "@Beim erstmaligen Start von Nightscout Reporter wurde er schon bei Sprachänderung normal angezeigt. Jetzt bleibt er wie vorgesehen auf dem Willkommen Dialog.": {
+        "description": "v203f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": "The display of the images on tiles is now correctly preset in the settings as intended.",
+    "@Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": {
+        "description": "v203f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.2 - 22.9.2020": "2.0.2 - 22/9/2020",
+    "@2.0.2 - 22.9.2020": {
         "description": "v202",
         "type": "text",
         "placeholders": {}
@@ -2752,6 +2787,12 @@
     "Die Profilbasalrate im Formular Tagesprofil wird jetzt ebenfalls mit Balken dargestellt.": "The profile basal rate in the daily profile form is now also displayed with bars.",
     "@Die Profilbasalrate im Formular Tagesprofil wird jetzt ebenfalls mit Balken dargestellt.": {
         "description": "v202c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "iOS Loop missbraucht die Profiltabelle dazu, seine eigenen Settings zu speichern, was bei Benutzern dieser Software dazu führte, dass die Tabelle Profil nicht korrekt geladen werden kann. Deshalb gibt es jetzt in den Einstellungen die Möglichkeit, die Anzahl der Datensätze, die aus der Profiltabelle geladen werden einzuschränken.": "iOS Loop misuses the profile table to save its own settings, which for users of this software meant that the profile table could not be loaded correctly. Therefore, in the settings there is now the option of restricting the number of data records that are loaded from the profile table.",
+    "@iOS Loop missbraucht die Profiltabelle dazu, seine eigenen Settings zu speichern, was bei Benutzern dieser Software dazu führte, dass die Tabelle Profil nicht korrekt geladen werden kann. Deshalb gibt es jetzt in den Einstellungen die Möglichkeit, die Anzahl der Datensätze, die aus der Profiltabelle geladen werden einzuschränken.": {
+        "description": "v202c2",
         "type": "text",
         "placeholders": {}
     },

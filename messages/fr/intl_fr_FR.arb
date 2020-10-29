@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-09-22T15:34:37.821025",
+    "@@last_modified": "2020-10-18T06:51:49.600399",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -86,7 +86,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "An error occurred while reading out the profiles. There may be too much data in the profile table (e.g. caused by iOS Loop). You can try to reduce the number of profile data records to be read in the settings.",
+    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Une erreur est survenue lors de la lecture des profils. Il peut y avoir trop de données dans la table de profil (par ex. causée par la boucle iOS). Vous pouvez essayer de réduire le nombre d'enregistrements de données de profil à lire dans les paramètres.",
     "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
         "type": "text",
         "placeholders": {}
@@ -121,14 +121,14 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgTooMuchProfilesPrefix": "Not all profiles could be loaded because more than {maxCount} are saved in the selected period. ",
+    "msgTooMuchProfilesPrefix": "Tous les profils n'ont pas pu être chargés car plus de {maxCount} sont enregistrés dans la période sélectionnée. ",
     "@msgTooMuchProfilesPrefix": {
         "type": "text",
         "placeholders": {
             "maxCount": {}
         }
     },
-    "msgTooMuchProfiles": "{count, plural, =0{}=1{The uploader \"{text}\" has created the data records.}other{The following uploaders have created the data records: {text}}}",
+    "msgTooMuchProfiles": "{count, plural, one {} =0{}=1{Le chargeur \"{text}\" a créé les enregistrements.}other{Les téléchargeurs suivants ont créé les enregistrements: {text}}}",
     "@msgTooMuchProfiles": {
         "type": "text",
         "placeholders": {
@@ -941,6 +941,11 @@
     },
     "Stündliche Statistik": "Statistiques horaires",
     "@Stündliche Statistik": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Tagesbasalrate verwenden": "Utiliser le débit de base quotidien",
+    "@Tagesbasalrate verwenden": {
         "type": "text",
         "placeholders": {}
     },
@@ -2048,8 +2053,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Spalte TDD": "Colonne Dose Totale Quotidienne",
-    "@Spalte TDD": {
+    "TDD anzeigen": "Afficher TDD",
+    "@TDD anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2134,17 +2139,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Fehler": "Error",
+    "Fehler": "Erreur",
     "@Fehler": {
         "type": "text",
         "placeholders": {}
     },
-    "Warnung": "Warning",
+    "Warnung": "Attention",
     "@Warnung": {
         "type": "text",
         "placeholders": {}
     },
-    "Information": "Information",
+    "Information": "Informations",
     "@Information": {
         "type": "text",
         "placeholders": {}
@@ -2241,7 +2246,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:": "The profile table should normally only contain data on the profiles used. iOS Loop uses this table to save its own settings and does this excessively at some users. Above a certain amount of data, the profile table can then no longer be queried correctly via the API. This is why there is this option of restricting the number of data records that are fetched from this table. This is necessary as long as iOS Loop or other uploaders fill this table incorrectly.\n\nMaximum number of profile datasets:",
+    "Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:": "La table de profils ne devrait normalement contenir que des données sur les profils utilisés. iOS Loop utilise cette table pour enregistrer ses propres paramètres et le fait excessivement chez certains utilisateurs. Au-dessus d'une certaine quantité de données, la table de profil ne peut alors plus être demandée correctement via l'API. C'est pourquoi il y a cette option de restreindre le nombre d'enregistrements de données qui sont extraits de ce tableau. Ceci est nécessaire tant que la boucle iOS ou d'autres uploaders ne remplissent pas ce tableau correctement.\n\nNombre maximum de jeux de données de profil :",
     "@Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:": {
         "type": "text",
         "placeholders": {}
@@ -2356,6 +2361,12 @@
     "Gross": "Grand",
     "@Gross": {
         "description": "big",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Optionen": "Paramètres",
+    "@Optionen": {
+        "description": "title for parameters",
         "type": "text",
         "placeholders": {}
     },
@@ -2515,8 +2526,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": "Masquer la boucle révélant les données (ignorer le marquage des différentes options de couleur)",
-    "@Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": {
+    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Hide loop data (ignore the options marked in this way)",
+    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
         "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
@@ -2731,8 +2742,32 @@
         "type": "text",
         "placeholders": {}
     },
-    "2.0.2 - xx.9.2020": "2.0.2 - 9/xx/2020",
-    "@2.0.2 - xx.9.2020": {
+    "2.0.3 - 18.10.2020": "2.0.3 - 18/10/2020",
+    "@2.0.3 - 18.10.2020": {
+        "description": "v203",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind.": "In the output parameters there is a checkbox with which you can ensure that all options that would indicate a loop are deactivated for this output. These are the options that are marked with a circle (= loop).",
+    "@In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind.": {
+        "description": "v203a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim erstmaligen Start von Nightscout Reporter wurde er schon bei Sprachänderung normal angezeigt. Jetzt bleibt er wie vorgesehen auf dem Willkommen Dialog.": "When Nightscout Reporter was started for the first time, it was displayed normally when the language changed. Now it stays on the welcome dialog as intended.",
+    "@Beim erstmaligen Start von Nightscout Reporter wurde er schon bei Sprachänderung normal angezeigt. Jetzt bleibt er wie vorgesehen auf dem Willkommen Dialog.": {
+        "description": "v203f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": "The display of the images on tiles is now correctly preset in the settings as intended.",
+    "@Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": {
+        "description": "v203f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.2 - 22.9.2020": "2.0.2 - 22/9/2020",
+    "@2.0.2 - 22.9.2020": {
         "description": "v202",
         "type": "text",
         "placeholders": {}
@@ -2752,6 +2787,12 @@
     "Die Profilbasalrate im Formular Tagesprofil wird jetzt ebenfalls mit Balken dargestellt.": "The profile basal rate in the daily profile form is now also displayed with bars.",
     "@Die Profilbasalrate im Formular Tagesprofil wird jetzt ebenfalls mit Balken dargestellt.": {
         "description": "v202c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "iOS Loop missbraucht die Profiltabelle dazu, seine eigenen Settings zu speichern, was bei Benutzern dieser Software dazu führte, dass die Tabelle Profil nicht korrekt geladen werden kann. Deshalb gibt es jetzt in den Einstellungen die Möglichkeit, die Anzahl der Datensätze, die aus der Profiltabelle geladen werden einzuschränken.": "iOS Loop utilise mal la table de profil pour enregistrer ses propres paramètres, qui, pour les utilisateurs de ce logiciel, signifiait que la table de profil ne pouvait pas être chargée correctement. Par conséquent, dans les paramètres, il y a maintenant l'option de restreindre le nombre d'enregistrements de données qui sont chargés à partir de la table de profil.",
+    "@iOS Loop missbraucht die Profiltabelle dazu, seine eigenen Settings zu speichern, was bei Benutzern dieser Software dazu führte, dass die Tabelle Profil nicht korrekt geladen werden kann. Deshalb gibt es jetzt in den Einstellungen die Möglichkeit, die Anzahl der Datensätze, die aus der Profiltabelle geladen werden einzuschränken.": {
+        "description": "v202c2",
         "type": "text",
         "placeholders": {}
     },

@@ -732,6 +732,89 @@ class AppComponent implements OnInit {
 
   bool checkCfg(var cfg) => cfg.checked && (!cfg.form.isDebugOnly || g.isDebug) && (!cfg.form.isLocalOnly || g.isLocal);
 
+  void clickMenuButton(String type) {
+    drawerVisible = false;
+    switch (type) {
+      case 'facebook':
+        navigate('https://www.facebook.com/nightrep');
+        break;
+      case 'autotune':
+        navigate('https://autotuneweb.azurewebsites.net/');
+        break;
+      case 'translate':
+        navigate('https://translate.google.com/toolkit/');
+        break;
+      case 'jsonparser':
+        navigate('https://jsonformatter.org/json-parser');
+        break;
+      case 'nsreports':
+        callNightscoutReports();
+        break;
+      case 'nightscout':
+        callNightscout();
+        break;
+      case 'whatsnew':
+        currPage = 'whatsnew';
+        break;
+      case 'nightscoutstatus':
+        callNightscoutStatus();
+        break;
+      case 'menu':
+        changeView();
+        break;
+      case 'settings':
+        g.save();
+        currPage = 'settings';
+        break;
+    }
+  }
+
+  void clickTileHelp($event, cfg) {
+    drawerVisible = false;
+    tileHelp.add(cfg);
+    $event.stopPropagation();
+  }
+
+  void clickTileMenu($event, cfg) {
+    drawerVisible = false;
+    tileParams = cfg;
+    $event.stopPropagation();
+  }
+
+  void clickTileParamSingleClose($event) {
+    extractAllParams();
+    tileParams = null;
+    $event.stopPropagation();
+  }
+
+  void clickTileParamClose($event) {
+    tileParams.form.extractParams();
+    tileParams = null;
+    $event.stopPropagation();
+  }
+
+  void clickTileParamListToggle($event) {
+    g.showAllTileParams = !g.showAllTileParams;
+    $event.stopPropagation();
+  }
+
+  void clickPdfButton() {
+    currPage = 'normal';
+    createPDF();
+  }
+
+  void clickDebugTrigger() {
+    reportData = null;
+    g.isDebug = !g.isDebug;
+    checkPrint();
+    g.msg.dismiss(g.msg.clear);
+  }
+
+  void clickLocalTitle() {
+    g.isLocal = !g.isLocal;
+    checkPrint();
+  }
+
   Future<ReportData> loadData(bool isForThumbs) async {
     var beg = g.period.shiftStartBy(g.currPeriodShift.months);
     var end = g.period.shiftEndBy(g.currPeriodShift.months);
@@ -847,12 +930,16 @@ class AppComponent implements OnInit {
     var list = g.findUrlDataFor(begDate, endDate);
     var maxCount = g.profileMaxCounts[data.user.profileMaxIdx ?? 0];
     for (var urlData in list) {
+      // Mit dieser Abfrage kann man Daten filtern (nirgends dokumentiert, funktioniert auch nicht immer)
+      // https://xxx/api/v1/profiles.json?find[startDate][$gt]=2018-01-01T11:30:17.694Z
       url = urlData.fullUrl('profile.json', params: 'count=${maxCount}');
-//              'find[startDate][\$gte]=${begDate.year}-${begDate.month}-${begDate.day}T00:00:00.000Z'
-//              '&find[startDate][\$lte]=${endDate.year}-${endDate.month}-${endDate.day}T23:59:59.999Z'
-//          params: 'find[millis][\$gte]=${beg1.millisecondsSinceEpoch}&'
-//              'find[millis][\$lte]=${end1.millisecondsSinceEpoch}'
-      displayLink('profile', url, type: 'debug');
+/*
+      url = urlData.fullUrl('profiles.json',
+          params: 'find[startDate][\$gte]=${begDate.year}-${begDate.month}-${begDate.day}T00:00:00.000Z'
+              '&find[startDate][\$lte]=${endDate.year}-${endDate.month}-${endDate.day}T23:59:59.999Z'
+              '&count=${maxCount}');
+*/
+      displayLink('profiles', url, type: 'debug');
       content = await g.request(url);
 
       try {
@@ -1137,7 +1224,7 @@ class AppComponent implements OnInit {
             params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
                 'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
         tmp = await g.request(url);
-        if(tmp != null && tmp != '') {
+        if (tmp != null && tmp != '') {
           src = json.decode(tmp);
           displayLink('ds${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
           for (dynamic devicestatus in src) {

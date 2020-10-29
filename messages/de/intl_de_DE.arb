@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-09-22T16:06:21.620052",
+    "@@last_modified": "2020-10-18T06:51:49.600399",
     "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -941,6 +941,11 @@
     },
     "Stündliche Statistik": "Stündliche Statistik",
     "@Stündliche Statistik": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Tagesbasalrate verwenden": "Tagesbasalrate verwenden",
+    "@Tagesbasalrate verwenden": {
         "type": "text",
         "placeholders": {}
     },
@@ -2048,8 +2053,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Spalte TDD": "Spalte TDD",
-    "@Spalte TDD": {
+    "TDD anzeigen": "TDD anzeigen",
+    "@TDD anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2359,6 +2364,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Optionen": "Optionen",
+    "@Optionen": {
+        "description": "title for parameters",
+        "type": "text",
+        "placeholders": {}
+    },
     "Zur Listenansicht": "Zur Listenansicht",
     "@Zur Listenansicht": {
         "description": "title of listview",
@@ -2515,8 +2526,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": "Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)",
-    "@Loopenthüllende Daten verbergen (die Markierung der andersfarbigen Optionen ignorieren)": {
+    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)",
+    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
         "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
@@ -2728,6 +2739,30 @@
     "Version": "Version",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.3 - 18.10.2020": "2.0.3 - 18.10.2020",
+    "@2.0.3 - 18.10.2020": {
+        "description": "v203",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind.": "In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind.",
+    "@In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind.": {
+        "description": "v203a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim erstmaligen Start von Nightscout Reporter wurde er schon bei Sprachänderung normal angezeigt. Jetzt bleibt er wie vorgesehen auf dem Willkommen Dialog.": "Beim erstmaligen Start von Nightscout Reporter wurde er schon bei Sprachänderung normal angezeigt. Jetzt bleibt er wie vorgesehen auf dem Willkommen Dialog.",
+    "@Beim erstmaligen Start von Nightscout Reporter wurde er schon bei Sprachänderung normal angezeigt. Jetzt bleibt er wie vorgesehen auf dem Willkommen Dialog.": {
+        "description": "v203f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": "Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.",
+    "@Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": {
+        "description": "v203f2",
         "type": "text",
         "placeholders": {}
     },
