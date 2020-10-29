@@ -6,22 +6,28 @@
   </div>
   <div *ngIf="param.intValue!=null && param.list == null" class="paramSlider">
     <div [class]="getClass(param)">{{param.title}}: {{param.intValue}}</div>
-    <material-slider [class]="getClass(param, 'slider')" [(min)]="param.min" [(max)]="param.max"
+    <material-slider [class]="getClass(param, 'slider')"
+                     [(min)]="param.min"
+                     [(max)]="param.max"
                      [(value)]="param.sliderValue">
     </material-slider>
   </div>
   <div *ngIf="param.stringValue!=null">
-    <material-input [class]="getClass(param)" [(inputText)]="param.stringValue"
+    <material-input [class]="getClass(param)"
+                    [(inputText)]="param.stringValue"
                     floatingLabel
                     [label]="param.title"></material-input>
   </div>
   <div *ngIf="param.list!=null" class="paramList">
     <div [class]="getClass(param)">{{param.title}}</div>
-    <material-dropdown-select [class]="getClass(param)" [label]="param.title" [buttonText]="param.listValue"
-                              popupClass="paramSelect" slide="y"
+    <material-dropdown-select [class]="getClass(param)"
+                              [label]="param.title"
+                              [buttonText]="param.listValue"
+                              popupClass="paramSelect"
+                              slide="y"
                               listAutoFocus>
       <material-select-item *ngFor="let item of param.list; let idx = index"
-                            (trigger)="param.intValue=idx;"
+                            (trigger)="param.intValue=idx"
                             class="selectItem"
                             [selected]="idx==param.intValue">
         <div class="itemTitle">{{item}}</div>

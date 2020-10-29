@@ -13,6 +13,7 @@ class DatepickerEntry {
   String title;
   var _fill = null;
   var _shift = null;
+
   fill(DatepickerPeriod data) {
     data.entryKey = key;
     _fill(data);
@@ -41,12 +42,17 @@ class DatepickerPeriod {
 
   String emptyReason;
   String fmtDate = "dd.MM.yyyy";
+
   DateFormat get dateFormat => DateFormat(fmtDate);
 
   int firstDayOfWeek = 1;
+
   static monthName(Date date) => date != null ? monthNames[date.month - 1] : "";
+
   static dowName(Date date) => date != null ? dowNames[date.weekday - 1] : "";
+
   static monthShortName(Date date) => date != null ? monthShortNames[date.month - 1] : "";
+
   static dowShortName(Date date) => date != null ? dowShortNames[date.weekday - 1] : "";
 
   Date _shiftBy(Date ret, int months) => Date(ret.year, ret.month - months, ret.day);
@@ -67,6 +73,7 @@ class DatepickerPeriod {
   Date minDate = null;
   Date maxDate = null;
   String _dowActiveText = null;
+
   int get dayCount {
     int ret = 0;
     if (start != null && end != null) {
@@ -76,7 +83,9 @@ class DatepickerPeriod {
   }
 
   List<bool> _dowActive = [true, true, true, true, true, true, true];
+
   bool isDowActive(int idx) => idx >= 0 && idx < _dowActive.length ? _dowActive[idx] : false;
+
   activateDow(int idx, bool isActive) {
     if (idx < 0 || idx >= _dowActive.length) return;
     _dowActive[idx] = isActive;
@@ -215,6 +224,7 @@ class DatepickerComponent {
 
   @Input()
   bool showInfo = false;
+
   String infoClass(String cls) => showInfo ? "$cls infoarea showinfo" : "$cls infoarea";
 
   @Input()
@@ -225,6 +235,7 @@ class DatepickerComponent {
       period.maxDate != null &&
       month != null &&
       (month.year > period.maxDate.year || (month.year == period.maxDate.year && month.month >= period.maxDate.month));
+
   bool get isMinMonth =>
       period != null &&
       period.minDate != null &&
@@ -232,12 +243,14 @@ class DatepickerComponent {
       (month.year < period.minDate.year || (month.year == period.minDate.year && month.month <= period.minDate.month));
 
   get msgStartIncorrect => Intl.message("Das Startdatum ist nicht korrekt");
+
   get msgEndIncorrect => Intl.message("Das Enddatum ist nicht korrekt");
 
   DatepickerPeriod _period = null;
   Date month = null;
 
   DatepickerPeriod get period => _period;
+
   @Input()
   void set period(value) {
     DatepickerPeriod temp = value is DatepickerPeriod ? value : DatepickerPeriod(src: value);
@@ -250,15 +263,18 @@ class DatepickerComponent {
   }
 
   final _periodChange = StreamController<DatepickerPeriod>();
+
   @Output()
   Stream<DatepickerPeriod> get periodChange => _periodChange.stream;
 
   String loadedPeriod = null;
+
   revertData() {
     period.reset(loadedPeriod);
   }
 
   bool isStartValid = true;
+
   String get startDate => period.start?.format(period.dateFormat);
 
   set startDate(String value) {
@@ -272,7 +288,9 @@ class DatepickerComponent {
   }
 
   bool isEndValid = true;
+
   String get endDate => period.end?.format(period.dateFormat);
+
   set endDate(String value) {
     try {
       period.end = Date.parse(value, period.dateFormat);
@@ -308,6 +326,28 @@ class DatepickerComponent {
   bool isDialogOpen = false;
 
   DatepickerComponent();
+
+  void onClick(String type) {
+    switch (type) {
+      case 'loadedperiod':
+        loadedPeriod = period.toString();
+        isDialogOpen = true;
+        break;
+      case 'close':
+        revertData();
+        isDialogOpen = false;
+        break;
+      case 'save':
+        isDialogOpen = false;
+        fire('save');
+        break;
+    }
+  }
+
+  void onShortcutClick(item) {
+    item.fill(period);
+    month = period.end;
+  }
 
   void fire(String type) async {
     if (type == "save") _periodChange.add(period);

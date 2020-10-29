@@ -84,7 +84,7 @@ und als Pfeile darstellen zu lassen.''', desc: 'help for dayprofile');
   void getPage(DayData day, List<Page> pages) {
     titleInfo = fmtDate(day.date, null, false, true);
 
-    var tables = [];
+    var tables = <List<Object>>[];
 
     var space = 0.4;
     var count = day.profile.length;
@@ -197,7 +197,6 @@ und als Pfeile darstellen zu lassen.''', desc: 'help for dayprofile');
       if (showValPrz == 2) {
         colValue.add({'width': widths[1] / 2, 'text': prz, 'alignment': 'right', 'fontSize': fs(8)});
       }
-
       tables[idx].add([
         {'text': text, 'alignment': 'center'},
         {

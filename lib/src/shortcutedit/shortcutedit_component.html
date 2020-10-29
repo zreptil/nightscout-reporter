@@ -21,7 +21,8 @@
         <material-button>
           <material-icon icon="{{g.currShortcut.icon}}"></material-icon>
         </material-button>
-        <material-input id="name" [label]="msgName"
+        <material-input id="name"
+                        [label]="msgName"
                         floatingLabel
                         [(ngModel)]="g.currShortcut.name">
         </material-input>
@@ -54,7 +55,7 @@
           <material-icon icon="delete"></material-icon>
           <ng-container @i18n="buttonlabel for deleting data">Löschen</ng-container>
         </material-button>
-        <material-button class="iconButton" clear-size (trigger)="fire('ok');">
+        <material-button class="iconButton" clear-size (trigger)="fire('ok')">
           <material-icon icon="save"></material-icon>
           <ng-container @i18n="buttonlabel for saving data">Speichern</ng-container>
         </material-button>

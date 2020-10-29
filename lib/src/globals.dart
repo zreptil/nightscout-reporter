@@ -119,7 +119,7 @@ class Settings {
   String version = '2.0.3';
 
   // subversion is used nowhere. It is just there to trigger an other signature for the cache.
-  String subVersion = '1';
+  String subVersion = '3';
 
   static String get msgThemeAuto => Intl.message('Automatisch', meaning: 'theme selection - automatic');
 
@@ -507,7 +507,7 @@ class Settings {
       pdfOrder = JsonData.toText(json['s9']);
       viewType = JsonData.toText(json['s10']);
       timestamp = JsonData.toInt(json['s11']);
-      tileShowImage = JsonData.toBool(json['s12']);
+      tileShowImage = JsonData.toBool(json['s12'], ifEmpty: true);
       showAllTileParams = JsonData.toBool(json['s13']);
       period.fmtDate = language.dateformat;
       userListLoaded = false;
@@ -763,6 +763,8 @@ class Globals extends Settings {
   int currShortcutIdx = -1;
   ShortcutData currShortcut;
 
+  int ppMaxInsulinEffectInMS = 3 * 60 * 60 * 1000;
+
   bool _ppStandardLimits = false;
 
   bool get ppStandardLimits => _ppStandardLimits || ppComparable;
@@ -791,6 +793,7 @@ class Globals extends Settings {
   bool ppShowUrlInPDF = false;
   bool ppHideLoopData = false;
   bool isCreatingPDF = false;
+
   bool get hideLoopData => ppHideLoopData && isCreatingPDF;
 
   static const int PDFUNLIMITED = 4000000;
@@ -1188,7 +1191,12 @@ class Globals extends Settings {
     language = value;
     if (checkConfigured && !isConfigured) clearStorage();
     if (doReload) {
-      save();
+      if (isConfigured) {
+        save();
+      } else {
+        saveWebData();
+        reload();
+      }
     }
   }
 
@@ -1420,7 +1428,11 @@ class Globals extends Settings {
     return fmtNumber(value, precision, 0, 'null', dontRound);
   }
 
-  double limitValue(double value, double min, double max) => value < min ? min : value > max ? max : value;
+  double limitValue(double value, double min, double max) => value < min
+      ? min
+      : value > max
+          ? max
+          : value;
 
   String fmtNumber(num value,
       [num decimals = 0,
@@ -1451,7 +1463,11 @@ class Globals extends Settings {
       }
       if (value < 0) ret = '-${ret}';
     }
-    return ret == 'NaN' ? nullText : (forceSign && value >= 0) ? '+${ret}' : ret;
+    return ret == 'NaN'
+        ? nullText
+        : (forceSign && value >= 0)
+            ? '+${ret}'
+            : ret;
   }
 
   bool isLoading = false;

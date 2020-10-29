@@ -3,7 +3,7 @@
   <pre class="infotext">Auswahl des Zeitraums, für den
 die PDFs erstellt werden sollen</pre>
   <material-button [class]="period.isEmpty?'dpBtn empty':'dpBtn'"
-                   (trigger)="loadedPeriod=period.toString();isDialogOpen=true;">
+                   (trigger)="onClick('loadedperiod')">
     <div main>{{periodLabelMain}}</div>
     <div sub *ngIf="period.dowActiveText!=''">{{periodLabelSub}}</div>
   </material-button>
@@ -18,7 +18,7 @@ die PDFs erstellt werden sollen</pre>
         <p *ngIf="period.isEmpty" @i18n="subtitle for datepicker dialog when period empty">Bitte überprüfe die
           Aktivierung der Wochentage unter dem Monat</p>
       </div>
-      <material-button icon (trigger)="revertData();isDialogOpen=false;">
+      <material-button icon (trigger)="onClick('close')">
         <material-icon icon="close"></material-icon>
       </material-button>
     </div>
@@ -42,12 +42,12 @@ die PDFs erstellt werden sollen</pre>
     <div footer>
       <div class="shortcuts">
         <material-button *ngFor="let item of period.list" [raised]="period.entryKey==item.key"
-                         (trigger)="item.fill(period);month=period.end">
+                         (trigger)="onShortcutClick(item)">
           <material-icon *ngIf="item.key=='save'" icon="save"></material-icon>
           {{item.title}}
         </material-button>
       </div>
-      <material-button class="iconButton ok" (trigger)="isDialogOpen=false;fire('save');">
+      <material-button class="iconButton ok" (trigger)="onClick('save')">
         <material-icon icon="done"></material-icon>
         <ng-container @i18n="buttonlabel for ok in control datepicker">Ok</ng-container>
       </material-button>

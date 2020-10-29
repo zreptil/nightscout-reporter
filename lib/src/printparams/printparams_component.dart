@@ -94,6 +94,11 @@ class PrintParamsComponent implements OnInit {
     }
   }
 
+  void changeGlucUnits(int idx) {
+    g.glucMGDLIdx=idx;
+    fillComboBoxes();
+  }
+
   void fire(String type) {
     var detail = 0;
     switch (type) {
