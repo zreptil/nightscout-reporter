@@ -765,7 +765,7 @@ class ProfileData extends JsonData {
   }
 
   void includeTreatment(TreatmentData t) {
-    if (t.isTempTarget) {
+    if (t.isTempTarget && t.duration > 0) {
       var time = ((t.createdAt.hour + t.timeshift) * 60 + t.createdAt.minute) * 60;
       for (var data in store.values) {
         _mixStore(data.listTargetHigh, data.timezone, time, t.duration, t.targetTop);
