@@ -990,6 +990,8 @@ class AppComponent implements OnInit {
           try {
             var insulin = InsulinData.fromJson(entry);
             data.insulinProfiles.add(insulin);
+            var maxEffect = insulin.IOB1Min.length * 60 * 1000;
+            data.globals.ppMaxInsulinEffectInMS = math.max(data.globals.ppMaxInsulinEffectInMS, maxEffect);
           } catch (ex) {
             data.insulinProfiles = null;
           }
