@@ -36,6 +36,8 @@ schwächerer Schrift angezeigt wird.
     ParamInfo(2, msgParam3, boolValue: true),
     ParamInfo(3, msgParam4, boolValue: true),
     ParamInfo(4, msgParam5, boolValue: false),
+    ParamInfo(5, msgParam6, boolValue: false),
+    ParamInfo(6, msgParam7, boolValue: false),
 /*
     ParamInfo(5, msgParam6,
         boolValue: false,
