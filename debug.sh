@@ -6,7 +6,7 @@ echo "======================"
 echo "refreshing build stack"
 echo "======================"
 $PUB get
-$PUB global activate webdev
+$PUB global activate webdev 2.5.9
 echo 
 echo "======================"
 echo "running debug"
