@@ -156,8 +156,9 @@ class PrintDailyAnalysis extends BaseDaily {
       glucMax = math.max(entry.mbg, glucMax);
     }
     for (var entry in day.treatments) {
-      if (entry.isBloody)
+      if (entry.isBloody) {
         glucMax = math.max(g.glucFactor * entry.glucose, glucMax);
+      }
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
 
@@ -297,7 +298,7 @@ class PrintDailyAnalysis extends BaseDaily {
           'fontSize': fs(8)
         });
       } else {
-        String text = '${g.getGlucInfo()['unit']}';
+        var text = '${g.getGlucInfo()['unit']}';
         _vertStack.add({
           'relativePosition': {
             'x': cm(xo - 1.5),
@@ -593,7 +594,7 @@ class PrintDailyAnalysis extends BaseDaily {
     ]);
   }
 
-  getBasalGraph(
+  dynamic getBasalGraph(
       double top, DayData day, bool useProfile, double xo, double yo) {
     List<ProfileEntryData> data;
     String color;

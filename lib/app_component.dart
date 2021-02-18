@@ -61,7 +61,10 @@ class PdfData {
 
 @Component(
     selector: 'my-app',
-    styleUrls: ['app_component.css', 'package:angular_components/app_layout/layout.scss.css'],
+    styleUrls: [
+      'app_component.css',
+      'package:angular_components/app_layout/layout.scss.css'
+    ],
     templateUrl: 'app_component.html',
     directives: [
       DatepickerComponent,
@@ -122,7 +125,8 @@ class AppComponent implements OnInit {
 
   String _lastPage = 'welcome';
 
-  String get currPage => progressText == null || progressText.isNotEmpty ? _currPage : 'progress';
+  String get currPage =>
+      progressText == null || progressText.isNotEmpty ? _currPage : 'progress';
 
   set currPage(String value) {
     if (currPage != 'welcome') _lastPage = currPage;
@@ -152,33 +156,41 @@ class AppComponent implements OnInit {
     if (ret != 'stop' &&
         reportData != null &&
         g.period.shiftStartBy(shift) == reportData.begDate &&
-        g.period.shiftEndBy(shift) == reportData.endDate) ret = '${ret} sendMarked';
+        g.period.shiftEndBy(shift) == reportData.endDate)
+      ret = '${ret} sendMarked';
     return ret;
   }
 
-  String get createIcon => g.isDebug && sendIcon == 'send' ? 'vertical_align_bottom' : sendIcon;
+  String get createIcon =>
+      g.isDebug && sendIcon == 'send' ? 'vertical_align_bottom' : sendIcon;
   String pdfUrl = '';
 
   String pdfFilename(idx) => 'Nightscout-Reporter-${idx}.pdf';
 
-  String get msgCheckSetup => Intl.message('Überprüfe Zugriff auf Nightscout ...');
+  String get msgCheckSetup =>
+      Intl.message('Überprüfe Zugriff auf Nightscout ...');
 
-  String msgLoadingData(error, stacktrace) => Intl.message('Fehler beim Laden der Daten:\n$error\n$stacktrace',
-      args: [error, stacktrace], name: 'msgLoadingData');
+  String msgLoadingData(error, stacktrace) =>
+      Intl.message('Fehler beim Laden der Daten:\n$error\n$stacktrace',
+          args: [error, stacktrace], name: 'msgLoadingData');
 
   String get msgLoadingDataError => Intl.message('Fehler beim Laden der Daten');
 
   String msgLoadingDataFor(date) => Intl.message('Lade Daten für $date...',
-      args: [date], name: 'msgLoadingDataFor', desc: 'displayed when data of a day is loading');
+      args: [date],
+      name: 'msgLoadingDataFor',
+      desc: 'displayed when data of a day is loading');
 
   String get msgClose => Intl.message('Schliessen');
 
   String get msgEmptyRange => Intl.message('Bitte einen Zeitraum wählen.');
 
   String get msgPreparingData => Intl.message('Bereite Daten vor...',
-      desc: 'text when data was received and is being prepared to be used in the report');
+      desc:
+          'text when data was received and is being prepared to be used in the report');
 
-  String get msgCreatingPDF => Intl.message('Erzeuge PDF...', desc: 'text when pdf is being created');
+  String get msgCreatingPDF =>
+      Intl.message('Erzeuge PDF...', desc: 'text when pdf is being created');
 
   String get msgPreparingPDF => Intl.message('Lade die Basisdaten...');
 
@@ -190,16 +202,19 @@ class AppComponent implements OnInit {
 
   String get msgCancel => Intl.message('verwerfen');
 
-  String get msgPDFCreated => Intl.message('Das PDF wurde erstellt. Wenn es nicht angezeigt wird, '
+  String get msgPDFCreated => Intl.message(
+      'Das PDF wurde erstellt. Wenn es nicht angezeigt wird, '
       'dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.');
 
   String get msgPeriod => Intl.message('Zeitraum');
 
-  String get msgProfileError => Intl.message('Beim Auslesen der Profile ist ein Fehler aufgetreten. '
+  String get msgProfileError => Intl.message(
+      'Beim Auslesen der Profile ist ein Fehler aufgetreten. '
       'Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). '
       'Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.');
 
-  String get msgPDFCreationError => Intl.message('Beim Erzeugen des PDF ist ein Fehler aufgetreten.');
+  String get msgPDFCreationError =>
+      Intl.message('Beim Erzeugen des PDF ist ein Fehler aufgetreten.');
 
   String get msgGitHubIssue => Intl.message('Problem auf GitHub melden');
 
@@ -246,7 +261,8 @@ class AppComponent implements OnInit {
   String currentGlucTime;
   int glucDir = 360;
 
-  String get currentGlucDir => glucDir < 360 ? 'translate(0,2px)rotate(${glucDir}deg)' : null;
+  String get currentGlucDir =>
+      glucDir < 360 ? 'translate(0,2px)rotate(${glucDir}deg)' : null;
   Timer glucTimer;
   bool glucRunning = false;
 
@@ -264,56 +280,55 @@ class AppComponent implements OnInit {
     glucRunning = true;
     var url = g.user.apiUrl(null, 'status.json');
     if (!g.hasMGDL) {
-      var content = await g.request(url);
-      if (content != null && content.startsWith('{')) {
-        var status = StatusData.fromJson(json.decode(content));
+      dynamic content = await g.requestJson(url);
+      if (content != null) {
+        var status = StatusData.fromJson(content);
         g.setGlucMGDL(status);
       }
     }
     url = g.user.apiUrl(null, 'entries.json', params: 'count=2');
-    var temp = await g.request(url);
-    if (temp == null || !temp.startsWith('[')) {
-      return '??';
-    }
-    List<dynamic> src = json.decode(temp);
-    if (src.length != 2) {
-      currentGluc = 'Keine Daten';
-      currentGlucDiff = '';
-      glucDir = 360;
-    } else {
-      try {
-        var eNow = EntryData.fromJson(src[0]);
-        var ePrev = EntryData.fromJson(src[1]);
-        var span = eNow.time.difference(ePrev.time).inMinutes;
-        glucDir = 360;
+    List<dynamic> src = await g.requestJson(url);
+    if (src != null) {
+      if (src.length != 2) {
+        currentGluc = 'Keine Daten';
         currentGlucDiff = '';
-        currentGlucTime = '';
-        if (span > 15) {
-          return currentGluc;
-        }
-        var time = DateTime.now().difference(eNow.time).inMinutes;
-        currentGlucTime = '${time} min';
+        glucDir = 360;
+      } else {
+        try {
+          var eNow = EntryData.fromJson(src[0]);
+          var ePrev = EntryData.fromJson(src[1]);
+          var span = eNow.time.difference(ePrev.time).inMinutes;
+          glucDir = 360;
+          currentGlucDiff = '';
+          currentGlucTime = '';
+          if (span > 15) {
+            return currentGluc;
+          }
+          var time = DateTime.now().difference(eNow.time).inMinutes;
+          currentGlucTime = '${time} min';
 
-        currentGluc = g.fmtNumber(eNow.gluc / g.glucFactor, g.glucPrecision);
-        currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
-            '${g.fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / g.glucFactor, g.glucPrecision)}';
-        var diff = eNow.gluc - ePrev.gluc;
-        var limit = 10 * span ~/ 5;
-        if (diff > limit) {
-          glucDir = -90;
-        } else if (diff < -limit) {
-          glucDir = 90;
-        } else {
-          glucDir = 90 - ((diff + limit) / limit * 90).toInt();
+          currentGluc = g.fmtNumber(eNow.gluc / g.glucFactor, g.glucPrecision);
+          currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
+              '${g.fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / g.glucFactor, g.glucPrecision)}';
+          var diff = eNow.gluc - ePrev.gluc;
+          var limit = 10 * span ~/ 5;
+          if (diff > limit) {
+            glucDir = -90;
+          } else if (diff < -limit) {
+            glucDir = 90;
+          } else {
+            glucDir = 90 - ((diff + limit) / limit * 90).toInt();
+          }
+        } catch (ex) {
+          currentGluc = '?';
+          currentGlucDiff = '';
+          glucDir = 360;
         }
-      } catch (ex) {
-        currentGluc = '?';
-        currentGlucDiff = '';
-        glucDir = 360;
       }
     }
 
-    if (currentGlucVisible) glucTimer = Timer(Duration(minutes: 1), () => getCurrentGluc());
+    if (currentGlucVisible)
+      glucTimer = Timer(Duration(minutes: 1), () => getCurrentGluc());
 
     glucRunning = false;
     return currentGluc;
@@ -352,13 +367,14 @@ class AppComponent implements OnInit {
   bool currentGlucVisible = true;
 
   Future<void> setTheme(String name) async {
-    var content = await g.request('packages/nightscout_reporter/assets/themes/${name}/colors.json');
-    dynamic theme = json.decode(content);
+    dynamic theme = await g.requestJson(
+        'packages/nightscout_reporter/assets/themes/${name}/colors.json');
 //    dynamic theme = themes[name];
     if (theme == null) return;
     for (String key in theme.keys) {
       String value = theme[key];
-      if (materialColors.containsKey(value)) value = materialColors[value].hexString;
+      if (materialColors.containsKey(value))
+        value = materialColors[value].hexString;
       html.document.body.style.setProperty('--$key', value);
     }
     g.theme = name;
@@ -428,13 +444,17 @@ class AppComponent implements OnInit {
       }
 
       if (html.window.location.href.endsWith('?dsgvo')) currPage = 'dsgvo';
-      if (html.window.location.href.endsWith('?impressum')) currPage = 'impressum';
-      if (html.window.location.href.endsWith('?whatsnew')) currPage = 'whatsnew';
+      if (html.window.location.href.endsWith('?impressum'))
+        currPage = 'impressum';
+      if (html.window.location.href.endsWith('?whatsnew'))
+        currPage = 'whatsnew';
       if (html.window.location.href.endsWith('?welcome')) currPage = 'welcome';
-      if (html.window.location.href.endsWith('?settings')) currPage = 'settings';
+      if (html.window.location.href.endsWith('?settings'))
+        currPage = 'settings';
 
       try {
-        g.period.minDate = Date.parseLoose(g.user.birthDate, g.fmtDateForDisplay);
+        g.period.minDate =
+            Date.parseLoose(g.user.birthDate, g.fmtDateForDisplay);
       } catch (ex) {
         g.period.minDate = null;
       }
@@ -468,12 +488,18 @@ class AppComponent implements OnInit {
     currPage = currPage == id ? 'normal' : id;
   }
 
-  void displayLink(String title, String url, {bool clear = false, String type, String btnClass = '', String icon}) {
+  void displayLink(String title, String url,
+      {bool clear = false, String type, String btnClass = '', String icon}) {
     if (!g.isDebug && type == 'debug') return;
 
     if (clear) g.msg.links = [];
 
-    g.msg.links.add({'url': url, 'title': title, 'class': btnClass, 'icon': g.isDebug && icon == null ? 'code' : icon});
+    g.msg.links.add({
+      'url': url,
+      'title': title,
+      'class': btnClass,
+      'icon': g.isDebug && icon == null ? 'code' : icon
+    });
     g.msg.okText = msgClose;
     if (type != null) g.msg.type = type;
   }
@@ -500,7 +526,8 @@ class AppComponent implements OnInit {
   }
 
   void callNightscoutStatus() {
-    navigate('https://nielsmaerten.github.io/nightscout-assistant/#/${g.language.img}/home');
+    navigate(
+        'https://nielsmaerten.github.io/nightscout-assistant/#/${g.language.img}/home');
   }
 
   String formId(int idx) => 'postForm${idx}';
@@ -511,16 +538,22 @@ class AppComponent implements OnInit {
       var temp = doc;
       doc = '';
       for (var i = 0; i < temp.length; i++) {
-        if (g.language.code == 'ja_JP' || temp.codeUnitAt(i) <= 4095) doc = '${doc}${temp[i]}';
+        if (g.language.code == 'ja_JP' || temp.codeUnitAt(i) <= 4095)
+          doc = '${doc}${temp[i]}';
       }
     }
     return base64.encode(utf8.encode(doc));
   }
 
-  String languageClass(item) => g.language != null && item.code == g.language.code ? 'language currLang' : 'language';
+  String languageClass(item) =>
+      g.language != null && item.code == g.language.code
+          ? 'language currLang'
+          : 'language';
 
   void navigate(String url) {
-    if (url.startsWith('showPlayground') || url.startsWith('showPdf') || url.startsWith('makePdfImages')) {
+    if (url.startsWith('showPlayground') ||
+        url.startsWith('showPdf') ||
+        url.startsWith('makePdfImages')) {
       var doc = pdfDoc;
       if (url == 'showPlayground') {
         pdfUrl = g.urlPlayground;
@@ -681,7 +714,9 @@ class AppComponent implements OnInit {
       }
 
       _drag = Draggable(html.querySelectorAll('.sortable'),
-          avatarHandler: g.viewType == 'tile' ? TileAvatarHandler() : AvatarHandler.clone(),
+          avatarHandler: g.viewType == 'tile'
+              ? TileAvatarHandler()
+              : AvatarHandler.clone(),
           draggingClass: 'dragging',
           handle: g.viewType == 'tile' ? null : '[name]>material-icon',
           verticalOnly: g.viewType == 'list');
@@ -692,7 +727,8 @@ class AppComponent implements OnInit {
         ], 500);
       });
       if (_drop != null) _drop.onDrop.listen(null);
-      _drop = Dropzone(html.querySelectorAll('.sortable'), overClass: 'dragover');
+      _drop =
+          Dropzone(html.querySelectorAll('.sortable'), overClass: 'dragover');
       _drop.onDrop.listen((DropzoneEvent event) {
         if (!dropElement(event.draggableElement, event.dropzoneElement)) {
           event.dropzoneElement.attributes['dontclick'] = 'true';
@@ -726,11 +762,15 @@ class AppComponent implements OnInit {
 
   Draggable _drag;
   Dropzone _drop;
-  String msgModelName = Intl.message('Max Mustermann', desc: 'modelname used in images on tiles');
+  String msgModelName =
+      Intl.message('Max Mustermann', desc: 'modelname used in images on tiles');
 
   ReportData reportData;
 
-  bool checkCfg(var cfg) => cfg.checked && (!cfg.form.isDebugOnly || g.isDebug) && (!cfg.form.isLocalOnly || g.isLocal);
+  bool checkCfg(var cfg) =>
+      cfg.checked &&
+      (!cfg.form.isDebugOnly || g.isDebug) &&
+      (!cfg.form.isLocalOnly || g.isLocal);
 
   void clickMenuButton(String type) {
     drawerVisible = false;
@@ -824,7 +864,9 @@ class AppComponent implements OnInit {
       reportData = null;
     }
 
-    if (reportData != null && reportData.begDate == beg && reportData.endDate == end) {
+    if (reportData != null &&
+        reportData.begDate == beg &&
+        reportData.endDate == end) {
       return reportData;
     }
 
@@ -838,8 +880,12 @@ class AppComponent implements OnInit {
       data.user.diaStartDate = '1.1.1996';
       data.user.insulin = 'Novorapid';
       data.user.listApiUrl = <UrlData>[];
-      data.user.listApiUrl.add(UrlData.fromJson(
-          g, {'u': 'https://diamant-ns.herokuapp.com', 't': 'anditoken-a12e3472efe42759', 'sd': null, 'ed': null}));
+      data.user.listApiUrl.add(UrlData.fromJson(g, {
+        'u': 'https://diamant-ns.herokuapp.com',
+        't': 'anditoken-a12e3472efe42759',
+        'sd': null,
+        'ed': null
+      }));
       data.user.customData = {};
       data.user.formParams = {};
     } else {
@@ -854,7 +900,8 @@ class AppComponent implements OnInit {
 */
     reportData = data;
 
-    var needed = DataNeeded(statusCurr: false, statusAny: false, dataCurr: false, dataAny: false);
+    var needed = DataNeeded(
+        statusCurr: false, statusAny: false, dataCurr: false, dataAny: false);
 
     for (var cfg in g.listConfigOrg) {
       if (checkCfg(cfg)) {
@@ -872,27 +919,31 @@ class AppComponent implements OnInit {
           try {
             var url = user.apiUrl(null, 'status.json');
             displayLink('status', url, type: 'debug');
-            var content = await g.request(url, showError: false);
-            user.status = StatusData.fromJson(json.decode(content));
-            user.isReachable = true;
+            var content = await g.requestJson(url, showError: false);
+            user.status = null;
+            if (content != null) {
+              user.status = StatusData.fromJson(content);
+            }
           } catch (ex) {
             user.status = null;
-            user.isReachable = false;
           }
+          user.isReachable = user.status != null;
         }
         if (sendIcon != 'stop') return data;
       }
       g.save(skipReload: true);
     } else {
+      g.user.status = null;
       try {
         var url = g.user.apiUrl(null, 'status.json');
-        var content = await g.request(url, showError: false);
-        g.user.status = StatusData.fromJson(json.decode(content));
-        g.user.isReachable = true;
+        var content = await g.requestJson(url, showError: false);
+        if (content != null) {
+          g.user.status = StatusData.fromJson(content);
+        }
       } catch (ex) {
         g.user.status = null;
-        g.user.isReachable = false;
       }
+      g.user.isReachable = g.user.status != null;
     }
 
     if (!needed.needsData || !g.user.isReachable) {
@@ -913,11 +964,13 @@ class AppComponent implements OnInit {
 
     var url = data.user.apiUrl(endDate, 'status.json');
     displayLink('status', url, type: 'debug');
-    var content = await g.request(url);
-    data.status = StatusData.fromJson(json.decode(content));
-    if (data.status.status == '401') {
-      data.user.isReachable = false;
-      return data;
+    var content = await g.requestJson(url);
+    if (content != null) {
+      data.status = StatusData.fromJson(content);
+      if (data.status.status == '401') {
+        data.user.isReachable = false;
+        return data;
+      }
     }
     // TODO: checken ob das benötigt wird: g.setGlucMGDL(data.status);
     if (g.period.start == null || g.period.end == null) {
@@ -940,27 +993,34 @@ class AppComponent implements OnInit {
               '&count=${maxCount}');
 */
       displayLink('profiles', url, type: 'debug');
-      content = await g.request(url);
+      content = await g.requestJson(url);
 
       try {
         g.basalPrecisionAuto = 0;
-        List<dynamic> src = json.decode(content);
+        List<dynamic> src = content;
         var uploaders = [];
         for (dynamic entry in src) {
           // don't add profiles that cannot be read
           try {
             var profile = ProfileData.fromJson(entry, isFromNS: true);
             data.profiles.add(profile);
-            if (!uploaders.contains(profile.enteredBy)) uploaders.add(profile.enteredBy);
+            if (!uploaders.contains(profile.enteredBy))
+              uploaders.add(profile.enteredBy);
             // ignore: empty_catches
           } catch (ex) {}
-          g.basalPrecisionAuto = math.max(g.basalPrecision, data.profiles.last.maxPrecision);
+          g.basalPrecisionAuto =
+              math.max(g.basalPrecision, data.profiles.last.maxPrecision);
         }
         data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
 
-        var check = DateTime(begDate.year, begDate.month, begDate.day, 23, 59, 59, 999).toUtc().add(Duration(days: -1));
-        if (src.length == maxCount && data.profiles.first.startDate.isAfter(check)) {
-          g.info.addWarning(msgTooMuchProfiles(maxCount, uploaders.length, uploaders.join(', ')));
+        var check =
+            DateTime(begDate.year, begDate.month, begDate.day, 23, 59, 59, 999)
+                .toUtc()
+                .add(Duration(days: -1));
+        if (src.length == maxCount &&
+            data.profiles.first.startDate.isAfter(check)) {
+          g.info.addWarning(msgTooMuchProfiles(
+              maxCount, uploaders.length, uploaders.join(', ')));
         }
 
         baseProfile = data.profiles.first;
@@ -979,11 +1039,13 @@ class AppComponent implements OnInit {
 
       // find profileswitches in treatments, create profiledata and mix it in the profiles
       url = urlData.fullUrl('treatments.json',
-          params: 'find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch');
+          params:
+              'find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch');
       displayLink('profileswitch', url, type: 'debug');
-      content = await g.request(url);
-      try {
-        List<dynamic> src = json.decode(content);
+      content = await g.requestJson(url);
+      if (content != null) {
+        try {
+          List<dynamic> src = content;
 /*
         if (g.isLocal)src.add({
           "_id": "fake",
@@ -1041,35 +1103,44 @@ class AppComponent implements OnInit {
           "insulin": null
         });
  // */
-        for (dynamic entry in src) {
-          var check = JsonData.toDate(entry['created_at']);
-          if (data.profiles.firstWhere((p) => p.createdAt == check, orElse: () => null) != null ||
-              entry['profile'] == null) continue;
-          var parts = <String>[];
-          parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
-          // some uploaders (e.g. Minimed 600-series) don't save profileJson, so we need
-          // to find it here
-          ProfileStoreData store;
-          if (entry['profileJson'] == null) {
-            String key = entry['profile'];
-            var prof = data.profiles
-                .lastWhere((p) => p.startDate.isBefore(check) && p.store.containsKey(key), orElse: () => null);
-            if (prof != null) {
-              store = prof.store[key];
+          for (dynamic entry in src) {
+            var check = JsonData.toDate(entry['created_at']);
+            if (data.profiles.firstWhere((p) => p.createdAt == check,
+                        orElse: () => null) !=
+                    null ||
+                entry['profile'] == null) continue;
+            var parts = <String>[];
+            parts.add(
+                '{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
+            // some uploaders (e.g. Minimed 600-series) don't save profileJson, so we need
+            // to find it here
+            ProfileStoreData store;
+            if (entry['profileJson'] == null) {
+              String key = entry['profile'];
+              var prof = data.profiles.lastWhere(
+                  (p) =>
+                      p.startDate.isBefore(check) && p.store.containsKey(key),
+                  orElse: () => null);
+              if (prof != null) {
+                store = prof.store[key];
+              }
             }
-          }
-          parts.add('"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
-          parts.add('"mills":"0","units":"mg/dl"');
-          parts.add('"percentage":"${entry["percentage"]}"');
-          parts.add('"duration":"${entry["duration"]}"');
-          parts.add('"timeshift":"${entry["timeshift"]}"');
-          parts.add('"created_at":"${entry["created_at"]}"}');
+            parts.add(
+                '"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
+            parts.add('"mills":"0","units":"mg/dl"');
+            parts.add('"percentage":"${entry["percentage"]}"');
+            parts.add('"duration":"${entry["duration"]}"');
+            parts.add('"timeshift":"${entry["timeshift"]}"');
+            parts.add('"created_at":"${entry["created_at"]}"}');
 
-          data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
-          if (store != null) data.profiles.last.store[entry['profile']] = store;
+            data.profiles
+                .add(ProfileData.fromJson(json.decode(parts.join(','))));
+            if (store != null)
+              data.profiles.last.store[entry['profile']] = store;
+          }
+        } catch (ex) {
+          g.info.addDevError(ex, msgProfileError);
         }
-      } catch (ex) {
-        g.info.addDevError(ex, msgProfileError);
       }
     }
     data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
@@ -1097,7 +1168,8 @@ class AppComponent implements OnInit {
     if (baseProfile != null && data.profiles.last.duration > 0) {
 //    if (last.duration > 0 && data.profiles.length > 1) {
       var temp = baseProfile.copy;
-      temp.startDate = data.profiles.last.startDate.add(Duration(seconds: data.profiles.last.duration));
+      temp.startDate = data.profiles.last.startDate
+          .add(Duration(seconds: data.profiles.last.duration));
       temp.createdAt = temp.startDate;
       data.profiles.add(temp);
     }
@@ -1106,7 +1178,9 @@ class AppComponent implements OnInit {
       data.profiles.add(ProfileData());
     }
 
-    var d = DateTime.now().difference(data.profiles.last.startDate ?? DateTime.now()).inSeconds;
+    var d = DateTime.now()
+        .difference(data.profiles.last.startDate ?? DateTime.now())
+        .inSeconds;
     data.profiles.last.duration = d;
 
     data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
@@ -1126,81 +1200,101 @@ class AppComponent implements OnInit {
     while (begDate <= endDate) {
       var hasData = false;
       if (g.period.isDowActive(begDate.weekday - 1)) {
-        var beg = DateTime(begDate.year, begDate.month, begDate.day, 0, 0, 0, 0).toUtc();
-        var end = DateTime(begDate.year, begDate.month, begDate.day, 23, 59, 59, 999).toUtc();
+        var beg = DateTime(begDate.year, begDate.month, begDate.day, 0, 0, 0, 0)
+            .toUtc();
+        var end =
+            DateTime(begDate.year, begDate.month, begDate.day, 23, 59, 59, 999)
+                .toUtc();
 
         var profile = data.profile(beg);
-        var profileBeg = beg.add(Duration(hours: -profile.store.timezone.localDiff));
-        var profileEnd = end.add(Duration(hours: -profile.store.timezone.localDiff));
+        var profileBeg =
+            beg.add(Duration(hours: -profile.store.timezone.localDiff));
+        var profileEnd =
+            end.add(Duration(hours: -profile.store.timezone.localDiff));
 
-        progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
-        var url = g.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), 'entries.json',
+        progressText = msgLoadingDataFor(
+            begDate.format(DateFormat(g.language.dateformat)));
+        var url = g.user.apiUrl(
+            Date(begDate.year, begDate.month, begDate.day), 'entries.json',
             params: 'find[date][\$gte]=${beg.millisecondsSinceEpoch}&'
                 'find[date][\$lte]=${end.millisecondsSinceEpoch}&count=100000');
-        List<dynamic> src = json.decode(await g.request(url));
-        displayLink('e${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
-        for (dynamic entry in src) {
-          try {
-            var e = EntryData.fromJson(entry);
-            if (e.gluc > 0) {
-              hasData = true;
-              data.ns.entries.add(e);
+        List<dynamic> src = await g.requestJson(url);
+        if (src != null) {
+          displayLink(
+              'e${begDate.format(g.fmtDateForDisplay)} (${src.length})', url,
+              type: 'debug');
+          for (dynamic entry in src) {
+            try {
+              var e = EntryData.fromJson(entry);
+              if (e.gluc > 0) {
+                hasData = true;
+                data.ns.entries.add(e);
+              }
+              if (e.mbg > 0) {
+                hasData = true;
+                data.ns.bloody.add(e);
+              } else if (e.gluc <= 0) {
+                hasData = true;
+                data.ns.remaining.add(e);
+              }
+            } catch (ex) {
+              if (g.isDebug)
+                g.info.addDevError(
+                    ex, 'Fehler im Entry-Datensatz: ${entry.toString()}');
+              break;
             }
-            if (e.mbg > 0) {
-              hasData = true;
-              data.ns.bloody.add(e);
-            } else if (e.gluc <= 0) {
-              hasData = true;
-              data.ns.remaining.add(e);
-            }
-          } catch (ex) {
-            if (g.isDebug) g.info.addDevError(ex, 'Fehler im Entry-Datensatz: ${entry.toString()}');
-            break;
           }
         }
         String tmp;
         if (lastTempBasal == null) {
           // find last temp basal of treatments of day before current day.
-          url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), 'treatments.json',
+          url = data.user.apiUrl(
+              Date(begDate.year, begDate.month, begDate.day), 'treatments.json',
               params: 'find[created_at][\$lt]=${profileBeg.toIso8601String()}&'
                   'find[created_at][\$gt]=${profileBeg.add(Duration(days: -1)).toIso8601String()}&'
                   'count=100&find[eventType][\$eq]=Temp%20Basal');
-          tmp = await g.request(url);
-          src = json.decode(tmp);
-          var list = <TreatmentData>[];
-          for (dynamic treatment in src) {
-            list.add(TreatmentData.fromJson(g, treatment));
+          src = await g.requestJson(url);
+          if (src != null) {
+            var list = <TreatmentData>[];
+            for (dynamic treatment in src) {
+              list.add(TreatmentData.fromJson(g, treatment));
+            }
+            list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+            if (list.isNotEmpty) lastTempBasal = list.last;
           }
-          list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-          if (list.isNotEmpty) lastTempBasal = list.last;
         }
 
-        url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), 'treatments.json',
+        url = data.user.apiUrl(
+            Date(begDate.year, begDate.month, begDate.day), 'treatments.json',
             params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
                 'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
-        tmp = await g.request(url);
-        src = json.decode(tmp);
-        displayLink('t${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
-        var hasExercise = false;
-        for (dynamic treatment in src) {
-          hasData = true;
-          var t = TreatmentData.fromJson(g, treatment);
-          // duplicate Treatments are removed
-          if (data.ns.treatments.isNotEmpty && t.equals(data.ns.treatments.last)) {
-            data.ns.treatments.last.duplicates++;
-          } else {
-            data.ns.treatments.add(t);
-            if (t.isExercise) {
-              hasExercise = true;
-            } else if (t.isBGCheck) {
-              var entry = EntryData();
-              entry.id = t.id;
-              entry.time = t.createdAt;
-              entry.device = t.enteredBy;
-              entry.type = 'mbg';
-              entry.mbg = t.glucose * g.glucFactor;
-              entry.rawbg = t.glucose;
-              data.ns.bloody.add(entry);
+        src = await g.requestJson(url);
+        if (src != null) {
+          displayLink(
+              't${begDate.format(g.fmtDateForDisplay)} (${src.length})', url,
+              type: 'debug');
+          var hasExercise = false;
+          for (dynamic treatment in src) {
+            hasData = true;
+            var t = TreatmentData.fromJson(g, treatment);
+            // duplicate Treatments are removed
+            if (data.ns.treatments.isNotEmpty &&
+                t.equals(data.ns.treatments.last)) {
+              data.ns.treatments.last.duplicates++;
+            } else {
+              data.ns.treatments.add(t);
+              if (t.isExercise) {
+                hasExercise = true;
+              } else if (t.isBGCheck) {
+                var entry = EntryData();
+                entry.id = t.id;
+                entry.time = t.createdAt;
+                entry.device = t.enteredBy;
+                entry.type = 'mbg';
+                entry.mbg = t.glucose * g.glucFactor;
+                entry.rawbg = t.glucose;
+                data.ns.bloody.add(entry);
+              }
             }
           }
         }
@@ -1220,13 +1314,16 @@ class AppComponent implements OnInit {
           data.ns.treatments.add(t);
         }
 */
-        url = data.user.apiUrl(Date(profileBeg.year, profileBeg.month, profileBeg.day), 'devicestatus.json',
+        url = data.user.apiUrl(
+            Date(profileBeg.year, profileBeg.month, profileBeg.day),
+            'devicestatus.json',
             params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
                 'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
-        tmp = await g.request(url);
-        if (tmp != null && tmp != '') {
-          src = json.decode(tmp);
-          displayLink('ds${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
+        src = await g.requestJson(url);
+        if (src != null) {
+          displayLink(
+              'ds${begDate.format(g.fmtDateForDisplay)} (${src.length})', url,
+              type: 'debug');
           for (dynamic devicestatus in src) {
             hasData = true;
             var ds = DeviceStatusData.fromJson(devicestatus);
@@ -1248,7 +1345,8 @@ class AppComponent implements OnInit {
       data.ns.bloody.sort((a, b) => a.time.compareTo(b.time));
       data.ns.remaining.sort((a, b) => a.time.compareTo(b.time));
       data.ns.treatments.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-      data.ns.devicestatusList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+      data.ns.devicestatusList
+          .sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
       var diffTime = 5;
       // gaps between entries that span more than the given minutes
@@ -1258,8 +1356,8 @@ class AppComponent implements OnInit {
       // Create an array with EntryData every [diffTime] minutes
       var entryList = <EntryData>[];
       if (data.ns.entries.isNotEmpty) {
-        var target =
-            DateTime(data.ns.entries.first.time.year, data.ns.entries.first.time.month, data.ns.entries.first.time.day);
+        var target = DateTime(data.ns.entries.first.time.year,
+            data.ns.entries.first.time.month, data.ns.entries.first.time.day);
         var prev = data.ns.entries.first;
         var t = DateTime(prev.time.year, prev.time.month, prev.time.day);
         prev = EntryData();
@@ -1269,7 +1367,8 @@ class AppComponent implements OnInit {
         // distribute entries
         for (var entry in data.ns.entries) {
           if (entry.isInvalid) continue;
-          var current = DateTime(entry.time.year, entry.time.month, entry.time.day, entry.time.hour, entry.time.minute);
+          var current = DateTime(entry.time.year, entry.time.month,
+              entry.time.day, entry.time.hour, entry.time.minute);
           if (current.isAtSameMomentAs(target)) {
             prev = entry;
             prev.time = current;
@@ -1281,8 +1380,10 @@ class AppComponent implements OnInit {
           } else {
             next = entry.copy;
             var max = current.difference(prev.time).inMinutes;
-            while (current.isAfter(target) || current.isAtSameMomentAs(target)) {
-              var factor = max == 0 ? 0 : target.difference(prev.time).inMinutes / max;
+            while (
+                current.isAfter(target) || current.isAtSameMomentAs(target)) {
+              var factor =
+                  max == 0 ? 0 : target.difference(prev.time).inMinutes / max;
               next = next.copy;
               if (max >= minGapKeep) next.isGap = true;
               next.time = target;
@@ -1413,7 +1514,8 @@ class AppComponent implements OnInit {
         progressText = msgCreatingPDF;
         if (src.error != null) {
           if (g.isDebug) {
-            g.info.addError(msgLoadingData(src.error.toString(), src.error.stackTrace.toString()));
+            g.info.addError(msgLoadingData(
+                src.error.toString(), src.error.stackTrace.toString()));
           } else {
             g.info.addError(msgLoadingDataError);
           }
@@ -1470,14 +1572,16 @@ class AppComponent implements OnInit {
                 fileList.last.add(page);
                 fileList.add(<Page>[]);
               } else {
-                if (entry['pageBreak'] == 'newFile') entry.remove('pageBreak'); //entry["pageBreak"] = "after";
+                if (entry['pageBreak'] == 'newFile')
+                  entry.remove('pageBreak'); //entry["pageBreak"] = "after";
                 fileList.last.add(page);
               }
             }
 
             if (isForThumbs && fileList.length > 1) {
               fileList.removeRange(1, fileList.length - 1);
-              if (fileList[0].length > 1) fileList[0].removeRange(1, fileList[0].length - 1);
+              if (fileList[0].length > 1)
+                fileList[0].removeRange(1, fileList[0].length - 1);
             }
 
             for (var pageList in fileList) {
@@ -1488,7 +1592,8 @@ class AppComponent implements OnInit {
                   var pagebreak = {'text': '', 'pageBreak': 'after'};
                   if (page.isPortrait != prevPage.isPortrait) {
                     pagebreak['pageSize'] = 'a4';
-                    pagebreak['pageOrientation'] = page.isPortrait ? 'portrait' : 'landscape';
+                    pagebreak['pageOrientation'] =
+                        page.isPortrait ? 'portrait' : 'landscape';
                   }
                   content.add(pagebreak);
                 }
@@ -1498,34 +1603,69 @@ class AppComponent implements OnInit {
               if (doc == null) {
                 doc = {
                   'pageSize': 'a4',
-                  'pageOrientation': pageList.isEmpty || pageList[0].isPortrait ? 'portrait' : 'landscape',
-                  'pageMargins': [form.cm(0), form.cm(1.0), form.cm(0), form.cm(0.0)],
+                  'pageOrientation': pageList.isEmpty || pageList[0].isPortrait
+                      ? 'portrait'
+                      : 'landscape',
+                  'pageMargins': [
+                    form.cm(0),
+                    form.cm(1.0),
+                    form.cm(0),
+                    form.cm(0.0)
+                  ],
                   'content': content,
                   'images': form.images,
                   'styles': {
                     'infoline': {
-                      'margin': [form.cm(0), form.cm(0.25), form.cm(0), form.cm(0.25)]
+                      'margin': [
+                        form.cm(0),
+                        form.cm(0.25),
+                        form.cm(0),
+                        form.cm(0.25)
+                      ]
                     },
                     'perstitle': {'alignment': 'right'},
                     'persdata': {'color': '#0000ff'},
                     'infotitle': {'alignment': 'left'},
                     'infodata': {'alignment': 'right', 'color': '#0000ff'},
                     'infounit': {
-                      'margin': [form.cm(0), form.cm(0), form.cm(0), form.cm(0)],
+                      'margin': [
+                        form.cm(0),
+                        form.cm(0),
+                        form.cm(0),
+                        form.cm(0)
+                      ],
                       'color': '#0000ff'
                     },
                     'hba1c': {'color': '#5050ff'},
-                    'total': {'bold': true, 'fillColor': '#d0d0d0', 'margin': form.m0},
-                    'timeDay': {'bold': true, 'fillColor': '#d0d0d0', 'margin': form.m0},
-                    'timeNight': {'bold': true, 'fillColor': '#303030', 'color': 'white', 'margin': form.m0},
-                    'timeLate': {'bold': true, 'fillColor': '#a0a0a0', 'margin': form.m0},
+                    'total': {
+                      'bold': true,
+                      'fillColor': '#d0d0d0',
+                      'margin': form.m0
+                    },
+                    'timeDay': {
+                      'bold': true,
+                      'fillColor': '#d0d0d0',
+                      'margin': form.m0
+                    },
+                    'timeNight': {
+                      'bold': true,
+                      'fillColor': '#303030',
+                      'color': 'white',
+                      'margin': form.m0
+                    },
+                    'timeLate': {
+                      'bold': true,
+                      'fillColor': '#a0a0a0',
+                      'margin': form.m0
+                    },
                     'row': {}
                   }
                 };
               } else {
                 doc['content'].add(content);
                 for (var key in form.images.keys) {
-                  (doc['images'] as Map<String, String>)[key] = form.images[key];
+                  (doc['images'] as Map<String, String>)[key] =
+                      form.images[key];
                 }
               }
 
@@ -1565,7 +1705,8 @@ class AppComponent implements OnInit {
               dst = dst.replaceAll(',\"', ',\n\"');
               dst = dst.replaceAll(':[', ':\n[');
             } else {
-              pdfUrl = 'https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php';
+              pdfUrl =
+                  'https://nightscout-reporter.zreptil.de/pdfmake/pdfmake.php';
             }
             pdfList.add(PdfData(pdfString(dst)));
           }
@@ -1586,11 +1727,14 @@ class AppComponent implements OnInit {
               navigate('showPdf');
             }
           } else {
-            displayLink(msgShowPDF, 'showPdf', btnClass: 'action', icon: 'description');
+            displayLink(msgShowPDF, 'showPdf',
+                btnClass: 'action', icon: 'description');
           }
         } else {
-          displayLink('playground', 'showPlayground', btnClass: 'action', icon: 'description');
-          displayLink('pdf', 'showPdf', btnClass: 'action', icon: 'description');
+          displayLink('playground', 'showPlayground',
+              btnClass: 'action', icon: 'description');
+          displayLink('pdf', 'showPdf',
+              btnClass: 'action', icon: 'description');
         }
 // */
         sendIcon = 'send';
@@ -1610,7 +1754,8 @@ class AppComponent implements OnInit {
     var ret = 'tile sortable';
     if (cfg.form.isDebugOnly && g.isDebug) ret = '${ret} is-debug';
     if (cfg.checked && tileParams == null) ret = '${ret} tilechecked';
-    if (cfg.form.isLocalOnly || (cfg.form.isBetaOrLocal && g.isLocal)) ret = '${ret} is-local';
+    if (cfg.form.isLocalOnly || (cfg.form.isBetaOrLocal && g.isLocal))
+      ret = '${ret} is-local';
     if (cfg.form.isBetaOrLocal) ret = '${ret} is-beta';
     return ret;
   }
@@ -1642,13 +1787,17 @@ class AppComponent implements OnInit {
     var ls = '';
     var duration = 1;
     if (themePanelShown) {
-      themeStyle = 'animation:hidethemes ${duration}s ease-in-out normal forwards;';
-      logoStyle = 'animation:hidethemeslogo ${duration}s ease-in-out normal forwards;';
+      themeStyle =
+          'animation:hidethemes ${duration}s ease-in-out normal forwards;';
+      logoStyle =
+          'animation:hidethemeslogo ${duration}s ease-in-out normal forwards;';
       ts = 'animation-iteration-count:0;width:0em;';
       ls = 'animation-iteration-count:0;transform: rotate(0deg);';
     } else {
-      themeStyle = 'animation:showthemes ${duration}s ease-in-out normal forwards;';
-      logoStyle = 'animation:showthemeslogo ${duration}s ease-in-out normal forwards;';
+      themeStyle =
+          'animation:showthemes ${duration}s ease-in-out normal forwards;';
+      logoStyle =
+          'animation:showthemeslogo ${duration}s ease-in-out normal forwards;';
       ts = 'animation-iteration-count:0;width:9.5em;';
       ls = 'animation-iteration-count:0;transform: rotate(360deg);';
     }
@@ -1707,7 +1856,8 @@ class AppComponent implements OnInit {
         break;
       case 'remove':
         _currPage = _lastPage;
-        if (g.currShortcutIdx >= 0 && g.currShortcutIdx < g.shortcutList.length) {
+        if (g.currShortcutIdx >= 0 &&
+            g.currShortcutIdx < g.shortcutList.length) {
           g.shortcutList.removeAt(g.currShortcutIdx);
           g.currShortcutIdx = null;
           g.currShortcut = null;

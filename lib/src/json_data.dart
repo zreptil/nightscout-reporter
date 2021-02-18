@@ -402,9 +402,9 @@ class ProfileEntryData extends JsonData {
   double adjustedValue(double v) {
     if (_percentAdjust != null) return v + (v * _percentAdjust) / 100.0;
     if (_absoluteRate != null) {
-      // spike needs a special handling, since the value seems to be the amount given over
-      // the duration, not the amount given in one hour.
-      if (from == Uploader.Spike) return _absoluteRate / (duration / 3600);
+      // spike needs a special handling, since the value seems to be the amount
+      // given over the duration, not the amount given in one hour.
+//      if (from == Uploader.Spike) return _absoluteRate / (duration / 3600);
       return _absoluteRate;
     }
     return v;

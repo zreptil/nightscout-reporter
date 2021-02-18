@@ -24,7 +24,8 @@ class Informator {
   final List<String> _warnings = [];
   final List<String> _infos = [];
 
-  bool get hasContent => _errors.isNotEmpty || _warnings.isNotEmpty || _infos.isNotEmpty;
+  bool get hasContent =>
+      _errors.isNotEmpty || _warnings.isNotEmpty || _infos.isNotEmpty;
 
   String _output(var list) => list.join('\n');
 
@@ -103,7 +104,8 @@ class LangData {
 
   String get dateformat => Intl.message('dd.MM.yyyy');
 
-  String get imgPath => 'packages/nightscout_reporter/assets/img/lang-${img}.png';
+  String get imgPath =>
+      'packages/nightscout_reporter/assets/img/lang-${img}.png';
 
   LangData(this.code, this.name, this.img);
 }
@@ -116,16 +118,19 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = '2.0.3';
+  String version = '2.0.5';
 
   // subversion is used nowhere. It is just there to trigger an other signature for the cache.
   String subVersion = '1';
 
-  static String get msgThemeAuto => Intl.message('Automatisch', meaning: 'theme selection - automatic');
+  static String get msgThemeAuto =>
+      Intl.message('Automatisch', meaning: 'theme selection - automatic');
 
-  static String get msgThemeStandard => Intl.message('Standard', meaning: 'theme selection - standard');
+  static String get msgThemeStandard =>
+      Intl.message('Standard', meaning: 'theme selection - standard');
 
-  static String get msgThemeXmas => Intl.message('Weihnachten', meaning: 'theme selection - christmas');
+  static String get msgThemeXmas =>
+      Intl.message('Weihnachten', meaning: 'theme selection - christmas');
 
   static String get msgUnitMGDL => Intl.message('mg/dL');
 
@@ -216,8 +221,8 @@ class Settings {
 // */
 
   var onAfterLoad;
-  Map<String, String> themeList =
-      Map<String, String>.unmodifiable({null: msgThemeAuto, 'standard': msgThemeStandard, 'xmas': msgThemeXmas});
+  Map<String, String> themeList = Map<String, String>.unmodifiable(
+      {null: msgThemeAuto, 'standard': msgThemeStandard, 'xmas': msgThemeXmas});
 
   String _theme;
 
@@ -316,43 +321,50 @@ class Settings {
     }, (Date date) {
       return date;
     }));
-    period.list.add(DatepickerEntry('2days', msgLast2Days, (DatepickerPeriod data) {
+    period.list
+        .add(DatepickerEntry('2days', msgLast2Days, (DatepickerPeriod data) {
       data.start = Date.today().add(days: -1);
       data.end = Date.today();
     }, (Date date) {
       return date.add(days: -1);
     }));
-    period.list.add(DatepickerEntry('3days', msgLast3Days, (DatepickerPeriod data) {
+    period.list
+        .add(DatepickerEntry('3days', msgLast3Days, (DatepickerPeriod data) {
       data.start = Date.today().add(days: -2);
       data.end = Date.today();
     }, (Date date) {
       return date.add(days: -2);
     }));
-    period.list.add(DatepickerEntry('1week', msgLastWeek, (DatepickerPeriod data) {
+    period.list
+        .add(DatepickerEntry('1week', msgLastWeek, (DatepickerPeriod data) {
       data.start = Date.today().add(days: -6);
       data.end = Date.today();
     }, (Date date) {
       return date.add(days: -6);
     }));
-    period.list.add(DatepickerEntry('2weeks', msgLast2Weeks, (DatepickerPeriod data) {
+    period.list
+        .add(DatepickerEntry('2weeks', msgLast2Weeks, (DatepickerPeriod data) {
       data.start = Date.today().add(days: -13);
       data.end = Date.today();
     }, (Date date) {
       return date.add(days: -13);
     }));
-    period.list.add(DatepickerEntry('3weeks', msgLast3Weeks, (DatepickerPeriod data) {
+    period.list
+        .add(DatepickerEntry('3weeks', msgLast3Weeks, (DatepickerPeriod data) {
       data.start = Date.today().add(days: -20);
       data.end = Date.today();
     }, (Date date) {
       return date.add(days: -20);
     }));
-    period.list.add(DatepickerEntry('1month', msgLastMonth, (DatepickerPeriod data) {
+    period.list
+        .add(DatepickerEntry('1month', msgLastMonth, (DatepickerPeriod data) {
       data.start = Date.today().add(months: -1);
       data.end = Date.today();
     }, (Date date) {
       return date.add(months: -1);
     }));
-    period.list.add(DatepickerEntry('3months', msgLast3Months, (DatepickerPeriod data) {
+    period.list.add(
+        DatepickerEntry('3months', msgLast3Months, (DatepickerPeriod data) {
       data.start = Date.today().add(months: -3);
       data.end = Date.today();
     }, (Date date) {
@@ -367,7 +379,8 @@ class Settings {
       var idList = _pdfOrder.split(',');
       _pdfOrder = '';
       for (var i = 0; i < idList.length; i++) {
-        var cfg = listConfig.firstWhere((cfg) => cfg.id == idList[i], orElse: () => null);
+        var cfg = listConfig.firstWhere((cfg) => cfg.id == idList[i],
+            orElse: () => null);
         if (cfg != null) {
           _pdfOrder += cfg.idx;
         }
@@ -383,7 +396,8 @@ class Settings {
     }
 //    var idList = _pdfOrder.split(",");
     for (var i = 0; i < idxList.length; i++) {
-      var cfg = srcList.firstWhere((cfg) => cfg.idx == idxList[i], orElse: () => null);
+      var cfg = srcList.firstWhere((cfg) => cfg.idx == idxList[i],
+          orElse: () => null);
       if (cfg != null) {
         srcList.remove(cfg);
         listConfig.add(cfg);
@@ -518,7 +532,8 @@ class Settings {
             userList.add(UserData.fromJson(this, entry));
           }
         } catch (ex) {
-          Globals().info.addDevError(ex, 'Fehler beim laden der User in Settings.fromSharedJson: ${ex.toString()}');
+          Globals().info.addDevError(ex,
+              'Fehler beim laden der User in Settings.fromSharedJson: ${ex.toString()}');
 //            saveStorage("mu", null);
         }
       } else {
@@ -782,7 +797,8 @@ class Globals extends Settings {
 
   List<int> get profileMaxCounts => [100000, 2000, 1000, 500, 250, 100];
 
-  double get glucMaxValue => glucValueFromData(glucMaxValues[ppGlucMaxIdx ?? 0]);
+  double get glucMaxValue =>
+      glucValueFromData(glucMaxValues[ppGlucMaxIdx ?? 0]);
   int ppBasalPrecisionIdx = 0;
 
   List<int> get basalPrecisionValues => [null, 0, 1, 2, 3];
@@ -825,7 +841,9 @@ class Globals extends Settings {
   void show(String text, {bool append = false, String skipStart}) {
     Future.delayed(Duration(milliseconds: 500), () {
       if (msg != null) {
-        if (skipStart != null && msg.text != null && msg.text.startsWith(skipStart)) return;
+        if (skipStart != null &&
+            msg.text != null &&
+            msg.text.startsWith(skipStart)) return;
         if (append && msg.text != null && msg.text.length < 20000) {
           msg.text += '<br />${text}';
         } else {
@@ -879,7 +897,8 @@ class Globals extends Settings {
 
   // retrieve the current settings as a string that can be used in json
   @override
-  String get jsonString => '${super.jsonString},"ppHideNightscoutInPDF":"${ppHideNightscoutInPDF ? "true" : "false"}"'
+  String get jsonString =>
+      '${super.jsonString},"ppHideNightscoutInPDF":"${ppHideNightscoutInPDF ? "true" : "false"}"'
       ',"ppShowUrlInPDF":"${ppShowUrlInPDF ? "true" : "false"}"'
       ',"ppHideLoopData":"${ppHideLoopData ? "true" : "false"}"'
       ',"pdfCreationMaxSize":"${pdfCreationMaxSize}"'
@@ -897,9 +916,11 @@ class Globals extends Settings {
     ppHideNightscoutInPDF = JsonData.toBool(json['ppHideNightscoutInPDF']);
     ppShowUrlInPDF = JsonData.toBool(json['ppShowUrlInPDF']);
     ppHideLoopData = JsonData.toBool(json['ppHideLoopData']);
-    pdfCreationMaxSize = JsonData.toInt(json['pdfCreationMaxSize'], pdfCreationMaxSize);
+    pdfCreationMaxSize =
+        JsonData.toInt(json['pdfCreationMaxSize'], pdfCreationMaxSize);
     ppStandardLimits = JsonData.toBool(json['ppStandardLimits']);
-    ppCGPAlwaysStandardLimits = JsonData.toBool(json['ppCGPAlwaysStandardLimits']);
+    ppCGPAlwaysStandardLimits =
+        JsonData.toBool(json['ppCGPAlwaysStandardLimits']);
     ppComparable = JsonData.toBool(json['ppComparable']);
     ppLatestFirst = JsonData.toBool(json['ppLatestFirst']);
     ppGlucMaxIdx = JsonData.toInt(json['ppGlucMaxIdx']);
@@ -957,8 +978,9 @@ class Globals extends Settings {
 
   int basalPrecisionAuto = 1;
 
-  int get basalPrecision =>
-      (ppBasalPrecisionIdx ?? 0) > 0 ? basalPrecisionValues[ppBasalPrecisionIdx] : basalPrecisionAuto;
+  int get basalPrecision => (ppBasalPrecisionIdx ?? 0) > 0
+      ? basalPrecisionValues[ppBasalPrecisionIdx]
+      : basalPrecisionAuto;
 
   static int decimalPlaces(num value) {
     var v = value.toString();
@@ -969,7 +991,8 @@ class Globals extends Settings {
     return math.min(ret, 3);
   }
 
-  int timeForCalc(DateTime time) => time.hour * 3600 + time.minute * 60 + time.second;
+  int timeForCalc(DateTime time) =>
+      time.hour * 3600 + time.minute * 60 + time.second;
 
   static final Globals _globals = Globals._internal();
 
@@ -1035,31 +1058,38 @@ class Globals extends Settings {
 
   String get msgBE => _khFactor == 10 ? 'msgBE' : 'msgKE';
 
-  String get msgUrlFailurePrefix => Intl.message('Die angegebene URL ist nicht erreichbar. '
+  String get msgUrlFailurePrefix => Intl.message(
+      'Die angegebene URL ist nicht erreichbar. '
       'Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ');
 
-  String get msgUrlFailureSuffix => Intl.message('<br><br>Wenn diese URL geschützt ist, '
+  String get msgUrlFailureSuffix => Intl.message(
+      '<br><br>Wenn diese URL geschützt ist, '
       'muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man '
       'über "Administrator-Werkzeuge" auf der persönlichen Nightscout Seite.');
 
-  String get msgUrlFailureHerokuapp =>
-      Intl.message('In der Variable ENABLE muss das Wort "cors" stehen, damit externe Tools '
-          'wie dieses hier auf die Daten zugreifen dürfen.');
+  String get msgUrlFailureHerokuapp => Intl.message(
+      'In der Variable ENABLE muss das Wort "cors" stehen, damit externe Tools '
+      'wie dieses hier auf die Daten zugreifen dürfen.');
 
-  String get msgUrlFailure10be => Intl.message('Auf 10be muss beim Server in den Standardeinstellungen der Haken bei '
+  String get msgUrlFailure10be => Intl.message(
+      'Auf 10be muss beim Server in den Standardeinstellungen der Haken bei '
       '"cors" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn "cors" '
       'aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.');
 
-  String get msgUrlNotSafe => Intl.message('Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter '
+  String get msgUrlNotSafe => Intl.message(
+      'Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter '
       'auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.');
 
   String msgUrlFailure(String url) {
-    if (url.startsWith('http:') && html.window.location.protocol.startsWith('https')) return msgUrlNotSafe;
-    if (url.contains('ns.10be')) return '${msgUrlFailurePrefix}${msgUrlFailure10be}${msgUrlFailureSuffix}';
+    if (url.startsWith('http:') &&
+        html.window.location.protocol.startsWith('https')) return msgUrlNotSafe;
+    if (url.contains('ns.10be'))
+      return '${msgUrlFailurePrefix}${msgUrlFailure10be}${msgUrlFailureSuffix}';
     return '${msgUrlFailurePrefix}${msgUrlFailureHerokuapp}${msgUrlFailureSuffix}';
   }
 
-  String get msgNoURLDefined => Intl.message('Die URL wurde noch nicht festgelegt.');
+  String get msgNoURLDefined =>
+      Intl.message('Die URL wurde noch nicht festgelegt.');
 
   String title = 'Nightscout Reporter';
 
@@ -1079,7 +1109,8 @@ class Globals extends Settings {
   String urlPlayground = 'http://pdf.zreptil.de/playground.php';
   String googleClientId = '939975570793-i9kj0rp6kgv470t45j1pf1hg3j9fqmbh';
 
-  String infoClass(String cls) => showInfo ? '$cls infoarea showinfo' : '$cls infoarea';
+  String infoClass(String cls) =>
+      showInfo ? '$cls infoarea showinfo' : '$cls infoarea';
   bool isConfigured = false;
   int _khFactor = 12;
 
@@ -1147,8 +1178,35 @@ class Globals extends Settings {
     return url;
   }
 */
+
+  Future<dynamic> requestJson(String url,
+      {String method = 'get',
+      Map<String, String> headers,
+      body,
+      bool showError = true}) async {
+    dynamic ret = await request(url,
+            method: method, headers: headers, body: body, showError: showError)
+        .then((String response) {
+      if (response == null) {
+        return null;
+      }
+      if (response.startsWith('[') && response.endsWith(']')) {
+        return convert.json.decode(response);
+      }
+      if (response.startsWith('{') && response.endsWith('}')) {
+        return convert.json.decode(response);
+      }
+      return null;
+    });
+    return ret;
+  }
+
   Future<String> request(String url,
-      {String method = 'get', Map<String, String> headers, body, bool showError = true}) async {
+      {String method = 'get',
+      Map<String, String> headers,
+      body,
+      bool showError = true,
+      bool asJson = false}) async {
     var client = http.BrowserClient();
     switch (method.toLowerCase()) {
       case 'post':
@@ -1180,14 +1238,16 @@ class Globals extends Settings {
     String ret;
     var check = checkUser.apiUrl(null, 'status');
     await request(check).then((String response) {
-      if (!response.toLowerCase().contains('status ok')) ret = msgUrlFailure(check);
+      if (!response.toLowerCase().contains('status ok'))
+        ret = msgUrlFailure(check);
     }).catchError((err) {
       ret = msgUrlFailure(check);
     });
     return ret;
   }
 
-  void changeLanguage(LangData value, {bool doReload = true, bool checkConfigured = false}) async {
+  void changeLanguage(LangData value,
+      {bool doReload = true, bool checkConfigured = false}) async {
     language = value;
     if (checkConfigured && !isConfigured) clearStorage();
     if (doReload) {
@@ -1214,7 +1274,8 @@ class Globals extends Settings {
   void reload() {
     var pos = html.window.location.href.indexOf('?');
     if (pos > 0) {
-      html.window.location.href = html.window.location.href.substring(0, pos - 1);
+      html.window.location.href =
+          html.window.location.href.substring(0, pos - 1);
     } else {
       html.window.location.reload();
     }
@@ -1225,7 +1286,8 @@ class Globals extends Settings {
       var doKill = false;
       doKill = entry.key.startsWith(betaPrefix);
       if (!isBeta) doKill = !doKill;
-      if (entry.key.endsWith('webData') || entry.key.endsWith('debug')) doKill = false;
+      if (entry.key.endsWith('webData') || entry.key.endsWith('debug'))
+        doKill = false;
       if (doKill) html.window.localStorage.remove(entry.key);
     }
   }
@@ -1255,17 +1317,22 @@ class Globals extends Settings {
     var controller = StreamController<String>();
     var content = asSharedString;
     controller.add(content);
-    var media =
-        commons.Media(controller.stream.transform(convert.Utf8Encoder()), content.length, contentType: 'text/json');
+    var media = commons.Media(
+        controller.stream.transform(convert.Utf8Encoder()), content.length,
+        contentType: 'text/json');
     if (settingsFile.id == null) {
-      drive.files.generateIds(count: 1, space: driveParent).then((gd.GeneratedIds ids) {
+      drive.files
+          .generateIds(count: 1, space: driveParent)
+          .then((gd.GeneratedIds ids) {
         settingsFile.id = ids.ids[0];
         drive.files.create(settingsFile, uploadMedia: media).then((_) {});
       });
     } else {
       var file = gd.File();
       file.trashed = false;
-      drive.files.update(file, settingsFile.id, uploadMedia: media).then((gd.File file) {
+      drive.files
+          .update(file, settingsFile.id, uploadMedia: media)
+          .then((gd.File file) {
         if (doReload) reload();
 //        showDebug("Datei ${file.name} gespeichert");
       })?.catchError((error) {
@@ -1280,11 +1347,15 @@ class Globals extends Settings {
 
   void _getFromGoogle() {
     drive.files
-        .get(settingsFile.id, $fields: '*', downloadOptions: commons.DownloadOptions.FullMedia, acknowledgeAbuse: false)
+        .get(settingsFile.id,
+            $fields: '*',
+            downloadOptions: commons.DownloadOptions.FullMedia,
+            acknowledgeAbuse: false)
         .then((response) {
       var media = response as commons.Media;
       if (media?.contentType?.startsWith('text/') ?? false) {
-        var strm = media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
+        var strm =
+            media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
         strm.join().then((s) {
           // get settings in temporary structure to compare timestamps
           Settings set = Globals()..fromSharedString(s);
@@ -1293,15 +1364,18 @@ class Globals extends Settings {
             fromSharedString(s);
             save(updateSync: false);
             _initAfterLoad();
-//            showDebug("Daten auf Google vom ${time.day}.${time.month}.${time.year}, ${time.hour}:${fmtNumber(
+//            showDebug("Daten auf Google vom ${time.day}.${time.month}.
+//            ${time.year}, ${time.hour}:${fmtNumber(
 //              time.minute, 0, 2)} Uhr - geladen");
           } else {
-//            showDebug("Daten auf Google vom ${time.day}.${time.month}.${time.year}, ${time.hour}:${fmtNumber(
+//            showDebug("Daten auf Google vom ${time.day}.${time.month}.
+//            ${time.year}, ${time.hour}:${fmtNumber(
 //              time.minute, 0, 2)} Uhr - verworfen");
           }
         });
       } else {
-//          showDebug("Eine Datei der Art \"${media?.contentType}\" kann nicht verarbeitet werden. ");
+//          showDebug("Eine Datei der Art \"${media?.contentType}\"
+//          kann nicht verarbeitet werden. ");
       }
       _googleLoaded = true;
     }).catchError((error) {
@@ -1322,7 +1396,9 @@ class Globals extends Settings {
           ..name = settingsFilename
           ..parents = [driveParent]
           ..mimeType = 'text/json';
-        drive.files.generateIds(count: 1, space: driveParent).then((gd.GeneratedIds ids) {
+        drive.files
+            .generateIds(count: 1, space: driveParent)
+            .then((gd.GeneratedIds ids) {
           settingsFile.id = ids.ids[0];
           drive.files.create(settingsFile).then((file) {
             _getFromGoogle();
@@ -1419,20 +1495,19 @@ class Globals extends Settings {
   void _initAfterLoad() {
     changeLanguage(language, doReload: false);
     Settings.updatePeriod(period);
-    isConfigured = lastVersion != null && lastVersion.isNotEmpty && userList.isNotEmpty;
+    isConfigured =
+        lastVersion != null && lastVersion.isNotEmpty && userList.isNotEmpty;
   }
 
   String fmtBasal(num value, {bool dontRound = false}) {
     var precision = basalPrecision;
-    if (dontRound) precision = math.max(Globals.decimalPlaces(value), precision);
+    if (dontRound)
+      precision = math.max(Globals.decimalPlaces(value), precision);
     return fmtNumber(value, precision, 0, 'null', dontRound);
   }
 
-  double limitValue(double value, double min, double max) => value < min
-      ? min
-      : value > max
-          ? max
-          : value;
+  double limitValue(double value, double min, double max) =>
+      value < min ? min : value > max ? max : value;
 
   String fmtNumber(num value,
       [num decimals = 0,
@@ -1453,7 +1528,8 @@ class Globals extends Settings {
       while (ret.endsWith('0')) {
         ret = ret.substring(0, ret.length - 1);
       }
-      if (ret.endsWith(nf.symbols.DECIMAL_SEP)) ret = ret.substring(0, ret.length - 1);
+      if (ret.endsWith(nf.symbols.DECIMAL_SEP))
+        ret = ret.substring(0, ret.length - 1);
     }
 
     if (fillfront0 > 0) {
@@ -1465,9 +1541,7 @@ class Globals extends Settings {
     }
     return ret == 'NaN'
         ? nullText
-        : (forceSign && value >= 0)
-            ? '+${ret}'
-            : ret;
+        : (forceSign && value >= 0) ? '+${ret}' : ret;
   }
 
   bool isLoading = false;
@@ -1513,7 +1587,8 @@ class Globals extends Settings {
     saveStorage('sharedData', Settings.doit(asSharedString));
     saveStorage('deviceData', Settings.doit(asDeviceString));
 
-    var doReload = (language.code != oldLang && language.code != null) && !skipReload;
+    var doReload =
+        (language.code != oldLang && language.code != null) && !skipReload;
     if (syncGoogle && updateSync) {
       _uploadToGoogle(doReload);
     } else if (doReload) {
@@ -1550,17 +1625,20 @@ class Globals extends Settings {
     if (save.length > 1) save = save.substring(1);
     saveStorage('sc', Settings.doit('[$save]'));
     saveStorage('userIdx', '$userIdx');
-    var doReload = (language.code != oldLang && language.code != null) && !skipReload;
+    var doReload =
+        (language.code != oldLang && language.code != null) && !skipReload;
     saveStorage('glucMGDL', glucMGDL.toString());
     saveStorage('language', language.code ?? 'de_DE');
     saveStorage('ppPdfSameWindow', ppPdfSameWindow ? 'true' : 'false');
     saveStorage('ppPdfDownload', ppPdfDownload ? 'true' : 'false');
-    saveStorage('ppHideNightscoutInPDF', ppHideNightscoutInPDF ? 'true' : 'false');
+    saveStorage(
+        'ppHideNightscoutInPDF', ppHideNightscoutInPDF ? 'true' : 'false');
     saveStorage('ppShowUrlInPDF', ppShowUrlInPDF ? 'true' : 'false');
     saveStorage('ppHideLoopData', ppHideLoopData ? 'true' : 'false');
     saveStorage('pdfCreationMaxSize', '${pdfCreationMaxSize}');
     saveStorage('ppStandardLimits', _ppStandardLimits ? 'true' : 'false');
-    saveStorage('ppCGPAlwaysStandardLimits', ppCGPAlwaysStandardLimits ? 'true' : 'false');
+    saveStorage('ppCGPAlwaysStandardLimits',
+        ppCGPAlwaysStandardLimits ? 'true' : 'false');
     saveStorage('ppComparable', ppComparable ? 'true' : 'false');
     saveStorage('ppLatestFirst', ppLatestFirst ? 'true' : 'false');
     saveStorage('ppGlucMaxIdx', ppGlucMaxIdx?.toString() ?? 0);
@@ -1634,7 +1712,8 @@ class Globals extends Settings {
   Date parseDate(String value) {
     Date ret;
     if (value != null && value.length == 8) {
-      ret = Date(int.parse(value.substring(0, 4)), int.parse(value.substring(4, 6)), int.parse(value.substring(6, 8)));
+      ret = Date(int.parse(value.substring(0, 4)),
+          int.parse(value.substring(4, 6)), int.parse(value.substring(6, 8)));
     }
     return ret;
   }
@@ -1646,7 +1725,8 @@ class Globals extends Settings {
     var d2 = endDate.add(days: 0);
     while (d1.isOnOrBefore(d2)) {
       var url = user.urlDataFor(d1);
-      if (ret.firstWhere((entry) => entry == url, orElse: () => null) == null) ret.add(url);
+      if (ret.firstWhere((entry) => entry == url, orElse: () => null) == null)
+        ret.add(url);
       d1 = d1.add(days: 1);
     }
 
@@ -1682,7 +1762,9 @@ class UrlData {
   dynamic get asJson => {
         'u': url,
         't': token,
-        'sd': startDate == null ? '19700101' : startDate.format(DateFormat('yyyyMMdd')),
+        'sd': startDate == null
+            ? '19700101'
+            : startDate.format(DateFormat('yyyyMMdd')),
         'ed': endDate == null ? null : endDate.format(DateFormat('yyyyMMdd'))
       };
 
@@ -1702,7 +1784,8 @@ class UrlData {
       ret.token = JsonData.toText(json['t']);
       var sd = JsonData.toText(json['sd']);
       ret.startDate = sd == null ? Date(1970, 1, 1) : g.parseDate(sd);
-      ret.endDate = json['ed'] == null ? null : g.parseDate(JsonData.toText(json['ed']));
+      ret.endDate =
+          json['ed'] == null ? null : g.parseDate(JsonData.toText(json['ed']));
     } catch (ex) {
       var msg = ex.toString();
       g.showDebug('Fehler bei UrlData.fromSharedJson: ${msg}');
@@ -1710,13 +1793,15 @@ class UrlData {
     return ret;
   }
 
-  String get startDateEdit => startDate == null ? null : startDate.format(g.fmtDateForDisplay);
+  String get startDateEdit =>
+      startDate == null ? null : startDate.format(g.fmtDateForDisplay);
 
   set startDateEdit(String v) {
     startDate = Date.parse(v, g.fmtDateForDisplay);
   }
 
-  String get endDateEdit => endDate == null ? null : endDate.format(g.fmtDateForDisplay);
+  String get endDateEdit =>
+      endDate == null ? null : endDate.format(g.fmtDateForDisplay);
 
   set endDateEdit(String v) {
     endDate = Date.parse(v, g.fmtDateForDisplay);
@@ -1878,7 +1963,8 @@ class UserData {
   }
 
   // retrieves the url to the api for a data
-  String apiUrl(Date date, String cmd, {String params = '', bool noApi = false}) {
+  String apiUrl(Date date, String cmd,
+      {String params = '', bool noApi = false}) {
     if (listApiUrl.isEmpty) return null;
 
     var found = urlDataFor(date);
@@ -1890,7 +1976,8 @@ class UserData {
 
   // checks if the current url is valid
   Future<String> get isValid async {
-    if (apiUrl(null, '') == null) return Intl.message('Die URL wurde noch nicht festgelegt');
+    if (apiUrl(null, '') == null)
+      return Intl.message('Die URL wurde noch nicht festgelegt');
     String ret;
     var check = apiUrl(null, 'status');
     await g.request(check).then((String response) {

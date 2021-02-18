@@ -2061,13 +2061,13 @@ abstract class BasePrint {
     return Page(isPortrait, ret);
   }
 
-  addLegendEntry(LegendData legend, String color, String text,
+  dynamic addLegendEntry(LegendData legend, String color, String text,
       {bool isArea = true,
-      String image = null,
+      String image,
       double imgWidth = 0.6,
       double imgOffsetY = 0.0,
       double lineWidth = 0.0,
-      String graphText: null,
+      String graphText,
       newColumn: false,
       points: null,
       colGraphText: null,
@@ -2119,7 +2119,7 @@ abstract class BasePrint {
           {'text': text, 'color': colLegendText, 'fontSize': fs(10)}
         ]
       });
-    } else if (isArea && graphText != null)
+    } else if (isArea && graphText != null) {
       dst.add({
         'columns': [
           {
@@ -2144,7 +2144,7 @@ abstract class BasePrint {
           {'text': text, 'color': colLegendText, 'fontSize': fs(10)}
         ]
       });
-    else if (isArea)
+    } else if (isArea) {
       dst.add({
         'columns': [
           {
@@ -2191,7 +2191,7 @@ abstract class BasePrint {
           {'text': text, 'color': colLegendText, 'fontSize': fs(10)}
         ]
       });
-    else
+    } else {
       dst.add({
         'columns': [
           {
@@ -2211,6 +2211,7 @@ abstract class BasePrint {
           {'text': text, 'color': colLegendText, 'fontSize': fs(10)}
         ]
       });
+    }
   }
 
   double calcX(double width, DateTime time) =>
@@ -2286,7 +2287,7 @@ abstract class BasePrint {
   dynamic getIobCob(double xo, double yo, double graphWidth, double graphHeight,
       dynamic horzCvs, dynamic vertStack, DayData day,
       [double upperIob = 0, double upperCob = 0]) {
-    double colWidth = graphWidth / 24;
+    var colWidth = graphWidth / 24;
     // graphic for iob and cob
     dynamic ptsIob = [
       {'x': cm(calcX(graphWidth, DateTime(0, 1, 1, 0, 0))), 'y': cm(0)}
@@ -2294,23 +2295,29 @@ abstract class BasePrint {
     dynamic ptsCob = [
       {'x': cm(calcX(graphWidth, DateTime(0, 1, 1, 0, 0))), 'y': cm(0)}
     ];
-    DateTime time = DateTime(day.date.year, day.date.month, day.date.day);
-    int diff = 5;
-    double maxIob = -1000.0;
-    double minIob = 0.0;
-    double maxCob = -1000.0;
-    double lastX = 0;
-    int i = 0;
-    int currentDay = day.date.day;
-    while (i < 1440) {
+    var time = DateTime(day.date.year, day.date.month, day.date.day);
+    var diff = 5;
+    var maxIob = -1000.0;
+    var minIob = 0.0;
+    var maxCob = -1000.0;
+    var lastX = 0.0;
+    var i = 0;
+    var currentDay = day.date.day;
+    var maxTime = 1440;
+    if (day.date.year == Date.today().year &&
+        day.date.month == Date.today().month &&
+        day.date.day == Date.today().day) {
+      maxTime = DateTime.now().hour * 60 + DateTime.now().minute;
+    }
+    while (i < maxTime) {
       if (currentDay != time.day) {
         i += diff;
         continue;
       }
-      if (i + diff >= 1440 && i != 1439) diff = 1439 - i;
-      if (i < 1440) {
-        double x = calcX(graphWidth, time);
-        double y = day.iob(repData, time, day.prevDay).iob - 1.0;
+      if (i + diff >= maxTime && i != maxTime - 1) diff = maxTime - 1 - i;
+      if (i < maxTime) {
+        var x = calcX(graphWidth, time);
+        var y = day.iob(repData, time, day.prevDay).iob - 1.0;
         maxIob = max(maxIob, y);
         minIob = min(minIob, y);
         ptsIob.add({'x': cm(x), 'y': y});
@@ -2341,15 +2348,16 @@ abstract class BasePrint {
         horzCvs,
         vertStack,
         [S(10, 2.0), S(7, 1.0), S(3, 0.5), S(1.5, 0.2), S(0, 0.1)],
-        (i, step, {value: null}) =>
+        (i, step, {value}) =>
             '${g.fmtNumber(value ?? minIob + i * step, 1)} ${msgInsulinUnit}');
-    for (int i = 0; i < ptsIob.length; i++) {
+    for (var i = 0; i < ptsIob.length; i++) {
       if (maxIob - minIob > 0) {
         double y = ptsIob[i]['y'];
-        if (upperIob > 0)
+        if (upperIob > 0) {
           ptsIob[i]['y'] = cm(iobHeight / maxIob * (y + minIob));
-        else
+        } else {
           ptsIob[i]['y'] = cm(iobHeight / (maxIob - minIob) * (maxIob - y));
+        }
       } else {
         ptsIob[i]['y'] = cm(iobHeight);
       }
@@ -2366,31 +2374,34 @@ abstract class BasePrint {
         horzCvs,
         vertStack,
         [S(100, 20), S(50, 10), S(20, 5), S(0, 1)],
-        (i, step, {value: null}) => '${g.fmtNumber(value ?? i * step, 0)} g');
+        (i, step, {value}) => '${g.fmtNumber(value ?? i * step, 0)} g');
 
-    if (upperCob == 0)
+    if (upperCob == 0) {
       maxCob = maxCob * 1.1;
-    else
+    } else {
       maxCob = upperCob;
-    for (int i = 0; i < ptsCob.length; i++) {
-      if (maxCob > 0)
+    }
+    for (var i = 0; i < ptsCob.length; i++) {
+      if (maxCob > 0) {
         ptsCob[i]['y'] = cm(cobHeight / maxCob * (maxCob - ptsCob[i]['y']));
-      else
+      } else {
         ptsCob[i]['y'] = cm(cobHeight);
+      }
     }
 
     if (lastX != null) {
-      double y = 0;
-      if (upperIob > 0)
+      var y = 0.0;
+      if (upperIob > 0) {
         ptsIob
             .add({'x': cm(lastX), 'y': cm(iobHeight / maxIob * (y + minIob))});
-      else if (maxIob - minIob > 0)
+      } else if (maxIob - minIob > 0) {
         ptsIob.add({
           'x': cm(lastX),
           'y': cm(iobHeight / (maxIob - minIob) * (maxIob - y))
         });
-      else
+      } else {
         ptsIob.add({'x': cm(lastX), 'y': cm(iobHeight)});
+      }
       ptsCob.add({'x': cm(lastX), 'y': cm(cobHeight)});
     }
 
