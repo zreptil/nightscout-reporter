@@ -9,6 +9,12 @@ import 'print-daily-graphic.dart';
 
 class PrintDailyAnalysis extends BaseDaily {
   @override
+  String help =
+  Intl.message('''Dieses Formular zeigt eine Übersicht für einen Tag. Hier 
+  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On 
+  Board und Carbs On Board angezeigt.''', desc: 'help for dailyanalysis');
+
+  @override
   String id = 'dayanalysis';
 
   @override

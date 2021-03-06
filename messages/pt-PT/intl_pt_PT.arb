@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-10-18T06:51:49.600399",
+    "@@last_modified": "2021-03-06T23:28:10.044140",
     "Überprüfe Zugriff auf Nightscout ...": "A verificar acesso ao Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -86,7 +86,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "An error occurred while reading out the profiles. There may be too much data in the profile table (e.g. caused by iOS Loop). You can try to reduce the number of profile data records to be read in the settings.",
+    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Ocorreu um erro ao ler os perfis. Pode haver muitos dados na tabela de perfil (por exemplo, provocada pelo iOS Loop. Pode tentar reduzir o número de registros de dados do perfil a serem lidos nas configurações.",
     "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
         "type": "text",
         "placeholders": {}
@@ -111,17 +111,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bezeichnung": "Title",
+    "Bezeichnung": "Título",
     "@Bezeichnung": {
         "type": "text",
         "placeholders": {}
     },
-    "Hinzufügen": "Add",
+    "Hinzufügen": "Adicionar",
     "@Hinzufügen": {
         "type": "text",
         "placeholders": {}
     },
-    "msgTooMuchProfilesPrefix": "Not all profiles could be loaded because more than {maxCount} are saved in the selected period. ",
+    "msgTooMuchProfilesPrefix": "Nem todos os perfis puderam ser carregados porque mais de {maxCount} são gravados no período selecionado. ",
     "@msgTooMuchProfilesPrefix": {
         "type": "text",
         "placeholders": {
@@ -173,7 +173,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beide": "Both",
+    "Beide": "Ambos",
     "@Beide": {
         "type": "text",
         "placeholders": {}
@@ -184,7 +184,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Einheit der Glukosemessung": "Unit for glucose values",
+    "Einheit der Glukosemessung": "Unidade para valores de glicose",
     "@Einheit der Glukosemessung": {
         "type": "text",
         "placeholders": {}
@@ -1576,6 +1576,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": "This form shows an overview for one day. Here\n   the daily graph, the basal rate, the basal rate adjustments, Insulin On\n   Board and Carbs On Board displayed.",
+    "@Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": {
+        "description": "help for dailyanalysis",
+        "type": "text",
+        "placeholders": {}
+    },
     "Tagesanalyse": "Análise Diária",
     "@Tagesanalyse": {
         "type": "text",
@@ -1745,6 +1751,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Zielwert anzeigen": "Show targetvalue",
+    "@Zielwert anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Basal ges.": "Total de Basal",
     "@Basal ges.": {
         "type": "text",
@@ -1892,7 +1903,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Overrides": "Temporary Overrides",
+    "Temporäre Overrides": "Substituições temporárias",
     "@Temporäre Overrides": {
         "type": "text",
         "placeholders": {}
@@ -1987,17 +1998,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Prozent": "Percent",
+    "Prozent": "Porcentagem",
     "@Prozent": {
         "type": "text",
         "placeholders": {}
     },
-    "Wert": "Value",
+    "Wert": "Valor",
     "@Wert": {
         "type": "text",
         "placeholders": {}
     },
-    "Wert & Prozent": "Value & Percent",
+    "Wert & Prozent": "Valor & Porcentagem",
     "@Wert & Prozent": {
         "type": "text",
         "placeholders": {}
@@ -2007,7 +2018,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Basal aus Profil anzeigen": "Show basal from profile",
+    "Basal aus Profil anzeigen": "Mostrar basal do perfil",
     "@Basal aus Profil anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -2017,7 +2028,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Werte über dem Maximum als Pfeile darstellen": "Show values above the maximum as arrows",
+    "Werte über dem Maximum als Pfeile darstellen": "Mostrar valores acima do máximo como setas",
     "@Werte über dem Maximum als Pfeile darstellen": {
         "type": "text",
         "placeholders": {}
@@ -2055,6 +2066,16 @@
     },
     "TDD anzeigen": "Show TDD",
     "@TDD anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Kohlenhydrate anzeigen": "Show carbs",
+    "@Kohlenhydrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Min / Max Werte anzeigen": "Show min / max values",
+    "@Min / Max Werte anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2118,7 +2139,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Alle Benutzer ausgeben": "Show all users",
+    "Alle Benutzer ausgeben": "Mostrar todos os usuários",
     "@Alle Benutzer ausgeben": {
         "type": "text",
         "placeholders": {}
@@ -2139,17 +2160,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Fehler": "Error",
+    "Fehler": "Erro",
     "@Fehler": {
         "type": "text",
         "placeholders": {}
     },
-    "Warnung": "Warning",
+    "Warnung": "Atenção",
     "@Warnung": {
         "type": "text",
         "placeholders": {}
     },
-    "Information": "Information",
+    "Information": "Informação",
     "@Information": {
         "type": "text",
         "placeholders": {}
@@ -2178,7 +2199,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Aus den Profilen ermitteln": "Extract from profiles",
+    "Aus den Profilen ermitteln": "Extrair dos perfis",
     "@Aus den Profilen ermitteln": {
         "type": "text",
         "placeholders": {}
@@ -2226,22 +2247,22 @@
             "url": {}
         }
     },
-    "Daten von": "Data from",
+    "Daten von": "Dados de",
     "@Daten von": {
         "type": "text",
         "placeholders": {}
     },
-    "Daten bis": "Data to",
+    "Daten bis": "Dados para",
     "@Daten bis": {
         "type": "text",
         "placeholders": {}
     },
-    "Ermittle ersten Tag mit Daten": "Searching first day with data",
+    "Ermittle ersten Tag mit Daten": "Procurando primeiro dia com dados",
     "@Ermittle ersten Tag mit Daten": {
         "type": "text",
         "placeholders": {}
     },
-    "Ermittle letzten Tag mit Daten": "Searching last day with data",
+    "Ermittle letzten Tag mit Daten": "Procurando último dia com dados",
     "@Ermittle letzten Tag mit Daten": {
         "type": "text",
         "placeholders": {}
@@ -2251,7 +2272,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgCalculatingDay": "Checking {date} ...",
+    "msgCalculatingDay": "Verificando {date} ...",
     "@msgCalculatingDay": {
         "type": "text",
         "placeholders": {
@@ -2263,12 +2284,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Shortcut anlegen": "Add shortcut",
+    "Shortcut anlegen": "Adicionar atalho",
     "@Shortcut anlegen": {
         "type": "text",
         "placeholders": {}
     },
-    "Shortcut ändern": "Edit shortcut",
+    "Shortcut ändern": "Editar atalho",
     "@Shortcut ändern": {
         "type": "text",
         "placeholders": {}
@@ -2286,7 +2307,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Shortcuts": "Shortcuts",
+    "Shortcuts": "Atalhos",
     "@Shortcuts": {
         "description": "tab title for shortcuts",
         "type": "text",
@@ -2364,7 +2385,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Optionen": "Options",
+    "Optionen": "Opções",
     "@Optionen": {
         "description": "title for parameters",
         "type": "text",
@@ -2466,7 +2487,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "zu Vergleichszwecken (z.B. Arzt)": "for comparison purposes (e.g. doctor)",
+    "zu Vergleichszwecken (z.B. Arzt)": "para fins de comparação (por exemplo, doutor)",
     "@zu Vergleichszwecken (z.B. Arzt)": {
         "description": "label for comparative purposes",
         "type": "text",
@@ -2478,7 +2499,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Genauigkeit der Basalangaben:": "Precision of basalvalues:",
+    "Genauigkeit der Basalangaben:": "Precisão de valores da basal:",
     "@Genauigkeit der Basalangaben:": {
         "description": "label for max basalprecision in printparams",
         "type": "text",
@@ -2499,6 +2520,12 @@
     "Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": "Ocultar texto sobre Nightscout no cabeçalho e rodapé do PDF",
     "@Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden": {
         "description": "label for checkbox to hide nightscout in footer",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Hide loop data (ignore the options marked in this way)",
+    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
+        "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
     },
@@ -2523,12 +2550,6 @@
     "PDF erzeugen": "Crear PDF",
     "@PDF erzeugen": {
         "description": "buttonlabel for saving data",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Hide loop data (ignore the options marked in this way)",
-    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
-        "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
     },
@@ -2568,13 +2589,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Exportieren": "Export",
+    "Exportieren": "Exportar",
     "@Exportieren": {
         "description": "buttonlabel for exporting data",
         "type": "text",
         "placeholders": {}
     },
-    "Importieren": "Import",
+    "Importieren": "Importar",
     "@Importieren": {
         "description": "buttonlabel for importing data",
         "type": "text",
@@ -2604,13 +2625,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Soll die URL": "Deleting Url",
+    "Soll die URL": "Apagando Url",
     "@Soll die URL": {
         "description": "should the url of the user",
         "type": "text",
         "placeholders": {}
     },
-    "vom Benutzer wirklich gelöscht werden?": "Are you sure?",
+    "vom Benutzer wirklich gelöscht werden?": "Tens a certeza?",
     "@vom Benutzer wirklich gelöscht werden?": {
         "description": "of the user really be deleted",
         "type": "text",
@@ -2628,7 +2649,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Abbruch": "Cancel",
+    "Abbruch": "Cancelar",
     "@Abbruch": {
         "description": "buttonlabel for cancel",
         "type": "text",
@@ -2640,19 +2661,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Anzahl:": "Count:",
+    "Anzahl:": "Contagem:",
     "@Anzahl:": {
         "description": "number of forms for shortcut",
         "type": "text",
         "placeholders": {}
     },
-    "Zeitraum:": "Period:",
+    "Zeitraum:": "Período:",
     "@Zeitraum:": {
         "description": "period for shortcuts",
         "type": "text",
         "placeholders": {}
     },
-    "Löschen": "Delete",
+    "Löschen": "Excluir",
     "@Löschen": {
         "description": "buttonlabel for deleting data",
         "type": "text",
@@ -2670,7 +2691,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "mit dem Zeitraum": "be replaced with the period",
+    "mit dem Zeitraum": "ser substituído por um período",
     "@mit dem Zeitraum": {
         "description": "with period",
         "type": "text",
@@ -2739,6 +2760,48 @@
     "Version": "Versão",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.5 - 07.03.2021": "2.0.5 - 07/03/2021",
+    "@2.0.5 - 07.03.2021": {
+        "description": "v205",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": "Columns for TDD and carbohydrates can now be displayed in the daily statistics.",
+    "@In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": {
+        "description": "v205a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": "The URLs of the users are now sorted according to the end date.",
+    "@Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": {
+        "description": "v205c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": "The title of the Glucose Percentile Diagram is no longer displayed incorrectly in the form selection options when printing in portrait format.",
+    "@Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": {
+        "description": "v205f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.4 - 18.02.2021": "2.0.4 - 18/02/2021",
+    "@2.0.4 - 18.02.2021": {
+        "description": "v204",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": "There is a new option in the daily graph with which you can show and hide the target value.",
+    "@Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": {
+        "description": "v204a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": "An error has been corrected which resulted in missing data such as treatments no longer being able to create a PDF.",
+    "@Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": {
+        "description": "v204f1",
         "type": "text",
         "placeholders": {}
     },

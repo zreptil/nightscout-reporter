@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-10-18T06:51:49.600399",
+    "@@last_modified": "2021-03-06T23:28:10.044140",
     "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1576,6 +1576,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.",
+    "@Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": {
+        "description": "help for dailyanalysis",
+        "type": "text",
+        "placeholders": {}
+    },
     "Tagesanalyse": "Tagesanalyse",
     "@Tagesanalyse": {
         "type": "text",
@@ -1742,6 +1748,11 @@
     },
     "IOB (Insulin On Board) anzeigen": "IOB (Insulin On Board) anzeigen",
     "@IOB (Insulin On Board) anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zielwert anzeigen": "Zielwert anzeigen",
+    "@Zielwert anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2055,6 +2066,16 @@
     },
     "TDD anzeigen": "TDD anzeigen",
     "@TDD anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Kohlenhydrate anzeigen": "Kohlenhydrate anzeigen",
+    "@Kohlenhydrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Min / Max Werte anzeigen": "Min / Max Werte anzeigen",
+    "@Min / Max Werte anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2502,6 +2523,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)",
+    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
+        "description": "label for checkbox to hide loop data",
+        "type": "text",
+        "placeholders": {}
+    },
     "Nightscout Url in der Fusszeile des PDFs anzeigen": "Nightscout Url in der Fusszeile des PDFs anzeigen",
     "@Nightscout Url in der Fusszeile des PDFs anzeigen": {
         "description": "label for checkbox to show nightscout url in footer",
@@ -2523,12 +2550,6 @@
     "PDF erzeugen": "PDF erzeugen",
     "@PDF erzeugen": {
         "description": "buttonlabel for saving data",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)",
-    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
-        "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
     },
@@ -2739,6 +2760,48 @@
     "Version": "Version",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.5 - 07.03.2021": "2.0.5 - 07.03.2021",
+    "@2.0.5 - 07.03.2021": {
+        "description": "v205",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.",
+    "@In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": {
+        "description": "v205a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.",
+    "@Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": {
+        "description": "v205c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.",
+    "@Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": {
+        "description": "v205f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.4 - 18.02.2021": "2.0.4 - 18.02.2021",
+    "@2.0.4 - 18.02.2021": {
+        "description": "v204",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": "Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.",
+    "@Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": {
+        "description": "v204a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": "Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.",
+    "@Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": {
+        "description": "v204f1",
         "type": "text",
         "placeholders": {}
     },

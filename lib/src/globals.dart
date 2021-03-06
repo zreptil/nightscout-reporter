@@ -120,7 +120,8 @@ class PeriodShift {
 class Settings {
   String version = '2.0.5';
 
-  // subversion is used nowhere. It is just there to trigger an other signature for the cache.
+  // subversion is used nowhere. It is just there to trigger an other signature
+  // for the cache.
   String subVersion = '1';
 
   static String get msgThemeAuto =>
@@ -1499,6 +1500,16 @@ class Globals extends Settings {
         lastVersion != null && lastVersion.isNotEmpty && userList.isNotEmpty;
   }
 
+  int compareDate(Date date1, Date date2) {
+    if (date1 == null) {
+      return date2 == null ? 0 : 1;
+    }
+    if (date2 == null) {
+      return -1;
+    }
+    return date1.compareTo(date2);
+  }
+
   String fmtBasal(num value, {bool dontRound = false}) {
     var precision = basalPrecision;
     if (dontRound)
@@ -1506,8 +1517,11 @@ class Globals extends Settings {
     return fmtNumber(value, precision, 0, 'null', dontRound);
   }
 
-  double limitValue(double value, double min, double max) =>
-      value < min ? min : value > max ? max : value;
+  double limitValue(double value, double min, double max) => value < min
+      ? min
+      : value > max
+          ? max
+          : value;
 
   String fmtNumber(num value,
       [num decimals = 0,
@@ -1541,7 +1555,9 @@ class Globals extends Settings {
     }
     return ret == 'NaN'
         ? nullText
-        : (forceSign && value >= 0) ? '+${ret}' : ret;
+        : (forceSign && value >= 0)
+            ? '+${ret}'
+            : ret;
   }
 
   bool isLoading = false;
@@ -1880,7 +1896,7 @@ class UserData {
       for (FormConfig cfg in g.listConfig) forms[cfg.id] = cfg.asJson;
     } catch (ex) {}
 */
-    listApiUrl.sort((a, b) => a.startDate.compareTo(b.startDate));
+    listApiUrl.sort((a, b) => g.compareDate(a.endDate, b.endDate));
     var urls = <dynamic>[];
     for (var url in listApiUrl) {
       urls.add(url.asJson);
@@ -1933,7 +1949,7 @@ class UserData {
       for (dynamic s in json['s']) {
         ret.listApiUrl.add(UrlData.fromJson(g, s));
       }
-      ret.listApiUrl.sort((a, b) => a.startDate.compareTo(b.startDate));
+      ret.listApiUrl.sort((a, b) => g.compareDate(a.endDate, b.endDate));
       ret.customData = json['c'];
       ret.isReachable = json['r'] ?? true;
       ret.profileMaxIdx = JsonData.toInt(json['pmi'], null);

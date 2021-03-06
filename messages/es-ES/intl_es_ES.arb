@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-10-18T06:51:49.600399",
+    "@@last_modified": "2021-03-06T23:28:10.044140",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -86,7 +86,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Al leer los perfiles ha ocurrido un error. Probablemente hay demasiados datos en la tabla del perfil (se produce or ejemplo por el bucle de iOS). Puedes intentar reducir el número de registros de perfil que se van a leer en la configuración.",
+    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Al leer los perfiles ha ocurrido un error. Probablemente hay demasiados datos en la tabla del perfil (se produce por ejemplo por el bucle de iOS). Puedes intentar reducir el número de registros de perfil que se van a leer en la configuración.",
     "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
         "type": "text",
         "placeholders": {}
@@ -1576,6 +1576,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.",
+    "@Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": {
+        "description": "help for dailyanalysis",
+        "type": "text",
+        "placeholders": {}
+    },
     "Tagesanalyse": "Analisis diaria",
     "@Tagesanalyse": {
         "type": "text",
@@ -1742,6 +1748,11 @@
     },
     "IOB (Insulin On Board) anzeigen": "Mostrar IOB (insulina a bordo)",
     "@IOB (Insulin On Board) anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zielwert anzeigen": "Mostrar número objetivo",
+    "@Zielwert anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2058,6 +2069,16 @@
         "type": "text",
         "placeholders": {}
     },
+    "Kohlenhydrate anzeigen": "Kohlenhydrate anzeigen",
+    "@Kohlenhydrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Min / Max Werte anzeigen": "Min / Max Werte anzeigen",
+    "@Min / Max Werte anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Tagesstatistik": "Estatistica diaria",
     "@Tagesstatistik": {
         "type": "text",
@@ -2340,7 +2361,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": "Algunos navegadores no son capaz de mostrar PDF de cierto tamaño. Esto depende de varios factores. Existe la posibilidad de crear varios documentos PDF pequeños en vez de uno grande para poder ser mostrado correctamente en el navegador. Se puede elegir el tamaño aqui y en configuraciónes. Aqui solo se muestra si el PDF ha tenido que ser dividido. Si solo se ha creado un PDF se mostrará directamente.",
+    "Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": "Algunos navegadores no son capaz de mostrar PDF de cierto tamaño. Esto depende de varios factores. Existe la posibilidad de crear varios documentos PDF pequeños en vez de uno grande para poder ser mostrado correctamente en el navegador. Se puede elegir el tamaño aquí y en configuración. Aquí solo se muestra si el PDF ha tenido que ser dividido. Si solo se ha creado un PDF se mostrará directamente.",
     "@Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt.": {
         "description": "msgPdfInfo",
         "type": "text",
@@ -2502,6 +2523,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Esconder datos que revelan el bucle cerrado (ignorar el señalando en otro color)",
+    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
+        "description": "label for checkbox to hide loop data",
+        "type": "text",
+        "placeholders": {}
+    },
     "Nightscout Url in der Fusszeile des PDFs anzeigen": "Mostral Nightscout Url en el pie de la página PDF",
     "@Nightscout Url in der Fusszeile des PDFs anzeigen": {
         "description": "label for checkbox to show nightscout url in footer",
@@ -2523,12 +2550,6 @@
     "PDF erzeugen": "Generar PDF",
     "@PDF erzeugen": {
         "description": "buttonlabel for saving data",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)",
-    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
-        "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
     },
@@ -2742,25 +2763,67 @@
         "type": "text",
         "placeholders": {}
     },
+    "2.0.5 - 07.03.2021": "2.0.5 - 07.03.2021",
+    "@2.0.5 - 07.03.2021": {
+        "description": "v205",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.",
+    "@In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": {
+        "description": "v205a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.",
+    "@Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": {
+        "description": "v205c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.",
+    "@Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": {
+        "description": "v205f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.4 - 18.02.2021": "2.0.4 - 18.02.2021",
+    "@2.0.4 - 18.02.2021": {
+        "description": "v204",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": "Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.",
+    "@Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": {
+        "description": "v204a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": "Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.",
+    "@Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": {
+        "description": "v204f1",
+        "type": "text",
+        "placeholders": {}
+    },
     "2.0.3 - 18.10.2020": "2.0.3 - 18.10.2020",
     "@2.0.3 - 18.10.2020": {
         "description": "v203",
         "type": "text",
         "placeholders": {}
     },
-    "In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind.": "In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind.",
+    "In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind.": "En los parámetros hay una opción para desactivar todos las informaciones que estan relacionadas con el bucle cerrado para esta actual edición. Estos son los parámetros marcados con un círculo (=Loop).",
     "@In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind.": {
         "description": "v203a1",
         "type": "text",
         "placeholders": {}
     },
-    "Beim erstmaligen Start von Nightscout Reporter wurde er schon bei Sprachänderung normal angezeigt. Jetzt bleibt er wie vorgesehen auf dem Willkommen Dialog.": "Beim erstmaligen Start von Nightscout Reporter wurde er schon bei Sprachänderung normal angezeigt. Jetzt bleibt er wie vorgesehen auf dem Willkommen Dialog.",
+    "Beim erstmaligen Start von Nightscout Reporter wurde er schon bei Sprachänderung normal angezeigt. Jetzt bleibt er wie vorgesehen auf dem Willkommen Dialog.": "Al primer inicio de Nightscout Reporter se ha mostrado normal al cambiar el lenguaje. Ahora se muestra, como previsto, el la página inicial.",
     "@Beim erstmaligen Start von Nightscout Reporter wurde er schon bei Sprachänderung normal angezeigt. Jetzt bleibt er wie vorgesehen auf dem Willkommen Dialog.": {
         "description": "v203f1",
         "type": "text",
         "placeholders": {}
     },
-    "Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": "Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.",
+    "Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": "El diseño de las imágenes en azulejos ahora se inicia correctamente en los ajustes.",
     "@Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": {
         "description": "v203f2",
         "type": "text",

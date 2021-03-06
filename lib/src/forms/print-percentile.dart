@@ -130,7 +130,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''', desc: 'help 
   PrintPercentile()
   {
     init();
-    title = _title;
+    title = BasePrint.titleGPD;
   }
 
   @override
@@ -270,7 +270,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''', desc: 'help 
     var hf = headerFooter();
     dynamic content = [hf, getTable(tableWidths, body)];
     dynamic ret = Page(isPortrait, content);
-    title = _title;
+    title = BasePrint.titleGPD;
     isPortrait = false;
     return ret;
   }
@@ -467,6 +467,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''', desc: 'help 
       percGraph,
     ]);
 
+    title = BasePrint.titleGPD;
     return ret;
   }
 

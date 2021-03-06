@@ -237,8 +237,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
   static String get msgParam25 =>
       Intl.message('IOB (Insulin On Board) anzeigen');
 
-  static String get msgParam26 =>
-      Intl.message('Zielwert anzeigen');
+  static String get msgParam26 => Intl.message('Zielwert anzeigen');
 
   @override
   String get msgBasalSum => Intl.message('Basal ges.');
@@ -1182,14 +1181,17 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       var v2 = g.glucFromData(targets(repData)['high'].toDouble());
       addLegendEntry(legend, colTargetArea,
           msgTargetArea(v1, v2, g.getGlucInfo()['unit']));
-      addLegendEntry(
-          legend,
-          colTargetValue,
-          msgTargetValue(
-              '${g.glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${g.getGlucInfo()['unit']}'),
-          isArea: false);
-      if (hasCollectedValues)
+      if (showTargetValue) {
+        addLegendEntry(
+            legend,
+            colTargetValue,
+            msgTargetValue(
+                '${g.glucFromData((profile.targetHigh + profile.targetLow) / 2)} ${g.getGlucInfo()['unit']}'),
+            isArea: false);
+      }
+      if (hasCollectedValues) {
         addLegendEntry(legend, '', msgCollectedValues, graphText: '[0,0]');
+      }
       if (hasCatheterChange) {
         addLegendEntry(legend, '', msgCatheterChange,
             image: 'katheter.print', imgWidth: 0.5, imgOffsetY: 0.15);

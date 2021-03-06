@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-10-18T06:51:49.600399",
+    "@@last_modified": "2021-03-06T23:28:10.044140",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -173,7 +173,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beide": "Both",
+    "Beide": "Les deux",
     "@Beide": {
         "type": "text",
         "placeholders": {}
@@ -184,7 +184,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Einheit der Glukosemessung": "Unit for glucose values",
+    "Einheit der Glukosemessung": "Unité pour les valeurs de glucose",
     "@Einheit der Glukosemessung": {
         "type": "text",
         "placeholders": {}
@@ -1576,6 +1576,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": "This form shows an overview for one day. Here\n   the daily graph, the basal rate, the basal rate adjustments, Insulin On\n   Board and Carbs On Board displayed.",
+    "@Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": {
+        "description": "help for dailyanalysis",
+        "type": "text",
+        "placeholders": {}
+    },
     "Tagesanalyse": "Analyse du jour",
     "@Tagesanalyse": {
         "type": "text",
@@ -1742,6 +1748,11 @@
     },
     "IOB (Insulin On Board) anzeigen": "Afficher l'insuline active (IOB)",
     "@IOB (Insulin On Board) anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zielwert anzeigen": "Show targetvalue",
+    "@Zielwert anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2017,7 +2028,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Werte über dem Maximum als Pfeile darstellen": "Show values above the maximum as arrows",
+    "Werte über dem Maximum als Pfeile darstellen": "Afficher les valeurs au-dessus du maximum comme des flèches",
     "@Werte über dem Maximum als Pfeile darstellen": {
         "type": "text",
         "placeholders": {}
@@ -2055,6 +2066,16 @@
     },
     "TDD anzeigen": "Afficher TDD",
     "@TDD anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Kohlenhydrate anzeigen": "Show carbs",
+    "@Kohlenhydrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Min / Max Werte anzeigen": "Show min / max values",
+    "@Min / Max Werte anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2502,6 +2523,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Masquer les données de la boucle (ignorer les options marquées de cette manière)",
+    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
+        "description": "label for checkbox to hide loop data",
+        "type": "text",
+        "placeholders": {}
+    },
     "Nightscout Url in der Fusszeile des PDFs anzeigen": "Afficher l'URL Nightscout dans le pied de page des PDF",
     "@Nightscout Url in der Fusszeile des PDFs anzeigen": {
         "description": "label for checkbox to show nightscout url in footer",
@@ -2523,12 +2550,6 @@
     "PDF erzeugen": "Créer un PDF",
     "@PDF erzeugen": {
         "description": "buttonlabel for saving data",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Hide loop data (ignore the options marked in this way)",
-    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
-        "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
     },
@@ -2688,13 +2709,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Soll die Einheit zur Glukosemessung": "Should the unit for glucosevalues",
+    "Soll die Einheit zur Glukosemessung": "Devrait être l'unité pour les valeurs de glucose",
     "@Soll die Einheit zur Glukosemessung": {
         "description": "should the period",
         "type": "text",
         "placeholders": {}
     },
-    "mit der Einheit": "with the unit",
+    "mit der Einheit": "avec l'unité",
     "@mit der Einheit": {
         "description": "with period",
         "type": "text",
@@ -2742,6 +2763,48 @@
         "type": "text",
         "placeholders": {}
     },
+    "2.0.5 - 07.03.2021": "2.0.5 - 07/03/2021",
+    "@2.0.5 - 07.03.2021": {
+        "description": "v205",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": "Columns for TDD and carbohydrates can now be displayed in the daily statistics.",
+    "@In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": {
+        "description": "v205a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": "The URLs of the users are now sorted according to the end date.",
+    "@Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": {
+        "description": "v205c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": "The title of the Glucose Percentile Diagram is no longer displayed incorrectly in the form selection options when printing in portrait format.",
+    "@Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": {
+        "description": "v205f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.4 - 18.02.2021": "2.0.4 - 18/02/2021",
+    "@2.0.4 - 18.02.2021": {
+        "description": "v204",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": "There is a new option in the daily graph with which you can show and hide the target value.",
+    "@Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": {
+        "description": "v204a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": "An error has been corrected which resulted in missing data such as treatments no longer being able to create a PDF.",
+    "@Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": {
+        "description": "v204f1",
+        "type": "text",
+        "placeholders": {}
+    },
     "2.0.3 - 18.10.2020": "2.0.3 - 18/10/2020",
     "@2.0.3 - 18.10.2020": {
         "description": "v203",
@@ -2760,7 +2823,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": "The display of the images on tiles is now correctly preset in the settings as intended.",
+    "Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": "L'affichage des images sur les tuiles est maintenant correctement prédéfini dans les paramètres comme prévu.",
     "@Die Anzeige der Bilder auf Kacheln wird nun wie vorgesehen korrekt in den Einstellungen vorbelegt.": {
         "description": "v203f2",
         "type": "text",
@@ -2784,7 +2847,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Profilbasalrate im Formular Tagesprofil wird jetzt ebenfalls mit Balken dargestellt.": "The profile basal rate in the daily profile form is now also displayed with bars.",
+    "Die Profilbasalrate im Formular Tagesprofil wird jetzt ebenfalls mit Balken dargestellt.": "Le débit basal du profil dans le formulaire de profil quotidien est maintenant aussi affiché avec des barres.",
     "@Die Profilbasalrate im Formular Tagesprofil wird jetzt ebenfalls mit Balken dargestellt.": {
         "description": "v202c1",
         "type": "text",

@@ -193,7 +193,7 @@ class SettingsComponent implements OnInit {
   }
 
   Future<void> checkUser([String event]) async {
-    g.user.listApiUrl.sort((a, b) => a.startDate.compareTo(b.startDate));
+    g.user.listApiUrl.sort((a, b) => g.compareDate(a.endDate, b.endDate));
     progressText = msgCheckUser(g.user.apiUrl(null, '', noApi: true));
     var ret = await g.user.isValid;
     progressText = null;

@@ -1,11 +1,11 @@
 {
-    "@@last_modified": "2020-10-18T06:51:49.600399",
-    "Überprüfe Zugriff auf Nightscout ...": "Skontrolujte prístup do Nightscout ...",
+    "@@last_modified": "2021-03-06T23:28:10.044140",
+    "Überprüfe Zugriff auf Nightscout ...": "Kontrola prístupu do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
         "placeholders": {}
     },
-    "msgLoadingData": "Chyba pri načítaní údajov: {error} {stacktrace}",
+    "msgLoadingData": "Chyba pri načítaní údajov: \n{error}\n{stacktrace}",
     "@msgLoadingData": {
         "type": "text",
         "placeholders": {
@@ -18,7 +18,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgLoadingDataFor": "Načítavajú sa údaje za {date} ...",
+    "msgLoadingDataFor": "Načítavajú sa údaje z {date}...",
     "@msgLoadingDataFor": {
         "description": "displayed when data of a day is loading",
         "type": "text",
@@ -86,7 +86,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.",
+    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Nastal problém pri načítavaní profilov. Pravdepodobne je v tabuľke profilov priveľa dát (napr. to spôsobuje iOS Loop). Môžeš skúsiť obmedziť množstvo načítavaných dát v nastaveniach.",
     "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
         "type": "text",
         "placeholders": {}
@@ -173,7 +173,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beide": "Beide",
+    "Beide": "Obe",
     "@Beide": {
         "type": "text",
         "placeholders": {}
@@ -184,7 +184,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Einheit der Glukosemessung": "Einheit der Glukosemessung",
+    "Einheit der Glukosemessung": "Merná jednotka glykémie",
     "@Einheit der Glukosemessung": {
         "type": "text",
         "placeholders": {}
@@ -234,7 +234,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Heute": "dnes",
+    "Heute": "Dnes",
     "@Heute": {
         "type": "text",
         "placeholders": {}
@@ -279,22 +279,22 @@
         "type": "text",
         "placeholders": {}
     },
-    "Einen Monat vorher": "O mesiac skôr",
+    "Einen Monat vorher": "Mesiac dozadu",
     "@Einen Monat vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Drei Monate vorher": "Tri mesiace vopred",
+    "Drei Monate vorher": "Tri mesiace dozadu",
     "@Drei Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Sechs Monate vorher": "Šesť mesiacov vopred",
+    "Sechs Monate vorher": "Šesť mesiacov dozadu",
     "@Sechs Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Ein Jahr vorher": "O rok skôr",
+    "Ein Jahr vorher": "Pred rokom",
     "@Ein Jahr vorher": {
         "type": "text",
         "placeholders": {}
@@ -421,7 +421,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "_msgPageCountEst": "{count, plural, =0 {} =1 {1 stránka alebo viac} other {{count} stránok alebo viac}}",
+    "_msgPageCountEst": "{count, plural, =0 {} =1 {1 alebo viac stránok} other {{count} alebo viac stránok}}",
     "@_msgPageCountEst": {
         "type": "text",
         "placeholders": {
@@ -556,14 +556,14 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgBasalrateDay": "Bazálna sadzba za deň ( {value} )",
+    "msgBasalrateDay": "Bazálna dávka za deň ({value})",
     "@msgBasalrateDay": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgBasalrateProfile": "Bazálna dávka z profilu ( {value} )",
+    "msgBasalrateProfile": "Bazálna dávka z profilu ({value})",
     "@msgBasalrateProfile": {
         "type": "text",
         "placeholders": {
@@ -612,7 +612,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "KH": "KH",
+    "KH": "S",
     "@KH": {
         "type": "text",
         "placeholders": {}
@@ -944,7 +944,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesbasalrate verwenden": "Tagesbasalrate verwenden",
+    "Tagesbasalrate verwenden": "Použiť dennú bazálnu dávku",
     "@Tagesbasalrate verwenden": {
         "type": "text",
         "placeholders": {}
@@ -974,7 +974,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)": "Zdroj: Vigersky, RA, Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). Komplexný glukózový päťuholník: Glukózovo-centrická kompozitná metrika na hodnotenie glykemickej kontroly u osôb s cukrovkou. Journal of Diabetes Science and Technology, 12 (1), 114-123. (Https://doi.org/10.1177/1932296817718561)",
+    "Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)": "Zdroj: Vigersky, RA, Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). Komplexný glukózový päťuholník: Glukózovo-centrická kompozitná metrika na hodnotenie glykemickej kontroly u osôb s cukrovkou. Journal of Diabetes Science and Technology, 12 (1), 114-123. (https://doi.org/10.1177/1932296817718561)",
     "@Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)": {
         "type": "text",
         "placeholders": {}
@@ -1298,7 +1298,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dämmerung (06:00 - 07:59, 18:00 - 20:59)": "Dämmerung (06:00 - 07:59, 18:00 - 20:59)",
+    "Dämmerung (06:00 - 07:59, 18:00 - 20:59)": "Súmrak (06:00 - 07:59, 18:00 - 20:59)",
     "@Dämmerung (06:00 - 07:59, 18:00 - 20:59)": {
         "type": "text",
         "placeholders": {}
@@ -1576,6 +1576,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.",
+    "@Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": {
+        "description": "help for dailyanalysis",
+        "type": "text",
+        "placeholders": {}
+    },
     "Tagesanalyse": "analýza dňa",
     "@Tagesanalyse": {
         "type": "text",
@@ -1745,6 +1751,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Zielwert anzeigen": "Zobrazovať cieľovú hodnotu",
+    "@Zielwert anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Basal ges.": "Celkom bazál",
     "@Basal ges.": {
         "type": "text",
@@ -1765,7 +1776,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Blutige Messung": "Blutige Messung",
+    "Blutige Messung": "Meranie z krvi",
     "@Blutige Messung": {
         "type": "text",
         "placeholders": {}
@@ -1892,7 +1903,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Overrides": "Temporäre Overrides",
+    "Temporäre Overrides": "Temporárne prepísanie",
     "@Temporäre Overrides": {
         "type": "text",
         "placeholders": {}
@@ -2058,6 +2069,16 @@
         "type": "text",
         "placeholders": {}
     },
+    "Kohlenhydrate anzeigen": "Kohlenhydrate anzeigen",
+    "@Kohlenhydrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Min / Max Werte anzeigen": "Min / Max Werte anzeigen",
+    "@Min / Max Werte anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Tagesstatistik": "Denná štatistika",
     "@Tagesstatistik": {
         "type": "text",
@@ -2069,7 +2090,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Basalrate anzeigen": "Basalrate anzeigen",
+    "Basalrate anzeigen": "Zobraziť bazál",
     "@Basalrate anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -2139,22 +2160,22 @@
         "type": "text",
         "placeholders": {}
     },
-    "Fehler": "Fehler",
+    "Fehler": "Chyba",
     "@Fehler": {
         "type": "text",
         "placeholders": {}
     },
-    "Warnung": "Warnung",
+    "Warnung": "Varovanie",
     "@Warnung": {
         "type": "text",
         "placeholders": {}
     },
-    "Information": "Information",
+    "Information": "Informácia",
     "@Information": {
         "type": "text",
         "placeholders": {}
     },
-    "msgStandardLimits": "Standard Zielbereich verwenden ({low} {unit} - {high} {unit})",
+    "msgStandardLimits": "Použiť štandardný rozsah hodnôt ({low} {unit} - {high} {unit})",
     "@msgStandardLimits": {
         "type": "text",
         "placeholders": {
@@ -2163,7 +2184,7 @@
             "unit": {}
         }
     },
-    "CGP immer mit Standard Zielbereich": "CGP immer mit Standard Zielbereich",
+    "CGP immer mit Standard Zielbereich": "CGP vždy so štandardným cieľovým rozsahom",
     "@CGP immer mit Standard Zielbereich": {
         "type": "text",
         "placeholders": {}
@@ -2183,7 +2204,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "URL adresa na rozhranie Nightscout-API (napr. https://xxx.herokuapp.com)",
+    "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "URL adresa Nightscout-API (napr. https://xxx.herokuapp.com)",
     "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
         "type": "text",
         "placeholders": {}
@@ -2193,19 +2214,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Zugriffsschlüssel": "Zugriffsschlüssel",
+    "Zugriffsschlüssel": "Prístupový kľúč",
     "@Zugriffsschlüssel": {
         "type": "text",
         "placeholders": {}
     },
-    "msgAccessTokenHint": "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde",
+    "msgAccessTokenHint": "Prístupový kľúč je potrebný len v prípade, že bol prístup k Nightscout údajom obmedzený nastavením premennej AUTH_DEFAULT_ROLES",
     "@msgAccessTokenHint": {
         "type": "text",
         "placeholders": {
             "isVisible": {}
         }
     },
-    "msgStartDateHint": "Das Datum des ersten Tages mit Daten",
+    "msgStartDateHint": "Dátum prvého dňa s údajmi",
     "@msgStartDateHint": {
         "type": "text",
         "placeholders": {
@@ -2226,17 +2247,17 @@
             "url": {}
         }
     },
-    "Daten von": "Daten von",
+    "Daten von": "Dáta od",
     "@Daten von": {
         "type": "text",
         "placeholders": {}
     },
-    "Daten bis": "Daten bis",
+    "Daten bis": "Dáta do",
     "@Daten bis": {
         "type": "text",
         "placeholders": {}
     },
-    "Ermittle ersten Tag mit Daten": "Ermittle ersten Tag mit Daten",
+    "Ermittle ersten Tag mit Daten": "Zisti prvý deň s dátami",
     "@Ermittle ersten Tag mit Daten": {
         "type": "text",
         "placeholders": {}
@@ -2251,7 +2272,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgCalculatingDay": "Überprüfe {date} ...",
+    "msgCalculatingDay": "Kontrolujem {date} ...",
     "@msgCalculatingDay": {
         "type": "text",
         "placeholders": {
@@ -2263,12 +2284,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Shortcut anlegen": "Shortcut anlegen",
+    "Shortcut anlegen": "Vytvoriť odkaz",
     "@Shortcut anlegen": {
         "type": "text",
         "placeholders": {}
     },
-    "Shortcut ändern": "Shortcut ändern",
+    "Shortcut ändern": "Odkaz zmeniť",
     "@Shortcut ändern": {
         "type": "text",
         "placeholders": {}
@@ -2280,13 +2301,13 @@
             "count": {}
         }
     },
-    "Menü": "Menü",
+    "Menü": "Menu",
     "@Menü": {
         "description": "tab title for menu",
         "type": "text",
         "placeholders": {}
     },
-    "Shortcuts": "Shortcuts",
+    "Shortcuts": "Odkazy",
     "@Shortcuts": {
         "description": "tab title for shortcuts",
         "type": "text",
@@ -2364,7 +2385,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Optionen": "Optionen",
+    "Optionen": "Možnosti",
     "@Optionen": {
         "description": "title for parameters",
         "type": "text",
@@ -2454,13 +2475,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgabe Parameter": "Ausgabe Parameter",
+    "Ausgabe Parameter": "Výstupné parametre",
     "@Ausgabe Parameter": {
         "description": "title for printparameter dialog",
         "type": "text",
         "placeholders": {}
     },
-    "Allgemeines": "Allgemeines",
+    "Allgemeines": "Všeobecné",
     "@Allgemeines": {
         "description": "label of area for section general in printparams",
         "type": "text",
@@ -2502,6 +2523,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)",
+    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
+        "description": "label for checkbox to hide loop data",
+        "type": "text",
+        "placeholders": {}
+    },
     "Nightscout Url in der Fusszeile des PDFs anzeigen": "Nightscout Url in der Fusszeile des PDFs anzeigen",
     "@Nightscout Url in der Fusszeile des PDFs anzeigen": {
         "description": "label for checkbox to show nightscout url in footer",
@@ -2523,12 +2550,6 @@
     "PDF erzeugen": "Vytvorte PDF",
     "@PDF erzeugen": {
         "description": "buttonlabel for saving data",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)",
-    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
-        "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
     },
@@ -2568,13 +2589,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Exportieren": "Exportieren",
+    "Exportieren": "Exportovať",
     "@Exportieren": {
         "description": "buttonlabel for exporting data",
         "type": "text",
         "placeholders": {}
     },
-    "Importieren": "Importieren",
+    "Importieren": "Importovať",
     "@Importieren": {
         "description": "buttonlabel for importing data",
         "type": "text",
@@ -2628,7 +2649,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Abbruch": "Abbruch",
+    "Abbruch": "Zrušiť",
     "@Abbruch": {
         "description": "buttonlabel for cancel",
         "type": "text",
@@ -2640,19 +2661,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Anzahl:": "Anzahl:",
+    "Anzahl:": "Počet:",
     "@Anzahl:": {
         "description": "number of forms for shortcut",
         "type": "text",
         "placeholders": {}
     },
-    "Zeitraum:": "Zeitraum:",
+    "Zeitraum:": "Obdobie:",
     "@Zeitraum:": {
         "description": "period for shortcuts",
         "type": "text",
         "placeholders": {}
     },
-    "Löschen": "Löschen",
+    "Löschen": "Odstrániť",
     "@Löschen": {
         "description": "buttonlabel for deleting data",
         "type": "text",
@@ -2739,6 +2760,48 @@
     "Version": "verzia",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.5 - 07.03.2021": "2.0.5 - 07.03.2021",
+    "@2.0.5 - 07.03.2021": {
+        "description": "v205",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.",
+    "@In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": {
+        "description": "v205a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.",
+    "@Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": {
+        "description": "v205c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.",
+    "@Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": {
+        "description": "v205f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.4 - 18.02.2021": "2.0.4 - 18.02.2021",
+    "@2.0.4 - 18.02.2021": {
+        "description": "v204",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": "Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.",
+    "@Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": {
+        "description": "v204a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": "Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.",
+    "@Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": {
+        "description": "v204f1",
         "type": "text",
         "placeholders": {}
     },
@@ -3042,7 +3105,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.",
+    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "Hodnoty pre analýzu neboli vždy správne načítané. Toto bolo opravené a štatistické hodnoty za obdobie sú teraz vypočítané správne.",
     "@Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": {
         "description": "v143f1",
         "type": "text",
@@ -3330,7 +3393,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": "Dočasný bazálny koeficient na počiatku dňa bol do teraz nastavený nesprávne. Teraz je to opravené.",
+    "Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": "Dočasný bazálny koeficient na počiatku dňa bol doteraz nastavený nesprávne, ak bol zadaný predchádzajúci deň. Teraz je to opravené.",
     "@Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": {
         "description": "v135f2",
         "type": "text",

@@ -8,11 +8,13 @@ import 'base-print.dart';
 
 class PrintDailyStatistics extends BasePrint {
   @override
-  String help = Intl.message('''Dieses Formular zeigt die statistischen Werte für die Tage des ausgewählten Zeitraums
+  String help = Intl.message(
+      '''Dieses Formular zeigt die statistischen Werte für die Tage des ausgewählten Zeitraums
 an. Für jeden Tag wird eine Zeile erzeugt. Die Spalten kann man teilweise konfigurieren. Auch hier wird der geschätzte 
 HbA1c ausgegeben. Dieser hat wie auch im Formular @01@ nur sehr wenig Aussagekraft, weshalb er auch hier nur mit 
 schwächerer Schrift angezeigt wird.
-''', desc: 'help for daystats');
+''',
+      desc: 'help for daystats');
 
   @override
   String id = 'daystats';
@@ -20,22 +22,31 @@ schwächerer Schrift angezeigt wird.
   @override
   String idx = '04';
 
-  bool showHbA1c, showStdabw, showCount, showPercentile, showVarK, showTDD, useDailyBasalrate;
+  bool showHbA1c,
+      showStdabw,
+      showCount,
+      showValueStats,
+      showPercentile,
+      showVarK,
+      showTDD,
+      useDailyBasalrate,
+      showCarbs;
   double _maxTDD = 0.0;
   double _basalSum = 0.0;
 
   @override
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
-    ParamInfo(1, msgParam2, boolValue: true),
-    ParamInfo(2, msgParam3, boolValue: true),
-    ParamInfo(3, msgParam4, boolValue: true),
-    ParamInfo(4, msgParam5, boolValue: false),
-/*
-    ParamInfo(5, msgParam6,
-        boolValue: false,
-        subParams: [ParamInfo(0, BasePrint.msgUseDailyBasalrate, boolValue: true, isLoopValue: true)]),
-*/
+    ParamInfo(3, msgParam2, boolValue: true),
+    ParamInfo(4, msgParam3, boolValue: true),
+    ParamInfo(5, msgParam4, boolValue: true),
+    ParamInfo(6, msgParam5, boolValue: false),
+    ParamInfo(7, msgParam6, boolValue: false, subParams: [
+      ParamInfo(0, BasePrint.msgUseDailyBasalrate,
+          boolValue: true, isLoopValue: true)
+    ]),
+    ParamInfo(8, msgParam7, boolValue: false),
+    ParamInfo(1, msgParam8, boolValue: false),
   ];
 
   static String get msgParam1 => Intl.message('Spalte Messwerte');
@@ -50,6 +61,10 @@ schwächerer Schrift angezeigt wird.
 
   static String get msgParam6 => Intl.message('TDD anzeigen');
 
+  static String get msgParam7 => Intl.message('Kohlenhydrate anzeigen');
+
+  static String get msgParam8 => Intl.message('Min / Max Werte anzeigen');
+
   @override
   void extractParams() {
     showCount = params[0].boolValue;
@@ -57,10 +72,10 @@ schwächerer Schrift angezeigt wird.
     showPercentile = params[2].boolValue;
     showHbA1c = params[3].boolValue;
     showVarK = params[4].boolValue;
-    showTDD = false;
-    useDailyBasalrate = true;
-//    showTDD = params[5].boolValue;
-//    useDailyBasalrate = params[5].subParams[0].boolValue;
+    showTDD = params[5].boolValue;
+    useDailyBasalrate = params[5].subParams[0].boolValue;
+    showCarbs = params[6].boolValue;
+    showValueStats = params[7].boolValue;
   }
 
   @override
@@ -83,8 +98,13 @@ schwächerer Schrift angezeigt wird.
     init();
   }
 
-  void fillRow(dynamic row, double f, String firstCol, DayData day, String style) {
-    addTableRow(true, cm(2.9), row, {'text': msgDate, 'style': 'total', 'alignment': 'center'},
+  void fillRow(dynamic row, double f, String firstCol, DayData day,
+      String style) {
+    addTableRow(
+        true,
+        cm(2.9),
+        row,
+        {'text': msgDate, 'style': 'total', 'alignment': 'center'},
         {'text': firstCol, 'style': 'total', 'alignment': 'center'});
     var text = msgDistribution;
     if (showTDD) text += '\n' + msgTDD;
@@ -122,23 +142,33 @@ schwächerer Schrift angezeigt wird.
         },
         showTDD
             ? {
-                'type': 'rect',
-                'color': colBasalDay,
-                'x': cm(0),
-                'y': cm(0.3),
-                'w': cm((style=='total'?_basalSum:day.ieBasalSum(!useDailyBasalrate)) * f * 100 / tdd),
-                'h': cm(0.25)
-              }
+          'type': 'rect',
+          'color': colBasalDay,
+          'x': cm(0),
+          'y': cm(0.3),
+          'w': cm((style == 'total'
+              ? _basalSum
+              : day.ieBasalSum(!useDailyBasalrate)) *
+              f *
+              100 /
+              tdd),
+          'h': cm(0.25)
+        }
             : {},
         showTDD
             ? {
-                'type': 'rect',
-                'color': colBolus,
-                'x': cm((style=='total'?_basalSum:day.ieBasalSum(!useDailyBasalrate)) * f * 100 / tdd),
-                'y': cm(0.3),
-                'w': cm(day.ieBolusSum * f * 100 / tdd),
-                'h': cm(0.25)
-              }
+          'type': 'rect',
+          'color': colBolus,
+          'x': cm((style == 'total'
+              ? _basalSum
+              : day.ieBasalSum(!useDailyBasalrate)) *
+              f *
+              100 /
+              tdd),
+          'y': cm(0.3),
+          'w': cm(day.ieBolusSum * f * 100 / tdd),
+          'h': cm(0.25)
+        }
             : {},
       ]
     });
@@ -175,34 +205,134 @@ schwächerer Schrift angezeigt wird.
       'alignment': 'right',
       'fillColor': style == 'total' ? colHigh : null
     });
-    // two columns for carbohydrates. Maybe they are better placed in an extra area below the line
-    // to avoid columns to grow beyond every limit.
-/*
-    addRow(true, 'auto', row, {'text': 'KH\nin g', 'style': 'total', 'alignment': 'center'},
-      {'text': '${carbFromData(day.carbs)}', 'style': style, 'alignment': 'right'});
-    addRow(true, 'auto', row, {'text': msgKHPerDay, 'style': 'total', 'alignment': 'center'},
-      {'text': '${carbFromData(day.avgCarbs)}', 'style': style, 'alignment': 'right'});
-// */
-    addTableRow(showCount, 'auto', row, {'text': msgValues, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.fmtNumber(day.entryCountValid, 0)}', 'style': style, 'alignment': 'right'});
-    addTableRow(true, 'auto', row, {'text': msgMin, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.glucFromData(day.min)}', 'style': style, 'alignment': 'right'});
-    addTableRow(true, 'auto', row, {'text': msgMax, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.glucFromData(day.max)}', 'style': style, 'alignment': 'right'});
-    addTableRow(true, 'auto', row, {'text': msgAverage, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.glucFromData(day.mid, 1)}', 'style': style, 'alignment': 'right'});
-    addTableRow(showStdabw, 'auto', row, {'text': msgDeviation, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}', 'style': style, 'alignment': 'right'});
-    addTableRow(showVarK, 'auto', row, {'text': msgVarK, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.fmtNumber(day.varK, 1)}', 'style': style, 'alignment': 'right'});
-    addTableRow(showPercentile, cm(1.5), row, {'text': msg25, 'style': 'total', 'alignment': 'center'},
-        {'text': '${percentileFor(Globals.percentile(day.entries, 25))}', 'style': style, 'alignment': 'right'});
-    addTableRow(showPercentile, cm(1.5), row, {'text': msgMedian, 'style': 'total', 'alignment': 'center'},
-        {'text': '${percentileFor(Globals.percentile(day.entries, 50))}', 'style': style, 'alignment': 'right'});
-    addTableRow(showPercentile, cm(1.5), row, {'text': msg75, 'style': 'total', 'alignment': 'center'},
-        {'text': '${percentileFor(Globals.percentile(day.entries, 75))}', 'style': style, 'alignment': 'right'});
-    addTableRow(showHbA1c, cm(1.5), row, {'text': msgHbA1C, 'style': 'total', 'alignment': 'center', 'color': colHbA1c},
-        {'text': '${hba1c(day.mid)} %', 'style': style, 'alignment': 'right', 'color': colHbA1c});
+    addTableRow(showTDD, 'auto', row, {
+      'text': '${msgBasal} ${msgInsulinUnit}',
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+    'text': '${g.fmtNumber(day.ieBasalSum(!useDailyBasalrate), 1)}',
+    'style': style,
+    'alignment': 'right'
+    });
+    addTableRow(showTDD, 'auto', row, {
+      'text': '${msgBolus} ${msgInsulinUnit}',
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${g.fmtNumber(day.ieBolusSum, 1)}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showCount, 'auto', row, {
+      'text': msgValues,
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${g.fmtNumber(day.entryCountValid, 0)}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showValueStats, 'auto', row, {
+      'text': msgMin,
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${g.glucFromData(day.min)}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showValueStats, 'auto', row, {
+      'text': msgMax,
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${g.glucFromData(day.max)}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showValueStats, 'auto', row, {
+      'text': msgAverage,
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${g.glucFromData(day.mid, 1)}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showCarbs, 'auto', row, {
+      'text': 'KH\nin g',
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${carbFromData(day.carbs)}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showCarbs, 'auto', row, {
+      'text': msgKHPerDay,
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${carbFromData(day.avgCarbs)}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showStdabw, 'auto', row, {
+      'text': msgDeviation,
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showVarK, 'auto', row, {
+      'text': msgVarK,
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${g.fmtNumber(day.varK, 1)}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showPercentile, cm(1.5), row, {
+      'text': msg25,
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${percentileFor(Globals.percentile(day.entries, 25))}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showPercentile, cm(1.5), row, {
+      'text': msgMedian,
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${percentileFor(Globals.percentile(day.entries, 50))}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showPercentile, cm(1.5), row, {
+      'text': msg75,
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text': '${percentileFor(Globals.percentile(day.entries, 75))}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showHbA1c, cm(1.5), row, {
+      'text': msgHbA1C,
+      'style': 'total',
+      'alignment': 'center',
+      'color': colHbA1c
+    }, {
+      'text': '${hba1c(day.mid)} %',
+      'style': style,
+      'alignment': 'right',
+      'color': colHbA1c
+    });
     tableHeadFilled = true;
   }
 
@@ -220,7 +350,8 @@ schwächerer Schrift angezeigt wird.
       _fillPages(pages);
       g.glucMGDLIdx = 2;
     }
-    if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
+    if (repData.isForThumbs && pages.length - oldLength > 1)
+      pages.removeRange(oldLength + 1, pages.length);
   }
 
   void _fillPages(List<Page> pages) {
@@ -256,6 +387,7 @@ schwächerer Schrift angezeigt wird.
     var lineCount = 0;
     var page = [];
     var totalDay = DayData(null, ProfileGlucData(ProfileStoreData('Intern')));
+    totalDay.basalData.store.listBasal = [];
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
     var totalDays = 0;
@@ -263,25 +395,33 @@ schwächerer Schrift angezeigt wird.
     _basalSum = 0.0;
 
     for (var i = 0; i < repData.data.days.length; i++) {
-      var day = repData.data.days[g.ppLatestFirst ? repData.data.days.length - 1 - i : i];
+      var day = repData
+          .data.days[g.ppLatestFirst ? repData.data.days.length - 1 - i : i];
       day.init();
       if (day.entryCountValid == 0) continue;
       _basalSum += day.ieBasalSum(!useDailyBasalrate);
-      _maxTDD = max(_maxTDD, day.ieBasalSum(!useDailyBasalrate) + day.ieBolusSum);
+      _maxTDD =
+          max(_maxTDD, day.ieBasalSum(!useDailyBasalrate) + day.ieBolusSum);
     }
 
     for (var i = 0; i < repData.data.days.length; i++) {
-      var day = repData.data.days[g.ppLatestFirst ? repData.data.days.length - 1 - i : i];
+      var day = repData
+          .data.days[g.ppLatestFirst ? repData.data.days.length - 1 - i : i];
       if (day.entryCountValid == 0) continue;
       totalDays++;
       totalDay.entries.addAll(day.entries);
       totalDay.bloody.addAll(day.bloody);
       totalDay.treatments.addAll(day.treatments);
-      totalDay.basalData.targetHigh = max(totalDay.basalData.targetHigh, day.basalData.targetHigh);
-      totalDay.basalData.targetLow = min(totalDay.basalData.targetLow, day.basalData.targetLow);
+      totalDay.profile.addAll(day.profile);
+      totalDay.basalData.store.listBasal.addAll(day.basalData.store.listBasal);
+      totalDay.basalData.targetHigh =
+          max(totalDay.basalData.targetHigh, day.basalData.targetHigh);
+      totalDay.basalData.targetLow =
+          min(totalDay.basalData.targetLow, day.basalData.targetLow);
       var row = [];
       fillRow(row, f, fmtDate(day.date, null, true), day, 'row');
-      var profile = repData.profile(DateTime(day.date.year, day.date.month, day.date.day));
+      var profile = repData
+          .profile(DateTime(day.date.year, day.date.month, day.date.day));
       if (prevProfile == null ||
           profile.targetLow != prevProfile.targetLow ||
           profile.targetHigh != prevProfile.targetHigh) {
@@ -302,9 +442,8 @@ schwächerer Schrift angezeigt wird.
         prevProfile = null;
       }
     }
-
     var row = [];
-    totalDay.init();
+    totalDay.init(nextDay: null, keepProfile: true);
     fillRow(row, f, msgDaySum(totalDays), totalDay, 'total');
     body.add(row);
 

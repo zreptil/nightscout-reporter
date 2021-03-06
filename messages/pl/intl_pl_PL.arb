@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2020-10-18T06:51:49.600399",
+    "@@last_modified": "2021-03-06T23:28:10.044140",
     "Überprüfe Zugriff auf Nightscout ...": "Sprawdzam dostęp do Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -86,7 +86,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "An error occurred while reading out the profiles. There may be too much data in the profile table (e.g. caused by iOS Loop). You can try to reduce the number of profile data records to be read in the settings.",
+    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Wystąpił błąd podczas odczytu profili. W tabeli profilu może być zbyt wiele danych (np. spowodowane użytkowaniem pętli). Możesz spróbować zmniejszyć w ustawieniach liczbę odczytywanych rekordów profilowych.",
     "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
         "type": "text",
         "placeholders": {}
@@ -121,7 +121,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgTooMuchProfilesPrefix": "Not all profiles could be loaded because more than {maxCount} are saved in the selected period. ",
+    "msgTooMuchProfilesPrefix": "Nie wszystkie profile mogły zostać załadowane, ponieważ w wybranym okresie zapisano więcej niż {maxCount}. ",
     "@msgTooMuchProfilesPrefix": {
         "type": "text",
         "placeholders": {
@@ -173,7 +173,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beide": "Both",
+    "Beide": "Oba",
     "@Beide": {
         "type": "text",
         "placeholders": {}
@@ -184,7 +184,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Einheit der Glukosemessung": "Unit for glucose values",
+    "Einheit der Glukosemessung": "Wartość glikemii w jednostkach",
     "@Einheit der Glukosemessung": {
         "type": "text",
         "placeholders": {}
@@ -279,22 +279,22 @@
         "type": "text",
         "placeholders": {}
     },
-    "Einen Monat vorher": "Miesiąc wcześniej",
+    "Einen Monat vorher": "Poprzedni miesiąc",
     "@Einen Monat vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Drei Monate vorher": "Trzy miesiące wcześniej",
+    "Drei Monate vorher": "Poprzedni kwartał",
     "@Drei Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Sechs Monate vorher": "Pół roku wcześniej",
+    "Sechs Monate vorher": "Poprzednie półrocze",
     "@Sechs Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Ein Jahr vorher": "Rok wcześniej",
+    "Ein Jahr vorher": "Poprzedni rok",
     "@Ein Jahr vorher": {
         "type": "text",
         "placeholders": {}
@@ -411,12 +411,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "SMB Werte anzeigen": "Uwzględnij SMB",
+    "SMB Werte anzeigen": "Pokaż znaczniki SMB",
     "@SMB Werte anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "SMB an der Kurve platzieren": "Umieść SMB na krzywej glikemii",
+    "SMB an der Kurve platzieren": "Umieść znaczniki SMB na krzywej glikemii",
     "@SMB an der Kurve platzieren": {
         "type": "text",
         "placeholders": {}
@@ -612,7 +612,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "KH": "Węglowodany",
+    "KH": "Uwzględnij węglowodany",
     "@KH": {
         "type": "text",
         "placeholders": {}
@@ -749,7 +749,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Insulin": "Insulina",
+    "Insulin": "Uwzględnij insulinę (bolusy)",
     "@Insulin": {
         "type": "text",
         "placeholders": {}
@@ -784,7 +784,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Geschätzter HbA1c": "Przewidywana HbA1c",
+    "Geschätzter HbA1c": "Estymowana HbA1c",
     "@Geschätzter HbA1c": {
         "type": "text",
         "placeholders": {}
@@ -824,17 +824,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ø Bolus pro Tag": "Średnia wartość insuliny z bolusów dziennie",
+    "Ø Bolus pro Tag": "Średnia dzienna dawka insuliny z bolusów",
     "@Ø Bolus pro Tag": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø Basal pro Tag": "Średnia dawka insuliny z bazy dziennie",
+    "Ø Basal pro Tag": "Średnia dzienna dawka insuliny bazowej",
     "@Ø Basal pro Tag": {
         "type": "text",
         "placeholders": {}
     },
-    "Ø Microbolus pro Tag": "Średnia wartość insuliny z mikrobolusów dziennie",
+    "Ø Microbolus pro Tag": "Średnia dzienna dawka insuliny z mikrobolusów",
     "@Ø Microbolus pro Tag": {
         "type": "text",
         "placeholders": {}
@@ -934,7 +934,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "GPD": "GPD",
+    "GPD": "Percentyl",
     "@GPD": {
         "type": "text",
         "placeholders": {}
@@ -944,7 +944,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesbasalrate verwenden": "Use daily basalrate",
+    "Tagesbasalrate verwenden": "Użyj nominalnej dawki bazowej z profilu",
     "@Tagesbasalrate verwenden": {
         "type": "text",
         "placeholders": {}
@@ -1150,7 +1150,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Mess-\nwerte": "Liczba pomiarów",
+    "Mess-\nwerte": "Liczba odczytów",
     "@Mess-\nwerte": {
         "type": "text",
         "placeholders": {}
@@ -1350,12 +1350,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Material mit Nachkommastellen": "??? Liczba miejsc po przecinku",
+    "Material mit Nachkommastellen": "Wartości średnie z dokładnością do dwóch miejsc po przecinku",
     "@Material mit Nachkommastellen": {
         "type": "text",
         "placeholders": {}
     },
-    "Zielbereich mit Nachkommastellen": "Zakres docelowy z miejscem po przecinku (dla mmol)",
+    "Zielbereich mit Nachkommastellen": "Czas w zakresie z dokładnością do jednego miejsca po przecinku",
     "@Zielbereich mit Nachkommastellen": {
         "type": "text",
         "placeholders": {}
@@ -1370,7 +1370,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Unterzuckerungen anzeigen": "Pokaż hipoglikemię",
+    "Unterzuckerungen anzeigen": "Uwzględnij incydenty hipoglikemii",
     "@Unterzuckerungen anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -1576,6 +1576,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": "This form shows an overview for one day. Here\n   the daily graph, the basal rate, the basal rate adjustments, Insulin On\n   Board and Carbs On Board displayed.",
+    "@Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": {
+        "description": "help for dailyanalysis",
+        "type": "text",
+        "placeholders": {}
+    },
     "Tagesanalyse": "Analiza dobowa",
     "@Tagesanalyse": {
         "type": "text",
@@ -1645,7 +1651,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Symbole (Katheter etc.)": "Ikonki (zestaw infuzyjny, itp.)",
+    "Symbole (Katheter etc.)": "Uwzględnij symbole (wymiana zestawu infuzyjnego, sensora, itp.)",
     "@Symbole (Katheter etc.)": {
         "type": "text",
         "placeholders": {}
@@ -1730,7 +1736,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Insulin auf maximale Stellen im Profil runden": "Zaokrąglij insulinę do maksymalnej precyzji w profilu",
+    "Insulin auf maximale Stellen im Profil runden": "Zaokrąglij dawki insuliny do wartości zgodnych z precyzją profilu",
     "@Insulin auf maximale Stellen im Profil runden": {
         "type": "text",
         "placeholders": {}
@@ -1742,6 +1748,11 @@
     },
     "IOB (Insulin On Board) anzeigen": "Pokaż IOB (insulina w obiegu)",
     "@IOB (Insulin On Board) anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zielwert anzeigen": "Show targetvalue",
+    "@Zielwert anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -1987,17 +1998,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Prozent": "Percent",
+    "Prozent": "Procent",
     "@Prozent": {
         "type": "text",
         "placeholders": {}
     },
-    "Wert": "Value",
+    "Wert": "Wartość",
     "@Wert": {
         "type": "text",
         "placeholders": {}
     },
-    "Wert & Prozent": "Value & Percent",
+    "Wert & Prozent": "Wartość i procent",
     "@Wert & Prozent": {
         "type": "text",
         "placeholders": {}
@@ -2007,7 +2018,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Basal aus Profil anzeigen": "Show basal from profile",
+    "Basal aus Profil anzeigen": "Pokaż bazę z profilu",
     "@Basal aus Profil anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -2028,33 +2039,43 @@
         "type": "text",
         "placeholders": {}
     },
-    "Spalte Messwerte": "Kolumna ilość odczytów",
+    "Spalte Messwerte": "Uwzględnij liczbę odczytów CGM",
     "@Spalte Messwerte": {
         "type": "text",
         "placeholders": {}
     },
-    "Spalte Standardabweichung": "Kolumna odchylenie standardowe SD",
+    "Spalte Standardabweichung": "Uwzględnij odchylenie standardowe SD",
     "@Spalte Standardabweichung": {
         "type": "text",
         "placeholders": {}
     },
-    "Spalten Perzentile": "Kolumna percentyl",
+    "Spalten Perzentile": "Uwzględnij kwartyle i medianę",
     "@Spalten Perzentile": {
         "type": "text",
         "placeholders": {}
     },
-    "Spalte HbA1c": "Kolumna HbA1c",
+    "Spalte HbA1c": "Uwzględnij estymowane HbA1c",
     "@Spalte HbA1c": {
         "type": "text",
         "placeholders": {}
     },
-    "Spalte Variationskoeffizient": "Kolumna współczynnik zmienności CV",
+    "Spalte Variationskoeffizient": "Uwzględnij współczynnik zmienności CV",
     "@Spalte Variationskoeffizient": {
         "type": "text",
         "placeholders": {}
     },
     "TDD anzeigen": "Show TDD",
     "@TDD anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Kohlenhydrate anzeigen": "Show carbs",
+    "@Kohlenhydrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Min / Max Werte anzeigen": "Show min / max values",
+    "@Min / Max Werte anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2092,7 +2113,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Profil": "Profil",
+    "Profil": "Profile",
     "@Profil": {
         "type": "text",
         "placeholders": {}
@@ -2102,7 +2123,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Nur letztes Profil ausgeben": "Pokaż tylko ostatni profil",
+    "Nur letztes Profil ausgeben": "Pokaż tylko ostatnio użyty profil",
     "@Nur letztes Profil ausgeben": {
         "type": "text",
         "placeholders": {}
@@ -2139,22 +2160,22 @@
         "type": "text",
         "placeholders": {}
     },
-    "Fehler": "Error",
+    "Fehler": "Błąd",
     "@Fehler": {
         "type": "text",
         "placeholders": {}
     },
-    "Warnung": "Warning",
+    "Warnung": "Ostrzeżenie",
     "@Warnung": {
         "type": "text",
         "placeholders": {}
     },
-    "Information": "Information",
+    "Information": "Informacja",
     "@Information": {
         "type": "text",
         "placeholders": {}
     },
-    "msgStandardLimits": "Użyj standardowego obszaru docelowego ({low} {unit} - {high} {unit})",
+    "msgStandardLimits": "Użyj standardowego zakresu ({low} {unit} - {high} {unit})",
     "@msgStandardLimits": {
         "type": "text",
         "placeholders": {
@@ -2198,21 +2219,21 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgAccessTokenHint": "The Access Token is only required if access in Nightscout was restricted via AUTH_DEFAULT_ROLES",
+    "msgAccessTokenHint": "Token użytkownika jest wymagany tylko jeśli dostęp do strony Nightscout został ograniczony w zmiennej AUTH_DEFAULT_ROLES",
     "@msgAccessTokenHint": {
         "type": "text",
         "placeholders": {
             "isVisible": {}
         }
     },
-    "msgStartDateHint": "The date of the first day with data",
+    "msgStartDateHint": "Data pierwszego dnia z danymi",
     "@msgStartDateHint": {
         "type": "text",
         "placeholders": {
             "isVisible": {}
         }
     },
-    "msgEndDateHint": "The date of the last complete day with data",
+    "msgEndDateHint": "Data ostatniego pełnego dnia z danymi",
     "@msgEndDateHint": {
         "type": "text",
         "placeholders": {
@@ -2226,22 +2247,22 @@
             "url": {}
         }
     },
-    "Daten von": "Data from",
+    "Daten von": "Data od",
     "@Daten von": {
         "type": "text",
         "placeholders": {}
     },
-    "Daten bis": "Data to",
+    "Daten bis": "Data do",
     "@Daten bis": {
         "type": "text",
         "placeholders": {}
     },
-    "Ermittle ersten Tag mit Daten": "Searching first day with data",
+    "Ermittle ersten Tag mit Daten": "Wyszukiwanie pierwszego dnia z danymi",
     "@Ermittle ersten Tag mit Daten": {
         "type": "text",
         "placeholders": {}
     },
-    "Ermittle letzten Tag mit Daten": "Searching last day with data",
+    "Ermittle letzten Tag mit Daten": "Wyszukiwanie ostatniego dnia z danymi",
     "@Ermittle letzten Tag mit Daten": {
         "type": "text",
         "placeholders": {}
@@ -2251,14 +2272,14 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgCalculatingDay": "Checking {date} ...",
+    "msgCalculatingDay": "Sprawdzanie {date}...",
     "@msgCalculatingDay": {
         "type": "text",
         "placeholders": {
             "date": {}
         }
     },
-    "Bitte den Dateinamen für die Speicherung auswählen": "Please select the filename for saving",
+    "Bitte den Dateinamen für die Speicherung auswählen": "Wybierz nazwę pliku do zapisania",
     "@Bitte den Dateinamen für die Speicherung auswählen": {
         "type": "text",
         "placeholders": {}
@@ -2286,7 +2307,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Shortcuts": "Shortcuts",
+    "Shortcuts": "Skróty",
     "@Shortcuts": {
         "description": "tab title for shortcuts",
         "type": "text",
@@ -2364,7 +2385,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Optionen": "Options",
+    "Optionen": "Opcje",
     "@Optionen": {
         "description": "title for parameters",
         "type": "text",
@@ -2466,19 +2487,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "zu Vergleichszwecken (z.B. Arzt)": "do celów porównawczych (np. lekarza)",
+    "zu Vergleichszwecken (z.B. Arzt)": "do celów porównawczych (np. przez lekarza)",
     "@zu Vergleichszwecken (z.B. Arzt)": {
         "description": "label for comparative purposes",
         "type": "text",
         "placeholders": {}
     },
-    "Maximaler Glukosewert in Grafiken:": "Maximum glucose value in graphics:",
+    "Maximaler Glukosewert in Grafiken:": "Maksymalna wartość glikemii na wykresach:",
     "@Maximaler Glukosewert in Grafiken:": {
         "description": "label for max glucvalue in printparams",
         "type": "text",
         "placeholders": {}
     },
-    "Genauigkeit der Basalangaben:": "Precision of basalvalues:",
+    "Genauigkeit der Basalangaben:": "Dokładność wartości bazowych:",
     "@Genauigkeit der Basalangaben:": {
         "description": "label for max basalprecision in printparams",
         "type": "text",
@@ -2502,19 +2523,25 @@
         "type": "text",
         "placeholders": {}
     },
-    "Nightscout Url in der Fusszeile des PDFs anzeigen": "Show Nightscout Url in the footer of the PDFs",
+    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Ukryj dane wskazujące na użytkowanie pętli (ignoruj opcje zaznaczone w ten sposób)",
+    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
+        "description": "label for checkbox to hide loop data",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nightscout Url in der Fusszeile des PDFs anzeigen": "Pokaż adres Nightscout w stopce PDF",
     "@Nightscout Url in der Fusszeile des PDFs anzeigen": {
         "description": "label for checkbox to show nightscout url in footer",
         "type": "text",
         "placeholders": {}
     },
-    "Historische Daten": "Historical Data",
+    "Historische Daten": "Dane historyczne",
     "@Historische Daten": {
         "description": "label of area for timeshift",
         "type": "text",
         "placeholders": {}
     },
-    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "This determines how much the period of the PDF should be shifted in order to obtain comparative values.",
+    "Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": "Poniższe opcje określają okres danych historycznych branych pod uwagę dla uzyskania wartości porównawczych.",
     "@Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu erhalten.": {
         "description": "description of timeshift",
         "type": "text",
@@ -2523,12 +2550,6 @@
     "PDF erzeugen": "Utwórz PDF",
     "@PDF erzeugen": {
         "description": "buttonlabel for saving data",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Hide loop data (ignore the options marked in this way)",
-    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
-        "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
     },
@@ -2739,6 +2760,48 @@
     "Version": "Wersja",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.5 - 07.03.2021": "2.0.5 - 07/03/2021",
+    "@2.0.5 - 07.03.2021": {
+        "description": "v205",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": "Columns for TDD and carbohydrates can now be displayed in the daily statistics.",
+    "@In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": {
+        "description": "v205a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": "The URLs of the users are now sorted according to the end date.",
+    "@Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": {
+        "description": "v205c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": "The title of the Glucose Percentile Diagram is no longer displayed incorrectly in the form selection options when printing in portrait format.",
+    "@Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": {
+        "description": "v205f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.4 - 18.02.2021": "2.0.4 - 18/02/2021",
+    "@2.0.4 - 18.02.2021": {
+        "description": "v204",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": "There is a new option in the daily graph with which you can show and hide the target value.",
+    "@Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": {
+        "description": "v204a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": "An error has been corrected which resulted in missing data such as treatments no longer being able to create a PDF.",
+    "@Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": {
+        "description": "v204f1",
         "type": "text",
         "placeholders": {}
     },
