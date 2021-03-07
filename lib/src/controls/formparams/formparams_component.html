@@ -1,6 +1,8 @@
 <template ngFor let-param [ngForOf]="paramList">
   <div *ngIf="param.boolValue!=null">
-    <material-checkbox [class]="getClass(param)" [(ngModel)]="param.boolValue"
+    <material-checkbox [class]="getClass(param)"
+                       [(ngModel)]="param.boolValue"
+                       [disabled]="param.isDisabled"
                        [label]="param.title">
     </material-checkbox>
   </div>

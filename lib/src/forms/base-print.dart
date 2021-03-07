@@ -59,6 +59,7 @@ class ParamInfo {
   String _stringValue;
   int _intValue;
   bool isForThumbs = false;
+  Function checkValue;
 
   bool get boolValue => isForThumbs
       ? thumbValue
@@ -68,19 +69,35 @@ class ParamInfo {
 
   int get intValue => isForThumbs ? thumbValue : _intValue;
 
-  set boolValue(value) => _boolValue = value;
+  void handleValueChange(dynamic value) {
+    if (checkValue != null) checkValue(this, value);
+  }
 
-  set intValue(value) => _intValue = value;
+  set boolValue(value) {
+    _boolValue = value;
+    handleValueChange(value);
+  }
 
-  set stringValue(value) => _stringValue = value;
+  set intValue(value) {
+    _intValue = value;
+    handleValueChange(value);
+  }
+
+  set stringValue(value) {
+    _stringValue = value;
+    handleValueChange(value);
+  }
+
   var thumbValue;
   bool isDeprecated;
   bool isLoopValue;
+  bool isDisabled = false;
 
   int get sliderValue => intValue >= min && intValue <= max ? intValue : min;
 
   set sliderValue(int value) {
     _intValue = value;
+    handleValueChange(value);
   }
 
   List<String> list;
@@ -88,8 +105,9 @@ class ParamInfo {
 
   String get listValue {
     if (list == null || list.isEmpty) return '';
-    if (intValue == null || intValue < 0 || intValue >= list.length)
+    if (intValue == null || intValue < 0 || intValue >= list.length) {
       return list[0];
+    }
     return list[intValue];
   }
 
@@ -137,35 +155,51 @@ class ParamInfo {
     return {'b': boolValue, 's': stringValue, 'i': intValue, 'sp': sp};
   }
 
-  fill(ParamInfo src) {
+  fill(ParamInfo src, Function checkValue) {
     _boolValue = src.boolValue;
     _stringValue = src.stringValue;
     _intValue = src.intValue;
     subParams = src.subParams;
+    if(checkValue != null) {
+      checkValue(this, null);
+    }
+    this.checkValue = checkValue;
   }
 
-  void fillFromJson(dynamic value) {
+  void fillFromJson(dynamic value, Function checkValue) {
     try {
       switch (type) {
         case ParamType.bool:
           _boolValue = value['b'] ?? false;
+          if(checkValue != null) {
+            checkValue(this, _boolValue);
+          }
           break;
         case ParamType.string:
           _stringValue = value['s'] ?? '';
+          if(checkValue != null) {
+            checkValue(this, _stringValue);
+          }
           break;
         case ParamType.int:
         case ParamType.list:
           _intValue = value['i'] ?? 0;
+          if(checkValue != null) {
+            checkValue(this, _intValue);
+          }
           break;
         default:
           break;
       }
       if (subParams != null) {
         for (int i = 0; i < subParams.length; i++) {
-          if (i < value['sp'].length) subParams[i].fillFromJson(value['sp'][i]);
+          if (i < value['sp'].length) {
+            subParams[i].fillFromJson(value['sp'][i], checkValue);
+          }
         }
       }
     } catch (ex) {}
+    this.checkValue = checkValue;
   }
 }
 
@@ -202,7 +236,7 @@ class FormConfig {
   void fill(FormConfig src) {
     for (var i = 0; i < src.form.params.length; i++) {
       if (i >= form.params.length) form.params.add(src.form.params[i]);
-      form.params[i].fill(src.form.params[i]);
+      form.params[i].fill(src.form.params[i], form.checkValue);
     }
     form.extractParams();
   }
@@ -211,7 +245,7 @@ class FormConfig {
     try {
       checked = value['c'];
       for (var i = 0; i < value['p'].length && i < form.params.length; i++) {
-        form.params[i].fillFromJson(value['p'][i]);
+        form.params[i].fillFromJson(value['p'][i], form.checkValue);
       }
       // ignore: empty_catches
     } catch (ex) {}
@@ -1927,7 +1961,11 @@ abstract class BasePrint {
     if (vertfs == null) vertfs = fs(8);
     GridData ret = GridData();
     if (graphBottom == 0.0) graphBottom = graphHeight;
-    ret.glucScale = glucScale == 0.0 ? g.glucMGDL ? 50 : 18.02 * 1 : glucScale;
+    ret.glucScale = glucScale == 0.0
+        ? g.glucMGDL
+            ? 50
+            : 18.02 * 1
+        : glucScale;
     ret.gridLines = (glucMax / ret.glucScale).ceil();
 
     ret.lineHeight = ret.gridLines == 0 ? 0 : graphHeight / ret.gridLines;
@@ -2412,5 +2450,8 @@ abstract class BasePrint {
       'cobHeight': cobHeight,
       'iobTop': iobHeight / maxIob * minIob
     };
+  }
+
+  void checkValue(ParamInfo param, dynamic value) {
   }
 }

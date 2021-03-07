@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-03-06T23:28:10.044140",
+    "@@last_modified": "2021-03-07T14:56:05.377875",
     "Überprüfe Zugriff auf Nightscout ...": "Kontrola prístupu do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -2064,8 +2064,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "TDD anzeigen": "TDD anzeigen",
-    "@TDD anzeigen": {
+    "Basal anzeigen": "Basal anzeigen",
+    "@Basal anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2076,6 +2076,16 @@
     },
     "Min / Max Werte anzeigen": "Min / Max Werte anzeigen",
     "@Min / Max Werte anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bolus anzeigen": "Bolus anzeigen",
+    "@Bolus anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "TDD anzeigen": "TDD anzeigen",
+    "@TDD anzeigen": {
         "type": "text",
         "placeholders": {}
     },

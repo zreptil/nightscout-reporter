@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-03-06T23:28:10.044140",
+    "@@last_modified": "2021-03-07T14:56:05.377875",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1576,7 +1576,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.",
+    "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": "Esta página muestra la información sobe un día. Aquí se muestran el gráfico diario, la tasa basal, los ajustes a la tasa basal, insulina a bordo y carbohidratos a bordo.",
     "@Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": {
         "description": "help for dailyanalysis",
         "type": "text",
@@ -2064,18 +2064,28 @@
         "type": "text",
         "placeholders": {}
     },
-    "TDD anzeigen": "Mostrar TTD",
-    "@TDD anzeigen": {
+    "Basal anzeigen": "Basal anzeigen",
+    "@Basal anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Kohlenhydrate anzeigen": "Kohlenhydrate anzeigen",
+    "Kohlenhydrate anzeigen": "Mostrar carbohidratos",
     "@Kohlenhydrate anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Min / Max Werte anzeigen": "Min / Max Werte anzeigen",
+    "Min / Max Werte anzeigen": "Mostrar valores min/max",
     "@Min / Max Werte anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bolus anzeigen": "Bolus anzeigen",
+    "@Bolus anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "TDD anzeigen": "Mostrar TTD",
+    "@TDD anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2769,19 +2779,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.",
+    "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": "En la estatistica diaria ahora se pueden mostrar columnas para carbohidratos y TBD.",
     "@In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": {
         "description": "v205a1",
         "type": "text",
         "placeholders": {}
     },
-    "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.",
+    "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": "Las URL del usuario se ordenan por la fecha final.",
     "@Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": {
         "description": "v205c1",
         "type": "text",
         "placeholders": {}
     },
-    "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.",
+    "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": "El nombre del gráfico de glucosa percentil ahora se muestra correctamente al imprimir en formato alto.",
     "@Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": {
         "description": "v205f1",
         "type": "text",

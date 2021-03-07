@@ -28,9 +28,11 @@ schwächerer Schrift angezeigt wird.
       showValueStats,
       showPercentile,
       showVarK,
-      showTDD,
+      showBasal,
       useDailyBasalrate,
-      showCarbs;
+      showCarbs,
+      showBolus,
+      showTDD;
   double _maxTDD = 0.0;
   double _basalSum = 0.0;
 
@@ -45,8 +47,10 @@ schwächerer Schrift angezeigt wird.
       ParamInfo(0, BasePrint.msgUseDailyBasalrate,
           boolValue: true, isLoopValue: true)
     ]),
-    ParamInfo(8, msgParam7, boolValue: false),
+    ParamInfo(10, msgParam7, boolValue: false),
     ParamInfo(1, msgParam8, boolValue: false),
+    ParamInfo(8, msgParam9, boolValue: false),
+    ParamInfo(9, msgParam10, boolValue: false),
   ];
 
   static String get msgParam1 => Intl.message('Spalte Messwerte');
@@ -59,11 +63,35 @@ schwächerer Schrift angezeigt wird.
 
   static String get msgParam5 => Intl.message('Spalte Variationskoeffizient');
 
-  static String get msgParam6 => Intl.message('TDD anzeigen');
+  static String get msgParam6 => Intl.message('Basal anzeigen');
 
   static String get msgParam7 => Intl.message('Kohlenhydrate anzeigen');
 
   static String get msgParam8 => Intl.message('Min / Max Werte anzeigen');
+
+  static String get msgParam9 => Intl.message('Bolus anzeigen');
+
+  static String get msgParam10 => Intl.message('TDD anzeigen');
+
+  @override
+  void checkValue(ParamInfo param, dynamic value) {
+    var count = 0;
+    params.forEach((p) {
+      if (p.boolValue) {
+        count++;
+      }
+    });
+    var list = params.where((p) => p.boolValue == false);
+    params.forEach((p) {
+      if (count > 6) {
+        if (!p.boolValue) {
+          p.isDisabled = true;
+        }
+      } else {
+        p.isDisabled = false;
+      }
+    });
+  }
 
   @override
   void extractParams() {
@@ -72,10 +100,12 @@ schwächerer Schrift angezeigt wird.
     showPercentile = params[2].boolValue;
     showHbA1c = params[3].boolValue;
     showVarK = params[4].boolValue;
-    showTDD = params[5].boolValue;
+    showBasal = params[5].boolValue;
     useDailyBasalrate = params[5].subParams[0].boolValue;
     showCarbs = params[6].boolValue;
     showValueStats = params[7].boolValue;
+    showBolus = params[8].boolValue;
+    showTDD = params[9].boolValue;
   }
 
   @override
@@ -98,8 +128,8 @@ schwächerer Schrift angezeigt wird.
     init();
   }
 
-  void fillRow(dynamic row, double f, String firstCol, DayData day,
-      String style) {
+  void fillRow(
+      dynamic row, double f, String firstCol, DayData day, String style) {
     addTableRow(
         true,
         cm(2.9),
@@ -142,33 +172,33 @@ schwächerer Schrift angezeigt wird.
         },
         showTDD
             ? {
-          'type': 'rect',
-          'color': colBasalDay,
-          'x': cm(0),
-          'y': cm(0.3),
-          'w': cm((style == 'total'
-              ? _basalSum
-              : day.ieBasalSum(!useDailyBasalrate)) *
-              f *
-              100 /
-              tdd),
-          'h': cm(0.25)
-        }
+                'type': 'rect',
+                'color': colBasalDay,
+                'x': cm(0),
+                'y': cm(0.3),
+                'w': cm((style == 'total'
+                        ? _basalSum
+                        : day.ieBasalSum(!useDailyBasalrate)) *
+                    f *
+                    100 /
+                    tdd),
+                'h': cm(0.25)
+              }
             : {},
         showTDD
             ? {
-          'type': 'rect',
-          'color': colBolus,
-          'x': cm((style == 'total'
-              ? _basalSum
-              : day.ieBasalSum(!useDailyBasalrate)) *
-              f *
-              100 /
-              tdd),
-          'y': cm(0.3),
-          'w': cm(day.ieBolusSum * f * 100 / tdd),
-          'h': cm(0.25)
-        }
+                'type': 'rect',
+                'color': colBolus,
+                'x': cm((style == 'total'
+                        ? _basalSum
+                        : day.ieBasalSum(!useDailyBasalrate)) *
+                    f *
+                    100 /
+                    tdd),
+                'y': cm(0.3),
+                'w': cm(day.ieBolusSum * f * 100 / tdd),
+                'h': cm(0.25)
+              }
             : {},
       ]
     });
@@ -205,21 +235,31 @@ schwächerer Schrift angezeigt wird.
       'alignment': 'right',
       'fillColor': style == 'total' ? colHigh : null
     });
-    addTableRow(showTDD, 'auto', row, {
+    addTableRow(showBasal, 'auto', row, {
       'text': '${msgBasal} ${msgInsulinUnit}',
       'style': 'total',
       'alignment': 'center'
     }, {
-    'text': '${g.fmtNumber(day.ieBasalSum(!useDailyBasalrate), 1)}',
-    'style': style,
-    'alignment': 'right'
+      'text': '${g.fmtNumber(day.ieBasalSum(!useDailyBasalrate), 1)}',
+      'style': style,
+      'alignment': 'right'
     });
-    addTableRow(showTDD, 'auto', row, {
+    addTableRow(showBolus, 'auto', row, {
       'text': '${msgBolus} ${msgInsulinUnit}',
       'style': 'total',
       'alignment': 'center'
     }, {
       'text': '${g.fmtNumber(day.ieBolusSum, 1)}',
+      'style': style,
+      'alignment': 'right'
+    });
+    addTableRow(showTDD, 'auto', row, {
+      'text': '${msgTDD} ${msgInsulinUnit}',
+      'style': 'total',
+      'alignment': 'center'
+    }, {
+      'text':
+          '${g.fmtNumber(day.ieBolusSum + day.ieBasalSum(!useDailyBasalrate), 1)}',
       'style': style,
       'alignment': 'right'
     });
