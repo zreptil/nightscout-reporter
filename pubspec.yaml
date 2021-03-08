@@ -3,6 +3,7 @@ description: A web app to generate reports for nightscout data
 # version: 1.1.1
 # homepage: https://blog.zreptil.de
 # author: Andreas.Perlitz <andi@zreptil.de>
+# pub global activate webdev 2.6.2
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
