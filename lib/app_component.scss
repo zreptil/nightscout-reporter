@@ -463,40 +463,54 @@ material-fab.debug-trigger {
   bottom: 0.75em;
   left: 4em;
   overflow: hidden;
+  align-items: center;
   justify-content: flex-end;
 
   .logo {
     height: 90%;
   }
+
+  .donation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffc439;
+    color: black;
+    height: 2em;
+    text-transform: none;
+    border-radius: 2em !important;
+  }
 }
+
+$theme-width: 15em;
 
 @keyframes showthemes {
   0% {
-    width: 0em;
+    width: 0;
   }
   10% {
-    width: 0em;
+    width: 0;
   }
   90% {
-    width: 10.5em;
+    width: calc(#{$theme-width} + 1em);
   }
   100% {
-    width: 9.5em;
+    width: $theme-width;
   }
 }
 
 @keyframes hidethemes {
   0% {
-    width: 9.5em;
+    width: $theme-width;
   }
   10% {
-    width: 10.5em;
+    width: calc(#{$theme-width} + 1em);
   }
   90% {
-    width: 0em;
+    width: 0;
   }
   100% {
-    width: 0em;
+    width: 0;
   }
 }
 

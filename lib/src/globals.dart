@@ -118,7 +118,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = '2.0.5';
+  String version = '2.0.6';
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.
@@ -1200,6 +1200,12 @@ class Globals extends Settings {
       return null;
     });
     return ret;
+  }
+
+  void donationClick() {
+    var url = 'https://www.paypal.com/donate';
+    url += '?hosted_button_id=YYMVYB8C3VAVL';
+    html.window.open(url, 'PayPal');
   }
 
   Future<String> request(String url,

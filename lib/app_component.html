@@ -239,6 +239,7 @@
       </material-fab>
     </div>
     <div class="themePanel" [style]="themeStyle" *ngIf="currPage=='normal'">
+      <material-button class="donation" (trigger)="g.donationClick()">Spenden</material-button>
       <material-fab mini class="" *ngFor="let item of g.themeList.keys; let idx = index"
                     (trigger)="toggleThemePanel(item)">
         <img class="logo" src="packages/nightscout_reporter/assets/themes/wizard.png" *ngIf="item==null">

@@ -1798,7 +1798,7 @@ class AppComponent implements OnInit {
           'animation:showthemes ${duration}s ease-in-out normal forwards;';
       logoStyle =
           'animation:showthemeslogo ${duration}s ease-in-out normal forwards;';
-      ts = 'animation-iteration-count:0;width:9.5em;';
+      ts = 'animation-iteration-count:0;width:15em;';
       ls = 'animation-iteration-count:0;transform: rotate(360deg);';
     }
     Future.delayed(Duration(milliseconds: (duration * 1100).toInt()), () {

@@ -18,7 +18,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgLoadingDataFor": "A carregando dados para {date}...",
+    "msgLoadingDataFor": "A carregar dados para {date}...",
     "@msgLoadingDataFor": {
         "description": "displayed when data of a day is loading",
         "type": "text",
@@ -31,7 +31,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Bitte einen Zeitraum wählen.": "Por favor, selecione um período.",
+    "Bitte einen Zeitraum wählen.": "Por favor, selecione um período de tempo.",
     "@Bitte einen Zeitraum wählen.": {
         "type": "text",
         "placeholders": {}
@@ -48,7 +48,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Lade die Basisdaten...": "Carregando base de dados...",
+    "Lade die Basisdaten...": "A carregar base de dados...",
     "@Lade die Basisdaten...": {
         "type": "text",
         "placeholders": {}
@@ -75,7 +75,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "O PDF foi criado. Se não for exibido, provavelmente um bloqueador popup está activo, o que impede a exibição. Por favor, desactive isso.",
+    "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "O PDF foi criado. Se não abriu, provavelmente tem os pop up bloqueados, o que impede a exibição. Por favor, ative os pop up.",
     "@Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": {
         "type": "text",
         "placeholders": {}
@@ -86,7 +86,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Ocorreu um erro ao ler os perfis. Pode haver muitos dados na tabela de perfil (por exemplo, provocada pelo iOS Loop. Pode tentar reduzir o número de registros de dados do perfil a serem lidos nas configurações.",
+    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Ocorreu um erro ao ler os perfis. Pode haver muitos dados na tabela de perfil (por exemplo, provocada pelo iOS Loop ou andoid APS). Pode tentar reduzir o número de registos de dados do perfil a serem lidos nas configurações.",
     "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
         "type": "text",
         "placeholders": {}
@@ -128,7 +128,7 @@
             "maxCount": {}
         }
     },
-    "msgTooMuchProfiles": "{count, plural, =0{}=1{The uploader \"{text}\" has created the data records.}other{The following uploaders have created the data records: {text}}}",
+    "msgTooMuchProfiles": "{count, plural, one {} =0{}=1{O uploader \"{text}\" criou os registos de dados.}other{Os uploaders seguintes criaram os registos de dados: {text}}}",
     "@msgTooMuchProfiles": {
         "type": "text",
         "placeholders": {
@@ -143,12 +143,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "dd.MM.yyyy": "dd/MM/yyyy",
+    "dd.MM.yyyy": "dd/mm/aaaa",
     "@dd.MM.yyyy": {
         "type": "text",
         "placeholders": {}
     },
-    "Automatisch_theme selection - automatic": "Automatico",
+    "Automatisch_theme selection - automatic": "Automático",
     "@Automatisch_theme selection - automatic": {
         "type": "text",
         "placeholders": {}
@@ -304,7 +304,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": "<br> <br> Se esta URL está protegida, o Token de Acesso também deve ser definido corretamente Pode ser inserido através de \"Ferramentas de administração\" na página pessoal do nightscout.",
+    "<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": "<br> <br> Se esta URL está protegida, o Token de Acesso também deve ser definido corretamente. Pode ser inserido através de \"Ferramentas de administração\" na página pessoal do nightscout.",
     "@<br><br>Wenn diese URL geschützt ist, muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man über \"Administrator-Werkzeuge\" auf der persönlichen Nightscout Seite.": {
         "type": "text",
         "placeholders": {}

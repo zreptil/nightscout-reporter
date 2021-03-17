@@ -1,5 +1,4 @@
-@echo off
-cls
+call prebuild.bat
 set dartFileList=dartFiles.lst
 echo lib\app_component.dart>%dartFileList%
 for %%I in (.) do set projName=%%~nxI

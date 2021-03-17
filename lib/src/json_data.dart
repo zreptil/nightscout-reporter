@@ -838,7 +838,16 @@ class ProfileData extends JsonData {
       return;
     }
 
+    // list = [];
+    // var e = ProfileEntryData(timezone);
+    // e.timeForCalc = 0;
+    // e.duration = 86400;
+    // e.value = 120;
+    // list.add(e);
+    // list.add(entry);
+
     var idx = list.indexWhere((e) => e.timeForCalc >= time);
+    // there is no profile entry after the mixin
     if (idx < 0) {
       idx = list.indexWhere((e) => e.timeForCalc + e.duration >= time);
       if (idx < 0) {
@@ -847,6 +856,39 @@ class ProfileData extends JsonData {
         entry.duration = 86400 - entry.timeForCalc;
         list.add(entry);
         return;
+      }
+      list.insert(idx, entry);
+      // if the nextentry begins before the inserted entry the next entry
+      // is copied before the current entry.
+      if (list[idx + 1].timeForCalc < entry.timeForCalc) {
+        var e = list[idx + 1].copy;
+        e.duration = entry.timeForCalc - e.timeForCalc;
+        list.insert(idx, e);
+        idx++;
+      }
+      // if the inserted entry ends before the next entry starts
+      // add the same entry before the inserted entry after the entry
+      if (entry.timeForCalc + entry.duration < list[idx + 1].timeForCalc) {
+        var e = list[idx - 1].copy;
+        e.timeForCalc = entry.timeForCalc + entry.duration;
+        e.duration = list[idx + 1].timeForCalc - e.timeForCalc;
+        list.insert(idx + 1, e);
+        return;
+      }
+      // if the inserted entry ends after the next entry starts
+      // change the start of the next entry
+      else if (entry.timeForCalc + entry.duration > list[idx + 1].timeForCalc) {
+        list[idx + 1].duration -=
+            entry.timeForCalc + entry.duration - list[idx + 1].timeForCalc;
+        list[idx + 1].timeForCalc = entry.timeForCalc + entry.duration;
+      }
+    } else {
+      list[idx - 1].duration = time - list[idx - 1].timeForCalc;
+      // there is a profile entry after the mixin
+      var nextIdx = list.indexWhere((e) => e.timeForCalc + e.duration >= time);
+      while (nextIdx > idx + 1) {
+        list.removeRange(idx, 1);
+        nextIdx = list.indexWhere((e) => e.timeForCalc + e.duration >= time);
       }
       list.insert(idx, entry);
       // if the nextentry begins before the inserted entry the next entry

@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-03-07T14:56:05.377875",
+    "@@last_modified": "2021-03-17T13:10:50.554426",
     "Überprüfe Zugriff auf Nightscout ...": "Kontrola prístupu do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -577,7 +577,7 @@
             "value": {}
         }
     },
-    "TDD": "TDD",
+    "TDD": "CDD",
     "@TDD": {
         "type": "text",
         "placeholders": {}
@@ -743,7 +743,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Diabetes seit": "Cukrovka od roku",
+    "Diabetes seit": "Diabetes od roku",
     "@Diabetes seit": {
         "description": "label of editfield for diabetes since",
         "type": "text",
@@ -1495,7 +1495,7 @@
             "hba1c": {}
         }
     },
-    "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": "Parameter prognostické riziko glykémie predstavuje riziko dlhodobých komplikácií (doteraz štúdiami nepreukázané).",
+    "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": "Ukazovateľ prognózy glykemického rizika predstavuje riziko dlhodobých komplikácií (doteraz štúdiami nepreukázané).",
     "@Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": {
         "type": "text",
         "placeholders": {}
@@ -1556,7 +1556,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "CGP": "CGP",
+    "CGP": "SGP",
     "@CGP": {
         "type": "text",
         "placeholders": {}
@@ -1582,7 +1582,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesanalyse": "analýza dňa",
+    "Tagesanalyse": "Analýza dňa",
     "@Tagesanalyse": {
         "type": "text",
         "placeholders": {}
@@ -1781,8 +1781,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeigt eine Übersicht über die Stunden der Tage des ausgewählten \nZeitraums an. Die angezeigten Werte sind die Mittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte.\nSie werden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen kann man die Startstunde festlegen.\nDie Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer Tag beginnt.": "Dieses Formular zeigt eine Übersicht über die Stunden der Tage des ausgewählten \nZeitraums an. Die angezeigten Werte sind die Mittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte.\nSie werden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen kann man die Startstunde festlegen.\nDie Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer Tag beginnt.",
-    "@Dieses Formular zeigt eine Übersicht über die Stunden der Tage des ausgewählten \nZeitraums an. Die angezeigten Werte sind die Mittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte.\nSie werden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen kann man die Startstunde festlegen.\nDie Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer Tag beginnt.": {
+    "Dieses Formular zeigt eine Übersicht über die \nStunden der Tage des ausgewählten Zeitraums an. Die angezeigten Werte sind die\nMittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte. Sie\nwerden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen\nkann man die Startstunde festlegen. Die Datumsspalte befindet sich immer links\nvon 0 Uhr und zeigt an, wo ein neuer Tag beginnt.": "Dieses Formular zeigt eine Übersicht über die \nStunden der Tage des ausgewählten Zeitraums an. Die angezeigten Werte sind die\nMittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte. Sie\nwerden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen\nkann man die Startstunde festlegen. Die Datumsspalte befindet sich immer links\nvon 0 Uhr und zeigt an, wo ein neuer Tag beginnt.",
+    "@Dieses Formular zeigt eine Übersicht über die \nStunden der Tage des ausgewählten Zeitraums an. Die angezeigten Werte sind die\nMittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte. Sie\nwerden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen\nkann man die Startstunde festlegen. Die Datumsspalte befindet sich immer links\nvon 0 Uhr und zeigt an, wo ein neuer Tag beginnt.": {
         "description": "help for dayhours",
         "type": "text",
         "placeholders": {}
@@ -2003,12 +2003,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Wert": "Wert",
+    "Wert": "Hodnota",
     "@Wert": {
         "type": "text",
         "placeholders": {}
     },
-    "Wert & Prozent": "Wert & Prozent",
+    "Wert & Prozent": "Hodnota & percento",
     "@Wert & Prozent": {
         "type": "text",
         "placeholders": {}
@@ -2018,17 +2018,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Basal aus Profil anzeigen": "Basal aus Profil anzeigen",
+    "Basal aus Profil anzeigen": "Zobraziť bazál z profilu",
     "@Basal aus Profil anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "IE-Anzeige": "IE-Anzeige",
+    "IE-Anzeige": "Zobraziť inzulín",
     "@IE-Anzeige": {
         "type": "text",
         "placeholders": {}
     },
-    "Werte über dem Maximum als Pfeile darstellen": "Werte über dem Maximum als Pfeile darstellen",
+    "Werte über dem Maximum als Pfeile darstellen": "Hodnoty nad maximom zobrazovať ako šípky",
     "@Werte über dem Maximum als Pfeile darstellen": {
         "type": "text",
         "placeholders": {}
@@ -2064,27 +2064,27 @@
         "type": "text",
         "placeholders": {}
     },
-    "Basal anzeigen": "Basal anzeigen",
+    "Basal anzeigen": "Zobraziť bazál",
     "@Basal anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Kohlenhydrate anzeigen": "Kohlenhydrate anzeigen",
+    "Kohlenhydrate anzeigen": "Zobraziť sacharidy",
     "@Kohlenhydrate anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Min / Max Werte anzeigen": "Min / Max Werte anzeigen",
+    "Min / Max Werte anzeigen": "Zobrazovať min / max hodnoty",
     "@Min / Max Werte anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Bolus anzeigen": "Bolus anzeigen",
+    "Bolus anzeigen": "Zobraziť bolus",
     "@Bolus anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "TDD anzeigen": "TDD anzeigen",
+    "TDD anzeigen": "Zobraziť celkovú dennú dávku inzulínu",
     "@TDD anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -2144,7 +2144,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Es sind keine Daten vorhanden.": "Es sind keine Daten vorhanden.",
+    "Es sind keine Daten vorhanden.": "Nie sú k dispozícii žiadne dáta.",
     "@Es sind keine Daten vorhanden.": {
         "type": "text",
         "placeholders": {}
@@ -2209,7 +2209,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Aus den Profilen ermitteln": "Aus den Profilen ermitteln",
+    "Aus den Profilen ermitteln": "Zistiť z profilu",
     "@Aus den Profilen ermitteln": {
         "type": "text",
         "placeholders": {}
@@ -2277,7 +2277,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:": "Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:",
+    "Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:": "Zoznam profilov by mala obsahovať len dáta používaných profilov. Program iOS Loop do tohto zoznamu ukladá niektoré svoje nastavenia a u niektorých užívateľov veľmi agresívne. Od určitého množstva záznamov nie je možné zoznam profilov správne načítať cez API. Preto tu existuje spôsob ako obmedziť počet načítaných záznamov. Táto funkcia tu musí zostať dovtedy, kým iOS Loop a iné nástroje neprestanú túto tabuľku používať správnym spôsobom.\n\nMaximálny počet profilov na načítanie:",
     "@Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:": {
         "type": "text",
         "placeholders": {}
@@ -2431,13 +2431,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Von": "z",
+    "Von": "Od",
     "@Von": {
         "description": "datepicker label from",
         "type": "text",
         "placeholders": {}
     },
-    "Bis": "na",
+    "Bis": "Do",
     "@Bis": {
         "description": "datepicker label to",
         "type": "text",
@@ -2503,7 +2503,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Maximaler Glukosewert in Grafiken:": "Maximaler Glukosewert in Grafiken:",
+    "Maximaler Glukosewert in Grafiken:": "Maximálna hodnota glykémie v grafoch:",
     "@Maximaler Glukosewert in Grafiken:": {
         "description": "label for max glucvalue in printparams",
         "type": "text",
@@ -2533,13 +2533,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)",
+    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Skryť dáta o uzavretej smyčke (nezobrazí tohto týkajúce sa dáta)",
     "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
         "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
     },
-    "Nightscout Url in der Fusszeile des PDFs anzeigen": "Nightscout Url in der Fusszeile des PDFs anzeigen",
+    "Nightscout Url in der Fusszeile des PDFs anzeigen": "Vytlačiť Nightscout URL na konci každej PDF stránky",
     "@Nightscout Url in der Fusszeile des PDFs anzeigen": {
         "description": "label for checkbox to show nightscout url in footer",
         "type": "text",
@@ -2773,13 +2773,31 @@
         "type": "text",
         "placeholders": {}
     },
+    "2.0.6 - 17.03.2021": "2.0.6 - 17.03.2021",
+    "@2.0.6 - 17.03.2021": {
+        "description": "v206",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das Logo von Nightscout Reporter wurde geändert. Es ist nach wie vor die bekannte und beliebte Eule, aber sie hat nun eine Mütze auf wie die Zeitungsausträger und teilweise auch Journalisten in uralten Filmen. Das Logo ist nur im Programm vorhanden und erscheint nicht auf den PDFs. Dort ist nach wie vor das normale Nightscout Logo, weil es dort platziert wurde, um auf Nightscout selbst hinzuweisen.": "Das Logo von Nightscout Reporter wurde geändert. Es ist nach wie vor die bekannte und beliebte Eule, aber sie hat nun eine Mütze auf wie die Zeitungsausträger und teilweise auch Journalisten in uralten Filmen. Das Logo ist nur im Programm vorhanden und erscheint nicht auf den PDFs. Dort ist nach wie vor das normale Nightscout Logo, weil es dort platziert wurde, um auf Nightscout selbst hinzuweisen.",
+    "@Das Logo von Nightscout Reporter wurde geändert. Es ist nach wie vor die bekannte und beliebte Eule, aber sie hat nun eine Mütze auf wie die Zeitungsausträger und teilweise auch Journalisten in uralten Filmen. Das Logo ist nur im Programm vorhanden und erscheint nicht auf den PDFs. Dort ist nach wie vor das normale Nightscout Logo, weil es dort platziert wurde, um auf Nightscout selbst hinzuweisen.": {
+        "description": "v206c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler bei der Ausgabe der temporären Ziele in der Tagesgrafik wurde behoben.": "Ein Fehler bei der Ausgabe der temporären Ziele in der Tagesgrafik wurde behoben.",
+    "@Ein Fehler bei der Ausgabe der temporären Ziele in der Tagesgrafik wurde behoben.": {
+        "description": "v206f1",
+        "type": "text",
+        "placeholders": {}
+    },
     "2.0.5 - 07.03.2021": "2.0.5 - 07.03.2021",
     "@2.0.5 - 07.03.2021": {
         "description": "v205",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.",
+    "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": "V dennej štatistike môžu byť zobrazené len stĺpce CDD (celkový denný inzulín) a sacharidy.",
     "@In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": {
         "description": "v205a1",
         "type": "text",
@@ -4488,5 +4506,18 @@
         "description": "v100a1",
         "type": "text",
         "placeholders": {}
+    },
+    "ViewWhatsnewComponent0__message_3": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+    "@ViewWhatsnewComponent0__message_3": {
+        "description": "v206a1",
+        "type": "text",
+        "placeholders": {
+            "startTag0": {
+                "example": "<b>"
+            },
+            "endTag0": {
+                "example": "</b>"
+            }
+        }
     }
 }
