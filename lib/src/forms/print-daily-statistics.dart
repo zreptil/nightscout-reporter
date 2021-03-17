@@ -124,6 +124,23 @@ schwächerer Schrift angezeigt wird.
   @override
   double get scale => 1.0;
 
+  @override
+  dynamic getTable(widths, body) {
+    dynamic ret = {
+      'columns': [
+        {
+          'margin': [cm(2.2), cmy(yorg - 0.6), cm(2.2), cmy(0.0)],
+          'width': cm(width),
+          'fontSize': fs(10),
+          'table': {'widths': widths, 'body': body},
+        }
+      ],
+      'pageBreak': ''
+    };
+
+    return ret;
+  }
+
   PrintDailyStatistics() {
     init();
   }
