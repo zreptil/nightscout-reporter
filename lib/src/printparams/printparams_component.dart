@@ -20,7 +20,6 @@ import '../json_data.dart';
   styleUrls: ['printparams_component.css'],
   templateUrl: 'printparams_component.html',
   directives: [
-    ModalComponent,
     MaterialDialogComponent,
     MaterialInputComponent,
     MaterialCheckboxComponent,
@@ -50,7 +49,6 @@ class PrintParamsComponent implements OnInit {
 
   String get msgStandardCGP => Intl.message('CGP immer mit Standard Zielbereich');
 
-  bool isVisible = true;
   globals.PeriodShift periodShift;
   int glucMaxIdx;
   int basalPrecisionIdx;

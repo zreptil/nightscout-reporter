@@ -1396,3 +1396,16 @@ datepicker {
     background: gold;
   }
 }
+
+overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  background-color: rgba(33, 33, 33, 0.4);
+}

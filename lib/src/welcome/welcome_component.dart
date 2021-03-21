@@ -3,6 +3,7 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
+import 'package:angular_components/model/action/async_action.dart';
 import 'package:nightscout_reporter/src/controls/signin/signin_component.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 
@@ -11,7 +12,7 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
     styleUrls: ['welcome_component.css'],
     templateUrl: 'welcome_component.html',
     directives: [
-      ModalComponent,
+//      ModalComponent,
       MaterialDialogComponent,
       MaterialButtonComponent,
       MaterialFabComponent,
@@ -21,7 +22,7 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
       NgIf,
     ],
     providers: <dynamic>[
-      materialProviders,
+      materialProviders
     ])
 class WelcomeComponent {
   globals.Globals g = globals.Globals();
@@ -29,8 +30,6 @@ class WelcomeComponent {
   @Output('closeClicked')
   Stream<UIEvent> get trigger => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
-
-  bool isVisible = true;
 
   WelcomeComponent();
 

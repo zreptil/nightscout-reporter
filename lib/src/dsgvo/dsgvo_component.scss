@@ -2,9 +2,6 @@
 @import '../base';
 @import 'package:angular_components/material_dialog/mixins';
 
-:host {
-}
-
 material-dialog {
   ::ng-deep main::-webkit-scrollbar {
     width: 16px;

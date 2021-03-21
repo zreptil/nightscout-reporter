@@ -1,129 +1,127 @@
-<modal [visible]="isVisible">
-  <material-dialog main headered class="headered-dialog">
-    <div header>
-      <div>
-        <h1 @i18n="title for printparameter dialog">Ausgabe Parameter</h1>
-        <p></p>
-      </div>
-      <div>
-        <material-button icon (trigger)="fire('cancel')">
-          <material-icon icon="close"></material-icon>
-        </material-button>
-      </div>
+<material-dialog main headered class="headered-dialog">
+  <div header>
+    <div>
+      <h1 @i18n="title for printparameter dialog">Ausgabe Parameter</h1>
+      <p></p>
     </div>
-
-    <div class="root">
-      <div class="subtitle">
-        <div @i18n="label of area for section general in printparams">Allgemeines</div>
-        <div class="comparable">
-          <material-toggle [(checked)]="g.ppComparable"
-                           label="zu Vergleichszwecken (z.B. Arzt)"
-                           @i18n:label="label for comparative purposes"></material-toggle>
-        </div>
-      </div>
-      <div class="functions">
-        <div>
-          <div>{{g.lblGlucUnits}}:</div>
-          <material-dropdown-select [buttonText]="g.listGlucUnits[g.glucMGDLIdx??0]"
-                                    raised
-                                    [showButtonBorder]="false"
-                                    popupClass="selectSelect"
-                                    class="selectButton"
-                                    slide="y"
-                                    listAutoFocus>
-            <material-select-item *ngFor="let item of g.listGlucUnits; let idx=index"
-                                  (trigger)="changeGlucUnits(idx)"
-                                  class="selectItem"
-                                  [selected]="idx==g.glucMGDLIdx">
-              <div class="itemTitle">{{item}}</div>
-            </material-select-item>
-          </material-dropdown-select>
-        </div>
-        <material-checkbox [(checked)]="g.ppStandardLimits" [disabled]="g.ppComparable" class="pp">
-          {{msgStandardLimits(g.getGlucInfo()["stdlow"],g.getGlucInfo()["stdhigh"],g.getGlucInfo()["unit"])}}
-        </material-checkbox>
-        <material-checkbox *ngIf="!g.ppComparable && !g.ppStandardLimits" [(checked)]="g.ppCGPAlwaysStandardLimits" class="pp indent">
-          {{msgStandardCGP}}
-        </material-checkbox>
-        <div>
-          <div @i18n="label for max glucvalue in printparams">Maximaler Glukosewert in Grafiken:</div>
-          <material-dropdown-select [buttonText]="listGlucMaxValues[glucMaxIdx??0]"
-                                    raised
-                                    [showButtonBorder]="false"
-                                    popupClass="selectSelect"
-                                    class="selectButton"
-                                    slide="y"
-                                    listAutoFocus>
-            <material-select-item *ngFor="let item of listGlucMaxValues; let idx=index"
-                                  (trigger)="glucMaxIdx=idx"
-                                  class="selectItem"
-                                  [selected]="idx==glucMaxIdx">
-              <div class="itemTitle">{{item}}</div>
-            </material-select-item>
-          </material-dropdown-select>
-        </div>
-        <div>
-          <div @i18n="label for max basalprecision in printparams">Genauigkeit der Basalangaben:</div>
-          <material-dropdown-select [buttonText]="listBasalPrecision[basalPrecisionIdx??0]"
-                                    raised
-                                    [showButtonBorder]="false"
-                                    popupClass="selectSelect"
-                                    class="selectButton"
-                                    slide="y"
-                                    listAutoFocus>
-            <material-select-item *ngFor="let item of listBasalPrecision; let idx=index"
-                                  (trigger)="basalPrecisionIdx=idx"
-                                  class="selectItem"
-                                  [selected]="idx==basalPrecisionIdx">
-              <div class="itemTitle">{{item}}</div>
-            </material-select-item>
-          </material-dropdown-select>
-        </div>
-      </div>
-      <div>
-        <material-checkbox [(checked)]="g.ppLatestFirst" class="pp">
-          {{msgLatestFirst}}
-        </material-checkbox>
-      </div>
-      <div>
-        <material-checkbox [(checked)]="g.ppPdfSameWindow" class="pp" @i18n="label for checkbox to open PDF in same window">PDF im
-          selben Fenster öffnen
-        </material-checkbox>
-        <material-checkbox [(checked)]="g.ppPdfDownload" class="pp" @i18n="label for checkbox to download PDF">
-          PDF herunterladen (bei einigen Browsern benötigt)
-        </material-checkbox>
-      </div>
-      <div>
-        <material-checkbox [(checked)]="g.ppHideNightscoutInPDF" class="pp" @i18n="label for checkbox to hide nightscout in footer">
-          Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden
-        </material-checkbox>
-        <material-checkbox [(checked)]="g.ppHideLoopData" class="pp loop" @i18n="label for checkbox to hide loop data">
-          Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)
-        </material-checkbox>
-      </div>
-      <material-checkbox [(checked)]="g.ppShowUrlInPDF" class="pp" @i18n="label for checkbox to show nightscout url in footer">
-        Nightscout Url in der Fusszeile des PDFs anzeigen
-      </material-checkbox>
-      <div class="subtitle" @i18n="label of area for timeshift">Historische Daten</div>
-      <div class="timeshift">
-        <div @i18n="description of timeshift">
-          Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu
-          erhalten.
-        </div>
-        <material-button *ngFor="let item of listPeriodShift"
-                         [raised]="item==periodShift"
-                         (trigger)="periodShift=item">
-          {{item.title}}
-        </material-button>
-      </div>
-    </div>
-
-    <div footer>
-      <div></div>
-      <material-button class="iconButton" clear-size (trigger)="fire('ok')">
-        <material-icon icon="picture_as_pdf"></material-icon>
-        <ng-container @i18n="buttonlabel for saving data">PDF erzeugen</ng-container>
+    <div>
+      <material-button icon (trigger)="fire('cancel')">
+        <material-icon icon="close"></material-icon>
       </material-button>
     </div>
-  </material-dialog>
-</modal>
+  </div>
+
+  <div class="root">
+    <div class="subtitle">
+      <div @i18n="label of area for section general in printparams">Allgemeines</div>
+      <div class="comparable">
+        <material-toggle [(checked)]="g.ppComparable"
+                         label="zu Vergleichszwecken (z.B. Arzt)"
+                         @i18n:label="label for comparative purposes"></material-toggle>
+      </div>
+    </div>
+    <div class="functions">
+      <div>
+        <div>{{g.lblGlucUnits}}:</div>
+        <material-dropdown-select [buttonText]="g.listGlucUnits[g.glucMGDLIdx??0]"
+                                  raised
+                                  [showButtonBorder]="false"
+                                  popupClass="selectSelect"
+                                  class="selectButton"
+                                  slide="y"
+                                  listAutoFocus>
+          <material-select-item *ngFor="let item of g.listGlucUnits; let idx=index"
+                                (trigger)="changeGlucUnits(idx)"
+                                class="selectItem"
+                                [selected]="idx==g.glucMGDLIdx">
+            <div class="itemTitle">{{item}}</div>
+          </material-select-item>
+        </material-dropdown-select>
+      </div>
+      <material-checkbox [(checked)]="g.ppStandardLimits" [disabled]="g.ppComparable" class="pp">
+        {{msgStandardLimits(g.getGlucInfo()["stdlow"],g.getGlucInfo()["stdhigh"],g.getGlucInfo()["unit"])}}
+      </material-checkbox>
+      <material-checkbox *ngIf="!g.ppComparable && !g.ppStandardLimits" [(checked)]="g.ppCGPAlwaysStandardLimits" class="pp indent">
+        {{msgStandardCGP}}
+      </material-checkbox>
+      <div>
+        <div @i18n="label for max glucvalue in printparams">Maximaler Glukosewert in Grafiken:</div>
+        <material-dropdown-select [buttonText]="listGlucMaxValues[glucMaxIdx??0]"
+                                  raised
+                                  [showButtonBorder]="false"
+                                  popupClass="selectSelect"
+                                  class="selectButton"
+                                  slide="y"
+                                  listAutoFocus>
+          <material-select-item *ngFor="let item of listGlucMaxValues; let idx=index"
+                                (trigger)="glucMaxIdx=idx"
+                                class="selectItem"
+                                [selected]="idx==glucMaxIdx">
+            <div class="itemTitle">{{item}}</div>
+          </material-select-item>
+        </material-dropdown-select>
+      </div>
+      <div>
+        <div @i18n="label for max basalprecision in printparams">Genauigkeit der Basalangaben:</div>
+        <material-dropdown-select [buttonText]="listBasalPrecision[basalPrecisionIdx??0]"
+                                  raised
+                                  [showButtonBorder]="false"
+                                  popupClass="selectSelect"
+                                  class="selectButton"
+                                  slide="y"
+                                  listAutoFocus>
+          <material-select-item *ngFor="let item of listBasalPrecision; let idx=index"
+                                (trigger)="basalPrecisionIdx=idx"
+                                class="selectItem"
+                                [selected]="idx==basalPrecisionIdx">
+            <div class="itemTitle">{{item}}</div>
+          </material-select-item>
+        </material-dropdown-select>
+      </div>
+    </div>
+    <div>
+      <material-checkbox [(checked)]="g.ppLatestFirst" class="pp">
+        {{msgLatestFirst}}
+      </material-checkbox>
+    </div>
+    <div>
+      <material-checkbox [(checked)]="g.ppPdfSameWindow" class="pp" @i18n="label for checkbox to open PDF in same window">PDF im
+        selben Fenster öffnen
+      </material-checkbox>
+      <material-checkbox [(checked)]="g.ppPdfDownload" class="pp" @i18n="label for checkbox to download PDF">
+        PDF herunterladen (bei einigen Browsern benötigt)
+      </material-checkbox>
+    </div>
+    <div>
+      <material-checkbox [(checked)]="g.ppHideNightscoutInPDF" class="pp" @i18n="label for checkbox to hide nightscout in footer">
+        Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden
+      </material-checkbox>
+      <material-checkbox [(checked)]="g.ppHideLoopData" class="pp loop" @i18n="label for checkbox to hide loop data">
+        Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)
+      </material-checkbox>
+    </div>
+    <material-checkbox [(checked)]="g.ppShowUrlInPDF" class="pp" @i18n="label for checkbox to show nightscout url in footer">
+      Nightscout Url in der Fusszeile des PDFs anzeigen
+    </material-checkbox>
+    <div class="subtitle" @i18n="label of area for timeshift">Historische Daten</div>
+    <div class="timeshift">
+      <div @i18n="description of timeshift">
+        Hiermit wird festgelegt, um wieviel der Zeitraum des PDFs verschoben werden soll, um Vergleichswerte zu
+        erhalten.
+      </div>
+      <material-button *ngFor="let item of listPeriodShift"
+                       [raised]="item==periodShift"
+                       (trigger)="periodShift=item">
+        {{item.title}}
+      </material-button>
+    </div>
+  </div>
+
+  <div footer>
+    <div></div>
+    <material-button class="iconButton" clear-size (trigger)="fire('ok')">
+      <material-icon icon="picture_as_pdf"></material-icon>
+      <ng-container @i18n="buttonlabel for saving data">PDF erzeugen</ng-container>
+    </material-button>
+  </div>
+</material-dialog>

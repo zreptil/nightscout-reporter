@@ -9,22 +9,24 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
   selector: 'dsgvo',
   styleUrls: ['dsgvo_component.css'],
   templateUrl: 'dsgvo_component.html',
-  directives: [ ModalComponent, MaterialDialogComponent, MaterialButtonComponent, MaterialIconComponent, NgIf],
-  providers: [],)
-class DSGVOComponent
-{
+  directives: [
+    MaterialDialogComponent,
+    MaterialButtonComponent,
+    MaterialIconComponent,
+    NgIf
+  ],
+  providers: [],
+)
+class DSGVOComponent {
   globals.Globals g = globals.Globals();
 
   @Output("closeClicked")
-  Stream<UIEvent> get trigger
-  => _trigger.stream;
+  Stream<UIEvent> get trigger => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
 
-  bool isVisible = true;
   DSGVOComponent();
 
-  void fire(String type)
-  async {
+  void fire(String type) async {
     _trigger.add(UIEvent(type, detail: 0));
   }
 }

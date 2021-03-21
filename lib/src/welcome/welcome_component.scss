@@ -2,9 +2,6 @@
 @import '../base';
 @import 'package:angular_components/material_dialog/mixins';
 
-:host {
-}
-
 material-dialog {
   @include material-dialog-header-color(var(--primaryBack));
   @include material-dialog-header-shadow();

@@ -35,7 +35,6 @@ class MaterialInputShowPasswordDirective {
   styleUrls: ['settings_component.css'],
   templateUrl: 'settings_component.html',
   directives: [
-    ModalComponent,
     MaterialDialogComponent,
     MaterialInputComponent,
     MaterialFabComponent,
@@ -65,8 +64,6 @@ class SettingsComponent implements OnInit {
   @Output('settingsresult')
   Stream<html.UIEvent> get trigger => _trigger.stream;
   final _trigger = StreamController<html.UIEvent>.broadcast(sync: true);
-
-  bool isVisible = true;
 
   SettingsComponent();
 

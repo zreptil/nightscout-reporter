@@ -15,7 +15,6 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
   styleUrls: ['shortcutedit_component.css'],
   templateUrl: 'shortcutedit_component.html',
   directives: [
-    ModalComponent,
     MaterialDialogComponent,
     MaterialButtonComponent,
     MaterialIconComponent,
@@ -33,7 +32,6 @@ class ShortcutEditComponent implements OnInit, AfterViewInit {
   Stream<UIEvent> get trigger => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
 
-  bool isVisible = true;
   int confirmationIdx = -1;
   static String get msgName => Intl.message('Bezeichnung');
 
