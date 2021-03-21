@@ -25,9 +25,11 @@ die PDFs erstellt werden sollen</pre>
     <div class="root">
       <div class="editcontrols">
         <material-input [(ngModel)]="startDate" floatingLabel @i18n:label="datepicker label from" label="Von"
-                        [error]="isStartValid?'':msgStartIncorrect" (focus)="month=period.start"></material-input>
+                        [error]="isStartValid?'':msgStartIncorrect"
+                        (focus)="setMonth(period.start)"></material-input>
         <material-input [(ngModel)]="endDate" floatingLabel @i18n:label="datepicker label to"
-                        label="Bis" [error]="isEndValid?'':msgEndIncorrect" (focus)="month=period.end"></material-input>
+                        label="Bis" [error]="isEndValid?'':msgEndIncorrect"
+                        (focus)="setMonth(period.end)"></material-input>
       </div>
       <div class="month" *ngIf="month!=null">
         <material-button class="prev" [disabled]="isMinMonth" (trigger)="month=month.add(months: -1)">
