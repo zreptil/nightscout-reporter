@@ -62,6 +62,12 @@
                 msgDisconnected="Mit Google Drive synchronisieren"></signin>
       </div>
       <div class="right">
+        <material-button class="imageButton" [raised]="false" (trigger)="fire('video01')">
+          <img src="packages/nightscout_reporter/assets/img/youtube_social_icon_red.png" />
+          <ng-container @i18n="label for button to open settings on welcome screen">
+            Einstiegsvideo
+          </ng-container>
+        </material-button>
         <material-button class="legal"
                          (trigger)="fire('impressum')"
                          @i18n="label for inprint button">

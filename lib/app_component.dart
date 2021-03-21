@@ -31,8 +31,8 @@ import 'package:nightscout_reporter/src/forms/print-daily-profile.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
-import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
 import 'package:nightscout_reporter/src/forms/print-user-data.dart';
+import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/helpview/helpview_component.dart';
 import 'package:nightscout_reporter/src/infoview/infoview_component.dart';
@@ -45,9 +45,9 @@ import 'src/forms/print-profile.dart';
 import 'src/impressum/impressum_component.dart';
 import 'src/printparams/printparams_component.dart';
 import 'src/settings/settings_component.dart';
+import 'src/shortcutedit/shortcutedit_component.dart';
 import 'src/welcome/welcome_component.dart';
 import 'src/whatsnew/whatsnew_component.dart';
-import 'src/shortcutedit/shortcutedit_component.dart';
 
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
@@ -631,11 +631,16 @@ class AppComponent implements OnInit {
 
   void tileHelpButtonClicked(html.UIEvent evt) {}
 
+  dynamic videos = {'video01': 'eYq9lJRAWao'};
+
   void callbackButton(html.UIEvent evt) {
     var page = evt.type;
     if (page.startsWith('@')) {
       page = page.substring(1);
       if (!g.isConfigured) page = 'welcome';
+    } else if (page.startsWith('video')) {
+      html.window.open('https://www.youtube.com/watch?v=${videos[page]}', '');
+      return;
     }
     currPage = page;
   }
@@ -646,6 +651,9 @@ class AppComponent implements OnInit {
         g.save(skipReload: true);
         reportData = null;
         _currPage = g.isConfigured ? 'normal' : 'welcome';
+        if (!g.isConfigured) {
+          g.clearStorage();
+        }
         break;
       default:
         g.loadSettings(skipSyncGoogle: true);

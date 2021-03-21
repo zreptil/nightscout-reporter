@@ -125,6 +125,11 @@ class SettingsComponent implements OnInit {
       case 1:
         try {
           g.userList.removeAt(g.userIdx);
+          g.isConfigured &= g.userList.isNotEmpty;
+          if (!g.isConfigured) {
+            g.saveWebData();
+            fire('ok');
+          }
           // ignore: empty_catches
         } catch (e) {}
         break;

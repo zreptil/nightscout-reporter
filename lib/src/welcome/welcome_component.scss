@@ -2,6 +2,28 @@
 @import '../base';
 @import 'package:angular_components/material_dialog/mixins';
 
+:host {
+  ::-webkit-scrollbar {
+    width: auto;
+  }
+
+  ::ng-deep main::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  ::ng-deep main::-webkit-scrollbar-track {
+    background-color: var(--secondaryBack);
+  }
+
+  ::ng-deep main::-webkit-scrollbar-thumb {
+    background-color: var(--primaryBack);
+  }
+
+  ::ng-deep main {
+    scrollbar-color: var(--primaryBack) var(--secondaryBack);
+  }
+}
+
 material-dialog {
   @include material-dialog-header-color(var(--primaryBack));
   @include material-dialog-header-shadow();
