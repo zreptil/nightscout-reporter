@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-03-17T13:10:50.554426",
+    "@@last_modified": "2021-04-10T10:13:59.780888",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -145,6 +145,7 @@
     },
     "dd.MM.yyyy": "dd/MM/yyyy",
     "@dd.MM.yyyy": {
+        "description": "this is the dateformat, please use dd for days, MM for months and yyyy for year. It has to be the english formatstring.",
         "type": "text",
         "placeholders": {}
     },
@@ -816,6 +817,11 @@
     },
     "Ø KH pro Tag": "Ø HC por día",
     "@Ø KH pro Tag": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ø KH pro Mahlzeit": "Ø KH pro Mahlzeit",
+    "@Ø KH pro Mahlzeit": {
         "type": "text",
         "placeholders": {}
     },
@@ -1781,7 +1787,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeigt eine Übersicht über die \nStunden der Tage des ausgewählten Zeitraums an. Die angezeigten Werte sind die\nMittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte. Sie\nwerden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen\nkann man die Startstunde festlegen. Die Datumsspalte befindet sich immer links\nvon 0 Uhr und zeigt an, wo ein neuer Tag beginnt.": "Dieses Formular zeigt eine Übersicht über die \nStunden der Tage des ausgewählten Zeitraums an. Die angezeigten Werte sind die\nMittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte. Sie\nwerden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen\nkann man die Startstunde festlegen. Die Datumsspalte befindet sich immer links\nvon 0 Uhr und zeigt an, wo ein neuer Tag beginnt.",
+    "Dieses Formular zeigt eine Übersicht über die \nStunden der Tage des ausgewählten Zeitraums an. Die angezeigten Werte sind die\nMittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte. Sie\nwerden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen\nkann man die Startstunde festlegen. Die Datumsspalte befindet sich immer links\nvon 0 Uhr und zeigt an, wo ein neuer Tag beginnt.": "Este formulario muestra un resumen de las horas de los días del período de tiempo seleccionado. Los valores mostrados son los valores medios de los valores medidos en la hora correspondiente. Se colorean en función del rango de destino seleccionado. En las opciones del formulario se puede configurar la hora de inicio. La columna de fecha está siempre a la izquierda de las 0h en punto y muestra dónde comienza un nuevo día.",
     "@Dieses Formular zeigt eine Übersicht über die \nStunden der Tage des ausgewählten Zeitraums an. Die angezeigten Werte sind die\nMittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte. Sie\nwerden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen\nkann man die Startstunde festlegen. Die Datumsspalte befindet sich immer links\nvon 0 Uhr und zeigt an, wo ein neuer Tag beginnt.": {
         "description": "help for dayhours",
         "type": "text",
@@ -2353,6 +2359,42 @@
         "type": "text",
         "placeholders": {}
     },
+    "Optionen": "Opciones",
+    "@Optionen": {
+        "description": "title for parameters",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zur Listenansicht": "Ir a vista de lista",
+    "@Zur Listenansicht": {
+        "description": "title of listview",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zur Kachelansicht": "Ir a la vista de mosaico",
+    "@Zur Kachelansicht": {
+        "description": "title of tileview",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Google Assistant": "Asistente Google",
+    "@Google Assistant": {
+        "description": "title of nightscout status",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nightscout Seite": "Página Nightscout",
+    "@Nightscout Seite": {
+        "description": "title of nightscout page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nightscout Berichte": "Informes Nightscout",
+    "@Nightscout Berichte": {
+        "description": "title of nightscout reports",
+        "type": "text",
+        "placeholders": {}
+    },
     "Anmeldung bei Google...": "Registrando en Google...",
     "@Anmeldung bei Google...": {
         "description": "signin to google",
@@ -2392,42 +2434,6 @@
     "Gross": "Grande",
     "@Gross": {
         "description": "big",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Optionen": "Opciones",
-    "@Optionen": {
-        "description": "title for parameters",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zur Listenansicht": "Ir a vista de lista",
-    "@Zur Listenansicht": {
-        "description": "title of listview",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zur Kachelansicht": "Ir a la vista de mosaico",
-    "@Zur Kachelansicht": {
-        "description": "title of tileview",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Google Assistant": "Asistente Google",
-    "@Google Assistant": {
-        "description": "title of nightscout status",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Nightscout Seite": "Página Nightscout",
-    "@Nightscout Seite": {
-        "description": "title of nightscout page",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Nightscout Berichte": "Informes Nightscout",
-    "@Nightscout Berichte": {
-        "description": "title of nightscout reports",
         "type": "text",
         "placeholders": {}
     },
@@ -2767,9 +2773,57 @@
         "type": "text",
         "placeholders": {}
     },
+    "Einstiegsvideo": "Einstiegsvideo",
+    "@Einstiegsvideo": {
+        "description": "label for button to open settings on welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
     "Version": "Versión",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.7 - xx.04.2021": "2.0.7 - xx.04.2021",
+    "@2.0.7 - xx.04.2021": {
+        "description": "v207",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf etwas anzuklicken.": "Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf etwas anzuklicken.",
+    "@Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf etwas anzuklicken.": {
+        "description": "v207c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten, was die Anwendung in einem unbrauchbaren Zustand zurückliess.": "Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten, was die Anwendung in einem unbrauchbaren Zustand zurückliess.",
+    "@Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten, was die Anwendung in einem unbrauchbaren Zustand zurückliess.": {
+        "description": "v207f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der bei der Auswahl des Zeitraums die Benutzung verhinderte, wenn man ein leeres Eingabefeld fokussierte.": "Ein Fehler wurde behoben, der bei der Auswahl des Zeitraums die Benutzung verhinderte, wenn man ein leeres Eingabefeld fokussierte.",
+    "@Ein Fehler wurde behoben, der bei der Auswahl des Zeitraums die Benutzung verhinderte, wenn man ein leeres Eingabefeld fokussierte.": {
+        "description": "v207f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war, wenn man den letzten Benutzer gelöscht hat.": "Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war, wenn man den letzten Benutzer gelöscht hat.",
+    "@Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war, wenn man den letzten Benutzer gelöscht hat.": {
+        "description": "v207f3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.": "Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.",
+    "@Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.": {
+        "description": "v207f4",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Ausgabe des Zielwertes und der blutigen Werte in der Tagesgrafik wurde korrigiert. Da gab es Probleme, wenn man eine andere Blutzucker Einheit als die auf dem Server eingestellte zur Ausgabe verwendet hat.": "Die Ausgabe des Zielwertes und der blutigen Werte in der Tagesgrafik wurde korrigiert. Da gab es Probleme, wenn man eine andere Blutzucker Einheit als die auf dem Server eingestellte zur Ausgabe verwendet hat.",
+    "@Die Ausgabe des Zielwertes und der blutigen Werte in der Tagesgrafik wurde korrigiert. Da gab es Probleme, wenn man eine andere Blutzucker Einheit als die auf dem Server eingestellte zur Ausgabe verwendet hat.": {
+        "description": "v207f5",
         "type": "text",
         "placeholders": {}
     },
@@ -2779,13 +2833,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Das Logo von Nightscout Reporter wurde geändert. Es ist nach wie vor die bekannte und beliebte Eule, aber sie hat nun eine Mütze auf wie die Zeitungsausträger und teilweise auch Journalisten in uralten Filmen. Das Logo ist nur im Programm vorhanden und erscheint nicht auf den PDFs. Dort ist nach wie vor das normale Nightscout Logo, weil es dort platziert wurde, um auf Nightscout selbst hinzuweisen.": "Das Logo von Nightscout Reporter wurde geändert. Es ist nach wie vor die bekannte und beliebte Eule, aber sie hat nun eine Mütze auf wie die Zeitungsausträger und teilweise auch Journalisten in uralten Filmen. Das Logo ist nur im Programm vorhanden und erscheint nicht auf den PDFs. Dort ist nach wie vor das normale Nightscout Logo, weil es dort platziert wurde, um auf Nightscout selbst hinzuweisen.",
+    "Das Logo von Nightscout Reporter wurde geändert. Es ist nach wie vor die bekannte und beliebte Eule, aber sie hat nun eine Mütze auf wie die Zeitungsausträger und teilweise auch Journalisten in uralten Filmen. Das Logo ist nur im Programm vorhanden und erscheint nicht auf den PDFs. Dort ist nach wie vor das normale Nightscout Logo, weil es dort platziert wurde, um auf Nightscout selbst hinzuweisen.": "Se ha cambiado el logotipo de Nightscout Reporter. Sigue siendo el querido buho, pero ahora lleva und gorra como los periodistas en las antiguas películas. El logro sólo se muestra dentro del programa y no sale en los PDFs. Ahí se sigue mostrando el logotipo normal de Nightscout, para apuntar a la página Nightscout.",
     "@Das Logo von Nightscout Reporter wurde geändert. Es ist nach wie vor die bekannte und beliebte Eule, aber sie hat nun eine Mütze auf wie die Zeitungsausträger und teilweise auch Journalisten in uralten Filmen. Das Logo ist nur im Programm vorhanden und erscheint nicht auf den PDFs. Dort ist nach wie vor das normale Nightscout Logo, weil es dort platziert wurde, um auf Nightscout selbst hinzuweisen.": {
         "description": "v206c1",
         "type": "text",
         "placeholders": {}
     },
-    "Ein Fehler bei der Ausgabe der temporären Ziele in der Tagesgrafik wurde behoben.": "Ein Fehler bei der Ausgabe der temporären Ziele in der Tagesgrafik wurde behoben.",
+    "Ein Fehler bei der Ausgabe der temporären Ziele in der Tagesgrafik wurde behoben.": "Und falta en los objetivos temporales de ja corregido.",
     "@Ein Fehler bei der Ausgabe der temporären Ziele in der Tagesgrafik wurde behoben.": {
         "description": "v206f1",
         "type": "text",
@@ -4507,8 +4561,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_3": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-    "@ViewWhatsnewComponent0__message_3": {
+    "ViewWhatsnewComponent0__message_10": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+    "@ViewWhatsnewComponent0__message_10": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

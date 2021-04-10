@@ -419,7 +419,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       glucMax = math.max(entry.gluc, glucMax);
     }
     for (var entry in day.bloody) {
-      glucMax = math.max(entry.mbg, glucMax);
+      glucMax = math.max(entry.gluc, glucMax);
     }
 
     profMax = -1000.0;
@@ -434,8 +434,9 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       }
     }
     for (var entry in day.treatments) {
-      if (entry.isBloody)
-        glucMax = math.max(g.glucFactor * entry.glucose, glucMax);
+      if (entry.isBloody) {
+        glucMax = math.max(entry.glucose, glucMax);
+      }
       ieMax = math.max(entry.bolusInsulin, ieMax);
     }
 
@@ -1011,8 +1012,12 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     var yLow = glucY(targets(repData)['low']);
     for (var i = 0; i < profile.store.listTargetLow.length; i++) {
       if (i < profile.store.listTargetHigh.length) {
-        var low = profile.store.listTargetLow[i].value * g.glucFactor;
-        var high = profile.store.listTargetHigh[i].value * g.glucFactor;
+        var low = profile.store.listTargetLow[i].value;
+        var high = profile.store.listTargetHigh[i].value;
+        if (!g.glucMGDLFromStatus) {
+          low *= 18.02;
+          high *= 18.02;
+        }
         var x = glucX(profile.store.listTargetLow[i].time(day.date));
         var y = glucY((low + high) / 2);
         if (lastTarget >= 0)

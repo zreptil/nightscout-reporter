@@ -111,11 +111,12 @@ material-content.main {
   bottom: 0;
   scrollbar-color: var(--primaryBack) var(--secondaryBack);
 
-  > div.centered {
-    display: flex;
-    flex: 1;
-    align-items: center;
-  }
+}
+
+> div.centered {
+  display: flex;
+  flex: 1;
+  align-items: center;
 }
 
 .tileparams {
@@ -218,6 +219,17 @@ material-button svg {
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0 0 6em 2em var(--primaryBack);
+  background: var(--secondaryBack);
+  padding: 0.5em;
+  border-radius: 0.5em;
+  position: relative;
+
+  .pdfClose {
+    position: absolute;
+    right: 0.2em;
+    top: 0.2em;
+  }
 
   .pdfList {
     display: flex;
@@ -442,13 +454,6 @@ material-button svg {
 
 .userName {
   text-align: center;
-}
-
-.signintext {
-  display: flex;
-  align-self: center;
-  align-items: center;
-  flex: 1;
 }
 
 material-fab.debug-trigger {
@@ -1382,15 +1387,18 @@ datepicker {
   margin-left: -30%;
   margin-top: -30%;
   flex-direction: column;
+
   [header] {
     height: 64px;
     background: black;
   }
+
   [content] {
     overflow-y: auto;
     flex: 1;
     background: red;
   }
+
   [footer] {
     height: 64px;
     background: gold;
@@ -1406,6 +1414,34 @@ overlay {
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  z-index: 10000;
+  z-index: 1000;
   background-color: rgba(33, 33, 33, 0.4);
+
+  .progress {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 6em 2em var(--primaryBack);
+    background: var(--secondaryBack);
+    padding: 1em;
+    border-radius: 0.5em;
+    min-width: 50vw;
+
+    material-progress {
+      margin-bottom: 1em;
+      margin-top: 1em;
+    }
+
+    material-fab {
+    }
+  }
+
+  .signintext {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
 }

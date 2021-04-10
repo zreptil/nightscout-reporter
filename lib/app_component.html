@@ -168,7 +168,7 @@
         </template>
       </div>
     </div>
-    <div *ngIf="(currPage=='normal'||currPage=='pdfList')&&tileParams==null" [class]="classForView('sendPanel')">
+    <div *ngIf="currPage=='normal'&&tileParams==null&&sendIcon!='stop'" [class]="classForView('sendPanel')">
       <material-fab [raised]="true"
                     [class]="sendClass(0,sendIcon)"
                     [disabled]="sendDisabled"
@@ -309,7 +309,7 @@
     </div>
   </material-drawer>
 </div>
-<overlay *ngIf="currPage!='normal'">
+<overlay *ngIf="currPage!='normal' || progressText != null">
   <welcome *ngIf="currPage=='welcome'" (closeClicked)="callbackButton"></welcome>
   <settings *ngIf="currPage=='settings'" (settingsresult)="settingsResult"></settings>
   <impressum *ngIf="currPage=='impressum'" (closeClicked)="callbackButton"></impressum>
@@ -323,6 +323,11 @@
       Verbinde zu Google Drive...
     </div>
     <div *ngIf="currPage=='pdfList'" class="pdfPage">
+      <material-fab class="pdfClose"
+                    [disabled]="sendDisabled"
+                    (trigger)="currPage='normal'">
+        <material-icon icon="close"></material-icon>
+      </material-fab>
       <div class="pdfList">
         <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
               [action]="pdfUrl">
@@ -367,9 +372,15 @@
       </div>
     </div>
     <div class="progress" *ngIf="progressText != null">
+      <div>{{progressText}}</div>
       <material-progress [activeProgress]="progressValue" [max]="progressMax"
                          [indeterminate]="progressValue>progressMax"></material-progress>
-      <div>{{progressText}}</div>
+      <material-fab mini
+                    [raised]="true"
+                    class="stop"
+                    (trigger)="cancelProgress()">
+        <material-icon icon="stop"></material-icon>
+      </material-fab>
     </div>
   </div>
 </overlay>

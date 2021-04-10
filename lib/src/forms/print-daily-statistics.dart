@@ -326,7 +326,7 @@ schwächerer Schrift angezeigt wird.
       'alignment': 'right'
     });
     addTableRow(showCarbs, 'auto', row, {
-      'text': msgKHPerDay,
+      'text': msgKHPerMeal,
       'style': 'total',
       'alignment': 'center'
     }, {

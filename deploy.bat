@@ -6,9 +6,11 @@ echo.
 echo Bitte eine Taste druecken zum Fortsetzen oder Batchdatei abbrechen
 pause >nul
 rem goto skipbuild
+rem del /s /q lib\src\*.css
+rem del lib\*.css
 call "C:\tools\dart-sdk\bin\pub.bat" get
 call "C:\tools\dart-sdk\bin\pub.bat" global activate webdev 2.6.2
-call "C:\tools\dart-sdk\bin\pub.bat" global run webdev build --output=web:build
+call "C:\tools\dart-sdk\bin\pub.bat" global run webdev build --output=web:build -- --delete-conflicting-outputs
 pause
 
 :skipbuild

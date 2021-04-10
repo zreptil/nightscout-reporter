@@ -9,8 +9,17 @@
     </material-button>
   </div>
   <div class="root">
-    <h2><span @i18n="version">Version</span><span @i18n="v207">2.0.7 - xx.03.2021</span></h2>
+    <h2><span @i18n="version">Version</span><span @i18n="v207">2.0.7 - xx.04.2021</span></h2>
     <ul>
+      <li class="added" @i18n="v207a1">
+        Bei der Festlegung des Zeitraums kann man jetzt angeben, ob die relativen Zeiträume ab gestern
+        ermittelt werden sollen, so dass man immer vollständige Tage im Zeitraum hat.
+      </li>
+      <li class="changed" @i18n="v207c1">
+        Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird
+        der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf
+        etwas anzuklicken.
+      </li>
       <li class="fixed" @i18n="v207f1">
         Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten,
         was die Anwendung in einem unbrauchbaren Zustand zurückliess.
@@ -22,6 +31,15 @@
       <li class="fixed" @i18n="v207f3">
         Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war,
         wenn man den letzten Benutzer gelöscht hat.
+      </li>
+      <li class="fixed" @i18n="v207f4">
+        Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde
+        durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.
+      </li>
+      <li class="fixed" @i18n="v207f5">
+        Die Ausgabe des Zielwertes und der blutigen Werte in der Tagesgrafik wurde korrigiert. Da gab es
+        Probleme, wenn man eine andere Blutzucker Einheit als die auf dem Server eingestellte zur
+        Ausgabe verwendet hat.
       </li>
     </ul>
     <h2><span @i18n="version">Version</span><span @i18n="v206">2.0.6 - 17.03.2021</span></h2>

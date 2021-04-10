@@ -1430,6 +1430,10 @@ class AppComponent implements OnInit {
     return false;
   }
 
+  void cancelProgress() {
+    sendIcon = 'send';
+  }
+
   void sendClick() {
     drawerVisible = false;
     switch (sendIcon) {

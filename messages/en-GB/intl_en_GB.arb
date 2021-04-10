@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-03-17T13:10:50.554426",
+    "@@last_modified": "2021-04-10T10:13:59.780888",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -145,6 +145,7 @@
     },
     "dd.MM.yyyy": "dd/MM/yyyy",
     "@dd.MM.yyyy": {
+        "description": "this is the dateformat, please use dd for days, MM for months and yyyy for year. It has to be the english formatstring.",
         "type": "text",
         "placeholders": {}
     },
@@ -816,6 +817,11 @@
     },
     "Ø KH pro Tag": "Avg. Carbs per day",
     "@Ø KH pro Tag": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ø KH pro Mahlzeit": "Avg. carbs per day",
+    "@Ø KH pro Mahlzeit": {
         "type": "text",
         "placeholders": {}
     },
@@ -2353,6 +2359,42 @@
         "type": "text",
         "placeholders": {}
     },
+    "Optionen": "Options",
+    "@Optionen": {
+        "description": "title for parameters",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zur Listenansicht": "To the list view",
+    "@Zur Listenansicht": {
+        "description": "title of listview",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zur Kachelansicht": "To the tile view",
+    "@Zur Kachelansicht": {
+        "description": "title of tileview",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Google Assistant": "Google Assistant",
+    "@Google Assistant": {
+        "description": "title of nightscout status",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nightscout Seite": "Nighscout Site",
+    "@Nightscout Seite": {
+        "description": "title of nightscout page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nightscout Berichte": "Nightscout Reports",
+    "@Nightscout Berichte": {
+        "description": "title of nightscout reports",
+        "type": "text",
+        "placeholders": {}
+    },
     "Anmeldung bei Google...": "Signing in to Google…",
     "@Anmeldung bei Google...": {
         "description": "signin to google",
@@ -2392,42 +2434,6 @@
     "Gross": "Big",
     "@Gross": {
         "description": "big",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Optionen": "Options",
-    "@Optionen": {
-        "description": "title for parameters",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zur Listenansicht": "To the list view",
-    "@Zur Listenansicht": {
-        "description": "title of listview",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zur Kachelansicht": "To the tile view",
-    "@Zur Kachelansicht": {
-        "description": "title of tileview",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Google Assistant": "Google Assistant",
-    "@Google Assistant": {
-        "description": "title of nightscout status",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Nightscout Seite": "Nighscout Site",
-    "@Nightscout Seite": {
-        "description": "title of nightscout page",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Nightscout Berichte": "Nightscout Reports",
-    "@Nightscout Berichte": {
-        "description": "title of nightscout reports",
         "type": "text",
         "placeholders": {}
     },
@@ -2767,9 +2773,57 @@
         "type": "text",
         "placeholders": {}
     },
+    "Einstiegsvideo": "Quickstartvideo",
+    "@Einstiegsvideo": {
+        "description": "label for button to open settings on welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
     "Version": "Version",
     "@Version": {
         "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.7 - xx.04.2021": "2.0.7 - xx/04/2021",
+    "@2.0.7 - xx.04.2021": {
+        "description": "v207",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf etwas anzuklicken.": "Dialogs and the display of the progress are now implemented a little different technically. Because of this, the application background is now shown darker in the cases and it is not possible to click on anything.",
+    "@Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf etwas anzuklicken.": {
+        "description": "v207c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten, was die Anwendung in einem unbrauchbaren Zustand zurückliess.": "Fixed a bug that caused dialogs to be closed with Escape, leaving the application in an unusable state.",
+    "@Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten, was die Anwendung in einem unbrauchbaren Zustand zurückliess.": {
+        "description": "v207f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der bei der Auswahl des Zeitraums die Benutzung verhinderte, wenn man ein leeres Eingabefeld fokussierte.": "A bug has been fixed that prevented usage of the app when selecting the time period if you focused on an empty input field.",
+    "@Ein Fehler wurde behoben, der bei der Auswahl des Zeitraums die Benutzung verhinderte, wenn man ein leeres Eingabefeld fokussierte.": {
+        "description": "v207f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war, wenn man den letzten Benutzer gelöscht hat.": "A bug has been fixed that caused the application to be in an undefined state when the last user was deleted.",
+    "@Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war, wenn man den letzten Benutzer gelöscht hat.": {
+        "description": "v207f3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.": "The incorrect name for average carbohydrates per day in the daily statistics has been replaced by the correct name for average carbohydrates per meal.",
+    "@Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.": {
+        "description": "v207f4",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Ausgabe des Zielwertes und der blutigen Werte in der Tagesgrafik wurde korrigiert. Da gab es Probleme, wenn man eine andere Blutzucker Einheit als die auf dem Server eingestellte zur Ausgabe verwendet hat.": "The output of the target value and the blood values in the daily graphic has been corrected. There were problems when a different blood sugar unit than the one set on the server was used for output.",
+    "@Die Ausgabe des Zielwertes und der blutigen Werte in der Tagesgrafik wurde korrigiert. Da gab es Probleme, wenn man eine andere Blutzucker Einheit als die auf dem Server eingestellte zur Ausgabe verwendet hat.": {
+        "description": "v207f5",
         "type": "text",
         "placeholders": {}
     },
@@ -4507,8 +4561,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_3": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
-    "@ViewWhatsnewComponent0__message_3": {
+    "ViewWhatsnewComponent0__message_10": "After I was asked again and again whether I could be donated, I have now decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I will no longer stand in your way. The donation button is not visible. But if you want to throw something in the {startTag0} hat {endTag0}, you will find it :)",
+    "@ViewWhatsnewComponent0__message_10": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

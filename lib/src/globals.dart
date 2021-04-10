@@ -102,7 +102,10 @@ class LangData {
     }
   }
 
-  String get dateformat => Intl.message('dd.MM.yyyy');
+  String get dateformat => Intl.message('dd.MM.yyyy',
+      desc: 'this is the dateformat, please use dd for days, ' +
+          'MM for months and yyyy for year. ' +
+          'It has to be the english formatstring.');
 
   String get imgPath =>
       'packages/nightscout_reporter/assets/img/lang-${img}.png';
@@ -153,7 +156,7 @@ class Settings {
 
   int glucMGDLIdx;
 
-  bool _glucMGDLFromStatus = true;
+  bool glucMGDLFromStatus = true;
 
   bool get glucMGDL => [true, false, true][glucMGDLIdx ?? 0];
 
@@ -168,7 +171,7 @@ class Settings {
   // calculate a value that is saved in a unit depending
   // on the setting in the status
   double glucForSavedUnitValue(double value) {
-    if (glucMGDL == _glucMGDLFromStatus) return value;
+    if (glucMGDL == glucMGDLFromStatus) return value;
     if (glucMGDL) return value * 18.02;
     return value / 18.02;
   }
@@ -181,7 +184,7 @@ class Settings {
   }
 
   void setGlucMGDL(StatusData status) {
-    _glucMGDLFromStatus = isMGDL(status);
+    glucMGDLFromStatus = isMGDL(status);
   }
 
   bool showAllTileParams = false;
@@ -324,50 +327,50 @@ class Settings {
     }));
     period.list
         .add(DatepickerEntry('2days', msgLast2Days, (DatepickerPeriod data) {
-      data.start = Date.today().add(days: -1);
-      data.end = Date.today();
+      data.start = period.baseDate.add(days: -1);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(days: -1);
     }));
     period.list
         .add(DatepickerEntry('3days', msgLast3Days, (DatepickerPeriod data) {
-      data.start = Date.today().add(days: -2);
-      data.end = Date.today();
+      data.start = period.baseDate.add(days: -2);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(days: -2);
     }));
     period.list
         .add(DatepickerEntry('1week', msgLastWeek, (DatepickerPeriod data) {
-      data.start = Date.today().add(days: -6);
-      data.end = Date.today();
+      data.start = period.baseDate.add(days: -6);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(days: -6);
     }));
     period.list
         .add(DatepickerEntry('2weeks', msgLast2Weeks, (DatepickerPeriod data) {
-      data.start = Date.today().add(days: -13);
-      data.end = Date.today();
+      data.start = period.baseDate.add(days: -13);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(days: -13);
     }));
     period.list
         .add(DatepickerEntry('3weeks', msgLast3Weeks, (DatepickerPeriod data) {
-      data.start = Date.today().add(days: -20);
-      data.end = Date.today();
+      data.start = period.baseDate.add(days: -20);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(days: -20);
     }));
     period.list
         .add(DatepickerEntry('1month', msgLastMonth, (DatepickerPeriod data) {
-      data.start = Date.today().add(months: -1);
-      data.end = Date.today();
+      data.start = period.baseDate.add(months: -1);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(months: -1);
     }));
     period.list.add(
         DatepickerEntry('3months', msgLast3Months, (DatepickerPeriod data) {
-      data.start = Date.today().add(months: -3);
-      data.end = Date.today();
+      data.start = period.baseDate.add(months: -3);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(months: -3);
     }));

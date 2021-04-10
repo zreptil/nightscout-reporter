@@ -48,6 +48,9 @@ die PDFs erstellt werden sollen</pre>
           <material-icon *ngIf="item.key=='save'" icon="save"></material-icon>
           {{item.title}}
         </material-button>
+          <material-button [raised]="period.calcFromYesterday"
+                           (trigger)="toggleYesterday()"
+                           [disabled]="period.entryKey==null" i18n>Bis gestern</material-button>
       </div>
       <material-button class="iconButton ok" (trigger)="onClick('save')">
         <material-icon icon="done"></material-icon>

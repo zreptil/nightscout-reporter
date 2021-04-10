@@ -1,6 +1,7 @@
 @import "mixins";
 @import 'package:angular_components/material_dialog/mixins';
 @import 'package:angular_components/material_input/mixins';
+@import 'package:angular_components/material_toggle/mixins';
 
 $primary_color: $mat_cyan_900;
 $secondary_color: $mat_cyan_500;
@@ -115,6 +116,10 @@ a, a:visited, a:active {
       background-color: $btn_raised_key_back;
       color: $btn_raised_key_fore;
     }
+  }
+  @include material-toggle-theme($primary-color: $primary_color);
+  .toggle {
+    @include flip-toggle-label-position();
   }
 }
 

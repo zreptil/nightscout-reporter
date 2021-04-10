@@ -762,6 +762,8 @@ abstract class BasePrint {
 
   String get msgKHPerDay => Intl.message('Ø KH pro Tag');
 
+  String get msgKHPerMeal => Intl.message('Ø KH pro Mahlzeit');
+
   String get msgInsulinPerDay => Intl.message('Ø Insulin pro Tag');
 
   String get msgBolusPerDay => Intl.message('Ø Bolus pro Tag');

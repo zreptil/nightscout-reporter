@@ -624,13 +624,13 @@ class ProfileStoreData extends JsonData {
     }
     _adjust(ret.listBasal);
     for (dynamic entry in json['target_low']) {
-      ret.listTargetLow
-          .add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
+      var value = ProfileEntryData.fromJson(entry, ret.timezone, timeshift);
+      ret.listTargetLow.add(value);
     }
     _adjust(ret.listTargetLow);
     for (dynamic entry in json['target_high']) {
-      ret.listTargetHigh
-          .add(ProfileEntryData.fromJson(entry, ret.timezone, timeshift));
+      var value = ProfileEntryData.fromJson(entry, ret.timezone, timeshift);
+      ret.listTargetHigh.add(value);
     }
     _adjust(ret.listTargetHigh);
 
@@ -882,7 +882,7 @@ class ProfileData extends JsonData {
             entry.timeForCalc + entry.duration - list[idx + 1].timeForCalc;
         list[idx + 1].timeForCalc = entry.timeForCalc + entry.duration;
       }
-    } else {
+    } else if (idx > 0) {
       list[idx - 1].duration = time - list[idx - 1].timeForCalc;
       // there is a profile entry after the mixin
       var nextIdx = list.indexWhere((e) => e.timeForCalc + e.duration >= time);
@@ -1300,8 +1300,15 @@ class TreatmentData extends JsonData {
     ret.reason = JsonData.toText(json['reason']);
     ret.targetTop = JsonData.toDouble(json['targetTop']);
     ret.targetBottom = JsonData.toDouble(json['targetBottom']);
+
+    var temp = JsonData.toText(json['units']);
+    if (temp?.toLowerCase() == 'mmol') {
+      ret.targetTop *= 18.02;
+      ret.targetBottom *= 18.02;
+    }
+
     ret.microbolus = 0.0;
-    var temp = JsonData.toText(json['insulinInjections']);
+    temp = JsonData.toText(json['insulinInjections']);
     var list = <dynamic>[];
     try {
       list = convert.json.decode(temp);
