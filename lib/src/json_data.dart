@@ -1302,9 +1302,14 @@ class TreatmentData extends JsonData {
     ret.targetBottom = JsonData.toDouble(json['targetBottom']);
 
     var temp = JsonData.toText(json['units']);
-    if (temp?.toLowerCase() == 'mmol') {
-      ret.targetTop *= 18.02;
-      ret.targetBottom *= 18.02;
+    if (temp.toLowerCase() == Settings.msgUnitMGDL.toLowerCase() &&
+        !g.glucMGDLFromStatus) {
+      ret.targetTop = ret.targetTop / 18.02;
+      ret.targetBottom = ret.targetBottom / 18.02;
+    } else if (temp.toLowerCase() == Settings.msgUnitMMOL.toLowerCase() &&
+        g.glucMGDLFromStatus) {
+      ret.targetTop = ret.targetTop * 18.02;
+      ret.targetBottom = ret.targetBottom * 18.02;
     }
 
     ret.microbolus = 0.0;

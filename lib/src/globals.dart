@@ -1155,6 +1155,20 @@ class Globals extends Settings {
     return fmtNumber(gluc, precision ?? 0);
   }
 
+  String glucFromStatusMGDL(var gluc, [double precision]) {
+    if (gluc is String) gluc = double.tryParse(gluc) ?? 0;
+    if (!(gluc is num) || gluc == 0) return '';
+
+    if (!glucMGDLFromStatus && glucMGDL) {
+      return fmtNumber(gluc * 18.02, precision ?? 1);
+    }
+    if (glucMGDLFromStatus && !glucMGDL) {
+      return fmtNumber(gluc / 18.02, precision ?? 1);
+    }
+
+    return fmtNumber(gluc, precision ?? 0);
+  }
+
 //  double glucFromData(double value) => glucMGDL ? value : value / 18.02;
 
   String get pdfTarget {
