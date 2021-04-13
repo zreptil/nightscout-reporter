@@ -18,7 +18,7 @@ typedef MessageIfAbsent(String message_str, List args);
 class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'fr_FR';
 
-  static m0(startTag0, endTag0) => "After I was asked again and again whether I could be donated, I have now decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I will no longer stand in your way. The donation button is not visible. But if you want to throw something in the ${startTag0} hat ${endTag0}, you will find it :)";
+  static m0(startTag0, endTag0) => "Après que l\'on m’ait demandé encore et encore si je pouvais recevoir des dons, j’ai décidé de mettre à disposition une telle possibilité. Nightscout Reporter est encore entièrement gratuit et restera comme tel. Si vous voulez toujours exprimer votre affection pour le programme, je ne veux plus vous empêcher de vous opposer. Le bouton de don n\'est pas visible. Mais si vous voulez jeter quelque chose dans le chapeau ${startTag0}${endTag0}, vous le trouverez :)";
 
   static m1(count) => "${Intl.plural(count, zero: '', one: '1 page', other: '${count} pages')}";
 
@@ -318,6 +318,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Bei der Auswertung kann nun ein Bereich angezeigt werden, in dem die Anzahl an Unterzuckerungen während des ausgewählten Zeitraums und der Zeitpunkt der letzten Unterzuckerung angezeigt werden." : MessageLookupByLibrary.simpleMessage("Dans l\'analyse, une zone peut maintenant être affichée, montrant le nombre d\'hypoglycémies dans la période sélectionnée et l\"heure de la dernière hypoglycémie."),
     "Bei der Basalrate und dem Profil gibt es nun eine Option jeweils nur das letzte im entsprechenden Zeitraum ausgeben zu lassen. Das verringert die Blätterflut bei häufigem Profilwechsel." : MessageLookupByLibrary.simpleMessage("Avec le débit de base et le profil, il est maintenant possible de ne faire imprimer que le dernier au cours de la période correspondante. Cela réduit le nombre de pages avec des changements fréquents de profils / débits de base."),
     "Bei der Berechnung der Kohlenhydrate werden weitere Datensätze berücksichtigt" : MessageLookupByLibrary.simpleMessage("Des données supplémentaires sont utilisées pour le calcul des glucides"),
+    "Bei der Festlegung des Zeitraums kann man jetzt angeben, bis zu welchem Tag der Zeitraum ermittelt werden soll. Voreingestellt ist so wie bisher auch der aktuelle Tag. Man kann aber auch den gestrigen Tag einstellen, um Tage mit vollständigen Daten zu haben, oder das letzte Wochenende, wenn man an vollständigen Wochen interessiert ist." : MessageLookupByLibrary.simpleMessage("Lorsque vous définissez la période, vous pouvez maintenant spécifier jusqu\'à quel jour la période doit être déterminée. Comme avant, le jour actuel est prédéfini. Vous pouvez également définir hier pour avoir des jours avec des dates complètes, ou le dernier week-end si vous êtes intéressé par des semaines complètes."),
     "Bei der Profilermittlung wurde manchmal der letzte Profilwechsel ignoriert. Das ist nun behoben." : MessageLookupByLibrary.simpleMessage("Le dernier changement de profil a parfois été ignoré lors de la détermination du profil. C\'est maintenant corrigé."),
     "Beide" : MessageLookupByLibrary.simpleMessage("Les deux"),
     "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern." : MessageLookupByLibrary.simpleMessage("Une erreur est survenue lors de la lecture des profils. Il peut y avoir trop de données dans la table de profil (par ex. causée par la boucle iOS). Vous pouvez essayer de réduire le nombre d\'enregistrements de données de profil à lire dans les paramètres."),
@@ -340,6 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Bewegung anzeigen" : MessageLookupByLibrary.simpleMessage("Montrer les activités"),
     "Bezeichnung" : MessageLookupByLibrary.simpleMessage("Titre"),
     "Bis" : MessageLookupByLibrary.simpleMessage("À"),
+    "Bis heute|Bis gestern|Bis Wochenende" : MessageLookupByLibrary.simpleMessage("Jusqu\'à aujourd\'hui|Jusqu\'à hier|Jusqu\'au week-end"),
     "Bisher fehlende Summenwerte in der Tagesstatistik hinzugefügt" : MessageLookupByLibrary.simpleMessage("Ajout des totaux manquants dans les statistiques quotidiennes"),
     "Bitte den Dateinamen für die Speicherung auswählen" : MessageLookupByLibrary.simpleMessage("Veuillez sélectionner le nom du fichier à enregistrer"),
     "Bitte einen Zeitraum wählen." : MessageLookupByLibrary.simpleMessage("Choisissez une période."),
@@ -767,6 +769,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Spalten für 10% und 90% anzeigen" : MessageLookupByLibrary.simpleMessage("Afficher les colonnes pour 10% et 90%"),
     "Spaltenbreite der Informationen in der Analyse erhöht" : MessageLookupByLibrary.simpleMessage("Largeur de la colonne des informations augmentée dans l\'analyse"),
     "Speichern" : MessageLookupByLibrary.simpleMessage("Sauvegarder"),
+    "Spenden" : MessageLookupByLibrary.simpleMessage("Donate"),
     "Standard_theme selection - standard" : MessageLookupByLibrary.simpleMessage("Standard"),
     "Standardabweichung" : MessageLookupByLibrary.simpleMessage("Écart-type"),
     "Standardabweichung statt Anzahl" : MessageLookupByLibrary.simpleMessage("Écart-type au lieu du nombre"),
@@ -820,7 +823,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Verteilung" : MessageLookupByLibrary.simpleMessage("Distribution"),
     "Verzögerter Bolus" : MessageLookupByLibrary.simpleMessage("Bolus retardé"),
     "Vier" : MessageLookupByLibrary.simpleMessage("Quatre"),
-    "ViewWhatsnewComponent0__message_10" : m0,
+    "ViewWhatsnewComponent0__message_11" : m0,
     "Von" : MessageLookupByLibrary.simpleMessage("à partir de"),
     "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen." : MessageLookupByLibrary.simpleMessage("Avant de créer un PDF, une boîte de dialogue s\'affiche, dans laquelle vous pouvez entrer des paramètres pour tous les PDFs créés. Vous pouvez définir la zone cible à la zone standard que les médecins aiment voir. Ceci a un impact sur toutes les représentations de la zone cible, ainsi que sur la distribution des valeurs à l\'intérieur et à l\'extérieur de la zone cible. Vous pouvez également définir la valeur maximale pour le glucose dans les graphiques. Cette valeur est utilisée dans les graphiques quotidiens, le diagramme percentile et les graphiques hebdomadaires. S\'il est défini à \"Automatique\", la valeur maximale est déterminée à partir des données existantes. Vous pouvez également spécifier ici si vous voulez générer la période actuelle ou une période de comparaison. Ceci est utile pour montrer au médecin une comparaison des valeurs passées et maintenant."),
     "Warnung" : MessageLookupByLibrary.simpleMessage("Attention"),

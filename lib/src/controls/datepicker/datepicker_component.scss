@@ -109,6 +109,8 @@ a, a:visited, a:active {
 }
 
 .shortcuts {
+  line-height: 2.2em;
+
   material-button {
     font-size: 75%;
 
@@ -117,16 +119,36 @@ a, a:visited, a:active {
       color: $btn_raised_key_fore;
     }
   }
+
   @include material-toggle-theme($primary-color: $primary_color);
   .toggle {
     @include flip-toggle-label-position();
   }
 }
 
+.shift {
+  border-radius: 0.5em;
+  background-color: $btn_shift_key_back;
+  color: $btn_shift_key_fore;
+}
+
 div.month {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+material-button.ok {
+  height: 100%;
+}
+
+.controls {
+  display:flex;
+  flex-flow:column;
+
+  material-button {
+    margin-top: 0.2em;
+  }
 }
 
 material-button.prev,

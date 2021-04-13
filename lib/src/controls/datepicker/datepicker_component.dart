@@ -47,27 +47,43 @@ class DatepickerPeriod {
       .split("|");
   static List<String> dowShortNames =
       Intl.message("Mo|Di|Mi|Do|Fr|Sa|So").split("|");
+  static List<String> shiftNames =
+      Intl.message("Bis heute|Bis gestern|Bis Wochenende").split("|");
 
   String emptyReason;
   String fmtDate = "dd.MM.yyyy";
-  bool calcFromYesterday = false;
+  int shiftDate = 0;
 
-  Date get baseDate =>
-      this.calcFromYesterday ? Date.today().add(days: -1) : Date.today();
+  Date get baseDate {
+    switch (this.shiftDate) {
+      case 0:
+        return Date.today();
+      case 1:
+        return Date.today().add(days: -1);
+      case 2:
+        var diff = -(Date.today().weekday - firstDayOfWeek + 1);
+        while (diff > 0) {
+          diff -= 7;
+        }
+        return Date.today().add(days: diff);
+    }
+  }
 
   DateFormat get dateFormat => DateFormat(fmtDate);
 
   int firstDayOfWeek = 1;
 
-  static monthName(Date date) => date != null ? monthNames[date.month - 1] : "";
+  static String monthName(Date date) =>
+      date != null ? monthNames[date.month - 1] : '';
 
-  static dowName(Date date) => date != null ? dowNames[date.weekday - 1] : "";
+  static String dowName(Date date) =>
+      date != null ? dowNames[date.weekday - 1] : '';
 
-  static monthShortName(Date date) =>
-      date != null ? monthShortNames[date.month - 1] : "";
+  static String monthShortName(Date date) =>
+      date != null ? monthShortNames[date.month - 1] : '';
 
-  static dowShortName(Date date) =>
-      date != null ? dowShortNames[date.weekday - 1] : "";
+  static String dowShortName(Date date) =>
+      date != null ? dowShortNames[date.weekday - 1] : '';
 
   Date _shiftBy(Date ret, int months) =>
       Date(ret.year, ret.month - months, ret.day);
@@ -82,15 +98,15 @@ class DatepickerPeriod {
     return _shiftBy(end, months);
   }
 
-  Date start = null;
-  Date end = null;
-  String entryKey = null;
-  Date minDate = null;
-  Date maxDate = null;
-  String _dowActiveText = null;
+  Date start;
+  Date end;
+  String entryKey;
+  Date minDate;
+  Date maxDate;
+  String _dowActiveText;
 
   int get dayCount {
-    int ret = 0;
+    var ret = 0;
     if (start != null && end != null) {
       ret = DateTime(end.year, end.month, end.day)
               .difference(DateTime(start.year, start.month, start.day))
@@ -105,27 +121,27 @@ class DatepickerPeriod {
   bool isDowActive(int idx) =>
       idx >= 0 && idx < _dowActive.length ? _dowActive[idx] : false;
 
-  activateDow(int idx, bool isActive) {
+  void activateDow(int idx, bool isActive) {
     if (idx < 0 || idx >= _dowActive.length) return;
     _dowActive[idx] = isActive;
     _dowActiveText = null;
   }
 
-  get msgPeriodEmpty => Intl.message("Zeitraum festlegen");
+  String get msgPeriodEmpty => Intl.message('Zeitraum festlegen');
 
   String get display {
     if (entryKey != null) return entryTitle;
     if (start == null || end == null) return msgPeriodEmpty;
     if (start.compareTo(end) == 0) return start.format(dateFormat);
-    return "${start.format(dateFormat)} - ${end.format(dateFormat)}";
+    return '${start.format(dateFormat)} - ${end.format(dateFormat)}';
   }
 
   String get dowActiveText {
     if (_dowActiveText == null) {
-      List<String> ret = List<String>();
-      int cnt = 0;
-      for (int i = 0; i < dowShortNames.length; i++) {
-        int idx = i + firstDayOfWeek - 1;
+      var ret = <String>[];
+      var cnt = 0;
+      for (var i = 0; i < dowShortNames.length; i++) {
+        var idx = i + firstDayOfWeek - 1;
         if (idx >= dowShortNames.length) idx -= dowShortNames.length;
         if (isDowActive(idx)) {
           ret.add(dowShortNames[idx]);
@@ -141,13 +157,13 @@ class DatepickerPeriod {
     emptyReason = "";
     if ((entryKey == null || entryKey.isEmpty) && start == null) return true;
 
-    Date beg = start;
+    var beg = start;
     while (beg != null && end != null && beg.isOnOrBefore(end)) {
       if (isDowActive(beg.weekday - 1)) return false;
       beg = beg.add(days: 1);
     }
 
-    emptyReason = Intl.message("Der Zeitraum enthält keine auswertbaren Tage");
+    emptyReason = Intl.message('Der Zeitraum enthält keine auswertbaren Tage');
 
     return true;
   }
@@ -164,8 +180,9 @@ class DatepickerPeriod {
 
   DatepickerEntry get entry {
     if (list != null) {
-      for (DatepickerEntry entry in list)
+      for (var entry in list) {
         if (entry.key == entryKey) return entry;
+      }
     }
     return null;
   }
@@ -173,13 +190,20 @@ class DatepickerPeriod {
   Date parse(String date) {
     Date ret = null;
     if (date != null && date.length == 8) {
-      int y = int.tryParse(date.substring(0, 4)) ?? 0;
-      int m = int.tryParse(date.substring(4, 6)) ?? 1;
-      int d = int.tryParse(date.substring(6, 8)) ?? 1;
+      var y = int.tryParse(date.substring(0, 4)) ?? 0;
+      var m = int.tryParse(date.substring(4, 6)) ?? 1;
+      var d = int.tryParse(date.substring(6, 8)) ?? 1;
       ret = Date(y, m, d);
     }
 
     return ret;
+  }
+
+  void refresh() {
+    var item = list.firstWhere((element) => element.key == entryKey);
+    if (item != null) {
+      item.fill(this);
+    }
   }
 
   reset(String src) {
@@ -201,7 +225,7 @@ class DatepickerPeriod {
           activateDow(i, parts[4][i] == "+");
       }
       if (parts.length >= 5) {
-        calcFromYesterday = parts[5] == '1';
+        shiftDate = int.tryParse(parts[5]) ?? 0;
       }
     } catch (ex) {}
   }
@@ -212,15 +236,15 @@ class DatepickerPeriod {
 
   String toString() {
     List<String> ret = List<String>();
-    ret.add("${start?.format(DateFormat("yyyyMMdd")) ?? ""}");
-    ret.add("${end?.format(DateFormat("yyyyMMdd")) ?? ""}");
-    ret.add("${entryKey ?? ""}");
-    ret.add("${firstDayOfWeek}");
-    String dow = "";
+    ret.add('${start?.format(DateFormat('yyyyMMdd')) ?? ''}');
+    ret.add('${end?.format(DateFormat('yyyyMMdd')) ?? ''}');
+    ret.add('${entryKey ?? ''}');
+    ret.add('${firstDayOfWeek}');
+    String dow = '';
     for (bool active in _dowActive) dow = "${dow}${active ? '+' : '-'}";
     ret.add(dow);
-    ret.add(calcFromYesterday ? '1' : '0');
-    return ret.join("|");
+    ret.add('${shiftDate}');
+    return ret.join('|');
   }
 }
 
@@ -344,6 +368,8 @@ class DatepickerComponent {
   @Input()
   String msgPeriod = Intl.message("Zeitraum");
 
+  String get shiftName => DatepickerPeriod.shiftNames[period.shiftDate];
+
   String get periodFloatingLabel {
     if (period.start == null || period.end == null) return "";
     return msgPeriod;
@@ -389,13 +415,12 @@ class DatepickerComponent {
     month = period.end;
   }
 
-  void toggleYesterday() {
-    period.calcFromYesterday = !period.calcFromYesterday;
-    var item =
-        period.list.firstWhere((element) => element.key == period.entryKey);
-    if (item != null) {
-      item.fill(period);
-    }
+  void onShiftClick() {
+    var value = period.shiftDate + 1;
+    if (value < 0) value = 0;
+    if (value >= DatepickerPeriod.shiftNames.length) value = 0;
+    period.shiftDate = value;
+    period.refresh();
   }
 
   void fire(String type) async {

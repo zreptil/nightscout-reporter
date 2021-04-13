@@ -43,19 +43,29 @@ die PDFs erstellt werden sollen</pre>
     </div>
     <div footer>
       <div class="shortcuts">
-        <material-button *ngFor="let item of period.list" [raised]="period.entryKey==item.key"
-                         (trigger)="onShortcutClick(item)">
-          <material-icon *ngIf="item.key=='save'" icon="save"></material-icon>
-          {{item.title}}
-        </material-button>
-          <material-button [raised]="period.calcFromYesterday"
-                           (trigger)="toggleYesterday()"
-                           [disabled]="period.entryKey==null" i18n>Bis gestern</material-button>
+        <ng-container *ngFor="let item of period.list">
+          <material-button
+            [class]="item.key"
+            [raised]="period.entryKey==item.key"
+            (trigger)="onShortcutClick(item)">
+            <material-icon *ngIf="item.key=='save'" icon="save"></material-icon>
+            {{item.title}}
+          </material-button>
+          <span *ngIf="item.key=='today'">|</span>
+        </ng-container>
       </div>
-      <material-button class="iconButton ok" (trigger)="onClick('save')">
-        <material-icon icon="done"></material-icon>
-        <ng-container @i18n="buttonlabel for ok in control datepicker">Ok</ng-container>
-      </material-button>
+      <div class="controls">
+        <material-button *ngIf="period.entryKey!=null && period.entryKey!='today'"
+                         class="shift"
+                         [raised]="false"
+                         (trigger)="onShiftClick()">
+          {{shiftName}}
+        </material-button>
+        <material-button class="iconButton ok" (trigger)="onClick('save')">
+          <material-icon icon="done"></material-icon>
+          <ng-container @i18n="buttonlabel for ok in control datepicker">Ok</ng-container>
+        </material-button>
+      </div>
     </div>
   </material-dialog>
 </modal>

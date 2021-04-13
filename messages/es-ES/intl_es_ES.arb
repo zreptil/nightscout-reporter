@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-04-10T10:13:59.780888",
+    "@@last_modified": "2021-04-13T21:26:09.765360",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -352,6 +352,11 @@
     },
     "Mo|Di|Mi|Do|Fr|Sa|So": "Lu|Ma|Mier|Jue|Vier|Sa|Do",
     "@Mo|Di|Mi|Do|Fr|Sa|So": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bis heute|Bis gestern|Bis Wochenende": "Hasta hoy|Hasta ayer|Hasta fin de semana",
+    "@Bis heute|Bis gestern|Bis Wochenende": {
         "type": "text",
         "placeholders": {}
     },
@@ -820,7 +825,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ø KH pro Mahlzeit": "Ø KH pro Mahlzeit",
+    "Ø KH pro Mahlzeit": "Ø HC por comida",
     "@Ø KH pro Mahlzeit": {
         "type": "text",
         "placeholders": {}
@@ -2365,6 +2370,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Spenden": "Spenden",
+    "@Spenden": {
+        "description": "title of donate button",
+        "type": "text",
+        "placeholders": {}
+    },
     "Zur Listenansicht": "Ir a vista de lista",
     "@Zur Listenansicht": {
         "description": "title of listview",
@@ -2773,7 +2784,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Einstiegsvideo": "Einstiegsvideo",
+    "Einstiegsvideo": "Vidéo de entrada",
     "@Einstiegsvideo": {
         "description": "label for button to open settings on welcome screen",
         "type": "text",
@@ -2791,31 +2802,37 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf etwas anzuklicken.": "Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf etwas anzuklicken.",
+    "Bei der Festlegung des Zeitraums kann man jetzt angeben, bis zu welchem Tag der Zeitraum ermittelt werden soll. Voreingestellt ist so wie bisher auch der aktuelle Tag. Man kann aber auch den gestrigen Tag einstellen, um Tage mit vollständigen Daten zu haben, oder das letzte Wochenende, wenn man an vollständigen Wochen interessiert ist.": "Bei der Festlegung des Zeitraums kann man jetzt angeben, bis zu welchem Tag der Zeitraum ermittelt werden soll. Voreingestellt ist so wie bisher auch der aktuelle Tag. Man kann aber auch den gestrigen Tag einstellen, um Tage mit vollständigen Daten zu haben, oder das letzte Wochenende, wenn man an vollständigen Wochen interessiert ist.",
+    "@Bei der Festlegung des Zeitraums kann man jetzt angeben, bis zu welchem Tag der Zeitraum ermittelt werden soll. Voreingestellt ist so wie bisher auch der aktuelle Tag. Man kann aber auch den gestrigen Tag einstellen, um Tage mit vollständigen Daten zu haben, oder das letzte Wochenende, wenn man an vollständigen Wochen interessiert ist.": {
+        "description": "v207a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf etwas anzuklicken.": "Diálogos y visualización del progreso se muestran diferentemente. Por eso el fondo de la aplicación en estos casos se muestra en oscuro y no se puede pulsar botones.",
     "@Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf etwas anzuklicken.": {
         "description": "v207c1",
         "type": "text",
         "placeholders": {}
     },
-    "Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten, was die Anwendung in einem unbrauchbaren Zustand zurückliess.": "Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten, was die Anwendung in einem unbrauchbaren Zustand zurückliess.",
+    "Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten, was die Anwendung in einem unbrauchbaren Zustand zurückliess.": "Se ha corregido una falta que admitía cerrar diálogos por el botón \"escape\" y dejaba la aplicación inutilizable.",
     "@Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten, was die Anwendung in einem unbrauchbaren Zustand zurückliess.": {
         "description": "v207f1",
         "type": "text",
         "placeholders": {}
     },
-    "Ein Fehler wurde behoben, der bei der Auswahl des Zeitraums die Benutzung verhinderte, wenn man ein leeres Eingabefeld fokussierte.": "Ein Fehler wurde behoben, der bei der Auswahl des Zeitraums die Benutzung verhinderte, wenn man ein leeres Eingabefeld fokussierte.",
+    "Ein Fehler wurde behoben, der bei der Auswahl des Zeitraums die Benutzung verhinderte, wenn man ein leeres Eingabefeld fokussierte.": "Se ha corregido una falta, que al elegir un período dejando una casilla vacía impedía el uso.",
     "@Ein Fehler wurde behoben, der bei der Auswahl des Zeitraums die Benutzung verhinderte, wenn man ein leeres Eingabefeld fokussierte.": {
         "description": "v207f2",
         "type": "text",
         "placeholders": {}
     },
-    "Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war, wenn man den letzten Benutzer gelöscht hat.": "Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war, wenn man den letzten Benutzer gelöscht hat.",
+    "Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war, wenn man den letzten Benutzer gelöscht hat.": "Se ha corregido una falta que dejaba la aplicación en un estado no definido al borrar el último usuario.",
     "@Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war, wenn man den letzten Benutzer gelöscht hat.": {
         "description": "v207f3",
         "type": "text",
         "placeholders": {}
     },
-    "Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.": "Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.",
+    "Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.": "El nombre incorrecto del promedio de carbohidratos al día en la estadística diaria se ha cambiado al promedio de carbohidratos por comida.",
     "@Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.": {
         "description": "v207f4",
         "type": "text",
@@ -4561,8 +4578,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_10": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-    "@ViewWhatsnewComponent0__message_10": {
+    "ViewWhatsnewComponent0__message_11": "Como siempre me han preguntado si se puede hacer una donación me he decidido de ofrecer esa opción. Nightscout Reporter sigue siendo completamente gratis y siempre lo será. Al que de todas formas quiere demostrar su cariño a esta aplicación le daré esta oportunidad. El botón de donación no será visible. Pero el que quiera echar algo en el {startTag0}sombrero{endTag0} lo encontrará :)",
+    "@ViewWhatsnewComponent0__message_11": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

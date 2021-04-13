@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-04-10T10:13:59.780888",
+    "@@last_modified": "2021-04-13T21:26:09.765360",
     "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -352,6 +352,11 @@
     },
     "Mo|Di|Mi|Do|Fr|Sa|So": "Mo|Di|Mi|Do|Fr|Sa|So",
     "@Mo|Di|Mi|Do|Fr|Sa|So": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bis heute|Bis gestern|Bis Wochenende": "Bis heute|Bis gestern|Bis Wochenende",
+    "@Bis heute|Bis gestern|Bis Wochenende": {
         "type": "text",
         "placeholders": {}
     },
@@ -2365,6 +2370,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Spenden": "Spenden",
+    "@Spenden": {
+        "description": "title of donate button",
+        "type": "text",
+        "placeholders": {}
+    },
     "Zur Listenansicht": "Zur Listenansicht",
     "@Zur Listenansicht": {
         "description": "title of listview",
@@ -2788,6 +2799,12 @@
     "2.0.7 - xx.04.2021": "2.0.7 - xx.04.2021",
     "@2.0.7 - xx.04.2021": {
         "description": "v207",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei der Festlegung des Zeitraums kann man jetzt angeben, bis zu welchem Tag der Zeitraum ermittelt werden soll. Voreingestellt ist so wie bisher auch der aktuelle Tag. Man kann aber auch den gestrigen Tag einstellen, um Tage mit vollständigen Daten zu haben, oder das letzte Wochenende, wenn man an vollständigen Wochen interessiert ist.": "Bei der Festlegung des Zeitraums kann man jetzt angeben, bis zu welchem Tag der Zeitraum ermittelt werden soll. Voreingestellt ist so wie bisher auch der aktuelle Tag. Man kann aber auch den gestrigen Tag einstellen, um Tage mit vollständigen Daten zu haben, oder das letzte Wochenende, wenn man an vollständigen Wochen interessiert ist.",
+    "@Bei der Festlegung des Zeitraums kann man jetzt angeben, bis zu welchem Tag der Zeitraum ermittelt werden soll. Voreingestellt ist so wie bisher auch der aktuelle Tag. Man kann aber auch den gestrigen Tag einstellen, um Tage mit vollständigen Daten zu haben, oder das letzte Wochenende, wenn man an vollständigen Wochen interessiert ist.": {
+        "description": "v207a1",
         "type": "text",
         "placeholders": {}
     },
@@ -4561,8 +4578,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_10": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-    "@ViewWhatsnewComponent0__message_10": {
+    "ViewWhatsnewComponent0__message_11": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+    "@ViewWhatsnewComponent0__message_11": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {
