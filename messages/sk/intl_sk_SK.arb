@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-04-13T21:26:09.765360",
+    "@@last_modified": "2021-04-17T14:13:50.698549",
     "Überprüfe Zugriff auf Nightscout ...": "Kontrola prístupu do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -272,6 +272,26 @@
     },
     "Letzte 3 Monate": "Posledné 3 mesiace",
     "@Letzte 3 Monate": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Erstes Quartal": "Erstes Quartal",
+    "@Erstes Quartal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zweites Quartal": "Zweites Quartal",
+    "@Zweites Quartal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Drittes Quartal": "Drittes Quartal",
+    "@Drittes Quartal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Viertes Quartal": "Viertes Quartal",
+    "@Viertes Quartal": {
         "type": "text",
         "placeholders": {}
     },
@@ -2796,8 +2816,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "2.0.7 - xx.04.2021": "2.0.7 - xx.04.2021",
-    "@2.0.7 - xx.04.2021": {
+    "2.0.7 - 17.04.2021": "2.0.7 - 17.04.2021",
+    "@2.0.7 - 17.04.2021": {
         "description": "v207",
         "type": "text",
         "placeholders": {}

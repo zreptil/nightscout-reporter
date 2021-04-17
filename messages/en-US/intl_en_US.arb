@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-04-13T21:26:09.765360",
+    "@@last_modified": "2021-04-17T14:13:50.698549",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -272,6 +272,26 @@
     },
     "Letzte 3 Monate": "Last 3 months",
     "@Letzte 3 Monate": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Erstes Quartal": "First Quarter",
+    "@Erstes Quartal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zweites Quartal": "Second Quarter",
+    "@Zweites Quartal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Drittes Quartal": "Third Quarter",
+    "@Drittes Quartal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Viertes Quartal": "Fourth Quarter",
+    "@Viertes Quartal": {
         "type": "text",
         "placeholders": {}
     },
@@ -2796,8 +2816,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "2.0.7 - xx.04.2021": "2.0.7 - xx/04/2021",
-    "@2.0.7 - xx.04.2021": {
+    "2.0.7 - 17.04.2021": "2.0.7 - 04/17/2021",
+    "@2.0.7 - 17.04.2021": {
         "description": "v207",
         "type": "text",
         "placeholders": {}

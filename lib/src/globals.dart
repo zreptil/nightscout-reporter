@@ -315,6 +315,14 @@ class Settings {
 
   static String get msgLast3Months => Intl.message('Letzte 3 Monate');
 
+  static String get msgQuarter1 => Intl.message('Erstes Quartal');
+
+  static String get msgQuarter2 => Intl.message('Zweites Quartal');
+
+  static String get msgQuarter3 => Intl.message('Drittes Quartal');
+
+  static String get msgQuarter4 => Intl.message('Viertes Quartal');
+
   static void updatePeriod(DatepickerPeriod period) {
     if (period == null) return;
     period.maxDate = Date.today();
@@ -374,6 +382,34 @@ class Settings {
     }, (Date date) {
       return date.add(months: -3);
     }));
+    // period.list
+    //     .add(DatepickerEntry('quarter1', msgQuarter1, (DatepickerPeriod data) {
+    //   data.start = new Date(period.baseDate.year, 1, 1);
+    //   data.end = new Date(period.baseDate.year, 3, 31);
+    // }, (Date date) {
+    //   return new Date(period.baseDate.year, 1, 1);
+    // }));
+    // period.list
+    //     .add(DatepickerEntry('quarter2', msgQuarter2, (DatepickerPeriod data) {
+    //   data.start = new Date(period.baseDate.year, 4, 1);
+    //   data.end = new Date(period.baseDate.year, 6, 30);
+    // }, (Date date) {
+    //   return new Date(period.baseDate.year, 4, 1);
+    // }));
+    // period.list
+    //     .add(DatepickerEntry('quarter3', msgQuarter3, (DatepickerPeriod data) {
+    //   data.start = new Date(period.baseDate.year, 7, 1);
+    //   data.end = new Date(period.baseDate.year, 9, 30);
+    // }, (Date date) {
+    //   return new Date(period.baseDate.year, 7, 1);
+    // }));
+    // period.list
+    //     .add(DatepickerEntry('quarter4', msgQuarter4, (DatepickerPeriod data) {
+    //   data.start = new Date(period.baseDate.year, 10, 1);
+    //   data.end = new Date(period.baseDate.year, 12, 31);
+    // }, (Date date) {
+    //   return new Date(period.baseDate.year, 10, 1);
+    // }));
   }
 
   void sortConfigs() {
