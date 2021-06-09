@@ -10,15 +10,19 @@ class PrintDailyGluc extends BasePrint {
 
   @override
   String help = Intl.message(
-      '''Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg an. Dabei wird in der Spalte Trend immer
-angezeigt, um wieviel Prozent sich der Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend
-ist ganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der Glukosewert nur anhand der
-Basalrate entwickelt. Es kann auch eine Spalte für die Boluswerte und die Kohlenhydrate angezeigt werden.
-Diese sollten aber bei einem Basalratentest natürlich leer sein. Ebenso muss ein eventuell vorhandener Loop 
-im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur um den Diabetiker und seine Basalrate.\n
-Es wird auch eine Spalte mit der Basalrate angezeigt, wenn die Option "Alle Werte für einen Tag anzeigen"
-nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz (und auch der Sinn), diese
-darzustellen.''', desc: 'help for daygluc');
+      '''Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg 
+an. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich 
+der Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist
+ganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der
+Glukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für
+die Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei
+einem Basalratentest natürlich leer sein. Ebenso muss ein eventuell
+vorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur
+um den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der
+Basalrate angezeigt, wenn die Option "Alle Werte für einen Tag anzeigen"
+nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz
+(und auch der Sinn), diese darzustellen.''',
+      desc: 'help for daygluc');
 
   @override
   String id = 'daygluc';
@@ -30,18 +34,24 @@ darzustellen.''', desc: 'help for daygluc');
   String get title => Intl.message('Tagestrend');
 
   @override
-  List<ParamInfo> params = [ParamInfo(1, msgParam1, boolValue: false), ParamInfo(2, msgParam2, boolValue: false)];
+  List<ParamInfo> params = [
+    ParamInfo(1, msgParam1, boolValue: false),
+    ParamInfo(2, msgParam2, boolValue: false)
+  ];
 
   @override
   bool get isPortrait => true;
 
-  static String get msgParam1 => Intl.message("Alle Werte für den Tag anzeigen");
+  static String get msgParam1 =>
+      Intl.message("Alle Werte für den Tag anzeigen");
 
   static String get msgParam2 => Intl.message("Bolusspalte anzeigen");
 
-  String msgBasalInfo(String time) =>
-      Intl.message("Die angezeigte Basalrate ist seit ${time}  gültig und beinhaltet keine temporären Änderungen.",
-          args: [time], name: "msgBasalInfo", meaning: "The informational text on the page Daytrend for the basalrate");
+  String msgBasalInfo(String time) => Intl.message(
+      "Die angezeigte Basalrate ist seit ${time}  gültig und beinhaltet keine temporären Änderungen.",
+      args: [time],
+      name: "msgBasalInfo",
+      meaning: "The informational text on the page Daytrend for the basalrate");
 
   PrintDailyProfile() {
     init();
@@ -82,7 +92,8 @@ darzustellen.''', desc: 'help for daygluc');
         getPage(day, pages);
         showAllValues = savSave;
         showBolus = sbSave;
-        if (pages.length - oldLength > 2) pages.removeRange(oldLength + 2, pages.length);
+        if (pages.length - oldLength > 2)
+          pages.removeRange(oldLength + 2, pages.length);
       } else {
         getPage(day, pages);
         if (g.showBothUnits) {
@@ -112,8 +123,19 @@ darzustellen.''', desc: 'help for daygluc');
     if (showBolus) colCount++;
     double sw = colCount / (1 - 1 / fw);
     var widths = columns == 1
-        ? [cm(wid / fw - 0.34), cm(wid / sw - 0.34), cm(wid / sw - 0.34), cm(wid / sw - 0.34), cm(wid / sw - 0.34)]
-        : [cm(wid / fw - 0.34), cm(wid / sw - 0.34), cm(wid / sw - 0.34), cm(wid / sw - 0.34)];
+        ? [
+            cm(wid / fw - 0.34),
+            cm(wid / sw - 0.34),
+            cm(wid / sw - 0.34),
+            cm(wid / sw - 0.34),
+            cm(wid / sw - 0.34)
+          ]
+        : [
+            cm(wid / fw - 0.34),
+            cm(wid / sw - 0.34),
+            cm(wid / sw - 0.34),
+            cm(wid / sw - 0.34)
+          ];
 
     if (showBolus) widths.add(cm(wid / sw - 0.34));
 
@@ -121,14 +143,18 @@ darzustellen.''', desc: 'help for daygluc');
     int lines = 0;
     double trendGluc = 0;
     if (day.prevDay != null) {
-      EntryData temp = day.prevDay.entries.firstWhere((e) => e.time.hour == 23 && e.time.minute == 0, orElse: null);
+      EntryData temp = day.prevDay.entries.firstWhere(
+          (e) => e.time.hour == 23 && e.time.minute == 0,
+          orElse: null);
       if (temp != null) trendGluc = temp.gluc;
     }
-    ProfileGlucData profile = repData.profile(DateTime(day.date.year, day.date.month, day.date.day), null, false);
+    ProfileGlucData profile = repData.profile(
+        DateTime(day.date.year, day.date.month, day.date.day), null, false);
     if (profile.store.listBasal.length == 0) return null;
 
     double basalMax = 0.1;
-    for (ProfileEntryData entry in profile.store.listBasal) basalMax = math.max(entry.value, basalMax);
+    for (ProfileEntryData entry in profile.store.listBasal)
+      basalMax = math.max(entry.value, basalMax);
 
     for (EntryData entry in day.entries) {
       if (idx >= tables.length) {
@@ -136,7 +162,11 @@ darzustellen.''', desc: 'help for daygluc');
           tables.add([
             [
               {"text": msgTime, "style": "total", "alignment": "center"},
-              {"text": g.getGlucInfo()["unit"], "style": "total", "alignment": "center"},
+              {
+                "text": g.getGlucInfo()["unit"],
+                "style": "total",
+                "alignment": "center"
+              },
               {"text": msgTrend, "style": "total", "alignment": "center"},
               {"text": msgKHTitle, "style": "total", "alignment": "center"}
             ]
@@ -145,13 +175,19 @@ darzustellen.''', desc: 'help for daygluc');
           tables.add([
             [
               {"text": msgTime, "style": "total", "alignment": "center"},
-              {"text": g.getGlucInfo()["unit"], "style": "total", "alignment": "center"},
+              {
+                "text": g.getGlucInfo()["unit"],
+                "style": "total",
+                "alignment": "center"
+              },
               {"text": msgTrend, "style": "total", "alignment": "center"},
               {"text": msgBasal, "style": "total", "alignment": "center"},
               {"text": msgKHTitle, "style": "total", "alignment": "center"}
             ]
           ]);
-        if (showBolus) tables.last.last.add({"text": msgBolus, "style": "total", "alignment": "center"});
+        if (showBolus)
+          tables.last.last
+              .add({"text": msgBolus, "style": "total", "alignment": "center"});
       }
 
       if (!showAllValues && entry.time.minute != 0) continue;
@@ -160,8 +196,10 @@ darzustellen.''', desc: 'help for daygluc');
       int endTime = g.timeForCalc(entry.time) + (showAllValues ? 5 : 60) * 60;
       double bolusSum = 0.0;
       double carbs = 0.0;
-      Iterable<TreatmentData> list =
-          day.treatments.where((t) => t.carbs >= 0 && t.timeForCalc >= startTime && t.timeForCalc < endTime);
+      Iterable<TreatmentData> list = day.treatments.where((t) =>
+          t.carbs >= 0 &&
+          t.timeForCalc >= startTime &&
+          t.timeForCalc < endTime);
       for (TreatmentData t in list) {
         carbs += t.carbs;
         bolusSum += t.bolusInsulin ?? 0;
@@ -191,27 +229,52 @@ darzustellen.''', desc: 'help for daygluc');
       }
       if (showAllValues) {
         tables[idx].add([
-          {"text": text, "alignment": "center", "style": styleForTime(entry.time)},
-          {"text": gluc, "alignment": "center", "fillColor": colForGluc(day, entry.gluc)},
+          {
+            "text": text,
+            "alignment": "center",
+            "style": styleForTime(entry.time)
+          },
+          {
+            "text": gluc,
+            "alignment": "center",
+            "fillColor": colForGluc(day, entry.gluc)
+          },
           {"text": trend, "alignment": "right", "fillColor": trendColor},
           {"text": carbs > 0 ? msgKH(carbs) : "", "alignment": "center"}
         ]);
       } else {
-        ProfileEntryData d = profile.store.listBasal
-            .lastWhere((e) => e.time(day.date).isBefore(entry.time.add(Duration(seconds: 1))), orElse: null);
+        ProfileEntryData d = profile.store.listBasal.lastWhere(
+            (e) =>
+                e.time(day.date).isBefore(entry.time.add(Duration(seconds: 1))),
+            orElse: null);
         String basal = d == null ? "" : g.fmtBasal(d.value);
 //        basal = "${basal} - ${d.isCalculated?"true":"false"}";
         double w = (d?.value ?? 0) * (widths[3] + cm(0.1)) / basalMax;
         tables[idx].add([
-          {"text": text, "alignment": "center", "style": styleForTime(entry.time)},
-          {"text": gluc, "alignment": "center", "fillColor": colForGluc(day, entry.gluc)},
+          {
+            "text": text,
+            "alignment": "center",
+            "style": styleForTime(entry.time)
+          },
+          {
+            "text": gluc,
+            "alignment": "center",
+            "fillColor": colForGluc(day, entry.gluc)
+          },
           {"text": trend, "alignment": "right", "fillColor": trendColor},
           {
             "stack": [
               {
                 "relativePosition": {"x": cm(-0.05), "y": cm(0)},
                 "canvas": [
-                  {"type": "rect", "x": cm(0), "y": cm(0), "w": w, "h": cm(0.4), "color": colBasalDay}
+                  {
+                    "type": "rect",
+                    "x": cm(0),
+                    "y": cm(0),
+                    "w": w,
+                    "h": cm(0.4),
+                    "color": colBasalDay
+                  }
                 ]
               },
               {"text": basal, "alignment": "center"},
@@ -222,7 +285,9 @@ darzustellen.''', desc: 'help for daygluc');
       }
 
       if (showBolus) {
-        text = bolusSum == null ? null : "${g.fmtNumber(bolusSum, 1)} ${msgInsulinUnit}";
+        text = bolusSum == null
+            ? null
+            : "${g.fmtNumber(bolusSum, 1)} ${msgInsulinUnit}";
         tables[idx].last.add({"text": text, "alignment": "center"});
       }
 
@@ -243,7 +308,11 @@ darzustellen.''', desc: 'help for daygluc');
       ret.add({
         "absolutePosition": {"x": cm(x), "y": cm(yorg)},
         "columns": [
-          {"width": cm(wid), "text": msgBasalInfo(fmtDateTime(profile.store.startDate)), "fontSize": fs(10)}
+          {
+            "width": cm(wid),
+            "text": msgBasalInfo(fmtDateTime(profile.store.startDate)),
+            "fontSize": fs(10)
+          }
         ]
       });
       y += 1.5;

@@ -253,8 +253,11 @@ class PrintTest extends BasePrint {
     text = text.replaceAll(',\'', ',\n\'');
     text = text.replaceAll('},', '},\n');
     if (title != null) text = '${title}\n${text}';
-    _rawCurrLines = math.max(_rawCurrLines, text.split('\n').length + 1);
-
+    var parts = text.split('\n');
+    _rawCurrLines = math.max(_rawCurrLines, parts.length + 1);
+    for(var part in parts) {
+      _rawCurrLines += (part.length / (400 / rawCols)).toInt();
+    }
     _body.last.add({'text': text, 'fontSize': fs(8)});
     if (_body.last.length >= rawCols) {
       _rawLineCount += _rawCurrLines;

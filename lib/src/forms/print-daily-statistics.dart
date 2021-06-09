@@ -146,13 +146,14 @@ schwächerer Schrift angezeigt wird.
   }
 
   void fillRow(
-      dynamic row, double f, String firstCol, DayData day, String style) {
+      dynamic row, double f, List<String> firstCol, DayData day, String style,
+      {double countForAverage = 1.0}) {
     addTableRow(
         true,
         cm(2.9),
         row,
         {'text': msgDate, 'style': 'total', 'alignment': 'center'},
-        {'text': firstCol, 'style': 'total', 'alignment': 'center'});
+        getContent(firstCol, 'total', 'center'));
     var text = msgDistribution;
     if (showTDD) text += '\n' + msgTDD;
     double tdd = day.ieBasalSum(!useDailyBasalrate) + day.ieBolusSum;
@@ -252,34 +253,38 @@ schwächerer Schrift angezeigt wird.
       'alignment': 'right',
       'fillColor': style == 'total' ? colHigh : null
     });
-    addTableRow(showBasal, 'auto', row, {
-      'text': '${msgBasal} ${msgInsulinUnit}',
-      'style': 'total',
-      'alignment': 'center'
-    }, {
-      'text': '${g.fmtNumber(day.ieBasalSum(!useDailyBasalrate), 1)}',
-      'style': style,
-      'alignment': 'right'
-    });
-    addTableRow(showBolus, 'auto', row, {
-      'text': '${msgBolus} ${msgInsulinUnit}',
-      'style': 'total',
-      'alignment': 'center'
-    }, {
-      'text': '${g.fmtNumber(day.ieBolusSum, 1)}',
-      'style': style,
-      'alignment': 'right'
-    });
-    addTableRow(showTDD, 'auto', row, {
-      'text': '${msgTDD} ${msgInsulinUnit}',
-      'style': 'total',
-      'alignment': 'center'
-    }, {
-      'text':
-          '${g.fmtNumber(day.ieBolusSum + day.ieBasalSum(!useDailyBasalrate), 1)}',
-      'style': style,
-      'alignment': 'right'
-    });
+    addTableRow(
+        showBasal,
+        'auto',
+        row,
+        {
+          'text': '${msgBasal} ${msgInsulinUnit}',
+          'style': 'total',
+          'alignment': 'center'
+        },
+        getRowAverage(day.ieBasalSum(!useDailyBasalrate), countForAverage,
+            style, 'right'));
+    addTableRow(
+        showBolus,
+        'auto',
+        row,
+        {
+          'text': '${msgBolus} ${msgInsulinUnit}',
+          'style': 'total',
+          'alignment': 'center'
+        },
+        getRowAverage(day.ieBolusSum, countForAverage, style, 'right'));
+    addTableRow(
+        showTDD,
+        'auto',
+        row,
+        {
+          'text': '${msgTDD} ${msgInsulinUnit}',
+          'style': 'total',
+          'alignment': 'center'
+        },
+        getRowAverage(day.ieBolusSum + day.ieBasalSum(!useDailyBasalrate),
+            countForAverage, style, 'right'));
     addTableRow(showCount, 'auto', row, {
       'text': msgValues,
       'style': 'total',
@@ -316,15 +321,12 @@ schwächerer Schrift angezeigt wird.
       'style': style,
       'alignment': 'right'
     });
-    addTableRow(showCarbs, 'auto', row, {
-      'text': 'KH\nin g',
-      'style': 'total',
-      'alignment': 'center'
-    }, {
-      'text': '${carbFromData(day.carbs)}',
-      'style': style,
-      'alignment': 'right'
-    });
+    addTableRow(
+        showCarbs,
+        'auto',
+        row,
+        {'text': 'KH\nin g', 'style': 'total', 'alignment': 'center'},
+        getRowAverage(day.carbs, countForAverage, style, 'right'));
     addTableRow(showCarbs, 'auto', row, {
       'text': msgKHPerMeal,
       'style': 'total',
@@ -391,6 +393,30 @@ schwächerer Schrift angezeigt wird.
       'color': colHbA1c
     });
     tableHeadFilled = true;
+  }
+
+  dynamic getRowAverage(
+      double value, double countForAverage, String style, String alignment) {
+    dynamic list = ['${g.fmtNumber(value, 1)}'];
+    if (countForAverage > 1.0) {
+      list.add('${g.fmtNumber(value / countForAverage, 1)}');
+    }
+    return getContent(list, style, alignment);
+  }
+
+  dynamic getContent(List<String> list, String style, String alignment) {
+    if (list.length == 1) {
+      return {'text': list[0], 'style': style, 'alignment': alignment};
+    }
+
+    dynamic ret = {'style': style, 'stack': []};
+    for (var i = 0; i < list.length; i++) {
+      dynamic text = i == 0
+          ? {'text': list[i], 'alignment': alignment}
+          : {'text': list[i], 'fontSize': fs(8), 'alignment': alignment};
+      ret['stack'].add(text);
+    }
+    return ret;
   }
 
   String percentileFor(double value) {
@@ -476,7 +502,7 @@ schwächerer Schrift angezeigt wird.
       totalDay.basalData.targetLow =
           min(totalDay.basalData.targetLow, day.basalData.targetLow);
       var row = [];
-      fillRow(row, f, fmtDate(day.date, null, true), day, 'row');
+      fillRow(row, f, [fmtDate(day.date, null, true)], day, 'row');
       var profile = repData
           .profile(DateTime(day.date.year, day.date.month, day.date.day));
       if (prevProfile == null ||
@@ -501,7 +527,14 @@ schwächerer Schrift angezeigt wird.
     }
     var row = [];
     totalDay.init(nextDay: null, keepProfile: true);
-    fillRow(row, f, msgDaySum(totalDays), totalDay, 'total');
+    fillRow(
+        row,
+        f,
+        ['${msgDaySum(totalDays)}', msgDayAverage],
+        totalDay,
+        'tot'
+        'al',
+        countForAverage: totalDays as double);
     body.add(row);
 
     if (prevProfile != null) {

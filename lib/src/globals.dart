@@ -121,11 +121,11 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = '2.0.7';
+  String version = '2.0.8';
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.
-  String subVersion = '1';
+  String subVersion = '2';
 
   static String get msgThemeAuto =>
       Intl.message('Automatisch', meaning: 'theme selection - automatic');

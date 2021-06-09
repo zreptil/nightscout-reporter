@@ -29,6 +29,7 @@ import 'package:nightscout_reporter/src/forms/print-daily-hours.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-profile.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
+import 'package:nightscout_reporter/src/forms/print-gluc-distribution.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/forms/print-user-data.dart';
@@ -430,7 +431,8 @@ class AppComponent implements OnInit {
         PrintDailyProfile(),
         PrintDailyGluc(),
         PrintDailyHours(),
-        PrintUserData()
+        PrintUserData(),
+        PrintGlucDistribution()
       ];
       g.listConfig = <FormConfig>[];
       g.listConfigOrg = <FormConfig>[];
@@ -1575,7 +1577,12 @@ class AppComponent implements OnInit {
           var form = cfg.form;
           if (checkCfg(cfg) || isForThumbs) {
             docLen = json.encode(doc).length;
+            var gmiSave = g.glucMGDLIdx;
+            if(isForThumbs) {
+              g.glucMGDLIdx = 0;
+            }
             var formPages = await form.getFormPages(src, docLen);
+            g.glucMGDLIdx = gmiSave;
             var fileList = <List<Page>>[<Page>[]];
             for (var page in formPages) {
               dynamic entry = page.content.last;

@@ -160,7 +160,7 @@ class ParamInfo {
     _stringValue = src.stringValue;
     _intValue = src.intValue;
     subParams = src.subParams;
-    if(checkValue != null) {
+    if (checkValue != null) {
       checkValue(this, null);
     }
     this.checkValue = checkValue;
@@ -171,20 +171,20 @@ class ParamInfo {
       switch (type) {
         case ParamType.bool:
           _boolValue = value['b'] ?? false;
-          if(checkValue != null) {
+          if (checkValue != null) {
             checkValue(this, _boolValue);
           }
           break;
         case ParamType.string:
           _stringValue = value['s'] ?? '';
-          if(checkValue != null) {
+          if (checkValue != null) {
             checkValue(this, _stringValue);
           }
           break;
         case ParamType.int:
         case ParamType.list:
           _intValue = value['i'] ?? 0;
-          if(checkValue != null) {
+          if (checkValue != null) {
             checkValue(this, _intValue);
           }
           break;
@@ -948,6 +948,8 @@ abstract class BasePrint {
   String msgDaySum(int value) =>
       Intl.message('$value Tage', args: [value], name: 'msgDaySum');
 
+  String get msgDayAverage => Intl.message('Durchschnitt');
+
   String get msgStandardDeviation => Intl.message('Standardabweichung');
 
   static String msgCalibration(scale, intercept, slope) => Intl.message(
@@ -1525,6 +1527,7 @@ abstract class BasePrint {
   }
 
   Future<String> getBase64Image(String id) async {
+    // print('versuche Bild ${id} zu laden');
     var response = await HttpRequest.request(
         'packages/nightscout_reporter/assets/img/$id.png',
         responseType: 'arraybuffer');
@@ -2454,6 +2457,5 @@ abstract class BasePrint {
     };
   }
 
-  void checkValue(ParamInfo param, dynamic value) {
-  }
+  void checkValue(ParamInfo param, dynamic value) {}
 }

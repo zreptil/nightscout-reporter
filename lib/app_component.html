@@ -71,7 +71,7 @@
         </material-fab>
         <material-button icon class="is-local" *ngIf="g.isLocal && currPage=='normal' && tileParams==null"
                          (trigger)="createThumbs()">
-          <material-icon icon="burst_mode"></material-icon>
+          <material-icon [icon]="g.language.code=='de_DE'?'burst_mode':'image'"></material-icon>
         </material-button>
       </nav>
     </div>
