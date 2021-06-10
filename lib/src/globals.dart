@@ -121,7 +121,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = '2.0.8';
+  String version = '2.0.9';
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.
