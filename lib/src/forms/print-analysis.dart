@@ -282,7 +282,8 @@ erkennbar ist.''',
         {'text': '', 'style': 'infotitle'},
         {'text': msgReadingsCount, 'style': 'infotitle'},
         {'text': g.fmtNumber(count), 'style': 'infodata'},
-        {'text': '($countPeriod)', 'style': 'infounit', 'colSpan': 3},
+        {'text': '🏀($countPeriod)', 'style': 'infounit', 'colSpan'
+            : 3},
         {'text': '', 'style': 'infounit'},
       ],
       [
@@ -869,6 +870,7 @@ erkennbar ist.''',
         {'text': '', 'style': 'infounit'},
       ],
     ]);
+
     var ret = [
       headerFooter(),
       {
@@ -915,6 +917,7 @@ erkennbar ist.''',
         }
       }
     ];
+
     return Page(isPortrait, ret);
   }
 

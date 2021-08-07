@@ -81,7 +81,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       showIOB,
       roundToProfile,
       spareBool1,
-      showTargetValue;
+      showTargetValue,
+      showTempOverrides;
 
   @override
   List<ParamInfo> params = [
@@ -93,7 +94,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     ]),
     ParamInfo(7, msgParam5, boolValue: true),
     ParamInfo(8, msgParam6, boolValue: false, isDeprecated: true),
-    ParamInfo(12, BasePrint.msgGraphsPerPage, list: [
+    ParamInfo(11, BasePrint.msgGraphsPerPage, list: [
       Intl.message('Eine'),
       Intl.message('Zwei'),
       Intl.message('Vier'),
@@ -105,24 +106,25 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       ParamInfo(0, msgParam13, boolValue: false),
       ParamInfo(1, msgParam21, boolValue: false)
     ]),
-    ParamInfo(11, '', boolValue: false, isDeprecated: true),
-    ParamInfo(13, msgParam11, boolValue: true),
-    ParamInfo(14, msgParam14, boolValue: true),
+    ParamInfo(10, '', boolValue: false, isDeprecated: true),
+    ParamInfo(12, msgParam11, boolValue: true),
+    ParamInfo(13, msgParam14, boolValue: true),
     ParamInfo(3, BaseDaily.msgDaily1,
         boolValue: true,
         subParams: [
           ParamInfo(0, BaseDaily.msgDaily2, boolValue: true, isLoopValue: true)
         ],
         isLoopValue: true),
-    ParamInfo(15, msgParam16, boolValue: false),
-    ParamInfo(16, msgParam17, boolValue: false),
+    ParamInfo(14, msgParam16, boolValue: false),
+    ParamInfo(15, msgParam17, boolValue: false),
     ParamInfo(5, msgParam18, boolValue: false),
     ParamInfo(17, msgParam19, boolValue: false),
     ParamInfo(18, msgParam22, boolValue: false),
     ParamInfo(2, msgParam23, boolValue: true),
     ParamInfo(19, msgParam24, boolValue: false),
     ParamInfo(20, msgParam25, boolValue: false),
-    ParamInfo(21, msgParam26, boolValue: true, isLoopValue: true)
+    ParamInfo(21, msgParam26, boolValue: true, isLoopValue: true),
+    ParamInfo(16, BasePrint.msgOverrides, boolValue: false, isLoopValue: true)
   ];
 
   @override
@@ -152,6 +154,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     showCOB = params[19].boolValue;
     showIOB = params[20].boolValue;
     showTargetValue = params[21].boolValue;
+    showTempOverrides = params[22].boolValue;
 
     switch (params[6].intValue) {
       case 1:
@@ -278,6 +281,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
   double glucTableTop;
   double glucExerciseHeight = 0.6;
   double glucExerciseTop;
+  double tempOverridesTop;
+  double tempOverridesHeight = 0.6;
 
   double glucX(DateTime time) {
     return graphWidth / 1440 * (time.hour * 60 + time.minute);
@@ -355,6 +360,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       };
 
   bool hasExercises;
+  bool hasTempOverrides;
 
   Page getPage(DayData day) {
     title = _titleGraphic;
@@ -364,9 +370,19 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     hasExercises =
         day.treatments.firstWhere((t) => t.isExercise, orElse: () => null) !=
             null;
-
-    if (showExercises && hasExercises) graphHeight -= glucExerciseHeight;
+    if (showExercises && hasExercises) {
+      graphHeight -= glucExerciseHeight;
+      basalTop += glucExerciseHeight;
+    }
     glucExerciseTop = graphHeight;
+    hasTempOverrides = day.treatments
+            .firstWhere((t) => t.isTempOverride, orElse: () => null) !=
+        null;
+    if (showTempOverrides && hasTempOverrides) {
+      graphHeight -= tempOverridesHeight;
+      basalTop += tempOverridesHeight;
+    }
+    tempOverridesTop = graphHeight;
     var ret = _getPage(day, repData);
     graphHeight = graphHeightSave;
     return ret;
@@ -471,7 +487,11 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       'canvas': []
     };
     var exerciseCvs = {
-      'relativePosition': {'x': cm(xo), 'y': cm(yo + graphHeight)},
+      'relativePosition': {'x': cm(xo), 'y': cm(yo + glucExerciseTop)},
+      'canvas': []
+    };
+    var tempOverridesCvs = {
+      'relativePosition': {'x': cm(xo), 'y': cm(yo + tempOverridesTop)},
       'canvas': []
     };
     var graphCarbs = {
@@ -831,22 +851,47 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
         hasAmpulleChange = true;
       }
 
+      if (t.isTempOverride && showTempOverrides) {
+        var x = glucX(t.createdAt);
+        var wid = glucX(DateTime(0, 0, 0, 0, 0, t.duration));
+        (tempOverridesCvs['canvas'] as List).add({
+          'type': 'rect',
+          'x': cm(x),
+          'y': cm(0.1),
+          'w': cm(wid),
+          'h': cm(tempOverridesHeight - 0.25),
+          'color': colTempOverrides
+        });
+        if ((t.reason ?? '-').isNotEmpty) {
+          (graphLegend['stack'] as List).add({
+            'relativePosition': {
+              'x': cm(x + 0.05),
+              'y': cm(tempOverridesTop + tempOverridesHeight / 2 - 0.14)
+            },
+            'text': t.reason,
+            'fontSize': fs(6),
+            'alignment': 'left',
+            'color': colTempOverridesText
+          });
+        }
+      }
+
       if (t.isExercise && showExercises) {
         var x = glucX(t.createdAt);
         var wid = glucX(DateTime(0, 0, 0, 0, 0, t.duration));
         (exerciseCvs['canvas'] as List).add({
           'type': 'rect',
           'x': cm(x),
-          'y': cm(0.05),
+          'y': cm(0.1),
           'w': cm(wid),
-          'h': cm(glucExerciseHeight - 0.1),
+          'h': cm(glucExerciseHeight - 0.25),
           'color': colExercises
         });
         if ((t.notes ?? '').isNotEmpty) {
           (graphLegend['stack'] as List).add({
             'relativePosition': {
               'x': cm(x + 0.05),
-              'y': cm(glucExerciseTop + glucExerciseHeight / 2 - 0.13)
+              'y': cm(glucExerciseTop + glucExerciseHeight / 2 - 0.14)
             },
             'text': t.notes,
             'fontSize': fs(6),
@@ -940,6 +985,17 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
         'y1': cm(glucExerciseHeight),
         'x2': cm(graphWidth),
         'y2': cm(glucExerciseHeight),
+        'lineWidth': cm(lw),
+        'lineColor': lcFrame
+      });
+    }
+    if (showTempOverrides && hasTempOverrides) {
+      (tempOverridesCvs['canvas'] as List).add({
+        'type': 'line',
+        'x1': cm(0),
+        'y1': cm(tempOverridesHeight),
+        'x2': cm(graphWidth),
+        'y2': cm(tempOverridesHeight),
         'lineWidth': cm(lw),
         'lineColor': lcFrame
       });
@@ -1166,6 +1222,10 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       }
       if (showExercises && hasExercises) {
         addLegendEntry(legend, colExercises, msgExercises,
+            isArea: false, lineWidth: 0.3);
+      }
+      if (showTempOverrides && hasTempOverrides) {
+        addLegendEntry(legend, colTempOverrides, BasePrint.msgOverrides,
             isArea: false, lineWidth: 0.3);
       }
       if (showBasalDay) {
@@ -1405,6 +1465,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       graphIob,
       graphCob,
       glucTableCvs,
+      tempOverridesCvs,
       exerciseCvs,
       vertLegend,
       vertLines,

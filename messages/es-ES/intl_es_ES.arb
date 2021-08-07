@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-06-09T15:58:13.572115",
+    "@@last_modified": "2021-07-22T14:00:05.786728",
     "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1015,6 +1015,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Temporäre Overrides": "Sustituciónes temporales",
+    "@Temporäre Overrides": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgLow": "Bajo{value}",
     "@msgLow": {
         "type": "text",
@@ -1238,7 +1243,7 @@
             "value": {}
         }
     },
-    "Durchschnitt": "Durchschnitt",
+    "Durchschnitt": "Intermedio",
     "@Durchschnitt": {
         "type": "text",
         "placeholders": {}
@@ -1375,7 +1380,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeigt die Auswertung der Werte des ausgewählten\nZeitraums. Dabei wird auch der durchscnittliche Verbrauch an Materialien\nrechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet die meisten\nInformationen, die Diabetologen gerne wissen wollen.\n\nDer HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht\nnormalerweise nicht unerheblich von dem tatsächlich gemessenen Wert ab. Der\nWert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche Bindung\nvon Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist\nund nicht nur von den hier verwendeten Messdaten, ergeben sich Unterschiede\nzum errechneten Wert. Vor allem, wenn es sich bei den gemessenen Werten nicht\num Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen\nverwendet wird.\n\nTrotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der\nGlukoseeinstellung und wird in der vom Labor ermittelten Form gerne von\nDiabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird\naber in schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch\nerkennbar ist.": "Dieses Formular zeigt die Auswertung der Werte des ausgewählten\nZeitraums. Dabei wird auch der durchscnittliche Verbrauch an Materialien\nrechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet die meisten\nInformationen, die Diabetologen gerne wissen wollen.\n\nDer HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht\nnormalerweise nicht unerheblich von dem tatsächlich gemessenen Wert ab. Der\nWert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche Bindung\nvon Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist\nund nicht nur von den hier verwendeten Messdaten, ergeben sich Unterschiede\nzum errechneten Wert. Vor allem, wenn es sich bei den gemessenen Werten nicht\num Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen\nverwendet wird.\n\nTrotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der\nGlukoseeinstellung und wird in der vom Labor ermittelten Form gerne von\nDiabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird\naber in schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch\nerkennbar ist.",
+    "Dieses Formular zeigt die Auswertung der Werte des ausgewählten\nZeitraums. Dabei wird auch der durchscnittliche Verbrauch an Materialien\nrechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet die meisten\nInformationen, die Diabetologen gerne wissen wollen.\n\nDer HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht\nnormalerweise nicht unerheblich von dem tatsächlich gemessenen Wert ab. Der\nWert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche Bindung\nvon Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist\nund nicht nur von den hier verwendeten Messdaten, ergeben sich Unterschiede\nzum errechneten Wert. Vor allem, wenn es sich bei den gemessenen Werten nicht\num Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen\nverwendet wird.\n\nTrotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der\nGlukoseeinstellung und wird in der vom Labor ermittelten Form gerne von\nDiabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird\naber in schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch\nerkennbar ist.": "Este formulario muestra la evaluación de los valores del período seleccionado. También se calcula y visualiza el consumo medio de materiales. Este formulario contiene la mayor parte de las informaciónes que interesan a los endocrinologos. El HbA1c se calcula a partir de los datos existentes y, por lo general, difiere significantemente del valor medido real. El valor obtenido de la muestra de sangre refleja la concentracíon real de la glucosa en la sangre. Dado que esto depende de factores adicionales y no sólo de los datos de medición utilizados aquí, hay diferencias con el valor calculado. Especialmente si los valores medidos no son azúcar en la sangre, sino azúcar de tejido, como utilizan los sistemas de MGC. Sin embargo, este valor es una indicación aproximada de la calidad de la configuración de glucosa y a menudo es utilizado por los endocrinologos como una directriz en la forma determinada por el laboratorio, razón por la cual se muestra aquí. Pero se muestra en escritura más débil, por lo que su naturaleza dudosa también es reconocible.",
     "@Dieses Formular zeigt die Auswertung der Werte des ausgewählten\nZeitraums. Dabei wird auch der durchscnittliche Verbrauch an Materialien\nrechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet die meisten\nInformationen, die Diabetologen gerne wissen wollen.\n\nDer HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht\nnormalerweise nicht unerheblich von dem tatsächlich gemessenen Wert ab. Der\nWert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche Bindung\nvon Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist\nund nicht nur von den hier verwendeten Messdaten, ergeben sich Unterschiede\nzum errechneten Wert. Vor allem, wenn es sich bei den gemessenen Werten nicht\num Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen\nverwendet wird.\n\nTrotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der\nGlukoseeinstellung und wird in der vom Labor ermittelten Form gerne von\nDiabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird\naber in schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch\nerkennbar ist.": {
         "description": "help for analysis",
         "type": "text",
@@ -1623,7 +1628,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option \"Alle Werte für einen Tag anzeigen\"\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.": "Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option \"Alle Werte für einen Tag anzeigen\"\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.",
+    "Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option \"Alle Werte für einen Tag anzeigen\"\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.": "Este formulario muestra la tendencia en los niveles de glucosa a lo largo del día. La columna Tendencia siempre muestra el porcentaje de que el valor ha cambiado de una hora a la siguiente. Esta tendencia es muy útil si desea ver cómo el valor de glucosa se desarrolla sólo sobre la base de la tasa basal en una phase de prueba de tasa basal. También puede mostrar una columna para los valores de bolo y carbohidratos. Sin embargo, estos deben, por supuesto, estar vacíos en una phase de prueba de tasa basal. Del mismo modo, un bucle cerrado que puede existir debe desactivarse durante el período de prueba. Se trata exclusivamente del diabético y su tasa basal. También se muestra una columna con la tasa basal si la opción \"Mostrar todos los valores de una día\" no está seleccionada. Si la opción está seleccionada, entonces no hay espacio (ni el sentido) para representarla.",
     "@Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option \"Alle Werte für einen Tag anzeigen\"\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.": {
         "description": "help for daygluc",
         "type": "text",
@@ -1939,11 +1944,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Overrides": "Sustituciónes temporales",
-    "@Temporäre Overrides": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Es gibt keine mehrfachen Datensätze.": "No hay múltiples registros.",
     "@Es gibt keine mehrfachen Datensätze.": {
         "type": "text",
@@ -2130,23 +2130,23 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": "Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.",
+    "Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": "Este formulario muestra la distribución de los valores de glucosa durante el periodo seleccionado.",
     "@Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": {
         "description": "help for template",
         "type": "text",
         "placeholders": {}
     },
-    "Verteilung der Glukosewerte": "Verteilung der Glukosewerte",
+    "Verteilung der Glukosewerte": "Distribución de valores de glucosa",
     "@Verteilung der Glukosewerte": {
         "type": "text",
         "placeholders": {}
     },
-    "Bei 0 beginnen": "Bei 0 beginnen",
+    "Bei 0 beginnen": "Comenzar con 0",
     "@Bei 0 beginnen": {
         "type": "text",
         "placeholders": {}
     },
-    "Schritte": "Schritte",
+    "Schritte": "Pasos",
     "@Schritte": {
         "type": "text",
         "placeholders": {}
@@ -2195,18 +2195,18 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular ...": "Dieses Formular ...",
+    "Dieses Formular ...": "Este formulario...",
     "@Dieses Formular ...": {
         "description": "help for template",
         "type": "text",
         "placeholders": {}
     },
-    "Template": "Template",
+    "Template": "Patron",
     "@Template": {
         "type": "text",
         "placeholders": {}
     },
-    "Irgendwas zum Einstellen": "Irgendwas zum Einstellen",
+    "Irgendwas zum Einstellen": "Algo para ajustar",
     "@Irgendwas zum Einstellen": {
         "type": "text",
         "placeholders": {}
@@ -2224,6 +2224,32 @@
     },
     "Alle Benutzer ausgeben": "Mostrar todos usuarios",
     "@Alle Benutzer ausgeben": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Name": "Nombre",
+    "@Name": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Version": "Versión",
+    "@Version": {
+        "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einheiten": "Einheiten",
+    "@Einheiten": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzter Glukosewert": "Letzter Glukosewert",
+    "@Letzter Glukosewert": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzter Behandlungswert": "Letzter Behandlungswert",
+    "@Letzter Behandlungswert": {
         "type": "text",
         "placeholders": {}
     },
@@ -2289,11 +2315,6 @@
     },
     "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "URL Nightscout API (https://xxx.herokuapp.com)",
     "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Name": "Nombre",
-    "@Name": {
         "type": "text",
         "placeholders": {}
     },
@@ -2852,9 +2873,15 @@
         "type": "text",
         "placeholders": {}
     },
-    "Version": "Versión",
-    "@Version": {
-        "description": "version",
+    "2.0.9 - xx.07.2021": "2.0.9 - xx.07.2021",
+    "@2.0.9 - xx.07.2021": {
+        "description": "v209",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.": "In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.",
+    "@In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.": {
+        "description": "v209a1",
         "type": "text",
         "placeholders": {}
     },
@@ -2864,13 +2891,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt ein neues Formular namens \"Verteilung der Glucosewerte\". Das zeigt die prozentuale Verteilung der Glukosewerte für den ausgewählen Zeitraum an.": "Es gibt ein neues Formular namens \"Verteilung der Glucosewerte\". Das zeigt die prozentuale Verteilung der Glukosewerte für den ausgewählen Zeitraum an.",
+    "Es gibt ein neues Formular namens \"Verteilung der Glucosewerte\". Das zeigt die prozentuale Verteilung der Glukosewerte für den ausgewählen Zeitraum an.": "Hay un nuevo formulario llamado \"distribución de va de glucosa\". Este muestra la distribución porcentual para el período elegido.",
     "@Es gibt ein neues Formular namens \"Verteilung der Glucosewerte\". Das zeigt die prozentuale Verteilung der Glukosewerte für den ausgewählen Zeitraum an.": {
         "description": "v208a1",
         "type": "text",
         "placeholders": {}
     },
-    "In der Tagesstatistik werden nun in der Summenzeile die Durchschnittswerte für einige Werte zusätzlich angezeigt.": "In der Tagesstatistik werden nun in der Summenzeile die Durchschnittswerte für einige Werte zusätzlich angezeigt.",
+    "In der Tagesstatistik werden nun in der Summenzeile die Durchschnittswerte für einige Werte zusätzlich angezeigt.": "En el gráfico diario ahora se muestran adicionalmente promedios de algunos valores en la columna del valor total.",
     "@In der Tagesstatistik werden nun in der Summenzeile die Durchschnittswerte für einige Werte zusätzlich angezeigt.": {
         "description": "v208a2",
         "type": "text",
@@ -4658,8 +4685,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_14": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-    "@ViewWhatsnewComponent0__message_14": {
+    "ViewWhatsnewComponent0__message_16": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+    "@ViewWhatsnewComponent0__message_16": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

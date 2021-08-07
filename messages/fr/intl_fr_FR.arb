@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-06-09T15:58:13.572115",
+    "@@last_modified": "2021-07-22T14:00:05.786728",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1015,6 +1015,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Temporäre Overrides": "Substitutions temporaires",
+    "@Temporäre Overrides": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgLow": "Valeur Basse{value}",
     "@msgLow": {
         "type": "text",
@@ -1939,11 +1944,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Overrides": "Substitutions temporaires",
-    "@Temporäre Overrides": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Es gibt keine mehrfachen Datensätze.": "Il n'y a pas de jeux de données multiples.",
     "@Es gibt keine mehrfachen Datensätze.": {
         "type": "text",
@@ -2227,6 +2227,32 @@
         "type": "text",
         "placeholders": {}
     },
+    "Name": "Nom",
+    "@Name": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Version": "Version",
+    "@Version": {
+        "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einheiten": "Units",
+    "@Einheiten": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzter Glukosewert": "Last glucosevalue",
+    "@Letzter Glukosewert": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzter Behandlungswert": "Last treatmentvalue",
+    "@Letzter Behandlungswert": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Dieses Formular zeigt den Verlauf der Glukosekurve über eine Woche hinweg an. Der Zeitraum wird\ndazu in Wochenabschnitte aufgeteilt und jede Woche wird auf einer eigenen Seite ausgegeben. Die Wochen werden\nfarblich markiert, so dass man sie gut unterscheiden kann. Zusätzlich kann noch das @10@ für die jeweilige\nWoche erzeugt werden.": "This form shows the glucose curve over a week. The period is divided into weekly segments and each week is displayed on a separate page. The weeks are color-coded so that you can easily distinguish them. In addition, the @10@ can be generated for the respective week.",
     "@Dieses Formular zeigt den Verlauf der Glukosekurve über eine Woche hinweg an. Der Zeitraum wird\ndazu in Wochenabschnitte aufgeteilt und jede Woche wird auf einer eigenen Seite ausgegeben. Die Wochen werden\nfarblich markiert, so dass man sie gut unterscheiden kann. Zusätzlich kann noch das @10@ für die jeweilige\nWoche erzeugt werden.": {
         "description": "help for weekgraph",
@@ -2289,11 +2315,6 @@
     },
     "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "Url vers Nightscout-API (ex: https://xxx.herokuapp.com)",
     "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Name": "Nom",
-    "@Name": {
         "type": "text",
         "placeholders": {}
     },
@@ -2852,9 +2873,15 @@
         "type": "text",
         "placeholders": {}
     },
-    "Version": "Version",
-    "@Version": {
-        "description": "version",
+    "2.0.9 - xx.07.2021": "2.0.9 - xx/07/2021",
+    "@2.0.9 - xx.07.2021": {
+        "description": "v209",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.": "The temporary overrides of iLoop can now also be displayed in the daily graphics. The text of the reason is displayed. As before, this can also be displayed in the log for more detailed information.",
+    "@In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.": {
+        "description": "v209a1",
         "type": "text",
         "placeholders": {}
     },
@@ -4658,8 +4685,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_14": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
-    "@ViewWhatsnewComponent0__message_14": {
+    "ViewWhatsnewComponent0__message_16": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
+    "@ViewWhatsnewComponent0__message_16": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

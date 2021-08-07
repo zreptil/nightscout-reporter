@@ -332,6 +332,7 @@
         <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
               [action]="pdfUrl">
           <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja_JP'"/>
+          <input name="deactivated_vfs" type="hidden" value="unicode" />
           <input name="filename" type="hidden" value="{{g.ppPdfDownload?pdfFilename(idx):''}}"/>
           <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
           <material-button class="pdfButton"

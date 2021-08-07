@@ -540,8 +540,8 @@ class AppComponent implements OnInit {
       var temp = doc;
       doc = '';
       for (var i = 0; i < temp.length; i++) {
-        if (g.language.code == 'ja_JP' || temp.codeUnitAt(i) <= 4095)
-          doc = '${doc}${temp[i]}';
+        if (g.language.code == 'ja_JP'  || temp.codeUnitAt(i) <= 4095)
+        doc = '${doc}${temp[i]}';
       }
     }
     return base64.encode(utf8.encode(doc));
@@ -913,9 +913,12 @@ class AppComponent implements OnInit {
     var needed = DataNeeded(
         statusCurr: false, statusAny: false, dataCurr: false, dataAny: false);
 
+    var funcList = <Future<void> Function(UserData)>[];
+
     for (var cfg in g.listConfigOrg) {
       if (checkCfg(cfg)) {
         needed.mix(cfg.form.needed);
+        funcList.add(cfg.form.loadUserData);
       }
     }
 
@@ -933,6 +936,9 @@ class AppComponent implements OnInit {
             user.status = null;
             if (content != null) {
               user.status = StatusData.fromJson(content);
+              for (var func in funcList) {
+//                await func(user);
+              }
             }
           } catch (ex) {
             user.status = null;
@@ -1279,11 +1285,11 @@ class AppComponent implements OnInit {
             params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
                 'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
         src = await g.requestJson(url);
+        var hasExercise = false;
         if (src != null) {
           displayLink(
               't${begDate.format(g.fmtDateForDisplay)} (${src.length})', url,
               type: 'debug');
-          var hasExercise = false;
           for (dynamic treatment in src) {
             hasData = true;
             var t = TreatmentData.fromJson(g, treatment);
@@ -1309,11 +1315,11 @@ class AppComponent implements OnInit {
           }
         }
         // the following code inserts an exercise in the data if there is none present
-/*
+//*
         if (g.isLocal && !hasExercise) {
           var t = TreatmentData();
           t.createdAt = DateTime(begDate.year, begDate.month, begDate.day, 10, 0, 0);
-          t.duration = 60 * 60;
+          t.duration = 120 * 60;
           t.eventType = 'exercise';
           t.notes = 'Bewegung (Testeintrag)';
           t.enteredBy = 'NR-Test';
@@ -1323,7 +1329,7 @@ class AppComponent implements OnInit {
           t.isSMB = false;
           data.ns.treatments.add(t);
         }
-*/
+// */
         url = data.user.apiUrl(
             Date(profileBeg.year, profileBeg.month, profileBeg.day),
             'devicestatus.json',
@@ -1423,6 +1429,7 @@ class AppComponent implements OnInit {
       data.calc.extractData(data, lastTempBasal);
       data.ns.extractData(data, lastTempBasal);
     } else {}
+
     return data;
   }
 
@@ -1578,7 +1585,7 @@ class AppComponent implements OnInit {
           if (checkCfg(cfg) || isForThumbs) {
             docLen = json.encode(doc).length;
             var gmiSave = g.glucMGDLIdx;
-            if(isForThumbs) {
+            if (isForThumbs) {
               g.glucMGDLIdx = 0;
             }
             var formPages = await form.getFormPages(src, docLen);

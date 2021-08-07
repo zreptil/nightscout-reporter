@@ -1925,6 +1925,8 @@ class UserData {
   StatusData status;
   int profileMaxIdx;
   bool isReachable = true;
+  EntryData lastEntry = null;
+  TreatmentData lastTreatment = null;
 
   UserData(this.g) {
     listApiUrl.add(UrlData(g));

@@ -363,6 +363,9 @@ abstract class BasePrint {
     return ret;
   }
 
+  Future<void> loadUserData(UserData user) {
+  }
+
   List<HelpItem> get helpStrings {
     var ret = <HelpItem>[];
     var text = help?.replaceAll('\n', 'µ') ?? '';
@@ -495,6 +498,8 @@ abstract class BasePrint {
   ];
   String colExercises = '#c0c0c0';
   String colExerciseText = '#000000';
+  String colTempOverrides = '#f8f';
+  String colTempOverridesText = '#000000';
   String colCGPLine = '#a0a0a0';
   String colCGPHealthyLine = '#008000';
   String colCGPHealthyFill = '#00e000';
@@ -836,6 +841,8 @@ abstract class BasePrint {
       '(https://doi.org/10.1177/1932296817718561)');
 
   String get msgGlucHigh => Intl.message('Glukose zu hoch');
+
+  static String get msgOverrides => Intl.message('Temporäre Overrides');
 
   String msgLow(value) {
     value = '\n<${g.glucFromData(value)}';

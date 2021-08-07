@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-06-09T15:58:13.572115",
+    "@@last_modified": "2021-07-22T14:00:05.786728",
     "Überprüfe Zugriff auf Nightscout ...": "Kontrola prístupu do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1015,6 +1015,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Temporäre Overrides": "Temporárne prepísanie",
+    "@Temporäre Overrides": {
+        "type": "text",
+        "placeholders": {}
+    },
     "msgLow": "Nízko{value}",
     "@msgLow": {
         "type": "text",
@@ -1939,11 +1944,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Overrides": "Temporárne prepísanie",
-    "@Temporäre Overrides": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Es gibt keine mehrfachen Datensätze.": "Es gibt keine mehrfachen Datensätze.",
     "@Es gibt keine mehrfachen Datensätze.": {
         "type": "text",
@@ -2227,6 +2227,32 @@
         "type": "text",
         "placeholders": {}
     },
+    "Name": "Meno",
+    "@Name": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Version": "verzia",
+    "@Version": {
+        "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einheiten": "Einheiten",
+    "@Einheiten": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzter Glukosewert": "Letzter Glukosewert",
+    "@Letzter Glukosewert": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzter Behandlungswert": "Letzter Behandlungswert",
+    "@Letzter Behandlungswert": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Dieses Formular zeigt den Verlauf der Glukosekurve über eine Woche hinweg an. Der Zeitraum wird\ndazu in Wochenabschnitte aufgeteilt und jede Woche wird auf einer eigenen Seite ausgegeben. Die Wochen werden\nfarblich markiert, so dass man sie gut unterscheiden kann. Zusätzlich kann noch das @10@ für die jeweilige\nWoche erzeugt werden.": "Dieses Formular zeigt den Verlauf der Glukosekurve über eine Woche hinweg an. Der Zeitraum wird\ndazu in Wochenabschnitte aufgeteilt und jede Woche wird auf einer eigenen Seite ausgegeben. Die Wochen werden\nfarblich markiert, so dass man sie gut unterscheiden kann. Zusätzlich kann noch das @10@ für die jeweilige\nWoche erzeugt werden.",
     "@Dieses Formular zeigt den Verlauf der Glukosekurve über eine Woche hinweg an. Der Zeitraum wird\ndazu in Wochenabschnitte aufgeteilt und jede Woche wird auf einer eigenen Seite ausgegeben. Die Wochen werden\nfarblich markiert, so dass man sie gut unterscheiden kann. Zusätzlich kann noch das @10@ für die jeweilige\nWoche erzeugt werden.": {
         "description": "help for weekgraph",
@@ -2289,11 +2315,6 @@
     },
     "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "URL adresa Nightscout-API (napr. https://xxx.herokuapp.com)",
     "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Name": "Meno",
-    "@Name": {
         "type": "text",
         "placeholders": {}
     },
@@ -2852,9 +2873,15 @@
         "type": "text",
         "placeholders": {}
     },
-    "Version": "verzia",
-    "@Version": {
-        "description": "version",
+    "2.0.9 - xx.07.2021": "2.0.9 - xx.07.2021",
+    "@2.0.9 - xx.07.2021": {
+        "description": "v209",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.": "In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.",
+    "@In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.": {
+        "description": "v209a1",
         "type": "text",
         "placeholders": {}
     },
@@ -4658,8 +4685,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_14": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-    "@ViewWhatsnewComponent0__message_14": {
+    "ViewWhatsnewComponent0__message_16": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+    "@ViewWhatsnewComponent0__message_16": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

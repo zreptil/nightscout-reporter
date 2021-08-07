@@ -27,6 +27,20 @@ class JsonData {
     return json;
   }
 
+  // To calculate the limits in the same way throughout the whole program,
+  // here are the methods to check against low and high limits
+  static bool isLow(double value, double low) {
+    return value < low;
+  }
+
+  static bool isHigh(double value, double high) {
+    return value >= high;
+  }
+
+  static bool isNorm(double value, double low, double high) {
+    return !JsonData.isLow(value, low) && !JsonData.isHigh(value, high);
+  }
+
   static DateTime toTime(String value) {
     if (value == null) return DateTime(0, 1, 1);
     var hour = 0;
@@ -1176,6 +1190,8 @@ class TreatmentData extends JsonData {
 
   bool get isBolusWizard => _t == 'bolus wizard';
 
+  bool get isTempOverride => _t == 'temporary override';
+
   bool isECarb = false;
 
   double get absoluteTempBasal => _absolute;
@@ -2161,17 +2177,17 @@ class DayData {
     for (var entry in entries) {
       if (!entry.isGlucInvalid) {
         entryCountValid++;
-        if (entry.gluc < basalData.targetLow) {
+        if (JsonData.isLow(entry.gluc, basalData.targetLow)) {
           lowCount++;
-        } else if (entry.gluc > basalData.targetHigh) {
+        } else if (JsonData.isHigh(entry.gluc, basalData.targetHigh)) {
           highCount++;
         } else {
           normCount++;
         }
 
-        if (entry.gluc < Globals.stdLow) {
+        if (JsonData.isLow(entry.gluc, Globals.stdLow as double)) {
           stdLowCount++;
-        } else if (entry.gluc > Globals.stdHigh) {
+        } else if (JsonData.isHigh(entry.gluc, Globals.stdHigh as double)) {
           stdHighCount++;
         } else {
           stdNormCount++;
@@ -2447,17 +2463,6 @@ class ListData {
 
   int get countInvalid => entries.where((entry) => entry.isGlucInvalid).length;
 
-  int entriesIn(int min, int max) => entries
-      .where((entry) =>
-          !entry.isGlucInvalid && entry.gluc >= min && entry.gluc <= max)
-      .length;
-
-  int entriesBelow(int min) =>
-      entries.where((entry) => !entry.isGlucInvalid && entry.gluc < min).length;
-
-  int entriesAbove(int min) =>
-      entries.where((entry) => !entry.isGlucInvalid && entry.gluc > min).length;
-
   double get avgGluc {
     var ret = 0.0;
     var count = 0;
@@ -2531,7 +2536,8 @@ class ListData {
           // first day must be ignored for statistics
           if (gluc > 0 && days.length > 1) {
             for (var key in stat.keys) {
-              if (gluc >= stat[key].min && gluc < stat[key].max)
+              // if (gluc >= stat[key].min && gluc < stat[key].max)
+              if (JsonData.isNorm(gluc, stat[key].min, stat[key].max))
                 stat[key].add(entry, gluc);
             }
             validCount++;
