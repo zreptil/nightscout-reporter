@@ -1,19 +1,21 @@
 call i18n-base.bat
-md %dstARB%
-md %dstARB%\temp
+md %dstARB% 2>nul
+md %dstARB%\temp 2>nul
 echo generating dart-files...
+cd ..\intl_translation
 set arbFileList=arbFiles.lst
-echo messages\es-ES\intl_es_ES.arb>%arbFileList%
-echo messages\intl_de_DE.arb>>%arbFileList%
-echo messages\en-US\intl_en_US.arb>>%arbFileList%
-echo messages\en-GB\intl_en_GB.arb>>%arbFileList%
-echo messages\pl\intl_pl_PL.arb>>%arbFileList%
-echo messages\ja\intl_ja_JP.arb>>%arbFileList%
-echo messages\sk\intl_sk_SK.arb>>%arbFileList%
-echo messages\fr\intl_fr_FR.arb>>%arbFileList%
-echo messages\pt-PT\intl_pt_PT.arb>>%arbFileList%
-call pub.bat run ..\intl_translation\bin\generate_from_arb --output-dir "%dstARB%\temp" --dart-list %dartFileList% --arb-list %arbFileList%
+echo %dstARB%\es-ES\intl_es_ES.arb>%arbFileList%
+echo %dstARB%\intl_de_DE.arb>>%arbFileList%
+echo %dstARB%\en-US\intl_en_US.arb>>%arbFileList%
+echo %dstARB%\en-GB\intl_en_GB.arb>>%arbFileList%
+echo %dstARB%\pl\intl_pl_PL.arb>>%arbFileList%
+echo %dstARB%\ja\intl_ja_JP.arb>>%arbFileList%
+echo %dstARB%\sk\intl_sk_SK.arb>>%arbFileList%
+echo %dstARB%\fr\intl_fr_FR.arb>>%arbFileList%
+echo %dstARB%\pt-PT\intl_pt_PT.arb>>%arbFileList%
+call %pub% run bin\generate_from_arb --output-dir "%dstARB%\temp" --dart-list %dartFileList% --arb-list %arbFileList%
 copy %dstARB%\temp\messages_all.dart %dstDART%
+cd ..\nightscout-reporter
 call i18n-dedupe.bat < %dstARB%\temp\messages_de_DE.dart > %dstDART%\messages_de_DE.dart
 call i18n-dedupe.bat < %dstARB%\temp\messages_en_US.dart > %dstDART%\messages_en_US.dart
 call i18n-dedupe.bat < %dstARB%\temp\messages_en_GB.dart > %dstDART%\messages_en_GB.dart

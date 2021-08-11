@@ -3,6 +3,8 @@
 // messages from the main program should be duplicated here with the same
 // function name.
 
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 
@@ -249,7 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "2.0.6 - 17.03.2021" : MessageLookupByLibrary.simpleMessage("2.0.6 - 17.03.2021"),
     "2.0.7 - 17.04.2021" : MessageLookupByLibrary.simpleMessage("2.0.7 - 17.04.2021"),
     "2.0.8 - 09.06.2021" : MessageLookupByLibrary.simpleMessage("2.0.8 - 09.06.2021"),
-    "2.0.9 - xx.07.2021" : MessageLookupByLibrary.simpleMessage("2.0.9 - xx.07.2021"),
+    "2.0.9 - 11.08.2021" : MessageLookupByLibrary.simpleMessage("2.0.9 - 11.08.2021"),
     "25%" : MessageLookupByLibrary.simpleMessage("25%"),
     "25% - 75% der Werte" : MessageLookupByLibrary.simpleMessage("25% -75% de los valores"),
     "3,1 bis 4,0" : MessageLookupByLibrary.simpleMessage("3,1 a 4,0"),
@@ -373,6 +375,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren." : MessageLookupByLibrary.simpleMessage("PDF ha sido generado. Si no se visualiza, probablemente es debido a un bloqueador popup. Por favor desactivar bloqueador."),
     "Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben." : MessageLookupByLibrary.simpleMessage("Se han eliminado errores al crear datos para ciertos dias."),
     "Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können." : MessageLookupByLibrary.simpleMessage("El PDF con el perfil se produce ahora en modo paisaje para reprensentar perfiles con muchas entradas adecuadamente."),
+    "Das Projekt wurde auf Dart 2.13.4 und Angular 6.0.1 aktualisiert." : MessageLookupByLibrary.simpleMessage("Das Projekt wurde auf Dart 2.13.4 und Angular 6.0.1 aktualisiert."),
     "Das Startdatum ist nicht korrekt" : MessageLookupByLibrary.simpleMessage("La fecha inicial no es correcta"),
     "Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar." : MessageLookupByLibrary.simpleMessage("El pentágono verde presenta el margen de valores en el periodo de tiempo indicado."),
     "Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar." : MessageLookupByLibrary.simpleMessage("El pentágono verde representa el margen de valores de una persona sana sin diabetes."),
@@ -519,7 +522,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Eine" : MessageLookupByLibrary.simpleMessage("Una"),
     "Einen Monat vorher" : MessageLookupByLibrary.simpleMessage("Un mes antes"),
     "Einheit der Glukosemessung" : MessageLookupByLibrary.simpleMessage("Unidas para calcular la glucemia"),
-    "Einheiten" : MessageLookupByLibrary.simpleMessage("Einheiten"),
+    "Einheiten" : MessageLookupByLibrary.simpleMessage("Unidades"),
     "Einige Browser sind nicht in der Lage PDF Dateien anzuzeigen, die eine bestimmte Grösse überschreiten. Da das von verschiedenen Faktoren abhängt, die sich nicht ohne Weiteres automatisch ermitteln lassen, gibt es die Möglichkeit, statt einer grossen PDF Datei, die nicht angezeigt werden kann, mehrere kleinere PDF Dateien zu erzeugen, die der Browser anzeigen kann. In den Einstellungen und hier kann diese Grösse festgelegt werden. Diese Seite hier wird nur angezeigt, wenn das PDF aufgeteilt werden musste. Wenn nur ein PDF erzeugt wurde, dann wird es direkt angezeigt." : MessageLookupByLibrary.simpleMessage("Algunos navegadores no son capaz de mostrar PDF de cierto tamaño. Esto depende de varios factores. Existe la posibilidad de crear varios documentos PDF pequeños en vez de uno grande para poder ser mostrado correctamente en el navegador. Se puede elegir el tamaño aquí y en configuración. Aquí solo se muestra si el PDF ha tenido que ser dividido. Si solo se ha creado un PDF se mostrará directamente."),
     "Einige Formulare können nun mit Parametern konfiguriert werden; hierzu den Pfeil am rechten Rand des Formularbuttons anklicken und im aufgeklappten Bereich die entsprechenden Einstellungen vornehmen; der Pfeil erscheint erst, wenn das Formular zum Ausdruck markiert wurde" : MessageLookupByLibrary.simpleMessage("Algunas formas pueden ser configuradas con parámetros; para ello, haga clic en la flecha en el borde derecho de los botones del formulario y insertarlos ajustes apropiados en el área ampliada; la flecha aparecerá sólo si marcó la forma de imprimir"),
     "Einige der Optionen für die PDFs wurden hierarchisch angeordnet. Es macht z.B. keinen Sinn, die SMB Werte in der Tagesgrafik an der Kurve platzieren zu lassen, wenn die SMB Werte gar nicht angezeigt werden. Deswegen werden Optionen, die von einer anderen Option abhängen nur dann angezeigt, wenn die entsprechende Option markiert ist. Dadurch ändert sich leider auch die Speicherung der Optionen, weshalb sich die aktuelle Auswahl der Optionen bei manchen PDFs verändert. Da müssen die Optionen dann neu gesetzt werden." : MessageLookupByLibrary.simpleMessage("Algunas opciones han sido ordenadas jerárquicamente. No tiene sentido, poner los smb en el gráfico diario junto a la curva, si no son mostrados. Por lo tanto opciones que dependen de otras opciones sólo son mostradas, si la opción correspondiente está seleccionada. Aquí cambia el almacenamiento de las opciones y por eso cambia la actual selección de opciones en algunos PDF. Por desgracia hay que seleccionar las opciones de nuevo."),
@@ -581,6 +584,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Google Assistant" : MessageLookupByLibrary.simpleMessage("Asistente Google"),
     "Grafik" : MessageLookupByLibrary.simpleMessage("Gráfica"),
     "Grafiken pro Seite" : MessageLookupByLibrary.simpleMessage("Gráficos por página"),
+    "Grenzwerte wurden nicht durchgängig gleich behandelt. Jetzt sollte die Zuordnung der Werte zu den Zielbereichen im gesamten Programm identisch sein." : MessageLookupByLibrary.simpleMessage("Grenzwerte wurden nicht durchgängig gleich behandelt. Jetzt sollte die Zuordnung der Werte zu den Zielbereichen im gesamten Programm identisch sein."),
     "Gross" : MessageLookupByLibrary.simpleMessage("Grande"),
     "Gruppierung der Zeiten" : MessageLookupByLibrary.simpleMessage("Agrupación de tiempos"),
     "HTML-Notizen anzeigen" : MessageLookupByLibrary.simpleMessage("Mostrar notas HTML"),
@@ -634,7 +638,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "In der Tagesgrafik kann die Anzeige der SMB nun ausgeblendet werden." : MessageLookupByLibrary.simpleMessage("En el gráfico diario ahora se puede ocultar SMB."),
     "In der Tagesgrafik kann jetzt bei Auswahl der Tages Basalrate angegeben werden, dass der Name des Profils angezeigt wird, das am Beginn des Tages aktiv war. Dieser wird dann so angezeigt, wie ein Profilwechsel um 0 Uhr." : MessageLookupByLibrary.simpleMessage("En el gráfico diario al elegir el perfil diario ahora se puede mostrar el nombre del perfil que se ha utilizado al principio del día. Este se muestra como un cambio de perfil a media noche."),
     "In der Tagesgrafik kann man nun die IOB (Insulin On Board) und COB (Carbs On Board) anzeigen lassen. Die IOB werden am oberen Rand angezeigt, wo auch die Bolusabgaben dargestellt werden, die COB am unteren Rand, wo auch die Kohlenhydrate dargestellt werden." : MessageLookupByLibrary.simpleMessage("En el gráfico diario ahora también se muestran IOB (insulina a bordo) y COB (carbohidratos a bordo). IOB se muestran en la parte superior donde también se muestran los bolos, COB se muestran en la parte de abajo donde también se muestran los carbohidratos."),
-    "In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden." : MessageLookupByLibrary.simpleMessage("In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden."),
+    "In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden." : MessageLookupByLibrary.simpleMessage("En el gráfico diario ahora se pueden mostrar los datos temporales del iLoop. Se muestra la razón. Para más información se puede consultar el protocolo como antes."),
     "In der Tagesgrafik kann nun angezeigt werden, wie lange die Basalrate auf 0% lief." : MessageLookupByLibrary.simpleMessage("El gráfico diario ahora también se puede mostrar la duración de la tasa basal en 0%."),
     "In der Tagesgrafik werden Profilwechsel nicht mehr angezeigt, wenn sich das Profil beim Wechsel nicht geändert hat. iOSLoop fügt in die Nightscoutdatensätze sehr häufig neue Profile ein, die keine Änderung beinhalten, weil dort zusätzlich andere Konfigurationseinstellungen gespeichert werden." : MessageLookupByLibrary.simpleMessage("En el gráfico diario ya no se muestran cambios de perfil si no cambia el perfil. IosLoop adjunta muchos perfiles en nightscout, que no contienenccambio, por que contienen también valoresdde cconfiguración."),
     "In der Tagesgrafik werden die Insulinangaben jetzt kleiner dargestellt, wenn die Basalrate eine Genauigkeit von mehr als 2 Nachkommastellen hat." : MessageLookupByLibrary.simpleMessage("En el gráfico diario los datos de insulina se muestran más pequeños si el perfil basal contiene más de dos decimales."),
@@ -686,8 +690,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Letzte Unterzuckerung" : MessageLookupByLibrary.simpleMessage("Última hipoglucemia"),
     "Letzte Woche" : MessageLookupByLibrary.simpleMessage("Semana anterior"),
     "Letzten Messwert in der Titelzeile anzeigen" : MessageLookupByLibrary.simpleMessage("Mostrar el último valor medido en la barra de título"),
-    "Letzter Behandlungswert" : MessageLookupByLibrary.simpleMessage("Letzter Behandlungswert"),
-    "Letzter Glukosewert" : MessageLookupByLibrary.simpleMessage("Letzter Glukosewert"),
+    "Letzter Behandlungswert" : MessageLookupByLibrary.simpleMessage("Último valor de tratamiento"),
+    "Letzter Glukosewert" : MessageLookupByLibrary.simpleMessage("Último valor de glucosa"),
     "Letzter Monat" : MessageLookupByLibrary.simpleMessage("El mes anterior"),
     "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)" : MessageLookupByLibrary.simpleMessage("Esconder datos que revelan el bucle cerrado (ignorar el señalando en otro color)"),
     "Löschen" : MessageLookupByLibrary.simpleMessage("Borrar"),
@@ -842,7 +846,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Verzögerter Bolus" : MessageLookupByLibrary.simpleMessage("Bolo extendido"),
     "Vier" : MessageLookupByLibrary.simpleMessage("Cuatro"),
     "Viertes Quartal" : MessageLookupByLibrary.simpleMessage("Cuarto trimestre"),
-    "ViewWhatsnewComponent0__message_16" : m0,
+    "ViewWhatsnewComponent0__message_18" : m0,
     "Von" : MessageLookupByLibrary.simpleMessage("De"),
     "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen." : MessageLookupByLibrary.simpleMessage("Antes de crear el PDF se muestra un diálogo para elegir los parámetros para los PDF. Se puede definir el rango de los valores estándar como lo quieren ver los médicos. Esto se aplica a todos los gráficos que muestran estos valores, también afecta a la distribución de los valores dentro y fuera del rango. Aquí también se puede definir un valor de glucosa máximo para los gráficos. Este será usado en el gráfico diario, en el gráfico del percentil y en el gráfico semanal. Si se usa el valor automático este será calculado a base de los datos. Además aquí puedes elegir si quieres usar el periodo actual o un periodo de comparación. Esto es práctico para comparar con el médico valores de periodos actuales y pasados."),
     "Warnung" : MessageLookupByLibrary.simpleMessage("Advertencia"),

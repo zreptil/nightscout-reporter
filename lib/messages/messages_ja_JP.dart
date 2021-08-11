@@ -3,6 +3,8 @@
 // messages from the main program should be duplicated here with the same
 // function name.
 
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 
@@ -249,7 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "2.0.6 - 17.03.2021" : MessageLookupByLibrary.simpleMessage("2.0.6 - 17/03/2021"),
     "2.0.7 - 17.04.2021" : MessageLookupByLibrary.simpleMessage("2.0.7 - 17/04/2021"),
     "2.0.8 - 09.06.2021" : MessageLookupByLibrary.simpleMessage("2.0.8 - 06/09/2021"),
-    "2.0.9 - xx.07.2021" : MessageLookupByLibrary.simpleMessage("2.0.9 - xx/07/2021"),
+    "2.0.9 - 11.08.2021" : MessageLookupByLibrary.simpleMessage("2.0.9 - 11/08/2021"),
     "25%" : MessageLookupByLibrary.simpleMessage("25%"),
     "25% - 75% der Werte" : MessageLookupByLibrary.simpleMessage("値の25% - 75%"),
     "3,1 bis 4,0" : MessageLookupByLibrary.simpleMessage("3,1 ～ 4,0"),
@@ -373,6 +375,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren." : MessageLookupByLibrary.simpleMessage("PDFが作成されました。表示されない場合、ブラウザのポップアップ禁止設定が有効になっている可能性がありますので、ご確認ください。"),
     "Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben." : MessageLookupByLibrary.simpleMessage("特定の日が作成できなかった問題が修正されました。"),
     "Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können." : MessageLookupByLibrary.simpleMessage("パラメータのエントリーが多いプロファイルでも PDF が横長で出力され表示できるようになりました。"),
+    "Das Projekt wurde auf Dart 2.13.4 und Angular 6.0.1 aktualisiert." : MessageLookupByLibrary.simpleMessage("The project was updated to Dart 2.13.4 and Angular 6.0.1."),
     "Das Startdatum ist nicht korrekt" : MessageLookupByLibrary.simpleMessage("開始日が正しくありません"),
     "Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar." : MessageLookupByLibrary.simpleMessage("黄色の五角形は、選択期間の値を表しています"),
     "Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar." : MessageLookupByLibrary.simpleMessage("緑色の五角形の範囲は、糖尿病ではない人の値を表しています"),
@@ -581,6 +584,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Google Assistant" : MessageLookupByLibrary.simpleMessage("Google アシスタント"),
     "Grafik" : MessageLookupByLibrary.simpleMessage("図"),
     "Grafiken pro Seite" : MessageLookupByLibrary.simpleMessage("1ページのグラフ数"),
+    "Grenzwerte wurden nicht durchgängig gleich behandelt. Jetzt sollte die Zuordnung der Werte zu den Zielbereichen im gesamten Programm identisch sein." : MessageLookupByLibrary.simpleMessage("Limit values were not consistently treated in the same way. The assignment of the values to the target areas should now be identical in the entire program."),
     "Gross" : MessageLookupByLibrary.simpleMessage("大"),
     "Gruppierung der Zeiten" : MessageLookupByLibrary.simpleMessage("時間帯をまとめて表示"),
     "HTML-Notizen anzeigen" : MessageLookupByLibrary.simpleMessage("HTMLメモを表示"),
@@ -842,7 +846,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Verzögerter Bolus" : MessageLookupByLibrary.simpleMessage("遅延ボーラス"),
     "Vier" : MessageLookupByLibrary.simpleMessage("4"),
     "Viertes Quartal" : MessageLookupByLibrary.simpleMessage("Fourth Quarter"),
-    "ViewWhatsnewComponent0__message_16" : m0,
+    "ViewWhatsnewComponent0__message_18" : m0,
     "Von" : MessageLookupByLibrary.simpleMessage("から"),
     "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen." : MessageLookupByLibrary.simpleMessage("PDF 作成前にダイアログを表示し、作成されたすべての PDF のパラメーターを入力できます。目標範囲を、医師が確認したい標準範囲へと設定できます。これは目標範囲のすべての表示に影響があり、目標範囲の内外の値の分布にも影響します。またグラフ中でグルコースの最大値も設定できます。この値は、デイリーグラフ、パーセンタイル図、週間グラフで使用されます。「自動」に設定されている場合、これまでと同様に既存のデータから最大値が決定されます。またここで、現在の期間または比較期間のどちらを生成するのか指定できます。過去と現在の値の比較を医師に示すのに役立ちます。"),
     "Warnung" : MessageLookupByLibrary.simpleMessage("Warning"),

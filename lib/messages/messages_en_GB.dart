@@ -3,6 +3,8 @@
 // messages from the main program should be duplicated here with the same
 // function name.
 
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 
@@ -249,7 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "2.0.6 - 17.03.2021" : MessageLookupByLibrary.simpleMessage("2.0.6 - 17/03/2021"),
     "2.0.7 - 17.04.2021" : MessageLookupByLibrary.simpleMessage("2.0.7 - 17/04/2021"),
     "2.0.8 - 09.06.2021" : MessageLookupByLibrary.simpleMessage("2.0.8 - 06/09/2021"),
-    "2.0.9 - xx.07.2021" : MessageLookupByLibrary.simpleMessage("2.0.9 - xx/07/2021"),
+    "2.0.9 - 11.08.2021" : MessageLookupByLibrary.simpleMessage("2.0.9 - 11/08/2021"),
     "25%" : MessageLookupByLibrary.simpleMessage("25%"),
     "25% - 75% der Werte" : MessageLookupByLibrary.simpleMessage("25% - 75% of the values"),
     "3,1 bis 4,0" : MessageLookupByLibrary.simpleMessage("3,1 to 4,0"),
@@ -373,6 +375,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren." : MessageLookupByLibrary.simpleMessage("The PDF was created. If it is not displayed, then probably a popup blocker is active, which prevents the display. Please deactivate this."),
     "Das Problem, dass bestimmte Tage nicht erzeugt werden konnten, wurde behoben." : MessageLookupByLibrary.simpleMessage("The problem that certain days could not be created has been fixed."),
     "Das Profil-PDF wird nun im Querformat erzeugt, um auch Profile mit vielen Einträgen für die Parameter brauchbar darstellen zu können." : MessageLookupByLibrary.simpleMessage("The profile PDF is now created in landscape format so that profiles with many entries for the parameters can also be displayed."),
+    "Das Projekt wurde auf Dart 2.13.4 und Angular 6.0.1 aktualisiert." : MessageLookupByLibrary.simpleMessage("The project was updated to Dart 2.13.4 and Angular 6.0.1."),
     "Das Startdatum ist nicht korrekt" : MessageLookupByLibrary.simpleMessage("The start date is not correct"),
     "Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar." : MessageLookupByLibrary.simpleMessage("The yellow pentagon represents the value range of the specified period."),
     "Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar." : MessageLookupByLibrary.simpleMessage("The green pentagon represents the value range of a healthy person without diabetes."),
@@ -581,6 +584,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Google Assistant" : MessageLookupByLibrary.simpleMessage("Google Assistant"),
     "Grafik" : MessageLookupByLibrary.simpleMessage("Graphic"),
     "Grafiken pro Seite" : MessageLookupByLibrary.simpleMessage("Graphics per page"),
+    "Grenzwerte wurden nicht durchgängig gleich behandelt. Jetzt sollte die Zuordnung der Werte zu den Zielbereichen im gesamten Programm identisch sein." : MessageLookupByLibrary.simpleMessage("Limit values were not consistently treated in the same way. The assignment of the values to the target areas should now be identical in the entire program."),
     "Gross" : MessageLookupByLibrary.simpleMessage("Big"),
     "Gruppierung der Zeiten" : MessageLookupByLibrary.simpleMessage("Grouping of times"),
     "HTML-Notizen anzeigen" : MessageLookupByLibrary.simpleMessage("Display HTML-notes"),
@@ -842,7 +846,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Verzögerter Bolus" : MessageLookupByLibrary.simpleMessage("Delayed Bolus"),
     "Vier" : MessageLookupByLibrary.simpleMessage("Four"),
     "Viertes Quartal" : MessageLookupByLibrary.simpleMessage("Fourth Quarter"),
-    "ViewWhatsnewComponent0__message_16" : m0,
+    "ViewWhatsnewComponent0__message_18" : m0,
     "Von" : MessageLookupByLibrary.simpleMessage("from"),
     "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen." : MessageLookupByLibrary.simpleMessage("Before a PDF is created, a dialog is displayed in which you can enter parameters for all PDFs created. You can set the target area to the standard area that doctors like to see. This has an impact on all representations of the target area, as well as on the distribution of the values inside and outside the target area. You can also set the maximum value for glucose in graphics there. This value is used in the daily graphics, the percentile diagram and the weekly graphics. If it is set to \"Automatic\", the maximum value is determined from the existing data as before. You can also specify here whether you want to generate the current period or a comparison period. This is useful to show the doctor a comparison of past and now values."),
     "Warnung" : MessageLookupByLibrary.simpleMessage("Warning"),

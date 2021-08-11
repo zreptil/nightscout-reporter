@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-07-22T14:00:05.786728",
+    "@@last_modified": "2021-08-11T19:09:35.440575",
     "Überprüfe Zugriff auf Nightscout ...": "Vérification de l'accès à Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -2873,8 +2873,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "2.0.9 - xx.07.2021": "2.0.9 - xx/07/2021",
-    "@2.0.9 - xx.07.2021": {
+    "2.0.9 - 11.08.2021": "2.0.9 - 11/08/2021",
+    "@2.0.9 - 11.08.2021": {
         "description": "v209",
         "type": "text",
         "placeholders": {}
@@ -2882,6 +2882,18 @@
     "In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.": "The temporary overrides of iLoop can now also be displayed in the daily graphics. The text of the reason is displayed. As before, this can also be displayed in the log for more detailed information.",
     "@In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.": {
         "description": "v209a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das Projekt wurde auf Dart 2.13.4 und Angular 6.0.1 aktualisiert.": "The project was updated to Dart 2.13.4 and Angular 6.0.1.",
+    "@Das Projekt wurde auf Dart 2.13.4 und Angular 6.0.1 aktualisiert.": {
+        "description": "v209c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Grenzwerte wurden nicht durchgängig gleich behandelt. Jetzt sollte die Zuordnung der Werte zu den Zielbereichen im gesamten Programm identisch sein.": "Limit values were not consistently treated in the same way. The assignment of the values to the target areas should now be identical in the entire program.",
+    "@Grenzwerte wurden nicht durchgängig gleich behandelt. Jetzt sollte die Zuordnung der Werte zu den Zielbereichen im gesamten Programm identisch sein.": {
+        "description": "v209f1",
         "type": "text",
         "placeholders": {}
     },
@@ -4685,8 +4697,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_16": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
-    "@ViewWhatsnewComponent0__message_16": {
+    "ViewWhatsnewComponent0__message_18": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
+    "@ViewWhatsnewComponent0__message_18": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

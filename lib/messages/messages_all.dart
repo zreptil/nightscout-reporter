@@ -21,15 +21,15 @@ import 'messages_pt_PT.dart' deferred as messages_pt_pt;
 
 typedef Future<dynamic> LibraryLoader();
 Map<String, LibraryLoader> _deferredLibraries = {
-  'es_ES': () => messages_es_es.loadLibrary(),
-  'de_DE': () => messages_de_de.loadLibrary(),
-  'en_US': () => messages_en_us.loadLibrary(),
-  'en_GB': () => messages_en_gb.loadLibrary(),
-  'pl_PL': () => messages_pl_pl.loadLibrary(),
-  'ja_JP': () => messages_ja_jp.loadLibrary(),
-  'sk_SK': () => messages_sk_sk.loadLibrary(),
-  'fr_FR': () => messages_fr_fr.loadLibrary(),
-  'pt_PT': () => messages_pt_pt.loadLibrary(),
+  'es_ES': messages_es_es.loadLibrary,
+  'de_DE': messages_de_de.loadLibrary,
+  'en_US': messages_en_us.loadLibrary,
+  'en_GB': messages_en_gb.loadLibrary,
+  'pl_PL': messages_pl_pl.loadLibrary,
+  'ja_JP': messages_ja_jp.loadLibrary,
+  'sk_SK': messages_sk_sk.loadLibrary,
+  'fr_FR': messages_fr_fr.loadLibrary,
+  'pt_PT': messages_pt_pt.loadLibrary,
 };
 
 MessageLookupByLibrary _findExact(localeName) {

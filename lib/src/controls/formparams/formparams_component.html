@@ -16,14 +16,13 @@
   </div>
   <div *ngIf="param.stringValue!=null">
     <material-input [class]="getClass(param)"
-                    [(inputText)]="param.stringValue"
+                    [(ngModel)]="param.stringValue"
                     floatingLabel
                     [label]="param.title"></material-input>
   </div>
   <div *ngIf="param.list!=null" class="paramList">
     <div [class]="getClass(param)">{{param.title}}</div>
     <material-dropdown-select [class]="getClass(param)"
-                              [label]="param.title"
                               [buttonText]="param.listValue"
                               popupClass="paramSelect"
                               slide="y"

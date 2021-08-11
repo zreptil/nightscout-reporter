@@ -1,2 +1,5 @@
 call prebuild.bat
-call pub.bat global run webdev build --output=web:build
+del /s /q src\*.css
+call %pub% global run webdev build --output=web:build -- --delete-conflicting-outputs
+
+rem --delete-conflicting-outputs
