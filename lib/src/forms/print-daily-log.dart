@@ -404,7 +404,7 @@ erkannt wurden oder wo Notizen erfasst wurden.
               'style': style,
               'fontSize': size,
               'alignment': 'center',
-              'fillColor': colForGluc(day, gluc)
+              'fillColor': colForGlucBack(day, gluc)
             });
           } else {
             addRow(true, cm(1.3), row, {
@@ -428,7 +428,7 @@ erkannt wurden oder wo Notizen erfasst wurden.
                   'color': colBloodValues
                 },
               ],
-              'fillColor': colForGluc(day, gluc)
+              'fillColor': colForGlucBack(day, gluc)
             });
             _y += _lineHeight;
           }

@@ -311,8 +311,7 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
                   'y': cm(0),
                   'w': cm(low * xf),
                   'h': cm(0.4),
-                  'color': colLow,
-                  'fillOpacity': 0.8
+                  'color': colLowBack
                 },
                 {
                   'type': 'rect',
@@ -320,8 +319,7 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
                   'y': cm(0),
                   'w': cm((high - low) * xf),
                   'h': cm(0.4),
-                  'color': colNorm,
-                  'fillOpacity': 0.8
+                  'color': colNormBack
                 },
                 {
                   'type': 'rect',
@@ -329,8 +327,7 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
                   'y': cm(0),
                   'w': cm(graphWidth - high * xf),
                   'h': cm(0.4),
-                  'color': colHigh,
-                  'fillOpacity': 0.8
+                  'color': colHighBack
                 }
               ]
             }

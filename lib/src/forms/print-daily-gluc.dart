@@ -19,7 +19,7 @@ die Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei
 einem Basalratentest natürlich leer sein. Ebenso muss ein eventuell
 vorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur
 um den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der
-Basalrate angezeigt, wenn die Option "Alle Werte für einen Tag anzeigen"
+Basalrate angezeigt, wenn die Option 'Alle Werte für einen Tag anzeigen'
 nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz
 (und auch der Sinn), diese darzustellen.''',
       desc: 'help for daygluc');
@@ -43,15 +43,15 @@ nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz
   bool get isPortrait => true;
 
   static String get msgParam1 =>
-      Intl.message("Alle Werte für den Tag anzeigen");
+      Intl.message('Alle Werte für den Tag anzeigen');
 
-  static String get msgParam2 => Intl.message("Bolusspalte anzeigen");
+  static String get msgParam2 => Intl.message('Bolusspalte anzeigen');
 
   String msgBasalInfo(String time) => Intl.message(
-      "Die angezeigte Basalrate ist seit ${time}  gültig und beinhaltet keine temporären Änderungen.",
+      'Die angezeigte Basalrate ist seit ${time}  gültig und beinhaltet keine temporären Änderungen.',
       args: [time],
-      name: "msgBasalInfo",
-      meaning: "The informational text on the page Daytrend for the basalrate");
+      name: 'msgBasalInfo',
+      meaning: 'The informational text on the page Daytrend for the basalrate');
 
   PrintDailyProfile() {
     init();
@@ -67,12 +67,12 @@ nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz
   }
 
   @override
-  String get backsuffix => showAllValues ? "" : "full";
+  String get backsuffix => showAllValues ? '' : 'full';
 
   @override
   dynamic get estimatePageCount {
     int count = g?.period?.dayCount * (showAllValues ? 3 : 1);
-    return {"count": count, "isEstimated": false};
+    return {'count': count, 'isEstimated': false};
   }
 
   @override
@@ -161,33 +161,33 @@ nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz
         if (showAllValues)
           tables.add([
             [
-              {"text": msgTime, "style": "total", "alignment": "center"},
+              {'text': msgTime, 'style': 'total', 'alignment': 'center'},
               {
-                "text": g.getGlucInfo()["unit"],
-                "style": "total",
-                "alignment": "center"
+                'text': g.getGlucInfo()['unit'],
+                'style': 'total',
+                'alignment': 'center'
               },
-              {"text": msgTrend, "style": "total", "alignment": "center"},
-              {"text": msgKHTitle, "style": "total", "alignment": "center"}
+              {'text': msgTrend, 'style': 'total', 'alignment': 'center'},
+              {'text': msgKHTitle, 'style': 'total', 'alignment': 'center'}
             ]
           ]);
         else
           tables.add([
             [
-              {"text": msgTime, "style": "total", "alignment": "center"},
+              {'text': msgTime, 'style': 'total', 'alignment': 'center'},
               {
-                "text": g.getGlucInfo()["unit"],
-                "style": "total",
-                "alignment": "center"
+                'text': g.getGlucInfo()['unit'],
+                'style': 'total',
+                'alignment': 'center'
               },
-              {"text": msgTrend, "style": "total", "alignment": "center"},
-              {"text": msgBasal, "style": "total", "alignment": "center"},
-              {"text": msgKHTitle, "style": "total", "alignment": "center"}
+              {'text': msgTrend, 'style': 'total', 'alignment': 'center'},
+              {'text': msgBasal, 'style': 'total', 'alignment': 'center'},
+              {'text': msgKHTitle, 'style': 'total', 'alignment': 'center'}
             ]
           ]);
         if (showBolus)
           tables.last.last
-              .add({"text": msgBolus, "style": "total", "alignment": "center"});
+              .add({'text': msgBolus, 'style': 'total', 'alignment': 'center'});
       }
 
       if (!showAllValues && entry.time.minute != 0) continue;
@@ -207,13 +207,13 @@ nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz
 
       if (bolusSum == 0) bolusSum = null;
 
-      String text = "${fmtTime(entry.time, withUnit: columns < 3)}";
-      String trend = "";
-      String trendColor = "";
-      String gluc = "${g.glucFromData(entry.gluc)}";
+      String text = '${fmtTime(entry.time, withUnit: columns < 3)}';
+      String trend = '';
+      String trendColor = '';
+      String gluc = '${g.glucFromData(entry.gluc)}';
       if (entry.time.minute == 0 && trendGluc > 0) {
         double trendValue = (entry.gluc - trendGluc) / trendGluc * 100;
-        trend = "${g.fmtNumber(trendValue, 0)}%";
+        trend = '${g.fmtNumber(trendValue, 0)}%';
         if (entry.gluc >= 0) trendGluc = entry.gluc;
         if (trendValue.abs() >= 15)
           trendColor = colTrendCrit;
@@ -223,72 +223,72 @@ nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz
           trendColor = colTrendNorm;
       }
       if (entry.gluc <= 0) {
-        gluc = "";
-        trend = "";
-        trendColor = "";
+        gluc = '';
+        trend = '';
+        trendColor = '';
       }
       if (showAllValues) {
         tables[idx].add([
           {
-            "text": text,
-            "alignment": "center",
-            "style": styleForTime(entry.time)
+            'text': text,
+            'alignment': 'center',
+            'style': styleForTime(entry.time)
           },
           {
-            "text": gluc,
-            "alignment": "center",
-            "fillColor": colForGluc(day, entry.gluc)
+            'text': gluc,
+            'alignment': 'center',
+            'fillColor': colForGlucBack(day, entry.gluc)
           },
-          {"text": trend, "alignment": "right", "fillColor": trendColor},
-          {"text": carbs > 0 ? msgKH(carbs) : "", "alignment": "center"}
+          {'text': trend, 'alignment': 'right', 'fillColor': trendColor},
+          {'text': carbs > 0 ? msgKH(carbs) : '', 'alignment': 'center'}
         ]);
       } else {
-        ProfileEntryData d = profile.store.listBasal.lastWhere(
+        var d = profile.store.listBasal.lastWhere(
             (e) =>
                 e.time(day.date).isBefore(entry.time.add(Duration(seconds: 1))),
             orElse: null);
-        String basal = d == null ? "" : g.fmtBasal(d.value);
-//        basal = "${basal} - ${d.isCalculated?"true":"false"}";
-        double w = (d?.value ?? 0) * (widths[3] + cm(0.1)) / basalMax;
+        var basal = d == null ? '' : g.fmtBasal(d.value);
+//        basal = '${basal} - ${d.isCalculated?'true':'false'}';
+        var w = (d?.value ?? 0) * (widths[3] + cm(0.1)) / basalMax;
         tables[idx].add([
           {
-            "text": text,
-            "alignment": "center",
-            "style": styleForTime(entry.time)
+            'text': text,
+            'alignment': 'center',
+            'style': styleForTime(entry.time)
           },
           {
-            "text": gluc,
-            "alignment": "center",
-            "fillColor": colForGluc(day, entry.gluc)
+            'text': gluc,
+            'alignment': 'center',
+            'fillColor': colForGlucBack(day, entry.gluc)
           },
-          {"text": trend, "alignment": "right", "fillColor": trendColor},
+          {'text': trend, 'alignment': 'right', 'fillColor': trendColor},
           {
-            "stack": [
+            'stack': [
               {
-                "relativePosition": {"x": cm(-0.05), "y": cm(0)},
-                "canvas": [
+                'relativePosition': {'x': cm(-0.05), 'y': cm(0)},
+                'canvas': [
                   {
-                    "type": "rect",
-                    "x": cm(0),
-                    "y": cm(0),
-                    "w": w,
-                    "h": cm(0.4),
-                    "color": colBasalDay
+                    'type': 'rect',
+                    'x': cm(0),
+                    'y': cm(0),
+                    'w': w,
+                    'h': cm(0.4),
+                    'color': colBasalDay
                   }
                 ]
               },
-              {"text": basal, "alignment": "center"},
+              {'text': basal, 'alignment': 'center'},
             ]
           },
-          {"text": carbs > 0 ? msgKH(carbs) : "", "alignment": "center"},
+          {'text': carbs > 0 ? msgKH(carbs) : '', 'alignment': 'center'},
         ]);
       }
 
       if (showBolus) {
         text = bolusSum == null
             ? null
-            : "${g.fmtNumber(bolusSum, 1)} ${msgInsulinUnit}";
-        tables[idx].last.add({"text": text, "alignment": "center"});
+            : '${g.fmtNumber(bolusSum, 1)} ${msgInsulinUnit}';
+        tables[idx].last.add({'text': text, 'alignment': 'center'});
       }
 
       lines++;
@@ -299,19 +299,19 @@ nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz
     }
 
     var ret = [headerFooter()];
-    double x = xframe;
-    bool doAdd = false;
+    var x = xframe;
+    var doAdd = false;
     idx = 0;
-    double y = yorg;
+    var y = yorg;
 
     if (!showAllValues) {
       ret.add({
-        "absolutePosition": {"x": cm(x), "y": cm(yorg)},
-        "columns": [
+        'absolutePosition': {'x': cm(x), 'y': cm(yorg)},
+        'columns': [
           {
-            "width": cm(wid),
-            "text": msgBasalInfo(fmtDateTime(profile.store.startDate)),
-            "fontSize": fs(10)
+            'width': cm(wid),
+            'text': msgBasalInfo(fmtDateTime(profile.store.startDate)),
+            'fontSize': fs(10)
           }
         ]
       });
@@ -320,10 +320,10 @@ nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz
 
     for (var table in tables) {
       ret.add({
-        "absolutePosition": {"x": cm(x), "y": cm(y)},
-        "margin": [cm(0), cm(0), cm(0), cm(wid)],
-        "fontSize": fs(10),
-        "table": {"headerRows": 0, "widths": widths, "body": table}
+        'absolutePosition': {'x': cm(x), 'y': cm(y)},
+        'margin': [cm(0), cm(0), cm(0), cm(wid)],
+        'fontSize': fs(10),
+        'table': {'headerRows': 0, 'widths': widths, 'body': table}
       });
 
       doAdd = true;

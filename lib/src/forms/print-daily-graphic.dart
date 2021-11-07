@@ -605,12 +605,12 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
             day.findNearest(day.entries, null, check, maxMinuteDiff: 15);
         var x = glucX(check) + 0.02;
         if (entry != null) {
-          var col = colNorm;
+          var col = colNormBack;
           if (entry.gluc > targets(repData)['high']) {
-            col = colHigh;
+            col = colHighBack;
             hasHighGluc = true;
           } else if (entry.gluc < targets(repData)['low']) {
-            col = colLow;
+            col = colLowBack;
             hasLowGluc = true;
           } else {
             hasNormGluc = true;
@@ -1271,18 +1271,18 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       }
       if (showGlucTable) {
         if (hasLowGluc) {
-          addLegendEntry(legend, colLow, msgGlucLow,
+          addLegendEntry(legend, colLowBack, msgGlucLow,
               graphText: g.glucFromData(day.basalData.targetLow),
               newColumn: legend.columns.length < 3);
         }
         if (hasNormGluc) {
-          addLegendEntry(legend, colNorm, msgGlucNorm,
+          addLegendEntry(legend, colNormBack, msgGlucNorm,
               graphText: g.glucFromData(
                   (day.basalData.targetLow + day.basalData.targetHigh) / 2),
               newColumn: !hasLowGluc && legend.columns.length < 3);
         }
         if (hasHighGluc) {
-          addLegendEntry(legend, colHigh, msgGlucHigh,
+          addLegendEntry(legend, colHighBack, msgGlucHigh,
               graphText: g.glucFromData(day.basalData.targetHigh),
               newColumn:
                   !hasLowGluc && !hasNormGluc && legend.columns.length < 3);

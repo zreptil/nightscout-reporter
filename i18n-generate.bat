@@ -13,6 +13,7 @@ echo %dstARB%\ja\intl_ja_JP.arb>>%arbFileList%
 echo %dstARB%\sk\intl_sk_SK.arb>>%arbFileList%
 echo %dstARB%\fr\intl_fr_FR.arb>>%arbFileList%
 echo %dstARB%\pt-PT\intl_pt_PT.arb>>%arbFileList%
+echo %dstARB%\nl\intl_nl_NL.arb>>%arbFileList%
 call %pub% run bin\generate_from_arb --output-dir "%dstARB%\temp" --dart-list %dartFileList% --arb-list %arbFileList%
 copy %dstARB%\temp\messages_all.dart %dstDART%
 cd ..\nightscout-reporter
@@ -25,6 +26,7 @@ call i18n-dedupe.bat < %dstARB%\temp\messages_ja_JP.dart > %dstDART%\messages_ja
 call i18n-dedupe.bat < %dstARB%\temp\messages_sk_SK.dart > %dstDART%\messages_sk_SK.dart
 call i18n-dedupe.bat < %dstARB%\temp\messages_fr_FR.dart > %dstDART%\messages_fr_FR.dart
 call i18n-dedupe.bat < %dstARB%\temp\messages_pt_PT.dart > %dstDART%\messages_pt_PT.dart
+call i18n-dedupe.bat < %dstARB%\temp\messages_nl_NL.dart > %dstDART%\messages_nl_NL.dart
 rd  /s /q %dstARB%\temp
 del %dartFileList%
 del %arbFileList%

@@ -1906,6 +1906,46 @@ class DayData {
     return count > 0 ? ret / count : 0.0;
   }
 
+  double get avgInsulinPerDay {
+    var ret = 0.0;
+    var count = 0;
+    var dayCount = 0;
+    var lastTime = new DateTime(2000);
+    for (var entry in treatments) {
+      if (entry.createdAt.isAfter(lastTime)) {
+        dayCount++;
+      }
+      lastTime = new DateTime(entry.createdAt.year, entry.createdAt.month,
+          entry.createdAt.day, 23, 59, 59);
+      if (entry.insulin > 0) {
+        ret += entry.insulin;
+        count++;
+      }
+    }
+    ret = count > 0 ? ret / count : 0.0;
+    return dayCount >= 1 ? ret / dayCount : 0.0;
+  }
+
+  double get avgCarbsPerDay {
+    var ret = 0.0;
+    var count = 0;
+    var dayCount = 0;
+    var lastTime = new DateTime(2000);
+    for (var entry in treatments) {
+      if (entry.createdAt.isAfter(lastTime)) {
+        dayCount++;
+      }
+      lastTime = new DateTime(entry.createdAt.year, entry.createdAt.month,
+          entry.createdAt.day, 23, 59, 59);
+      if (entry.carbs > 0) {
+        ret += entry.carbs;
+        count++;
+      }
+    }
+    ret = count > 0 ? ret / count : 0.0;
+    return dayCount >= 1 ? ret / dayCount : 0.0;
+  }
+
   double get varK => (mid ?? 0) != 0 ? stdAbw(true) / mid * 100 : 0;
 
   double lowPrz(Globals g) => entryCountValid == 0

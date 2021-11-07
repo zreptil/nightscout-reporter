@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-08-11T19:09:35.440575",
+    "@@last_modified": "2021-11-07T10:41:23.394001",
     "Überprüfe Zugriff auf Nightscout ...": "Kontrola prístupu do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -232,6 +232,11 @@
     },
     "Português": "Portugalsky",
     "@Português": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dansk": "Dansk",
+    "@Dansk": {
         "type": "text",
         "placeholders": {}
     },
@@ -1334,6 +1339,13 @@
             "value": {}
         }
     },
+    "msgColumns": "{count,plural, =0{Eine Spalte abwählen, um eine<br>andere aktivieren zu können}=1{Noch eine Spalte verfügbar}other{Noch {count} Spalten verfügbar}}",
+    "@msgColumns": {
+        "type": "text",
+        "placeholders": {
+            "count": {}
+        }
+    },
     "Tag (08:00 - 17:59)": "Deň (08:00 - 17:59)",
     "@Tag (08:00 - 17:59)": {
         "type": "text",
@@ -1628,8 +1640,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option \"Alle Werte für einen Tag anzeigen\"\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.": "Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option \"Alle Werte für einen Tag anzeigen\"\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.",
-    "@Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option \"Alle Werte für einen Tag anzeigen\"\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.": {
+    "Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option 'Alle Werte für einen Tag anzeigen'\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.": "Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option 'Alle Werte für einen Tag anzeigen'\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.",
+    "@Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option 'Alle Werte für einen Tag anzeigen'\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.": {
         "description": "help for daygluc",
         "type": "text",
         "placeholders": {}
@@ -2100,23 +2112,23 @@
         "type": "text",
         "placeholders": {}
     },
-    "Basal anzeigen": "Zobraziť bazál",
-    "@Basal anzeigen": {
+    "Spalte Basal anzeigen": "Spalte Basal anzeigen",
+    "@Spalte Basal anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Kohlenhydrate anzeigen": "Zobraziť sacharidy",
-    "@Kohlenhydrate anzeigen": {
+    "Spalte Kohlenhydrate anzeigen": "Spalte Kohlenhydrate anzeigen",
+    "@Spalte Kohlenhydrate anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Min / Max Werte anzeigen": "Zobrazovať min / max hodnoty",
-    "@Min / Max Werte anzeigen": {
+    "Spalten Min / Max anzeigen": "Spalten Min / Max anzeigen",
+    "@Spalten Min / Max anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "Bolus anzeigen": "Zobraziť bolus",
-    "@Bolus anzeigen": {
+    "Spalte Bolus anzeigen": "Spalte Bolus anzeigen",
+    "@Spalte Bolus anzeigen": {
         "type": "text",
         "placeholders": {}
     },
@@ -2168,6 +2180,41 @@
         "placeholders": {
             "unit": {}
         }
+    },
+    "Spalte Messwerte anzeigen": "Spalte Messwerte anzeigen",
+    "@Spalte Messwerte anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte Mittelwert anzeigen": "Spalte Mittelwert anzeigen",
+    "@Spalte Mittelwert anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte Min anzeigen": "Spalte Min anzeigen",
+    "@Spalte Min anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte Max anzeigen": "Spalte Max anzeigen",
+    "@Spalte Max anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte Std.Abw. anzeigen": "Spalte Std.Abw. anzeigen",
+    "@Spalte Std.Abw. anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte KH anzeigen": "Spalte KH anzeigen",
+    "@Spalte KH anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte IE anzeigen": "Spalte IE anzeigen",
+    "@Spalte IE anzeigen": {
+        "type": "text",
+        "placeholders": {}
     },
     "Spalten für 10% und 90% anzeigen": "Zobraziť stĺpce pre 10% a 90%",
     "@Spalten für 10% und 90% anzeigen": {
@@ -2870,6 +2917,30 @@
     "Einstiegsvideo": "Úvodné video",
     "@Einstiegsvideo": {
         "description": "label for button to open settings on welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.10 - 07.11.2021": "2.0.10 - 07.11.2021",
+    "@2.0.10 - 07.11.2021": {
+        "description": "v2010",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tabelle im Glukose Perzentil Diagramm kann man nun zwei neue Spalten ausgeben lassen. Diese beinhalten die durchschnittlichen Kohlenhydrate und Insulineinheiten.": "In der Tabelle im Glukose Perzentil Diagramm kann man nun zwei neue Spalten ausgeben lassen. Diese beinhalten die durchschnittlichen Kohlenhydrate und Insulineinheiten.",
+    "@In der Tabelle im Glukose Perzentil Diagramm kann man nun zwei neue Spalten ausgeben lassen. Diese beinhalten die durchschnittlichen Kohlenhydrate und Insulineinheiten.": {
+        "description": "v2010a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Optionen von Formularen, in denen man Spalten ein- und ausblenden kann, wird nun angezeigt, wieviele Spalten noch verfügbar sind.": "In den Optionen von Formularen, in denen man Spalten ein- und ausblenden kann, wird nun angezeigt, wieviele Spalten noch verfügbar sind.",
+    "@In den Optionen von Formularen, in denen man Spalten ein- und ausblenden kann, wird nun angezeigt, wieviele Spalten noch verfügbar sind.": {
+        "description": "v2010c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Farben für die Glukosebereiche werden jetzt dort, wo sie als Hintergrundfarbe mit Text verwendet werden heller dargestellt, um die Lesbarkeit zu erhöhen.": "Die Farben für die Glukosebereiche werden jetzt dort, wo sie als Hintergrundfarbe mit Text verwendet werden heller dargestellt, um die Lesbarkeit zu erhöhen.",
+    "@Die Farben für die Glukosebereiche werden jetzt dort, wo sie als Hintergrundfarbe mit Text verwendet werden heller dargestellt, um die Lesbarkeit zu erhöhen.": {
+        "description": "v2010c2",
         "type": "text",
         "placeholders": {}
     },
@@ -4697,8 +4768,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_18": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-    "@ViewWhatsnewComponent0__message_18": {
+    "ViewWhatsnewComponent0__message_22": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+    "@ViewWhatsnewComponent0__message_22": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

@@ -128,7 +128,7 @@ von 0 Uhr und zeigt an, wo ein neuer Tag beginnt.''',
         'text': '${g.glucFromData(gluc)}',
         'style': style,
         'alignment': 'right',
-        'fillColor': colForGluc(day, gluc)
+        'fillColor': colForGlucBack(day, gluc)
       });
       hour++;
       if (hour == 24) hour = 0;

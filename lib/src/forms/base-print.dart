@@ -50,7 +50,15 @@ class StepData {
   StepData(this.min, this.step);
 }
 
-enum ParamType { none, bool, string, int, list }
+class LiteralFormat {
+  bool divider;
+
+  LiteralFormat({divider = true}) {
+    this.divider = divider;
+  }
+}
+
+enum ParamType { none, bool, string, int, list, literal }
 
 class ParamInfo {
   ParamType type = ParamType.none;
@@ -58,14 +66,18 @@ class ParamInfo {
   bool _boolValue;
   String _stringValue;
   int _intValue;
+  LiteralFormat _literalFormat;
   bool isForThumbs = false;
   Function checkValue;
 
-  bool get boolValue => isForThumbs
-      ? thumbValue
-      : (isLoopValue && Globals().hideLoopData ? false : _boolValue);
+  bool get boolValue =>
+      isForThumbs
+          ? thumbValue
+          : (isLoopValue && Globals().hideLoopData ? false : _boolValue);
 
   String get stringValue => isForThumbs ? thumbValue : _stringValue;
+
+  LiteralFormat get literalFormat => isForThumbs ? thumbValue : _literalFormat;
 
   int get intValue => isForThumbs ? thumbValue : _intValue;
 
@@ -88,10 +100,15 @@ class ParamInfo {
     handleValueChange(value);
   }
 
+  set literalFormat(value) {
+    _literalFormat = value;
+  }
+
   var thumbValue;
   bool isDeprecated;
   bool isLoopValue;
   bool isDisabled = false;
+  bool isVisible = true;
 
   int get sliderValue => intValue >= min && intValue <= max ? intValue : min;
 
@@ -114,21 +131,24 @@ class ParamInfo {
   int min;
   int max;
   int sort;
+  String subtitle;
 
   ParamInfo(this.sort, this.title,
       {bool boolValue,
-      String stringValue,
-      int intValue,
-      this.min,
-      this.max,
-      this.list,
-      this.subParams,
-      this.isDeprecated = false,
-      this.isLoopValue = false,
-      this.thumbValue}) {
+        String stringValue,
+        int intValue,
+        LiteralFormat literalFormat,
+        this.min,
+        this.max,
+        this.list,
+        this.subParams,
+        this.isDeprecated = false,
+        this.isLoopValue = false,
+        this.thumbValue}) {
     _boolValue = boolValue;
     _intValue = intValue;
     _stringValue = stringValue;
+    _literalFormat = literalFormat;
     if (boolValue != null) {
       type = ParamType.bool;
       thumbValue ??= boolValue;
@@ -145,17 +165,24 @@ class ParamInfo {
       type = ParamType.list;
       thumbValue ??= 0;
     }
+    if (literalFormat != null) {
+      type = ParamType.literal;
+      thumbValue ??= 0;
+    }
   }
 
   dynamic get asJson {
     List sp = [];
     if (subParams != null) {
-      for (ParamInfo p in subParams) sp.add(p.asJson);
+      for (ParamInfo p in subParams) {
+        if (p.type != ParamType.literal) sp.add(p.asJson);
+      }
     }
     return {'b': boolValue, 's': stringValue, 'i': intValue, 'sp': sp};
   }
 
   fill(ParamInfo src, Function checkValue) {
+    if (src.type != ParamType.literal) return;
     _boolValue = src.boolValue;
     _stringValue = src.stringValue;
     _intValue = src.intValue;
@@ -224,7 +251,8 @@ class FormConfig {
     dynamic ret = {'c': checked, 'p': []};
 
     if (form.params != null) {
-      for (var entry in form.params) ret['p'].add(entry.asJson);
+      for (var entry in form.params)
+        ret['p'].add(entry.asJson);
     }
     return ret;
   }
@@ -280,7 +308,8 @@ class Page {
     this.y = y;
   }
 
-  dynamic get asElement => {
+  dynamic get asElement =>
+      {
         'absolutePosition': {'x': x, 'y': y},
         'stack': content
       };
@@ -306,11 +335,10 @@ class DataNeeded {
   SubNeeded status = SubNeeded(false, false);
   SubNeeded data = SubNeeded(true, false);
 
-  DataNeeded(
-      {statusCurr = false,
-      statusAny = false,
-      dataCurr = true,
-      dataAny = false}) {
+  DataNeeded({statusCurr = false,
+    statusAny = false,
+    dataCurr = true,
+    dataAny = false}) {
     status.current = statusCurr;
     status.anybody = statusAny;
     data.current = dataCurr;
@@ -353,18 +381,18 @@ abstract class BasePrint {
     for (var match in list) {
       var part = match.group(1);
       var cfg =
-          g.listConfig.firstWhere((cfg) => cfg.idx == part, orElse: () => null);
+      g.listConfig.firstWhere((cfg) => cfg.idx == part, orElse: () => null);
       if (cfg != null) {
         links.add(
-            '</span><material-button (trigger)="g.show(\'Oleole\')">${cfg.form.title}</material-button><span>');
+            '</span><material-button (trigger)="g.show(\'Oleole\')">${cfg.form
+                .title}</material-button><span>');
       }
     }
     ret += links.toString();
     return ret;
   }
 
-  Future<void> loadUserData(UserData user) {
-  }
+  Future<void> loadUserData(UserData user) {}
 
   List<HelpItem> get helpStrings {
     var ret = <HelpItem>[];
@@ -385,7 +413,7 @@ abstract class BasePrint {
       if (pos >= 0) {
         var id = text.substring(0, pos);
         var cfg =
-            g.listConfig.firstWhere((cfg) => cfg.idx == id, orElse: () => null);
+        g.listConfig.firstWhere((cfg) => cfg.idx == id, orElse: () => null);
         if (cfg != null) {
           ret.add(HelpItem()
             ..type = 'btn'
@@ -415,7 +443,8 @@ abstract class BasePrint {
 
   String get backimage {
     extractParams();
-    return 'packages/nightscout_reporter/assets/img/thumbs/${g.language.img}/${id}'
+    return 'packages/nightscout_reporter/assets/img/thumbs/${g.language
+        .img}/${id}'
         '${backsuffix == '' ? '' : '-${backsuffix}'}.png';
   }
 
@@ -448,72 +477,127 @@ abstract class BasePrint {
       avgGluc == null ? null : (avgGluc + 46.7) / 28.7;
 
   //(avgGluc / 18.02 + 2.645) / 1.649;
+  dynamic colors = {
+    'colText': '#008800',
+    'colInfo': '#606060',
+    'colSubTitle': '#a0a0a0',
+    'colLine': '#606060',
+    'colValue': '#000000',
+    'colBasalProfile': '#0097a7',
+    'colBasalFont': '#fff',
+    'colProfileSwitch': '#8080c0',
+    'colBolus': '#0060c0',
+    'colBolusExt': '#60c0ff',
+    'colCarbBolus': '#c000c0',
+    'colLow': '#ff6666',
+    'colNormLow': '#809933',
+    'colNorm': '#00cc00',
+    'colNormHigh': '#aacc00',
+    'colHigh': '#cccc00',
+    'colTargetArea': '#00a000',
+    'colTargetValue': '#3333aa',
+    'colCarbs': '#ffa050',
+    'colCarbsText': '#ff6f00',
+    'colDurationNotes': '#ff00ff',
+    'colDurationNotesLine': '#ff50ff',
+    'colNotes': '#000000',
+    'colNotesLine': '#666666',
+    'colGlucValues': '#000000',
+    'colBloodValues': '#ff0000',
+    'colHbA1c': '#505050',
+    'colWeekDays': [
+      '#1b9e77',
+      '#d95f02',
+      '#7570b3',
+      '#e7298a',
+      '#66a61e',
+      '#e6ab02',
+      '#a6761d'
+    ],
+    'colWeekDaysText': [
+      '#ffffff',
+      '#ffffff',
+      '#000000',
+      '#ffffff',
+      '#ffffff',
+      '#000000',
+      '#ffffff'
+    ],
+    'colExercises': '#c0c0c0',
+    'colExerciseText': '#000000',
+    'colTempOverrides': '#f8f',
+    'colTempOverridesText': '#000000',
+    'colCGPLine': '#a0a0a0',
+    'colCGPHealthyLine': '#008000',
+    'colCGPHealthyFill': '#00e000',
+    'colCGPPatientLine': '#808000',
+    'colCGPPatientFill': '#e0e000',
+    'colIOBFill': '#a0a0ff',
+    'colIOBLine': '#a0a0ff',
+    'colCOBFill': '#ffa050',
+    'colCOBLine': '#ffa050',
+    'colTrendCrit': '#f59595',
+    'colTrendWarn': '#f2f595',
+    'colTrendNorm': '#98f595',
+    'colCOBDaily': '#ffe090',
+    'colIOBDaily': '#d0d0ff',
+  };
 
-  String colText = '#008800';
-  String colInfo = '#606060';
-  String colSubTitle = '#a0a0a0';
-  String colLine = '#606060';
-  String colValue = '#000000';
-  String colBasalProfile = '#0097a7';
-
+  String get colText => colors['colText'];
+  String get colInfo => colors['colInfo'];
+  String get colSubTitle => colors['colSubTitle'];
+  String get colLine => colors['colLine'];
+  String get colValue => colors['colValue'];
+  String get colBasalProfile => colors['colBasalProfile'];
   String get colBasalDay => blendColor(colBasalProfile, '#ffffff', 0.5);
-  String colBasalFont = '#fff';
-  String colProfileSwitch = '#8080c0';
-  String colBolus = '#0060c0';
-  String colBolusExt = '#60c0ff';
-  String colCarbBolus = '#c000c0';
-  String colLow = '#ff6666';
-  String colNormLow = '#809933';
-  String colNorm = '#00cc00';
-  String colNormHigh = '#aacc00';
-  String colHigh = '#cccc00';
-  String colTargetArea = '#00a000';
-  String colTargetValue = '#3333aa';
-  String colCarbs = '#ffa050';
-  String colCarbsText = '#ff6f00';
-  String colDurationNotes = '#ff00ff';
-  String colDurationNotesLine = '#ff50ff';
-  String colNotes = '#000000';
-  String colNotesLine = '#666666';
-  String colGlucValues = '#000000';
-  String colBloodValues = '#ff0000';
-  String colHbA1c = '#505050';
-  List<String> colWeekDays = [
-    '#1b9e77',
-    '#d95f02',
-    '#7570b3',
-    '#e7298a',
-    '#66a61e',
-    '#e6ab02',
-    '#a6761d'
-  ];
-  List<String> colWeekDaysText = [
-    '#ffffff',
-    '#ffffff',
-    '#000000',
-    '#ffffff',
-    '#ffffff',
-    '#000000',
-    '#ffffff'
-  ];
-  String colExercises = '#c0c0c0';
-  String colExerciseText = '#000000';
-  String colTempOverrides = '#f8f';
-  String colTempOverridesText = '#000000';
-  String colCGPLine = '#a0a0a0';
-  String colCGPHealthyLine = '#008000';
-  String colCGPHealthyFill = '#00e000';
-  String colCGPPatientLine = '#808000';
-  String colCGPPatientFill = '#e0e000';
-  String colIOBFill = '#a0a0ff';
-  String colIOBLine = '#a0a0ff';
-  String colCOBFill = '#ffa050';
-  String colCOBLine = '#ffa050';
-  String colTrendCrit = '#f59595';
-  String colTrendWarn = '#f2f595';
-  String colTrendNorm = '#98f595';
-  String colCOBDaily = '#ffe090';
-  String colIOBDaily = '#d0d0ff';
+  String get colBasalFont => colors['colBasalFont'];
+  String get colProfileSwitch => colors['colProfileSwitch'];
+  String get colBolus => colors['colBolus'];
+  String get colBolusExt => colors['colBolusExt'];
+  String get colCarbBolus => colors['colCarbBolus'];
+  String get colLow => colors['colLow'];
+  String get colNormLow => colors['colNormLow'];
+  String get colNorm => colors['colNorm'];
+  String get colNormHigh => colors['colNormHigh'];
+  String get colHigh => colors['colHigh'];
+
+  String get colLowBack => blendColor(colLow, '#ffffff', 0.4);
+  String get colNormLowBack => blendColor(colNormLow, '#ffffff', 0.4);
+  String get colNormBack => blendColor(colNorm, '#ffffff', 0.4);
+  String get colNormHighBack => blendColor(colNormHigh, '#ffffff', 0.4);
+  String get colHighBack => blendColor(colHigh, '#ffffff', 0.4);
+
+  String get colTargetArea => colors['colTargetArea'];
+  String get colTargetValue => colors['colTargetValue'];
+  String get colCarbs => colors['colCarbs'];
+  String get colCarbsText => colors['colCarbsText'];
+  String get colDurationNotes => colors['colDurationNotes'];
+  String get colDurationNotesLine => colors['colDurationNotesLine'];
+  String get colNotes => colors['colNotes'];
+  String get colNotesLine => colors['colNotesLine'];
+  String get colGlucValues => colors['colGlucValues'];
+  String get colBloodValues => colors['colBloodValues'];
+  String get colHbA1c => colors['colHbA1c'];
+  List<String> get colWeekDays => colors['colWeekDays'];
+  List<String> get colWeekDaysText => colors['colWeekDaysText'];
+  String get colExercises => colors['colExercises'];
+  String get colExerciseText => colors['colExerciseText'];
+  String get colTempOverrides => colors['colTempOverrides'];
+  String get colTempOverridesText => colors['colTempOverridesText'];
+  String get colCGPLine => colors['colCGPLine'];
+  String get colCGPHealthyLine => colors['colCGPHealthyLine'];
+  String get colCGPHealthyFill => colors['colCGPHealthyFill'];
+  String get colCGPPatientLine => colors['colCGPPatientLine'];
+  String get colCGPPatientFill => colors['colCGPPatientFill'];
+  String get colIOBFill => colors['colIOBFill'];
+  String get colIOBLine => colors['colIOBLine'];
+  String get colCOBFill => colors['colCOBFill'];
+  String get colCOBLine => colors['colCOBLine'];
+  String get colTrendCrit => colors['colTrendCrit'];
+  String get colTrendWarn => colors['colTrendWarn'];
+  String get colTrendNorm => colors['colTrendNorm'];
+  String get colCOBDaily => colors['colCOBDaily'];
+  String get colIOBDaily => colors['colIOBDaily'];
 
   double xorg = 3.35;
   double yorg = 3.9;
@@ -549,19 +633,21 @@ abstract class BasePrint {
     return msgPageCount(ret['count'], ret['isEstimated']);
   }
 
-  String _msgPageCountEst(count) => Intl.plural(count,
-      zero: '',
-      one: '1 Seite oder mehr',
-      other: '$count Seiten oder mehr',
-      args: [count],
-      name: '_msgPageCountEst');
+  String _msgPageCountEst(count) =>
+      Intl.plural(count,
+          zero: '',
+          one: '1 Seite oder mehr',
+          other: '$count Seiten oder mehr',
+          args: [count],
+          name: '_msgPageCountEst');
 
-  String _msgPageCount(count) => Intl.plural(count,
-      zero: '',
-      one: '1 Seite',
-      other: '$count Seiten',
-      args: [count],
-      name: '_msgPageCount');
+  String _msgPageCount(count) =>
+      Intl.plural(count,
+          zero: '',
+          one: '1 Seite',
+          other: '$count Seiten',
+          args: [count],
+          name: '_msgPageCount');
 
   dynamic msgPageCount(count, isEstimated) =>
       isEstimated ? _msgPageCountEst(count) : _msgPageCount(count);
@@ -598,17 +684,20 @@ abstract class BasePrint {
 
   String get msgGlucosekurve => Intl.message('Glukosekurve');
 
-  String msgCarbs(String value) => Intl.message('Kohlenhydrate (${value}g)',
-      args: [value], name: 'msgCarbs');
+  String msgCarbs(String value) =>
+      Intl.message('Kohlenhydrate (${value}g)',
+          args: [value], name: 'msgCarbs');
 
-  String msgBolusInsulin(String value) => Intl.message('Bolus Insulin ($value)',
-      args: [value], name: 'msgBolusInsulin');
+  String msgBolusInsulin(String value) =>
+      Intl.message('Bolus Insulin ($value)',
+          args: [value], name: 'msgBolusInsulin');
 
   String get msgMealBolus =>
       Intl.message('Mahlzeitenbolus', meaning: 'bolus to handle a meal');
 
-  String get msgBolusWizard => Intl.message('Bolus Rechner',
-      meaning: 'bolus calculated by the bolus wizard');
+  String get msgBolusWizard =>
+      Intl.message('Bolus Rechner',
+          meaning: 'bolus calculated by the bolus wizard');
 
   String get msgBolusExtInsulin => Intl.message('Verzögerter Bolus');
 
@@ -633,8 +722,9 @@ abstract class BasePrint {
       Intl.message('Basalrate aus dem Profil ($value)',
           args: [value], name: 'msgBasalrateProfile');
 
-  String msgLegendTDD(String value) => Intl.message('Gesamtinsulin ($value)',
-      args: [value], name: 'msgLegendTDD');
+  String msgLegendTDD(String value) =>
+      Intl.message('Gesamtinsulin ($value)',
+          args: [value], name: 'msgLegendTDD');
 
   String get msgTDD => Intl.message('TDD');
 
@@ -659,26 +749,29 @@ abstract class BasePrint {
   String msgKH(value) =>
       Intl.message('${value}g', args: [value], name: 'msgKH');
 
-  String msgReadingsPerDay(howMany, fmt) => Intl.plural(howMany,
-      zero: 'Keine Messwerte vorhanden',
-      one: '1 Messung am Tag',
-      other: '$fmt Messungen am Tag',
-      args: [howMany, fmt],
-      name: 'msgReadingsPerDay');
+  String msgReadingsPerDay(howMany, fmt) =>
+      Intl.plural(howMany,
+          zero: 'Keine Messwerte vorhanden',
+          one: '1 Messung am Tag',
+          other: '$fmt Messungen am Tag',
+          args: [howMany, fmt],
+          name: 'msgReadingsPerDay');
 
-  String msgReadingsPerHour(howMany, fmt) => Intl.plural(howMany,
-      zero: 'Keine Messwerte vorhanden',
-      one: '1 Messung pro Stunde',
-      other: '$fmt Messungen pro Stunde',
-      args: [howMany, fmt],
-      name: 'msgReadingsPerHour');
+  String msgReadingsPerHour(howMany, fmt) =>
+      Intl.plural(howMany,
+          zero: 'Keine Messwerte vorhanden',
+          one: '1 Messung pro Stunde',
+          other: '$fmt Messungen pro Stunde',
+          args: [howMany, fmt],
+          name: 'msgReadingsPerHour');
 
-  String msgReadingsInMinutes(howMany, fmt) => Intl.plural(howMany,
-      zero: 'Keine Messwerte vorhanden',
-      one: '1 Messung pro Minute',
-      other: 'Messung alle $fmt Minuten',
-      args: [howMany, fmt],
-      name: 'msgReadingsInMinutes');
+  String msgReadingsInMinutes(howMany, fmt) =>
+      Intl.plural(howMany,
+          zero: 'Keine Messwerte vorhanden',
+          one: '1 Messung pro Minute',
+          other: 'Messung alle $fmt Minuten',
+          args: [howMany, fmt],
+          name: 'msgReadingsInMinutes');
 
   String msgValuesIn(low, high) =>
       Intl.message('Werte zwischen ${low} und ${high}',
@@ -694,45 +787,51 @@ abstract class BasePrint {
       Intl.message('Sehr hohe Werte ( > ${value})',
           args: [value], name: 'msgValuesVeryHigh');
 
-  String msgValuesNormHigh(value) => Intl.message('Hohe Werte (${value})',
-      args: [value], name: 'msgValuesNormHigh');
+  String msgValuesNormHigh(value) =>
+      Intl.message('Hohe Werte (${value})',
+          args: [value], name: 'msgValuesNormHigh');
 
   String msgValuesNorm(low, high) =>
       Intl.message('Zielbereich (${low} - ${high})',
           args: [low, high], name: 'msgValuesNorm');
 
-  String msgValuesNormLow(value) => Intl.message('Niedrige Werte (${value})',
-      args: [value], name: 'msgValuesNormLow');
+  String msgValuesNormLow(value) =>
+      Intl.message('Niedrige Werte (${value})',
+          args: [value], name: 'msgValuesNormLow');
 
   String msgValuesVeryLow(value) =>
       Intl.message('Sehr niedrige Werte (< ${value})',
           args: [value], name: 'msgValuesVeryLow');
 
-  String msgKHBE(value) => Intl.message('g KH ($value BE)',
-      args: [value],
-      name: 'msgKHBE',
-      meaning: 'gram Carbohydrates displayed at analysis page');
+  String msgKHBE(value) =>
+      Intl.message('g KH ($value BE)',
+          args: [value],
+          name: 'msgKHBE',
+          meaning: 'gram Carbohydrates displayed at analysis page');
 
-  String msgReservoirDays(count, txt) => Intl.plural(count,
-      one: '($txt Tag pro Ampulle)',
-      zero: '',
-      other: '($txt Tage pro Ampulle)',
-      args: [count, txt],
-      name: 'msgReservoirDays');
+  String msgReservoirDays(count, txt) =>
+      Intl.plural(count,
+          one: '($txt Tag pro Ampulle)',
+          zero: '',
+          other: '($txt Tage pro Ampulle)',
+          args: [count, txt],
+          name: 'msgReservoirDays');
 
-  String msgCatheterDays(count, txt) => Intl.plural(count,
-      one: '($txt Tag pro Katheter)',
-      zero: '',
-      other: '($txt Tage pro Katheter)',
-      args: [count, txt],
-      name: 'msgCatheterDays');
+  String msgCatheterDays(count, txt) =>
+      Intl.plural(count,
+          one: '($txt Tag pro Katheter)',
+          zero: '',
+          other: '($txt Tage pro Katheter)',
+          args: [count, txt],
+          name: 'msgCatheterDays');
 
-  String msgSensorDays(count, txt) => Intl.plural(count,
-      one: '($txt Tag pro Sensor)',
-      zero: '',
-      other: '($txt Tage pro Sensor)',
-      args: [count, txt],
-      name: 'msgSensorDays');
+  String msgSensorDays(count, txt) =>
+      Intl.plural(count,
+          one: '($txt Tag pro Sensor)',
+          zero: '',
+          other: '($txt Tage pro Sensor)',
+          args: [count, txt],
+          name: 'msgSensorDays');
 
   String get msgBirthday => Intl.message('Geburtstag');
 
@@ -834,11 +933,12 @@ abstract class BasePrint {
 
   String get msgGlucNorm => Intl.message('Glukose im Zielbereich');
 
-  String get msgSource => Intl.message(
-      'Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). '
-      'The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic '
-      'Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. '
-      '(https://doi.org/10.1177/1932296817718561)');
+  String get msgSource =>
+      Intl.message(
+          'Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). '
+              'The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic '
+              'Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. '
+              '(https://doi.org/10.1177/1932296817718561)');
 
   String get msgGlucHigh => Intl.message('Glukose zu hoch');
 
@@ -900,16 +1000,19 @@ abstract class BasePrint {
 
   String get msgISFSum => Intl.message('Ø ISF/Stunde');
 
-  String get msgICR => Intl.message(
-      'Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE');
+  String get msgICR =>
+      Intl.message(
+          'Insulin Kohlenhydrate Verhältnis (ICR)\nX g Kohlenhydrate für 1 IE');
 
-  String msgISF(String unit) => Intl.message(
-      'Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X ${unit}',
-      args: [unit],
-      name: 'msgISF');
+  String msgISF(String unit) =>
+      Intl.message(
+          'Insulin Sensitivitäts Faktoren (ISF)\n1 IE senkt BG um X ${unit}',
+          args: [unit],
+          name: 'msgISF');
 
-  String msgTarget(String unit) => Intl.message('Glukose-Zielbereich\n${unit}',
-      args: [unit], name: 'msgTarget');
+  String msgTarget(String unit) =>
+      Intl.message('Glukose-Zielbereich\n${unit}',
+          args: [unit], name: 'msgTarget');
 
   String msgFactorEntry(String beg, String end) =>
       Intl.message('${beg} - ${end}', args: [beg, end], name: 'msgFactorEntry');
@@ -938,6 +1041,10 @@ abstract class BasePrint {
 
   String get msgMax => Intl.message('Max');
 
+  String get msgGluc => Intl.message('IE');
+
+  String get msgCarbShort => Intl.message('KH');
+
   String get msgAverage => Intl.message('Mittel-\nwert');
 
   String get msgDeviation => Intl.message('Std.\nAbw.');
@@ -959,10 +1066,11 @@ abstract class BasePrint {
 
   String get msgStandardDeviation => Intl.message('Standardabweichung');
 
-  static String msgCalibration(scale, intercept, slope) => Intl.message(
-      'Kalibrierung (scale $scale / intercept $intercept / slope $slope)',
-      args: [scale, intercept, slope],
-      name: 'msgCalibration');
+  static String msgCalibration(scale, intercept, slope) =>
+      Intl.message(
+          'Kalibrierung (scale $scale / intercept $intercept / slope $slope)',
+          args: [scale, intercept, slope],
+          name: 'msgCalibration');
 
   static String get msgChange => Intl.message('Wechsel');
 
@@ -1055,6 +1163,13 @@ abstract class BasePrint {
   String msgHistorical(value) =>
       Intl.message('Historisch ${value}', args: [value], name: 'msgHistorical');
 
+  String msgColumns(int count) => Intl.plural(count,
+      zero: 'Eine Spalte abwählen, um eine<br>andere aktivieren zu können',
+      one: 'Noch eine Spalte verfügbar',
+      other: 'Noch $count Spalten verfügbar',
+      args: [count],
+      name: 'msgColumns');
+
   String titleInfoForDates(DateTime startDate, DateTime endDate) {
     String ret;
     if (endDate == null) {
@@ -1076,7 +1191,8 @@ abstract class BasePrint {
 
   static String get msgNight => Intl.message('Nacht (21:00 - 05:59)');
 
-  dynamic get footerTextDayTimes => [
+  dynamic get footerTextDayTimes =>
+      [
         {
           'table': {
             'widths': [cm(6.0)],
@@ -1428,43 +1544,43 @@ abstract class BasePrint {
       footerTextAboveLine['text'] == ''
           ? null
           : {
-              'relativePosition': {
-                'x': cm(xframe + footerTextAboveLine['x']),
-                'y': cm(height - 2.0 - footerTextAboveLine['y'])
-              },
-              'columns': [
-                {
-                  'width': cm(width - 2 * xframe),
-                  'text': footerTextAboveLine['text'],
-                  'fontSize': fs(footerTextAboveLine['fs'])
-                }
-              ]
-            },
+        'relativePosition': {
+          'x': cm(xframe + footerTextAboveLine['x']),
+          'y': cm(height - 2.0 - footerTextAboveLine['y'])
+        },
+        'columns': [
+          {
+            'width': cm(width - 2 * xframe),
+            'text': footerTextAboveLine['text'],
+            'fontSize': fs(footerTextAboveLine['fs'])
+          }
+        ]
+      },
       g.ppHideNightscoutInPDF
           ? null
           : _getFooterImage('nightscout',
-              x: xframe, y: height - 1.7, width: 0.7),
+          x: xframe, y: height - 1.7, width: 0.7),
       g.ppHideNightscoutInPDF
           ? null
           : {
-              'relativePosition': {'x': cm(3.1), 'y': cm(height - 1.7)},
-              'text': 'http://www.nightscout.info',
-              'color': colInfo,
-              'fontSize': fs(10)
-            },
+        'relativePosition': {'x': cm(3.1), 'y': cm(height - 1.7)},
+        'text': 'http://www.nightscout.info',
+        'color': colInfo,
+        'fontSize': fs(10)
+      },
       footerText == null
           ? null
           : {
-              'relativePosition': {
-                'x': cm(g.ppHideNightscoutInPDF ? xframe : 7.5),
-                'y': cm(height - 1.7)
-              },
-              'stack': footerText,
-              'fontSize': fs(10)
-            },
+        'relativePosition': {
+          'x': cm(g.ppHideNightscoutInPDF ? xframe : 7.5),
+          'y': cm(height - 1.7)
+        },
+        'stack': footerText,
+        'fontSize': fs(10)
+      },
       isInput
           ? _getFooterImage('input',
-              x: width - 5.6, y: height - 3.3, width: 4.0)
+          x: width - 5.6, y: height - 3.3, width: 4.0)
           : {},
       {
         'relativePosition': {'x': cm(xframe), 'y': cm(height - 1.7)},
@@ -1476,10 +1592,12 @@ abstract class BasePrint {
               !g.ppShowUrlInPDF
                   ? null
                   : {
-                      'text': g.user.urlDataFor(date).url,
-                      'color': colInfo,
-                      'fontSize': fs(8)
-                    }
+                'text': g.user
+                    .urlDataFor(date)
+                    .url,
+                'color': colInfo,
+                'fontSize': fs(8)
+              }
             ],
             'alignment': 'right'
           }
@@ -1494,8 +1612,8 @@ abstract class BasePrint {
   dynamic tableHeadLine = [];
   dynamic tableWidths = [];
 
-  void addTableRow(
-      bool check, var width, dynamic dst, dynamic head, dynamic content) {
+  void addTableRow(bool check, var width, dynamic dst, dynamic head,
+      dynamic content) {
     if (!check) return;
     if (!tableHeadFilled) {
       tableHeadLine.add(head);
@@ -1524,7 +1642,8 @@ abstract class BasePrint {
 
   Map<String, String> images = <String, String>{};
 
-  List<String> get imgList => [
+  List<String> get imgList =>
+      [
         'nightscout-pale',
         'nightscout',
       ];
@@ -1814,9 +1933,9 @@ abstract class BasePrint {
 
   String fmtTime(var date,
       {String def,
-      bool withUnit = false,
-      bool withMinutes = true,
-      bool withSeconds = false}) {
+        bool withUnit = false,
+        bool withMinutes = true,
+        bool withSeconds = false}) {
     def ??= '';
     if (date == null) return def;
 
@@ -1826,7 +1945,7 @@ abstract class BasePrint {
       var hour = date.hour;
       if (!g.language.is24HourFormat) hour = hour > 12 ? hour - 12 : hour;
       var m =
-          withMinutes ? ':${(date.minute < 10 ? '0' : '')}${date.minute}' : '';
+      withMinutes ? ':${(date.minute < 10 ? '0' : '')}${date.minute}' : '';
       if (withSeconds) {
         m = '${m}:${(date.second < 10 ? '0' : '')}${date.second}';
       }
@@ -1865,8 +1984,11 @@ abstract class BasePrint {
 
     if (date is DateTime) {
       var ret =
-          '${(date.day < 10 ? '0' : '')}${date.day}.${(date.month < 10 ? '0' : '')}'
-          '${date.month}.${date.year}, ${(date.hour < 10 ? '0' : '')}${date.hour}:${(date.minute < 10 ? '0' : '')}'
+          '${(date.day < 10 ? '0' : '')}${date.day}.${(date.month < 10
+          ? '0'
+          : '')}'
+          '${date.month}.${date.year}, ${(date.hour < 10 ? '0' : '')}${date
+          .hour}:${(date.minute < 10 ? '0' : '')}'
           '${date.minute}';
       if (withSeconds) {
         ret = '${ret}:${(date.second < 10 ? '0' : '')}${date.second}';
@@ -1901,12 +2023,14 @@ abstract class BasePrint {
 
     var df = DateFormat(g.language.dateformat);
     var ret = df.format(dt);
-    if (withShortWeekday)
+    if (withShortWeekday) {
       ret =
-          '${DatepickerPeriod.dowShortName(Date(dt.year, dt.month, dt.day))}, $ret';
-    if (withLongWeekday)
+      '${DatepickerPeriod.dowShortName(Date(dt.year, dt.month, dt.day))}, $ret';
+    }
+    if (withLongWeekday) {
       ret =
-          '${DatepickerPeriod.dowName(Date(dt.year, dt.month, dt.day))}, $ret';
+      '${DatepickerPeriod.dowName(Date(dt.year, dt.month, dt.day))}, $ret';
+    }
     return ret;
   }
 
@@ -1943,10 +2067,22 @@ abstract class BasePrint {
 
   String colForGluc(DayData day, double gluc) {
     if (gluc == null) return '';
-    if (gluc < targets(repData)['low'])
+    if (gluc < targets(repData)['low']) {
       return colLow;
-    else if (gluc > targets(repData)['high']) return colHigh;
+    } else if (gluc > targets(repData)['high']) {
+      return colHigh;
+    }
     return colNorm;
+  }
+
+  String colForGlucBack(DayData day, double gluc) {
+    if (gluc == null) return '';
+    if (gluc < targets(repData)['low']) {
+      return colLowBack;
+    } else if (gluc > targets(repData)['high']) {
+      return colHighBack;
+    }
+    return colNormBack;
   }
 
   String carbFromData(var carb, [precision = 0]) {
@@ -1957,8 +2093,7 @@ abstract class BasePrint {
   ///
   /// it uses [horzfs] as the fontsize of the horizontal scale and [vertfs] as the fontsize for the vertical
   /// scale.
-  GridData drawGraphicGrid(
-      double glucMax,
+  GridData drawGraphicGrid(double glucMax,
       double graphHeight,
       double graphWidth,
       List vertCvs,
@@ -1966,17 +2101,17 @@ abstract class BasePrint {
       List horzStack,
       List vertStack,
       {double glucScale: 0.0,
-      double graphBottom: 0.0,
-      double horzfs: null,
-      double vertfs: null}) {
+        double graphBottom: 0.0,
+        double horzfs: null,
+        double vertfs: null}) {
     if (horzfs == null) horzfs = fs(8);
     if (vertfs == null) vertfs = fs(8);
     GridData ret = GridData();
     if (graphBottom == 0.0) graphBottom = graphHeight;
     ret.glucScale = glucScale == 0.0
         ? g.glucMGDL
-            ? 50
-            : 18.02 * 1
+        ? 50
+        : 18.02 * 1
         : glucScale;
     ret.gridLines = (glucMax / ret.glucScale).ceil();
 
@@ -2113,15 +2248,15 @@ abstract class BasePrint {
 
   dynamic addLegendEntry(LegendData legend, String color, String text,
       {bool isArea = true,
-      String image,
-      double imgWidth = 0.6,
-      double imgOffsetY = 0.0,
-      double lineWidth = 0.0,
-      String graphText,
-      newColumn: false,
-      points: null,
-      colGraphText: null,
-      colLegendText: null}) {
+        String image,
+        double imgWidth = 0.6,
+        double imgOffsetY = 0.0,
+        double lineWidth = 0.0,
+        String graphText,
+        newColumn: false,
+        points: null,
+        colGraphText: null,
+        colLegendText: null}) {
     List dst = legend.current(newColumn);
     if (lineWidth == 0.0) lineWidth = lw;
     if (colGraphText == null) colGraphText == 'black';
@@ -2272,8 +2407,7 @@ abstract class BasePrint {
 
   S(double min, double step) => StepData(min, step);
 
-  drawScaleIE(
-      double xo,
+  drawScaleIE(double xo,
       double yo,
       double graphHeight,
       double top,
@@ -2354,10 +2488,20 @@ abstract class BasePrint {
     var i = 0;
     var currentDay = day.date.day;
     var maxTime = 1440;
-    if (day.date.year == Date.today().year &&
-        day.date.month == Date.today().month &&
-        day.date.day == Date.today().day) {
-      maxTime = DateTime.now().hour * 60 + DateTime.now().minute;
+    if (day.date.year == Date
+        .today()
+        .year &&
+        day.date.month == Date
+            .today()
+            .month &&
+        day.date.day == Date
+            .today()
+            .day) {
+      maxTime = DateTime
+          .now()
+          .hour * 60 + DateTime
+          .now()
+          .minute;
     }
     while (i < maxTime) {
       if (currentDay != time.day) {
@@ -2367,12 +2511,16 @@ abstract class BasePrint {
       if (i + diff >= maxTime && i != maxTime - 1) diff = maxTime - 1 - i;
       if (i < maxTime) {
         var x = calcX(graphWidth, time);
-        var y = day.iob(repData, time, day.prevDay).iob - 1.0;
+        var y = day
+            .iob(repData, time, day.prevDay)
+            .iob - 1.0;
         maxIob = max(maxIob, y);
         minIob = min(minIob, y);
         ptsIob.add({'x': cm(x), 'y': y});
 //*
-        y = day.cob(repData, time, day.prevDay).cob;
+        y = day
+            .cob(repData, time, day.prevDay)
+            .cob;
         maxCob = max(maxCob, y);
         ptsCob.add({'x': cm(x), 'y': y});
 // */
@@ -2398,8 +2546,8 @@ abstract class BasePrint {
         horzCvs,
         vertStack,
         [S(10, 2.0), S(7, 1.0), S(3, 0.5), S(1.5, 0.2), S(0, 0.1)],
-        (i, step, {value}) =>
-            '${g.fmtNumber(value ?? minIob + i * step, 1)} ${msgInsulinUnit}');
+            (i, step, {value}) =>
+        '${g.fmtNumber(value ?? minIob + i * step, 1)} ${msgInsulinUnit}');
     for (var i = 0; i < ptsIob.length; i++) {
       if (maxIob - minIob > 0) {
         double y = ptsIob[i]['y'];
@@ -2424,7 +2572,7 @@ abstract class BasePrint {
         horzCvs,
         vertStack,
         [S(100, 20), S(50, 10), S(20, 5), S(0, 1)],
-        (i, step, {value}) => '${g.fmtNumber(value ?? i * step, 0)} g');
+            (i, step, {value}) => '${g.fmtNumber(value ?? i * step, 0)} g');
 
     if (upperCob == 0) {
       maxCob = maxCob * 1.1;

@@ -540,8 +540,8 @@ class AppComponent implements OnInit {
       var temp = doc;
       doc = '';
       for (var i = 0; i < temp.length; i++) {
-        if (g.language.code == 'ja_JP'  || temp.codeUnitAt(i) <= 4095)
-        doc = '${doc}${temp[i]}';
+        if (g.language.code == 'ja_JP' || temp.codeUnitAt(i) <= 4095)
+          doc = '${doc}${temp[i]}';
       }
     }
     return base64.encode(utf8.encode(doc));
@@ -891,8 +891,8 @@ class AppComponent implements OnInit {
       data.user.insulin = 'Novorapid';
       data.user.listApiUrl = <UrlData>[];
       data.user.listApiUrl.add(UrlData.fromJson(g, {
-        'u': 'https://diamant-ns.herokuapp.com',
-        't': 'anditoken-a12e3472efe42759',
+        'u': 'https://diamant.ns.10be.de:22140',
+        // 't': 'usertoken',
         'sd': null,
         'ed': null
       }));
@@ -1318,7 +1318,8 @@ class AppComponent implements OnInit {
 //*
         if (g.isLocal && !hasExercise) {
           var t = TreatmentData();
-          t.createdAt = DateTime(begDate.year, begDate.month, begDate.day, 10, 0, 0);
+          t.createdAt =
+              DateTime(begDate.year, begDate.month, begDate.day, 10, 0, 0);
           t.duration = 120 * 60;
           t.eventType = 'exercise';
           t.notes = 'Bewegung (Testeintrag)';

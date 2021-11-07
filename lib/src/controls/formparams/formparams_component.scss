@@ -23,6 +23,20 @@
   }
 }
 
+.paramLiteral {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 80%;
+  margin: 1em 0;
+
+  .divider {
+    margin-top: 0.5em;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+  }
+}
+
 .paramList {
   display: flex;
   flex-direction: row;

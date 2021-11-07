@@ -38,51 +38,60 @@ schwächerer Schrift angezeigt wird.
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(0, msgParam1, boolValue: true),
-    ParamInfo(3, msgParam2, boolValue: true),
-    ParamInfo(4, msgParam3, boolValue: true),
-    ParamInfo(5, msgParam4, boolValue: true),
-    ParamInfo(6, msgParam5, boolValue: false),
-    ParamInfo(7, msgParam6, boolValue: false, subParams: [
-      ParamInfo(0, BasePrint.msgUseDailyBasalrate,
+    ParamInfo(4, msgParamColCount, boolValue: true),
+    ParamInfo(7, msgParamColStdAbw, boolValue: true),
+    ParamInfo(9, msgParamColPercentile, boolValue: true),
+    ParamInfo(10, msgParamHbA1c, boolValue: true),
+    ParamInfo(8, msgParamColVarK, boolValue: false),
+    ParamInfo(1, msgParamColBasal, boolValue: false, subParams: [
+      ParamInfo(1, BasePrint.msgUseDailyBasalrate,
           boolValue: true, isLoopValue: true)
     ]),
-    ParamInfo(10, msgParam7, boolValue: false),
-    ParamInfo(1, msgParam8, boolValue: false),
-    ParamInfo(8, msgParam9, boolValue: false),
-    ParamInfo(9, msgParam10, boolValue: false),
+    ParamInfo(6, msgParamColKH, boolValue: false),
+    ParamInfo(5, msgParamColMinMax, boolValue: false),
+    ParamInfo(2, msgParamColBolus, boolValue: false),
+    ParamInfo(3, msgParamColTDD, boolValue: false),
+    ParamInfo(0, '', literalFormat: LiteralFormat(divider: true)),
   ];
 
-  static String get msgParam1 => Intl.message('Spalte Messwerte');
+  static String get msgParamColCount => Intl.message('Spalte Messwerte');
 
-  static String get msgParam2 => Intl.message('Spalte Standardabweichung');
+  static String get msgParamColStdAbw => Intl.message('Spalte '
+      'Standardabweichung');
 
-  static String get msgParam3 => Intl.message('Spalten Perzentile');
+  static String get msgParamColPercentile => Intl.message('Spalten Perzentile');
 
-  static String get msgParam4 => Intl.message('Spalte HbA1c');
+  static String get msgParamHbA1c => Intl.message('Spalte HbA1c');
 
-  static String get msgParam5 => Intl.message('Spalte Variationskoeffizient');
+  static String get msgParamColVarK => Intl.message('Spalte '
+      'Variationskoeffizient');
 
-  static String get msgParam6 => Intl.message('Basal anzeigen');
+  static String get msgParamColBasal => Intl.message('Spalte Basal anzeigen');
 
-  static String get msgParam7 => Intl.message('Kohlenhydrate anzeigen');
+  static String get msgParamColKH => Intl.message('Spalte Kohlenhydrate '
+      'anzeigen');
 
-  static String get msgParam8 => Intl.message('Min / Max Werte anzeigen');
+  static String get msgParamColMinMax => Intl.message('Spalten Min / Max '
+      'anzeigen');
 
-  static String get msgParam9 => Intl.message('Bolus anzeigen');
+  static String get msgParamColBolus => Intl.message('Spalte Bolus anzeigen');
 
-  static String get msgParam10 => Intl.message('TDD anzeigen');
+  static String get msgParamColTDD => Intl.message('TDD anzeigen');
 
   @override
   void checkValue(ParamInfo param, dynamic value) {
+    List<int> list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     var count = 0;
-    params.forEach((p) {
+    list.forEach((idx) {
+      ParamInfo p = params[idx];
       if (p.boolValue) {
         count++;
+        if (idx == 2) count += 2;
       }
     });
-    var list = params.where((p) => p.boolValue == false);
-    params.forEach((p) {
+
+    list.forEach((idx) {
+      ParamInfo p = params[idx];
       if (count > 6) {
         if (!p.boolValue) {
           p.isDisabled = true;
@@ -91,6 +100,10 @@ schwächerer Schrift angezeigt wird.
         p.isDisabled = false;
       }
     });
+    if (count > 4 && !params[2].boolValue) {
+      params[2].isDisabled = true;
+    }
+    params[10].title = msgColumns(7 - count);
   }
 
   @override
@@ -224,34 +237,34 @@ schwächerer Schrift angezeigt wird.
       'text': msgLow(targets(repData)['low']),
       'style': 'total',
       'alignment': 'center',
-      'fillColor': colLow
+      'fillColor': colLowBack
     }, {
       'text': '${g.fmtNumber(day.lowPrz(g), 0)} %',
       'style': style,
       'alignment': 'right',
-      'fillColor': style == 'total' ? colLow : null
+      'fillColor': style == 'total' ? colLowBack : null
     });
     addTableRow(true, '*', row, {
       'text': msgNormal,
       'style': 'total',
       'alignment': 'center',
-      'fillColor': colNorm
+      'fillColor': colNormBack
     }, {
       'text': '${g.fmtNumber(day.normPrz(g), 0)} %',
       'style': style,
       'alignment': 'right',
-      'fillColor': style == 'total' ? colNorm : null
+      'fillColor': style == 'total' ? colNormBack : null
     });
     addTableRow(true, '*', row, {
       'text': msgHigh(targets(repData)['high']),
       'style': 'total',
       'alignment': 'center',
-      'fillColor': colHigh
+      'fillColor': colHighBack
     }, {
       'text': '${g.fmtNumber(day.highPrz(g), 0)} %',
       'style': style,
       'alignment': 'right',
-      'fillColor': style == 'total' ? colHigh : null
+      'fillColor': style == 'total' ? colHighBack : null
     });
     addTableRow(
         showBasal,
