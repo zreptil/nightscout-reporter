@@ -54,7 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m16(url) => "Sprawdzanie dostępu do ${url}...";
 
-  static m17(count) => "{count,plural, =0{Deselect a column<br>to activate another one}=1{One more column available}other{${count} columns still available}}";
+  static m17(count) => "${Intl.plural(count, zero: 'Deselect a column@nl@to be able to activate another one', one: 'One more column available', other: '${count} columns still available')}";
 
   static m18(value) => "bolus: korekta (${value})";
 

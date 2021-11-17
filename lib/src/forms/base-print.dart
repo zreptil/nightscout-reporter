@@ -949,7 +949,7 @@ abstract class BasePrint {
     return Intl.message('Tief${value}', args: [value], name: 'msgLow');
   }
 
-  String msgCount(int value) {
+  String msgCount(value) {
     return Intl.plural(value,
         zero: 'Kein Wert',
         one: '1 Wert',
@@ -1163,12 +1163,13 @@ abstract class BasePrint {
   String msgHistorical(value) =>
       Intl.message('Historisch ${value}', args: [value], name: 'msgHistorical');
 
-  String msgColumns(int count) => Intl.plural(count,
-      zero: 'Eine Spalte abwählen, um eine<br>andere aktivieren zu können',
+  String msgColumns(count) => Intl.plural(count,
+      zero: 'Eine Spalte abwählen, um eine@nl@andere aktivieren zu '
+          'können',
       one: 'Noch eine Spalte verfügbar',
       other: 'Noch $count Spalten verfügbar',
       args: [count],
-      name: 'msgColumns');
+      name: 'msgColumns').replaceAll('@nl@', '<br>');
 
   String titleInfoForDates(DateTime startDate, DateTime endDate) {
     String ret;

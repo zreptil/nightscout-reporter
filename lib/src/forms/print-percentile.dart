@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
@@ -214,6 +215,55 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
     }
   }
 
+  void fillDebugRow(dynamic row, double f, int hour, List<EntryData> entryList,
+      List<TreatmentData> treatList, String style) {
+    var firstCol = '${g.fmtNumber(hour, 0, 2)}:00';
+    var day = DayData(
+        null,
+        repData.profile(DateTime(
+            repData.begDate.year, repData.begDate.month, repData.begDate.day)));
+    day.entries.addAll(entryList);
+    day.treatments.addAll(treatList);
+    day.init();
+    var time = DateTime(0, 1, 1, hour);
+    var perc = PercentileData(time);
+    for (var entry in entryList) {
+      if (entry.gluc < 0) continue;
+      perc.add(entry);
+    }
+
+    var wid = 2.0 / 100.0;
+    var colcount = showCol1090 ? 10 : 8;
+    colcount = 5;
+    colcount += showCol1090 ? 3 : 0;
+    colcount += showColKH ? 1 : 0;
+    colcount += showColIE ? 1 : 0;
+    colcount += showColCount ? 1 : 0;
+    colcount += showColAverage ? 1 : 0;
+    colcount += showColMin ? 1 : 0;
+    colcount += showColMax ? 1 : 0;
+    colcount += showColStdAbw ? 1 : 0;
+    var f = fs(showCol1090 ? 7 : 10);
+    var w = (width - 4.0 - 2.0 - wid * 100) / colcount - 0.45;
+    var h = showCol1090 ? 0.35 : 0.5;
+
+    dynamic value = day.avgInsulinPerDay;
+    if (value['value'] >= 0.1) {
+      addTableRow(true, cm(width), row, {
+        'text': 'OLEOLE',
+        'style': 'total',
+        'alignment': 'center',
+        'fontSize': f
+      }, {
+        'text': json.encode(value['dbg']),
+        'style': style,
+        'alignment': 'right',
+        'colSpan': colcount,
+        'fontSize': f
+      });
+    }
+  }
+
   void fillRow(dynamic row, double f, int hour, List<EntryData> entryList,
       List<TreatmentData> treatList, String style) {
     var firstCol = '${g.fmtNumber(hour, 0, 2)}:00';
@@ -423,6 +473,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
       });
     }
     if (showColKH) {
+      dynamic value = day.avgCarbsPerDay;
       addTableRow(true, cm(w), row, {
         'text': msgCarbShort,
         'style': 'total',
@@ -430,9 +481,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
             'ent': 'center',
         'fontSize': f
       }, {
-        'text': day.avgCarbsPerDay >= 0.1
-            ? '${g.glucFromData(day.avgCarbsPerDay, 1)}'
-            : '',
+        'text': value['value'] >= 0.1 ? g.fmtNumber(value['value'], 1) : '',
         'style': style,
         'alignment': ''
             'right',
@@ -440,6 +489,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
       });
     }
     if (showColIE) {
+      dynamic value = day.avgInsulinPerDay;
       addTableRow(true, cm(w), row, {
         'text': msgGluc,
         'style': 'total',
@@ -447,13 +497,9 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
             'ent': 'center',
         'fontSize': f
       }, {
-        'text': day.avgInsulinPerDay >= 0.1
-            ? '${g.glucFromData(day.avgInsulinPerDay, 1)}'
-            : '',
+        'text': value['value'] >= 0.1 ? g.fmtNumber(value['value'], 1) : '',
         'style': style,
-        'ali'
-            'gnment': ''
-            'right',
+        'alignment': 'right',
         'fontSize': f
       });
     }
@@ -482,8 +528,15 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
       }
       var row = [];
       fillRow(row, f, i, entryList, treatList, 'row');
+
       if (body.isEmpty) body.add(tableHeadLine);
       body.add(row);
+
+      row = [];
+      fillDebugRow(row, f, i, entryList, treatList, 'row');
+      if (row.length > 0) {
+        body.add(row);
+      }
     }
     yorg += 0.5;
 
@@ -726,14 +779,16 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
       if (entry.percentile(high) != entry.percentile(low)) ret = true;
       x = glucX(entry.time);
       ptsHigh.add({'x': cm(x), 'y': cm(glucY(entry.percentile(high)))});
-      if (high != low)
+      if (high != low) {
         ptsLow.insert(0, {'x': cm(x), 'y': cm(glucY(entry.percentile(low)))});
+      }
     }
     x = glucX(DateTime(0, 1, 1, 23, 59, 59));
     ptsHigh.add({'x': cm(x), 'y': cm(glucY(percList.first.percentile(high)))});
-    if (high != low)
+    if (high != low) {
       ptsLow.insert(
           0, {'x': cm(x), 'y': cm(glucY(percList.first.percentile(low)))});
+    }
     var area = {
       'type': 'polyline',
       'lineWidth': cm(lw),
@@ -844,9 +899,10 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
       areaPoints.add({'x': cm(x), 'y': cm(y)});
       lastY = y;
     }
-    if (lastY != null)
+    if (lastY != null) {
       areaPoints
           .add({'x': cm(basalX(DateTime(0, 1, 1, 23, 59))), 'y': cm(lastY)});
+    }
 
     areaPoints.add({
       'x': cm(basalX(DateTime(0, 1, 1, 23, 59))),

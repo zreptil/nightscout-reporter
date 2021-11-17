@@ -54,7 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m16(url) => "Compruebe el acceso a ${url}...";
 
-  static m17(count) => "{count,plural, =0{Eine Spalte abwählen, um eine<br>andere aktivieren zu können}=1{Noch eine Spalte verfügbar}other{Noch ${count} Spalten verfügbar}}";
+  static m17(count) => "${Intl.plural(count, zero: 'Eine Spalte abwählen, um eine@nl@andere aktivieren zu können', one: 'Noch eine Spalte verfügbar', other: 'Noch ${count} Spalten verfügbar')}";
 
   static m18(value) => "Bolo de corrección (${value})";
 

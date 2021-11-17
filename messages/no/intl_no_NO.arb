@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-11-07T10:41:23.394001",
+    "@@last_modified": "2021-11-17T10:34:17.744220",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1339,7 +1339,7 @@
             "value": {}
         }
     },
-    "msgColumns": "{count,plural, =0{Deselect a column<br>to activate another one}=1{One more column available}other{{count} columns still available}}",
+    "msgColumns": "{count,plural, one {} =0{Deselect a column@nl@to be able to activate another one}=1{One more column available}other{{count} columns still available}}",
     "@msgColumns": {
         "type": "text",
         "placeholders": {
