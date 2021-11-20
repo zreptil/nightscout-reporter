@@ -1957,7 +1957,6 @@ class DayData {
         count++;
       }
     }
-    ret = count > 0 ? ret / count : 0.0;
     return {
       'value': dayCount >= 1 ? ret / dayCount : 0.0,
       'dbg': dbg
@@ -1987,7 +1986,6 @@ class DayData {
         count++;
       }
     }
-    ret = count > 0 ? ret / count : 0.0;
     return {
       'value': dayCount >= 1 ? ret / dayCount : 0.0,
       'dbg': dbg

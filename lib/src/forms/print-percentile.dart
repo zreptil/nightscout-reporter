@@ -206,17 +206,17 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
   void fillPages(List<Page> pages) async {
     titleInfo = titleInfoBegEnd();
     if (showGPD) pages.add(getPage());
-    if (showTable) pages.add(getTablePage());
+    if (showTable) getTablePage(pages);
     if (g.showBothUnits) {
       g.glucMGDLIdx = 1;
       if (showGPD) pages.add(getPage());
-      if (showTable) pages.add(getTablePage());
+      if (showTable) getTablePage(pages);
       g.glucMGDLIdx = 2;
     }
   }
 
-  void fillDebugRow(dynamic row, double f, int hour, List<EntryData> entryList,
-      List<TreatmentData> treatList, String style) {
+  int fillDebugRow(String type, dynamic row, double f, int hour,
+      List<EntryData> entryList, List<TreatmentData> treatList, String style) {
     var firstCol = '${g.fmtNumber(hour, 0, 2)}:00';
     var day = DayData(
         null,
@@ -246,22 +246,48 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
     var f = fs(showCol1090 ? 7 : 10);
     var w = (width - 4.0 - 2.0 - wid * 100) / colcount - 0.45;
     var h = showCol1090 ? 0.35 : 0.5;
-
-    dynamic value = day.avgInsulinPerDay;
+    dynamic value = 0.0;
+    String label = '';
+    switch (type) {
+      case 'carbs':
+        value = day.avgCarbsPerDay;
+        label = msgCarbShort;
+        break;
+      case 'insulin':
+        value = day.avgInsulinPerDay;
+        label = msgGluc;
+        break;
+    }
+    var ret = 0;
     if (value['value'] >= 0.1) {
-      addTableRow(true, cm(width), row, {
-        'text': 'OLEOLE',
+      var text = json.encode(value['dbg']);
+      addTableRow(true, cm(2.0), row, {
+        'text': label,
         'style': 'total',
         'alignment': 'center',
         'fontSize': f
       }, {
-        'text': json.encode(value['dbg']),
-        'style': style,
-        'alignment': 'right',
-        'colSpan': colcount,
+        'text': label,
+        'style': 'total',
+        'alignment': 'left',
         'fontSize': f
       });
+      addTableRow(true, cm(width - 2.0), row, {
+        'text': label,
+        'style': 'total',
+        'alignment': 'center',
+        'fontSize': f
+      }, {
+        'text': text,
+        'style': style,
+        'alignment': 'right',
+        'colSpan': colcount - 1,
+        'fontSize': f
+      });
+      ret = (text.length ~/ 100) + 1;
     }
+
+    return ret;
   }
 
   void fillRow(dynamic row, double f, int hour, List<EntryData> entryList,
@@ -506,7 +532,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
     tableHeadFilled = true;
   }
 
-  Page getTablePage() {
+  Page getTablePage(List<Page> pages) {
     isPortrait = true;
     var body = [];
     var f = 3.3;
@@ -517,6 +543,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
     tableWidths = [];
     yorg -= 0.5;
 
+    double y = yorg;
     for (var i = 0; i < 24; i++) {
       var entryList = <EntryData>[];
       var treatList = <TreatmentData>[];
@@ -531,11 +558,33 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
 
       if (body.isEmpty) body.add(tableHeadLine);
       body.add(row);
+      y += 0.6;
 
-      row = [];
-      fillDebugRow(row, f, i, entryList, treatList, 'row');
-      if (row.length > 0) {
-        body.add(row);
+      if (g.isDebug) {
+        row = [];
+        var lines =
+            fillDebugRow('carbs', row, f, i, entryList, treatList, 'row');
+        if (row.length > 0) {
+          body.add(row);
+          y += 0.6 * lines;
+        }
+        row = [];
+        lines = fillDebugRow('insulin', row, f, i, entryList, treatList, 'row');
+        if (row.length > 0) {
+          body.add(row);
+          y += 0.6 * lines;
+        }
+      }
+
+      if (y > 23 && i < 23) {
+        title = BasePrint.msgHourlyStats;
+        subtitle = '';
+        var hf = headerFooter();
+        dynamic content = [hf, getTable(tableWidths, body)];
+        pages.add(Page(isPortrait, content));
+        title = BasePrint.titleGPD;
+        y = yorg;
+        body = [];
       }
     }
     yorg += 0.5;
@@ -544,10 +593,9 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
     subtitle = '';
     var hf = headerFooter();
     dynamic content = [hf, getTable(tableWidths, body)];
-    dynamic ret = Page(isPortrait, content);
+    pages.add(Page(isPortrait, content));
     title = BasePrint.titleGPD;
     isPortrait = false;
-    return ret;
   }
 
   Page getPage() {
