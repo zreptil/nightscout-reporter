@@ -15,10 +15,10 @@ class PrintUserData extends BasePrint {
   bool isLocalOnly = true;
 
   @override
-  String id = 'userdata';
+  String baseId = 'userdata';
 
   @override
-  String idx = '14';
+  String baseIdx = '14';
 
   final _title = Intl.message('Benutzerdaten');
 
@@ -35,9 +35,9 @@ class PrintUserData extends BasePrint {
 
   static String get msgParam1 => Intl.message('Alle Benutzer ausgeben');
 
-  PrintUserData() {
+  PrintUserData({suffix = null}) {
     title = _title;
-    init();
+    init(suffix);
   }
 
   @override

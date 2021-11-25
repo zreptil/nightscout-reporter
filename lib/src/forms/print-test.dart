@@ -7,10 +7,10 @@ import 'base-print.dart';
 
 class PrintTest extends BasePrint {
   @override
-  String id = 'test';
+  String baseId = 'test';
 
   @override
-  String idx = '00';
+  String baseIdx = '00';
 
   bool showEntries = false;
   bool showTreatments = true;
@@ -54,8 +54,8 @@ class PrintTest extends BasePrint {
   @override
   String get title => 'Datensätze';
 
-  PrintTest() {
-    init();
+  PrintTest({suffix = null}) {
+    init(suffix);
   }
 
   bool _isFirst = true;

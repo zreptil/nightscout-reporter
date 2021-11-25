@@ -21,10 +21,10 @@ class PrintGlucDistribution extends BasePrint {
 im ausgewählten Zeitraum an.''', desc: 'help for template');
 
   @override
-  String id = 'glucdist';
+  String baseId = 'glucdist';
 
   @override
-  String idx = '15';
+  String baseIdx = '15';
 
   @override
   String get title => Intl.message('Verteilung der Glukosewerte');
@@ -41,8 +41,8 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
   @override
   bool get isPortrait => false;
 
-  PrintAnalysis() {
-    init();
+  PrintGlucDistribution({suffix = null}) {
+    init(suffix);
   }
 
   @override

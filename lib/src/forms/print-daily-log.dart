@@ -22,10 +22,10 @@ erkannt wurden oder wo Notizen erfasst wurden.
       desc: 'help for daylog');
 
   @override
-  String id = 'daylog';
+  String baseId = 'daylog';
 
   @override
-  String idx = '07';
+  String baseIdx = '07';
 
   bool showNotes,
       showCarbs,
@@ -185,8 +185,8 @@ erkannt wurden oder wo Notizen erfasst wurden.
 
   num lineWidth;
 
-  PrintDailyLog() {
-    init();
+  PrintDailyLog({suffix = null}) {
+    init(suffix);
   }
 
   bool _isFirstLine = true;

@@ -54,10 +54,10 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       desc: 'help for daygraph');
 
   @override
-  String id = 'daygraph';
+  String baseId = 'daygraph';
 
   @override
-  String idx = '05';
+  String baseIdx = '05';
 
   bool showPictures,
       showInsulin,
@@ -305,8 +305,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
   List<CollectInfo> collInsulin = <CollectInfo>[];
   List<CollectInfo> collCarbs = <CollectInfo>[];
 
-  PrintDailyGraphic() {
-    init();
+  PrintDailyGraphic({suffix = null}) {
+    init(suffix);
   }
 
   @override

@@ -121,7 +121,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = '2.0.10';
+  String version = '2.0.11';
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.
@@ -260,6 +260,8 @@ class Settings {
     debugCache.add(msg);
     if (canDebug && doShowDebug != null) doShowDebug();
   }
+
+  String get pdfOrder => _pdfOrder;
 
   set pdfOrder(String value) {
     _pdfOrder = value;
@@ -415,25 +417,18 @@ class Settings {
 
   void sortConfigs() {
     if (_pdfOrder == '' || listConfig.isEmpty) return;
-    // TODO: 17.7.2020 - can be removed in future versions
-    if (_pdfOrder.contains(',')) {
-      var idList = _pdfOrder.split(',');
-      _pdfOrder = '';
-      for (var i = 0; i < idList.length; i++) {
-        var cfg = listConfig.firstWhere((cfg) => cfg.id == idList[i],
-            orElse: () => null);
-        if (cfg != null) {
-          _pdfOrder += cfg.idx;
-        }
-      }
-    }
-    // 17.7.2020: end
     user.saveParamsToForms();
     var srcList = listConfig.sublist(0);
     listConfig.clear();
     var idxList = <String>[];
-    for (var i = 0; i < _pdfOrder.length; i += 2) {
-      idxList.add(_pdfOrder.substring(i, i + 2));
+    if (_pdfOrder.length < 48) {
+      for (var i = 0; i < _pdfOrder.length; i += 2) {
+        idxList.add(_pdfOrder.substring(i, i + 2));
+      }
+    } else {
+      for (var i = 0; i < _pdfOrder.length; i += 3) {
+        idxList.add(_pdfOrder.substring(i, i + 3));
+      }
     }
 //    var idList = _pdfOrder.split(",");
     for (var i = 0; i < idxList.length; i++) {
@@ -454,7 +449,7 @@ class Settings {
   Map<String, dynamic> get currentFormsAsMap {
     var ret = <String, dynamic>{};
     for (var cfg in listConfig) {
-      if (cfg.checked) ret[cfg.form.id] = cfg.asJson;
+      if (cfg.checked) ret[cfg.form.dataId] = cfg.asJson;
     }
     return ret;
   }
@@ -559,7 +554,7 @@ class Settings {
       if (idx >= 0) language = languageList[idx];
       showCurrentGluc = JsonData.toBool(json['s7']);
       period = DatepickerPeriod(src: JsonData.toText(json['s8']));
-      pdfOrder = JsonData.toText(json['s9']);
+      _pdfOrder = JsonData.toText(json['s9']);
       viewType = JsonData.toText(json['s10']);
       timestamp = JsonData.toInt(json['s11']);
       tileShowImage = JsonData.toBool(json['s12'], ifEmpty: true);
@@ -1812,13 +1807,13 @@ class Globals extends Settings {
   void fillFormsFromShortcut(ShortcutData data) {
     period = DatepickerPeriod(src: data.periodData);
     for (var cfg in listConfig) {
-      cfg.checked = data.forms.keys.contains(cfg.form.id);
+      cfg.checked = data.forms.keys.contains(cfg.form.dataId);
       if (cfg.checked) {
-        cfg.fillFromJson(data.forms[cfg.form.id]);
+        cfg.fillFromJson(data.forms[cfg.form.dataId]);
       }
     }
     for (var entry in listConfig) {
-      user.formParams[entry.id] = entry.asString;
+      user.formParams[entry.dataId] = entry.asString;
     }
     _pdfOrder = data.pdfOrder;
     glucMGDLIdx = data.glucMGDLIdx;
@@ -1935,13 +1930,13 @@ class UserData {
 
   void saveParamsToForms() {
     for (var entry in g.listConfig) {
-      entry.fillFromString(formParams[entry.id]);
+      entry.fillFromString(formParams[entry.dataId]);
     }
   }
 
   void loadParamsFromForms() {
     for (var entry in g.listConfig) {
-      formParams[entry.id] = entry.asString;
+      formParams[entry.dataId] = entry.asString;
     }
   }
 

@@ -28,10 +28,10 @@ erkennbar ist.''',
       desc: 'help for analysis');
 
   @override
-  String id = 'analysis';
+  String baseId = 'analysis';
 
   @override
-  String idx = '01';
+  String baseIdx = '01';
 
   @override
   String get title => Intl.message('Auswertung');
@@ -62,8 +62,8 @@ erkennbar ist.''',
   @override
   bool get isPortrait => true;
 
-  PrintAnalysis() {
-    init();
+  PrintAnalysis({suffix = null}) {
+    init(suffix);
   }
 
   @override
@@ -282,8 +282,7 @@ erkennbar ist.''',
         {'text': '', 'style': 'infotitle'},
         {'text': msgReadingsCount, 'style': 'infotitle'},
         {'text': g.fmtNumber(count), 'style': 'infodata'},
-        {'text': '🏀($countPeriod)', 'style': 'infounit', 'colSpan'
-            : 3},
+        {'text': '🏀($countPeriod)', 'style': 'infounit', 'colSpan': 3},
         {'text': '', 'style': 'infounit'},
       ],
       [

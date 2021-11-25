@@ -17,10 +17,10 @@ die Basalrate geändert hat, wird eine neue Seite erzeugt.
 Es gibt aber eine Option, welche nur die letzte Basalrate des Zeitraums ausgibt.''', desc: 'help for basal');
 
   @override
-  String id = 'basal';
+  String baseId = 'basal';
 
   @override
-  String idx = '09';
+  String baseIdx = '09';
 
   @override
   String get title => msgBasalrate;
@@ -49,7 +49,7 @@ Es gibt aber eine Option, welche nur die letzte Basalrate des Zeitraums ausgibt.
 
   num lineWidth;
 
-  PrintBasalrate() : super();
+  PrintBasalrate({suffix = null}) : super(suffix: suffix);
 
   @override
   void extractParams() {

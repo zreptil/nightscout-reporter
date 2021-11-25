@@ -15,10 +15,10 @@ class PrintDailyAnalysis extends BaseDaily {
   Board und Carbs On Board angezeigt.''', desc: 'help for dailyanalysis');
 
   @override
-  String id = 'dayanalysis';
+  String baseId = 'dayanalysis';
 
   @override
-  String idx = '06';
+  String baseIdx = '06';
 
   bool spareBool1;
   bool _isPortrait = true;
@@ -99,8 +99,8 @@ class PrintDailyAnalysis extends BaseDaily {
       ? graphHeight - (basalHeight / profMax * value)
       : 0.0;
 
-  PrintDailyAnalysis() {
-    init();
+  PrintDailyAnalysis({suffix = null}) {
+    init(suffix);
   }
 
   @override

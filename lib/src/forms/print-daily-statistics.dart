@@ -17,10 +17,10 @@ schwächerer Schrift angezeigt wird.
       desc: 'help for daystats');
 
   @override
-  String id = 'daystats';
+  String baseId = 'daystats';
 
   @override
-  String idx = '04';
+  String baseIdx = '04';
 
   bool showHbA1c,
       showStdabw,
@@ -154,8 +154,8 @@ schwächerer Schrift angezeigt wird.
     return ret;
   }
 
-  PrintDailyStatistics() {
-    init();
+  PrintDailyStatistics({suffix = null}) {
+    init(suffix);
   }
 
   void fillRow(

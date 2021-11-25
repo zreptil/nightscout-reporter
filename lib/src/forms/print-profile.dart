@@ -33,15 +33,15 @@ die gleichen Werte beinhalten.''', desc: 'help for profile');
   dynamic get estimatePageCount => {'count': 1, 'isEstimated': true};
 
   @override
-  String id = 'profile';
+  String baseId = 'profile';
 
   @override
-  String idx = '02';
+  String baseIdx = '02';
 
   @override
   String get title => Intl.message('Profil');
 
-  PrintProfile() : super();
+  PrintProfile({suffix = null}) : super(suffix: suffix);
 
   static String get msgParam1 => Intl.message('Zeilen mit gleichen Werten zusammenfassen');
 

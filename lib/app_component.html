@@ -164,6 +164,14 @@
             <div pagesportrait *ngIf="cfg.checked && g.tileShowImage && cfg.form.isPortraitParam">
               {{cfg.form.pageCountDisplay(reportData==null)}}
             </div>
+            <div copy *ngIf="mayCopy(cfg)"
+                 (click)="clickTileCopy($event,cfg, idx)">
+              <material-icon icon="content_copy"></material-icon>
+            </div>
+            <div copy *ngIf="mayDelete(cfg)"
+                 (click)="clickTileDelete($event,idx)">
+              <material-icon icon="delete"></material-icon>
+            </div>
           </div>
         </template>
       </div>

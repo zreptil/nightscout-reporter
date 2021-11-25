@@ -42,8 +42,8 @@ abstract class BaseProfile extends BasePrint {
 
   bool mayShowBothUnits = true;
 
-  BaseProfile() {
-    init();
+  BaseProfile({suffix = null}) {
+    init(suffix);
   }
 
   @override

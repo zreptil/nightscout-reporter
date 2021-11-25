@@ -314,10 +314,10 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
 ''', desc: 'help for cgp');
 
   @override
-  String id = 'cgp';
+  String baseId = 'cgp';
 
   @override
-  String idx = '10';
+  String baseIdx = '10';
 
   @override
   String get title => Intl.message('CGP');
@@ -335,9 +335,9 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
   @override
   bool get isPortrait => _isPortrait;
 
-  PrintCGP() {
+  PrintCGP({suffix = null}) {
     footerTextAboveLine = {'x': 0, 'y': 1.2, 'fs': 8, 'text': '${msgSource}'};
-    init();
+    init(suffix);
   }
 
   @override

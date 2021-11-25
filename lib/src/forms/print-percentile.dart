@@ -50,10 +50,10 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
       desc: 'help for percentile');
 
   @override
-  String id = 'percentile';
+  String baseId = 'percentile';
 
   @override
-  String idx = '03';
+  String baseIdx = '03';
 
   bool showGPD,
       showTable,
@@ -197,8 +197,8 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
   double glucX(DateTime time) =>
       gridWidth / 1440 * (time.hour * 60 + time.minute);
 
-  PrintPercentile() {
-    init();
+  PrintPercentile({suffix = null}) {
+    init(suffix);
     title = BasePrint.titleGPD;
   }
 

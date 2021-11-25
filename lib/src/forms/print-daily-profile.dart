@@ -26,10 +26,10 @@ Profilbasalrate die Balken über die Spalte hinaus verlängert. Es gibt aber ein
 und als Pfeile darstellen zu lassen.''', desc: 'help for dayprofile');
 
   @override
-  String id = 'dayprofile';
+  String baseId = 'dayprofile';
 
   @override
-  String idx = '11';
+  String baseIdx = '11';
 
   @override
   String get title => Intl.message('Tagesprofil');
@@ -52,8 +52,8 @@ und als Pfeile darstellen zu lassen.''', desc: 'help for dayprofile');
 
   static String get msgParam4 => Intl.message('Werte über dem Maximum als Pfeile darstellen');
 
-  PrintDailyProfile() {
-    init();
+  PrintDailyProfile({suffix = null}) {
+    init(suffix);
   }
 
   @override

@@ -9,10 +9,10 @@ class PrintTemplate extends BasePrint {
       Intl.message('''Dieses Formular ...''', desc: 'help for template');
 
   @override
-  String id = 'template';
+  String baseId = 'template';
 
   @override
-  String idx = '16';
+  String baseIdx = '16';
 
   @override
   String get title => Intl.message('Template');
@@ -27,8 +27,8 @@ class PrintTemplate extends BasePrint {
   @override
   bool get isPortrait => true;
 
-  PrintAnalysis() {
-    init();
+  PrintAnalysis({suffix = null}) {
+    init(suffix);
   }
 
   @override

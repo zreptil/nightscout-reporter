@@ -25,10 +25,10 @@ nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz
       desc: 'help for daygluc');
 
   @override
-  String id = 'daygluc';
+  String baseId = 'daygluc';
 
   @override
-  String idx = '12';
+  String baseIdx = '12';
 
   @override
   String get title => Intl.message('Tagestrend');
@@ -53,8 +53,8 @@ nicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz
       name: 'msgBasalInfo',
       meaning: 'The informational text on the page Daytrend for the basalrate');
 
-  PrintDailyProfile() {
-    init();
+  PrintDailyGluc({suffix = null}) {
+    init(suffix);
   }
 
   @override
