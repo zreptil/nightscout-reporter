@@ -1270,7 +1270,7 @@ class AppComponent implements OnInit {
     message.dbgText = text;
 */
     // remove all profiles with a length of 0
-    data.profiles.removeWhere((p) => p.duration < 2 && p != data.profiles.last);
+    data.profiles.removeWhere((p) => p.duration < 2 && p != data.profiles.last && !p.store.containsKey('NR Profil'));
 
     TreatmentData lastTempBasal;
     // add the previous day of the period to have the daydata available in forms that need this information

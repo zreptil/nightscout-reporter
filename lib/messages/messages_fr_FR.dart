@@ -124,77 +124,81 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m51(hba1c) => "La valeur glycémique moyenne de la période spécifiée.";
 
-  static m52(min, max) => "mauvais (${min} à ${max})";
+  static m52(name) => "Use profile \"${name}\"";
 
-  static m53(min, max) => "bon (${min} à ${max})";
+  static m53(name) => "The profile with the name \"${name}\" could not be found. This must be set up in the profile editor on the Nightscout page. A profile must be set up there with the name \"${name}\" in order to be able to generate this form. The link below opens the profile editor. Under certain circumstances, the authentication must then be carried out at the very bottom of the page in order to be able to change the values.";
 
-  static m54(max) => "très mauvais (supérieur à ${max})";
+  static m54(min, max) => "mauvais (${min} à ${max})";
 
-  static m55(min) => "excellent (moins de ${min})";
+  static m55(min, max) => "bon (${min} à ${max})";
 
-  static m56(oldName, newName) => "Changement de profil - ${oldName} => ${newName}";
+  static m56(max) => "très mauvais (supérieur à ${max})";
 
-  static m57(oldName, newName, duration) => "Changement de profil - ${oldName} => ${newName} pour ${duration} minutes";
+  static m57(min) => "excellent (moins de ${min})";
 
-  static m58(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par minute', other: 'valeur chaque ${fmt} minutes')}";
+  static m58(oldName, newName) => "Changement de profil - ${oldName} => ${newName}";
 
-  static m59(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par jour', other: '${fmt} valeurs par jour')}";
+  static m59(oldName, newName, duration) => "Changement de profil - ${oldName} => ${newName} pour ${duration} minutes";
 
-  static m60(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par heure', other: '${fmt} valeurs par heure')}";
+  static m60(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par minute', other: 'valeur chaque ${fmt} minutes')}";
 
-  static m61(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} jour par réservoir)', other: '(${txt} jours par réservoir)')}";
+  static m61(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par jour', other: '${fmt} valeurs par jour')}";
 
-  static m62(value) => "SMB (${value})";
+  static m62(howMany, fmt) => "${Intl.plural(howMany, zero: 'Aucune valeur disponible', one: '1 valeur par heure', other: '${fmt} valeurs par heure')}";
 
-  static m63(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} jour par capteur)', other: '(${txt} jours par capteur)')}";
+  static m63(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} jour par réservoir)', other: '(${txt} jours par réservoir)')}";
 
-  static m64(low, high, unit) => "Utiliser la zone cible standard (${low} ${unit} - ${high} ${unit})";
+  static m64(value) => "SMB (${value})";
 
-  static m65(isVisible) => "La date du premier jour avec les données";
+  static m65(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} jour par capteur)', other: '(${txt} jours par capteur)')}";
 
-  static m66(value) => "(Éc.type ${value})";
+  static m66(low, high, unit) => "Utiliser la zone cible standard (${low} ${unit} - ${high} ${unit})";
 
-  static m67(value) => "ToR [${value}min/d]";
+  static m67(isVisible) => "La date du premier jour avec les données";
 
-  static m68(min, max) => "La durée quotidienne en minutes dans laquelle les valeurs sont en dehors de l\'intervalle ${min} à ${max}.";
+  static m68(value) => "(Éc.type ${value})";
 
-  static m69(unit) => "Zone cible de glycémies ${unit}";
+  static m69(value) => "ToR [${value}min/d]";
 
-  static m70(min, max, units) => "Plage cible (${min} - ${max} ${units})";
+  static m70(min, max) => "La durée quotidienne en minutes dans laquelle les valeurs sont en dehors de l\'intervalle ${min} à ${max}.";
 
-  static m71(value) => "Valeur cible";
+  static m71(unit) => "Zone cible de glycémies ${unit}";
 
-  static m72(time) => "${time}";
+  static m72(min, max, units) => "Plage cible (${min} - ${max} ${units})";
 
-  static m73(time) => "${time} am";
+  static m73(value) => "Valeur cible";
 
-  static m74(time) => "${time} pm";
+  static m74(time) => "${time}";
 
-  static m75(maxCount, count, text) => "${Intl.plural(count, zero: '', one: 'Le chargeur \"${text}\" a créé les enregistrements.', other: 'Les téléchargeurs suivants ont créé les enregistrements: ${text}')}";
+  static m75(time) => "${time} am";
 
-  static m76(maxCount) => "Tous les profils n\'ont pas pu être chargés car plus de ${maxCount} sont enregistrés dans la période sélectionnée. ";
+  static m76(time) => "${time} pm";
 
-  static m77(begDate) => "valide depuis ${begDate}";
+  static m77(maxCount, count, text) => "${Intl.plural(count, zero: '', one: 'Le chargeur \"${text}\" a créé les enregistrements.', other: 'Les téléchargeurs suivants ont créé les enregistrements: ${text}')}";
 
-  static m78(begDate, endDate) => "valide de ${begDate} à ${endDate}";
+  static m78(maxCount) => "Tous les profils n\'ont pas pu être chargés car plus de ${maxCount} sont enregistrés dans la période sélectionnée. ";
 
-  static m79(endDate) => "valide jusqu\'à ${endDate}";
+  static m79(begDate) => "valide depuis ${begDate}";
 
-  static m80(high) => "Valeurs supérieures à ${high}";
+  static m80(begDate, endDate) => "valide de ${begDate} à ${endDate}";
 
-  static m81(low) => "Valeurs inférieures à ${low}";
+  static m81(endDate) => "valide jusqu\'à ${endDate}";
 
-  static m82(low, high) => "Valeurs entre ${low} et ${high}";
+  static m82(high) => "Valeurs supérieures à ${high}";
 
-  static m83(low, high) => "Plage cible (${low} - ${high})";
+  static m83(low) => "Valeurs inférieures à ${low}";
 
-  static m84(value) => "Valeurs élevées (${value})";
+  static m84(low, high) => "Valeurs entre ${low} et ${high}";
 
-  static m85(value) => "Valeurs basses (${value})";
+  static m85(low, high) => "Plage cible (${low} - ${high})";
 
-  static m86(value) => "Valeurs très élevées ( > ${value})";
+  static m86(value) => "Valeurs élevées (${value})";
 
-  static m87(value) => "Valeurs très basses (< ${value})";
+  static m87(value) => "Valeurs basses (${value})";
+
+  static m88(value) => "Valeurs très élevées ( > ${value})";
+
+  static m89(value) => "Valeurs très basses (< ${value})";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -247,7 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "2.0.0 - 15.7.2020" : MessageLookupByLibrary.simpleMessage("2.0.0 - 15/7/2020"),
     "2.0.1 - 8.9.2020" : MessageLookupByLibrary.simpleMessage("2.0.1 - 8/9/2020"),
     "2.0.10 - 07.11.2021" : MessageLookupByLibrary.simpleMessage("2.0.10 - 07/11/2021"),
-    "2.0.11 - 25.11.2021" : MessageLookupByLibrary.simpleMessage("2.0.11 - 25/11/2021"),
+    "2.0.11 - 26.11.2021" : MessageLookupByLibrary.simpleMessage("2.0.11 - 26/11/2021"),
     "2.0.2 - 22.9.2020" : MessageLookupByLibrary.simpleMessage("2.0.2 - 22/9/2020"),
     "2.0.3 - 18.10.2020" : MessageLookupByLibrary.simpleMessage("2.0.3 - 18/10/2020"),
     "2.0.4 - 18.02.2021" : MessageLookupByLibrary.simpleMessage("2.0.4 - 18/02/2021"),
@@ -552,7 +556,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Es gibt jetzt die Möglichkeit, PDFs vergangener Zeiträume zu erzeugen, ohne den Zeitraum anpassen zu müssen. Oberhalb des Buttons zur PDF-Erzeugung gibt es zwei Buttons, welche die PDFs für eine frühere Periode erzeugen. Der untere der beiden Buttons erzeugt die Vorperiode, der obere die vorletzte Periode. Auf den Buttons wird das Startdatum und das Enddatum angezeigt. Wenn z.B. als Zeitraum \"Letzte 2 Wochen\" gewählt wurde, dann wird mit dem unteren Button der Zeitraum von zwei Wochen beginnend vor vier Wochen erzeugt und mit dem oberen Button der Zeitraum von zwei Wochen beginnend vor sechs Wochen. Auf diese Art kann man recht einfach Vergleichsberichte erzeugen, um die Entwicklung der Werte zu erkennen. Auf den Seiten wird für diese Ausdrucke in der Kopfzeile das Wort \"Historisch 1\", bzw. \"Historisch 2\" oberhalb des Zeitraums ausgegeben. So kann man beim Vergleich der Werte die Daten voneinander unterscheiden." : MessageLookupByLibrary.simpleMessage("Il y a maintenant la possibilité de générer des PDF des périodes passées sans avoir à ajuster la période. Il y a deux boutons pour les périodes antérieures au-dessus du bouton de création de PDF qui génèrent les PDF. Le plus bas des deux boutons génère la période précédente, le plus haut génère de l\'avant-dernière période. Les boutons affichent la date de début et la date de fin. Si la période \"2 dernières semaines\" est sélectionnée, le bouton inférieur crée la période à partir de deux semaines commençant il y a quatre semaines et le bouton supérieur la période de deux semaines commençant il y a six semaines. De cette façon, il est facile de générer des rapports de comparaison pour détecter la variabilité des mesures. Les mots \"Historique 1\" ou \"Historique 2\" sont placés au-dessus de la période dans l\'en-tête des rapports imprimés. Ainsi, vous pouvez distinguer les données les unes des autres lors de la comparaison des résultats."),
     "Es gibt jetzt kleine Hilfebuttons bei den Formularen. In der Listenansicht ersetzen sie die Icons zum Ziehen der Formulare, in der Kachelansicht werden sie links oben auf den Kacheln dargestellt. Die jeweilige Ansicht kann man im Hamburgermenü auswählen. Beim Anklicken eines solchen Buttons wird ein Text angezeigt, der beschreibt, was das entsprechende Formular darstellt." : MessageLookupByLibrary.simpleMessage("There are now small help buttons on the forms. In the list view they replace the icons for dragging the forms, in the tile view they are displayed on the top left of the tiles. The respective view can be selected in the hamburger menu. When you click on such a button, a text is displayed that describes what the corresponding form shows."),
     "Es gibt keine mehrfachen Datensätze." : MessageLookupByLibrary.simpleMessage("Il n\'y a pas de jeux de données multiples."),
-    "Es ist in der Kachelansicht jetzt möglich, Formulare zu duplizieren, um verschiedene Ansichten des gleichen Formulars auf einmal zu erzeugen. Dazu gibt es rechts unten auf den Kacheln ein Kopier-Icon. Wenn dieses ausgelöst wird, dann wird das aktuelle Formular kopiert und als neue Kachel hinter der aktuellen Kachel eingefügt. Diese kann dann genauso behandelt werden, wie jede andere Kachel. Auf dieser neuen Kachel gibt es rechts unten ein Mülleimer-Icon. Wenn dieses ausgelöst wird, dann wird die Kachel wieder entfernt. Von einem Formular können maximal 2 Kopien erstellt werden. Die Optionen der Formulare werden ebenso wie die Reihenfolge wie bisher auch gespeichert. Die kopierten Kacheln bleiben also erhalten. In der Listenansicht tauchen die kopierten Formulare auch auf. Allerdings gibt es dort nicht die Möglichkeit, sie zu kopieren oder zu löschen. Das muss in der Kachelansicht erfolgen." : MessageLookupByLibrary.simpleMessage("It is now possible to duplicate forms in the tile view in order to create different views of the same form at once. There is a copy icon on the bottom right of the tiles. When this is triggered, the current form is copied and inserted as a new tile behind the current tile. This can then be treated in the same way as any other tile. There is a trash can icon at the bottom right of this new tile. When this is triggered, the tile is removed. A maximum of 2 copies can be made of a form. The options for the forms, as well as the order, are saved as before. The copied tiles are therefore retained. The copied forms also appear in the list view. However, there is no possibility of copying or deleting them there. This must be done in the tile view."),
+    "Es ist in der Kachelansicht jetzt möglich, Formulare zu duplizieren, um verschiedene Ansichten des gleichen Formulars auf einmal zu erzeugen. Dazu gibt es rechts unten auf den Kacheln ein Kopier-Icon. Wenn dieses ausgelöst wird, dann wird das aktuelle Formular kopiert und als neue Kachel hinter der aktuellen Kachel eingefügt. Diese kann dann genauso behandelt werden, wie jede andere Kachel. Auf dieser neuen Kachel gibt es rechts unten ein Mülleimer-Icon. Wenn dieses ausgelöst wird, dann wird die Kachel wieder entfernt. Von einem Formular können maximal 2 Kopien erstellt werden. Die Optionen der Formulare werden ebenso wie die Reihenfolge wie bisher auch gespeichert. Die kopierten Kacheln bleiben also erhalten. In der Listenansicht tauchen die kopierten Formulare auch auf. Allerdings gibt es dort nicht die Möglichkeit, sie zu kopieren oder zu löschen. Das muss in der Kachelansicht erfolgen." : MessageLookupByLibrary.simpleMessage("Il est maintenant possible de dupliquer des formulaires dans la vue des tuiles afin de créer des vues différentes du même formulaire à la fois. Il y a une icône de copie en bas à droite des tuiles. Lorsque cela est déclenché, le formulaire courant est copié et inséré comme une nouvelle tuile derrière la tuile actuelle. Cela peut ensuite être traité de la même manière que n\'importe quelle autre tuile. Il y a une incône de corbeille en bas à droite de cette nouvelle tuile. Lorsque cette option est déclenchée, la tuile est retirée. Un maximum de 2 copies peut être fait d\'un formulaire. Les options pour les formulaires, ainsi que la commande, sont enregistrées comme avant. Les tuiles copiées sont donc conservées. Les formulaires copiés apparaissent également dans la vue liste. Cependant, il n\'y a aucune possibilité de les copier ou de les supprimer, ce qui doit être fait dans la vue des tuiles."),
     "Es ist jetzt möglich, die Buttons zur PDF-Auswahl als Kacheln darstellen zu lassen. Die Option dazu ist im Menü auf der linken Seite zu finden. In der Kachelansicht werden die Buttons über die verfügbare Fläche verteilt und sind so auf kleinen Geräten leichter zu treffen. Ausserdem sieht man dann normalerweise alle verfügbaren PDFs auf einen Blick und muss nicht scrollen. Auf den aktivierten Kacheln wird angezeigt, an welcher Stelle im PDF die entsprechenden Seiten ausgegeben werden und wieviele Seiten die entsprechende Kachel ausgibt. Diese Zahl kann für die meisten Kacheln korrekt ermittelt werden, bei einigen ist das aber ohne Auswertung der Daten nicht möglich (z.B. Profile und Protokoll). In diesem Fall wird entweder keine Seitenzahl oder eine Mindestzahl an Seiten angegeben. Sobald die Erstellung des PDFs erfolgt ist, werden die korrekten Zahlen angezeigt. Die Reihenfolge der Kacheln kann verändert werden, indem man sie festhält und an die Stelle verschiebt, an der man sie gerne hätte. Nach Anklicken des Icons in der oberen rechten Ecke können die Parameter für das entsprechende PDF erfasst werden." : MessageLookupByLibrary.simpleMessage("Il est maintenant possible d\'afficher les boutons de sélection PDF sous forme de tuiles, l\'option se trouve dans le menu de gauche. Dans la vue des tuiles, les boutons sont répartis sur la zone disponible et sont donc plus faciles à appuyer sur les petits appareils. En outre, vous voyez normalement tous les PDF disponibles en un coup d\'œil et n\'avez pas à défiler. Les tuiles activées indiquent à quel moment dans le PDF les pages correspondantes sont créées et à combien de pages la tuile correspond. Le nombre de pages peut être déterminé correctement pour la plupart des tuiles, mais pour certaines ce n\'est pas possible sans un aperçu des données (par exemple, les profils et protocole). Dans ce cas, aucun numéro de page ou un nombre minimum de pages n\'est affiché. Une fois le PDF créé, les bons numéros seront affichés. L\'ordre de tri des tuiles peut être modifié en le faisant glisser vers l\'endroit où vous le souhaitez. Après avoir cliqué sur l\'icône en haut à droite, les paramètres du PDF correspondant peuvent être définis."),
     "Es ist jetzt möglich, die Einstellungen auf Google Drive zu speichern. Das hat den Vorteil, dass man die Einstellungen nicht nur im aktuellen Browser hat, sondern bei jedem Browser, mit dem man sich bei Google anmeldet. Die Einstellungen werden nach wie vor im Browser gespeichert. Bei einer Verbindung zu Google Drive werden sie aber zusätzlich auf Google Drive gespeichert. Beim Laden der Seite wird überprüft, ob eine Synchronisierung gewünscht ist. Wenn das der Fall ist, dann werden die Daten von Google Drive heruntergeladen. Wenn die Daten darin neuer sind als die Daten im Browser, werden sie verwendet. Nach dem Speichern der Daten werden bei aktivierter Synchronisierung diese Daten mit dem aktuellen Zeitstempel auf Google Drive gespeichert. Die Synchronisierung wird im Menü auf der linken Seite aktiviert und deaktiviert. Sie kann auch beim erstmaligen Aufruf der Seite in einem neuen Browser direkt im Willkommensbildschirm aktiviert werden. Nightscout Reporter verlangt nur die Berechtigung die eigenen App-Daten zu speichern und zu laden und benötigt keinen Zugriff auf andere Daten auf Google Drive." : MessageLookupByLibrary.simpleMessage("Il est maintenant possible de sauvegarder les paramètres dans Google Drive. Ceci a l\'avantage que vous avez les paramètres, pas seulement dans le navigateur actuel, mais dans n\'importe quel navigateur qui est connecté à votre compte Google. Les paramètres sont toujours stockés dans le navigateur. Lorsque vous êtes connecté à Google Drive, ils seront également stockés sur Google Drive. Lors du chargement de la page, il vérifie si la synchronisation est souhaitée. Si c\'est le cas, alors les données seront téléchargées depuis Google Drive. Si les données téléchargées sont plus récentes que celles du navigateur, elles seront utilisées. Une fois les données enregistrées, la synchronisation enregistrera ces données avec l\'horodatage courant sur Google Drive. La synchronisation est activée et désactivée dans le menu de gauche. Il peut également être activé lorsque vous appelez la page pour la première fois dans un nouveau navigateur directement dans l\'écran de bienvenue. Nightscout Reporter nécessite seulement la permission de sauvegarder et de charger vos propres données d\'application et ne nécessite pas l\'accès à d\'autres données sur Google Drive."),
     "Es ist jetzt möglich, die Wochentage festzulegen, die im Zeitraum berücksichtigt werden sollen. Die entsprechenden Tage werden bei der Auswahl des Zeitraums mit den Buttons unterhalb des Monats festgelegt. Auf den PDFs werden Zeiträume dann zusätzlich mit der Information versehen, welche Wochentage berücksichtigt werden, wenn es nicht alle sind." : MessageLookupByLibrary.simpleMessage("Il est maintenant possible de définir les jours de la semaine qui devraient être utilisés dans cette période. Lors de la sélection, les jours correspondants sont réglés avec les boutons en dessous du mois. Sur les PDF, les périodes sont affichées avec les jours de la semaine qui sont utilisés, si au moins un est manquant."),
@@ -629,6 +633,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt." : MessageLookupByLibrary.simpleMessage("Vous pouvez maintenant spécifier dans les paramètres de sortie si le jour le plus récent est toujours affiché en premier. Ceci a un impact sur le graphique quotidien, les statistiques quotidiennes et le graphique hebdomadaire. L\'option correspondante a été retirée des options de formulaire."),
     "In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind." : MessageLookupByLibrary.simpleMessage("In the output parameters there is a checkbox with which you can ensure that all options that would indicate a loop are deactivated for this output. These are the options that are marked with a circle (= loop)."),
     "In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links geschoben werden, um die Dateigrösse zu verringern." : MessageLookupByLibrary.simpleMessage("Dans les paramètres, il y a un curseur qui définit la taille des fichiers PDF résultants. Lorsqu\'un PDF vide est créé, alors ce curseur doit être déplacé plus loin vers la gauche, pour réduire la taille du fichier."),
+    "In den Formularen Profil und Basalrate gibt es eine neue Option \"Profil \'NR Profil\' verwenden\". Normalerweise wird das zu verwendende Profil automatisch anhand des angegebenen Zeitraums ermittelt. Hiermit kann das unterbunden werden und ein Profil mit dem Namen \"NR Profil\" wird gesucht. Wenn dieses gefunden wird, dann wird das ausgegeben. Wenn es nicht gefunden wird, wird ein Text ausgegeben, der erklärt, wo man das einstellen kann." : MessageLookupByLibrary.simpleMessage("In the profile and basal rate forms there is a new option \"Use profile \'NR profile\'\". Normally, the profile to be used is determined automatically based on the specified time period. This option can be used to prevent this behavior and a profile with the name \"NR Profil\" is searched for. If this is found, it will be displayed. If it is not found, a text is shown that explains where this can be set."),
     "In den Optionen von Formularen, in denen man Spalten ein- und ausblenden kann, wird nun angezeigt, wieviele Spalten noch verfügbar sind." : MessageLookupByLibrary.simpleMessage("Dans les options des formulaires dans lesquels vous pouvez afficher et masquer les colonnes, il est maintenant montré combien de colonnes sont encore disponibles."),
     "In der Analyse können die Prozentzahlen für die Zielbereiche mit Nachkommazahl angezeigt werden. Das verringert die Differenz zu 100%, wenn man sie zusammenzählt. Der verbleibende Rest sind Rundungsdifferenzen." : MessageLookupByLibrary.simpleMessage("Dans l\'analyse, les pourcentages pour les zones cibles peuvent être affichés avec des décimales. Cela réduit l\'écart à 100% si vous la totalisez. Le reste est dû à des différences d\'arrondi."),
     "In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt." : MessageLookupByLibrary.simpleMessage("Il y a une nouvelle option dans l\'analyse pour affiner la plage standard. Les valeurs très élevées et les valeurs très basses sont affichées avec cette option."),
@@ -862,7 +867,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Verzögerter Bolus" : MessageLookupByLibrary.simpleMessage("Bolus retardé"),
     "Vier" : MessageLookupByLibrary.simpleMessage("Quatre"),
     "Viertes Quartal" : MessageLookupByLibrary.simpleMessage("Quatrième trimestre"),
-    "ViewWhatsnewComponent0__message_24" : m0,
+    "ViewWhatsnewComponent0__message_25" : m0,
     "Von" : MessageLookupByLibrary.simpleMessage("à partir de"),
     "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen." : MessageLookupByLibrary.simpleMessage("Avant de créer un PDF, une boîte de dialogue s\'affiche, dans laquelle vous pouvez entrer des paramètres pour tous les PDFs créés. Vous pouvez définir la zone cible à la zone standard que les médecins aiment voir. Ceci a un impact sur toutes les représentations de la zone cible, ainsi que sur la distribution des valeurs à l\'intérieur et à l\'extérieur de la zone cible. Vous pouvez également définir la valeur maximale pour le glucose dans les graphiques. Cette valeur est utilisée dans les graphiques quotidiens, le diagramme percentile et les graphiques hebdomadaires. S\'il est défini à \"Automatique\", la valeur maximale est déterminée à partir des données existantes. Vous pouvez également spécifier ici si vous voulez générer la période actuelle ou une période de comparaison. Ceci est utile pour montrer au médecin une comparaison des valeurs passées et maintenant."),
     "Warnung" : MessageLookupByLibrary.simpleMessage("Attention"),
@@ -972,42 +977,44 @@ class MessageLookup extends MessageLookupByLibrary {
     "msgMBG" : m49,
     "msgMEAN" : m50,
     "msgMEANInfo" : m51,
-    "msgPGSBad" : m52,
-    "msgPGSGood" : m53,
-    "msgPGSVeryBad" : m54,
-    "msgPGSVeryGood" : m55,
-    "msgProfileSwitch" : m56,
-    "msgProfileSwitchDuration" : m57,
-    "msgReadingsInMinutes" : m58,
-    "msgReadingsPerDay" : m59,
-    "msgReadingsPerHour" : m60,
-    "msgReservoirDays" : m61,
-    "msgSMBInsulin" : m62,
-    "msgSensorDays" : m63,
-    "msgStandardLimits" : m64,
-    "msgStartDateHint" : m65,
-    "msgStdAbw" : m66,
-    "msgTOR" : m67,
-    "msgTORInfo" : m68,
-    "msgTarget" : m69,
-    "msgTargetArea" : m70,
-    "msgTargetValue" : m71,
-    "msgTimeOfDay24" : m72,
-    "msgTimeOfDayAM" : m73,
-    "msgTimeOfDayPM" : m74,
-    "msgTooMuchProfiles" : m75,
-    "msgTooMuchProfilesPrefix" : m76,
-    "msgValidFrom" : m77,
-    "msgValidRange" : m78,
-    "msgValidTo" : m79,
-    "msgValuesAbove" : m80,
-    "msgValuesBelow" : m81,
-    "msgValuesIn" : m82,
-    "msgValuesNorm" : m83,
-    "msgValuesNormHigh" : m84,
-    "msgValuesNormLow" : m85,
-    "msgValuesVeryHigh" : m86,
-    "msgValuesVeryLow" : m87,
+    "msgNamedProfile" : m52,
+    "msgNoNameHelp" : m53,
+    "msgPGSBad" : m54,
+    "msgPGSGood" : m55,
+    "msgPGSVeryBad" : m56,
+    "msgPGSVeryGood" : m57,
+    "msgProfileSwitch" : m58,
+    "msgProfileSwitchDuration" : m59,
+    "msgReadingsInMinutes" : m60,
+    "msgReadingsPerDay" : m61,
+    "msgReadingsPerHour" : m62,
+    "msgReservoirDays" : m63,
+    "msgSMBInsulin" : m64,
+    "msgSensorDays" : m65,
+    "msgStandardLimits" : m66,
+    "msgStartDateHint" : m67,
+    "msgStdAbw" : m68,
+    "msgTOR" : m69,
+    "msgTORInfo" : m70,
+    "msgTarget" : m71,
+    "msgTargetArea" : m72,
+    "msgTargetValue" : m73,
+    "msgTimeOfDay24" : m74,
+    "msgTimeOfDayAM" : m75,
+    "msgTimeOfDayPM" : m76,
+    "msgTooMuchProfiles" : m77,
+    "msgTooMuchProfilesPrefix" : m78,
+    "msgValidFrom" : m79,
+    "msgValidRange" : m80,
+    "msgValidTo" : m81,
+    "msgValuesAbove" : m82,
+    "msgValuesBelow" : m83,
+    "msgValuesIn" : m84,
+    "msgValuesNorm" : m85,
+    "msgValuesNormHigh" : m86,
+    "msgValuesNormLow" : m87,
+    "msgValuesVeryHigh" : m88,
+    "msgValuesVeryLow" : m89,
     "ok" : MessageLookupByLibrary.simpleMessage("ok"),
     "sehr geringes Risiko" : MessageLookupByLibrary.simpleMessage("très faible risque"),
     "tl;dr" : MessageLookupByLibrary.simpleMessage("tl;dr"),

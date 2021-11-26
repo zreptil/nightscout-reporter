@@ -124,77 +124,81 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m51(hba1c) => "指定期間の平均血糖値";
 
-  static m52(min, max) => "不良 (${min} to ${max})";
+  static m52(name) => "Use profile \"${name}\"";
 
-  static m53(min, max) => "良好 (${min} to ${max})";
+  static m53(name) => "The profile with the name \"${name}\" could not be found. This must be set up in the profile editor on the Nightscout page. A profile must be set up there with the name \"${name}\" in order to be able to generate this form. The link below opens the profile editor. Under certain circumstances, the authentication must then be carried out at the very bottom of the page in order to be able to change the values.";
 
-  static m54(max) => "とても悪い ( ${max} 超)";
+  static m54(min, max) => "不良 (${min} to ${max})";
 
-  static m55(min) => "優秀 (${min} 未満)";
+  static m55(min, max) => "良好 (${min} to ${max})";
 
-  static m56(oldName, newName) => "プロフィール変更 - ${oldName} => ${newName}";
+  static m56(max) => "とても悪い ( ${max} 超)";
 
-  static m57(oldName, newName, duration) => "プロフィール変更 - ${oldName} => ${newName} から ${duration} 分";
+  static m57(min) => "優秀 (${min} 未満)";
 
-  static m58(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/分', other: '${fmt}分毎にデータ')}";
+  static m58(oldName, newName) => "プロフィール変更 - ${oldName} => ${newName}";
 
-  static m59(howMany, fmt) => "${Intl.plural(howMany, zero: '値がありません', one: '1日あたり1データ', other: '1日あたり${fmt}データ')}";
+  static m59(oldName, newName, duration) => "プロフィール変更 - ${oldName} => ${newName} から ${duration} 分";
 
-  static m60(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/時間', other: '${fmt} 件のデータ/時間')}";
+  static m60(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/分', other: '${fmt}分毎にデータ')}";
 
-  static m61(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/リザーバー)', other: '(${txt} 日間/リザーバー)')}";
+  static m61(howMany, fmt) => "${Intl.plural(howMany, zero: '値がありません', one: '1日あたり1データ', other: '1日あたり${fmt}データ')}";
 
-  static m62(value) => "SMB(${value})";
+  static m62(howMany, fmt) => "${Intl.plural(howMany, zero: 'データがありません', one: '1件のデータ/時間', other: '${fmt} 件のデータ/時間')}";
 
-  static m63(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/センサー)', other: '(${txt} 日間/センサー)')}";
+  static m63(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/リザーバー)', other: '(${txt} 日間/リザーバー)')}";
 
-  static m64(low, high, unit) => "標準の目標範囲を使用 (${low} ${unit} - ${high} ${unit})";
+  static m64(value) => "SMB(${value})";
 
-  static m65(isVisible) => "データがある最初の日の日付";
+  static m65(count, txt) => "${Intl.plural(count, zero: '', one: '(${txt} 日間/センサー)', other: '(${txt} 日間/センサー)')}";
 
-  static m66(value) => "(標準偏差 ${value})";
+  static m66(low, high, unit) => "標準の目標範囲を使用 (${low} ${unit} - ${high} ${unit})";
 
-  static m67(value) => "ToR [${value}分/時]";
+  static m67(isVisible) => "データがある最初の日の日付";
 
-  static m68(min, max) => "1日あたりの目標範囲外の時間${min} から${max}。";
+  static m68(value) => "(標準偏差 ${value})";
 
-  static m69(unit) => "血糖値目標範囲${unit}";
+  static m69(value) => "ToR [${value}分/時]";
 
-  static m70(min, max, units) => "目標範囲 (${min} - ${max} ${units})";
+  static m70(min, max) => "1日あたりの目標範囲外の時間${min} から${max}。";
 
-  static m71(value) => "目標値";
+  static m71(unit) => "血糖値目標範囲${unit}";
 
-  static m72(time) => "${time}";
+  static m72(min, max, units) => "目標範囲 (${min} - ${max} ${units})";
 
-  static m73(time) => "午前${time}";
+  static m73(value) => "目標値";
 
-  static m74(time) => "午後${time}";
+  static m74(time) => "${time}";
 
-  static m75(maxCount, count, text) => "${Intl.plural(count, zero: '', one: 'The uploader \"${text}\" has created the data records.', other: 'The following uploaders have created the data records: ${text}')}";
+  static m75(time) => "午前${time}";
 
-  static m76(maxCount) => "Not all profiles could be loaded because more than ${maxCount} are saved in the selected period. ";
+  static m76(time) => "午後${time}";
 
-  static m77(begDate) => "${begDate} から有効";
+  static m77(maxCount, count, text) => "${Intl.plural(count, zero: '', one: 'The uploader \"${text}\" has created the data records.', other: 'The following uploaders have created the data records: ${text}')}";
 
-  static m78(begDate, endDate) => "${begDate} から${endDate} まで有効";
+  static m78(maxCount) => "Not all profiles could be loaded because more than ${maxCount} are saved in the selected period. ";
 
-  static m79(endDate) => "${endDate} まで有効";
+  static m79(begDate) => "${begDate} から有効";
 
-  static m80(high) => "${high} 以上の値";
+  static m80(begDate, endDate) => "${begDate} から${endDate} まで有効";
 
-  static m81(low) => "${low} 未満の値";
+  static m81(endDate) => "${endDate} まで有効";
 
-  static m82(low, high) => "${low} から ${high} の値";
+  static m82(high) => "${high} 以上の値";
 
-  static m83(low, high) => "目標範囲 (${low} - ${high})";
+  static m83(low) => "${low} 未満の値";
 
-  static m84(value) => "高血糖 (${value})";
+  static m84(low, high) => "${low} から ${high} の値";
 
-  static m85(value) => "低血糖 (${value})";
+  static m85(low, high) => "目標範囲 (${low} - ${high})";
 
-  static m86(value) => "重篤な高血糖 ( > ${value})";
+  static m86(value) => "高血糖 (${value})";
 
-  static m87(value) => "重篤な低血糖(< ${value})";
+  static m87(value) => "低血糖 (${value})";
+
+  static m88(value) => "重篤な高血糖 ( > ${value})";
+
+  static m89(value) => "重篤な低血糖(< ${value})";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -247,7 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "2.0.0 - 15.7.2020" : MessageLookupByLibrary.simpleMessage("2.0.0 -2020/7/15"),
     "2.0.1 - 8.9.2020" : MessageLookupByLibrary.simpleMessage("2.0.1 - 8/9/2020"),
     "2.0.10 - 07.11.2021" : MessageLookupByLibrary.simpleMessage("2.0.10 - 07/11/2021"),
-    "2.0.11 - 25.11.2021" : MessageLookupByLibrary.simpleMessage("2.0.11 - 25/11/2021"),
+    "2.0.11 - 26.11.2021" : MessageLookupByLibrary.simpleMessage("2.0.11 - 26/11/2021"),
     "2.0.2 - 22.9.2020" : MessageLookupByLibrary.simpleMessage("2.0.2 - 22/9/2020"),
     "2.0.3 - 18.10.2020" : MessageLookupByLibrary.simpleMessage("2.0.3 - 18/10/2020"),
     "2.0.4 - 18.02.2021" : MessageLookupByLibrary.simpleMessage("2.0.4 - 18/02/2021"),
@@ -629,6 +633,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt." : MessageLookupByLibrary.simpleMessage("You can now specify in the output parameters whether the newest day is always displayed first. This has an impact on the daily graph, the daily statistics and the weekly graph. The corresponding option has been removed from the form options."),
     "In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind." : MessageLookupByLibrary.simpleMessage("In the output parameters there is a checkbox with which you can ensure that all options that would indicate a loop are deactivated for this output. These are the options that are marked with a circle (= loop)."),
     "In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links geschoben werden, um die Dateigrösse zu verringern." : MessageLookupByLibrary.simpleMessage("設定項目に作成するPDFのファイルサイズを設定するスライダーがあります。空白のPDFが作成された場合、このスライダーを左に移動してファイルサイズを小さくしてください。"),
+    "In den Formularen Profil und Basalrate gibt es eine neue Option \"Profil \'NR Profil\' verwenden\". Normalerweise wird das zu verwendende Profil automatisch anhand des angegebenen Zeitraums ermittelt. Hiermit kann das unterbunden werden und ein Profil mit dem Namen \"NR Profil\" wird gesucht. Wenn dieses gefunden wird, dann wird das ausgegeben. Wenn es nicht gefunden wird, wird ein Text ausgegeben, der erklärt, wo man das einstellen kann." : MessageLookupByLibrary.simpleMessage("In the profile and basal rate forms there is a new option \"Use profile \'NR profile\'\". Normally, the profile to be used is determined automatically based on the specified time period. This option can be used to prevent this behavior and a profile with the name \"NR Profil\" is searched for. If this is found, it will be displayed. If it is not found, a text is shown that explains where this can be set."),
     "In den Optionen von Formularen, in denen man Spalten ein- und ausblenden kann, wird nun angezeigt, wieviele Spalten noch verfügbar sind." : MessageLookupByLibrary.simpleMessage("In the options of forms in which you can show and hide columns, it is now shown how many columns are still available."),
     "In der Analyse können die Prozentzahlen für die Zielbereiche mit Nachkommazahl angezeigt werden. Das verringert die Differenz zu 100%, wenn man sie zusammenzählt. Der verbleibende Rest sind Rundungsdifferenzen." : MessageLookupByLibrary.simpleMessage("分析ページでは目標範囲のパーセントを小数点を含め表示できます。この数値の合計と100％との差異は数値の四捨五入によるものです。"),
     "In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt." : MessageLookupByLibrary.simpleMessage("分析ページには標準範囲を細かく調整する機能が追加されました。このオプションでは、「非常に高い値」「非常に低い値」が表示できます。"),
@@ -862,7 +867,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Verzögerter Bolus" : MessageLookupByLibrary.simpleMessage("遅延ボーラス"),
     "Vier" : MessageLookupByLibrary.simpleMessage("4"),
     "Viertes Quartal" : MessageLookupByLibrary.simpleMessage("Fourth Quarter"),
-    "ViewWhatsnewComponent0__message_24" : m0,
+    "ViewWhatsnewComponent0__message_25" : m0,
     "Von" : MessageLookupByLibrary.simpleMessage("から"),
     "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen." : MessageLookupByLibrary.simpleMessage("PDF 作成前にダイアログを表示し、作成されたすべての PDF のパラメーターを入力できます。目標範囲を、医師が確認したい標準範囲へと設定できます。これは目標範囲のすべての表示に影響があり、目標範囲の内外の値の分布にも影響します。またグラフ中でグルコースの最大値も設定できます。この値は、デイリーグラフ、パーセンタイル図、週間グラフで使用されます。「自動」に設定されている場合、これまでと同様に既存のデータから最大値が決定されます。またここで、現在の期間または比較期間のどちらを生成するのか指定できます。過去と現在の値の比較を医師に示すのに役立ちます。"),
     "Warnung" : MessageLookupByLibrary.simpleMessage("Warning"),
@@ -972,42 +977,44 @@ class MessageLookup extends MessageLookupByLibrary {
     "msgMBG" : m49,
     "msgMEAN" : m50,
     "msgMEANInfo" : m51,
-    "msgPGSBad" : m52,
-    "msgPGSGood" : m53,
-    "msgPGSVeryBad" : m54,
-    "msgPGSVeryGood" : m55,
-    "msgProfileSwitch" : m56,
-    "msgProfileSwitchDuration" : m57,
-    "msgReadingsInMinutes" : m58,
-    "msgReadingsPerDay" : m59,
-    "msgReadingsPerHour" : m60,
-    "msgReservoirDays" : m61,
-    "msgSMBInsulin" : m62,
-    "msgSensorDays" : m63,
-    "msgStandardLimits" : m64,
-    "msgStartDateHint" : m65,
-    "msgStdAbw" : m66,
-    "msgTOR" : m67,
-    "msgTORInfo" : m68,
-    "msgTarget" : m69,
-    "msgTargetArea" : m70,
-    "msgTargetValue" : m71,
-    "msgTimeOfDay24" : m72,
-    "msgTimeOfDayAM" : m73,
-    "msgTimeOfDayPM" : m74,
-    "msgTooMuchProfiles" : m75,
-    "msgTooMuchProfilesPrefix" : m76,
-    "msgValidFrom" : m77,
-    "msgValidRange" : m78,
-    "msgValidTo" : m79,
-    "msgValuesAbove" : m80,
-    "msgValuesBelow" : m81,
-    "msgValuesIn" : m82,
-    "msgValuesNorm" : m83,
-    "msgValuesNormHigh" : m84,
-    "msgValuesNormLow" : m85,
-    "msgValuesVeryHigh" : m86,
-    "msgValuesVeryLow" : m87,
+    "msgNamedProfile" : m52,
+    "msgNoNameHelp" : m53,
+    "msgPGSBad" : m54,
+    "msgPGSGood" : m55,
+    "msgPGSVeryBad" : m56,
+    "msgPGSVeryGood" : m57,
+    "msgProfileSwitch" : m58,
+    "msgProfileSwitchDuration" : m59,
+    "msgReadingsInMinutes" : m60,
+    "msgReadingsPerDay" : m61,
+    "msgReadingsPerHour" : m62,
+    "msgReservoirDays" : m63,
+    "msgSMBInsulin" : m64,
+    "msgSensorDays" : m65,
+    "msgStandardLimits" : m66,
+    "msgStartDateHint" : m67,
+    "msgStdAbw" : m68,
+    "msgTOR" : m69,
+    "msgTORInfo" : m70,
+    "msgTarget" : m71,
+    "msgTargetArea" : m72,
+    "msgTargetValue" : m73,
+    "msgTimeOfDay24" : m74,
+    "msgTimeOfDayAM" : m75,
+    "msgTimeOfDayPM" : m76,
+    "msgTooMuchProfiles" : m77,
+    "msgTooMuchProfilesPrefix" : m78,
+    "msgValidFrom" : m79,
+    "msgValidRange" : m80,
+    "msgValidTo" : m81,
+    "msgValuesAbove" : m82,
+    "msgValuesBelow" : m83,
+    "msgValuesIn" : m84,
+    "msgValuesNorm" : m85,
+    "msgValuesNormHigh" : m86,
+    "msgValuesNormLow" : m87,
+    "msgValuesVeryHigh" : m88,
+    "msgValuesVeryLow" : m89,
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),
     "sehr geringes Risiko" : MessageLookupByLibrary.simpleMessage("リスクがとても少ない"),
     "tl;dr" : MessageLookupByLibrary.simpleMessage("まとめ"),

@@ -31,6 +31,7 @@ Es gibt aber eine Option, welche nur die letzte Basalrate des Zeitraums ausgibt.
   @override
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: false),
+    ParamInfo(1, BaseProfile.msgNamedProfile(BaseProfile.namedProfileName), boolValue: false),
   ];
 
   static String get msgParam1 => Intl.message('Nur letzte Basalrate ausgeben');
@@ -54,6 +55,7 @@ Es gibt aber eine Option, welche nur die letzte Basalrate des Zeitraums ausgibt.
   @override
   void extractParams() {
     onlyLast = params[0].boolValue;
+    namedProfile = params[1].boolValue;
   }
 
   @override

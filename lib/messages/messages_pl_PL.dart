@@ -124,77 +124,81 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m51(hba1c) => "Średnia wartość glikemii w określonym okresie.";
 
-  static m52(min, max) => "zły (od ${min} do ${max})";
+  static m52(name) => "Use profile \"${name}\"";
 
-  static m53(min, max) => "dobry (od ${min} do ${max})";
+  static m53(name) => "The profile with the name \"${name}\" could not be found. This must be set up in the profile editor on the Nightscout page. A profile must be set up there with the name \"${name}\" in order to be able to generate this form. The link below opens the profile editor. Under certain circumstances, the authentication must then be carried out at the very bottom of the page in order to be able to change the values.";
 
-  static m54(max) => "bardzo zły (powyżej ${max})";
+  static m54(min, max) => "zły (od ${min} do ${max})";
 
-  static m55(min) => "wyśmienity (poniżej ${min})";
+  static m55(min, max) => "dobry (od ${min} do ${max})";
 
-  static m56(oldName, newName) => "zmiana profilu - ${oldName} => ${newName}";
+  static m56(max) => "bardzo zły (powyżej ${max})";
 
-  static m57(oldName, newName, duration) => "Zmiana profilu - ${oldName} => ${newName} na ${duration} minut";
+  static m57(min) => "wyśmienity (poniżej ${min})";
 
-  static m58(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak pomiarów', one: 'pomiar co 1 minutę', other: 'pomiar co ${fmt} minut')}";
+  static m58(oldName, newName) => "zmiana profilu - ${oldName} => ${newName}";
 
-  static m59(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak odczytów', one: '1 odczyt na dzień', other: '${fmt} odczytów na dzień')}";
+  static m59(oldName, newName, duration) => "Zmiana profilu - ${oldName} => ${newName} na ${duration} minut";
 
-  static m60(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak pomiarów', one: '1 pomiar na godzinę', other: '${fmt} pomiarów na godzinę')}";
+  static m60(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak pomiarów', one: 'pomiar co 1 minutę', other: 'pomiar co ${fmt} minut')}";
 
-  static m61(count, txt) => "${Intl.plural(count, zero: 'brak danych', one: '(${txt} dzień na zbiorniczek)', other: '(${txt} dni na zbiorniczek)')}";
+  static m61(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak odczytów', one: '1 odczyt na dzień', other: '${fmt} odczytów na dzień')}";
 
-  static m62(value) => "bolus: SMB (${value})";
+  static m62(howMany, fmt) => "${Intl.plural(howMany, zero: 'brak pomiarów', one: '1 pomiar na godzinę', other: '${fmt} pomiarów na godzinę')}";
 
-  static m63(count, txt) => "${Intl.plural(count, zero: 'brak danych', one: '(${txt} dzień na sensor)', other: '(${txt} dni na sensor)')}";
+  static m63(count, txt) => "${Intl.plural(count, zero: 'brak danych', one: '(${txt} dzień na zbiorniczek)', other: '(${txt} dni na zbiorniczek)')}";
 
-  static m64(low, high, unit) => "Użyj standardowego zakresu (${low} ${unit} - ${high} ${unit})";
+  static m64(value) => "bolus: SMB (${value})";
 
-  static m65(isVisible) => "Data pierwszego dnia z danymi";
+  static m65(count, txt) => "${Intl.plural(count, zero: 'brak danych', one: '(${txt} dzień na sensor)', other: '(${txt} dni na sensor)')}";
 
-  static m66(value) => "(SD ${value})";
+  static m66(low, high, unit) => "Użyj standardowego zakresu (${low} ${unit} - ${high} ${unit})";
 
-  static m67(value) => "Czas poza zakresem \n[${value}min/d]";
+  static m67(isVisible) => "Data pierwszego dnia z danymi";
 
-  static m68(min, max) => "Czas dziennie w minutach, w którym wartości znajdują się poza zakresem od ${min} do ${max}.";
+  static m68(value) => "(SD ${value})";
 
-  static m69(unit) => "Zakres docelowy glikemii \n(${unit})";
+  static m69(value) => "Czas poza zakresem \n[${value}min/d]";
 
-  static m70(min, max, units) => "zakres docelowy (${min} - ${max} ${units})";
+  static m70(min, max) => "Czas dziennie w minutach, w którym wartości znajdują się poza zakresem od ${min} do ${max}.";
 
-  static m71(value) => "wartość docelowa";
+  static m71(unit) => "Zakres docelowy glikemii \n(${unit})";
 
-  static m72(time) => "${time}";
+  static m72(min, max, units) => "zakres docelowy (${min} - ${max} ${units})";
 
-  static m73(time) => "${time} przed południem";
+  static m73(value) => "wartość docelowa";
 
   static m74(time) => "${time}";
 
-  static m75(maxCount, count, text) => "${Intl.plural(count, zero: '', one: 'The uploader \"${text}\" has created the data records.', other: 'The following uploaders have created the data records: ${text}')}";
+  static m75(time) => "${time} przed południem";
 
-  static m76(maxCount) => "Nie wszystkie profile mogły zostać załadowane, ponieważ w wybranym okresie zapisano więcej niż ${maxCount}. ";
+  static m76(time) => "${time}";
 
-  static m77(begDate) => "wprowadzony ${begDate}";
+  static m77(maxCount, count, text) => "${Intl.plural(count, zero: '', one: 'The uploader \"${text}\" has created the data records.', other: 'The following uploaders have created the data records: ${text}')}";
 
-  static m78(begDate, endDate) => "obowiązuje od ${begDate} do ${endDate}";
+  static m78(maxCount) => "Nie wszystkie profile mogły zostać załadowane, ponieważ w wybranym okresie zapisano więcej niż ${maxCount}. ";
 
-  static m79(endDate) => "obowiązuje do ${endDate}";
+  static m79(begDate) => "wprowadzony ${begDate}";
 
-  static m80(high) => "Odczyty powyżej zakresu: ${high}";
+  static m80(begDate, endDate) => "obowiązuje od ${begDate} do ${endDate}";
 
-  static m81(low) => "Odczyty poniżej ${low}";
+  static m81(endDate) => "obowiązuje do ${endDate}";
 
-  static m82(low, high) => "Odczyty w zakresie: ${low} - ${high}";
+  static m82(high) => "Odczyty powyżej zakresu: ${high}";
 
-  static m83(low, high) => "W zakresie (${low} - ${high})";
+  static m83(low) => "Odczyty poniżej ${low}";
 
-  static m84(value) => "Powyżej zakresu, poziom 1 (${value})";
+  static m84(low, high) => "Odczyty w zakresie: ${low} - ${high}";
 
-  static m85(value) => "Poniżej zakresu, poziom 1 (${value})";
+  static m85(low, high) => "W zakresie (${low} - ${high})";
 
-  static m86(value) => "Powyżej zakresu, poziom 2 ( > ${value})";
+  static m86(value) => "Powyżej zakresu, poziom 1 (${value})";
 
-  static m87(value) => "Poniżej zakresu, poziom 2 (< ${value})";
+  static m87(value) => "Poniżej zakresu, poziom 1 (${value})";
+
+  static m88(value) => "Powyżej zakresu, poziom 2 ( > ${value})";
+
+  static m89(value) => "Poniżej zakresu, poziom 2 (< ${value})";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -247,7 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "2.0.0 - 15.7.2020" : MessageLookupByLibrary.simpleMessage("2.0.0 - 15/7/2020"),
     "2.0.1 - 8.9.2020" : MessageLookupByLibrary.simpleMessage("2.0.1 - 8/9/2020"),
     "2.0.10 - 07.11.2021" : MessageLookupByLibrary.simpleMessage("2.0.10 - 07/11/2021"),
-    "2.0.11 - 25.11.2021" : MessageLookupByLibrary.simpleMessage("2.0.11 - 25/11/2021"),
+    "2.0.11 - 26.11.2021" : MessageLookupByLibrary.simpleMessage("2.0.11 - 26/11/2021"),
     "2.0.2 - 22.9.2020" : MessageLookupByLibrary.simpleMessage("2.0.2 - 22/9/2020"),
     "2.0.3 - 18.10.2020" : MessageLookupByLibrary.simpleMessage("2.0.3 - 18/10/2020"),
     "2.0.4 - 18.02.2021" : MessageLookupByLibrary.simpleMessage("2.0.4 - 18/02/2021"),
@@ -629,6 +633,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "In den Ausgabe Parametern kann nun angegeben werden, ob immer der neueste Tag zuerst angezeigt wird. Das hat Auswirkungen auf die Tagesgrafik, die Tagesstatistik und die Wochengrafik. In den Formularoptionen wurde die entsprechende Option entfernt." : MessageLookupByLibrary.simpleMessage("Możesz teraz określić w parametrach wyjściowych, czy najnowszy dzień jest zawsze wyświetlany jako pierwszy. Ma to wpływ na wykres dzienny, dzienne statystyki i wykres tygodniowy. Odpowiednia opcja została usunięta z opcji formularza."),
     "In den Ausgabeparametern gibt es eine Checkbox, mit der man dafür sorgen kann, dass alle Optionen, die auf einen Loop hinweisen würden, für diese Ausgabe deaktiviert werden. Das sind die Optionen, die mit einem Kreis (=Loop) markiert sind." : MessageLookupByLibrary.simpleMessage("In the output parameters there is a checkbox with which you can ensure that all options that would indicate a loop are deactivated for this output. These are the options that are marked with a circle (= loop)."),
     "In den Einstellungen gibt es einen Regler, der festlegt, wie gross die erzeugten PDF-Dateien maximal sein dürfen. Wenn nur ein leeres PDF erzeugt wird, dann sollte dieser Regler weiter nach links geschoben werden, um die Dateigrösse zu verringern." : MessageLookupByLibrary.simpleMessage("W ustawieniach jest suwak, który definiuje, jak duże mogą być wynikowe pliki PDF. W przypadku utworzeniu pustego PDF, suwak ten należy przesunąć w lewo, aby zmniejszyć rozmiary plików."),
+    "In den Formularen Profil und Basalrate gibt es eine neue Option \"Profil \'NR Profil\' verwenden\". Normalerweise wird das zu verwendende Profil automatisch anhand des angegebenen Zeitraums ermittelt. Hiermit kann das unterbunden werden und ein Profil mit dem Namen \"NR Profil\" wird gesucht. Wenn dieses gefunden wird, dann wird das ausgegeben. Wenn es nicht gefunden wird, wird ein Text ausgegeben, der erklärt, wo man das einstellen kann." : MessageLookupByLibrary.simpleMessage("In the profile and basal rate forms there is a new option \"Use profile \'NR profile\'\". Normally, the profile to be used is determined automatically based on the specified time period. This option can be used to prevent this behavior and a profile with the name \"NR Profil\" is searched for. If this is found, it will be displayed. If it is not found, a text is shown that explains where this can be set."),
     "In den Optionen von Formularen, in denen man Spalten ein- und ausblenden kann, wird nun angezeigt, wieviele Spalten noch verfügbar sind." : MessageLookupByLibrary.simpleMessage("In the options of forms in which you can show and hide columns, it is now shown how many columns are still available."),
     "In der Analyse können die Prozentzahlen für die Zielbereiche mit Nachkommazahl angezeigt werden. Das verringert die Differenz zu 100%, wenn man sie zusammenzählt. Der verbleibende Rest sind Rundungsdifferenzen." : MessageLookupByLibrary.simpleMessage("In the analysis the percentages for the target areas can be shown with decimal places. This reduces the difference to 100% if you sum it up. The remainder is because of rounding differences."),
     "In der Auswertung gibt es eine neue Option, um den Standardbereich feiner abzustufen. Dort werden dann zusätzlich sehr hohe Werte und sehr niedrige Werte angezeigt." : MessageLookupByLibrary.simpleMessage("W analizie jest nowa opcja dopasowania standardowy zakresu. Z tą opcją wyświetlane są zarówno bardzo wysokie wartości jak i bardzo niskie wartości."),
@@ -862,7 +867,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Verzögerter Bolus" : MessageLookupByLibrary.simpleMessage("Bolus przedłużony"),
     "Vier" : MessageLookupByLibrary.simpleMessage("Cztery"),
     "Viertes Quartal" : MessageLookupByLibrary.simpleMessage("Fourth Quarter"),
-    "ViewWhatsnewComponent0__message_24" : m0,
+    "ViewWhatsnewComponent0__message_25" : m0,
     "Von" : MessageLookupByLibrary.simpleMessage("od"),
     "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen." : MessageLookupByLibrary.simpleMessage("Przed utworzeniem pliku PDF wyświetlane jest okno dialogowe, w którym można wprowadzić parametry dla wszystkich plików PDF. Możesz ustawić obszar docelowy na standardowy obszar, który lekarze lubią. Ma to wpływ na wszystkie reprezentacje powierzchni docelowej, jak również rozkładu wartości na obszarze docelowym i poza nim. Możesz również ustawić maksymalną wartość glukozy w grafikach. Ta wartość jest używana w dziennej grafiki, schemacie percentyla i tygodniowej grafiki. Jeśli jest ustawiony na \"Automatyczny\", maksymalną wartość określa się na podstawie istniejących danych jak poprzednio. Możesz również określić tutaj czy chcesz wygenerować bieżący okres czy okres porównania. Jest to przydatne do pokazania lekarzowi porównania przeszłych i obecnych wartości."),
     "Warnung" : MessageLookupByLibrary.simpleMessage("Ostrzeżenie"),
@@ -972,42 +977,44 @@ class MessageLookup extends MessageLookupByLibrary {
     "msgMBG" : m49,
     "msgMEAN" : m50,
     "msgMEANInfo" : m51,
-    "msgPGSBad" : m52,
-    "msgPGSGood" : m53,
-    "msgPGSVeryBad" : m54,
-    "msgPGSVeryGood" : m55,
-    "msgProfileSwitch" : m56,
-    "msgProfileSwitchDuration" : m57,
-    "msgReadingsInMinutes" : m58,
-    "msgReadingsPerDay" : m59,
-    "msgReadingsPerHour" : m60,
-    "msgReservoirDays" : m61,
-    "msgSMBInsulin" : m62,
-    "msgSensorDays" : m63,
-    "msgStandardLimits" : m64,
-    "msgStartDateHint" : m65,
-    "msgStdAbw" : m66,
-    "msgTOR" : m67,
-    "msgTORInfo" : m68,
-    "msgTarget" : m69,
-    "msgTargetArea" : m70,
-    "msgTargetValue" : m71,
-    "msgTimeOfDay24" : m72,
-    "msgTimeOfDayAM" : m73,
-    "msgTimeOfDayPM" : m74,
-    "msgTooMuchProfiles" : m75,
-    "msgTooMuchProfilesPrefix" : m76,
-    "msgValidFrom" : m77,
-    "msgValidRange" : m78,
-    "msgValidTo" : m79,
-    "msgValuesAbove" : m80,
-    "msgValuesBelow" : m81,
-    "msgValuesIn" : m82,
-    "msgValuesNorm" : m83,
-    "msgValuesNormHigh" : m84,
-    "msgValuesNormLow" : m85,
-    "msgValuesVeryHigh" : m86,
-    "msgValuesVeryLow" : m87,
+    "msgNamedProfile" : m52,
+    "msgNoNameHelp" : m53,
+    "msgPGSBad" : m54,
+    "msgPGSGood" : m55,
+    "msgPGSVeryBad" : m56,
+    "msgPGSVeryGood" : m57,
+    "msgProfileSwitch" : m58,
+    "msgProfileSwitchDuration" : m59,
+    "msgReadingsInMinutes" : m60,
+    "msgReadingsPerDay" : m61,
+    "msgReadingsPerHour" : m62,
+    "msgReservoirDays" : m63,
+    "msgSMBInsulin" : m64,
+    "msgSensorDays" : m65,
+    "msgStandardLimits" : m66,
+    "msgStartDateHint" : m67,
+    "msgStdAbw" : m68,
+    "msgTOR" : m69,
+    "msgTORInfo" : m70,
+    "msgTarget" : m71,
+    "msgTargetArea" : m72,
+    "msgTargetValue" : m73,
+    "msgTimeOfDay24" : m74,
+    "msgTimeOfDayAM" : m75,
+    "msgTimeOfDayPM" : m76,
+    "msgTooMuchProfiles" : m77,
+    "msgTooMuchProfilesPrefix" : m78,
+    "msgValidFrom" : m79,
+    "msgValidRange" : m80,
+    "msgValidTo" : m81,
+    "msgValuesAbove" : m82,
+    "msgValuesBelow" : m83,
+    "msgValuesIn" : m84,
+    "msgValuesNorm" : m85,
+    "msgValuesNormHigh" : m86,
+    "msgValuesNormLow" : m87,
+    "msgValuesVeryHigh" : m88,
+    "msgValuesVeryLow" : m89,
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),
     "sehr geringes Risiko" : MessageLookupByLibrary.simpleMessage("- bardzo niskie ryzyko"),
     "tl;dr" : MessageLookupByLibrary.simpleMessage("tl;dr"),

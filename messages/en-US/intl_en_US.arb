@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-11-25T13:36:21.954067",
+    "@@last_modified": "2021-11-26T07:57:31.666688",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1360,6 +1360,20 @@
     "@Nacht (21:00 - 05:59)": {
         "type": "text",
         "placeholders": {}
+    },
+    "msgNamedProfile": "Use profile \"{name}\"",
+    "@msgNamedProfile": {
+        "type": "text",
+        "placeholders": {
+            "name": {}
+        }
+    },
+    "msgNoNameHelp": "The profile with the name \"{name}\" could not be found. This must be set up in the profile editor on the Nightscout page. A profile must be set up there with the name \"{name}\" in order to be able to generate this form. The link below opens the profile editor. Under certain circumstances, the authentication must then be carried out at the very bottom of the page in order to be able to change the values.",
+    "@msgNoNameHelp": {
+        "type": "text",
+        "placeholders": {
+            "name": {}
+        }
     },
     "msgProfileSwitch": "Profileswitch - {oldName} => {newName}",
     "@msgProfileSwitch": {
@@ -2920,8 +2934,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "2.0.11 - 25.11.2021": "2.0.11 - 11/25/2021",
-    "@2.0.11 - 25.11.2021": {
+    "2.0.11 - 26.11.2021": "2.0.11 - 11/26/2021",
+    "@2.0.11 - 26.11.2021": {
         "description": "v2011",
         "type": "text",
         "placeholders": {}
@@ -2929,6 +2943,12 @@
     "Es ist in der Kachelansicht jetzt möglich, Formulare zu duplizieren, um verschiedene Ansichten des gleichen Formulars auf einmal zu erzeugen. Dazu gibt es rechts unten auf den Kacheln ein Kopier-Icon. Wenn dieses ausgelöst wird, dann wird das aktuelle Formular kopiert und als neue Kachel hinter der aktuellen Kachel eingefügt. Diese kann dann genauso behandelt werden, wie jede andere Kachel. Auf dieser neuen Kachel gibt es rechts unten ein Mülleimer-Icon. Wenn dieses ausgelöst wird, dann wird die Kachel wieder entfernt. Von einem Formular können maximal 2 Kopien erstellt werden. Die Optionen der Formulare werden ebenso wie die Reihenfolge wie bisher auch gespeichert. Die kopierten Kacheln bleiben also erhalten. In der Listenansicht tauchen die kopierten Formulare auch auf. Allerdings gibt es dort nicht die Möglichkeit, sie zu kopieren oder zu löschen. Das muss in der Kachelansicht erfolgen.": "It is now possible to duplicate forms in the tile view in order to create different views of the same form at once. There is a copy icon on the bottom right of the tiles. When this is triggered, the current form is copied and inserted as a new tile behind the current tile. This can then be treated in the same way as any other tile. There is a trash can icon at the bottom right of this new tile. When this is triggered, the tile is removed. A maximum of 2 copies can be made of a form. The options for the forms, as well as the order, are saved as before. The copied tiles are therefore retained. The copied forms also appear in the list view. However, there is no possibility of copying or deleting them there. This must be done in the tile view.",
     "@Es ist in der Kachelansicht jetzt möglich, Formulare zu duplizieren, um verschiedene Ansichten des gleichen Formulars auf einmal zu erzeugen. Dazu gibt es rechts unten auf den Kacheln ein Kopier-Icon. Wenn dieses ausgelöst wird, dann wird das aktuelle Formular kopiert und als neue Kachel hinter der aktuellen Kachel eingefügt. Diese kann dann genauso behandelt werden, wie jede andere Kachel. Auf dieser neuen Kachel gibt es rechts unten ein Mülleimer-Icon. Wenn dieses ausgelöst wird, dann wird die Kachel wieder entfernt. Von einem Formular können maximal 2 Kopien erstellt werden. Die Optionen der Formulare werden ebenso wie die Reihenfolge wie bisher auch gespeichert. Die kopierten Kacheln bleiben also erhalten. In der Listenansicht tauchen die kopierten Formulare auch auf. Allerdings gibt es dort nicht die Möglichkeit, sie zu kopieren oder zu löschen. Das muss in der Kachelansicht erfolgen.": {
         "description": "v2011a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Formularen Profil und Basalrate gibt es eine neue Option \"Profil 'NR Profil' verwenden\". Normalerweise wird das zu verwendende Profil automatisch anhand des angegebenen Zeitraums ermittelt. Hiermit kann das unterbunden werden und ein Profil mit dem Namen \"NR Profil\" wird gesucht. Wenn dieses gefunden wird, dann wird das ausgegeben. Wenn es nicht gefunden wird, wird ein Text ausgegeben, der erklärt, wo man das einstellen kann.": "In the profile and basal rate forms there is a new option \"Use profile 'NR profile'\". Normally, the profile to be used is determined automatically based on the specified time period. This option can be used to prevent this behavior and a profile with the name \"NR Profil\" is searched for. If this is found, it will be displayed. If it is not found, a text is shown that explains where this can be set.",
+    "@In den Formularen Profil und Basalrate gibt es eine neue Option \"Profil 'NR Profil' verwenden\". Normalerweise wird das zu verwendende Profil automatisch anhand des angegebenen Zeitraums ermittelt. Hiermit kann das unterbunden werden und ein Profil mit dem Namen \"NR Profil\" wird gesucht. Wenn dieses gefunden wird, dann wird das ausgegeben. Wenn es nicht gefunden wird, wird ein Text ausgegeben, der erklärt, wo man das einstellen kann.": {
+        "description": "v2011a2",
         "type": "text",
         "placeholders": {}
     },
@@ -4780,8 +4800,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_24": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
-    "@ViewWhatsnewComponent0__message_24": {
+    "ViewWhatsnewComponent0__message_25": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
+    "@ViewWhatsnewComponent0__message_25": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

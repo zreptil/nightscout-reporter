@@ -2842,6 +2842,33 @@ class ReportData {
         .isBefore(DateTime(endDate.year, endDate.month, endDate.day + 1));
   }
 
+  ProfileGlucData namedProfile(String name) {
+    var time = DateTime.now();
+    var ret;
+    var profile;
+    for (var i = 0; i < profiles.length; i++) {
+      for (var key in profiles[i].store.keys) {
+        print('$key - $name - ${profiles.length}');
+        if (key == name) {
+          profile = profiles[i].store[key];
+        }
+      }
+    }
+    if (profile != null) {
+      var date = Date(time.year, time.month, time.day);
+      ret = ProfileGlucData(profile);
+      ret.basal = ret.find(date, time, ret.store.listBasal);
+      ret.carbRatio = ret.find(date, time, ret.store.listCarbratio);
+      ret.sens = ret.find(date, time, ret.store.listSens);
+      ret.targetHigh = status.settings.thresholds.bgTargetTop.toDouble();
+      ret.targetLow = status.settings.thresholds.bgTargetBottom.toDouble();
+      // for (var data in profile.values) {
+      //   data.adjustDurations();
+      // }
+    }
+    return ret;
+  }
+
   // get profile for a specific time
   ProfileGlucData profile(DateTime time,
       [List<TreatmentData> treatments, bool doMix = true]) {

@@ -21,12 +21,14 @@ die gleichen Werte beinhalten.''', desc: 'help for profile');
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: false),
+    ParamInfo(2, BaseProfile.msgNamedProfile(BaseProfile.namedProfileName), boolValue: false),
   ];
 
   @override
   void extractParams() {
     compressSameValues = params[0].boolValue;
     onlyLast = params[1].boolValue;
+    namedProfile = params[2].boolValue;
   }
 
   @override
