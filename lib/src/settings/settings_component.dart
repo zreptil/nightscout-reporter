@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'dart:html' as html;
 import 'dart:convert' as convert;
+import 'dart:html' as html;
 
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
-import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
@@ -65,6 +64,13 @@ class SettingsComponent implements OnInit {
   Stream<html.UIEvent> get trigger => _trigger.stream;
   final _trigger = StreamController<html.UIEvent>.broadcast(sync: true);
 
+  bool get mayAddUser {
+    if (g.userList?.length > 0) {
+      return g.userList?.last?.apiUrl(null, '', noApi: true) == null;
+    }
+    return false;
+  }
+
   SettingsComponent();
 
   String progressText;
@@ -85,9 +91,8 @@ class SettingsComponent implements OnInit {
           name: 'msgAccessTokenHint')
       : '';
 
-  String msgStartDateHint(bool isVisible) => isVisible
-      ? Intl.message('Das Datum des ersten Tages mit Daten', args: [isVisible], name: 'msgStartDateHint')
-      : '';
+  String msgStartDateHint(bool isVisible) =>
+      isVisible ? Intl.message('Das Datum des ersten Tages mit Daten', args: [isVisible], name: 'msgStartDateHint') : '';
 
   String msgEndDateHint(bool isVisible) => isVisible
       ? Intl.message('Das Datum des letzten kompletten Tages mit Daten', args: [isVisible], name: 'msgEndDateHint')

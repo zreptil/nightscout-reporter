@@ -391,7 +391,6 @@ class AppComponent implements OnInit {
     g.doShowDebug = showDebug;
     g.onAfterLoad = afterLoad;
 
-
     /// fill list with forms
     var srcList = [
       PrintTest(),
@@ -1090,8 +1089,8 @@ class AppComponent implements OnInit {
               '&find[startDate][\$lte]=${endDate.year}-${endDate.month}-${endDate.day}T23:59:59.999Z'
               '&count=${maxCount}');
 */
-      displayLink('profiles', url, type: 'debug');
       content = await g.requestJson(url);
+      displayLink('profiles (${content?.length})', url, type: 'debug');
 
       try {
         g.basalPrecisionAuto = 0;
@@ -1128,11 +1127,14 @@ class AppComponent implements OnInit {
 // */
       }
 
+      var params = 'find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch';
+      if (g.ppFixAAPS30) {
+        params += '&find[profilePlugin][\$ne]=info.nightscout.androidaps.plugins.profile.local.LocalProfilePlugin&count=10000';
+      }
       // find profileswitches in treatments, create profiledata and mix it in the profiles
-      url = urlData.fullUrl('treatments.json',
-          params: 'find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch');
-      displayLink('profileswitch', url, type: 'debug');
+      url = urlData.fullUrl('treatments.json', params: params);
       content = await g.requestJson(url);
+      displayLink('profileswitch (${content?.length})', url, type: 'debug');
       if (content != null) {
         try {
           List<dynamic> src = content;

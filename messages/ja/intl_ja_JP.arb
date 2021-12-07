@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-11-26T07:57:31.666688",
+    "@@last_modified": "2021-12-07T08:20:32.541512",
     "Überprüfe Zugriff auf Nightscout ...": "ナイトスカウトの接続を確認中…",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -2706,6 +2706,12 @@
         "type": "text",
         "placeholders": {}
     },
+    "Korrektur für Datenänderungen in AAPS 3.0": "Correction for data changes in AAPS 3.0",
+    "@Korrektur für Datenänderungen in AAPS 3.0": {
+        "description": "label for fix for AAPS 3.0",
+        "type": "text",
+        "placeholders": {}
+    },
     "Historische Daten": "履歴データ",
     "@Historische Daten": {
         "description": "label of area for timeshift",
@@ -2931,6 +2937,24 @@
     "Einstiegsvideo": "Quickstartvideo",
     "@Einstiegsvideo": {
         "description": "label for button to open settings on welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.12 - 07.12.2021": "2.0.12 - 07/12/2021",
+    "@2.0.12 - 07.12.2021": {
+        "description": "v2011",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In AAPS 3.0 wird ändert sich einiges an den Datenstrukturen und Datenmengen, die gespeichert werrden. Das verursacht in Nightscout Reporter an einigen Stellen Probleme, die sich nicht generell lösen lassen, Deswegen gibt es jetzt bei den Ausgabe Parametern die Option \"Korrektur für Datenänderungen in AAPS 3.0\", mit der bei Erstellung der PDFs bestimmte Probleme korrigiert werden. Diese Änderungen werden hier mit FixAAPS30 markiert.": "AAPS 3.0 will change some of the data structures and amounts of data that are stored. This causes problems in some places in Nightscout Reporter that cannot be generally solved. That is why there is now the option \"Correction for data changes in AAPS 3.0\" in the output parameters, with which certain problems can be corrected when creating the PDFs. These changes are marked here with FixAAPS30.",
+    "@In AAPS 3.0 wird ändert sich einiges an den Datenstrukturen und Datenmengen, die gespeichert werrden. Das verursacht in Nightscout Reporter an einigen Stellen Probleme, die sich nicht generell lösen lassen, Deswegen gibt es jetzt bei den Ausgabe Parametern die Option \"Korrektur für Datenänderungen in AAPS 3.0\", mit der bei Erstellung der PDFs bestimmte Probleme korrigiert werden. Diese Änderungen werden hier mit FixAAPS30 markiert.": {
+        "description": "v2012a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "FixAAPS30: Die Erstellung der PDFs kann extrem lange dauern. Das liegt an einer Flut von Profil-Switches, die durch ein Plugin für die Automatisierung erstellt werden. Das verursacht einen Profil-Switch alle 4 Minuten mit Speicherung des kompletten Profils. Wenn die Option aktiv ist, dann werden diese Profil-Switches aussortiert und ermöglichen dadurch die Erstellung des PDFs. Diese Profil-Switches sind dann in den PDFs nicht mehr sichtbar.": "FixAAPS30: The creation of the PDFs can take an extremely long time. This is due to a flood of profile switches that are created by a plug-in for automation. This causes a profile switch every 4 minutes with storage of the complete profile. If the option is active, then these profile switches are sorted out and thus enable the creation of the PDF. These profile switches are then no longer visible in the PDFs.",
+    "@FixAAPS30: Die Erstellung der PDFs kann extrem lange dauern. Das liegt an einer Flut von Profil-Switches, die durch ein Plugin für die Automatisierung erstellt werden. Das verursacht einen Profil-Switch alle 4 Minuten mit Speicherung des kompletten Profils. Wenn die Option aktiv ist, dann werden diese Profil-Switches aussortiert und ermöglichen dadurch die Erstellung des PDFs. Diese Profil-Switches sind dann in den PDFs nicht mehr sichtbar.": {
+        "description": "v2012a2",
         "type": "text",
         "placeholders": {}
     },
@@ -4800,8 +4824,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_25": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
-    "@ViewWhatsnewComponent0__message_25": {
+    "ViewWhatsnewComponent0__message_28": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
+    "@ViewWhatsnewComponent0__message_28": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

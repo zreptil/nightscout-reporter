@@ -121,7 +121,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = '2.0.11';
+  String version = '2.0.12';
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.
@@ -478,8 +478,8 @@ class Settings {
   UserData get user {
     if (_userIdx >= 0 && _userIdx < userList.length) return userList[_userIdx];
     _userIdx = 0;
-    if (userList.isNotEmpty) return userList[0];
-    return UserData(this);
+    if (userList.isEmpty) userList.add(UserData(this));
+    return userList[0];
   }
 
   void save({bool updateSync = true, bool skipReload = false}) {}
@@ -844,6 +844,7 @@ class Globals extends Settings {
   bool ppHideNightscoutInPDF = true;
   bool ppShowUrlInPDF = false;
   bool ppHideLoopData = false;
+  bool ppFixAAPS30 = false;
   bool isCreatingPDF = false;
 
   bool get hideLoopData => ppHideLoopData && isCreatingPDF;
@@ -902,6 +903,7 @@ class Globals extends Settings {
       ',"d8":"${ppLatestFirst ? "true" : "false"}"'
       ',"d9":"${ppGlucMaxIdx?.toString() ?? 0}"'
       ',"d10":"${ppBasalPrecisionIdx?.toString() ?? 0}"'
+      ',"d11":"${ppFixAAPS30?.toString() ?? 0}"'
       '}';
 
   // loads the device settings from a json-encoded string
@@ -918,6 +920,7 @@ class Globals extends Settings {
       ppLatestFirst = JsonData.toBool(json['d8']);
       ppGlucMaxIdx = JsonData.toInt(json['d9']);
       ppBasalPrecisionIdx = JsonData.toInt(json['d10']);
+      ppFixAAPS30 = JsonData.toBool(json['d11']);
     } catch (ex) {
       var msg = ex.toString();
       showDebug('Fehler bei Globals.fromDeviceJson: ${msg}');
@@ -943,7 +946,8 @@ class Globals extends Settings {
       ',"ppComparable":"${ppComparable ? "true" : "false"}"'
       ',"ppLatestFirst":"${ppLatestFirst ? "true" : "false"}"'
       ',"ppGlucMaxIdx":"${ppGlucMaxIdx?.toString() ?? 0}"'
-      ',"ppBasalPrecisionIdx":"${ppBasalPrecisionIdx?.toString() ?? 0}"';
+      ',"ppBasalPrecisionIdx":"${ppBasalPrecisionIdx?.toString() ?? 0}"'
+      ',"ppFixAAPS30":"${ppFixAAPS30?.toString() ?? 0}"';
 
   // retrieves the settings from a json-data-structure
   @override
@@ -961,6 +965,7 @@ class Globals extends Settings {
     ppLatestFirst = JsonData.toBool(json['ppLatestFirst']);
     ppGlucMaxIdx = JsonData.toInt(json['ppGlucMaxIdx']);
     ppBasalPrecisionIdx = JsonData.toInt(json['ppBasalPrecisionIdx']);
+    ppFixAAPS30 = JsonData.toBool(json['ppFixAAPS30']);
   }
 
   void restoreLiveStorage() {}
@@ -981,7 +986,8 @@ class Globals extends Settings {
         ',"ppLatestFirst":"${loadStorage('ppLatestFirst')}"'
         ',"ppGlucMaxIdx":"${loadStorage('ppGlucMaxIdx')}"'
         ',"ppBasalPrecisionIdx":"${loadStorage('ppBasalPrecisionIdx')}"'
-        ',"ppProfileMaxCount":"${loadStorage('ppProfileMaxCount')}"';
+        ',"ppProfileMaxCount":"${loadStorage('ppProfileMaxCount')}"'
+        ',"ppFixAAPS30":"${loadStorage('ppFixAAPS30')}"';
   }
 
   // loads the settings that are not synchronized to google
@@ -1620,9 +1626,6 @@ class Globals extends Settings {
   // loads all settings from localStorage
   void loadFromStorage() {
     isLoading = true;
-    // TODO: 5.7.2020 - can be removed in future versions
-    fromSharedString('{$storageString}');
-    // 5.7.2020: end
     var shared = Settings.tiod(loadStorage('sharedData'));
     var device = Settings.tiod(loadStorage('deviceData'));
     fromStrings(shared, device);
@@ -1646,7 +1649,6 @@ class Globals extends Settings {
       showDebug('Fehler bei Globals.save: ${msg}');
     }
 
-//    saveOld(updateSync: updateSync, skipReload: skipReload);
     clearStorage();
 
     if (canDebug) saveStorage('debug', 'yes');
@@ -1666,71 +1668,6 @@ class Globals extends Settings {
       reload();
     }
   }
-
-  // TODO: 5.7.2020 - can be removed in future versions
-  void saveOld({bool updateSync = true, bool skipReload = false}) {
-    var oldLang = loadStorage('language');
-    var oldGoogle = loadStorage('syncGoogle');
-    var oldWebTheme = loadStorage('webtheme');
-
-    clearStorage();
-
-    saveStorage('version', version);
-    saveStorage('syncGoogle', oldGoogle);
-    saveStorage('webtheme', oldWebTheme);
-    if (canDebug) {
-      saveStorage('debug', 'yes');
-    }
-    if (!Settings.hastiod) saveStorage('unsafe', 'zh++;');
-
-    var save = '';
-    for (var i = 0; i < userList.length; i++) {
-      save = '${save},${userList[i].asJsonString}';
-    }
-    if (save.length > 1) save = save.substring(1);
-    saveStorage('mu', Settings.doit('[${save}]'));
-    save = '';
-    for (var i = 0; i < shortcutList.length; i++) {
-      save = '${save},${shortcutList[i].asJsonString}';
-    }
-    if (save.length > 1) save = save.substring(1);
-    saveStorage('sc', Settings.doit('[$save]'));
-    saveStorage('userIdx', '$userIdx');
-    var doReload =
-        (language.code != oldLang && language.code != null) && !skipReload;
-    saveStorage('glucMGDL', glucMGDL.toString());
-    saveStorage('language', language.code ?? 'de_DE');
-    saveStorage('ppPdfSameWindow', ppPdfSameWindow ? 'true' : 'false');
-    saveStorage('ppPdfDownload', ppPdfDownload ? 'true' : 'false');
-    saveStorage(
-        'ppHideNightscoutInPDF', ppHideNightscoutInPDF ? 'true' : 'false');
-    saveStorage('ppShowUrlInPDF', ppShowUrlInPDF ? 'true' : 'false');
-    saveStorage('ppHideLoopData', ppHideLoopData ? 'true' : 'false');
-    saveStorage('pdfCreationMaxSize', '${pdfCreationMaxSize}');
-    saveStorage('ppStandardLimits', _ppStandardLimits ? 'true' : 'false');
-    saveStorage('ppCGPAlwaysStandardLimits',
-        ppCGPAlwaysStandardLimits ? 'true' : 'false');
-    saveStorage('ppComparable', ppComparable ? 'true' : 'false');
-    saveStorage('ppLatestFirst', ppLatestFirst ? 'true' : 'false');
-    saveStorage('ppGlucMaxIdx', ppGlucMaxIdx?.toString() ?? 0);
-    saveStorage('ppBasalPrecisionIdx', ppBasalPrecisionIdx?.toString() ?? 0);
-    saveStorage('showAllTileParams', showAllTileParams ? 'true' : 'false');
-    saveStorage('showCurrentGluc', showCurrentGluc ? 'true' : 'false');
-    saveStorage('period', period?.toString());
-    saveStorage('viewType', viewType);
-    saveStorage('tileShowImage', tileShowImage ? 'true' : 'false');
-    timestamp = DateTime.now().millisecondsSinceEpoch;
-    saveStorage('timestamp', '${timestamp}');
-    savePdfOrder();
-    saveStorage('theme', _theme);
-    if (syncGoogle && updateSync) {
-      _uploadToGoogle(doReload);
-    } else if (doReload) {
-      reload();
-    }
-  }
-
-  // 5.7.2020: end
 
   static double percentile(List entries, int value) {
     var v = value / 100;
@@ -1959,19 +1896,8 @@ class UserData {
       urls.add(url.asJson);
     }
 
-    // TODO: 3.7.2020 - token and storageApiUrl can be removed in future versions
-    //           still there to keep old localStorages working
-    var token = listApiUrl.last.token;
-    var storageApiUrl = listApiUrl.last.url;
-    // 3.7.2020: end
-
     return '{"n":"$name",'
         '"bd":"${birthDate ?? ''}",'
-        // TODO: 3.7.2020 - ut and u can be removed in future versions
-        // still there to keep old localStorages working
-        '"ut":"${token ?? ''}",'
-        '"u":"${storageApiUrl ?? ''}",'
-        // 3.7.2020: end
         '"s":${convert.json.encode(urls)},'
         '"dd":"${diaStartDate ?? ''}",'
         '"i":"${insulin ?? ''}",'
@@ -1990,18 +1916,6 @@ class UserData {
       ret.birthDate = json['bd'];
       ret.diaStartDate = json['dd'];
       ret.insulin = json['i'];
-      // TODO: 3.7.2020 - this code can be removed in future versions
-      //                  still there to transfer old structure to new structure
-      if (json['s'] == null) {
-        String src = json['u']?.trim();
-        var url = UrlData(g);
-        url.url = src;
-        url.token = json['ut'];
-        url.startDate = Date(1970, 1, 1);
-        url.endDate = null;
-        json['s'] = [url.asJson];
-      }
-      // 3.7.2020: end
       ret.listApiUrl = <UrlData>[];
       for (dynamic s in json['s']) {
         ret.listApiUrl.add(UrlData.fromJson(g, s));

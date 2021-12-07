@@ -207,7 +207,7 @@ div[footer] {
 }
 
 .error {
-  color: $mat-red-500;
+  color: var(--settingsError);
   padding-bottom: 1em;
 }
 
