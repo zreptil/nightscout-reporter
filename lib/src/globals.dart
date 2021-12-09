@@ -121,7 +121,7 @@ class PeriodShift {
 }
 
 class Settings {
-  String version = '2.0.12';
+  String version = '2.1.0';
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.
@@ -996,18 +996,6 @@ class Globals extends Settings {
     super.loadLocalOnlySettings();
     ppPdfSameWindow = loadStorage('ppPdfSameWindow') == 'true';
     ppPdfDownload = loadStorage('ppPdfDownload') == 'true';
-/*
-    ppHideNightscoutInPDF = loadStorage('ppHideNightscoutInPDF') == "true";
-    ppShowUrlInPDF = loadStorage('ppShowUrlInPDF') == "true";
-    ppHideLoopData = loadStorage('ppHideLoopData') == "true";
-    pdfCreationMaxSize = JsonData.toInt(loadStorage('pdfCreationMaxSize'));
-    ppStandardLimits = loadStorage('ppStandardLimits') == "true";
-    ppCGPAlwaysStandardLimits = loadStorage('ppCGPAlwaysStandardLimits') == "true";
-    ppComparable = loadStorage('ppComparable') == "true";
-    ppLatestFirst = loadStorage('ppLatestFirst') == "true";
-    ppGlucMaxIdx = JsonData.toInt(loadStorage('ppGlucMaxIdx'));
-    ppBasalPrecisionIdx = JsonData.toInt(loadStorage('ppBasalPrecisionIdx'));
- */
     currPeriodShift = listPeriodShift[0];
   }
 

@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-12-07T08:20:32.541512",
+    "@@last_modified": "2021-12-09T14:48:29.942068",
     "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1823,6 +1823,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Maximalwert für Kohlenhydrate": "Maximalwert für Kohlenhydrate",
+    "@Maximalwert für Kohlenhydrate": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Basal ges.": "Basal ges.",
     "@Basal ges.": {
         "type": "text",
@@ -2940,9 +2945,21 @@
         "type": "text",
         "placeholders": {}
     },
+    "2.1.0 - 09.12.2021": "2.1.0 - 09.12.2021",
+    "@2.1.0 - 09.12.2021": {
+        "description": "v210",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Optionen zur Tagesgrafik gibt es jetzt die Möglichkeit, den oberen Wert für die Kohlenhydrate festzulegen. Das kann bei hohen COB-Werten die Skalierung verbessern.": "In den Optionen zur Tagesgrafik gibt es jetzt die Möglichkeit, den oberen Wert für die Kohlenhydrate festzulegen. Das kann bei hohen COB-Werten die Skalierung verbessern.",
+    "@In den Optionen zur Tagesgrafik gibt es jetzt die Möglichkeit, den oberen Wert für die Kohlenhydrate festzulegen. Das kann bei hohen COB-Werten die Skalierung verbessern.": {
+        "description": "v210a1",
+        "type": "text",
+        "placeholders": {}
+    },
     "2.0.12 - 07.12.2021": "2.0.12 - 07.12.2021",
     "@2.0.12 - 07.12.2021": {
-        "description": "v2011",
+        "description": "v2012",
         "type": "text",
         "placeholders": {}
     },
@@ -4824,8 +4841,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_28": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-    "@ViewWhatsnewComponent0__message_28": {
+    "ViewWhatsnewComponent0__message_30": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+    "@ViewWhatsnewComponent0__message_30": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

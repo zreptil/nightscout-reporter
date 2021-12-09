@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-12-07T08:20:32.541512",
+    "@@last_modified": "2021-12-09T14:48:29.942068",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -1823,6 +1823,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "Maximalwert für Kohlenhydrate": "Maximum value for carbohydrates",
+    "@Maximalwert für Kohlenhydrate": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Basal ges.": "Basal total",
     "@Basal ges.": {
         "type": "text",
@@ -2940,9 +2945,21 @@
         "type": "text",
         "placeholders": {}
     },
+    "2.1.0 - 09.12.2021": "2.1.0 - 12/09/2021",
+    "@2.1.0 - 09.12.2021": {
+        "description": "v210",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Optionen zur Tagesgrafik gibt es jetzt die Möglichkeit, den oberen Wert für die Kohlenhydrate festzulegen. Das kann bei hohen COB-Werten die Skalierung verbessern.": "In the options for the daily graphic there is now the option to set the upper value for the carbohydrates. This can improve the scaling with high COB values.",
+    "@In den Optionen zur Tagesgrafik gibt es jetzt die Möglichkeit, den oberen Wert für die Kohlenhydrate festzulegen. Das kann bei hohen COB-Werten die Skalierung verbessern.": {
+        "description": "v210a1",
+        "type": "text",
+        "placeholders": {}
+    },
     "2.0.12 - 07.12.2021": "2.0.12 - 12/07/2021",
     "@2.0.12 - 07.12.2021": {
-        "description": "v2011",
+        "description": "v2012",
         "type": "text",
         "placeholders": {}
     },
@@ -4824,8 +4841,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_28": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
-    "@ViewWhatsnewComponent0__message_28": {
+    "ViewWhatsnewComponent0__message_30": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
+    "@ViewWhatsnewComponent0__message_30": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

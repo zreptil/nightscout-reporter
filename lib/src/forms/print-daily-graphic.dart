@@ -84,6 +84,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       showTargetValue,
       showTempOverrides;
 
+  double carbMax;
+
   @override
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
@@ -92,39 +94,40 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     ParamInfo(6, msgParam4, boolValue: true, isLoopValue: true, subParams: [
       ParamInfo(0, msgParam20, boolValue: false, isLoopValue: true)
     ]),
-    ParamInfo(7, msgParam5, boolValue: true),
-    ParamInfo(8, msgParam6, boolValue: false, isDeprecated: true),
-    ParamInfo(11, BasePrint.msgGraphsPerPage, list: [
+    ParamInfo(8, msgParam5, boolValue: true),
+    ParamInfo(9, msgParam6, boolValue: false, isDeprecated: true),
+    ParamInfo(12, BasePrint.msgGraphsPerPage, list: [
       Intl.message('Eine'),
       Intl.message('Zwei'),
       Intl.message('Vier'),
       Intl.message('Acht'),
       Intl.message('Sechzehn')
     ]),
-    ParamInfo(8, msgParam8, boolValue: true),
-    ParamInfo(9, msgParam9, boolValue: true, subParams: [
+    ParamInfo(9, msgParam8, boolValue: true),
+    ParamInfo(10, msgParam9, boolValue: true, subParams: [
       ParamInfo(0, msgParam13, boolValue: false),
       ParamInfo(1, msgParam21, boolValue: false)
     ]),
-    ParamInfo(10, '', boolValue: false, isDeprecated: true),
-    ParamInfo(12, msgParam11, boolValue: true),
-    ParamInfo(13, msgParam14, boolValue: true),
+    ParamInfo(11, '', boolValue: false, isDeprecated: true),
+    ParamInfo(13, msgParam11, boolValue: true),
+    ParamInfo(14, msgParam14, boolValue: true),
     ParamInfo(3, BaseDaily.msgDaily1,
         boolValue: true,
         subParams: [
           ParamInfo(0, BaseDaily.msgDaily2, boolValue: true, isLoopValue: true)
         ],
         isLoopValue: true),
-    ParamInfo(14, msgParam16, boolValue: false),
-    ParamInfo(15, msgParam17, boolValue: false),
+    ParamInfo(15, msgParam16, boolValue: false),
+    ParamInfo(16, msgParam17, boolValue: false),
     ParamInfo(5, msgParam18, boolValue: false),
-    ParamInfo(17, msgParam19, boolValue: false),
-    ParamInfo(18, msgParam22, boolValue: false),
+    ParamInfo(18, msgParam19, boolValue: false),
+    ParamInfo(19, msgParam22, boolValue: false),
     ParamInfo(2, msgParam23, boolValue: true),
-    ParamInfo(19, msgParam24, boolValue: false),
-    ParamInfo(20, msgParam25, boolValue: false),
-    ParamInfo(21, msgParam26, boolValue: true, isLoopValue: true),
-    ParamInfo(16, BasePrint.msgOverrides, boolValue: false, isLoopValue: true)
+    ParamInfo(20, msgParam24, boolValue: false),
+    ParamInfo(21, msgParam25, boolValue: false),
+    ParamInfo(22, msgParam26, boolValue: true, isLoopValue: true),
+    ParamInfo(17, BasePrint.msgOverrides, boolValue: false, isLoopValue: true),
+    ParamInfo(6, msgParam27, list: ['200 g', '300 g', '400 g', '500 g', '600 g'])
   ];
 
   @override
@@ -155,6 +158,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     showIOB = params[20].boolValue;
     showTargetValue = params[21].boolValue;
     showTempOverrides = params[22].boolValue;
+    carbMax = double.parse(params[23].listValue.substring(0,3));
 
     switch (params[6].intValue) {
       case 1:
@@ -242,6 +246,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
 
   static String get msgParam26 => Intl.message('Zielwert anzeigen');
 
+  static String get msgParam27 => Intl.message('Maximalwert für Kohlenhydrate');
+
   @override
   String get msgBasalSum => Intl.message('Basal ges.');
 
@@ -267,7 +273,6 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
   num lineWidth;
   double glucMax = 0.0;
   double profMax = 0.0;
-  double carbMax = 200.0;
   double bolusMax = 50.0;
   double ieMax = 0.0;
   double graphBottom;
@@ -1435,8 +1440,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     if (showCOB || showIOB) {
       var hc = [];
       var vs = [];
-      var pts = getIobCob(
-          xo, yo, graphWidth, graphHeight, hc, vs, day, ieMax * 4, carbMax);
+      var pts = getIobCob(xo, yo, graphWidth, graphHeight, hc, vs, day, ieMax * 4, carbMax);
 
       if (showIOB) {
         graphIob = {

@@ -130,16 +130,16 @@ class ParamInfo {
 
   ParamInfo(this.sort, this.title,
       {bool boolValue,
-      String stringValue,
-      int intValue,
-      LiteralFormat literalFormat,
-      this.min,
-      this.max,
-      this.list,
-      this.subParams,
-      this.isDeprecated = false,
-      this.isLoopValue = false,
-      this.thumbValue}) {
+        String stringValue,
+        int intValue,
+        LiteralFormat literalFormat,
+        this.min,
+        this.max,
+        this.list,
+        this.subParams,
+        this.isDeprecated = false,
+        this.isLoopValue = false,
+        this.thumbValue}) {
     _boolValue = boolValue;
     _intValue = intValue;
     _stringValue = stringValue;
@@ -248,7 +248,8 @@ class FormConfig {
     dynamic ret = {'c': checked, 'p': []};
 
     if (form.params != null) {
-      for (var entry in form.params) ret['p'].add(entry.asJson);
+      for (var entry in form.params)
+        ret['p'].add(entry.asJson);
     }
     return ret;
   }
@@ -304,7 +305,8 @@ class Page {
     this.y = y;
   }
 
-  dynamic get asElement => {
+  dynamic get asElement =>
+      {
         'absolutePosition': {'x': x, 'y': y},
         'stack': content
       };
@@ -662,11 +664,20 @@ abstract class BasePrint {
     return msgPageCount(ret['count'], ret['isEstimated']);
   }
 
-  String _msgPageCountEst(count) => Intl.plural(count,
-      zero: '', one: '1 Seite oder mehr', other: '$count Seiten oder mehr', args: [count], name: '_msgPageCountEst');
+  String _msgPageCountEst(count) =>
+      Intl.plural(count,
+          zero: '',
+          one: '1 Seite oder mehr',
+          other: '$count Seiten oder mehr',
+          args: [count],
+          name: '_msgPageCountEst');
 
   String _msgPageCount(count) =>
-      Intl.plural(count, zero: '', one: '1 Seite', other: '$count Seiten', args: [count], name: '_msgPageCount');
+      Intl.plural(count, zero: '',
+          one: '1 Seite',
+          other: '$count Seiten',
+          args: [count],
+          name: '_msgPageCount');
 
   dynamic msgPageCount(count, isEstimated) => isEstimated ? _msgPageCountEst(count) : _msgPageCount(count);
 
@@ -744,26 +755,29 @@ abstract class BasePrint {
 
   String msgKH(value) => Intl.message('${value}g', args: [value], name: 'msgKH');
 
-  String msgReadingsPerDay(howMany, fmt) => Intl.plural(howMany,
-      zero: 'Keine Messwerte vorhanden',
-      one: '1 Messung am Tag',
-      other: '$fmt Messungen am Tag',
-      args: [howMany, fmt],
-      name: 'msgReadingsPerDay');
+  String msgReadingsPerDay(howMany, fmt) =>
+      Intl.plural(howMany,
+          zero: 'Keine Messwerte vorhanden',
+          one: '1 Messung am Tag',
+          other: '$fmt Messungen am Tag',
+          args: [howMany, fmt],
+          name: 'msgReadingsPerDay');
 
-  String msgReadingsPerHour(howMany, fmt) => Intl.plural(howMany,
-      zero: 'Keine Messwerte vorhanden',
-      one: '1 Messung pro Stunde',
-      other: '$fmt Messungen pro Stunde',
-      args: [howMany, fmt],
-      name: 'msgReadingsPerHour');
+  String msgReadingsPerHour(howMany, fmt) =>
+      Intl.plural(howMany,
+          zero: 'Keine Messwerte vorhanden',
+          one: '1 Messung pro Stunde',
+          other: '$fmt Messungen pro Stunde',
+          args: [howMany, fmt],
+          name: 'msgReadingsPerHour');
 
-  String msgReadingsInMinutes(howMany, fmt) => Intl.plural(howMany,
-      zero: 'Keine Messwerte vorhanden',
-      one: '1 Messung pro Minute',
-      other: 'Messung alle $fmt Minuten',
-      args: [howMany, fmt],
-      name: 'msgReadingsInMinutes');
+  String msgReadingsInMinutes(howMany, fmt) =>
+      Intl.plural(howMany,
+          zero: 'Keine Messwerte vorhanden',
+          one: '1 Messung pro Minute',
+          other: 'Messung alle $fmt Minuten',
+          args: [howMany, fmt],
+          name: 'msgReadingsInMinutes');
 
   String msgValuesIn(low, high) => Intl.message('Werte zwischen ${low} und ${high}', args: [low, high], name: 'msgValuesIn');
 
@@ -784,14 +798,29 @@ abstract class BasePrint {
   String msgKHBE(value) =>
       Intl.message('g KH ($value BE)', args: [value], name: 'msgKHBE', meaning: 'gram Carbohydrates displayed at analysis page');
 
-  String msgReservoirDays(count, txt) => Intl.plural(count,
-      one: '($txt Tag pro Ampulle)', zero: '', other: '($txt Tage pro Ampulle)', args: [count, txt], name: 'msgReservoirDays');
+  String msgReservoirDays(count, txt) =>
+      Intl.plural(count,
+          one: '($txt Tag pro Ampulle)',
+          zero: '',
+          other: '($txt Tage pro Ampulle)',
+          args: [count, txt],
+          name: 'msgReservoirDays');
 
-  String msgCatheterDays(count, txt) => Intl.plural(count,
-      one: '($txt Tag pro Katheter)', zero: '', other: '($txt Tage pro Katheter)', args: [count, txt], name: 'msgCatheterDays');
+  String msgCatheterDays(count, txt) =>
+      Intl.plural(count,
+          one: '($txt Tag pro Katheter)',
+          zero: '',
+          other: '($txt Tage pro Katheter)',
+          args: [count, txt],
+          name: 'msgCatheterDays');
 
-  String msgSensorDays(count, txt) => Intl.plural(count,
-      one: '($txt Tag pro Sensor)', zero: '', other: '($txt Tage pro Sensor)', args: [count, txt], name: 'msgSensorDays');
+  String msgSensorDays(count, txt) =>
+      Intl.plural(count,
+          one: '($txt Tag pro Sensor)',
+          zero: '',
+          other: '($txt Tage pro Sensor)',
+          args: [count, txt],
+          name: 'msgSensorDays');
 
   String get msgBirthday => Intl.message('Geburtstag');
 
@@ -907,7 +936,11 @@ abstract class BasePrint {
   }
 
   String msgCount(value) {
-    return Intl.plural(value, zero: 'Kein Wert', one: '1 Wert', other: '$value Werte', args: [value], name: 'msgCount');
+    return Intl.plural(value, zero: 'Kein Wert',
+        one: '1 Wert',
+        other: '$value Werte',
+        args: [value],
+        name: 'msgCount');
   }
 
   String msgStdAbw(value) {
@@ -1089,14 +1122,15 @@ abstract class BasePrint {
 
   String msgHistorical(value) => Intl.message('Historisch ${value}', args: [value], name: 'msgHistorical');
 
-  String msgColumns(count) => Intl.plural(count,
+  String msgColumns(count) =>
+      Intl.plural(count,
           zero: 'Eine Spalte abwählen, um eine@nl@andere aktivieren zu '
               'können',
           one: 'Noch eine Spalte verfügbar',
           other: 'Noch $count Spalten verfügbar',
           args: [count],
           name: 'msgColumns')
-      .replaceAll('@nl@', '<br>');
+          .replaceAll('@nl@', '<br>');
 
   String titleInfoForDates(DateTime startDate, DateTime endDate) {
     String ret;
@@ -1118,7 +1152,8 @@ abstract class BasePrint {
 
   static String get msgNight => Intl.message('Nacht (21:00 - 05:59)');
 
-  dynamic get footerTextDayTimes => [
+  dynamic get footerTextDayTimes =>
+      [
         {
           'table': {
             'widths': [cm(6.0)],
@@ -1280,27 +1315,27 @@ abstract class BasePrint {
       footerTextAboveLine['text'] == ''
           ? null
           : {
-              'relativePosition': {'x': cm(xframe + footerTextAboveLine['x']), 'y': cm(height - 2.0 - footerTextAboveLine['y'])},
-              'columns': [
-                {'width': cm(width - 2 * xframe), 'text': footerTextAboveLine['text'], 'fontSize': fs(footerTextAboveLine['fs'])}
-              ]
-            },
+        'relativePosition': {'x': cm(xframe + footerTextAboveLine['x']), 'y': cm(height - 2.0 - footerTextAboveLine['y'])},
+        'columns': [
+          {'width': cm(width - 2 * xframe), 'text': footerTextAboveLine['text'], 'fontSize': fs(footerTextAboveLine['fs'])}
+        ]
+      },
       g.ppHideNightscoutInPDF ? null : _getFooterImage('nightscout', x: xframe, y: height - 1.7, width: 0.7),
       g.ppHideNightscoutInPDF
           ? null
           : {
-              'relativePosition': {'x': cm(3.1), 'y': cm(height - 1.7)},
-              'text': 'http://www.nightscout.info',
-              'color': colInfo,
-              'fontSize': fs(10)
-            },
+        'relativePosition': {'x': cm(3.1), 'y': cm(height - 1.7)},
+        'text': 'http://www.nightscout.info',
+        'color': colInfo,
+        'fontSize': fs(10)
+      },
       footerText == null
           ? null
           : {
-              'relativePosition': {'x': cm(g.ppHideNightscoutInPDF ? xframe : 7.5), 'y': cm(height - 1.7)},
-              'stack': footerText,
-              'fontSize': fs(10)
-            },
+        'relativePosition': {'x': cm(g.ppHideNightscoutInPDF ? xframe : 7.5), 'y': cm(height - 1.7)},
+        'stack': footerText,
+        'fontSize': fs(10)
+      },
       isInput ? _getFooterImage('input', x: width - 5.6, y: height - 3.3, width: 4.0) : {},
       {
         'relativePosition': {'x': cm(xframe), 'y': cm(height - 1.7)},
@@ -1309,7 +1344,9 @@ abstract class BasePrint {
             'width': cm(width - 2 * xframe),
             'stack': [
               {'text': rightText, 'color': colInfo, 'fontSize': fs(10)},
-              !g.ppShowUrlInPDF ? null : {'text': g.user.urlDataFor(date).url, 'color': colInfo, 'fontSize': fs(8)}
+              !g.ppShowUrlInPDF ? null : {'text': g.user
+                  .urlDataFor(date)
+                  .url, 'color': colInfo, 'fontSize': fs(8)}
             ],
             'alignment': 'right'
           }
@@ -1353,7 +1390,8 @@ abstract class BasePrint {
 
   Map<String, String> images = <String, String>{};
 
-  List<String> get imgList => [
+  List<String> get imgList =>
+      [
         'nightscout-pale',
         'nightscout',
       ];
@@ -1788,8 +1826,8 @@ abstract class BasePrint {
   ///
   /// it uses [horzfs] as the fontsize of the horizontal scale and [vertfs] as the fontsize for the vertical
   /// scale.
-  GridData drawGraphicGrid(
-      double glucMax, double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack, List vertStack,
+  GridData drawGraphicGrid(double glucMax, double graphHeight, double graphWidth, List vertCvs, List horzCvs, List horzStack,
+      List vertStack,
       {double glucScale: 0.0, double graphBottom: 0.0, double horzfs: null, double vertfs: null}) {
     if (horzfs == null) horzfs = fs(8);
     if (vertfs == null) vertfs = fs(8);
@@ -1797,8 +1835,8 @@ abstract class BasePrint {
     if (graphBottom == 0.0) graphBottom = graphHeight;
     ret.glucScale = glucScale == 0.0
         ? g.glucMGDL
-            ? 50
-            : 18.02 * 1
+        ? 50
+        : 18.02 * 1
         : glucScale;
     ret.gridLines = (glucMax / ret.glucScale).ceil();
 
@@ -1909,15 +1947,15 @@ abstract class BasePrint {
 
   dynamic addLegendEntry(LegendData legend, String color, String text,
       {bool isArea = true,
-      String image,
-      double imgWidth = 0.6,
-      double imgOffsetY = 0.0,
-      double lineWidth = 0.0,
-      String graphText,
-      newColumn: false,
-      points: null,
-      colGraphText: null,
-      colLegendText: null}) {
+        String image,
+        double imgWidth = 0.6,
+        double imgOffsetY = 0.0,
+        double lineWidth = 0.0,
+        String graphText,
+        newColumn: false,
+        points: null,
+        colGraphText: null,
+        colLegendText: null}) {
     List dst = legend.current(newColumn);
     if (lineWidth == 0.0) lineWidth = lw;
     if (colGraphText == null) colGraphText == 'black';
@@ -2102,8 +2140,18 @@ abstract class BasePrint {
     var i = 0;
     var currentDay = day.date.day;
     var maxTime = 1440;
-    if (day.date.year == Date.today().year && day.date.month == Date.today().month && day.date.day == Date.today().day) {
-      maxTime = DateTime.now().hour * 60 + DateTime.now().minute;
+    if (day.date.year == Date
+        .today()
+        .year && day.date.month == Date
+        .today()
+        .month && day.date.day == Date
+        .today()
+        .day) {
+      maxTime = DateTime
+          .now()
+          .hour * 60 + DateTime
+          .now()
+          .minute;
     }
     while (i < maxTime) {
       if (currentDay != time.day) {
@@ -2113,12 +2161,16 @@ abstract class BasePrint {
       if (i + diff >= maxTime && i != maxTime - 1) diff = maxTime - 1 - i;
       if (i < maxTime) {
         var x = calcX(graphWidth, time);
-        var y = day.iob(repData, time, day.prevDay).iob - 1.0;
+        var y = day
+            .iob(repData, time, day.prevDay)
+            .iob - 1.0;
         maxIob = max(maxIob, y);
         minIob = min(minIob, y);
         ptsIob.add({'x': cm(x), 'y': y});
 //*
-        y = day.cob(repData, time, day.prevDay).cob;
+        y = day
+            .cob(repData, time, day.prevDay)
+            .cob;
         maxCob = max(maxCob, y);
         ptsCob.add({'x': cm(x), 'y': y});
 // */
@@ -2144,7 +2196,7 @@ abstract class BasePrint {
         horzCvs,
         vertStack,
         [S(10, 2.0), S(7, 1.0), S(3, 0.5), S(1.5, 0.2), S(0, 0.1)],
-        (i, step, {value}) => '${g.fmtNumber(value ?? minIob + i * step, 1)} ${msgInsulinUnit}');
+            (i, step, {value}) => '${g.fmtNumber(value ?? minIob + i * step, 1)} ${msgInsulinUnit}');
     for (var i = 0; i < ptsIob.length; i++) {
       if (maxIob - minIob > 0) {
         double y = ptsIob[i]['y'];
@@ -2158,7 +2210,16 @@ abstract class BasePrint {
       }
     }
 
-    double cobHeight = drawScaleIE(xo, yo, graphHeight, 4 * graphHeight, 0.0, maxCob, colWidth, horzCvs, vertStack,
+    double cobHeight = drawScaleIE(
+        xo,
+        yo,
+        graphHeight,
+        4 * graphHeight,
+        0.0,
+        maxCob,
+        colWidth,
+        horzCvs,
+        vertStack,
         [S(100, 20), S(50, 10), S(20, 5), S(0, 1)], (i, step, {value}) => '${g.fmtNumber(value ?? i * step, 0)} g');
 
     if (upperCob == 0) {
@@ -2186,7 +2247,8 @@ abstract class BasePrint {
       ptsCob.add({'x': cm(lastX), 'y': cm(cobHeight)});
     }
 
-    return {'iob': ptsIob, 'cob': ptsCob, 'iobHeight': iobHeight, 'cobHeight': cobHeight, 'iobTop': iobHeight / maxIob * minIob};
+    return {'iob': ptsIob, 'cob': ptsCob, 'iobHeight': iobHeight, 'cobHeight': cobHeight, 'iobTop': iobHeight / maxIob * minIob,
+      'maxCob': maxCob};
   }
 
   void checkValue(ParamInfo param, dynamic value) {}

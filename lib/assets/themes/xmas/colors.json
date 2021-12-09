@@ -31,7 +31,7 @@
   "pdfInfoFore": "#000000b2",
   "sendMarked": "mat-purple-400",
   "googleSignedout": "mat-red-400",
-  "loopMarked": "mat-teal-900",
+  "loopMarked": "rgba(255,255,255,0.6)",
   "printparamsHeaderBack": "mat-red-900",
   "printparamsHeaderFore": "mat-red-100",
   "printparamsBodyBack": "mat-red-300",
