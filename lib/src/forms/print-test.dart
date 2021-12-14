@@ -201,28 +201,29 @@ class PrintTest extends BasePrint {
     if (showRawEntries) {
       _body = [];
       _root = createRoot('raw', title: 'Entries (sgv)');
-      for (EntryData entry in repData.ns.entries) addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
+      for (EntryData entry in repData.ns.entries) addRawData(entry.raw, fmtDateTime(JsonData.toLocal(entry.time)));
       finalizeRawData();
       _body = [];
       _root = createRoot('raw', title: 'Entries (mbg)');
-      for (EntryData entry in repData.ns.bloody) addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
+      for (EntryData entry in repData.ns.bloody) addRawData(entry.raw, fmtDateTime(JsonData.toLocal(entry.time)));
       finalizeRawData();
       _body = [];
       _root = createRoot('raw', title: 'Entries (remaining)');
-      for (EntryData entry in repData.ns.remaining) addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
+      for (EntryData entry in repData.ns.remaining) addRawData(entry.raw, fmtDateTime(JsonData.toLocal(entry.time)));
       finalizeRawData();
     }
     if (showRawTreatments) {
       _body = [];
       _root = createRoot('raw', title: 'Treatments');
-      for (TreatmentData entry in repData.ns.treatments)
-        addRawData(entry.raw, fmtDateTime(entry.createdAt.toLocal(), null, true));
+      for (TreatmentData entry in repData.ns.treatments) {
+        addRawData(entry.raw, fmtDateTime(JsonData.toLocal(entry.createdAt), null, true));
+      }
       finalizeRawData();
     }
     if (showRawProfiles) {
       _body = [];
       _root = createRoot('raw', title: 'Profiles');
-      for (ProfileData entry in repData.profiles) addRawData(entry.raw, fmtDateTime(entry.createdAt.toLocal()));
+      for (ProfileData entry in repData.profiles) addRawData(entry.raw, fmtDateTime(JsonData.toLocal(entry.createdAt)));
       finalizeRawData();
 // */
     }

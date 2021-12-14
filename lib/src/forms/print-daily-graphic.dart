@@ -372,6 +372,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     subtitle = null;
     footerTextAboveLine['text'] = '';
     var graphHeightSave = graphHeight;
+    var basalTopSave = basalTop;
     hasExercises =
         day.treatments.firstWhere((t) => t.isExercise, orElse: () => null) !=
             null;
@@ -390,6 +391,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     tempOverridesTop = graphHeight;
     var ret = _getPage(day, repData);
     graphHeight = graphHeightSave;
+    basalTop = basalTopSave;
     return ret;
   }
 

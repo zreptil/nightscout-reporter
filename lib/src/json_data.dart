@@ -12,6 +12,9 @@ import 'package:timezone/browser.dart' as tz;
 enum Uploader { Unknown, XDrip, Tidepool, Minimed600, OpenAPS, AndroidAPS, Spike }
 
 class JsonData {
+
+  static int hourDiff = 0;
+
   JsonData();
 
   static Map<String, dynamic> ensureJson(dynamic json) {
@@ -49,7 +52,15 @@ class JsonData {
     if (value == null) return DateTime(0, 1, 1);
     if (value is int) return DateTime.fromMillisecondsSinceEpoch(value);
     if (value is double) return DateTime.fromMillisecondsSinceEpoch(value.toInt());
-    return DateTime.tryParse(value).toLocal() ?? DateTime(0, 1, 1);
+    return JsonData.toLocal(DateTime.tryParse(value)) ?? DateTime(0, 1, 1);
+  }
+
+  static DateTime toLocal(value) {
+    var ret = value?.toLocal();
+    if (ret != null) {
+      ret = ret.add(Duration(hours: JsonData.hourDiff));
+    }
+    return ret;
   }
 
   static String toText(value, [String def = '']) {
@@ -334,9 +345,8 @@ class ProfileTimezone {
           0,
           0,
           0);
-      localDiff = d
-          .difference(DateTime(0))
-          .inHours;
+      localDiff = d.difference(DateTime(0))
+          .inHours + JsonData.hourDiff;
     }
   }
 }
@@ -2636,7 +2646,7 @@ class ListData {
         t.isECarb = true;
       }
 
-      var idx = days.indexWhere((d) => d.isSameDay(t.createdAt.toLocal()));
+      var idx = days.indexWhere((d) => d.isSameDay(JsonData.toLocal(t.createdAt)));
       if (idx >= 0) days[idx].treatments.add(t);
 
       if (!data.isInPeriod(t.createdAt)) continue;
@@ -2655,7 +2665,7 @@ class ListData {
       ieBasalSumStore += day.ieBasalSum(true);
       ieBasalSumDaily += day.ieBasalSum(false);
       day.devicestatusList.clear();
-      day.devicestatusList.addAll(devicestatusList.where((ds) => day.isSameDay(ds.createdAt.toLocal())));
+      day.devicestatusList.addAll(devicestatusList.where((ds) => day.isSameDay(JsonData.toLocal(ds.createdAt))));
     }
     // the last day before the period was added at the beginning. Now it has to be removed.
     if (days.isNotEmpty && days[0].date.isBefore(data.begDate)) days.removeAt(0);

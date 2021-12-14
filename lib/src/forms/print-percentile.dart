@@ -143,8 +143,8 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
 
   @override
   void extractParams() {
-    showGPD = params[0].intValue == 0 || params[0].intValue == 2;
-    showTable = params[0].intValue == 1 || params[0].intValue == 2;
+    showGPD = params[0].intValue == 0 || params[0].intValue == 2 || params[0].intValue == null;
+    showTable = params[0].intValue == 1 || params[0].intValue == 2 || params[0].intValue == null;
     showCol1090 = params[1].boolValue;
     showBasal = params[2].boolValue;
     showColCount = params[4].boolValue;
