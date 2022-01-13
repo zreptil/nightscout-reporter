@@ -159,7 +159,8 @@ und als Pfeile darstellen zu lassen.''', desc: 'help for dayprofile');
           });
         }
       }
-      var prz = '${g.fmtNumber(entry.value / entry.orgValue * 100, 0)}%';
+
+      var prz = entry.orgValue != 0 ? '${g.fmtNumber(entry.value / entry.orgValue * 100, 0)}%' : '';
       var val = g.fmtNumber(entry.value, g.basalPrecision);
       var colValue = [
         {
@@ -170,7 +171,7 @@ und als Pfeile darstellen zu lassen.''', desc: 'help for dayprofile');
         }
       ];
 
-      if (showBasalLine) {
+      if (showBasalLine && max > 0) {
         w = entry.orgValue * (widths[1] + cm(0.1)) / max;
 /*
         canvas.add({
