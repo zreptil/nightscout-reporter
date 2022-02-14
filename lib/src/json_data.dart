@@ -1536,6 +1536,10 @@ class EntryData extends JsonData {
       ret.sgv = 0;
       ret.isGap = true;
     }
+    if (ret.sgv > 1000) {
+      ret.sgv = 0;
+      ret.isGap = true;
+    }
     ret.slope = JsonData.toDouble(json['slope']);
     ret.intercept = JsonData.toDouble(json['intercept']);
     ret.scale = JsonData.toDouble(json['scale']);
@@ -2703,7 +2707,7 @@ class ReportData {
     var profile;
     for (var i = 0; i < profiles.length; i++) {
       for (var key in profiles[i].store.keys) {
-        print('$key - $name - ${profiles.length}');
+        // print('$key - $name - ${profiles.length}');
         if (key == name) {
           profile = profiles[i].store[key];
         }
