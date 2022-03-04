@@ -1346,8 +1346,10 @@ class AppComponent implements OnInit {
           for (dynamic treatment in src) {
             hasData = true;
             var t = TreatmentData.fromJson(g, treatment);
-            // duplicate Treatments are removed
-            if (data.ns.treatments.isNotEmpty && t.equals(data.ns.treatments.last)) {
+            // Treatments entered by sync are ignored
+            if (t.enteredBy == 'sync') {
+            } else if (data.ns.treatments.isNotEmpty && t.equals(data.ns.treatments.last)) {
+              // duplicate Treatments are removed
               data.ns.treatments.last.duplicates++;
             } else {
               data.ns.treatments.add(t);
@@ -1487,7 +1489,7 @@ class AppComponent implements OnInit {
       data.calc.bloody = data.ns.bloody;
       data.calc.remaining = data.ns.remaining;
 
-      data.ns.treatments.removeWhere((t) => filterTreatment(t));
+      // data.ns.treatments.removeWhere((t) => filterTreatment(t));
       data.calc.treatments = data.ns.treatments;
       data.calc.devicestatusList = data.ns.devicestatusList;
       data.calc.activityList = data.ns.activityList;
@@ -1499,11 +1501,11 @@ class AppComponent implements OnInit {
     return data;
   }
 
-  bool filterTreatment(TreatmentData t) {
-    if (t.enteredBy.toLowerCase() == 'sync') return true;
-
-    return false;
-  }
+  // bool filterTreatment(TreatmentData t) {
+  //   if (t.enteredBy.toLowerCase() == 'sync') return true;
+  //
+  //   return false;
+  // }
 
   void cancelProgress() {
     sendIcon = 'send';

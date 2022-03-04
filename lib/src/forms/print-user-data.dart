@@ -172,8 +172,8 @@ class PrintUserData extends BasePrint {
         if (lastEntry == null) lastEntry = check;
       }
     }
-    print('lastEntry');
-    print(convert.jsonDecode(lastEntry));
+    // print('lastEntry');
+    // print(convert.jsonDecode(lastEntry));
   }
 
   Future<dynamic> calculateFirstDay(UrlData urlData, String type) async {

@@ -900,7 +900,6 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: '
     // when i added it.
 //*
     var bpm = day.activityList.where((ac) => ac.type == 'hr-bpm');
-    print('${day.date.toString()} ${bpm.length}');
     var ac = day.activityList.lastWhere((ac) => ac.type == 'steps-total', orElse: () => null);
     if (showExercises && ac != null) {
       var x = glucX(ac.createdAt);

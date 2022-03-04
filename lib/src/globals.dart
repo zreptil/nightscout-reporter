@@ -127,7 +127,7 @@ class Settings {
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.
-  String subVersion = '1';
+  String subVersion = '3';
 
   static String get msgThemeAuto =>
       Intl.message('Automatisch', meaning: 'theme selection - automatic');
