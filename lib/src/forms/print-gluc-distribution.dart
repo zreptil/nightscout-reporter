@@ -16,8 +16,7 @@ class GlucDist {
 
 class PrintGlucDistribution extends BasePrint {
   @override
-  String help =
-      Intl.message('''Dieses Formular zeig die Verteilung der Glukosewerte
+  String help = Intl.message('''Dieses Formular zeig die Verteilung der Glukosewerte
 im ausgewählten Zeitraum an.''', desc: 'help for template');
 
   @override
@@ -55,6 +54,7 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
   dynamic get estimatePageCount => {'count': 1, 'isEstimated': false};
 
   static String get msgParam1 => Intl.message('Bei 0 beginnen');
+
   static String get msgParam2 => Intl.message('Schritte');
 
   @override
@@ -71,14 +71,7 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
   double graphHeight;
 
   dynamic getArea(dynamic points, String color) {
-    return {
-      'type': 'polyline',
-      'lineWidth': cm(lw),
-      'closePath': true,
-      'lineColor': color,
-      'color': color,
-      'points': points
-    };
+    return {'type': 'polyline', 'lineWidth': cm(lw), 'closePath': true, 'lineColor': color, 'color': color, 'points': points};
   }
 
   Page getPage() {
@@ -90,29 +83,27 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
     var glucMax = 0.0;
     var glucMin = 100000.0;
 //    var glucSpan = 1.0;
-    var startDate = DateTime(
-        repData.begDate.year, repData.begDate.month, repData.begDate.day);
-    var endDate = DateTime(
-        repData.endDate.year, repData.endDate.month, repData.endDate.day + 1);
+    var startDate = DateTime(repData.begDate.year, repData.begDate.month, repData.begDate.day);
+    var endDate = DateTime(repData.endDate.year, repData.endDate.month, repData.endDate.day + 1);
 
     for (var day in data.days) {
       for (var entry in day.entries) {
         if (entry.gluc > 0) {
           glucMin = math.min(entry.gluc, glucMin);
           glucMax = math.max(entry.gluc, glucMax);
+//          print('${entry.gluc} ${entry.time}');
         }
       }
     }
     glucMin = startAt0 ? 0 : glucMin;
     glucMax = glucMax + glucSpan;
-    var values = List<GlucDist>();
+    // print('glucMin  ${glucMin}');
+    // print('glucMax  ${glucMax}');
+    // print('glucSpan ${glucSpan}');
+    var values = [];
     //.filled((glucMax / glucSpan).toInt() + 1, null);
-    var low = g.ppStandardLimits
-        ? Globals.stdLow
-        : repData.status.settings.thresholds.bgTargetBottom;
-    var high = g.ppStandardLimits
-        ? Globals.stdHigh
-        : repData.status.settings.thresholds.bgTargetTop;
+    var low = g.ppStandardLimits ? Globals.stdLow : repData.status.settings.thresholds.bgTargetBottom;
+    var high = g.ppStandardLimits ? Globals.stdHigh : repData.status.settings.thresholds.bgTargetTop;
     var lowCount = 0;
     var highCount = 0;
     for (var g = 0.0; g <= glucMax; g += glucSpan) {
@@ -139,8 +130,7 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
     for (var day in data.days) {
       for (var entry in day.entries) {
         if (entry.gluc > 0) {
-          var v = values
-              .firstWhere((e) => e.from < entry.gluc && e.to >= entry.gluc);
+          var v = values.firstWhere((e) => e.from < entry.gluc && e.to >= entry.gluc);
           if (v != null) {
             v.count++;
             if (v.from < low) {
@@ -190,12 +180,15 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
       'canvas': []
     };
     var idx = 0;
-    var checks = [low, high - 1, 9999];
+    var checks = [low, high - 1, 999999];
     var colors = [colLow, colNorm, colHigh];
     var lastX = -100.0;
     for (var i = 0; i < values.length; i++) {
       var x = values[i].from * xf;
       var y = graphBottom - values[i].count / count * yf;
+      var v = values[i].from;
+      // print('v = ${v} => ${idx} ${glucMax} ${glucSpan}');
+      var c = checks[idx];
       if (values[i].from >= checks[idx]) {
         points.add({'x': cm(x), 'y': cm(graphBottom)});
         (graphGluc['canvas'] as List).add(getArea(points, colors[idx]));
@@ -218,10 +211,7 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
       if (i < values.length && x - lastX > 1) {
         // legend at horizontal axis
         horzStack.add({
-          'relativePosition': {
-            'x': cm(xorg + x),
-            'y': cm(yorg + graphBottom + 0.5)
-          },
+          'relativePosition': {'x': cm(xorg + x), 'y': cm(yorg + graphBottom + 0.5)},
           'text': g.glucFromData(values[i].from),
           'fontSize': horzfs
         });
@@ -232,12 +222,7 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
     horzStack.add({
       'relativePosition': {'x': cm(xorg), 'y': cm(yorg + graphBottom + 1.0)},
       'columns': [
-        {
-          'width': cm(graphWidth),
-          'text': g.getGlucInfo()['unit'],
-          'fontSize': horzfs * 2,
-          'alignment': 'center'
-        }
+        {'width': cm(graphWidth), 'text': g.getGlucInfo()['unit'], 'fontSize': horzfs * 2, 'alignment': 'center'}
       ]
     });
 
@@ -257,20 +242,12 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
         vertStack.add({
           'relativePosition': {'x': cm(xorg - 1.3), 'y': cm(yorg + y - 0.15)},
           'columns': [
-            {
-              'width': cm(1),
-              'text': '${g.fmtNumber(i * 100)} %',
-              'fontSize': vertfs,
-              'alignment': 'right'
-            }
+            {'width': cm(1), 'text': '${g.fmtNumber(i * 100)} %', 'fontSize': vertfs, 'alignment': 'right'}
           ]
         });
         // legend at vertical axis
         vertStack.add({
-          'relativePosition': {
-            'x': cm(xorg + graphWidth + 0.4),
-            'y': cm(yorg + y - 0.15)
-          },
+          'relativePosition': {'x': cm(xorg + graphWidth + 0.4), 'y': cm(yorg + y - 0.15)},
           'columns': [
             {
               'width': cm(1),
@@ -305,22 +282,8 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
           'columns': [
             {
               'canvas': [
-                {
-                  'type': 'rect',
-                  'x': cm(0),
-                  'y': cm(0),
-                  'w': cm(low * xf),
-                  'h': cm(0.4),
-                  'color': colLowBack
-                },
-                {
-                  'type': 'rect',
-                  'x': cm(low * xf),
-                  'y': cm(0),
-                  'w': cm((high - low) * xf),
-                  'h': cm(0.4),
-                  'color': colNormBack
-                },
+                {'type': 'rect', 'x': cm(0), 'y': cm(0), 'w': cm(low * xf), 'h': cm(0.4), 'color': colLowBack},
+                {'type': 'rect', 'x': cm(low * xf), 'y': cm(0), 'w': cm((high - low) * xf), 'h': cm(0.4), 'color': colNormBack},
                 {
                   'type': 'rect',
                   'x': cm(high * xf),
@@ -334,10 +297,7 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
           ]
         },
         {
-          'relativePosition': {
-            'x': cm(xorg),
-            'y': cm(yorg + graphBottom + 0.05)
-          },
+          'relativePosition': {'x': cm(xorg), 'y': cm(yorg + graphBottom + 0.05)},
           'columns': [
             {
               'width': cm(low * xf),
@@ -348,8 +308,7 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
             },
             {
               'width': cm((high - low) * xf),
-              'text':
-                  '${g.fmtNumber((count - lowCount - highCount) / count * 100, 1)} %',
+              'text': '${g.fmtNumber((count - lowCount - highCount) / count * 100, 1)} %',
               'alignment': 'center',
               'fontSize': vertfs,
               'bold': true
@@ -366,15 +325,7 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
       ]
     };
 
-    var ret = [
-      headerFooter(),
-      bottomBar,
-      graphGluc,
-      horzLines,
-      vertLines,
-      vertLegend,
-      horzLegend
-    ];
+    var ret = [headerFooter(), bottomBar, graphGluc, horzLines, vertLines, vertLegend, horzLegend];
 
     // ret.add({'type': 'text', 'text': '${valueMax}'});
 

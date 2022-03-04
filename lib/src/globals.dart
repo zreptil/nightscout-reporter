@@ -120,8 +120,10 @@ class PeriodShift {
   PeriodShift(this.title, {this.months = 0});
 }
 
+// 21.12.2021 - 11:20 Uhr Loop pausiert - Eintrag "OpenAPS Offline" mit duration 1 Std.
+// 21.12.2021 - 11:25 Uhr Loop wieder aktiviert - Eintrag "OpenAPS Offline" mit duration 0
 class Settings {
-  String version = '2.1.0';
+  String version = '2.2.0';
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.
@@ -1142,6 +1144,7 @@ class Globals extends Settings {
   String infoClass(String cls) =>
       showInfo ? '$cls infoarea showinfo' : '$cls infoarea';
   bool isConfigured = false;
+  bool dsgvoAccepted = false;
   int _khFactor = 12;
 
   int get khFactor => _khFactor;

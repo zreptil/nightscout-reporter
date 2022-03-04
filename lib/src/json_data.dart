@@ -345,7 +345,8 @@ class ProfileTimezone {
           0,
           0,
           0);
-      localDiff = d.difference(DateTime(0))
+      localDiff = d
+          .difference(DateTime(0))
           .inHours + JsonData.hourDiff;
     }
   }
@@ -1082,6 +1083,53 @@ class InsulinInjectionData extends JsonData {
   }
 }
 
+class ActivityData extends JsonData {
+  dynamic raw;
+  DateTime createdAt;
+  String type;
+  String id;
+  int steps;
+  int bpm;
+  int accuracy;
+
+  ActivityData();
+
+  ActivityData get copy {
+    var ret = ActivityData()
+      ..id = id
+      ..createdAt = createdAt.add(Duration(minutes: 0))
+      ..type = type
+      ..steps = steps
+      ..bpm = bpm
+      ..accuracy = accuracy
+      ..raw = raw;
+    return ret;
+  }
+
+  bool equals(ActivityData a) {
+    return createdAt.millisecondsSinceEpoch == a.createdAt.millisecondsSinceEpoch &&
+        type == a.type &&
+        steps == a.steps &&
+        bpm == a.bpm &&
+        accuracy == a.accuracy;
+  }
+
+  factory ActivityData.fromJson(Map<String, dynamic> json) {
+    var ret = ActivityData();
+    if (json == null) return ret;
+    ret.raw = json;
+    ret.id = JsonData.toText(json['_id']);
+    ret.createdAt = JsonData.toDate(json['created_at']);
+    ret.type = JsonData.toText(json['type']);
+    ret.steps = JsonData.toInt(json['steps']);
+    ret.bpm = JsonData.toInt(json['bpm']);
+    ret.accuracy = JsonData.toInt(json['accuracy']);
+
+    return ret;
+  }
+
+}
+
 class TreatmentData extends JsonData {
   dynamic raw;
   String id;
@@ -1258,6 +1306,7 @@ class TreatmentData extends JsonData {
     return createdAt.millisecondsSinceEpoch == t.createdAt.millisecondsSinceEpoch &&
         eventType == t.eventType &&
         duration == t.duration &&
+        isSMB == t.isSMB &&
         notes == t.notes;
     // */
   }
@@ -2011,6 +2060,7 @@ class DayData {
   List<EntryData> get bloody => _bloody;
   List<TreatmentData> treatments = <TreatmentData>[];
   List<DeviceStatusData> devicestatusList = <DeviceStatusData>[];
+  List<ActivityData> activityList = <ActivityData>[];
   List<ProfileEntryData> _profile;
 
   List<ProfileEntryData> get profile {
@@ -2395,6 +2445,7 @@ class ListData {
   List<EntryData> remaining = <EntryData>[];
   List<TreatmentData> treatments = <TreatmentData>[];
   List<DeviceStatusData> devicestatusList = <DeviceStatusData>[];
+  List<ActivityData> activityList = <ActivityData>[];
   int catheterCount = 0;
   int ampulleCount = 0;
   int sensorCount = 0;
@@ -2670,6 +2721,8 @@ class ListData {
       ieBasalSumDaily += day.ieBasalSum(false);
       day.devicestatusList.clear();
       day.devicestatusList.addAll(devicestatusList.where((ds) => day.isSameDay(JsonData.toLocal(ds.createdAt))));
+      day.activityList.clear();
+      day.activityList.addAll(activityList.where((ac) => day.isSameDay(JsonData.toLocal(ac.createdAt))));
     }
     // the last day before the period was added at the beginning. Now it has to be removed.
     if (days.isNotEmpty && days[0].date.isBefore(data.begDate)) days.removeAt(0);

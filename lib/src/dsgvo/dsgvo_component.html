@@ -1,4 +1,4 @@
-<material-dialog headered class="headered-dialog" hideFooter>
+<material-dialog headered class="headered-dialog">
   <div header>
     <div>
       <h1 @i18n="title for dataprotection dialog">Datenschutzerklärung</h1>
@@ -155,11 +155,6 @@
         an Sie mit Funktionen und Inhalten sowie deren Optimierung und statistischen Auswertung.<br/><br/></li>
       <li>Rechtsgrundlage hierfür ist unser in den obigen Zwecken auch liegendes berechtigtes Interesse an der
         Datenverarbeitung nach Art. 6 Abs. 1 S.1 lit. f) DS-GVO.<br/><br/></li>
-      <li>Wir speichern aus Sicherheitsgründen diese Daten in Server-Logfiles für die Speicherdauer von Tagen. Nach
-        Ablauf
-        dieser Frist werden diese automatisch gelöscht, es sei denn wir benötigen deren Aufbewahrung zu Beweiszwecken
-        bei
-        Angriffen auf die Serverinfrastruktur oder anderen Rechtsverletzungen.<br/></li>
     </ol>
     <br/>
     <strong>Präsenz in sozialen Medien</strong>
@@ -290,5 +285,8 @@
     <div class="source"><i>Quelle:</i> <a href="https://www.muster-vorlagen.net/datenschutzerklaerungs-generator/"
                                           target="_blank">Datenschutzerklärungs-Generator
       Muster-Vorlagen.net</a></div>
+  </div>
+  <div footer *ngIf="false">
+    <material-checkbox class="check">Akzeptiert</material-checkbox>
   </div>
 </material-dialog>

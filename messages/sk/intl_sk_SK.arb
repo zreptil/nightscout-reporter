@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2021-12-09T14:48:29.942068",
+    "@@last_modified": "2022-03-03T08:47:48.760812",
     "Überprüfe Zugriff auf Nightscout ...": "Kontrola prístupu do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -235,7 +235,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dansk": "Dansk",
+    "Dansk": "Dánsky",
     "@Dansk": {
         "type": "text",
         "placeholders": {}
@@ -1248,7 +1248,7 @@
             "value": {}
         }
     },
-    "Durchschnitt": "Durchschnitt",
+    "Durchschnitt": "Priemer",
     "@Durchschnitt": {
         "type": "text",
         "placeholders": {}
@@ -2161,13 +2161,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": "Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.",
+    "Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": "Tento formulár zobrazuje distribúciu hodnôt glykémie vo zvolenom období.",
     "@Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": {
         "description": "help for template",
         "type": "text",
         "placeholders": {}
     },
-    "Verteilung der Glukosewerte": "Verteilung der Glukosewerte",
+    "Verteilung der Glukosewerte": "Distribúcia hodnôt glykémie",
     "@Verteilung der Glukosewerte": {
         "type": "text",
         "placeholders": {}
@@ -2267,7 +2267,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Template": "Template",
+    "Template": "Šablóna",
     "@Template": {
         "type": "text",
         "placeholders": {}
@@ -2304,17 +2304,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Einheiten": "Einheiten",
+    "Einheiten": "Jednotky",
     "@Einheiten": {
         "type": "text",
         "placeholders": {}
     },
-    "Letzter Glukosewert": "Letzter Glukosewert",
+    "Letzter Glukosewert": "Posledná hodnota glykémie",
     "@Letzter Glukosewert": {
         "type": "text",
         "placeholders": {}
     },
-    "Letzter Behandlungswert": "Letzter Behandlungswert",
+    "Letzter Behandlungswert": "Posledná hodnota ošetrenia",
     "@Letzter Behandlungswert": {
         "type": "text",
         "placeholders": {}
@@ -2403,7 +2403,7 @@
             "isVisible": {}
         }
     },
-    "msgEndDateHint": "Das Datum des letzten kompletten Tages mit Daten",
+    "msgEndDateHint": "Dátum posledného dňa, z ktorého existujú úplné dáta",
     "@msgEndDateHint": {
         "type": "text",
         "placeholders": {
@@ -2519,7 +2519,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Spenden": "Spenden",
+    "Spenden": "Obdarovať",
     "@Spenden": {
         "description": "title of donate button",
         "type": "text",
@@ -2711,7 +2711,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Korrektur für Datenänderungen in AAPS 3.0": "Korrektur für Datenänderungen in AAPS 3.0",
+    "Korrektur für Datenänderungen in AAPS 3.0": "Opravy zmien údajov v AAPS 3.0",
     "@Korrektur für Datenänderungen in AAPS 3.0": {
         "description": "label for fix for AAPS 3.0",
         "type": "text",
@@ -2945,6 +2945,18 @@
         "type": "text",
         "placeholders": {}
     },
+    "2.2.0 - 03.03.2022": "2.2.0 - 03.03.2022",
+    "@2.2.0 - 03.03.2022": {
+        "description": "v220",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wenn in Nightscout die Daten für die täglich erzielten Schritte vorhanden sind, dann werden diese in der Tagesgrafik angezeigt, wenn dort die Option \"Bewegung anzeigen\" aktiviert ist.": "Wenn in Nightscout die Daten für die täglich erzielten Schritte vorhanden sind, dann werden diese in der Tagesgrafik angezeigt, wenn dort die Option \"Bewegung anzeigen\" aktiviert ist.",
+    "@Wenn in Nightscout die Daten für die täglich erzielten Schritte vorhanden sind, dann werden diese in der Tagesgrafik angezeigt, wenn dort die Option \"Bewegung anzeigen\" aktiviert ist.": {
+        "description": "v220a1",
+        "type": "text",
+        "placeholders": {}
+    },
     "2.1.0 - 09.12.2021": "2.1.0 - 09.12.2021",
     "@2.1.0 - 09.12.2021": {
         "description": "v210",
@@ -3047,7 +3059,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Es gibt ein neues Formular namens \"Verteilung der Glucosewerte\". Das zeigt die prozentuale Verteilung der Glukosewerte für den ausgewählen Zeitraum an.": "Es gibt ein neues Formular namens \"Verteilung der Glucosewerte\". Das zeigt die prozentuale Verteilung der Glukosewerte für den ausgewählen Zeitraum an.",
+    "Es gibt ein neues Formular namens \"Verteilung der Glucosewerte\". Das zeigt die prozentuale Verteilung der Glukosewerte für den ausgewählen Zeitraum an.": "Pribudol nový formulár pod názvom \"Distribúcia hodnôt glykémie\". Zobrazuje percentuálny výskyt hodnôt glykémie v rámci zvoleného obdobia.",
     "@Es gibt ein neues Formular namens \"Verteilung der Glucosewerte\". Das zeigt die prozentuale Verteilung der Glukosewerte für den ausgewählen Zeitraum an.": {
         "description": "v208a1",
         "type": "text",
@@ -4841,8 +4853,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_30": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-    "@ViewWhatsnewComponent0__message_30": {
+    "ViewWhatsnewComponent0__message_32": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+    "@ViewWhatsnewComponent0__message_32": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

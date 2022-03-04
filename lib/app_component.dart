@@ -421,6 +421,9 @@ class AppComponent implements OnInit {
     g.loadSettings().then((_) {
       var page = g.version == g.lastVersion ? 'normal' : 'whatsnew';
       _currPage = g.isConfigured ? page : 'welcome';
+      // if (!g.dsgvoAccepted) {
+      //   _currPage = 'dsgvo';
+      // }
       _lastPage = _currPage;
       g.sortConfigs();
       for (var entry in g.listConfig) {
@@ -1391,6 +1394,27 @@ class AppComponent implements OnInit {
             data.ns.devicestatusList.add(ds);
           }
         }
+
+        url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), 'activity.json',
+            params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
+                'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
+        src = await g.requestJson(url);
+        if (src != null) {
+          displayLink('ac${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
+          for (dynamic activity in src) {
+            var value = ActivityData.fromJson(activity);
+            var exists = false;
+            for (var check in data.ns.activityList) {
+              if (check.equals(value)) exists = true;
+            }
+            if (!exists) {
+              data.ns.activityList.add(value);
+              // if(value.type == 'steps-total') {
+              //   print('${begDate} ${value.createdAt.hour}:${value.createdAt.minute} - ${value.steps}');
+              // }
+            }
+          }
+        }
       }
       begDate = begDate.add(days: 1);
       if (hasData) data.dayCount++;
@@ -1407,6 +1431,7 @@ class AppComponent implements OnInit {
       data.ns.remaining.sort((a, b) => a.time.compareTo(b.time));
       data.ns.treatments.sort((a, b) => a.createdAt.compareTo(b.createdAt));
       data.ns.devicestatusList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+      data.ns.activityList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
       var diffTime = 5;
       // gaps between entries that span more than the given minutes
@@ -1465,6 +1490,7 @@ class AppComponent implements OnInit {
       data.ns.treatments.removeWhere((t) => filterTreatment(t));
       data.calc.treatments = data.ns.treatments;
       data.calc.devicestatusList = data.ns.devicestatusList;
+      data.calc.activityList = data.ns.activityList;
 
       data.calc.extractData(data, lastTempBasal);
       data.ns.extractData(data, lastTempBasal);
