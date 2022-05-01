@@ -123,11 +123,11 @@ class PeriodShift {
 // 21.12.2021 - 11:20 Uhr Loop pausiert - Eintrag "OpenAPS Offline" mit duration 1 Std.
 // 21.12.2021 - 11:25 Uhr Loop wieder aktiviert - Eintrag "OpenAPS Offline" mit duration 0
 class Settings {
-  String version = '2.2.0';
+  String version = '2.2.1';
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.
-  String subVersion = '3';
+  String subVersion = '1';
 
   static String get msgThemeAuto =>
       Intl.message('Automatisch', meaning: 'theme selection - automatic');

@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2022-03-03T08:47:48.760812",
+    "@@last_modified": "2022-05-01T09:49:41.692333",
     "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -2945,6 +2945,18 @@
         "type": "text",
         "placeholders": {}
     },
+    "2.2.1 - 01.05.2022": "2.2.1 - 01.05.2022",
+    "@2.2.1 - 01.05.2022": {
+        "description": "v221",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Wert für die mittlere Glukose bei gesunden Menschen im CGM wurde auf die korrekten 90 mg/dl korrigiert.": "Der Wert für die mittlere Glukose bei gesunden Menschen im CGM wurde auf die korrekten 90 mg/dl korrigiert.",
+    "@Der Wert für die mittlere Glukose bei gesunden Menschen im CGM wurde auf die korrekten 90 mg/dl korrigiert.": {
+        "description": "v221f1",
+        "type": "text",
+        "placeholders": {}
+    },
     "2.2.0 - 03.03.2022": "2.2.0 - 03.03.2022",
     "@2.2.0 - 03.03.2022": {
         "description": "v220",
@@ -4853,8 +4865,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_32": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-    "@ViewWhatsnewComponent0__message_32": {
+    "ViewWhatsnewComponent0__message_34": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+    "@ViewWhatsnewComponent0__message_34": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

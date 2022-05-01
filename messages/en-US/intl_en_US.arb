@@ -1,5 +1,5 @@
 {
-    "@@last_modified": "2022-03-03T08:47:48.760812",
+    "@@last_modified": "2022-05-01T09:49:41.692333",
     "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
@@ -2945,6 +2945,18 @@
         "type": "text",
         "placeholders": {}
     },
+    "2.2.1 - 01.05.2022": "2.2.1 - 05/01/2022",
+    "@2.2.1 - 01.05.2022": {
+        "description": "v221",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Wert für die mittlere Glukose bei gesunden Menschen im CGM wurde auf die korrekten 90 mg/dl korrigiert.": "The mean glucose value in healthy people in the CGM has been adjusted to the correct value of 90 mg/dl.",
+    "@Der Wert für die mittlere Glukose bei gesunden Menschen im CGM wurde auf die korrekten 90 mg/dl korrigiert.": {
+        "description": "v221f1",
+        "type": "text",
+        "placeholders": {}
+    },
     "2.2.0 - 03.03.2022": "2.2.0 - 03/03/2022",
     "@2.2.0 - 03.03.2022": {
         "description": "v220",
@@ -4853,8 +4865,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_32": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
-    "@ViewWhatsnewComponent0__message_32": {
+    "ViewWhatsnewComponent0__message_34": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
+    "@ViewWhatsnewComponent0__message_34": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

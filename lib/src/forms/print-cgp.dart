@@ -250,12 +250,17 @@ class PentagonData {
   }
 
   double paintValues(List<double> values, double lw,
-      {String colLine, String colFill, double opacity = 1.0, bool showLimitBreaks = true}) {
+      {String colLine, String colFill, double opacity = 1.0, bool showLimitBreaks = true, bool limitValues = true}) {
     lw *= scale;
     var points = [];
     hasLimitBreakers = false;
     for (var i = 0; i < values.length && i < axis.length; i++) {
-      var y = g.limitValue(values[i], axis[i].values.first, axis[i].values.last);
+      var y;
+      if (limitValues) {
+        y = g.limitValue(values[i], axis[i].values.first, axis[i].values.last);
+      } else {
+        y = g.limitValue(values[i], 0, axis[i].values.last);
+      }
       points.add(_point(i, axis[i].scaleMethod(y)));
       if (values[i] > axis[i].values.last && showLimitBreaks) {
         dynamic pt = _point(i, 1.1);
@@ -538,7 +543,7 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
     }
 
     var areaHealthy = cgp.paintValues([0, 16.7, 0, 0, 90], lw,
-        colLine: colCGPHealthyLine, colFill: colCGPHealthyFill, opacity: 0.4, showLimitBreaks: false);
+        colLine: colCGPHealthyLine, colFill: colCGPHealthyFill, opacity: 0.4, showLimitBreaks: false, limitValues: false);
 
     var data = repData.data;
     var totalDay = DayData(null, ProfileGlucData(ProfileStoreData('Intern')));
