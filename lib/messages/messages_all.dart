@@ -18,6 +18,7 @@ import 'messages_ja_JP.dart' deferred as messages_ja_jp;
 import 'messages_fr_FR.dart' deferred as messages_fr_fr;
 import 'messages_pt_PT.dart' deferred as messages_pt_pt;
 import 'messages_nl_NL.dart' deferred as messages_nl_nl;
+import 'messages_sk_SK.dart' deferred as messages_sk_sk;
 
 typedef Future<dynamic> LibraryLoader();
 Map<String, LibraryLoader> _deferredLibraries = {
