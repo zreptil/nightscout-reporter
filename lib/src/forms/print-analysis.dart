@@ -5,31 +5,42 @@ import 'base-print.dart';
 
 class PrintAnalysis extends BasePrint {
   @override
-  String help =
-      Intl.message('''Dieses Formular zeigt die Auswertung der Werte des ausgewählten Zeitraums. Dabei wird auch
-der durchscnittliche Verbrauch an Materialien rechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet
-die meisten Informationen, die Diabetologen gerne wissen wollen.
+  String help = Intl.message(
+      '''Dieses Formular zeigt die Auswertung der Werte des ausgewählten
+Zeitraums. Dabei wird auch der durchscnittliche Verbrauch an Materialien
+rechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet die meisten
+Informationen, die Diabetologen gerne wissen wollen.
 
-Der HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht normalerweise nicht unerheblich von
-dem tatsächlich gemessenen Wert ab. Der Wert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche
-Bindung von Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist und nicht nur von den hier
-verwendeten Messdaten, ergeben sich Unterschiede zum errechneten Wert. Vor allem, wenn es sich bei den gemessenen
-Werten nicht um Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen verwendet wird.
+Der HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht
+normalerweise nicht unerheblich von dem tatsächlich gemessenen Wert ab. Der
+Wert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche Bindung
+von Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist
+und nicht nur von den hier verwendeten Messdaten, ergeben sich Unterschiede
+zum errechneten Wert. Vor allem, wenn es sich bei den gemessenen Werten nicht
+um Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen
+verwendet wird.
 
-Trotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der Glukoseeinstellung und wird in der vom Labor
-ermittelten Form gerne von Diabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird aber in
-schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar ist.''', desc: 'help for analysis');
+Trotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der
+Glukoseeinstellung und wird in der vom Labor ermittelten Form gerne von
+Diabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird
+aber in schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch
+erkennbar ist.''',
+      desc: 'help for analysis');
 
   @override
-  String id = 'analysis';
+  String baseId = 'analysis';
 
   @override
-  String idx = '01';
+  String baseIdx = '01';
 
   @override
   String get title => Intl.message('Auswertung');
 
-  bool isPreciseMaterial, isPreciseTarget, showStdAbw, showHypoGlucs, useDailyBasalrate;
+  bool isPreciseMaterial,
+      isPreciseTarget,
+      showStdAbw,
+      showHypoGlucs,
+      useDailyBasalrate;
 
   int get _precisionMaterial => isPreciseMaterial ? 2 : 0;
 
@@ -44,14 +55,15 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
     ParamInfo(2, msgParam3, boolValue: false),
     ParamInfo(3, msgParam4, boolValue: false),
     ParamInfo(4, msgParam5, boolValue: false),
-    ParamInfo(5, BasePrint.msgUseDailyBasalrate, boolValue: true, isLoopValue: true),
+    ParamInfo(5, BasePrint.msgUseDailyBasalrate,
+        boolValue: true, isLoopValue: true),
   ];
 
   @override
   bool get isPortrait => true;
 
-  PrintAnalysis() {
-    init();
+  PrintAnalysis({suffix = null}) {
+    init(suffix);
   }
 
   @override
@@ -69,16 +81,20 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
 
   static String get msgParam1 => Intl.message('Material mit Nachkommastellen');
 
-  static String get msgParam2 => Intl.message('Zielbereich mit Nachkommastellen');
+  static String get msgParam2 =>
+      Intl.message('Zielbereich mit Nachkommastellen');
 
-  static String get msgParam3 => Intl.message('Standardabweichung statt Anzahl');
+  static String get msgParam3 =>
+      Intl.message('Standardabweichung statt Anzahl');
 
-  static String get msgParam4 => Intl.message('Standardbereich mit feinerer Abstufung');
+  static String get msgParam4 =>
+      Intl.message('Standardbereich mit feinerer Abstufung');
 
   static String get msgParam5 => Intl.message('Unterzuckerungen anzeigen');
 
   String msgHypoTitle(value) {
-    return Intl.message('Unterzuckerungen (< $value)', args: [value], name: 'msgHypoTitle');
+    return Intl.message('Unterzuckerungen (< $value)',
+        args: [value], name: 'msgHypoTitle');
   }
 
   String get msgHypoCount => Intl.message('Anzahl Unterzuckerungen');
@@ -92,7 +108,14 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
       body.add([
         {
           'canvas': [
-            {'type': 'line', 'x1': cm(0), 'y1': cm(0.2), 'x2': cm(13.5), 'y2': cm(0.2), 'lineWidth': cm(0.01)}
+            {
+              'type': 'line',
+              'x1': cm(0),
+              'y1': cm(0.2),
+              'x2': cm(13.5),
+              'y2': cm(0.2),
+              'lineWidth': cm(0.01)
+            }
           ],
           'colSpan': 6
         }
@@ -101,7 +124,13 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
     body.add([
       {
         'columns': [
-          {'width': cm(13.5), 'text': title, 'fontSize': fs(8), 'color': '#606060', 'alignment': 'center'}
+          {
+            'width': cm(13.5),
+            'text': title,
+            'fontSize': fs(8),
+            'color': '#606060',
+            'alignment': 'center'
+          }
         ],
         'colSpan': 6,
       }
@@ -174,7 +203,8 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
           colHigh,
           (repData.status.settings.thresholds.bgTargetBottom - avgGluc) /
               (repData.status.settings.thresholds.bgTargetBottom));
-    } else if (avgGluc > repData.status.settings.thresholds.bgTargetTop) glucWarnColor = colHigh;
+    } else if (avgGluc > repData.status.settings.thresholds.bgTargetTop)
+      glucWarnColor = colHigh;
 /*
     var pumpList = [];
     for (var entry in config ['pumps'])
@@ -217,9 +247,12 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
     double in5470 = data.entriesIn(54, 70) / count * f1;
     double below54 = data.entriesBelow(54) / count * f1;
 */
-    var above180 = data.stat['stdHigh'].values.length / count * (useFineLimits ? f1 : f);
-    var in70180 = data.stat['stdNorm'].values.length / count * (useFineLimits ? f1 : f);
-    var below70 = data.stat['stdLow'].values.length / count * (useFineLimits ? f1 : f);
+    var above180 =
+        data.stat['stdHigh'].values.length / count * (useFineLimits ? f1 : f);
+    var in70180 =
+        data.stat['stdNorm'].values.length / count * (useFineLimits ? f1 : f);
+    var below70 =
+        data.stat['stdLow'].values.length / count * (useFineLimits ? f1 : f);
 
     var above250 = data.stat['stdVeryHigh'].values.length / count * f1;
     var in180250 = data.stat['stdNormHigh'].values.length / count * f1;
@@ -232,9 +265,11 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
     below54 = above250;
     in70180 = above250;
 */
-    var txt = g.fmtNumber(repData.dayCount / data.ampulleCount, _precisionMaterial, 0, '', true);
-    String ampulleCount =
-        data.ampulleCount > 1 ? msgReservoirDays((repData.dayCount / data.ampulleCount).round(), txt) : '';
+    var txt = g.fmtNumber(
+        repData.dayCount / data.ampulleCount, _precisionMaterial, 0, '', true);
+    String ampulleCount = data.ampulleCount > 1
+        ? msgReservoirDays((repData.dayCount / data.ampulleCount).round(), txt)
+        : '';
     var tableBody = [
       [
         {'text': '', 'style': 'infotitle'},
@@ -247,7 +282,7 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
         {'text': '', 'style': 'infotitle'},
         {'text': msgReadingsCount, 'style': 'infotitle'},
         {'text': g.fmtNumber(count), 'style': 'infodata'},
-        {'text': '($countPeriod)', 'style': 'infounit', 'colSpan': 3},
+        {'text': '🏀($countPeriod)', 'style': 'infounit', 'colSpan': 3},
         {'text': '', 'style': 'infounit'},
       ],
       [
@@ -263,8 +298,10 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
         {'text': g.fmtNumber(data.catheterCount), 'style': 'infodata'},
         {
           'text': data.catheterCount > 1
-              ? msgCatheterDays((repData.dayCount / data.catheterCount).round(),
-                  g.fmtNumber(repData.dayCount / data.catheterCount, _precisionMaterial, 0, '', true))
+              ? msgCatheterDays(
+                  (repData.dayCount / data.catheterCount).round(),
+                  g.fmtNumber(repData.dayCount / data.catheterCount,
+                      _precisionMaterial, 0, '', true))
               : '',
           'style': 'infounit',
           'colSpan': 3
@@ -277,8 +314,10 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
         {'text': g.fmtNumber(data.sensorCount), 'style': 'infodata'},
         {
           'text': data.sensorCount > 1
-              ? msgSensorDays((repData.dayCount / data.sensorCount).round(),
-                  g.fmtNumber(repData.dayCount / data.sensorCount, _precisionMaterial, 0, '', true))
+              ? msgSensorDays(
+                  (repData.dayCount / data.sensorCount).round(),
+                  g.fmtNumber(repData.dayCount / data.sensorCount,
+                      _precisionMaterial, 0, '', true))
               : '',
           'style': 'infounit',
           'colSpan': 3
@@ -301,15 +340,34 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
             'style': 'infotitle'
           },
           {
-            'text': '${g.fmtNumber(data.stat['high'].values.length / count * 100, _precisionTarget)} %',
+            'text':
+                '${g.fmtNumber(data.stat['high'].values.length / count * 100, _precisionTarget)} %',
             'style': 'infodata'
           },
-          {'text': fillLimitInfo(data.stat['high']), 'style': 'infounit', 'colSpan': 2},
+          {
+            'text': fillLimitInfo(data.stat['high']),
+            'style': 'infounit',
+            'colSpan': 2
+          },
           {'text': '', 'style': 'infounit'},
           {
             'canvas': [
-              {'type': 'rect', 'x': cm(cvsLeft), 'y': cm(0), 'w': cm(cvsWidth), 'h': cm(tgHigh), 'color': colHigh},
-              {'type': 'rect', 'x': cm(cvsLeft), 'y': cm(tgHigh), 'w': cm(cvsWidth), 'h': cm(tgNorm), 'color': colNorm},
+              {
+                'type': 'rect',
+                'x': cm(cvsLeft),
+                'y': cm(0),
+                'w': cm(cvsWidth),
+                'h': cm(tgHigh),
+                'color': colHigh
+              },
+              {
+                'type': 'rect',
+                'x': cm(cvsLeft),
+                'y': cm(tgHigh),
+                'w': cm(cvsWidth),
+                'h': cm(tgNorm),
+                'color': colNorm
+              },
               {
                 'type': 'rect',
                 'x': cm(cvsLeft),
@@ -331,10 +389,15 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
             'style': 'infotitle'
           },
           {
-            'text': '${g.fmtNumber(data.stat['norm'].values.length / count * 100, _precisionTarget)} %',
+            'text':
+                '${g.fmtNumber(data.stat['norm'].values.length / count * 100, _precisionTarget)} %',
             'style': 'infodata'
           },
-          {'text': fillLimitInfo(data.stat['norm']), 'style': 'infounit', 'colSpan': 2},
+          {
+            'text': fillLimitInfo(data.stat['norm']),
+            'style': 'infounit',
+            'colSpan': 2
+          },
           {'text': '', 'style': 'infounit'},
           {'text': '', 'style': 'infounit'},
         ],
@@ -346,10 +409,15 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
             'style': 'infotitle'
           },
           {
-            'text': '${g.fmtNumber(data.stat['low'].values.length / count * 100, _precisionTarget)} %',
+            'text':
+                '${g.fmtNumber(data.stat['low'].values.length / count * 100, _precisionTarget)} %',
             'style': 'infodata'
           },
-          {'text': fillLimitInfo(data.stat['low']), 'style': 'infounit', 'colSpan': 2},
+          {
+            'text': fillLimitInfo(data.stat['low']),
+            'style': 'infounit',
+            'colSpan': 2
+          },
           {'text': '', 'style': 'infounit'},
           {'text': '', 'style': 'infounit'},
         ]
@@ -360,16 +428,32 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
       addBodyArea(tableBody, msgStandardLimits, [
         [
           {'text': '', 'style': 'infotitle'},
-          {'text': msgValuesVeryHigh('${g.glucFromData(250)} ${g.getGlucInfo()['unit']}'), 'style': 'infotitle'},
           {
-            'text': '${g.fmtNumber(data.stat['stdVeryHigh'].values.length / count * 100, _precisionTarget)} %',
+            'text': msgValuesVeryHigh(
+                '${g.glucFromData(250)} ${g.getGlucInfo()['unit']}'),
+            'style': 'infotitle'
+          },
+          {
+            'text':
+                '${g.fmtNumber(data.stat['stdVeryHigh'].values.length / count * 100, _precisionTarget)} %',
             'style': 'infodata'
           },
-          {'text': fillLimitInfo(data.stat['stdVeryHigh']), 'style': 'infounit', 'colSpan': 2},
+          {
+            'text': fillLimitInfo(data.stat['stdVeryHigh']),
+            'style': 'infounit',
+            'colSpan': 2
+          },
           {'text': '', 'style': 'infounit'},
           {
             'canvas': [
-              {'type': 'rect', 'x': cm(cvsLeft), 'y': cm(0), 'w': cm(cvsWidth), 'h': cm(above250), 'color': colHigh},
+              {
+                'type': 'rect',
+                'x': cm(cvsLeft),
+                'y': cm(0),
+                'w': cm(cvsWidth),
+                'h': cm(above250),
+                'color': colHigh
+              },
               {
                 'type': 'rect',
                 'x': cm(cvsLeft),
@@ -409,30 +493,42 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
         [
           {'text': '', 'style': 'infotitle'},
           {
-            'text': msgValuesNormHigh('${g.glucFromData(180)} ${g.getGlucInfo()['unit']}'
+            'text': msgValuesNormHigh(
+                '${g.glucFromData(180)} ${g.getGlucInfo()['unit']}'
                 ' - ${g.glucFromData(250)} ${g.getGlucInfo()['unit']}'),
             'style': 'infotitle'
           },
           {
-            'text': '${g.fmtNumber(data.stat['stdNormHigh'].values.length / count * 100, _precisionTarget)} %',
+            'text':
+                '${g.fmtNumber(data.stat['stdNormHigh'].values.length / count * 100, _precisionTarget)} %',
             'style': 'infodata'
           },
-          {'text': fillLimitInfo(data.stat['stdNormHigh']), 'style': 'infounit', 'colSpan': 2},
+          {
+            'text': fillLimitInfo(data.stat['stdNormHigh']),
+            'style': 'infounit',
+            'colSpan': 2
+          },
           {'text': '', 'style': 'infounit'},
           {'text': '', 'style': 'infounit'},
         ],
         [
           {'text': '', 'style': 'infotitle'},
           {
-            'text': msgValuesNorm('${g.glucFromData(70)} ${g.getGlucInfo()['unit']}',
+            'text': msgValuesNorm(
+                '${g.glucFromData(70)} ${g.getGlucInfo()['unit']}',
                 '${g.glucFromData(180)} ${g.getGlucInfo()['unit']}'),
             'style': 'infotitle'
           },
           {
-            'text': '${g.fmtNumber(data.stat['stdNorm'].values.length / count * 100, _precisionTarget)} %',
+            'text':
+                '${g.fmtNumber(data.stat['stdNorm'].values.length / count * 100, _precisionTarget)} %',
             'style': 'infodata'
           },
-          {'text': fillLimitInfo(data.stat['stdNorm']), 'style': 'infounit', 'colSpan': 2},
+          {
+            'text': fillLimitInfo(data.stat['stdNorm']),
+            'style': 'infounit',
+            'colSpan': 2
+          },
           {'text': '', 'style': 'infounit'},
           {'text': '', 'style': 'infounit'},
         ],
@@ -444,21 +540,35 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
             'style': 'infotitle'
           },
           {
-            'text': '${g.fmtNumber(data.stat['stdNormLow'].values.length / count * 100, _precisionTarget)} %',
+            'text':
+                '${g.fmtNumber(data.stat['stdNormLow'].values.length / count * 100, _precisionTarget)} %',
             'style': 'infodata'
           },
-          {'text': fillLimitInfo(data.stat['stdNormLow']), 'style': 'infounit', 'colSpan': 2},
+          {
+            'text': fillLimitInfo(data.stat['stdNormLow']),
+            'style': 'infounit',
+            'colSpan': 2
+          },
           {'text': '', 'style': 'infounit'},
           {'text': '', 'style': 'infounit'},
         ],
         [
           {'text': '', 'style': 'infotitle'},
-          {'text': msgValuesVeryLow('${g.glucFromData(54)} ${g.getGlucInfo()['unit']}'), 'style': 'infotitle'},
           {
-            'text': '${g.fmtNumber(data.stat['stdVeryLow'].values.length / count * 100, _precisionTarget)} %',
+            'text': msgValuesVeryLow(
+                '${g.glucFromData(54)} ${g.getGlucInfo()['unit']}'),
+            'style': 'infotitle'
+          },
+          {
+            'text':
+                '${g.fmtNumber(data.stat['stdVeryLow'].values.length / count * 100, _precisionTarget)} %',
             'style': 'infodata'
           },
-          {'text': fillLimitInfo(data.stat['stdVeryLow']), 'style': 'infounit', 'colSpan': 2},
+          {
+            'text': fillLimitInfo(data.stat['stdVeryLow']),
+            'style': 'infounit',
+            'colSpan': 2
+          },
           {'text': '', 'style': 'infounit'},
           {'text': '', 'style': 'infounit'},
         ],
@@ -467,16 +577,32 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
       addBodyArea(tableBody, msgStandardLimits, [
         [
           {'text': '', 'style': 'infotitle'},
-          {'text': msgValuesAbove('${g.glucFromData(180)} ${g.getGlucInfo()['unit']}'), 'style': 'infotitle'},
           {
-            'text': '${g.fmtNumber(data.stat['stdHigh'].values.length / count * 100, _precisionTarget)} %',
+            'text': msgValuesAbove(
+                '${g.glucFromData(180)} ${g.getGlucInfo()['unit']}'),
+            'style': 'infotitle'
+          },
+          {
+            'text':
+                '${g.fmtNumber(data.stat['stdHigh'].values.length / count * 100, _precisionTarget)} %',
             'style': 'infodata'
           },
-          {'text': fillLimitInfo(data.stat['stdHigh']), 'style': 'infounit', 'colSpan': 2},
+          {
+            'text': fillLimitInfo(data.stat['stdHigh']),
+            'style': 'infounit',
+            'colSpan': 2
+          },
           {'text': '', 'style': 'infounit'},
           {
             'canvas': [
-              {'type': 'rect', 'x': cm(cvsLeft), 'y': cm(0), 'w': cm(cvsWidth), 'h': cm(above180), 'color': colHigh},
+              {
+                'type': 'rect',
+                'x': cm(cvsLeft),
+                'y': cm(0),
+                'w': cm(cvsWidth),
+                'h': cm(above180),
+                'color': colHigh
+              },
               {
                 'type': 'rect',
                 'x': cm(cvsLeft),
@@ -500,26 +626,41 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
         [
           {'text': '', 'style': 'infotitle'},
           {
-            'text': msgValuesIn('${g.glucFromData(70)} ${g.getGlucInfo()['unit']}',
+            'text': msgValuesIn(
+                '${g.glucFromData(70)} ${g.getGlucInfo()['unit']}',
                 '${g.glucFromData(180)} ${g.getGlucInfo()['unit']}'),
             'style': 'infotitle'
           },
           {
-            'text': '${g.fmtNumber(data.stat['stdNorm'].values.length / count * 100, _precisionTarget)} %',
+            'text':
+                '${g.fmtNumber(data.stat['stdNorm'].values.length / count * 100, _precisionTarget)} %',
             'style': 'infodata'
           },
-          {'text': fillLimitInfo(data.stat['stdNorm']), 'style': 'infounit', 'colSpan': 2},
+          {
+            'text': fillLimitInfo(data.stat['stdNorm']),
+            'style': 'infounit',
+            'colSpan': 2
+          },
           {'text': '', 'style': 'infounit'},
           {'text': '', 'style': 'infounit'},
         ],
         [
           {'text': '', 'style': 'infotitle'},
-          {'text': msgValuesBelow('${g.glucFromData(70)} ${g.getGlucInfo()['unit']}'), 'style': 'infotitle'},
           {
-            'text': '${g.fmtNumber(data.stat['stdLow'].values.length / count * 100, _precisionTarget)} %',
+            'text': msgValuesBelow(
+                '${g.glucFromData(70)} ${g.getGlucInfo()['unit']}'),
+            'style': 'infotitle'
+          },
+          {
+            'text':
+                '${g.fmtNumber(data.stat['stdLow'].values.length / count * 100, _precisionTarget)} %',
             'style': 'infodata'
           },
-          {'text': fillLimitInfo(data.stat['stdLow']), 'style': 'infounit', 'colSpan': 2},
+          {
+            'text': fillLimitInfo(data.stat['stdLow']),
+            'style': 'infounit',
+            'colSpan': 2
+          },
           {'text': '', 'style': 'infounit'},
           {'text': '', 'style': 'infounit'},
         ],
@@ -530,13 +671,15 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
       var uzCount = 0;
       EntryData lastEntry;
       for (var entry in data.stat['stdVeryLow'].entries) {
-        if (lastEntry == null || entry.time.difference(lastEntry.time).inMinutes > 30) {
+        if (lastEntry == null ||
+            entry.time.difference(lastEntry.time).inMinutes > 30) {
           uzCount++;
           lastEntry = entry;
         }
       }
 
-      addBodyArea(tableBody, msgHypoTitle('${g.glucFromData(54)} ${g.getGlucInfo()['unit']}'), [
+      addBodyArea(tableBody,
+          msgHypoTitle('${g.glucFromData(54)} ${g.getGlucInfo()['unit']}'), [
         [
           {'text': '', 'style': 'infotitle'},
           {'text': msgHypoCount, 'style': 'infotitle'},
@@ -549,7 +692,12 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
           {'text': '', 'style': 'infotitle'},
           {'text': msgHypoDate, 'style': 'infotitle'},
           {'text': '', 'style': 'infodata'},
-          {'text': '${lastEntry != null ? fmtDateTime(lastEntry.time) : msgNoHypo}', 'style': 'infounit', 'colSpan': 3},
+          {
+            'text':
+                '${lastEntry != null ? fmtDateTime(lastEntry.time) : msgNoHypo}',
+            'style': 'infounit',
+            'colSpan': 3
+          },
           {'text': '', 'style': 'infotitle'},
           {'text': '', 'style': 'infounit'},
         ],
@@ -576,7 +724,10 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
       [
         {'text': '', 'style': 'infotitle'},
         {'text': msgStandardDeviation, 'style': 'infotitle'},
-        {'text': g.fmtNumber(totalDay.stdAbw(g.glucMGDL), 1), 'style': 'infodata'},
+        {
+          'text': g.fmtNumber(totalDay.stdAbw(g.glucMGDL), 1),
+          'style': 'infodata'
+        },
         {'text': g.getGlucInfo()['unit'], 'style': 'infounit', 'colSpan': 2},
         {'text': '', 'style': 'infotitle'},
         {'text': '', 'style': 'infounit'},
@@ -601,11 +752,22 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
         {'text': '', 'style': 'infotitle'},
         {'text': '${msgGlucoseValue}${glucWarnText}', 'style': 'infotitle'},
         {'text': g.glucFromData(avgGluc), 'style': 'infodata'},
-        {'text': '${g.getGlucInfo()['unit']}', 'style': 'infounit', 'colSpan': 2},
+        {
+          'text': '${g.getGlucInfo()['unit']}',
+          'style': 'infounit',
+          'colSpan': 2
+        },
         {'text': '', 'style': 'infotitle'},
         {
           'canvas': [
-            {'type': 'rect', 'x': cm(cvsLeft), 'y': cm(0.2), 'w': cm(cvsWidth), 'h': cm(0.9), 'color': glucWarnColor},
+            {
+              'type': 'rect',
+              'x': cm(cvsLeft),
+              'y': cm(0.2),
+              'w': cm(cvsWidth),
+              'h': cm(0.9),
+              'color': glucWarnColor
+            },
           ],
           'rowSpan': 3
         },
@@ -631,15 +793,27 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
       [
         {'text': '', 'style': 'infotitle'},
         {'text': msgKHPerDay, 'style': 'infotitle'},
-        {'text': g.fmtNumber(data.khCount / repData.dayCount, 1, 0), 'style': 'infodata'},
-        {'text': msgKHBE(g.fmtNumber(data.khCount / repData.dayCount / 12, 1, 0)), 'style': 'infounit', 'colSpan': 2},
+        {
+          'text': g.fmtNumber(data.khCount / repData.dayCount, 1, 0),
+          'style': 'infodata'
+        },
+        {
+          'text':
+              msgKHBE(g.fmtNumber(data.khCount / repData.dayCount / 12, 1, 0)),
+          'style': 'infounit',
+          'colSpan': 2
+        },
         {'text': '', 'style': 'infotitle'},
         {'text': '', 'style': 'infounit'},
       ],
       [
         {'text': '', 'style': 'infotitle'},
         {'text': msgInsulinPerDay, 'style': 'infotitle'},
-        {'text': '${g.fmtNumber(data.TDD(!useDailyBasalrate) / repData.dayCount, 1)}', 'style': 'infodata'},
+        {
+          'text':
+              '${g.fmtNumber(data.TDD(!useDailyBasalrate) / repData.dayCount, 1)}',
+          'style': 'infodata'
+        },
         {'text': '${msgInsulinUnit}', 'style': 'infounit', 'colSpan': 2},
         {'text': '', 'style': 'infotitle'},
         {'text': '', 'style': 'infounit'},
@@ -647,16 +821,33 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
       [
         {'text': '', 'style': 'infotitle'},
         {'text': msgBolusPerDay, 'style': 'infotitle'},
-        {'text': '${g.fmtNumber(data.ieBolusSum / repData.dayCount, 1)}', 'style': 'infodata'},
-        {'text': 'bolus (${g.fmtNumber(data.ieBolusPrz(!useDailyBasalrate), 1)} %)', 'style': 'infounit', 'colSpan': 2},
+        {
+          'text': '${g.fmtNumber(data.ieBolusSum / repData.dayCount, 1)}',
+          'style': 'infodata'
+        },
+        {
+          'text':
+              'bolus (${g.fmtNumber(data.ieBolusPrz(!useDailyBasalrate), 1)} %)',
+          'style': 'infounit',
+          'colSpan': 2
+        },
         {'text': '', 'style': 'infotitle'},
         {'text': '', 'style': 'infounit'},
       ],
       [
         {'text': '', 'style': 'infotitle'},
         {'text': msgBasalPerDay, 'style': 'infotitle'},
-        {'text': '${g.fmtNumber(data.ieBasalSum(!useDailyBasalrate) / repData.dayCount, 1)}', 'style': 'infodata'},
-        {'text': 'basal (${g.fmtNumber(data.ieBasalPrz(!useDailyBasalrate), 1)} %)', 'style': 'infounit', 'colSpan': 2},
+        {
+          'text':
+              '${g.fmtNumber(data.ieBasalSum(!useDailyBasalrate) / repData.dayCount, 1)}',
+          'style': 'infodata'
+        },
+        {
+          'text':
+              'basal (${g.fmtNumber(data.ieBasalPrz(!useDailyBasalrate), 1)} %)',
+          'style': 'infounit',
+          'colSpan': 2
+        },
         {'text': '', 'style': 'infotitle'},
         {'text': '', 'style': 'infounit'},
       ],
@@ -664,18 +855,32 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
         {'@': data.ieMicroBolusSum > 0.0 && false},
         {'text': '', 'style': 'infotitle'},
         {'text': msgMicroBolusPerDay, 'style': 'infotitle'},
-        {'text': '${g.fmtNumber(data.ieMicroBolusSum / repData.dayCount, 1)}', 'style': 'infodata'},
-        {'text': 'bolus (${g.fmtNumber(data.ieMicroBolusPrz(!useDailyBasalrate), 1)} %)', 'style': 'infounit', 'colSpan': 2},
+        {
+          'text': '${g.fmtNumber(data.ieMicroBolusSum / repData.dayCount, 1)}',
+          'style': 'infodata'
+        },
+        {
+          'text':
+              'bolus (${g.fmtNumber(data.ieMicroBolusPrz(!useDailyBasalrate), 1)} %)',
+          'style': 'infounit',
+          'colSpan': 2
+        },
         {'text': '', 'style': 'infotitle'},
         {'text': '', 'style': 'infounit'},
       ],
     ]);
+
     var ret = [
       headerFooter(),
       {
         'margin': [cm(0), cm(yorg), cm(0), cm(0)],
         'columns': [
-          {'width': cm(width), 'text': '${repData.user.name}', 'fontSize': fs(20), 'alignment': 'center'}
+          {
+            'width': cm(width),
+            'text': '${repData.user.name}',
+            'fontSize': fs(20),
+            'alignment': 'center'
+          }
         ]
       },
       {
@@ -711,6 +916,7 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
         }
       }
     ];
+
     return Page(isPortrait, ret);
   }
 
@@ -722,7 +928,12 @@ schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar i
       {
         'margin': [cm(0), cm(yorg), cm(0), cm(0)],
         'columns': [
-          {'width': cm(width), 'text': 'Hinweise', 'fontSize': fs(20), 'alignment': 'center'}
+          {
+            'width': cm(width),
+            'text': 'Hinweise',
+            'fontSize': fs(20),
+            'alignment': 'center'
+          }
         ]
       },
       {

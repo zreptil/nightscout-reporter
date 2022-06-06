@@ -6,9 +6,10 @@ echo.
 echo Bitte eine Taste druecken zum Fortsetzen oder Batchdatei abbrechen
 pause >nul
 rem goto skipbuild
-call "C:\Program Files\Dart\dart-sdk\bin\pub.bat" get
-call "C:\Program Files\Dart\dart-sdk\bin\pub.bat" global activate webdev
-call "C:\Program Files\Dart\dart-sdk\bin\pub.bat" global run webdev build --output=web:build
+rem del /s /q lib\src\*.css
+rem del lib\*.css
+call build.bat
+pause
 
 :skipbuild
 set dstdir=D:\WorkWindows7\Projekte\AngularDart\nightscout-reporter-local

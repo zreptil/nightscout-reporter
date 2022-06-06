@@ -138,6 +138,12 @@ class MonthComponent
     _trigger.add(UIEvent(type, detail: 0));
   }
 
+  weekdayClicked(_Day dow)
+  {
+    firstDayOfWeek = dow.date.weekday;
+    period.refresh();
+  }
+
   dayClicked(_Day day)
   {
     if (period.start != null && day.date.isBefore(period.start))

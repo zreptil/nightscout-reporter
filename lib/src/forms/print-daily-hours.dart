@@ -7,17 +7,19 @@ import 'base-print.dart';
 
 class PrintDailyHours extends BasePrint {
   @override
-  String help = Intl.message('''Dieses Formular zeigt eine Übersicht über die Stunden der Tage des ausgewählten 
-Zeitraums an. Die angezeigten Werte sind die Mittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte.
-Sie werden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen kann man die Startstunde festlegen.
-Die Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer Tag beginnt.''',
+  String help = Intl.message('''Dieses Formular zeigt eine Übersicht über die 
+Stunden der Tage des ausgewählten Zeitraums an. Die angezeigten Werte sind die
+Mittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte. Sie
+werden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen
+kann man die Startstunde festlegen. Die Datumsspalte befindet sich immer links
+von 0 Uhr und zeigt an, wo ein neuer Tag beginnt.''',
       desc: 'help for dayhours');
 
   @override
-  String id = 'dayhours';
+  String baseId = 'dayhours';
 
   @override
-  String idx = '13';
+  String baseIdx = '13';
 
   int startHour = 0;
 
@@ -77,11 +79,12 @@ Die Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer 
   @override
   dynamic get footerText => footerTextDayTimes;
 
-  PrintDailyHours() {
-    init();
+  PrintDailyHours({suffix = null}) {
+    init(suffix);
   }
 
-  void fillRow(dynamic row, double f, String firstCol, DayData day, String style) {
+  void fillRow(
+      dynamic row, double f, String firstCol, DayData day, String style) {
     var wid = cm((width - 4.4 - 2.1) / 24 - 0.33);
     var hour = startHour ?? 0;
     var orgDay = day;
@@ -94,7 +97,11 @@ Die Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer 
 
       if (hour == 0) {
         // erste Spalte
-        addTableRow(true, cm(2.0), row, {'text': msgDate, 'style': 'total', 'alignment': 'center'},
+        addTableRow(
+            true,
+            cm(2.0),
+            row,
+            {'text': msgDate, 'style': 'total', 'alignment': 'center'},
             {'text': firstCol, 'style': 'total', 'alignment': 'center'});
         day = orgDay;
       }
@@ -121,7 +128,7 @@ Die Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer 
         'text': '${g.glucFromData(gluc)}',
         'style': style,
         'alignment': 'right',
-        'fillColor': colForGluc(day, gluc)
+        'fillColor': colForGlucBack(day, gluc)
       });
       hour++;
       if (hour == 24) hour = 0;
@@ -139,7 +146,7 @@ Die Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer 
     dynamic ret = {
       'columns': [
         {
-          'margin': [cm(2.2), cmy(yorg), cm(2.2), cmy(0.0)],
+          'margin': [cm(2.2), cmy(yorg - 0.5), cm(2.2), cmy(0.0)],
           'width': cm(width),
           'fontSize': fs(7),
           'table': {'widths': widths, 'body': body},
@@ -160,7 +167,8 @@ Die Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer 
       _fillPages(pages);
       g.glucMGDLIdx = 2;
     }
-    if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
+    if (repData.isForThumbs && pages.length - oldLength > 1)
+      pages.removeRange(oldLength + 1, pages.length);
   }
 
   void _fillPages(List<Page> pages) {
@@ -187,11 +195,14 @@ Die Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer 
       totalDay.entries.addAll(day.entries);
       totalDay.bloody.addAll(day.bloody);
       totalDay.treatments.addAll(day.treatments);
-      totalDay.basalData.targetHigh = max(totalDay.basalData.targetHigh, day.basalData.targetHigh);
-      totalDay.basalData.targetLow = min(totalDay.basalData.targetLow, day.basalData.targetLow);
+      totalDay.basalData.targetHigh =
+          max(totalDay.basalData.targetHigh, day.basalData.targetHigh);
+      totalDay.basalData.targetLow =
+          min(totalDay.basalData.targetLow, day.basalData.targetLow);
       var row = [];
       fillRow(row, f, fmtDate(day.date, null, true), day, 'row');
-      var profile = repData.profile(DateTime(day.date.year, day.date.month, day.date.day));
+      var profile = repData
+          .profile(DateTime(day.date.year, day.date.month, day.date.day));
       if (prevProfile == null ||
           profile.targetLow != prevProfile.targetLow ||
           profile.targetHigh != prevProfile.targetHigh) {
@@ -202,7 +213,7 @@ Die Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer 
 
       body.add(row);
       lineCount++;
-      if (lineCount == 32) {
+      if (lineCount == 33) {
         page.add(headerFooter());
         page.add(getTable(tableWidths, body));
         lineCount = 0;

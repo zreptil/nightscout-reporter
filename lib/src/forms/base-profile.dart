@@ -15,7 +15,20 @@ class CalcData {
 }
 
 abstract class BaseProfile extends BasePrint {
-  bool onlyLast;
+  bool onlyLast, namedProfile;
+
+  static String namedProfileName = 'NR Profil';
+
+  static String msgNamedProfile(String name) => Intl.message('Profil "${name}" verwenden', args: [name], name: 'msgNamedProfile');
+
+  String msgNoNameHelp(String name) => Intl.message(
+      'Das Profil mit dem Namen "${name}" wurde nicht gefunden. '
+      'Das muss im Profileditor auf der Nightscout Seite eingerichtet werden. Dort muss ein Profil eingerichtet werden, '
+      'das den Namen "${name}" hat, um dieses Formular erzeugen zu können. Mit dem Link unten wird '
+      'der Profileditor aufgerufen. Unter Umständen muss dort dann noch ganz unten auf der Seite die '
+      'Authentifizierung durchgeführt werden, um die Werte ändern zu können.',
+      args: [name],
+      name: 'msgNoNameHelp');
 
   String msgProfileSwitch(String oldName, String newName) =>
       Intl.message('Profilwechsel - ${oldName} => ${newName}', args: [oldName, newName], name: 'msgProfileSwitch');
@@ -37,8 +50,8 @@ abstract class BaseProfile extends BasePrint {
 
   bool mayShowBothUnits = true;
 
-  BaseProfile() {
-    init();
+  BaseProfile({suffix = null}) {
+    init(suffix);
   }
 
   @override
@@ -49,8 +62,48 @@ abstract class BaseProfile extends BasePrint {
   DateTime profStartTime;
   DateTime profEndTime;
 
+  Page getEmptyPage() {
+    subtitle = namedProfileName;
+    var url = g.user.apiUrl(null, 'PROFILE', noApi: true);
+    var ret = [
+      headerFooter(),
+      {
+        'margin': [cm(xorg), cm(yorg), cm(xorg), cm(0)],
+        'text': msgNoNameHelp(namedProfileName)
+      },
+      {
+        'margin': [cm(xorg), cm(1), cm(xorg), cm(0)],
+        'text': url,
+        'bold': true,
+        'color': 'blue'
+      }
+    ];
+    return Page(isPortrait, ret);
+  }
+
   @override
   void fillPages(List<Page> pages) {
+    var pageList = <Page>[];
+
+    if (namedProfile) {
+      var data = repData.namedProfile(namedProfileName);
+      if (data == null) {
+        pages.add(getEmptyPage());
+        return;
+      }
+      profStartTime = data.store.startDate ?? DateTime.now();
+      var page = getPage(0, data, CalcData());
+      if (page != null) {
+        pageList.add(page);
+        if (g.showBothUnits && mayShowBothUnits) {
+          g.glucMGDLIdx = 1;
+          pageList.add(getPage(0, data, CalcData()));
+          g.glucMGDLIdx = 2;
+        }
+      }
+      pages.addAll(pageList);
+      return;
+    }
 /*
     List<String> dbg = List<String>();
     for(ProfileData p in src.profiles)
@@ -60,9 +113,9 @@ abstract class BaseProfile extends BasePrint {
     var endDate = DateTime(repData.endDate.year, repData.endDate.month, repData.endDate.day + 1);
     var profiles = repData.profiles;
     var _alreadyDone = <String>[];
-    var pageList = <Page>[];
     var lastIdx = -1;
     for (var i = 0; i < repData.profiles.length; i++) {
+      print(repData.profiles[i].current.name);
       profEndTime;
       profStartTime = repData.profiles[i].startDate;
       if (i < repData.profiles.length - 1) {
@@ -86,6 +139,10 @@ abstract class BaseProfile extends BasePrint {
         calc.endDate = null;
       }
 
+      if (namedProfile && repData.profiles[i].current.name != namedProfileName) {
+        continue;
+      }
+
       var hash = repData.profiles[i].current.hash;
       if (_alreadyDone.contains(hash)) {
         continue;
@@ -94,13 +151,14 @@ abstract class BaseProfile extends BasePrint {
 
       lastIdx = pageList.length;
       for (var p = 0; !done; p++) {
-        var page = getPage(p, repData.profile(profiles[i].startDate, null, false), calc);
+        var data = repData.profile(profiles[i].startDate, null, false);
+        var page = getPage(p, data, calc);
         done = page == null;
         if (!done) {
           pageList.add(page);
           if (g.showBothUnits && mayShowBothUnits) {
             g.glucMGDLIdx = 1;
-            pageList.add(getPage(p, repData.profile(profiles[i].startDate, null, false), calc));
+            pageList.add(getPage(p, data, calc));
             g.glucMGDLIdx = 2;
           }
         }
@@ -136,12 +194,12 @@ abstract class BaseProfile extends BasePrint {
     if (!showDetails) return ret.join('\n');
 
     if (before.store.dia != current.store.dia) {
-      ret.add(msgChangedEntry(msgDIA, '${g.fmtNumber(before.store.dia, 2)} ${msgDIAUnit}',
-          '${g.fmtNumber(current.store.dia, 2)} ${msgDIAUnit}'));
+      ret.add(msgChangedEntry(
+          msgDIA, '${g.fmtNumber(before.store.dia, 2)} ${msgDIAUnit}', '${g.fmtNumber(current.store.dia, 2)} ${msgDIAUnit}'));
     }
     if (before.store.carbsHr != current.store.carbsHr) {
-      ret.add(msgChangedEntry(msgKHA, '${g.fmtNumber(before.store.carbsHr)} ${msgKHAUnit}',
-          '${g.fmtNumber(current.store.carbsHr)} ${msgKHAUnit}'));
+      ret.add(msgChangedEntry(
+          msgKHA, '${g.fmtNumber(before.store.carbsHr)} ${msgKHAUnit}', '${g.fmtNumber(current.store.carbsHr)} ${msgKHAUnit}'));
     }
 
     var temp = <String>[];

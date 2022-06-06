@@ -73,7 +73,7 @@ class SigninComponent implements AfterViewInit {
   auth.ClientId _identifier;
 
   auth.ClientId get identifier => _identifier ?? auth.ClientId('${clientId}.apps.googleusercontent.com', null);
-  dynamic scopes = [gd.DriveApi.DriveAppdataScope, gd.DriveApi.DriveFileScope];
+  dynamic scopes = [gd.DriveApi.driveAppdataScope, gd.DriveApi.driveFileScope];
   auth.AutoRefreshingAuthClient client;
 
   final _signinResult = StreamController<auth.AuthClient>();

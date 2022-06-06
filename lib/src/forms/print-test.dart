@@ -7,10 +7,10 @@ import 'base-print.dart';
 
 class PrintTest extends BasePrint {
   @override
-  String id = 'test';
+  String baseId = 'test';
 
   @override
-  String idx = '00';
+  String baseIdx = '00';
 
   bool showEntries = false;
   bool showTreatments = true;
@@ -54,8 +54,8 @@ class PrintTest extends BasePrint {
   @override
   String get title => 'Datensätze';
 
-  PrintTest() {
-    init();
+  PrintTest({suffix = null}) {
+    init(suffix);
   }
 
   bool _isFirst = true;
@@ -201,28 +201,29 @@ class PrintTest extends BasePrint {
     if (showRawEntries) {
       _body = [];
       _root = createRoot('raw', title: 'Entries (sgv)');
-      for (EntryData entry in repData.ns.entries) addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
+      for (EntryData entry in repData.ns.entries) addRawData(entry.raw, fmtDateTime(JsonData.toLocal(entry.time)));
       finalizeRawData();
       _body = [];
       _root = createRoot('raw', title: 'Entries (mbg)');
-      for (EntryData entry in repData.ns.bloody) addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
+      for (EntryData entry in repData.ns.bloody) addRawData(entry.raw, fmtDateTime(JsonData.toLocal(entry.time)));
       finalizeRawData();
       _body = [];
       _root = createRoot('raw', title: 'Entries (remaining)');
-      for (EntryData entry in repData.ns.remaining) addRawData(entry.raw, fmtDateTime(entry.time.toLocal()));
+      for (EntryData entry in repData.ns.remaining) addRawData(entry.raw, fmtDateTime(JsonData.toLocal(entry.time)));
       finalizeRawData();
     }
     if (showRawTreatments) {
       _body = [];
       _root = createRoot('raw', title: 'Treatments');
-      for (TreatmentData entry in repData.ns.treatments)
-        addRawData(entry.raw, fmtDateTime(entry.createdAt.toLocal(), null, true));
+      for (TreatmentData entry in repData.ns.treatments) {
+        addRawData(entry.raw, fmtDateTime(JsonData.toLocal(entry.createdAt), null, true));
+      }
       finalizeRawData();
     }
     if (showRawProfiles) {
       _body = [];
       _root = createRoot('raw', title: 'Profiles');
-      for (ProfileData entry in repData.profiles) addRawData(entry.raw, fmtDateTime(entry.createdAt.toLocal()));
+      for (ProfileData entry in repData.profiles) addRawData(entry.raw, fmtDateTime(JsonData.toLocal(entry.createdAt)));
       finalizeRawData();
 // */
     }
@@ -253,8 +254,11 @@ class PrintTest extends BasePrint {
     text = text.replaceAll(',\'', ',\n\'');
     text = text.replaceAll('},', '},\n');
     if (title != null) text = '${title}\n${text}';
-    _rawCurrLines = math.max(_rawCurrLines, text.split('\n').length + 1);
-
+    var parts = text.split('\n');
+    _rawCurrLines = math.max(_rawCurrLines, parts.length + 1);
+    for(var part in parts) {
+      _rawCurrLines += (part.length / (400 / rawCols)).toInt();
+    }
     _body.last.add({'text': text, 'fontSize': fs(8)});
     if (_body.last.length >= rawCols) {
       _rawLineCount += _rawCurrLines;
