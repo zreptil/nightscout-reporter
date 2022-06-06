@@ -1,101 +1,99 @@
-<modal [visible]="isVisible">
-  <material-dialog main headered *ngIf="confirmationIdx==-1" class="headered-dialog">
-    <div header>
-      <div>
-        <h1>{{msgTitle}}</h1>
-        <p></p>
-      </div>
-      <div>
-        <material-button icon (trigger)="fire('cancel')">
-          <material-icon icon="close"></material-icon>
-        </material-button>
-      </div>
+<material-dialog main headered *ngIf="confirmationIdx==-1" class="headered-dialog">
+  <div header>
+    <div>
+      <h1>{{msgTitle}}</h1>
+      <p></p>
     </div>
-
-    <div class="root">
-      <div @i18n="info text for shortcuts" class="info">
-        Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut
-        aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.
-      </div>
-      <div class="icondef">
-        <material-button>
-          <material-icon icon="{{g.currShortcut.icon}}"></material-icon>
-        </material-button>
-        <material-input id="name"
-                        [label]="msgName"
-                        floatingLabel
-                        [(ngModel)]="g.currShortcut.name">
-        </material-input>
-      </div>
-      <div>
-        <ngContainer @i18n="number of forms for shortcut">Anzahl:</ngContainer>
-        <material-button class="data" (trigger)="confirmationIdx=2">
-          {{msgFormsText(g.currShortcut.forms.length)}}
-        </material-button>
-      </div>
-      <div>
-        <ngContainer @i18n="period for shortcuts">Zeitraum:</ngContainer>
-        <material-button class="data" (trigger)="confirmationIdx=1">
-          {{g.currShortcut.periodText}}
-        </material-button>
-      </div>
-      <div>
-        {{g.lblGlucUnits}}:
-        <material-button class="data" (trigger)="confirmationIdx=3">
-          {{g.listGlucUnits[g.currShortcut.glucMGDLIdx??g.glucMGDLIdx]}}
-        </material-button>
-      </div>
-    </div>
-
-    <div footer>
-      <div>
-      </div>
-      <div>
-        <material-button *ngIf="g.currShortcutIdx>=0" class="iconButton" clear-size (trigger)="confirmationIdx=0">
-          <material-icon icon="delete"></material-icon>
-          <ng-container @i18n="buttonlabel for deleting data">Löschen</ng-container>
-        </material-button>
-        <material-button class="iconButton" clear-size (trigger)="fire('ok')">
-          <material-icon icon="save"></material-icon>
-          <ng-container @i18n="buttonlabel for saving data">Speichern</ng-container>
-        </material-button>
-      </div>
-    </div>
-  </material-dialog>
-  <material-dialog *ngIf="confirmationIdx>=0" confirm headered class="headered-dialog">
-    <div header @i18n="title of confirmation dialog">Bestätigung</div>
-    <div class="content" *ngIf="confirmationIdx==0">
-      <ng-container @i18n="should the shortcut with name">Soll der Shortcut mit der Bezeichnung</ng-container>
-      <div class="marked">{{g.currShortcut.name}}</div>
-      <ng-container @i18n="really be deleted">wirklich gelöscht werden?</ng-container>
-    </div>
-    <div class="content" *ngIf="confirmationIdx==1">
-      <ng-container @i18n="should the period">Soll der Zeitraum</ng-container>
-      <div class="marked">{{g.currShortcut.periodText}}</div>
-      <ng-container @i18n="with period">mit dem Zeitraum</ng-container>
-      <div class="marked">{{g.period.display}}</div>
-      <ng-container @i18n="be replaced">ersetzt werden?</ng-container>
-    </div>
-    <div class="content" *ngIf="confirmationIdx==2">
-      <ng-container @i18n="should the forms be replaced with current forms">Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?</ng-container>
-    </div>
-    <div class="content" *ngIf="confirmationIdx==3">
-      <ng-container @i18n="should the period">Soll die Einheit zur Glukosemessung</ng-container>
-      <div class="marked">{{g.listGlucUnits[g.currShortcut.glucMGDLIdx ?? 0]}}</div>
-      <ng-container @i18n="with period">mit der Einheit</ng-container>
-      <div class="marked">{{g.listGlucUnits[g.glucMGDLIdx]}}</div>
-      <ng-container @i18n="be replaced">ersetzt werden?</ng-container>
-    </div>
-    <div footer>
-      <material-button class="iconButton" (trigger)="fire('confirm')">
-        <material-icon icon="done"></material-icon>
-        <ng-container @i18n="buttonlabel for confirmation yes">Ja</ng-container>
-      </material-button>
-      <material-button class="iconButton" (trigger)="confirmationIdx=-1">
-        <material-icon icon="cancel"></material-icon>
-        <ng-container @i18n="buttonlabel for confirmation no">Nein</ng-container>
+    <div>
+      <material-button icon (trigger)="fire('cancel')">
+        <material-icon icon="close"></material-icon>
       </material-button>
     </div>
+  </div>
 
-  </material-dialog>
-</modal>
+  <div class="root">
+    <div @i18n="info text for shortcuts" class="info">
+      Ein Shortcut beinhaltet den Zeitraum und die ausgewählten Formulare mit den jeweils gesetzten Optionen. Wenn ein Shortcut
+      aktiviert wird, werden die darin gespeicherten Einstellungen geladen und aktiviert.
+    </div>
+    <div class="icondef">
+      <material-button>
+        <material-icon icon="{{g.currShortcut.icon}}"></material-icon>
+      </material-button>
+      <material-input id="name"
+                      [label]="msgName"
+                      floatingLabel
+                      [(ngModel)]="g.currShortcut.name">
+      </material-input>
+    </div>
+    <div>
+      <ngContainer @i18n="number of forms for shortcut">Anzahl:</ngContainer>
+      <material-button class="data" (trigger)="confirmationIdx=2">
+        {{msgFormsText(g.currShortcut.forms.length)}}
+      </material-button>
+    </div>
+    <div>
+      <ngContainer @i18n="period for shortcuts">Zeitraum:</ngContainer>
+      <material-button class="data" (trigger)="confirmationIdx=1">
+        {{g.currShortcut.periodText}}
+      </material-button>
+    </div>
+    <div>
+      {{g.lblGlucUnits}}:
+      <material-button class="data" (trigger)="confirmationIdx=3">
+        {{g.listGlucUnits[g.currShortcut.glucMGDLIdx??g.glucMGDLIdx]}}
+      </material-button>
+    </div>
+  </div>
+
+  <div footer>
+    <div>
+    </div>
+    <div>
+      <material-button *ngIf="g.currShortcutIdx>=0" class="iconButton" clear-size (trigger)="confirmationIdx=0">
+        <material-icon icon="delete"></material-icon>
+        <ng-container @i18n="buttonlabel for deleting data">Löschen</ng-container>
+      </material-button>
+      <material-button class="iconButton" clear-size (trigger)="fire('ok')">
+        <material-icon icon="save"></material-icon>
+        <ng-container @i18n="buttonlabel for saving data">Speichern</ng-container>
+      </material-button>
+    </div>
+  </div>
+</material-dialog>
+<material-dialog *ngIf="confirmationIdx>=0" confirm headered class="headered-dialog">
+  <div header @i18n="title of confirmation dialog">Bestätigung</div>
+  <div class="content" *ngIf="confirmationIdx==0">
+    <ng-container @i18n="should the shortcut with name">Soll der Shortcut mit der Bezeichnung</ng-container>
+    <div class="marked">{{g.currShortcut.name}}</div>
+    <ng-container @i18n="really be deleted">wirklich gelöscht werden?</ng-container>
+  </div>
+  <div class="content" *ngIf="confirmationIdx==1">
+    <ng-container @i18n="should the period">Soll der Zeitraum</ng-container>
+    <div class="marked">{{g.currShortcut.periodText}}</div>
+    <ng-container @i18n="with period">mit dem Zeitraum</ng-container>
+    <div class="marked">{{g.period.display}}</div>
+    <ng-container @i18n="be replaced">ersetzt werden?</ng-container>
+  </div>
+  <div class="content" *ngIf="confirmationIdx==2">
+    <ng-container @i18n="should the forms be replaced with current forms">Soll die Formularauswahl mit der aktuellen Auswahl ersetzt werden?</ng-container>
+  </div>
+  <div class="content" *ngIf="confirmationIdx==3">
+    <ng-container @i18n="should the period">Soll die Einheit zur Glukosemessung</ng-container>
+    <div class="marked">{{g.listGlucUnits[g.currShortcut.glucMGDLIdx ?? 0]}}</div>
+    <ng-container @i18n="with period">mit der Einheit</ng-container>
+    <div class="marked">{{g.listGlucUnits[g.glucMGDLIdx]}}</div>
+    <ng-container @i18n="be replaced">ersetzt werden?</ng-container>
+  </div>
+  <div footer>
+    <material-button class="iconButton" (trigger)="fire('confirm')">
+      <material-icon icon="done"></material-icon>
+      <ng-container @i18n="buttonlabel for confirmation yes">Ja</ng-container>
+    </material-button>
+    <material-button class="iconButton" (trigger)="confirmationIdx=-1">
+      <material-icon icon="cancel"></material-icon>
+      <ng-container @i18n="buttonlabel for confirmation no">Nein</ng-container>
+    </material-button>
+  </div>
+
+</material-dialog>

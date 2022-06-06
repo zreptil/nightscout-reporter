@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'dart:html' as html;
 import 'dart:convert' as convert;
+import 'dart:html' as html;
 
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
-import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
@@ -35,7 +34,6 @@ class MaterialInputShowPasswordDirective {
   styleUrls: ['settings_component.css'],
   templateUrl: 'settings_component.html',
   directives: [
-    ModalComponent,
     MaterialDialogComponent,
     MaterialInputComponent,
     MaterialFabComponent,
@@ -66,7 +64,12 @@ class SettingsComponent implements OnInit {
   Stream<html.UIEvent> get trigger => _trigger.stream;
   final _trigger = StreamController<html.UIEvent>.broadcast(sync: true);
 
-  bool isVisible = true;
+  bool get mayAddUser {
+    if (g.userList?.length > 0) {
+      return g.userList?.last?.apiUrl(null, '', noApi: true) == null;
+    }
+    return false;
+  }
 
   SettingsComponent();
 
@@ -88,9 +91,8 @@ class SettingsComponent implements OnInit {
           name: 'msgAccessTokenHint')
       : '';
 
-  String msgStartDateHint(bool isVisible) => isVisible
-      ? Intl.message('Das Datum des ersten Tages mit Daten', args: [isVisible], name: 'msgStartDateHint')
-      : '';
+  String msgStartDateHint(bool isVisible) =>
+      isVisible ? Intl.message('Das Datum des ersten Tages mit Daten', args: [isVisible], name: 'msgStartDateHint') : '';
 
   String msgEndDateHint(bool isVisible) => isVisible
       ? Intl.message('Das Datum des letzten kompletten Tages mit Daten', args: [isVisible], name: 'msgEndDateHint')
@@ -128,6 +130,11 @@ class SettingsComponent implements OnInit {
       case 1:
         try {
           g.userList.removeAt(g.userIdx);
+          g.isConfigured &= g.userList.isNotEmpty;
+          if (!g.isConfigured) {
+            g.saveWebData();
+            fire('ok');
+          }
           // ignore: empty_catches
         } catch (e) {}
         break;
@@ -193,7 +200,7 @@ class SettingsComponent implements OnInit {
   }
 
   Future<void> checkUser([String event]) async {
-    g.user.listApiUrl.sort((a, b) => a.startDate.compareTo(b.startDate));
+    g.user.listApiUrl.sort((a, b) => g.compareDate(a.endDate, b.endDate));
     progressText = msgCheckUser(g.user.apiUrl(null, '', noApi: true));
     var ret = await g.user.isValid;
     progressText = null;

@@ -17,10 +17,10 @@ farblich markiert, so dass man sie gut unterscheiden kann. Zusätzlich kann noch
 Woche erzeugt werden.''', desc: 'help for weekgraph');
 
   @override
-  String id = 'weekgraph';
+  String baseId = 'weekgraph';
 
   @override
-  String idx = '08';
+  String baseIdx = '08';
 
   bool spareBool1, showDaysInGraphic = true, showCGP;
 
@@ -113,8 +113,8 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
 
   double bolusY(double value) => graphHeight / bolusMax * value;
 
-  PrintWeeklyGraphic() {
-    init();
+  PrintWeeklyGraphic({suffix = null}) {
+    init(suffix);
   }
 
   @override

@@ -25,9 +25,11 @@ die PDFs erstellt werden sollen</pre>
     <div class="root">
       <div class="editcontrols">
         <material-input [(ngModel)]="startDate" floatingLabel @i18n:label="datepicker label from" label="Von"
-                        [error]="isStartValid?'':msgStartIncorrect" (focus)="month=period.start"></material-input>
+                        [error]="isStartValid?'':msgStartIncorrect"
+                        (focus)="setMonth(period.start)"></material-input>
         <material-input [(ngModel)]="endDate" floatingLabel @i18n:label="datepicker label to"
-                        label="Bis" [error]="isEndValid?'':msgEndIncorrect" (focus)="month=period.end"></material-input>
+                        label="Bis" [error]="isEndValid?'':msgEndIncorrect"
+                        (focus)="setMonth(period.end)"></material-input>
       </div>
       <div class="month" *ngIf="month!=null">
         <material-button class="prev" [disabled]="isMinMonth" (trigger)="month=month.add(months: -1)">
@@ -41,16 +43,29 @@ die PDFs erstellt werden sollen</pre>
     </div>
     <div footer>
       <div class="shortcuts">
-        <material-button *ngFor="let item of period.list" [raised]="period.entryKey==item.key"
-                         (trigger)="onShortcutClick(item)">
-          <material-icon *ngIf="item.key=='save'" icon="save"></material-icon>
-          {{item.title}}
+        <ng-container *ngFor="let item of period.list">
+          <material-button
+            [class]="item.key"
+            [raised]="period.entryKey==item.key"
+            (trigger)="onShortcutClick(item)">
+            <material-icon *ngIf="item.key=='save'" icon="save"></material-icon>
+            {{item.title}}
+          </material-button>
+          <span *ngIf="item.key=='today'">|</span>
+        </ng-container>
+      </div>
+      <div class="controls">
+        <material-button *ngIf="period.entryKey!=null && period.entryKey!='today'"
+                         class="shift"
+                         [raised]="false"
+                         (trigger)="onShiftClick()">
+          {{shiftName}}
+        </material-button>
+        <material-button class="iconButton ok" (trigger)="onClick('save')">
+          <material-icon icon="done"></material-icon>
+          <ng-container @i18n="buttonlabel for ok in control datepicker">Ok</ng-container>
         </material-button>
       </div>
-      <material-button class="iconButton ok" (trigger)="onClick('save')">
-        <material-icon icon="done"></material-icon>
-        <ng-container @i18n="buttonlabel for ok in control datepicker">Ok</ng-container>
-      </material-button>
     </div>
   </material-dialog>
 </modal>

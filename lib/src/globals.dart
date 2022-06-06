@@ -24,7 +24,8 @@ class Informator {
   final List<String> _warnings = [];
   final List<String> _infos = [];
 
-  bool get hasContent => _errors.isNotEmpty || _warnings.isNotEmpty || _infos.isNotEmpty;
+  bool get hasContent =>
+      _errors.isNotEmpty || _warnings.isNotEmpty || _infos.isNotEmpty;
 
   String _output(var list) => list.join('\n');
 
@@ -101,9 +102,13 @@ class LangData {
     }
   }
 
-  String get dateformat => Intl.message('dd.MM.yyyy');
+  String get dateformat => Intl.message('dd.MM.yyyy',
+      desc: 'this is the dateformat, please use dd for days, ' +
+          'MM for months and yyyy for year. ' +
+          'It has to be the english formatstring.');
 
-  String get imgPath => 'packages/nightscout_reporter/assets/img/lang-${img}.png';
+  String get imgPath =>
+      'packages/nightscout_reporter/assets/img/lang-${img}.png';
 
   LangData(this.code, this.name, this.img);
 }
@@ -115,17 +120,23 @@ class PeriodShift {
   PeriodShift(this.title, {this.months = 0});
 }
 
+// 21.12.2021 - 11:20 Uhr Loop pausiert - Eintrag "OpenAPS Offline" mit duration 1 Std.
+// 21.12.2021 - 11:25 Uhr Loop wieder aktiviert - Eintrag "OpenAPS Offline" mit duration 0
 class Settings {
-  String version = '2.0.3';
+  String version = '2.2.1';
 
-  // subversion is used nowhere. It is just there to trigger an other signature for the cache.
-  String subVersion = '3';
+  // subversion is used nowhere. It is just there to trigger an other signature
+  // for the cache.
+  String subVersion = '1';
 
-  static String get msgThemeAuto => Intl.message('Automatisch', meaning: 'theme selection - automatic');
+  static String get msgThemeAuto =>
+      Intl.message('Automatisch', meaning: 'theme selection - automatic');
 
-  static String get msgThemeStandard => Intl.message('Standard', meaning: 'theme selection - standard');
+  static String get msgThemeStandard =>
+      Intl.message('Standard', meaning: 'theme selection - standard');
 
-  static String get msgThemeXmas => Intl.message('Weihnachten', meaning: 'theme selection - christmas');
+  static String get msgThemeXmas =>
+      Intl.message('Weihnachten', meaning: 'theme selection - christmas');
 
   static String get msgUnitMGDL => Intl.message('mg/dL');
 
@@ -147,7 +158,7 @@ class Settings {
 
   int glucMGDLIdx;
 
-  bool _glucMGDLFromStatus = true;
+  bool glucMGDLFromStatus = true;
 
   bool get glucMGDL => [true, false, true][glucMGDLIdx ?? 0];
 
@@ -162,7 +173,7 @@ class Settings {
   // calculate a value that is saved in a unit depending
   // on the setting in the status
   double glucForSavedUnitValue(double value) {
-    if (glucMGDL == _glucMGDLFromStatus) return value;
+    if (glucMGDL == glucMGDLFromStatus) return value;
     if (glucMGDL) return value * 18.02;
     return value / 18.02;
   }
@@ -175,7 +186,7 @@ class Settings {
   }
 
   void setGlucMGDL(StatusData status) {
-    _glucMGDLFromStatus = isMGDL(status);
+    glucMGDLFromStatus = isMGDL(status);
   }
 
   bool showAllTileParams = false;
@@ -216,8 +227,8 @@ class Settings {
 // */
 
   var onAfterLoad;
-  Map<String, String> themeList =
-      Map<String, String>.unmodifiable({null: msgThemeAuto, 'standard': msgThemeStandard, 'xmas': msgThemeXmas});
+  Map<String, String> themeList = Map<String, String>.unmodifiable(
+      {null: msgThemeAuto, 'standard': msgThemeStandard, 'xmas': msgThemeXmas});
 
   String _theme;
 
@@ -252,6 +263,8 @@ class Settings {
     if (canDebug && doShowDebug != null) doShowDebug();
   }
 
+  String get pdfOrder => _pdfOrder;
+
   set pdfOrder(String value) {
     _pdfOrder = value;
     sortConfigs();
@@ -282,6 +295,7 @@ class Settings {
     LangData('sk_SK', Intl.message('Slovenský'), 'sk'),
     LangData('fr_FR', Intl.message('Français'), 'fr'),
     LangData('pt_PT', Intl.message('Português'), 'pt'),
+    LangData('nl_NL', Intl.message('Dansk'), 'nl'),
   ];
 
   LangData get language => _language ?? languageList[0];
@@ -306,6 +320,14 @@ class Settings {
 
   static String get msgLast3Months => Intl.message('Letzte 3 Monate');
 
+  static String get msgQuarter1 => Intl.message('Erstes Quartal');
+
+  static String get msgQuarter2 => Intl.message('Zweites Quartal');
+
+  static String get msgQuarter3 => Intl.message('Drittes Quartal');
+
+  static String get msgQuarter4 => Intl.message('Viertes Quartal');
+
   static void updatePeriod(DatepickerPeriod period) {
     if (period == null) return;
     period.maxDate = Date.today();
@@ -316,74 +338,104 @@ class Settings {
     }, (Date date) {
       return date;
     }));
-    period.list.add(DatepickerEntry('2days', msgLast2Days, (DatepickerPeriod data) {
-      data.start = Date.today().add(days: -1);
-      data.end = Date.today();
+    period.list
+        .add(DatepickerEntry('2days', msgLast2Days, (DatepickerPeriod data) {
+      data.start = period.baseDate.add(days: -1);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(days: -1);
     }));
-    period.list.add(DatepickerEntry('3days', msgLast3Days, (DatepickerPeriod data) {
-      data.start = Date.today().add(days: -2);
-      data.end = Date.today();
+    period.list
+        .add(DatepickerEntry('3days', msgLast3Days, (DatepickerPeriod data) {
+      data.start = period.baseDate.add(days: -2);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(days: -2);
     }));
-    period.list.add(DatepickerEntry('1week', msgLastWeek, (DatepickerPeriod data) {
-      data.start = Date.today().add(days: -6);
-      data.end = Date.today();
+    period.list
+        .add(DatepickerEntry('1week', msgLastWeek, (DatepickerPeriod data) {
+      data.start = period.baseDate.add(days: -6);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(days: -6);
     }));
-    period.list.add(DatepickerEntry('2weeks', msgLast2Weeks, (DatepickerPeriod data) {
-      data.start = Date.today().add(days: -13);
-      data.end = Date.today();
+    period.list
+        .add(DatepickerEntry('2weeks', msgLast2Weeks, (DatepickerPeriod data) {
+      data.start = period.baseDate.add(days: -13);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(days: -13);
     }));
-    period.list.add(DatepickerEntry('3weeks', msgLast3Weeks, (DatepickerPeriod data) {
-      data.start = Date.today().add(days: -20);
-      data.end = Date.today();
+    period.list
+        .add(DatepickerEntry('3weeks', msgLast3Weeks, (DatepickerPeriod data) {
+      data.start = period.baseDate.add(days: -20);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(days: -20);
     }));
-    period.list.add(DatepickerEntry('1month', msgLastMonth, (DatepickerPeriod data) {
-      data.start = Date.today().add(months: -1);
-      data.end = Date.today();
+    period.list
+        .add(DatepickerEntry('1month', msgLastMonth, (DatepickerPeriod data) {
+      data.start = period.baseDate.add(months: -1);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(months: -1);
     }));
-    period.list.add(DatepickerEntry('3months', msgLast3Months, (DatepickerPeriod data) {
-      data.start = Date.today().add(months: -3);
-      data.end = Date.today();
+    period.list.add(
+        DatepickerEntry('3months', msgLast3Months, (DatepickerPeriod data) {
+      data.start = period.baseDate.add(months: -3);
+      data.end = period.baseDate;
     }, (Date date) {
       return date.add(months: -3);
     }));
+    // period.list
+    //     .add(DatepickerEntry('quarter1', msgQuarter1, (DatepickerPeriod data) {
+    //   data.start = new Date(period.baseDate.year, 1, 1);
+    //   data.end = new Date(period.baseDate.year, 3, 31);
+    // }, (Date date) {
+    //   return new Date(period.baseDate.year, 1, 1);
+    // }));
+    // period.list
+    //     .add(DatepickerEntry('quarter2', msgQuarter2, (DatepickerPeriod data) {
+    //   data.start = new Date(period.baseDate.year, 4, 1);
+    //   data.end = new Date(period.baseDate.year, 6, 30);
+    // }, (Date date) {
+    //   return new Date(period.baseDate.year, 4, 1);
+    // }));
+    // period.list
+    //     .add(DatepickerEntry('quarter3', msgQuarter3, (DatepickerPeriod data) {
+    //   data.start = new Date(period.baseDate.year, 7, 1);
+    //   data.end = new Date(period.baseDate.year, 9, 30);
+    // }, (Date date) {
+    //   return new Date(period.baseDate.year, 7, 1);
+    // }));
+    // period.list
+    //     .add(DatepickerEntry('quarter4', msgQuarter4, (DatepickerPeriod data) {
+    //   data.start = new Date(period.baseDate.year, 10, 1);
+    //   data.end = new Date(period.baseDate.year, 12, 31);
+    // }, (Date date) {
+    //   return new Date(period.baseDate.year, 10, 1);
+    // }));
   }
 
   void sortConfigs() {
     if (_pdfOrder == '' || listConfig.isEmpty) return;
-    // TODO: 17.7.2020 - can be removed in future versions
-    if (_pdfOrder.contains(',')) {
-      var idList = _pdfOrder.split(',');
-      _pdfOrder = '';
-      for (var i = 0; i < idList.length; i++) {
-        var cfg = listConfig.firstWhere((cfg) => cfg.id == idList[i], orElse: () => null);
-        if (cfg != null) {
-          _pdfOrder += cfg.idx;
-        }
-      }
-    }
-    // 17.7.2020: end
     user.saveParamsToForms();
     var srcList = listConfig.sublist(0);
     listConfig.clear();
     var idxList = <String>[];
-    for (var i = 0; i < _pdfOrder.length; i += 2) {
-      idxList.add(_pdfOrder.substring(i, i + 2));
+    if (_pdfOrder.length < 48) {
+      for (var i = 0; i < _pdfOrder.length; i += 2) {
+        idxList.add(_pdfOrder.substring(i, i + 2));
+      }
+    } else {
+      for (var i = 0; i < _pdfOrder.length; i += 3) {
+        idxList.add(_pdfOrder.substring(i, i + 3));
+      }
     }
 //    var idList = _pdfOrder.split(",");
     for (var i = 0; i < idxList.length; i++) {
-      var cfg = srcList.firstWhere((cfg) => cfg.idx == idxList[i], orElse: () => null);
+      var cfg = srcList.firstWhere((cfg) => cfg.idx == idxList[i],
+          orElse: () => null);
       if (cfg != null) {
         srcList.remove(cfg);
         listConfig.add(cfg);
@@ -399,7 +451,7 @@ class Settings {
   Map<String, dynamic> get currentFormsAsMap {
     var ret = <String, dynamic>{};
     for (var cfg in listConfig) {
-      if (cfg.checked) ret[cfg.form.id] = cfg.asJson;
+      if (cfg.checked) ret[cfg.form.dataId] = cfg.asJson;
     }
     return ret;
   }
@@ -428,8 +480,8 @@ class Settings {
   UserData get user {
     if (_userIdx >= 0 && _userIdx < userList.length) return userList[_userIdx];
     _userIdx = 0;
-    if (userList.isNotEmpty) return userList[0];
-    return UserData(this);
+    if (userList.isEmpty) userList.add(UserData(this));
+    return userList[0];
   }
 
   void save({bool updateSync = true, bool skipReload = false}) {}
@@ -504,7 +556,7 @@ class Settings {
       if (idx >= 0) language = languageList[idx];
       showCurrentGluc = JsonData.toBool(json['s7']);
       period = DatepickerPeriod(src: JsonData.toText(json['s8']));
-      pdfOrder = JsonData.toText(json['s9']);
+      _pdfOrder = JsonData.toText(json['s9']);
       viewType = JsonData.toText(json['s10']);
       timestamp = JsonData.toInt(json['s11']);
       tileShowImage = JsonData.toBool(json['s12'], ifEmpty: true);
@@ -518,7 +570,8 @@ class Settings {
             userList.add(UserData.fromJson(this, entry));
           }
         } catch (ex) {
-          Globals().info.addDevError(ex, 'Fehler beim laden der User in Settings.fromSharedJson: ${ex.toString()}');
+          Globals().info.addDevError(ex,
+              'Fehler beim laden der User in Settings.fromSharedJson: ${ex.toString()}');
 //            saveStorage("mu", null);
         }
       } else {
@@ -782,7 +835,8 @@ class Globals extends Settings {
 
   List<int> get profileMaxCounts => [100000, 2000, 1000, 500, 250, 100];
 
-  double get glucMaxValue => glucValueFromData(glucMaxValues[ppGlucMaxIdx ?? 0]);
+  double get glucMaxValue =>
+      glucValueFromData(glucMaxValues[ppGlucMaxIdx ?? 0]);
   int ppBasalPrecisionIdx = 0;
 
   List<int> get basalPrecisionValues => [null, 0, 1, 2, 3];
@@ -792,6 +846,7 @@ class Globals extends Settings {
   bool ppHideNightscoutInPDF = true;
   bool ppShowUrlInPDF = false;
   bool ppHideLoopData = false;
+  bool ppFixAAPS30 = false;
   bool isCreatingPDF = false;
 
   bool get hideLoopData => ppHideLoopData && isCreatingPDF;
@@ -825,7 +880,9 @@ class Globals extends Settings {
   void show(String text, {bool append = false, String skipStart}) {
     Future.delayed(Duration(milliseconds: 500), () {
       if (msg != null) {
-        if (skipStart != null && msg.text != null && msg.text.startsWith(skipStart)) return;
+        if (skipStart != null &&
+            msg.text != null &&
+            msg.text.startsWith(skipStart)) return;
         if (append && msg.text != null && msg.text.length < 20000) {
           msg.text += '<br />${text}';
         } else {
@@ -848,6 +905,7 @@ class Globals extends Settings {
       ',"d8":"${ppLatestFirst ? "true" : "false"}"'
       ',"d9":"${ppGlucMaxIdx?.toString() ?? 0}"'
       ',"d10":"${ppBasalPrecisionIdx?.toString() ?? 0}"'
+      ',"d11":"${ppFixAAPS30?.toString() ?? 0}"'
       '}';
 
   // loads the device settings from a json-encoded string
@@ -864,6 +922,7 @@ class Globals extends Settings {
       ppLatestFirst = JsonData.toBool(json['d8']);
       ppGlucMaxIdx = JsonData.toInt(json['d9']);
       ppBasalPrecisionIdx = JsonData.toInt(json['d10']);
+      ppFixAAPS30 = JsonData.toBool(json['d11']);
     } catch (ex) {
       var msg = ex.toString();
       showDebug('Fehler bei Globals.fromDeviceJson: ${msg}');
@@ -879,7 +938,8 @@ class Globals extends Settings {
 
   // retrieve the current settings as a string that can be used in json
   @override
-  String get jsonString => '${super.jsonString},"ppHideNightscoutInPDF":"${ppHideNightscoutInPDF ? "true" : "false"}"'
+  String get jsonString =>
+      '${super.jsonString},"ppHideNightscoutInPDF":"${ppHideNightscoutInPDF ? "true" : "false"}"'
       ',"ppShowUrlInPDF":"${ppShowUrlInPDF ? "true" : "false"}"'
       ',"ppHideLoopData":"${ppHideLoopData ? "true" : "false"}"'
       ',"pdfCreationMaxSize":"${pdfCreationMaxSize}"'
@@ -888,7 +948,8 @@ class Globals extends Settings {
       ',"ppComparable":"${ppComparable ? "true" : "false"}"'
       ',"ppLatestFirst":"${ppLatestFirst ? "true" : "false"}"'
       ',"ppGlucMaxIdx":"${ppGlucMaxIdx?.toString() ?? 0}"'
-      ',"ppBasalPrecisionIdx":"${ppBasalPrecisionIdx?.toString() ?? 0}"';
+      ',"ppBasalPrecisionIdx":"${ppBasalPrecisionIdx?.toString() ?? 0}"'
+      ',"ppFixAAPS30":"${ppFixAAPS30?.toString() ?? 0}"';
 
   // retrieves the settings from a json-data-structure
   @override
@@ -897,13 +958,16 @@ class Globals extends Settings {
     ppHideNightscoutInPDF = JsonData.toBool(json['ppHideNightscoutInPDF']);
     ppShowUrlInPDF = JsonData.toBool(json['ppShowUrlInPDF']);
     ppHideLoopData = JsonData.toBool(json['ppHideLoopData']);
-    pdfCreationMaxSize = JsonData.toInt(json['pdfCreationMaxSize'], pdfCreationMaxSize);
+    pdfCreationMaxSize =
+        JsonData.toInt(json['pdfCreationMaxSize'], pdfCreationMaxSize);
     ppStandardLimits = JsonData.toBool(json['ppStandardLimits']);
-    ppCGPAlwaysStandardLimits = JsonData.toBool(json['ppCGPAlwaysStandardLimits']);
+    ppCGPAlwaysStandardLimits =
+        JsonData.toBool(json['ppCGPAlwaysStandardLimits']);
     ppComparable = JsonData.toBool(json['ppComparable']);
     ppLatestFirst = JsonData.toBool(json['ppLatestFirst']);
     ppGlucMaxIdx = JsonData.toInt(json['ppGlucMaxIdx']);
     ppBasalPrecisionIdx = JsonData.toInt(json['ppBasalPrecisionIdx']);
+    ppFixAAPS30 = JsonData.toBool(json['ppFixAAPS30']);
   }
 
   void restoreLiveStorage() {}
@@ -924,7 +988,8 @@ class Globals extends Settings {
         ',"ppLatestFirst":"${loadStorage('ppLatestFirst')}"'
         ',"ppGlucMaxIdx":"${loadStorage('ppGlucMaxIdx')}"'
         ',"ppBasalPrecisionIdx":"${loadStorage('ppBasalPrecisionIdx')}"'
-        ',"ppProfileMaxCount":"${loadStorage('ppProfileMaxCount')}"';
+        ',"ppProfileMaxCount":"${loadStorage('ppProfileMaxCount')}"'
+        ',"ppFixAAPS30":"${loadStorage('ppFixAAPS30')}"';
   }
 
   // loads the settings that are not synchronized to google
@@ -933,18 +998,6 @@ class Globals extends Settings {
     super.loadLocalOnlySettings();
     ppPdfSameWindow = loadStorage('ppPdfSameWindow') == 'true';
     ppPdfDownload = loadStorage('ppPdfDownload') == 'true';
-/*
-    ppHideNightscoutInPDF = loadStorage('ppHideNightscoutInPDF') == "true";
-    ppShowUrlInPDF = loadStorage('ppShowUrlInPDF') == "true";
-    ppHideLoopData = loadStorage('ppHideLoopData') == "true";
-    pdfCreationMaxSize = JsonData.toInt(loadStorage('pdfCreationMaxSize'));
-    ppStandardLimits = loadStorage('ppStandardLimits') == "true";
-    ppCGPAlwaysStandardLimits = loadStorage('ppCGPAlwaysStandardLimits') == "true";
-    ppComparable = loadStorage('ppComparable') == "true";
-    ppLatestFirst = loadStorage('ppLatestFirst') == "true";
-    ppGlucMaxIdx = JsonData.toInt(loadStorage('ppGlucMaxIdx'));
-    ppBasalPrecisionIdx = JsonData.toInt(loadStorage('ppBasalPrecisionIdx'));
- */
     currPeriodShift = listPeriodShift[0];
   }
 
@@ -957,8 +1010,9 @@ class Globals extends Settings {
 
   int basalPrecisionAuto = 1;
 
-  int get basalPrecision =>
-      (ppBasalPrecisionIdx ?? 0) > 0 ? basalPrecisionValues[ppBasalPrecisionIdx] : basalPrecisionAuto;
+  int get basalPrecision => (ppBasalPrecisionIdx ?? 0) > 0
+      ? basalPrecisionValues[ppBasalPrecisionIdx]
+      : basalPrecisionAuto;
 
   static int decimalPlaces(num value) {
     var v = value.toString();
@@ -969,7 +1023,8 @@ class Globals extends Settings {
     return math.min(ret, 3);
   }
 
-  int timeForCalc(DateTime time) => time.hour * 3600 + time.minute * 60 + time.second;
+  int timeForCalc(DateTime time) =>
+      time.hour * 3600 + time.minute * 60 + time.second;
 
   static final Globals _globals = Globals._internal();
 
@@ -1035,31 +1090,38 @@ class Globals extends Settings {
 
   String get msgBE => _khFactor == 10 ? 'msgBE' : 'msgKE';
 
-  String get msgUrlFailurePrefix => Intl.message('Die angegebene URL ist nicht erreichbar. '
+  String get msgUrlFailurePrefix => Intl.message(
+      'Die angegebene URL ist nicht erreichbar. '
       'Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ');
 
-  String get msgUrlFailureSuffix => Intl.message('<br><br>Wenn diese URL geschützt ist, '
+  String get msgUrlFailureSuffix => Intl.message(
+      '<br><br>Wenn diese URL geschützt ist, '
       'muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man '
       'über "Administrator-Werkzeuge" auf der persönlichen Nightscout Seite.');
 
-  String get msgUrlFailureHerokuapp =>
-      Intl.message('In der Variable ENABLE muss das Wort "cors" stehen, damit externe Tools '
-          'wie dieses hier auf die Daten zugreifen dürfen.');
+  String get msgUrlFailureHerokuapp => Intl.message(
+      'In der Variable ENABLE muss das Wort "cors" stehen, damit externe Tools '
+      'wie dieses hier auf die Daten zugreifen dürfen.');
 
-  String get msgUrlFailure10be => Intl.message('Auf 10be muss beim Server in den Standardeinstellungen der Haken bei '
+  String get msgUrlFailure10be => Intl.message(
+      'Auf 10be muss beim Server in den Standardeinstellungen der Haken bei '
       '"cors" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn "cors" '
       'aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.');
 
-  String get msgUrlNotSafe => Intl.message('Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter '
+  String get msgUrlNotSafe => Intl.message(
+      'Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter '
       'auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.');
 
   String msgUrlFailure(String url) {
-    if (url.startsWith('http:') && html.window.location.protocol.startsWith('https')) return msgUrlNotSafe;
-    if (url.contains('ns.10be')) return '${msgUrlFailurePrefix}${msgUrlFailure10be}${msgUrlFailureSuffix}';
+    if (url.startsWith('http:') &&
+        html.window.location.protocol.startsWith('https')) return msgUrlNotSafe;
+    if (url.contains('ns.10be'))
+      return '${msgUrlFailurePrefix}${msgUrlFailure10be}${msgUrlFailureSuffix}';
     return '${msgUrlFailurePrefix}${msgUrlFailureHerokuapp}${msgUrlFailureSuffix}';
   }
 
-  String get msgNoURLDefined => Intl.message('Die URL wurde noch nicht festgelegt.');
+  String get msgNoURLDefined =>
+      Intl.message('Die URL wurde noch nicht festgelegt.');
 
   String title = 'Nightscout Reporter';
 
@@ -1079,8 +1141,10 @@ class Globals extends Settings {
   String urlPlayground = "https://devubuntu.home.local/NightScoutReporter/pdfmake/playground.php";
   String googleClientId = "939975570793-i9kj0rp6kgv470t45j1pf1hg3j9fqmbh";
 
-  String infoClass(String cls) => showInfo ? '$cls infoarea showinfo' : '$cls infoarea';
+  String infoClass(String cls) =>
+      showInfo ? '$cls infoarea showinfo' : '$cls infoarea';
   bool isConfigured = false;
+  bool dsgvoAccepted = false;
   int _khFactor = 12;
 
   int get khFactor => _khFactor;
@@ -1122,6 +1186,20 @@ class Globals extends Settings {
     return fmtNumber(gluc, precision ?? 0);
   }
 
+  String glucFromStatusMGDL(var gluc, [double precision]) {
+    if (gluc is String) gluc = double.tryParse(gluc) ?? 0;
+    if (!(gluc is num) || gluc == 0) return '';
+
+    if (!glucMGDLFromStatus && glucMGDL) {
+      return fmtNumber(gluc * 18.02, precision ?? 1);
+    }
+    if (glucMGDLFromStatus && !glucMGDL) {
+      return fmtNumber(gluc / 18.02, precision ?? 1);
+    }
+
+    return fmtNumber(gluc, precision ?? 0);
+  }
+
 //  double glucFromData(double value) => glucMGDL ? value : value / 18.02;
 
   String get pdfTarget {
@@ -1149,8 +1227,41 @@ class Globals extends Settings {
     return url;
   }
 */
+
+  Future<dynamic> requestJson(String url,
+      {String method = 'get',
+      Map<String, String> headers,
+      body,
+      bool showError = true}) async {
+    dynamic ret = await request(url,
+            method: method, headers: headers, body: body, showError: showError)
+        .then((String response) {
+      if (response == null) {
+        return null;
+      }
+      if (response.startsWith('[') && response.endsWith(']')) {
+        return convert.json.decode(response);
+      }
+      if (response.startsWith('{') && response.endsWith('}')) {
+        return convert.json.decode(response);
+      }
+      return null;
+    });
+    return ret;
+  }
+
+  void donationClick() {
+    var url = 'https://www.paypal.com/donate';
+    url += '?hosted_button_id=YYMVYB8C3VAVL';
+    html.window.open(url, 'PayPal');
+  }
+
   Future<String> request(String url,
-      {String method = 'get', Map<String, String> headers, body, bool showError = true}) async {
+      {String method = 'get',
+      Map<String, String> headers,
+      body,
+      bool showError = true,
+      bool asJson = false}) async {
     var client = http.BrowserClient();
     switch (method.toLowerCase()) {
       case 'post':
@@ -1182,14 +1293,16 @@ class Globals extends Settings {
     String ret;
     var check = checkUser.apiUrl(null, 'status');
     await request(check).then((String response) {
-      if (!response.toLowerCase().contains('status ok')) ret = msgUrlFailure(check);
+      if (!response.toLowerCase().contains('status ok'))
+        ret = msgUrlFailure(check);
     }).catchError((err) {
       ret = msgUrlFailure(check);
     });
     return ret;
   }
 
-  void changeLanguage(LangData value, {bool doReload = true, bool checkConfigured = false}) async {
+  void changeLanguage(LangData value,
+      {bool doReload = true, bool checkConfigured = false}) async {
     language = value;
     if (checkConfigured && !isConfigured) clearStorage();
     if (doReload) {
@@ -1216,7 +1329,8 @@ class Globals extends Settings {
   void reload() {
     var pos = html.window.location.href.indexOf('?');
     if (pos > 0) {
-      html.window.location.href = html.window.location.href.substring(0, pos - 1);
+      html.window.location.href =
+          html.window.location.href.substring(0, pos - 1);
     } else {
       html.window.location.reload();
     }
@@ -1227,7 +1341,8 @@ class Globals extends Settings {
       var doKill = false;
       doKill = entry.key.startsWith(betaPrefix);
       if (!isBeta) doKill = !doKill;
-      if (entry.key.endsWith('webData') || entry.key.endsWith('debug')) doKill = false;
+      if (entry.key.endsWith('webData') || entry.key.endsWith('debug'))
+        doKill = false;
       if (doKill) html.window.localStorage.remove(entry.key);
     }
   }
@@ -1257,17 +1372,22 @@ class Globals extends Settings {
     var controller = StreamController<String>();
     var content = asSharedString;
     controller.add(content);
-    var media =
-        commons.Media(controller.stream.transform(convert.Utf8Encoder()), content.length, contentType: 'text/json');
+    var media = commons.Media(
+        controller.stream.transform(convert.Utf8Encoder()), content.length,
+        contentType: 'text/json');
     if (settingsFile.id == null) {
-      drive.files.generateIds(count: 1, space: driveParent).then((gd.GeneratedIds ids) {
+      drive.files
+          .generateIds(count: 1, space: driveParent)
+          .then((gd.GeneratedIds ids) {
         settingsFile.id = ids.ids[0];
         drive.files.create(settingsFile, uploadMedia: media).then((_) {});
       });
     } else {
       var file = gd.File();
       file.trashed = false;
-      drive.files.update(file, settingsFile.id, uploadMedia: media).then((gd.File file) {
+      drive.files
+          .update(file, settingsFile.id, uploadMedia: media)
+          .then((gd.File file) {
         if (doReload) reload();
 //        showDebug("Datei ${file.name} gespeichert");
       })?.catchError((error) {
@@ -1282,11 +1402,15 @@ class Globals extends Settings {
 
   void _getFromGoogle() {
     drive.files
-        .get(settingsFile.id, $fields: '*', downloadOptions: commons.DownloadOptions.FullMedia, acknowledgeAbuse: false)
+        .get(settingsFile.id,
+            $fields: '*',
+            downloadOptions: commons.DownloadOptions.FullMedia,
+            acknowledgeAbuse: false)
         .then((response) {
       var media = response as commons.Media;
       if (media?.contentType?.startsWith('text/') ?? false) {
-        var strm = media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
+        var strm =
+            media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
         strm.join().then((s) {
           // get settings in temporary structure to compare timestamps
           Settings set = Globals()..fromSharedString(s);
@@ -1295,15 +1419,18 @@ class Globals extends Settings {
             fromSharedString(s);
             save(updateSync: false);
             _initAfterLoad();
-//            showDebug("Daten auf Google vom ${time.day}.${time.month}.${time.year}, ${time.hour}:${fmtNumber(
+//            showDebug("Daten auf Google vom ${time.day}.${time.month}.
+//            ${time.year}, ${time.hour}:${fmtNumber(
 //              time.minute, 0, 2)} Uhr - geladen");
           } else {
-//            showDebug("Daten auf Google vom ${time.day}.${time.month}.${time.year}, ${time.hour}:${fmtNumber(
+//            showDebug("Daten auf Google vom ${time.day}.${time.month}.
+//            ${time.year}, ${time.hour}:${fmtNumber(
 //              time.minute, 0, 2)} Uhr - verworfen");
           }
         });
       } else {
-//          showDebug("Eine Datei der Art \"${media?.contentType}\" kann nicht verarbeitet werden. ");
+//          showDebug("Eine Datei der Art \"${media?.contentType}\"
+//          kann nicht verarbeitet werden. ");
       }
       _googleLoaded = true;
     }).catchError((error) {
@@ -1324,7 +1451,9 @@ class Globals extends Settings {
           ..name = settingsFilename
           ..parents = [driveParent]
           ..mimeType = 'text/json';
-        drive.files.generateIds(count: 1, space: driveParent).then((gd.GeneratedIds ids) {
+        drive.files
+            .generateIds(count: 1, space: driveParent)
+            .then((gd.GeneratedIds ids) {
           settingsFile.id = ids.ids[0];
           drive.files.create(settingsFile).then((file) {
             _getFromGoogle();
@@ -1421,12 +1550,24 @@ class Globals extends Settings {
   void _initAfterLoad() {
     changeLanguage(language, doReload: false);
     Settings.updatePeriod(period);
-    isConfigured = lastVersion != null && lastVersion.isNotEmpty && userList.isNotEmpty;
+    isConfigured =
+        lastVersion != null && lastVersion.isNotEmpty && userList.isNotEmpty;
+  }
+
+  int compareDate(Date date1, Date date2) {
+    if (date1 == null) {
+      return date2 == null ? 0 : 1;
+    }
+    if (date2 == null) {
+      return -1;
+    }
+    return date1.compareTo(date2);
   }
 
   String fmtBasal(num value, {bool dontRound = false}) {
     var precision = basalPrecision;
-    if (dontRound) precision = math.max(Globals.decimalPlaces(value), precision);
+    if (dontRound)
+      precision = math.max(Globals.decimalPlaces(value), precision);
     return fmtNumber(value, precision, 0, 'null', dontRound);
   }
 
@@ -1455,7 +1596,8 @@ class Globals extends Settings {
       while (ret.endsWith('0')) {
         ret = ret.substring(0, ret.length - 1);
       }
-      if (ret.endsWith(nf.symbols.DECIMAL_SEP)) ret = ret.substring(0, ret.length - 1);
+      if (ret.endsWith(nf.symbols.DECIMAL_SEP))
+        ret = ret.substring(0, ret.length - 1);
     }
 
     if (fillfront0 > 0) {
@@ -1477,9 +1619,6 @@ class Globals extends Settings {
   // loads all settings from localStorage
   void loadFromStorage() {
     isLoading = true;
-    // TODO: 5.7.2020 - can be removed in future versions
-    fromSharedString('{$storageString}');
-    // 5.7.2020: end
     var shared = Settings.tiod(loadStorage('sharedData'));
     var device = Settings.tiod(loadStorage('deviceData'));
     fromStrings(shared, device);
@@ -1503,7 +1642,6 @@ class Globals extends Settings {
       showDebug('Fehler bei Globals.save: ${msg}');
     }
 
-//    saveOld(updateSync: updateSync, skipReload: skipReload);
     clearStorage();
 
     if (canDebug) saveStorage('debug', 'yes');
@@ -1515,75 +1653,14 @@ class Globals extends Settings {
     saveStorage('sharedData', Settings.doit(asSharedString));
     saveStorage('deviceData', Settings.doit(asDeviceString));
 
-    var doReload = (language.code != oldLang && language.code != null) && !skipReload;
+    var doReload =
+        (language.code != oldLang && language.code != null) && !skipReload;
     if (syncGoogle && updateSync) {
       _uploadToGoogle(doReload);
     } else if (doReload) {
       reload();
     }
   }
-
-  // TODO: 5.7.2020 - can be removed in future versions
-  void saveOld({bool updateSync = true, bool skipReload = false}) {
-    var oldLang = loadStorage('language');
-    var oldGoogle = loadStorage('syncGoogle');
-    var oldWebTheme = loadStorage('webtheme');
-
-    clearStorage();
-
-    saveStorage('version', version);
-    saveStorage('syncGoogle', oldGoogle);
-    saveStorage('webtheme', oldWebTheme);
-    if (canDebug) {
-      saveStorage('debug', 'yes');
-    }
-    if (!Settings.hastiod) saveStorage('unsafe', 'zh++;');
-
-    var save = '';
-    for (var i = 0; i < userList.length; i++) {
-      save = '${save},${userList[i].asJsonString}';
-    }
-    if (save.length > 1) save = save.substring(1);
-    saveStorage('mu', Settings.doit('[${save}]'));
-    save = '';
-    for (var i = 0; i < shortcutList.length; i++) {
-      save = '${save},${shortcutList[i].asJsonString}';
-    }
-    if (save.length > 1) save = save.substring(1);
-    saveStorage('sc', Settings.doit('[$save]'));
-    saveStorage('userIdx', '$userIdx');
-    var doReload = (language.code != oldLang && language.code != null) && !skipReload;
-    saveStorage('glucMGDL', glucMGDL.toString());
-    saveStorage('language', language.code ?? 'de_DE');
-    saveStorage('ppPdfSameWindow', ppPdfSameWindow ? 'true' : 'false');
-    saveStorage('ppPdfDownload', ppPdfDownload ? 'true' : 'false');
-    saveStorage('ppHideNightscoutInPDF', ppHideNightscoutInPDF ? 'true' : 'false');
-    saveStorage('ppShowUrlInPDF', ppShowUrlInPDF ? 'true' : 'false');
-    saveStorage('ppHideLoopData', ppHideLoopData ? 'true' : 'false');
-    saveStorage('pdfCreationMaxSize', '${pdfCreationMaxSize}');
-    saveStorage('ppStandardLimits', _ppStandardLimits ? 'true' : 'false');
-    saveStorage('ppCGPAlwaysStandardLimits', ppCGPAlwaysStandardLimits ? 'true' : 'false');
-    saveStorage('ppComparable', ppComparable ? 'true' : 'false');
-    saveStorage('ppLatestFirst', ppLatestFirst ? 'true' : 'false');
-    saveStorage('ppGlucMaxIdx', ppGlucMaxIdx?.toString() ?? 0);
-    saveStorage('ppBasalPrecisionIdx', ppBasalPrecisionIdx?.toString() ?? 0);
-    saveStorage('showAllTileParams', showAllTileParams ? 'true' : 'false');
-    saveStorage('showCurrentGluc', showCurrentGluc ? 'true' : 'false');
-    saveStorage('period', period?.toString());
-    saveStorage('viewType', viewType);
-    saveStorage('tileShowImage', tileShowImage ? 'true' : 'false');
-    timestamp = DateTime.now().millisecondsSinceEpoch;
-    saveStorage('timestamp', '${timestamp}');
-    savePdfOrder();
-    saveStorage('theme', _theme);
-    if (syncGoogle && updateSync) {
-      _uploadToGoogle(doReload);
-    } else if (doReload) {
-      reload();
-    }
-  }
-
-  // 5.7.2020: end
 
   static double percentile(List entries, int value) {
     var v = value / 100;
@@ -1636,7 +1713,8 @@ class Globals extends Settings {
   Date parseDate(String value) {
     Date ret;
     if (value != null && value.length == 8) {
-      ret = Date(int.parse(value.substring(0, 4)), int.parse(value.substring(4, 6)), int.parse(value.substring(6, 8)));
+      ret = Date(int.parse(value.substring(0, 4)),
+          int.parse(value.substring(4, 6)), int.parse(value.substring(6, 8)));
     }
     return ret;
   }
@@ -1648,7 +1726,8 @@ class Globals extends Settings {
     var d2 = endDate.add(days: 0);
     while (d1.isOnOrBefore(d2)) {
       var url = user.urlDataFor(d1);
-      if (ret.firstWhere((entry) => entry == url, orElse: () => null) == null) ret.add(url);
+      if (ret.firstWhere((entry) => entry == url, orElse: () => null) == null)
+        ret.add(url);
       d1 = d1.add(days: 1);
     }
 
@@ -1658,13 +1737,13 @@ class Globals extends Settings {
   void fillFormsFromShortcut(ShortcutData data) {
     period = DatepickerPeriod(src: data.periodData);
     for (var cfg in listConfig) {
-      cfg.checked = data.forms.keys.contains(cfg.form.id);
+      cfg.checked = data.forms.keys.contains(cfg.form.dataId);
       if (cfg.checked) {
-        cfg.fillFromJson(data.forms[cfg.form.id]);
+        cfg.fillFromJson(data.forms[cfg.form.dataId]);
       }
     }
     for (var entry in listConfig) {
-      user.formParams[entry.id] = entry.asString;
+      user.formParams[entry.dataId] = entry.asString;
     }
     _pdfOrder = data.pdfOrder;
     glucMGDLIdx = data.glucMGDLIdx;
@@ -1684,7 +1763,9 @@ class UrlData {
   dynamic get asJson => {
         'u': url,
         't': token,
-        'sd': startDate == null ? '19700101' : startDate.format(DateFormat('yyyyMMdd')),
+        'sd': startDate == null
+            ? '19700101'
+            : startDate.format(DateFormat('yyyyMMdd')),
         'ed': endDate == null ? null : endDate.format(DateFormat('yyyyMMdd'))
       };
 
@@ -1704,7 +1785,8 @@ class UrlData {
       ret.token = JsonData.toText(json['t']);
       var sd = JsonData.toText(json['sd']);
       ret.startDate = sd == null ? Date(1970, 1, 1) : g.parseDate(sd);
-      ret.endDate = json['ed'] == null ? null : g.parseDate(JsonData.toText(json['ed']));
+      ret.endDate =
+          json['ed'] == null ? null : g.parseDate(JsonData.toText(json['ed']));
     } catch (ex) {
       var msg = ex.toString();
       g.showDebug('Fehler bei UrlData.fromSharedJson: ${msg}');
@@ -1712,13 +1794,15 @@ class UrlData {
     return ret;
   }
 
-  String get startDateEdit => startDate == null ? null : startDate.format(g.fmtDateForDisplay);
+  String get startDateEdit =>
+      startDate == null ? null : startDate.format(g.fmtDateForDisplay);
 
   set startDateEdit(String v) {
     startDate = Date.parse(v, g.fmtDateForDisplay);
   }
 
-  String get endDateEdit => endDate == null ? null : endDate.format(g.fmtDateForDisplay);
+  String get endDateEdit =>
+      endDate == null ? null : endDate.format(g.fmtDateForDisplay);
 
   set endDateEdit(String v) {
     endDate = Date.parse(v, g.fmtDateForDisplay);
@@ -1767,6 +1851,8 @@ class UserData {
   StatusData status;
   int profileMaxIdx;
   bool isReachable = true;
+  EntryData lastEntry = null;
+  TreatmentData lastTreatment = null;
 
   UserData(this.g) {
     listApiUrl.add(UrlData(g));
@@ -1774,13 +1860,13 @@ class UserData {
 
   void saveParamsToForms() {
     for (var entry in g.listConfig) {
-      entry.fillFromString(formParams[entry.id]);
+      entry.fillFromString(formParams[entry.dataId]);
     }
   }
 
   void loadParamsFromForms() {
     for (var entry in g.listConfig) {
-      formParams[entry.id] = entry.asString;
+      formParams[entry.dataId] = entry.asString;
     }
   }
 
@@ -1797,25 +1883,14 @@ class UserData {
       for (FormConfig cfg in g.listConfig) forms[cfg.id] = cfg.asJson;
     } catch (ex) {}
 */
-    listApiUrl.sort((a, b) => a.startDate.compareTo(b.startDate));
+    listApiUrl.sort((a, b) => g.compareDate(a.endDate, b.endDate));
     var urls = <dynamic>[];
     for (var url in listApiUrl) {
       urls.add(url.asJson);
     }
 
-    // TODO: 3.7.2020 - token and storageApiUrl can be removed in future versions
-    //           still there to keep old localStorages working
-    var token = listApiUrl.last.token;
-    var storageApiUrl = listApiUrl.last.url;
-    // 3.7.2020: end
-
     return '{"n":"$name",'
         '"bd":"${birthDate ?? ''}",'
-        // TODO: 3.7.2020 - ut and u can be removed in future versions
-        // still there to keep old localStorages working
-        '"ut":"${token ?? ''}",'
-        '"u":"${storageApiUrl ?? ''}",'
-        // 3.7.2020: end
         '"s":${convert.json.encode(urls)},'
         '"dd":"${diaStartDate ?? ''}",'
         '"i":"${insulin ?? ''}",'
@@ -1834,23 +1909,11 @@ class UserData {
       ret.birthDate = json['bd'];
       ret.diaStartDate = json['dd'];
       ret.insulin = json['i'];
-      // TODO: 3.7.2020 - this code can be removed in future versions
-      //                  still there to transfer old structure to new structure
-      if (json['s'] == null) {
-        String src = json['u']?.trim();
-        var url = UrlData(g);
-        url.url = src;
-        url.token = json['ut'];
-        url.startDate = Date(1970, 1, 1);
-        url.endDate = null;
-        json['s'] = [url.asJson];
-      }
-      // 3.7.2020: end
       ret.listApiUrl = <UrlData>[];
       for (dynamic s in json['s']) {
         ret.listApiUrl.add(UrlData.fromJson(g, s));
       }
-      ret.listApiUrl.sort((a, b) => a.startDate.compareTo(b.startDate));
+      ret.listApiUrl.sort((a, b) => g.compareDate(a.endDate, b.endDate));
       ret.customData = json['c'];
       ret.isReachable = json['r'] ?? true;
       ret.profileMaxIdx = JsonData.toInt(json['pmi'], null);
@@ -1880,7 +1943,8 @@ class UserData {
   }
 
   // retrieves the url to the api for a data
-  String apiUrl(Date date, String cmd, {String params = '', bool noApi = false}) {
+  String apiUrl(Date date, String cmd,
+      {String params = '', bool noApi = false}) {
     if (listApiUrl.isEmpty) return null;
 
     var found = urlDataFor(date);
@@ -1892,7 +1956,8 @@ class UserData {
 
   // checks if the current url is valid
   Future<String> get isValid async {
-    if (apiUrl(null, '') == null) return Intl.message('Die URL wurde noch nicht festgelegt');
+    if (apiUrl(null, '') == null)
+      return Intl.message('Die URL wurde noch nicht festgelegt');
     String ret;
     var check = apiUrl(null, 'status');
     await g.request(check).then((String response) {
