@@ -931,6 +931,9 @@ abstract class BasePrint {
     String value = "\n>=${g.glucFromData(valueFrom)} <${g.glucFromData(valueTo)}";
     return Intl.message("Tief${value}", args: [value], name: "msgLow");
   }
+
+  static String get msgOverrides => Intl.message('Temporäre Overrides');
+
   msgVeryLow(value) {
     value = "\n<${g.glucFromData(value)}";
     return Intl.message("sehr Tief${value}", args: [value], name: "msgVeryLow");
