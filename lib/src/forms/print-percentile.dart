@@ -223,7 +223,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
     var day = DayData(
         null,
         repData.profile(DateTime(
-            repData.begDate.year, repData.begDate.month, repData.begDate.day)));
+            repData.begDate.year, repData.begDate.month, repData.begDate.day)), repData.status);
     day.entries.addAll(entryList);
     day.treatments.addAll(treatList);
     day.init();
@@ -298,7 +298,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
     var day = DayData(
         null,
         repData.profile(DateTime(
-            repData.begDate.year, repData.begDate.month, repData.begDate.day)));
+            repData.begDate.year, repData.begDate.month, repData.begDate.day)), repData.status);
     day.entries.addAll(entryList);
     day.treatments.addAll(treatList);
     day.init();
@@ -375,7 +375,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
     tableHeadFilled = true;
   }
 
-  Page getTablePage()
+  Page getTablePage(List<Page> pages)
   {
     isPortrait = false;
     var body = [];
