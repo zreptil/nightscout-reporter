@@ -206,6 +206,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
 
   @override
   void fillPages(List<Page> pages) async {
+    _settings = repData.status.settings;
     titleInfo = titleInfoBegEnd();
     if (showGPD) pages.add(getPage());
     if (showTable) getTablePage(pages);
