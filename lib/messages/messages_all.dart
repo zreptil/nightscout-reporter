@@ -18,18 +18,20 @@ import 'messages_ja_JP.dart' deferred as messages_ja_jp;
 import 'messages_sk_SK.dart' deferred as messages_sk_sk;
 import 'messages_fr_FR.dart' deferred as messages_fr_fr;
 import 'messages_pt_PT.dart' deferred as messages_pt_pt;
+import 'messages_nl_NL.dart' deferred as messages_nl_nl;
 
 typedef Future<dynamic> LibraryLoader();
 Map<String, LibraryLoader> _deferredLibraries = {
-  'es_ES': () => messages_es_es.loadLibrary(),
-  'de_DE': () => messages_de_de.loadLibrary(),
-  'en_US': () => messages_en_us.loadLibrary(),
-  'en_GB': () => messages_en_gb.loadLibrary(),
-  'pl_PL': () => messages_pl_pl.loadLibrary(),
-  'ja_JP': () => messages_ja_jp.loadLibrary(),
-  'sk_SK': () => messages_sk_sk.loadLibrary(),
-  'fr_FR': () => messages_fr_fr.loadLibrary(),
-  'pt_PT': () => messages_pt_pt.loadLibrary(),
+  'es_ES': messages_es_es.loadLibrary,
+  'de_DE': messages_de_de.loadLibrary,
+  'en_US': messages_en_us.loadLibrary,
+  'en_GB': messages_en_gb.loadLibrary,
+  'pl_PL': messages_pl_pl.loadLibrary,
+  'ja_JP': messages_ja_jp.loadLibrary,
+  'sk_SK': messages_sk_sk.loadLibrary,
+  'fr_FR': messages_fr_fr.loadLibrary,
+  'pt_PT': messages_pt_pt.loadLibrary,
+  'nl_NL': messages_nl_nl.loadLibrary,
 };
 
 MessageLookupByLibrary _findExact(localeName) {
@@ -52,6 +54,8 @@ MessageLookupByLibrary _findExact(localeName) {
       return messages_fr_fr.messages;
     case 'pt_PT':
       return messages_pt_pt.messages;
+    case 'nl_NL':
+      return messages_nl_nl.messages;
     default:
       return null;
   }

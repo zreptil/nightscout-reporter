@@ -29,10 +29,11 @@ import 'package:nightscout_reporter/src/forms/print-daily-hours.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-profile.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
+import 'package:nightscout_reporter/src/forms/print-gluc-distribution.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
-import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
 import 'package:nightscout_reporter/src/forms/print-user-data.dart';
+import 'package:nightscout_reporter/src/forms/print-weekly-graphic.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/helpview/helpview_component.dart';
 import 'package:nightscout_reporter/src/infoview/infoview_component.dart';
@@ -45,9 +46,9 @@ import 'src/forms/print-profile.dart';
 import 'src/impressum/impressum_component.dart';
 import 'src/printparams/printparams_component.dart';
 import 'src/settings/settings_component.dart';
+import 'src/shortcutedit/shortcutedit_component.dart';
 import 'src/welcome/welcome_component.dart';
 import 'src/whatsnew/whatsnew_component.dart';
-import 'src/shortcutedit/shortcutedit_component.dart';
 
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
@@ -163,8 +164,8 @@ class AppComponent implements OnInit {
 
   String get msgCheckSetup => Intl.message('Überprüfe Zugriff auf Nightscout ...');
 
-  String msgLoadingData(error, stacktrace) => Intl.message('Fehler beim Laden der Daten:\n$error\n$stacktrace',
-      args: [error, stacktrace], name: 'msgLoadingData');
+  String msgLoadingData(error, stacktrace) =>
+      Intl.message('Fehler beim Laden der Daten:\n$error\n$stacktrace', args: [error, stacktrace], name: 'msgLoadingData');
 
   String get msgLoadingDataError => Intl.message('Fehler beim Laden der Daten');
 
@@ -175,8 +176,8 @@ class AppComponent implements OnInit {
 
   String get msgEmptyRange => Intl.message('Bitte einen Zeitraum wählen.');
 
-  String get msgPreparingData => Intl.message('Bereite Daten vor...',
-      desc: 'text when data was received and is being prepared to be used in the report');
+  String get msgPreparingData =>
+      Intl.message('Bereite Daten vor...', desc: 'text when data was received and is being prepared to be used in the report');
 
   String get msgCreatingPDF => Intl.message('Erzeuge PDF...', desc: 'text when pdf is being created');
 
@@ -266,52 +267,50 @@ class AppComponent implements OnInit {
     glucRunning = true;
     var url = g.user.apiUrl(null, 'status.json');
     if (!g.hasMGDL) {
-      var content = await g.request(url);
-      if (content != null && content.startsWith('{')) {
-        var status = StatusData.fromJson(json.decode(content));
+      dynamic content = await g.requestJson(url);
+      if (content != null) {
+        var status = StatusData.fromJson(content);
         g.setGlucMGDL(status);
       }
     }
     url = g.user.apiUrl(null, 'entries.json', params: 'count=2');
-    var temp = await g.request(url);
-    if (temp == null || !temp.startsWith('[')) {
-      return '??';
-    }
-    List<dynamic> src = json.decode(temp);
-    if (src.length != 2) {
-      currentGluc = 'Keine Daten';
-      currentGlucDiff = '';
-      glucDir = 360;
-    } else {
-      try {
-        var eNow = EntryData.fromJson(src[0]);
-        var ePrev = EntryData.fromJson(src[1]);
-        var span = eNow.time.difference(ePrev.time).inMinutes;
-        glucDir = 360;
+    List<dynamic> src = await g.requestJson(url);
+    if (src != null) {
+      if (src.length != 2) {
+        currentGluc = 'Keine Daten';
         currentGlucDiff = '';
-        currentGlucTime = '';
-        if (span > 15) {
-          return currentGluc;
-        }
-        var time = DateTime.now().difference(eNow.time).inMinutes;
-        currentGlucTime = '${time} min';
+        glucDir = 360;
+      } else {
+        try {
+          var eNow = EntryData.fromJson(src[0]);
+          var ePrev = EntryData.fromJson(src[1]);
+          var span = eNow.time.difference(ePrev.time).inMinutes;
+          glucDir = 360;
+          currentGlucDiff = '';
+          currentGlucTime = '';
+          if (span > 15) {
+            return currentGluc;
+          }
+          var time = DateTime.now().difference(eNow.time).inMinutes;
+          currentGlucTime = '${time} min';
 
-        currentGluc = g.fmtNumber(eNow.gluc / g.glucFactor, g.glucPrecision);
-        currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
-            '${g.fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / g.glucFactor, g.glucPrecision)}';
-        var diff = eNow.gluc - ePrev.gluc;
-        var limit = 10 * span ~/ 5;
-        if (diff > limit) {
-          glucDir = -90;
-        } else if (diff < -limit) {
-          glucDir = 90;
-        } else {
-          glucDir = 90 - ((diff + limit) / limit * 90).toInt();
+          currentGluc = g.fmtNumber(eNow.gluc / g.glucFactor, g.glucPrecision);
+          currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
+              '${g.fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / g.glucFactor, g.glucPrecision)}';
+          var diff = eNow.gluc - ePrev.gluc;
+          var limit = 10 * span ~/ 5;
+          if (diff > limit) {
+            glucDir = -90;
+          } else if (diff < -limit) {
+            glucDir = 90;
+          } else {
+            glucDir = 90 - ((diff + limit) / limit * 90).toInt();
+          }
+        } catch (ex) {
+          currentGluc = '?';
+          currentGlucDiff = '';
+          glucDir = 360;
         }
-      } catch (ex) {
-        currentGluc = '?';
-        currentGlucDiff = '';
-        glucDir = 360;
       }
     }
 
@@ -354,8 +353,7 @@ class AppComponent implements OnInit {
   bool currentGlucVisible = true;
 
   Future<void> setTheme(String name) async {
-    var content = await g.request('packages/nightscout_reporter/assets/themes/${name}/colors.json');
-    dynamic theme = json.decode(content);
+    dynamic theme = await g.requestJson('packages/nightscout_reporter/assets/themes/${name}/colors.json');
 //    dynamic theme = themes[name];
     if (theme == null) return;
     for (String key in theme.keys) {
@@ -393,37 +391,42 @@ class AppComponent implements OnInit {
     _currPage = 'signin';
 
     g.doShowDebug = showDebug;
-    g.onAfterLoad = checkPrint;
+    g.onAfterLoad = afterLoad;
+
+    /// fill list with forms
+    var srcList = [
+      PrintTest(),
+      PrintAnalysis(),
+      PrintProfile(),
+      PrintPercentile(),
+      PrintDailyStatistics(),
+      PrintDailyGraphic(),
+      PrintDailyAnalysis(),
+      PrintDailyLog(),
+      PrintWeeklyGraphic(),
+      PrintBasalrate(),
+      PrintCGP(),
+      PrintDailyProfile(),
+      PrintDailyGluc(),
+      PrintDailyHours(),
+      PrintUserData(),
+      PrintGlucDistribution()
+    ];
+    g.listConfig = <FormConfig>[];
+    g.listConfigOrg = <FormConfig>[];
+    for (var form in srcList) {
+      g.listConfigOrg.add(FormConfig(form, false));
+    }
+    g.listConfig.addAll(g.listConfigOrg);
+
     // ignore: unawaited_futures
     g.loadSettings().then((_) {
       var page = g.version == g.lastVersion ? 'normal' : 'whatsnew';
       _currPage = g.isConfigured ? page : 'welcome';
+      // if (!g.dsgvoAccepted) {
+      //   _currPage = 'dsgvo';
+      // }
       _lastPage = _currPage;
-
-      /// fill list with forms
-      var srcList = [
-        PrintTest(),
-        PrintAnalysis(),
-        PrintProfile(),
-        PrintPercentile(),
-        PrintDailyStatistics(),
-        PrintDailyGraphic(),
-        PrintDailyAnalysis(),
-        PrintDailyLog(),
-        PrintWeeklyGraphic(),
-        PrintBasalrate(),
-        PrintCGP(),
-        PrintDailyProfile(),
-        PrintDailyGluc(),
-        PrintDailyHours(),
-        PrintUserData()
-      ];
-      g.listConfig = <FormConfig>[];
-      g.listConfigOrg = <FormConfig>[];
-      for (var form in srcList) {
-        g.listConfig.add(FormConfig(form, false));
-      }
-      g.listConfigOrg.addAll(g.listConfig);
       g.sortConfigs();
       for (var entry in g.listConfig) {
         g.user.formParams[entry.id] = entry.asString;
@@ -600,11 +603,16 @@ class AppComponent implements OnInit {
 
   void tileHelpButtonClicked(html.UIEvent evt) {}
 
+  dynamic videos = {'video01': 'eYq9lJRAWao'};
+
   void callbackButton(html.UIEvent evt) {
     var page = evt.type;
     if (page.startsWith('@')) {
       page = page.substring(1);
       if (!g.isConfigured) page = 'welcome';
+    } else if (page.startsWith('video')) {
+      html.window.open('https://www.youtube.com/watch?v=${videos[page]}', '');
+      return;
     }
     currPage = page;
   }
@@ -615,6 +623,9 @@ class AppComponent implements OnInit {
         g.save(skipReload: true);
         reportData = null;
         _currPage = g.isConfigured ? 'normal' : 'welcome';
+        if (!g.isConfigured) {
+          g.clearStorage();
+        }
         break;
       default:
         g.loadSettings(skipSyncGoogle: true);
@@ -656,6 +667,25 @@ class AppComponent implements OnInit {
   void changePeriod(DatepickerPeriod period) {
     g.period = period;
     reportData = null;
+    checkPrint();
+  }
+
+  void afterLoad() {
+    if (g.pdfOrder.length >= 48) {
+      for (var i = 0; i < g.pdfOrder.length; i += 3) {
+        var idx = g.pdfOrder.substring(i, i + 3);
+        var cfg = g.listConfig.firstWhere((e) => e.idx == idx, orElse: () => null);
+        if (cfg == null) {
+          var form = formFromId(idx.substring(0, 2), idx.substring(2));
+          if (form != null) {
+            var newCfg = FormConfig(form, false);
+            g.listConfig.add(newCfg);
+          }
+        }
+      }
+      g.listConfigOrg.clear();
+      g.listConfigOrg.addAll(g.listConfig);
+    }
     checkPrint();
   }
 
@@ -783,6 +813,113 @@ class AppComponent implements OnInit {
     $event.stopPropagation();
   }
 
+  BasePrint formFromId(String id, String suffix) {
+    switch (id) {
+      case '00':
+      case 'test':
+        return PrintTest(suffix: suffix);
+        break;
+      case '01':
+      case 'analysis':
+        return PrintAnalysis(suffix: suffix);
+        break;
+      case '02':
+      case 'profile':
+        return PrintProfile(suffix: suffix);
+        break;
+      case '03':
+      case 'percentile':
+        return PrintPercentile(suffix: suffix);
+        break;
+      case '04':
+      case 'daystats':
+        return PrintDailyStatistics(suffix: suffix);
+        break;
+      case '05':
+      case 'daygraph':
+        return PrintDailyGraphic(suffix: suffix);
+        break;
+      case '06':
+      case 'dayanalysis':
+        return PrintDailyAnalysis(suffix: suffix);
+        break;
+      case '07':
+      case 'daylog':
+        return PrintDailyLog(suffix: suffix);
+        break;
+      case '08':
+      case 'weekgraph':
+        return PrintWeeklyGraphic(suffix: suffix);
+        break;
+      case '09':
+      case 'basal':
+        return PrintBasalrate(suffix: suffix);
+        break;
+      case '10':
+      case 'cgp':
+        return PrintCGP(suffix: suffix);
+        break;
+      case '11':
+      case 'dayprofile':
+        return PrintDailyProfile(suffix: suffix);
+        break;
+      case '12':
+      case 'daygluc':
+        return PrintDailyGluc(suffix: suffix);
+        break;
+      case '13':
+      case 'dayhours':
+        return PrintDailyHours(suffix: suffix);
+        break;
+      case '14':
+      case 'userdata':
+        return PrintUserData(suffix: suffix);
+        break;
+      case '15':
+      case 'glucdist':
+        return PrintGlucDistribution(suffix: suffix);
+        break;
+    }
+    return null;
+  }
+
+  bool mayCopy(cfg) {
+    return cfg.form.sortedParams.length > 0 &&
+        cfg.checked &&
+        cfg.form.suffix == '-' &&
+        g.listConfig.where((c) => c.form.baseId == cfg.form.baseId).length < 3 &&
+        g.listConfig.where((c) => c.form.suffix != '-').length < 9;
+  }
+
+  int getNextSuffix(FormConfig cfg) {
+    var list = g.listConfig.where((c) => c.form.baseId == cfg.form.baseId);
+    var ret = 0;
+    while (list.firstWhere((c) => c.form.suffix == '${ret}', orElse: () => null) != null) ret++;
+    return ret;
+  }
+
+  void clickTileCopy($event, FormConfig cfg, int idx) {
+    drawerVisible = false;
+    var form = formFromId(cfg.form.baseId, '${getNextSuffix(cfg)}');
+    if (form != null) {
+      var newCfg = FormConfig(form, true);
+      g.listConfig.insert(idx + 1, newCfg);
+    }
+    g.savePdfOrder();
+    $event.stopPropagation();
+  }
+
+  bool mayDelete(cfg) {
+    return cfg.form.sortedParams.length > 0 && cfg.checked && cfg.form.suffix != '-';
+  }
+
+  void clickTileDelete($event, int idx) {
+    drawerVisible = false;
+    g.listConfig.removeAt(idx);
+    g.savePdfOrder();
+    $event.stopPropagation();
+  }
+
   void clickTileParamSingleClose($event) {
     extractAllParams();
     tileParams = null;
@@ -840,8 +977,12 @@ class AppComponent implements OnInit {
       data.user.diaStartDate = '1.1.1996';
       data.user.insulin = 'Novorapid';
       data.user.listApiUrl = <UrlData>[];
-      data.user.listApiUrl.add(UrlData.fromJson(
-          g, {'u': 'https://diamant-ns.herokuapp.com', 't': 'anditoken-a12e3472efe42759', 'sd': null, 'ed': null}));
+      data.user.listApiUrl.add(UrlData.fromJson(g, {
+        'u': 'https://diamant.ns.10be.de:22140',
+        // 't': 'usertoken',
+        'sd': null,
+        'ed': null
+      }));
       data.user.customData = {};
       data.user.formParams = {};
     } else {
@@ -858,9 +999,12 @@ class AppComponent implements OnInit {
 
     var needed = DataNeeded(statusCurr: false, statusAny: false, dataCurr: false, dataAny: false);
 
+    var funcList = <Future<void> Function(UserData)>[];
+
     for (var cfg in g.listConfigOrg) {
       if (checkCfg(cfg)) {
         needed.mix(cfg.form.needed);
+        funcList.add(cfg.form.loadUserData);
       }
     }
 
@@ -874,27 +1018,34 @@ class AppComponent implements OnInit {
           try {
             var url = user.apiUrl(null, 'status.json');
             displayLink('status', url, type: 'debug');
-            var content = await g.request(url, showError: false);
-            user.status = StatusData.fromJson(json.decode(content));
-            user.isReachable = true;
+            var content = await g.requestJson(url, showError: false);
+            user.status = null;
+            if (content != null) {
+              user.status = StatusData.fromJson(content);
+              for (var func in funcList) {
+//                await func(user);
+              }
+            }
           } catch (ex) {
             user.status = null;
-            user.isReachable = false;
           }
+          user.isReachable = user.status != null;
         }
         if (sendIcon != 'stop') return data;
       }
       g.save(skipReload: true);
     } else {
+      g.user.status = null;
       try {
         var url = g.user.apiUrl(null, 'status.json');
-        var content = await g.request(url, showError: false);
-        g.user.status = StatusData.fromJson(json.decode(content));
-        g.user.isReachable = true;
+        var content = await g.requestJson(url, showError: false);
+        if (content != null) {
+          g.user.status = StatusData.fromJson(content);
+        }
       } catch (ex) {
         g.user.status = null;
-        g.user.isReachable = false;
       }
+      g.user.isReachable = g.user.status != null;
     }
 
     if (!needed.needsData || !g.user.isReachable) {
@@ -915,11 +1066,13 @@ class AppComponent implements OnInit {
 
     var url = data.user.apiUrl(endDate, 'status.json');
     displayLink('status', url, type: 'debug');
-    var content = await g.request(url);
-    data.status = StatusData.fromJson(json.decode(content));
-    if (data.status.status == '401') {
-      data.user.isReachable = false;
-      return data;
+    var content = await g.requestJson(url);
+    if (content != null) {
+      data.status = StatusData.fromJson(content);
+      if (data.status.status == '401') {
+        data.user.isReachable = false;
+        return data;
+      }
     }
     // TODO: checken ob das benötigt wird: g.setGlucMGDL(data.status);
     if (g.period.start == null || g.period.end == null) {
@@ -941,12 +1094,12 @@ class AppComponent implements OnInit {
               '&find[startDate][\$lte]=${endDate.year}-${endDate.month}-${endDate.day}T23:59:59.999Z'
               '&count=${maxCount}');
 */
-      displayLink('profiles', url, type: 'debug');
-      content = await g.request(url);
+      content = await g.requestJson(url);
+      displayLink('profiles (${content?.length})', url, type: 'debug');
 
       try {
         g.basalPrecisionAuto = 0;
-        List<dynamic> src = json.decode(content);
+        List<dynamic> src = content;
         var uploaders = [];
         for (dynamic entry in src) {
           // don't add profiles that cannot be read
@@ -1008,13 +1161,17 @@ class AppComponent implements OnInit {
         }
       }
 
+      var params = 'find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch';
+      if (g.ppFixAAPS30) {
+        params += '&find[profilePlugin][\$ne]=info.nightscout.androidaps.plugins.profile.local.LocalProfilePlugin&count=10000';
+      }
       // find profileswitches in treatments, create profiledata and mix it in the profiles
-      url = urlData.fullUrl('treatments.json',
-          params: 'find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch');
-      displayLink('profileswitch', url, type: 'debug');
-      content = await g.request(url);
-      try {
-        List<dynamic> src = json.decode(content);
+      url = urlData.fullUrl('treatments.json', params: params);
+      content = await g.requestJson(url);
+      displayLink('profileswitch (${content?.length})', url, type: 'debug');
+      if (content != null) {
+        try {
+          List<dynamic> src = content;
 /*
         if (g.isLocal)src.add({
           "_id": "fake",
@@ -1072,35 +1229,36 @@ class AppComponent implements OnInit {
           "insulin": null
         });
  // */
-        for (dynamic entry in src) {
-          var check = JsonData.toDate(entry['created_at']);
-          if (data.profiles.firstWhere((p) => p.createdAt == check, orElse: () => null) != null ||
-              entry['profile'] == null) continue;
-          var parts = <String>[];
-          parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
-          // some uploaders (e.g. Minimed 600-series) don't save profileJson, so we need
-          // to find it here
-          ProfileStoreData store;
-          if (entry['profileJson'] == null) {
-            String key = entry['profile'];
-            var prof = data.profiles
-                .lastWhere((p) => p.startDate.isBefore(check) && p.store.containsKey(key), orElse: () => null);
-            if (prof != null) {
-              store = prof.store[key];
+          for (dynamic entry in src) {
+            var check = JsonData.toDate(entry['created_at']);
+            if (data.profiles.firstWhere((p) => p.createdAt == check, orElse: () => null) != null || entry['profile'] == null)
+              continue;
+            var parts = <String>[];
+            parts.add('{"_id":"${entry["_id"]}","defaultProfile":"${entry["profile"]}"');
+            // some uploaders (e.g. Minimed 600-series) don't save profileJson, so we need
+            // to find it here
+            ProfileStoreData store;
+            if (entry['profileJson'] == null) {
+              String key = entry['profile'];
+              var prof =
+                  data.profiles.lastWhere((p) => p.startDate.isBefore(check) && p.store.containsKey(key), orElse: () => null);
+              if (prof != null) {
+                store = prof.store[key];
+              }
             }
-          }
-          parts.add('"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
-          parts.add('"mills":"0","units":"mg/dl"');
-          parts.add('"percentage":"${entry["percentage"]}"');
-          parts.add('"duration":"${entry["duration"]}"');
-          parts.add('"timeshift":"${entry["timeshift"]}"');
-          parts.add('"created_at":"${entry["created_at"]}"}');
+            parts.add('"store":{"${entry["profile"]}":${entry["profileJson"]}},"startDate":"${entry["created_at"]}"');
+            parts.add('"mills":"0","units":"mg/dl"');
+            parts.add('"percentage":"${entry["percentage"]}"');
+            parts.add('"duration":"${entry["duration"]}"');
+            parts.add('"timeshift":"${entry["timeshift"]}"');
+            parts.add('"created_at":"${entry["created_at"]}"}');
 
-          data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
-          if (store != null) data.profiles.last.store[entry['profile']] = store;
+            data.profiles.add(ProfileData.fromJson(json.decode(parts.join(','))));
+            if (store != null) data.profiles.last.store[entry['profile']] = store;
+          }
+        } catch (ex) {
+          g.info.addDevError(ex, msgProfileError);
         }
-      } catch (ex) {
-        g.info.addDevError(ex, msgProfileError);
       }
     }
     data.profiles.sort((a, b) => a.startDate.compareTo(b.startDate));
@@ -1148,7 +1306,7 @@ class AppComponent implements OnInit {
     message.dbgText = text;
 */
     // remove all profiles with a length of 0
-    data.profiles.removeWhere((p) => p.duration < 2 && p != data.profiles.last);
+    data.profiles.removeWhere((p) => p.duration < 2 && p != data.profiles.last && !p.store.containsKey('NR Profil'));
 
     TreatmentData lastTempBasal;
     // add the previous day of the period to have the daydata available in forms that need this information
@@ -1168,25 +1326,27 @@ class AppComponent implements OnInit {
         var url = g.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), 'entries.json',
             params: 'find[date][\$gte]=${beg.millisecondsSinceEpoch}&'
                 'find[date][\$lte]=${end.millisecondsSinceEpoch}&count=100000');
-        List<dynamic> src = json.decode(await g.request(url));
-        displayLink('e${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
-        for (dynamic entry in src) {
-          try {
-            var e = EntryData.fromJson(entry);
-            if (e.gluc > 0) {
-              hasData = true;
-              data.ns.entries.add(e);
+        List<dynamic> src = await g.requestJson(url);
+        if (src != null) {
+          displayLink('e${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
+          for (dynamic entry in src) {
+            try {
+              var e = EntryData.fromJson(entry);
+              if (e.gluc > 0) {
+                hasData = true;
+                data.ns.entries.add(e);
+              }
+              if (e.mbg > 0) {
+                hasData = true;
+                data.ns.bloody.add(e);
+              } else if (e.gluc <= 0) {
+                hasData = true;
+                data.ns.remaining.add(e);
+              }
+            } catch (ex) {
+              if (g.isDebug) g.info.addDevError(ex, 'Fehler im Entry-Datensatz: ${entry.toString()}');
+              break;
             }
-            if (e.mbg > 0) {
-              hasData = true;
-              data.ns.bloody.add(e);
-            } else if (e.gluc <= 0) {
-              hasData = true;
-              data.ns.remaining.add(e);
-            }
-          } catch (ex) {
-            if (g.isDebug) g.info.addDevError(ex, 'Fehler im Entry-Datensatz: ${entry.toString()}');
-            break;
           }
         }
         String tmp;
@@ -1196,51 +1356,55 @@ class AppComponent implements OnInit {
               params: 'find[created_at][\$lt]=${profileBeg.toIso8601String()}&'
                   'find[created_at][\$gt]=${profileBeg.add(Duration(days: -1)).toIso8601String()}&'
                   'count=100&find[eventType][\$eq]=Temp%20Basal');
-          tmp = await g.request(url);
-          src = json.decode(tmp);
-          var list = List<TreatmentData>();
-          for (dynamic treatment in src) {
-            list.add(TreatmentData.fromJson(g, treatment, data.insulinProfiles));
+          src = await g.requestJson(url);
+          if (src != null) {
+            var list = <TreatmentData>[];
+            for (dynamic treatment in src) {
+              list.add(TreatmentData.fromJson(g, treatment, data.insulinProfiles));
+            }
+            list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+            if (list.isNotEmpty) lastTempBasal = list.last;
           }
-          list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-          if (list.isNotEmpty) lastTempBasal = list.last;
         }
 
         url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), 'treatments.json',
             params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
                 'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
-        tmp = await g.request(url);
-        src = json.decode(tmp);
-        displayLink('t${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
+        src = await g.requestJson(url);
         var hasExercise = false;
-        for (dynamic treatment in src) {
-          hasData = true;
-          var t = TreatmentData.fromJson(g, treatment, data.insulinProfiles);
-          // duplicate Treatments are removed
-          if (data.ns.treatments.isNotEmpty && t.equals(data.ns.treatments.last)) {
-            data.ns.treatments.last.duplicates++;
-          } else {
-            data.ns.treatments.add(t);
-            if (t.isExercise) {
-              hasExercise = true;
-            } else if (t.isBGCheck) {
-              var entry = EntryData();
-              entry.id = t.id;
-              entry.time = t.createdAt;
-              entry.device = t.enteredBy;
-              entry.type = 'mbg';
-              entry.mbg = t.glucose * g.glucFactor;
-              entry.rawbg = t.glucose;
-              data.ns.bloody.add(entry);
+        if (src != null) {
+          displayLink('t${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
+          for (dynamic treatment in src) {
+            hasData = true;
+            var t = TreatmentData.fromJson(g, treatment, data.insulinProfiles);
+            // Treatments entered by sync are ignored
+            if (t.enteredBy == 'sync') {
+            } else if (data.ns.treatments.isNotEmpty && t.equals(data.ns.treatments.last)) {
+              // duplicate Treatments are removed
+              data.ns.treatments.last.duplicates++;
+            } else {
+              data.ns.treatments.add(t);
+              if (t.isExercise) {
+                hasExercise = true;
+              } else if (t.isBGCheck) {
+                var entry = EntryData();
+                entry.id = t.id;
+                entry.time = t.createdAt;
+                entry.device = t.enteredBy;
+                entry.type = 'mbg';
+                entry.mbg = t.glucose * g.glucFactor;
+                entry.rawbg = t.glucose;
+                data.ns.bloody.add(entry);
+              }
             }
           }
         }
         // the following code inserts an exercise in the data if there is none present
-/*
+//*
         if (g.isLocal && !hasExercise) {
           var t = TreatmentData();
           t.createdAt = DateTime(begDate.year, begDate.month, begDate.day, 10, 0, 0);
-          t.duration = 60 * 60;
+          t.duration = 120 * 60;
           t.eventType = 'exercise';
           t.notes = 'Bewegung (Testeintrag)';
           t.enteredBy = 'NR-Test';
@@ -1250,18 +1414,38 @@ class AppComponent implements OnInit {
           t.isSMB = false;
           data.ns.treatments.add(t);
         }
-*/
+// */
         url = data.user.apiUrl(Date(profileBeg.year, profileBeg.month, profileBeg.day), 'devicestatus.json',
             params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
                 'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
-        tmp = await g.request(url);
-        if (tmp != null && tmp != '') {
-          src = json.decode(tmp);
+        src = await g.requestJson(url);
+        if (src != null) {
           displayLink('ds${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
           for (dynamic devicestatus in src) {
             hasData = true;
             var ds = DeviceStatusData.fromJson(devicestatus);
             data.ns.devicestatusList.add(ds);
+          }
+        }
+
+        url = data.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), 'activity.json',
+            params: 'find[created_at][\$gte]=${profileBeg.toIso8601String()}&'
+                'find[created_at][\$lte]=${profileEnd.toIso8601String()}&count=100000');
+        src = await g.requestJson(url);
+        if (src != null) {
+          displayLink('ac${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
+          for (dynamic activity in src) {
+            var value = ActivityData.fromJson(activity);
+            var exists = false;
+            for (var check in data.ns.activityList) {
+              if (check.equals(value)) exists = true;
+            }
+            if (!exists) {
+              data.ns.activityList.add(value);
+              // if(value.type == 'steps-total') {
+              //   print('${begDate} ${value.createdAt.hour}:${value.createdAt.minute} - ${value.steps}');
+              // }
+            }
           }
         }
       }
@@ -1280,6 +1464,7 @@ class AppComponent implements OnInit {
       data.ns.remaining.sort((a, b) => a.time.compareTo(b.time));
       data.ns.treatments.sort((a, b) => a.createdAt.compareTo(b.createdAt));
       data.ns.devicestatusList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+      data.ns.activityList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
       var diffTime = 5;
       // gaps between entries that span more than the given minutes
@@ -1289,8 +1474,7 @@ class AppComponent implements OnInit {
       // Create an array with EntryData every [diffTime] minutes
       var entryList = <EntryData>[];
       if (data.ns.entries.isNotEmpty) {
-        var target =
-            DateTime(data.ns.entries.first.time.year, data.ns.entries.first.time.month, data.ns.entries.first.time.day);
+        var target = DateTime(data.ns.entries.first.time.year, data.ns.entries.first.time.month, data.ns.entries.first.time.day);
         var prev = data.ns.entries.first;
         var t = DateTime(prev.time.year, prev.time.month, prev.time.day);
         prev = EntryData();
@@ -1336,20 +1520,26 @@ class AppComponent implements OnInit {
       data.calc.bloody = data.ns.bloody;
       data.calc.remaining = data.ns.remaining;
 
-      data.ns.treatments.removeWhere((t) => filterTreatment(t));
+      // data.ns.treatments.removeWhere((t) => filterTreatment(t));
       data.calc.treatments = data.ns.treatments;
       data.calc.devicestatusList = data.ns.devicestatusList;
+      data.calc.activityList = data.ns.activityList;
 
       data.calc.extractData(data, lastTempBasal);
       data.ns.extractData(data, lastTempBasal);
     } else {}
+
     return data;
   }
 
-  bool filterTreatment(TreatmentData t) {
-    if (t.enteredBy.toLowerCase() == 'sync') return true;
+  // bool filterTreatment(TreatmentData t) {
+  //   if (t.enteredBy.toLowerCase() == 'sync') return true;
+  //
+  //   return false;
+  // }
 
-    return false;
+  void cancelProgress() {
+    sendIcon = 'send';
   }
 
   void sendClick() {
@@ -1492,7 +1682,12 @@ class AppComponent implements OnInit {
           var form = cfg.form;
           if (checkCfg(cfg) || isForThumbs) {
             docLen = json.encode(doc).length;
+            var gmiSave = g.glucMGDLIdx;
+            if (isForThumbs) {
+              g.glucMGDLIdx = 0;
+            }
             var formPages = await form.getFormPages(src, docLen);
+            g.glucMGDLIdx = gmiSave;
             var fileList = <List<Page>>[<Page>[]];
             for (var page in formPages) {
               dynamic entry = page.content.last;
@@ -1680,7 +1875,7 @@ class AppComponent implements OnInit {
     } else {
       themeStyle = 'animation:showthemes ${duration}s ease-in-out normal forwards;';
       logoStyle = 'animation:showthemeslogo ${duration}s ease-in-out normal forwards;';
-      ts = 'animation-iteration-count:0;width:9.5em;';
+      ts = 'animation-iteration-count:0;width:15em;';
       ls = 'animation-iteration-count:0;transform: rotate(360deg);';
     }
     Future.delayed(Duration(milliseconds: (duration * 1100).toInt()), () {

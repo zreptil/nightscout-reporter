@@ -4,7 +4,6 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
-import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_select_item.dart';
@@ -20,7 +19,6 @@ import '../json_data.dart';
   styleUrls: ['printparams_component.css'],
   templateUrl: 'printparams_component.html',
   directives: [
-    ModalComponent,
     MaterialDialogComponent,
     MaterialInputComponent,
     MaterialCheckboxComponent,
@@ -50,7 +48,6 @@ class PrintParamsComponent implements OnInit {
 
   String get msgStandardCGP => Intl.message('CGP immer mit Standard Zielbereich');
 
-  bool isVisible = true;
   globals.PeriodShift periodShift;
   int glucMaxIdx;
   int basalPrecisionIdx;

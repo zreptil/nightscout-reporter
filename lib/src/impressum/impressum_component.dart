@@ -9,21 +9,23 @@ import 'package:nightscout_reporter/src/globals.dart' as globals;
   selector: 'impressum',
   styleUrls: ['impressum_component.css'],
   templateUrl: 'impressum_component.html',
-  directives: [ ModalComponent, MaterialDialogComponent, MaterialButtonComponent, MaterialIconComponent,],
-  providers: [],)
-class ImpressumComponent
-{
+  directives: [
+    MaterialDialogComponent,
+    MaterialButtonComponent,
+    MaterialIconComponent,
+  ],
+  providers: [],
+)
+class ImpressumComponent {
   globals.Globals g = globals.Globals();
+
   @Output('closeClicked')
-  Stream<UIEvent> get trigger
-  => _trigger.stream;
+  Stream<UIEvent> get trigger => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
 
-  bool isVisible = true;
   ImpressumComponent();
 
-  void fire(String type)
-  async {
+  void fire(String type) async {
     _trigger.add(UIEvent(type, detail: 0));
   }
 }

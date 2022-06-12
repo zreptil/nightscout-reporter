@@ -11,6 +11,7 @@
   "settingsBodyBack": "mat-cyan-300",
   "settingsBodyFore": "black",
   "settingsScrollThumb": "mat-cyan-700",
+  "settingsError": "mat-red-500",
   "legalHeaderBack": "mat-orange-900",
   "legalHeaderFore": "mat-orange-100",
   "legalBodyBack": "mat-orange-300",

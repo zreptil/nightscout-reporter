@@ -21,27 +21,29 @@ die gleichen Werte beinhalten.''', desc: 'help for profile');
   List<ParamInfo> params = [
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: false),
+    ParamInfo(2, BaseProfile.msgNamedProfile(BaseProfile.namedProfileName), boolValue: false),
   ];
 
   @override
   void extractParams() {
     compressSameValues = params[0].boolValue;
     onlyLast = params[1].boolValue;
+    namedProfile = params[2].boolValue;
   }
 
   @override
   dynamic get estimatePageCount => {'count': 1, 'isEstimated': true};
 
   @override
-  String id = 'profile';
+  String baseId = 'profile';
 
   @override
-  String idx = '02';
+  String baseIdx = '02';
 
   @override
   String get title => Intl.message('Profil');
 
-  PrintProfile() : super();
+  PrintProfile({suffix = null}) : super(suffix: suffix);
 
   static String get msgParam1 => Intl.message('Zeilen mit gleichen Werten zusammenfassen');
 

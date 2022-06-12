@@ -207,7 +207,7 @@ div[footer] {
 }
 
 .error {
-  color: $mat-red-500;
+  color: var(--settingsError);
   padding-bottom: 1em;
 }
 
@@ -217,7 +217,7 @@ div[footer] {
 }
 
 .date {
-  width: 14em;
+  width: 6em;
   flex-grow: 0 !important;
 }
 
