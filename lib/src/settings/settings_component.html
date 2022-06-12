@@ -1,211 +1,209 @@
-<modal [visible]="isVisible">
-  <material-dialog *ngIf="confirmIdx==0" main headered class="headered-dialog">
-    <div header>
+<material-dialog *ngIf="confirmIdx==0" main headered class="headered-dialog">
+  <div header>
+    <div>
+      <h1 @i18n="title for settings dialog">Einstellungen</h1>
       <div>
-        <h1 @i18n="title for settings dialog">Einstellungen</h1>
-        <div>
-        </div>
-        <p></p>
       </div>
-      <div>
-        <material-button *ngIf="progressText==null" icon (trigger)="fire('cancel')">
-          <material-icon icon="close"></material-icon>
-        </material-button>
-      </div>
+      <p></p>
     </div>
-
-    <div class="root">
-      <div class="root progress" *ngIf="progressText!=null">
-        <material-progress [indeterminate]="true"></material-progress>
-        <div>{{progressText}}</div>
-      </div>
-
-      <div *ngIf="progressText==null">
-        <div class="subtitle">
-          <ng-container @i18n="label for settings-area with user data">Benutzerdaten</ng-container>
-          <div class="navControls">
-            <material-button icon [disabled]="g.userIdx==0" (trigger)="g.userIdx=g.userIdx-1">
-              <material-icon icon="chevron_left"></material-icon>
-            </material-button>
-            {{g.userIdx+1}} / {{g.userList.length}}
-            <material-button icon [disabled]="g.userIdx>=(g.userList?.length ?? 0)-1" (trigger)="g.userIdx=g.userIdx+1">
-              <material-icon icon="chevron_right"></material-icon>
-            </material-button>
-          </div>
-        </div>
-        <div class="error" *ngIf="errUserInvalid!=null" [innerHTML]="errUserInvalid"></div>
-        <div class="userinfo">
-          <material-input [(ngModel)]="g.user.name" floatingLabel [label]="msgName"></material-input>
-          <material-input [(ngModel)]="g.user.birthDate" floatingLabel label="Geburtstag"
-                          @i18n:label="label of editfield for birthday"></material-input>
-          <material-input [(ngModel)]="g.user.diaStartDate" floatingLabel label="Diabetes seit"
-                          @i18n:label="label of editfield for diabetes since"></material-input>
-          <material-input [(ngModel)]="g.user.insulin" floatingLabel [label]="msgInsulin"></material-input>
-          <div class="controls">
-            <material-fab mini
-                          [disabled]="g.userList.last?.apiUrl(null, '', noApi: true)==null"
-                          (trigger)="addUser()">
-              <material-icon icon="add"></material-icon>
-            </material-fab>
-            <material-fab mini [disabled]="g.user.apiUrl(null, '', noApi: true)==null"
-                          (trigger)="confirmIdx=1">
-              <material-icon icon="delete"></material-icon>
-            </material-fab>
-          </div>
-        </div>
-        <div class="urlPanel" *ngFor="let item of g.user.listApiUrl; let idx = index">
-          <material-input [label]="msgUrlNightscout"
-                          [floatingLabel]="idx==0"
-                          [displayBottomPanel]="idx==g.user.listApiUrl.length-1"
-                          [(ngModel)]="item.url">
-          </material-input>
-          <material-button (trigger)="navigate(item.fullUrl('', noApi: true))" target="_blank" [disabled]="item.url == null || item.url.isEmpty">
-            <material-icon class="urlIcon" icon="open_in_new"></material-icon>
-          </material-button>
-          <material-input [label]="msgAccessToken"
-                          [floatingLabel]="idx==0"
-                          [displayBottomPanel]="idx==g.user.listApiUrl.length-1"
-                          [showPassword]="showPwd==idx"
-                          [hintText]="msgAccessTokenHint(idx==g.user.listApiUrl.length-1)"
-                          [(ngModel)]="item.token">
-          </material-input>
-          <material-button (trigger)="showPwd=(showPwd==idx?-1:idx)" [disabled]="item.token == null || item.token.isEmpty">
-            <material-icon class="urlIcon" [icon]="showPwd==idx?'visibility_off':'visibility'"></material-icon>
-          </material-button>
-          <material-input class="date"
-                          [label]="msgStartDate"
-                          [floatingLabel]="idx==0"
-                          [displayBottomPanel]="idx==g.user.listApiUrl.length-1"
-                          [hintText]="msgStartDateHint(idx==g.user.listApiUrl.length-1)"
-                          [(ngModel)]="item.startDateEdit">
-          </material-input>
-          <material-button (trigger)="calculateFirstDay(item)">
-            <material-icon class="urlIcon" icon="calculate"></material-icon>
-          </material-button>
-          <material-input class="date"
-                          [label]="msgEndDate"
-                          [floatingLabel]="idx==0"
-                          [displayBottomPanel]="idx==g.user.listApiUrl.length-1"
-                          [hintText]="msgEndDateHint(idx==g.user.listApiUrl.length-1)"
-                          [(ngModel)]="item.endDateEdit">
-          </material-input>
-          <div class="controls">
-            <material-fab mini *ngIf="idx==g.user.listApiUrl.length-1"
-                          (trigger)="addUrl()" class="">
-              <material-icon icon="add"></material-icon>
-            </material-fab>
-            <material-fab mini *ngIf="idx>0" (trigger)="clickDelete(idx)" class="">
-              <material-icon icon="delete"></material-icon>
-            </material-fab>
-          </div>
-        </div>
-      </div>
-      <div class="sub">
-        <div>{{lblProfileMax}}</div>
-        <material-dropdown-select [buttonText]="listProfileMaxCount[g.user.profileMaxIdx??0]"
-                                  raised
-                                  [showButtonBorder]="false"
-                                  popupClass="selectSelect"
-                                  class="selectButton"
-                                  slide="y"
-                                  listAutoFocus>
-          <material-select-item *ngFor="let item of listProfileMaxCount; let idx=index"
-                                (trigger)="g.user.profileMaxIdx=idx"
-                                class="selectItem"
-                                [selected]="idx==g.user.profileMaxIdx">
-            <div class="itemTitle">{{item}}</div>
-          </material-select-item>
-        </material-dropdown-select>
-      </div>
-      <div class="subtitle" @i18n="label of area for display setting">Anzeigeeinstellungen</div>
-      <div class="functions">
-        <material-checkbox [(checked)]="g.tileShowImage" @i18n="label for checkbox to show images on tiles">
-          Auf Kacheln Bilder statt Namen anzeigen
-        </material-checkbox>
-      </div>
-      <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
-      <div class="functions">
-        <material-checkbox [(checked)]="g.showCurrentGluc" @i18n="label for checkbox to show current glucoselevel">
-          Letzten Messwert in der Titelzeile anzeigen
-        </material-checkbox>
-        <div class="pdfSliderHead" @i18n="pdfFileSize">
-          Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf,
-          bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines
-          PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen
-          Regler weiter nach links zu bewegen.
-        </div>
-        <div class="pdfSlider">
-          <div @i18n="small">Klein</div>
-          <material-slider class="maxsize" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
-                           [max]="pdfSliderMax"></material-slider>
-          <div *ngIf="g.pdfControlMaxSize < pdfSliderMax" @i18n="big">Gross</div>
-          <div *ngIf="g.pdfControlMaxSize >= pdfSliderMax">{{g.msgUnlimited}}</div>
-        </div>
-        <material-button *ngIf="g.isBeta" class="iconButton" raised (trigger)="g.copyFromOtherStorage()">
-          <material-icon icon="file_copy"></material-icon>
-          <ng-container @i18n="buttonlabel for copy of settings to beta version">
-            Einstellungen von Release-Version übernehmen
-          </ng-container>
-        </material-button>
-      </div>
-    </div>
-
-    <div footer>
-      <div>
-        <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="export()">
-          <material-icon icon="cloud_download"></material-icon>
-          <ng-container @i18n="buttonlabel for exporting data">Exportieren</ng-container>
-        </material-button>
-        <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="importCLicked()">
-          <material-icon icon="cloud_upload"></material-icon>
-          <ng-container @i18n="buttonlabel for importing data">Importieren</ng-container>
-        </material-button>
-        <input type="file" id="importData" accept="text/json" (change)="handleImport($event)">
-        <form id="exportForm" target="_blank" method="post" action="{{g.urlPdf}}">
-          <input type="hidden" name="exportCfg" value="{{msgExport}}"/>
-          <input type="hidden" name="data" value="{{exportData}}"/>
-        </form>
-      </div>
-      <div>
-        <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="fire('check')">
-          <material-icon icon="save"></material-icon>
-          <ng-container @i18n="buttonlabel for saving data">Speichern</ng-container>
-        </material-button>
-      </div>
-    </div>
-  </material-dialog>
-  <material-dialog *ngIf="confirmIdx>0" confirm headered class="headered-dialog">
-    <div *ngIf="confirmIdx!=3" header @i18n="title of confirmation dialog">Bestätigung</div>
-    <div *ngIf="confirmIdx==3" header>{{msgCalcDayTitle}}</div>
-    <div class="content" *ngIf="confirmIdx==1">
-      <ng-container @i18n="should the user with url">Soll der Benutzer mit der URL</ng-container>
-      <div class="marked">{{g.user.apiUrl(null, '', noApi: true)}}</div>
-      <ng-container @i18n="really be deleted">wirklich gelöscht werden?</ng-container>
-    </div>
-    <div class="content" *ngIf="confirmIdx==2">
-      <ng-container @i18n="should the url of the user">Soll die URL</ng-container>
-      <div class="marked">{{g.user.listApiUrl[currApiUrlIdx].url}}</div>
-      <ng-container @i18n="of the user really be deleted">vom Benutzer wirklich gelöscht werden?</ng-container>
-    </div>
-    <div class="content" *ngIf="confirmIdx==3">
-      {{msgCalculatingDay(calcDate.format(g.fmtDateForDisplay))}}
-    </div>
-    <div footer *ngIf="confirmIdx<3">
-      <material-button class="iconButton" (trigger)="confirmOk">
-        <material-icon icon="done"></material-icon>
-        <ng-container @i18n="buttonlabel for confirmation yes">Ja</ng-container>
-      </material-button>
-      <material-button class="iconButton" (trigger)="confirmIdx=0">
-        <material-icon icon="cancel"></material-icon>
-        <ng-container @i18n="buttonlabel for confirmation no">Nein</ng-container>
+    <div>
+      <material-button *ngIf="progressText==null" icon (trigger)="fire('cancel')">
+        <material-icon icon="close"></material-icon>
       </material-button>
     </div>
-    <div footer *ngIf="confirmIdx==3">
-      <material-button class="iconButton" (trigger)="cancelCalculation()">
-        <material-icon icon="cancel"></material-icon>
-        <ng-container @i18n="buttonlabel for cancel">Abbruch</ng-container>
-      </material-button>
+  </div>
+
+  <div class="root">
+    <div class="root progress" *ngIf="progressText!=null">
+      <material-progress [indeterminate]="true"></material-progress>
+      <div>{{progressText}}</div>
     </div>
 
-  </material-dialog>
-</modal>
+    <div *ngIf="progressText==null">
+      <div class="subtitle">
+        <ng-container @i18n="label for settings-area with user data">Benutzerdaten</ng-container>
+        <div class="navControls">
+          <material-button icon [disabled]="g.userIdx==0" (trigger)="g.userIdx=g.userIdx-1">
+            <material-icon icon="chevron_left"></material-icon>
+          </material-button>
+          {{g.userIdx+1}} / {{g.userList?.length ?? 1}}
+          <material-button icon [disabled]="g.userIdx>=(g.userList?.length ?? 0)-1" (trigger)="g.userIdx=g.userIdx+1">
+            <material-icon icon="chevron_right"></material-icon>
+          </material-button>
+        </div>
+      </div>
+      <div class="error" *ngIf="errUserInvalid!=null" [innerHTML]="errUserInvalid"></div>
+      <div class="userinfo">
+        <material-input [(ngModel)]="g.user.name" floatingLabel [label]="msgName"></material-input>
+        <material-input [(ngModel)]="g.user.birthDate" floatingLabel label="Geburtstag"
+                        @i18n:label="label of editfield for birthday"></material-input>
+        <material-input [(ngModel)]="g.user.diaStartDate" floatingLabel label="Diabetes seit"
+                        @i18n:label="label of editfield for diabetes since"></material-input>
+        <material-input [(ngModel)]="g.user.insulin" floatingLabel [label]="msgInsulin"></material-input>
+        <div class="controls">
+          <material-fab mini
+                        [disabled]="mayAddUser"
+                        (trigger)="addUser()">
+            <material-icon icon="add"></material-icon>
+          </material-fab>
+          <material-fab mini [disabled]="g.user.apiUrl(null, '', noApi: true)==null"
+                        (trigger)="confirmIdx=1">
+            <material-icon icon="delete"></material-icon>
+          </material-fab>
+        </div>
+      </div>
+      <div class="urlPanel" *ngFor="let item of g.user.listApiUrl; let idx = index">
+        <material-input [label]="msgUrlNightscout"
+                        [floatingLabel]="idx==0"
+                        [displayBottomPanel]="idx==g.user.listApiUrl.length-1"
+                        [(ngModel)]="item.url">
+        </material-input>
+        <material-button (trigger)="navigate(item.fullUrl('', noApi: true))" target="_blank" [disabled]="item.url == null || item.url.isEmpty">
+          <material-icon class="urlIcon" icon="open_in_new"></material-icon>
+        </material-button>
+        <material-input [label]="msgAccessToken"
+                        [floatingLabel]="idx==0"
+                        [displayBottomPanel]="idx==g.user.listApiUrl.length-1"
+                        [showPassword]="showPwd==idx"
+                        [hintText]="msgAccessTokenHint(idx==g.user.listApiUrl.length-1)"
+                        [(ngModel)]="item.token">
+        </material-input>
+        <material-button (trigger)="showPwd=(showPwd==idx?-1:idx)" [disabled]="item.token == null || item.token.isEmpty">
+          <material-icon class="urlIcon" [icon]="showPwd==idx?'visibility_off':'visibility'"></material-icon>
+        </material-button>
+        <material-input class="date"
+                        [label]="msgStartDate"
+                        [floatingLabel]="idx==0"
+                        [displayBottomPanel]="idx==g.user.listApiUrl.length-1"
+                        [hintText]="msgStartDateHint(idx==g.user.listApiUrl.length-1)"
+                        [(ngModel)]="item.startDateEdit">
+        </material-input>
+        <material-button (trigger)="calculateFirstDay(item)">
+          <material-icon class="urlIcon" icon="calculate"></material-icon>
+        </material-button>
+        <material-input class="date"
+                        [label]="msgEndDate"
+                        [floatingLabel]="idx==0"
+                        [displayBottomPanel]="idx==g.user.listApiUrl.length-1"
+                        [hintText]="msgEndDateHint(idx==g.user.listApiUrl.length-1)"
+                        [(ngModel)]="item.endDateEdit">
+        </material-input>
+        <div class="controls">
+          <material-fab mini *ngIf="idx==g.user.listApiUrl.length-1"
+                        (trigger)="addUrl()" class="">
+            <material-icon icon="add"></material-icon>
+          </material-fab>
+          <material-fab mini *ngIf="idx>0" (trigger)="clickDelete(idx)" class="">
+            <material-icon icon="delete"></material-icon>
+          </material-fab>
+        </div>
+      </div>
+    </div>
+    <div class="sub">
+      <div>{{lblProfileMax}}</div>
+      <material-dropdown-select [buttonText]="listProfileMaxCount[g.user.profileMaxIdx??0]"
+                                raised
+                                [showButtonBorder]="false"
+                                popupClass="selectSelect"
+                                class="selectButton"
+                                slide="y"
+                                listAutoFocus>
+        <material-select-item *ngFor="let item of listProfileMaxCount; let idx=index"
+                              (trigger)="g.user.profileMaxIdx=idx"
+                              class="selectItem"
+                              [selected]="idx==g.user.profileMaxIdx">
+          <div class="itemTitle">{{item}}</div>
+        </material-select-item>
+      </material-dropdown-select>
+    </div>
+    <div class="subtitle" @i18n="label of area for display setting">Anzeigeeinstellungen</div>
+    <div class="functions">
+      <material-checkbox [(checked)]="g.tileShowImage" @i18n="label for checkbox to show images on tiles">
+        Auf Kacheln Bilder statt Namen anzeigen
+      </material-checkbox>
+    </div>
+    <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
+    <div class="functions">
+      <material-checkbox [(checked)]="g.showCurrentGluc" @i18n="label for checkbox to show current glucoselevel">
+        Letzten Messwert in der Titelzeile anzeigen
+      </material-checkbox>
+      <div class="pdfSliderHead" @i18n="pdfFileSize">
+        Dieser Regler legt fest, wie gross eine Ausgabe maximal werden darf,
+        bevor sie auf mehrere PDF-Dateien aufgeteilt wird. Wenn bei Erstellung eines
+        PDFs ein leeres Fenster angezeigt wird, dann hilft es normalerweise, diesen
+        Regler weiter nach links zu bewegen.
+      </div>
+      <div class="pdfSlider">
+        <div @i18n="small">Klein</div>
+        <material-slider class="maxsize" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
+                         [max]="pdfSliderMax"></material-slider>
+        <div *ngIf="g.pdfControlMaxSize < pdfSliderMax" @i18n="big">Gross</div>
+        <div *ngIf="g.pdfControlMaxSize >= pdfSliderMax">{{g.msgUnlimited}}</div>
+      </div>
+      <material-button *ngIf="g.isBeta" class="iconButton" raised (trigger)="g.copyFromOtherStorage()">
+        <material-icon icon="file_copy"></material-icon>
+        <ng-container @i18n="buttonlabel for copy of settings to beta version">
+          Einstellungen von Release-Version übernehmen
+        </ng-container>
+      </material-button>
+    </div>
+  </div>
+
+  <div footer>
+    <div>
+      <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="export()">
+        <material-icon icon="cloud_download"></material-icon>
+        <ng-container @i18n="buttonlabel for exporting data">Exportieren</ng-container>
+      </material-button>
+      <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="importCLicked()">
+        <material-icon icon="cloud_upload"></material-icon>
+        <ng-container @i18n="buttonlabel for importing data">Importieren</ng-container>
+      </material-button>
+      <input type="file" id="importData" accept="text/json" (change)="handleImport($event)">
+      <form id="exportForm" target="_blank" method="post" action="{{g.urlPdf}}">
+        <input type="hidden" name="exportCfg" value="{{msgExport}}"/>
+        <input type="hidden" name="data" value="{{exportData}}"/>
+      </form>
+    </div>
+    <div>
+      <material-button class="iconButton" *ngIf="progressText==null" clear-size (trigger)="fire('check')">
+        <material-icon icon="save"></material-icon>
+        <ng-container @i18n="buttonlabel for saving data">Speichern</ng-container>
+      </material-button>
+    </div>
+  </div>
+</material-dialog>
+<material-dialog *ngIf="confirmIdx>0" confirm headered class="headered-dialog">
+  <div *ngIf="confirmIdx!=3" header @i18n="title of confirmation dialog">Bestätigung</div>
+  <div *ngIf="confirmIdx==3" header>{{msgCalcDayTitle}}</div>
+  <div class="content" *ngIf="confirmIdx==1">
+    <ng-container @i18n="should the user with url">Soll der Benutzer mit der URL</ng-container>
+    <div class="marked">{{g.user.apiUrl(null, '', noApi: true)}}</div>
+    <ng-container @i18n="really be deleted">wirklich gelöscht werden?</ng-container>
+  </div>
+  <div class="content" *ngIf="confirmIdx==2">
+    <ng-container @i18n="should the url of the user">Soll die URL</ng-container>
+    <div class="marked">{{g.user.listApiUrl[currApiUrlIdx].url}}</div>
+    <ng-container @i18n="of the user really be deleted">vom Benutzer wirklich gelöscht werden?</ng-container>
+  </div>
+  <div class="content" *ngIf="confirmIdx==3">
+    {{msgCalculatingDay(calcDate.format(g.fmtDateForDisplay))}}
+  </div>
+  <div footer *ngIf="confirmIdx<3">
+    <material-button class="iconButton" (trigger)="confirmOk">
+      <material-icon icon="done"></material-icon>
+      <ng-container @i18n="buttonlabel for confirmation yes">Ja</ng-container>
+    </material-button>
+    <material-button class="iconButton" (trigger)="confirmIdx=0">
+      <material-icon icon="cancel"></material-icon>
+      <ng-container @i18n="buttonlabel for confirmation no">Nein</ng-container>
+    </material-button>
+  </div>
+  <div footer *ngIf="confirmIdx==3">
+    <material-button class="iconButton" (trigger)="cancelCalculation()">
+      <material-icon icon="cancel"></material-icon>
+      <ng-container @i18n="buttonlabel for cancel">Abbruch</ng-container>
+    </material-button>
+  </div>
+
+</material-dialog>

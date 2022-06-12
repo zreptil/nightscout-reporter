@@ -1,6 +1,6 @@
 <div class="title">{{monthName(date)}} {{date.year}}</div>
 <div class="weektitle">
-  <material-button *ngFor="let dow of month.weeks[0].days" class="btn" (trigger)="firstDayOfWeek=dow.date.weekday"
+  <material-button *ngFor="let dow of month.weeks[0].days" class="btn" (trigger)="weekdayClicked(dow)"
                    @i18n:title="title for button of weekdayname" title="Als ersten Tag der Woche festlegen">
     {{dow.shortName}}
   </material-button>

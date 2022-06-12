@@ -1,11 +1,11 @@
 {
-    "@@last_modified": "2020-10-18T06:51:49.600399",
-    "Überprüfe Zugriff auf Nightscout ...": "Skontrolujte prístup do Nightscout ...",
+    "@@last_modified": "2022-05-01T09:49:41.692333",
+    "Überprüfe Zugriff auf Nightscout ...": "Kontrola prístupu do Nightscout ...",
     "@Überprüfe Zugriff auf Nightscout ...": {
         "type": "text",
         "placeholders": {}
     },
-    "msgLoadingData": "Chyba pri načítaní údajov: {error} {stacktrace}",
+    "msgLoadingData": "Chyba pri načítaní údajov: \n{error}\n{stacktrace}",
     "@msgLoadingData": {
         "type": "text",
         "placeholders": {
@@ -18,7 +18,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgLoadingDataFor": "Načítavajú sa údaje za {date} ...",
+    "msgLoadingDataFor": "Načítavajú sa údaje z {date}...",
     "@msgLoadingDataFor": {
         "description": "displayed when data of a day is loading",
         "type": "text",
@@ -86,7 +86,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.",
+    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Nastal problém pri načítavaní profilov. Pravdepodobne je v tabuľke profilov priveľa dát (napr. to spôsobuje iOS Loop). Môžeš skúsiť obmedziť množstvo načítavaných dát v nastaveniach.",
     "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
         "type": "text",
         "placeholders": {}
@@ -145,6 +145,7 @@
     },
     "dd.MM.yyyy": "dd.MM.yyyy",
     "@dd.MM.yyyy": {
+        "description": "this is the dateformat, please use dd for days, MM for months and yyyy for year. It has to be the english formatstring.",
         "type": "text",
         "placeholders": {}
     },
@@ -173,7 +174,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Beide": "Beide",
+    "Beide": "Obe",
     "@Beide": {
         "type": "text",
         "placeholders": {}
@@ -184,7 +185,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Einheit der Glukosemessung": "Einheit der Glukosemessung",
+    "Einheit der Glukosemessung": "Merná jednotka glykémie",
     "@Einheit der Glukosemessung": {
         "type": "text",
         "placeholders": {}
@@ -234,7 +235,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Heute": "dnes",
+    "Dansk": "Dánsky",
+    "@Dansk": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Heute": "Dnes",
     "@Heute": {
         "type": "text",
         "placeholders": {}
@@ -274,27 +280,47 @@
         "type": "text",
         "placeholders": {}
     },
+    "Erstes Quartal": "Prvý štvrťrok",
+    "@Erstes Quartal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zweites Quartal": "Druhý štvrťrok",
+    "@Zweites Quartal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Drittes Quartal": "Tretí štvrťrok",
+    "@Drittes Quartal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Viertes Quartal": "Štvrtý štvrťrok",
+    "@Viertes Quartal": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Ausgewählter Zeitraum": "Vybrané obdobie",
     "@Ausgewählter Zeitraum": {
         "type": "text",
         "placeholders": {}
     },
-    "Einen Monat vorher": "O mesiac skôr",
+    "Einen Monat vorher": "Mesiac dozadu",
     "@Einen Monat vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Drei Monate vorher": "Tri mesiace vopred",
+    "Drei Monate vorher": "Tri mesiace dozadu",
     "@Drei Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Sechs Monate vorher": "Šesť mesiacov vopred",
+    "Sechs Monate vorher": "Šesť mesiacov dozadu",
     "@Sechs Monate vorher": {
         "type": "text",
         "placeholders": {}
     },
-    "Ein Jahr vorher": "O rok skôr",
+    "Ein Jahr vorher": "Pred rokom",
     "@Ein Jahr vorher": {
         "type": "text",
         "placeholders": {}
@@ -351,6 +377,11 @@
     },
     "Mo|Di|Mi|Do|Fr|Sa|So": "Po|Ut|St|Št|Pia|So|Ne",
     "@Mo|Di|Mi|Do|Fr|Sa|So": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bis heute|Bis gestern|Bis Wochenende": "Bis heute|Bis gestern|Bis Wochenende",
+    "@Bis heute|Bis gestern|Bis Wochenende": {
         "type": "text",
         "placeholders": {}
     },
@@ -421,7 +452,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "_msgPageCountEst": "{count, plural, =0 {} =1 {1 stránka alebo viac} other {{count} stránok alebo viac}}",
+    "_msgPageCountEst": "{count, plural, =0 {} =1 {1 alebo viac stránok} other {{count} alebo viac stránok}}",
     "@_msgPageCountEst": {
         "type": "text",
         "placeholders": {
@@ -556,14 +587,14 @@
         "type": "text",
         "placeholders": {}
     },
-    "msgBasalrateDay": "Bazálna sadzba za deň ( {value} )",
+    "msgBasalrateDay": "Bazálna dávka za deň ({value})",
     "@msgBasalrateDay": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "msgBasalrateProfile": "Bazálna dávka z profilu ( {value} )",
+    "msgBasalrateProfile": "Bazálna dávka z profilu ({value})",
     "@msgBasalrateProfile": {
         "type": "text",
         "placeholders": {
@@ -577,7 +608,7 @@
             "value": {}
         }
     },
-    "TDD": "TDD",
+    "TDD": "CDD",
     "@TDD": {
         "type": "text",
         "placeholders": {}
@@ -612,7 +643,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "KH": "KH",
+    "KH": "S",
     "@KH": {
         "type": "text",
         "placeholders": {}
@@ -743,7 +774,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Diabetes seit": "Cukrovka od roku",
+    "Diabetes seit": "Diabetes od roku",
     "@Diabetes seit": {
         "description": "label of editfield for diabetes since",
         "type": "text",
@@ -816,6 +847,11 @@
     },
     "Ø KH pro Tag": "Ø sach. za deň",
     "@Ø KH pro Tag": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ø KH pro Mahlzeit": "Ø Sach na jedlo",
+    "@Ø KH pro Mahlzeit": {
         "type": "text",
         "placeholders": {}
     },
@@ -944,7 +980,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesbasalrate verwenden": "Tagesbasalrate verwenden",
+    "Tagesbasalrate verwenden": "Použiť dennú bazálnu dávku",
     "@Tagesbasalrate verwenden": {
         "type": "text",
         "placeholders": {}
@@ -974,13 +1010,18 @@
         "type": "text",
         "placeholders": {}
     },
-    "Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)": "Zdroj: Vigersky, RA, Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). Komplexný glukózový päťuholník: Glukózovo-centrická kompozitná metrika na hodnotenie glykemickej kontroly u osôb s cukrovkou. Journal of Diabetes Science and Technology, 12 (1), 114-123. (Https://doi.org/10.1177/1932296817718561)",
+    "Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)": "Zdroj: Vigersky, RA, Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). Komplexný glukózový päťuholník: Glukózovo-centrická kompozitná metrika na hodnotenie glykemickej kontroly u osôb s cukrovkou. Journal of Diabetes Science and Technology, 12 (1), 114-123. (https://doi.org/10.1177/1932296817718561)",
     "@Quelle: Vigersky, R. A., Shin, J., Jiang, B., Siegmund, T., McMahon, C., & Thomas, A. (2018). The Comprehensive Glucose Pentagon: A Glucose-Centric Composite Metric for Assessing Glycemic Control in Persons With Diabetes. Journal of Diabetes Science and Technology, 12(1), 114–123. (https://doi.org/10.1177/1932296817718561)": {
         "type": "text",
         "placeholders": {}
     },
     "Glukose zu hoch": "Glykémia je príliš vysoká",
     "@Glukose zu hoch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Temporäre Overrides": "Temporárne prepísanie",
+    "@Temporäre Overrides": {
         "type": "text",
         "placeholders": {}
     },
@@ -1207,6 +1248,11 @@
             "value": {}
         }
     },
+    "Durchschnitt": "Priemer",
+    "@Durchschnitt": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Standardabweichung": "Štandardná odchýlka",
     "@Standardabweichung": {
         "type": "text",
@@ -1293,12 +1339,19 @@
             "value": {}
         }
     },
+    "msgColumns": "{count,plural, =0{Eine Spalte abwählen, um eine@nl@andere aktivieren zu können}=1{Noch eine Spalte verfügbar}other{Noch {count} Spalten verfügbar}}",
+    "@msgColumns": {
+        "type": "text",
+        "placeholders": {
+            "count": {}
+        }
+    },
     "Tag (08:00 - 17:59)": "Deň (08:00 - 17:59)",
     "@Tag (08:00 - 17:59)": {
         "type": "text",
         "placeholders": {}
     },
-    "Dämmerung (06:00 - 07:59, 18:00 - 20:59)": "Dämmerung (06:00 - 07:59, 18:00 - 20:59)",
+    "Dämmerung (06:00 - 07:59, 18:00 - 20:59)": "Súmrak (06:00 - 07:59, 18:00 - 20:59)",
     "@Dämmerung (06:00 - 07:59, 18:00 - 20:59)": {
         "type": "text",
         "placeholders": {}
@@ -1307,6 +1360,20 @@
     "@Nacht (21:00 - 05:59)": {
         "type": "text",
         "placeholders": {}
+    },
+    "msgNamedProfile": "Profil \"{name}\" verwenden",
+    "@msgNamedProfile": {
+        "type": "text",
+        "placeholders": {
+            "name": {}
+        }
+    },
+    "msgNoNameHelp": "Das Profil mit dem Namen \"{name}\" wurde nicht gefunden. Das muss im Profileditor auf der Nightscout Seite eingerichtet werden. Dort muss ein Profil eingerichtet werden, das den Namen \"{name}\" hat, um dieses Formular erzeugen zu können. Mit dem Link unten wird der Profileditor aufgerufen. Unter Umständen muss dort dann noch ganz unten auf der Seite die Authentifizierung durchgeführt werden, um die Werte ändern zu können.",
+    "@msgNoNameHelp": {
+        "type": "text",
+        "placeholders": {
+            "name": {}
+        }
     },
     "msgProfileSwitch": "Zmena profilu z {oldName} => {newName}",
     "@msgProfileSwitch": {
@@ -1339,8 +1406,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeigt die Auswertung der Werte des ausgewählten Zeitraums. Dabei wird auch\nder durchscnittliche Verbrauch an Materialien rechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet\ndie meisten Informationen, die Diabetologen gerne wissen wollen.\n\nDer HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht normalerweise nicht unerheblich von\ndem tatsächlich gemessenen Wert ab. Der Wert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche\nBindung von Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist und nicht nur von den hier\nverwendeten Messdaten, ergeben sich Unterschiede zum errechneten Wert. Vor allem, wenn es sich bei den gemessenen\nWerten nicht um Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen verwendet wird.\n\nTrotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der Glukoseeinstellung und wird in der vom Labor\nermittelten Form gerne von Diabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird aber in\nschwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar ist.": "Dieses Formular zeigt die Auswertung der Werte des ausgewählten Zeitraums. Dabei wird auch\nder durchscnittliche Verbrauch an Materialien rechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet\ndie meisten Informationen, die Diabetologen gerne wissen wollen.\n\nDer HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht normalerweise nicht unerheblich von\ndem tatsächlich gemessenen Wert ab. Der Wert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche\nBindung von Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist und nicht nur von den hier\nverwendeten Messdaten, ergeben sich Unterschiede zum errechneten Wert. Vor allem, wenn es sich bei den gemessenen\nWerten nicht um Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen verwendet wird.\n\nTrotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der Glukoseeinstellung und wird in der vom Labor\nermittelten Form gerne von Diabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird aber in\nschwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar ist.",
-    "@Dieses Formular zeigt die Auswertung der Werte des ausgewählten Zeitraums. Dabei wird auch\nder durchscnittliche Verbrauch an Materialien rechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet\ndie meisten Informationen, die Diabetologen gerne wissen wollen.\n\nDer HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht normalerweise nicht unerheblich von\ndem tatsächlich gemessenen Wert ab. Der Wert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche\nBindung von Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist und nicht nur von den hier\nverwendeten Messdaten, ergeben sich Unterschiede zum errechneten Wert. Vor allem, wenn es sich bei den gemessenen\nWerten nicht um Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen verwendet wird.\n\nTrotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der Glukoseeinstellung und wird in der vom Labor\nermittelten Form gerne von Diabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird aber in\nschwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch erkennbar ist.": {
+    "Dieses Formular zeigt die Auswertung der Werte des ausgewählten\nZeitraums. Dabei wird auch der durchscnittliche Verbrauch an Materialien\nrechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet die meisten\nInformationen, die Diabetologen gerne wissen wollen.\n\nDer HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht\nnormalerweise nicht unerheblich von dem tatsächlich gemessenen Wert ab. Der\nWert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche Bindung\nvon Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist\nund nicht nur von den hier verwendeten Messdaten, ergeben sich Unterschiede\nzum errechneten Wert. Vor allem, wenn es sich bei den gemessenen Werten nicht\num Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen\nverwendet wird.\n\nTrotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der\nGlukoseeinstellung und wird in der vom Labor ermittelten Form gerne von\nDiabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird\naber in schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch\nerkennbar ist.": "Dieses Formular zeigt die Auswertung der Werte des ausgewählten\nZeitraums. Dabei wird auch der durchscnittliche Verbrauch an Materialien\nrechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet die meisten\nInformationen, die Diabetologen gerne wissen wollen.\n\nDer HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht\nnormalerweise nicht unerheblich von dem tatsächlich gemessenen Wert ab. Der\nWert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche Bindung\nvon Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist\nund nicht nur von den hier verwendeten Messdaten, ergeben sich Unterschiede\nzum errechneten Wert. Vor allem, wenn es sich bei den gemessenen Werten nicht\num Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen\nverwendet wird.\n\nTrotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der\nGlukoseeinstellung und wird in der vom Labor ermittelten Form gerne von\nDiabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird\naber in schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch\nerkennbar ist.",
+    "@Dieses Formular zeigt die Auswertung der Werte des ausgewählten\nZeitraums. Dabei wird auch der durchscnittliche Verbrauch an Materialien\nrechnerisch ermittelt und angezeigt. Dieses Formular beinhaltet die meisten\nInformationen, die Diabetologen gerne wissen wollen.\n\nDer HbA1c wird rechnerisch aus den vorhandenen Daten ermittelt und weicht\nnormalerweise nicht unerheblich von dem tatsächlich gemessenen Wert ab. Der\nWert, der aus der Blutprobe ermittelt wird, gibt die tatsächliche Bindung\nvon Glukose im Blut wieder. Da diese von zusätzlichen Faktoren abhängig ist\nund nicht nur von den hier verwendeten Messdaten, ergeben sich Unterschiede\nzum errechneten Wert. Vor allem, wenn es sich bei den gemessenen Werten nicht\num Blutzucker, sondern um Gewebszucker handelt, wie er von CGM-Systemen\nverwendet wird.\n\nTrotzdem ist dieser Wert ein grober Anhaltspunkt für die Qualität der\nGlukoseeinstellung und wird in der vom Labor ermittelten Form gerne von\nDiabetologen als Richtwert verwendet, weshalb er hier angezeigt wird. Er wird\naber in schwächerer Schrift ausgegeben, damit seine zweifelhafte Natur auch\nerkennbar ist.": {
         "description": "help for analysis",
         "type": "text",
         "placeholders": {}
@@ -1495,7 +1562,7 @@
             "hba1c": {}
         }
     },
-    "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": "Parameter prognostické riziko glykémie predstavuje riziko dlhodobých komplikácií (doteraz štúdiami nepreukázané).",
+    "Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": "Ukazovateľ prognózy glykemického rizika predstavuje riziko dlhodobých komplikácií (doteraz štúdiami nepreukázané).",
     "@Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen dar (bisher nicht durch Studien belegt).": {
         "type": "text",
         "placeholders": {}
@@ -1556,7 +1623,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "CGP": "CGP",
+    "CGP": "SGP",
     "@CGP": {
         "type": "text",
         "placeholders": {}
@@ -1576,13 +1643,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Tagesanalyse": "analýza dňa",
+    "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.",
+    "@Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt.": {
+        "description": "help for dailyanalysis",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Tagesanalyse": "Analýza dňa",
     "@Tagesanalyse": {
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg an. Dabei wird in der Spalte Trend immer\nangezeigt, um wieviel Prozent sich der Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend\nist ganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der Glukosewert nur anhand der\nBasalrate entwickelt. Es kann auch eine Spalte für die Boluswerte und die Kohlenhydrate angezeigt werden.\nDiese sollten aber bei einem Basalratentest natürlich leer sein. Ebenso muss ein eventuell vorhandener Loop \nim Zeitraum des Tests abgeschaltet sein. Es geht dabei nur um den Diabetiker und seine Basalrate.\n\nEs wird auch eine Spalte mit der Basalrate angezeigt, wenn die Option \"Alle Werte für einen Tag anzeigen\"\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz (und auch der Sinn), diese\ndarzustellen.": "Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg an. Dabei wird in der Spalte Trend immer\nangezeigt, um wieviel Prozent sich der Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend\nist ganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der Glukosewert nur anhand der\nBasalrate entwickelt. Es kann auch eine Spalte für die Boluswerte und die Kohlenhydrate angezeigt werden.\nDiese sollten aber bei einem Basalratentest natürlich leer sein. Ebenso muss ein eventuell vorhandener Loop \nim Zeitraum des Tests abgeschaltet sein. Es geht dabei nur um den Diabetiker und seine Basalrate.\n\nEs wird auch eine Spalte mit der Basalrate angezeigt, wenn die Option \"Alle Werte für einen Tag anzeigen\"\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz (und auch der Sinn), diese\ndarzustellen.",
-    "@Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg an. Dabei wird in der Spalte Trend immer\nangezeigt, um wieviel Prozent sich der Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend\nist ganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der Glukosewert nur anhand der\nBasalrate entwickelt. Es kann auch eine Spalte für die Boluswerte und die Kohlenhydrate angezeigt werden.\nDiese sollten aber bei einem Basalratentest natürlich leer sein. Ebenso muss ein eventuell vorhandener Loop \nim Zeitraum des Tests abgeschaltet sein. Es geht dabei nur um den Diabetiker und seine Basalrate.\n\nEs wird auch eine Spalte mit der Basalrate angezeigt, wenn die Option \"Alle Werte für einen Tag anzeigen\"\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz (und auch der Sinn), diese\ndarzustellen.": {
+    "Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option 'Alle Werte für einen Tag anzeigen'\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.": "Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option 'Alle Werte für einen Tag anzeigen'\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.",
+    "@Dieses Formular zeigt den Trend der Glukosewerte über den Tag hinweg \nan. Dabei wird in der Spalte Trend immer angezeigt, um wieviel Prozent sich \nder Wert von einer vollen Stunde zur nächsten verändert hat. Dieser Trend ist\nganz hilfreich, wenn man bei einem Basalratentest erkennen will, wie sich der\nGlukosewert nur anhand der Basalrate entwickelt. Es kann auch eine Spalte für\ndie Boluswerte und die Kohlenhydrate angezeigt werden. Diese sollten aber bei\neinem Basalratentest natürlich leer sein. Ebenso muss ein eventuell\nvorhandener Loop im Zeitraum des Tests abgeschaltet sein. Es geht dabei nur\num den Diabetiker und seine Basalrate.\nEs wird auch eine Spalte mit der\nBasalrate angezeigt, wenn die Option 'Alle Werte für einen Tag anzeigen'\nnicht markiert wurde. Wenn die Option markiert wurde, dann fehlt der Platz\n(und auch der Sinn), diese darzustellen.": {
         "description": "help for daygluc",
         "type": "text",
         "placeholders": {}
@@ -1745,6 +1818,16 @@
         "type": "text",
         "placeholders": {}
     },
+    "Zielwert anzeigen": "Zobrazovať cieľovú hodnotu",
+    "@Zielwert anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Maximalwert für Kohlenhydrate": "Maximalwert für Kohlenhydrate",
+    "@Maximalwert für Kohlenhydrate": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Basal ges.": "Celkom bazál",
     "@Basal ges.": {
         "type": "text",
@@ -1765,13 +1848,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Blutige Messung": "Blutige Messung",
+    "Blutige Messung": "Meranie z krvi",
     "@Blutige Messung": {
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeigt eine Übersicht über die Stunden der Tage des ausgewählten \nZeitraums an. Die angezeigten Werte sind die Mittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte.\nSie werden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen kann man die Startstunde festlegen.\nDie Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer Tag beginnt.": "Dieses Formular zeigt eine Übersicht über die Stunden der Tage des ausgewählten \nZeitraums an. Die angezeigten Werte sind die Mittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte.\nSie werden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen kann man die Startstunde festlegen.\nDie Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer Tag beginnt.",
-    "@Dieses Formular zeigt eine Übersicht über die Stunden der Tage des ausgewählten \nZeitraums an. Die angezeigten Werte sind die Mittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte.\nSie werden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen kann man die Startstunde festlegen.\nDie Datumsspalte befindet sich immer links von 0 Uhr und zeigt an, wo ein neuer Tag beginnt.": {
+    "Dieses Formular zeigt eine Übersicht über die \nStunden der Tage des ausgewählten Zeitraums an. Die angezeigten Werte sind die\nMittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte. Sie\nwerden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen\nkann man die Startstunde festlegen. Die Datumsspalte befindet sich immer links\nvon 0 Uhr und zeigt an, wo ein neuer Tag beginnt.": "Tento formulár zobrazuje prehľad jednotlivých hodín\ndňa v rámci zvoleného časového rozsahu. Zobrazuje sa priemerná hodnota \nv rámci zobrazovanej hodnoty. Vyfarbené sú na základe zadaných cieľových hodnôt. \nV nastaveniach formulára je možné určiť počiatočnú hodinu. Stĺpec s dátumom sa\nnachádza vždy v ľavo od hodiny 0 a ukazuje, kde začína nový deň.",
+    "@Dieses Formular zeigt eine Übersicht über die \nStunden der Tage des ausgewählten Zeitraums an. Die angezeigten Werte sind die\nMittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte. Sie\nwerden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen\nkann man die Startstunde festlegen. Die Datumsspalte befindet sich immer links\nvon 0 Uhr und zeigt an, wo ein neuer Tag beginnt.": {
         "description": "help for dayhours",
         "type": "text",
         "placeholders": {}
@@ -1892,11 +1975,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "Temporäre Overrides": "Temporäre Overrides",
-    "@Temporäre Overrides": {
-        "type": "text",
-        "placeholders": {}
-    },
     "Es gibt keine mehrfachen Datensätze.": "Es gibt keine mehrfachen Datensätze.",
     "@Es gibt keine mehrfachen Datensätze.": {
         "type": "text",
@@ -1987,17 +2065,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Prozent": "Prozent",
+    "Prozent": "Percento",
     "@Prozent": {
         "type": "text",
         "placeholders": {}
     },
-    "Wert": "Wert",
+    "Wert": "Hodnota",
     "@Wert": {
         "type": "text",
         "placeholders": {}
     },
-    "Wert & Prozent": "Wert & Prozent",
+    "Wert & Prozent": "Hodnota & percento",
     "@Wert & Prozent": {
         "type": "text",
         "placeholders": {}
@@ -2007,17 +2085,17 @@
         "type": "text",
         "placeholders": {}
     },
-    "Basal aus Profil anzeigen": "Basal aus Profil anzeigen",
+    "Basal aus Profil anzeigen": "Zobraziť bazál z profilu",
     "@Basal aus Profil anzeigen": {
         "type": "text",
         "placeholders": {}
     },
-    "IE-Anzeige": "IE-Anzeige",
+    "IE-Anzeige": "Zobraziť inzulín",
     "@IE-Anzeige": {
         "type": "text",
         "placeholders": {}
     },
-    "Werte über dem Maximum als Pfeile darstellen": "Werte über dem Maximum als Pfeile darstellen",
+    "Werte über dem Maximum als Pfeile darstellen": "Hodnoty nad maximom zobrazovať ako šípky",
     "@Werte über dem Maximum als Pfeile darstellen": {
         "type": "text",
         "placeholders": {}
@@ -2053,7 +2131,27 @@
         "type": "text",
         "placeholders": {}
     },
-    "TDD anzeigen": "TDD anzeigen",
+    "Spalte Basal anzeigen": "Spalte Basal anzeigen",
+    "@Spalte Basal anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte Kohlenhydrate anzeigen": "Spalte Kohlenhydrate anzeigen",
+    "@Spalte Kohlenhydrate anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalten Min / Max anzeigen": "Spalten Min / Max anzeigen",
+    "@Spalten Min / Max anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte Bolus anzeigen": "Spalte Bolus anzeigen",
+    "@Spalte Bolus anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "TDD anzeigen": "Zobraziť celkovú dennú dávku inzulínu",
     "@TDD anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -2063,13 +2161,34 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": "Tento formulár zobrazuje distribúciu hodnôt glykémie vo zvolenom období.",
+    "@Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": {
+        "description": "help for template",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Verteilung der Glukosewerte": "Distribúcia hodnôt glykémie",
+    "@Verteilung der Glukosewerte": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei 0 beginnen": "Bei 0 beginnen",
+    "@Bei 0 beginnen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Schritte": "Schritte",
+    "@Schritte": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Dieses Formular zeigt an, wie sich die Glukosewerte im ausgewählten Zeitraum über den Tag\nverteilen. Diese Verteilung kann graphisch und tabellarisch ausgegeben werden.\n\nIn der Grafik sind die Bereiche für bestimmte Abweichungen farblich markiert. Die Linie zeigt den Medianwert\nan. In der Tabelle kann man diese Werte nachlesen. Wenn die Basalrate mit ausgegeben wird, dann ist das die\nBasalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.": "Dieses Formular zeigt an, wie sich die Glukosewerte im ausgewählten Zeitraum über den Tag\nverteilen. Diese Verteilung kann graphisch und tabellarisch ausgegeben werden.\n\nIn der Grafik sind die Bereiche für bestimmte Abweichungen farblich markiert. Die Linie zeigt den Medianwert\nan. In der Tabelle kann man diese Werte nachlesen. Wenn die Basalrate mit ausgegeben wird, dann ist das die\nBasalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.",
     "@Dieses Formular zeigt an, wie sich die Glukosewerte im ausgewählten Zeitraum über den Tag\nverteilen. Diese Verteilung kann graphisch und tabellarisch ausgegeben werden.\n\nIn der Grafik sind die Bereiche für bestimmte Abweichungen farblich markiert. Die Linie zeigt den Medianwert\nan. In der Tabelle kann man diese Werte nachlesen. Wenn die Basalrate mit ausgegeben wird, dann ist das die\nBasalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.": {
         "description": "help for percentile",
         "type": "text",
         "placeholders": {}
     },
-    "Basalrate anzeigen": "Basalrate anzeigen",
+    "Basalrate anzeigen": "Zobraziť bazál",
     "@Basalrate anzeigen": {
         "type": "text",
         "placeholders": {}
@@ -2080,6 +2199,41 @@
         "placeholders": {
             "unit": {}
         }
+    },
+    "Spalte Messwerte anzeigen": "Spalte Messwerte anzeigen",
+    "@Spalte Messwerte anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte Mittelwert anzeigen": "Spalte Mittelwert anzeigen",
+    "@Spalte Mittelwert anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte Min anzeigen": "Spalte Min anzeigen",
+    "@Spalte Min anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte Max anzeigen": "Spalte Max anzeigen",
+    "@Spalte Max anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte Std.Abw. anzeigen": "Spalte Std.Abw. anzeigen",
+    "@Spalte Std.Abw. anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte KH anzeigen": "Spalte KH anzeigen",
+    "@Spalte KH anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spalte IE anzeigen": "Spalte IE anzeigen",
+    "@Spalte IE anzeigen": {
+        "type": "text",
+        "placeholders": {}
     },
     "Spalten für 10% und 90% anzeigen": "Zobraziť stĺpce pre 10% a 90%",
     "@Spalten für 10% und 90% anzeigen": {
@@ -2107,19 +2261,61 @@
         "type": "text",
         "placeholders": {}
     },
+    "Dieses Formular ...": "Dieses Formular ...",
+    "@Dieses Formular ...": {
+        "description": "help for template",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Template": "Šablóna",
+    "@Template": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Irgendwas zum Einstellen": "Irgendwas zum Einstellen",
+    "@Irgendwas zum Einstellen": {
+        "type": "text",
+        "placeholders": {}
+    },
     "Benutzerdaten": "Informácie o pacientovi",
     "@Benutzerdaten": {
         "description": "label for settings-area with user data",
         "type": "text",
         "placeholders": {}
     },
-    "Es sind keine Daten vorhanden.": "Es sind keine Daten vorhanden.",
+    "Es sind keine Daten vorhanden.": "Nie sú k dispozícii žiadne dáta.",
     "@Es sind keine Daten vorhanden.": {
         "type": "text",
         "placeholders": {}
     },
     "Alle Benutzer ausgeben": "Alle Benutzer ausgeben",
     "@Alle Benutzer ausgeben": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Name": "Meno",
+    "@Name": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Version": "verzia",
+    "@Version": {
+        "description": "version",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Einheiten": "Jednotky",
+    "@Einheiten": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzter Glukosewert": "Posledná hodnota glykémie",
+    "@Letzter Glukosewert": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Letzter Behandlungswert": "Posledná hodnota ošetrenia",
+    "@Letzter Behandlungswert": {
         "type": "text",
         "placeholders": {}
     },
@@ -2139,22 +2335,22 @@
         "type": "text",
         "placeholders": {}
     },
-    "Fehler": "Fehler",
+    "Fehler": "Chyba",
     "@Fehler": {
         "type": "text",
         "placeholders": {}
     },
-    "Warnung": "Warnung",
+    "Warnung": "Varovanie",
     "@Warnung": {
         "type": "text",
         "placeholders": {}
     },
-    "Information": "Information",
+    "Information": "Informácia",
     "@Information": {
         "type": "text",
         "placeholders": {}
     },
-    "msgStandardLimits": "Standard Zielbereich verwenden ({low} {unit} - {high} {unit})",
+    "msgStandardLimits": "Použiť štandardný rozsah hodnôt ({low} {unit} - {high} {unit})",
     "@msgStandardLimits": {
         "type": "text",
         "placeholders": {
@@ -2163,7 +2359,7 @@
             "unit": {}
         }
     },
-    "CGP immer mit Standard Zielbereich": "CGP immer mit Standard Zielbereich",
+    "CGP immer mit Standard Zielbereich": "CGP vždy so štandardným cieľovým rozsahom",
     "@CGP immer mit Standard Zielbereich": {
         "type": "text",
         "placeholders": {}
@@ -2178,41 +2374,36 @@
         "type": "text",
         "placeholders": {}
     },
-    "Aus den Profilen ermitteln": "Aus den Profilen ermitteln",
+    "Aus den Profilen ermitteln": "Zistiť z profilu",
     "@Aus den Profilen ermitteln": {
         "type": "text",
         "placeholders": {}
     },
-    "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "URL adresa na rozhranie Nightscout-API (napr. https://xxx.herokuapp.com)",
+    "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": "URL adresa Nightscout-API (napr. https://xxx.herokuapp.com)",
     "@Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)": {
         "type": "text",
         "placeholders": {}
     },
-    "Name": "Meno",
-    "@Name": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zugriffsschlüssel": "Zugriffsschlüssel",
+    "Zugriffsschlüssel": "Prístupový kľúč",
     "@Zugriffsschlüssel": {
         "type": "text",
         "placeholders": {}
     },
-    "msgAccessTokenHint": "Der Zugriffsschlüssel wird nur benötigt, wenn der Zugriff in Nightscout über AUTH_DEFAULT_ROLES eingeschränkt wurde",
+    "msgAccessTokenHint": "Prístupový kľúč je potrebný len v prípade, že bol prístup k Nightscout údajom obmedzený nastavením premennej AUTH_DEFAULT_ROLES",
     "@msgAccessTokenHint": {
         "type": "text",
         "placeholders": {
             "isVisible": {}
         }
     },
-    "msgStartDateHint": "Das Datum des ersten Tages mit Daten",
+    "msgStartDateHint": "Dátum prvého dňa s údajmi",
     "@msgStartDateHint": {
         "type": "text",
         "placeholders": {
             "isVisible": {}
         }
     },
-    "msgEndDateHint": "Das Datum des letzten kompletten Tages mit Daten",
+    "msgEndDateHint": "Dátum posledného dňa, z ktorého existujú úplné dáta",
     "@msgEndDateHint": {
         "type": "text",
         "placeholders": {
@@ -2226,17 +2417,17 @@
             "url": {}
         }
     },
-    "Daten von": "Daten von",
+    "Daten von": "Dáta od",
     "@Daten von": {
         "type": "text",
         "placeholders": {}
     },
-    "Daten bis": "Daten bis",
+    "Daten bis": "Dáta do",
     "@Daten bis": {
         "type": "text",
         "placeholders": {}
     },
-    "Ermittle ersten Tag mit Daten": "Ermittle ersten Tag mit Daten",
+    "Ermittle ersten Tag mit Daten": "Zisti prvý deň s dátami",
     "@Ermittle ersten Tag mit Daten": {
         "type": "text",
         "placeholders": {}
@@ -2246,12 +2437,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:": "Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:",
+    "Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:": "Zoznam profilov by mala obsahovať len dáta používaných profilov. Program iOS Loop do tohto zoznamu ukladá niektoré svoje nastavenia a u niektorých užívateľov veľmi agresívne. Od určitého množstva záznamov nie je možné zoznam profilov správne načítať cez API. Preto tu existuje spôsob ako obmedziť počet načítaných záznamov. Táto funkcia tu musí zostať dovtedy, kým iOS Loop a iné nástroje neprestanú túto tabuľku používať správnym spôsobom.\n\nMaximálny počet profilov na načítanie:",
     "@Die Profiltabelle sollte normalerweise nur Daten zu den verwendeten Profilen beinhalten. iOS Loop verwendet diese Tabelle aber dazu, um dort eigene Einstellungen zu speichern und tut dies bei einigen Benutzern exzessiv. Ab einer bestimmten Datenmenge kann die Profiltabelle über die API dann nicht mehr korrekt abgefragt werden. Deswegen gibt es hier die Möglichkeit, die Anzahl an Datensätzen einzuschränken, die aus dieser Tabelle geholt werden. Das ist so lange notwendig, wie iOS Loop oder andere Uploader diese Tabelle falsch befüllen.\n\nMaximale Anzahl an Profildatensätzen:": {
         "type": "text",
         "placeholders": {}
     },
-    "msgCalculatingDay": "Überprüfe {date} ...",
+    "msgCalculatingDay": "Kontrolujem {date} ...",
     "@msgCalculatingDay": {
         "type": "text",
         "placeholders": {
@@ -2263,12 +2454,12 @@
         "type": "text",
         "placeholders": {}
     },
-    "Shortcut anlegen": "Shortcut anlegen",
+    "Shortcut anlegen": "Vytvoriť odkaz",
     "@Shortcut anlegen": {
         "type": "text",
         "placeholders": {}
     },
-    "Shortcut ändern": "Shortcut ändern",
+    "Shortcut ändern": "Odkaz zmeniť",
     "@Shortcut ändern": {
         "type": "text",
         "placeholders": {}
@@ -2280,13 +2471,13 @@
             "count": {}
         }
     },
-    "Menü": "Menü",
+    "Menü": "Menu",
     "@Menü": {
         "description": "tab title for menu",
         "type": "text",
         "placeholders": {}
     },
-    "Shortcuts": "Shortcuts",
+    "Shortcuts": "Odkazy",
     "@Shortcuts": {
         "description": "tab title for shortcuts",
         "type": "text",
@@ -2319,6 +2510,48 @@
     "Pausiert": "Pozastavené",
     "@Pausiert": {
         "description": "message for current glucose if not active",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Optionen": "Možnosti",
+    "@Optionen": {
+        "description": "title for parameters",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Spenden": "Obdarovať",
+    "@Spenden": {
+        "description": "title of donate button",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zur Listenansicht": "Na zobrazenie zoznamu",
+    "@Zur Listenansicht": {
+        "description": "title of listview",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zur Kachelansicht": "Zobrazenie dlaždíc",
+    "@Zur Kachelansicht": {
+        "description": "title of tileview",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Google Assistant": "Asistent Google",
+    "@Google Assistant": {
+        "description": "title of nightscout status",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nightscout Seite": "Stránka Nightscout",
+    "@Nightscout Seite": {
+        "description": "title of nightscout page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nightscout Berichte": "Nightscout správy",
+    "@Nightscout Berichte": {
+        "description": "title of nightscout reports",
         "type": "text",
         "placeholders": {}
     },
@@ -2364,49 +2597,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Optionen": "Optionen",
-    "@Optionen": {
-        "description": "title for parameters",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zur Listenansicht": "Na zobrazenie zoznamu",
-    "@Zur Listenansicht": {
-        "description": "title of listview",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zur Kachelansicht": "Zobrazenie dlaždíc",
-    "@Zur Kachelansicht": {
-        "description": "title of tileview",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Google Assistant": "Asistent Google",
-    "@Google Assistant": {
-        "description": "title of nightscout status",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Nightscout Seite": "Stránka Nightscout",
-    "@Nightscout Seite": {
-        "description": "title of nightscout page",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Nightscout Berichte": "Nightscout správy",
-    "@Nightscout Berichte": {
-        "description": "title of nightscout reports",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Von": "z",
+    "Von": "Od",
     "@Von": {
         "description": "datepicker label from",
         "type": "text",
         "placeholders": {}
     },
-    "Bis": "na",
+    "Bis": "Do",
     "@Bis": {
         "description": "datepicker label to",
         "type": "text",
@@ -2454,13 +2651,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Ausgabe Parameter": "Ausgabe Parameter",
+    "Ausgabe Parameter": "Výstupné parametre",
     "@Ausgabe Parameter": {
         "description": "title for printparameter dialog",
         "type": "text",
         "placeholders": {}
     },
-    "Allgemeines": "Allgemeines",
+    "Allgemeines": "Všeobecné",
     "@Allgemeines": {
         "description": "label of area for section general in printparams",
         "type": "text",
@@ -2472,7 +2669,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Maximaler Glukosewert in Grafiken:": "Maximaler Glukosewert in Grafiken:",
+    "Maximaler Glukosewert in Grafiken:": "Maximálna hodnota glykémie v grafoch:",
     "@Maximaler Glukosewert in Grafiken:": {
         "description": "label for max glucvalue in printparams",
         "type": "text",
@@ -2502,9 +2699,21 @@
         "type": "text",
         "placeholders": {}
     },
-    "Nightscout Url in der Fusszeile des PDFs anzeigen": "Nightscout Url in der Fusszeile des PDFs anzeigen",
+    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Skryť dáta o uzavretej smyčke (nezobrazí tohto týkajúce sa dáta)",
+    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
+        "description": "label for checkbox to hide loop data",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Nightscout Url in der Fusszeile des PDFs anzeigen": "Vytlačiť Nightscout URL na konci každej PDF stránky",
     "@Nightscout Url in der Fusszeile des PDFs anzeigen": {
         "description": "label for checkbox to show nightscout url in footer",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Korrektur für Datenänderungen in AAPS 3.0": "Opravy zmien údajov v AAPS 3.0",
+    "@Korrektur für Datenänderungen in AAPS 3.0": {
+        "description": "label for fix for AAPS 3.0",
         "type": "text",
         "placeholders": {}
     },
@@ -2523,12 +2732,6 @@
     "PDF erzeugen": "Vytvorte PDF",
     "@PDF erzeugen": {
         "description": "buttonlabel for saving data",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)",
-    "@Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)": {
-        "description": "label for checkbox to hide loop data",
         "type": "text",
         "placeholders": {}
     },
@@ -2568,13 +2771,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "Exportieren": "Exportieren",
+    "Exportieren": "Exportovať",
     "@Exportieren": {
         "description": "buttonlabel for exporting data",
         "type": "text",
         "placeholders": {}
     },
-    "Importieren": "Importieren",
+    "Importieren": "Importovať",
     "@Importieren": {
         "description": "buttonlabel for importing data",
         "type": "text",
@@ -2628,7 +2831,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Abbruch": "Abbruch",
+    "Abbruch": "Zrušiť",
     "@Abbruch": {
         "description": "buttonlabel for cancel",
         "type": "text",
@@ -2640,19 +2843,19 @@
         "type": "text",
         "placeholders": {}
     },
-    "Anzahl:": "Anzahl:",
+    "Anzahl:": "Počet:",
     "@Anzahl:": {
         "description": "number of forms for shortcut",
         "type": "text",
         "placeholders": {}
     },
-    "Zeitraum:": "Zeitraum:",
+    "Zeitraum:": "Obdobie:",
     "@Zeitraum:": {
         "description": "period for shortcuts",
         "type": "text",
         "placeholders": {}
     },
-    "Löschen": "Löschen",
+    "Löschen": "Odstrániť",
     "@Löschen": {
         "description": "buttonlabel for deleting data",
         "type": "text",
@@ -2736,9 +2939,255 @@
         "type": "text",
         "placeholders": {}
     },
-    "Version": "verzia",
-    "@Version": {
-        "description": "version",
+    "Einstiegsvideo": "Úvodné video",
+    "@Einstiegsvideo": {
+        "description": "label for button to open settings on welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.2.1 - 01.05.2022": "2.2.1 - 01.05.2022",
+    "@2.2.1 - 01.05.2022": {
+        "description": "v221",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Wert für die mittlere Glukose bei gesunden Menschen im CGM wurde auf die korrekten 90 mg/dl korrigiert.": "Der Wert für die mittlere Glukose bei gesunden Menschen im CGM wurde auf die korrekten 90 mg/dl korrigiert.",
+    "@Der Wert für die mittlere Glukose bei gesunden Menschen im CGM wurde auf die korrekten 90 mg/dl korrigiert.": {
+        "description": "v221f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.2.0 - 03.03.2022": "2.2.0 - 03.03.2022",
+    "@2.2.0 - 03.03.2022": {
+        "description": "v220",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wenn in Nightscout die Daten für die täglich erzielten Schritte vorhanden sind, dann werden diese in der Tagesgrafik angezeigt, wenn dort die Option \"Bewegung anzeigen\" aktiviert ist.": "V dennej grafike sa zobrazia údaje o denne dosiahnutých krokoch, ak sa nachádzadzajú v Nightscoute a je aktivovaná položka \"Zobraziť pohyby\".",
+    "@Wenn in Nightscout die Daten für die täglich erzielten Schritte vorhanden sind, dann werden diese in der Tagesgrafik angezeigt, wenn dort die Option \"Bewegung anzeigen\" aktiviert ist.": {
+        "description": "v220a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.1.0 - 09.12.2021": "2.1.0 - 09.12.2021",
+    "@2.1.0 - 09.12.2021": {
+        "description": "v210",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Optionen zur Tagesgrafik gibt es jetzt die Möglichkeit, den oberen Wert für die Kohlenhydrate festzulegen. Das kann bei hohen COB-Werten die Skalierung verbessern.": "In den Optionen zur Tagesgrafik gibt es jetzt die Möglichkeit, den oberen Wert für die Kohlenhydrate festzulegen. Das kann bei hohen COB-Werten die Skalierung verbessern.",
+    "@In den Optionen zur Tagesgrafik gibt es jetzt die Möglichkeit, den oberen Wert für die Kohlenhydrate festzulegen. Das kann bei hohen COB-Werten die Skalierung verbessern.": {
+        "description": "v210a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.12 - 07.12.2021": "2.0.12 - 07.12.2021",
+    "@2.0.12 - 07.12.2021": {
+        "description": "v2012",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In AAPS 3.0 wird ändert sich einiges an den Datenstrukturen und Datenmengen, die gespeichert werrden. Das verursacht in Nightscout Reporter an einigen Stellen Probleme, die sich nicht generell lösen lassen, Deswegen gibt es jetzt bei den Ausgabe Parametern die Option \"Korrektur für Datenänderungen in AAPS 3.0\", mit der bei Erstellung der PDFs bestimmte Probleme korrigiert werden. Diese Änderungen werden hier mit FixAAPS30 markiert.": "In AAPS 3.0 wird ändert sich einiges an den Datenstrukturen und Datenmengen, die gespeichert werrden. Das verursacht in Nightscout Reporter an einigen Stellen Probleme, die sich nicht generell lösen lassen, Deswegen gibt es jetzt bei den Ausgabe Parametern die Option \"Korrektur für Datenänderungen in AAPS 3.0\", mit der bei Erstellung der PDFs bestimmte Probleme korrigiert werden. Diese Änderungen werden hier mit FixAAPS30 markiert.",
+    "@In AAPS 3.0 wird ändert sich einiges an den Datenstrukturen und Datenmengen, die gespeichert werrden. Das verursacht in Nightscout Reporter an einigen Stellen Probleme, die sich nicht generell lösen lassen, Deswegen gibt es jetzt bei den Ausgabe Parametern die Option \"Korrektur für Datenänderungen in AAPS 3.0\", mit der bei Erstellung der PDFs bestimmte Probleme korrigiert werden. Diese Änderungen werden hier mit FixAAPS30 markiert.": {
+        "description": "v2012a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "FixAAPS30: Die Erstellung der PDFs kann extrem lange dauern. Das liegt an einer Flut von Profil-Switches, die durch ein Plugin für die Automatisierung erstellt werden. Das verursacht einen Profil-Switch alle 4 Minuten mit Speicherung des kompletten Profils. Wenn die Option aktiv ist, dann werden diese Profil-Switches aussortiert und ermöglichen dadurch die Erstellung des PDFs. Diese Profil-Switches sind dann in den PDFs nicht mehr sichtbar.": "FixAAPS30: Die Erstellung der PDFs kann extrem lange dauern. Das liegt an einer Flut von Profil-Switches, die durch ein Plugin für die Automatisierung erstellt werden. Das verursacht einen Profil-Switch alle 4 Minuten mit Speicherung des kompletten Profils. Wenn die Option aktiv ist, dann werden diese Profil-Switches aussortiert und ermöglichen dadurch die Erstellung des PDFs. Diese Profil-Switches sind dann in den PDFs nicht mehr sichtbar.",
+    "@FixAAPS30: Die Erstellung der PDFs kann extrem lange dauern. Das liegt an einer Flut von Profil-Switches, die durch ein Plugin für die Automatisierung erstellt werden. Das verursacht einen Profil-Switch alle 4 Minuten mit Speicherung des kompletten Profils. Wenn die Option aktiv ist, dann werden diese Profil-Switches aussortiert und ermöglichen dadurch die Erstellung des PDFs. Diese Profil-Switches sind dann in den PDFs nicht mehr sichtbar.": {
+        "description": "v2012a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.11 - 26.11.2021": "2.0.11 - 26.11.2021",
+    "@2.0.11 - 26.11.2021": {
+        "description": "v2011",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es ist in der Kachelansicht jetzt möglich, Formulare zu duplizieren, um verschiedene Ansichten des gleichen Formulars auf einmal zu erzeugen. Dazu gibt es rechts unten auf den Kacheln ein Kopier-Icon. Wenn dieses ausgelöst wird, dann wird das aktuelle Formular kopiert und als neue Kachel hinter der aktuellen Kachel eingefügt. Diese kann dann genauso behandelt werden, wie jede andere Kachel. Auf dieser neuen Kachel gibt es rechts unten ein Mülleimer-Icon. Wenn dieses ausgelöst wird, dann wird die Kachel wieder entfernt. Von einem Formular können maximal 2 Kopien erstellt werden. Die Optionen der Formulare werden ebenso wie die Reihenfolge wie bisher auch gespeichert. Die kopierten Kacheln bleiben also erhalten. In der Listenansicht tauchen die kopierten Formulare auch auf. Allerdings gibt es dort nicht die Möglichkeit, sie zu kopieren oder zu löschen. Das muss in der Kachelansicht erfolgen.": "Es ist in der Kachelansicht jetzt möglich, Formulare zu duplizieren, um verschiedene Ansichten des gleichen Formulars auf einmal zu erzeugen. Dazu gibt es rechts unten auf den Kacheln ein Kopier-Icon. Wenn dieses ausgelöst wird, dann wird das aktuelle Formular kopiert und als neue Kachel hinter der aktuellen Kachel eingefügt. Diese kann dann genauso behandelt werden, wie jede andere Kachel. Auf dieser neuen Kachel gibt es rechts unten ein Mülleimer-Icon. Wenn dieses ausgelöst wird, dann wird die Kachel wieder entfernt. Von einem Formular können maximal 2 Kopien erstellt werden. Die Optionen der Formulare werden ebenso wie die Reihenfolge wie bisher auch gespeichert. Die kopierten Kacheln bleiben also erhalten. In der Listenansicht tauchen die kopierten Formulare auch auf. Allerdings gibt es dort nicht die Möglichkeit, sie zu kopieren oder zu löschen. Das muss in der Kachelansicht erfolgen.",
+    "@Es ist in der Kachelansicht jetzt möglich, Formulare zu duplizieren, um verschiedene Ansichten des gleichen Formulars auf einmal zu erzeugen. Dazu gibt es rechts unten auf den Kacheln ein Kopier-Icon. Wenn dieses ausgelöst wird, dann wird das aktuelle Formular kopiert und als neue Kachel hinter der aktuellen Kachel eingefügt. Diese kann dann genauso behandelt werden, wie jede andere Kachel. Auf dieser neuen Kachel gibt es rechts unten ein Mülleimer-Icon. Wenn dieses ausgelöst wird, dann wird die Kachel wieder entfernt. Von einem Formular können maximal 2 Kopien erstellt werden. Die Optionen der Formulare werden ebenso wie die Reihenfolge wie bisher auch gespeichert. Die kopierten Kacheln bleiben also erhalten. In der Listenansicht tauchen die kopierten Formulare auch auf. Allerdings gibt es dort nicht die Möglichkeit, sie zu kopieren oder zu löschen. Das muss in der Kachelansicht erfolgen.": {
+        "description": "v2011a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Formularen Profil und Basalrate gibt es eine neue Option \"Profil 'NR Profil' verwenden\". Normalerweise wird das zu verwendende Profil automatisch anhand des angegebenen Zeitraums ermittelt. Hiermit kann das unterbunden werden und ein Profil mit dem Namen \"NR Profil\" wird gesucht. Wenn dieses gefunden wird, dann wird das ausgegeben. Wenn es nicht gefunden wird, wird ein Text ausgegeben, der erklärt, wo man das einstellen kann.": "In den Formularen Profil und Basalrate gibt es eine neue Option \"Profil 'NR Profil' verwenden\". Normalerweise wird das zu verwendende Profil automatisch anhand des angegebenen Zeitraums ermittelt. Hiermit kann das unterbunden werden und ein Profil mit dem Namen \"NR Profil\" wird gesucht. Wenn dieses gefunden wird, dann wird das ausgegeben. Wenn es nicht gefunden wird, wird ein Text ausgegeben, der erklärt, wo man das einstellen kann.",
+    "@In den Formularen Profil und Basalrate gibt es eine neue Option \"Profil 'NR Profil' verwenden\". Normalerweise wird das zu verwendende Profil automatisch anhand des angegebenen Zeitraums ermittelt. Hiermit kann das unterbunden werden und ein Profil mit dem Namen \"NR Profil\" wird gesucht. Wenn dieses gefunden wird, dann wird das ausgegeben. Wenn es nicht gefunden wird, wird ein Text ausgegeben, der erklärt, wo man das einstellen kann.": {
+        "description": "v2011a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.10 - 07.11.2021": "2.0.10 - 07.11.2021",
+    "@2.0.10 - 07.11.2021": {
+        "description": "v2010",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tabelle im Glukose Perzentil Diagramm kann man nun zwei neue Spalten ausgeben lassen. Diese beinhalten die durchschnittlichen Kohlenhydrate und Insulineinheiten.": "In der Tabelle im Glukose Perzentil Diagramm kann man nun zwei neue Spalten ausgeben lassen. Diese beinhalten die durchschnittlichen Kohlenhydrate und Insulineinheiten.",
+    "@In der Tabelle im Glukose Perzentil Diagramm kann man nun zwei neue Spalten ausgeben lassen. Diese beinhalten die durchschnittlichen Kohlenhydrate und Insulineinheiten.": {
+        "description": "v2010a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In den Optionen von Formularen, in denen man Spalten ein- und ausblenden kann, wird nun angezeigt, wieviele Spalten noch verfügbar sind.": "In den Optionen von Formularen, in denen man Spalten ein- und ausblenden kann, wird nun angezeigt, wieviele Spalten noch verfügbar sind.",
+    "@In den Optionen von Formularen, in denen man Spalten ein- und ausblenden kann, wird nun angezeigt, wieviele Spalten noch verfügbar sind.": {
+        "description": "v2010c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Farben für die Glukosebereiche werden jetzt dort, wo sie als Hintergrundfarbe mit Text verwendet werden heller dargestellt, um die Lesbarkeit zu erhöhen.": "Die Farben für die Glukosebereiche werden jetzt dort, wo sie als Hintergrundfarbe mit Text verwendet werden heller dargestellt, um die Lesbarkeit zu erhöhen.",
+    "@Die Farben für die Glukosebereiche werden jetzt dort, wo sie als Hintergrundfarbe mit Text verwendet werden heller dargestellt, um die Lesbarkeit zu erhöhen.": {
+        "description": "v2010c2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.9 - 11.08.2021": "2.0.9 - 11.08.2021",
+    "@2.0.9 - 11.08.2021": {
+        "description": "v209",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.": "In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.",
+    "@In der Tagesgrafik kann man nun die temporären Overrides von iLoop auch anzeigen lassen. Es wird der Grund angezeigt. Für genauere Informationen kann das so wie bisher auch im Protokoll angezeigt werden.": {
+        "description": "v209a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das Projekt wurde auf Dart 2.13.4 und Angular 6.0.1 aktualisiert.": "Das Projekt wurde auf Dart 2.13.4 und Angular 6.0.1 aktualisiert.",
+    "@Das Projekt wurde auf Dart 2.13.4 und Angular 6.0.1 aktualisiert.": {
+        "description": "v209c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Grenzwerte wurden nicht durchgängig gleich behandelt. Jetzt sollte die Zuordnung der Werte zu den Zielbereichen im gesamten Programm identisch sein.": "Grenzwerte wurden nicht durchgängig gleich behandelt. Jetzt sollte die Zuordnung der Werte zu den Zielbereichen im gesamten Programm identisch sein.",
+    "@Grenzwerte wurden nicht durchgängig gleich behandelt. Jetzt sollte die Zuordnung der Werte zu den Zielbereichen im gesamten Programm identisch sein.": {
+        "description": "v209f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.8 - 09.06.2021": "2.0.8 - 09.06.2021",
+    "@2.0.8 - 09.06.2021": {
+        "description": "v208",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt ein neues Formular namens \"Verteilung der Glucosewerte\". Das zeigt die prozentuale Verteilung der Glukosewerte für den ausgewählen Zeitraum an.": "Pribudol nový formulár pod názvom \"Distribúcia hodnôt glykémie\". Zobrazuje percentuálny výskyt hodnôt glykémie v rámci zvoleného obdobia.",
+    "@Es gibt ein neues Formular namens \"Verteilung der Glucosewerte\". Das zeigt die prozentuale Verteilung der Glukosewerte für den ausgewählen Zeitraum an.": {
+        "description": "v208a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesstatistik werden nun in der Summenzeile die Durchschnittswerte für einige Werte zusätzlich angezeigt.": "In der Tagesstatistik werden nun in der Summenzeile die Durchschnittswerte für einige Werte zusätzlich angezeigt.",
+    "@In der Tagesstatistik werden nun in der Summenzeile die Durchschnittswerte für einige Werte zusätzlich angezeigt.": {
+        "description": "v208a2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.7 - 17.04.2021": "2.0.7 - 17.04.2021",
+    "@2.0.7 - 17.04.2021": {
+        "description": "v207",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bei der Festlegung des Zeitraums kann man jetzt angeben, bis zu welchem Tag der Zeitraum ermittelt werden soll. Voreingestellt ist so wie bisher auch der aktuelle Tag. Man kann aber auch den gestrigen Tag einstellen, um Tage mit vollständigen Daten zu haben, oder das letzte Wochenende, wenn man an vollständigen Wochen interessiert ist.": "Bei der Festlegung des Zeitraums kann man jetzt angeben, bis zu welchem Tag der Zeitraum ermittelt werden soll. Voreingestellt ist so wie bisher auch der aktuelle Tag. Man kann aber auch den gestrigen Tag einstellen, um Tage mit vollständigen Daten zu haben, oder das letzte Wochenende, wenn man an vollständigen Wochen interessiert ist.",
+    "@Bei der Festlegung des Zeitraums kann man jetzt angeben, bis zu welchem Tag der Zeitraum ermittelt werden soll. Voreingestellt ist so wie bisher auch der aktuelle Tag. Man kann aber auch den gestrigen Tag einstellen, um Tage mit vollständigen Daten zu haben, oder das letzte Wochenende, wenn man an vollständigen Wochen interessiert ist.": {
+        "description": "v207a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf etwas anzuklicken.": "Zobrazovanie pokroku pri odpovediach v dialógoch je teraz riešené technicky odlišným spôsobom. Z toho dôvodu sa pozadie aplikácia zobrazuje v týchto sitáciách tmavšie a nie je možné kliknúť mimo dialógu.",
+    "@Dialoge und die Anzeige des Fortschritts werden nun technisch etwas anders umgesetzt. Deswegen wird der Anwendungshintergrund nun in den Fällen dunkler dargestellt und es ist nicht möglich darauf etwas anzuklicken.": {
+        "description": "v207c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten, was die Anwendung in einem unbrauchbaren Zustand zurückliess.": "Bol odstránený problém, ktorý umožňoval pomocou ESC zatvoriť dialóg a tým ponechať aplikáciu v nepoužiteľnom stave.",
+    "@Ein Fehler wurde behoben, der dazu führte, dass Dialoge mit Escape geschlossen werden konnten, was die Anwendung in einem unbrauchbaren Zustand zurückliess.": {
+        "description": "v207f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der bei der Auswahl des Zeitraums die Benutzung verhinderte, wenn man ein leeres Eingabefeld fokussierte.": "Bola odstránená chyba, kedy po kliknutí do prázdneho políčka nebolo možné pokračovať vo výbere časového intervalu.",
+    "@Ein Fehler wurde behoben, der bei der Auswahl des Zeitraums die Benutzung verhinderte, wenn man ein leeres Eingabefeld fokussierte.": {
+        "description": "v207f2",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war, wenn man den letzten Benutzer gelöscht hat.": "Bola odstránená chyba, kedy po zmazaní posledného užívateľa zostala aplikácia v nepoužiteľnom stave.",
+    "@Ein Fehler wurde behoben, der dafür sorgte, dass die Anwendung in einem undefinierten Zustand war, wenn man den letzten Benutzer gelöscht hat.": {
+        "description": "v207f3",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.": "Nesprávny popis priemerných denných sacharidov v dennej štatistike bol opravený na správne znenie popisujúce priemerné sacharidy na jedlo.",
+    "@Die falsche Bezeichnung für durchschnittliche Kohlenhydrate pro Tag in der Tagesstatistik wurde durch die korrekte Bezeichnung für durchschnittliche Kohlenhydrate pro Mahlzeit ersetzt.": {
+        "description": "v207f4",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die Ausgabe des Zielwertes und der blutigen Werte in der Tagesgrafik wurde korrigiert. Da gab es Probleme, wenn man eine andere Blutzucker Einheit als die auf dem Server eingestellte zur Ausgabe verwendet hat.": "Die Ausgabe des Zielwertes und der blutigen Werte in der Tagesgrafik wurde korrigiert. Da gab es Probleme, wenn man eine andere Blutzucker Einheit als die auf dem Server eingestellte zur Ausgabe verwendet hat.",
+    "@Die Ausgabe des Zielwertes und der blutigen Werte in der Tagesgrafik wurde korrigiert. Da gab es Probleme, wenn man eine andere Blutzucker Einheit als die auf dem Server eingestellte zur Ausgabe verwendet hat.": {
+        "description": "v207f5",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.6 - 17.03.2021": "2.0.6 - 17.03.2021",
+    "@2.0.6 - 17.03.2021": {
+        "description": "v206",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das Logo von Nightscout Reporter wurde geändert. Es ist nach wie vor die bekannte und beliebte Eule, aber sie hat nun eine Mütze auf wie die Zeitungsausträger und teilweise auch Journalisten in uralten Filmen. Das Logo ist nur im Programm vorhanden und erscheint nicht auf den PDFs. Dort ist nach wie vor das normale Nightscout Logo, weil es dort platziert wurde, um auf Nightscout selbst hinzuweisen.": "Das Logo von Nightscout Reporter wurde geändert. Es ist nach wie vor die bekannte und beliebte Eule, aber sie hat nun eine Mütze auf wie die Zeitungsausträger und teilweise auch Journalisten in uralten Filmen. Das Logo ist nur im Programm vorhanden und erscheint nicht auf den PDFs. Dort ist nach wie vor das normale Nightscout Logo, weil es dort platziert wurde, um auf Nightscout selbst hinzuweisen.",
+    "@Das Logo von Nightscout Reporter wurde geändert. Es ist nach wie vor die bekannte und beliebte Eule, aber sie hat nun eine Mütze auf wie die Zeitungsausträger und teilweise auch Journalisten in uralten Filmen. Das Logo ist nur im Programm vorhanden und erscheint nicht auf den PDFs. Dort ist nach wie vor das normale Nightscout Logo, weil es dort platziert wurde, um auf Nightscout selbst hinzuweisen.": {
+        "description": "v206c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler bei der Ausgabe der temporären Ziele in der Tagesgrafik wurde behoben.": "Ein Fehler bei der Ausgabe der temporären Ziele in der Tagesgrafik wurde behoben.",
+    "@Ein Fehler bei der Ausgabe der temporären Ziele in der Tagesgrafik wurde behoben.": {
+        "description": "v206f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.5 - 07.03.2021": "2.0.5 - 07.03.2021",
+    "@2.0.5 - 07.03.2021": {
+        "description": "v205",
+        "type": "text",
+        "placeholders": {}
+    },
+    "In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": "V dennej štatistike môžu byť zobrazené len stĺpce CDD (celkový denný inzulín) a sacharidy.",
+    "@In der Tagesstatistik können nun Spalten für TDD und Kohlenhydrate angezeigt werden.": {
+        "description": "v205a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": "Die URLs der Benutzer werden nun nach dem Enddatum sortiert.",
+    "@Die URLs der Benutzer werden nun nach dem Enddatum sortiert.": {
+        "description": "v205c1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": "Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.",
+    "@Der Titel vom Glucose Percentil Diagramm wird nun auch bei Ausdruck im Hochformat nicht mehr falsch in den Optionen Formularauswahl dargestellt.": {
+        "description": "v205f1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.0.4 - 18.02.2021": "2.0.4 - 18.02.2021",
+    "@2.0.4 - 18.02.2021": {
+        "description": "v204",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": "Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.",
+    "@Es gibt eine neue Option in der Tagesgrafik mit der man den Zielwert ein- und ausblenden kann.": {
+        "description": "v204a1",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": "Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.",
+    "@Ein Fehler wurde behoben, der dazu führte, dass bei fehlenden Daten wie z.B. Treatments gar kein PDF mehr erstellt werden konnte.": {
+        "description": "v204f1",
         "type": "text",
         "placeholders": {}
     },
@@ -3042,7 +3491,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.",
+    "Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": "Hodnoty pre analýzu neboli vždy správne načítané. Toto bolo opravené a štatistické hodnoty za obdobie sú teraz vypočítané správne.",
     "@Die Analysewerte wurden nicht ganz korrekt ermittelt. Das wurde korrigiert und nun sollten die statistischen Daten über den Zeitraum richtig ausgewertet werden.": {
         "description": "v143f1",
         "type": "text",
@@ -3330,7 +3779,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": "Dočasný bazálny koeficient na počiatku dňa bol do teraz nastavený nesprávne. Teraz je to opravené.",
+    "Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": "Dočasný bazálny koeficient na počiatku dňa bol doteraz nastavený nesprávne, ak bol zadaný predchádzajúci deň. Teraz je to opravené.",
     "@Die temporäre Basalrate am Anfang des Tages wurde bisher falsch gesetzt, wenn sie im vorherigen Tag gesetzt wurde. Das wurde behoben.": {
         "description": "v135f2",
         "type": "text",
@@ -4415,5 +4864,18 @@
         "description": "v100a1",
         "type": "text",
         "placeholders": {}
+    },
+    "ViewWhatsnewComponent0__message_34": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+    "@ViewWhatsnewComponent0__message_34": {
+        "description": "v206a1",
+        "type": "text",
+        "placeholders": {
+            "startTag0": {
+                "example": "<b>"
+            },
+            "endTag0": {
+                "example": "</b>"
+            }
+        }
     }
 }

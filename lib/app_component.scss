@@ -111,11 +111,12 @@ material-content.main {
   bottom: 0;
   scrollbar-color: var(--primaryBack) var(--secondaryBack);
 
-  > div.centered {
-    display: flex;
-    flex: 1;
-    align-items: center;
-  }
+}
+
+> div.centered {
+  display: flex;
+  flex: 1;
+  align-items: center;
 }
 
 .tileparams {
@@ -218,6 +219,17 @@ material-button svg {
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0 0 6em 2em var(--primaryBack);
+  background: var(--secondaryBack);
+  padding: 0.5em;
+  border-radius: 0.5em;
+  position: relative;
+
+  .pdfClose {
+    position: absolute;
+    right: 0.2em;
+    top: 0.2em;
+  }
 
   .pdfList {
     display: flex;
@@ -444,13 +456,6 @@ material-button svg {
   text-align: center;
 }
 
-.signintext {
-  display: flex;
-  align-self: center;
-  align-items: center;
-  flex: 1;
-}
-
 material-fab.debug-trigger {
   background: $debug_back !important;
   color: $mat-white;
@@ -463,40 +468,54 @@ material-fab.debug-trigger {
   bottom: 0.75em;
   left: 4em;
   overflow: hidden;
+  align-items: center;
   justify-content: flex-end;
 
   .logo {
     height: 90%;
   }
+
+  .donation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffc439;
+    color: black;
+    height: 2em;
+    text-transform: none;
+    border-radius: 2em !important;
+  }
 }
+
+$theme-width: 15em;
 
 @keyframes showthemes {
   0% {
-    width: 0em;
+    width: 0;
   }
   10% {
-    width: 0em;
+    width: 0;
   }
   90% {
-    width: 10.5em;
+    width: calc(#{$theme-width} + 1em);
   }
   100% {
-    width: 9.5em;
+    width: $theme-width;
   }
 }
 
 @keyframes hidethemes {
   0% {
-    width: 9.5em;
+    width: $theme-width;
   }
   10% {
-    width: 10.5em;
+    width: calc(#{$theme-width} + 1em);
   }
   90% {
-    width: 0em;
+    width: 0;
   }
   100% {
-    width: 0em;
+    width: 0;
   }
 }
 
@@ -1199,6 +1218,12 @@ datepicker {
     right: 0.8em;
   }
 
+  [copy] {
+    position: absolute;
+    bottom: 0.5em;
+    right: 0.5em;
+  }
+
   img {
     position: absolute;
     left: 50%;
@@ -1368,17 +1393,61 @@ datepicker {
   margin-left: -30%;
   margin-top: -30%;
   flex-direction: column;
+
   [header] {
     height: 64px;
     background: black;
   }
+
   [content] {
     overflow-y: auto;
     flex: 1;
     background: red;
   }
+
   [footer] {
     height: 64px;
     background: gold;
+  }
+}
+
+overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(33, 33, 33, 0.4);
+
+  .progress {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 6em 2em var(--primaryBack);
+    background: var(--secondaryBack);
+    padding: 1em;
+    border-radius: 0.5em;
+    min-width: 50vw;
+
+    material-progress {
+      margin-bottom: 1em;
+      margin-top: 1em;
+    }
+
+    material-fab {
+    }
+  }
+
+  .signintext {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
   }
 }

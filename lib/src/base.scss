@@ -11,6 +11,7 @@ body{
   --settingsBodyBack: #4dd0e1;
   --settingsBodyFore: black;
   --settingsScrollThumb: #0097a7;
+  --settingsError: #ff0000;
   --legalHeaderBack: #e65100;
   --legalHeaderFore: #ffe0b2;
   --legalBodyBack: #ffb74d;
@@ -63,4 +64,11 @@ body{
 .iconButton material-icon,
 .iconButton img {
   margin-right: 1em;
+}
+
+.imageButton {
+  img {
+    height: 16px;
+    margin-right: 1em;
+  }
 }

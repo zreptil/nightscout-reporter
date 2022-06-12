@@ -13,17 +13,19 @@ class Flags {
 
 class PrintDailyLog extends BaseProfile {
   @override
-  String help = Intl.message('''Dieses Formular zeigt die Daten in tabellarischer Form an. Es kann abhängig von den
+  String help = Intl.message(
+      '''Dieses Formular zeigt die Daten in tabellarischer Form an. Es kann abhängig von den
 ausgewählten Optionen sehr viele Seiten umfassen. Es ist vor allem dafür sinnvoll, um bestimmte Daten aufzufinden.
 Zum Beispiel kann man damit ermitteln, wann Katheterwechsel vorgenommen wurden, wieviele Datensätze als doppelt 
 erkannt wurden oder wo Notizen erfasst wurden.
-''', desc: 'help for daylog');
+''',
+      desc: 'help for daylog');
 
   @override
-  String id = 'daylog';
+  String baseId = 'daylog';
 
   @override
-  String idx = '07';
+  String baseIdx = '07';
 
   bool showNotes,
       showCarbs,
@@ -51,11 +53,15 @@ erkannt wurden oder wo Notizen erfasst wurden.
   List<ParamInfo> params = [
     ParamInfo(2, msgParam1, boolValue: true),
     ParamInfo(3, msgParam2, boolValue: true),
-    ParamInfo(4, msgParam3, boolValue: true, subParams: [ParamInfo(0, msgParam7, boolValue: true)]),
-    ParamInfo(11, msgParam4,
-        boolValue: true, isLoopValue: true, subParams: [ParamInfo(0, msgParam15, boolValue: false, isLoopValue: true)]),
+    ParamInfo(4, msgParam3,
+        boolValue: true, subParams: [ParamInfo(0, msgParam7, boolValue: true)]),
+    ParamInfo(11, msgParam4, boolValue: true, isLoopValue: true, subParams: [
+      ParamInfo(0, msgParam15, boolValue: false, isLoopValue: true)
+    ]),
     ParamInfo(10, msgParam5, boolValue: true, isLoopValue: true),
-    ParamInfo(5, msgParam6, boolValue: true, subParams: [ParamInfo(0, msgParam14, boolValue: true)]),
+    ParamInfo(5, msgParam6,
+        boolValue: true,
+        subParams: [ParamInfo(0, msgParam14, boolValue: true)]),
     ParamInfo(8, msgParam8, boolValue: true, isLoopValue: true),
     ParamInfo(0, msgParam9, list: [
       Intl.message('Keine'),
@@ -66,10 +72,14 @@ erkannt wurden oder wo Notizen erfasst wurden.
       Intl.message('1 Stunde')
     ]),
     ParamInfo(1, msgParam10, boolValue: true),
-    ParamInfo(6, msgParam11, boolValue: true, subParams: [ParamInfo(0, msgParam12, boolValue: true)]),
+    ParamInfo(6, msgParam11,
+        boolValue: true,
+        subParams: [ParamInfo(0, msgParam12, boolValue: true)]),
     ParamInfo(7, msgParam13, boolValue: true),
-    ParamInfo(12, msgParam16, boolValue: false, subParams: [ParamInfo(0, msgParam17, boolValue: false)]),
-    ParamInfo(9, msgParam18, boolValue: true, isLoopValue: true),
+    ParamInfo(12, msgParam16,
+        boolValue: false,
+        subParams: [ParamInfo(0, msgParam17, boolValue: false)]),
+    ParamInfo(9, BasePrint.msgOverrides, boolValue: true, isLoopValue: true),
   ];
 
   @override
@@ -122,36 +132,61 @@ erkannt wurden oder wo Notizen erfasst wurden.
   String get title => Intl.message('Protokoll');
 
   static String get msgParam1 => Intl.message('Notizen');
-  static String get msgParam2 => Intl.message('Kohlenhydrate');
-  static String get msgParam3 => Intl.message('Insulin');
-  static String get msgParam4 => Intl.message('Temporäre Basalraten');
-  static String get msgParam5 => Intl.message('SMB');
-  static String get msgParam6 => Intl.message('Profilwechsel');
-  static String get msgParam7 => Intl.message('Insulin-Quelle');
-  static String get msgParam8 => Intl.message('Temporäre Ziele');
-  static String get msgParam9 => Intl.message('Gruppierung der Zeiten');
-  static String get msgParam10 => Intl.message('Glukosewert');
-  static String get msgParam11 => Intl.message('Wechsel (Katheter etc.)');
-  static String get msgParam12 => Intl.message('Zusätzliche Spalte anzeigen');
-  static String get msgParam13 => Intl.message('Kalibrierung und blutige Messungen');
-  static String get msgParam14 => Intl.message('Details des Profilwechsels');
-  static String get msgParam15 => Intl.message('Dauer mit Minutenbruchteil');
-  static String get msgParam16 => Intl.message('Mehrfache Datensätze kennzeichnen');
-  static String get msgParam17 => Intl.message('Nur mehrfache Datensätze anzeigen');
-  static String get msgParam18 => Intl.message('Temporäre Overrides');
 
-  static String get msgMultipleNotFound => Intl.message('Es gibt keine mehrfachen Datensätze.');
+  static String get msgParam2 => Intl.message('Kohlenhydrate');
+
+  static String get msgParam3 => Intl.message('Insulin');
+
+  static String get msgParam4 => Intl.message('Temporäre Basalraten');
+
+  static String get msgParam5 => Intl.message('SMB');
+
+  static String get msgParam6 => Intl.message('Profilwechsel');
+
+  static String get msgParam7 => Intl.message('Insulin-Quelle');
+
+  static String get msgParam8 => Intl.message('Temporäre Ziele');
+
+  static String get msgParam9 => Intl.message('Gruppierung der Zeiten');
+
+  static String get msgParam10 => Intl.message('Glukosewert');
+
+  static String get msgParam11 => Intl.message('Wechsel (Katheter etc.)');
+
+  static String get msgParam12 => Intl.message('Zusätzliche Spalte anzeigen');
+
+  static String get msgParam13 =>
+      Intl.message('Kalibrierung und blutige Messungen');
+
+  static String get msgParam14 => Intl.message('Details des Profilwechsels');
+
+  static String get msgParam15 => Intl.message('Dauer mit Minutenbruchteil');
+
+  static String get msgParam16 =>
+      Intl.message('Mehrfache Datensätze kennzeichnen');
+
+  static String get msgParam17 =>
+      Intl.message('Nur mehrfache Datensätze anzeigen');
+
+  static String get msgMultipleNotFound =>
+      Intl.message('Es gibt keine mehrfachen Datensätze.');
 
   @override
-  List<String> get imgList => ['nightscout', 'katheter.print', 'sensor.print', 'ampulle.print', 'battery.print'];
+  List<String> get imgList => [
+        'nightscout',
+        'katheter.print',
+        'sensor.print',
+        'ampulle.print',
+        'battery.print'
+      ];
 
   @override
   bool get isPortrait => true;
 
   num lineWidth;
 
-  PrintDailyLog() {
-    init();
+  PrintDailyLog({suffix = null}) {
+    init(suffix);
   }
 
   bool _isFirstLine = true;
@@ -212,7 +247,8 @@ erkannt wurden oder wo Notizen erfasst wurden.
       }
       pages.add(Page(isPortrait, _page));
     }
-    if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
+    if (repData.isForThumbs && pages.length - oldLength > 1)
+      pages.removeRange(oldLength + 1, pages.length);
   }
 
 //  double _cellSpace = 0.11;
@@ -221,7 +257,8 @@ erkannt wurden oder wo Notizen erfasst wurden.
   final double _cellSpace = 0.12; //((23.59 / 70) - 0.3) / 2;
   double _maxY;
 
-  double lineHeight(int lineCount) => 2 * _cellSpace + lineCount * (_lineHeight + _cellSpace);
+  double lineHeight(int lineCount) =>
+      2 * _cellSpace + lineCount * (_lineHeight + _cellSpace);
 
   void fillTable(DayData day, List<Page> pages) {
     _maxY = height - 2.8;
@@ -230,7 +267,8 @@ erkannt wurden oder wo Notizen erfasst wurden.
     _isFirstLine = true;
 
 //    int groupMinutes = g.isLocal ? 60 : 0;
-    var nextTime = DateTime(day.date.year, day.date.month, day.date.day, 0, groupMinutes);
+    var nextTime =
+        DateTime(day.date.year, day.date.month, day.date.day, 0, groupMinutes);
 
     var list = <String>[];
     var flags = Flags();
@@ -256,8 +294,7 @@ erkannt wurden oder wo Notizen erfasst wurden.
         t.createdAt = e.time;
         t.eventType = 'nr-${e.type}';
         t.notes =
-            '${BasePrint.msgCalibration(g.fmtNumber(e.scale, 2), 
-                g.fmtNumber(e.intercept, 0), g.fmtNumber(e.slope, 2))}';
+            '${BasePrint.msgCalibration(g.fmtNumber(e.scale, 2), g.fmtNumber(e.intercept, 0), g.fmtNumber(e.slope, 2))}';
         treatments.add(t);
       }
     }
@@ -275,7 +312,8 @@ erkannt wurden oder wo Notizen erfasst wurden.
 
       if (groupMinutes == 0 || !t.createdAt.isBefore(nextTime)) {
         var time = t.createdAt;
-        if (groupMinutes != 0) time = nextTime.add(Duration(minutes: -groupMinutes));
+        if (groupMinutes != 0)
+          time = nextTime.add(Duration(minutes: -groupMinutes));
         while (list.isNotEmpty) {
           _hasData = true;
           if (_isFirstLine) {
@@ -283,7 +321,8 @@ erkannt wurden oder wo Notizen erfasst wurden.
             _y += lineHeight(1);
             _isFirstLine = false;
           }
-          list = fillRow(time, repData, day, row, day.findNearest(day.entries, null, time), list, flags, 'row');
+          list = fillRow(time, repData, day, row,
+              day.findNearest(day.entries, null, time), list, flags, 'row');
           row = [];
           if (list.isNotEmpty || _y + _lineHeight >= _maxY) {
             _page.add(headerFooter());
@@ -304,8 +343,8 @@ erkannt wurden oder wo Notizen erfasst wurden.
     }
   }
 
-  List<String> fillRow(DateTime time, ReportData src, DayData day, dynamic row, EntryData glucEntry, List<String> list,
-      Flags flags, String style) {
+  List<String> fillRow(DateTime time, ReportData src, DayData day, dynamic row,
+      EntryData glucEntry, List<String> list, Flags flags, String style) {
     if (list.isNotEmpty) {
       var oldY = _y;
       var size = fs(10);
@@ -331,7 +370,8 @@ erkannt wurden oder wo Notizen erfasst wurden.
       if (showGluc) wid -= 1.6;
       if (showChanges && showChangesColumn) wid -= 1.7;
       var charsPerLine = wid ~/ 0.165;
-      while (idx < lines.length && y + _lineHeight * (lines[idx].length ~/ charsPerLine + 1) < _maxY) {
+      while (idx < lines.length &&
+          y + _lineHeight * (lines[idx].length ~/ charsPerLine + 1) < _maxY) {
         y += _lineHeight * (lines[idx].length ~/ charsPerLine + 1);
         output.add(getText(y, '${lines[idx]}'));
         idx++;
@@ -340,8 +380,17 @@ erkannt wurden oder wo Notizen erfasst wurden.
       text = output.join('\n');
       if (text != '') {
         _y += 2 * _cellSpace;
-        addRow(true, cm(1.8), row, {'text': msgTime, 'style': 'total', 'fontSize': size, 'alignment': 'center'},
-            {'text': fmtTime(time), 'style': styleForTime(time), 'fontSize': size, 'alignment': 'center'});
+        addRow(true, cm(1.8), row, {
+          'text': msgTime,
+          'style': 'total',
+          'fontSize': size,
+          'alignment': 'center'
+        }, {
+          'text': fmtTime(time),
+          'style': styleForTime(time),
+          'fontSize': size,
+          'alignment': 'center'
+        });
         if (showGluc) {
           var gluc = glucEntry?.gluc;
           if (_bloodValue == null) {
@@ -355,7 +404,7 @@ erkannt wurden oder wo Notizen erfasst wurden.
               'style': style,
               'fontSize': size,
               'alignment': 'center',
-              'fillColor': colForGluc(day, gluc)
+              'fillColor': colForGlucBack(day, gluc)
             });
           } else {
             addRow(true, cm(1.3), row, {
@@ -365,7 +414,12 @@ erkannt wurden oder wo Notizen erfasst wurden.
               'alignment': 'center'
             }, {
               'stack': [
-                {'text': g.glucFromData(gluc), 'style': style, 'fontSize': size, 'alignment': 'center'},
+                {
+                  'text': g.glucFromData(gluc),
+                  'style': style,
+                  'fontSize': size,
+                  'alignment': 'center'
+                },
                 {
                   'text': g.glucFromData(_bloodValue),
                   'style': style,
@@ -374,7 +428,7 @@ erkannt wurden oder wo Notizen erfasst wurden.
                   'color': colBloodValues
                 },
               ],
-              'fillColor': colForGluc(day, gluc)
+              'fillColor': colForGlucBack(day, gluc)
             });
             _y += _lineHeight;
           }
@@ -410,12 +464,14 @@ erkannt wurden oder wo Notizen erfasst wurden.
               'width': cm(0.4)
             });
           }
-          addRow(
-              true,
-              cm(1.4),
-              row,
-              {'text': BasePrint.msgChange, 'style': 'total', 'fontSize': size, 'alignment': 'center'},
-              {'stack': stack});
+          addRow(true, cm(1.4), row, {
+            'text': BasePrint.msgChange,
+            'style': 'total',
+            'fontSize': size,
+            'alignment': 'center'
+          }, {
+            'stack': stack
+          });
         }
         addRow(true, cm(wid), row, {
           'text': getText(oldY, '${fmtDate(time, null, false, true)}'),
@@ -453,8 +509,12 @@ erkannt wurden oder wo Notizen erfasst wurden.
     for (var i = 0; i < day.profile.length; i++) {
       ret = day.profile[i];
       var check = ret.time(day.date, true);
-      if ((check.hour == time.hour && time.minute == check.minute && time.second == check.second) ||
-          (check.isBefore(time) && time.add(Duration(seconds: ret.duration)).isBefore(check))) return ret;
+      if ((check.hour == time.hour &&
+              time.minute == check.minute &&
+              time.second == check.second) ||
+          (check.isBefore(time) &&
+              time.add(Duration(seconds: ret.duration)).isBefore(check)))
+        return ret;
     }
 
     return null;
@@ -463,36 +523,58 @@ erkannt wurden oder wo Notizen erfasst wurden.
   String msgLogTempTarget(target, duration, reason) =>
       Intl.message('temp. Ziel ${target} für ${duration} min, Grund: ${reason}',
           args: [target, duration, reason], name: 'msgLogTempTarget');
+
   String get msgLogTempTargetReset => Intl.message('Aufhebung von temp. Ziel');
+
   String msgLogTempBasal(percent, duration) =>
-      Intl.message('temp. Basal ${percent}% / ${duration} min', args: [percent, duration], name: 'msgLogTempBasal');
+      Intl.message('temp. Basal ${percent}% / ${duration} min',
+          args: [percent, duration], name: 'msgLogTempBasal');
+
   String msgLogTempBasalAbsolute(value, duration) =>
-      Intl.message('temp. Basal ${value} / ${duration} min', args: [value, duration], name: 'msgLogTempBasalAbsolute');
-  String msgLogSMB(insulin, unit) => Intl.message('SMB ${insulin} ${unit}', args: [insulin, unit], name: 'msgLogSMB');
+      Intl.message('temp. Basal ${value} / ${duration} min',
+          args: [value, duration], name: 'msgLogTempBasalAbsolute');
+
+  String msgLogSMB(insulin, unit) => Intl.message('SMB ${insulin} ${unit}',
+      args: [insulin, unit], name: 'msgLogSMB');
+
   String msgLogMicroBolus(insulin, unit) =>
-      Intl.message('Microbolus ${insulin} ${unit}', args: [insulin, unit], name: 'msgLogMicroBolus');
+      Intl.message('Microbolus ${insulin} ${unit}',
+          args: [insulin, unit], name: 'msgLogMicroBolus');
+
   String get msgChangeSite => Intl.message('Katheterwechsel');
+
   String get msgChangeSensor => Intl.message('Sensorwechsel');
+
   String get msgChangeInsulin => Intl.message('Ampullenwechsel');
+
   String get msgChangeBattery => Intl.message('Batteriewechsel');
-  String msgMBG(gluc, unit) => Intl.message('Blutige Messung ${gluc} ${unit}', args: [gluc, unit], name: 'msgMBG');
-  String msgLogOverride(range, duration, reason, scale) =>
-      Intl.message('temp. Override für ${duration} min, Grund: ${reason}, Zielbereich: ${range}, Anpassung: ${scale}%',
-          args: [range, duration, reason, scale], name: 'msgLogOverride');
+
+  String msgMBG(gluc, unit) => Intl.message('Blutige Messung ${gluc} ${unit}',
+      args: [gluc, unit], name: 'msgMBG');
+
+  String msgLogOverride(range, duration, reason, scale) => Intl.message(
+      'temp. Override für ${duration} min, Grund: ${reason}, Zielbereich: ${range}, Anpassung: ${scale}%',
+      args: [range, duration, reason, scale],
+      name: 'msgLogOverride');
 
   //{"_id":"2D5C42BE-CBE7-4139-BF03-95751ABE2C3C","correctionRange":[95,100],"reason":"😰 120%",
   // "timestamp": "2020-08-23T19:56:14Z",
   // "created_at":"2020-08-23T19:56:14.000Z","eventType":"Temporary Override","insulinNeedsScaleFactor":1.2,
   // "duration":0.022495784362157187,"enteredBy":"Loop","utcOffset":0,"carbs":null,"insulin":null}
-  void fillList(bool showTime, ReportData src, DayData day, TreatmentData t, List<String> list, Flags flags) {
+  void fillList(bool showTime, ReportData src, DayData day, TreatmentData t,
+      List<String> list, Flags flags) {
     var lastIdx = list.length;
     if (showDupes && showOnlyDupes && t.duplicates < 2) return;
 
     var type = t.eventType.toLowerCase();
-    if (showNotes && t.notes != null && t.notes.isNotEmpty && !type.startsWith('nr-')) {
+    if (showNotes &&
+        t.notes != null &&
+        t.notes.isNotEmpty &&
+        !type.startsWith('nr-')) {
       list.add('${t.notes.replaceAll('<br>', '\n')}');
     }
-    if (showCarbs && t.carbs != null && t.carbs != 0) list.add('${msgCarbs(t.carbs.toString())}');
+    if (showCarbs && t.carbs != null && t.carbs != 0)
+      list.add('${msgCarbs(t.carbs.toString())}');
     if (showIE && t.insulin != null && t.insulin != 0 && !t.isSMB) {
       if (showIESource) {
         var text = t.eventType;
@@ -519,18 +601,21 @@ erkannt wurden oder wo Notizen erfasst wurden.
       if (t.insulin != null && t.insulin != 0 && t.isSMB) {
         list.add(msgLogSMB(t.insulin, msgInsulinUnit));
       } else if (t.microbolus != null && t.microbolus > 0) {
-        list.add(msgLogMicroBolus(g.fmtNumber(t.microbolus, g.basalPrecision), msgInsulinUnit));
+        list.add(msgLogMicroBolus(
+            g.fmtNumber(t.microbolus, g.basalPrecision), msgInsulinUnit));
       }
     }
     if (showTempBasal && t.isTempBasal) {
       var entry = basalFor(day, t.createdAt);
       if (entry != null && entry.tempAdjusted > 0) {
-        list.add(msgLogTempBasal(g.fmtNumber(entry.tempAdjusted * 100, 0, 0, 'null', false, true),
+        list.add(msgLogTempBasal(
+            g.fmtNumber(entry.tempAdjusted * 100, 0, 0, 'null', false, true),
             g.fmtNumber(entry.duration / 60, showTempDigit ? 1 : 0)));
       } else {
         entry = ProfileEntryData.fromTreatment(null, t);
         if (entry != null) {
-          list.add(msgLogTempBasalAbsolute(g.fmtNumber(t.absoluteTempBasal, g.basalPrecision, 0, '0', false),
+          list.add(msgLogTempBasalAbsolute(
+              g.fmtNumber(t.absoluteTempBasal, g.basalPrecision, 0, '0', false),
               g.fmtNumber(t.duration / 60, showTempDigit ? 1 : 0)));
         }
       }
@@ -542,9 +627,12 @@ erkannt wurden oder wo Notizen erfasst wurden.
     if (showTempTargets && t.isTempTarget) {
       String target;
       if (t.targetBottom == t.targetTop) {
-        target = '${g.fmtBasal(t.targetBottom)} ${g.getGlucInfo()['unit']}';
+        target = '${g.glucFromStatusMGDL(t.targetBottom)} '
+            '${g.getGlucInfo()['unit']}';
       } else {
-        target = '${t.targetBottom} - ${t.targetTop} ${g.getGlucInfo()['unit']}';
+        target = '${g.glucFromStatusMGDL(t.targetBottom)} - '
+            '${g.glucFromStatusMGDL(t.targetTop)} '
+            '${g.getGlucInfo()['unit']}';
       }
       if (t.duration == 0 && t.targetBottom == 0) {
         list.add(msgLogTempTargetReset);
@@ -580,20 +668,26 @@ erkannt wurden oder wo Notizen erfasst wurden.
     if (t.isBloody) _bloodValue = t.glucose;
 
     if (showTempOverrides && type == 'temporary override') {
-      list.add(msgLogOverride(JsonData.toText(t.raw['correctionRange']), t.duration / 60, t.reason,
+      list.add(msgLogOverride(
+          JsonData.toText(t.raw['correctionRange']),
+          t.duration / 60,
+          t.reason,
           JsonData.toDouble(t.raw['insulinNeedsScaleFactor']) * 100));
     }
 
     if (list.length != lastIdx) {
-      if (showDupes && t.duplicates > 1) list.insert(lastIdx, '${t.duplicates} x @');
+      if (showDupes && t.duplicates > 1)
+        list.insert(lastIdx, '${t.duplicates} x @');
       if (list.length != lastIdx && showTime && groupMinutes > 1) {
         var time = '[${fmtTime(t.createdAt)}]';
-        if (lastIdx < 2 || list[lastIdx - 2] != time) list.insert(lastIdx, time);
+        if (lastIdx < 2 || list[lastIdx - 2] != time)
+          list.insert(lastIdx, time);
       }
     }
   }
 
-  void addRow(bool check, var width, dynamic dst, dynamic head, dynamic content) {
+  void addRow(
+      bool check, var width, dynamic dst, dynamic head, dynamic content) {
     if (!check) return;
     if (!tableHeadFilled) {
       tableHeadLine.add(head);

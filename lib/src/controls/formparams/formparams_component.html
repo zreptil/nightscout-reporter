@@ -1,10 +1,16 @@
 <template ngFor let-param [ngForOf]="paramList">
-  <div *ngIf="param.boolValue!=null">
-    <material-checkbox [class]="getClass(param)" [(ngModel)]="param.boolValue"
+  <div *ngIf="param.literalFormat!=null && param.isVisible" class="paramLiteral">
+    <div [innerHtml]="param.title"></div>
+    <div class="divider" *ngIf="param.literalFormat.divider"></div>
+  </div>
+  <div *ngIf="param.boolValue!=null && param.isVisible">
+    <material-checkbox [class]="getClass(param)"
+                       [(ngModel)]="param.boolValue"
+                       [disabled]="param.isDisabled"
                        [label]="param.title">
     </material-checkbox>
   </div>
-  <div *ngIf="param.intValue!=null && param.list == null" class="paramSlider">
+  <div *ngIf="param.intValue!=null && param.list == null && param.isVisible" class="paramSlider">
     <div [class]="getClass(param)">{{param.title}}: {{param.intValue}}</div>
     <material-slider [class]="getClass(param, 'slider')"
                      [(min)]="param.min"
@@ -12,17 +18,17 @@
                      [(value)]="param.sliderValue">
     </material-slider>
   </div>
-  <div *ngIf="param.stringValue!=null">
+  <div *ngIf="param.stringValue!=null && param.isVisible">
     <material-input [class]="getClass(param)"
-                    [(inputText)]="param.stringValue"
+                    [(ngModel)]="param.stringValue"
                     floatingLabel
                     [label]="param.title"></material-input>
   </div>
-  <div *ngIf="param.list!=null" class="paramList">
+  <div *ngIf="param.list!=null && param.isVisible" class="paramList">
     <div [class]="getClass(param)">{{param.title}}</div>
     <material-dropdown-select [class]="getClass(param)"
-                              [label]="param.title"
                               [buttonText]="param.listValue"
+                              [disabled]="param.isDisabled"
                               popupClass="paramSelect"
                               slide="y"
                               listAutoFocus>
@@ -34,7 +40,7 @@
       </material-select-item>
     </material-dropdown-select>
   </div>
-  <div *ngIf="param.subParams!=null && param.boolValue" class="subParams">
+  <div *ngIf="param.subParams!=null && param.boolValue && param.isVisible" class="subParams">
     <formparams [paramList]="param.subParams"></formparams>
   </div>
 </template>

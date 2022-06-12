@@ -6,7 +6,7 @@
       "type": "image/png"
     }
   ],
-  "display": "fullscreen",
+  "display": "standalone",
   "name": "Nightscout Reporter",
   "permissions": [],
   "prefer_related_applications": true,
