@@ -236,7 +236,7 @@ schwächerer Schrift angezeigt wird.
       ]
     });
 
-    addTableRow(true, '*', row, {
+    addTableRow(true, 'auto', row, {
       'text': msgVeryLow(targets(repData)['verylow']),
       'style': 'total',
       'alignment': 'center',
@@ -247,7 +247,7 @@ schwächerer Schrift angezeigt wird.
       'alignment': 'right',
       'fillColor': style == 'total' ? colLowBack : null
     });
-    addTableRow(true, '*', row, {
+    addTableRow(true, 'auto', row, {
       'text': msgLow(targets(repData)['verylow'], targets(repData)['low']),
       'style': 'total',
       'alignment': 'center',
@@ -258,13 +258,13 @@ schwächerer Schrift angezeigt wird.
       'alignment': 'right',
       'fillColor': style == 'total' ? colNormLow : null
     });
-    addTableRow(true, '*', row, {'text': msgNormal, 'style': 'total', 'alignment': 'center', 'fillColor': colNorm}, {
+    addTableRow(true, 'auto', row, {'text': msgNormal, 'style': 'total', 'alignment': 'center', 'fillColor': colNorm}, {
       'text': '${g.fmtNumber(day.normPrz(g), 0)} %',
       'style': style,
       'alignment': 'right',
       'fillColor': style == 'total' ? colNormBack : null
     });
-    addTableRow(true, '*', row, {
+    addTableRow(true, 'auto', row, {
       'text': msgHigh(targets(repData)['high'], targets(repData)['veryhigh']),
       'style': 'total',
       'alignment': 'center',
@@ -275,7 +275,7 @@ schwächerer Schrift angezeigt wird.
       'alignment': 'right',
       'fillColor': style == 'total' ? colNormHigh : null
     });
-    addTableRow(true, '*', row, {
+    addTableRow(true, 'auto', row, {
       'text': msgVeryHigh(targets(repData)['veryhigh']),
       'style': 'total',
       'alignment': 'center',
@@ -425,34 +425,6 @@ schwächerer Schrift angezeigt wird.
       'alignment': 'right',
       'color': colHbA1c
     });
-    // two columns for carbohydrates. Maybe they are better placed in an extra area below the line
-    // to avoid columns to grow beyond every limit.
-/*
-    addRow(true, 'auto', row, {'text': 'KH\nin g', 'style': 'total', 'alignment': 'center'},
-      {'text': '${carbFromData(day.carbs)}', 'style': style, 'alignment': 'right'});
-    addRow(true, 'auto', row, {'text': msgKHPerDay, 'style': 'total', 'alignment': 'center'},
-      {'text': '${carbFromData(day.avgCarbs)}', 'style': style, 'alignment': 'right'});
-// */
-    addTableRow(showCount, 'auto', row, {'text': msgValues, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.fmtNumber(day.entryCountValid, 0)}', 'style': style, 'alignment': 'right'});
-    addTableRow(true, 'auto', row, {'text': msgMin, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.glucFromData(day.min)}', 'style': style, 'alignment': 'right'});
-    addTableRow(true, 'auto', row, {'text': msgMax, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.glucFromData(day.max)}', 'style': style, 'alignment': 'right'});
-    addTableRow(true, 'auto', row, {'text': msgAverage, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.glucFromData(day.mid, 1)}', 'style': style, 'alignment': 'right'});
-    addTableRow(showStdabw, 'auto', row, {'text': msgDeviation, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.fmtNumber(day.stdAbw(g.glucMGDL), 1)}', 'style': style, 'alignment': 'right'});
-    addTableRow(showVarK, 'auto', row, {'text': msgVarK, 'style': 'total', 'alignment': 'center'},
-        {'text': '${g.fmtNumber(day.varK, 1)}', 'style': style, 'alignment': 'right'});
-    addTableRow(showPercentile, 'auto', row, {'text': msg25, 'style': 'total', 'alignment': 'center'},
-        {'text': '${percentileFor(Globals.percentile(day.entries, 25))}', 'style': style, 'alignment': 'right'});
-    addTableRow(showPercentile, 'auto', row, {'text': msgMedian, 'style': 'total', 'alignment': 'center'},
-        {'text': '${percentileFor(Globals.percentile(day.entries, 50))}', 'style': style, 'alignment': 'right'});
-    addTableRow(showPercentile, 'auto', row, {'text': msg75, 'style': 'total', 'alignment': 'center'},
-        {'text': '${percentileFor(Globals.percentile(day.entries, 75))}', 'style': style, 'alignment': 'right'});
-    addTableRow(showHbA1c, 'auto', row, {'text': msgHbA1C, 'style': 'total', 'alignment': 'center', 'color': colHbA1c},
-        {'text': '${hba1c(day.mid)} %', 'style': style, 'alignment': 'right', 'color': colHbA1c});
     tableHeadFilled = true;
   }
 
