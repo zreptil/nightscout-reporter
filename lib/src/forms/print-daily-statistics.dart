@@ -58,8 +58,8 @@ schwächerer Schrift angezeigt wird.
     ParamInfo(5, msgParamColMinMax, boolValue: false),
     ParamInfo(2, msgParamColBolus, boolValue: false),
     ParamInfo(3, msgParamColTDD, boolValue: false),
-    ParamInfo(0, '', literalFormat: LiteralFormat(divider: true)),
     ParamInfo(11, msgParamExtInsulinStats, boolValue: false),
+    ParamInfo(0, '', literalFormat: LiteralFormat(divider: true)),
   ];
 
   static String get msgParamColCount => Intl.message('Spalte Messwerte');
