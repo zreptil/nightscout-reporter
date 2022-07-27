@@ -1,6 +1,15 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 @import url(https://fonts.googleapis.com/css?family=Material+Icons);
-
+/*
+With the following two lines the fonts and icons are imported for the assets
+folder and not from google. But if anybody has concerns when loading fonts
+from google, then he should definitely also remove support for synchronizing
+the data between browsers using google drive (component controls/signin).
+*/
+/*
+@import url(packages/nightscout_reporter/assets/fonts/icons/icons.css);
+@import url(packages/nightscout_reporter/assets/fonts/roboto/robot.css);
+ */
 body {
   width: 100vw;
   height: 100vh;
