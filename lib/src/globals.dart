@@ -106,6 +106,7 @@ class LangData {
       desc: 'this is the dateformat, please use dd for days, ' +
           'MM for months and yyyy for year. ' +
           'It has to be the english formatstring.');
+
   String get dateShortFormat => Intl.message('dd.MM.',
       desc: 'this is the dateformat, please use dd for days, ' +
           'MM for months and no year. ' +
@@ -127,7 +128,7 @@ class PeriodShift {
 // 21.12.2021 - 11:20 Uhr Loop pausiert - Eintrag "OpenAPS Offline" mit duration 1 Std.
 // 21.12.2021 - 11:25 Uhr Loop wieder aktiviert - Eintrag "OpenAPS Offline" mit duration 0
 class Settings {
-  String version = '2.2.1';
+  String version = '2.2.2';
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.
@@ -819,6 +820,13 @@ class Globals extends Settings {
   DomSanitizationService sanitizer;
   int currShortcutIdx = -1;
   ShortcutData currShortcut;
+  EntryData currentGlucSrc = null;
+  String currentGlucDiff;
+  String currentGlucTime;
+
+  String get currentGluc => currentGlucSrc == null
+      ? 'Keine Daten'
+      : fmtNumber(currentGlucSrc.gluc / glucFactor, glucPrecision);
 
   int ppMaxInsulinEffectInMS = 3 * 60 * 60 * 1000;
 
@@ -830,7 +838,25 @@ class Globals extends Settings {
     if (!ppComparable) _ppStandardLimits = value;
   }
 
+  String get msgAdjustFactor => fmtNumber(Globals.adjustFactor, 2);
+
+  bool _ppAdjustGluc = false;
+
+  bool get ppAdjustGluc => _ppAdjustGluc;
+
+  set ppAdjustGluc(bool value) {
+    _ppAdjustGluc = value;
+    if (_ppAdjustGluc) {
+      Globals.adjustFactor =
+          (ppAdjustLab * 28.7 - 46.7) / (ppAdjustCalc * 28.7 - 46.7);
+    } else {
+      Globals.adjustFactor = 1.0;
+    }
+  }
+
   bool ppCGPAlwaysStandardLimits = true;
+  double ppAdjustCalc = 5.0;
+  double ppAdjustLab = 5.0;
 
   bool ppComparable = false;
   int ppGlucMaxIdx = 0;
@@ -910,6 +936,9 @@ class Globals extends Settings {
       ',"d9":"${ppGlucMaxIdx?.toString() ?? 0}"'
       ',"d10":"${ppBasalPrecisionIdx?.toString() ?? 0}"'
       ',"d11":"${ppFixAAPS30?.toString() ?? 0}"'
+      ',"d12":"${ppAdjustGluc ? "true" : "false"}"'
+      ',"d13":"${ppAdjustCalc?.toString() ?? 5.0}"'
+      ',"d14":"${ppAdjustLab?.toString() ?? 5.0}"'
       '}';
 
   // loads the device settings from a json-encoded string
@@ -927,6 +956,9 @@ class Globals extends Settings {
       ppGlucMaxIdx = JsonData.toInt(json['d9']);
       ppBasalPrecisionIdx = JsonData.toInt(json['d10']);
       ppFixAAPS30 = JsonData.toBool(json['d11']);
+      ppAdjustGluc = JsonData.toBool(json['d12']);
+      ppAdjustCalc = JsonData.toDouble(json['d13']);
+      ppAdjustLab = JsonData.toDouble(json['d14']);
     } catch (ex) {
       var msg = ex.toString();
       showDebug('Fehler bei Globals.fromDeviceJson: ${msg}');
@@ -953,7 +985,10 @@ class Globals extends Settings {
       ',"ppLatestFirst":"${ppLatestFirst ? "true" : "false"}"'
       ',"ppGlucMaxIdx":"${ppGlucMaxIdx?.toString() ?? 0}"'
       ',"ppBasalPrecisionIdx":"${ppBasalPrecisionIdx?.toString() ?? 0}"'
-      ',"ppFixAAPS30":"${ppFixAAPS30?.toString() ?? 0}"';
+      ',"ppFixAAPS30":"${ppFixAAPS30?.toString() ?? 0}"'
+      ',"ppAdjustGluc":"${ppAdjustGluc ? "true" : "false"}"'
+      ',"ppAdjustCalc":"${ppAdjustCalc?.toString() ?? 5.0}"'
+      ',"ppAdjustLab":"${ppAdjustLab?.toString() ?? 5.0}"';
 
   // retrieves the settings from a json-data-structure
   @override
@@ -972,6 +1007,9 @@ class Globals extends Settings {
     ppGlucMaxIdx = JsonData.toInt(json['ppGlucMaxIdx']);
     ppBasalPrecisionIdx = JsonData.toInt(json['ppBasalPrecisionIdx']);
     ppFixAAPS30 = JsonData.toBool(json['ppFixAAPS30']);
+    ppAdjustGluc = JsonData.toBool(json['ppAdjustGluc']);
+    ppAdjustCalc = JsonData.toDouble(json['ppAdjustCalc']);
+    ppAdjustLab = JsonData.toDouble(json['ppAdjustLab']);
   }
 
   void restoreLiveStorage() {}
@@ -993,7 +1031,10 @@ class Globals extends Settings {
         ',"ppGlucMaxIdx":"${loadStorage('ppGlucMaxIdx')}"'
         ',"ppBasalPrecisionIdx":"${loadStorage('ppBasalPrecisionIdx')}"'
         ',"ppProfileMaxCount":"${loadStorage('ppProfileMaxCount')}"'
-        ',"ppFixAAPS30":"${loadStorage('ppFixAAPS30')}"';
+        ',"ppFixAAPS30":"${loadStorage('ppFixAAPS30')}"'
+        ',"ppAdjustGluc":"${loadStorage('ppAdjustGluc')}"'
+        ',"ppAdjustCalc":"${loadStorage('ppAdjustCalc')}"'
+        ',"ppAdjustLab":"${loadStorage('ppAdjustLab')}"';
   }
 
   // loads the settings that are not synchronized to google
@@ -1017,6 +1058,14 @@ class Globals extends Settings {
   int get basalPrecision => (ppBasalPrecisionIdx ?? 0) > 0
       ? basalPrecisionValues[ppBasalPrecisionIdx]
       : basalPrecisionAuto;
+
+  /// ***********************************************
+  /// Zentraler Faktor für die Kalibrierung
+  /// der Werte anhand eines vom Laber ermittelten
+  /// HbA1C im Vergleich zu einem im gleichen
+  /// 3 Monatszeitraum berechneten HbA1C
+  /// ***********************************************
+  static double adjustFactor = 1.0;
 
   static int decimalPlaces(num value) {
     var v = value.toString();

@@ -9,6 +9,18 @@
     </material-button>
   </div>
   <div class="root">
+    <h2><span @i18n="version">Version</span><span @i18n="v222">2.2.2 - 10.08.2022</span></h2>
+    <ul>
+      <li class="added" @i18n="v222a1">
+        Die Glukosewerte können nun mit einem Faktor korrigiert werden, der sich aus dem im Labor ermittelten
+        und errechneten HbA1C Wert ergibt. Dieser Faktor betrifft alle Sensorwerte, die in Nightscout Reporter
+        verarbeitet werden. Der Faktor wird in den Ausgabeparametern festgelegt. Dort wird er über die Checkbox
+        "Glukosewerte anpassen" aktiviert und deaktiviert. Wenn er aktiviert ist, erscheinen zwei Schieberegler.
+        Der obere legt den errechneten HbA1C fest, der untere den im Labor ermittelten HbA1C. Wenn er aktiviert
+        ist, wird auf jedem PDF rechts oben angegeben, mit welchem Faktor die Glukosewerte korrigiert wurden.
+        Das hat auf jedem PDF Auswirkungen auf dem Glukosewerte verarbeitet werden.
+      </li>
+    </ul>
     <h2><span @i18n="version">Version</span><span @i18n="v221">2.2.1 - 01.05.2022</span></h2>
     <ul>
       <li class="fixed" @i18n="v221f1">

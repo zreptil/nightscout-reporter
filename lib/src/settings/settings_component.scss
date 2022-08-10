@@ -42,7 +42,7 @@ material-slider {
 
     material-select-item {
       display: flex;
-      flex-direction: column;
+      flex-flow: column;
       line-height: initial;
       align-items: flex-start;
       padding: 0.2em 0.5em;
@@ -121,7 +121,7 @@ material-slider {
 
 .functions {
   display: flex;
-  flex-direction: column;
+  flex-flow: column;
   align-items: flex-start;
 }
 
@@ -173,13 +173,13 @@ material-dialog.headered-dialog {
 
 .languagePanel {
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   align-items: center;
 }
 
 .subtitle {
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   color: var(--settingsHeaderBack);
   font-size: 1.5em;
   padding-bottom: 0.5em;
@@ -189,7 +189,7 @@ material-dialog.headered-dialog {
 
 div[header] {
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   color: var(--settingsHeaderFore);
   justify-content: space-between;
   align-items: center;
@@ -254,7 +254,7 @@ login {
 
 .pdfSlider {
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   width: 90%;
   justify-content: space-between;
   align-items: center;

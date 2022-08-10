@@ -42,8 +42,10 @@
       <nav class="material-navigation">
         <material-button *ngIf="g.showCurrentGluc" raised class="currentGluc" (trigger)="getCurrentGluc()">
           <pre *ngIf="!currentGlucVisible" @i18n="message for current glucose if not active">Pausiert</pre>
-          <div *ngIf="currentGlucVisible">{{currentGluc}}
-            <div time>{{currentGlucTime}}</div>
+          <div *ngIf="currentGlucVisible">
+            <div factor *ngIf="g.ppAdjustGluc">*{{g.msgAdjustFactor}}</div>
+            {{g.currentGluc}}
+            <div time>{{g.currentGlucTime}}</div>
             <div *ngIf="g.isLocal" debug>{{currentGlucCounter}}</div>
           </div>
           <div arrow *ngIf="currentGlucVisible">
@@ -58,7 +60,7 @@
                 </g>
               </svg>
             </div>
-            <div diff class="centered">{{currentGlucDiff}}</div>
+            <div diff class="centered">{{g.currentGlucDiff}}</div>
           </div>
         </material-button>
         <a *ngIf="!g.showCurrentGluc" href="http://www.nightscout.info/" target="_blank">#WeAreNotWaiting</a>

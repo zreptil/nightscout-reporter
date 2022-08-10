@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2022-05-01T09:49:41.692333",
+  "@@last_modified": "2022-08-10T19:16:43.072069",
   "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
   "@Überprüfe Zugriff auf Nightscout ...": {
     "type": "text",
@@ -91,6 +91,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.",
+  "@Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "Beim Erzeugen des PDF ist ein Fehler aufgetreten.",
   "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
     "type": "text",
@@ -146,6 +151,12 @@
   "dd.MM.yyyy": "dd.MM.yyyy",
   "@dd.MM.yyyy": {
     "description": "this is the dateformat, please use dd for days, MM for months and yyyy for year. It has to be the english formatstring.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "dd.MM.": "dd.MM.",
+  "@dd.MM.": {
+    "description": "this is the dateformat, please use dd for days, MM for months and no year. It has to be the english formatstring.",
     "type": "text",
     "placeholders": {}
   },
@@ -466,6 +477,13 @@
       "count": {}
     }
   },
+  "msgKW": "KW{date}",
+  "@msgKW": {
+    "type": "text",
+    "placeholders": {
+      "date": {}
+    }
+  },
   "msgValidRange": "gültig von {begDate} bis {endDate}",
   "@msgValidRange": {
     "type": "text",
@@ -531,6 +549,13 @@
   "@Glukosekurve": {
     "type": "text",
     "placeholders": {}
+  },
+  "_msgAdjustGlucHint": "Alle sensorischen Glukosewerte sind mit dem Faktor {factor} multipliziert",
+  "@_msgAdjustGlucHint": {
+    "type": "text",
+    "placeholders": {
+      "factor": {}
+    }
   },
   "msgCarbs": "Kohlenhydrate ({value}g)",
   "@msgCarbs": {
@@ -1459,6 +1484,11 @@
     "type": "text",
     "placeholders": {}
   },
+  " pro Tag": " pro Tag",
+  "@ pro Tag": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Dieses Formular zeigt die Basalrate, die im Profil eingestellt ist in graphischer Form an.\nEs werden normalerweise alle Basalraten des ausgewählten Zeitraums ausgegeben. Wenn sich in dem Zeitraum\ndie Basalrate geändert hat, wird eine neue Seite erzeugt.\n\nEs gibt aber eine Option, welche nur die letzte Basalrate des Zeitraums ausgibt.": "Dieses Formular zeigt die Basalrate, die im Profil eingestellt ist in graphischer Form an.\nEs werden normalerweise alle Basalraten des ausgewählten Zeitraums ausgegeben. Wenn sich in dem Zeitraum\ndie Basalrate geändert hat, wird eine neue Seite erzeugt.\n\nEs gibt aber eine Option, welche nur die letzte Basalrate des Zeitraums ausgibt.",
   "@Dieses Formular zeigt die Basalrate, die im Profil eingestellt ist in graphischer Form an.\nEs werden normalerweise alle Basalraten des ausgewählten Zeitraums ausgegeben. Wenn sich in dem Zeitraum\ndie Basalrate geändert hat, wird eine neue Seite erzeugt.\n\nEs gibt aber eine Option, welche nur die letzte Basalrate des Zeitraums ausgibt.": {
     "description": "help for basal",
@@ -2106,6 +2136,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Tagesstatistik": "Tagesstatistik",
+  "@Tagesstatistik": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Spalte Messwerte": "Spalte Messwerte",
   "@Spalte Messwerte": {
     "type": "text",
@@ -2156,11 +2191,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Tagesstatistik": "Tagesstatistik",
-  "@Tagesstatistik": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": "Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.",
   "@Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": {
     "description": "help for template",
@@ -2181,6 +2211,43 @@
   "@Schritte": {
     "type": "text",
     "placeholders": {}
+  },
+  "Dieses Formular zeigt die Insulinverteilung im ausgewählten Zeitraum.\n": "Dieses Formular zeigt die Insulinverteilung im ausgewählten Zeitraum.\n",
+  "@Dieses Formular zeigt die Insulinverteilung im ausgewählten Zeitraum.\n": {
+    "description": "help for insulinstats",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Insulinstatistik": "Insulinstatistik",
+  "@Insulinstatistik": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Gesamtinsulin": "Gesamtinsulin",
+  "@Gesamtinsulin": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgPerDay": "{name} pro Tag",
+  "@msgPerDay": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "msgPerWeek": "{name} pro Woche",
+  "@msgPerWeek": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "msgPerMonth": "{name} pro Monat",
+  "@msgPerMonth": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
   },
   "Dieses Formular zeigt an, wie sich die Glukosewerte im ausgewählten Zeitraum über den Tag\nverteilen. Diese Verteilung kann graphisch und tabellarisch ausgegeben werden.\n\nIn der Grafik sind die Bereiche für bestimmte Abweichungen farblich markiert. Die Linie zeigt den Medianwert\nan. In der Tabelle kann man diese Werte nachlesen. Wenn die Basalrate mit ausgegeben wird, dann ist das die\nBasalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.": "Dieses Formular zeigt an, wie sich die Glukosewerte im ausgewählten Zeitraum über den Tag\nverteilen. Diese Verteilung kann graphisch und tabellarisch ausgegeben werden.\n\nIn der Grafik sind die Bereiche für bestimmte Abweichungen farblich markiert. Die Linie zeigt den Medianwert\nan. In der Tabelle kann man diese Werte nachlesen. Wenn die Basalrate mit ausgegeben wird, dann ist das die\nBasalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.",
   "@Dieses Formular zeigt an, wie sich die Glukosewerte im ausgewählten Zeitraum über den Tag\nverteilen. Diese Verteilung kann graphisch und tabellarisch ausgegeben werden.\n\nIn der Grafik sind die Bereiche für bestimmte Abweichungen farblich markiert. Die Linie zeigt den Medianwert\nan. In der Tabelle kann man diese Werte nachlesen. Wenn die Basalrate mit ausgegeben wird, dann ist das die\nBasalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.": {
@@ -2357,6 +2424,25 @@
       "low": {},
       "high": {},
       "unit": {}
+    }
+  },
+  "Glukosewerte anpassen": "Glukosewerte anpassen",
+  "@Glukosewerte anpassen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "_msgAdjustCalc": "Errechneter HbA1C: {value}%",
+  "@_msgAdjustCalc": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "_msgAdjustLab": "Im Labor ermittelter HbA1C: {value}%",
+  "@_msgAdjustLab": {
+    "type": "text",
+    "placeholders": {
+      "value": {}
     }
   },
   "CGP immer mit Standard Zielbereich": "CGP immer mit Standard Zielbereich",
@@ -2942,6 +3028,18 @@
   "Einstiegsvideo": "Einstiegsvideo",
   "@Einstiegsvideo": {
     "description": "label for button to open settings on welcome screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "2.2.2 - 10.08.2022": "2.2.2 - 10.08.2022",
+  "@2.2.2 - 10.08.2022": {
+    "description": "v222",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Glukosewerte können nun mit einem Faktor korrigiert werden, der sich aus dem im Labor ermittelten und errechneten HbA1C Wert ergibt. Dieser Faktor betrifft alle Sensorwerte, die in Nightscout Reporter verarbeitet werden. Der Faktor wird in den Ausgabeparametern festgelegt. Dort wird er über die Checkbox \"Glukosewerte anpassen\" aktiviert und deaktiviert. Wenn er aktiviert ist, erscheinen zwei Schieberegler. Der obere legt den errechneten HbA1C fest, der untere den im Labor ermittelten HbA1C. Wenn er aktiviert ist, wird auf jedem PDF rechts oben angegeben, mit welchem Faktor die Glukosewerte korrigiert wurden. Das hat auf jedem PDF Auswirkungen auf dem Glukosewerte verarbeitet werden.": "Die Glukosewerte können nun mit einem Faktor korrigiert werden, der sich aus dem im Labor ermittelten und errechneten HbA1C Wert ergibt. Dieser Faktor betrifft alle Sensorwerte, die in Nightscout Reporter verarbeitet werden. Der Faktor wird in den Ausgabeparametern festgelegt. Dort wird er über die Checkbox \"Glukosewerte anpassen\" aktiviert und deaktiviert. Wenn er aktiviert ist, erscheinen zwei Schieberegler. Der obere legt den errechneten HbA1C fest, der untere den im Labor ermittelten HbA1C. Wenn er aktiviert ist, wird auf jedem PDF rechts oben angegeben, mit welchem Faktor die Glukosewerte korrigiert wurden. Das hat auf jedem PDF Auswirkungen auf dem Glukosewerte verarbeitet werden.",
+  "@Die Glukosewerte können nun mit einem Faktor korrigiert werden, der sich aus dem im Labor ermittelten und errechneten HbA1C Wert ergibt. Dieser Faktor betrifft alle Sensorwerte, die in Nightscout Reporter verarbeitet werden. Der Faktor wird in den Ausgabeparametern festgelegt. Dort wird er über die Checkbox \"Glukosewerte anpassen\" aktiviert und deaktiviert. Wenn er aktiviert ist, erscheinen zwei Schieberegler. Der obere legt den errechneten HbA1C fest, der untere den im Labor ermittelten HbA1C. Wenn er aktiviert ist, wird auf jedem PDF rechts oben angegeben, mit welchem Faktor die Glukosewerte korrigiert wurden. Das hat auf jedem PDF Auswirkungen auf dem Glukosewerte verarbeitet werden.": {
+    "description": "v222a1",
     "type": "text",
     "placeholders": {}
   },
@@ -4865,8 +4963,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_34": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-  "@ViewWhatsnewComponent0__message_34": {
+  "ViewWhatsnewComponent0__message_36": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+  "@ViewWhatsnewComponent0__message_36": {
     "description": "v206a1",
     "type": "text",
     "placeholders": {

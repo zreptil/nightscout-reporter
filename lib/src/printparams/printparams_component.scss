@@ -3,8 +3,36 @@
 @import 'package:angular_components/material_dialog/mixins';
 @import 'package:angular_components/material_list/mixins';
 @import 'package:angular_components/material_select/mixins';
+@import 'package:angular_components/material_slider/mixins';
 @import 'package:angular_components/material_checkbox/mixins';
 @import 'package:angular_components/material_toggle/mixins';
+
+material-slider {
+  width: 100%;
+  margin-left: 0.5em;
+
+  .container {
+    height: initial !important;
+  }
+}
+
+// this mixin is neccessary since the original uses transparantize, which doesn't work with variables
+@mixin nr-slider-thumb-color($selector, $fore, $back) {
+  ::ng-deep #{$selector} .knob-real,
+  ::ng-deep #{$selector} .is-dragging.knob-drag-shadow {
+    background-color: $fore;
+  }
+
+  ::ng-deep #{$selector} .knob:focus,
+  ::ng-deep #{$selector} .knob:hover {
+    .knob-hover-shadow {
+      background-color: $back;
+    }
+  }
+}
+
+@include nr-slider-thumb-color("material-slider.adjust-slider", var(--printparamsHeaderBack), var(--printparamsHeaderFore));
+@include slider-track-color("material-slider.adjust-slider", var(--printparamsHeaderBack) !important, var(--printparamsHeaderFore) !important);
 
 .controls {
   display: flex;
@@ -23,12 +51,12 @@
 
 .functions {
   display: flex;
-  flex-direction: column;
+  flex-flow: column;
   align-items: flex-start;
 
   > div {
     display: flex;
-    flex-direction: row;
+    flex-flow: row;
     align-items: center;
 
     div:first-child {
@@ -89,13 +117,13 @@ material-dialog.headered-dialog {
 
 .languagePanel {
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   align-items: center;
 }
 
 .subtitle {
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   color: var(--printparamsHeaderBack);
   font-size: 1.5em;
   padding-bottom: 0.5em;
@@ -116,7 +144,7 @@ material-dialog.headered-dialog {
 
 div[header] {
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   color: var(--printparamsHeaderFore);
   justify-content: space-between;
   align-items: center;
@@ -136,6 +164,23 @@ div[footer] {
 .progress {
   padding: 2em;
   font-size: 1.2em;
+}
+
+.adjustPanel {
+  display: flex;
+  flex-flow: column !important;
+  width: 50%;
+
+  .adjust {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    margin: 0 0 0 5em !important;
+
+    .label {
+      font-size: 70%;
+    }
+  }
 }
 
 material-input {
@@ -179,7 +224,7 @@ material-input {
 
     material-select-item {
       display: flex;
-      flex-direction: column;
+      flex-flow: column;
       line-height: initial;
       align-items: flex-start;
       padding: 0.2em 0.5em;
@@ -217,6 +262,3 @@ material-button[raised] {
 material-dropdown-select {
   margin-bottom: 0.2em;
 }
-
-
-

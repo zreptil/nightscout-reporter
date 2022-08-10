@@ -30,6 +30,7 @@ import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-profile.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-gluc-distribution.dart';
+import 'package:nightscout_reporter/src/forms/print-insulin-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/forms/print-user-data.dart';
@@ -200,6 +201,7 @@ class AppComponent implements OnInit {
       'Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). '
       'Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.');
 
+  String get msgInsulinError => Intl.message('Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.');
   String get msgPDFCreationError => Intl.message('Beim Erzeugen des PDF ist ein Fehler aufgetreten.');
 
   String get msgGitHubIssue => Intl.message('Problem auf GitHub melden');
@@ -242,9 +244,6 @@ class AppComponent implements OnInit {
     return true;
   }
 
-  String currentGluc;
-  String currentGlucDiff;
-  String currentGlucTime;
   int glucDir = 360;
 
   String get currentGlucDir => glucDir < 360 ? 'translate(0,2px)rotate(${glucDir}deg)' : null;
@@ -258,6 +257,8 @@ class AppComponent implements OnInit {
       glucTimer.cancel();
       glucTimer = null;
     }
+    // make sure the value uses the correct factor
+    g.ppAdjustGluc = g.ppAdjustGluc;
 
     currentGlucCounter++;
 
@@ -275,8 +276,8 @@ class AppComponent implements OnInit {
     List<dynamic> src = await g.requestJson(url);
     if (src != null) {
       if (src.length != 2) {
-        currentGluc = 'Keine Daten';
-        currentGlucDiff = '';
+        g.currentGlucSrc = null;
+        g.currentGlucDiff = '';
         glucDir = 360;
       } else {
         try {
@@ -284,16 +285,16 @@ class AppComponent implements OnInit {
           var ePrev = EntryData.fromJson(src[1]);
           var span = eNow.time.difference(ePrev.time).inMinutes;
           glucDir = 360;
-          currentGlucDiff = '';
-          currentGlucTime = '';
+          g.currentGlucDiff = '';
+          g.currentGlucTime = '';
           if (span > 15) {
-            return currentGluc;
+            return g.currentGluc;
           }
           var time = DateTime.now().difference(eNow.time).inMinutes;
-          currentGlucTime = '${time} min';
+          g.currentGlucTime = '${time} min';
 
-          currentGluc = g.fmtNumber(eNow.gluc / g.glucFactor, g.glucPrecision);
-          currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
+          g.currentGlucSrc = eNow;
+          g.currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
               '${g.fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / g.glucFactor, g.glucPrecision)}';
           var diff = eNow.gluc - ePrev.gluc;
           var limit = 10 * span ~/ 5;
@@ -305,8 +306,8 @@ class AppComponent implements OnInit {
             glucDir = 90 - ((diff + limit) / limit * 90).toInt();
           }
         } catch (ex) {
-          currentGluc = '?';
-          currentGlucDiff = '';
+          g.currentGlucSrc = null;
+          g.currentGlucDiff = '';
           glucDir = 360;
         }
       }
@@ -315,7 +316,7 @@ class AppComponent implements OnInit {
     if (currentGlucVisible) glucTimer = Timer(Duration(minutes: 1), () => getCurrentGluc());
 
     glucRunning = false;
-    return currentGluc;
+    return g.currentGluc;
   }
 
   String getDrawerClass(int menu) {
@@ -409,6 +410,8 @@ class AppComponent implements OnInit {
       PrintDailyHours(),
       PrintUserData(),
       PrintGlucDistribution()
+      // maybe activated later
+      // PrintInsulinStatistics(),
     ];
     g.listConfig = <FormConfig>[];
     g.listConfigOrg = <FormConfig>[];
@@ -1129,7 +1132,36 @@ class AppComponent implements OnInit {
           ]);
 // */
       }
-
+/*
+      url = urlData.fullUrl('insulin');
+      content = await g.request(url);
+      data.insulinProfiles = [];
+      try {
+        List<dynamic> src = json.decode(content);
+        for (dynamic entry in src) {
+          // don't add profiles that cannot be read
+          try {
+            var insulin = InsulinData.fromJson(entry);
+            data.insulinProfiles.add(insulin);
+            var maxEffect = insulin.IOB1Min.length * 60 * 1000;
+            data.globals.ppMaxInsulinEffectInMS = math.max(data.globals.ppMaxInsulinEffectInMS, maxEffect);
+          } catch (ex) {
+            data.insulinProfiles = null;
+          }
+        }
+        displayLink('insulin', url, type: 'debug');
+      } catch (ex) {
+        if (g.isDebug) {
+          if (ex is Error) {
+            display('${ex.toString()}\n${ex.stackTrace}');
+          } else {
+            display(ex.toString());
+          }
+        } else {
+          // display(msgInsulinError);
+        }
+      }
+// */
       var params = 'find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch';
       if (g.ppFixAAPS30) {
         params += '&find[profilePlugin][\$ne]=info.nightscout.androidaps.plugins.profile.local.LocalProfilePlugin&count=10000';
@@ -1329,7 +1361,7 @@ class AppComponent implements OnInit {
           if (src != null) {
             var list = <TreatmentData>[];
             for (dynamic treatment in src) {
-              list.add(TreatmentData.fromJson(g, treatment));
+              list.add(TreatmentData.fromJson(g, treatment, data.insulinProfiles));
             }
             list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
             if (list.isNotEmpty) lastTempBasal = list.last;
@@ -1345,7 +1377,7 @@ class AppComponent implements OnInit {
           displayLink('t${begDate.format(g.fmtDateForDisplay)} (${src.length})', url, type: 'debug');
           for (dynamic treatment in src) {
             hasData = true;
-            var t = TreatmentData.fromJson(g, treatment);
+            var t = TreatmentData.fromJson(g, treatment, data.insulinProfiles);
             // Treatments entered by sync are ignored
             if (t.enteredBy == 'sync') {
             } else if (data.ns.treatments.isNotEmpty && t.equals(data.ns.treatments.last)) {
