@@ -29,6 +29,8 @@ class PentagonScaleData {
 }
 
 class PentagonData {
+  bool showAreaLines = true;
+
   static String msgTOR([value = '']) {
     if (value != '') value = '${value} ';
     return Intl.message('ToR [${value}min/d]', args: [value], name: 'msgTOR');
@@ -36,39 +38,44 @@ class PentagonData {
 
   static String msgCV([value = '']) {
     if (value != '') value = '${value} ';
-    return Intl.message('VarK [${value}%]', args: [value], name: 'msgCV'); //Intl.message('CV [%]');
+    return Intl.message('VarK [${value}%]',
+        args: [value], name: 'msgCV'); //Intl.message('CV [%]');
   }
 
   static String msgHYPO(unit, [value = '']) {
     if (value != '') unit = '${value} ${unit}';
     return Intl.message('Intensität HYPO\n[${unit} x min²]',
         args: [unit, value],
-        name: 'msgHYPO'); //Intl.message('Intensity HYPO\n[${unit} x min²]', args: [unit], name: 'msgHYPO');
+        name:
+            'msgHYPO'); //Intl.message('Intensity HYPO\n[${unit} x min²]', args: [unit], name: 'msgHYPO');
   }
 
   static String msgHYPER(unit, [value = '']) {
     if (value != '') unit = '${value} ${unit}';
     return Intl.message('Intensität HYPER\n[${unit} x min²]',
         args: [unit, value],
-        name: 'msgHYPER'); //Intl.message('Intensity HYPER\n[${unit} x min²]', args: [unit], name: 'msgHYPER');
+        name:
+            'msgHYPER'); //Intl.message('Intensity HYPER\n[${unit} x min²]', args: [unit], name: 'msgHYPER');
   }
 
   static String msgMEAN(unit, [value = '']) {
     if (value != '') unit = '${value} ${unit}';
     return Intl.message('Mittlere Glukose\n[${unit}]',
-        args: [unit, value], name: 'msgMEAN'); //Intl.message('Mean glucose\n[${unit}]', args: [unit], name: 'msgMEAN');
+        args: [unit, value],
+        name:
+            'msgMEAN'); //Intl.message('Mean glucose\n[${unit}]', args: [unit], name: 'msgMEAN');
   }
 
   static String get msgPGR => Intl.message('PGR');
 
-  static String get msgGreen =>
-      Intl.message('Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.');
+  static String get msgGreen => Intl.message(
+      'Das grüne Fünfeck stellt den Wertebereich eines gesunden Menschen ohne Diabetes dar.');
 
-  static String get msgYellow =>
-      Intl.message('Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.');
+  static String get msgYellow => Intl.message(
+      'Das gelbe Fünfeck stellt den Wertebereich des angegebenen Zeitraums dar.');
 
-  static String get msgYellowCircle =>
-      Intl.message('Gelbe Kreise zeigen an, dass der entsprechende Wert die Skala überschreitet.');
+  static String get msgYellowCircle => Intl.message(
+      'Gelbe Kreise zeigen an, dass der entsprechende Wert die Skala überschreitet.');
 
   static String msgTORInfo(min, max) {
     return Intl.message(
@@ -77,26 +84,32 @@ class PentagonData {
         name: 'msgTORInfo');
   }
 
-  static String get msgCVInfo => Intl.message('Die glykämische Variabilität stellt die Streuung der Werte um den'
+  static String get msgCVInfo => Intl.message(
+      'Die glykämische Variabilität stellt die Streuung der Werte um den'
       ' glykämischen Mittelwert herum in Prozent dar.');
 
   static String msgHYPOInfo(unit) {
-    return Intl.message('Die Intensität von Hypoglykämien pro Tag (Werte kleiner oder gleich ${unit}).',
-        args: [unit], name: 'msgHYPOInfo');
+    return Intl.message(
+        'Die Intensität von Hypoglykämien pro Tag (Werte kleiner oder gleich ${unit}).',
+        args: [unit],
+        name: 'msgHYPOInfo');
   }
 
   static String msgHYPERInfo(unit) {
-    return Intl.message('Die Intensität von Hyperglykämien pro Tag (Werte grösser oder gleich ${unit}).',
-        args: [unit], name: 'msgHYPERInfo');
+    return Intl.message(
+        'Die Intensität von Hyperglykämien pro Tag (Werte grösser oder gleich ${unit}).',
+        args: [unit],
+        name: 'msgHYPERInfo');
   }
 
   static String msgMEANInfo(hba1c) {
-    return Intl.message('Der glykämische Mittelwert im betrachteten Zeitraum.', args: [hba1c], name: 'msgMEANInfo');
+    return Intl.message('Der glykämische Mittelwert im betrachteten Zeitraum.',
+        args: [hba1c], name: 'msgMEANInfo');
   }
 
-  static String get msgPGRInfo =>
-      Intl.message('Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen'
-          ' dar (bisher nicht durch Studien belegt).');
+  static String get msgPGRInfo => Intl.message(
+      'Der prognostische glykämische Risikoparameter stellt das Risiko von Langzeitkomplikationen'
+      ' dar (bisher nicht durch Studien belegt).');
 
   static String get msgPGR02 => Intl.message('0,0 bis 2,0');
 
@@ -130,7 +143,12 @@ class PentagonData {
   Globals g;
   bool hasLimitBreakers = false;
 
-  PentagonData(this.g, this.glucInfo, this.cm, this.fs, {this.xm, this.ym, this.scale, this.fontsize = -1}) {
+  PentagonData(this.g, this.glucInfo, this.cm, this.fs,
+      {this.xm,
+      this.ym,
+      this.scale,
+      this.fontsize = -1,
+      this.showAreaLines = true}) {
     axis = [
       PentagonScaleData([0, 300, 480, 720, 900, 1080, 1200, 1440], 1,
           scaleMethod: (v) => math.pow(v * 0.00614, 1.581) + 14,
@@ -154,7 +172,8 @@ class PentagonData {
           nameY: 0.1,
           valueX: -0.2,
           valueY: 0.1),
-      PentagonScaleData([0, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130], g.glucFactor,
+      PentagonScaleData(
+          [0, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130], g.glucFactor,
           scaleMethod: (v) => math.pow(v * 0.115, 1.51) + 14,
           name: msgHYPER(glucInfo['unit']),
           beg: 0.25,
@@ -163,7 +182,8 @@ class PentagonData {
           valueX: 0.1,
           valueY: 0.1),
       PentagonScaleData([130, 190, 220, 250, 280, 310], g.glucFactor,
-          scaleMethod: (v) => math.pow((v >= 90 ? v - 90 : 0.0) * 0.0217, 2.63) + 14,
+          scaleMethod: (v) =>
+              math.pow((v >= 90 ? v - 90 : 0.0) * 0.0217, 2.63) + 14,
           name: msgMEAN(glucInfo['unit']),
           nameX: -2.5,
           nameY: -0.73,
@@ -179,14 +199,20 @@ class PentagonData {
     fontsize *= scale;
   }
 
-  void paintPentagon(double factor, double lw, {String colLine, String colFill, double opacity = 1.0}) {
+  void paintPentagon(double factor, double lw,
+      {String colLine, String colFill, double opacity = 1.0}) {
     lw *= scale;
     var points = [];
     for (var i = 0; i < axis.length; i++) {
       points.add(_point(i, factor));
     }
-    outputCvs
-        .add({'type': 'polyline', 'lineWidth': cm(lw), 'closePath': true, 'points': points, 'fillOpacity': opacity});
+    outputCvs.add({
+      'type': 'polyline',
+      'lineWidth': cm(lw),
+      'closePath': true,
+      'points': points,
+      'fillOpacity': opacity
+    });
     if (colLine != null) outputCvs.last['lineColor'] = colLine;
     if (colFill != null) outputCvs.last['color'] = colFill;
   }
@@ -196,7 +222,14 @@ class PentagonData {
     for (var i = 0; i < axis.length; i++) {
       if (i > 11) continue;
       var pt = _point(i, 1.10);
-      outputCvs.add({'type': 'line', 'x1': cm(xm), 'y1': cm(ym), 'x2': pt['x'], 'y2': pt['y'], 'lineWidth': cm(lw)});
+      outputCvs.add({
+        'type': 'line',
+        'x1': cm(xm),
+        'y1': cm(ym),
+        'x2': pt['x'],
+        'y2': pt['y'],
+        'lineWidth': cm(lw)
+      });
       if (colLine != null) outputCvs.last['lineColor'] = colLine;
       outputText.add({
         'relativePosition': {
@@ -226,13 +259,21 @@ class PentagonData {
         var y1 = y - 0.5 * dx * f;
         var x2 = x - 0.5 * dy * f;
         var y2 = y + 0.5 * dx * f;
-        outputCvs.add({'type': 'line', 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2, 'lineWidth': cm(lw)});
+        outputCvs.add({
+          'type': 'line',
+          'x1': x1,
+          'y1': y1,
+          'x2': x2,
+          'y2': y2,
+          'lineWidth': cm(lw)
+        });
         if (colLine != null) outputCvs.last['lineColor'] = colLine;
         var precision = axis[i].legendFactor == 1 ? 0 : 1;
         var number = g.fmtNumber(value / axis[i].legendFactor, precision);
         while (number == lastNumber) {
           number = g.fmtNumber(value / axis[i].legendFactor, ++precision);
-          lastNumber = g.fmtNumber(lastValue / axis[i].legendFactor, precision, 0, 'null', true);
+          lastNumber = g.fmtNumber(
+              lastValue / axis[i].legendFactor, precision, 0, 'null', true);
         }
         if (i > 0) outputText.last['text'] = lastNumber;
         outputText.add({
@@ -250,7 +291,11 @@ class PentagonData {
   }
 
   double paintValues(List<double> values, double lw,
-      {String colLine, String colFill, double opacity = 1.0, bool showLimitBreaks = true, bool limitValues = true}) {
+      {String colLine,
+      String colFill,
+      double opacity = 1.0,
+      bool showLimitBreaks = true,
+      bool limitValues = true}) {
     lw *= scale;
     var points = [];
     hasLimitBreakers = false;
@@ -277,9 +322,14 @@ class PentagonData {
         });
       }
     }
-    outputCvs
-        .add({'type': 'polyline', 'lineWidth': cm(lw), 'closePath': true, 'points': points, 'fillOpacity': opacity});
-    if (colLine != null) outputCvs.last['lineColor'] = colLine;
+    outputCvs.add({
+      'type': 'polyline',
+      'lineWidth': cm(lw),
+      'closePath': true,
+      'points': points,
+      'fillOpacity': opacity
+    });
+    if (colLine != null && showAreaLines) outputCvs.last['lineColor'] = colLine;
     if (colFill != null) outputCvs.last['color'] = colFill;
 
     return calcArea(values);
@@ -298,7 +348,8 @@ class PentagonData {
 
     for (var i = 0; i < values.length && i < axis.length; i++) {
       double a = axis[i]._scaleMethod(values[i]);
-      double b = axis[i < axis.length - 1 ? i + 1 : 0]._scaleMethod(values[i < values.length - 1 ? i + 1 : 0]);
+      double b = axis[i < axis.length - 1 ? i + 1 : 0]
+          ._scaleMethod(values[i < values.length - 1 ? i + 1 : 0]);
       ret += a * b / 2 * math.sin(deg);
     }
 
@@ -308,15 +359,18 @@ class PentagonData {
 
 class PrintCGP extends BasePrint {
   @override
-  String help =
-  Intl.message('''Dieses Formular zeigt das Comprehensive Glucose Pentagon an, welches die Qualität der 
+  String help = Intl.message(
+      '''Dieses Formular zeigt das Comprehensive Glucose Pentagon an, welches die Qualität der 
 Glukoseeinstellung in einer schnell zu erfassenden Weise darstellt. Es wird für den ausgewählten Zeitraum angezeigt
 wie lange der Glukosewert im Schnitt während des Tages ausserhalb des Zielbereichs war, wie hoch die Intensität
 der Überzuckerungen und der Unterzuckerungen war, wie hoch der Mittelwert war und wie hoch die Variabilität der
 Werte war.
 
 Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden. 
-''', desc: 'help for cgp');
+''',
+      desc: 'help for cgp');
+
+  static String get msgParamAreaLines => Intl.message('Linien um Bereiche');
 
   @override
   String baseId = 'cgp';
@@ -331,10 +385,13 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
   String get subtitle => Intl.message('Comprehensive Glucose Pentagon');
 
   bool _isPortrait = true;
+  bool showAreaLines;
 
   @override
   List<ParamInfo> params = [
-    ParamInfo(0, BasePrint.msgOrientation, list: [Intl.message('Hochformat'), Intl.message('Querformat')]),
+    ParamInfo(0, BasePrint.msgOrientation,
+        list: [Intl.message('Hochformat'), Intl.message('Querformat')]),
+    ParamInfo(1, msgParamAreaLines, boolValue: true),
   ];
 
   @override
@@ -361,6 +418,7 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
         isPortraitParam = false;
         break;
     }
+    showAreaLines = params[1].boolValue;
   }
 
   @override
@@ -376,9 +434,10 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
 
   Page getPage() {
     titleInfo = titleInfoBegEnd();
-    if (!isPortrait) return getCGPPage(repData.data.days);
+    if (!isPortrait) return getCGPPage(repData.data.days, showAreaLines);
 
-    var cgpSrc = calcCGP(repData.data.days, scale, width / 2 - xorg, 0);
+    var cgpSrc =
+        calcCGP(repData.data.days, scale, width / 2 - xorg, 0, showAreaLines);
     PentagonData cgp = cgpSrc['cgp'];
     var ret = [
       headerFooter(),
@@ -390,13 +449,19 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
         'relativePosition': {'x': cm(xorg), 'y': cm(yorg)},
         'stack': cgp.outputText
       },
-      infoTable(cgpSrc, cgp.glucInfo['unit'], xorg, yorg + cgp.ym + cgp.axisLength * cgp.scale + 1.0, 2.5,
+      infoTable(
+          cgpSrc,
+          cgp.glucInfo['unit'],
+          xorg,
+          yorg + cgp.ym + cgp.axisLength * cgp.scale + 1.0,
+          2.5,
           width - 2 * xorg - 2.5)
     ];
     return Page(isPortrait, ret);
   }
 
-  dynamic infoTable(dynamic cgp, String unit, double x, double y, double widthId, double widthText) {
+  dynamic infoTable(dynamic cgp, String unit, double x, double y,
+      double widthId, double widthText) {
     double pgr = cgp['pgr'];
     return {
       'relativePosition': {'x': cm(x), 'y': cm(y)},
@@ -416,13 +481,19 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
 //            {'text': '${cgp['countValid']}'}
           ],
           [
-            {'text': cgp['cgp'].hasLimitBreakers ? PentagonData.msgYellowCircle : null, 'colSpan': 2}
+            {
+              'text': cgp['cgp'].hasLimitBreakers
+                  ? PentagonData.msgYellowCircle
+                  : null,
+              'colSpan': 2
+            }
           ],
           [
             {'text': PentagonData.msgTOR(g.fmtNumber(cgp['tor']))},
             {
               'text': PentagonData.msgTORInfo(
-                  '${g.glucFromData(cgp['low'])} ${unit}', '${g.glucFromData(cgp['high'])} ${unit}')
+                  '${g.glucFromData(cgp['low'])} ${unit}',
+                  '${g.glucFromData(cgp['high'])} ${unit}')
             },
           ],
           [
@@ -431,15 +502,24 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
           ],
           [
             {'text': PentagonData.msgHYPO(unit, g.glucFromData(cgp['hypo']))},
-            {'text': PentagonData.msgHYPOInfo('${g.glucFromData(cgp['low'])} ${unit}')}
+            {
+              'text': PentagonData.msgHYPOInfo(
+                  '${g.glucFromData(cgp['low'])} ${unit}')
+            }
           ],
           [
             {'text': PentagonData.msgHYPER(unit, g.glucFromData(cgp['hyper']))},
-            {'text': PentagonData.msgHYPERInfo('${g.glucFromData(cgp['high'])} ${unit}')}
+            {
+              'text': PentagonData.msgHYPERInfo(
+                  '${g.glucFromData(cgp['high'])} ${unit}')
+            }
           ],
           [
             {'text': PentagonData.msgMEAN(unit, g.glucFromData(cgp['mean']))},
-            {'text': PentagonData.msgMEANInfo(hba1c(double.tryParse(g.glucFromData(cgp['mean']))))}
+            {
+              'text': PentagonData.msgMEANInfo(
+                  hba1c(double.tryParse(g.glucFromData(cgp['mean']))))
+            }
           ],
           [
             {
@@ -453,23 +533,47 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
           ],
           [
             {'text': PentagonData.msgPGR02, 'bold': pgr != null && pgr < 2.1},
-            {'text': PentagonData.msgPGR02Info, 'bold': pgr != null && pgr < 2.1}
+            {
+              'text': PentagonData.msgPGR02Info,
+              'bold': pgr != null && pgr < 2.1
+            }
           ],
           [
-            {'text': PentagonData.msgPGR23, 'bold': pgr != null && pgr >= 2.1 && pgr < 3.1},
-            {'text': PentagonData.msgPGR23Info, 'bold': pgr != null && pgr >= 2.1 && pgr < 3.1}
+            {
+              'text': PentagonData.msgPGR23,
+              'bold': pgr != null && pgr >= 2.1 && pgr < 3.1
+            },
+            {
+              'text': PentagonData.msgPGR23Info,
+              'bold': pgr != null && pgr >= 2.1 && pgr < 3.1
+            }
           ],
           [
-            {'text': PentagonData.msgPGR34, 'bold': pgr != null && pgr >= 3.1 && pgr < 4.1},
-            {'text': PentagonData.msgPGR34Info, 'bold': pgr != null && pgr >= 3.1 && pgr < 4.1}
+            {
+              'text': PentagonData.msgPGR34,
+              'bold': pgr != null && pgr >= 3.1 && pgr < 4.1
+            },
+            {
+              'text': PentagonData.msgPGR34Info,
+              'bold': pgr != null && pgr >= 3.1 && pgr < 4.1
+            }
           ],
           [
-            {'text': PentagonData.msgPGR45, 'bold': pgr != null && pgr >= 4.1 && pgr < 4.6},
-            {'text': PentagonData.msgPGR45Info, 'bold': pgr != null && pgr >= 4.1 && pgr < 4.6}
+            {
+              'text': PentagonData.msgPGR45,
+              'bold': pgr != null && pgr >= 4.1 && pgr < 4.6
+            },
+            {
+              'text': PentagonData.msgPGR45Info,
+              'bold': pgr != null && pgr >= 4.1 && pgr < 4.6
+            }
           ],
           [
             {'text': PentagonData.msgPGR5, 'bold': pgr != null && pgr >= 4.6},
-            {'text': PentagonData.msgPGR5Info, 'bold': pgr != null && pgr >= 4.6}
+            {
+              'text': PentagonData.msgPGR5Info,
+              'bold': pgr != null && pgr >= 4.6
+            }
           ],
         ]
       }
@@ -528,8 +632,10 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
     return {'hyper': hyper, 'hypo': hypo};
   }
 
-  dynamic calcCGP(var dayData, double scale, double xm, double ym) {
-    var cgp = PentagonData(g, g.getGlucInfo(), cm, fs, xm: xm, ym: ym, scale: scale);
+  dynamic calcCGP(
+      var dayData, double scale, double xm, double ym, bool showAreaLines) {
+    var cgp = PentagonData(g, g.getGlucInfo(), cm, fs,
+        xm: xm, ym: ym, scale: scale, showAreaLines: showAreaLines);
     cgp.ym += cgp.axisLength * 1.1 * cgp.scale;
     cgp.paintPentagon(1.0, lw, colLine: colCGPLine);
     cgp.paintAxis(lw, colLine: colValue);
@@ -543,7 +649,11 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
     }
 
     var areaHealthy = cgp.paintValues([0, 16.7, 0, 0, 90], lw,
-        colLine: colCGPHealthyLine, colFill: colCGPHealthyFill, opacity: 0.4, showLimitBreaks: false, limitValues: false);
+        colLine: colCGPHealthyLine,
+        colFill: colCGPHealthyFill,
+        opacity: 0.4,
+        showLimitBreaks: false,
+        limitValues: false);
 
     var data = repData.data;
     var totalDay = DayData(null, ProfileGlucData(ProfileStoreData('Intern')));
@@ -552,8 +662,10 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
     var avgGluc = 0.0;
     var varK = 0.0;
     var countValid = data.countValid;
-    var countTiR =
-        data.entries.where((entry) => !entry.isGlucInvalid && entry.gluc >= low && entry.gluc <= high).length;
+    var countTiR = data.entries
+        .where((entry) =>
+            !entry.isGlucInvalid && entry.gluc >= low && entry.gluc <= high)
+        .length;
     // ignore: unused_local_variable
     var countAll = data.entries.length;
 
@@ -561,15 +673,19 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
       avgGluc = dayData.avgGluc;
       varK = dayData.varK;
       countValid = dayData.entryCountValid;
-      countTiR =
-          dayData.entries.where((entry) => !entry.isGlucInvalid && entry.gluc >= low && entry.gluc <= high).length;
+      countTiR = dayData.entries
+          .where((entry) =>
+              !entry.isGlucInvalid && entry.gluc >= low && entry.gluc <= high)
+          .length;
       countAll = dayData.entries.length;
     } else if (dayData is List<DayData>) {
       countValid = 0;
       countTiR = 0;
       for (var day in dayData) {
-        countTiR +=
-            day.entries.where((entry) => !entry.isGlucInvalid && entry.gluc >= low && entry.gluc <= high).length;
+        countTiR += day.entries
+            .where((entry) =>
+                !entry.isGlucInvalid && entry.gluc >= low && entry.gluc <= high)
+            .length;
         for (var entry in day.entries) {
           if (!entry.isGlucInvalid) {
             avgGluc += entry.gluc;
@@ -582,7 +698,8 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
         var varianz = 0.0;
         for (var day in dayData) {
           for (var entry in day.entries) {
-            if (!entry.isGlucInvalid) varianz += math.pow(entry.gluc - avgGluc, 2);
+            if (!entry.isGlucInvalid)
+              varianz += math.pow(entry.gluc - avgGluc, 2);
           }
         }
         varianz /= countValid;
@@ -596,14 +713,18 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
       double hyperAUC = auc['hyper'];
       double hypoAUC = auc['hypo'];
 //*
-      var areaPatient = cgp.paintValues([tor, varK, hypoAUC, hyperAUC, avgGluc], lw,
+      var areaPatient = cgp.paintValues(
+          [tor, varK, hypoAUC, hyperAUC, avgGluc], lw,
           colLine: colCGPPatientLine, colFill: colCGPPatientFill, opacity: 0.4);
 // */
 //    double areaPatient = 1.0;
       var pgr = areaPatient / areaHealthy;
 
       cgp.outputText.add({
-        'relativePosition': {'x': cm(cgp.xm - 2.5), 'y': cm(cgp.ym + cgp.axisLength * cgp.scale * 0.9)},
+        'relativePosition': {
+          'x': cm(cgp.xm - 2.5),
+          'y': cm(cgp.ym + cgp.axisLength * cgp.scale * 0.9)
+        },
         'columns': [
           {
             'width': cm(5.0),

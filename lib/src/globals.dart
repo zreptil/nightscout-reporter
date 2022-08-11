@@ -128,7 +128,7 @@ class PeriodShift {
 // 21.12.2021 - 11:20 Uhr Loop pausiert - Eintrag "OpenAPS Offline" mit duration 1 Std.
 // 21.12.2021 - 11:25 Uhr Loop wieder aktiviert - Eintrag "OpenAPS Offline" mit duration 0
 class Settings {
-  String version = '2.2.2';
+  String version = '2.2.3';
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.

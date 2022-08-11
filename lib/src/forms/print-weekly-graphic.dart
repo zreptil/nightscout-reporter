@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
+import 'package:nightscout_reporter/src/forms/print-cgp.dart';
 import 'package:nightscout_reporter/src/json_data.dart';
 
 import 'base-print.dart';
@@ -10,11 +11,12 @@ import 'print-daily-graphic.dart';
 
 class PrintWeeklyGraphic extends BasePrint {
   @override
-  String help =
-  Intl.message('''Dieses Formular zeigt den Verlauf der Glukosekurve über eine Woche hinweg an. Der Zeitraum wird
+  String help = Intl.message(
+      '''Dieses Formular zeigt den Verlauf der Glukosekurve über eine Woche hinweg an. Der Zeitraum wird
 dazu in Wochenabschnitte aufgeteilt und jede Woche wird auf einer eigenen Seite ausgegeben. Die Wochen werden
 farblich markiert, so dass man sie gut unterscheiden kann. Zusätzlich kann noch das @10@ für die jeweilige
-Woche erzeugt werden.''', desc: 'help for weekgraph');
+Woche erzeugt werden.''',
+      desc: 'help for weekgraph');
 
   @override
   String baseId = 'weekgraph';
@@ -22,7 +24,7 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
   @override
   String baseIdx = '08';
 
-  bool spareBool1, showDaysInGraphic = true, showCGP;
+  bool spareBool1, showDaysInGraphic = true, showCGP, showCGPAreaLines;
 
   @override
   List<ParamInfo> params = [
@@ -36,7 +38,11 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
     ParamInfo(1, '', boolValue: true, isDeprecated: true),
     ParamInfo(2, msgParam3, boolValue: true),
     ParamInfo(3, PrintDailyGraphic.msgParam19,
-        boolValue: false, thumbValue: true),
+        boolValue: false,
+        subParams: [
+          ParamInfo(0, PrintCGP.msgParamAreaLines, boolValue: true)
+        ],
+        thumbValue: true),
   ];
 
   @override
@@ -44,6 +50,7 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
     spareBool1 = params[1].boolValue;
     showDaysInGraphic = params[2].boolValue;
     showCGP = params[3].boolValue;
+    showCGPAreaLines = params[3].subParams[0].boolValue;
 
     switch (params[0].intValue) {
       case 1:
@@ -67,7 +74,10 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
   @override
   dynamic get estimatePageCount {
     var count = 0;
-    if (g != null && g.period != null && g.period.start != null && g.period.end != null) {
+    if (g != null &&
+        g.period != null &&
+        g.period.start != null &&
+        g.period.end != null) {
       count = 1;
       var date = g.period.start.add(days: 1);
       while (date.isOnOrBefore(g.period.end)) {
@@ -130,7 +140,8 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
       var day = data.days[i];
       var dayInWeek = day.date.weekday - g.period.firstDayOfWeek;
       if (dayInWeek < 0) dayInWeek += 7;
-      if (dayInWeek <= lastDayInWeek && list.last.isNotEmpty) list.add(<DayData>[]);
+      if (dayInWeek <= lastDayInWeek && list.last.isNotEmpty)
+        list.add(<DayData>[]);
       lastDayInWeek = dayInWeek;
       list.last.add(day);
     }
@@ -141,7 +152,7 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
       basalTop = 2.0;
       graphBottom = graphHeight;
       pages.add(_getPage(week, repData));
-      if (showCGP) pages.add(getCGPPage(week));
+      if (showCGP) pages.add(getCGPPage(week, showCGPAreaLines));
       if (g.showBothUnits) {
         g.glucMGDLIdx = 1;
         pages.add(_getPage(week, repData));
@@ -153,8 +164,13 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
 //    if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
   }
 
-  dynamic glucLine(dynamic points, String color) =>
-      {'type': 'polyline', 'lineWidth': cm(lw * 2), 'closePath': false, 'lineColor': color, 'points': points};
+  dynamic glucLine(dynamic points, String color) => {
+        'type': 'polyline',
+        'lineWidth': cm(lw * 2),
+        'closePath': false,
+        'lineColor': color,
+        'points': points
+      };
 
   Page _getPage(List<DayData> days, ReportData src) {
     title = _title;
@@ -200,7 +216,8 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
     var horzStack = horzLegend['stack'];
     var vertStack = vertLegend['stack'];
 
-    var grid = drawGraphicGrid(glucMax, graphHeight, graphWidth, vertCvs, horzCvs, horzStack, vertStack,
+    var grid = drawGraphicGrid(glucMax, graphHeight, graphWidth, vertCvs,
+        horzCvs, horzStack, vertStack,
         glucScale: g.glucMGDL ? 20 : 18.02 * 0.5);
     if (grid.lineHeight == 0) {
       return Page(isPortrait, [
@@ -221,13 +238,27 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
       for (var entry in day.bloody) {
         var x = glucX(entry.time);
         var y = glucY(entry.mbg);
-        graphGlucCvs.add({'type': 'rect', 'x': cm(x), 'y': cm(y), 'w': cm(size), 'h': cm(size), 'color': color});
+        graphGlucCvs.add({
+          'type': 'rect',
+          'x': cm(x),
+          'y': cm(y),
+          'w': cm(size),
+          'h': cm(size),
+          'color': color
+        });
       }
       for (var t in day.treatments) {
         if (t.isBloody) {
           var x = glucX(t.createdAt);
           var y = glucY(g.glucFactor * t.glucose);
-          graphGlucCvs.add({'type': 'rect', 'x': cm(x), 'y': cm(y), 'w': cm(size), 'h': cm(size), 'color': color});
+          graphGlucCvs.add({
+            'type': 'rect',
+            'x': cm(x),
+            'y': cm(y),
+            'w': cm(size),
+            'h': cm(size),
+            'color': color
+          });
         }
       }
 
@@ -250,14 +281,30 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
         }
 
         if (showDaysInGraphic) {
-          if ((last == null || entry.time.hour > last.time.hour) && entry.gluc > 0) {
+          if ((last == null || entry.time.hour > last.time.hour) &&
+              entry.gluc > 0) {
             if (entry.time.hour % 2 == 1) {
-              nameBoxes.add(
-                  {'type': 'rect', 'x': cm(x - 0.25), 'y': cm(y - 0.2), 'w': cm(0.5), 'h': cm(0.4), 'color': color});
+              nameBoxes.add({
+                'type': 'rect',
+                'x': cm(x - 0.25),
+                'y': cm(y - 0.2),
+                'w': cm(0.5),
+                'h': cm(0.4),
+                'color': color
+              });
               names.add({
-                'relativePosition': {'x': cm(xo + x - 0.25), 'y': cm(yo + y - 0.15)},
+                'relativePosition': {
+                  'x': cm(xo + x - 0.25),
+                  'y': cm(yo + y - 0.15)
+                },
                 'columns': [
-                  {'width': cm(0.5), 'text': name, 'fontSize': fs(8), 'color': colorText, 'alignment': 'center'}
+                  {
+                    'width': cm(0.5),
+                    'text': name,
+                    'fontSize': fs(8),
+                    'color': colorText,
+                    'alignment': 'center'
+                  }
                 ]
               });
             }
@@ -268,7 +315,8 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
       graphGlucCvs.add(glucLine(points, color));
       graphGlucCvs.addAll(nameBoxes);
       graphGlucStack.addAll(names);
-      addLegendEntry(legend, color, '${fmtDate(day.date, null, false, true)}', isArea: false, lineWidth: lw * 3);
+      addLegendEntry(legend, color, '${fmtDate(day.date, null, false, true)}',
+          isArea: false, lineWidth: lw * 3);
     }
 
     var yHigh = glucY(min(glucMax, targets(repData)['high'].toDouble()));
@@ -304,7 +352,15 @@ Woche erzeugt werden.''', desc: 'help for weekgraph');
           'lineWidth': cm(lw),
           'lineColor': colTargetArea
         },
-        {'type': 'rect', 'x': 0, 'y': 0, 'w': 0, 'h': 0, 'color': '#000', 'fillOpacity': 1}
+        {
+          'type': 'rect',
+          'x': 0,
+          'y': 0,
+          'w': 0,
+          'h': 0,
+          'color': '#000',
+          'fillOpacity': 1
+        }
       ]
     };
     return Page(isPortrait, [
