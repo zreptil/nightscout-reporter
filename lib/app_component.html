@@ -1,3 +1,5 @@
+<clock *ngIf="currPage=='clock'" (closeClicked)="callbackButton"></clock>
+<ng-container  *ngIf="currPage!='clock'">
 <div id="app-content" [ngClass]="appTheme">
   <header [class]="g.isDebug?'material-header debug shadow':'material-header shadow'">
     <div class="material-header-row">
@@ -40,17 +42,17 @@
                     [showInfo]="g.showInfo" [showLabel]="false"></datepicker>
       </div>
       <nav class="material-navigation">
-        <material-button *ngIf="g.showCurrentGluc" raised class="currentGluc" (trigger)="getCurrentGluc()">
-          <pre *ngIf="!currentGlucVisible" @i18n="message for current glucose if not active">Pausiert</pre>
-          <div *ngIf="currentGlucVisible">
+        <material-button *ngIf="g.showCurrentGluc" raised class="g.currentGluc" (trigger)="g.getCurrentGluc()">
+          <pre *ngIf="!g.currentGlucVisible" @i18n="message for current glucose if not active">Pausiert</pre>
+          <div *ngIf="g.currentGlucVisible">
             <div factor *ngIf="g.ppAdjustGluc">*{{g.msgAdjustFactor}}</div>
             {{g.currentGluc}}
             <div time>{{g.currentGlucTime}}</div>
-            <div *ngIf="g.isLocal" debug>{{currentGlucCounter}}</div>
+            <div *ngIf="g.isLocal" debug>{{g.currentGlucCounter}}</div>
           </div>
-          <div arrow *ngIf="currentGlucVisible">
+          <div arrow *ngIf="g.currentGlucVisible">
             <div>
-              <svg class="arrow" [style.transform]="currentGlucDir" viewBox="0 0 100 100" version="1.1"
+              <svg class="arrow" [style.transform]="g.currentGlucDir" viewBox="0 0 100 100" version="1.1"
                    xmlns="http://www.w3.org/2000/svg">
                 <g transform="matrix(0.689535,0,0,0.689535,15.5233,15.5233)">
                   <circle class="circle" cx="50" cy="50" r="37.391"/>
@@ -416,3 +418,4 @@
   <input name="filename" type="hidden" [value]="g.ppPdfDownload?pdfFilename(0):''"/>
   <input name="data" type="hidden" value="{{pdfData}}"/>{{pdfFilename(0)}}
 </form>
+</ng-container>

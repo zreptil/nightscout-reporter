@@ -46,5 +46,10 @@
   "helpHeaderFore": "mat-purple-100",
   "helpBodyBack": "mat-purple-300",
   "helpBodyFore": "black",
-  "helpScrollThumb": "mat-purple-700"
+  "helpScrollThumb": "mat-purple-700",
+  "glucLow": "#ff6666",
+  "glucNormLow": "#809933",
+  "glucNorm": "#00cc00",
+  "glucNormHigh": "#aacc00",
+  "glucHigh": "#cccc00"
 }

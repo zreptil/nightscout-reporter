@@ -3,7 +3,6 @@ import 'dart:convert' as convert;
 
 import 'package:angular/angular.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:nightscout_reporter/app_component.dart';
 import 'package:nightscout_reporter/app_component.template.dart' as ng;
 import 'package:nightscout_reporter/messages/messages_all.dart';
 import 'package:timezone/browser.dart';

@@ -2,6 +2,7 @@ library diamant.globals;
 
 import 'dart:async';
 import 'dart:convert' as convert;
+import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:math' as math;
 
@@ -828,6 +829,98 @@ class Globals extends Settings {
       ? 'Keine Daten'
       : fmtNumber(currentGlucSrc.gluc / glucFactor, glucPrecision);
 
+  double get currentGlucValue =>
+      currentGlucSrc == null ? null : currentGlucSrc.gluc / glucFactor;
+
+  int glucDir = 360;
+
+  String msgGlucTime(time) => Intl.plural(time,
+      zero: 'Gerade eben',
+      one: 'vor ${time} Minute',
+      other: 'vor ${time} Minuten',
+      args: [time],
+      name: 'msgGlucTime',
+      desc: 'display of minutes since last value received on clock');
+
+  String get currentGlucDir =>
+      glucDir < 360 ? 'translate(0,2px)rotate(${glucDir}deg)' : null;
+  Timer glucTimer;
+  bool glucRunning = false;
+
+  bool currentGlucVisible = true;
+  int currentGlucCounter = 0;
+
+  Future<String> getCurrentGluc({force = false, timeout = 60}) async {
+    if (glucTimer != null) {
+      glucTimer.cancel();
+      glucTimer = null;
+    }
+    // make sure the value uses the correct factor
+    ppAdjustGluc = ppAdjustGluc;
+
+    currentGlucCounter++;
+
+    if (glucRunning) return '';
+
+    if (!force && !showCurrentGluc) return '';
+    glucRunning = true;
+    var url = user.apiUrl(null, 'status.json');
+    if (!hasMGDL) {
+      dynamic content = await requestJson(url);
+      if (content != null) {
+        var status = StatusData.fromJson(content);
+        setGlucMGDL(status);
+      }
+    }
+    url = user.apiUrl(null, 'entries.json', params: 'count=2');
+    List<dynamic> src = await requestJson(url);
+    if (src != null) {
+      if (src.length != 2) {
+        currentGlucSrc = null;
+        currentGlucDiff = '';
+        glucDir = 360;
+      } else {
+        try {
+          var eNow = EntryData.fromJson(src[0]);
+          var ePrev = EntryData.fromJson(src[1]);
+          var span = eNow.time.difference(ePrev.time).inMinutes;
+          glucDir = 360;
+          currentGlucDiff = '';
+          currentGlucTime = '';
+          if (span > 15) {
+            return currentGluc;
+          }
+          var time = DateTime.now().difference(eNow.time).inMinutes;
+          currentGlucTime = msgGlucTime(time);
+
+          currentGlucSrc = eNow;
+          currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
+              '${fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / glucFactor, glucPrecision)}';
+          var diff = eNow.gluc - ePrev.gluc;
+          var limit = 10 * span ~/ 5;
+          if (diff > limit) {
+            glucDir = -90;
+          } else if (diff < -limit) {
+            glucDir = 90;
+          } else {
+            glucDir = 90 - ((diff + limit) / limit * 90).toInt();
+          }
+        } catch (ex) {
+          currentGlucSrc = null;
+          currentGlucDiff = '';
+          glucDir = 360;
+        }
+      }
+    }
+
+    if (currentGlucVisible || force) {
+      glucTimer = Timer(Duration(seconds: timeout),
+          () => getCurrentGluc(force: force, timeout: timeout));
+    }
+    glucRunning = false;
+    return currentGluc;
+  }
+
   int ppMaxInsulinEffectInMS = 3 * 60 * 60 * 1000;
 
   bool _ppStandardLimits = false;
@@ -1290,6 +1383,7 @@ class Globals extends Settings {
       if (response == null) {
         return null;
       }
+      response = response.trim();
       if (response.startsWith('[') && response.endsWith(']')) {
         return convert.json.decode(response);
       }
