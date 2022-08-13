@@ -1,5 +1,5 @@
-@import 'src/colors.sass';
-@import 'src/base';
+@import 'colors.sass';
+@import 'base.scss';
 @import 'package:angular_components/material_button/mixins';
 @import 'package:angular_components/material_toggle/mixins';
 @import 'package:angular_components/material_list/mixins';
@@ -9,7 +9,7 @@
 @import 'package:angular_components/material_slider/mixins';
 @import 'package:angular_components/app_layout/mixins';
 @import 'package:angular_components/material_progress/mixins';
-@import 'src/controls/datepicker/mixins';
+@import 'controls/datepicker/mixins';
 
 :host {
   display: flex;

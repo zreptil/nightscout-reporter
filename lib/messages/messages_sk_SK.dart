@@ -84,135 +84,137 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m31(min, max) => "veľmi dobré ( ${min} až ${max} )";
 
-  static m32(unit, value) => "Intenzita HYPER\n[${unit} x min²]";
+  static m32(time) => "${Intl.plural(time, zero: 'Gerade eben', one: 'vor ${time} Minute', other: 'vor ${time} Minuten')}";
 
-  static m33(unit) => "Intenzita hyperglykémie za deň (hodnoty väčšie alebo rovné ${unit}).";
+  static m33(unit, value) => "Intenzita HYPER\n[${unit} x min²]";
 
-  static m34(unit, value) => "Intenzita HYPO\n[${unit} x min²]";
+  static m34(unit) => "Intenzita hyperglykémie za deň (hodnoty väčšie alebo rovné ${unit}).";
 
-  static m35(unit) => "Intenzita hypoglykémie za deň (hodnoty menšie alebo rovné ${unit}).";
+  static m35(unit, value) => "Intenzita HYPO\n[${unit} x min²]";
 
-  static m36(value) => "Vysoko ${value}";
+  static m36(unit) => "Intenzita hypoglykémie za deň (hodnoty menšie alebo rovné ${unit}).";
 
-  static m37(value) => "Historicky ${value}";
+  static m37(value) => "Vysoko ${value}";
 
-  static m38(value) => "Hypoglykémie (< ${value})";
+  static m38(value) => "Historicky ${value}";
 
-  static m39(unit) => "Faktory citlivosti na inzulín (ISF) 1 IU znižujú BG o X ${unit}";
+  static m39(value) => "Hypoglykémie (< ${value})";
 
-  static m40(value) => "${value}g";
+  static m40(unit) => "Faktory citlivosti na inzulín (ISF) 1 IU znižujú BG o X ${unit}";
 
-  static m41(value) => "g sach. ( ${value} BE)";
+  static m41(value) => "${value}g";
 
-  static m42(date) => "KW${date}";
+  static m42(value) => "g sach. ( ${value} BE)";
 
-  static m43(value) => "Celkový inzulín ( ${value} )";
+  static m43(date) => "KW${date}";
 
-  static m44(error, stacktrace) => "Chyba pri načítaní údajov: \n${error}\n${stacktrace}";
+  static m44(value) => "Celkový inzulín ( ${value} )";
 
-  static m45(date) => "Načítavajú sa údaje z ${date}...";
+  static m45(error, stacktrace) => "Chyba pri načítaní údajov: \n${error}\n${stacktrace}";
 
-  static m46(insulin, unit) => "Microbolus ${insulin} ${unit}";
+  static m46(date) => "Načítavajú sa údaje z ${date}...";
 
-  static m47(range, duration, reason, scale) => "temp. Override für ${duration} min, Grund: ${reason}, Zielbereich: ${range}, Anpassung: ${scale}%";
+  static m47(insulin, unit) => "Microbolus ${insulin} ${unit}";
 
-  static m48(insulin, unit) => "SMB ${insulin} ${unit}";
+  static m48(range, duration, reason, scale) => "temp. Override für ${duration} min, Grund: ${reason}, Zielbereich: ${range}, Anpassung: ${scale}%";
 
-  static m49(percent, duration) => "temp. Bazál ${percent}% / ${duration} min";
+  static m49(insulin, unit) => "SMB ${insulin} ${unit}";
 
-  static m50(value, duration) => "temp. Basal ${value} / ${duration} min";
+  static m50(percent, duration) => "temp. Bazál ${percent}% / ${duration} min";
 
-  static m51(target, duration, reason) => "temp. ${target} cieľ na ${duration} min, dôvod: ${reason}";
+  static m51(value, duration) => "temp. Basal ${value} / ${duration} min";
 
-  static m52(value) => "Nízko${value}";
+  static m52(target, duration, reason) => "temp. ${target} cieľ na ${duration} min, dôvod: ${reason}";
 
-  static m53(gluc, unit) => "Meranie z krvi ${gluc} ${unit}";
+  static m53(value) => "Nízko${value}";
 
-  static m54(unit, value) => "Stredná glykémia\n[${unit}]";
+  static m54(gluc, unit) => "Meranie z krvi ${gluc} ${unit}";
 
-  static m55(hba1c) => "Glykemický priemer v uvažovanom období.";
+  static m55(unit, value) => "Stredná glykémia\n[${unit}]";
 
-  static m56(name) => "Profil \"${name}\" verwenden";
+  static m56(hba1c) => "Glykemický priemer v uvažovanom období.";
 
-  static m57(name) => "Das Profil mit dem Namen \"${name}\" wurde nicht gefunden. Das muss im Profileditor auf der Nightscout Seite eingerichtet werden. Dort muss ein Profil eingerichtet werden, das den Namen \"${name}\" hat, um dieses Formular erzeugen zu können. Mit dem Link unten wird der Profileditor aufgerufen. Unter Umständen muss dort dann noch ganz unten auf der Seite die Authentifizierung durchgeführt werden, um die Werte ändern zu können.";
+  static m57(name) => "Profil \"${name}\" verwenden";
 
-  static m58(min, max) => "zlé ( ${min} až ${max} )";
+  static m58(name) => "Das Profil mit dem Namen \"${name}\" wurde nicht gefunden. Das muss im Profileditor auf der Nightscout Seite eingerichtet werden. Dort muss ein Profil eingerichtet werden, das den Namen \"${name}\" hat, um dieses Formular erzeugen zu können. Mit dem Link unten wird der Profileditor aufgerufen. Unter Umständen muss dort dann noch ganz unten auf der Seite die Authentifizierung durchgeführt werden, um die Werte ändern zu können.";
 
-  static m59(min, max) => "dobré ( ${min} až ${max} )";
+  static m59(min, max) => "zlé ( ${min} až ${max} )";
 
-  static m60(max) => "veľmi zlé (viac ako ${max} )";
+  static m60(min, max) => "dobré ( ${min} až ${max} )";
 
-  static m61(min) => "vynikajúci (menej ako ${min} )";
+  static m61(max) => "veľmi zlé (viac ako ${max} )";
 
-  static m62(name) => "${name} pro Tag";
+  static m62(min) => "vynikajúci (menej ako ${min} )";
 
-  static m63(name) => "${name} pro Monat";
+  static m63(name) => "${name} pro Tag";
 
-  static m64(name) => "${name} pro Woche";
+  static m64(name) => "${name} pro Monat";
 
-  static m65(oldName, newName) => "Zmena profilu z ${oldName} => ${newName}";
+  static m65(name) => "${name} pro Woche";
 
-  static m66(oldName, newName, duration) => "Zmena profilu z ${oldName} => ${newName} po ${duration} minút";
+  static m66(oldName, newName) => "Zmena profilu z ${oldName} => ${newName}";
 
-  static m67(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za minútu', other: 'Meranie každých ${fmt} minút')}";
+  static m67(oldName, newName, duration) => "Zmena profilu z ${oldName} => ${newName} po ${duration} minút";
 
-  static m68(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie denne', other: '${fmt} meraní denne')}";
+  static m68(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za minútu', other: 'Meranie každých ${fmt} minút')}";
 
-  static m69(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za hodinu', other: '${fmt} meraní za hodinu')}";
+  static m69(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie denne', other: '${fmt} meraní denne')}";
 
-  static m70(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na ampulku)', other: '( ${txt} dní na ampulku)')}";
+  static m70(howMany, fmt) => "${Intl.plural(howMany, zero: 'Nie sú k dispozícii žiadne údaje', one: '1 meranie za hodinu', other: '${fmt} meraní za hodinu')}";
 
-  static m71(value) => "SMB ( ${value} )";
+  static m71(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na ampulku)', other: '( ${txt} dní na ampulku)')}";
 
-  static m72(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na snímač)', other: '( ${txt} dní na snímač)')}";
+  static m72(value) => "SMB ( ${value} )";
 
-  static m73(low, high, unit) => "Použiť štandardný rozsah hodnôt (${low} ${unit} - ${high} ${unit})";
+  static m73(count, txt) => "${Intl.plural(count, zero: '', one: '( ${txt} deň na snímač)', other: '( ${txt} dní na snímač)')}";
 
-  static m74(isVisible) => "Dátum prvého dňa s údajmi";
+  static m74(low, high, unit) => "Použiť štandardný rozsah hodnôt (${low} ${unit} - ${high} ${unit})";
 
-  static m75(value) => "(StdDev ${value})";
+  static m75(isVisible) => "Dátum prvého dňa s údajmi";
 
-  static m76(value) => "ToR [${value}min/d]";
+  static m76(value) => "(StdDev ${value})";
 
-  static m77(min, max) => "Počet minút v dni, počas ktorých sú hodnoty mimo rozsahu ${min} až ${max} .";
+  static m77(value) => "ToR [${value}min/d]";
 
-  static m78(unit) => "Cieľová oblasť glukózy ${unit}";
+  static m78(min, max) => "Počet minút v dni, počas ktorých sú hodnoty mimo rozsahu ${min} až ${max} .";
 
-  static m79(min, max, units) => "Cieľový rozsah ( ${min} - ${max} ${units} )";
+  static m79(unit) => "Cieľová oblasť glukózy ${unit}";
 
-  static m80(value) => "cieľová hodnota";
+  static m80(min, max, units) => "Cieľový rozsah ( ${min} - ${max} ${units} )";
 
-  static m81(time) => "${time} hod";
+  static m81(value) => "cieľová hodnota";
 
-  static m82(time) => "${time} am";
+  static m82(time) => "${time} hod";
 
-  static m83(time) => "${time} pm";
+  static m83(time) => "${time} am";
 
-  static m84(maxCount, count, text) => "${Intl.plural(count, zero: '', one: 'Der Uploader \"${text}\" hat die Datensätze angelegt.', other: 'Folgende Uploader haben die Datensätze angelegt: ${text}')}";
+  static m84(time) => "${time} pm";
 
-  static m85(maxCount) => "Es konnten nicht alle Profile geladen werden, da im ausgewählten Zeitraum mehr als ${maxCount} gespeichert sind. ";
+  static m85(maxCount, count, text) => "${Intl.plural(count, zero: '', one: 'Der Uploader \"${text}\" hat die Datensätze angelegt.', other: 'Folgende Uploader haben die Datensätze angelegt: ${text}')}";
 
-  static m86(begDate) => "platné od ${begDate}";
+  static m86(maxCount) => "Es konnten nicht alle Profile geladen werden, da im ausgewählten Zeitraum mehr als ${maxCount} gespeichert sind. ";
 
-  static m87(begDate, endDate) => "platné od ${begDate} do ${endDate}";
+  static m87(begDate) => "platné od ${begDate}";
 
-  static m88(endDate) => "platí do ${endDate}";
+  static m88(begDate, endDate) => "platné od ${begDate} do ${endDate}";
 
-  static m89(high) => "Hodnoty nad ${high}";
+  static m89(endDate) => "platí do ${endDate}";
 
-  static m90(low) => "Hodnoty pod ${low}";
+  static m90(high) => "Hodnoty nad ${high}";
 
-  static m91(low, high) => "Hodnoty medzi ${low} a ${high}";
+  static m91(low) => "Hodnoty pod ${low}";
 
-  static m92(low, high) => "Cieľová oblasť ( ${low} - ${high} )";
+  static m92(low, high) => "Hodnoty medzi ${low} a ${high}";
 
-  static m93(value) => "Vysoké hodnoty ( ${value} )";
+  static m93(low, high) => "Cieľová oblasť ( ${low} - ${high} )";
 
-  static m94(value) => "Nízke hodnoty ( ${value} )";
+  static m94(value) => "Vysoké hodnoty ( ${value} )";
 
-  static m95(value) => "Veľmi vysoké hodnoty (> ${value} )";
+  static m95(value) => "Nízke hodnoty ( ${value} )";
 
-  static m96(value) => "Veľmi nízke hodnoty (< ${value} )";
+  static m96(value) => "Veľmi vysoké hodnoty (> ${value} )";
+
+  static m97(value) => "Veľmi nízke hodnoty (< ${value} )";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -280,6 +282,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "2.2.0 - 03.03.2022" : MessageLookupByLibrary.simpleMessage("2.2.0 - 03.03.2022"),
     "2.2.1 - 01.05.2022" : MessageLookupByLibrary.simpleMessage("2.2.1 - 01.05.2022"),
     "2.2.2 - 10.08.2022" : MessageLookupByLibrary.simpleMessage("2.2.2 - 10.08.2022"),
+    "2.2.3 - xx.08.2022" : MessageLookupByLibrary.simpleMessage("2.2.3 - xx.08.2022"),
     "25%" : MessageLookupByLibrary.simpleMessage("25%"),
     "25% - 75% der Werte" : MessageLookupByLibrary.simpleMessage("25% - 75% hodnôt"),
     "3,1 bis 4,0" : MessageLookupByLibrary.simpleMessage("3,1 až 4,0"),
@@ -531,6 +534,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt." : MessageLookupByLibrary.simpleMessage("Dieses Formular zeigt eine Übersicht für einen Tag. Hier \n  werden die Tagesgrafik, die Basalrate, die Basalratenanpassungen, Insulin On \n  Board und Carbs On Board angezeigt."),
     "Dieses Formular zeigt eine Übersicht über die \nStunden der Tage des ausgewählten Zeitraums an. Die angezeigten Werte sind die\nMittelwerte der innerhalb der entsprechenden Stunde gemessenen Werte. Sie\nwerden anhand des ausgewählten Zielbereichs eingefärbt. In den Formularoptionen\nkann man die Startstunde festlegen. Die Datumsspalte befindet sich immer links\nvon 0 Uhr und zeigt an, wo ein neuer Tag beginnt." : MessageLookupByLibrary.simpleMessage("Tento formulár zobrazuje prehľad jednotlivých hodín\ndňa v rámci zvoleného časového rozsahu. Zobrazuje sa priemerná hodnota \nv rámci zobrazovanej hodnoty. Vyfarbené sú na základe zadaných cieľových hodnôt. \nV nastaveniach formulára je možné určiť počiatočnú hodinu. Stĺpec s dátumom sa\nnachádza vždy v ľavo od hodiny 0 a ukazuje, kde začína nový deň."),
     "Diverse Abstürze beim Auslesen der Daten bereinigt" : MessageLookupByLibrary.simpleMessage("Rôzne zlyhania pri čítaní upravených údajov"),
+    "Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte." : MessageLookupByLibrary.simpleMessage("Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte."),
     "Drei Monate vorher" : MessageLookupByLibrary.simpleMessage("Tri mesiace dozadu"),
     "Drittes Quartal" : MessageLookupByLibrary.simpleMessage("Tretí štvrťrok"),
     "Durchschnitt" : MessageLookupByLibrary.simpleMessage("Priemer"),
@@ -590,6 +594,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Español" : MessageLookupByLibrary.simpleMessage("Español"),
     "Exportieren" : MessageLookupByLibrary.simpleMessage("Exportovať"),
     "Facebook Seite" : MessageLookupByLibrary.simpleMessage("Stránka na Facebooku"),
+    "Faktor" : MessageLookupByLibrary.simpleMessage("Faktor"),
     "Fehler" : MessageLookupByLibrary.simpleMessage("Chyba"),
     "Fehler behoben, der bei der Kachelansicht teilweise verhindert hat, dass die Parameter für die Kacheln aufgerufen werden konnten." : MessageLookupByLibrary.simpleMessage("Fehler behoben, der bei der Kachelansicht teilweise verhindert hat, dass die Parameter für die Kacheln aufgerufen werden konnten."),
     "Fehler beim Laden der Daten" : MessageLookupByLibrary.simpleMessage("Pri načítavaní údajov sa vyskytla chyba"),
@@ -608,6 +613,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Gesamt" : MessageLookupByLibrary.simpleMessage("celkovo"),
     "Gesamtinsulin" : MessageLookupByLibrary.simpleMessage("Gesamtinsulin"),
     "Geschätzter HbA1c" : MessageLookupByLibrary.simpleMessage("Odhadovaná HbA1c"),
+    "Glukose" : MessageLookupByLibrary.simpleMessage("Glukose"),
     "Glukose Pentagon erzeugen" : MessageLookupByLibrary.simpleMessage("Vytvoriť glykemický päťuholník"),
     "Glukose Perzentil Diagramm" : MessageLookupByLibrary.simpleMessage("Percentilný diagram glykémie"),
     "Glukose im Zielbereich" : MessageLookupByLibrary.simpleMessage("Glykémia v cieľovej oblasti"),
@@ -735,6 +741,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Letzter Behandlungswert" : MessageLookupByLibrary.simpleMessage("Posledná hodnota ošetrenia"),
     "Letzter Glukosewert" : MessageLookupByLibrary.simpleMessage("Posledná hodnota glykémie"),
     "Letzter Monat" : MessageLookupByLibrary.simpleMessage("Minulý mesiac"),
+    "Linien um Bereiche" : MessageLookupByLibrary.simpleMessage("Linien um Bereiche"),
     "Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)" : MessageLookupByLibrary.simpleMessage("Skryť dáta o uzavretej smyčke (nezobrazí tohto týkajúce sa dáta)"),
     "Löschen" : MessageLookupByLibrary.simpleMessage("Odstrániť"),
     "Mahlzeitenbolus_bolus to handle a meal" : MessageLookupByLibrary.simpleMessage("Bolus k jedlu"),
@@ -882,8 +889,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Temporäre Ziele" : MessageLookupByLibrary.simpleMessage("Dočasné ciele"),
     "Titelangaben für Datumsbereiche auf den PDFs vereinheitlicht" : MessageLookupByLibrary.simpleMessage("Zjednotené informácie o názve pre rozsahy dátumov v súboroch PDF"),
     "Trend" : MessageLookupByLibrary.simpleMessage("Trend"),
+    "Trendpfeil" : MessageLookupByLibrary.simpleMessage("Trendpfeil"),
     "Uhr-\nzeit" : MessageLookupByLibrary.simpleMessage("hodiny"),
     "Uhrzeit" : MessageLookupByLibrary.simpleMessage("Čas"),
+    "Umbruch" : MessageLookupByLibrary.simpleMessage("Umbruch"),
     "Unbegrenzt" : MessageLookupByLibrary.simpleMessage("neobmedzený"),
     "Unterzuckerungen anzeigen" : MessageLookupByLibrary.simpleMessage("Zozbraziť hypoglykémie"),
     "Url zur Nightscout-API (z.B. https://xxx.herokuapp.com)" : MessageLookupByLibrary.simpleMessage("URL adresa Nightscout-API (napr. https://xxx.herokuapp.com)"),
@@ -899,7 +908,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Verzögerter Bolus" : MessageLookupByLibrary.simpleMessage("Oneskorený bolus"),
     "Vier" : MessageLookupByLibrary.simpleMessage("štyri"),
     "Viertes Quartal" : MessageLookupByLibrary.simpleMessage("Štvrtý štvrťrok"),
-    "ViewWhatsnewComponent0__message_36" : m0,
+    "ViewWhatsnewComponent0__message_38" : m0,
     "Von" : MessageLookupByLibrary.simpleMessage("Od"),
     "Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen." : MessageLookupByLibrary.simpleMessage("Vor der Erzeugung eines PDFs wird noch ein Dialog angezeigt, auf dem man Parameter für alle erzeugten PDFs eingeben kann. Man kann dort den Zielbereich auf den Standardbereich festlegen, den Ärzte gerne sehen. Das hat Auswirkungen auf alle Darstellungen des Zielbereichs, sowie auf die Verteilung der Werte innerhalb und ausserhalb des Zielbereichs. Man kann dort auch den Maximalwert für Glukose in Grafiken festlegen. Dieser Wert wird in der Tagesgrafik, dem Perzentil Diagramm und der Wochengrafik verwendet. Wenn er auf \"Automatisch\" gesetzt wird, wird der Maximalwert wie bisher auch aus den vorhandenen Daten ermittelt. Ausserdem kann man hier angeben, ob man den aktuellen Zeitraum erzeugen möchte oder einen Vergleichszeitraum. Das ist nützlich, um dem Arzt die Gegenüberstellung von Werten der Vergangenheit und jetzt zu zeigen."),
     "Warnung" : MessageLookupByLibrary.simpleMessage("Varovanie"),
@@ -927,6 +936,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Willkommen bei Nightscout Reporter!" : MessageLookupByLibrary.simpleMessage("Vitajte v Nightscout Reporter!"),
     "Wochengrafik" : MessageLookupByLibrary.simpleMessage("Týždenný graf"),
     "Zeilen mit gleichen Werten zusammenfassen" : MessageLookupByLibrary.simpleMessage("Spojiť riadky s rovnakými hodnotami"),
+    "Zeit" : MessageLookupByLibrary.simpleMessage("Zeit"),
     "Zeitraum" : MessageLookupByLibrary.simpleMessage("Obdobie"),
     "Zeitraum festlegen" : MessageLookupByLibrary.simpleMessage("Nastaviť obdobie"),
     "Zeitraum:" : MessageLookupByLibrary.simpleMessage("Obdobie:"),
@@ -991,71 +1001,72 @@ class MessageLookup extends MessageLookupByLibrary {
     "msgGVIGood" : m29,
     "msgGVINone" : m30,
     "msgGVIVeryGood" : m31,
-    "msgHYPER" : m32,
-    "msgHYPERInfo" : m33,
-    "msgHYPO" : m34,
-    "msgHYPOInfo" : m35,
-    "msgHigh" : m36,
-    "msgHistorical" : m37,
-    "msgHypoTitle" : m38,
-    "msgISF" : m39,
-    "msgKH" : m40,
-    "msgKHBE" : m41,
-    "msgKW" : m42,
-    "msgLegendTDD" : m43,
-    "msgLoadingData" : m44,
-    "msgLoadingDataFor" : m45,
-    "msgLogMicroBolus" : m46,
-    "msgLogOverride" : m47,
-    "msgLogSMB" : m48,
-    "msgLogTempBasal" : m49,
-    "msgLogTempBasalAbsolute" : m50,
-    "msgLogTempTarget" : m51,
-    "msgLow" : m52,
-    "msgMBG" : m53,
-    "msgMEAN" : m54,
-    "msgMEANInfo" : m55,
-    "msgNamedProfile" : m56,
-    "msgNoNameHelp" : m57,
-    "msgPGSBad" : m58,
-    "msgPGSGood" : m59,
-    "msgPGSVeryBad" : m60,
-    "msgPGSVeryGood" : m61,
-    "msgPerDay" : m62,
-    "msgPerMonth" : m63,
-    "msgPerWeek" : m64,
-    "msgProfileSwitch" : m65,
-    "msgProfileSwitchDuration" : m66,
-    "msgReadingsInMinutes" : m67,
-    "msgReadingsPerDay" : m68,
-    "msgReadingsPerHour" : m69,
-    "msgReservoirDays" : m70,
-    "msgSMBInsulin" : m71,
-    "msgSensorDays" : m72,
-    "msgStandardLimits" : m73,
-    "msgStartDateHint" : m74,
-    "msgStdAbw" : m75,
-    "msgTOR" : m76,
-    "msgTORInfo" : m77,
-    "msgTarget" : m78,
-    "msgTargetArea" : m79,
-    "msgTargetValue" : m80,
-    "msgTimeOfDay24" : m81,
-    "msgTimeOfDayAM" : m82,
-    "msgTimeOfDayPM" : m83,
-    "msgTooMuchProfiles" : m84,
-    "msgTooMuchProfilesPrefix" : m85,
-    "msgValidFrom" : m86,
-    "msgValidRange" : m87,
-    "msgValidTo" : m88,
-    "msgValuesAbove" : m89,
-    "msgValuesBelow" : m90,
-    "msgValuesIn" : m91,
-    "msgValuesNorm" : m92,
-    "msgValuesNormHigh" : m93,
-    "msgValuesNormLow" : m94,
-    "msgValuesVeryHigh" : m95,
-    "msgValuesVeryLow" : m96,
+    "msgGlucTime" : m32,
+    "msgHYPER" : m33,
+    "msgHYPERInfo" : m34,
+    "msgHYPO" : m35,
+    "msgHYPOInfo" : m36,
+    "msgHigh" : m37,
+    "msgHistorical" : m38,
+    "msgHypoTitle" : m39,
+    "msgISF" : m40,
+    "msgKH" : m41,
+    "msgKHBE" : m42,
+    "msgKW" : m43,
+    "msgLegendTDD" : m44,
+    "msgLoadingData" : m45,
+    "msgLoadingDataFor" : m46,
+    "msgLogMicroBolus" : m47,
+    "msgLogOverride" : m48,
+    "msgLogSMB" : m49,
+    "msgLogTempBasal" : m50,
+    "msgLogTempBasalAbsolute" : m51,
+    "msgLogTempTarget" : m52,
+    "msgLow" : m53,
+    "msgMBG" : m54,
+    "msgMEAN" : m55,
+    "msgMEANInfo" : m56,
+    "msgNamedProfile" : m57,
+    "msgNoNameHelp" : m58,
+    "msgPGSBad" : m59,
+    "msgPGSGood" : m60,
+    "msgPGSVeryBad" : m61,
+    "msgPGSVeryGood" : m62,
+    "msgPerDay" : m63,
+    "msgPerMonth" : m64,
+    "msgPerWeek" : m65,
+    "msgProfileSwitch" : m66,
+    "msgProfileSwitchDuration" : m67,
+    "msgReadingsInMinutes" : m68,
+    "msgReadingsPerDay" : m69,
+    "msgReadingsPerHour" : m70,
+    "msgReservoirDays" : m71,
+    "msgSMBInsulin" : m72,
+    "msgSensorDays" : m73,
+    "msgStandardLimits" : m74,
+    "msgStartDateHint" : m75,
+    "msgStdAbw" : m76,
+    "msgTOR" : m77,
+    "msgTORInfo" : m78,
+    "msgTarget" : m79,
+    "msgTargetArea" : m80,
+    "msgTargetValue" : m81,
+    "msgTimeOfDay24" : m82,
+    "msgTimeOfDayAM" : m83,
+    "msgTimeOfDayPM" : m84,
+    "msgTooMuchProfiles" : m85,
+    "msgTooMuchProfilesPrefix" : m86,
+    "msgValidFrom" : m87,
+    "msgValidRange" : m88,
+    "msgValidTo" : m89,
+    "msgValuesAbove" : m90,
+    "msgValuesBelow" : m91,
+    "msgValuesIn" : m92,
+    "msgValuesNorm" : m93,
+    "msgValuesNormHigh" : m94,
+    "msgValuesNormLow" : m95,
+    "msgValuesVeryHigh" : m96,
+    "msgValuesVeryLow" : m97,
     "ok" : MessageLookupByLibrary.simpleMessage("ok"),
     "sehr geringes Risiko" : MessageLookupByLibrary.simpleMessage("veľmi nízke riziko"),
     "tl;dr" : MessageLookupByLibrary.simpleMessage("tl; dr"),

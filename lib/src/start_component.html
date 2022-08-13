@@ -1,5 +1,3 @@
-<clock *ngIf="currPage=='clock'" (closeClicked)="callbackButton"></clock>
-<ng-container  *ngIf="currPage!='clock'">
 <div id="app-content" [ngClass]="appTheme">
   <header [class]="g.isDebug?'material-header debug shadow':'material-header shadow'">
     <div class="material-header-row">
@@ -418,4 +416,3 @@
   <input name="filename" type="hidden" [value]="g.ppPdfDownload?pdfFilename(0):''"/>
   <input name="data" type="hidden" value="{{pdfData}}"/>{{pdfFilename(0)}}
 </form>
-</ng-container>

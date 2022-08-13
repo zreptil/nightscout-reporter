@@ -1,5 +1,7 @@
 analyzer:
   exclude: [build/**,pubspec.yaml]
+  errors:
+    uri_has_not_been_generated: ignore
 
 # Defines a default set of lint rules enforced for
 # projects at Google. For details and rationale,

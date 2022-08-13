@@ -11,6 +11,7 @@ environment:
 dependencies:
   angular: ^6.0.1
   angular_components: ^1.0.3
+  angular_router: ^2.0.0-alpha+22
   intl: ^0.16.0
   # crypto: ^2.0.6
   # crypto: ^3.0.0
