@@ -1,150 +1,7 @@
 {
-  "@@last_modified": "2022-08-10T19:16:43.072069",
-  "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
-  "@Überprüfe Zugriff auf Nightscout ...": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgLoadingData": "Fehler beim Laden der Daten:\n{error}\n{stacktrace}",
-  "@msgLoadingData": {
-    "type": "text",
-    "placeholders": {
-      "error": {},
-      "stacktrace": {}
-    }
-  },
-  "Fehler beim Laden der Daten": "Fehler beim Laden der Daten",
-  "@Fehler beim Laden der Daten": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgLoadingDataFor": "Lade Daten für {date}...",
-  "@msgLoadingDataFor": {
-    "description": "displayed when data of a day is loading",
-    "type": "text",
-    "placeholders": {
-      "date": {}
-    }
-  },
+  "@@last_modified": "2022-08-12T21:40:45.385761",
   "Schliessen": "Schliessen",
   "@Schliessen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Bitte einen Zeitraum wählen.": "Bitte einen Zeitraum wählen.",
-  "@Bitte einen Zeitraum wählen.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Bereite Daten vor...": "Bereite Daten vor...",
-  "@Bereite Daten vor...": {
-    "description": "text when data was received and is being prepared to be used in the report",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Erzeuge PDF...": "Erzeuge PDF...",
-  "@Erzeuge PDF...": {
-    "description": "text when pdf is being created",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Lade die Basisdaten...": "Lade die Basisdaten...",
-  "@Lade die Basisdaten...": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Impressum": "Impressum",
-  "@Impressum": {
-    "description": "label for inprint button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Datenschutzerklärung": "Datenschutzerklärung",
-  "@Datenschutzerklärung": {
-    "description": "label for dataprotection button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "ok": "ok",
-  "@ok": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "verwerfen": "verwerfen",
-  "@verwerfen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.",
-  "@Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zeitraum": "Zeitraum",
-  "@Zeitraum": {
-    "description": "title for datepicker dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.",
-  "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.",
-  "@Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "Beim Erzeugen des PDF ist ein Fehler aufgetreten.",
-  "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Problem auf GitHub melden": "Problem auf GitHub melden",
-  "@Problem auf GitHub melden": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "PDF anzeigen": "PDF anzeigen",
-  "@PDF anzeigen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Vergleich": "Vergleich",
-  "@Vergleich": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Bezeichnung": "Bezeichnung",
-  "@Bezeichnung": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Hinzufügen": "Hinzufügen",
-  "@Hinzufügen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgTooMuchProfilesPrefix": "Es konnten nicht alle Profile geladen werden, da im ausgewählten Zeitraum mehr als {maxCount} gespeichert sind. ",
-  "@msgTooMuchProfilesPrefix": {
-    "type": "text",
-    "placeholders": {
-      "maxCount": {}
-    }
-  },
-  "msgTooMuchProfiles": "{count,plural, =0{}=1{Der Uploader \"{text}\" hat die Datensätze angelegt.}other{Folgende Uploader haben die Datensätze angelegt: {text}}}",
-  "@msgTooMuchProfiles": {
-    "type": "text",
-    "placeholders": {
-      "maxCount": {},
-      "count": {},
-      "text": {}
-    }
-  },
-  "Max Mustermann": "Max Mustermann",
-  "@Max Mustermann": {
-    "description": "modelname used in images on tiles",
     "type": "text",
     "placeholders": {}
   },
@@ -311,6 +168,14 @@
     "type": "text",
     "placeholders": {}
   },
+  "msgGlucTime": "{time,plural, =0{Gerade eben}=1{vor {time} Minute}other{vor {time} Minuten}}",
+  "@msgGlucTime": {
+    "description": "display of minutes since last value received on clock",
+    "type": "text",
+    "placeholders": {
+      "time": {}
+    }
+  },
   "Ausgewählter Zeitraum": "Ausgewählter Zeitraum",
   "@Ausgewählter Zeitraum": {
     "type": "text",
@@ -368,6 +233,179 @@
   },
   "Die URL wurde noch nicht festgelegt": "Die URL wurde noch nicht festgelegt",
   "@Die URL wurde noch nicht festgelegt": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Überprüfe Zugriff auf Nightscout ...": "Überprüfe Zugriff auf Nightscout ...",
+  "@Überprüfe Zugriff auf Nightscout ...": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgLoadingData": "Fehler beim Laden der Daten:\n{error}\n{stacktrace}",
+  "@msgLoadingData": {
+    "type": "text",
+    "placeholders": {
+      "error": {},
+      "stacktrace": {}
+    }
+  },
+  "Fehler beim Laden der Daten": "Fehler beim Laden der Daten",
+  "@Fehler beim Laden der Daten": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgLoadingDataFor": "Lade Daten für {date}...",
+  "@msgLoadingDataFor": {
+    "description": "displayed when data of a day is loading",
+    "type": "text",
+    "placeholders": {
+      "date": {}
+    }
+  },
+  "Bitte einen Zeitraum wählen.": "Bitte einen Zeitraum wählen.",
+  "@Bitte einen Zeitraum wählen.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bereite Daten vor...": "Bereite Daten vor...",
+  "@Bereite Daten vor...": {
+    "description": "text when data was received and is being prepared to be used in the report",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Erzeuge PDF...": "Erzeuge PDF...",
+  "@Erzeuge PDF...": {
+    "description": "text when pdf is being created",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Lade die Basisdaten...": "Lade die Basisdaten...",
+  "@Lade die Basisdaten...": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Impressum": "Impressum",
+  "@Impressum": {
+    "description": "label for inprint button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Datenschutzerklärung": "Datenschutzerklärung",
+  "@Datenschutzerklärung": {
+    "description": "label for dataprotection button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "ok",
+  "@ok": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "verwerfen": "verwerfen",
+  "@verwerfen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.",
+  "@Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zeitraum": "Zeitraum",
+  "@Zeitraum": {
+    "description": "title for datepicker dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.",
+  "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.",
+  "@Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "Beim Erzeugen des PDF ist ein Fehler aufgetreten.",
+  "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Problem auf GitHub melden": "Problem auf GitHub melden",
+  "@Problem auf GitHub melden": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "PDF anzeigen": "PDF anzeigen",
+  "@PDF anzeigen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Vergleich": "Vergleich",
+  "@Vergleich": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bezeichnung": "Bezeichnung",
+  "@Bezeichnung": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Hinzufügen": "Hinzufügen",
+  "@Hinzufügen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "msgTooMuchProfilesPrefix": "Es konnten nicht alle Profile geladen werden, da im ausgewählten Zeitraum mehr als {maxCount} gespeichert sind. ",
+  "@msgTooMuchProfilesPrefix": {
+    "type": "text",
+    "placeholders": {
+      "maxCount": {}
+    }
+  },
+  "msgTooMuchProfiles": "{count,plural, =0{}=1{Der Uploader \"{text}\" hat die Datensätze angelegt.}other{Folgende Uploader haben die Datensätze angelegt: {text}}}",
+  "@msgTooMuchProfiles": {
+    "type": "text",
+    "placeholders": {
+      "maxCount": {},
+      "count": {},
+      "text": {}
+    }
+  },
+  "Max Mustermann": "Max Mustermann",
+  "@Max Mustermann": {
+    "description": "modelname used in images on tiles",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Umbruch": "Umbruch",
+  "@Umbruch": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Faktor": "Faktor",
+  "@Faktor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose": "Glukose",
+  "@Glukose": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Uhrzeit": "Uhrzeit",
+  "@Uhrzeit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zeit": "Zeit",
+  "@Zeit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Trendpfeil": "Trendpfeil",
+  "@Trendpfeil": {
     "type": "text",
     "placeholders": {}
   },
@@ -947,11 +985,6 @@
   },
   "Uhr-\nzeit": "Uhr-\nzeit",
   "@Uhr-\nzeit": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Uhrzeit": "Uhrzeit",
-  "@Uhrzeit": {
     "type": "text",
     "placeholders": {}
   },
@@ -1650,6 +1683,11 @@
   "Dieses Formular zeigt das Comprehensive Glucose Pentagon an, welches die Qualität der \nGlukoseeinstellung in einer schnell zu erfassenden Weise darstellt. Es wird für den ausgewählten Zeitraum angezeigt\nwie lange der Glukosewert im Schnitt während des Tages ausserhalb des Zielbereichs war, wie hoch die Intensität\nder Überzuckerungen und der Unterzuckerungen war, wie hoch der Mittelwert war und wie hoch die Variabilität der\nWerte war.\n\nDiese Grafik kann auch bei @05@ und @08@ ausgegeben werden. \n": "Dieses Formular zeigt das Comprehensive Glucose Pentagon an, welches die Qualität der \nGlukoseeinstellung in einer schnell zu erfassenden Weise darstellt. Es wird für den ausgewählten Zeitraum angezeigt\nwie lange der Glukosewert im Schnitt während des Tages ausserhalb des Zielbereichs war, wie hoch die Intensität\nder Überzuckerungen und der Unterzuckerungen war, wie hoch der Mittelwert war und wie hoch die Variabilität der\nWerte war.\n\nDiese Grafik kann auch bei @05@ und @08@ ausgegeben werden. \n",
   "@Dieses Formular zeigt das Comprehensive Glucose Pentagon an, welches die Qualität der \nGlukoseeinstellung in einer schnell zu erfassenden Weise darstellt. Es wird für den ausgewählten Zeitraum angezeigt\nwie lange der Glukosewert im Schnitt während des Tages ausserhalb des Zielbereichs war, wie hoch die Intensität\nder Überzuckerungen und der Unterzuckerungen war, wie hoch der Mittelwert war und wie hoch die Variabilität der\nWerte war.\n\nDiese Grafik kann auch bei @05@ und @08@ ausgegeben werden. \n": {
     "description": "help for cgp",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Linien um Bereiche": "Linien um Bereiche",
+  "@Linien um Bereiche": {
     "type": "text",
     "placeholders": {}
   },
@@ -3028,6 +3066,18 @@
   "Einstiegsvideo": "Einstiegsvideo",
   "@Einstiegsvideo": {
     "description": "label for button to open settings on welcome screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "2.2.3 - xx.08.2022": "2.2.3 - xx.08.2022",
+  "@2.2.3 - xx.08.2022": {
+    "description": "v223",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.": "Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.",
+  "@Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.": {
+    "description": "v223a1",
     "type": "text",
     "placeholders": {}
   },
@@ -4963,8 +5013,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_36": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-  "@ViewWhatsnewComponent0__message_36": {
+  "ViewWhatsnewComponent0__message_38": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+  "@ViewWhatsnewComponent0__message_38": {
     "description": "v206a1",
     "type": "text",
     "placeholders": {

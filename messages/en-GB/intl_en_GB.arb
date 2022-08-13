@@ -1,150 +1,7 @@
 {
-    "@@last_modified": "2022-08-10T19:16:43.072069",
-    "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
-    "@Überprüfe Zugriff auf Nightscout ...": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "msgLoadingData": "Error loading data: {error} {stacktrace}",
-    "@msgLoadingData": {
-        "type": "text",
-        "placeholders": {
-            "error": {},
-            "stacktrace": {}
-        }
-    },
-    "Fehler beim Laden der Daten": "Error loading data",
-    "@Fehler beim Laden der Daten": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "msgLoadingDataFor": "Loading data for {date}...",
-    "@msgLoadingDataFor": {
-        "description": "displayed when data of a day is loading",
-        "type": "text",
-        "placeholders": {
-            "date": {}
-        }
-    },
+    "@@last_modified": "2022-08-12T21:40:45.385761",
     "Schliessen": "Close",
     "@Schliessen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Bitte einen Zeitraum wählen.": "Please select a period.",
-    "@Bitte einen Zeitraum wählen.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Bereite Daten vor...": "Preparing data...",
-    "@Bereite Daten vor...": {
-        "description": "text when data was received and is being prepared to be used in the report",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Erzeuge PDF...": "Creating PDF...",
-    "@Erzeuge PDF...": {
-        "description": "text when pdf is being created",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Lade die Basisdaten...": "Loading basedata...",
-    "@Lade die Basisdaten...": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Impressum": "Imprint",
-    "@Impressum": {
-        "description": "label for inprint button",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Datenschutzerklärung": "Data protection",
-    "@Datenschutzerklärung": {
-        "description": "label for dataprotection button",
-        "type": "text",
-        "placeholders": {}
-    },
-    "ok": "ok",
-    "@ok": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "verwerfen": "discard",
-    "@verwerfen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "The PDF was created. If it is not displayed, then probably a popup blocker is active, which prevents the display. Please deactivate this.",
-    "@Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zeitraum": "Period",
-    "@Zeitraum": {
-        "description": "title for datepicker dialog",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "An error occurred while reading out the profiles. There may be too much data in the profile table (e.g. caused by iOS Loop). You can try to reduce the number of profile data records to be read in the settings.",
-    "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": "An error occurred while reading the insulin profiles.",
-    "@Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "An error occurred while creating the PDF.",
-    "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Problem auf GitHub melden": "Report a problem to GitHub",
-    "@Problem auf GitHub melden": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "PDF anzeigen": "Show PDF",
-    "@PDF anzeigen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Vergleich": "Comparison",
-    "@Vergleich": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Bezeichnung": "Title",
-    "@Bezeichnung": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Hinzufügen": "Add",
-    "@Hinzufügen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "msgTooMuchProfilesPrefix": "Not all profiles could be loaded because more than {maxCount} are saved in the selected period. ",
-    "@msgTooMuchProfilesPrefix": {
-        "type": "text",
-        "placeholders": {
-            "maxCount": {}
-        }
-    },
-    "msgTooMuchProfiles": "{count, plural, =0{}=1{The uploader \"{text}\" has created the data records.}other{The following uploaders have created the data records: {text}}}",
-    "@msgTooMuchProfiles": {
-        "type": "text",
-        "placeholders": {
-            "maxCount": {},
-            "count": {},
-            "text": {}
-        }
-    },
-    "Max Mustermann": "John Smith",
-    "@Max Mustermann": {
-        "description": "modelname used in images on tiles",
         "type": "text",
         "placeholders": {}
     },
@@ -311,6 +168,14 @@
         "type": "text",
         "placeholders": {}
     },
+    "msgGlucTime": "{time,plural, one {} =0{Just now}=1{{time} minute ago}other{{time} minutes ago}}",
+    "@msgGlucTime": {
+        "description": "display of minutes since last value received on clock",
+        "type": "text",
+        "placeholders": {
+            "time": {}
+        }
+    },
     "Ausgewählter Zeitraum": "Selected Period",
     "@Ausgewählter Zeitraum": {
         "type": "text",
@@ -368,6 +233,179 @@
     },
     "Die URL wurde noch nicht festgelegt": "The URL has not been set yet",
     "@Die URL wurde noch nicht festgelegt": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Überprüfe Zugriff auf Nightscout ...": "Checking access to Nightscout ...",
+    "@Überprüfe Zugriff auf Nightscout ...": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgLoadingData": "Error loading data: {error} {stacktrace}",
+    "@msgLoadingData": {
+        "type": "text",
+        "placeholders": {
+            "error": {},
+            "stacktrace": {}
+        }
+    },
+    "Fehler beim Laden der Daten": "Error loading data",
+    "@Fehler beim Laden der Daten": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgLoadingDataFor": "Loading data for {date}...",
+    "@msgLoadingDataFor": {
+        "description": "displayed when data of a day is loading",
+        "type": "text",
+        "placeholders": {
+            "date": {}
+        }
+    },
+    "Bitte einen Zeitraum wählen.": "Please select a period.",
+    "@Bitte einen Zeitraum wählen.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bereite Daten vor...": "Preparing data...",
+    "@Bereite Daten vor...": {
+        "description": "text when data was received and is being prepared to be used in the report",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Erzeuge PDF...": "Creating PDF...",
+    "@Erzeuge PDF...": {
+        "description": "text when pdf is being created",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Lade die Basisdaten...": "Loading basedata...",
+    "@Lade die Basisdaten...": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Impressum": "Imprint",
+    "@Impressum": {
+        "description": "label for inprint button",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Datenschutzerklärung": "Data protection",
+    "@Datenschutzerklärung": {
+        "description": "label for dataprotection button",
+        "type": "text",
+        "placeholders": {}
+    },
+    "ok": "ok",
+    "@ok": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "verwerfen": "discard",
+    "@verwerfen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "The PDF was created. If it is not displayed, then probably a popup blocker is active, which prevents the display. Please deactivate this.",
+    "@Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zeitraum": "Period",
+    "@Zeitraum": {
+        "description": "title for datepicker dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "An error occurred while reading out the profiles. There may be too much data in the profile table (e.g. caused by iOS Loop). You can try to reduce the number of profile data records to be read in the settings.",
+    "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": "An error occurred while reading the insulin profiles.",
+    "@Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "An error occurred while creating the PDF.",
+    "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Problem auf GitHub melden": "Report a problem to GitHub",
+    "@Problem auf GitHub melden": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "PDF anzeigen": "Show PDF",
+    "@PDF anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Vergleich": "Comparison",
+    "@Vergleich": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bezeichnung": "Title",
+    "@Bezeichnung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Hinzufügen": "Add",
+    "@Hinzufügen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgTooMuchProfilesPrefix": "Not all profiles could be loaded because more than {maxCount} are saved in the selected period. ",
+    "@msgTooMuchProfilesPrefix": {
+        "type": "text",
+        "placeholders": {
+            "maxCount": {}
+        }
+    },
+    "msgTooMuchProfiles": "{count, plural, =0{}=1{The uploader \"{text}\" has created the data records.}other{The following uploaders have created the data records: {text}}}",
+    "@msgTooMuchProfiles": {
+        "type": "text",
+        "placeholders": {
+            "maxCount": {},
+            "count": {},
+            "text": {}
+        }
+    },
+    "Max Mustermann": "John Smith",
+    "@Max Mustermann": {
+        "description": "modelname used in images on tiles",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Umbruch": "Newline",
+    "@Umbruch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Faktor": "Factor",
+    "@Faktor": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Glukose": "Glucose",
+    "@Glukose": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Uhrzeit": "Time",
+    "@Uhrzeit": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zeit": "Time",
+    "@Zeit": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Trendpfeil": "Trendarrow",
+    "@Trendpfeil": {
         "type": "text",
         "placeholders": {}
     },
@@ -947,11 +985,6 @@
     },
     "Uhr-\nzeit": "Time",
     "@Uhr-\nzeit": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Uhrzeit": "Time",
-    "@Uhrzeit": {
         "type": "text",
         "placeholders": {}
     },
@@ -1650,6 +1683,11 @@
     "Dieses Formular zeigt das Comprehensive Glucose Pentagon an, welches die Qualität der \nGlukoseeinstellung in einer schnell zu erfassenden Weise darstellt. Es wird für den ausgewählten Zeitraum angezeigt\nwie lange der Glukosewert im Schnitt während des Tages ausserhalb des Zielbereichs war, wie hoch die Intensität\nder Überzuckerungen und der Unterzuckerungen war, wie hoch der Mittelwert war und wie hoch die Variabilität der\nWerte war.\n\nDiese Grafik kann auch bei @05@ und @08@ ausgegeben werden. \n": "This form displays the Comprehensive Glucose Pentagon, which represents the quality of the glucose control in a readily understood manner. For the selected period it shows how long the average glucose value was outside the target range during the day, how high the intensity of the hyperglycemia and hypoglycemia was, how high the mean value was and how high the variability of the values was.\n\nThis graphic can also be output at @05@ and @08@.",
     "@Dieses Formular zeigt das Comprehensive Glucose Pentagon an, welches die Qualität der \nGlukoseeinstellung in einer schnell zu erfassenden Weise darstellt. Es wird für den ausgewählten Zeitraum angezeigt\nwie lange der Glukosewert im Schnitt während des Tages ausserhalb des Zielbereichs war, wie hoch die Intensität\nder Überzuckerungen und der Unterzuckerungen war, wie hoch der Mittelwert war und wie hoch die Variabilität der\nWerte war.\n\nDiese Grafik kann auch bei @05@ und @08@ ausgegeben werden. \n": {
         "description": "help for cgp",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Linien um Bereiche": "Lines around areas",
+    "@Linien um Bereiche": {
         "type": "text",
         "placeholders": {}
     },
@@ -3028,6 +3066,18 @@
     "Einstiegsvideo": "Quickstartvideo",
     "@Einstiegsvideo": {
         "description": "label for button to open settings on welcome screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "2.2.3 - xx.08.2022": "2.2.3 - xx/08/2022",
+    "@2.2.3 - xx.08.2022": {
+        "description": "v223",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.": "Where a CGP can be created, there is now an option \"Lines around areas\". This is switched on by default. When turned off, the healthy and current human stat ranges are no longer outlined with a line. This makes the graph look a little more pale, but you can examine the values on the axes more closely if you wish.",
+    "@Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.": {
+        "description": "v223a1",
         "type": "text",
         "placeholders": {}
     },
@@ -4963,8 +5013,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_36": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
-    "@ViewWhatsnewComponent0__message_36": {
+    "ViewWhatsnewComponent0__message_38": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
+    "@ViewWhatsnewComponent0__message_38": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {

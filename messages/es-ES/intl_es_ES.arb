@@ -1,150 +1,7 @@
 {
-    "@@last_modified": "2022-08-10T19:16:43.072069",
-    "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
-    "@Überprüfe Zugriff auf Nightscout ...": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "msgLoadingData": "Error al cargar los datos: \n{error}\n{stacktrace}",
-    "@msgLoadingData": {
-        "type": "text",
-        "placeholders": {
-            "error": {},
-            "stacktrace": {}
-        }
-    },
-    "Fehler beim Laden der Daten": "Error al cargar los datos",
-    "@Fehler beim Laden der Daten": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "msgLoadingDataFor": "Cargando datos para {date}...",
-    "@msgLoadingDataFor": {
-        "description": "displayed when data of a day is loading",
-        "type": "text",
-        "placeholders": {
-            "date": {}
-        }
-    },
+    "@@last_modified": "2022-08-12T21:40:45.385761",
     "Schliessen": "Cerrar",
     "@Schliessen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Bitte einen Zeitraum wählen.": "Por favor elige periodo.",
-    "@Bitte einen Zeitraum wählen.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Bereite Daten vor...": "Preparando datos...",
-    "@Bereite Daten vor...": {
-        "description": "text when data was received and is being prepared to be used in the report",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Erzeuge PDF...": "Creando PDF...",
-    "@Erzeuge PDF...": {
-        "description": "text when pdf is being created",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Lade die Basisdaten...": "Cargando los datos básicos...",
-    "@Lade die Basisdaten...": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Impressum": "Aviso legal",
-    "@Impressum": {
-        "description": "label for inprint button",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Datenschutzerklärung": "Declaración de privacidad",
-    "@Datenschutzerklärung": {
-        "description": "label for dataprotection button",
-        "type": "text",
-        "placeholders": {}
-    },
-    "ok": "ok",
-    "@ok": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "verwerfen": "descartar",
-    "@verwerfen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "PDF ha sido generado. Si no se visualiza, probablemente es debido a un bloqueador popup. Por favor desactivar bloqueador.",
-    "@Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Zeitraum": "Periodo",
-    "@Zeitraum": {
-        "description": "title for datepicker dialog",
-        "type": "text",
-        "placeholders": {}
-    },
-    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Al leer los perfiles ha ocurrido un error. Probablemente hay demasiados datos en la tabla del perfil (se produce por ejemplo por el bucle de iOS). Puedes intentar reducir el número de registros de perfil que se van a leer en la configuración.",
-    "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.",
-    "@Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "Al crear el PDF ha ocurrido und error.",
-    "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Problem auf GitHub melden": "Comunicar el problema en GitHub",
-    "@Problem auf GitHub melden": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "PDF anzeigen": "Mostrar PDF",
-    "@PDF anzeigen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Vergleich": "Comparación",
-    "@Vergleich": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Bezeichnung": "Título",
-    "@Bezeichnung": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Hinzufügen": "Añadir",
-    "@Hinzufügen": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "msgTooMuchProfilesPrefix": "No se han podido cargar todos perfiles, por que en el tiempo seleccionado hay más de {maxCount} guardados. ",
-    "@msgTooMuchProfilesPrefix": {
-        "type": "text",
-        "placeholders": {
-            "maxCount": {}
-        }
-    },
-    "msgTooMuchProfiles": "{count,plural, one {} =0{}=1{El uploader \"{text}\" ha creado registros.}other{Siguientes Uploaders han creado registros: {text}}}",
-    "@msgTooMuchProfiles": {
-        "type": "text",
-        "placeholders": {
-            "maxCount": {},
-            "count": {},
-            "text": {}
-        }
-    },
-    "Max Mustermann": "Juan Gómez",
-    "@Max Mustermann": {
-        "description": "modelname used in images on tiles",
         "type": "text",
         "placeholders": {}
     },
@@ -311,6 +168,14 @@
         "type": "text",
         "placeholders": {}
     },
+    "msgGlucTime": "{time,plural, =0{Gerade eben}=1{vor {time} Minute}other{vor {time} Minuten}}",
+    "@msgGlucTime": {
+        "description": "display of minutes since last value received on clock",
+        "type": "text",
+        "placeholders": {
+            "time": {}
+        }
+    },
     "Ausgewählter Zeitraum": "Período seleccionado",
     "@Ausgewählter Zeitraum": {
         "type": "text",
@@ -368,6 +233,179 @@
     },
     "Die URL wurde noch nicht festgelegt": "La URL aún no ha sido determinada",
     "@Die URL wurde noch nicht festgelegt": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Überprüfe Zugriff auf Nightscout ...": "Verifico acceso a Nightscout...",
+    "@Überprüfe Zugriff auf Nightscout ...": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgLoadingData": "Error al cargar los datos: \n{error}\n{stacktrace}",
+    "@msgLoadingData": {
+        "type": "text",
+        "placeholders": {
+            "error": {},
+            "stacktrace": {}
+        }
+    },
+    "Fehler beim Laden der Daten": "Error al cargar los datos",
+    "@Fehler beim Laden der Daten": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgLoadingDataFor": "Cargando datos para {date}...",
+    "@msgLoadingDataFor": {
+        "description": "displayed when data of a day is loading",
+        "type": "text",
+        "placeholders": {
+            "date": {}
+        }
+    },
+    "Bitte einen Zeitraum wählen.": "Por favor elige periodo.",
+    "@Bitte einen Zeitraum wählen.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bereite Daten vor...": "Preparando datos...",
+    "@Bereite Daten vor...": {
+        "description": "text when data was received and is being prepared to be used in the report",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Erzeuge PDF...": "Creando PDF...",
+    "@Erzeuge PDF...": {
+        "description": "text when pdf is being created",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Lade die Basisdaten...": "Cargando los datos básicos...",
+    "@Lade die Basisdaten...": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Impressum": "Aviso legal",
+    "@Impressum": {
+        "description": "label for inprint button",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Datenschutzerklärung": "Declaración de privacidad",
+    "@Datenschutzerklärung": {
+        "description": "label for dataprotection button",
+        "type": "text",
+        "placeholders": {}
+    },
+    "ok": "ok",
+    "@ok": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "verwerfen": "descartar",
+    "@verwerfen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": "PDF ha sido generado. Si no se visualiza, probablemente es debido a un bloqueador popup. Por favor desactivar bloqueador.",
+    "@Das PDF wurde erstellt. Wenn es nicht angezeigt wird, dann ist vermutlich ein Popup-Blocker aktiv, der die Anzeige verhindert. Diesen bitte deaktivieren.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zeitraum": "Periodo",
+    "@Zeitraum": {
+        "description": "title for datepicker dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": "Al leer los perfiles ha ocurrido un error. Probablemente hay demasiados datos en la tabla del perfil (se produce por ejemplo por el bucle de iOS). Puedes intentar reducir el número de registros de perfil que se van a leer en la configuración.",
+    "@Beim Auslesen der Profile ist ein Fehler aufgetreten. Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": "Se ha producido un error al leer el archivo de insulina.",
+    "@Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "Al crear el PDF ha ocurrido und error.",
+    "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Problem auf GitHub melden": "Comunicar el problema en GitHub",
+    "@Problem auf GitHub melden": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "PDF anzeigen": "Mostrar PDF",
+    "@PDF anzeigen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Vergleich": "Comparación",
+    "@Vergleich": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Bezeichnung": "Título",
+    "@Bezeichnung": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Hinzufügen": "Añadir",
+    "@Hinzufügen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "msgTooMuchProfilesPrefix": "No se han podido cargar todos perfiles, por que en el tiempo seleccionado hay más de {maxCount} guardados. ",
+    "@msgTooMuchProfilesPrefix": {
+        "type": "text",
+        "placeholders": {
+            "maxCount": {}
+        }
+    },
+    "msgTooMuchProfiles": "{count,plural, one {} =0{}=1{El uploader \"{text}\" ha creado registros.}other{Siguientes Uploaders han creado registros: {text}}}",
+    "@msgTooMuchProfiles": {
+        "type": "text",
+        "placeholders": {
+            "maxCount": {},
+            "count": {},
+            "text": {}
+        }
+    },
+    "Max Mustermann": "Juan Gómez",
+    "@Max Mustermann": {
+        "description": "modelname used in images on tiles",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Umbruch": "Umbruch",
+    "@Umbruch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Faktor": "Faktor",
+    "@Faktor": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Glukose": "Glukose",
+    "@Glukose": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Uhrzeit": "Hora",
+    "@Uhrzeit": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Zeit": "Zeit",
+    "@Zeit": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Trendpfeil": "Trendpfeil",
+    "@Trendpfeil": {
         "type": "text",
         "placeholders": {}
     },
@@ -550,7 +588,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "_msgAdjustGlucHint": "Alle sensorischen Glukosewerte sind mit dem Faktor {factor} multipliziert",
+    "_msgAdjustGlucHint": "Todos los valores sensoricos son multiplicados por el factor {factor}",
     "@_msgAdjustGlucHint": {
         "type": "text",
         "placeholders": {
@@ -947,11 +985,6 @@
     },
     "Uhr-\nzeit": "Hora",
     "@Uhr-\nzeit": {
-        "type": "text",
-        "placeholders": {}
-    },
-    "Uhrzeit": "Hora",
-    "@Uhrzeit": {
         "type": "text",
         "placeholders": {}
     },
@@ -1484,7 +1517,7 @@
         "type": "text",
         "placeholders": {}
     },
-    " pro Tag": " pro Tag",
+    " pro Tag": " al día",
     "@ pro Tag": {
         "type": "text",
         "placeholders": {}
@@ -1650,6 +1683,11 @@
     "Dieses Formular zeigt das Comprehensive Glucose Pentagon an, welches die Qualität der \nGlukoseeinstellung in einer schnell zu erfassenden Weise darstellt. Es wird für den ausgewählten Zeitraum angezeigt\nwie lange der Glukosewert im Schnitt während des Tages ausserhalb des Zielbereichs war, wie hoch die Intensität\nder Überzuckerungen und der Unterzuckerungen war, wie hoch der Mittelwert war und wie hoch die Variabilität der\nWerte war.\n\nDiese Grafik kann auch bei @05@ und @08@ ausgegeben werden. \n": "Est formulario meuestra el Pentágono de glucosa integral, que muestra la calidad de la configuración de glucosa de una manera rápida de ver y comprender. Para el período seleccionado, se muestra cuánto tiempo el valor de glucosa fue en promedio fuera del objetivo durante el día, la intensidad del exceso de azúcar y del bajo en azúcar, la media y la variabilidad de los valores. Este gráfico también se puede imprimir en @05@ y @08@.\n",
     "@Dieses Formular zeigt das Comprehensive Glucose Pentagon an, welches die Qualität der \nGlukoseeinstellung in einer schnell zu erfassenden Weise darstellt. Es wird für den ausgewählten Zeitraum angezeigt\nwie lange der Glukosewert im Schnitt während des Tages ausserhalb des Zielbereichs war, wie hoch die Intensität\nder Überzuckerungen und der Unterzuckerungen war, wie hoch der Mittelwert war und wie hoch die Variabilität der\nWerte war.\n\nDiese Grafik kann auch bei @05@ und @08@ ausgegeben werden. \n": {
         "description": "help for cgp",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Linien um Bereiche": "Linien um Bereiche",
+    "@Linien um Bereiche": {
         "type": "text",
         "placeholders": {}
     },
@@ -2212,37 +2250,37 @@
         "type": "text",
         "placeholders": {}
     },
-    "Dieses Formular zeigt die Insulinverteilung im ausgewählten Zeitraum.\n": "Dieses Formular zeigt die Insulinverteilung im ausgewählten Zeitraum.\n",
+    "Dieses Formular zeigt die Insulinverteilung im ausgewählten Zeitraum.\n": "Este formulario muestra la distribución de la insulina por el periodo elegido.\n",
     "@Dieses Formular zeigt die Insulinverteilung im ausgewählten Zeitraum.\n": {
         "description": "help for insulinstats",
         "type": "text",
         "placeholders": {}
     },
-    "Insulinstatistik": "Insulinstatistik",
+    "Insulinstatistik": "Estadística de insulina",
     "@Insulinstatistik": {
         "type": "text",
         "placeholders": {}
     },
-    "Gesamtinsulin": "Gesamtinsulin",
+    "Gesamtinsulin": "Insulina en total",
     "@Gesamtinsulin": {
         "type": "text",
         "placeholders": {}
     },
-    "msgPerDay": "{name} pro Tag",
+    "msgPerDay": "{name} al día",
     "@msgPerDay": {
         "type": "text",
         "placeholders": {
             "name": {}
         }
     },
-    "msgPerWeek": "{name} pro Woche",
+    "msgPerWeek": "{name} a la semana",
     "@msgPerWeek": {
         "type": "text",
         "placeholders": {
             "name": {}
         }
     },
-    "msgPerMonth": "{name} pro Monat",
+    "msgPerMonth": "{name} al mes",
     "@msgPerMonth": {
         "type": "text",
         "placeholders": {
@@ -2426,19 +2464,19 @@
             "unit": {}
         }
     },
-    "Glukosewerte anpassen": "Glukosewerte anpassen",
+    "Glukosewerte anpassen": "Ajustar valores de glucosa",
     "@Glukosewerte anpassen": {
         "type": "text",
         "placeholders": {}
     },
-    "_msgAdjustCalc": "Errechneter HbA1C: {value}%",
+    "_msgAdjustCalc": "HbA1c calculado: {value}%",
     "@_msgAdjustCalc": {
         "type": "text",
         "placeholders": {
             "value": {}
         }
     },
-    "_msgAdjustLab": "Im Labor ermittelter HbA1C: {value}%",
+    "_msgAdjustLab": "Valor HbA1c calculado en laboratorio: {value}%",
     "@_msgAdjustLab": {
         "type": "text",
         "placeholders": {
@@ -3031,13 +3069,25 @@
         "type": "text",
         "placeholders": {}
     },
+    "2.2.3 - xx.08.2022": "2.2.3 - xx.08.2022",
+    "@2.2.3 - xx.08.2022": {
+        "description": "v223",
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.": "Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.",
+    "@Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.": {
+        "description": "v223a1",
+        "type": "text",
+        "placeholders": {}
+    },
     "2.2.2 - 10.08.2022": "2.2.2 - 10.08.2022",
     "@2.2.2 - 10.08.2022": {
         "description": "v222",
         "type": "text",
         "placeholders": {}
     },
-    "Die Glukosewerte können nun mit einem Faktor korrigiert werden, der sich aus dem im Labor ermittelten und errechneten HbA1C Wert ergibt. Dieser Faktor betrifft alle Sensorwerte, die in Nightscout Reporter verarbeitet werden. Der Faktor wird in den Ausgabeparametern festgelegt. Dort wird er über die Checkbox \"Glukosewerte anpassen\" aktiviert und deaktiviert. Wenn er aktiviert ist, erscheinen zwei Schieberegler. Der obere legt den errechneten HbA1C fest, der untere den im Labor ermittelten HbA1C. Wenn er aktiviert ist, wird auf jedem PDF rechts oben angegeben, mit welchem Faktor die Glukosewerte korrigiert wurden. Das hat auf jedem PDF Auswirkungen auf dem Glukosewerte verarbeitet werden.": "Die Glukosewerte können nun mit einem Faktor korrigiert werden, der sich aus dem im Labor ermittelten und errechneten HbA1C Wert ergibt. Dieser Faktor betrifft alle Sensorwerte, die in Nightscout Reporter verarbeitet werden. Der Faktor wird in den Ausgabeparametern festgelegt. Dort wird er über die Checkbox \"Glukosewerte anpassen\" aktiviert und deaktiviert. Wenn er aktiviert ist, erscheinen zwei Schieberegler. Der obere legt den errechneten HbA1C fest, der untere den im Labor ermittelten HbA1C. Wenn er aktiviert ist, wird auf jedem PDF rechts oben angegeben, mit welchem Faktor die Glukosewerte korrigiert wurden. Das hat auf jedem PDF Auswirkungen auf dem Glukosewerte verarbeitet werden.",
+    "Die Glukosewerte können nun mit einem Faktor korrigiert werden, der sich aus dem im Labor ermittelten und errechneten HbA1C Wert ergibt. Dieser Faktor betrifft alle Sensorwerte, die in Nightscout Reporter verarbeitet werden. Der Faktor wird in den Ausgabeparametern festgelegt. Dort wird er über die Checkbox \"Glukosewerte anpassen\" aktiviert und deaktiviert. Wenn er aktiviert ist, erscheinen zwei Schieberegler. Der obere legt den errechneten HbA1C fest, der untere den im Labor ermittelten HbA1C. Wenn er aktiviert ist, wird auf jedem PDF rechts oben angegeben, mit welchem Faktor die Glukosewerte korrigiert wurden. Das hat auf jedem PDF Auswirkungen auf dem Glukosewerte verarbeitet werden.": "Los valores de glucosa ahora se pueden corregir con un factor que resulta del valor de HbA1C determinado y calculado en el laboratorio. Este factor afecta a todos los valores de los sensores procesados ​​en Nightscout Reporter. El factor se especifica en los parámetros. Allí se activa y desactiva a través de la casilla de verificación \"Ajustar valores de glucosa\". Cuando está activado, aparecen dos controles deslizantes. El superior define el HbA1C calculado, el inferior el HbA1C determinado en el laboratorio. Si está activado, en la parte superior derecha de cada PDF se indica el factor con el que se corrigieron los valores de glucosa. Esto afecta a todos los PDF en los que se procesan los valores de glucosa.",
     "@Die Glukosewerte können nun mit einem Faktor korrigiert werden, der sich aus dem im Labor ermittelten und errechneten HbA1C Wert ergibt. Dieser Faktor betrifft alle Sensorwerte, die in Nightscout Reporter verarbeitet werden. Der Faktor wird in den Ausgabeparametern festgelegt. Dort wird er über die Checkbox \"Glukosewerte anpassen\" aktiviert und deaktiviert. Wenn er aktiviert ist, erscheinen zwei Schieberegler. Der obere legt den errechneten HbA1C fest, der untere den im Labor ermittelten HbA1C. Wenn er aktiviert ist, wird auf jedem PDF rechts oben angegeben, mit welchem Faktor die Glukosewerte korrigiert wurden. Das hat auf jedem PDF Auswirkungen auf dem Glukosewerte verarbeitet werden.": {
         "description": "v222a1",
         "type": "text",
@@ -4963,8 +5013,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "ViewWhatsnewComponent0__message_36": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-    "@ViewWhatsnewComponent0__message_36": {
+    "ViewWhatsnewComponent0__message_38": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+    "@ViewWhatsnewComponent0__message_38": {
         "description": "v206a1",
         "type": "text",
         "placeholders": {
