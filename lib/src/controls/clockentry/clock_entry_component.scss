@@ -1,0 +1,10 @@
+@import '../../colors.sass';
+@import '../../base';
+
+:host {
+  position: relative;
+}
+
+div[content] {
+  cursor: pointer;
+}

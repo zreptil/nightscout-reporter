@@ -1,0 +1,138 @@
+@import '../colors.sass';
+@import '../base';
+
+.root {
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.low {
+  background: var(--glucLow);
+}
+
+.norm {
+  background: var(--glucNorm);
+}
+
+.high {
+  background: var(--glucHigh);
+}
+
+clockentry[type=nl] {
+  width: 100%;
+}
+
+clockentry[type=gluc],
+clockentry[type=time] {
+  font-weight: bold;
+}
+
+clockentry[type=gluc].size1 {
+  font-size: 4em;
+}
+clockentry[type=gluc].size2 {
+  font-size: 5em;
+}
+clockentry[type=gluc].size3 {
+  font-size: 6em;
+}
+clockentry[type=gluc].size4 {
+  font-size: 8em;
+}
+clockentry[type=gluc].size5 {
+  font-size: 10em;
+}
+
+clockentry[type=arrow].size1 {
+  font-size: 0.5em;
+}
+clockentry[type=arrow].size2 {
+  font-size: 0.8em;
+}
+clockentry[type=arrow].size3 {
+  font-size: 1.0em;
+}
+clockentry[type=arrow].size4 {
+  font-size: 1.2em;
+}
+clockentry[type=arrow].size5 {
+  font-size: 1.5em;
+}
+
+.size1 {
+  font-size: 1em;
+}
+.size2 {
+  font-size: 2em;
+}
+.size3 {
+  font-size: 4em;
+}
+.size4 {
+  font-size: 6em;
+}
+.size5 {
+  font-size: 8em;
+}
+
+.currentGluc {
+  .factor {
+    font-size: 60%;
+    color: $mat-red-500;
+  }
+
+  [time] {
+    font-size: 4em;
+    font-weight: bold;
+  }
+
+  [lasttime] {
+    font-size: 2em;
+  }
+}
+
+clockentry {
+  padding: 5px;
+}
+
+clockentry[selected=true] {
+  @include shadow-elevation(16);
+}
+
+clockentry[type=arrow] {
+  position: relative;
+
+  .arrow {
+    width: 10em;
+    stroke: #000;
+    fill: #000;
+
+    .circle {
+      stroke-width: 0.5em;
+      fill: transparent;
+    }
+  }
+
+  .centered {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+  }
+}
+
+.controls {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  background: var(--settingsBodyBack);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

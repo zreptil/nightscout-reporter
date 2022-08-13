@@ -1,0 +1,6 @@
+<div content (click)="fire('select', $event)">
+  <ng-content></ng-content>
+  <ng-container *ngIf="isEditMode">
+    <material-icon *ngIf="element.type=='nl'" icon="keyboard_return"></material-icon>
+  </ng-container>
+</div>
