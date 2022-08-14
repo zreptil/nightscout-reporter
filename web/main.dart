@@ -3,18 +3,10 @@ import 'dart:convert' as convert;
 
 import 'package:angular/angular.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:angular_router/angular_router.dart';
 import 'package:nightscout_reporter/app_component.template.dart' as ng;
 import 'package:nightscout_reporter/messages/messages_all.dart';
 import 'package:timezone/browser.dart';
 import 'package:intl/intl.dart';
-
-import 'main.template.dart' as self;
-
-@GenerateInjector(
-  routerProviders, // You can use routerProviders in production
-)
-final InjectorFactory injector = self.injector$Injector;
 
 void main()
 async {
@@ -31,5 +23,5 @@ async {
   await initializeTimeZone();
   await initializeMessages(language);
   await initializeDateFormatting(language, null);
-  runApp(ng.AppComponentNgFactory, createInjector: injector);
+  runApp(ng.AppComponentNgFactory);
 }

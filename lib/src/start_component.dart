@@ -15,7 +15,6 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_select_item.dart';
 import 'package:angular_components/utils/color/material.dart';
 import 'package:angular_forms/angular_forms.dart';
-import 'package:angular_router/angular_router.dart';
 import 'package:dnd/dnd.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
@@ -51,8 +50,6 @@ import 'settings/settings_component.dart';
 import 'shortcutedit/shortcutedit_component.dart';
 import 'welcome/welcome_component.dart';
 import 'whatsnew/whatsnew_component.dart';
-import 'clock/clock_component.dart';
-import 'route_paths.dart';
 
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
@@ -65,7 +62,7 @@ class PdfData {
 }
 
 @Component(
-    selector: 'my-nr-main',
+    selector: 'app-start',
     styleUrls: [
       'start_component.css',
       'package:angular_components/app_layout/layout.scss.css'
@@ -87,7 +84,6 @@ class PdfData {
       MaterialSliderComponent,
       SettingsComponent,
       ImpressumComponent,
-      ClockComponent,
       DSGVOComponent,
       PrintParamsComponent,
       WelcomeComponent,
@@ -105,10 +101,9 @@ class PdfData {
       NgClass,
       NgFor,
       NgIf,
-      NgModel,
-      routerDirectives
+      NgModel
     ],
-    exports: [RoutePaths],
+    exports: [],
     providers: <dynamic>[
       overlayBindings,
       materialProviders,
@@ -315,11 +310,7 @@ class StartComponent implements OnInit {
 
   @override
   Future<Null> ngOnInit() async {
-    if (html.window.location.href.endsWith('#clock')) {
-      _currPage = 'clock';
-    } else {
-      _currPage = 'signin';
-    }
+    _currPage = 'signin';
     g.loadWebData();
 //    g.theme = g.loadStorage("theme");
     await setTheme(g.theme);
@@ -376,10 +367,6 @@ class StartComponent implements OnInit {
 
     // ignore: unawaited_futures
     g.loadSettings().then((_) {
-      if (_currPage == 'clock') {
-        g.getCurrentGluc(force: true, timeout: 30);
-        return;
-      }
       var page = g.version == g.lastVersion ? 'normal' : 'whatsnew';
       _currPage = g.isConfigured ? page : 'welcome';
       // if (!g.dsgvoAccepted) {
@@ -776,7 +763,7 @@ class StartComponent implements OnInit {
         callNightscoutStatus();
         break;
       case 'nrclock':
-        navigate(RoutePaths.clock.toUrl());
+        navigate('?clock');
         break;
       case 'menu':
         changeView();

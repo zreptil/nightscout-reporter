@@ -9,7 +9,7 @@ import 'package:nightscout_reporter/src/controls/clockentry/clock_entry_componen
 import 'package:angular_components/utils/color/material.dart';
 
 @Component(
-  selector: 'clock',
+  selector: 'app-clock',
   styleUrls: ['clock_component.css'],
   templateUrl: 'clock_component.html',
   directives: [
@@ -65,10 +65,6 @@ class ClockComponent implements OnInit {
     return ret.join(' ');
   }
 
-  @Output('closeClicked')
-  Stream<html.UIEvent> get trigger => _trigger.stream;
-  final _trigger = StreamController<html.UIEvent>.broadcast(sync: true);
-
   String get msgTitle => Intl.message('Nightscout Reporter Uhr');
 
   DateTime get now => DateTime.now();
@@ -78,10 +74,10 @@ class ClockComponent implements OnInit {
 
   int get selectedIndex => g.clockList?.indexWhere((e) => e.selected) ?? -1;
 
-  ClockComponent() {}
+  ClockComponent() {
+  }
 
   String colForGluc(double gluc) {
-
     if (gluc == null) return '';
     if (gluc < globals.Globals.stdLow) {
       return 'low';
@@ -99,7 +95,8 @@ class ClockComponent implements OnInit {
 
   bool get biggerDisabled {
     var ret = selected == null;
-    if (selected != null) ret |= selected.size >= globals.ClockElement.maxSize - 1;
+    if (selected != null)
+      ret |= selected.size >= globals.ClockElement.maxSize - 1;
     return ret;
   }
 
@@ -215,15 +212,11 @@ class ClockComponent implements OnInit {
     element.selected = value;
   }
 
-  void fire(String type) async {
-    _trigger.add(html.UIEvent(type, detail: 0));
-  }
-
   void clickBackground() {
     if (!isEditMode) {
       if (g.clockList.isEmpty) {
-        g.clockList
-            .add(globals.ClockElement.fromJson({"type": "gluc", "selected": true}));
+        g.clockList.add(
+            globals.ClockElement.fromJson({'type': 'gluc', 'selected': true}));
       }
       g.clockList[0].selected = true;
     }
@@ -232,13 +225,7 @@ class ClockComponent implements OnInit {
   @override
   Future<Null> ngOnInit() async {
     html.document.querySelector('head>title').text = msgTitle;
-    var href = html.document
-        .querySelector('head>link[rel="manifest"]')
-        .getAttribute('href');
-    href = href.replaceAll('.json', '.clock.json');
-    html.document
-        .querySelector('head>link[rel="manifest"]')
-        .setAttribute('href', href);
+    print('bagmers!');
     g.loadWebData();
     await setTheme(g.theme);
     await g.loadSettings().then((_) {
