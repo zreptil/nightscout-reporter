@@ -3,11 +3,17 @@
 
 .root {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.clock {
+  display: flex;
   flex-flow: wrap;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100vw;
 }
 
 .low {
@@ -26,73 +32,72 @@ clockentry[type=nl] {
   width: 100%;
 }
 
-clockentry[type=gluc],
-clockentry[type=time] {
+.bold {
   font-weight: bold;
 }
 
-clockentry[type=gluc].size1 {
-  font-size: 4em;
+.italic {
+  font-style: italic;
 }
-clockentry[type=gluc].size2 {
-  font-size: 5em;
+
+.vertical0 {
+  align-self: flex-start;
 }
-clockentry[type=gluc].size3 {
-  font-size: 6em;
+
+.vertical1 {
+  align-self: center;
 }
-clockentry[type=gluc].size4 {
-  font-size: 8em;
-}
-clockentry[type=gluc].size5 {
-  font-size: 10em;
+
+.vertical2 {
+  align-self: flex-end;
 }
 
 clockentry[type=arrow].size1 {
   font-size: 0.5em;
 }
+
 clockentry[type=arrow].size2 {
   font-size: 0.8em;
 }
+
 clockentry[type=arrow].size3 {
   font-size: 1.0em;
 }
+
 clockentry[type=arrow].size4 {
   font-size: 1.2em;
 }
+
 clockentry[type=arrow].size5 {
+  font-size: 1.4em;
+}
+
+clockentry[type=arrow].size6 {
   font-size: 1.5em;
 }
 
 .size1 {
   font-size: 1em;
 }
+
 .size2 {
   font-size: 2em;
 }
+
 .size3 {
   font-size: 4em;
 }
+
 .size4 {
   font-size: 6em;
 }
+
 .size5 {
   font-size: 8em;
 }
 
-.currentGluc {
-  .factor {
-    font-size: 60%;
-    color: $mat-red-500;
-  }
-
-  [time] {
-    font-size: 4em;
-    font-weight: bold;
-  }
-
-  [lasttime] {
-    font-size: 2em;
-  }
+.size6 {
+  font-size: 10em;
 }
 
 clockentry {
@@ -113,7 +118,7 @@ clockentry[type=arrow] {
 
     .circle {
       stroke-width: 0.5em;
-      fill: transparent;
+      fill: #000;
     }
   }
 
@@ -123,6 +128,7 @@ clockentry[type=arrow] {
     top: 50%;
     transform: translate(-50%, -50%);
     font-size: 2em;
+    color: #fff;
   }
 }
 
@@ -133,6 +139,33 @@ clockentry[type=arrow] {
   width: 100vw;
   background: var(--settingsBodyBack);
   display: flex;
+  flex-flow: wrap;
   align-items: center;
   justify-content: center;
+  padding: 5px 0;
+
+  div[typePanel] {
+    position: relative;
+
+    material-icon {
+      color: rgba(0, 0, 0, 0.4);
+    }
+
+    div[typeName] {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+  }
+
+  .active {
+    border-radius: 1em;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  material-button {
+    text-transform: none;
+  }
 }

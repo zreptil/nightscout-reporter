@@ -58,9 +58,9 @@ class PrintParamsComponent implements OnInit {
       Intl.message('Im Labor ermittelter HbA1C: ${value}%',
           args: [value], name: '_msgAdjustLab');
 
-  String get msgAdjustCalc => _msgAdjustCalc(g.fmtNumber(g.ppAdjustCalc, 1));
+  String get msgAdjustCalc => _msgAdjustCalc(g.fmtNumber(g.user.adjustCalc, 1));
 
-  String get msgAdjustLab => _msgAdjustLab(g.fmtNumber(g.ppAdjustLab, 1));
+  String get msgAdjustLab => _msgAdjustLab(g.fmtNumber(g.user.adjustLab, 1));
 
   String get msgStandardCGP =>
       Intl.message('CGP immer mit Standard Zielbereich');
@@ -120,7 +120,7 @@ class PrintParamsComponent implements OnInit {
   void fire(String type) {
     var detail = 0;
     // make sure the value uses the correct factor
-    g.ppAdjustGluc = g.ppAdjustGluc;
+    g.user.adjustGluc = g.user.adjustGluc;
     switch (type) {
       case 'ok':
         g.currPeriodShift = periodShift;

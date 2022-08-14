@@ -40,10 +40,10 @@
                     [showInfo]="g.showInfo" [showLabel]="false"></datepicker>
       </div>
       <nav class="material-navigation">
-        <material-button *ngIf="g.showCurrentGluc" raised class="g.currentGluc" (trigger)="g.getCurrentGluc()">
+        <material-button *ngIf="g.showCurrentGluc" raised class="currentGluc" (trigger)="g.getCurrentGluc()">
           <pre *ngIf="!g.currentGlucVisible" @i18n="message for current glucose if not active">Pausiert</pre>
           <div *ngIf="g.currentGlucVisible">
-            <div factor *ngIf="g.ppAdjustGluc">*{{g.msgAdjustFactor}}</div>
+            <div factor *ngIf="g.user.adjustGluc">*{{g.msgAdjustFactor}}</div>
             {{g.currentGluc}}
             <div time>{{g.currentGlucTime}}</div>
             <div *ngIf="g.isLocal" debug>{{g.currentGlucCounter}}</div>
@@ -83,7 +83,8 @@
     <infoview *ngIf="g.info.hasContent && currPage=='normal' && progressText==null"></infoview>
     <div class="tileparams" *ngIf="tileParams!=null && progressText == null && !g.showAllTileParams">
       <div title>
-        <material-checkbox class="is-local" [(checked)]="allParams" *ngIf="g.isLocal" (trigger)="checkAllParams()"></material-checkbox>{{tileParams.form.display}}
+        <material-checkbox class="is-local" [(checked)]="allParams" *ngIf="g.isLocal" (trigger)="checkAllParams()"></material-checkbox>
+        {{tileParams.form.display}}
         <div>
           <material-button (trigger)="clickTileParamListToggle($event)">
             <material-icon icon="list"></material-icon>
@@ -187,7 +188,7 @@
       </material-fab>
     </div>
     <div class="themePanel" [style]="themeStyle" *ngIf="currPage=='normal'">
-      <material-button class="donation" (trigger)="g.donationClick()"  @i18n="title of donate button">Spenden</material-button>
+      <material-button class="donation" (trigger)="g.donationClick()" @i18n="title of donate button">Spenden</material-button>
       <material-fab mini class="" *ngFor="let item of g.themeList.keys; let idx = index"
                     (trigger)="toggleThemePanel(item)">
         <img class="logo" src="packages/nightscout_reporter/assets/themes/wizard.png" *ngIf="item==null">
@@ -282,6 +283,11 @@
           <ng-container @i18n="title of nightscout reports">Nightscout Berichte</ng-container>
           <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
+        <material-button class="iconButton material-drawer-button" (trigger)="clickMenuButton('nrclock')">
+          <material-icon icon="schedule"></material-icon>
+          <ng-container @i18n="title of nightscout report clock">Uhr</ng-container>
+          <material-icon icon="open_in_new" size="medium"></material-icon>
+        </material-button>
         <div>
           <material-button *ngFor="let item of g.languageList"
                            (trigger)="g.changeLanguage(item)"
@@ -342,7 +348,7 @@
         <form *ngFor="let pdfData of pdfList; let idx=index" [id]="formId(idx)" [target]="g.pdfTarget" method="post"
               [action]="pdfUrl">
           <input name="vfs" type="hidden" value="ja" *ngIf="g.language.code=='ja_JP'"/>
-          <input name="deactivated_vfs" type="hidden" value="unicode" />
+          <input name="deactivated_vfs" type="hidden" value="unicode"/>
           <input name="filename" type="hidden" value="{{g.ppPdfDownload?pdfFilename(idx):''}}"/>
           <input name="data" type="hidden" value="{{pdfData.pdf}}"/>
           <material-button class="pdfButton"

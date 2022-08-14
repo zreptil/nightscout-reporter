@@ -1,0 +1,17 @@
+{
+  "icons": [
+    {
+      "sizes": "176x176",
+      "src": "../../../packages/nightscout-reporter/assets/themes/standard/favicon.png",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone",
+  "name": "Nightscout Reporter Uhr Beta",
+  "permissions": [],
+  "prefer_related_applications": true,
+  "related_applications": [],
+  "short_name": "NR Uhr Beta",
+  "start_url": "/beta/index.html",
+  "url": "https://nightscout-reporter.zreptil.de/beta/#/clock"
+}

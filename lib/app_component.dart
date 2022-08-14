@@ -4,7 +4,7 @@ import 'package:angular/angular.dart';
 
 @Component(
   selector: 'my-app',
-  template: '<router-outlet [routes]="Routes.all"></router-outlet>', // '<my-nr-main></my-nr-main>',
+  template: '<router-outlet [routes]="Routes.all"></router-outlet>',
   directives: [routerDirectives],
   providers: [],
   exports: [RoutePaths, Routes],

@@ -18,15 +18,15 @@ final InjectorFactory injector = self.injector$Injector;
 
 void main()
 async {
-  var prefix = html.window.location.href.contains("/beta/") ? "@" : "";
-  var language = html.window.localStorage["${prefix}language"];
+  var prefix = html.window.location.href.contains('/beta/') ? '@' : '';
+  var language = html.window.localStorage['${prefix}language'];
   try
   {
-    dynamic json = convert.json.decode(html.window.localStorage["${prefix}webData"]);
-    language = json["w1"];
+    dynamic json = convert.json.decode(html.window.localStorage['${prefix}webData']);
+    language = json['w1'];
   }catch(ex){
   }
-  if ((language == null || language.length != 5))language = "de_DE";
+  if ((language == null || language.length != 5))language = 'de_DE';
   Intl.systemLocale = Intl.canonicalizedLocale(language);
   await initializeTimeZone();
   await initializeMessages(language);

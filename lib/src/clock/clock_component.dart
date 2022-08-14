@@ -1,16 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:html' as html;
 
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/controls/clockentry/clock_entry_component.dart';
 import 'package:angular_components/utils/color/material.dart';
-
-import 'clock_element.dart';
 
 @Component(
   selector: 'clock',
@@ -30,12 +26,41 @@ import 'clock_element.dart';
 class ClockComponent implements OnInit {
   globals.Globals g = globals.Globals();
 
-  List<ClockElement> displayList = [];
+  String msgNL = Intl.message('Umbruch');
+  String msgFACTOR = Intl.message('Faktor');
+  String msgGLUC = Intl.message('Glukose');
+  String msgTIME = Intl.message('Uhrzeit');
+  String msgLASTTIME = Intl.message('Zeit');
+  String msgARROW = Intl.message('Trendpfeil');
+  String msgUSER = Intl.message('Benutzer');
+  String msgDate = Intl.message('Datum');
+  String msgUNIT = Intl.message('Einheit');
+  String msgSPACE = Intl.message('Leer');
 
-  bool get isEditMode => selected != null;
+  double get temp => globals.Globals.adjustFactor;
+
+  List<String> get _verticalIcon =>
+      ['vertical_align_top', 'vertical_align_center', 'vertical_align_bottom'];
+
+  String get verticalIcon => _verticalIcon[selected?.vertical ?? 1];
+
+  dynamic get types => {
+        'nl': msgNL,
+        'space': msgSPACE,
+        'factor': msgFACTOR,
+        'gluc': msgGLUC,
+        'unit': msgUNIT,
+        'time': msgTIME,
+        'date': msgDate,
+        'lasttime': msgLASTTIME,
+        'arrow': msgARROW,
+        'user': msgUSER
+      };
+
+  bool get isEditMode => selected != null || (g.clockList?.isEmpty ?? true);
 
   String get classForClock {
-    var ret = ['root', 'currentGluc'];
+    var ret = ['root'];
     ret.add(colForGluc(g.currentGlucValue));
     return ret.join(' ');
   }
@@ -44,78 +69,19 @@ class ClockComponent implements OnInit {
   Stream<html.UIEvent> get trigger => _trigger.stream;
   final _trigger = StreamController<html.UIEvent>.broadcast(sync: true);
 
+  String get msgTitle => Intl.message('Nightscout Reporter Uhr');
+
   DateTime get now => DateTime.now();
 
-  ClockElement get selected =>
-      displayList?.firstWhere((e) => e.selected, orElse: () => null);
+  globals.ClockElement get selected =>
+      g.clockList?.firstWhere((e) => e.selected, orElse: () => null);
 
-  int get selectedIndex => displayList?.indexWhere((e) => e.selected) ?? -1;
+  int get selectedIndex => g.clockList?.indexWhere((e) => e.selected) ?? -1;
 
-  ClockComponent() {
-    dynamic src = [
-      {'type': 'time', 'size': 3},
-      {'type': 'nl', 'size': 1},
-      {'type': 'gluc', 'size': 5},
-      {'type': 'arrow', 'size': 3},
-      {'type': 'nl', 'size': 1},
-      {'type': 'lasttime', 'size': 1},
-      {'type': 'nl', 'size': 1}
-    ];
-    for (var entry in src) {
-      displayList.add(ClockElement.fromJson(entry));
-    }
-  }
-
-  String fmtTime(var date,
-      {String def,
-      bool withUnit = false,
-      bool withMinutes = true,
-      bool withSeconds = false}) {
-    def ??= '';
-    if (date == null) return def;
-
-    if (withSeconds) withMinutes = true;
-
-    if (date is DateTime) {
-      var hour = date.hour;
-      if (!g.language.is24HourFormat) hour = hour > 12 ? hour - 12 : hour;
-      var m =
-          withMinutes ? ':${(date.minute < 10 ? '0' : '')}${date.minute}' : '';
-      if (withSeconds) {
-        m = '${m}:${(date.second < 10 ? '0' : '')}${date.second}';
-      }
-      var ret = '${(hour < 10 ? '0' : '')}${hour}$m';
-      if (withUnit) {
-        if (g.language.is24HourFormat) {
-          ret = BasePrint.msgTimeOfDay24(ret);
-        } else {
-          ret = date.hour > 12
-              ? BasePrint.msgTimeOfDayPM(ret)
-              : BasePrint.msgTimeOfDayAM(ret);
-        }
-      }
-      return ret;
-    }
-
-    if (date is int) {
-      var m = withMinutes ? ':00' : '';
-      if (g.language.is24HourFormat) return '${g.fmtNumber(date, 0)}$m';
-
-      m = withMinutes ? ' ' : '';
-
-      if (date < 12) {
-        return '${g.fmtNumber(date, 0)}${m}am';
-      } else if (date == 12) {
-        return '${g.fmtNumber(date, 0)}${m}pm';
-      } else {
-        return '${g.fmtNumber(date - 12, 0)}${m}pm';
-      }
-    }
-
-    return date;
-  }
+  ClockComponent() {}
 
   String colForGluc(double gluc) {
+
     if (gluc == null) return '';
     if (gluc < globals.Globals.stdLow) {
       return 'low';
@@ -133,7 +99,7 @@ class ClockComponent implements OnInit {
 
   bool get biggerDisabled {
     var ret = selected == null;
-    if (selected != null) ret |= selected.size >= 4;
+    if (selected != null) ret |= selected.size >= globals.ClockElement.maxSize - 1;
     return ret;
   }
 
@@ -145,7 +111,7 @@ class ClockComponent implements OnInit {
 
   bool get rightDisabled {
     var ret = selected == null;
-    if (selected != null) ret |= selectedIndex >= displayList.length - 1;
+    if (selected != null) ret |= selectedIndex >= g.clockList.length - 1;
     return ret;
   }
 
@@ -157,42 +123,51 @@ class ClockComponent implements OnInit {
     if (!biggerDisabled) selected.size++;
   }
 
+  void clickBold() {
+    if (selected != null) selected.bold = !selected.bold;
+  }
+
+  void clickItalic() {
+    if (selected != null) selected.italic = !selected.italic;
+  }
+
   void clickLeft() {
     if (!leftDisabled) {
       var idx = selectedIndex;
       var elem = selected;
-      displayList.removeAt(idx);
-      displayList.insert(idx - 1, elem);
+      g.clockList.removeAt(idx);
+      g.clockList.insert(idx - 1, elem);
     }
   }
 
   void clickAdd() {
     var idx = selectedIndex;
     if (idx < 0) idx = 0;
-    for (var entry in displayList) {
+    for (var entry in g.clockList) {
       entry.selected = false;
     }
-    var elem = ClockElement.fromJson({"type": "nl", "selected": true});
-    displayList.insert(idx, elem);
+    var elem = globals.ClockElement.fromJson({"type": "nl", "selected": true});
+    g.clockList.insert(idx, elem);
   }
 
-  String msgNL = Intl.message('Umbruch');
-  String msgFACTOR = Intl.message('Faktor');
-  String msgGLUC = Intl.message('Glukose');
-  String msgTIME = Intl.message('Uhrzeit');
-  String msgLASTTIME = Intl.message('Zeit');
-  String msgARROW = Intl.message('Trendpfeil');
+  void clickTypeSub() {
+    if (selected != null) {
+      var useKey = true;
+      var check = selected.type;
+      selected.type = null;
+      for (var key in types.keys) {
+        if (key == check) {
+          useKey = false;
+        }
+        if (useKey) {
+          selected.type = key;
+        }
+      }
+      selected.type ??= types.keys.last;
+    }
+  }
 
-  dynamic get types => {
-        'nl': msgNL,
-        'factor': msgFACTOR,
-        'gluc': msgGLUC,
-        'time': msgTIME,
-        'lasttime': msgLASTTIME,
-        'arrow': msgARROW
-      };
-
-  void clickType() {
+  void clickTypeAdd() {
     if (selected != null) {
       var useKey = false;
       for (var key in types.keys) {
@@ -211,21 +186,30 @@ class ClockComponent implements OnInit {
     if (!rightDisabled) {
       var idx = selectedIndex;
       var elem = selected;
-      displayList.removeAt(idx);
-      displayList.insert(idx + 1, elem);
+      g.clockList.removeAt(idx);
+      g.clockList.insert(idx + 1, elem);
+    }
+  }
+
+  void clickVertical() {
+    if (selected != null) {
+      var value = selected.vertical;
+      value++;
+      if (value > 2) value = 0;
+      selected.vertical = value;
     }
   }
 
   void clickDelete() {
     var idx = selectedIndex;
     if (idx >= 0) {
-      displayList.removeAt(idx);
+      g.clockList.removeAt(idx);
     }
   }
 
-  void onClick(ClockElement element, $event) {
+  void onClick(globals.ClockElement element, $event) {
     var value = !element.selected;
-    for (var entry in displayList) {
+    for (var entry in g.clockList) {
       entry.selected = false;
     }
     element.selected = value;
@@ -235,30 +219,29 @@ class ClockComponent implements OnInit {
     _trigger.add(html.UIEvent(type, detail: 0));
   }
 
-  void clickSave() {
-    var ret = [];
-    for (var entry in displayList) {
-      ret.add(entry.asJsonString);
-    }
-
-    print('[${ret.join(', ')}]');
-  }
-
   void clickBackground() {
     if (!isEditMode) {
-      if (displayList.length == 0) {
-        displayList
-            .add(ClockElement.fromJson({"type": "gluc", "selected": true}));
+      if (g.clockList.isEmpty) {
+        g.clockList
+            .add(globals.ClockElement.fromJson({"type": "gluc", "selected": true}));
       }
-      displayList[0].selected = true;
+      g.clockList[0].selected = true;
     }
   }
 
   @override
   Future<Null> ngOnInit() async {
+    html.document.querySelector('head>title').text = msgTitle;
+    var href = html.document
+        .querySelector('head>link[rel="manifest"]')
+        .getAttribute('href');
+    href = href.replaceAll('.json', '.clock.json');
+    html.document
+        .querySelector('head>link[rel="manifest"]')
+        .setAttribute('href', href);
     g.loadWebData();
     await setTheme(g.theme);
-    g.loadSettings().then((_) {
+    await g.loadSettings().then((_) {
       g.getCurrentGluc(force: true, timeout: 30);
     });
   }
@@ -276,6 +259,6 @@ class ClockComponent implements OnInit {
       html.document.body.style.setProperty('--$key', value);
     }
     g.theme = name;
-    g.saveWebData(); //saveStorage("webtheme", name);
+    g.saveWebData();
   }
 }

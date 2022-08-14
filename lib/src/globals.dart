@@ -103,15 +103,17 @@ class LangData {
     }
   }
 
-  String get dateformat => Intl.message('dd.MM.yyyy',
-      desc: 'this is the dateformat, please use dd for days, ' +
-          'MM for months and yyyy for year. ' +
-          'It has to be the english formatstring.');
+  String get dateformat =>
+      Intl.message('dd.MM.yyyy',
+          desc: 'this is the dateformat, please use dd for days, ' +
+              'MM for months and yyyy for year. ' +
+              'It has to be the english formatstring.');
 
-  String get dateShortFormat => Intl.message('dd.MM.',
-      desc: 'this is the dateformat, please use dd for days, ' +
-          'MM for months and no year. ' +
-          'It has to be the english formatstring.');
+  String get dateShortFormat =>
+      Intl.message('dd.MM.',
+          desc: 'this is the dateformat, please use dd for days, ' +
+              'MM for months and no year. ' +
+              'It has to be the english formatstring.');
 
   String get imgPath =>
       'packages/nightscout_reporter/assets/img/lang-${img}.png';
@@ -126,8 +128,10 @@ class PeriodShift {
   PeriodShift(this.title, {this.months = 0});
 }
 
-// 21.12.2021 - 11:20 Uhr Loop pausiert - Eintrag "OpenAPS Offline" mit duration 1 Std.
-// 21.12.2021 - 11:25 Uhr Loop wieder aktiviert - Eintrag "OpenAPS Offline" mit duration 0
+// 21.12.2021 - 11:20 Uhr Loop pausiert -
+// Eintrag "OpenAPS Offline" mit duration 1 Std.
+// 21.12.2021 - 11:25 Uhr Loop wieder aktiviert -
+// Eintrag "OpenAPS Offline" mit duration 0
 class Settings {
   String version = '2.2.3';
 
@@ -207,6 +211,16 @@ class Settings {
   List<FormConfig> listConfigOrg = <FormConfig>[];
   DateFormat fmtDateForDisplay;
   DatepickerPeriod _period = DatepickerPeriod();
+  List<ClockElement> _clockList = <ClockElement>[];
+
+  List<ClockElement> get clockList {
+    _clockList ??= [];
+    return _clockList;
+  }
+
+  set clockList(List<ClockElement> value) {
+    _clockList = value;
+  }
 
   DatepickerPeriod get period => _period;
 
@@ -244,7 +258,9 @@ class Settings {
 
   String get theme {
     if (_theme == null) {
-      if (Date.today().month == 12) {
+      if (Date
+          .today()
+          .month == 12) {
         return 'xmas';
       } else {
         return 'standard';
@@ -388,11 +404,11 @@ class Settings {
     }));
     period.list.add(
         DatepickerEntry('3months', msgLast3Months, (DatepickerPeriod data) {
-      data.start = period.baseDate.add(months: -3);
-      data.end = period.baseDate;
-    }, (Date date) {
-      return date.add(months: -3);
-    }));
+          data.start = period.baseDate.add(months: -3);
+          data.end = period.baseDate;
+        }, (Date date) {
+          return date.add(months: -3);
+        }));
     // period.list
     //     .add(DatepickerEntry('quarter1', msgQuarter1, (DatepickerPeriod data) {
     //   data.start = new Date(period.baseDate.year, 1, 1);
@@ -532,7 +548,14 @@ class Settings {
       shortcuts = '${shortcuts},${shortcutList[i].asJsonString}';
     }
     if (shortcuts.length > 1) shortcuts = shortcuts.substring(1);
-    timestamp = DateTime.now().millisecondsSinceEpoch;
+    var clockEntries = '';
+    for (var i = 0; i < clockList.length; i++) {
+      clockEntries = '${clockEntries},${clockList[i].asJsonString}';
+    }
+    if (clockEntries.length > 1) clockEntries = clockEntries.substring(1);
+    timestamp = DateTime
+        .now()
+        .millisecondsSinceEpoch;
     return '{'
         '"s1":"$version"'
         ',"s4":${userIdx}'
@@ -547,6 +570,7 @@ class Settings {
         ',"s13":${showAllTileParams}'
         ',"s2":[${users}]'
         ',"s3":[${shortcuts}]'
+        ',"s14":[${clockEntries}]'
         '}';
   }
 
@@ -567,6 +591,7 @@ class Settings {
       timestamp = JsonData.toInt(json['s11']);
       tileShowImage = JsonData.toBool(json['s12'], ifEmpty: true);
       showAllTileParams = JsonData.toBool(json['s13']);
+      dynamic clockEntries = json['s14'];
       period.fmtDate = language.dateformat;
       userListLoaded = false;
       userList.clear();
@@ -577,7 +602,8 @@ class Settings {
           }
         } catch (ex) {
           Globals().info.addDevError(ex,
-              'Fehler beim laden der User in Settings.fromSharedJson: ${ex.toString()}');
+              'Fehler beim laden der User in Settings.fromSharedJson: ${ex
+                  .toString()}');
 //            saveStorage("mu", null);
         }
       } else {
@@ -600,8 +626,8 @@ class Settings {
       userList.sort((a, b) => a.display.compareTo(b.display));
       userListLoaded = true;
       userIdx = JsonData.toInt(json['s4']);
-      shortcutList.clear();
       // get shortcuts if available
+      shortcutList.clear();
       if (shortcuts != null) {
         try {
           for (var entry in shortcuts) {
@@ -610,6 +636,29 @@ class Settings {
         } catch (ex) {
           var msg = ex.toString();
           showDebug('Fehler bei Settings.fromSharedJson (shortcuts): ${msg}');
+        }
+      }
+      // get clock entries if available
+      clockList.clear();
+      if (clockEntries == null || clockEntries.isEmpty) {
+        clockEntries = [
+          {'t': 'time', 's': 3, 'b': true},
+          {'t': 'nl', 's': 1},
+          {'t': 'gluc', 's': 5, 'b': true},
+          {'t': 'arrow', 's': 3},
+          {'t': 'nl', 's': 1},
+          {'t': 'lasttime', 's': 1}
+        ];
+      }
+      if (clockEntries != null) {
+        try {
+          for (var entry in clockEntries) {
+            clockList.add(ClockElement.fromJson(entry));
+          }
+        } catch (ex) {
+          var msg = ex.toString();
+          showDebug(
+              'Fehler bei Settings.fromSharedJson (clockEntries): ${msg}');
         }
       }
       if (onAfterLoad != null) onAfterLoad();
@@ -624,33 +673,6 @@ class Settings {
 
   // retrieve the current settings as a json-encoded-string
   // String get asJsonString => '{$jsonString}';
-
-  // retrieve the current settings as a string that can be used in json
-  String get jsonString {
-    var users = '';
-    for (var i = 0; i < userList.length; i++) {
-      users = '${users},${userList[i].asJsonString}';
-    }
-    if (users.length > 1) users = users.substring(1);
-    var shortcuts = '';
-    for (var i = 0; i < shortcutList.length; i++) {
-      shortcuts = '${shortcuts},${shortcutList[i].asJsonString}';
-    }
-    if (shortcuts.length > 1) shortcuts = shortcuts.substring(1);
-    return '"version":"$version"'
-        ',"mu":"${Settings.doit('[${users}]')}"'
-        ',"sc":"${Settings.doit('[${shortcuts}]')}"'
-        ',"userIdx":"${userIdx}"'
-        ',"glucMGDL":"${glucMGDL}"'
-        ',"language":"${language.code ?? 'de_DE'}"'
-        ',"showCurrentGluc":"${showCurrentGluc ? 'yes' : 'no'}"'
-        ',"period":"${period?.toString()}"'
-        ',"pdfOrder":"${_pdfOrder}"'
-        ',"viewType":"${_viewType}"'
-        ',"timestamp":"${timestamp}"'
-        ',"tileShowImage":"${tileShowImage ? 'yes' : 'no'}"'
-        ',"showAllTileParams":"${showAllTileParams ? 'yes' : 'no'}"';
-  }
 
   // retrieves the settings from localStorage as partial json-String
   String get storageString => '"version":"${loadStorage('version')}"'
@@ -811,7 +833,8 @@ class Settings {
     var rnd = math.Random();
     String.fromCharCode(rnd.nextInt(26) + 64);
     ret =
-        '${ret.substring(pos)}${String.fromCharCode(rnd.nextInt(26) + 64)}${String.fromCharCode(rnd.nextInt(10) + 48)}'
+    '${ret.substring(pos)}${String.fromCharCode(rnd.nextInt(26) + 64)}${String
+        .fromCharCode(rnd.nextInt(10) + 48)}'
         '${ret.substring(0, pos)}';
     return ret;
   }
@@ -825,22 +848,24 @@ class Globals extends Settings {
   String currentGlucDiff;
   String currentGlucTime;
 
-  String get currentGluc => currentGlucSrc == null
-      ? 'Keine Daten'
-      : fmtNumber(currentGlucSrc.gluc / glucFactor, glucPrecision);
+  String get currentGluc =>
+      currentGlucSrc == null
+          ? 'Keine Daten'
+          : fmtNumber(currentGlucSrc.gluc / glucFactor, glucPrecision);
 
   double get currentGlucValue =>
       currentGlucSrc == null ? null : currentGlucSrc.gluc / glucFactor;
 
   int glucDir = 360;
 
-  String msgGlucTime(time) => Intl.plural(time,
-      zero: 'Gerade eben',
-      one: 'vor ${time} Minute',
-      other: 'vor ${time} Minuten',
-      args: [time],
-      name: 'msgGlucTime',
-      desc: 'display of minutes since last value received on clock');
+  String msgGlucTime(time) =>
+      Intl.plural(time,
+          zero: 'Gerade eben',
+          one: 'vor ${time} Minute',
+          other: 'vor ${time} Minuten',
+          args: [time],
+          name: 'msgGlucTime',
+          desc: 'display of minutes since last value received on clock');
 
   String get currentGlucDir =>
       glucDir < 360 ? 'translate(0,2px)rotate(${glucDir}deg)' : null;
@@ -856,7 +881,7 @@ class Globals extends Settings {
       glucTimer = null;
     }
     // make sure the value uses the correct factor
-    ppAdjustGluc = ppAdjustGluc;
+    user.adjustGluc = user.adjustGluc;
 
     currentGlucCounter++;
 
@@ -883,19 +908,25 @@ class Globals extends Settings {
         try {
           var eNow = EntryData.fromJson(src[0]);
           var ePrev = EntryData.fromJson(src[1]);
-          var span = eNow.time.difference(ePrev.time).inMinutes;
+          var span = eNow.time
+              .difference(ePrev.time)
+              .inMinutes;
           glucDir = 360;
           currentGlucDiff = '';
           currentGlucTime = '';
           if (span > 15) {
             return currentGluc;
           }
-          var time = DateTime.now().difference(eNow.time).inMinutes;
+          var time = DateTime
+              .now()
+              .difference(eNow.time)
+              .inMinutes;
           currentGlucTime = msgGlucTime(time);
 
           currentGlucSrc = eNow;
           currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
-              '${fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / glucFactor, glucPrecision)}';
+              '${fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / glucFactor,
+              glucPrecision)}';
           var diff = eNow.gluc - ePrev.gluc;
           var limit = 10 * span ~/ 5;
           if (diff > limit) {
@@ -915,7 +946,7 @@ class Globals extends Settings {
 
     if (currentGlucVisible || force) {
       glucTimer = Timer(Duration(seconds: timeout),
-          () => getCurrentGluc(force: force, timeout: timeout));
+              () => getCurrentGluc(force: force, timeout: timeout));
     }
     glucRunning = false;
     return currentGluc;
@@ -933,23 +964,7 @@ class Globals extends Settings {
 
   String get msgAdjustFactor => fmtNumber(Globals.adjustFactor, 2);
 
-  bool _ppAdjustGluc = false;
-
-  bool get ppAdjustGluc => _ppAdjustGluc;
-
-  set ppAdjustGluc(bool value) {
-    _ppAdjustGluc = value;
-    if (_ppAdjustGluc) {
-      Globals.adjustFactor =
-          (ppAdjustLab * 28.7 - 46.7) / (ppAdjustCalc * 28.7 - 46.7);
-    } else {
-      Globals.adjustFactor = 1.0;
-    }
-  }
-
   bool ppCGPAlwaysStandardLimits = true;
-  double ppAdjustCalc = 5.0;
-  double ppAdjustLab = 5.0;
 
   bool ppComparable = false;
   int ppGlucMaxIdx = 0;
@@ -1029,9 +1044,6 @@ class Globals extends Settings {
       ',"d9":"${ppGlucMaxIdx?.toString() ?? 0}"'
       ',"d10":"${ppBasalPrecisionIdx?.toString() ?? 0}"'
       ',"d11":"${ppFixAAPS30?.toString() ?? 0}"'
-      ',"d12":"${ppAdjustGluc ? "true" : "false"}"'
-      ',"d13":"${ppAdjustCalc?.toString() ?? 5.0}"'
-      ',"d14":"${ppAdjustLab?.toString() ?? 5.0}"'
       '}';
 
   // loads the device settings from a json-encoded string
@@ -1049,9 +1061,6 @@ class Globals extends Settings {
       ppGlucMaxIdx = JsonData.toInt(json['d9']);
       ppBasalPrecisionIdx = JsonData.toInt(json['d10']);
       ppFixAAPS30 = JsonData.toBool(json['d11']);
-      ppAdjustGluc = JsonData.toBool(json['d12']);
-      ppAdjustCalc = JsonData.toDouble(json['d13']);
-      ppAdjustLab = JsonData.toDouble(json['d14']);
     } catch (ex) {
       var msg = ex.toString();
       showDebug('Fehler bei Globals.fromDeviceJson: ${msg}');
@@ -1065,70 +1074,7 @@ class Globals extends Settings {
             '"w3":${(_syncGoogle ?? false) ? "true" : "false"}}');
   }
 
-  // retrieve the current settings as a string that can be used in json
-  @override
-  String get jsonString =>
-      '${super.jsonString},"ppHideNightscoutInPDF":"${ppHideNightscoutInPDF ? "true" : "false"}"'
-      ',"ppShowUrlInPDF":"${ppShowUrlInPDF ? "true" : "false"}"'
-      ',"ppHideLoopData":"${ppHideLoopData ? "true" : "false"}"'
-      ',"pdfCreationMaxSize":"${pdfCreationMaxSize}"'
-      ',"ppStandardLimits":"${_ppStandardLimits ? "true" : "false"}"'
-      ',"ppCGPAlwaysStandardLimits":"${ppCGPAlwaysStandardLimits ? "true" : "false"}"'
-      ',"ppComparable":"${ppComparable ? "true" : "false"}"'
-      ',"ppLatestFirst":"${ppLatestFirst ? "true" : "false"}"'
-      ',"ppGlucMaxIdx":"${ppGlucMaxIdx?.toString() ?? 0}"'
-      ',"ppBasalPrecisionIdx":"${ppBasalPrecisionIdx?.toString() ?? 0}"'
-      ',"ppFixAAPS30":"${ppFixAAPS30?.toString() ?? 0}"'
-      ',"ppAdjustGluc":"${ppAdjustGluc ? "true" : "false"}"'
-      ',"ppAdjustCalc":"${ppAdjustCalc?.toString() ?? 5.0}"'
-      ',"ppAdjustLab":"${ppAdjustLab?.toString() ?? 5.0}"';
-
-  // retrieves the settings from a json-data-structure
-  @override
-  void fromJson(dynamic json) {
-    super.fromJson(json);
-    ppHideNightscoutInPDF = JsonData.toBool(json['ppHideNightscoutInPDF']);
-    ppShowUrlInPDF = JsonData.toBool(json['ppShowUrlInPDF']);
-    ppHideLoopData = JsonData.toBool(json['ppHideLoopData']);
-    pdfCreationMaxSize =
-        JsonData.toInt(json['pdfCreationMaxSize'], pdfCreationMaxSize);
-    ppStandardLimits = JsonData.toBool(json['ppStandardLimits']);
-    ppCGPAlwaysStandardLimits =
-        JsonData.toBool(json['ppCGPAlwaysStandardLimits']);
-    ppComparable = JsonData.toBool(json['ppComparable']);
-    ppLatestFirst = JsonData.toBool(json['ppLatestFirst']);
-    ppGlucMaxIdx = JsonData.toInt(json['ppGlucMaxIdx']);
-    ppBasalPrecisionIdx = JsonData.toInt(json['ppBasalPrecisionIdx']);
-    ppFixAAPS30 = JsonData.toBool(json['ppFixAAPS30']);
-    ppAdjustGluc = JsonData.toBool(json['ppAdjustGluc']);
-    ppAdjustCalc = JsonData.toDouble(json['ppAdjustCalc']);
-    ppAdjustLab = JsonData.toDouble(json['ppAdjustLab']);
-  }
-
   void restoreLiveStorage() {}
-
-  // retrieves the settings from localStorage as partial json-String
-  @override
-  String get storageString {
-    if (loadStorage('reset') == 'jawoll') restoreLiveStorage();
-    if (loadStorage('version') == '') return '';
-    return '${super.storageString}'
-        ',"ppHideNightscoutInPDF":"${loadStorage('ppHideNightscoutInPDF')}"'
-        ',"ppShowUrlInPDF":"${loadStorage('ppShowUrlInPDF')}"'
-        ',"ppHideLoopData":"${loadStorage('ppHideLoopData')}"'
-        ',"pdfCreationMaxSize":"${loadStorage('pdfCreationMaxSize')}"'
-        ',"ppStandardLimits":"${loadStorage('ppStandardLimits')}"'
-        ',"ppCGPAlwaysStandardLimits":"${loadStorage('ppCGPAlwaysStandardLimits')}"'
-        ',"ppComparable":"${loadStorage('ppComparable')}"'
-        ',"ppLatestFirst":"${loadStorage('ppLatestFirst')}"'
-        ',"ppGlucMaxIdx":"${loadStorage('ppGlucMaxIdx')}"'
-        ',"ppBasalPrecisionIdx":"${loadStorage('ppBasalPrecisionIdx')}"'
-        ',"ppProfileMaxCount":"${loadStorage('ppProfileMaxCount')}"'
-        ',"ppFixAAPS30":"${loadStorage('ppFixAAPS30')}"'
-        ',"ppAdjustGluc":"${loadStorage('ppAdjustGluc')}"'
-        ',"ppAdjustCalc":"${loadStorage('ppAdjustCalc')}"'
-        ',"ppAdjustLab":"${loadStorage('ppAdjustLab')}"';
-  }
 
   // loads the settings that are not synchronized to google
   @override
@@ -1148,9 +1094,10 @@ class Globals extends Settings {
 
   int basalPrecisionAuto = 1;
 
-  int get basalPrecision => (ppBasalPrecisionIdx ?? 0) > 0
-      ? basalPrecisionValues[ppBasalPrecisionIdx]
-      : basalPrecisionAuto;
+  int get basalPrecision =>
+      (ppBasalPrecisionIdx ?? 0) > 0
+          ? basalPrecisionValues[ppBasalPrecisionIdx]
+          : basalPrecisionAuto;
 
   /// ***********************************************
   /// Zentraler Faktor für die Kalibrierung
@@ -1222,7 +1169,8 @@ class Globals extends Settings {
     }
   }
 
-  List<PeriodShift> get listPeriodShift => [
+  List<PeriodShift> get listPeriodShift =>
+      [
         PeriodShift(Intl.message('Ausgewählter Zeitraum'), months: 0),
         PeriodShift(Intl.message('Einen Monat vorher'), months: 1),
         PeriodShift(Intl.message('Drei Monate vorher'), months: 3),
@@ -1236,27 +1184,32 @@ class Globals extends Settings {
 
   String get msgBE => _khFactor == 10 ? 'msgBE' : 'msgKE';
 
-  String get msgUrlFailurePrefix => Intl.message(
-      'Die angegebene URL ist nicht erreichbar. '
-      'Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ');
+  String get msgUrlFailurePrefix =>
+      Intl.message(
+          'Die angegebene URL ist nicht erreichbar. '
+              'Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ');
 
-  String get msgUrlFailureSuffix => Intl.message(
-      '<br><br>Wenn diese URL geschützt ist, '
-      'muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man '
-      'über "Administrator-Werkzeuge" auf der persönlichen Nightscout Seite.');
+  String get msgUrlFailureSuffix =>
+      Intl.message(
+          '<br><br>Wenn diese URL geschützt ist, '
+              'muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man '
+              'über "Administrator-Werkzeuge" auf der persönlichen Nightscout Seite.');
 
-  String get msgUrlFailureHerokuapp => Intl.message(
-      'In der Variable ENABLE muss das Wort "cors" stehen, damit externe Tools '
-      'wie dieses hier auf die Daten zugreifen dürfen.');
+  String get msgUrlFailureHerokuapp =>
+      Intl.message(
+          'In der Variable ENABLE muss das Wort "cors" stehen, damit externe Tools '
+              'wie dieses hier auf die Daten zugreifen dürfen.');
 
-  String get msgUrlFailure10be => Intl.message(
-      'Auf 10be muss beim Server in den Standardeinstellungen der Haken bei '
-      '"cors" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn "cors" '
-      'aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.');
+  String get msgUrlFailure10be =>
+      Intl.message(
+          'Auf 10be muss beim Server in den Standardeinstellungen der Haken bei '
+              '"cors" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn "cors" '
+              'aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.');
 
-  String get msgUrlNotSafe => Intl.message(
-      'Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter '
-      'auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.');
+  String get msgUrlNotSafe =>
+      Intl.message(
+          'Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter '
+              'auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.');
 
   String msgUrlFailure(String url) {
     if (url.startsWith('http:') &&
@@ -1374,11 +1327,11 @@ class Globals extends Settings {
 
   Future<dynamic> requestJson(String url,
       {String method = 'get',
-      Map<String, String> headers,
-      body,
-      bool showError = true}) async {
+        Map<String, String> headers,
+        body,
+        bool showError = true}) async {
     dynamic ret = await request(url,
-            method: method, headers: headers, body: body, showError: showError)
+        method: method, headers: headers, body: body, showError: showError)
         .then((String response) {
       if (response == null) {
         return null;
@@ -1403,10 +1356,10 @@ class Globals extends Settings {
 
   Future<String> request(String url,
       {String method = 'get',
-      Map<String, String> headers,
-      body,
-      bool showError = true,
-      bool asJson = false}) async {
+        Map<String, String> headers,
+        body,
+        bool showError = true,
+        bool asJson = false}) async {
     var client = http.BrowserClient();
     switch (method.toLowerCase()) {
       case 'post':
@@ -1548,17 +1501,18 @@ class Globals extends Settings {
   void _getFromGoogle() {
     drive.files
         .get(settingsFile.id,
-            $fields: '*',
-            downloadOptions: commons.DownloadOptions.FullMedia,
-            acknowledgeAbuse: false)
+        $fields: '*',
+        downloadOptions: commons.DownloadOptions.FullMedia,
+        acknowledgeAbuse: false)
         .then((response) {
       var media = response as commons.Media;
       if (media?.contentType?.startsWith('text/') ?? false) {
         var strm =
-            media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
+        media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
         strm.join().then((s) {
           // get settings in temporary structure to compare timestamps
-          Settings set = Globals()..fromSharedString(s);
+          Settings set = Globals()
+            ..fromSharedString(s);
 //          DateTime time = DateTime.fromMillisecondsSinceEpoch(set.timestamp);
           if (set.timestamp > timestamp) {
             fromSharedString(s);
@@ -1625,13 +1579,13 @@ class Globals extends Settings {
       // to query through the whole result set via "paging".
       return drive?.files
           ?.list(
-              q: query,
-              pageToken: token,
-              pageSize: 100,
-              corpus: 'user',
-              $fields: '*',
-              orderBy: 'name',
-              spaces: driveParent)
+          q: query,
+          pageToken: token,
+          pageSize: 100,
+          corpus: 'user',
+          $fields: '*',
+          orderBy: 'name',
+          spaces: driveParent)
           ?.then((results) {
         docs.files.addAll(results.files);
         // If we would like to have more documents, we iterate.
@@ -1716,18 +1670,123 @@ class Globals extends Settings {
     return fmtNumber(value, precision, 0, 'null', dontRound);
   }
 
-  double limitValue(double value, double min, double max) => value < min
-      ? min
-      : value > max
+  double limitValue(double value, double min, double max) =>
+      value < min
+          ? min
+          : value > max
           ? max
           : value;
 
+  String fmtDate(var date,
+      [var def, bool withShortWeekday = false, bool withLongWeekday = false]) {
+    def ??= '';
+    if (date == null) return def;
+
+    DateTime dt;
+
+    try {
+      if (date is Date) {
+        dt = DateTime(date.year, date.month, date.day);
+      } else if (date is DateTime) {
+        dt = date;
+      } else if (date is String && date.length >= 8) {
+        var y = int.tryParse(date.substring(6, 8)) ?? 0;
+        var m = int.tryParse(date.substring(4, 6)) ?? 1;
+        var d = int.tryParse(date.substring(0, 4)) ?? 1;
+        dt = DateTime(y, m, d);
+      }
+    } catch (ex) {}
+
+    if (dt == null) return date;
+
+    var df = DateFormat(language.dateformat);
+    var ret = df.format(dt);
+    if (withShortWeekday) {
+      ret =
+      '${DatepickerPeriod.dowShortName(Date(dt.year, dt.month, dt.day))}, $ret';
+    }
+    if (withLongWeekday) {
+      ret =
+      '${DatepickerPeriod.dowName(Date(dt.year, dt.month, dt.day))}, $ret';
+    }
+    return ret;
+  }
+
+  String fmtDateTime(var date, [var def, bool withSeconds = false]) {
+    def ??= '';
+    if (date == null) return def;
+
+    if (date is DateTime) {
+      var ret =
+          '${(date.day < 10 ? '0' : '')}${date.day}.${(date.month < 10
+          ? '0'
+          : '')}'
+          '${date.month}.${date.year}, ${(date.hour < 10 ? '0' : '')}${date
+          .hour}:${(date.minute < 10 ? '0' : '')}'
+          '${date.minute}';
+      if (withSeconds) {
+        ret = '${ret}:${(date.second < 10 ? '0' : '')}${date.second}';
+      }
+      return BasePrint.msgTimeOfDay24(ret);
+    }
+
+    return date;
+  }
+
+  String fmtTime(var date,
+      {String def,
+        bool withUnit = false,
+        bool withMinutes = true,
+        bool withSeconds = false}) {
+    def ??= '';
+    if (date == null) return def;
+
+    if (withSeconds) withMinutes = true;
+
+    if (date is DateTime) {
+      var hour = date.hour;
+      if (!language.is24HourFormat) hour = hour > 12 ? hour - 12 : hour;
+      var m =
+      withMinutes ? ':${(date.minute < 10 ? '0' : '')}${date.minute}' : '';
+      if (withSeconds) {
+        m = '${m}:${(date.second < 10 ? '0' : '')}${date.second}';
+      }
+      var ret = '${(hour < 10 ? '0' : '')}${hour}$m';
+      if (withUnit) {
+        if (language.is24HourFormat) {
+          ret = BasePrint.msgTimeOfDay24(ret);
+        } else {
+          ret = date.hour > 12
+              ? BasePrint.msgTimeOfDayPM(ret)
+              : BasePrint.msgTimeOfDayAM(ret);
+        }
+      }
+      return ret;
+    }
+
+    if (date is int) {
+      var m = withMinutes ? ':00' : '';
+      if (language.is24HourFormat) return '${fmtNumber(date, 0)}$m';
+
+      m = withMinutes ? ' ' : '';
+
+      if (date < 12) {
+        return '${fmtNumber(date, 0)}${m}am';
+      } else if (date == 12) {
+        return '${fmtNumber(date, 0)}${m}pm';
+      } else {
+        return '${fmtNumber(date - 12, 0)}${m}pm';
+      }
+    }
+    return date;
+  }
+
   String fmtNumber(num value,
       [num decimals = 0,
-      int fillfront0 = 0,
-      String nullText = 'null',
-      bool stripTrailingZero = false,
-      bool forceSign = false]) {
+        int fillfront0 = 0,
+        String nullText = 'null',
+        bool stripTrailingZero = false,
+        bool forceSign = false]) {
     if (value == null) return nullText;
 
     var fmt = '#,##0';
@@ -1755,8 +1814,8 @@ class Globals extends Settings {
     return ret == 'NaN'
         ? nullText
         : (forceSign && value >= 0)
-            ? '+${ret}'
-            : ret;
+        ? '+${ret}'
+        : ret;
   }
 
   bool isLoading = false;
@@ -1905,7 +1964,8 @@ class UrlData {
 
   UrlData(this.g);
 
-  dynamic get asJson => {
+  dynamic get asJson =>
+      {
         'u': url,
         't': token,
         'sd': startDate == null
@@ -1931,7 +1991,7 @@ class UrlData {
       var sd = JsonData.toText(json['sd']);
       ret.startDate = sd == null ? Date(1970, 1, 1) : g.parseDate(sd);
       ret.endDate =
-          json['ed'] == null ? null : g.parseDate(JsonData.toText(json['ed']));
+      json['ed'] == null ? null : g.parseDate(JsonData.toText(json['ed']));
     } catch (ex) {
       var msg = ex.toString();
       g.showDebug('Fehler bei UrlData.fromSharedJson: ${msg}');
@@ -1999,6 +2059,31 @@ class UserData {
   EntryData lastEntry = null;
   TreatmentData lastTreatment = null;
 
+  bool _adjustGluc = false;
+
+  bool get adjustGluc => _adjustGluc;
+
+  set adjustGluc(bool value) {
+    _adjustGluc = value;
+    if (_adjustGluc) {
+      Globals.adjustFactor =
+          (adjustLab * 28.7 - 46.7) / (adjustCalc * 28.7 - 46.7);
+    } else {
+      Globals.adjustFactor = 1.0;
+    }
+  }
+
+  double adjustCalc = 5.0;
+  double adjustLab = 5.0;
+
+  // returns the adjustvalues to check them against the values that
+  // were loaded. so the saving of the data can be managed depending
+  // on changes of the values
+  String get adjustCheck => '${adjustGluc}${adjustCalc}${adjustLab}';
+
+  // the adjustCheck when the data was loaded
+  String adjustLoaded = null;
+
   UserData(this.g) {
     listApiUrl.add(UrlData(g));
   }
@@ -2034,15 +2119,18 @@ class UserData {
       urls.add(url.asJson);
     }
 
-    return '{"n":"$name",'
-        '"bd":"${birthDate ?? ''}",'
-        '"s":${convert.json.encode(urls)},'
-        '"dd":"${diaStartDate ?? ''}",'
-        '"i":"${insulin ?? ''}",'
-        '"c":${convert.json.encode(customData)},'
-        '"f":${convert.json.encode(formParams)},'
-        '"r":${isReachable ? 'true' : 'false'},'
-        '"pmi":${profileMaxIdx}'
+    return '{"n":"$name"'
+        ',"bd":"${birthDate ?? ''}"'
+        ',"s":${convert.json.encode(urls)}'
+        ',"dd":"${diaStartDate ?? ''}"'
+        ',"i":"${insulin ?? ''}"'
+        ',"c":${convert.json.encode(customData)}'
+        ',"f":${convert.json.encode(formParams)}'
+        ',"r":${isReachable ? 'true' : 'false'}'
+        ',"pmi":$profileMaxIdx'
+        ',"ag":${adjustGluc ? 'true' : 'false'}'
+        ',"ac":"${adjustCalc?.toString() ?? 5.0}"'
+        ',"al":"${adjustLab?.toString() ?? 5.0}"'
         '}';
   }
 
@@ -2062,6 +2150,10 @@ class UserData {
       ret.customData = json['c'];
       ret.isReachable = json['r'] ?? true;
       ret.profileMaxIdx = JsonData.toInt(json['pmi'], null);
+      ret.adjustGluc = JsonData.toBool(json['ag'] ?? false);
+      ret.adjustCalc = JsonData.toDouble(json['ac'], 5.0);
+      ret.adjustLab = JsonData.toDouble(json['al'], 5.0);
+      ret.adjustLoaded = ret.adjustCheck;
       ret.formParams = json['f'];
       if (ret.formParams != null && ret.formParams['analysis'] is bool) {
         ret.formParams = {};
@@ -2200,6 +2292,66 @@ class ShortcutData {
     } catch (ex) {
       var msg = ex.toString();
       g.showDebug('Fehler bei ShortcutData.fromJson: ${msg}');
+    }
+    return ret;
+  }
+}
+
+class ClockElement {
+  String type;
+  int _size;
+  int _vertical = 1;
+  bool selected = false;
+  bool bold = false;
+  bool italic = false;
+
+  static int maxSize = 6;
+
+  int get size {
+    return _size;
+  }
+
+  set size(int value) {
+    if (value == null || value < 1) value = 1;
+    if (value > maxSize) value = maxSize;
+    _size = value;
+  }
+
+  int get vertical {
+    return _vertical;
+  }
+
+  set vertical(int value) {
+    if (value == null || value < 0) value = 0;
+    if (value > 2) value = 2;
+    _vertical = value;
+  }
+
+  ClockElement();
+
+  // retrieve the data as a json-encoded-string
+  String get asJsonString {
+    return '{"t":"$type"'
+        ',"s":$size'
+        ',"b":$bold'
+        ',"i":$italic'
+        ',"v":$vertical'
+        '}';
+  }
+
+  static ClockElement fromJson(dynamic json) {
+    var ret = ClockElement();
+    try {
+      ret.type = json['t'] ?? 'nl';
+      ret.size = json['s'] ?? 1;
+      ret.bold = json['b'] ?? false;
+      ret.italic = json['i'] ?? false;
+      ret.selected = json['selected'] ?? false;
+      ret.vertical = json['v'] ?? 1;
+    } catch (ex) {
+      var msg = ex.toString();
+      Globals().showDebug('Fehler bei ClockElement.fromJson: ${msg}');
+      print('Fehler bei ClockElement.fromJson: ${msg}');
     }
     return ret;
   }

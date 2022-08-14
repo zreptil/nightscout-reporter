@@ -6,7 +6,6 @@ import 'dart:typed_data';
 
 import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
-import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/json_data.dart';
 
@@ -20,7 +19,7 @@ class GridData {
 }
 
 class LegendData {
-  List<dynamic> columns = List<dynamic>();
+  List<dynamic> columns = <dynamic>[];
   double x;
   double y;
   double colWidth;
@@ -301,7 +300,7 @@ class Page {
   double x = 0;
   double y = 0;
 
-  List<dynamic> content = List<dynamic>();
+  List<dynamic> content = <dynamic>[];
 
   void offset(double x, double y) {
     this.x = x;
@@ -380,26 +379,26 @@ abstract class BasePrint {
   DataNeeded needed = DataNeeded();
   String help;
 
-  String get helpHtml {
-    if (help == null) return null;
-
-    var ret = help.replaceAll('\n', 'µ');
-    ret = ret.replaceAll('µµ', '<br><br>');
-    ret = ret.replaceAll('µ', ' ');
-    var list = RegExp('@([^@]*)@').allMatches(ret);
-    var links = <String>[];
-    for (var match in list) {
-      var part = match.group(1);
-      var cfg =
-          g.listConfig.firstWhere((cfg) => cfg.idx == part, orElse: () => null);
-      if (cfg != null) {
-        links.add(
-            '</span><material-button (trigger)="g.show(\'Oleole\')">${cfg.form.title}</material-button><span>');
-      }
-    }
-    ret += links.toString();
-    return ret;
-  }
+  // String get helpHtml {
+  //   if (help == null) return null;
+  //
+  //   var ret = help.replaceAll('\n', 'µ');
+  //   ret = ret.replaceAll('µµ', '<br><br>');
+  //   ret = ret.replaceAll('µ', ' ');
+  //   var list = RegExp('@([^@]*)@').allMatches(ret);
+  //   var links = <String>[];
+  //   for (var match in list) {
+  //     var part = match.group(1);
+  //     var cfg =
+  //         g.listConfig.firstWhere((cfg) => cfg.idx == part, orElse: () => null);
+  //     if (cfg != null) {
+  //       links.add(
+  //           '</span><material-button (trigger)="g.show(\'Oleole\')">${cfg.form.title}</material-button><span>');
+  //     }
+  //   }
+  //   ret += links.toString();
+  //   return ret;
+  // }
 
   Future<void> loadUserData(UserData user) {}
 
@@ -1553,7 +1552,7 @@ abstract class BasePrint {
         ]
       });
     }
-    if (g.ppAdjustGluc) {
+    if (g.user.adjustGluc) {
       stack.add({
         'relativePosition': {'x': cm(width - xframe - 5.0), 'y': cm(1.0)},
         'columns': [
@@ -2003,99 +2002,20 @@ abstract class BasePrint {
       bool withUnit = false,
       bool withMinutes = true,
       bool withSeconds = false}) {
-    def ??= '';
-    if (date == null) return def;
-
-    if (withSeconds) withMinutes = true;
-
-    if (date is DateTime) {
-      var hour = date.hour;
-      if (!g.language.is24HourFormat) hour = hour > 12 ? hour - 12 : hour;
-      var m =
-          withMinutes ? ':${(date.minute < 10 ? '0' : '')}${date.minute}' : '';
-      if (withSeconds) {
-        m = '${m}:${(date.second < 10 ? '0' : '')}${date.second}';
-      }
-      var ret = '${(hour < 10 ? '0' : '')}${hour}$m';
-      if (withUnit) {
-        if (g.language.is24HourFormat) {
-          ret = msgTimeOfDay24(ret);
-        } else {
-          ret = date.hour > 12 ? msgTimeOfDayPM(ret) : msgTimeOfDayAM(ret);
-        }
-      }
-      return ret;
-    }
-
-    if (date is int) {
-      var m = withMinutes ? ':00' : '';
-      if (g.language.is24HourFormat) return '${g.fmtNumber(date, 0)}$m';
-
-      m = withMinutes ? ' ' : '';
-
-      if (date < 12) {
-        return '${g.fmtNumber(date, 0)}${m}am';
-      } else if (date == 12) {
-        return '${g.fmtNumber(date, 0)}${m}pm';
-      } else {
-        return '${g.fmtNumber(date - 12, 0)}${m}pm';
-      }
-    }
-
-    return date;
+    return g.fmtTime(date,
+        def: def,
+        withUnit: withUnit,
+        withMinutes: withMinutes,
+        withSeconds: withSeconds);
   }
 
   String fmtDateTime(var date, [var def, bool withSeconds = false]) {
-    def ??= '';
-    if (date == null) return def;
-
-    if (date is DateTime) {
-      var ret =
-          '${(date.day < 10 ? '0' : '')}${date.day}.${(date.month < 10 ? '0' : '')}'
-          '${date.month}.${date.year}, ${(date.hour < 10 ? '0' : '')}${date.hour}:${(date.minute < 10 ? '0' : '')}'
-          '${date.minute}';
-      if (withSeconds) {
-        ret = '${ret}:${(date.second < 10 ? '0' : '')}${date.second}';
-      }
-      return msgTimeOfDay24(ret);
-    }
-
-    return date;
+    return g.fmtDateTime(date, def, withSeconds);
   }
 
   String fmtDate(var date,
       [var def, bool withShortWeekday = false, bool withLongWeekday = false]) {
-    def ??= '';
-    if (date == null) return def;
-
-    DateTime dt;
-
-    try {
-      if (date is Date) {
-        dt = DateTime(date.year, date.month, date.day);
-      } else if (date is DateTime) {
-        dt = date;
-      } else if (date is String && date.length >= 8) {
-        var y = int.tryParse(date.substring(6, 8)) ?? 0;
-        var m = int.tryParse(date.substring(4, 6)) ?? 1;
-        var d = int.tryParse(date.substring(0, 4)) ?? 1;
-        dt = DateTime(y, m, d);
-      }
-    } catch (ex) {}
-
-    if (dt == null) return date;
-
-    var df = DateFormat(g.language.dateformat);
-    var ret = df.format(dt);
-    if (withShortWeekday) {
-      ret =
-          '${DatepickerPeriod.dowShortName(Date(dt.year, dt.month, dt.day))}, $ret';
-    }
-    if (withLongWeekday) {
-      ret =
-          '${DatepickerPeriod.dowName(Date(dt.year, dt.month, dt.day))}, $ret';
-    }
-    return ret;
+    return g.fmtDate(date, def, withShortWeekday, withLongWeekday);
   }
 
   String fmtDateShort(Date date, String format) {

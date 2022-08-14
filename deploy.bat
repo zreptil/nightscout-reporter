@@ -10,6 +10,7 @@ rem del /s /q lib\src\*.css
 rem del lib\*.css
 call build.bat
 pause
+cls
 
 :skipbuild
 set dstdir=D:\WorkWindows7\Projekte\AngularDart\nightscout-reporter-local
@@ -21,16 +22,21 @@ set unrar="C:\Program Files\WinRAR\unrar.exe"
 set log_file=..\nr-deploy.log
 set rarparams=a -m5 -r -ep1 -idp -afzip
 set rarfile=build\nightscout-reporter_local.zip
+echo removing logfile ...
 del %log_file% 1>nul 2>nul
 set tolog=^>^>"%log_file%"
 set options=/y /r /i %tolog%
 copy %dstdir%\settings.json settings.json %tolog%
+echo removing %dstdir% ...
 rd %dstdir% /s/q %tolog%
+echo creating %dstdir% ...
 md %dstdir% %tolog%
+echo removing %rarfile% ...
 del %rarfile% %tolog%
-xcopy build\*.* %dstdir% /s %options% 
-xcopy lib\assets\*.css %dstdir%\packages\nightscout_reporter\assets\  /s %options% 
-copy settings.json %dstdir% %tolog%
+echo copying build to %dstdir% ...
+xcopy build\*.* %dstdir% /s %options% >nul
+xcopy lib\assets\*.css %dstdir%\packages\nightscout_reporter\assets\  /s %options% >nul
+copy settings.json %dstdir% %tolog% >nul
 %unrar% x nr-pdfmake.rar %dstdir% %tolog%
 del %dstdir%\.build.manifest %tolog%
 del %dstdir%\.packages %tolog%

@@ -1,49 +1,46 @@
-<div [class]="classForClock" (click)="clickBackground()">
-  <ng-container *ngFor="let entry of displayList">
-    <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='nl'" (click)="onClick(entry,$event)"></clockentry>
-    <ng-container *ngIf="entry.type=='factor'">
-      <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="g.ppAdjustGluc" (click)="onClick(entry,$event)">*{{g.msgAdjustFactor}}</clockentry>
+<div [class]="classForClock">
+  <div class="clock" (click)="clickBackground()">
+    <ng-container *ngFor="let entry of g.clockList">
+      <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='space'" (click)="onClick(entry,$event)">&nbsp;</clockentry>
+      <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='nl'" (click)="onClick(entry,$event)"></clockentry>
+      <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='user'" (click)="onClick(entry,$event)">{{g.user.name}}</clockentry>
+      <ng-container *ngIf="entry.type=='factor'">
+        <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="g.user.adjustGluc" (click)="onClick(entry,$event)">*{{g.msgAdjustFactor}}</clockentry>
+      </ng-container>
+      <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='time'" (click)="onClick(entry,$event)">{{g.fmtTime(now)}}</clockentry>
+      <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='date'" (click)="onClick(entry,$event)">{{g.fmtDate(now)}}</clockentry>
+      <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='unit'" (click)="onClick(entry,$event)">{{g.getGlucInfo()['unit']}}</clockentry>
+      <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='gluc'" (click)="onClick(entry,$event)">{{g.currentGluc}}</clockentry>
+      <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='lasttime'" (click)="onClick(entry,$event)">{{g.currentGlucTime}}</clockentry>
+      <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='arrow'" (click)="onClick(entry,$event)">
+        <svg class="arrow" [style.transform]="g.currentGlucDir" viewBox="0 0 100 100" version="1.1"
+             xmlns="http://www.w3.org/2000/svg">
+          <g transform="matrix(0.689535,0,0,0.689535,15.5233,15.5233)">
+            <circle class="circle" cx="50" cy="50" r="37.391"/>
+          </g>
+          <g transform="matrix(2.13103,0,0,1,-113.103,0.000479201)">
+            <path d="M100,50.002L87.391,59.934L87.395,40.065L100,50.002Z"/>
+          </g>
+        </svg>
+        <div diff class="centered">{{g.currentGlucDiff}}</div>
+      </clockentry>
     </ng-container>
-    <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='time'" (click)="onClick(entry,$event)">{{fmtTime(now)}}</clockentry>
-    <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='gluc'" (click)="onClick(entry,$event)">{{g.currentGluc}}</clockentry>
-    <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='lasttime'" (click)="onClick(entry,$event)">{{g.currentGlucTime}}</clockentry>
-    <clockentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='arrow'" (click)="onClick(entry,$event)">
-      <svg class="arrow" [style.transform]="g.currentGlucDir" viewBox="0 0 100 100" version="1.1"
-           xmlns="http://www.w3.org/2000/svg">
-        <g transform="matrix(0.689535,0,0,0.689535,15.5233,15.5233)">
-          <circle class="circle" cx="50" cy="50" r="37.391"/>
-        </g>
-        <g transform="matrix(2.13103,0,0,1,-113.103,0.000479201)">
-          <path d="M100,50.002L87.391,59.934L87.395,40.065L100,50.002Z"/>
-        </g>
-      </svg>
-      <div diff class="centered">{{g.currentGlucDiff}}</div>
-    </clockentry>
-  </ng-container>
-  <div class="controls" *ngIf="isEditMode">
-    <material-button (click)="clickLeft()" [disabled]="leftDisabled">
-      <material-icon icon="arrow_left"></material-icon>
-    </material-button>
-    <material-button (click)="clickRight()" [disabled]="rightDisabled">
-      <material-icon icon="arrow_right"></material-icon>
-    </material-button>
-    <material-button (click)="clickSmaller()" [disabled]="smallerDisabled">
-      <material-icon icon="text_decrease"></material-icon>
-    </material-button>
-    <material-button (click)="clickBigger()" [disabled]="biggerDisabled">
-      <material-icon icon="text_increase"></material-icon>
-    </material-button>
-    <material-button (click)="clickDelete()" [disabled]="selected==null">
-      <material-icon icon="delete"></material-icon>
-    </material-button>
-    <material-button (click)="clickType()" [disabled]="selected==null">
-      {{types[selected?.type]}}
-    </material-button>
-    <material-button (click)="clickAdd()">
-      <material-icon icon="add"></material-icon>
-    </material-button>
-    <material-button (click)="clickSave()">
-      <material-icon icon="save"></material-icon>
-    </material-button>
+    <div class="controls" *ngIf="isEditMode">
+      <material-button (click)="clickLeft()" [disabled]="leftDisabled"><material-icon icon="arrow_left"></material-icon></material-button>
+      <material-button (click)="clickRight()" [disabled]="rightDisabled"><material-icon icon="arrow_right"></material-icon></material-button>
+      <material-button (click)="clickSmaller()" [disabled]="smallerDisabled"><material-icon icon="text_decrease"></material-icon></material-button>
+      <material-button (click)="clickBigger()" [disabled]="biggerDisabled"><material-icon icon="text_increase"></material-icon></material-button>
+      <material-button (click)="clickBold()" [class]="(selected?.bold??false)?'active':''" [disabled]="selected==null"><material-icon icon="format_bold"></material-icon></material-button>
+      <material-button (click)="clickItalic()" [class]="(selected?.italic??false)?'active':''" [disabled]="selected==null"><material-icon icon="format_italic"></material-icon></material-button>
+      <material-button (click)="clickVertical()" [disabled]="selected==null"><material-icon [icon]="verticalIcon"></material-icon></material-button>
+      <material-button (click)="clickDelete()" [disabled]="selected==null"><material-icon icon="delete"></material-icon></material-button>
+      <div typePanel>
+        <material-button (click)="clickTypeSub()" [disabled]="selected==null"><material-icon icon="arrow_left"></material-icon></material-button>
+        <material-button (click)="clickTypeAdd()" [disabled]="selected==null"><material-icon icon="arrow_right"></material-icon></material-button>
+        <div typeName>{{types[selected?.type]}}</div>
+      </div>
+      <material-button (click)="clickAdd()"><material-icon icon="add"></material-icon></material-button>
+      <material-button (click)="g.save()"><material-icon icon="save"></material-icon></material-button>
+    </div>
   </div>
 </div>

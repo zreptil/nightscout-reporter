@@ -8,9 +8,9 @@ export 'route_paths.dart';
 
 class Routes {
   static final start = RouteDefinition(
-    routePath: RoutePaths.start,
-    component: start_template.NrMainComponentNgFactory,
-  );
+      routePath: RoutePaths.start,
+      component: start_template.StartComponentNgFactory,
+      useAsDefault: true);
   static final clock = RouteDefinition(
       routePath: RoutePaths.clock,
       component: clock_template.ClockComponentNgFactory);
@@ -21,5 +21,5 @@ class Routes {
 
   static final all = <RouteDefinition>[start, clock, root];
 
-  static final nrRoute = <RouteDefinition>[start];
+  static final startRoute = <RouteDefinition>[start];
 }

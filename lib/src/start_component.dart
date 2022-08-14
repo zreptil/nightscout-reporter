@@ -15,6 +15,7 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_select_item.dart';
 import 'package:angular_components/utils/color/material.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_router/angular_router.dart';
 import 'package:dnd/dnd.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component.dart';
@@ -51,6 +52,7 @@ import 'shortcutedit/shortcutedit_component.dart';
 import 'welcome/welcome_component.dart';
 import 'whatsnew/whatsnew_component.dart';
 import 'clock/clock_component.dart';
+import 'route_paths.dart';
 
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
@@ -104,7 +106,9 @@ class PdfData {
       NgFor,
       NgIf,
       NgModel,
+      routerDirectives
     ],
+    exports: [RoutePaths],
     providers: <dynamic>[
       overlayBindings,
       materialProviders,
@@ -770,6 +774,9 @@ class StartComponent implements OnInit {
         break;
       case 'nightscoutstatus':
         callNightscoutStatus();
+        break;
+      case 'nrclock':
+        navigate(RoutePaths.clock.toUrl());
         break;
       case 'menu':
         changeView();
