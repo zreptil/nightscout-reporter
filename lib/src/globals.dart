@@ -1009,6 +1009,8 @@ class Globals extends Settings {
       ',"d9":"${ppGlucMaxIdx?.toString() ?? 0}"'
       ',"d10":"${ppBasalPrecisionIdx?.toString() ?? 0}"'
       ',"d11":"${ppFixAAPS30?.toString() ?? 0}"'
+      ',"d12":"${ppPdfSameWindow ? "true" : "false"}"'
+      ',"d13":"${ppPdfDownload ? "true" : "false"}"'
       '}';
 
   // loads the device settings from a json-encoded string
@@ -1026,6 +1028,8 @@ class Globals extends Settings {
       ppGlucMaxIdx = JsonData.toInt(json['d9']);
       ppBasalPrecisionIdx = JsonData.toInt(json['d10']);
       ppFixAAPS30 = JsonData.toBool(json['d11']);
+      ppPdfSameWindow = JsonData.toBool(json['d12']);
+      ppPdfDownload = JsonData.toBool(json['d13']);
     } catch (ex) {
       var msg = ex.toString();
       showDebug('Fehler bei Globals.fromDeviceJson: ${msg}');
@@ -1035,8 +1039,11 @@ class Globals extends Settings {
   void saveWebData() {
     saveStorage(
         Settings.WebData,
-        '{"w0":"${version}","w1":"${language.code ?? "de_DE"}","w2":"${theme}",'
-        '"w3":${(_syncGoogle ?? false) ? "true" : "false"}}');
+        '{"w0":"${version}"'
+        ',"w1":"${language.code ?? "de_DE"}"'
+        ',"w2":"${theme}"'
+        ',"w3":${(_syncGoogle ?? false) ? "true" : "false"}'
+        '}');
   }
 
   void restoreLiveStorage() {}
