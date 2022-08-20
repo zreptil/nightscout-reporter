@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2022-08-12T21:40:45.385761",
+  "@@last_modified": "2022-08-20T19:58:04.621513",
   "Schliessen": "Schliessen",
   "@Schliessen": {
     "type": "text",
@@ -170,7 +170,7 @@
   },
   "msgGlucTime": "{time,plural, =0{Gerade eben}=1{vor {time} Minute}other{vor {time} Minuten}}",
   "@msgGlucTime": {
-    "description": "display of minutes since last value received on clock",
+    "description": "display of minutes since last value received on watch",
     "type": "text",
     "placeholders": {
       "time": {}
@@ -322,11 +322,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": "Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.",
-  "@Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Beim Erzeugen des PDF ist ein Fehler aufgetreten.": "Beim Erzeugen des PDF ist ein Fehler aufgetreten.",
   "@Beim Erzeugen des PDF ist ein Fehler aufgetreten.": {
     "type": "text",
@@ -379,35 +374,31 @@
     "type": "text",
     "placeholders": {}
   },
-  "Umbruch": "Umbruch",
-  "@Umbruch": {
+  "Glukosewerte anpassen": "Glukosewerte anpassen",
+  "@Glukosewerte anpassen": {
     "type": "text",
     "placeholders": {}
   },
-  "Faktor": "Faktor",
-  "@Faktor": {
+  "_msgAdjustTarget": "Die Werte für BG_TARGET_BOTTOM und BG_TARGET_TOP wurden durch den Faktor {factor} geteilt",
+  "@_msgAdjustTarget": {
     "type": "text",
-    "placeholders": {}
+    "placeholders": {
+      "factor": {}
+    }
   },
-  "Glukose": "Glukose",
-  "@Glukose": {
+  "_msgAdjustCalc": "Errechneter HbA1C: {value}%",
+  "@_msgAdjustCalc": {
     "type": "text",
-    "placeholders": {}
+    "placeholders": {
+      "value": {}
+    }
   },
-  "Uhrzeit": "Uhrzeit",
-  "@Uhrzeit": {
+  "_msgAdjustLab": "Im Labor ermittelter HbA1C: {value}%",
+  "@_msgAdjustLab": {
     "type": "text",
-    "placeholders": {}
-  },
-  "Zeit": "Zeit",
-  "@Zeit": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Trendpfeil": "Trendpfeil",
-  "@Trendpfeil": {
-    "type": "text",
-    "placeholders": {}
+    "placeholders": {
+      "value": {}
+    }
   },
   "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember": "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember",
   "@Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember": {
@@ -588,8 +579,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "_msgAdjustGlucHint": "Alle sensorischen Glukosewerte sind mit dem Faktor {factor} multipliziert",
-  "@_msgAdjustGlucHint": {
+  "_msgLowerGlucHint": "Alle sensorischen Glukosewerte wurden um {factor} % verringert",
+  "@_msgLowerGlucHint": {
+    "type": "text",
+    "placeholders": {
+      "factor": {}
+    }
+  },
+  "_msgRaiseGlucHint": "Alle sensorischen Glukosewerte wurden um {factor} % erhöht",
+  "@_msgRaiseGlucHint": {
     "type": "text",
     "placeholders": {
       "factor": {}
@@ -985,6 +983,11 @@
   },
   "Uhr-\nzeit": "Uhr-\nzeit",
   "@Uhr-\nzeit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Uhrzeit": "Uhrzeit",
+  "@Uhrzeit": {
     "type": "text",
     "placeholders": {}
   },
@@ -1514,11 +1517,6 @@
   },
   "Letzte Unterzuckerung": "Letzte Unterzuckerung",
   "@Letzte Unterzuckerung": {
-    "type": "text",
-    "placeholders": {}
-  },
-  " pro Tag": " pro Tag",
-  "@ pro Tag": {
     "type": "text",
     "placeholders": {}
   },
@@ -2174,11 +2172,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Tagesstatistik": "Tagesstatistik",
-  "@Tagesstatistik": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Spalte Messwerte": "Spalte Messwerte",
   "@Spalte Messwerte": {
     "type": "text",
@@ -2229,6 +2222,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "Tagesstatistik": "Tagesstatistik",
+  "@Tagesstatistik": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": "Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.",
   "@Dieses Formular zeig die Verteilung der Glukosewerte\nim ausgewählten Zeitraum an.": {
     "description": "help for template",
@@ -2249,43 +2247,6 @@
   "@Schritte": {
     "type": "text",
     "placeholders": {}
-  },
-  "Dieses Formular zeigt die Insulinverteilung im ausgewählten Zeitraum.\n": "Dieses Formular zeigt die Insulinverteilung im ausgewählten Zeitraum.\n",
-  "@Dieses Formular zeigt die Insulinverteilung im ausgewählten Zeitraum.\n": {
-    "description": "help for insulinstats",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Insulinstatistik": "Insulinstatistik",
-  "@Insulinstatistik": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Gesamtinsulin": "Gesamtinsulin",
-  "@Gesamtinsulin": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "msgPerDay": "{name} pro Tag",
-  "@msgPerDay": {
-    "type": "text",
-    "placeholders": {
-      "name": {}
-    }
-  },
-  "msgPerWeek": "{name} pro Woche",
-  "@msgPerWeek": {
-    "type": "text",
-    "placeholders": {
-      "name": {}
-    }
-  },
-  "msgPerMonth": "{name} pro Monat",
-  "@msgPerMonth": {
-    "type": "text",
-    "placeholders": {
-      "name": {}
-    }
   },
   "Dieses Formular zeigt an, wie sich die Glukosewerte im ausgewählten Zeitraum über den Tag\nverteilen. Diese Verteilung kann graphisch und tabellarisch ausgegeben werden.\n\nIn der Grafik sind die Bereiche für bestimmte Abweichungen farblich markiert. Die Linie zeigt den Medianwert\nan. In der Tabelle kann man diese Werte nachlesen. Wenn die Basalrate mit ausgegeben wird, dann ist das die\nBasalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.": "Dieses Formular zeigt an, wie sich die Glukosewerte im ausgewählten Zeitraum über den Tag\nverteilen. Diese Verteilung kann graphisch und tabellarisch ausgegeben werden.\n\nIn der Grafik sind die Bereiche für bestimmte Abweichungen farblich markiert. Die Linie zeigt den Medianwert\nan. In der Tabelle kann man diese Werte nachlesen. Wenn die Basalrate mit ausgegeben wird, dann ist das die\nBasalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.",
   "@Dieses Formular zeigt an, wie sich die Glukosewerte im ausgewählten Zeitraum über den Tag\nverteilen. Diese Verteilung kann graphisch und tabellarisch ausgegeben werden.\n\nIn der Grafik sind die Bereiche für bestimmte Abweichungen farblich markiert. Die Linie zeigt den Medianwert\nan. In der Tabelle kann man diese Werte nachlesen. Wenn die Basalrate mit ausgegeben wird, dann ist das die\nBasalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.": {
@@ -2464,25 +2425,6 @@
       "unit": {}
     }
   },
-  "Glukosewerte anpassen": "Glukosewerte anpassen",
-  "@Glukosewerte anpassen": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "_msgAdjustCalc": "Errechneter HbA1C: {value}%",
-  "@_msgAdjustCalc": {
-    "type": "text",
-    "placeholders": {
-      "value": {}
-    }
-  },
-  "_msgAdjustLab": "Im Labor ermittelter HbA1C: {value}%",
-  "@_msgAdjustLab": {
-    "type": "text",
-    "placeholders": {
-      "value": {}
-    }
-  },
   "CGP immer mit Standard Zielbereich": "CGP immer mit Standard Zielbereich",
   "@CGP immer mit Standard Zielbereich": {
     "type": "text",
@@ -2594,6 +2536,62 @@
     "placeholders": {
       "count": {}
     }
+  },
+  "Umbruch": "Umbruch",
+  "@Umbruch": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose": "Glukose",
+  "@Glukose": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Faktor": "Faktor",
+  "@Faktor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Glukose (aus NS)": "Glukose (aus NS)",
+  "@Glukose (aus NS)": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zeit": "Zeit",
+  "@Zeit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Trendpfeil": "Trendpfeil",
+  "@Trendpfeil": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzer": "Benutzer",
+  "@Benutzer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einheit": "Einheit",
+  "@Einheit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Leer": "Leer",
+  "@Leer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Skala": "Skala",
+  "@Skala": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Night-Watch": "Night-Watch",
+  "@Night-Watch": {
+    "description": "title of nightscout reports",
+    "type": "text",
+    "placeholders": {}
   },
   "Menü": "Menü",
   "@Menü": {
@@ -3069,15 +3067,39 @@
     "type": "text",
     "placeholders": {}
   },
-  "2.2.3 - xx.08.2022": "2.2.3 - xx.08.2022",
-  "@2.2.3 - xx.08.2022": {
-    "description": "v223",
+  "3.0.0 - 21.08.2022": "3.0.0 - 21.08.2022",
+  "@3.0.0 - 21.08.2022": {
+    "description": "v300",
     "type": "text",
     "placeholders": {}
   },
-  "Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.": "Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.",
-  "@Dort, wo ein CGP erstellt werden kann, gibt es nun die Option \"Linien um Bereiche\". Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.": {
-    "description": "v223a1",
+  "Die Konfiguration erfolgt direkt im Fenster von Night-Watch, indem man etwas anklickt. Dadurch wechselt die Seite in den Editiermodus und mit den Controls am unteren Rand des Fensters können die vorhandenen Elemente verändert, verschoben, gelöscht oder neue Elemente hinzugefügt werden. Mit dem Speichern-Icon in den Controls werden die Einstellungen gespeichert und der Editiermodus beendet. Er kann auch beendet werden, indem man das aktive Element anklickt, wobei dann die Änderungen aber nicht gespeichert werden. Nach dem Neuladen der Seite hat man dann die letzte Ansicht vor sich.": "Die Konfiguration erfolgt direkt im Fenster von Night-Watch, indem man etwas anklickt. Dadurch wechselt die Seite in den Editiermodus und mit den Controls am unteren Rand des Fensters können die vorhandenen Elemente verändert, verschoben, gelöscht oder neue Elemente hinzugefügt werden. Mit dem Speichern-Icon in den Controls werden die Einstellungen gespeichert und der Editiermodus beendet. Er kann auch beendet werden, indem man das aktive Element anklickt, wobei dann die Änderungen aber nicht gespeichert werden. Nach dem Neuladen der Seite hat man dann die letzte Ansicht vor sich.",
+  "@Die Konfiguration erfolgt direkt im Fenster von Night-Watch, indem man etwas anklickt. Dadurch wechselt die Seite in den Editiermodus und mit den Controls am unteren Rand des Fensters können die vorhandenen Elemente verändert, verschoben, gelöscht oder neue Elemente hinzugefügt werden. Mit dem Speichern-Icon in den Controls werden die Einstellungen gespeichert und der Editiermodus beendet. Er kann auch beendet werden, indem man das aktive Element anklickt, wobei dann die Änderungen aber nicht gespeichert werden. Nach dem Neuladen der Seite hat man dann die letzte Ansicht vor sich.": {
+    "description": "v300a1a",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wenn Night-Watch beim Aufruf feststellt, dass noch keine Konfiguration vorgenommen wurde, dann kann man über das altbekannte Settingsfenster seine Einstellungen vornehmen. Das kommt vor, wenn man die Seite als WebApp installiert, da dort der Browserspeicher, in dem die Konfiguration gehalten wird, normalerweise noch nicht befüllt wurde.": "Wenn Night-Watch beim Aufruf feststellt, dass noch keine Konfiguration vorgenommen wurde, dann kann man über das altbekannte Settingsfenster seine Einstellungen vornehmen. Das kommt vor, wenn man die Seite als WebApp installiert, da dort der Browserspeicher, in dem die Konfiguration gehalten wird, normalerweise noch nicht befüllt wurde.",
+  "@Wenn Night-Watch beim Aufruf feststellt, dass noch keine Konfiguration vorgenommen wurde, dann kann man über das altbekannte Settingsfenster seine Einstellungen vornehmen. Das kommt vor, wenn man die Seite als WebApp installiert, da dort der Browserspeicher, in dem die Konfiguration gehalten wird, normalerweise noch nicht befüllt wurde.": {
+    "description": "v300a1b",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Anpassung der Glukosewerte wird nun bei den Einstellungen gespeichert. Sie kann aber weiterhin bei den Ausgabeparametern geändert werden, um ohne grosse Umwege einen Vergleich erstellen zu können.": "Die Anpassung der Glukosewerte wird nun bei den Einstellungen gespeichert. Sie kann aber weiterhin bei den Ausgabeparametern geändert werden, um ohne grosse Umwege einen Vergleich erstellen zu können.",
+  "@Die Anpassung der Glukosewerte wird nun bei den Einstellungen gespeichert. Sie kann aber weiterhin bei den Ausgabeparametern geändert werden, um ohne grosse Umwege einen Vergleich erstellen zu können.": {
+    "description": "v300c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Anzeige des Faktors auf dem PDF, wenn ein Korrekturfaktor eingestellt wurde, wurde in eine Prozentangabe geändert um welche die Zuckerwerte erhöht oder verringert wurden.": "Die Anzeige des Faktors auf dem PDF, wenn ein Korrekturfaktor eingestellt wurde, wurde in eine Prozentangabe geändert um welche die Zuckerwerte erhöht oder verringert wurden.",
+  "@Die Anzeige des Faktors auf dem PDF, wenn ein Korrekturfaktor eingestellt wurde, wurde in eine Prozentangabe geändert um welche die Zuckerwerte erhöht oder verringert wurden.": {
+    "description": "v300c2",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Bei der letzten Version sind Änderungen in den Code eingeflossen, die nicht wirklich durchdacht waren. Dafür entschuldige ich mich. Ich habe diese wieder entfernt, damit Nightscout Reporter für alle Benutzer die gewohnte Funktionalität bietet.": "Bei der letzten Version sind Änderungen in den Code eingeflossen, die nicht wirklich durchdacht waren. Dafür entschuldige ich mich. Ich habe diese wieder entfernt, damit Nightscout Reporter für alle Benutzer die gewohnte Funktionalität bietet.",
+  "@Bei der letzten Version sind Änderungen in den Code eingeflossen, die nicht wirklich durchdacht waren. Dafür entschuldige ich mich. Ich habe diese wieder entfernt, damit Nightscout Reporter für alle Benutzer die gewohnte Funktionalität bietet.": {
+    "description": "v300r1",
     "type": "text",
     "placeholders": {}
   },
@@ -5013,8 +5035,46 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_38": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-  "@ViewWhatsnewComponent0__message_38": {
+  "ViewWhatsnewComponent0__message_3": "Eine neue Ansicht namens {startTag0}Night-Watch{endTag0} wurde hinzugefügt. In dieser Ansicht sieht man, so wie auch in der Uhr-Anzeige auf der Nightscout-Seite, den aktuellen Glukosewert und weitere Informationen, die man sich in gewissem Rahmen so konfigurieren kann, wie sie einem gefallen. Night-Watch wird über diese URL aufgerufen: {startTag1}https://nightscout-reporter.zreptil.de/watch{endTag1} Es kann auch über das Hauptmenü unter dem Menüpunkt {startTag2}Night-Watch{endTag2} aufgerufen werden, oder indem man den aktuellen Zuckerwert in der Titelleiste von Nightscout Reporter anklickt, wenn man diesen in den Einstellungen aktiviert hat.",
+  "@ViewWhatsnewComponent0__message_3": {
+    "description": "v300a1",
+    "type": "text",
+    "placeholders": {
+      "startTag0": {
+        "example": "<i>"
+      },
+      "endTag0": {
+        "example": "</i>"
+      },
+      "startTag1": {
+        "example": "<a href=\"https://nightscout-reporter.zreptil.de/watch\" target=\"_blank\">"
+      },
+      "endTag1": {
+        "example": "</a>"
+      },
+      "startTag2": {
+        "example": "<i>"
+      },
+      "endTag2": {
+        "example": "</i>"
+      }
+    }
+  },
+  "ViewWhatsnewComponent0__message_6": "Dort, wo ein CGP erstellt werden kann, gibt es nun die Option {startTag0}Linien um Bereiche{endTag0}. Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.",
+  "@ViewWhatsnewComponent0__message_6": {
+    "description": "v300a2",
+    "type": "text",
+    "placeholders": {
+      "startTag0": {
+        "example": "<i>"
+      },
+      "endTag0": {
+        "example": "</i>"
+      }
+    }
+  },
+  "ViewWhatsnewComponent0__message_44": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+  "@ViewWhatsnewComponent0__message_44": {
     "description": "v206a1",
     "type": "text",
     "placeholders": {

@@ -1,5 +1,6 @@
-<settings *ngIf="!g.isConfigured" (settingsresult)="settingsResult"></settings>
-<div *ngIf="g.isConfigured" [class]="classForWatch" (click)="clickBackground()">
+<settings *ngIf="currPage === 'settings'" (settingsresult)="settingsResult"></settings>
+<img src="packages/nightscout_reporter/assets/themes/standard/owl-watch.png" *ngIf="currPage === ''">
+<div *ngIf="currPage === 'watch'" [class]="classForWatch" (click)="clickBackground()">
   <div class="watch">
     <ng-container *ngFor="let entry of g.watchList">
       <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='space'" (click)="onClick(entry,$event)">&nbsp;</watchentry>

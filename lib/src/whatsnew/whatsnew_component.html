@@ -9,17 +9,59 @@
     </material-button>
   </div>
   <div class="root">
-    <h2><span @i18n="version">Version</span><span @i18n="v300">3.0.0 - xx.08.2022</span></h2>
+    <h2><span @i18n="version">Version</span><span @i18n="v300">3.0.0 - 21.08.2022</span></h2>
     <ul>
-      <li class="added" @i18n="v223a1">
-        Dort, wo ein CGP erstellt werden kann, gibt es nun die Option "Linien um Bereiche". Diese
+      <li class="added">
+        <ng-container @i18n="v300a1">
+          Eine neue Ansicht namens <i>Night-Watch</i> wurde hinzugefügt. In dieser Ansicht sieht man, so
+          wie auch in der Uhr-Anzeige auf der Nightscout-Seite, den aktuellen Glukosewert und weitere
+          Informationen, die man sich in gewissem Rahmen so konfigurieren kann, wie sie einem gefallen.
+          Night-Watch wird über diese URL aufgerufen:
+          <a href="https://nightscout-reporter.zreptil.de/watch" target="_blank">
+            https://nightscout-reporter.zreptil.de/watch
+          </a>
+          Es kann auch über das Hauptmenü unter dem Menüpunkt <i>Night-Watch</i> aufgerufen werden, oder
+          indem man den aktuellen Zuckerwert in der Titelleiste von Nightscout Reporter anklickt,
+          wenn man diesen in den Einstellungen aktiviert hat.
+        </ng-container>
+        <div class="newline"></div>
+        <ng-container @i18n="v300a1a">
+          Die Konfiguration erfolgt direkt im Fenster von Night-Watch, indem man etwas anklickt.
+          Dadurch wechselt die Seite in den Editiermodus und mit den Controls am unteren Rand des
+          Fensters können die vorhandenen Elemente verändert, verschoben, gelöscht oder neue Elemente
+          hinzugefügt werden. Mit dem Speichern-Icon in den Controls werden die Einstellungen gespeichert
+          und der Editiermodus beendet. Er kann auch beendet werden, indem man das aktive Element
+          anklickt, wobei dann die Änderungen aber nicht gespeichert werden. Nach dem Neuladen der
+          Seite hat man dann die letzte Ansicht vor sich.
+        </ng-container>
+        <div class="newline"></div>
+        <ng-container @i18n="v300a1b">
+          Wenn Night-Watch beim Aufruf feststellt, dass noch keine Konfiguration vorgenommen wurde,
+          dann kann man über das altbekannte Settingsfenster seine Einstellungen vornehmen. Das kommt
+          vor, wenn man die Seite als WebApp installiert, da dort der Browserspeicher, in dem die
+          Konfiguration gehalten wird, normalerweise noch nicht befüllt wurde.
+        </ng-container>
+      </li>
+      <li class="added" @i18n="v300a2">
+        Dort, wo ein CGP erstellt werden kann, gibt es nun die Option <i>Linien um Bereiche</i>. Diese
         ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche
         für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit
         sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer
         untersuchen, wenn man das möchte.
       </li>
-      <li class="added" @i18n="v223a2">
-        Die Korrektur der
+      <li class="changed" @i18n="v300c1">
+        Die Anpassung der Glukosewerte wird nun bei den Einstellungen gespeichert. Sie kann aber
+        weiterhin bei den Ausgabeparametern geändert werden, um ohne grosse Umwege einen Vergleich
+        erstellen zu können.
+      </li>
+      <li class="changed" @i18n="v300c2">
+        Die Anzeige des Faktors auf dem PDF, wenn ein Korrekturfaktor eingestellt wurde, wurde in
+        eine Prozentangabe geändert um welche die Zuckerwerte erhöht oder verringert wurden.
+      </li>
+      <li class="removed" @i18n="v300r1">
+        Bei der letzten Version sind Änderungen in den Code eingeflossen, die nicht wirklich durchdacht
+        waren. Dafür entschuldige ich mich. Ich habe diese wieder entfernt, damit Nightscout Reporter
+        für alle Benutzer die gewohnte Funktionalität bietet.
       </li>
     </ul>
     <h2><span @i18n="version">Version</span><span @i18n="v222">2.2.2 - 10.08.2022</span></h2>

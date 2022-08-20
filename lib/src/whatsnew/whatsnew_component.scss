@@ -34,7 +34,7 @@ material-dialog.headered-dialog {
 
 div[header] {
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   color: var(--whatsnewHeaderFore);
   justify-content: space-between;
   align-items: center;
@@ -58,9 +58,9 @@ h2 {
 
 ul {
   display: flex;
-  flex-direction: column;
+  flex-flow: column;
   margin: 0;
-  padding: 1.0em 0 1.5em 0;
+  padding: 0 0 1.5em 0;
 }
 
 li {
@@ -68,6 +68,10 @@ li {
   margin-left: 0;
   padding-left: 2.0em;
   text-indent: -0.6em;
+}
+
+li:not(first-child) {
+  padding-top: 0.5em;
 }
 
 li:before {
@@ -91,4 +95,11 @@ li:before {
 
 .fixed:before {
   content: "#";
+}
+
+.newline {
+  width: 100%;
+  height: 1px;
+  background: var(--whatsnewBodyFore);
+  margin: 0.5em 0;
 }

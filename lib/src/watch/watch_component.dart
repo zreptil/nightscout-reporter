@@ -31,7 +31,7 @@ class WatchComponent implements OnInit {
   String msgNL = Intl.message('Umbruch');
   String msgGLUC = Intl.message('Glukose');
   String msgFACTOR = Intl.message('Faktor');
-  String msgGLUCORG = Intl.message('Glukose Org');
+  String msgGLUCORG = Intl.message('Glukose (aus NS)');
   String msgTIME = Intl.message('Uhrzeit');
   String msgLASTTIME = Intl.message('Zeit');
   String msgARROW = Intl.message('Trendpfeil');
@@ -57,6 +57,8 @@ class WatchComponent implements OnInit {
       };
 
   double get temp => globals.Globals.adjustFactor;
+
+  String currPage = '';
 
   List<String> get _verticalIcon => ['vertical_align_top', 'vertical_align_center', 'vertical_align_bottom'];
 
@@ -293,11 +295,16 @@ class WatchComponent implements OnInit {
     html.document
         .querySelector('head>link[rel=manifest]')
         .setAttribute('href', 'packages/nightscout_reporter/assets/manifest.watch.json');
-
+    currPage = '';
     g.loadWebData();
     await g.setTheme(g.theme);
     await g.loadSettings().then((_) {
-      if (g.isConfigured) g.getCurrentGluc(force: true, timeout: 30);
+      if (g.isConfigured) {
+        g.getCurrentGluc(force: true, timeout: 30);
+        currPage = 'watch';
+      } else {
+        currPage = 'settings';
+      }
     });
   }
 
@@ -310,6 +317,7 @@ class WatchComponent implements OnInit {
         } else {
           g.loadSettings().then((_) {
             g.getCurrentGluc(force: true, timeout: 30);
+            currPage = 'watch';
           });
         }
         break;
