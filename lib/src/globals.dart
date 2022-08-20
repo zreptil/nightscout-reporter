@@ -906,7 +906,15 @@ class Globals extends Settings {
     }
 
     if (currentGlucVisible || force) {
-      glucTimer = Timer(Duration(seconds: timeout), () => getCurrentGluc(force: force, timeout: timeout));
+      var milliseconds = timeout * 1000;
+      //  calculate the milliseconds to the next full part of the minute for the timer
+      // (e.g. now is 10:37:27 and timeout is 30, will result in 3000 milliseconds
+      // this is done for that the display of the time will match the current
+      // time when entering a new minute
+      var milliNow = DateTime.now().second * 1000 + DateTime.now().millisecond;
+      var part = milliNow ~/ milliseconds;
+      milliseconds = (part + 1) * milliseconds - milliNow;
+      glucTimer = Timer(Duration(milliseconds: milliseconds), () => getCurrentGluc(force: force, timeout: timeout));
     }
     glucRunning = false;
     return currentGluc;
