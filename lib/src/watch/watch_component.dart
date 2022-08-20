@@ -7,24 +7,24 @@ import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/controls/watchentry/watch_entry_component.dart';
-import 'package:angular_components/utils/color/material.dart';
+import 'package:nightscout_reporter/src/settings/settings_component.dart';
 
 @Component(
-  selector: 'app-watch',
-  styleUrls: ['watch_component.css'],
-  templateUrl: 'watch_component.html',
-  directives: [
-    MaterialDialogComponent,
-    MaterialButtonComponent,
-    MaterialIconComponent,
-    WatchEntryComponent,
-    NgStyle,
-    NgClass,
-    NgFor,
-    NgIf
-  ],
-  providers: [],
-)
+    selector: 'app-watch',
+    styleUrls: ['watch_component.css'],
+    templateUrl: 'watch_component.html',
+    directives: [
+      MaterialDialogComponent,
+      MaterialButtonComponent,
+      MaterialIconComponent,
+      WatchEntryComponent,
+      SettingsComponent,
+      NgStyle,
+      NgClass,
+      NgFor,
+      NgIf
+    ],
+    providers: [])
 class WatchComponent implements OnInit {
   globals.Globals g = globals.Globals();
 
@@ -297,7 +297,25 @@ class WatchComponent implements OnInit {
     g.loadWebData();
     await g.setTheme(g.theme);
     await g.loadSettings().then((_) {
-      g.getCurrentGluc(force: true, timeout: 30);
+      if (g.isConfigured) g.getCurrentGluc(force: true, timeout: 30);
     });
+  }
+
+  void settingsResult(html.UIEvent evt) {
+    switch (evt.type) {
+      case 'ok':
+        g.save(skipReload: true);
+        if (!g.isConfigured) {
+          g.clearStorage();
+        } else {
+          g.loadSettings().then((_) {
+            g.getCurrentGluc(force: true, timeout: 30);
+          });
+        }
+        break;
+      default:
+        g.loadSettings(skipSyncGoogle: true);
+        break;
+    }
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:html' as html;
 import 'package:angular/angular.dart';
+import 'package:angular_components/angular_components.dart';
+import 'package:angular_components/laminate/overlay/module.dart';
 import 'package:nightscout_reporter/src/watch/watch_component.dart';
 import 'package:nightscout_reporter/src/start_component.dart';
 
@@ -7,7 +9,10 @@ import 'package:nightscout_reporter/src/start_component.dart';
   selector: 'my-app',
   templateUrl: 'app_component.html',
   directives: [StartComponent, WatchComponent, NgIf],
-  providers: [],
+  providers: <dynamic>[
+    overlayBindings,
+    materialProviders,
+  ],
   exports: [],
 )
 class AppComponent {

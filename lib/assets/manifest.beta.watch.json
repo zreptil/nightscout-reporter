@@ -2,7 +2,7 @@
   "icons": [
     {
       "sizes": "176x176",
-      "src": "../../../packages/nightscout-reporter/assets/themes/standard/favicon-watch.png",
+      "src": "themes/standard/favicon-watch.png",
       "type": "image/png"
     }
   ],
@@ -12,6 +12,6 @@
   "prefer_related_applications": true,
   "related_applications": [],
   "short_name": "Night-Watch ß",
-  "start_url": "/beta/index.html",
+  "start_url": "/beta/watch",
   "url": "https://nightscout-reporter.zreptil.de/beta/watch"
 }

@@ -1,5 +1,6 @@
-<div [class]="classForWatch">
-  <div class="watch" (click)="clickBackground()">
+<settings *ngIf="!g.isConfigured" (settingsresult)="settingsResult"></settings>
+<div *ngIf="g.isConfigured" [class]="classForWatch" (click)="clickBackground()">
+  <div class="watch">
     <ng-container *ngFor="let entry of g.watchList">
       <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='space'" (click)="onClick(entry,$event)">&nbsp;</watchentry>
       <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='nl'" (click)="onClick(entry,$event)"></watchentry>

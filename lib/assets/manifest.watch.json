@@ -12,6 +12,6 @@
   "prefer_related_applications": true,
   "related_applications": [],
   "short_name": "Night-Watch",
-  "start_url": "/index.html",
+  "start_url": "/watch",
   "url": "https://nightscout-reporter.zreptil.de/watch"
 }

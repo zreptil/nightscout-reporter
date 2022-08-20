@@ -254,8 +254,11 @@
           <ng-container @i18n="title of listview" *ngIf="g.viewType=='tile'">Zur Listenansicht</ng-container>
           <ng-container @i18n="title of tileview" *ngIf="g.viewType=='list'">Zur Kachelansicht</ng-container>
         </material-button>
-        <signin [isVisible]="true" [autoStart]="g.loadStorage('syncGoogle')=='yes'" [showMenuButton]="true"
-                [raised]="true" [(isAuthorized)]="g.syncGoogle"
+        <signin [isVisible]="true"
+                [autoStart]="false"
+                [showMenuButton]="true"
+                [raised]="true"
+                [(isAuthorized)]="g.syncGoogle"
                 [clientId]="g.googleClientId"
                 (onEvent)="signinEvent($event)"
                 (signinResult)="g.client=$event"></signin>
@@ -285,7 +288,7 @@
         </material-button>
         <material-button class="iconButton material-drawer-button"
                          (trigger)="clickMenuButton('nswatch')">
-          <img src="packages/nightscout_reporter/assets/themes/{{g.theme}}/owl-watch.png">
+          <img src="packages/nightscout_reporter/assets/img/night-watch-white.png">
           <ng-container @i18n="title of nightscout reports">Night-Watch</ng-container>
           <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>

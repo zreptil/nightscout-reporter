@@ -2,7 +2,7 @@
   "icons": [
     {
       "sizes": "176x176",
-      "src": "../../../packages/nightscout-reporter/assets/themes/standard/favicon.png",
+      "src": "themes/standard/favicon.png",
       "type": "image/png"
     }
   ],
