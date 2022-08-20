@@ -7,6 +7,9 @@
 @import 'package:angular_components/material_checkbox/mixins';
 
 :host {
+  @include nr-slider-thumb-color("material-slider.nr-slider", var(--settingsHeaderBack), var(--settingsHeaderFore));
+  @include slider-track-color("material-slider.nr-slider", var(--settingsHeaderBack) !important, var(--settingsHeaderFore) !important);
+  @include material-checkbox-color(var(--settingsHeaderBack), $modifier: '.chk');
 }
 
 material-slider {
@@ -14,26 +17,6 @@ material-slider {
   margin-left: 2em;
   margin-right: 2em;
 }
-
-// this mixin is neccessary since the original uses transparantize, which doesn't work with variables
-@mixin nr-slider-thumb-color($selector, $fore, $back) {
-  ::ng-deep #{$selector} .knob-real,
-  ::ng-deep #{$selector} .is-dragging.knob-drag-shadow {
-    background-color: $fore;
-  }
-
-  ::ng-deep #{$selector} .knob:focus,
-  ::ng-deep #{$selector} .knob:hover {
-    .knob-hover-shadow {
-      background-color: $back;
-    }
-  }
-}
-@include nr-slider-thumb-color("material-slider.maxsize", var(--settingsHeaderBack), var(--settingsHeaderFore));
-@include slider-track-color("material-slider.maxsize", var(--settingsHeaderBack) !important, var(--settingsHeaderFore) !important);
-@include material-checkbox-color(var(--settingsHeaderBack), $modifier: '');
-@include material-select-selected-item-color(var(--settingsHeaderBack));
-@include material-select-selected-color(var(--settingHeaderFore));
 
 .themeSelect {
   ::ng-deep material-list {

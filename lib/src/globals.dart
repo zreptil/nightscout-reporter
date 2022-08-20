@@ -2,7 +2,6 @@ library diamant.globals;
 
 import 'dart:async';
 import 'dart:convert' as convert;
-import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:math' as math;
 
@@ -19,6 +18,7 @@ import 'package:nightscout_reporter/src/controls/datepicker/datepicker_component
 import 'package:nightscout_reporter/src/forms/base-print.dart';
 import 'package:nightscout_reporter/src/json_data.dart';
 import 'package:timezone/browser.dart' as tz;
+import 'package:angular_components/utils/color/material.dart';
 
 class Informator {
   final List<String> _errors = [];
@@ -103,17 +103,15 @@ class LangData {
     }
   }
 
-  String get dateformat =>
-      Intl.message('dd.MM.yyyy',
-          desc: 'this is the dateformat, please use dd for days, ' +
-              'MM for months and yyyy for year. ' +
-              'It has to be the english formatstring.');
+  String get dateformat => Intl.message('dd.MM.yyyy',
+      desc: 'this is the dateformat, please use dd for days, ' +
+          'MM for months and yyyy for year. ' +
+          'It has to be the english formatstring.');
 
-  String get dateShortFormat =>
-      Intl.message('dd.MM.',
-          desc: 'this is the dateformat, please use dd for days, ' +
-              'MM for months and no year. ' +
-              'It has to be the english formatstring.');
+  String get dateShortFormat => Intl.message('dd.MM.',
+      desc: 'this is the dateformat, please use dd for days, ' +
+          'MM for months and no year. ' +
+          'It has to be the english formatstring.');
 
   String get imgPath =>
       'packages/nightscout_reporter/assets/img/lang-${img}.png';
@@ -133,7 +131,7 @@ class PeriodShift {
 // 21.12.2021 - 11:25 Uhr Loop wieder aktiviert -
 // Eintrag "OpenAPS Offline" mit duration 0
 class Settings {
-  String version = '2.2.3';
+  String version = '3.0.0';
 
   // subversion is used nowhere. It is just there to trigger an other signature
   // for the cache.
@@ -211,15 +209,15 @@ class Settings {
   List<FormConfig> listConfigOrg = <FormConfig>[];
   DateFormat fmtDateForDisplay;
   DatepickerPeriod _period = DatepickerPeriod();
-  List<ClockElement> _clockList = <ClockElement>[];
+  List<WatchElement> _watchList = <WatchElement>[];
 
-  List<ClockElement> get clockList {
-    _clockList ??= [];
-    return _clockList;
+  List<WatchElement> get watchList {
+    _watchList ??= [];
+    return _watchList;
   }
 
-  set clockList(List<ClockElement> value) {
-    _clockList = value;
+  set watchList(List<WatchElement> value) {
+    _watchList = value;
   }
 
   DatepickerPeriod get period => _period;
@@ -258,9 +256,7 @@ class Settings {
 
   String get theme {
     if (_theme == null) {
-      if (Date
-          .today()
-          .month == 12) {
+      if (Date.today().month == 12) {
         return 'xmas';
       } else {
         return 'standard';
@@ -404,11 +400,11 @@ class Settings {
     }));
     period.list.add(
         DatepickerEntry('3months', msgLast3Months, (DatepickerPeriod data) {
-          data.start = period.baseDate.add(months: -3);
-          data.end = period.baseDate;
-        }, (Date date) {
-          return date.add(months: -3);
-        }));
+      data.start = period.baseDate.add(months: -3);
+      data.end = period.baseDate;
+    }, (Date date) {
+      return date.add(months: -3);
+    }));
     // period.list
     //     .add(DatepickerEntry('quarter1', msgQuarter1, (DatepickerPeriod data) {
     //   data.start = new Date(period.baseDate.year, 1, 1);
@@ -548,14 +544,12 @@ class Settings {
       shortcuts = '${shortcuts},${shortcutList[i].asJsonString}';
     }
     if (shortcuts.length > 1) shortcuts = shortcuts.substring(1);
-    var clockEntries = '';
-    for (var i = 0; i < clockList.length; i++) {
-      clockEntries = '${clockEntries},${clockList[i].asJsonString}';
+    var watchEntries = '';
+    for (var i = 0; i < watchList.length; i++) {
+      watchEntries = '${watchEntries},${watchList[i].asJsonString}';
     }
-    if (clockEntries.length > 1) clockEntries = clockEntries.substring(1);
-    timestamp = DateTime
-        .now()
-        .millisecondsSinceEpoch;
+    if (watchEntries.length > 1) watchEntries = watchEntries.substring(1);
+    timestamp = DateTime.now().millisecondsSinceEpoch;
     return '{'
         '"s1":"$version"'
         ',"s4":${userIdx}'
@@ -570,7 +564,7 @@ class Settings {
         ',"s13":${showAllTileParams}'
         ',"s2":[${users}]'
         ',"s3":[${shortcuts}]'
-        ',"s14":[${clockEntries}]'
+        ',"s14":[${watchEntries}]'
         '}';
   }
 
@@ -591,7 +585,7 @@ class Settings {
       timestamp = JsonData.toInt(json['s11']);
       tileShowImage = JsonData.toBool(json['s12'], ifEmpty: true);
       showAllTileParams = JsonData.toBool(json['s13']);
-      dynamic clockEntries = json['s14'];
+      dynamic watchEntries = json['s14'];
       period.fmtDate = language.dateformat;
       userListLoaded = false;
       userList.clear();
@@ -602,8 +596,7 @@ class Settings {
           }
         } catch (ex) {
           Globals().info.addDevError(ex,
-              'Fehler beim laden der User in Settings.fromSharedJson: ${ex
-                  .toString()}');
+              'Fehler beim laden der User in Settings.fromSharedJson: ${ex.toString()}');
 //            saveStorage("mu", null);
         }
       } else {
@@ -638,27 +631,27 @@ class Settings {
           showDebug('Fehler bei Settings.fromSharedJson (shortcuts): ${msg}');
         }
       }
-      // get clock entries if available
-      clockList.clear();
-      if (clockEntries == null || clockEntries.isEmpty) {
-        clockEntries = [
+      // get watch entries if available
+      watchList.clear();
+      if (watchEntries == null || watchEntries.isEmpty) {
+        watchEntries = [
           {'t': 'time', 's': 3, 'b': true},
           {'t': 'nl', 's': 1},
           {'t': 'gluc', 's': 5, 'b': true},
           {'t': 'arrow', 's': 3},
-          {'t': 'nl', 's': 1},
+          {'t': 'target', 's': 1},
           {'t': 'lasttime', 's': 1}
         ];
       }
-      if (clockEntries != null) {
+      if (watchEntries != null) {
         try {
-          for (var entry in clockEntries) {
-            clockList.add(ClockElement.fromJson(entry));
+          for (var entry in watchEntries) {
+            watchList.add(WatchElement.fromJson(entry));
           }
         } catch (ex) {
           var msg = ex.toString();
           showDebug(
-              'Fehler bei Settings.fromSharedJson (clockEntries): ${msg}');
+              'Fehler bei Settings.fromSharedJson (watchEntries): ${msg}');
         }
       }
       if (onAfterLoad != null) onAfterLoad();
@@ -833,8 +826,7 @@ class Settings {
     var rnd = math.Random();
     String.fromCharCode(rnd.nextInt(26) + 64);
     ret =
-    '${ret.substring(pos)}${String.fromCharCode(rnd.nextInt(26) + 64)}${String
-        .fromCharCode(rnd.nextInt(10) + 48)}'
+        '${ret.substring(pos)}${String.fromCharCode(rnd.nextInt(26) + 64)}${String.fromCharCode(rnd.nextInt(10) + 48)}'
         '${ret.substring(0, pos)}';
     return ret;
   }
@@ -844,28 +836,34 @@ class Globals extends Settings {
   DomSanitizationService sanitizer;
   int currShortcutIdx = -1;
   ShortcutData currShortcut;
-  EntryData currentGlucSrc = null;
+  EntryData currentGlucSrc;
+  EntryData lastGlucSrc;
   String currentGlucDiff;
   String currentGlucTime;
 
-  String get currentGluc =>
-      currentGlucSrc == null
-          ? 'Keine Daten'
-          : fmtNumber(currentGlucSrc.gluc / glucFactor, glucPrecision);
+  String get currentGluc => currentGlucSrc == null
+      ? 'Keine Daten'
+      : fmtNumber(currentGlucValue, glucPrecision);
+
+  String get currentGlucOrg => currentGlucSrc == null
+      ? 'Keine Daten'
+      : fmtNumber(currentGlucValue / Globals.adjustFactor, glucPrecision);
 
   double get currentGlucValue =>
       currentGlucSrc == null ? null : currentGlucSrc.gluc / glucFactor;
 
+  double get lastGlucValue =>
+      lastGlucSrc == null ? null : lastGlucSrc.gluc / glucFactor;
+
   int glucDir = 360;
 
-  String msgGlucTime(time) =>
-      Intl.plural(time,
-          zero: 'Gerade eben',
-          one: 'vor ${time} Minute',
-          other: 'vor ${time} Minuten',
-          args: [time],
-          name: 'msgGlucTime',
-          desc: 'display of minutes since last value received on clock');
+  String msgGlucTime(time) => Intl.plural(time,
+      zero: 'Gerade eben',
+      one: 'vor ${time} Minute',
+      other: 'vor ${time} Minuten',
+      args: [time],
+      name: 'msgGlucTime',
+      desc: 'display of minutes since last value received on watch');
 
   String get currentGlucDir =>
       glucDir < 360 ? 'translate(0,2px)rotate(${glucDir}deg)' : null;
@@ -874,6 +872,8 @@ class Globals extends Settings {
 
   bool currentGlucVisible = true;
   int currentGlucCounter = 0;
+  int targetBottom = Globals.stdLow;
+  int targetTop = Globals.stdHigh;
 
   Future<String> getCurrentGluc({force = false, timeout = 60}) async {
     if (glucTimer != null) {
@@ -895,6 +895,8 @@ class Globals extends Settings {
       if (content != null) {
         var status = StatusData.fromJson(content);
         setGlucMGDL(status);
+        targetBottom = status.settings.bgTargetBottom;
+        targetTop = status.settings.bgTargetTop;
       }
     }
     url = user.apiUrl(null, 'entries.json', params: 'count=2');
@@ -902,31 +904,27 @@ class Globals extends Settings {
     if (src != null) {
       if (src.length != 2) {
         currentGlucSrc = null;
+        lastGlucSrc = null;
         currentGlucDiff = '';
         glucDir = 360;
       } else {
         try {
           var eNow = EntryData.fromJson(src[0]);
           var ePrev = EntryData.fromJson(src[1]);
-          var span = eNow.time
-              .difference(ePrev.time)
-              .inMinutes;
+          var span = eNow.time.difference(ePrev.time).inMinutes;
           glucDir = 360;
           currentGlucDiff = '';
           currentGlucTime = '';
           if (span > 15) {
             return currentGluc;
           }
-          var time = DateTime
-              .now()
-              .difference(eNow.time)
-              .inMinutes;
+          var time = DateTime.now().difference(eNow.time).inMinutes;
           currentGlucTime = msgGlucTime(time);
 
           currentGlucSrc = eNow;
+          lastGlucSrc = ePrev;
           currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
-              '${fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / glucFactor,
-              glucPrecision)}';
+              '${fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / glucFactor, glucPrecision)}';
           var diff = eNow.gluc - ePrev.gluc;
           var limit = 10 * span ~/ 5;
           if (diff > limit) {
@@ -938,6 +936,7 @@ class Globals extends Settings {
           }
         } catch (ex) {
           currentGlucSrc = null;
+          lastGlucSrc = null;
           currentGlucDiff = '';
           glucDir = 360;
         }
@@ -946,7 +945,7 @@ class Globals extends Settings {
 
     if (currentGlucVisible || force) {
       glucTimer = Timer(Duration(seconds: timeout),
-              () => getCurrentGluc(force: force, timeout: timeout));
+          () => getCurrentGluc(force: force, timeout: timeout));
     }
     glucRunning = false;
     return currentGluc;
@@ -1094,10 +1093,9 @@ class Globals extends Settings {
 
   int basalPrecisionAuto = 1;
 
-  int get basalPrecision =>
-      (ppBasalPrecisionIdx ?? 0) > 0
-          ? basalPrecisionValues[ppBasalPrecisionIdx]
-          : basalPrecisionAuto;
+  int get basalPrecision => (ppBasalPrecisionIdx ?? 0) > 0
+      ? basalPrecisionValues[ppBasalPrecisionIdx]
+      : basalPrecisionAuto;
 
   /// ***********************************************
   /// Zentraler Faktor für die Kalibrierung
@@ -1169,8 +1167,7 @@ class Globals extends Settings {
     }
   }
 
-  List<PeriodShift> get listPeriodShift =>
-      [
+  List<PeriodShift> get listPeriodShift => [
         PeriodShift(Intl.message('Ausgewählter Zeitraum'), months: 0),
         PeriodShift(Intl.message('Einen Monat vorher'), months: 1),
         PeriodShift(Intl.message('Drei Monate vorher'), months: 3),
@@ -1184,32 +1181,27 @@ class Globals extends Settings {
 
   String get msgBE => _khFactor == 10 ? 'msgBE' : 'msgKE';
 
-  String get msgUrlFailurePrefix =>
-      Intl.message(
-          'Die angegebene URL ist nicht erreichbar. '
-              'Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ');
+  String get msgUrlFailurePrefix => Intl.message(
+      'Die angegebene URL ist nicht erreichbar. '
+      'Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ');
 
-  String get msgUrlFailureSuffix =>
-      Intl.message(
-          '<br><br>Wenn diese URL geschützt ist, '
-              'muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man '
-              'über "Administrator-Werkzeuge" auf der persönlichen Nightscout Seite.');
+  String get msgUrlFailureSuffix => Intl.message(
+      '<br><br>Wenn diese URL geschützt ist, '
+      'muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man '
+      'über "Administrator-Werkzeuge" auf der persönlichen Nightscout Seite.');
 
-  String get msgUrlFailureHerokuapp =>
-      Intl.message(
-          'In der Variable ENABLE muss das Wort "cors" stehen, damit externe Tools '
-              'wie dieses hier auf die Daten zugreifen dürfen.');
+  String get msgUrlFailureHerokuapp => Intl.message(
+      'In der Variable ENABLE muss das Wort "cors" stehen, damit externe Tools '
+      'wie dieses hier auf die Daten zugreifen dürfen.');
 
-  String get msgUrlFailure10be =>
-      Intl.message(
-          'Auf 10be muss beim Server in den Standardeinstellungen der Haken bei '
-              '"cors" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn "cors" '
-              'aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.');
+  String get msgUrlFailure10be => Intl.message(
+      'Auf 10be muss beim Server in den Standardeinstellungen der Haken bei '
+      '"cors" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn "cors" '
+      'aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.');
 
-  String get msgUrlNotSafe =>
-      Intl.message(
-          'Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter '
-              'auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.');
+  String get msgUrlNotSafe => Intl.message(
+      'Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter '
+      'auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.');
 
   String msgUrlFailure(String url) {
     if (url.startsWith('http:') &&
@@ -1256,6 +1248,8 @@ class Globals extends Settings {
 
   static final int stdLow = 70;
   static final int stdHigh = 180;
+  static final int stdVeryLow = 54;
+  static final int stdVeryHigh = 250;
 
   dynamic getGlucInfo() {
     var ret = {'step': 1, 'unit': Settings.msgUnitMGDL};
@@ -1327,11 +1321,11 @@ class Globals extends Settings {
 
   Future<dynamic> requestJson(String url,
       {String method = 'get',
-        Map<String, String> headers,
-        body,
-        bool showError = true}) async {
+      Map<String, String> headers,
+      body,
+      bool showError = true}) async {
     dynamic ret = await request(url,
-        method: method, headers: headers, body: body, showError: showError)
+            method: method, headers: headers, body: body, showError: showError)
         .then((String response) {
       if (response == null) {
         return null;
@@ -1356,10 +1350,10 @@ class Globals extends Settings {
 
   Future<String> request(String url,
       {String method = 'get',
-        Map<String, String> headers,
-        body,
-        bool showError = true,
-        bool asJson = false}) async {
+      Map<String, String> headers,
+      body,
+      bool showError = true,
+      bool asJson = false}) async {
     var client = http.BrowserClient();
     switch (method.toLowerCase()) {
       case 'post':
@@ -1501,18 +1495,17 @@ class Globals extends Settings {
   void _getFromGoogle() {
     drive.files
         .get(settingsFile.id,
-        $fields: '*',
-        downloadOptions: commons.DownloadOptions.FullMedia,
-        acknowledgeAbuse: false)
+            $fields: '*',
+            downloadOptions: commons.DownloadOptions.FullMedia,
+            acknowledgeAbuse: false)
         .then((response) {
       var media = response as commons.Media;
       if (media?.contentType?.startsWith('text/') ?? false) {
         var strm =
-        media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
+            media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
         strm.join().then((s) {
           // get settings in temporary structure to compare timestamps
-          Settings set = Globals()
-            ..fromSharedString(s);
+          Settings set = Globals()..fromSharedString(s);
 //          DateTime time = DateTime.fromMillisecondsSinceEpoch(set.timestamp);
           if (set.timestamp > timestamp) {
             fromSharedString(s);
@@ -1579,13 +1572,13 @@ class Globals extends Settings {
       // to query through the whole result set via "paging".
       return drive?.files
           ?.list(
-          q: query,
-          pageToken: token,
-          pageSize: 100,
-          corpus: 'user',
-          $fields: '*',
-          orderBy: 'name',
-          spaces: driveParent)
+              q: query,
+              pageToken: token,
+              pageSize: 100,
+              corpus: 'user',
+              $fields: '*',
+              orderBy: 'name',
+              spaces: driveParent)
           ?.then((results) {
         docs.files.addAll(results.files);
         // If we would like to have more documents, we iterate.
@@ -1670,10 +1663,9 @@ class Globals extends Settings {
     return fmtNumber(value, precision, 0, 'null', dontRound);
   }
 
-  double limitValue(double value, double min, double max) =>
-      value < min
-          ? min
-          : value > max
+  double limitValue(double value, double min, double max) => value < min
+      ? min
+      : value > max
           ? max
           : value;
 
@@ -1703,11 +1695,11 @@ class Globals extends Settings {
     var ret = df.format(dt);
     if (withShortWeekday) {
       ret =
-      '${DatepickerPeriod.dowShortName(Date(dt.year, dt.month, dt.day))}, $ret';
+          '${DatepickerPeriod.dowShortName(Date(dt.year, dt.month, dt.day))}, $ret';
     }
     if (withLongWeekday) {
       ret =
-      '${DatepickerPeriod.dowName(Date(dt.year, dt.month, dt.day))}, $ret';
+          '${DatepickerPeriod.dowName(Date(dt.year, dt.month, dt.day))}, $ret';
     }
     return ret;
   }
@@ -1718,11 +1710,8 @@ class Globals extends Settings {
 
     if (date is DateTime) {
       var ret =
-          '${(date.day < 10 ? '0' : '')}${date.day}.${(date.month < 10
-          ? '0'
-          : '')}'
-          '${date.month}.${date.year}, ${(date.hour < 10 ? '0' : '')}${date
-          .hour}:${(date.minute < 10 ? '0' : '')}'
+          '${(date.day < 10 ? '0' : '')}${date.day}.${(date.month < 10 ? '0' : '')}'
+          '${date.month}.${date.year}, ${(date.hour < 10 ? '0' : '')}${date.hour}:${(date.minute < 10 ? '0' : '')}'
           '${date.minute}';
       if (withSeconds) {
         ret = '${ret}:${(date.second < 10 ? '0' : '')}${date.second}';
@@ -1735,9 +1724,9 @@ class Globals extends Settings {
 
   String fmtTime(var date,
       {String def,
-        bool withUnit = false,
-        bool withMinutes = true,
-        bool withSeconds = false}) {
+      bool withUnit = false,
+      bool withMinutes = true,
+      bool withSeconds = false}) {
     def ??= '';
     if (date == null) return def;
 
@@ -1747,7 +1736,7 @@ class Globals extends Settings {
       var hour = date.hour;
       if (!language.is24HourFormat) hour = hour > 12 ? hour - 12 : hour;
       var m =
-      withMinutes ? ':${(date.minute < 10 ? '0' : '')}${date.minute}' : '';
+          withMinutes ? ':${(date.minute < 10 ? '0' : '')}${date.minute}' : '';
       if (withSeconds) {
         m = '${m}:${(date.second < 10 ? '0' : '')}${date.second}';
       }
@@ -1783,10 +1772,10 @@ class Globals extends Settings {
 
   String fmtNumber(num value,
       [num decimals = 0,
-        int fillfront0 = 0,
-        String nullText = 'null',
-        bool stripTrailingZero = false,
-        bool forceSign = false]) {
+      int fillfront0 = 0,
+      String nullText = 'null',
+      bool stripTrailingZero = false,
+      bool forceSign = false]) {
     if (value == null) return nullText;
 
     var fmt = '#,##0';
@@ -1814,8 +1803,8 @@ class Globals extends Settings {
     return ret == 'NaN'
         ? nullText
         : (forceSign && value >= 0)
-        ? '+${ret}'
-        : ret;
+            ? '+${ret}'
+            : ret;
   }
 
   bool isLoading = false;
@@ -1953,6 +1942,32 @@ class Globals extends Settings {
     glucMGDLIdx = data.glucMGDLIdx;
     sortConfigs();
   }
+
+  bool get isWatch {
+    return html.window.location.href.indexOf('watch') > 0;
+  }
+
+  Future<void> setTheme(String name) async {
+    var suffix = isWatch ? '-watch' : '';
+    html.document
+        .getElementById('themestyle')
+        .setAttribute('href', 'packages/nightscout_reporter/assets/themes/${name}/index.css');
+    html.document
+        .getElementById('favicon')
+        .setAttribute('href', 'packages/nightscout_reporter/assets/themes/${name}/favicon${suffix}.png');
+    dynamic theme = await requestJson(
+        'packages/nightscout_reporter/assets/themes/${name}/colors.json');
+    if (theme == null) return;
+    for (String key in theme.keys) {
+      String value = theme[key];
+      if (materialColors.containsKey(value)) {
+        value = materialColors[value].hexString;
+      }
+      html.document.body.style.setProperty('--$key', value);
+    }
+    theme = name;
+    saveWebData();
+  }
 }
 
 class UrlData {
@@ -1964,8 +1979,7 @@ class UrlData {
 
   UrlData(this.g);
 
-  dynamic get asJson =>
-      {
+  dynamic get asJson => {
         'u': url,
         't': token,
         'sd': startDate == null
@@ -1991,7 +2005,7 @@ class UrlData {
       var sd = JsonData.toText(json['sd']);
       ret.startDate = sd == null ? Date(1970, 1, 1) : g.parseDate(sd);
       ret.endDate =
-      json['ed'] == null ? null : g.parseDate(JsonData.toText(json['ed']));
+          json['ed'] == null ? null : g.parseDate(JsonData.toText(json['ed']));
     } catch (ex) {
       var msg = ex.toString();
       g.showDebug('Fehler bei UrlData.fromSharedJson: ${msg}');
@@ -2060,18 +2074,21 @@ class UserData {
   TreatmentData lastTreatment = null;
 
   bool _adjustGluc = false;
+  bool adjustTarget = false;
 
   bool get adjustGluc => _adjustGluc;
 
   set adjustGluc(bool value) {
     _adjustGluc = value;
     if (_adjustGluc) {
-      Globals.adjustFactor =
-          (adjustLab * 28.7 - 46.7) / (adjustCalc * 28.7 - 46.7);
+      Globals.adjustFactor = hba1cAdjustFactor;
     } else {
       Globals.adjustFactor = 1.0;
     }
   }
+
+  double get hba1cAdjustFactor =>
+      (adjustLab * 28.7 - 46.7) / (adjustCalc * 28.7 - 46.7);
 
   double adjustCalc = 5.0;
   double adjustLab = 5.0;
@@ -2131,6 +2148,7 @@ class UserData {
         ',"ag":${adjustGluc ? 'true' : 'false'}'
         ',"ac":"${adjustCalc?.toString() ?? 5.0}"'
         ',"al":"${adjustLab?.toString() ?? 5.0}"'
+        ',"at":${adjustTarget ? 'true' : 'false'}'
         '}';
   }
 
@@ -2153,6 +2171,7 @@ class UserData {
       ret.adjustGluc = JsonData.toBool(json['ag'] ?? false);
       ret.adjustCalc = JsonData.toDouble(json['ac'], 5.0);
       ret.adjustLab = JsonData.toDouble(json['al'], 5.0);
+      ret.adjustTarget = JsonData.toBool(json['at'] ?? false);
       ret.adjustLoaded = ret.adjustCheck;
       ret.formParams = json['f'];
       if (ret.formParams != null && ret.formParams['analysis'] is bool) {
@@ -2297,7 +2316,7 @@ class ShortcutData {
   }
 }
 
-class ClockElement {
+class WatchElement {
   String type;
   int _size;
   int _vertical = 1;
@@ -2327,7 +2346,7 @@ class ClockElement {
     _vertical = value;
   }
 
-  ClockElement();
+  WatchElement();
 
   // retrieve the data as a json-encoded-string
   String get asJsonString {
@@ -2339,8 +2358,8 @@ class ClockElement {
         '}';
   }
 
-  static ClockElement fromJson(dynamic json) {
-    var ret = ClockElement();
+  static WatchElement fromJson(dynamic json) {
+    var ret = WatchElement();
     try {
       ret.type = json['t'] ?? 'nl';
       ret.size = json['s'] ?? 1;
@@ -2350,8 +2369,8 @@ class ClockElement {
       ret.vertical = json['v'] ?? 1;
     } catch (ex) {
       var msg = ex.toString();
-      Globals().showDebug('Fehler bei ClockElement.fromJson: ${msg}');
-      print('Fehler bei ClockElement.fromJson: ${msg}');
+      Globals().showDebug('Fehler bei WatchElement.fromJson: ${msg}');
+      print('Fehler bei WatchElement.fromJson: ${msg}');
     }
     return ret;
   }

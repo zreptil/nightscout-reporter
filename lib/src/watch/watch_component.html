@@ -1,0 +1,82 @@
+<div [class]="classForWatch">
+  <div class="watch" (click)="clickBackground()">
+    <ng-container *ngFor="let entry of g.watchList">
+      <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='space'" (click)="onClick(entry,$event)">&nbsp;</watchentry>
+      <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='nl'" (click)="onClick(entry,$event)"></watchentry>
+      <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='user'" (click)="onClick(entry,$event)">{{g.user.name}}</watchentry>
+      <ng-container *ngIf="entry.type=='factor'">
+        <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="g.user.adjustGluc" (click)="onClick(entry,$event)">*{{g.msgAdjustFactor}}</watchentry>
+      </ng-container>
+      <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='time'" (click)="onClick(entry,$event)">{{g.fmtTime(now)}}</watchentry>
+      <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='date'" (click)="onClick(entry,$event)">{{g.fmtDate(now)}}</watchentry>
+      <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='unit'" (click)="onClick(entry,$event)">{{g.getGlucInfo()['unit']}}</watchentry>
+      <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='gluc'" (click)="onClick(entry,$event)">{{g.currentGluc}}</watchentry>
+      <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='glucorg'" (click)="onClick(entry,$event)">{{g.currentGlucOrg}}</watchentry>
+      <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='lasttime'" (click)="onClick(entry,$event)">{{g.currentGlucTime}}</watchentry>
+      <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='target'" (click)="onClick(entry,$event)" style="width:100%">
+        <div class="target">
+          <div class="low" [ngStyle]="styleTargetLow">{{g.targetBottom}}</div>
+          <div class="norm" [ngStyle]="styleTargetNorm">&nbsp;</div>
+          <div class="high" [ngStyle]="styleTargetHigh">{{g.targetTop}}</div>
+          <div class="marker last" [ngStyle]="styleLastGluc"></div>
+          <div class="marker" [ngStyle]="styleCurrentGluc"></div>
+          <div class="arrowtrack" [ngStyle]="styleArrowTrack"></div>
+          <div class="arrowtip" [ngStyle]="styleArrowTip"></div>
+        </div>
+      </watchentry>
+      <watchentry [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='arrow'" (click)="onClick(entry,$event)">
+        <svg class="arrow" [style.transform]="g.currentGlucDir" viewBox="0 0 100 100" version="1.1"
+             xmlns="http://www.w3.org/2000/svg">
+          <g transform="matrix(0.689535,0,0,0.689535,15.5233,15.5233)">
+            <circle class="circle" cx="50" cy="50" r="37.391"/>
+          </g>
+          <g transform="matrix(2.13103,0,0,1,-113.103,0.000479201)">
+            <path d="M100,50.002L87.391,59.934L87.395,40.065L100,50.002Z"/>
+          </g>
+        </svg>
+        <div diff class="centered">{{g.currentGlucDiff}}</div>
+      </watchentry>
+    </ng-container>
+    <div class="controls" *ngIf="isEditMode">
+      <material-button (click)="clickLeft($event)" [disabled]="leftDisabled">
+        <material-icon icon="arrow_left"></material-icon>
+      </material-button>
+      <material-button (click)="clickRight($event)" [disabled]="rightDisabled">
+        <material-icon icon="arrow_right"></material-icon>
+      </material-button>
+      <material-button (click)="clickSmaller($event)" [disabled]="smallerDisabled">
+        <material-icon icon="text_decrease"></material-icon>
+      </material-button>
+      <material-button (click)="clickBigger($event)" [disabled]="biggerDisabled">
+        <material-icon icon="text_increase"></material-icon>
+      </material-button>
+      <material-button (click)="clickBold($event)" [class]="(selected?.bold??false)?'active':''" [disabled]="selected==null">
+        <material-icon icon="format_bold"></material-icon>
+      </material-button>
+      <material-button (click)="clickItalic($event)" [class]="(selected?.italic??false)?'active':''" [disabled]="selected==null">
+        <material-icon icon="format_italic"></material-icon>
+      </material-button>
+      <material-button (click)="clickVertical($event)" [disabled]="selected==null">
+        <material-icon [icon]="verticalIcon"></material-icon>
+      </material-button>
+      <material-button (click)="clickDelete($event)" [disabled]="selected==null">
+        <material-icon icon="delete"></material-icon>
+      </material-button>
+      <div typePanel>
+        <material-button (click)="clickTypeSub($event)" [disabled]="selected==null">
+          <material-icon icon="arrow_left"></material-icon>
+        </material-button>
+        <material-button (click)="clickTypeAdd($event)" [disabled]="selected==null">
+          <material-icon icon="arrow_right"></material-icon>
+        </material-button>
+        <div typeName>{{types[selected?.type]}}</div>
+      </div>
+      <material-button (click)="clickAdd($event)">
+        <material-icon icon="add"></material-icon>
+      </material-button>
+      <material-button (click)="clickSave($event)">
+        <material-icon icon="save"></material-icon>
+      </material-button>
+    </div>
+  </div>
+</div>

@@ -7,6 +7,12 @@
 @import 'package:angular_components/material_checkbox/mixins';
 @import 'package:angular_components/material_toggle/mixins';
 
+:host {
+  @include nr-slider-thumb-color("material-slider.nr-slider", var(--printparamsHeaderBack), var(--printparamsHeaderFore));
+  @include slider-track-color("material-slider.nr-slider", var(--printparamsHeaderBack) !important, var(--printparamsHeaderFore) !important);
+  @include material-checkbox-color(var(--printparamsHeaderBack), $modifier: '.chk');
+}
+
 material-slider {
   width: 100%;
   margin-left: 0.5em;
@@ -15,24 +21,6 @@ material-slider {
     height: initial !important;
   }
 }
-
-// this mixin is neccessary since the original uses transparantize, which doesn't work with variables
-@mixin nr-slider-thumb-color($selector, $fore, $back) {
-  ::ng-deep #{$selector} .knob-real,
-  ::ng-deep #{$selector} .is-dragging.knob-drag-shadow {
-    background-color: $fore;
-  }
-
-  ::ng-deep #{$selector} .knob:focus,
-  ::ng-deep #{$selector} .knob:hover {
-    .knob-hover-shadow {
-      background-color: $back;
-    }
-  }
-}
-
-@include nr-slider-thumb-color("material-slider.adjust-slider", var(--printparamsHeaderBack), var(--printparamsHeaderFore));
-@include slider-track-color("material-slider.adjust-slider", var(--printparamsHeaderBack) !important, var(--printparamsHeaderFore) !important);
 
 .controls {
   display: flex;
@@ -166,23 +154,6 @@ div[footer] {
   font-size: 1.2em;
 }
 
-.adjustPanel {
-  display: flex;
-  flex-flow: column !important;
-  width: 50%;
-
-  .adjust {
-    display: flex;
-    flex-flow: column;
-    width: 100%;
-    margin: 0 0 0 5em !important;
-
-    .label {
-      font-size: 70%;
-    }
-  }
-}
-
 material-input {
   ::ng-deep .focused-underline {
     background: var(--printparamsHeaderBack);
@@ -199,8 +170,6 @@ material-input {
     padding-bottom: 1em;
   }
 }
-
-@include material-checkbox-color(var(--printparamsHeaderBack), $modifier: '.pp');
 
 .indent {
   margin-left: 2em;

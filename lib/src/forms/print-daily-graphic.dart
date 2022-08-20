@@ -15,34 +15,28 @@ class CollectInfo {
   double max1 = -1.0;
   double max2 = -1.0;
   int count = 0;
-  List<TreatmentData> treatments = [];
 
-  CollectInfo(this.start,
-      [TreatmentData t = null, this.sum1 = 0.0, this.sum2 = 0.0]) {
-    end = DateTime(start.year, start.month, start.day, start.hour, start.minute,
-        start.second);
+  CollectInfo(this.start, [this.sum1 = 0.0, this.sum2 = 0.0]) {
+    end = DateTime(start.year, start.month, start.day, start.hour, start.minute, start.second);
     count = sum1 > 0.0 ? 1 : 0;
     max1 = sum1;
     max2 = sum2;
-    if (t != null) treatments.add(t);
   }
 
-  void fill(DateTime date, TreatmentData t, double value1, double value2) {
-    end = DateTime(
-        date.year, date.month, date.day, date.hour, date.minute, date.second);
+  void fill(DateTime date, double value1, double value2) {
+    end = DateTime(date.year, date.month, date.day, date.hour, date.minute, date.second);
     sum1 += value1;
     sum2 += value2;
     max1 = math.max(value1, max1);
     max2 = math.max(value2, max2);
     count++;
-    treatments.add(t);
   }
 }
 
 class PrintDailyGraphic extends BaseDaily {
   @override
-  String help = Intl.message(
-      '''Dieses Formular zeigt den Verlauf der Glukosekurve für einen Tag. Pro Tag im ausgewählten
+  String help =
+      Intl.message('''Dieses Formular zeigt den Verlauf der Glukosekurve für einen Tag. Pro Tag im ausgewählten
 Zeitraum wird eine Seite erzeugt. Es gibt sehr viele Optionen, mit denen dieses Formular angepasst werden kann.
 Die Optionen, die auf einen Loop hinweisen sind andersfarbig markiert, um sie schneller identifizieren zu 
 können. Die Optionen COB und IOB verlangsamen die Ausgabe teilweise erheblich, weshalb man diese nur dann
@@ -55,8 +49,7 @@ analysieren kann. Man kann auch das @10@ für den Tag erzeugen lassen. Das wird 
 
 Dieses Formular ist eines der seitenintensivsten Formulare in Nightscout Reporter. Deshalb gibt es hier 
 die Möglichkeit, mehrere Tagesgrafiken auf einer Seite ausgeben zu lassen. Darunter leidet natürlich die Lesbarkeit,
-aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
-      desc: 'help for daygraph');
+aber für einen Überblick über den Verlauf ist das ganz nützlich.''', desc: 'help for daygraph');
 
   @override
   String baseId = 'daygraph';
@@ -97,9 +90,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     ParamInfo(0, msgParam1, boolValue: true),
     ParamInfo(1, msgParam2, boolValue: true),
     ParamInfo(4, msgParam3, boolValue: true),
-    ParamInfo(6, msgParam4, boolValue: true, isLoopValue: true, subParams: [
-      ParamInfo(0, msgParam20, boolValue: false, isLoopValue: true)
-    ]),
+    ParamInfo(6, msgParam4,
+        boolValue: true, isLoopValue: true, subParams: [ParamInfo(0, msgParam20, boolValue: false, isLoopValue: true)]),
     ParamInfo(8, msgParam5, boolValue: true),
     ParamInfo(9, msgParam6, boolValue: false, isDeprecated: true),
     ParamInfo(12, BasePrint.msgGraphsPerPage, list: [
@@ -110,33 +102,27 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       Intl.message('Sechzehn')
     ]),
     ParamInfo(9, msgParam8, boolValue: true),
-    ParamInfo(10, msgParam9, boolValue: true, subParams: [
-      ParamInfo(0, msgParam13, boolValue: false),
-      ParamInfo(1, msgParam21, boolValue: false)
-    ]),
+    ParamInfo(10, msgParam9,
+        boolValue: true,
+        subParams: [ParamInfo(0, msgParam13, boolValue: false), ParamInfo(1, msgParam21, boolValue: false)]),
     ParamInfo(11, '', boolValue: false, isDeprecated: true),
     ParamInfo(13, msgParam11, boolValue: true),
     ParamInfo(14, msgParam14, boolValue: true),
     ParamInfo(3, BaseDaily.msgDaily1,
         boolValue: true,
-        subParams: [
-          ParamInfo(0, BaseDaily.msgDaily2, boolValue: true, isLoopValue: true)
-        ],
+        subParams: [ParamInfo(0, BaseDaily.msgDaily2, boolValue: true, isLoopValue: true)],
         isLoopValue: true),
     ParamInfo(15, msgParam16, boolValue: false),
     ParamInfo(16, msgParam17, boolValue: false),
     ParamInfo(5, msgParam18, boolValue: false),
-    ParamInfo(18, msgParam19,
-        boolValue: false,
-        subParams: [ParamInfo(0, PrintCGP.msgParamAreaLines, boolValue: true)]),
+    ParamInfo(18, msgParam19, boolValue: false, subParams: [ParamInfo(0, PrintCGP.msgParamAreaLines, boolValue: true)]),
     ParamInfo(19, msgParam22, boolValue: false),
     ParamInfo(2, msgParam23, boolValue: true),
     ParamInfo(20, msgParam24, boolValue: false),
     ParamInfo(21, msgParam25, boolValue: false),
     ParamInfo(22, msgParam26, boolValue: true, isLoopValue: true),
     ParamInfo(17, BasePrint.msgOverrides, boolValue: false, isLoopValue: true),
-    ParamInfo(6, msgParam27,
-        list: ['200 g', '300 g', '400 g', '500 g', '600 g'])
+    ParamInfo(6, msgParam27, list: ['200 g', '300 g', '400 g', '500 g', '600 g'])
   ];
 
   @override
@@ -214,8 +200,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
 
   static String get msgParam5 => Intl.message('Profil-Basalrate');
 
-  static String get msgParam6 =>
-      Intl.message('Basal mit zwei Nachkommastellen');
+  static String get msgParam6 => Intl.message('Basal mit zwei Nachkommastellen');
 
   static String get msgParam8 => Intl.message('Legende');
 
@@ -224,18 +209,15 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
 //  static String get msgParam10 => Intl.message('Neuester Tag zuerst');
   static String get msgParam11 => Intl.message('Tabelle mit Glukosewerten');
 
-  static String get msgParam13 =>
-      Intl.message('Notiz-Linien bis zur Kurve zeichnen');
+  static String get msgParam13 => Intl.message('Notiz-Linien bis zur Kurve zeichnen');
 
-  static String get msgParam14 =>
-      Intl.message('Nahe zusammen liegende Werte aufsummieren');
+  static String get msgParam14 => Intl.message('Nahe zusammen liegende Werte aufsummieren');
 
   static String get msgParam16 => Intl.message('Bolusarten anzeigen');
 
   static String get msgParam17 => Intl.message('Bewegung anzeigen');
 
-  static String get msgParam18 =>
-      Intl.message('Berechnete IE für Kohlenhydrate anzeigen');
+  static String get msgParam18 => Intl.message('Berechnete IE für Kohlenhydrate anzeigen');
 
   static String get msgParam19 => Intl.message('Glukose Pentagon erzeugen');
 
@@ -243,16 +225,13 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
 
   static String get msgParam21 => Intl.message('HTML-Notizen anzeigen');
 
-  static String get msgParam22 =>
-      Intl.message('Dauer der abgeschalteten Basalrate anzeigen');
+  static String get msgParam22 => Intl.message('Dauer der abgeschalteten Basalrate anzeigen');
 
-  static String get msgParam23 =>
-      Intl.message('Insulin auf maximale Stellen im Profil runden');
+  static String get msgParam23 => Intl.message('Insulin auf maximale Stellen im Profil runden');
 
   static String get msgParam24 => Intl.message('COB (Carbs On Board) anzeigen');
 
-  static String get msgParam25 =>
-      Intl.message('IOB (Insulin On Board) anzeigen');
+  static String get msgParam25 => Intl.message('IOB (Insulin On Board) anzeigen');
 
   static String get msgParam26 => Intl.message('Zielwert anzeigen');
 
@@ -270,13 +249,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
   String get msgBloody => Intl.message('Blutige Messung');
 
   @override
-  List<String> get imgList => [
-        'nightscout',
-        'katheter.print',
-        'sensor.print',
-        'ampulle.print',
-        'steps.print'
-      ];
+  List<String> get imgList => ['nightscout', 'katheter.print', 'sensor.print', 'ampulle.print', 'steps.print'];
 
 //  @override
 //  double get scale
@@ -318,9 +291,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     return basalWidth / 1440 * (time.hour * 60 + time.minute);
   }
 
-  double basalY(double value) => profMax != 0 && value != null
-      ? basalHeight / profMax * (profMax - value)
-      : 0.0;
+  double basalY(double value) => profMax != 0 && value != null ? basalHeight / profMax * (profMax - value) : 0.0;
 
   List<CollectInfo> collInsulin = <CollectInfo>[];
   List<CollectInfo> collCarbs = <CollectInfo>[];
@@ -354,8 +325,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       if (g.period.isDowActive(day.date.weekday - 1)) {
         if (day.entries.isNotEmpty || day.treatments.isNotEmpty) {
           pages.add(getPage(day));
-          if (showCGP || repData.isForThumbs)
-            pages.add(getCGPPage(day, showCGPAreaLines));
+          if (showCGP || repData.isForThumbs) pages.add(getCGPPage(day, showCGPAreaLines));
           if (g.showBothUnits) {
             g.glucMGDLIdx = 1;
             pages.add(getPage(day));
@@ -372,13 +342,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     subtitle = null;
   }
 
-  dynamic glucLine(dynamic points, String color) => {
-        'type': 'polyline',
-        'lineWidth': cm(lw),
-        'closePath': false,
-        'lineColor': color,
-        'points': points
-      };
+  dynamic glucLine(dynamic points) =>
+      {'type': 'polyline', 'lineWidth': cm(lw), 'closePath': false, 'lineColor': colValue, 'points': points};
 
   bool hasExercises;
   bool hasTempOverrides;
@@ -389,22 +354,16 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     footerTextAboveLine['text'] = '';
     var graphHeightSave = graphHeight;
     var basalTopSave = basalTop;
+    hasExercises = day.treatments.firstWhere((t) => t.isExercise, orElse: () => null) != null;
     hasExercises =
-        day.treatments.firstWhere((t) => t.isExercise, orElse: () => null) !=
-            null;
-    hasExercises = hasExercises ||
-        day.activityList.lastWhere((ac) => ac.type == 'steps-total',
-                orElse: () => null) !=
-            null;
+        hasExercises || day.activityList.lastWhere((ac) => ac.type == 'steps-total', orElse: () => null) != null;
 
     if (showExercises && hasExercises) {
       graphHeight -= glucExerciseHeight;
       basalTop += glucExerciseHeight;
     }
     glucExerciseTop = graphHeight;
-    hasTempOverrides = day.treatments
-            .firstWhere((t) => t.isTempOverride, orElse: () => null) !=
-        null;
+    hasTempOverrides = day.treatments.firstWhere((t) => t.isTempOverride, orElse: () => null) != null;
     if (showTempOverrides && hasTempOverrides) {
       graphHeight -= tempOverridesHeight;
       basalTop += tempOverridesHeight;
@@ -423,8 +382,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     var check = (t.createdAt.hour * 60 + t.createdAt.minute) * 60;
     var ret = 0.0;
     for (var entry in src.profile(t.createdAt).store.listCarbratio) {
-      if (entry.timeForCalc < check)
-        ret = entry.value != 0 ? t.carbs / entry.value : 0.0;
+      if (entry.timeForCalc < check) ret = entry.value != 0 ? t.carbs / entry.value : 0.0;
     }
 
     return ret;
@@ -440,10 +398,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     ieMax = 0.0;
     collInsulin.clear();
     collCarbs.clear();
-    collInsulin.add(CollectInfo(
-        DateTime(day.date.year, day.date.month, day.date.day, 0, 0, 0)));
-    collCarbs.add(CollectInfo(
-        DateTime(day.date.year, day.date.month, day.date.day, 0, 0, 0)));
+    collInsulin.add(CollectInfo(DateTime(day.date.year, day.date.month, day.date.day, 0, 0, 0)));
+    collCarbs.add(CollectInfo(DateTime(day.date.year, day.date.month, day.date.day, 0, 0, 0)));
 /*
     math.Random rnd = math.Random();
     for (int i = 0; i < 1440; i += 5)
@@ -478,14 +434,11 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
         profMax = math.max(entry.value ?? 0, profMax);
       }
     }
-    InsulinInjectionList insulinInjections = InsulinInjectionList();
     for (var entry in day.treatments) {
       if (entry.isBloody) {
         glucMax = math.max(entry.glucose, glucMax);
       }
       ieMax = math.max(entry.bolusInsulin, ieMax);
-      if (entry.multipleInsulin != null)
-        insulinInjections = insulinInjections.add2List(entry.multipleInsulin);
     }
 
     if (g.glucMaxValue != null) glucMax = g.glucMaxValues[g.ppGlucMaxIdx];
@@ -561,8 +514,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     var vertStack = vertLegend['stack'];
     List graphGlucCvs = graphGluc['canvas'];
 
-    var grid = drawGraphicGrid(glucMax, graphHeight, graphWidth, vertCvs,
-        horzCvs, horzStack, vertStack,
+    var grid = drawGraphicGrid(glucMax, graphHeight, graphWidth, vertCvs, horzCvs, horzStack, vertStack,
         graphBottom: graphBottom);
     if (grid.lineHeight == 0) {
       return Page(isPortrait, [
@@ -581,14 +533,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       var x = glucX(entry.time);
       var y = glucY(entry.mbg);
       y = glucY(entry.mbg);
-      graphGlucCvs.add({
-        'type': 'rect',
-        'x': cm(x),
-        'y': cm(y),
-        'w': cm(0.1),
-        'h': cm(0.1),
-        'color': colBloodValues
-      });
+      graphGlucCvs.add({'type': 'rect', 'x': cm(x), 'y': cm(y), 'w': cm(0.1), 'h': cm(0.1), 'color': colBloodValues});
       hasBloody = true;
     }
 
@@ -596,14 +541,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       if (t.isBloody) {
         var x = glucX(t.createdAt);
         var y = glucY(g.glucFactor * t.glucose);
-        graphGlucCvs.add({
-          'type': 'rect',
-          'x': cm(x),
-          'y': cm(y),
-          'w': cm(0.1),
-          'h': cm(0.1),
-          'color': colBloodValues
-        });
+        graphGlucCvs.add({'type': 'rect', 'x': cm(x), 'y': cm(y), 'w': cm(0.1), 'h': cm(0.1), 'color': colBloodValues});
         hasBloody = true;
       }
     }
@@ -615,7 +553,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       var y = glucY(entry.gluc);
       if (entry.gluc < 0) {
         if (last != null && last.gluc >= 0) {
-          graphGlucCvs.add(glucLine(points, colValue));
+          graphGlucCvs.add(glucLine(points));
           points = [];
         }
       } else {
@@ -623,7 +561,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       }
       last = entry;
     }
-    graphGlucCvs.add(glucLine(points, colValue));
+    graphGlucCvs.add(glucLine(points));
 
     var hasLowGluc = false;
     var hasNormGluc = false;
@@ -633,8 +571,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
         var hours = i ~/ 2;
         var minutes = (i % 2) * 30;
         var check = DateTime(0, 1, 1, hours, minutes);
-        EntryData entry =
-            day.findNearest(day.entries, null, check, maxMinuteDiff: 15);
+        EntryData entry = day.findNearest(day.entries, null, check, maxMinuteDiff: 15);
         var x = glucX(check) + 0.02;
         if (entry != null) {
           var col = colNormBack;
@@ -656,10 +593,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
             'color': col
           });
           (glucTable['stack'] as List).add({
-            'relativePosition': {
-              'x': cm(x),
-              'y': cm(i % 2 == 0 ? 0 : glucTableHeight / 2)
-            },
+            'relativePosition': {'x': cm(x), 'y': cm(i % 2 == 0 ? 0 : glucTableHeight / 2)},
             'text': g.glucFromData(entry.gluc),
             'color': colGlucValues,
             'fontSize': fs(7)
@@ -677,14 +611,10 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
           });
         }
         if (entry != null) {
-          dynamic found = day.findNearest(day.bloody, day.treatments, check,
-              maxMinuteDiff: 15);
+          dynamic found = day.findNearest(day.bloody, day.treatments, check, maxMinuteDiff: 15);
           if (found is EntryData) {
             (glucTable['stack'] as List).add({
-              'relativePosition': {
-                'x': cm(x),
-                'y': cm(i % 2 != 0 ? 0 : glucTableHeight / 2)
-              },
+              'relativePosition': {'x': cm(x), 'y': cm(i % 2 != 0 ? 0 : glucTableHeight / 2)},
               'text': g.glucFromData(found.mbg),
               'color': colBloodValues,
               'fontSize': fs(7)
@@ -692,10 +622,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
           } else if (found is TreatmentData) {
             var value = g.glucFactor * found.glucose;
             (glucTable['stack'] as List).add({
-              'relativePosition': {
-                'x': cm(x),
-                'y': cm(i % 2 != 0 ? 0 : glucTableHeight / 2)
-              },
+              'relativePosition': {'x': cm(x), 'y': cm(i % 2 != 0 ? 0 : glucTableHeight / 2)},
               'text': g.glucFromData(value),
               'color': colBloodValues,
               'fontSize': fs(7)
@@ -744,8 +671,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       if ((t.carbs > 0 || t.eCarbs > 0) && showCarbs) {
         x = glucX(t.createdAt);
         if (t.isECarb) {
-          paintECarbs(t.eCarbs, x, graphHeight - lw,
-              graphCarbs['stack'][0]['canvas'] as List);
+          paintECarbs(t.eCarbs, x, graphHeight - lw, graphCarbs['stack'][0]['canvas'] as List);
         } else {
           y = carbY(t.carbs);
           (graphCarbs['stack'][0]['canvas'] as List).add({
@@ -757,12 +683,12 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
             'lineColor': colCarbs,
             'lineWidth': cm(0.1),
           });
-          double carbsIE = carbsForIE(src, t);
-          if (t.createdAt.difference(collCarbs.last.start).inMinutes <
-              collMinutes)
-            collCarbs.last.fill(t.createdAt, t, t.carbs, carbsIE);
-          else
-            collCarbs.add(CollectInfo(t.createdAt, t, t.carbs, carbsIE));
+          var carbsIE = carbsForIE(src, t);
+          if (t.createdAt.difference(collCarbs.last.start).inMinutes < collMinutes) {
+            collCarbs.last.fill(t.createdAt, t.carbs, carbsIE);
+          } else {
+            collCarbs.add(CollectInfo(t.createdAt, t.carbs, carbsIE));
+          }
         }
         hasCarbs = true;
       }
@@ -784,8 +710,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
               'y1': cm(0),
               'x2': cm(x),
               'y2': cm(y),
-              'lineColor':
-                  splitBolus && t.isCarbBolus ? colCarbBolus : colBolus,
+              'lineColor': splitBolus && t.isCarbBolus ? colCarbBolus : colBolus,
               'lineWidth': cm(0.1),
             });
           }
@@ -804,11 +729,11 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
             hasBolusExt = true;
           }
 
-          if (t.createdAt.difference(collInsulin.last.start).inMinutes <
-              collMinutes)
-            collInsulin.last.fill(t.createdAt, t, t.bolusInsulin, 0.0);
-          else
-            collInsulin.add(CollectInfo(t.createdAt, t, t.bolusInsulin));
+          if (t.createdAt.difference(collInsulin.last.start).inMinutes < collMinutes) {
+            collInsulin.last.fill(t.createdAt, t.bolusInsulin, 0.0);
+          } else {
+            collInsulin.add(CollectInfo(t.createdAt, t.bolusInsulin));
+          }
 
           if (splitBolus && t.isCarbBolus) {
             hasCarbBolus = true;
@@ -894,10 +819,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
         });
         if ((t.reason ?? '-').isNotEmpty) {
           (graphLegend['stack'] as List).add({
-            'relativePosition': {
-              'x': cm(x + 0.05),
-              'y': cm(tempOverridesTop + tempOverridesHeight / 2 - 0.14)
-            },
+            'relativePosition': {'x': cm(x + 0.05), 'y': cm(tempOverridesTop + tempOverridesHeight / 2 - 0.14)},
             'text': t.reason,
             'fontSize': fs(6),
             'alignment': 'left',
@@ -919,10 +841,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
         });
         if ((t.notes ?? '').isNotEmpty) {
           (graphLegend['stack'] as List).add({
-            'relativePosition': {
-              'x': cm(x + 0.05),
-              'y': cm(glucExerciseTop + glucExerciseHeight / 2 - 0.14)
-            },
+            'relativePosition': {'x': cm(x + 0.05), 'y': cm(glucExerciseTop + glucExerciseHeight / 2 - 0.14)},
             'text': t.notes,
             'fontSize': fs(6),
             'alignment': 'left',
@@ -975,10 +894,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
             'lineColor': t.duration > 0 ? colDurationNotesLine : colNotesLine
           });
           (graphLegend['stack'] as List).add({
-            'relativePosition': {
-              'x': cm(x + 0.05),
-              'y': cm(y + notesHeight - 0.25)
-            },
+            'relativePosition': {'x': cm(x + 0.05), 'y': cm(y + notesHeight - 0.25)},
             'text': notes,
             'fontSize': fs(8),
             'alignment': 'left',
@@ -1009,23 +925,16 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     // when i added it.
 //*
     var bpm = day.activityList.where((ac) => ac.type == 'hr-bpm');
-    var ac = day.activityList
-        .lastWhere((ac) => ac.type == 'steps-total', orElse: () => null);
+    var ac = day.activityList.lastWhere((ac) => ac.type == 'steps-total', orElse: () => null);
     if (showExercises && ac != null) {
       var x = glucX(ac.createdAt);
       (pictures['stack'] as List).add({
-        'relativePosition': {
-          'x': cm(x - glucExerciseHeight / 2),
-          'y': cm(glucExerciseTop + 0.1)
-        },
+        'relativePosition': {'x': cm(x - glucExerciseHeight / 2), 'y': cm(glucExerciseTop + 0.1)},
         'image': 'steps.print',
         'width': cm(glucExerciseHeight - 0.25)
       });
       (graphLegend['stack'] as List).add({
-        'relativePosition': {
-          'x': cm(x + 0.05),
-          'y': cm(glucExerciseTop + glucExerciseHeight / 2 - 0.14)
-        },
+        'relativePosition': {'x': cm(x + 0.05), 'y': cm(glucExerciseTop + glucExerciseHeight / 2 - 0.14)},
         'text': '${ac.steps}',
         'fontSize': fs(6),
         'alignment': 'left',
@@ -1058,20 +967,10 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
 // */
     for (var info in collInsulin) {
       if (info.sum1 == 0.0) continue;
-      double y = sumNarrowValues ? -0.5 : bolusY(info.max1);
-      String text =
-          "${g.fmtBasal(info.sum1, dontRound: !roundToProfile)} ${msgInsulinUnit}";
-      InsulinInjectionList sum = InsulinInjectionList();
-      for (TreatmentData t in info.treatments)
-        sum = sum.add2List(t.multipleInsulin);
-      if (sum.injections.length > 1) {
-        text = "";
-        for (String insulin in sum.injections.keys)
-          if (insulin.toLowerCase() != "sum")
-            text = text +
-                "${g.fmtBasal(sum.injections[insulin], dontRound: !roundToProfile)} ${msgInsulinUnit} ${insulin}\n";
-      } else if (info.count > 1) {
-        text = "[$text]";
+      var y = sumNarrowValues ? -0.5 : bolusY(info.max1);
+      var text = '${g.fmtBasal(info.sum1, dontRound: !roundToProfile)} ${msgInsulinUnit}';
+      if (info.count > 1) {
+        text = '[$text]';
         hasCollectedValues = true;
       }
 /*
@@ -1082,10 +981,10 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
         'color': colBolus
       });
 // */
-      (graphInsulin["stack"][1]["stack"] as List).add({
-        "relativePosition": {
-          "x": cm(glucX(info.start) - 0.05),
-          "y": cm(y - sum.injections.length * 0.25 + 0.5),
+      (graphInsulin['stack'][1]['stack'] as List).add({
+        'relativePosition': {
+          'x': cm(glucX(info.start) - 0.05),
+          'y': cm(y),
         },
         'text': text,
         'fontSize': fs(g.basalPrecision > 2 ? 7 : 8),
@@ -1104,8 +1003,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       y -= 0.35;
 
       if (showCarbIE && info.sum2 > 0.0) {
-        var text1 =
-            '${g.fmtBasal(info.sum2, dontRound: !roundToProfile)} ${msgInsulinUnit}';
+        var text1 = '${g.fmtBasal(info.sum2, dontRound: !roundToProfile)} ${msgInsulinUnit}';
         if (info.count > 1) text1 = '[$text1]';
         (graphCarbs['stack'][1]['stack'] as List).add({
           'relativePosition': {'x': cm(glucX(info.start) - 0.05), 'y': cm(y)},
@@ -1140,17 +1038,13 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
         }
         var x = glucX(profile.store.listTargetLow[i].time(day.date));
         var y = glucY((low + high) / 2);
-        if (lastTarget >= 0)
-          targetValues.add({'x': cm(x), 'y': cm(lastTarget)});
+        if (lastTarget >= 0) targetValues.add({'x': cm(x), 'y': cm(lastTarget)});
         targetValues.add({'x': cm(x), 'y': cm(y)});
         lastTarget = y;
       }
     }
 
-    targetValues.add({
-      'x': cm(glucX(DateTime(0, 1, 1, 23, 59, 59, 999))),
-      'y': cm(lastTarget)
-    });
+    targetValues.add({'x': cm(glucX(DateTime(0, 1, 1, 23, 59, 59, 999))), 'y': cm(lastTarget)});
 
     var limitLines = {
       'relativePosition': {'x': cm(xo), 'y': cm(yo)},
@@ -1182,15 +1076,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
           'lineWidth': cm(lw),
           'lineColor': colTargetArea
         },
-        {
-          'type': 'rect',
-          'x': 0,
-          'y': 0,
-          'w': 0,
-          'h': 0,
-          'color': '#000',
-          'fillOpacity': 1
-        }
+        {'type': 'rect', 'x': 0, 'y': 0, 'w': 0, 'h': 0, 'color': '#000', 'fillOpacity': 1}
       ]
     };
 
@@ -1230,39 +1116,25 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       String text;
       if (hasCarbs) {
         text = '${g.fmtNumber(day.carbs, 0)}';
-        addLegendEntry(legend, colCarbs, msgCarbs(text),
-            isArea: false, lineWidth: 0.1);
+        addLegendEntry(legend, colCarbs, msgCarbs(text), isArea: false, lineWidth: 0.1);
       }
-      if (hasCarbIE)
-        addLegendEntry(legend, '', msgCarbIE,
-            graphText: '1,0 IE', colGraphText: colCarbsText);
+      if (hasCarbIE) addLegendEntry(legend, '', msgCarbIE, graphText: '1,0 IE', colGraphText: colCarbsText);
       if (splitBolus) {
         var sum = day.ieCorrectionSum;
         if (!showSMB) sum += day.ieSMBSum;
         if (sum > 0.0) {
-          addLegendEntry(
-              legend,
-              colBolus,
-              msgCorrectBolusInsulin(
-                  '${g.fmtBasal(sum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
-              isArea: false,
-              lineWidth: 0.1);
+          addLegendEntry(legend, colBolus,
+              msgCorrectBolusInsulin('${g.fmtBasal(sum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
+              isArea: false, lineWidth: 0.1);
         }
         if (hasCarbBolus) {
-          addLegendEntry(
-              legend,
-              colCarbBolus,
-              msgCarbBolusInsulin(
-                  '${g.fmtBasal(day.ieCarbSum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
-              isArea: false,
-              lineWidth: 0.1);
+          addLegendEntry(legend, colCarbBolus,
+              msgCarbBolusInsulin('${g.fmtBasal(day.ieCarbSum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
+              isArea: false, lineWidth: 0.1);
         }
         if (showSMB && day.ieSMBSum > 0.0) {
-          addLegendEntry(
-              legend,
-              colBolus,
-              msgSMBInsulin(
-                  '${g.fmtBasal(day.ieSMBSum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
+          addLegendEntry(legend, colBolus,
+              msgSMBInsulin('${g.fmtBasal(day.ieSMBSum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
               points: [
                 {'x': 0.1, 'y': 0.1},
                 {'x': 0.5, 'y': 0.1},
@@ -1272,44 +1144,32 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
               lineWidth: 0.1);
         }
       } else if (hasBolus) {
-        addLegendEntry(
-            legend,
-            colBolus,
-            msgBolusInsulin(
-                '${g.fmtBasal(day.ieBolusSum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
-            isArea: false,
-            lineWidth: 0.1);
-      }
-      if (hasBolusExt) {
-        addLegendEntry(legend, colBolusExt, msgBolusExtInsulin,
+        addLegendEntry(legend, colBolus,
+            msgBolusInsulin('${g.fmtBasal(day.ieBolusSum, dontRound: !roundToProfile)} ${msgInsulinUnit}'),
             isArea: false, lineWidth: 0.1);
       }
+      if (hasBolusExt) {
+        addLegendEntry(legend, colBolusExt, msgBolusExtInsulin, isArea: false, lineWidth: 0.1);
+      }
       if (showExercises && hasExercises) {
-        addLegendEntry(legend, colExercises, msgExercises,
-            isArea: false, lineWidth: 0.3);
+        addLegendEntry(legend, colExercises, msgExercises, isArea: false, lineWidth: 0.3);
       }
       if (showTempOverrides && hasTempOverrides) {
-        addLegendEntry(legend, colTempOverrides, BasePrint.msgOverrides,
-            isArea: false, lineWidth: 0.3);
+        addLegendEntry(legend, colTempOverrides, BasePrint.msgOverrides, isArea: false, lineWidth: 0.3);
       }
       if (showBasalDay) {
-        text =
-            '${g.fmtBasal(day.ieBasalSum(!showBasalDay), dontRound: !roundToProfile)} ${msgInsulinUnit}';
-        addLegendEntry(legend, colBasalDay, msgBasalrateDay(text),
-            isArea: true);
+        text = '${g.fmtBasal(day.ieBasalSum(!showBasalDay), dontRound: !roundToProfile)} ${msgInsulinUnit}';
+        addLegendEntry(legend, colBasalDay, msgBasalrateDay(text), isArea: true);
       }
       if (showBasalProfile) {
-        text =
-            '${g.fmtBasal(day.basalData.store.ieBasalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}';
-        addLegendEntry(legend, colProfileSwitch, msgBasalrateProfile(text),
-            isArea: false);
+        text = '${g.fmtBasal(day.basalData.store.ieBasalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}';
+        addLegendEntry(legend, colProfileSwitch, msgBasalrateProfile(text), isArea: false);
       }
       text = '${g.fmtBasal(tdd, dontRound: !roundToProfile)} ${msgInsulinUnit}';
       addLegendEntry(legend, '', msgLegendTDD(text), graphText: msgTDD);
       var v1 = g.glucFromData(targets(repData)['low'].toDouble());
       var v2 = g.glucFromData(targets(repData)['high'].toDouble());
-      addLegendEntry(legend, colTargetArea,
-          msgTargetArea(v1, v2, g.getGlucInfo()['unit']));
+      addLegendEntry(legend, colTargetArea, msgTargetArea(v1, v2, g.getGlucInfo()['unit']));
       if (showTargetValue) {
         addLegendEntry(
             legend,
@@ -1322,34 +1182,28 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
         addLegendEntry(legend, '', msgCollectedValues, graphText: '[0,0]');
       }
       if (hasCatheterChange) {
-        addLegendEntry(legend, '', msgCatheterChange,
-            image: 'katheter.print', imgWidth: 0.5, imgOffsetY: 0.15);
+        addLegendEntry(legend, '', msgCatheterChange, image: 'katheter.print', imgWidth: 0.5, imgOffsetY: 0.15);
       }
       if (hasSensorChange) {
-        addLegendEntry(legend, '', msgSensorChange,
-            image: 'sensor.print', imgWidth: 0.5, imgOffsetY: -0.05);
+        addLegendEntry(legend, '', msgSensorChange, image: 'sensor.print', imgWidth: 0.5, imgOffsetY: -0.05);
       }
       if (hasAmpulleChange) {
-        addLegendEntry(legend, '', msgAmpulleChange,
-            image: 'ampulle.print', imgWidth: 0.4, imgOffsetY: 0.1);
+        addLegendEntry(legend, '', msgAmpulleChange, image: 'ampulle.print', imgWidth: 0.4, imgOffsetY: 0.1);
       }
       if (showGlucTable) {
         if (hasLowGluc) {
           addLegendEntry(legend, colLowBack, msgGlucLow,
-              graphText: g.glucFromData(day.basalData.targetLow),
-              newColumn: legend.columns.length < 3);
+              graphText: g.glucFromData(day.basalData.targetLow), newColumn: legend.columns.length < 3);
         }
         if (hasNormGluc) {
           addLegendEntry(legend, colNormBack, msgGlucNorm,
-              graphText: g.glucFromData(
-                  (day.basalData.targetLow + day.basalData.targetHigh) / 2),
+              graphText: g.glucFromData((day.basalData.targetLow + day.basalData.targetHigh) / 2),
               newColumn: !hasLowGluc && legend.columns.length < 3);
         }
         if (hasHighGluc) {
           addLegendEntry(legend, colHighBack, msgGlucHigh,
               graphText: g.glucFromData(day.basalData.targetHigh),
-              newColumn:
-                  !hasLowGluc && !hasNormGluc && legend.columns.length < 3);
+              newColumn: !hasLowGluc && !hasNormGluc && legend.columns.length < 3);
         }
       }
 
@@ -1366,44 +1220,24 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
 
       infoBody.add([
         {'text': msgHbA1C, 'fontSize': fs(10)},
-        {
-          'text': '${hba1c(day.mid)} %',
-          'color': colHbA1c,
-          'fontSize': fs(10),
-          'alignment': 'right'
-        }
+        {'text': '${hba1c(day.mid)} %', 'color': colHbA1c, 'fontSize': fs(10), 'alignment': 'right'}
       ]);
-      var prz = day.ieBasalSum(!showBasalDay) /
-          (day.ieBasalSum(!showBasalDay) + day.ieBolusSum) *
-          100;
+      var prz = day.ieBasalSum(!showBasalDay) / (day.ieBasalSum(!showBasalDay) + day.ieBolusSum) * 100;
       infoBody.add([
         {'text': msgBasalSum, 'fontSize': fs(10)},
-        {
-          'text': '${g.fmtNumber(prz, 1)} %',
-          'color': colBasalDay,
-          'fontSize': fs(10),
-          'alignment': 'right'
-        }
+        {'text': '${g.fmtNumber(prz, 1)} %', 'color': colBasalDay, 'fontSize': fs(10), 'alignment': 'right'}
       ]);
-      prz = day.ieBolusSum /
-          (day.ieBasalSum(!showBasalDay) + day.ieBolusSum) *
-          100;
+      prz = day.ieBolusSum / (day.ieBasalSum(!showBasalDay) + day.ieBolusSum) * 100;
       infoBody.add([
         {'text': msgBolusSum, 'fontSize': fs(10)},
-        {
-          'text': '${g.fmtNumber(prz, 1)} %',
-          'color': colBolus,
-          'fontSize': fs(10),
-          'alignment': 'right'
-        }
+        {'text': '${g.fmtNumber(prz, 1)} %', 'color': colBolus, 'fontSize': fs(10), 'alignment': 'right'}
       ]);
       if (showZeroBasal) {
         var duration = Duration(seconds: day.basalZeroDuration);
         infoBody.add([
           {'text': msgBasalZero, 'fontSize': fs(10)},
           {
-            'text':
-                '${msgDuration(duration.inHours, duration.inMinutes - duration.inHours * 60)}',
+            'text': '${msgDuration(duration.inHours, duration.inMinutes - duration.inHours * 60)}',
             'color': colBasalDay,
             'fontSize': fs(10),
             'alignment': 'right'
@@ -1412,24 +1246,17 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       }
     }
 
-    var profileBasal = showBasalProfile
-        ? getBasalGraph(day, true, showBasalDay, xo, yo)
-        : null;
-    var dayBasal =
-        showBasalDay ? getBasalGraph(day, false, false, xo, yo) : null;
+    var profileBasal = showBasalProfile ? getBasalGraph(day, true, showBasalDay, xo, yo) : null;
+    var dayBasal = showBasalDay ? getBasalGraph(day, false, false, xo, yo) : null;
 
     if (showBasalProfile) {
       profileBasal['stack'].add(
         {
-          'relativePosition': {
-            'x': cm(xo),
-            'y': cm(yo + graphHeight + basalHeight + basalTop + 0.2)
-          },
+          'relativePosition': {'x': cm(xo), 'y': cm(yo + graphHeight + basalHeight + basalTop + 0.2)},
           'columns': [
             {
               'width': cm(basalWidth),
-              'text':
-                  '${msgTDD} ${g.fmtBasal(tdd, dontRound: !roundToProfile)} ${msgInsulinUnit}',
+              'text': '${msgTDD} ${g.fmtBasal(tdd, dontRound: !roundToProfile)} ${msgInsulinUnit}',
               'fontSize': fs(20),
               'alignment': 'center',
               'color': colBasalDay
@@ -1459,8 +1286,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
         }
       }
       if (startProfile != null && showProfileStart) {
-        showProfileSwitch(
-            src, startProfile, lastProfile, stack, xo, yo, glucX(DateTime(0)));
+        showProfileSwitch(src, startProfile, lastProfile, stack, xo, yo, glucX(DateTime(0)));
       }
     }
 
@@ -1494,15 +1320,12 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
         };
 //    double cobHeight = 0;
     dynamic graphIob = {};
-    dynamic graphIAct = {};
     dynamic graphCob = {};
-    dynamic graphCAct = {};
 
     if (showCOB || showIOB) {
       var hc = [];
       var vs = [];
-      var pts = getIobCob(
-          xo, yo, graphWidth, graphHeight, hc, vs, day, ieMax * 4, carbMax);
+      var pts = getIobCob(xo, yo, graphWidth, graphHeight, hc, vs, day, ieMax * 4, carbMax);
 
       if (showIOB) {
         graphIob = {
@@ -1510,44 +1333,23 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
           'relativePosition': {'x': cm(xo), 'y': cm(yo - pts['iobTop'])},
           'canvas': []
         };
-        List graphIobCvs = graphIob["canvas"];
-        graphIobCvs.add(graphArea(pts["iob"], colIOBDaily, colIOBDaily));
-        graphIAct = {
-//          "relativePosition": {"x": cm(xo), "y": cm(yo + graphHeight - pts["iActHeight"] + pts["iActTop"])},
-          "relativePosition": {"x": cm(xo), "y": cm(yo - pts["iActTop"])},
-          "canvas": []
-        };
-        List graphIActCvs = graphIAct["canvas"];
-        graphIActCvs.add(glucLine(pts["iact"], colBolus));
+        List graphIobCvs = graphIob['canvas'];
+        graphIobCvs.add(graphArea(pts['iob'], colIOBDaily, colIOBDaily));
       }
       if (showCOB) {
         graphCob = {
-          'relativePosition': {
-            'x': cm(xo),
-            'y': cm(yo + graphHeight - pts['cobHeight'])
-          },
+          'relativePosition': {'x': cm(xo), 'y': cm(yo + graphHeight - pts['cobHeight'])},
           'canvas': []
         };
-        List graphCobCvs = graphCob["canvas"];
-        graphCobCvs.add(graphArea(pts["cob"], colCOBDaily, colCOBDaily));
-        graphCAct = {
-          "relativePosition": {
-            "x": cm(xo),
-            "y": cm(yo + graphHeight - pts["cActHeight"])
-          },
-          "canvas": []
-        };
-        List graphCActCvs = graphCAct["canvas"];
-        graphCActCvs.add(glucLine(pts["cact"], colValue));
+        List graphCobCvs = graphCob['canvas'];
+        graphCobCvs.add(graphArea(pts['cob'], colCOBDaily, colCOBDaily));
       }
     }
 
     var ret = Page(isPortrait, [
       headerFooter(date: day.date),
       graphIob,
-      graphIAct,
       graphCob,
-      graphCAct,
       glucTableCvs,
       tempOverridesCvs,
       exerciseCvs,
@@ -1574,8 +1376,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     return ret;
   }
 
-  void showProfileSwitch(ReportData src, ProfileData p, ProfileData last,
-      List stack, double xo, double yo,
+  void showProfileSwitch(ReportData src, ProfileData p, ProfileData last, List stack, double xo, double yo,
       [double x]) {
     if (last != null && p.storeHash == last.storeHash) return;
     x ??= glucX(p.startDate);
@@ -1599,8 +1400,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     }
   }
 
-  dynamic getBasalGraph(
-      DayData day, bool useProfile, bool displayProfile, double xo, double yo) {
+  dynamic getBasalGraph(DayData day, bool useProfile, bool displayProfile, double xo, double yo) {
     List<ProfileEntryData> data;
     double basalSum;
     String color;
@@ -1618,10 +1418,7 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     var ret = {
       'stack': [
         {
-          'relativePosition': {
-            'x': cm(xo),
-            'y': cm(yo + graphHeight + basalTop)
-          },
+          'relativePosition': {'x': cm(xo), 'y': cm(yo + graphHeight + basalTop)},
           'canvas': basalCvs
         }
       ]
@@ -1629,15 +1426,11 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
     if (basalSum != 0) {
       ret['stack'].add(
         {
-          'relativePosition': {
-            'x': cm(xo),
-            'y': cm(yo + graphHeight + basalHeight + basalTop + 0.2)
-          },
+          'relativePosition': {'x': cm(xo), 'y': cm(yo + graphHeight + basalHeight + basalTop + 0.2)},
           'columns': [
             {
               'width': cm(basalWidth),
-              'text':
-                  '${g.fmtBasal(basalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}',
+              'text': '${g.fmtBasal(basalSum, dontRound: !roundToProfile)} ${msgInsulinUnit}',
               'fontSize': fs(20),
               'alignment': displayProfile ? 'right' : 'left',
               'color': color
@@ -1664,20 +1457,16 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       temp.add(entry);
     }
     if (useProfile) {
-      temp.sort((a, b) =>
-          a.time(day.date, useProfile).compareTo(b.time(day.date, useProfile)));
+      temp.sort((a, b) => a.time(day.date, useProfile).compareTo(b.time(day.date, useProfile)));
 
-      if (temp.isEmpty)
-        temp.add(ProfileEntryData(ProfileTimezone(Globals.refTimezone)));
+      if (temp.isEmpty) temp.add(ProfileEntryData(ProfileTimezone(Globals.refTimezone)));
       if (temp[0].timeAsSeconds != -temp[0].localDiff * 60 * 60) {
         var clone = temp[0].clone(DateTime(0, 1, 1, -temp[0].localDiff, 0));
         temp.insert(0, clone);
       }
     }
 
-    if (!displayProfile)
-      areaPoints.add(
-          {'x': cm(basalX(DateTime(0, 1, 1, 0, 0))), 'y': cm(basalY(0.0))});
+    if (!displayProfile) areaPoints.add({'x': cm(basalX(DateTime(0, 1, 1, 0, 0))), 'y': cm(basalY(0.0))});
     for (var entry in temp) {
       var x = basalX(entry.time(day.date, useProfile));
       var y = basalY(entry.value); //basalY(entry.adjustedValue(entry.value));
@@ -1685,12 +1474,8 @@ aber für einen Überblick über den Verlauf ist das ganz nützlich.''',
       areaPoints.add({'x': cm(x), 'y': cm(y)});
       lastY = y;
     }
-    if (lastY >= 0)
-      areaPoints
-          .add({'x': cm(basalX(DateTime(0, 1, 1, 23, 59))), 'y': cm(lastY)});
-    if (!displayProfile)
-      areaPoints.add(
-          {'x': cm(basalX(DateTime(0, 1, 1, 23, 59))), 'y': cm(basalY(0.0))});
+    if (lastY >= 0) areaPoints.add({'x': cm(basalX(DateTime(0, 1, 1, 23, 59))), 'y': cm(lastY)});
+    if (!displayProfile) areaPoints.add({'x': cm(basalX(DateTime(0, 1, 1, 23, 59))), 'y': cm(basalY(0.0))});
     basalCvs.add(area);
 //    basalCvs.add({"type": "rect", "x": 0, "y": 0, "w": 1, "h": 1, "fillOpacity": 1});
     return ret;

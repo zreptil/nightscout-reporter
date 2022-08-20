@@ -644,8 +644,8 @@ Diese Grafik kann auch bei @05@ und @08@ ausgegeben werden.
     var high = Globals.stdHigh;
 
     if (!g.ppStandardLimits && !g.ppCGPAlwaysStandardLimits) {
-      low = repData.status.settings.thresholds.bgTargetBottom;
-      high = repData.status.settings.thresholds.bgTargetTop;
+      low = repData.status.settings.bgTargetBottom;
+      high = repData.status.settings.bgTargetTop;
     }
 
     var areaHealthy = cgp.paintValues([0, 16.7, 0, 0, 90], lw,

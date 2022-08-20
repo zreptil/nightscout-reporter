@@ -2,16 +2,16 @@
   "icons": [
     {
       "sizes": "176x176",
-      "src": "../../../packages/nightscout-reporter/assets/themes/standard/favicon.png",
+      "src": "../../../packages/nightscout-reporter/assets/themes/standard/favicon-watch.png",
       "type": "image/png"
     }
   ],
   "display": "standalone",
-  "name": "Nightscout Reporter Uhr Beta",
+  "name": "Night-Watch (Beta)",
   "permissions": [],
   "prefer_related_applications": true,
   "related_applications": [],
-  "short_name": "NR Uhr Beta",
+  "short_name": "Night-Watch ß",
   "start_url": "/beta/index.html",
-  "url": "https://nightscout-reporter.zreptil.de/beta/#/clock"
+  "url": "https://nightscout-reporter.zreptil.de/beta/watch"
 }

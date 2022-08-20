@@ -102,8 +102,8 @@ im ausgewählten Zeitraum an.''', desc: 'help for template');
     // print('glucSpan ${glucSpan}');
     var values = [];
     //.filled((glucMax / glucSpan).toInt() + 1, null);
-    var low = g.ppStandardLimits ? Globals.stdLow : repData.status.settings.thresholds.bgTargetBottom;
-    var high = g.ppStandardLimits ? Globals.stdHigh : repData.status.settings.thresholds.bgTargetTop;
+    var low = g.ppStandardLimits ? Globals.stdLow : repData.status.settings.bgTargetBottom;
+    var high = g.ppStandardLimits ? Globals.stdHigh : repData.status.settings.bgTargetTop;
     var lowCount = 0;
     var highCount = 0;
     for (var g = 0.0; g <= glucMax; g += glucSpan) {

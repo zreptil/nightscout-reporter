@@ -392,9 +392,9 @@ class PrintDailyAnalysis extends BaseDaily {
     var date = DateTime(day.date.year, day.date.month, day.date.day);
     var profile = repData.profile(date);
     var yHigh = glucY(math.min(
-        glucMax, repData.status.settings.thresholds.bgTargetTop.toDouble()));
+        glucMax, repData.status.settings.bgTargetTop.toDouble()));
     var yLow =
-        glucY(repData.status.settings.thresholds.bgTargetBottom.toDouble());
+        glucY(repData.status.settings.bgTargetBottom.toDouble());
     var targetValues = [];
     var lastTarget = -1.0;
     for (var i = 0; i < profile.store.listTargetLow.length; i++) {

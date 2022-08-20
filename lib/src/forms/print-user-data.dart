@@ -140,8 +140,8 @@ class PrintUserData extends BasePrint {
     table.add([
       {'text': msgOwnLimits, 'fontSize': fsTitle},
       {
-        'text': '${glucFromData(user, user.status.settings.thresholds?.bgTargetBottom ?? 0)} ${units} - '
-            '${glucFromData(user, user.status.settings.thresholds?.bgTargetTop ?? 0)} ${units}',
+        'text': '${glucFromData(user, user.status.settings.bgTargetBottom ?? 0)} ${units} - '
+            '${glucFromData(user, user.status.settings.bgTargetTop ?? 0)} ${units}',
         'fontSize': fsData
       }
     ]);

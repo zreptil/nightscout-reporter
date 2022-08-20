@@ -38,23 +38,12 @@
           </material-select-item>
         </material-dropdown-select>
       </div>
-      <material-checkbox [(checked)]="g.ppStandardLimits" [disabled]="g.ppComparable" class="pp">
+      <material-checkbox [(checked)]="g.ppStandardLimits" [disabled]="g.ppComparable" class="chk">
         {{msgStandardLimits(g.getGlucInfo()["stdlow"],g.getGlucInfo()["stdhigh"],g.getGlucInfo()["unit"])}}
       </material-checkbox>
-      <material-checkbox *ngIf="!g.ppComparable && !g.ppStandardLimits" [(checked)]="g.ppCGPAlwaysStandardLimits" class="pp indent">
+      <material-checkbox *ngIf="!g.ppComparable && !g.ppStandardLimits" [(checked)]="g.ppCGPAlwaysStandardLimits" class="chk indent">
         {{msgStandardCGP}}
       </material-checkbox>
-      <material-checkbox [(checked)]="g.user.adjustGluc" class="pp">{{msgAdjustGluc}}</material-checkbox>
-      <div *ngIf="g.user.adjustGluc" class="adjustPanel">
-        <div class="adjust">
-          <div class="label">{{msgAdjustCalc}}</div>
-          <material-slider class="adjust-slider" [(value)]="g.user.adjustCalc" [min]="0.0" [max]="20.0" [step]="0.1"></material-slider>
-        </div>
-        <div class="adjust">
-          <div class="label">{{msgAdjustLab}}</div>
-          <material-slider class="adjust-slider" [(value)]="g.user.adjustLab" [min]="0.0" [max]="20.0" [step]="0.1"></material-slider>
-        </div>
-      </div>
       <div>
         <div @i18n="label for max glucvalue in printparams">Maximaler Glukosewert in Grafiken:</div>
         <material-dropdown-select [buttonText]="listGlucMaxValues[glucMaxIdx??0]"
@@ -91,30 +80,30 @@
       </div>
     </div>
     <div>
-      <material-checkbox [(checked)]="g.ppLatestFirst" class="pp">
+      <material-checkbox [(checked)]="g.ppLatestFirst" class="chk">
         {{msgLatestFirst}}
       </material-checkbox>
     </div>
     <div>
-      <material-checkbox [(checked)]="g.ppPdfSameWindow" class="pp" @i18n="label for checkbox to open PDF in same window">PDF im
+      <material-checkbox [(checked)]="g.ppPdfSameWindow" @i18n="label for checkbox to open PDF in same window" class="chk">PDF im
         selben Fenster öffnen
       </material-checkbox>
-      <material-checkbox [(checked)]="g.ppPdfDownload" class="pp" @i18n="label for checkbox to download PDF">
+      <material-checkbox [(checked)]="g.ppPdfDownload" @i18n="label for checkbox to download PDF" class="chk">
         PDF herunterladen (bei einigen Browsern benötigt)
       </material-checkbox>
     </div>
     <div>
-      <material-checkbox [(checked)]="g.ppHideNightscoutInPDF" class="pp" @i18n="label for checkbox to hide nightscout in footer">
+      <material-checkbox [(checked)]="g.ppHideNightscoutInPDF" @i18n="label for checkbox to hide nightscout in footer" class="chk">
         Hinweise auf Nightscout in der Kopf- und Fusszeile des PDFs ausblenden
       </material-checkbox>
-      <material-checkbox [(checked)]="g.ppHideLoopData" class="pp loop" @i18n="label for checkbox to hide loop data">
+      <material-checkbox [(checked)]="g.ppHideLoopData" class="chk loop" @i18n="label for checkbox to hide loop data">
         Loopdaten verbergen (die auf diese Art markierten Optionen ignorieren)
       </material-checkbox>
     </div>
-    <material-checkbox [(checked)]="g.ppShowUrlInPDF" class="pp" @i18n="label for checkbox to show nightscout url in footer">
+    <material-checkbox [(checked)]="g.ppShowUrlInPDF" class="chk" @i18n="label for checkbox to show nightscout url in footer">
       Nightscout Url in der Fusszeile des PDFs anzeigen
     </material-checkbox>
-    <material-checkbox [(checked)]="g.ppFixAAPS30" class="pp" @i18n="label for fix for AAPS 3.0">
+    <material-checkbox [(checked)]="g.ppFixAAPS30" class="chk" @i18n="label for fix for AAPS 3.0">
       Korrektur für Datenänderungen in AAPS 3.0
     </material-checkbox>
     <div class="subtitle" @i18n="label of area for timeshift">Historische Daten</div>
@@ -129,6 +118,7 @@
         {{item.title}}
       </material-button>
     </div>
+    <glucadjust></glucadjust>
   </div>
 
   <div footer>

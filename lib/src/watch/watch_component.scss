@@ -7,9 +7,10 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
+  overflow-x: hidden;
 }
 
-.clock {
+.watch {
   display: flex;
   flex-flow: wrap;
   align-items: center;
@@ -28,7 +29,48 @@
   background: var(--glucHigh);
 }
 
-clockentry[type=nl] {
+.target {
+  background: lime;
+  outline: 1px solid black;
+  display: flex;
+  width: 100%;
+  position: relative;
+
+  .low {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .marker {
+    border-left: 1px solid black;
+    position: absolute;
+    height: calc(100% + 20px);
+    padding: 0;
+    top: -10px;
+  }
+
+  .last {
+    border-left: 1px dashed black;
+  }
+
+  .arrowtrack {
+    top: calc(50% - 3px);
+    height: 3px;
+    background: black;
+    position: absolute;
+  }
+
+  .arrowtip {
+    position: absolute;
+    top: calc(50% - 7px);
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 4px;
+  }
+}
+
+watchentry[type=nl] {
   width: 100%;
 }
 
@@ -52,27 +94,27 @@ clockentry[type=nl] {
   align-self: flex-end;
 }
 
-clockentry[type=arrow].size1 {
+watchentry[type=arrow].size1 {
   font-size: 0.5em;
 }
 
-clockentry[type=arrow].size2 {
+watchentry[type=arrow].size2 {
   font-size: 0.8em;
 }
 
-clockentry[type=arrow].size3 {
+watchentry[type=arrow].size3 {
   font-size: 1.0em;
 }
 
-clockentry[type=arrow].size4 {
+watchentry[type=arrow].size4 {
   font-size: 1.2em;
 }
 
-clockentry[type=arrow].size5 {
+watchentry[type=arrow].size5 {
   font-size: 1.4em;
 }
 
-clockentry[type=arrow].size6 {
+watchentry[type=arrow].size6 {
   font-size: 1.5em;
 }
 
@@ -100,15 +142,15 @@ clockentry[type=arrow].size6 {
   font-size: 10em;
 }
 
-clockentry {
+watchentry {
   padding: 5px;
 }
 
-clockentry[selected=true] {
+watchentry[selected=true] {
   @include shadow-elevation(16);
 }
 
-clockentry[type=arrow] {
+watchentry[type=arrow] {
   position: relative;
 
   .arrow {

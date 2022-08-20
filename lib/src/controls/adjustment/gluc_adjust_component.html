@@ -1,0 +1,12 @@
+<material-checkbox [(checked)]="g.user.adjustGluc" class="chk">{{msgAdjustGluc}}</material-checkbox>
+<div *ngIf="g.user.adjustGluc" class="adjustPanel">
+  <div class="adjust">
+    <div class="label">{{msgAdjustCalc}}</div>
+    <material-slider class="nr-slider" [(value)]="g.user.adjustCalc" [min]="0.0" [max]="20.0" [step]="0.1"></material-slider>
+  </div>
+  <div class="adjust">
+    <div class="label">{{msgAdjustLab}}</div>
+    <material-slider class="nr-slider" [(value)]="g.user.adjustLab" [min]="0.0" [max]="20.0" [step]="0.1"></material-slider>
+  </div>
+  <material-checkbox [(checked)]="g.user.adjustTarget" class="chk indent">{{msgAdjustTarget}}</material-checkbox>
+</div>

@@ -13,7 +13,6 @@ import 'package:angular_components/material_datepicker/material_date_range_picke
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_select_item.dart';
-import 'package:angular_components/utils/color/material.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:dnd/dnd.dart';
 import 'package:intl/intl.dart';
@@ -30,7 +29,6 @@ import 'package:nightscout_reporter/src/forms/print-daily-log.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-profile.dart';
 import 'package:nightscout_reporter/src/forms/print-daily-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-gluc-distribution.dart';
-import 'package:nightscout_reporter/src/forms/print-insulin-statistics.dart';
 import 'package:nightscout_reporter/src/forms/print-percentile.dart';
 import 'package:nightscout_reporter/src/forms/print-test.dart';
 import 'package:nightscout_reporter/src/forms/print-user-data.dart';
@@ -216,9 +214,6 @@ class StartComponent implements OnInit {
       'Möglicherweise sind zu viele Daten in der Profiltabelle (wird z.B. von iOS Loop verursacht). '
       'Du kannst versuchen, in den Einstellungen die Anzahl an auszulesenden Profildatensätzen zu verringern.');
 
-  String get msgInsulinError => Intl.message(
-      'Beim Auslesen der Insulin Profile ist ein Fehler aufgetreten.');
-
   String get msgPDFCreationError =>
       Intl.message('Beim Erzeugen des PDF ist ein Fehler aufgetreten.');
 
@@ -293,27 +288,12 @@ class StartComponent implements OnInit {
 
   String appTitle = '';
 
-  Future<void> setTheme(String name) async {
-    dynamic theme = await g.requestJson(
-        'packages/nightscout_reporter/assets/themes/${name}/colors.json');
-//    dynamic theme = themes[name];
-    if (theme == null) return;
-    for (String key in theme.keys) {
-      String value = theme[key];
-      if (materialColors.containsKey(value))
-        value = materialColors[value].hexString;
-      html.document.body.style.setProperty('--$key', value);
-    }
-    g.theme = name;
-    g.saveWebData(); //saveStorage("webtheme", name);
-  }
-
   @override
   Future<Null> ngOnInit() async {
     _currPage = 'signin';
     g.loadWebData();
 //    g.theme = g.loadStorage("theme");
-    await setTheme(g.theme);
+    await g.setTheme(g.theme);
 
     appTitle = html.document.querySelector('head>title').text;
 
@@ -750,6 +730,9 @@ class StartComponent implements OnInit {
       case 'jsonparser':
         navigate('https://jsonformatter.org/json-parser');
         break;
+      case 'nswatch':
+        navigate('?watch');
+        break;
       case 'nsreports':
         callNightscoutReports();
         break;
@@ -761,9 +744,6 @@ class StartComponent implements OnInit {
         break;
       case 'nightscoutstatus':
         callNightscoutStatus();
-        break;
-      case 'nrclock':
-        navigate('?clock');
         break;
       case 'menu':
         changeView();
@@ -945,6 +925,13 @@ class StartComponent implements OnInit {
     if (reportData != null &&
         reportData.begDate == beg &&
         reportData.endDate == end) {
+      progressText = msgPreparingPDF;
+      progressMax = 1;
+      progressValue = 0;
+      print('1');
+      reportData.calc.calcStatistics(reportData);
+      reportData.ns.calcStatistics(reportData);
+      print('2');
       return reportData;
     }
 
@@ -1120,36 +1107,7 @@ class StartComponent implements OnInit {
           ]);
 // */
       }
-/*
-      url = urlData.fullUrl('insulin');
-      content = await g.request(url);
-      data.insulinProfiles = [];
-      try {
-        List<dynamic> src = json.decode(content);
-        for (dynamic entry in src) {
-          // don't add profiles that cannot be read
-          try {
-            var insulin = InsulinData.fromJson(entry);
-            data.insulinProfiles.add(insulin);
-            var maxEffect = insulin.IOB1Min.length * 60 * 1000;
-            data.globals.ppMaxInsulinEffectInMS = math.max(data.globals.ppMaxInsulinEffectInMS, maxEffect);
-          } catch (ex) {
-            data.insulinProfiles = null;
-          }
-        }
-        displayLink('insulin', url, type: 'debug');
-      } catch (ex) {
-        if (g.isDebug) {
-          if (ex is Error) {
-            display('${ex.toString()}\n${ex.stackTrace}');
-          } else {
-            display(ex.toString());
-          }
-        } else {
-          // display(msgInsulinError);
-        }
-      }
-// */
+
       var params =
           'find[created_at][\$gte]=${begDate.year - 1}-01-01T00:00:00.000Z&find[eventType]=Profile Switch';
       if (g.ppFixAAPS30) {
@@ -1313,7 +1271,6 @@ class StartComponent implements OnInit {
         p != data.profiles.last &&
         !p.store.containsKey('NR Profil'));
 
-    TreatmentData lastTempBasal;
     // add the previous day of the period to have the daydata available in forms that need this information
     begDate = begDate.add(days: -1);
     data.dayCount = -1;
@@ -1366,7 +1323,7 @@ class StartComponent implements OnInit {
           }
         }
         String tmp;
-        if (lastTempBasal == null) {
+        if (data.lastTempBasal == null) {
           // find last temp basal of treatments of day before current day.
           url = data.user.apiUrl(
               Date(begDate.year, begDate.month, begDate.day), 'treatments.json',
@@ -1378,10 +1335,10 @@ class StartComponent implements OnInit {
             var list = <TreatmentData>[];
             for (dynamic treatment in src) {
               list.add(
-                  TreatmentData.fromJson(g, treatment, data.insulinProfiles));
+                  TreatmentData.fromJson(g, treatment));
             }
             list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-            if (list.isNotEmpty) lastTempBasal = list.last;
+            if (list.isNotEmpty) data.lastTempBasal = list.last;
           }
         }
 
@@ -1397,7 +1354,7 @@ class StartComponent implements OnInit {
               type: 'debug');
           for (dynamic treatment in src) {
             hasData = true;
-            var t = TreatmentData.fromJson(g, treatment, data.insulinProfiles);
+            var t = TreatmentData.fromJson(g, treatment);
             // Treatments entered by sync are ignored
             if (t.enteredBy == 'sync') {
             } else if (data.ns.treatments.isNotEmpty &&
@@ -1422,7 +1379,7 @@ class StartComponent implements OnInit {
           }
         }
         // the following code inserts an exercise in the data if there is none present
-//*
+/*
         if (g.isLocal && !hasExercise) {
           var t = TreatmentData();
           t.createdAt =
@@ -1560,8 +1517,8 @@ class StartComponent implements OnInit {
       data.calc.devicestatusList = data.ns.devicestatusList;
       data.calc.activityList = data.ns.activityList;
 
-      data.calc.extractData(data, lastTempBasal);
-      data.ns.extractData(data, lastTempBasal);
+      data.calc.extractData(data);
+      data.ns.extractData(data);
     } else {}
 
     return data;
@@ -1966,7 +1923,7 @@ class StartComponent implements OnInit {
       logoStyle = ls;
       if (themeKey != '') {
         g.theme = themeKey;
-        setTheme(g.theme);
+        g.setTheme(g.theme);
       }
     });
     themePanelShown = !themePanelShown;

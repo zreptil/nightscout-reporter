@@ -22,7 +22,6 @@ schwächerer Schrift angezeigt wird.
   @override
   String baseIdx = '04';
 
-  String get _titleGraphic => Intl.message('Tagesstatistik');
   bool showHbA1c,
       showStdabw,
       showCount,
@@ -120,8 +119,6 @@ schwächerer Schrift angezeigt wird.
     showValueStats = params[7].boolValue;
     showBolus = params[8].boolValue;
     showTDD = params[9].boolValue;
-    showTDD = false;
-    useDailyBasalrate = true;
   }
 
   @override
@@ -132,7 +129,7 @@ schwächerer Schrift angezeigt wird.
   }
 
   @override
-  String get title => _titleGraphic;
+  String get title => Intl.message('Tagesstatistik');
 
   @override
   bool get isPortrait => false;
@@ -172,7 +169,7 @@ schwächerer Schrift angezeigt wird.
         getContent(firstCol, 'total', 'center'));
     var text = msgDistribution;
     if (showTDD) text += '\n' + msgTDD;
-    double tdd = day.ieBasalSum(!useDailyBasalrate) + day.ieBolusSum;
+    var tdd = day.ieBasalSum(!useDailyBasalrate) + day.ieBolusSum;
     addTableRow(true, cm(f * 100), row, {
       'text': text,
       'style': 'total',
@@ -490,7 +487,6 @@ schwächerer Schrift angezeigt wird.
     totalDay.basalData.targetHigh = 0;
     totalDay.basalData.targetLow = 1000;
     var totalDays = 0;
-    var oldLength = pages.length;
     _maxTDD = 0.0;
     _basalSum = 0.0;
 
@@ -562,6 +558,5 @@ schwächerer Schrift angezeigt wird.
       var test = pages.last.content.last as Map;
       test['columns'].last['table']['body'].add(body.last);
     }
-    if (repData.isForThumbs && pages.length - oldLength > 1) pages.removeRange(oldLength + 1, pages.length);
   }
 }

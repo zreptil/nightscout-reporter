@@ -118,13 +118,13 @@
     </div>
     <div class="subtitle" @i18n="label of area for display setting">Anzeigeeinstellungen</div>
     <div class="functions">
-      <material-checkbox [(checked)]="g.tileShowImage" @i18n="label for checkbox to show images on tiles">
+      <material-checkbox [(checked)]="g.tileShowImage" class="chk" @i18n="label for checkbox to show images on tiles">
         Auf Kacheln Bilder statt Namen anzeigen
       </material-checkbox>
     </div>
     <div class="subtitle" @i18n="label of area for additional functions">Zusatzfunktionen</div>
     <div class="functions">
-      <material-checkbox [(checked)]="g.showCurrentGluc" @i18n="label for checkbox to show current glucoselevel">
+      <material-checkbox [(checked)]="g.showCurrentGluc" class="chk" @i18n="label for checkbox to show current glucoselevel">
         Letzten Messwert in der Titelzeile anzeigen
       </material-checkbox>
       <div class="pdfSliderHead" @i18n="pdfFileSize">
@@ -135,7 +135,7 @@
       </div>
       <div class="pdfSlider">
         <div @i18n="small">Klein</div>
-        <material-slider class="maxsize" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
+        <material-slider class="nr-slider" [(value)]="g.pdfControlMaxSize" [min]="1" [step]="1"
                          [max]="pdfSliderMax"></material-slider>
         <div *ngIf="g.pdfControlMaxSize < pdfSliderMax" @i18n="big">Gross</div>
         <div *ngIf="g.pdfControlMaxSize >= pdfSliderMax">{{g.msgUnlimited}}</div>
@@ -146,6 +146,7 @@
           Einstellungen von Release-Version übernehmen
         </ng-container>
       </material-button>
+      <glucadjust></glucadjust>
     </div>
   </div>
 

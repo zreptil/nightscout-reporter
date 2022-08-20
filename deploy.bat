@@ -1,15 +1,16 @@
 @echo off
 cls
+if "%1" EQU "noPause" goto noPause
 echo Hiermit wird Nightscout Reporter erstellt. Davor muss die Synchronisation 
 echo von Dropbox angehalten und eventuell laufende Server Instanzen beendet werden.
 echo.
 echo Bitte eine Taste druecken zum Fortsetzen oder Batchdatei abbrechen
-pause >nul
 rem goto skipbuild
 rem del /s /q lib\src\*.css
 rem del lib\*.css
+:nopause
 call build.bat
-pause
+if "%1" NEQ "noPause" pause
 cls
 
 :skipbuild

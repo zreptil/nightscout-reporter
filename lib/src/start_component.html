@@ -40,7 +40,7 @@
                     [showInfo]="g.showInfo" [showLabel]="false"></datepicker>
       </div>
       <nav class="material-navigation">
-        <material-button *ngIf="g.showCurrentGluc" raised class="currentGluc" (trigger)="g.getCurrentGluc()">
+        <material-button *ngIf="g.showCurrentGluc" raised class="currentGluc" (trigger)="navigate('?watch')">
           <pre *ngIf="!g.currentGlucVisible" @i18n="message for current glucose if not active">Pausiert</pre>
           <div *ngIf="g.currentGlucVisible">
             <div factor *ngIf="g.user.adjustGluc">*{{g.msgAdjustFactor}}</div>
@@ -283,9 +283,10 @@
           <ng-container @i18n="title of nightscout reports">Nightscout Berichte</ng-container>
           <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
-        <material-button class="iconButton material-drawer-button" (trigger)="clickMenuButton('nrclock')">
-          <material-icon icon="schedule"></material-icon>
-          <ng-container @i18n="title of nightscout report clock">Uhr</ng-container>
+        <material-button class="iconButton material-drawer-button"
+                         (trigger)="clickMenuButton('nswatch')">
+          <img src="packages/nightscout_reporter/assets/themes/{{g.theme}}/owl-watch.png">
+          <ng-container @i18n="title of nightscout reports">Night-Watch</ng-container>
           <material-icon icon="open_in_new" size="medium"></material-icon>
         </material-button>
         <div>

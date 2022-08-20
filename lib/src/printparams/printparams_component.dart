@@ -9,6 +9,7 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_select_item.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:intl/intl.dart';
+import 'package:nightscout_reporter/src/controls/adjustment/gluc_adjust_component.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 
 import '../globals.dart';
@@ -28,6 +29,7 @@ import '../json_data.dart';
     MaterialIconComponent,
     MaterialToggleComponent,
     MaterialSliderComponent,
+    GlucAdjustComponent,
     materialInputDirectives,
     NgFor,
     NgIf,
@@ -48,19 +50,6 @@ class PrintParamsComponent implements OnInit {
         args: [low, high, unit],
         name: 'msgStandardLimits');
   }
-
-  String get msgAdjustGluc => Intl.message('Glukosewerte anpassen');
-
-  String _msgAdjustCalc(value) => Intl.message('Errechneter HbA1C: ${value}%',
-      args: [value], name: '_msgAdjustCalc');
-
-  String _msgAdjustLab(value) =>
-      Intl.message('Im Labor ermittelter HbA1C: ${value}%',
-          args: [value], name: '_msgAdjustLab');
-
-  String get msgAdjustCalc => _msgAdjustCalc(g.fmtNumber(g.user.adjustCalc, 1));
-
-  String get msgAdjustLab => _msgAdjustLab(g.fmtNumber(g.user.adjustLab, 1));
 
   String get msgStandardCGP =>
       Intl.message('CGP immer mit Standard Zielbereich');

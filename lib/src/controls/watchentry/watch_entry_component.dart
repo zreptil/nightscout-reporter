@@ -6,14 +6,14 @@ import 'package:angular_components/angular_components.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 
 @Component(
-    selector: 'clockentry',
-    styleUrls: ['clock_entry_component.css'],
-    templateUrl: 'clock_entry_component.html',
+    selector: 'watchentry',
+    styleUrls: ['watch_entry_component.css'],
+    templateUrl: 'watch_entry_component.html',
     directives: [MaterialIconComponent, NgFor, NgIf],
     providers: [])
-class ClockEntryComponent {
+class WatchEntryComponent {
   @Input()
-  globals.ClockElement element;
+  globals.WatchElement element;
 
   @Input()
   bool isEditMode;
@@ -44,7 +44,7 @@ class ClockEntryComponent {
     return ret.join(' ');
   }
 
-  ClockEntryComponent();
+  WatchEntryComponent();
 
   void fire(String type, event) async {
     event.preventDefault();

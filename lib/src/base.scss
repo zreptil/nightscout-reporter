@@ -1,3 +1,18 @@
+// this mixin is neccessary since the original uses transparantize, which doesn't work with variables
+@mixin nr-slider-thumb-color($selector, $fore, $back) {
+  ::ng-deep #{$selector} .knob-real,
+  ::ng-deep #{$selector} .is-dragging.knob-drag-shadow {
+    background-color: $fore;
+  }
+
+  ::ng-deep #{$selector} .knob:focus,
+  ::ng-deep #{$selector} .knob:hover {
+    .knob-hover-shadow {
+      background-color: $back;
+    }
+  }
+}
+
 .betaBox {
   box-shadow: 0 0 10px 3px #00ffff;
 }

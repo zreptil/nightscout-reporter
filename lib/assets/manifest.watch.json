@@ -2,16 +2,16 @@
   "icons": [
     {
       "sizes": "176x176",
-      "src": "themes/standard/favicon.png",
+      "src": "themes/standard/favicon-watch.png",
       "type": "image/png"
     }
   ],
   "display": "standalone",
-  "name": "Nightscout Reporter Uhr",
+  "name": "Night-Watch",
   "permissions": [],
   "prefer_related_applications": true,
   "related_applications": [],
-  "short_name": "NS Reporter Uhr",
+  "short_name": "Night-Watch",
   "start_url": "/index.html",
-  "url": "https://nightscout-reporter.zreptil.de/#/clock"
+  "url": "https://nightscout-reporter.zreptil.de/watch"
 }
