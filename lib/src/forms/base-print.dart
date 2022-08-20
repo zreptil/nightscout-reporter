@@ -411,17 +411,17 @@ abstract class BasePrint {
         pos = 0;
       }
       text = text.substring(1);
-      pos = text.indexOf('@');
-      if (pos >= 0) {
-        var id = text.substring(0, pos);
-        var cfg = g.listConfig.firstWhere((cfg) => cfg.idx == id, orElse: () => null);
+      var pos1 = text.indexOf('@');
+      if (pos1 >= 0) {
+        var id = text.substring(0, pos1);
+        var cfg = g.listConfig.firstWhere((cfg) => cfg.form.baseIdx == id, orElse: () => null);
         if (cfg != null) {
           ret.add(HelpItem()
             ..type = 'btn'
             ..cfg = cfg
             ..text = cfg.form.title);
         }
-        text = text.substring(pos + 1);
+        text = text.substring(pos1 + 1);
       }
       pos = text.indexOf('@');
     }
