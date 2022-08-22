@@ -37,3 +37,21 @@ Initial steps to compile, deploy, and run nightscout reporter on your own infras
 * Copy content of .\build to the content folder of your web server (or any subfolder)
 
 You can run your own nightscout-reporter instance by calling the URL of your web-server in a browser.
+
+## IIS Hosting
+### Web.config
+When hosting on an IIS you need to add the following to the web.config to enable the url for Night Watch at http://your-domain.de/path-to-reporter/watch.
+```
+<system.webServer>
+  <rewrite>
+    <rules>
+      <rule name="watch" stopProcessing="true">
+        <match url="^watch$" />
+        <action type="Rewrite" url="?watch" />
+      </rule>
+    </rules>
+  </rewrite>
+</system.webServer>
+```
+
+If anybody knows what to add on other hosting systems just let me know and i will add it here. The technical basis is, that the url nightscout-reporter/watch has to be mapped to nightscout-reporter?watch without causing an illegal page error. With this, it is possible to add nightscout reporter as a WebApp to Windows or to the startscreen of an android phone or iphone.
