@@ -546,19 +546,19 @@ class Settings {
     timestamp = DateTime.now().millisecondsSinceEpoch;
     return '{'
         '"s1":"$version"'
-        ',"s4":${userIdx}'
-        ',"s5":${glucMGDLIdx}'
+        ',"s4":$userIdx'
+        ',"s5":$glucMGDLIdx'
         ',"s6":"${language.code ?? 'de_DE'}"'
         ',"s7":"${showCurrentGluc ? 'yes' : 'no'}"'
         ',"s8":"${period?.toString()}"'
-        ',"s9":"${_pdfOrder}"'
-        ',"s10":"${_viewType}"'
-        ',"s11":${timestamp}'
-        ',"s12":${tileShowImage}'
-        ',"s13":${showAllTileParams}'
-        ',"s2":[${users}]'
-        ',"s3":[${shortcuts}]'
-        ',"s14":[${watchEntries}]'
+        ',"s9":"$_pdfOrder"'
+        ',"s10":"$_viewType"'
+        ',"s11":$timestamp'
+        ',"s12":$tileShowImage'
+        ',"s13":$showAllTileParams'
+        ',"s2":[$users]'
+        ',"s3":[$shortcuts]'
+        ',"s14":[$watchEntries]'
         '}';
   }
 
@@ -873,6 +873,18 @@ class Globals extends Settings {
         try {
           var eNow = EntryData.fromJson(src[0]);
           var ePrev = EntryData.fromJson(src[1]);
+          if (eNow.device != ePrev.device) {
+            url = user.apiUrl(null, 'entries.json', params: 'count=10');
+            src = await requestJson(url);
+            eNow = EntryData.fromJson(src[0]);
+            ePrev = null;
+            for(var i=1; i<src.length && ePrev == null; i++) {
+              var check = EntryData.fromJson(src[i]);
+              if (check.device == eNow.device) {
+                ePrev = check;
+              }
+            }
+          }
           var span = eNow.time.difference(ePrev.time).inMinutes;
           glucDir = 360;
           currentGlucDiff = '';
@@ -882,7 +894,6 @@ class Globals extends Settings {
           }
           var time = DateTime.now().difference(eNow.time).inMinutes;
           currentGlucTime = msgGlucTime(time);
-
           currentGlucSrc = eNow;
           lastGlucSrc = ePrev;
           currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
@@ -901,6 +912,7 @@ class Globals extends Settings {
           lastGlucSrc = null;
           currentGlucDiff = '';
           glucDir = 360;
+          showDebug('Error in getCurrentGluc: ${ex}');
         }
       }
     }
@@ -1891,6 +1903,7 @@ class Globals extends Settings {
   }
 }
 
+// class with data for an url
 class UrlData {
   Globals g;
   String url;
@@ -1907,14 +1920,6 @@ class UrlData {
         'ed': endDate == null ? null : endDate.format(DateFormat('yyyyMMdd'))
       };
 
-  static UrlData fromString(Globals g, String src) {
-    try {
-      return UrlData.fromJson(g, convert.json.decode(src));
-    } catch (ex) {
-      return UrlData(g);
-    }
-  }
-
   // creates an instance and fills it with data from a json-structure
   static UrlData fromJson(Globals g, dynamic json) {
     var ret = UrlData(g);
@@ -1926,9 +1931,17 @@ class UrlData {
       ret.endDate = json['ed'] == null ? null : g.parseDate(JsonData.toText(json['ed']));
     } catch (ex) {
       var msg = ex.toString();
-      g.showDebug('Fehler bei UrlData.fromSharedJson: ${msg}');
+      g.showDebug('Fehler bei UrlData.fromJson: ${msg}');
     }
     return ret;
+  }
+
+  static UrlData fromString(Globals g, String src) {
+    try {
+      return UrlData.fromJson(g, convert.json.decode(src));
+    } catch (ex) {
+      return UrlData(g);
+    }
   }
 
   String get startDateEdit => startDate == null ? null : startDate.format(g.fmtDateForDisplay);
@@ -1976,6 +1989,7 @@ class UserData {
   var name = '';
   var birthDate = '';
   var listApiUrl = <UrlData>[];
+  var listMedication = <PillData>[];
 
 //  String get storageApiUrl => listApiUrl.length > 0 ? listApiUrl.last.url : "";
 //  String get token => listApiUrl.length > 0 ? listApiUrl.last.token : "";
@@ -2050,6 +2064,10 @@ class UserData {
     for (var url in listApiUrl) {
       urls.add(url.asJson);
     }
+    var medis = <dynamic>[];
+    for (var pill in listMedication) {
+      medis.add(pill.asJson);
+    }
 
     return '{"n":"$name"'
         ',"bd":"${birthDate ?? ''}"'
@@ -2064,6 +2082,7 @@ class UserData {
         ',"ac":"${adjustCalc?.toString() ?? 5.0}"'
         ',"al":"${adjustLab?.toString() ?? 5.0}"'
         ',"at":${adjustTarget ? 'true' : 'false'}'
+        ',"med":${convert.json.encode(medis)}'
         '}';
   }
 
@@ -2092,6 +2111,11 @@ class UserData {
       if (ret.formParams != null && ret.formParams['analysis'] is bool) {
         ret.formParams = {};
       }
+      ret.listMedication = <PillData>[];
+      for (dynamic med in json['med']) {
+        ret.listMedication.add(PillData.fromJson(g, med));
+      }
+      ret.listApiUrl.sort((a, b) => g.compareDate(a.endDate, b.endDate));
     } catch (ex) {
       var msg = ex.toString();
       g.showDebug('Fehler bei UserData.fromJson: ${msg}');
@@ -2229,6 +2253,7 @@ class ShortcutData {
   }
 }
 
+// class with data for elements on night-watch
 class WatchElement {
   String type;
   int _size;
@@ -2286,5 +2311,85 @@ class WatchElement {
       print('Fehler bei WatchElement.fromJson: ${msg}');
     }
     return ret;
+  }
+}
+
+// class with data for a medication
+class PillData {
+  Globals g;
+
+  String name;
+  DateTime time;
+  DateTime lastConsumed;
+  DateTime nextConsume;
+  String interval;
+  static String msgDAILY = Intl.message('täglich');
+  static String msgWEEKLY = Intl.message('wöchentlich');
+
+  static dynamic get intervals => {
+        'daily': {'title': msgDAILY, 'days': 1},
+        'weekly': {'title': msgWEEKLY, 'days': 7}
+      };
+
+  PillData(this.g) {
+    interval = 'daily';
+    setNextConsume();
+    nextConsume = nextConsume.add(Duration(days: -1));
+  }
+
+  dynamic get asJson => {
+        'n': name,
+        't': time == null ? '0800' : time.hour * 60 + time.minute,
+        'lc': lastConsumed == null ? null : lastConsumed.millisecondsSinceEpoch,
+        // 'ed': endDate == null ? null : endDate.format(DateFormat('yyyyMMdd'))
+      };
+
+  // creates an instance and fills it with data from a json-structure
+  static PillData fromJson(Globals g, dynamic json) {
+    var ret = PillData(g);
+    try {
+      ret.name = JsonData.toText(json['n']);
+      var time = JsonData.toInt(json['t']);
+      var hour = time ~/ 60;
+      var minute = time % 60;
+      ret.time = DateTime(0, 0, 0, hour, minute);
+      ret.lastConsumed = DateTime(JsonData.toInt(json['lc']) ?? 0);
+    } catch (ex) {
+      var msg = ex.toString();
+      g.showDebug('Fehler bei PillData.fromJson: ${msg}');
+    }
+    return ret;
+  }
+
+  void nextInterval() {
+    if (interval != null) {
+      var useKey = false;
+      for (var key in intervals.keys) {
+        if (useKey) {
+          interval = key;
+          useKey = false;
+        } else if (key == interval) {
+          useKey = true;
+        }
+      }
+      if (useKey) interval = intervals.keys.first;
+    }
+  }
+
+  String get intervalText => PillData.intervals[interval]['title'];
+
+  String get nextConsumeText {
+    var text = 'Einnahme ${g.fmtDateTime(nextConsume)}';
+    return text;
+  }
+
+  void eat() {
+    lastConsumed = DateTime.now();
+    setNextConsume();
+  }
+
+  void setNextConsume() {
+    var next = DateTime.now().add(Duration(days: PillData.intervals[interval]['days']));
+    nextConsume = DateTime(next.year, next.month, next.day, time.hour, time.minute);
   }
 }

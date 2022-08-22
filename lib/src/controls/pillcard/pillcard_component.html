@@ -1,0 +1,19 @@
+<div class="mdc-card">
+  <div class="primary">
+    <h2 class="demo-card__title">Hä?{{pill.name}}Hö?</h2>
+    <h3 class="demo-card__subtitle"></h3>
+  </div>
+  <div class="content">
+    {{pill.nextConsumeText}}{{listMode}}
+  </div>
+  <div class="actions">
+    <div class="icons" *ngIf="listMode=='current'">
+      <material-button icon (trigger)="pill.eat()">
+        <material-icon icon="restaurant"></material-icon>
+      </material-button>
+      <material-button icon (trigger)="pill.nextInterval()">
+        {{pill.intervalText}}
+      </material-button>
+    </div>
+  </div>
+</div>

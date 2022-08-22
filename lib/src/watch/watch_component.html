@@ -38,6 +38,9 @@
         </svg>
         <div diff class="centered">{{g.currentGlucDiff}}</div>
       </watchentry>
+      <watchentry cls="pillman" [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='pillman'" (click)="onClick(entry,$event)">
+        <app-pillman></app-pillman>
+      </watchentry>
     </ng-container>
     <div class="controls" *ngIf="isEditMode">
       <material-button (click)="clickLeft($event)" [disabled]="leftDisabled">

@@ -18,6 +18,9 @@ class WatchEntryComponent {
   @Input()
   bool isEditMode;
 
+  @Input()
+  String cls;
+
   @Output('click')
   Stream<UIEvent> get trigger => _trigger.stream;
   final _trigger = StreamController<UIEvent>.broadcast(sync: true);
@@ -30,7 +33,7 @@ class WatchEntryComponent {
 
   @HostBinding('class')
   String get cssClass {
-    var ret = [];
+    var ret = [cls];
     if (element != null) {
       ret.add('size${element.size}');
       ret.add('vertical${element.vertical}');

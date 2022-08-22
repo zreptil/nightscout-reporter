@@ -1,0 +1,35 @@
+<material-fab *ngIf="mode==''" class="icon" (click)="clickPillman($event)">
+  <img src="packages/nightscout_reporter/assets/img/pillman.png">
+</material-fab>
+<div class="dlg" *ngIf="mode=='edit'" (click)="$event.stopPropagation()">
+  <material-dialog main headered class="headered-dialog">
+    <div header>
+      <div>
+        <h1 @i18n="title for settings dialog">Pillman</h1>
+        <div>
+        </div>
+        <p></p>
+      </div>
+      <div>
+        <material-button icon (trigger)="clickClose($event)">
+          <material-icon icon="close"></material-icon>
+        </material-button>
+      </div>
+    </div>
+
+    <div content class="root">
+      <ng-container *ngFor="let pill of g.user.listMedication">
+        <app-pillcard  *ngIf="showPill(pill)" [pill]="pill" [listMode]="listMode"></app-pillcard>
+      </ng-container>
+      <app-pillcard *ngIf="listMode=='all'" [pill]="newPill" [listMode]="listMode"></app-pillcard>
+    </div>
+
+    <div footer>
+      <div class="footer">
+        <material-button *ngFor="let mode of types.keys" icon [raised]="listMode==mode" class="mark" (trigger)="clickListMode(mode)">
+          <material-icon [icon]="types[mode]"></material-icon>
+        </material-button>
+      </div>
+    </div>
+  </material-dialog>
+</div>

@@ -1,0 +1,46 @@
+@import '../colors.sass';
+@import '../base';
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_dialog/mixins';
+@import 'package:angular_components/material_slider/mixins';
+@import 'package:angular_components/material_select/mixins';
+@import 'package:angular_components/material_checkbox/mixins';
+
+material-button[raised] {
+  background-color: var(--settingsHeaderFore);
+  color: var(--settingsHeaderBack);
+}
+
+:host {
+}
+
+.dlg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  cursor: default;
+
+  material-dialog {
+    max-width: inherit;
+    max-height: inherit;
+    height: 100vh;
+  }
+}
+
+material-dialog[main] {
+  background-color: var(--settingsBodyBack);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3em;
+  padding: 0.5em;
+
+  img {
+    height: 3em;
+  }
+}

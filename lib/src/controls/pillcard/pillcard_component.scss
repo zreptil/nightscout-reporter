@@ -1,0 +1,54 @@
+@import '../../colors.sass';
+@import '../../base';
+@import 'package:angular_components/css/material/material';
+
+// Provide material styling for the title.
+.demo-card__title {
+  @include mat-font-title;
+  line-height: 1em; // legacy setting
+  margin: 0;
+}
+
+.mdc-card {
+  border-radius: 1em !important;
+  margin: 0.5em 0;
+  max-width: 20em;
+
+  .primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+  }
+
+  .content {
+    padding: 1em;
+  }
+
+  .actions {
+    padding: 1em;
+
+    .icons {
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  }
+}
+
+.footer {
+  justify-content: flex-start !important;
+  padding: 0.4em;
+}
+
+// Provider material styling for the subtitle.
+.demo-card__subtitle {
+  @include mat-font-subhead;
+  margin: 0;
+}
+
+.demo-card__secondary {
+  @include mat-font-body;
+  padding: 0 $mat-grid * 2 $mat-grid;
+}

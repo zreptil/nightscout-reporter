@@ -7,6 +7,7 @@ import 'package:angular_components/angular_components.dart';
 import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/globals.dart' as globals;
 import 'package:nightscout_reporter/src/controls/watchentry/watch_entry_component.dart';
+import 'package:nightscout_reporter/src/pillman/pillman_component.dart';
 import 'package:nightscout_reporter/src/settings/settings_component.dart';
 
 @Component(
@@ -19,6 +20,7 @@ import 'package:nightscout_reporter/src/settings/settings_component.dart';
       MaterialIconComponent,
       WatchEntryComponent,
       SettingsComponent,
+      PillmanComponent,
       NgStyle,
       NgClass,
       NgFor,
@@ -40,6 +42,7 @@ class WatchComponent implements OnInit {
   String msgUNIT = Intl.message('Einheit');
   String msgSPACE = Intl.message('Leer');
   String msgTARGET = Intl.message('Skala');
+  String msgPILLMAN = Intl.message('PillMan');
 
   dynamic get types => {
         'nl': msgNL,
@@ -53,7 +56,8 @@ class WatchComponent implements OnInit {
         'target': msgTARGET,
         'factor': msgFACTOR,
         'glucorg': msgGLUCORG,
-        'space': msgSPACE
+        'space': msgSPACE,
+        'pillman': msgPILLMAN
       };
 
   double get temp => globals.Globals.adjustFactor;
@@ -91,7 +95,7 @@ class WatchComponent implements OnInit {
     if ((g.currentGlucValue ?? 0) < (g.lastGlucValue ?? 0)) {
       return {'transform': 'rotate(135deg)', 'left': 'calc(100%*$x + 2px)'};
     }
-    return {'transform': 'rotate(-45deg)', 'left': 'calc(100%*$x - 10px)'};
+    return {'transform': 'rotate(-45deg)', 'left': 'calc(100%*$x - 12px)'};
   }
 
   dynamic get styleArrowTrack {
