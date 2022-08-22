@@ -873,6 +873,18 @@ class Globals extends Settings {
         try {
           var eNow = EntryData.fromJson(src[0]);
           var ePrev = EntryData.fromJson(src[1]);
+          if (eNow.device != ePrev.device) {
+            url = user.apiUrl(null, 'entries.json', params: 'count=10');
+            src = await requestJson(url);
+            eNow = EntryData.fromJson(src[0]);
+            ePrev = null;
+            for(var i=1; i<src.length && ePrev == null; i++) {
+              var check = EntryData.fromJson(src[i]);
+              if (check.device == eNow.device) {
+                ePrev = check;
+              }
+            }
+          }
           var span = eNow.time.difference(ePrev.time).inMinutes;
           glucDir = 360;
           currentGlucDiff = '';
