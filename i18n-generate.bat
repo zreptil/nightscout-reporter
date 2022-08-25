@@ -2,7 +2,7 @@ call i18n-base.bat
 md %dstARB% 2>nul
 md %dstARB%\temp 2>nul
 echo generating dart-files...
-cd ..\intl_translation
+pushd ..\intl_translation
 set arbFileList=arbFiles.lst
 echo %dstARB%\es-ES\intl_es_ES.arb>%arbFileList%
 echo %dstARB%\intl_de_DE.arb>>%arbFileList%
@@ -16,7 +16,7 @@ echo %dstARB%\pt-PT\intl_pt_PT.arb>>%arbFileList%
 echo %dstARB%\nl\intl_nl_NL.arb>>%arbFileList%
 call %pub% run bin\generate_from_arb --output-dir "%dstARB%\temp" --dart-list %dartFileList% --arb-list %arbFileList%
 copy %dstARB%\temp\messages_all.dart %dstDART%
-cd ..\nightscout-reporter
+popd
 call i18n-dedupe.bat < %dstARB%\temp\messages_de_DE.dart > %dstDART%\messages_de_DE.dart
 call i18n-dedupe.bat < %dstARB%\temp\messages_en_US.dart > %dstDART%\messages_en_US.dart
 call i18n-dedupe.bat < %dstARB%\temp\messages_en_GB.dart > %dstDART%\messages_en_GB.dart

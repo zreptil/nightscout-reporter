@@ -1,8 +1,8 @@
 @echo off
 cls
+set currDir=%~dp0
 set srcDir=%userprofile%\Desktop\NRImages
-set dstDir=%userprofile%\Dropbox\Development\AngularDart\nightscout-reporter\lib\assets\img\thumbs
-rem set dstDir=%srcDir%
+set dstDir=%currDir%\lib\assets\img\thumbs
 set rar="%ProgramFiles%\WinRAR\WinRAR.exe"
 for %%i in (%srcDir%\nr-images.*.zip) do call :extract %%~ni
 goto :ende
