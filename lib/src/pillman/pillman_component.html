@@ -18,10 +18,10 @@
     </div>
 
     <div content class="root">
-      <ng-container *ngFor="let pill of g.user.listMedication">
-        <app-pillcard  *ngIf="showPill(pill)" [pill]="pill" [listMode]="listMode"></app-pillcard>
+      <ng-container *ngFor="let pill of g.user.pillman.listMedication; let idx = index">
+        <app-pillcard  *ngIf="showPill(pill)" [idx]="idx" [listMode]="listMode" (onaction)="cardAction($event)"></app-pillcard>
       </ng-container>
-      <app-pillcard *ngIf="listMode=='all'" [pill]="newPill" [listMode]="listMode"></app-pillcard>
+      <app-pillcard  *ngIf="listMode=='all'" [idx]="-1" [listMode]="listMode" (onaction)="cardAction($event)"></app-pillcard>
     </div>
 
     <div footer>
@@ -29,6 +29,8 @@
         <material-button *ngFor="let mode of types.keys" icon [raised]="listMode==mode" class="mark" (trigger)="clickListMode(mode)">
           <material-icon [icon]="types[mode]"></material-icon>
         </material-button>
+      </div>
+      <div class="footer">
       </div>
     </div>
   </material-dialog>

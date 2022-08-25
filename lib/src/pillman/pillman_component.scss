@@ -12,6 +12,7 @@ material-button[raised] {
 }
 
 :host {
+  z-index: 1000;
 }
 
 .dlg {
@@ -29,6 +30,19 @@ material-button[raised] {
   }
 }
 
+.root {
+  display: flex;
+  flex-flow: wrap;
+
+  material-fab {
+    material-icon {
+      i {
+        font-size: 5em;
+      }
+    }
+  }
+}
+
 material-dialog[main] {
   background-color: var(--settingsBodyBack);
 }
@@ -42,5 +56,14 @@ material-dialog[main] {
 
   img {
     height: 3em;
+  }
+}
+
+div[footer] {
+  justify-content: space-between;
+
+  .footer {
+    justify-content: flex-start !important;
+    padding: 0.4em;
   }
 }

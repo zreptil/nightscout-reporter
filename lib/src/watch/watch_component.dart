@@ -122,6 +122,8 @@ class WatchComponent implements OnInit {
 
   WatchComponent() {}
 
+  globals.WatchElement get pillman => g.watchList?.firstWhere((element) => element.type == 'pillman', orElse: () => null);
+
   String colForGluc(double gluc) {
     if (gluc == null) return '';
     if (gluc < g.targetBottom) {
@@ -205,6 +207,7 @@ class WatchComponent implements OnInit {
 
   void clickTypeSub(event) {
     event.stopPropagation();
+    var hasPillman = pillman != null;
     if (selected != null) {
       var useKey = true;
       var check = selected.type;
@@ -218,11 +221,16 @@ class WatchComponent implements OnInit {
         }
       }
       selected.type ??= types.keys.last;
+      if (selected.type == 'pillman' && hasPillman) {
+        clickTypeSub(event);
+      }
     }
   }
 
   void clickTypeAdd(event) {
     event.stopPropagation();
+    var hasPillman = pillman != null && pillman != selected;
+    print(selected?.type);
     if (selected != null) {
       var useKey = false;
       for (var key in types.keys) {
@@ -234,6 +242,10 @@ class WatchComponent implements OnInit {
         }
       }
       if (useKey) selected.type = types.keys.first;
+      selected.type ??= types.keys.last;
+      if (selected.type == 'pillman' && hasPillman) {
+        clickTypeAdd(event);
+      }
     }
   }
 
@@ -328,6 +340,14 @@ class WatchComponent implements OnInit {
       default:
         g.loadSettings(skipSyncGoogle: true);
         break;
+    }
+  }
+
+  void doit(PillmanComponent pillman) {
+    if (isEditMode) {
+      print('So nicht!!!');
+    } else {
+      pillman.mode = 'edit';
     }
   }
 }

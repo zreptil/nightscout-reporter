@@ -149,13 +149,13 @@ class SettingsData extends JsonData {
 
   int get bgTargetTop {
     if (thresholds == null) return null;
-    var factor = Globals().user.adjustGluc && Globals().user.adjustTarget ? Globals.adjustFactor : 1.0;
+    var factor = Globals().user.adjustTarget ? Globals().user.hba1cAdjustFactor : 1.0;
     return (factor * thresholds.bgTargetTop).floor();
   }
 
   int get bgTargetBottom {
     if (thresholds == null) return null;
-    var factor = Globals().user.adjustGluc && Globals().user.adjustTarget ? Globals.adjustFactor : 1.0;
+    var factor = Globals().user.adjustTarget ? Globals().user.hba1cAdjustFactor : 1.0;
     return (factor * thresholds.bgTargetBottom).floor();
   }
 

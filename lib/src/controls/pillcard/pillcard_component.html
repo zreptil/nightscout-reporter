@@ -1,19 +1,153 @@
-<div class="mdc-card">
+<!-- card for adding a new card -->
+<div [class]="classForCard()" *ngIf="idx < 0">
   <div class="primary">
-    <h2 class="demo-card__title">Hä?{{pill.name}}Hö?</h2>
-    <h3 class="demo-card__subtitle"></h3>
   </div>
   <div class="content">
-    {{pill.nextConsumeText}}{{listMode}}
+    <material-button (click)="fire($event,'add')">
+      <material-icon icon="add"></material-icon>
+    </material-button>
   </div>
   <div class="actions">
-    <div class="icons" *ngIf="listMode=='current'">
-      <material-button icon (trigger)="pill.eat()">
-        <material-icon icon="restaurant"></material-icon>
-      </material-button>
-      <material-button icon (trigger)="pill.nextInterval()">
-        {{pill.intervalText}}
-      </material-button>
-    </div>
   </div>
 </div>
+<ng-container *ngIf="idx >= 0">
+  <ng-container *ngIf="!isEditMode">
+    <!-- card for consumption -->
+    <div [class]="classForCard()" *ngIf="listMode=='current'">
+      <div class="primary">
+        <h2 class="title">{{pill.name}}</h2>
+        <h3 class="subtitle"></h3>
+      </div>
+      <div class="content">
+        <material-button (click)="fire($event,'changeConsumeDisplay')">
+          <div [innerHtml]="consumeText"></div>
+        </material-button>
+        <div>{{period.dowActiveText}}</div>
+      </div>
+      <div class="actions">
+        <div class="icons">
+          <material-button icon (trigger)="pill.eat()">
+            <material-icon icon="restaurant"></material-icon>
+          </material-button>
+          <material-button icon (trigger)="pill.notEat()">
+            <material-icon icon="no_meals"></material-icon>
+          </material-button>
+        </div>
+      </div>
+    </div>
+    <!-- card for management -->
+    <div [class]="classForCard()" *ngIf="listMode=='all'">
+      <div class="primary">
+        <h2 class="title">{{pill.name}}</h2>
+        <h3 class="subtitle"></h3>
+      </div>
+      <div class="content">
+        <div i18n>Nächste Einnahme</div>
+        <div>{{consumeText}}</div>
+        <div>{{period.dowActiveText}}</div>
+      </div>
+      <div class="actions">
+        <div class="icons">
+          <material-button icon (trigger)="isEditMode=true">
+            <material-icon icon="edit"></material-icon>
+          </material-button>
+        </div>
+        <div class="icons">
+          <material-button icon (trigger)="clickDelete($event)">
+            <material-icon icon="delete"></material-icon>
+          </material-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="isEditMode">
+    <!-- card for editing -->
+    <div  [class]="classForCard('edit')">
+      <div class="primary">
+        <h2 class="title">
+        <material-input [(ngModel)]="pill.name" i18n-label label="Medikament" floatingLabel></material-input>
+        </h2>
+        <h3 class="subtitle"></h3>
+      </div>
+
+      <div class="content">
+        <div class="btn-panel">
+          <div class="btn-adjust">
+            <material-button (click)="clickSupply($event,1)">
+              <material-icon icon="arrow_drop_up"></material-icon>
+            </material-button>
+            <material-button (click)="clickSupply($event,-1)">
+              <material-icon icon="arrow_drop_down"></material-icon>
+            </material-button>
+          </div>
+          <div class="label">
+            <div class="title" i18n>Vorrat</div>
+            <div [class]="classForSupply">{{pill.supply ?? 0}}</div>
+          </div>
+        </div>
+
+        <div class="btn-panel">
+          <div class="btn-adjust">
+            <material-button (click)="clickSupplyLow($event,1)">
+              <material-icon icon="arrow_drop_up"></material-icon>
+            </material-button>
+            <material-button (click)="clickSupplyLow($event,-1)">
+              <material-icon icon="arrow_drop_down"></material-icon>
+            </material-button>
+          </div>
+          <div class="label">
+            <div class="title" i18n>Warnung</div>
+            <div>{{pill.supplyLow ?? 0}}</div>
+          </div>
+        </div>
+
+        <material-button (trigger)="pill.nextInterval()">
+          {{pill.intervalText}}
+        </material-button>
+
+        <div class="btn-panel">
+          <div class="btn-adjust">
+            <material-button (click)="clickTime($event,'hour',1)">
+              <material-icon icon="arrow_drop_up"></material-icon>
+            </material-button>
+            <material-button (click)="clickTime($event,'hour',-1)">
+              <material-icon icon="arrow_drop_down"></material-icon>
+            </material-button>
+          </div>
+          <div class="btn-adjust">
+            <material-button (click)="clickTime($event,'minute',5)">
+              <material-icon icon="arrow_drop_up"></material-icon>
+            </material-button>
+            <material-button (click)="clickTime($event,'minute',-5)">
+              <material-icon icon="arrow_drop_down"></material-icon>
+            </material-button>
+          </div>
+          <div class="label">
+            <div class="title" i18n>Einnahme</div>
+            <div>{{g.fmtTime(pill.time, withUnit: true)}}</div>
+          </div>
+        </div>
+
+        <div i18n>Wochentage für die Einnahme</div>
+        <div class="dow-list">
+          <material-button [raised]="pill.dowActive[idx]" *ngFor="let day of listWeekdays; let idx = index" (trigger)="clickDow($event,idx)">
+            {{day}}
+            <material-icon *ngIf="!pill.dowActive[idx]" class="close" icon="close"></material-icon>
+          </material-button>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="icons">
+          <material-button icon (trigger)="clickClose($event)">
+            <material-icon icon="close"></material-icon>
+          </material-button>
+        </div>
+        <div class="icons">
+          <material-button icon [disabled]="pill.name?.isEmpty ?? true" (trigger)="clickSave($event)">
+            <material-icon icon="save"></material-icon>
+          </material-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

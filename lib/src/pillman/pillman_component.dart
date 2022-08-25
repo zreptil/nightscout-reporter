@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:math' as math;
-import 'dart:html' as html;
+import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
-import 'package:intl/intl.dart';
 import 'package:nightscout_reporter/src/controls/pillcard/pillcard_component.dart';
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:nightscout_reporter/src/controls/watchentry/watch_entry_component.dart';
@@ -37,20 +35,33 @@ class PillmanComponent implements OnInit {
   String mode = '';
   List<String> listModes = ['current', 'all'];
   String listMode;
-  PillData newPill;
 
-  dynamic get types => {
-    'current': 'schedule',
-    'all': 'list'
-  };
+  @Input()
+  bool captureClick = true;
+
+  @Input()
+  Function(PillmanComponent pillman) doit;
+
+  @Output('onaction')
+  Stream<UIEvent> get trigger => _trigger.stream;
+  final _trigger = StreamController<UIEvent>.broadcast(sync: true);
+
+  dynamic get types => {'current': 'schedule', 'all': 'list'};
 
   void clickListMode(mode) {
     listMode = mode;
   }
 
   void clickPillman(event) {
-    event.stopPropagation();
-    mode = 'edit';
+    if (captureClick) {
+      event.stopPropagation();
+      if (doit != null) {
+        doit(this);
+      } else {
+        fire(event, 'pillman');
+        mode = 'edit';
+      }
+    }
   }
 
   void clickClose(event) {
@@ -58,11 +69,22 @@ class PillmanComponent implements OnInit {
     mode = '';
   }
 
+  void clickAdd(event) {
+    event.stopPropagation();
+    g.user.pillman.listMedication.add(PillData(g));
+  }
+
   bool showPill(PillData pill) {
     switch (listMode) {
       case 'current':
         var now = DateTime.now();
-        return now.isAfter(pill.nextConsume);
+        if (pill.nextConsume?.isBefore(now) ?? false) {
+          return true;
+        }
+        if (Globals.isSameDay(pill.nextConsume, now)) {
+          return !Globals.isSameDay(pill.lastConsumed, now);
+        }
+        return pill.nextConsume.isBefore(now);
     }
     return true;
   }
@@ -70,12 +92,22 @@ class PillmanComponent implements OnInit {
   @override
   Future<Null> ngOnInit() async {
     listMode = listModes[0];
-    newPill = PillData(g)..name='Medikament hinzufügen';
-    // pillList = <globals.PillData>[
-    // globals.PillData(g)..name = 'Atorvastatin'..time = DateTime(0, 0, 0, 18, 0),
-    // globals.PillData(g)..name = 'Bisolich'..time = DateTime(0, 0, 0, 7, 0),
-    // globals.PillData(g)..name = 'Amlodipin'..time = DateTime(0, 0, 0, 7, 0),
-    // globals.PillData(g)..name = 'Padma 24'..time = DateTime(0, 0, 0, 7, 0))
-    // ];
+  }
+
+  void fire(event, String type) async {
+    event.stopPropagation();
+    _trigger.add(UIEvent(type));
+  }
+
+  void cardAction(event) {
+    event.stopPropagation();
+    switch (event.type) {
+      case 'add':
+        g.user.pillman.listMedication.add(PillData(g, isEdit: true));
+        break;
+      case 'delete':
+        g.user.pillman.listMedication.removeAt(event.detail);
+        break;
     }
+  }
 }

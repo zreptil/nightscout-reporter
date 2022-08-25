@@ -1210,7 +1210,7 @@ class StartComponent implements OnInit {
         var profileBeg = beg.add(Duration(hours: -profile.store.timezone.localDiff));
         var profileEnd = end.add(Duration(hours: -profile.store.timezone.localDiff));
 
-        progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateformat)));
+        progressText = msgLoadingDataFor(begDate.format(DateFormat(g.language.dateFormat)));
         var url = g.user.apiUrl(Date(begDate.year, begDate.month, begDate.day), 'entries.json',
             params: 'find[date][\$gte]=${beg.millisecondsSinceEpoch}&'
                 'find[date][\$lte]=${end.millisecondsSinceEpoch}&count=100000');

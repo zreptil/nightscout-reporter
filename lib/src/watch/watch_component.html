@@ -38,10 +38,10 @@
         </svg>
         <div diff class="centered">{{g.currentGlucDiff}}</div>
       </watchentry>
-      <watchentry cls="pillman" [element]="entry" [isEditMode]="isEditMode" *ngIf="entry.type=='pillman'" (click)="onClick(entry,$event)">
-        <app-pillman></app-pillman>
-      </watchentry>
     </ng-container>
+    <watchentry cls="pillman" [element]="pillman" [isEditMode]="isEditMode" *ngIf="pillman!=null" (click)="onClick(pillman,$event)">
+      <app-pillman [captureClick]="!isEditMode"></app-pillman>
+    </watchentry>
     <div class="controls" *ngIf="isEditMode">
       <material-button (click)="clickLeft($event)" [disabled]="leftDisabled">
         <material-icon icon="arrow_left"></material-icon>
@@ -84,4 +84,7 @@
       </material-button>
     </div>
   </div>
+</div>
+<div id="debugMessage" *ngIf="g.msg.dbgText != null" (click)="g.msg.clear()">
+  <p [innerHTML]="g.msg.dbgText"></p>
 </div>

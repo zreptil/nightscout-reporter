@@ -102,15 +102,29 @@ class LangData {
     }
   }
 
-  String get dateformat => Intl.message('dd.MM.yyyy',
-      desc: 'this is the dateformat, please use dd for days, ' +
-          'MM for months and yyyy for year. ' +
-          'It has to be the english formatstring.');
+  String get dateFormat =>
+      Intl.message('dd.MM.yyyy',
+          desc: 'this is the dateformat, please use dd for days, ' +
+              'MM for months and yyyy for year. ' +
+              'It has to be the english formatstring.');
 
-  String get dateShortFormat => Intl.message('dd.MM.',
-      desc: 'this is the dateformat, please use dd for days, ' +
-          'MM for months and no year. ' +
-          'It has to be the english formatstring.');
+  String get dateShortFormat =>
+      Intl.message('dd.MM.',
+          desc: 'this is the dateformat, please use dd for days, ' +
+              'MM for months and no year. ' +
+              'It has to be the english formatstring.');
+
+  String get dateTimeFormat =>
+      Intl.message('dd.MM.yyyy, HH:mm',
+          desc: 'this is the dateformat, please use dd for days, ' +
+              'MM for months, yyyy for year, HH for hour and mm for minutes. ' +
+              'It has to be the english formatstring.');
+
+  String get longDateTimeFormat =>
+      Intl.message('dd.MM.yyyy, HH:mm:ss',
+          desc: 'this is the dateformat, please use dd for days, ' +
+              'MM for months, yyyy for year, HH for hour, mm for minutes and ss for seconds. ' +
+              'It has to be the english formatstring.');
 
   String get imgPath => 'packages/nightscout_reporter/assets/img/lang-${img}.png';
 
@@ -247,7 +261,7 @@ class Settings {
 
   var onAfterLoad;
   Map<String, String> themeList =
-      Map<String, String>.unmodifiable({null: msgThemeAuto, 'standard': msgThemeStandard, 'xmas': msgThemeXmas});
+  Map<String, String>.unmodifiable({null: msgThemeAuto, 'standard': msgThemeStandard, 'xmas': msgThemeXmas});
 
   String _theme;
 
@@ -257,7 +271,9 @@ class Settings {
 
   String get theme {
     if (_theme == null) {
-      if (Date.today().month == 12) {
+      if (Date
+          .today()
+          .month == 12) {
         return 'xmas';
       } else {
         return 'standard';
@@ -543,7 +559,9 @@ class Settings {
       watchEntries = '${watchEntries},${watchList[i].asJsonString}';
     }
     if (watchEntries.length > 1) watchEntries = watchEntries.substring(1);
-    timestamp = DateTime.now().millisecondsSinceEpoch;
+    timestamp = DateTime
+        .now()
+        .millisecondsSinceEpoch;
     return '{'
         '"s1":"$version"'
         ',"s4":$userIdx'
@@ -580,7 +598,7 @@ class Settings {
       tileShowImage = JsonData.toBool(json['s12'], ifEmpty: true);
       showAllTileParams = JsonData.toBool(json['s13']);
       dynamic watchEntries = json['s14'];
-      period.fmtDate = language.dateformat;
+      period.fmtDate = language.dateFormat;
       userListLoaded = false;
       userList.clear();
       if (users != null) {
@@ -662,7 +680,7 @@ class Settings {
   // loads the settings that are not synchronized to google
   void loadLocalOnlySettings() {
     canDebug = loadStorage(Settings.DebugFlag) == 'yes';
-    fmtDateForDisplay = DateFormat(language.dateformat);
+    fmtDateForDisplay = DateFormat(language.dateFormat);
   }
 
   // retrieves the shared settings from a string
@@ -708,7 +726,7 @@ class Settings {
       period = DatepickerPeriod(src: JsonData.toText(json['period']));
       timestamp = JsonData.toInt(json['timestamp']);
       tileShowImage = JsonData.toBool(json['tileShowImage'], ifEmpty: true);
-      period.fmtDate = language.dateformat;
+      period.fmtDate = language.dateFormat;
       // get user list from mu if available
       String users = json['mu'];
       userListLoaded = false;
@@ -794,7 +812,7 @@ class Settings {
     var rnd = math.Random();
     String.fromCharCode(rnd.nextInt(26) + 64);
     ret =
-        '${ret.substring(pos)}${String.fromCharCode(rnd.nextInt(26) + 64)}${String.fromCharCode(rnd.nextInt(10) + 48)}'
+    '${ret.substring(pos)}${String.fromCharCode(rnd.nextInt(26) + 64)}${String.fromCharCode(rnd.nextInt(10) + 48)}'
         '${ret.substring(0, pos)}';
     return ret;
   }
@@ -809,6 +827,9 @@ class Globals extends Settings {
   String currentGlucDiff;
   String currentGlucTime;
 
+  static bool isSameDay(DateTime d1, DateTime d2) =>
+      d1?.year == d2?.year && d1?.month == d2?.month && d1?.day == d2?.day;
+
   String get currentGluc => currentGlucSrc == null ? 'Keine Daten' : fmtNumber(currentGlucValue, glucPrecision);
 
   String get currentGlucOrg =>
@@ -820,13 +841,14 @@ class Globals extends Settings {
 
   int glucDir = 360;
 
-  String msgGlucTime(time) => Intl.plural(time,
-      zero: 'Gerade eben',
-      one: 'vor ${time} Minute',
-      other: 'vor ${time} Minuten',
-      args: [time],
-      name: 'msgGlucTime',
-      desc: 'display of minutes since last value received on watch');
+  String msgGlucTime(time) =>
+      Intl.plural(time,
+          zero: 'Gerade eben',
+          one: 'vor ${time} Minute',
+          other: 'vor ${time} Minuten',
+          args: [time],
+          name: 'msgGlucTime',
+          desc: 'display of minutes since last value received on watch');
 
   String get currentGlucDir => glucDir < 360 ? 'translate(0,2px)rotate(${glucDir}deg)' : null;
   Timer glucTimer;
@@ -878,21 +900,26 @@ class Globals extends Settings {
             src = await requestJson(url);
             eNow = EntryData.fromJson(src[0]);
             ePrev = null;
-            for(var i=1; i<src.length && ePrev == null; i++) {
+            for (var i = 1; i < src.length && ePrev == null; i++) {
               var check = EntryData.fromJson(src[i]);
               if (check.device == eNow.device) {
                 ePrev = check;
               }
             }
           }
-          var span = eNow.time.difference(ePrev.time).inMinutes;
+          var span = eNow.time
+              .difference(ePrev.time)
+              .inMinutes;
           glucDir = 360;
           currentGlucDiff = '';
           currentGlucTime = '';
           if (span > 15) {
             return currentGluc;
           }
-          var time = DateTime.now().difference(eNow.time).inMinutes;
+          var time = DateTime
+              .now()
+              .difference(eNow.time)
+              .inMinutes;
           currentGlucTime = msgGlucTime(time);
           currentGlucSrc = eNow;
           lastGlucSrc = ePrev;
@@ -923,7 +950,11 @@ class Globals extends Settings {
       // (e.g. now is 10:37:27 and timeout is 30, will result in 3000 milliseconds
       // this is done for that the display of the time will match the current
       // time when entering a new minute
-      var milliNow = DateTime.now().second * 1000 + DateTime.now().millisecond;
+      var milliNow = DateTime
+          .now()
+          .second * 1000 + DateTime
+          .now()
+          .millisecond;
       var part = milliNow ~/ milliseconds;
       milliseconds = (part + 1) * milliseconds - milliNow;
       glucTimer = Timer(Duration(milliseconds: milliseconds), () => getCurrentGluc(force: force, timeout: timeout));
@@ -1051,11 +1082,11 @@ class Globals extends Settings {
   void saveWebData() {
     saveStorage(
         Settings.WebData,
-        '{"w0":"${version}"'
-        ',"w1":"${language.code ?? "de_DE"}"'
-        ',"w2":"${theme}"'
-        ',"w3":${(_syncGoogle ?? false) ? "true" : "false"}'
-        '}');
+        '{"w0":"$version"'
+            ',"w1":"${language.code ?? 'de_DE'}"'
+            ',"w2":"$theme"'
+            ',"w3":${(_syncGoogle ?? false) ? 'true' : 'false'}'
+            '}');
   }
 
   void restoreLiveStorage() {}
@@ -1148,7 +1179,8 @@ class Globals extends Settings {
     }
   }
 
-  List<PeriodShift> get listPeriodShift => [
+  List<PeriodShift> get listPeriodShift =>
+      [
         PeriodShift(Intl.message('Ausgewählter Zeitraum'), months: 0),
         PeriodShift(Intl.message('Einen Monat vorher'), months: 1),
         PeriodShift(Intl.message('Drei Monate vorher'), months: 3),
@@ -1162,23 +1194,27 @@ class Globals extends Settings {
 
   String get msgBE => _khFactor == 10 ? 'msgBE' : 'msgKE';
 
-  String get msgUrlFailurePrefix => Intl.message('Die angegebene URL ist nicht erreichbar. '
-      'Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ');
+  String get msgUrlFailurePrefix =>
+      Intl.message('Die angegebene URL ist nicht erreichbar. '
+          'Wenn die URL stimmt, dann kann es an den Nightscout-Einstellungen liegen. ');
 
-  String get msgUrlFailureSuffix => Intl.message('<br><br>Wenn diese URL geschützt ist, '
-      'muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man '
-      'über "Administrator-Werkzeuge" auf der persönlichen Nightscout Seite.');
+  String get msgUrlFailureSuffix =>
+      Intl.message('<br><br>Wenn diese URL geschützt ist, '
+          'muss ausserdem der Zugriffsschlüssel korrekt definiert sein. Diesen erreicht man '
+          'über "Administrator-Werkzeuge" auf der persönlichen Nightscout Seite.');
 
   String get msgUrlFailureHerokuapp =>
       Intl.message('In der Variable ENABLE muss das Wort "cors" stehen, damit externe Tools '
           'wie dieses hier auf die Daten zugreifen dürfen.');
 
-  String get msgUrlFailure10be => Intl.message('Auf 10be muss beim Server in den Standardeinstellungen der Haken bei '
-      '"cors" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn "cors" '
-      'aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.');
+  String get msgUrlFailure10be =>
+      Intl.message('Auf 10be muss beim Server in den Standardeinstellungen der Haken bei '
+          '"cors" aktiviert werden, damit externe Tools wie dieses hier auf die Daten zugreifen dürfen. Wenn "cors" '
+          'aktiviert wurde, muss auf dem Server eventuell noch ReDeploy gemacht werden, bevor es wirklich verfügbar ist.');
 
-  String get msgUrlNotSafe => Intl.message('Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter '
-      'auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.');
+  String get msgUrlNotSafe =>
+      Intl.message('Die Url zur Nightscout-API muss mit https beginnen, da Nightscout Reporter '
+          'auch auf https läuft. Ein Zugriff auf unsichere http-Resourcen ist nicht möglich.');
 
   String msgUrlFailure(String url) {
     if (url.startsWith('http:') && html.window.location.protocol.startsWith('https')) return msgUrlNotSafe;
@@ -1295,7 +1331,7 @@ class Globals extends Settings {
   Future<dynamic> requestJson(String url,
       {String method = 'get', Map<String, String> headers, body, bool showError = true}) async {
     dynamic ret =
-        await request(url, method: method, headers: headers, body: body, showError: showError).then((String response) {
+    await request(url, method: method, headers: headers, body: body, showError: showError).then((String response) {
       if (response == null) {
         return null;
       }
@@ -1427,7 +1463,7 @@ class Globals extends Settings {
     var content = asSharedString;
     controller.add(content);
     var media =
-        commons.Media(controller.stream.transform(convert.Utf8Encoder()), content.length, contentType: 'text/json');
+    commons.Media(controller.stream.transform(convert.Utf8Encoder()), content.length, contentType: 'text/json');
     if (settingsFile.id == null) {
       drive.files.generateIds(count: 1, space: driveParent).then((gd.GeneratedIds ids) {
         settingsFile.id = ids.ids[0];
@@ -1458,7 +1494,8 @@ class Globals extends Settings {
         var strm = media.stream.transform(convert.Utf8Decoder(allowMalformed: true));
         strm.join().then((s) {
           // get settings in temporary structure to compare timestamps
-          Settings set = Globals()..fromSharedString(s);
+          Settings set = Globals()
+            ..fromSharedString(s);
 //          DateTime time = DateTime.fromMillisecondsSinceEpoch(set.timestamp);
           if (set.timestamp > timestamp) {
             fromSharedString(s);
@@ -1523,13 +1560,13 @@ class Globals extends Settings {
       // to query through the whole result set via "paging".
       return drive?.files
           ?.list(
-              q: query,
-              pageToken: token,
-              pageSize: 100,
-              corpus: 'user',
-              $fields: '*',
-              orderBy: 'name',
-              spaces: driveParent)
+          q: query,
+          pageToken: token,
+          pageSize: 100,
+          corpus: 'user',
+          $fields: '*',
+          orderBy: 'name',
+          spaces: driveParent)
           ?.then((results) {
         docs.files.addAll(results.files);
         // If we would like to have more documents, we iterate.
@@ -1612,9 +1649,10 @@ class Globals extends Settings {
     return fmtNumber(value, precision, 0, 'null', dontRound);
   }
 
-  double limitValue(double value, double min, double max) => value < min
-      ? min
-      : value > max
+  double limitValue(double value, double min, double max) =>
+      value < min
+          ? min
+          : value > max
           ? max
           : value;
 
@@ -1639,7 +1677,7 @@ class Globals extends Settings {
 
     if (dt == null) return date;
 
-    var df = DateFormat(language.dateformat);
+    var df = DateFormat(language.dateFormat);
     var ret = df.format(dt);
     if (withShortWeekday) {
       ret = '${DatepickerPeriod.dowShortName(Date(dt.year, dt.month, dt.day))}, $ret';
@@ -1655,12 +1693,8 @@ class Globals extends Settings {
     if (date == null) return def;
 
     if (date is DateTime) {
-      var ret = '${(date.day < 10 ? '0' : '')}${date.day}.${(date.month < 10 ? '0' : '')}'
-          '${date.month}.${date.year}, ${(date.hour < 10 ? '0' : '')}${date.hour}:${(date.minute < 10 ? '0' : '')}'
-          '${date.minute}';
-      if (withSeconds) {
-        ret = '${ret}:${(date.second < 10 ? '0' : '')}${date.second}';
-      }
+      var df = DateFormat(withSeconds ? language.longDateTimeFormat : language.dateTimeFormat);
+      var ret = df.format(date);
       return BasePrint.msgTimeOfDay24(ret);
     }
 
@@ -1710,10 +1744,10 @@ class Globals extends Settings {
 
   String fmtNumber(num value,
       [num decimals = 0,
-      int fillfront0 = 0,
-      String nullText = 'null',
-      bool stripTrailingZero = false,
-      bool forceSign = false]) {
+        int fillfront0 = 0,
+        String nullText = 'null',
+        bool stripTrailingZero = false,
+        bool forceSign = false]) {
     if (value == null) return nullText;
 
     var fmt = '#,##0';
@@ -1740,8 +1774,8 @@ class Globals extends Settings {
     return ret == 'NaN'
         ? nullText
         : (forceSign && value >= 0)
-            ? '+${ret}'
-            : ret;
+        ? '+${ret}'
+        : ret;
   }
 
   bool isLoading = false;
@@ -1913,7 +1947,8 @@ class UrlData {
 
   UrlData(this.g);
 
-  dynamic get asJson => {
+  dynamic get asJson =>
+      {
         'u': url,
         't': token,
         'sd': startDate == null ? '19700101' : startDate.format(DateFormat('yyyyMMdd')),
@@ -1989,7 +2024,7 @@ class UserData {
   var name = '';
   var birthDate = '';
   var listApiUrl = <UrlData>[];
-  var listMedication = <PillData>[];
+  var pillman;
 
 //  String get storageApiUrl => listApiUrl.length > 0 ? listApiUrl.last.url : "";
 //  String get token => listApiUrl.length > 0 ? listApiUrl.last.token : "";
@@ -2000,8 +2035,8 @@ class UserData {
   StatusData status;
   int profileMaxIdx;
   bool isReachable = true;
-  EntryData lastEntry = null;
-  TreatmentData lastTreatment = null;
+  EntryData lastEntry;
+  TreatmentData lastTreatment;
 
   bool _adjustGluc = false;
   bool adjustTarget = false;
@@ -2028,10 +2063,11 @@ class UserData {
   String get adjustCheck => '${adjustGluc}${adjustCalc}${adjustLab}';
 
   // the adjustCheck when the data was loaded
-  String adjustLoaded = null;
+  String adjustLoaded;
 
   UserData(this.g) {
     listApiUrl.add(UrlData(g));
+    pillman = PillmanData(g);
   }
 
   void saveParamsToForms() {
@@ -2064,10 +2100,6 @@ class UserData {
     for (var url in listApiUrl) {
       urls.add(url.asJson);
     }
-    var medis = <dynamic>[];
-    for (var pill in listMedication) {
-      medis.add(pill.asJson);
-    }
 
     return '{"n":"$name"'
         ',"bd":"${birthDate ?? ''}"'
@@ -2082,7 +2114,7 @@ class UserData {
         ',"ac":"${adjustCalc?.toString() ?? 5.0}"'
         ',"al":"${adjustLab?.toString() ?? 5.0}"'
         ',"at":${adjustTarget ? 'true' : 'false'}'
-        ',"med":${convert.json.encode(medis)}'
+        ',"pm":${pillman.asJsonString}'
         '}';
   }
 
@@ -2111,10 +2143,7 @@ class UserData {
       if (ret.formParams != null && ret.formParams['analysis'] is bool) {
         ret.formParams = {};
       }
-      ret.listMedication = <PillData>[];
-      for (dynamic med in json['med']) {
-        ret.listMedication.add(PillData.fromJson(g, med));
-      }
+      ret.pillman = PillmanData.fromJson(g, json['pm']);
       ret.listApiUrl.sort((a, b) => g.compareDate(a.endDate, b.endDate));
     } catch (ex) {
       var msg = ex.toString();
@@ -2314,51 +2343,137 @@ class WatchElement {
   }
 }
 
+enum ConsumeDisplay { Time, Timespan }
+
+// class with configuration for pillman
+class PillmanData {
+  Globals g;
+  ConsumeDisplay consumeDisplay;
+  List<PillData> listMedication = <PillData>[];
+
+  PillmanData(this.g);
+
+  dynamic get asJson {
+    var medis = <dynamic>[];
+    for (var pill in listMedication) {
+      medis.add(pill.asJson);
+    }
+    return {'cd': consumeDisplay?.index ?? 0, 'med': medis};
+  }
+
+  String get asJsonString => convert.jsonEncode(asJson);
+
+  void fromJsonString(String src) {
+    try {
+      fillFromJson(convert.jsonDecode(src));
+    } catch (ex) {
+      var msg = ex.toString();
+      g.showDebug('Fehler bei PillmanData.fromJsonString: ${msg}');
+    }
+  }
+
+  static PillmanData fromJson(Globals g, dynamic json) {
+    var ret = PillmanData(g);
+    ret.fillFromJson(json);
+    return ret;
+  }
+
+  void fillFromJson(dynamic json) {
+    try {
+      consumeDisplay = ConsumeDisplay.values[JsonData.toInt(json['cd'], 0)];
+      listMedication = <PillData>[];
+      for (dynamic med in json['med']) {
+        listMedication.add(PillData.fromJson(g, med));
+      }
+    } catch (ex) {
+      var msg = ex.toString();
+      g.showDebug('Fehler bei PillmanData.fillFromJson: ${msg}');
+    }
+  }
+}
+
 // class with data for a medication
 class PillData {
   Globals g;
+  bool isEdit;
 
   String name;
   DateTime time;
   DateTime lastConsumed;
   DateTime nextConsume;
   String interval;
+  double count;
+  double supply;
+  int supplyLow;
+  List<bool> dowActive = [true, true, true, true, true, true, true];
+
   static String msgDAILY = Intl.message('täglich');
   static String msgWEEKLY = Intl.message('wöchentlich');
 
-  static dynamic get intervals => {
+  static dynamic get intervals =>
+      {
         'daily': {'title': msgDAILY, 'days': 1},
         'weekly': {'title': msgWEEKLY, 'days': 7}
       };
 
-  PillData(this.g) {
+  PillData(this.g, {this.isEdit: false}) {
     interval = 'daily';
+    count = 1;
+    supply = 100;
+    supplyLow = 10;
     setNextConsume();
     nextConsume = nextConsume.add(Duration(days: -1));
   }
 
-  dynamic get asJson => {
+  dynamic get asJson =>
+      {
         'n': name,
-        't': time == null ? '0800' : time.hour * 60 + time.minute,
-        'lc': lastConsumed == null ? null : lastConsumed.millisecondsSinceEpoch,
-        // 'ed': endDate == null ? null : endDate.format(DateFormat('yyyyMMdd'))
+        'c': count,
+        't': time == null ? 8 * 60 : time.hour * 60 + time.minute,
+        'lc': lastConsumed?.millisecondsSinceEpoch,
+        'dow': dowActive.map((v) => v ? '+' : '-').join(''),
+        's': supply,
+        'sl': supplyLow
       };
 
-  // creates an instance and fills it with data from a json-structure
+  String get asJsonString => convert.jsonEncode(asJson);
+
   static PillData fromJson(Globals g, dynamic json) {
     var ret = PillData(g);
+    ret.fillFromJson(json);
+    return ret;
+  }
+
+  void fromJsonString(String src) {
     try {
-      ret.name = JsonData.toText(json['n']);
-      var time = JsonData.toInt(json['t']);
-      var hour = time ~/ 60;
-      var minute = time % 60;
-      ret.time = DateTime(0, 0, 0, hour, minute);
-      ret.lastConsumed = DateTime(JsonData.toInt(json['lc']) ?? 0);
+      fillFromJson(convert.jsonDecode(src));
     } catch (ex) {
       var msg = ex.toString();
-      g.showDebug('Fehler bei PillData.fromJson: ${msg}');
+      g.showDebug('Fehler bei PillData.fromJsonString: ${msg}');
     }
-    return ret;
+  }
+
+  void fillFromJson(dynamic json) {
+    try {
+      name = JsonData.toText(json['n'], null);
+      count = JsonData.toDouble(json['c'], 1.0);
+      var t = JsonData.toInt(json['t'], 480);
+      var hour = t ~/ 60;
+      var minute = t % 60;
+      time = DateTime(0, 0, 0, hour, minute);
+      var s = JsonData.toInt(json['lc'], null);
+      lastConsumed = s != null ? DateTime.fromMillisecondsSinceEpoch(s) : null;
+      var dow = JsonData.toText(json['dow']);
+      for (var i = 0; i < dow.length && i < dowActive.length; i++) {
+        dowActive[i] = dow[i] == '+';
+      }
+      supply = JsonData.toDouble(json['s'], null);
+      supplyLow = JsonData.toInt(json['sl'], null);
+    } catch (ex) {
+      var msg = ex.toString();
+      g.showDebug('Fehler bei PillData.fillFromJson: ${msg}');
+    }
+    setNextConsume();
   }
 
   void nextInterval() {
@@ -2379,17 +2494,29 @@ class PillData {
   String get intervalText => PillData.intervals[interval]['title'];
 
   String get nextConsumeText {
-    var text = 'Einnahme ${g.fmtDateTime(nextConsume)}';
+    var text = g.fmtDateTime(nextConsume);
     return text;
   }
 
   void eat() {
+    supply -= count;
+    if (supply < 0) supply = 0;
+    notEat();
+  }
+
+  void notEat() {
     lastConsumed = DateTime.now();
     setNextConsume();
+    g.save(updateSync: true, skipReload: false);
   }
 
   void setNextConsume() {
-    var next = DateTime.now().add(Duration(days: PillData.intervals[interval]['days']));
-    nextConsume = DateTime(next.year, next.month, next.day, time.hour, time.minute);
+    var next = DateTime.now();
+    var hour = time?.hour ?? 0;
+    var minute = time?.minute ?? 0;
+    if (hour < next.hour || (hour == next.hour && minute <= next.minute)) {
+      next = next.add(Duration(days: PillData.intervals[interval]['days']));
+    }
+    nextConsume = DateTime(next.year, next.month, next.day, time?.hour ?? 0, time?.minute ?? 0);
   }
 }

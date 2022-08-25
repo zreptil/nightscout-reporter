@@ -35,27 +35,20 @@ class DatepickerEntry {
 }
 
 class DatepickerPeriod {
-  static List<String> monthNames = Intl.message(
-          "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober"
-          "|November|Dezember")
-      .split("|");
-  static List<String> monthShortNames =
-      Intl.message("Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez")
-          .split("|");
-  static List<String> dowNames = Intl.message(
-          "Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag")
-      .split("|");
-  static List<String> dowShortNames =
-      Intl.message("Mo|Di|Mi|Do|Fr|Sa|So").split("|");
-  static List<String> shiftNames =
-      Intl.message("Bis heute|Bis gestern|Bis Wochenende").split("|");
+  static List<String> monthNames = Intl.message('Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober'
+          '|November|Dezember')
+      .split('|');
+  static List<String> monthShortNames = Intl.message('Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez').split('|');
+  static List<String> dowNames = Intl.message('Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag').split('|');
+  static List<String> dowShortNames = Intl.message('Mo|Di|Mi|Do|Fr|Sa|So').split('|');
+  static List<String> shiftNames = Intl.message('Bis heute|Bis gestern|Bis Wochenende').split('|');
 
   String emptyReason;
-  String fmtDate = "dd.MM.yyyy";
+  String fmtDate = 'dd.MM.yyyy';
   int shiftDate = 0;
 
   Date get baseDate {
-    switch (this.shiftDate) {
+    switch (shiftDate) {
       case 0:
         return Date.today();
       case 1:
@@ -67,26 +60,22 @@ class DatepickerPeriod {
         }
         return Date.today().add(days: diff);
     }
+    return null;
   }
 
   DateFormat get dateFormat => DateFormat(fmtDate);
 
   int firstDayOfWeek = 1;
 
-  static String monthName(Date date) =>
-      date != null ? monthNames[date.month - 1] : '';
+  static String monthName(Date date) => date != null ? monthNames[date.month - 1] : '';
 
-  static String dowName(Date date) =>
-      date != null ? dowNames[date.weekday - 1] : '';
+  static String dowName(Date date) => date != null ? dowNames[date.weekday - 1] : '';
 
-  static String monthShortName(Date date) =>
-      date != null ? monthShortNames[date.month - 1] : '';
+  static String monthShortName(Date date) => date != null ? monthShortNames[date.month - 1] : '';
 
-  static String dowShortName(Date date) =>
-      date != null ? dowShortNames[date.weekday - 1] : '';
+  static String dowShortName(Date date) => date != null ? dowShortNames[date.weekday - 1] : '';
 
-  Date _shiftBy(Date ret, int months) =>
-      Date(ret.year, ret.month - months, ret.day);
+  Date _shiftBy(Date ret, int months) => Date(ret.year, ret.month - months, ret.day);
 
   Date shiftStartBy(int months) {
     if (entryKey != null && entry != null) return entry.shift(start, months);
@@ -108,18 +97,14 @@ class DatepickerPeriod {
   int get dayCount {
     var ret = 0;
     if (start != null && end != null) {
-      ret = DateTime(end.year, end.month, end.day)
-              .difference(DateTime(start.year, start.month, start.day))
-              .inDays +
-          1;
+      ret = DateTime(end.year, end.month, end.day).difference(DateTime(start.year, start.month, start.day)).inDays + 1;
     }
     return ret;
   }
 
   List<bool> _dowActive = [true, true, true, true, true, true, true];
 
-  bool isDowActive(int idx) =>
-      idx >= 0 && idx < _dowActive.length ? _dowActive[idx] : false;
+  bool isDowActive(int idx) => idx >= 0 && idx < _dowActive.length ? _dowActive[idx] : false;
 
   void activateDow(int idx, bool isActive) {
     if (idx < 0 || idx >= _dowActive.length) return;
@@ -136,6 +121,20 @@ class DatepickerPeriod {
     return '${start.format(dateFormat)} - ${end.format(dateFormat)}';
   }
 
+  List<String> get sortedShortNames {
+    var ret = <String>[];
+    var idx = firstDayOfWeek - 1;
+    if (idx < 0) idx = 6;
+    for (var i = 0; i < 7; i++) {
+      ret.add(dowShortNames[idx]);
+      idx++;
+      if (idx > 6) {
+        idx = 0;
+      }
+    }
+    return ret;
+  }
+
   String get dowActiveText {
     if (_dowActiveText == null) {
       var ret = <String>[];
@@ -148,13 +147,13 @@ class DatepickerPeriod {
           cnt++;
         }
       }
-      _dowActiveText = cnt < dowShortNames.length ? ret.join(", ") : "";
+      _dowActiveText = cnt < dowShortNames.length ? ret.join(', ') : '';
     }
     return _dowActiveText;
   }
 
   bool get isEmpty {
-    emptyReason = "";
+    emptyReason = '';
     if ((entryKey == null || entryKey.isEmpty) && start == null) return true;
 
     var beg = start;
@@ -168,14 +167,15 @@ class DatepickerPeriod {
     return true;
   }
 
-  List<DatepickerEntry> list = List<DatepickerEntry>();
+  List<DatepickerEntry> list = <DatepickerEntry>[];
 
   String get entryTitle {
     if (list != null) {
-      for (DatepickerEntry entry in list)
+      for (var entry in list) {
         if (entry.key == entryKey) return entry.title;
+      }
     }
-    return "";
+    return '';
   }
 
   DatepickerEntry get entry {
@@ -206,9 +206,9 @@ class DatepickerPeriod {
     }
   }
 
-  reset(String src) {
+  void reset(String src) {
     try {
-      List<String> parts = (src ?? "").split("|");
+      var parts = (src ?? '').split('|');
       start = null;
       end = null;
       entryKey = null;
@@ -216,13 +216,14 @@ class DatepickerPeriod {
       if (parts.length >= 4) {
         start = parse(parts[0]);
         end = parse(parts[1]);
-        entryKey = parts[2] == "" || parts[2] == "null" ? null : parts[2];
+        entryKey = parts[2] == '' || parts[2] == 'null' ? null : parts[2];
         firstDayOfWeek = int.tryParse(parts[3]) ?? 0;
       }
-      for (int i = 0; i < 7; i++) {
+      for (var i = 0; i < 7; i++) {
         activateDow(i, true);
-        if (parts.length >= 5 && i < parts[4].length)
-          activateDow(i, parts[4][i] == "+");
+        if (parts.length >= 5 && i < parts[4].length) {
+          activateDow(i, parts[4][i] == '+');
+        }
       }
       if (parts.length >= 5) {
         shiftDate = int.tryParse(parts[5]) ?? 0;
@@ -230,20 +231,21 @@ class DatepickerPeriod {
     } catch (ex) {}
   }
 
-  DatepickerPeriod({String src = ""}) {
+  DatepickerPeriod({String src = ''}) {
     reset(src);
   }
 
+  @override
   String toString() {
-    List<String> ret = List<String>();
+    var ret = <String>[];
     ret.add('${start?.format(DateFormat('yyyyMMdd')) ?? ''}');
     ret.add('${end?.format(DateFormat('yyyyMMdd')) ?? ''}');
     ret.add('${entryKey ?? ''}');
-    ret.add('${firstDayOfWeek}');
-    String dow = '';
-    for (bool active in _dowActive) dow = "${dow}${active ? '+' : '-'}";
+    ret.add('$firstDayOfWeek');
+    var dow = '';
+    for (var active in _dowActive) dow = '${dow}${active ? '+' : '-'}';
     ret.add(dow);
-    ret.add('${shiftDate}');
+    ret.add('$shiftDate');
     return ret.join('|');
   }
 }
@@ -276,8 +278,7 @@ class DatepickerComponent {
   @Input()
   bool showInfo = false;
 
-  String infoClass(String cls) =>
-      showInfo ? "$cls infoarea showinfo" : "$cls infoarea";
+  String infoClass(String cls) => showInfo ? "$cls infoarea showinfo" : "$cls infoarea";
 
   @Input()
   bool showLabel = true;
@@ -286,17 +287,13 @@ class DatepickerComponent {
       period != null &&
       period.maxDate != null &&
       month != null &&
-      (month.year > period.maxDate.year ||
-          (month.year == period.maxDate.year &&
-              month.month >= period.maxDate.month));
+      (month.year > period.maxDate.year || (month.year == period.maxDate.year && month.month >= period.maxDate.month));
 
   bool get isMinMonth =>
       period != null &&
       period.minDate != null &&
       month != null &&
-      (month.year < period.minDate.year ||
-          (month.year == period.minDate.year &&
-              month.month <= period.minDate.month));
+      (month.year < period.minDate.year || (month.year == period.minDate.year && month.month <= period.minDate.month));
 
   get msgStartIncorrect => Intl.message("Das Startdatum ist nicht korrekt");
 
@@ -309,12 +306,10 @@ class DatepickerComponent {
 
   @Input()
   void set period(value) {
-    DatepickerPeriod temp =
-        value is DatepickerPeriod ? value : DatepickerPeriod(src: value);
+    DatepickerPeriod temp = value is DatepickerPeriod ? value : DatepickerPeriod(src: value);
     _period = temp ?? _period;
     if (_period.entryKey != null && _period.list.length > 0) {
-      DatepickerEntry entry =
-          _period.list.firstWhere((e) => e.key == _period.entryKey);
+      DatepickerEntry entry = _period.list.firstWhere((e) => e.key == _period.entryKey);
       entry?.fill(_period);
     }
     month = Date.today();
@@ -325,9 +320,9 @@ class DatepickerComponent {
   @Output()
   Stream<DatepickerPeriod> get periodChange => _periodChange.stream;
 
-  String loadedPeriod = null;
+  String loadedPeriod;
 
-  revertData() {
+  void revertData() {
     period.reset(loadedPeriod);
   }
 
