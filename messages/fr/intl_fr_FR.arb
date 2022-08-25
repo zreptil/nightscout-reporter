@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2022-08-20T19:58:04.621513",
+  "@@last_modified": "2022-08-25T21:06:54.335684",
   "Schliessen": "Fermer",
   "@Schliessen": {
     "type": "text",
@@ -3067,6 +3067,24 @@
     "type": "text",
     "placeholders": {}
   },
+  "3.0.1 - xx.08.2022": "3.0.1 - xx/08/2022",
+  "@3.0.1 - xx.08.2022": {
+    "description": "v301",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Die Einstellung für die Anpassung von BG_TARGET_BOTTOM und BG_TARGET_TOP ist nun unabhängig von der Auswahl \"Glucosewerte anpassen\". Damit kann man die Option umschalten, ohne den Zielbereich auf dem Server neu konfigurieren zu müssen.": "The setting for adjusting BG_TARGET_BOTTOM and BG_TARGET_TOP is now independent of the \"Adjust Glucose Values\" selection. This allows you to toggle the option without having to reconfigure the target area on the server.",
+  "@Die Einstellung für die Anpassung von BG_TARGET_BOTTOM und BG_TARGET_TOP ist nun unabhängig von der Auswahl \"Glucosewerte anpassen\". Damit kann man die Option umschalten, ohne den Zielbereich auf dem Server neu konfigurieren zu müssen.": {
+    "description": "v301c1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Night-Watch zeigt nun auch Werte an, wenn diese von mehreren Uploadern innerhalb kurzer Zeit mehrfach in Nightscout gespeichert wurden. Das sollte man zwar möglichst vermeiden, aber nun kann Night-Watch auch damit umgehen.": "Night-Watch now also displays values if they have been saved multiple times in Nightscout by multiple uploaders within a short period of time. This should be avoided if possible, but now Night-Watch can also deal with it.",
+  "@Night-Watch zeigt nun auch Werte an, wenn diese von mehreren Uploadern innerhalb kurzer Zeit mehrfach in Nightscout gespeichert wurden. Das sollte man zwar möglichst vermeiden, aber nun kann Night-Watch auch damit umgehen.": {
+    "description": "v301f1",
+    "type": "text",
+    "placeholders": {}
+  },
   "3.0.0 - 21.08.2022": "3.0.0 - 21/08/2022",
   "@3.0.0 - 21.08.2022": {
     "description": "v300",
@@ -5035,8 +5053,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_3": "A new view called {startTag0}Night-Watch{endTag0} has been added. In this view, as in the clock display on the Nightscout page, you can see the current glucose value and other information that you can configure to a certain extent as you like it. Night-Watch is accessed via this URL: {startTag1}https://nightscout-reporter.zreptil.de/watch{endTag1} It can also be accessed via the main menu under the menu item {startTag2}Night-Watch{endTag2}, or by clicking on the current sugar value in Nightscout Reporter's title bar if you have activated it in the settings.",
-  "@ViewWhatsnewComponent0__message_3": {
+  "ViewWhatsnewComponent0__message_6": "A new view called {startTag0}Night-Watch{endTag0} has been added. In this view, as in the clock display on the Nightscout page, you can see the current glucose value and other information that you can configure to a certain extent as you like it. Night-Watch is accessed via this URL: {startTag1}https://nightscout-reporter.zreptil.de/watch{endTag1} It can also be accessed via the main menu under the menu item {startTag2}Night-Watch{endTag2}, or by clicking on the current sugar value in Nightscout Reporter's title bar if you have activated it in the settings.",
+  "@ViewWhatsnewComponent0__message_6": {
     "description": "v300a1",
     "type": "text",
     "placeholders": {
@@ -5060,8 +5078,8 @@
       }
     }
   },
-  "ViewWhatsnewComponent0__message_6": "There is now the option {startTag0}Lines around areas{endTag0} where a CGP can be created. This is switched on by default. When turned off, the healthy and current human stat ranges are no longer outlined with a line. This makes the graph look a little fainter, but you can examine the values on the axes more closely if you wish.",
-  "@ViewWhatsnewComponent0__message_6": {
+  "ViewWhatsnewComponent0__message_9": "Where a CGP can be created, there is now an option {startTag0}Lines around areas{endTag0}. This is switched on by default. When turned off, the healthy and current human stat ranges are no longer outlined with a line. This makes the graph look a little more pale, but you can examine the values on the axes more closely if you wish.",
+  "@ViewWhatsnewComponent0__message_9": {
     "description": "v300a2",
     "type": "text",
     "placeholders": {
@@ -5073,8 +5091,8 @@
       }
     }
   },
-  "ViewWhatsnewComponent0__message_44": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
-  "@ViewWhatsnewComponent0__message_44": {
+  "ViewWhatsnewComponent0__message_47": "After I was asked again and again whether I could be donated, I decided to make such a possibility available. Nightscout Reporter is still completely free and will stay that way. If you still want to express your affection for the program, I don't want to stand in your way any longer. The donation button is not visible. But if you want to throw something in the {startTag0}hat{endTag0}, you will find it :)",
+  "@ViewWhatsnewComponent0__message_47": {
     "description": "v206a1",
     "type": "text",
     "placeholders": {

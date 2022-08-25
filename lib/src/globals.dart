@@ -129,7 +129,7 @@ class PeriodShift {
 // 21.12.2021 - 11:25 Uhr Loop wieder aktiviert -
 // Eintrag "OpenAPS Offline" mit duration 0
 class Settings {
-  String version = '3.0.0';
+  String version = '3.0.1';
   static String SharedData = 'sharedData';
   static String DeviceData = 'deviceData';
   static String WebData = 'webData';

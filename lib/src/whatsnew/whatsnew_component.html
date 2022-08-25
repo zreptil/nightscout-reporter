@@ -9,6 +9,19 @@
     </material-button>
   </div>
   <div class="root">
+    <h2><span @i18n="version">Version</span><span @i18n="v301">3.0.1 - xx.08.2022</span></h2>
+    <ul>
+      <li class="changed"  @i18n="v301c1">
+        Die Einstellung für die Anpassung von BG_TARGET_BOTTOM und BG_TARGET_TOP ist nun unabhängig
+        von der Auswahl "Glucosewerte anpassen". Damit kann man die Option umschalten, ohne den
+        Zielbereich auf dem Server neu konfigurieren zu müssen.
+      </li>
+      <li class="fixed"  @i18n="v301f1">
+        Night-Watch zeigt nun auch Werte an, wenn diese von mehreren Uploadern innerhalb kurzer
+        Zeit mehrfach in Nightscout gespeichert wurden. Das sollte man zwar möglichst vermeiden,
+        aber nun kann Night-Watch auch damit umgehen.
+      </li>
+    </ul>
     <h2><span @i18n="version">Version</span><span @i18n="v300">3.0.0 - 21.08.2022</span></h2>
     <ul>
       <li class="added">

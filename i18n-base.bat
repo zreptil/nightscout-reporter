@@ -1,18 +1,19 @@
 call prebuild.bat
-set dartFileList=..\nightscout-reporter\dartFiles.lst
-echo ..\nightscout-reporter\lib\app_component.dart>%dartFileList%
-for %%I in (.) do set projName=%%~nxI
+set currDir=%~dp0
+set dartFileList=%currDir%dartFiles.lst
+echo %currDir%lib\app_component.dart>%dartFileList%
+rem for %%I in (.) do set projName=%%~nxI
+set projName=nightscout-reporter
 set projName=%projName:-=_%
-set dstARB=..\nightscout-reporter\messages
-set dstDART=..\nightscout-reporter\lib\messages
+set dstARB=%currDir%messages
+set dstDART=%currDir%lib\messages
 set dstFile=intl_de_DE.arb
 
-set dartFiles="..\nightscout-reporter\lib\app_component.dart"
+set dartFiles="%currDir%lib\app_component.dart"
 echo collecting files...
-for /R "..\nightscout-reporter\web" %%i in (*.dart) do (call :doit %%~i)
-for /R "..\nightscout-reporter\lib\src" %%i in (*.dart) do (call :doit %%~i)
-for /R "..\nightscout-reporter\.dart_tool\build\generated\%projName%" %%i in (*.template.dart) do (call :doit %%~i)
-cls
+for /R "%currDir%web" %%i in (*.dart) do (call :doit %%~i)
+for /R "%currDir%lib\src" %%i in (*.dart) do (call :doit %%~i)
+for /R "%currDir%.dart_tool\build\generated\%projName%" %%i in (*.template.dart) do (call :doit %%~i)
 goto:eof
 :doit
 set temp=%1
