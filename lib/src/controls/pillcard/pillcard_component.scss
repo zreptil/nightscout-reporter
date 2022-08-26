@@ -9,14 +9,16 @@
   margin: 0;
 }
 
+material-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .mdc-card {
   border-radius: 1em !important;
   margin: 0.5em 0.25em;
   max-width: 20em;
-
-  .warn-low {
-    outline: 2px solid red;
-  }
 
   .primary {
     display: flex;
@@ -30,6 +32,8 @@
 
     .dow-list {
       position: relative;
+      display: flex;
+      flex-wrap: wrap;
 
       material-icon {
         position: absolute;
@@ -57,6 +61,18 @@
     }
   }
 }
+
+material-icon.warn-low {
+  color: red;
+}
+
+.mdc-card.warn-low {
+}
+
+.mdc-card.warn-missed {
+  background-color: #fcc;
+}
+
 
 .btn-panel {
   position: relative;
@@ -87,6 +103,7 @@
     position: absolute;
     left: 0;
     top: 0;
+
     .title {
       font-size: 75%;
     }

@@ -83,7 +83,7 @@ class PillcardComponent {
 
   String get classForSupply {
     var ret = [];
-    if (pill.supply <= pill.supplyLow) ret.add('warn-low');
+    if ((pill?.supply ?? 100) <= (pill?.supplyLow ?? 0)) ret.add('warn-low');
     return ret.join(' ');
   }
 
@@ -128,8 +128,12 @@ class PillcardComponent {
   String classForCard([String def = null]) {
     var ret = ['mdc-card'];
     if (def != null) ret.add(def);
-    if ((pill?.supplyLow ?? 0) > 0 && (pill?.supply ?? 0) <= (pill?.supplyLow ?? 0)) {
+    if (pill.needsSupply) {
       ret.add('warn-low');
+    }
+    var date = pill?.lastConsumed ?? DateTime.now();
+    if (DateTime.now().difference(date).inHours > PillData.intervals[pill.interval]['days'] * 12) {
+      ret.add('warn-missed');
     }
     return ret.join(' ');
   }
@@ -142,6 +146,7 @@ class PillcardComponent {
 
   void clickSave(event) {
     event.stopPropagation();
+    pill.lastConsumed = null;
     pill.setNextConsume();
     _pillOrg = pill.asJsonString;
     isEditMode = false;

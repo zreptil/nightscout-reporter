@@ -2425,6 +2425,8 @@ class PillData {
     nextConsume = nextConsume.add(Duration(days: -1));
   }
 
+  bool get needsSupply => (supply ?? 10) <= (supplyLow ?? 0);
+
   dynamic get asJson =>
       {
         'n': name,
@@ -2511,7 +2513,7 @@ class PillData {
   }
 
   void setNextConsume() {
-    var next = DateTime.now();
+    var next = lastConsumed ?? DateTime.now();
     var hour = time?.hour ?? 0;
     var minute = time?.minute ?? 0;
     if (hour < next.hour || (hour == next.hour && minute <= next.minute)) {

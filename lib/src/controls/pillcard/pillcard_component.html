@@ -1,5 +1,5 @@
 <!-- card for adding a new card -->
-<div [class]="classForCard()" *ngIf="idx < 0">
+<div *ngIf="idx < 0" [class]="classForCard()">
   <div class="primary">
   </div>
   <div class="content">
@@ -13,7 +13,7 @@
 <ng-container *ngIf="idx >= 0">
   <ng-container *ngIf="!isEditMode">
     <!-- card for consumption -->
-    <div [class]="classForCard()" *ngIf="listMode=='current'">
+    <div *ngIf="listMode=='current'" [class]="classForCard()">
       <div class="primary">
         <h2 class="title">{{pill.name}}</h2>
         <h3 class="subtitle"></h3>
@@ -26,17 +26,22 @@
       </div>
       <div class="actions">
         <div class="icons">
-          <material-button icon (trigger)="pill.eat()">
+          <material-button (trigger)="pill.eat()" icon>
             <material-icon icon="restaurant"></material-icon>
           </material-button>
-          <material-button icon (trigger)="pill.notEat()">
+          <material-button (trigger)="pill.notEat()" icon>
             <material-icon icon="no_meals"></material-icon>
+          </material-button>
+        </div>
+        <div class="icons">
+          <material-button (trigger)="pill.isEdit = true" *ngIf="pill.needsSupply" icon>
+            <material-icon class="warn-low" icon="add_shopping_cart"></material-icon>
           </material-button>
         </div>
       </div>
     </div>
     <!-- card for management -->
-    <div [class]="classForCard()" *ngIf="listMode=='all'">
+    <div *ngIf="listMode=='all'" [class]="classForCard()">
       <div class="primary">
         <h2 class="title">{{pill.name}}</h2>
         <h3 class="subtitle"></h3>
@@ -45,15 +50,18 @@
         <div i18n>Nächste Einnahme</div>
         <div>{{consumeText}}</div>
         <div>{{period.dowActiveText}}</div>
+        <div i18n>Letzte Einnahme</div>
+        <div>{{g.fmtDateTime(pill.lastConsumed)}}</div>
+        <div>{{period.dowActiveText}}</div>
       </div>
       <div class="actions">
         <div class="icons">
-          <material-button icon (trigger)="isEditMode=true">
+          <material-button (trigger)="isEditMode=true" icon>
             <material-icon icon="edit"></material-icon>
           </material-button>
         </div>
         <div class="icons">
-          <material-button icon (trigger)="clickDelete($event)">
+          <material-button (trigger)="clickDelete($event)" icon>
             <material-icon icon="delete"></material-icon>
           </material-button>
         </div>
@@ -62,15 +70,44 @@
   </ng-container>
   <ng-container *ngIf="isEditMode">
     <!-- card for editing -->
-    <div  [class]="classForCard('edit')">
+    <div [class]="classForCard('edit')">
       <div class="primary">
         <h2 class="title">
-        <material-input [(ngModel)]="pill.name" i18n-label label="Medikament" floatingLabel></material-input>
+          <material-input [(ngModel)]="pill.name" floatingLabel i18n-label label="Medikament"></material-input>
         </h2>
         <h3 class="subtitle"></h3>
       </div>
 
       <div class="content">
+        <material-button (trigger)="pill.nextInterval()">
+          {{pill.intervalText}}
+        </material-button>
+
+        <div class="btn-panel">
+          <div class="btn-adjust">
+            <material-button (click)="clickTime($event,'hour',1)">
+              <material-icon icon="arrow_drop_up"></material-icon>
+            </material-button>
+            <material-button (click)="clickTime($event,'hour',-1)">
+              <material-icon icon="arrow_drop_down"></material-icon>
+            </material-button>
+          </div>
+          <div class="btn-adjust">
+            <material-button (click)="clickTime($event,'minute',5)">
+              <material-icon icon="arrow_drop_up"></material-icon>
+            </material-button>
+            <material-button (click)="clickTime($event,'minute',-5)">
+              <material-icon icon="arrow_drop_down"></material-icon>
+            </material-button>
+          </div>
+          <div class="label">
+            <div class="title" i18n>Einnahme</div>
+            <div>{{g.fmtTime(pill.time, withUnit: true)}}</div>
+          </div>
+        </div>
+
+        <div style="width:100%;"></div>
+
         <div class="btn-panel">
           <div class="btn-adjust">
             <material-button (click)="clickSupply($event,1)">
@@ -101,36 +138,9 @@
           </div>
         </div>
 
-        <material-button (trigger)="pill.nextInterval()">
-          {{pill.intervalText}}
-        </material-button>
-
-        <div class="btn-panel">
-          <div class="btn-adjust">
-            <material-button (click)="clickTime($event,'hour',1)">
-              <material-icon icon="arrow_drop_up"></material-icon>
-            </material-button>
-            <material-button (click)="clickTime($event,'hour',-1)">
-              <material-icon icon="arrow_drop_down"></material-icon>
-            </material-button>
-          </div>
-          <div class="btn-adjust">
-            <material-button (click)="clickTime($event,'minute',5)">
-              <material-icon icon="arrow_drop_up"></material-icon>
-            </material-button>
-            <material-button (click)="clickTime($event,'minute',-5)">
-              <material-icon icon="arrow_drop_down"></material-icon>
-            </material-button>
-          </div>
-          <div class="label">
-            <div class="title" i18n>Einnahme</div>
-            <div>{{g.fmtTime(pill.time, withUnit: true)}}</div>
-          </div>
-        </div>
-
         <div i18n>Wochentage für die Einnahme</div>
         <div class="dow-list">
-          <material-button [raised]="pill.dowActive[idx]" *ngFor="let day of listWeekdays; let idx = index" (trigger)="clickDow($event,idx)">
+          <material-button (trigger)="clickDow($event,idx)" *ngFor="let day of listWeekdays; let idx = index" [raised]="pill.dowActive[idx]">
             {{day}}
             <material-icon *ngIf="!pill.dowActive[idx]" class="close" icon="close"></material-icon>
           </material-button>
@@ -138,12 +148,12 @@
       </div>
       <div class="actions">
         <div class="icons">
-          <material-button icon (trigger)="clickClose($event)">
+          <material-button (trigger)="clickClose($event)" icon>
             <material-icon icon="close"></material-icon>
           </material-button>
         </div>
         <div class="icons">
-          <material-button icon [disabled]="pill.name?.isEmpty ?? true" (trigger)="clickSave($event)">
+          <material-button (trigger)="clickSave($event)" [disabled]="pill.name?.isEmpty ?? true" icon>
             <material-icon icon="save"></material-icon>
           </material-button>
         </div>
