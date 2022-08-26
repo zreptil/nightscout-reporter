@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2022-08-25T21:06:54.335684",
+  "@@last_modified": "2022-08-26T07:09:26.233014",
   "Schliessen": "Zamknij",
   "@Schliessen": {
     "type": "text",
@@ -3067,8 +3067,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "3.0.1 - xx.08.2022": "3.0.1 - xx/08/2022",
-  "@3.0.1 - xx.08.2022": {
+  "3.0.1 - 26.08.2022": "3.0.1 - 26/08/2022",
+  "@3.0.1 - 26.08.2022": {
     "description": "v301",
     "type": "text",
     "placeholders": {}
