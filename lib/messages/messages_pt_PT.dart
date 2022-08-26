@@ -287,7 +287,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "25% - 75% der Werte" : MessageLookupByLibrary.simpleMessage("25% - 75% dos valores"),
     "3,1 bis 4,0" : MessageLookupByLibrary.simpleMessage("3,1 a 4,0"),
     "3.0.0 - 21.08.2022" : MessageLookupByLibrary.simpleMessage("3.0.0 - 21/08/2022"),
-    "3.0.1 - xx.08.2022" : MessageLookupByLibrary.simpleMessage("3.0.1 - xx/08/2022"),
+    "3.0.1 - 26.08.2022" : MessageLookupByLibrary.simpleMessage("3.0.1 - 26/08/2022"),
     "30 Minuten" : MessageLookupByLibrary.simpleMessage("30 Minutos"),
     "4,1 bis 4,5" : MessageLookupByLibrary.simpleMessage("4,1 a 4,5"),
     "5 Minuten" : MessageLookupByLibrary.simpleMessage("5 Minutos"),

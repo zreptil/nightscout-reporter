@@ -43,5 +43,4 @@ del %dstdir%\.build.manifest %tolog%
 del %dstdir%\.packages %tolog%
 %rar% %rarparams% %rarfile% %dstdir%\*.* %tolog%
 copy %rarfile% %dstdir% %tolog%
-
-start "" C:\PROGRA~2\BEYOND~1\BCompare.exe "nightscout-reporter.zreptil.de/beta"
+deployBC.bat

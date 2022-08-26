@@ -13,3 +13,4 @@ doc/api/
 **/.sass-cache/
 **/node_modules/
 **/*.css
+/deployBC.bat
