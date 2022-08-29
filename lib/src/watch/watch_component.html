@@ -76,6 +76,12 @@
       <material-button (click)="clickAdd($event)">
         <material-icon icon="add"></material-icon>
       </material-button>
+      <material-button [class]="(g.isWatchColor??true)?'active':''" (click)="clickColor($event)">
+        <material-icon icon="palette"></material-icon>
+      </material-button>
+      <material-button (click)="clickSettings($event)">
+        <material-icon icon="settings"></material-icon>
+      </material-button>
       <material-button (click)="clickSave($event)">
         <material-icon icon="save"></material-icon>
       </material-button>

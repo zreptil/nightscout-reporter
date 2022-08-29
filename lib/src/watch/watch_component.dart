@@ -104,7 +104,11 @@ class WatchComponent implements OnInit {
 
   String get classForWatch {
     var ret = ['root'];
-    ret.add(colForGluc(g.currentGlucValue));
+    var prefix = 'dark-';
+    if (g.isWatchColor) {
+      prefix = 'color-';
+    }
+    ret.add('${prefix}${colForGluc(g.currentGlucValue)}');
     return ret.join(' ');
   }
 
@@ -263,6 +267,11 @@ class WatchComponent implements OnInit {
     if (idx < g.watchList.length) g.watchList[idx].selected = true;
   }
 
+  void clickSettings(event) {
+    event.stopPropagation();
+    currPage = 'settings';
+  }
+
   void onClick(globals.WatchElement element, event) {
     event.stopPropagation();
     var value = !element.selected;
@@ -286,6 +295,12 @@ class WatchComponent implements OnInit {
     for (var entry in g.watchList) {
       entry.selected = false;
     }
+    g.save(skipReload: true);
+  }
+
+  void clickColor(event) {
+    event.stopPropagation();
+    g.isWatchColor = !g.isWatchColor;
     g.save(skipReload: true);
   }
 
@@ -323,6 +338,7 @@ class WatchComponent implements OnInit {
         break;
       default:
         g.loadSettings(skipSyncGoogle: true);
+        if (g.isConfigured) currPage = 'watch';
         break;
     }
   }

@@ -8,6 +8,7 @@
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
+  background: black;
 }
 
 .watch {
@@ -25,12 +26,87 @@
   background: var(--glucNorm);
 }
 
+.color-high {
+  background: var(--glucHigh);
+}
+
+.color-low {
+  background: var(--glucLow);
+}
+
+.color-norm {
+  background: var(--glucNorm);
+}
+
+.dark-high {
+  color: var(--glucHigh);
+  watchentry[selected=true] {
+    background: var(--glucHigh);
+    color: black;
+  }
+  watchentry[type=arrow] {
+    position: relative;
+    .arrow {
+      stroke: var(--glucHigh);
+      fill: var(--glucHigh);
+      .circle {
+        fill: var(--glucHigh);
+      }
+    }
+    .centered {
+      color: #000;
+    }
+  }
+}
+
+.dark-low {
+  color: var(--glucLow);
+  watchentry[selected=true] {
+    background: var(--glucLow);
+    color: black;
+  }
+  watchentry[type=arrow] {
+    position: relative;
+    .arrow {
+      stroke: var(--glucLow);
+      fill: var(--glucLow);
+      .circle {
+        fill: var(--glucLow);
+      }
+    }
+    .centered {
+      color: #000;
+    }
+  }
+}
+
+.dark-norm {
+  color: var(--glucNorm);
+  watchentry[selected=true] {
+    background: var(--glucNorm);
+    color: black;
+  }
+  watchentry[type=arrow] {
+    position: relative;
+    .arrow {
+      stroke: #000;
+      fill: var(--glucNorm);
+      .circle {
+        fill: var(--glucNorm);
+      }
+    }
+    .centered {
+      color: #000;
+    }
+  }
+}
+
 .high {
   background: var(--glucHigh);
 }
 
 .target {
-  background: lime;
+  color: black;
   outline: 1px solid black;
   display: flex;
   width: 100%;
@@ -180,6 +256,7 @@ watchentry[type=arrow] {
   bottom: 0;
   width: 100vw;
   background: var(--settingsBodyBack);
+  color: black;
   display: flex;
   flex-flow: wrap;
   align-items: center;

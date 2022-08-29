@@ -210,6 +210,7 @@ class Settings {
   List<FormConfig> listConfigOrg = <FormConfig>[];
   DateFormat fmtDateForDisplay;
   DatepickerPeriod _period = DatepickerPeriod();
+  bool isWatchColor = true;
   List<WatchElement> _watchList = <WatchElement>[];
 
   List<WatchElement> get watchList {
@@ -878,7 +879,7 @@ class Globals extends Settings {
             src = await requestJson(url);
             eNow = EntryData.fromJson(src[0]);
             ePrev = null;
-            for(var i=1; i<src.length && ePrev == null; i++) {
+            for (var i = 1; i < src.length && ePrev == null; i++) {
               var check = EntryData.fromJson(src[i]);
               if (check.device == eNow.device) {
                 ePrev = check;
@@ -1023,6 +1024,7 @@ class Globals extends Settings {
       ',"d11":"${ppFixAAPS30?.toString() ?? 0}"'
       ',"d12":"${ppPdfSameWindow ? "true" : "false"}"'
       ',"d13":"${ppPdfDownload ? "true" : "false"}"'
+      ',"d14":"${isWatchColor ? "true" : "false"}"'
       '}';
 
   // loads the device settings from a json-encoded string
@@ -1042,6 +1044,7 @@ class Globals extends Settings {
       ppFixAAPS30 = JsonData.toBool(json['d11']);
       ppPdfSameWindow = JsonData.toBool(json['d12']);
       ppPdfDownload = JsonData.toBool(json['d13']);
+      isWatchColor = JsonData.toBool(json['d14']);
     } catch (ex) {
       var msg = ex.toString();
       showDebug('Fehler bei Globals.fromDeviceJson: ${msg}');
