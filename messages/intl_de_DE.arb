@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2022-08-26T07:09:26.233014",
+  "@@last_modified": "2022-09-22T07:28:05.750279",
   "Schliessen": "Schliessen",
   "@Schliessen": {
     "type": "text",
@@ -3067,6 +3067,24 @@
     "type": "text",
     "placeholders": {}
   },
+  "3.0.2 - 22.09.2022": "3.0.2 - 22.09.2022",
+  "@3.0.2 - 22.09.2022": {
+    "description": "v302",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In Night-Watch gibt es nun die Möglichkeit, die Einstellungen aufzurufen, wenn man den Editor aktiviert hat.": "In Night-Watch gibt es nun die Möglichkeit, die Einstellungen aufzurufen, wenn man den Editor aktiviert hat.",
+  "@In Night-Watch gibt es nun die Möglichkeit, die Einstellungen aufzurufen, wenn man den Editor aktiviert hat.": {
+    "description": "v302a1",
+    "type": "text",
+    "placeholders": {}
+  },
+  "In Night-Watch kann man nun einen Nachtmodus aktivieren, in dem der Hintergrund schwarz ist und die Farben des Textes den aktuellen Wert bezüglich des Zielbereichs darstellen.": "In Night-Watch kann man nun einen Nachtmodus aktivieren, in dem der Hintergrund schwarz ist und die Farben des Textes den aktuellen Wert bezüglich des Zielbereichs darstellen.",
+  "@In Night-Watch kann man nun einen Nachtmodus aktivieren, in dem der Hintergrund schwarz ist und die Farben des Textes den aktuellen Wert bezüglich des Zielbereichs darstellen.": {
+    "description": "v302a2",
+    "type": "text",
+    "placeholders": {}
+  },
   "3.0.1 - 26.08.2022": "3.0.1 - 26.08.2022",
   "@3.0.1 - 26.08.2022": {
     "description": "v301",
@@ -5053,8 +5071,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "ViewWhatsnewComponent0__message_6": "Eine neue Ansicht namens {startTag0}Night-Watch{endTag0} wurde hinzugefügt. In dieser Ansicht sieht man, so wie auch in der Uhr-Anzeige auf der Nightscout-Seite, den aktuellen Glukosewert und weitere Informationen, die man sich in gewissem Rahmen so konfigurieren kann, wie sie einem gefallen. Night-Watch wird über diese URL aufgerufen: {startTag1}https://nightscout-reporter.zreptil.de/watch{endTag1} Es kann auch über das Hauptmenü unter dem Menüpunkt {startTag2}Night-Watch{endTag2} aufgerufen werden, oder indem man den aktuellen Zuckerwert in der Titelleiste von Nightscout Reporter anklickt, wenn man diesen in den Einstellungen aktiviert hat.",
-  "@ViewWhatsnewComponent0__message_6": {
+  "ViewWhatsnewComponent0__message_9": "Eine neue Ansicht namens {startTag0}Night-Watch{endTag0} wurde hinzugefügt. In dieser Ansicht sieht man, so wie auch in der Uhr-Anzeige auf der Nightscout-Seite, den aktuellen Glukosewert und weitere Informationen, die man sich in gewissem Rahmen so konfigurieren kann, wie sie einem gefallen. Night-Watch wird über diese URL aufgerufen: {startTag1}https://nightscout-reporter.zreptil.de/watch{endTag1} Es kann auch über das Hauptmenü unter dem Menüpunkt {startTag2}Night-Watch{endTag2} aufgerufen werden, oder indem man den aktuellen Zuckerwert in der Titelleiste von Nightscout Reporter anklickt, wenn man diesen in den Einstellungen aktiviert hat.",
+  "@ViewWhatsnewComponent0__message_9": {
     "description": "v300a1",
     "type": "text",
     "placeholders": {
@@ -5078,8 +5096,8 @@
       }
     }
   },
-  "ViewWhatsnewComponent0__message_9": "Dort, wo ein CGP erstellt werden kann, gibt es nun die Option {startTag0}Linien um Bereiche{endTag0}. Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.",
-  "@ViewWhatsnewComponent0__message_9": {
+  "ViewWhatsnewComponent0__message_12": "Dort, wo ein CGP erstellt werden kann, gibt es nun die Option {startTag0}Linien um Bereiche{endTag0}. Diese ist standardmässig eingeschaltet. Wenn sie ausgeschaltet wird, werden die Wertebereiche für den gesunden und den aktuellen Menschen nicht mehr mit einer Linie umrandet. Damit sieht die Grafik etwas blasser aus, aber man kann die Werte auf den Achsen genauer untersuchen, wenn man das möchte.",
+  "@ViewWhatsnewComponent0__message_12": {
     "description": "v300a2",
     "type": "text",
     "placeholders": {
@@ -5091,8 +5109,8 @@
       }
     }
   },
-  "ViewWhatsnewComponent0__message_47": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
-  "@ViewWhatsnewComponent0__message_47": {
+  "ViewWhatsnewComponent0__message_50": "Nachdem ich immer wieder gefragt wurde, ob man mir eine Spende zukommen lassen kann, habe ich mich jetzt dann doch dazu entschlossen, so eine Möglichkeit zur Verfügung zu stellen. Nightscout Reporter ist aber nach wie vor komplett kostenlos und wird das auch bleiben. Wer dennoch seiner Zuneigung zum Programm Ausdruck verleihen will, dem will ich mich nicht länger in den Weg stellen. Der Spenden-Button ist nicht sichtbar. Aber wer etwas in den {startTag0}Hut{endTag0} werfen will, der wird ihn finden :)",
+  "@ViewWhatsnewComponent0__message_50": {
     "description": "v206a1",
     "type": "text",
     "placeholders": {

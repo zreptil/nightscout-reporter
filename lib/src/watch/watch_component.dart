@@ -91,7 +91,7 @@ class WatchComponent implements OnInit {
     if ((g.currentGlucValue ?? 0) < (g.lastGlucValue ?? 0)) {
       return {'transform': 'rotate(135deg)', 'left': 'calc(100%*$x + 2px)'};
     }
-    return {'transform': 'rotate(-45deg)', 'left': 'calc(100%*$x - 10px)'};
+    return {'transform': 'rotate(-45deg)', 'left': 'calc(100%*$x - 12px)'};
   }
 
   dynamic get styleArrowTrack {
