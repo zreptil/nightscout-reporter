@@ -24,6 +24,7 @@ dependencies:
   # googleapis_auth: ^1.1.0
   # js: ^0.6.1+1
   js: ^0.6.3
+  dson: any
 
 dev_dependencies:
   build_runner: ^1.9.0

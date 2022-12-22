@@ -503,14 +503,12 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
       addTableRow(true, cm(w), row, {
         'text': msgCarbShort,
         'style': 'total',
-        'alignm'
-            'ent': 'center',
+        'alignment': 'center',
         'fontSize': f
       }, {
         'text': value['value'] >= 0.1 ? g.fmtNumber(value['value'], 1) : '',
         'style': style,
-        'alignment': ''
-            'right',
+        'alignment': 'right',
         'fontSize': f
       });
     }
@@ -519,8 +517,7 @@ Basalrate, die zu Beginn des ausgewählten Zeitraums aktiv war.''',
       addTableRow(true, cm(w), row, {
         'text': msgGluc,
         'style': 'total',
-        'alignm'
-            'ent': 'center',
+        'alignment': 'center',
         'fontSize': f
       }, {
         'text': value['value'] >= 0.1 ? g.fmtNumber(value['value'], 1) : '',

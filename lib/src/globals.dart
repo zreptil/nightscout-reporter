@@ -887,6 +887,7 @@ class Globals extends Settings {
             }
           }
           var span = eNow.time.difference(ePrev.time).inMinutes;
+          span = math.max(span, 1);
           glucDir = 360;
           currentGlucDiff = '';
           currentGlucTime = '';
@@ -898,10 +899,10 @@ class Globals extends Settings {
 
           currentGlucSrc = eNow;
           lastGlucSrc = ePrev;
-          currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
-              '${fmtNumber((eNow.gluc - ePrev.gluc) * 5 / span / glucFactor, glucPrecision)}';
           var diff = eNow.gluc - ePrev.gluc;
-          var limit = 10 * span ~/ 5;
+          currentGlucDiff = '${eNow.gluc > ePrev.gluc ? '+' : ''}'
+              '${fmtNumber(diff / span / glucFactor, glucPrecision)}';
+          var limit = 10 * span;
           if (diff > limit) {
             glucDir = -90;
           } else if (diff < -limit) {
@@ -1893,6 +1894,9 @@ class Globals extends Settings {
         .getElementById('favicon')
         .setAttribute('href', 'packages/nightscout_reporter/assets/themes/${name}/favicon${suffix}.png');
     dynamic theme = await requestJson('packages/nightscout_reporter/assets/themes/${name}/colors.json');
+    // for(String key in materialColors.keys) {
+    //   print('${key}, ${materialColors[key]}');
+    // }
     if (theme == null) return;
     for (String key in theme.keys) {
       String value = theme[key];

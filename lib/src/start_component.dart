@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:html' as html;
 import 'dart:math' as math;
-
 import 'package:angular/angular.dart';
 import 'package:angular/security.dart';
 import 'package:angular_components/angular_components.dart';
@@ -1418,7 +1417,6 @@ class StartComponent implements OnInit {
       data.calc.extractData(data);
       data.ns.extractData(data);
     } else {}
-
     return data;
   }
 

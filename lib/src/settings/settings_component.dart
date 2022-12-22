@@ -190,7 +190,7 @@ class SettingsComponent implements OnInit {
   }
 
   void export() {
-    exportData = convert.base64Encode(convert.utf8.encode(Settings.doit(g.asSharedString)));
+    exportData = convert.base64Encode(convert.utf8.encode(g.asSharedString));
 
     Future.delayed(Duration(milliseconds: 100), () {
       (html.querySelector('#exportForm') as html.FormElement).submit();

@@ -7,7 +7,6 @@ import 'package:angular_components/angular_components.dart';
 import 'package:crypto/crypto.dart' as crypto;
 import 'package:nightscout_reporter/src/globals.dart';
 import 'package:timezone/browser.dart' as tz;
-
 // The uploaders that can be checked when neccessary
 enum Uploader { Unknown, XDrip, Tidepool, Minimed600, OpenAPS, AndroidAPS, Spike }
 
@@ -2737,7 +2736,7 @@ class ListData {
   }
 }
 
-class ReportData {
+class ReportData{
   Error error;
   Date begDate;
   Date endDate;
