@@ -1,3 +1,9 @@
+# WICHTIGER HINWEIS
+
+Dieses Projekt wird nicht mehr gewartet und ist veraltet. Es wird keine weitere Unterstützung oder Aktualisierungen geben.
+
+Bitte verwende das Repository unter https://github.com/zreptil/nightscout-reporter-angular für die aktuelle Version von Nightscout Reporter.
+
 # Nightscout Reporter
 
 A web app based on AngularDart to create PDF documents from nightscout data.
